@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+          <TargetFramework>netcoreapp3.1</TargetFramework>
+      <LangVersion>8.0</LangVersion>
+    <Configurations>Debug;Release</Configurations>
+    <IsPackageble>True</IsPackageble>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+  </PropertyGroup>
+
+  <Import Project="..\SharedAssemblyInfo.targets" />
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\AutomateThePlanet.licenseheader" Link="AutomateThePlanet.licenseheader" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+    <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
+    <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots.Common\Bellatrix.TestExecutionExtensions.Screenshots.Common.csproj" />
+    <ProjectReference Include="..\Bellatrix.Web.Screenshots.Html2Canvas\Bellatrix.Web.Screenshots.Html2Canvas.csproj" />
+    <ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.csproj" />
+    <ProjectReference Include="..\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
+  </ItemGroup>
+</Project>

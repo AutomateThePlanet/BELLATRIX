@@ -1,0 +1,18 @@
+﻿## Purpose ##
+
+
+The primary purpose of the project is to show you how to use the BELLATRIX API libraries and tools.
+The project contains folders sorted in numbered order. 
+It is advisable to follow the numbering. 
+Read the comments and readme files since they contain important information.
+There are todo files where there are action points for you to learn by doing. 
+There are optional you can always skip them.
+
+The demo will start automatically on Windows.
+
+*** If you execute tests on MacOS or Linux ***
+To execute the tests:
+1. Build the project
+2. Open bin/Demos/TestAPI
+3. Open CMD and run the command- "dotnet run"
+4. Wait for the demo app start listening to port 55215

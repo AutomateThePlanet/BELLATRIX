@@ -1,0 +1,16 @@
+﻿## Purpose ##
+
+
+The primary purpose of the project is to show you how to use the BELLATRIX web libraries and tools.
+The project contains folders sorted in numbered order. 
+It is advisable to follow the numbering. 
+Read the comments and readme files since they contain important information.
+There are todo files where there are action points for you to learn by doing. 
+There are optional you can always skip them.
+
+
+IMPORTANT! The getting started guide expects that you have a local Android emulator. 
+You can read how setup it depending on your OS in our blog- https://www.automatetheplanet.com/category/series/appium/
+Also, since the Android version and name of the emulator are essential. You need to open the Constants.cs file and update them accordingly.
+The recommended Android emulator image is "Nougat 7.1- API 25", x86_64 processor and 2 GB of RAM, 480x800 resolution. 
+The demos are working on 8.1 as well.

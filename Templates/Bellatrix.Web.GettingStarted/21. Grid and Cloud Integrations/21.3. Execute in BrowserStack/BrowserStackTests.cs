@@ -1,0 +1,64 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Bellatrix.Web.GettingStarted
+{
+    [TestClass]
+
+    // 1. To execute BELLATRIX tests in BrowserStack cloud, you should use the BrowserStack attribute instead of Browser.
+    // BrowserStack has the same parameters as Browser but adds to additional ones-
+    // browser version, platform type, platform version, captureNetworkLogs, consoleLogType, build and debug. The last five are optional and have default values.
+    // As with the Browser attribute you can override the class behaviour on Test level.
+    //
+    // 2. You can find a dedicated section about SauceLabs in testFrameworkSettings file under the webSettings section.
+    //     "browserStack": {
+    //     "pageLoadTimeout": "30",
+    //     "scriptTimeout": "1",
+    //     "artificialDelayBeforeAction": "0",
+    //     "gridUri":  "http://hub-cloud.browserstack.com/wd/hub/",
+    //     "user": "soioa1",
+    //     "key":  "pnFG3Ky2yLZ5muB1p46P"
+    // }
+    //
+    // There you can set the grid URL, credentials and set some additional timeouts.
+    [BrowserStack(BrowserType.Chrome,
+        "62",
+        "Windows",
+        "10",
+        BrowserBehavior.ReuseIfStarted,
+        captureNetworkLogs: true,
+        captureVideo: true,
+        consoleLogType: BrowserStackConsoleLogType.Verbose,
+        debug: true,
+        build: "myUniqueBuildName")]
+    public class BrowserStackTests : WebTest
+    {
+        [TestMethod]
+        [Ignore]
+        public void PromotionsPageOpened_When_PromotionsButtonClicked()
+        {
+            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+
+            var promotionsLink = App.ElementCreateService.CreateByLinkText<Anchor>("Promotions");
+
+            promotionsLink.Click();
+        }
+
+        // 2. As mentioned if you use the BrowserStack attribute on method level it overrides the class settings.
+        // As you can see with the BrowserStack attribute we can change the browser window size again.
+        [TestMethod]
+        [Ignore]
+        [BrowserStack(BrowserType.Chrome, "62", "Windows", "10", DesktopWindowSize._1280_1024, BrowserBehavior.ReuseIfStarted)]
+
+        // [BrowserStack(BrowserType.Chrome, "62", "Windows", "10", 1000, 500, BrowserBehavior.ReuseIfStarted)]
+        // [BrowserStack(BrowserType.Chrome, "62", "Windows", "10", MobileWindowSize._320_568, BrowserBehavior.ReuseIfStarted)]
+        // [BrowserStack(BrowserType.Chrome, "62", "Windows", "10", TabletWindowSize._600_1024, BrowserBehavior.ReuseIfStarted)]
+        public void BlogPageOpened_When_PromotionsButtonClicked()
+        {
+            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+
+            var blogLink = App.ElementCreateService.CreateByLinkText<Anchor>("Blog");
+
+            blogLink.Click();
+        }
+    }
+}

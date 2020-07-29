@@ -1,0 +1,26 @@
+﻿// 1. To use the additional method you created, add a using statement to the extension methods' namespace.
+using Bellatrix.Mobile.IOS.GettingStarted.Custom;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Bellatrix.Mobile.IOS.GettingStarted
+{
+    [TestClass]
+    [IOS(Constants.IOSNativeAppPath,
+        Constants.IOSDefaultVersion,
+        Constants.IOSDefaultDeviceName,
+        AppBehavior.RestartEveryTime)]
+    public class ExtendExistingElementWithExtensionMethodsTests : IOSTest
+    {
+        [TestMethod]
+        [Timeout(180000)]
+        [TestCategory(Categories.CI)]
+        public void ButtonClicked_When_CallClickMethod()
+        {
+            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+
+            // 2. Use the custom added submit button  with scroll-to-visible behaviour.
+            button.SubmitButtonWithScroll();
+        }
+    }
+}

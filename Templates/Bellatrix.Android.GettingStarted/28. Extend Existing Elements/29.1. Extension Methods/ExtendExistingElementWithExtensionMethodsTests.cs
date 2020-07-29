@@ -1,0 +1,27 @@
+﻿// 1. To use the additional method you created, add a using statement to the extension methods' namespace.
+using Bellatrix.Mobile.Android.GettingStarted.Custom;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Bellatrix.Mobile.Android.GettingStarted
+{
+    [TestClass]
+    [Android(Constants.AndroidNativeAppPath,
+        Constants.AndroidDefaultAndroidVersion,
+        Constants.AndroidDefaultDeviceName,
+        Constants.AndroidNativeAppAppExamplePackage,
+        ".view.Controls1",
+        AppBehavior.ReuseIfStarted)]
+    public class ExtendExistingElementWithExtensionMethodsTests : AndroidTest
+    {
+        [TestMethod]
+        [Ignore]
+        public void ButtonClicked_When_CallClickMethod()
+        {
+            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+
+            // 2. Use the custom added submit button  with scroll-to-visible behaviour.
+            button.SubmitButtonWithScroll();
+        }
+    }
+}

@@ -1,0 +1,4 @@
+﻿1. Create a new test
+2. Create a post request to create a new artist
+3. Assert that the artist is added to the DB
+4. Delete the new artist after the test

@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <LangVersion>8.0</LangVersion>
+        <Configurations>Debug;Release</Configurations>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <Optimize>true</Optimize>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+  
+    <Import Project="..\SharedAssemblyInfo.targets" />
+
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+        <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\AutomateThePlanet.licenseheader" Link="AutomateThePlanet.licenseheader" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.13" />
+        <PackageReference Include="Polly" Version="7.2.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.5" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.5" />
+        <PackageReference Include="RestSharp" Version="106.11.4" />
+        <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+        <ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
+        <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
+        <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
+        <ProjectReference Include="..\Bellatrix.Data\Bellatrix.Data.csproj" />
+        <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
+        <ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
+        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Common\Bellatrix.TestExecutionExtensions.Common.csproj" />
+        <ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
+        <ProjectReference Include="..\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,2 @@
+﻿1. Create a new page object for http://demos.bellatrix.solutions/blog/ webpage
+2. Use the snippets to generate your elements

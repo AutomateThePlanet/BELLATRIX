@@ -1,0 +1,3 @@
+﻿1. Open the tests that you made in the page objects section
+2. Create an extension method for the SelectByText combobox method, first scroll to visible before selecting the item
+3. Execute the test with the modified version.

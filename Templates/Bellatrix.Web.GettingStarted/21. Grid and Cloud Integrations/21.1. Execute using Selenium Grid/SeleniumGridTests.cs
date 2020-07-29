@@ -1,0 +1,53 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
+
+namespace Bellatrix.Web.GettingStarted
+{
+    [TestClass]
+
+    // 1. To use BELLATRIX with Selenium Grid, you should use the Remote attribute instead of Browser.
+    // Remote has the same parameters as Browser but adds to additional ones- browser version and platform type.
+    // As with the Browser attribute you can override the class behavior on Test level.
+    //
+    // 2. You can find a dedicated section about Selenium grid in testFrameworkSettings file under the webSettings section.
+    // "remote": {
+    //         "pageLoadTimeout": "30",
+    //         "scriptTimeout": "1",
+    //         "artificialDelayBeforeAction": "0",
+    //         "gridUri":  "http://127.0.0.1:4444/wd/hub"
+    //     }
+    //
+    // There you can set the grid URL and set some additional timeouts.
+    [Remote(BrowserType.Chrome, "62", PlatformType.Windows, BrowserBehavior.ReuseIfStarted)]
+    public class SeleniumGridTests : WebTest
+    {
+        [TestMethod]
+        [Ignore]
+        public void PromotionsPageOpened_When_PromotionsButtonClicked()
+        {
+            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+
+            var promotionsLink = App.ElementCreateService.CreateByLinkText<Anchor>("Promotions");
+
+            promotionsLink.Click();
+        }
+
+        // 2. As mentioned if you use the Remote attribute on method level it overrides the class settings.
+        // As you can see with the Remote attribute we can change the browser window size again.
+        [TestMethod]
+        [Ignore]
+        [Remote(BrowserType.Chrome, "62", PlatformType.Windows, DesktopWindowSize._1280_1024, BrowserBehavior.ReuseIfStarted)]
+
+        // [Remote(BrowserType.Chrome, "62", PlatformType.Windows, 1000, 500, BrowserBehavior.ReuseIfStarted)]
+        // [Remote(BrowserType.Chrome, "62", PlatformType.Windows, MobileWindowSize._320_568, BrowserBehavior.ReuseIfStarted)]
+        // [Remote(BrowserType.Chrome, "62", PlatformType.Windows, TabletWindowSize._600_1024, BrowserBehavior.ReuseIfStarted)]
+        public void BlogPageOpened_When_PromotionsButtonClicked()
+        {
+            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+
+            var blogLink = App.ElementCreateService.CreateByLinkText<Anchor>("Blog");
+
+            blogLink.Click();
+        }
+    }
+}

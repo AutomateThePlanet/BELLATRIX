@@ -1,0 +1,5 @@
+﻿1. Create a new test
+2. Create a post request to create a new artist
+3. Add a typo in the URL
+4. Configure the RetryFailedRequests attribute for the test class
+5. Run your test

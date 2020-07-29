@@ -1,0 +1,23 @@
+﻿## Purpose ##
+
+
+The primary purpose of the project is to show you how to use the BELLATRIX web libraries and tools.
+The project contains folders sorted in numbered order. 
+It is advisable to follow the numbering. 
+Read the comments and readme files since they contain important information.
+There are todo files where there are action points for you to learn by doing. 
+There are optional you can always skip them.
+
+
+
+IMPORTANT! 
+The getting started guide expects that you have a local iOS simulator and Appium server installed and started.
+
+Prerequisites
+1. Mac computer with macOS 10.11/10.12 or higher
+2. XCode 7 or higher
+3. Appium server started
+
+You can read how setup it in our blog- https://www.automatetheplanet.com/getting-started-appium-ios-csharp/
+Also, since the iOS version and name of the simulator are essential. You need to open the Constants.cs file and update them accordingly.
+The recommended iOS simulator is "iPhone 6", iOS version 11.3

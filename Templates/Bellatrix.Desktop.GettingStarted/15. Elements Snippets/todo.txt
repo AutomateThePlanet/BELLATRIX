@@ -1,0 +1,2 @@
+﻿1. Create a new page object for UWP BELLATRIX demo app
+2. Use the snippets to generate your elements

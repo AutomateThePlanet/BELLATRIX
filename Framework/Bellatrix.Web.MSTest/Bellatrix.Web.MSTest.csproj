@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <LangVersion>8.0</LangVersion>
+        <Configurations>Debug;Release</Configurations>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+    </PropertyGroup>
+
+    <Import Project="..\SharedAssemblyInfo.targets" />
+
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\AutomateThePlanet.licenseheader" Link="AutomateThePlanet.licenseheader" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+        <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+        <ProjectReference Include="..\Bellatrix.ExceptionAnalysation\Bellatrix.ExceptionAnalysation.csproj" />
+        <ProjectReference Include="..\Bellatrix.ExecutionContext\Bellatrix.ExecutionContext.csproj" />
+        <ProjectReference Include="..\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
+        <ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
+        <ProjectReference Include="..\Bellatrix.MachineAutomation\Bellatrix.MachineAutomation.csproj" />
+        <ProjectReference Include="..\Bellatrix.MSTest\Bellatrix.MSTest.csproj" />
+        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Common\Bellatrix.TestExecutionExtensions.Common.csproj" />
+        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
+        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots\Bellatrix.TestExecutionExtensions.Screenshots.csproj" />
+        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video\Bellatrix.TestExecutionExtensions.Video.csproj" />
+        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
+        <ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
+        <ProjectReference Include="..\Bellatrix.Web.ExceptionAnalysation\Bellatrix.Web.ExceptionAnalysation.csproj" />
+        <ProjectReference Include="..\Bellatrix.Web.Screenshots\Bellatrix.Web.Screenshots.csproj" />
+        <ProjectReference Include="..\Bellatrix.Web.TestExecutionExtensions.LoadTesting.Common\Bellatrix.Web.TestExecutionExtensions.LoadTesting.Common.csproj" />
+        <ProjectReference Include="..\Bellatrix.Web.TestExecutionExtensions.LoadTesting\Bellatrix.Web.TestExecutionExtensions.LoadTesting.csproj" />
+        <ProjectReference Include="..\Bellatrix.Web.TestExecutionExtensions\Bellatrix.Web.TestExecutionExtensions.Browser.csproj" />
+        <ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
+        <ProjectReference Include="..\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
+        <ProjectReference Include="..\Bellatrix.Web.Proxy\Bellatrix.Web.Proxy.csproj" />
+    </ItemGroup>
+</Project>

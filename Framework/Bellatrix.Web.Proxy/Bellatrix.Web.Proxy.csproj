@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <LangVersion>8.0</LangVersion>
+        <Configurations>Debug;Release</Configurations>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+    </PropertyGroup>
+
+    <Import Project="..\SharedAssemblyInfo.targets" />
+
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\AutomateThePlanet.licenseheader" Link="AutomateThePlanet.licenseheader" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1301" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
+        <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
+        <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
+    </ItemGroup>
+</Project>

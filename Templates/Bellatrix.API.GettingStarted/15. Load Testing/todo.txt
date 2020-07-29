@@ -1,0 +1,4 @@
+﻿1. Create a new test
+2. Create a post request to create a new artist
+3. Assert that the request is made under 2 seconds
+4. Execute the test as part of a new load test- 2 minutes between 10 processes with 2 seconds pause between requests

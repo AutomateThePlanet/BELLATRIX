@@ -1,0 +1,2 @@
+﻿1. Create a new page object
+2. Use the snippets to generate your elements

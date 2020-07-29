@@ -1,0 +1,24 @@
+﻿{
+  "apiSettings": {
+    "baseUrl": "http://127.0.0.1:55215",
+    "clientTimeoutSeconds": "30",
+    "maxRetryAttempts": "3",
+    "pauseBetweenFailures": "1",
+    "timeUnit": "1"
+  },
+  "machineAutomationSettings": {
+    "isEnabled": "true",
+    "packagesToBeInstalled": [ "googlechrome", "firefox --version=65.0.2", "opera" ]
+  },
+  "processCleanupSettings": {
+    "isParallelExecutionEnabled": "false"
+  },
+  "logging": {
+    "isEnabled": "true",
+    "isConsoleLoggingEnabled": "true",
+    "isDebugLoggingEnabled": "true",
+    "isEventLoggingEnabled": "false",
+    "isFileLoggingEnabled": "true",
+    "outputTemplate": "[{Timestamp:HH:mm:ss}] {Message:lj}{NewLine}"
+  }
+}

@@ -1,0 +1,2 @@
+﻿1. Create a new page object for '.view.Switches' activity for app package 'com.example.android.apis'
+2. Use the snippets to generate your elements

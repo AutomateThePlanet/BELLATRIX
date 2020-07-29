@@ -1,0 +1,2 @@
+﻿1. Create an extension methods class for AppService
+2. Add a new method for logout from our imaginary iOS app

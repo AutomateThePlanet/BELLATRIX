@@ -1,0 +1,5 @@
+﻿1. Create a new MSTest test class
+2. Use the BELLATRIX App attribute so that you execute all tests against BELLATRIX WPF demo app and restart the app always
+3. Create one test that checks the BellaCheckBox
+4. Create a second test that clicks on the expander button
+5. Change the attribute for 2nd test to restart the tests only on fail.

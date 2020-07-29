@@ -1,0 +1,53 @@
+﻿{
+  // All Timeout Times are in seconds!
+  "mobileSettings": {
+    "sleepInterval": "1",
+    "elementToBeVisibleTimeout": "30",
+    "elementToExistTimeout": "30",
+    "elementToNotExistTimeout": "30",
+    "elementToBeClickableTimeout": "30",
+    "elementNotToBeVisibleTimeout": "30",
+    "elementToHaveContentTimeout": "15",
+    "shouldStartAppiumLocalService": "true",
+    "appiumServiceUrl": "http://127.0.0.1:4723/wd/hub",
+    "sauceLabs": {
+      "gridUri": "http://ondemand.saucelabs.com:80/wd/hub",
+      "user": "testUser",
+      "key": "testSecret"
+    },
+    "browserStack": {
+      "gridUri": "http://hub-cloud.browserstack.com/wd/hub/",
+      "user": "testUser",
+      "key": "testSecret"
+    },
+    "crossBrowserTesting": {
+      "gridUri": "http://hub.crossbrowsertesting.com:80/wd/hub",
+      "user": "testUser",
+      "key": "testSecret"
+    }
+  },
+  "videoRecordingSettings": {
+    "isEnabled": "true",
+    "waitAfterFinishRecordingMilliseconds": "500",
+    "filePath": "ApplicationData\\Troubleshooting\\Videos"
+  },
+  "screenshotsSettings": {
+    "isEnabled": "true",
+    "filePath": "ApplicationData\\Troubleshooting\\Screenshots"
+  },
+  "machineAutomationSettings": {
+    "isEnabled": "true",
+    "packagesToBeInstalled": [ "googlechrome", "firefox --version=65.0.2", "opera" ]
+  },
+  "processCleanupSettings": {
+      "isParallelExecutionEnabled": "false"
+  },
+  "logging": {
+    "isEnabled": "true",
+    "isConsoleLoggingEnabled": "true",
+    "isDebugLoggingEnabled": "true",
+    "isEventLoggingEnabled": "false",
+    "isFileLoggingEnabled": "true",
+    "outputTemplate": "[{Timestamp:HH:mm:ss}] {Message:lj}{NewLine}"
+  }
+}

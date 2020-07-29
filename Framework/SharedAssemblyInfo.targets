@@ -1,0 +1,54 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Version>2.0.0.0</Version>
+    <Authors>Automate The Planet Ltd.</Authors>
+    <Company>Automate The Planet Ltd.</Company>
+    <Product>Bellatrix Test Framework</Product>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>Automate The Planet Ltd. 2020</Copyright>
+    <PackageReleaseNotes>
+      - improvements in Grid control
+      - enhanced methods for waiting for asynchronious requests
+      - add support for new Edge Chromium
+      - add new Assert.Multiple method
+      - add new BELLATRIX dotnet logger to support unlimited test executions in CLI mode
+      - add support for new BELLATRIX licenses
+      - add support for latest browsers
+      - add Dynamic Test Cases integrations for AzureDevOps and qTest
+      - add bug reporting integrations for AzureDevOps and Jira
+      - fix all known bugs
+    </PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageIcon>bellatrix_icon.png</PackageIcon>
+    <PackageProjectUrl>https://bellatrix.solutions</PackageProjectUrl>
+    <PackageTags>TestFramework,UITests,SystemTests</PackageTags>
+    <Description>Bellatrix is a cross-platform, easily customizable and extendable .NET test automation framework that increases tests’ reliability.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <IsPackable>false</IsPackable>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+    <RunAnalyzers>true</RunAnalyzers>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <NoWarn>NU1701</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\bellatrix_icon.png" Pack="true" PackagePath=""/>
+    <None Include="..\LICENSE.txt" Pack="true" PackagePath=""/>
+  </ItemGroup>
+</Project>

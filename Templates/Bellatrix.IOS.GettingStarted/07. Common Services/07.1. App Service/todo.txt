@@ -1,0 +1,2 @@
+﻿1. Create a new MSTest test class
+2. Use the AppService to verify that the Safari browser is installed

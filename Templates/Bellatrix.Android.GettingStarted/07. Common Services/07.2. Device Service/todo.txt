@@ -1,0 +1,4 @@
+﻿1. Create a new MSTest test class
+2. Create a new test and change the connection type
+3. Verify that the connection is changed.
+4. Open the notifications.

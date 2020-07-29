@@ -1,0 +1,3 @@
+﻿1. Open the tests that you made in the page objects section
+2. Create an extension method for the ClickToVisible button method, first scroll to visible before clicking the button
+3. Execute the test with the modified version.

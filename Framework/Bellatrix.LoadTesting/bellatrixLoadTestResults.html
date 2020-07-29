@@ -1,0 +1,546 @@
+﻿<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>BELLATRIX LOAD TESTING RESULTS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            color: #262626;
+            font-family: 'Helvetica Neue Light', 'Open Sans', Helvetica;
+            font-size: 14px;
+            font-weight: 300;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            font-size: 24px;
+            font-family: 'Helvetica Neue Light', 'Open Sans', Helvetica;
+            font-weight: 300;
+        }
+
+        .titleLabel {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-family: 'Helvetica Neue Light', 'Open Sans', Helvetica;
+            font-weight: bold;
+        }
+
+        .titleLabelValue {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-family: 'Helvetica Neue Light', 'Open Sans', Helvetica;
+            font-weight: 300;
+        }
+
+        h2 {
+            margin: 16px 0 8px 0;
+            font-size: 18px;
+            font-family: 'Helvetica Neue Light', 'Open Sans', Helvetica;
+            font-weight: 300;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            color: #2ba6cb;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+                color: #258faf;
+            }
+
+        input,
+        button,
+        select {
+            font-family: 'Helvetica Neue Light', 'Open Sans', Helvetica;
+            font-weight: 300;
+            font-size: 14px;
+            padding: 2px;
+        }
+
+        .jsgrid-cell {
+            overflow: auto;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>BELLATRIX LOAD TESTING RESULTS</title>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css">
+</head>
+<body>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <h1>BELLATRIX Load Testing Report</h1>
+    <br>
+    <span class="titleLabel">Total Execution Time:</span>  <span class="titleLabelValue">00:02:32.7768879</span>
+    <br>
+    <br>
+    <span class="titleLabel">Test Scenarios Execution Times</span>
+    <br>
+    <div class="chart-container" style="overflow:hidden; height:500px; width:800px">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <div id="allTests">
+        <div id="test1">
+            <span class="titleLabel">Test Scenario:</span>  <span class="titleLabelValue">Bellatrix.Web.Tests.Controls.AnchorControlTestsChrome.ClickOpensAutomateThePlanetUrl_When_DefaultClickIsSet_Chrome</span>
+            <br>
+            <span class="titleLabel">Average Execution Time:</span>  <span class="titleLabelValue">300.70454545 seconds</span>
+            <br>
+            <span class="titleLabel">Max Execution Time:</span>  <span class="titleLabelValue">141.6506417 seconds</span>
+            <br>
+            <span class="titleLabel">Min Execution Time:</span>  <span class="titleLabelValue">111.7584492 seconds</span>
+            <br>
+            <span class="titleLabel">Times Executed:</span>  <span class="titleLabelValue">2</span>
+            <br>
+            <span class="titleLabel">Times Passed:</span>  <span class="titleLabelValue">2</span>
+            <br>
+            <span class="titleLabel">Times Failed:</span>  <span class="titleLabelValue">0</span>
+            <br>
+            <span class="titleLabel">Weight:</span>  <span class="titleLabelValue">1</span>
+            <br>
+            <br>
+            <div id="jsGridRequests1"></div>
+            <br>
+            <br>
+            <span class="titleLabel">Failed Assertions:</span>  <span class="titleLabelValue">2</span>
+            <br>
+            <br>
+            <div id="jsGridFailedAssertions1"></div>
+            <br>
+            <br>
+            <span class="titleLabel">All Assertions:</span>  <span class="titleLabelValue">20</span>
+            <br>
+            <br>
+            <div id="jsGridAllAssertions1"></div>
+        </div>
+        <!--<div id="test2">
+            <span class="titleLabel">Test Scenario:</span>  <span class="titleLabelValue">Bellatrix.Web.Tests.Controls.AnchorControlTestsChrome.ClickOpensAutomateThePlanetUrl_When_DefaultClickIsSet_Chrome</span>
+            <br>
+            <span class="titleLabel">Average Execution Time:</span>  <span class="titleLabelValue">300.70454545 seconds</span>
+            <br>
+            <span class="titleLabel">Max Execution Time:</span>  <span class="titleLabelValue">141.6506417 seconds</span>
+            <br>
+            <span class="titleLabel">Min Execution Time:</span>  <span class="titleLabelValue">111.7584492 seconds</span>
+            <br>
+            <span class="titleLabel">Times Executed:</span>  <span class="titleLabelValue">2</span>
+            <br>
+            <span class="titleLabel">Times Passed:</span>  <span class="titleLabelValue">2</span>
+            <br>
+            <span class="titleLabel">Times Failed:</span>  <span class="titleLabelValue">0</span>
+            <br>
+            <span class="titleLabel">Weight:</span>  <span class="titleLabelValue">1</span>
+            <br>
+            <br>
+            <div id="jsGridRequestions1"></div>
+            <br>
+            <br>
+            <span class="titleLabel">Failed Assertions:</span>  <span class="titleLabelValue">2</span>
+            <br>
+            <br>
+            <div id="jsGridFailedAssertions1"></div>
+            <br>
+            <br>
+            <span class="titleLabel">All Assertions:</span>  <span class="titleLabelValue">20</span>
+            <br>
+            <br>
+            <div id="jsGridAllAssertions1"></div>
+        </div>-->
+    </div>
+
+    <script type="text/javascript">
+
+        var dbRequests1 = {
+
+            loadData: function (filter) {
+                return $.grep(this.requestResults1, function (requestResults) {
+                    return (!filter.URL || requestResults.URL.toLowerCase().indexOf(filter.URL.toLowerCase()) > -1)
+                        && (!filter.IsSuccessful || requestResults.IsSuccessful === filter.IsSuccessful)
+                        && (!filter.ExecutionTime || requestResults.ExecutionTime.indexOf(filter.ExecutionTime) > -1)
+                        && (!filter.StatusCode || requestResults.StatusCode === filter.StatusCode)
+                        && (!filter.Exception || requestResults.Exception.toLowerCase().indexOf(filter.Exception.toLowerCase()) > -1);
+                });
+            }
+        };
+
+        dbRequests1.requestResults1 = [{
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "00:00:00.64723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "00:00:00.8064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "00:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "00:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "10:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": true,
+            "ExecutionTime": "00:00:00.3064723",
+            "StatusCode": 200,
+            "Exception": "Exception Message"
+        }
+        ];
+
+        $("#jsGridRequests1").jsGrid({
+            width: "100%",
+            height: "400px",
+
+            filtering: true,
+            sorting: true,
+            paging: true,
+            autoload: true,
+
+            pageSize: 15,
+            pageButtonCount: 5,
+
+            controller: dbRequests1,
+            //data: requestResults1,
+
+            fields: [{
+                name: "URL",
+                type: "text",
+                width: 300
+            },
+            {
+                name: "IsSuccessful",
+                type: "checkbox",
+                width: 100
+            },
+            {
+                name: "ExecutionTime",
+                type: "text",
+                width: 200
+            },
+            {
+                name: "StatusCode",
+                type: "number",
+                width: 100
+            },
+            {
+                name: "Exception",
+                type: "text",
+                title: "Exception Message",
+                sorting: false
+            }
+            ]
+        });
+
+        var dbfailedAssertions1 = {
+
+            loadData: function (filter) {
+                return $.grep(this.failedAssertions1, function (failedAssertion) {
+                    return (!filter.URL || failedAssertion.URL.toLowerCase().indexOf(filter.URL.toLowerCase()) > -1)
+                        && (!filter.IsSuccessful || failedAssertion.IsSuccessful === filter.IsSuccessful)
+                        && (!filter.AssertionType || failedAssertion.AssertionType.toLowerCase().indexOf(filter.AssertionType.toLowerCase()) > -1)
+                        && (!filter.Exception || failedAssertion.Exception.toLowerCase().indexOf(filter.Exception.toLowerCase()) > -1);
+                });
+            }
+        };
+
+        dbfailedAssertions1.failedAssertions1 = [{
+            "URL": "https://www.automatetheplanet.com/blog/https://www.automatetheplanet.com/blog/https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": false,
+            "AssertionType": "StatusCode is FAILED",
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": false,
+            "AssertionType": "StatusCode is FAILED",
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": false,
+            "AssertionType": "StatusCode is FAILED",
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": false,
+            "AssertionType": "StatusCode is FAILED",
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": false,
+            "AssertionType": "StatusCode is FAILED",
+            "Exception": "Exception Message"
+        }
+        ];
+
+        $("#jsGridFailedAssertions1").jsGrid({
+            width: "100%",
+            height: "400px",
+
+            filtering: true,
+            sorting: true,
+            paging: true,
+            autoload: true,
+
+            //data: failedAssertions1,
+            controller: dbfailedAssertions1,
+
+            fields: [{
+                name: "URL",
+                type: "text",
+                width: 300
+            },
+            {
+                name: "IsSuccessful",
+                type: "checkbox",
+                width: 100
+            },
+            {
+                name: "AssertionType",
+                type: "text",
+                width: 200
+            },
+            {
+                name: "Exception",
+                type: "text",
+                title: "Exception",
+                sorting: false
+            }
+            ]
+        });
+
+        var dballAssertions1 = {
+
+            loadData: function (filter) {
+                return $.grep(this.allAssertions1, function (failedAssertion) {
+                    return (!filter.URL || failedAssertion.URL.toLowerCase().indexOf(filter.URL.toLowerCase()) > -1)
+                        && (!filter.IsSuccessful || failedAssertion.IsSuccessful === filter.IsSuccessful)
+                        && (!filter.AssertionType || failedAssertion.AssertionType.toLowerCase().indexOf(filter.AssertionType.toLowerCase()) > -1)
+                        && (!filter.Exception || failedAssertion.Exception.toLowerCase().indexOf(filter.Exception.toLowerCase()) > -1);
+                });
+            }
+        };
+
+        dballAssertions1.allAssertions1 = [{
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": false,
+            "AssertionType": "StatusCode is FAILED",
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": false,
+            "AssertionType": "StatusCode is FAILED",
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": false,
+            "AssertionType": "StatusCode is FAILED",
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": false,
+            "AssertionType": "StatusCode is FAILED",
+            "Exception": "Exception Message"
+        },
+        {
+            "URL": "https://www.automatetheplanet.com/blog/",
+            "IsSuccessful": false,
+            "AssertionType": "StatusCode is FAILED",
+            "Exception": "Exception Message"
+        }
+        ];
+
+        $("#jsGridAllAssertions1").jsGrid({
+            width: "100%",
+            height: "400px",
+
+            filtering: true,
+            sorting: true,
+            paging: true,
+            autoload: true,
+
+            //data: allAssertions1,
+            controller: dballAssertions1,
+
+            fields: [{
+                name: "URL",
+                type: "text",
+                width: 300
+            },
+            {
+                name: "IsSuccessful",
+                type: "checkbox",
+                width: 100
+            },
+            {
+                name: "AssertionType",
+                type: "text",
+                width: 200
+            },
+            {
+                name: "Exception",
+                type: "text",
+                title: "Exception",
+                sorting: false
+            }
+            ]
+        });
+
+
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["1", "2", "3", "4", "5", "6",],
+                datasets: [{
+                    label: 'Test Scenario 1',
+                    data: [12, 19, 3, 5, 2, 3,],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    fill: false,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Test Scenario 3',
+                    data: ["100.55", 21, 10, 3, 5, 2],
+                    backgroundColor: 'rgba(255, 106, 20, 0.2)',
+                    borderColor: 'rgba(255, 106, 20, 1)',
+                    fill: false,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Test Scenario 2',
+                    data: [15, 15, 7, 1, 8, 1],
+                    backgroundColor: 'rgba(128, 205, 193,0.2)',
+                    borderColor: 'rgba(128, 205, 193,1)',
+                    fill: false,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

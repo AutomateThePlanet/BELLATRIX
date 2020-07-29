@@ -1,0 +1,3 @@
+﻿1. Open the tests that you made
+2. Add the AssertExecutionTimeUnder attribute
+3. Make sure that all test are executed under 3 seconds

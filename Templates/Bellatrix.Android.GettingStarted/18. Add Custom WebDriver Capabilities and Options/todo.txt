@@ -1,0 +1,4 @@
+﻿1. Open the tests that you made in the page objects section
+2. Use the Android attribute to control the driver creation
+3. Add custom Appium options
+4. Set fullReset and enablePerformanceLogging to true

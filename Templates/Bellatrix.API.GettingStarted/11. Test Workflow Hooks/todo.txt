@@ -1,0 +1,2 @@
+﻿1. Open the tests that you made
+2. Refactor the tests to use TestsAct or TestInit methods to reuse some of the logic

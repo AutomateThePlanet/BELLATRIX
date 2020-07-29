@@ -1,0 +1,4 @@
+﻿1. Create a new MSTest test class
+2. Use the BELLATRIX App attribute so that to reuse the app. Configure it to open '.view.ControlsMaterialDark' activity for app package 'com.example.android.apis'
+3. In the test use the AppService and open the activity '.view.Controls1' part of 'com.example.android.apis' package
+4. Check the checkbox on the screen

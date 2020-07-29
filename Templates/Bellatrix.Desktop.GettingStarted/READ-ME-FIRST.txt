@@ -1,0 +1,20 @@
+﻿## Purpose ##
+
+
+The primary purpose of the project is to show you how to use the BELLATRIX web libraries and tools.
+The project contains folders sorted in numbered order. 
+It is advisable to follow the numbering. 
+Read the comments and readme files since they contain important information.
+There are todo files where there are action points for you to learn by doing. 
+There are optional you can always skip them.
+
+IMPORTANT: To run the examples you need to follow the steps:
+
+1. Install Window Application Driver https://github.com/Microsoft/WinAppDriver/releases
+2. Enable Windows 10 Developer Mode - Open Windows 10 Settings. Then navigate to Update & Settings section. Click For Developers tab. Choose the Developer mode option.
+3. Download and install Windows SDK - https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk
+4. To run Universal app examples, you need to install the BELLATRIX demo app (follow the instructions located here- bin\Demos\Universal)
+
+You can read more about WinAppDriver in our blog post- https://www.automatetheplanet.com/automate-windows-desktop-apps-winappdriver/
+In the article, you can see all installation steps with screenshots. Additionally, you can find information how you can use inspect.exe Windows SDK tool
+to find the locators for your app elements.

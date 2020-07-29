@@ -1,0 +1,1 @@
+﻿1. Refactor the tests you created in the previous chapter to use the alternative waiting syntax

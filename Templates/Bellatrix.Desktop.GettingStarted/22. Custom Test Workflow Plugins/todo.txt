@@ -1,0 +1,1 @@
+﻿1. Create a test workflow plugin that throws an exception if the Owner attribute is not set for each test.

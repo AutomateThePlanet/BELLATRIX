@@ -1,0 +1,57 @@
+﻿// <copyright file="ControlsLocalOverridesCleanExtension.cs" company="Automate The Planet Ltd.">
+// Copyright 2020 Automate The Planet Ltd.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+// <author>Anton Angelov</author>
+// <site>https://bellatrix.solutions/</site>
+using Bellatrix.SpecFlow.TestWorkflowPlugins;
+using Bellatrix.Web;
+
+namespace Bellatrix.SpecFlow.Web.TestExecutionExtensions.Browser
+{
+    public class ControlsLocalOverridesCleanExtension : TestWorkflowPlugin
+    {
+        protected override void PostAfterScenario(object sender, TestWorkflowPluginEventArgs e)
+        {
+            Element.ClearLocalOverrides();
+            Anchor.ClearLocalOverrides();
+            TableCell.ClearLocalOverrides();
+            Color.ClearLocalOverrides();
+            Date.ClearLocalOverrides();
+            DateTimeLocal.ClearLocalOverrides();
+            Email.ClearLocalOverrides();
+            Month.ClearLocalOverrides();
+            Number.ClearLocalOverrides();
+            Output.ClearLocalOverrides();
+            Password.ClearLocalOverrides();
+            Phone.ClearLocalOverrides();
+            Progress.ClearLocalOverrides();
+            Range.ClearLocalOverrides();
+            Search.ClearLocalOverrides();
+            Time.ClearLocalOverrides();
+            Url.ClearLocalOverrides();
+            Week.ClearLocalOverrides();
+            Button.ClearLocalOverrides();
+            CheckBox.ClearLocalOverrides();
+            Div.ClearLocalOverrides();
+            Heading.ClearLocalOverrides();
+            Image.ClearLocalOverrides();
+            InputFile.ClearLocalOverrides();
+            Label.ClearLocalOverrides();
+            Option.ClearLocalOverrides();
+            RadioButton.ClearLocalOverrides();
+            Reset.ClearLocalOverrides();
+            Select.ClearLocalOverrides();
+            Span.ClearLocalOverrides();
+            TextArea.ClearLocalOverrides();
+            TextField.ClearLocalOverrides();
+        }
+    }
+}

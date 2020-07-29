@@ -1,0 +1,2 @@
+﻿1. Open the tests that you made in the page objects section
+2. For the whole test run override the Button control behaviour of IsDisabled property

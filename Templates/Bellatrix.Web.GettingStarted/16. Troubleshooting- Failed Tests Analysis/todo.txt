@@ -1,0 +1,4 @@
+﻿1. Create a test that navigates to a non-existing http://demos.bellatrix.solutions/ web page
+2. Create a new exception handler that checks that the following text is present on the page- 'Nothing was found at this location. Try searching, or check out the links below.'
+3. Register the handler as a global handler. Make sure it is registered only once per turn
+4. Make sure that the test fails and check the exception message

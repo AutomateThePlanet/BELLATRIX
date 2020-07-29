@@ -1,0 +1,5 @@
+﻿1. Create a new test
+2. Create a post request to create a new artist
+3. Assert that the request was successful
+4. Assert that the correct artist is contained in the response
+5. Assert that the content doesn't contain the word "Nirvana"

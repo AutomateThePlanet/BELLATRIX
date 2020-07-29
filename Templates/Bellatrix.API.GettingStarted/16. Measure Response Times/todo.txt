@@ -1,0 +1,4 @@
+﻿1. Open the tests that you made
+2. Add the AssertExecutionTimeUnder attribute
+3. Make sure that all requests are executed under 3 seconds
+4. Make sure that the delete requests are executed under 2 seconds

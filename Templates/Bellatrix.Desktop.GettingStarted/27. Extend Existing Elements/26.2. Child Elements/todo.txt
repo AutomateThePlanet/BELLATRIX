@@ -1,0 +1,4 @@
+﻿1. Open the tests that you made in the page objects section
+2. Create a child class for the ComboBox element
+3. Add a new method for selecting an item by text but first, scroll to visible before selecting the item
+4. Execute the test with the new method

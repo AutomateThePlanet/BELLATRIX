@@ -1,0 +1,2 @@
+﻿1. Extend the examples and create event handlers for the base Element
+2. Print the locator of the element to Debug window when the element is created using the DebuggerLogger

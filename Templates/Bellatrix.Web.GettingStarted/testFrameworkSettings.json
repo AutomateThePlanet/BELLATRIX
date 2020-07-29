@@ -1,0 +1,128 @@
+﻿{
+  // All Timeout Times are in seconds!
+  "timeoutSettings": {
+    "waitForAjaxTimeout": "30",
+    "sleepInterval": "1",
+    "elementToBeVisibleTimeout": "30",
+    "elementToExistTimeout": "30",
+    "elementToNotExistTimeout": "30",
+    "elementToBeClickableTimeout": "30",
+    "elementNotToBeVisibleTimeout": "30",
+    "elementToHaveContentTimeout": "15"
+  },
+  "webSettings": {
+    "shouldScrollToVisibleOnElementFound": "false",
+    "shouldWaitUntilReadyOnElementFound": "false",
+    "shouldWaitForAngular": "false",
+    "shouldHighlightElements": "true",
+    "chrome": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0"
+    },
+    "chromeHeadless": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0"
+    },
+    "fireFox": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "20"
+    },
+    "firefoxHeadless": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0"
+    },
+    "edge": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0"
+    },
+    "internetExplorer": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0"
+    },
+    "opera": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0"
+    },
+    "safari": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0"
+    },
+    "remote": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0",
+      "gridUri": "http://127.0.0.1:4444/wd/hub"
+    },
+    "sauceLabs": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0",
+      "gridUri": "http://ondemand.saucelabs.com:80/wd/hub",
+      "user": "aangelov",
+      "key": "mySecretKey"
+    },
+    "browserStack": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0",
+      "gridUri": "http://hub-cloud.browserstack.com/wd/hub/",
+      "user": "soioa1",
+      "key": "pnFG3Ky2yLZ5muB1p46P"
+    },
+    "crossBrowserTesting": {
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "artificialDelayBeforeAction": "0",
+      "gridUri": "http://hub.crossbrowsertesting.com:80/wd/hub",
+      "user": "aangelov",
+      "key": "mySecretKey"
+    }
+  },
+  "webProxySettings": {
+    "isEnabled": "true"
+  },
+  "videoRecordingSettings": {
+    "isEnabled": "true",
+    "waitAfterFinishRecordingMilliseconds": "500",
+    "filePath": "ApplicationData\\Troubleshooting\\Videos"
+  },
+  "screenshotsSettings": {
+    "isEnabled": "true",
+    "filePath": "ApplicationData\\Troubleshooting\\Screenshots"
+  },
+  "loadTestingSettings": {
+    "isEnabled": "true",
+    "defaultHost": "demos.bellatrix.solutions",
+    "shouldRecordHostRequestsOnly": "true",
+    "requestsFileLocation": "AssemblyFolder\\LoadTestsRequests\\",
+    "ignoreUrlRequestsPatterns": [ ".*wp-admin.*" ]
+  },
+  "imageRecognitionSettings": {
+    "timeoutInSeconds": "5",
+    "defaultSimilarity": "0.7"
+  },
+  "machineAutomationSettings": {
+    "isEnabled": "true",
+    "packagesToBeInstalled": [ "googlechrome", "firefox --version=65.0.2", "opera" ]
+  },
+  "processCleanupSettings": {
+    "isParallelExecutionEnabled": "false"
+  },
+  "logging": {
+    "isEnabled": "true",
+    "isConsoleLoggingEnabled": "true",
+    "isDebugLoggingEnabled": "true",
+    "isEventLoggingEnabled": "false",
+    "isFileLoggingEnabled": "true",
+    "outputTemplate": "{Message:lj}{NewLine}",
+    "addUrlToBddLogging": "false"
+  }
+}

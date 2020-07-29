@@ -1,0 +1,4 @@
+﻿1. Create a new MSTest test class
+2. Use the BELLATRIX App attribute so that to reuse the app. Configure it to open '.view.Switches' activity for app package 'com.example.android.apis'
+3. Create a new test where you find the switch control and turn it on.
+4. Verify that it is in ON state.

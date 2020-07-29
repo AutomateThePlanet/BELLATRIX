@@ -1,0 +1,4 @@
+﻿1. Open the tests that you made in the page objects section
+2. Use the Browser attribute to control the driver creation
+3. Use Firefox for browser
+4. Add custom FirefoxOptions and set the logging level to verbose

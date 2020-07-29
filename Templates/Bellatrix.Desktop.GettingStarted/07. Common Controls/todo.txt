@@ -1,0 +1,5 @@
+﻿1. Create a new test for the WinForms BELLATRIX demo application
+2. Locate the comboBox and select a value from it
+3. Assert that the proper option is selected
+4. Locate a checkbox and check it
+5. Assert that at first the checkbox is not checked and afterwards it is
