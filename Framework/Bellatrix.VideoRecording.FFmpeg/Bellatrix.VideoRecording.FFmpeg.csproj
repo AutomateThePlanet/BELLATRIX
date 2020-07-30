@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.0" />
     <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
     <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
     <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
