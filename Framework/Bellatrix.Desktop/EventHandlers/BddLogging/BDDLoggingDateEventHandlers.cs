@@ -19,12 +19,6 @@ namespace Bellatrix.Desktop.BddLogging
 {
     public class BDDLoggingDateEventHandlers : DateEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         protected override void SettingDateEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Set '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
-
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ElementName} on {arg.Element.PageName}");
-
-        protected override void FocusingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Focus {arg.Element.ElementName} on {arg.Element.PageName}");
     }
 }

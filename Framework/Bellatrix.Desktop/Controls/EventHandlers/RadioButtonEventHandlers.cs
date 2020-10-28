@@ -34,21 +34,5 @@ namespace Bellatrix.Desktop.EventHandlers
             RadioButton.Hovering -= HoveringEventHandler;
             RadioButton.Hovered -= HoveredEventHandler;
         }
-
-        protected virtual void ClickingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void ClickedEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
     }
 }

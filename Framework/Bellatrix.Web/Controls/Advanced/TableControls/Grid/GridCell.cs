@@ -22,21 +22,17 @@ namespace Bellatrix.Web
     public class GridCell : Element, IElementInnerText, IElementInnerHtml
     {
         public static Action<GridCell> OverrideClickGlobally;
-        public static Action<GridCell> OverrideClickLocally;
-        public static Action<GridCell> OverrideFocusGlobally;
         public static Action<GridCell> OverrideHoverGlobally;
         public static Func<GridCell, string> OverrideInnerTextGlobally;
         public static Func<GridCell, string> OverrideInnerHtmlGlobally;
 
+        public static Action<GridCell> OverrideClickLocally;
         public static Action<GridCell> OverrideHoverLocally;
-        public static Action<GridCell> OverrideFocusLocally;
         public static Func<GridCell, string> OverrideInnerTextLocally;
         public static Func<GridCell, string> OverrideInnerHtmlLocally;
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> Clicking;
         public static event EventHandler<ElementActionEventArgs> Clicked;
 
@@ -45,19 +41,12 @@ namespace Bellatrix.Web
             OverrideInnerTextLocally = null;
             OverrideInnerHtmlLocally = null;
             OverrideHoverLocally = null;
-            OverrideFocusLocally = null;
             OverrideClickLocally = null;
         }
 
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -170,8 +159,6 @@ namespace Bellatrix.Web
         }
 
         protected virtual void DefaultClick(GridCell gridCell) => DefaultClick(gridCell, Clicking, Clicked);
-
-        protected virtual void DefaultFocus(GridCell gridCell) => DefaultFocus(gridCell, Focusing, Focused);
 
         protected virtual void DefaultHover(GridCell gridCell) => DefaultHover(gridCell, Hovering, Hovered);
 

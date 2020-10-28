@@ -13,15 +13,24 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using Bellatrix.Logging;
 using Bellatrix.Utilities;
+using Microsoft.Edge.SeleniumTools;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Opera;
+using OpenQA.Selenium.Safari;
 
 namespace Bellatrix.Web
 {
     public class BrowserService : WebService
     {
+        private const string NotSupportedOperationClearCacheMessage = "It is exceedingly hard to implement, especially in all major browsers. Some browsers _may_ offer that ability- Chrome, ChromeHeadless, Edge and EdgeHeadless. To clear the cache for other browsers you will need to restart them.";
+
         public BrowserService(IWebDriver wrappedDriver)
             : base(wrappedDriver)
         {
@@ -40,6 +49,14 @@ namespace Bellatrix.Web
         public void Refresh() => WrappedDriver.Navigate().Refresh();
 
         public void SwitchToDefault() => WrappedDriver.SwitchTo().DefaultContent();
+
+        public void SwitchToActive() => WrappedDriver.SwitchTo().ActiveElement();
+
+        public void SwitchToFirstBrowserTab() => WrappedDriver.SwitchTo().Window(WrappedDriver.WindowHandles.First());
+
+        public void SwitchToLastTab() => WrappedDriver.SwitchTo().Window(WrappedDriver.WindowHandles.Last());
+
+        public void SwitchToTab(string tabName) => WrappedDriver.SwitchTo().Window(tabName);
 
         public void SwitchToFrame(Frame frame)
         {
@@ -78,6 +95,115 @@ namespace Bellatrix.Web
         }
 
         public void Maximize() => WrappedDriver.Manage().Window.Maximize();
+
+        public void ClearSessionStorage()
+        {
+            var browserConfig = ServicesCollection.Current.Resolve<BrowserConfiguration>();
+            switch (browserConfig.BrowserType)
+            {
+                case BrowserType.NotSet:
+                    break;
+                case BrowserType.Chrome:
+                case BrowserType.ChromeHeadless:
+                    var chromeDriver = (ChromeDriver)WrappedDriver;
+                    chromeDriver.WebStorage.SessionStorage.Clear();
+                    break;
+                case BrowserType.Firefox:
+                case BrowserType.FirefoxHeadless:
+                    var firefoxDriver = (FirefoxDriver)WrappedDriver;
+                    firefoxDriver.WebStorage.SessionStorage.Clear();
+                    break;
+                case BrowserType.InternetExplorer:
+                    var ieDriver = (InternetExplorerDriver)WrappedDriver;
+                    ieDriver.WebStorage.SessionStorage.Clear();
+                    break;
+                case BrowserType.Edge:
+                case BrowserType.EdgeHeadless:
+                    var edgeDriver = (EdgeDriver)WrappedDriver;
+                    edgeDriver.WebStorage.SessionStorage.Clear();
+                    break;
+                case BrowserType.Opera:
+                    var operaDriver = (OperaDriver)WrappedDriver;
+                    operaDriver.WebStorage.SessionStorage.Clear();
+                    break;
+                case BrowserType.Safari:
+                    var safariDriver = (SafariDriver)WrappedDriver;
+                    safariDriver.WebStorage.SessionStorage.Clear();
+                    break;
+            }
+        }
+
+        public void ClearLocalStorage()
+        {
+            var browserConfig = ServicesCollection.Current.Resolve<BrowserConfiguration>();
+            switch (browserConfig.BrowserType)
+            {
+                case BrowserType.NotSet:
+                    break;
+                case BrowserType.Chrome:
+                case BrowserType.ChromeHeadless:
+                    var chromeDriver = (ChromeDriver)WrappedDriver;
+                    chromeDriver.WebStorage.LocalStorage.Clear();
+                    break;
+                case BrowserType.Firefox:
+                case BrowserType.FirefoxHeadless:
+                    var firefoxDriver = (FirefoxDriver)WrappedDriver;
+                    firefoxDriver.WebStorage.LocalStorage.Clear();
+                    break;
+                case BrowserType.InternetExplorer:
+                    var ieDriver = (InternetExplorerDriver)WrappedDriver;
+                    ieDriver.WebStorage.LocalStorage.Clear();
+                    break;
+                case BrowserType.Edge:
+                case BrowserType.EdgeHeadless:
+                    var edgeDriver = (EdgeDriver)WrappedDriver;
+                    edgeDriver.WebStorage.LocalStorage.Clear();
+                    break;
+                case BrowserType.Opera:
+                    var operaDriver = (OperaDriver)WrappedDriver;
+                    operaDriver.WebStorage.LocalStorage.Clear();
+                    break;
+                case BrowserType.Safari:
+                    var safariDriver = (SafariDriver)WrappedDriver;
+                    safariDriver.WebStorage.LocalStorage.Clear();
+                    break;
+            }
+        }
+
+        ///// <summary>
+        ///// It is exceedingly hard to implement, especially in all major browsers.
+        ///// Some browsers _may_ offer that ability- Chrome, ChromeHeadless, Edge and EdgeHeadless.
+        ///// To clear the cache for other browsers you will need to restart them.
+        ///// </summary>
+
+        //// TODO: Ventsi 13.10 This implementation work, but it depends on the Selemium 4.0, which is still not available in plex nuget store.
+        ////public void ClearCache()
+        ////{
+        ////    var browserConfig = ServicesCollection.Current.Resolve<BrowserConfiguration>();
+        ////    switch (browserConfig.BrowserType)
+        ////    {
+        ////        case BrowserType.NotSet:
+        ////            break;
+        ////        case BrowserType.Chrome:
+        ////        case BrowserType.ChromeHeadless:
+        ////            var chromeDriver = (ChromeDriver)WrappedDriver;
+        ////            var session = chromeDriver.CreateDevToolsSession();
+        ////            session.Network.ClearBrowserCache();
+        ////            break;
+        ////        case BrowserType.Edge:
+        ////        case BrowserType.EdgeHeadless:
+        ////            var edgeDriver = (EdgeDriver)WrappedDriver;
+        ////            var edgeSession = edgeDriver.CreateDevToolsSession();
+        ////            edgeSession.Network.ClearBrowserCache();
+        ////            break;
+        ////        case BrowserType.Firefox:
+        ////        case BrowserType.FirefoxHeadless:
+        ////        case BrowserType.Opera:
+        ////        case BrowserType.Safari:
+        ////        case BrowserType.InternetExplorer:
+        ////            throw new NotSupportedException(NotSupportedOperationClearCacheMessage);
+        ////    }
+        ////}
 
         public void WaitForAngular()
         {

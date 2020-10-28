@@ -24,8 +24,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             TextArea.TextSet += TextSetEventHandler;
             TextArea.Hovering += HoveringEventHandler;
             TextArea.Hovered += HoveredEventHandler;
-            TextArea.Focusing += FocusingEventHandler;
-            TextArea.Focused += FocusedEventHandler;
         }
 
         public override void UnsubscribeToAll()
@@ -35,8 +33,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             TextArea.TextSet -= TextSetEventHandler;
             TextArea.Hovering -= HoveringEventHandler;
             TextArea.Hovered -= HoveredEventHandler;
-            TextArea.Focusing -= FocusingEventHandler;
-            TextArea.Focused -= FocusedEventHandler;
         }
 
         protected virtual void SettingTextEventHandler(object sender, ElementActionEventArgs arg)
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void TextSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Password.Hovering += HoveringEventHandler;
             Password.Hovered += HoveredEventHandler;
-            Password.Focusing += FocusingEventHandler;
-            Password.Focused += FocusedEventHandler;
             Password.SettingPassword += SettingPasswordEventHandler;
             Password.PasswordSet += PasswordSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Password.Hovering -= HoveringEventHandler;
             Password.Hovered -= HoveredEventHandler;
-            Password.Focusing -= FocusingEventHandler;
-            Password.Focused -= FocusedEventHandler;
             Password.SettingPassword -= SettingPasswordEventHandler;
             Password.PasswordSet -= PasswordSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void PasswordSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

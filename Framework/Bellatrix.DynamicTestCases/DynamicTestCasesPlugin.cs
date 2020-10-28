@@ -36,12 +36,13 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
         {
-            if (!ConfigurationService.Instance.GetDynamicTestCasesSettings().IsEnabled)
+            if (!ConfigurationService.Instance.GetDynamicTestCasesSettings().IsEnabled || e.TestMethodMemberInfo == null)
             {
                 return;
             }
 
-            base.PreTestInit(sender, e);
+            base.PreTestsArrange(sender, e);
+
             InitializeTestCase(e);
         }
 
@@ -97,7 +98,7 @@ namespace Bellatrix.DynamicTestCases
 
             var testCaseDescription = methodAttribute?.Description ?? null;
 
-            if (testCaseName == null)
+            if (string.IsNullOrEmpty(testCaseName))
             {
                 // test case name from the test method name
                 testCaseName = TestNameToDesciption(args.TestName);

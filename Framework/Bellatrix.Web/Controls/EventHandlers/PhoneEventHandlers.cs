@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Phone.Hovering += HoveringEventHandler;
             Phone.Hovered += HoveredEventHandler;
-            Phone.Focusing += FocusingEventHandler;
-            Phone.Focused += FocusedEventHandler;
             Phone.SettingPhone += SettingPhoneEventHandler;
             Phone.PhoneSet += PhoneSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Phone.Hovering -= HoveringEventHandler;
             Phone.Hovered -= HoveredEventHandler;
-            Phone.Focusing -= FocusingEventHandler;
-            Phone.Focused -= FocusedEventHandler;
             Phone.SettingPhone -= SettingPhoneEventHandler;
             Phone.PhoneSet -= PhoneSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void PhoneSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

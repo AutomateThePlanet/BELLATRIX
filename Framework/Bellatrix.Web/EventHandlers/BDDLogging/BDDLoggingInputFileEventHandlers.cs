@@ -11,7 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.Logging;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
@@ -19,8 +18,6 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BDDLoggingInputFileEventHandlers : InputFileEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         protected override void UploadingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"I upload '{arg.ActionValue}' for {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
     }
 }

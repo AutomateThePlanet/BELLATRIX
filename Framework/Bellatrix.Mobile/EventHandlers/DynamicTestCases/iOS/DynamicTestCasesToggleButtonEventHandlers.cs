@@ -11,8 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.DynamicTestCases;
-using Bellatrix.Logging;
 using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
@@ -21,8 +19,6 @@ namespace Bellatrix.Mobile.DynamicTestCases.IOS
 {
     public class DynamicTestCasesToggleButtonEventHandlers : ToggleButtonEventHandlers
     {
-        protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-
         protected override void TurningOnEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Turn on {arg.Element.ElementName} on {arg.Element.PageName}");
 
         protected override void TurningOffEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Turn off {arg.Element.ElementName} on {arg.Element.PageName}");

@@ -70,7 +70,7 @@ namespace Bellatrix.Benchmark
             }
             catch (Exception ex)
             {
-                _currentBenchmarkExecutionProvider.TestInitFailed(ex, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, categories, authors, descriptions, ex.Message, ex.StackTrace);
+                _currentBenchmarkExecutionProvider.TestInitFailed(ex, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, categories, authors, descriptions);
                 throw;
             }
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Benchmark
             }
             catch (Exception ex)
             {
-                _currentBenchmarkExecutionProvider.TestCleanupFailed(ex, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, _categories, _authors, _descriptions, string.Empty, exceptionStackTrace);
+                _currentBenchmarkExecutionProvider.TestCleanupFailed(ex, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, _categories, _authors, _descriptions);
                 throw;
             }
         }
@@ -106,17 +106,17 @@ namespace Bellatrix.Benchmark
                 if (!TypeForAlreadyExecutedBenchmarkInits.Contains(benchmarkClassType?.FullName))
                 {
                     TypeForAlreadyExecutedBenchmarkInits.Add(benchmarkClassType?.FullName);
-                    _currentBenchmarkExecutionProvider.PreTestsArrange(benchmarkClassType?.Name, benchmarkMethodMemberInfo, benchmarkClassType);
+                    _currentBenchmarkExecutionProvider.PreTestsArrange(benchmarkClassType);
                     BenchmarkArrange();
-                    _currentBenchmarkExecutionProvider.PostTestsArrange(benchmarkClassType?.Name, benchmarkMethodMemberInfo, benchmarkClassType);
-                    _currentBenchmarkExecutionProvider.PreTestsAct(benchmarkClassType?.Name, benchmarkMethodMemberInfo, benchmarkClassType);
+                    _currentBenchmarkExecutionProvider.PostTestsArrange(benchmarkClassType);
+                    _currentBenchmarkExecutionProvider.PreTestsAct(benchmarkClassType);
                     BenchmarkAct();
-                    _currentBenchmarkExecutionProvider.PostTestsAct(benchmarkClassType?.Name, benchmarkMethodMemberInfo, benchmarkClassType);
+                    _currentBenchmarkExecutionProvider.PostTestsAct(benchmarkClassType);
                 }
             }
             catch (Exception ex)
             {
-                _currentBenchmarkExecutionProvider.OnClassInitFailed(ex);
+                _currentBenchmarkExecutionProvider.TestsArrangeFailed(ex);
             }
         }
 

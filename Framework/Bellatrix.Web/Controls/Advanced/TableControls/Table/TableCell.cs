@@ -20,38 +20,27 @@ namespace Bellatrix.Web
 {
     public class TableCell : Element, IElementInnerText, IElementInnerHtml
     {
-        public static Action<TableCell> OverrideFocusGlobally;
         public static Action<TableCell> OverrideHoverGlobally;
         public static Func<TableCell, string> OverrideInnerTextGlobally;
         public static Func<TableCell, string> OverrideInnerHtmlGlobally;
 
         public static Action<TableCell> OverrideHoverLocally;
-        public static Action<TableCell> OverrideFocusLocally;
         public static Func<TableCell, string> OverrideInnerTextLocally;
         public static Func<TableCell, string> OverrideInnerHtmlLocally;
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
 
         public static new void ClearLocalOverrides()
         {
             OverrideInnerTextLocally = null;
             OverrideInnerHtmlLocally = null;
             OverrideHoverLocally = null;
-            OverrideFocusLocally = null;
         }
 
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -78,8 +67,6 @@ namespace Bellatrix.Web
                 return action();
             }
         }
-
-        protected virtual void DefaultFocus(TableCell tableCell) => DefaultFocus(tableCell, Focusing, Focused);
 
         protected virtual void DefaultHover(TableCell tableCell) => DefaultHover(tableCell, Hovering, Hovered);
 

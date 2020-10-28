@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             TextField.Hovering += HoveringEventHandler;
             TextField.Hovered += HoveredEventHandler;
-            TextField.Focusing += FocusingEventHandler;
-            TextField.Focused += FocusedEventHandler;
             TextField.SettingText += SettingTextEventHandler;
             TextField.TextSet += TextSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             TextField.Hovering -= HoveringEventHandler;
             TextField.Hovered -= HoveredEventHandler;
-            TextField.Focusing -= FocusingEventHandler;
-            TextField.Focused -= FocusedEventHandler;
             TextField.SettingText -= SettingTextEventHandler;
             TextField.TextSet -= TextSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void TextSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

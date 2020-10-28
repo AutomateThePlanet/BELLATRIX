@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using Bellatrix.Application;
 using Bellatrix.Desktop;
 using Bellatrix.Desktop.BddLogging;
+using Bellatrix.Desktop.BugReporting;
+using Bellatrix.Desktop.DynamicTestCases;
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Layout;
 using Bellatrix.TestExecutionExtensions.Screenshots;
@@ -45,21 +47,11 @@ namespace Bellatrix
 
             var elementEventHandlers = new List<ElementEventHandlers>()
                                        {
-                                           new BDDLoggingButtonEventHandlers(),
-                                           new BDDLoggingCalendarEventHandlers(),
                                            new BDDLoggingCheckboxEventHandlers(),
                                            new BDDLoggingComboBoxEventHandlers(),
                                            new BDDLoggingDateEventHandlers(),
                                            new BDDLoggingElementEventHandlers(),
-                                           new BDDLoggingExpanderEventHandlers(),
-                                           new BDDLoggingImageEventHandlers(),
-                                           new BDDLoggingLabelEventHandlers(),
-                                           new BDDLoggingListBoxEventHandlers(),
-                                           new BDDLoggingMenuEventHandlers(),
                                            new BDDLoggingPasswordEventHandlers(),
-                                           new BDDLoggingProgressEventHandlers(),
-                                           new BDDLoggingRadioButtonEventHandlers(),
-                                           new BDDLoggingTabsEventHandlers(),
                                            new BDDLoggingTextAreaEventHandlers(),
                                            new BDDLoggingTextFieldEventHandlers(),
                                            new BDDLoggingTimeEventHandlers(),
@@ -81,21 +73,11 @@ namespace Bellatrix
 
             var elementEventHandlers = new List<ElementEventHandlers>()
                                        {
-                                           new DynamicTestCasesButtonEventHandlers(),
-                                           new DynamicTestCasesCalendarEventHandlers(),
                                            new DynamicTestCasesCheckboxEventHandlers(),
                                            new DynamicTestCasesComboBoxEventHandlers(),
                                            new DynamicTestCasesDateEventHandlers(),
                                            new DynamicTestCasesElementEventHandlers(),
-                                           new DynamicTestCasesExpanderEventHandlers(),
-                                           new DynamicTestCasesImageEventHandlers(),
-                                           new DynamicTestCasesLabelEventHandlers(),
-                                           new DynamicTestCasesListBoxEventHandlers(),
-                                           new DynamicTestCasesMenuEventHandlers(),
                                            new DynamicTestCasesPasswordEventHandlers(),
-                                           new DynamicTestCasesProgressEventHandlers(),
-                                           new DynamicTestCasesRadioButtonEventHandlers(),
-                                           new DynamicTestCasesTabsEventHandlers(),
                                            new DynamicTestCasesTextAreaEventHandlers(),
                                            new DynamicTestCasesTextFieldEventHandlers(),
                                            new DynamicTestCasesTimeEventHandlers(),
@@ -117,21 +99,11 @@ namespace Bellatrix
 
             var elementEventHandlers = new List<ElementEventHandlers>()
                                        {
-                                           new BugReportingButtonEventHandlers(),
-                                           new BugReportingCalendarEventHandlers(),
                                            new BugReportingCheckboxEventHandlers(),
                                            new BugReportingComboBoxEventHandlers(),
                                            new BugReportingDateEventHandlers(),
                                            new BugReportingElementEventHandlers(),
-                                           new BugReportingExpanderEventHandlers(),
-                                           new BugReportingImageEventHandlers(),
-                                           new BugReportingLabelEventHandlers(),
-                                           new BugReportingListBoxEventHandlers(),
-                                           new BugReportingMenuEventHandlers(),
                                            new BugReportingPasswordEventHandlers(),
-                                           new BugReportingProgressEventHandlers(),
-                                           new BugReportingRadioButtonEventHandlers(),
-                                           new BugReportingTabsEventHandlers(),
                                            new BugReportingTextAreaEventHandlers(),
                                            new BugReportingTextFieldEventHandlers(),
                                            new BugReportingTimeEventHandlers(),

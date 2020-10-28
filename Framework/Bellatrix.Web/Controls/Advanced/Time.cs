@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Time : Element, IElementDisabled, IElementValue, IElementTime, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxText, IElementMinText, IElementStep
     {
-        public static Action<Time> OverrideFocusGlobally;
         public static Action<Time> OverrideHoverGlobally;
         public static Func<Time, bool> OverrideIsDisabledGlobally;
         public static Func<Time, string> OverrideValueGlobally;
@@ -33,7 +32,6 @@ namespace Bellatrix.Web
         public static Func<Time, string> OverrideMinGlobally;
         public static Func<Time, int?> OverrideStepGlobally;
 
-        public static Action<Time> OverrideFocusLocally;
         public static Action<Time> OverrideHoverLocally;
         public static Func<Time, bool> OverrideIsDisabledLocally;
         public static Func<Time, string> OverrideValueLocally;
@@ -48,14 +46,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingTime;
         public static event EventHandler<ElementActionEventArgs> TimeSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -86,12 +81,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -186,8 +175,6 @@ namespace Bellatrix.Web
         protected virtual string DefaultGetMin(Time time) => DefaultGetMinAsString(time);
 
         protected virtual int? DefaultGetStep(Time time) => base.DefaultGetStep(time);
-
-        protected virtual void DefaultFocus(Time time) => DefaultFocusJavaScript(time, Focusing, Focused);
 
         protected virtual void DefaultHover(Time time) => DefaultHover(time, Hovering, Hovered);
 

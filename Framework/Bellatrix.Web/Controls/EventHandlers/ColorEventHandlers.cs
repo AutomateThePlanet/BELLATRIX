@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Color.Hovering += HoveringEventHandler;
             Color.Hovered += HoveredEventHandler;
-            Color.Focusing += FocusingEventHandler;
-            Color.Focused += FocusedEventHandler;
             Color.SettingColor += SettingColorEventHandler;
             Color.ColorSet += ColorSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Color.Hovering -= HoveringEventHandler;
             Color.Hovered -= HoveredEventHandler;
-            Color.Focusing -= FocusingEventHandler;
-            Color.Focused -= FocusedEventHandler;
             Color.SettingColor -= SettingColorEventHandler;
             Color.ColorSet -= ColorSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void ColorSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

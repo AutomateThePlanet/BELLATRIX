@@ -22,14 +22,14 @@ namespace Bellatrix.Web
         public static void EnsureIsVisible<T>(this T control, int? timeout = null, int? sleepInterval = null)
             where T : IElementVisible, IElement
         {
-            WaitUntil(() => control.IsVisible.Equals(true), "The control should be visible but was NOT.", timeout, sleepInterval);
+            WaitUntil(() => control.IsVisible.Equals(true), $"The control {control.ElementName} should be visible but was NOT.", timeout, sleepInterval);
             EnsuredIsVisibleEvent?.Invoke(control, new ElementActionEventArgs(control));
         }
 
         public static void EnsureIsNotVisible<T>(this T control, int? timeout = null, int? sleepInterval = null)
             where T : IElementVisible, IElement
         {
-            WaitUntil(() => !control.IsVisible.Equals(true), "The control should be NOT visible but it was.", timeout, sleepInterval);
+            WaitUntil(() => !control.IsVisible.Equals(true), $"The control {control.ElementName} should be NOT visible but it was.", timeout, sleepInterval);
             EnsuredIsNotVisibleEvent?.Invoke(control, new ElementActionEventArgs(control));
         }
 

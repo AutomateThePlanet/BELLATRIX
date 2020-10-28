@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Serilog" Version="2.9.0" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
         <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
         <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
     </ItemGroup>
@@ -36,5 +36,12 @@
         <ProjectReference Include="..\Bellatrix.ExecutionContext\Bellatrix.ExecutionContext.csproj" />
         <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots.Common\Bellatrix.TestExecutionExtensions.Screenshots.Common.csproj" />
         <ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 </Project>

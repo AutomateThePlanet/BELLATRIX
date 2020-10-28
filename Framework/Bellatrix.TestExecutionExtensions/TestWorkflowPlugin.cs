@@ -28,12 +28,14 @@ namespace Bellatrix.TestWorkflowPlugins
             provider.PreTestCleanupEvent += PreTestCleanup;
             provider.PostTestCleanupEvent += PostTestCleanup;
             provider.TestCleanupFailedEvent += TestCleanupFailed;
-            provider.ClassInitFailedEvent += ClassInitFailed;
             provider.PreTestsArrangeEvent += PreTestsArrange;
             provider.TestsArrangeFailedEvent += TestsArrangeFailed;
             provider.PreTestsActEvent += PreTestsAct;
             provider.PostTestsActEvent += PostTestsAct;
             provider.PostTestsArrangeEvent += PostTestsArrange;
+            provider.PreTestsCleanupEvent += PreTestsCleanup;
+            provider.PostTestsCleanupEvent += PostTestsCleanup;
+            provider.TestsCleanupFailedEvent += TestsCleanupFailed;
         }
 
         public void Unsubscribe(ITestWorkflowPluginProvider provider)
@@ -44,15 +46,25 @@ namespace Bellatrix.TestWorkflowPlugins
             provider.PreTestCleanupEvent -= PreTestCleanup;
             provider.PostTestCleanupEvent -= PostTestCleanup;
             provider.TestCleanupFailedEvent -= TestCleanupFailed;
-            provider.ClassInitFailedEvent -= ClassInitFailed;
             provider.PreTestsArrangeEvent -= PreTestsArrange;
             provider.TestsArrangeFailedEvent -= TestsArrangeFailed;
             provider.PreTestsActEvent -= PreTestsAct;
             provider.PostTestsActEvent -= PostTestsAct;
             provider.PostTestsArrangeEvent -= PostTestsArrange;
+            provider.PreTestsCleanupEvent -= PreTestsCleanup;
+            provider.PostTestsCleanupEvent -= PostTestsCleanup;
+            provider.TestsCleanupFailedEvent -= TestsCleanupFailed;
         }
 
-        protected virtual void ClassInitFailed(object sender, Exception ex)
+        protected virtual void TestsCleanupFailed(object sender, Exception ex)
+        {
+        }
+
+        protected virtual void PreTestsCleanup(object sender, TestWorkflowPluginEventArgs e)
+        {
+        }
+
+        protected virtual void PostTestsCleanup(object sender, TestWorkflowPluginEventArgs e)
         {
         }
 
@@ -80,7 +92,7 @@ namespace Bellatrix.TestWorkflowPlugins
         {
         }
 
-        protected virtual void TestsArrangeFailed(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void TestsArrangeFailed(object sender, Exception e)
         {
         }
 

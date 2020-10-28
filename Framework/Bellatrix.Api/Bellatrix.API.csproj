@@ -33,23 +33,23 @@
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.13" />
         <PackageReference Include="Polly" Version="7.2.1" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.5" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.5" />
-        <PackageReference Include="RestSharp" Version="106.11.4" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.9" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.9" />
+        <PackageReference Include="RestSharp" Version="106.11.7" />
         <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-        <ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
-        <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
-        <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
-        <ProjectReference Include="..\Bellatrix.Data\Bellatrix.Data.csproj" />
-        <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
-        <ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
-        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Common\Bellatrix.TestExecutionExtensions.Common.csproj" />
-        <ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
-        <ProjectReference Include="..\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
+      <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
+      <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
+      <ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 </Project>

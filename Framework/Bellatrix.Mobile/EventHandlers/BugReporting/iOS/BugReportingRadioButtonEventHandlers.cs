@@ -11,8 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.BugReporting;
-using Bellatrix.Logging;
 using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
@@ -21,8 +19,6 @@ namespace Bellatrix.Mobile.BugReporting.IOS
 {
     public class BugReportingRadioButtonEventHandlers : RadioButtonEventHandlers
     {
-        protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
-
         protected override void ClickingEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ElementName} on {arg.Element.PageName}");
     }
 }

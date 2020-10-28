@@ -19,7 +19,6 @@ namespace Bellatrix.Web.Controls
 {
     public class Container : Element
     {
-        public static Action<Container> OverrideFocusGlobally;
         public static Action<Container> OverrideHoverGlobally;
         public static Func<Container, string> OverrideInnerTextGlobally;
         public static Func<Container, string> OverrideInnerHtmlGlobally;
@@ -27,15 +26,12 @@ namespace Bellatrix.Web.Controls
         public Container()
         {
             Hover = InitializeAction(this, OverrideHoverGlobally, DefaultHover);
-            Focus = InitializeAction(this, OverrideFocusGlobally, DefaultFocus);
             InnerText = InitializeAction(this, OverrideInnerTextGlobally, DefaultInnerText);
             InnerHtml = InitializeAction(this, OverrideInnerHtmlGlobally, DefaultInnerHtml);
         }
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
 
         public Action Hover { get; set; }
 
@@ -46,8 +42,6 @@ namespace Bellatrix.Web.Controls
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public Func<string> InnerHtml { get; set; }
-
-        protected virtual void DefaultFocus(Container container) => DefaultFocus(container, Focusing, Focused);
 
         protected virtual void DefaultHover(Container container) => DefaultHover(container, Hovering, Hovered);
 

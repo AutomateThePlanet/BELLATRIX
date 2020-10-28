@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Allure.Commons" Version="3.0.0.10" />
+        <PackageReference Include="Allure.Commons" Version="3.1.0.6" />
     </ItemGroup>
 
     <ItemGroup>
@@ -41,5 +41,12 @@
         <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots\Bellatrix.TestExecutionExtensions.Screenshots.csproj" />
         <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video\Bellatrix.TestExecutionExtensions.Video.csproj" />
         <ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 </Project>

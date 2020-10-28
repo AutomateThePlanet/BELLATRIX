@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Date : Element, IElementDisabled, IElementValue, IElementDate, IElementAutoComplete, IElementRequired, IElementReadonly, IElementMaxText, IElementMinText, IElementStep
     {
-        public static Action<Date> OverrideFocusGlobally;
         public static Action<Date> OverrideHoverGlobally;
         public static Func<Date, bool> OverrideIsDisabledGlobally;
         public static Func<Date, string> OverrideValueGlobally;
@@ -33,7 +32,6 @@ namespace Bellatrix.Web
         public static Func<Date, string> OverrideMinGlobally;
         public static Func<Date, int?> OverrideStepGlobally;
 
-        public static Action<Date> OverrideFocusLocally;
         public static Action<Date> OverrideHoverLocally;
         public static Func<Date, bool> OverrideIsDisabledLocally;
         public static Func<Date, string> OverrideValueLocally;
@@ -48,14 +46,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingDate;
         public static event EventHandler<ElementActionEventArgs> DateSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -86,12 +81,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -186,8 +175,6 @@ namespace Bellatrix.Web
         protected virtual string DefaultGetMin(Date date) => DefaultGetMinAsString(date);
 
         protected virtual int? DefaultGetStep(Date date) => base.DefaultGetStep(date);
-
-        protected virtual void DefaultFocus(Date date) => DefaultFocusJavaScript(date, Focusing, Focused);
 
         protected virtual void DefaultHover(Date date) => DefaultHover(date, Hovering, Hovered);
 

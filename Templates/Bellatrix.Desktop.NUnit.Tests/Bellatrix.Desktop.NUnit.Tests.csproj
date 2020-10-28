@@ -26,9 +26,9 @@
     <ItemGroup>
         <PackageReference Include="Bellatrix.FFmpeg.Recorder" Version="1.3.0" />
       
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
         <PackageReference Include="NUnit" Version="3.12.0" />
-        <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
+        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -38,7 +38,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -46,8 +46,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Framework\Bellatrix.Desktop.NUnit\Bellatrix.Desktop.NUnit.csproj" />
+      <ProjectReference Include="..\..\Framework\Bellatrix.Desktop.TestExecutionExtensions\Bellatrix.Desktop.TestExecutionExtensions.csproj" />
       <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
-      <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
       <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording\Bellatrix.VideoRecording.csproj" />
     </ItemGroup>
 

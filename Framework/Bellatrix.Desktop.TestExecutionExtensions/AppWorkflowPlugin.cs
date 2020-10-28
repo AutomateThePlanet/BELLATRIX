@@ -169,21 +169,18 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
 
         private AppAttribute GetAppAttribute(MemberInfo memberInfo, Type testClassType)
         {
-            if (memberInfo == null)
+            if (memberInfo != null)
             {
-                throw new ArgumentNullException();
+                var methodappAttribute = memberInfo.GetCustomAttribute<AppAttribute>(true);
+
+                if (methodappAttribute != null)
+                {
+                    return methodappAttribute;
+                }
             }
 
-            var methodappAttribute = memberInfo.GetCustomAttribute<AppAttribute>(true);
             var classappAttribute = testClassType.GetCustomAttribute<AppAttribute>(true);
-            if (methodappAttribute != null)
-            {
-                return methodappAttribute;
-            }
-            else
-            {
-                return classappAttribute;
-            }
+            return classappAttribute;
         }
     }
 }

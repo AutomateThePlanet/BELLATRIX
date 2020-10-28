@@ -37,23 +37,7 @@ namespace Bellatrix.Logging
             try
             {
                 _logger.Information(message, args);
-
-                if (_isParallelRun)
-                {
-                    var executionContext = ServicesCollection.Current.Resolve<ExecutionContext>();
-                    if (executionContext != null)
-                    {
-                        if (!_testOutputs.ContainsKey(executionContext.TestFullName))
-                        {
-                            _testOutputs.TryAdd(executionContext.TestFullName, new StringBuilder());
-                        }
-
-                        if (!string.IsNullOrEmpty(message))
-                        {
-                            _testOutputs[executionContext.TestFullName].AppendLine(string.Format($"{message}{Environment.NewLine}", args));
-                        }
-                    }
-                }
+                AddToTestOutputs(message, args);
             }
             catch (Exception ex)
             {
@@ -63,17 +47,34 @@ namespace Bellatrix.Logging
 
         public void LogWarning(string message, params object[] args)
         {
-            _logger.Warning(message, args);
+            try
+            {
+                _logger.Warning(message, args);
+                AddToTestOutputs(message, args);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
 
+        private void AddToTestOutputs(string message, params object[] args)
+        {
             if (_isParallelRun)
             {
                 var executionContext = ServicesCollection.Current.Resolve<ExecutionContext>();
-                if (!_testOutputs.ContainsKey(executionContext.TestFullName))
+                if (executionContext != null)
                 {
-                    _testOutputs.TryAdd(executionContext.TestFullName, new StringBuilder());
-                }
+                    if (!_testOutputs.ContainsKey(executionContext.TestFullName))
+                    {
+                        _testOutputs.TryAdd(executionContext.TestFullName, new StringBuilder());
+                    }
 
-                _testOutputs[executionContext.TestFullName].AppendLine(string.Format(message, args));
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        _testOutputs[executionContext.TestFullName].AppendLine(string.Format($"{message}{Environment.NewLine}", args));
+                    }
+                }
             }
         }
     }

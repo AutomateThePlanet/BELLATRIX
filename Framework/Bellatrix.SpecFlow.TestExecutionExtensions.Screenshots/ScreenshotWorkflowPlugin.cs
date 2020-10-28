@@ -53,9 +53,9 @@ namespace Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots
                 {
                     var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
                     var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestFullName);
-                    var image = _screenshotEngine.TakeScreenshot(ServicesCollection.Current);
+                    string image = _screenshotEngine.TakeScreenshot(e.Container);
                     string imagePath = Path.Combine(screenshotSaveDir, screenshotFileName);
-                    image.Save(imagePath, ImageFormat.Png);
+                    File.WriteAllBytes(imagePath, Convert.FromBase64String(image));
                     _screenshotPluginProvider.ScreenshotGenerated(e, imagePath);
                 }
             }

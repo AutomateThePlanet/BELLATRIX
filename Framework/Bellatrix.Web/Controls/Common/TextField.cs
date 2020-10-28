@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class TextField : Element, IElementDisabled, IElementInnerText, IElementInnerHtml, IElementValue, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementSize, IElementPlaceholder
     {
-        public static Action<TextField> OverrideFocusGlobally;
         public static Action<TextField> OverrideHoverGlobally;
         public static Func<TextField, string> OverrideInnerTextGlobally;
         public static Func<TextField, string> OverrideInnerHtmlGlobally;
@@ -35,7 +34,6 @@ namespace Bellatrix.Web
         public static Func<TextField, int?> OverrideSizeGlobally;
         public static Func<TextField, string> OverridePlaceholderGlobally;
 
-        public static Action<TextField> OverrideFocusLocally;
         public static Action<TextField> OverrideHoverLocally;
         public static Func<TextField, string> OverrideInnerTextLocally;
         public static Func<TextField, string> OverrideInnerHtmlLocally;
@@ -52,14 +50,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingText;
         public static event EventHandler<ElementActionEventArgs> TextSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideInnerTextLocally = null;
             OverrideInnerHtmlLocally = null;
@@ -86,12 +81,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -218,8 +207,6 @@ namespace Bellatrix.Web
         protected virtual int? DefaultGetSize(TextField textField) => base.DefaultGetSize(textField);
 
         protected virtual string DefaultGetPlaceholder(TextField textField) => base.DefaultGetPlaceholder(textField);
-
-        protected virtual void DefaultFocus(TextField textField) => DefaultFocus(textField, Focusing, Focused);
 
         protected virtual void DefaultHover(TextField textField) => DefaultHover(textField, Hovering, Hovered);
 

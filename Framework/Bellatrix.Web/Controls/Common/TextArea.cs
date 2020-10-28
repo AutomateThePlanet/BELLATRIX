@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class TextArea : Element, IElementInnerText, IElementText, IElementDisabled, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementRows, IElementCols, IElementPlaceholder, IElementSpellCheck, IElementWrap
     {
-        public static Action<TextArea> OverrideFocusGlobally;
         public static Action<TextArea> OverrideHoverGlobally;
         public static Func<TextArea, string> OverrideInnerTextGlobally;
         public static Func<TextArea, string> OverrideGetTextGlobally;
@@ -37,7 +36,6 @@ namespace Bellatrix.Web
         public static Func<TextArea, string> OverrideSpellCheckGlobally;
         public static Func<TextArea, string> OverrideWrapGlobally;
 
-        public static Action<TextArea> OverrideFocusLocally;
         public static Action<TextArea> OverrideHoverLocally;
         public static Func<TextArea, string> OverrideInnerTextLocally;
         public static Func<TextArea, string> OverrideGetTextLocally;
@@ -56,14 +54,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingText;
         public static event EventHandler<ElementActionEventArgs> TextSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideInnerTextLocally = null;
             OverrideGetTextLocally = null;
@@ -98,12 +93,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -226,8 +215,6 @@ namespace Bellatrix.Web
                 return action();
             }
         }
-
-        protected virtual void DefaultFocus(TextArea textArea) => DefaultFocus(textArea, Focusing, Focused);
 
         protected virtual void DefaultHover(TextArea textArea) => DefaultHover(textArea, Hovering, Hovered);
 

@@ -126,16 +126,7 @@ namespace Bellatrix.Assertions
 
             if (assertionExceptions.Any())
             {
-                var exceptionMessageSb = new StringBuilder();
-                exceptionMessageSb.AppendLine("Multiple assertions failed:");
-                exceptionMessageSb.AppendLine();
-                foreach (var assertionException in assertionExceptions)
-                {
-                    exceptionMessageSb.AppendLine(assertionException.Message);
-                    exceptionMessageSb.AppendLine();
-                }
-
-                throw new AggregateException(exceptionMessageSb.ToString(), assertionExceptions);
+                throw assertionExceptions.LastOrDefault();
             }
         }
     }

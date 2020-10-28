@@ -21,14 +21,12 @@ namespace Bellatrix.Web
     public class Button : Element, IElementValue, IElementDisabled, IElementInnerText
     {
         public static Action<Button> OverrideClickGlobally;
-        public static Action<Button> OverrideFocusGlobally;
         public static Action<Button> OverrideHoverGlobally;
         public static Func<Button, string> OverrideInnerTextGlobally;
         public static Func<Button, bool> OverrideIsDisabledGlobally;
         public static Func<Button, string> OverrideValueGlobally;
 
         public static Action<Button> OverrideClickLocally;
-        public static Action<Button> OverrideFocusLocally;
         public static Action<Button> OverrideHoverLocally;
         public static Func<Button, string> OverrideInnerTextLocally;
         public static Func<Button, bool> OverrideIsDisabledLocally;
@@ -38,13 +36,10 @@ namespace Bellatrix.Web
         public static event EventHandler<ElementActionEventArgs> Clicked;
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
 
         public static new void ClearLocalOverrides()
         {
             OverrideClickLocally = null;
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideInnerTextLocally = null;
             OverrideIsDisabledLocally = null;
@@ -62,12 +57,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -102,8 +91,6 @@ namespace Bellatrix.Web
         }
 
         protected virtual void DefaultClick(Button button) => DefaultClick(button, Clicking, Clicked);
-
-        protected virtual void DefaultFocus(Button button) => DefaultFocus(button, Focusing, Focused);
 
         protected virtual void DefaultHover(Button button) => DefaultHover(button, Hovering, Hovered);
 

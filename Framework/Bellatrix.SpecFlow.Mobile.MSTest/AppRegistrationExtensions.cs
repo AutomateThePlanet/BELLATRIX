@@ -14,6 +14,7 @@
 using System;
 using Bellatrix.Application;
 using Bellatrix.Assertions;
+using Bellatrix.Mobile.Screenshots;
 using Bellatrix.SpecFlow.MSTest;
 using Bellatrix.SpecFlow.TestWorkflowPlugins;
 using Bellatrix.TestExecutionExtensions.Screenshots;
@@ -37,7 +38,8 @@ namespace Bellatrix.Mobile.SpecFlow
 
         public static BaseApp UseScreenshotsOnFail(this BaseApp baseApp)
         {
-            baseApp.RegisterType<IScreenshotEngine, VanillaWebDriverScreenshotEngine>();
+            baseApp.RegisterType<IScreenshotEngine, AndroidDriverScreenshotEngine>();
+            baseApp.RegisterType<IScreenshotEngine, IOSDriverScreenshotEngine>();
             baseApp.RegisterType<IScreenshotOutputProvider, ScreenshotOutputProvider>();
             baseApp.RegisterType<Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.IScreenshotPluginProvider, Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.ScreenshotPluginProvider>();
             baseApp.RegisterType<TestWorkflowPlugin, Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.ScreenshotWorkflowPlugin>(Guid.NewGuid().ToString());

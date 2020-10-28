@@ -22,27 +22,13 @@ namespace Bellatrix.Mobile.Screenshots
 {
     public sealed class IOSDriverScreenshotEngine : IScreenshotEngine
     {
-        public Image TakeScreenshot(IServicesCollection serviceContainer) => TakeScreenshotIOSDriver(serviceContainer);
+        public string TakeScreenshot(IServicesCollection serviceContainer) => TakeScreenshotIOSDriver(serviceContainer);
 
-        public Image TakeScreenshotIOSDriver(IServicesCollection serviceContainer)
+        public string TakeScreenshotIOSDriver(IServicesCollection serviceContainer)
         {
             var driver = serviceContainer.Resolve<IOSDriver<IOSElement>>();
             var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-            var image = GetImageFromBase64String(screenshot.AsBase64EncodedString);
-
-            return image;
-        }
-
-        private Image GetImageFromBase64String(string pngContent)
-        {
-            byte[] data = Convert.FromBase64String(pngContent);
-            Image image;
-            using (var memoryStream = new MemoryStream(data))
-            {
-                image = Image.FromStream(memoryStream);
-            }
-
-            return image;
+            return screenshot.AsBase64EncodedString;
         }
     }
 }

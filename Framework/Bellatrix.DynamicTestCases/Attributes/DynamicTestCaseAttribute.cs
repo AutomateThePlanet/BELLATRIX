@@ -20,8 +20,8 @@ namespace Bellatrix
     [AttributeUsage(AttributeTargets.All)]
     public class DynamicTestCaseAttribute : Attribute
     {
-        public string SuiteId { get; set; } = null;
-        public string RequirementId { get; set; } = null;
+        public string SuiteId { get; set; }
+        public string RequirementId { get; set; }
         public string TestName { get; set; }
         public string Description { get; set; }
         public string TestCaseId { get; set; }

@@ -11,8 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.BugReporting;
-using Bellatrix.Logging;
 using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
@@ -21,8 +19,6 @@ namespace Bellatrix.Mobile.BugReporting.Android
 {
     public class BugReportingSwitchEventHandlers : SwitchEventHandlers
     {
-        protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
-
         protected override void TurningOnEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ElementName} on {arg.Element.PageName}");
 
         protected override void TurningOffEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ElementName} on {arg.Element.PageName}");

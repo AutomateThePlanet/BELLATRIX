@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Phone : Element, IElementDisabled, IElementValue, IElementPhone, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementSize, IElementPlaceholder
     {
-        public static Action<Phone> OverrideFocusGlobally;
         public static Action<Phone> OverrideHoverGlobally;
         public static Func<Phone, bool> OverrideIsDisabledGlobally;
         public static Func<Phone, string> OverrideValueGlobally;
@@ -34,7 +33,6 @@ namespace Bellatrix.Web
         public static Func<Phone, int?> OverrideSizeGlobally;
         public static Func<Phone, string> OverridePlaceholderGlobally;
 
-        public static Action<Phone> OverrideFocusLocally;
         public static Action<Phone> OverrideHoverLocally;
         public static Func<Phone, bool> OverrideIsDisabledLocally;
         public static Func<Phone, string> OverrideValueLocally;
@@ -50,14 +48,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingPhone;
         public static event EventHandler<ElementActionEventArgs> PhoneSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -89,12 +84,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -201,8 +190,6 @@ namespace Bellatrix.Web
         protected virtual int? DefaultGetSize(Phone phone) => base.DefaultGetSize(phone);
 
         protected virtual string DefaultGetPlaceholder(Phone phone) => base.DefaultGetPlaceholder(phone);
-
-        protected virtual void DefaultFocus(Phone phone) => DefaultFocus(phone, Focusing, Focused);
 
         protected virtual void DefaultHover(Phone phone) => DefaultHover(phone, Hovering, Hovered);
 

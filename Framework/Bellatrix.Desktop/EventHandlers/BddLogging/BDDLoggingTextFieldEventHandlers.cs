@@ -19,10 +19,6 @@ namespace Bellatrix.Desktop.BddLogging
 {
     public class BDDLoggingTextFieldEventHandlers : TextFieldEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         protected override void SettingTextEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
-
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ElementName} on {arg.Element.PageName}");
     }
 }

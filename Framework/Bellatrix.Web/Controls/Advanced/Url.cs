@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Url : Element, IElementDisabled, IElementValue, IElementUrl, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementSize, IElementPlaceholder
     {
-        public static Action<Url> OverrideFocusGlobally;
         public static Action<Url> OverrideHoverGlobally;
         public static Func<Url, bool> OverrideIsDisabledGlobally;
         public static Func<Url, string> OverrideValueGlobally;
@@ -34,7 +33,6 @@ namespace Bellatrix.Web
         public static Func<Url, int?> OverrideSizeGlobally;
         public static Func<Url, string> OverridePlaceholderGlobally;
 
-        public static Action<Url> OverrideFocusLocally;
         public static Action<Url> OverrideHoverLocally;
         public static Func<Url, bool> OverrideIsDisabledLocally;
         public static Func<Url, string> OverrideValueLocally;
@@ -50,14 +48,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingUrl;
         public static event EventHandler<ElementActionEventArgs> UrlSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -89,12 +84,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -201,8 +190,6 @@ namespace Bellatrix.Web
         protected virtual int? DefaultGetSize(Url url) => base.DefaultGetSize(url);
 
         protected virtual string DefaultGetPlaceholder(Url url) => base.DefaultGetPlaceholder(url);
-
-        protected virtual void DefaultFocus(Url url) => DefaultFocus(url, Focusing, Focused);
 
         protected virtual void DefaultHover(Url url) => DefaultHover(url, Hovering, Hovered);
 

@@ -13,19 +13,13 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
-using Bellatrix.DynamicTestCases;
-using Bellatrix.Logging;
 
-namespace Bellatrix.Desktop.BddLogging
+namespace Bellatrix.Desktop.DynamicTestCases
 {
     public class DynamicTestCasesCheckboxEventHandlers : CheckboxEventHandlers
     {
-        protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-
         protected override void CheckingEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Check {arg.Element.ElementName} on {arg.Element.PageName}");
 
         protected override void UncheckingEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Uncheck {arg.Element.ElementName} on {arg.Element.PageName}");
-
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Hover {arg.Element.ElementName} on {arg.Element.PageName}");
-    }
+}
 }

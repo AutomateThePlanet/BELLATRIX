@@ -36,5 +36,22 @@ namespace Bellatrix.Utilities
 
             return value.ToString();
         }
+
+        public static TEnum ParseToEnum<TEnum>(this string enumValue)
+            where TEnum : struct
+        {
+            if (int.TryParse(enumValue, out int result))
+            {
+                return result.ParseToEnum<TEnum>();
+            }
+
+            return (TEnum)Enum.Parse(typeof(TEnum), enumValue);
+        }
+
+        public static TEnum ParseToEnum<TEnum>(this int enumValue)
+            where TEnum : struct
+        {
+            return (TEnum)Enum.ToObject(typeof(TEnum), enumValue);
+        }
     }
 }

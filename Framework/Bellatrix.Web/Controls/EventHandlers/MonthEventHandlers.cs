@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Month.Hovering += HoveringEventHandler;
             Month.Hovered += HoveredEventHandler;
-            Month.Focusing += FocusingEventHandler;
-            Month.Focused += FocusedEventHandler;
             Month.SettingMonth += SettingMonthEventHandler;
             Month.MonthSet += MonthSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Month.Hovering -= HoveringEventHandler;
             Month.Hovered -= HoveredEventHandler;
-            Month.Focusing -= FocusingEventHandler;
-            Month.Focused -= FocusedEventHandler;
             Month.SettingMonth -= SettingMonthEventHandler;
             Month.MonthSet -= MonthSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void MonthSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

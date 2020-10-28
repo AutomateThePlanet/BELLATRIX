@@ -34,21 +34,25 @@ namespace Bellatrix.Assertions
 
                     try
                     {
-                        if (currentRealProperty.PropertyType != typeof(DateTime) &&
-                        currentRealProperty.PropertyType != typeof(DateTime?) &&
-                        currentRealProperty.PropertyType != typeof(DateTimeOffset))
-                        {
-                            Assert.AreEqual(
-                                currentExpectedProperty?.GetValue(expectedObject, null),
-                                currentRealProperty.GetValue(realObject, null),
-                                exceptionMessage);
-                        }
-                        else
+                        if (currentRealProperty.PropertyType == typeof(DateTime) ||
+                        currentRealProperty.PropertyType == typeof(DateTime?) ||
+                        currentRealProperty.PropertyType == typeof(DateTimeOffset))
                         {
                             Assert.AreDateTimesEqual(
                                 currentExpectedProperty?.GetValue(expectedObject, null) as DateTime?,
                                 currentRealProperty.GetValue(realObject, null) as DateTime?,
                                 300,
+                                exceptionMessage);
+                        }
+                        else if (currentExpectedProperty?.GetValue(expectedObject, null) == string.Empty)
+                        {
+                            Assert.IsTrue(string.IsNullOrEmpty((string)currentRealProperty.GetValue(realObject, null)), exceptionMessage);
+                        }
+                        else
+                        {
+                            Assert.AreEqual(
+                                currentExpectedProperty?.GetValue(expectedObject, null),
+                                currentRealProperty.GetValue(realObject, null),
                                 exceptionMessage);
                         }
                     }
@@ -59,9 +63,10 @@ namespace Bellatrix.Assertions
                 }
             }
 
-            if (failedAssertions.Count > 0)
+            if (failedAssertions.Count > 1)
             {
-                Assert.Fail($"Entities Assertion has failed with errors: {failedAssertions.Select(ex => ex.Message).Stringify()}");
+                // All errors have been added already, so we need only to fail the assert
+                Assert.Fail(string.Empty);
             }
         }
     }

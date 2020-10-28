@@ -22,7 +22,6 @@ namespace Bellatrix.Web
     public class Anchor : Element, IElementHref, IElementInnerText, IElementInnerHtml, IElementRel, IElementTarget
     {
         public static Action<Anchor> OverrideClickGlobally;
-        public static Action<Anchor> OverrideFocusGlobally;
         public static Action<Anchor> OverrideHoverGlobally;
         public static Func<Anchor, string> OverrideInnerHtmlGlobally;
         public static Func<Anchor, string> OverrideInnerTextGlobally;
@@ -31,7 +30,6 @@ namespace Bellatrix.Web
         public static Func<Anchor, string> OverrideGetRelGlobally;
 
         public static Action<Anchor> OverrideClickLocally;
-        public static Action<Anchor> OverrideFocusLocally;
         public static Action<Anchor> OverrideHoverLocally;
         public static Func<Anchor, string> OverrideInnerHtmlLocally;
         public static Func<Anchor, string> OverrideInnerTextLocally;
@@ -43,13 +41,10 @@ namespace Bellatrix.Web
         public static event EventHandler<ElementActionEventArgs> Clicked;
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
 
         public static new void ClearLocalOverrides()
         {
             OverrideClickLocally = null;
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideInnerHtmlLocally = null;
             OverrideInnerTextLocally = null;
@@ -69,12 +64,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -129,8 +118,6 @@ namespace Bellatrix.Web
         }
 
         protected virtual void DefaultClick(Anchor anchor) => DefaultClick(anchor, Clicking, Clicked);
-
-        protected virtual void DefaultFocus(Anchor anchor) => DefaultFocus(anchor, Focusing, Focused);
 
         protected virtual void DefaultHover(Anchor anchor) => DefaultHover(anchor, Hovering, Hovered);
 

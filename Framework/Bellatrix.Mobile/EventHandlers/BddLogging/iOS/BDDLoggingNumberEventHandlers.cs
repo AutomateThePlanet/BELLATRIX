@@ -11,7 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.Logging;
 using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
@@ -20,8 +19,6 @@ namespace Bellatrix.Mobile.BddLogging.IOS
 {
     public class BDDLoggingNumberEventHandlers : NumberEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         protected override void SettingNumberEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
     }
 }

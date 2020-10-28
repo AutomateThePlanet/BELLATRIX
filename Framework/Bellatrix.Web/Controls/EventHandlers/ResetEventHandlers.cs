@@ -24,8 +24,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Reset.Clicked += ClickedEventHandler;
             Reset.Hovering += HoveringEventHandler;
             Reset.Hovered += HoveredEventHandler;
-            Reset.Focusing += FocusingEventHandler;
-            Reset.Focused += FocusedEventHandler;
         }
 
         public override void UnsubscribeToAll()
@@ -35,32 +33,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Reset.Clicked -= ClickedEventHandler;
             Reset.Hovering -= HoveringEventHandler;
             Reset.Hovered -= HoveredEventHandler;
-            Reset.Focusing -= FocusingEventHandler;
-            Reset.Focused -= FocusedEventHandler;
-        }
-
-        protected virtual void ClickingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void ClickedEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
-        {
         }
     }
 }

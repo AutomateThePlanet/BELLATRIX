@@ -19,8 +19,12 @@ namespace Bellatrix.Desktop.BddLogging
 {
     public class BDDLoggingElementEventHandlers : ElementEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         protected override void ScrollingToVisibleEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Scroll to visible {arg.Element.ElementName} on {arg.Element.PageName}");
+
+        protected override void ClickingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Click {arg.Element.ElementName} on {arg.Element.PageName}");
+
+        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ElementName} on {arg.Element.PageName}");
+
+        protected override void FocusingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Focus {arg.Element.ElementName} on {arg.Element.PageName}");
     }
 }

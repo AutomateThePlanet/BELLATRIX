@@ -28,12 +28,17 @@ namespace Bellatrix.Infrastructure.SystemFacades
             _assemblyFacade = new AssemblyFacade();
         }
 
-        public string FromFile(string name, string fileExtension = "png")
+        public string FromFile(string name, string fileExtension)
+        {
+            var resourceName = GetResourceByFileName($"{name}.{fileExtension}");
+            return FromFile(resourceName);
+        }
+
+        public string FromFile(string name)
         {
             _currentExecutingAssembly = _currentExecutingAssembly ?? _assemblyFacade.GetAssembliesCallChain()[2];
             string currentFileTempPath;
-            var resourceName = GetResourceByFileName($"{name}.{fileExtension}");
-            using (var resourceStream = _currentExecutingAssembly.GetManifestResourceStream(resourceName))
+            using (var resourceStream = _currentExecutingAssembly.GetManifestResourceStream(name))
             {
                 var tempFolder = Path.GetTempPath();
                 currentFileTempPath = Path.Combine(tempFolder, name).Replace("\\", "/");

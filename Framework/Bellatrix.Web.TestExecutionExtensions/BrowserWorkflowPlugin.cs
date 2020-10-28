@@ -95,6 +95,8 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
                 }
 
                 bool isParallelRun = ServicesCollection.Main.Resolve<bool>("isParallelRun");
+
+                //// This if is important for Selenoid video recording per test
                 if (isParallelRun)
                 {
                     ShutdownBrowser(e.Container);

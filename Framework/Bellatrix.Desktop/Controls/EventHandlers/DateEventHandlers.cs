@@ -42,21 +42,5 @@ namespace Bellatrix.Desktop.EventHandlers
         protected virtual void DateSetEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
     }
 }

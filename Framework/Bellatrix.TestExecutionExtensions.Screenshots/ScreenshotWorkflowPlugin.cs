@@ -49,12 +49,11 @@ namespace Bellatrix.TestExecutionExtensions.Screenshots
             {
                 if (_shouldTakeScreenshot)
                 {
-                    var fullTestName = $"{e.TestName}";
                     var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
-                    var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(fullTestName);
-                    var image = _screenshotEngine.TakeScreenshot(e.Container);
+                    var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestFullName);
+                    string image = _screenshotEngine.TakeScreenshot(e.Container);
                     string imagePath = Path.Combine(screenshotSaveDir, screenshotFileName);
-                    image.Save(imagePath, ImageFormat.Png);
+                    File.WriteAllBytes(imagePath, Convert.FromBase64String(image));
                     _screenshotPluginProvider.ScreenshotGenerated(e, imagePath);
                 }
             }

@@ -30,7 +30,7 @@ namespace Bellatrix.Results.Allure
         private static AllureLifecycle _allureLifecycle => AllureLifecycle.Instance;
         private string _testContainerId;
         private string _testResultId;
-        private bool _hasStarted = false;
+        private bool _hasStarted;
 
         public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
         {

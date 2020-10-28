@@ -19,12 +19,8 @@ namespace Bellatrix.Desktop.BddLogging
 {
     public class BDDLoggingCheckboxEventHandlers : CheckboxEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         protected override void CheckingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Check {arg.Element.ElementName} on {arg.Element.PageName}");
 
         protected override void UncheckingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Uncheck {arg.Element.ElementName} on {arg.Element.PageName}");
-
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ElementName} on {arg.Element.PageName}");
     }
 }

@@ -29,7 +29,7 @@ namespace Bellatrix.LoadTesting.Model
         public MixtureMode MixtureMode { get; set; } = MixtureMode.Equal;
         public LoadTestType LoadTestType { get; set; } = LoadTestType.ExecuteForTime;
         public int NumberOfProcesses { get; set; } = 2;
-        public int PauseBetweenStartSeconds { get; set; } = 0;
+        public int PauseBetweenStartSeconds { get; set; }
         public int TimesToBeExecuted { get; set; } = 1;
         public int SecondsToBeExecuted { get; set; } = 60;
         public List<string> IgnoreUrlRequestsPatterns { get; set; }

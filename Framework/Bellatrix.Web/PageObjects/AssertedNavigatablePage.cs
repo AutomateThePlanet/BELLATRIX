@@ -33,7 +33,8 @@ namespace Bellatrix.Web
 
             Browser.WaitUntilReady();
 
-            var currentBrowserUrl = Browser.Url.ToString().ToString();
+            var currentBrowserUrl = Browser.Url.ToString();
+
             Assert.IsTrue(currentBrowserUrl.Contains(partialUrl), $"The expected partialUrl: '{partialUrl}' was not found in the PageUrl: '{currentBrowserUrl}'");
         }
 

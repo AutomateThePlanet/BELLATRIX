@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class DateTimeLocal : Element, IElementDisabled, IElementValue, IElementTime, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxText, IElementMinText, IElementStep
     {
-        public static Action<DateTimeLocal> OverrideFocusGlobally;
         public static Action<DateTimeLocal> OverrideHoverGlobally;
         public static Func<DateTimeLocal, bool> OverrideIsDisabledGlobally;
         public static Func<DateTimeLocal, string> OverrideValueGlobally;
@@ -33,7 +32,6 @@ namespace Bellatrix.Web
         public static Func<DateTimeLocal, string> OverrideMinGlobally;
         public static Func<DateTimeLocal, int?> OverrideStepGlobally;
 
-        public static Action<DateTimeLocal> OverrideFocusLocally;
         public static Action<DateTimeLocal> OverrideHoverLocally;
         public static Func<DateTimeLocal, bool> OverrideIsDisabledLocally;
         public static Func<DateTimeLocal, string> OverrideValueLocally;
@@ -48,14 +46,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingTime;
         public static event EventHandler<ElementActionEventArgs> TimeSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -86,12 +81,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -186,8 +175,6 @@ namespace Bellatrix.Web
         protected virtual string DefaultGetMin(DateTimeLocal time) => DefaultGetMinAsString(time);
 
         protected virtual int? DefaultGetStep(DateTimeLocal time) => base.DefaultGetStep(time);
-
-        protected virtual void DefaultFocus(DateTimeLocal time) => DefaultFocus(time, Focusing, Focused);
 
         protected virtual void DefaultHover(DateTimeLocal time) => DefaultHover(time, Hovering, Hovered);
 

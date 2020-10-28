@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Time.Hovering += HoveringEventHandler;
             Time.Hovered += HoveredEventHandler;
-            Time.Focusing += FocusingEventHandler;
-            Time.Focused += FocusedEventHandler;
             Time.SettingTime += SettingTimeEventHandler;
             Time.TimeSet += TimeSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Time.Hovering -= HoveringEventHandler;
             Time.Hovered -= HoveredEventHandler;
-            Time.Focusing -= FocusingEventHandler;
-            Time.Focused -= FocusedEventHandler;
             Time.SettingTime -= SettingTimeEventHandler;
             Time.TimeSet -= TimeSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void TimeSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

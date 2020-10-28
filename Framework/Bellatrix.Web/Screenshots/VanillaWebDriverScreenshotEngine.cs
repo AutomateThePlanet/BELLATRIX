@@ -21,27 +21,13 @@ namespace Bellatrix.TestExecutionExtensions.Screenshots
 {
     public sealed class VanillaWebDriverScreenshotEngine : IScreenshotEngine
     {
-        public Image TakeScreenshot(IServicesCollection serviceContainer) => TakeScreenshotVanillaWebDriver(serviceContainer);
+        public string TakeScreenshot(IServicesCollection serviceContainer) => TakeScreenshotVanillaWebDriver(serviceContainer);
 
-        public Image TakeScreenshotVanillaWebDriver(IServicesCollection serviceContainer)
+        public string TakeScreenshotVanillaWebDriver(IServicesCollection serviceContainer)
         {
             var driver = serviceContainer.Resolve<IWebDriver>();
             var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-            var image = GetImageFromBase64String(screenshot.AsBase64EncodedString);
-
-            return image;
-        }
-
-        private Image GetImageFromBase64String(string pngContent)
-        {
-            byte[] data = Convert.FromBase64String(pngContent);
-            Image image;
-            using (var memoryStream = new MemoryStream(data))
-            {
-                image = Image.FromStream(memoryStream);
-            }
-
-            return image;
+            return screenshot.AsBase64EncodedString;
         }
     }
 }

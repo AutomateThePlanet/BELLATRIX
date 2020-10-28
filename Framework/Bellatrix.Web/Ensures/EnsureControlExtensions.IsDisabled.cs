@@ -22,14 +22,14 @@ namespace Bellatrix.Web
         public static void EnsureIsDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
             where T : IElementDisabled, IElement
         {
-            WaitUntil(() => control.IsDisabled.Equals(true), "The control should be disabled but it was NOT.", timeout, sleepInterval);
+            WaitUntil(() => control.IsDisabled.Equals(true), $"The control {control.ElementName} should be disabled but it was NOT.", timeout, sleepInterval);
             EnsuredIsDisabledEvent?.Invoke(control, new ElementActionEventArgs(control));
         }
 
         public static void EnsureIsNotDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
             where T : IElementDisabled, IElement
         {
-            WaitUntil(() => !control.IsDisabled.Equals(true), "The control should NOT be disabled but it was.", timeout, sleepInterval);
+            WaitUntil(() => !control.IsDisabled.Equals(true), $"The control {control.ElementName} should NOT be disabled but it was.", timeout, sleepInterval);
             EnsuredIsNotDisabledEvent?.Invoke(control, new ElementActionEventArgs(control));
         }
 

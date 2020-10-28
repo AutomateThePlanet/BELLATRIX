@@ -24,11 +24,11 @@ namespace Bellatrix.Web.GettingStarted
                 App.JavaScriptService.Execute("arguments[0].click();", e);
             };
 
-            // 3. Override the anchor Focus method by assigning a local private function to the local delegate.
+            // 3. Override the element Focus method by assigning a local private function to the local delegate.
             // Note 1: Keep in mind that once the control is overridden locally, after the test's execution the default behaviour is restored.
             // Note 2: In most cases, you can call the local override in some page object, directly in the test or in the TestInit method.
             // Note 3: The local override has precedence over the global override.
-            Anchor.OverrideFocusLocally = CustomFocus;
+            Element.OverrideFocusLocally = CustomFocus;
 
             // 4. Here is a list of all local override Button delegates:
             // OverrideClickLocally
@@ -76,10 +76,10 @@ namespace Bellatrix.Web.GettingStarted
             billingDetailsHeading.ToBeVisible().WaitToBe();
         }
 
-        private void CustomFocus(Anchor anchor)
+        private void CustomFocus(Element element)
         {
             App.JavaScriptService.Execute("window.focus();");
-            App.JavaScriptService.Execute("arguments[0].focus();", anchor);
+            App.JavaScriptService.Execute("arguments[0].focus();", element);
         }
     }
 }

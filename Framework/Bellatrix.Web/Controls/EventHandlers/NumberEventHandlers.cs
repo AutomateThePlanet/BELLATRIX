@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Number.Hovering += HoveringEventHandler;
             Number.Hovered += HoveredEventHandler;
-            Number.Focusing += FocusingEventHandler;
-            Number.Focused += FocusedEventHandler;
             Number.SettingNumber += SettingNumberEventHandler;
             Number.NumberSet += NumberSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Number.Hovering -= HoveringEventHandler;
             Number.Hovered -= HoveredEventHandler;
-            Number.Focusing -= FocusingEventHandler;
-            Number.Focused -= FocusedEventHandler;
             Number.SettingNumber -= SettingNumberEventHandler;
             Number.NumberSet -= NumberSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void NumberSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

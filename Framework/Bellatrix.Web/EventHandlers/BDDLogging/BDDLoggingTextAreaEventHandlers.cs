@@ -11,7 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.Logging;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
@@ -19,12 +18,6 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BDDLoggingTextAreaEventHandlers : TextAreaEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         protected override void SettingTextEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
-
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
-
-        protected override void FocusingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Focus {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
     }
 }

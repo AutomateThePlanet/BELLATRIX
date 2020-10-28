@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Week : Element, IElementDisabled, IElementValue, IElementWeek, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxText, IElementMinText, IElementStep
     {
-        public static Action<Week> OverrideFocusGlobally;
         public static Action<Week> OverrideHoverGlobally;
         public static Func<Week, bool> OverrideIsDisabledGlobally;
         public static Func<Week, string> OverrideValueGlobally;
@@ -33,7 +32,6 @@ namespace Bellatrix.Web
         public static Func<Week, string> OverrideMinGlobally;
         public static Func<Week, int?> OverrideStepGlobally;
 
-        public static Action<Week> OverrideFocusLocally;
         public static Action<Week> OverrideHoverLocally;
         public static Func<Week, bool> OverrideIsDisabledLocally;
         public static Func<Week, string> OverrideValueLocally;
@@ -48,14 +46,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingWeek;
         public static event EventHandler<ElementActionEventArgs> WeekSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -87,12 +82,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -187,8 +176,6 @@ namespace Bellatrix.Web
         protected virtual string DefaultGetMin(Week week) => DefaultGetMinAsString(week);
 
         protected virtual int? DefaultGetStep(Week week) => base.DefaultGetStep(week);
-
-        protected virtual void DefaultFocus(Week week) => DefaultFocus(week, Focusing, Focused);
 
         protected virtual void DefaultHover(Week week) => DefaultHover(week, Hovering, Hovered);
 

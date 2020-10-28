@@ -11,17 +11,19 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.BugReporting;
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
-using Bellatrix.Logging;
 
-namespace Bellatrix.Desktop.BddLogging
+namespace Bellatrix.Desktop.BugReporting
 {
     public class BugReportingElementEventHandlers : ElementEventHandlers
     {
-        protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
-
         protected override void ScrollingToVisibleEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Scroll to visible {arg.Element.ElementName} on {arg.Element.PageName}");
+
+        protected override void ClickingEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Click {arg.Element.ElementName} on {arg.Element.PageName}");
+
+        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Hover {arg.Element.ElementName} on {arg.Element.PageName}");
+
+        protected override void FocusingEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Focus {arg.Element.ElementName} on {arg.Element.PageName}");
     }
 }

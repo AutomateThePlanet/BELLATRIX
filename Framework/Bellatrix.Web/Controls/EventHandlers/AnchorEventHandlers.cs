@@ -24,8 +24,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Anchor.Clicked += ClickedEventHandler;
             Anchor.Hovering += HoveringEventHandler;
             Anchor.Hovered += HoveredEventHandler;
-            Anchor.Focusing += FocusingEventHandler;
-            Anchor.Focused += FocusedEventHandler;
         }
 
         public override void UnsubscribeToAll()
@@ -35,32 +33,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Anchor.Clicked -= ClickedEventHandler;
             Anchor.Hovering -= HoveringEventHandler;
             Anchor.Hovered -= HoveredEventHandler;
-            Anchor.Focusing -= FocusingEventHandler;
-            Anchor.Focused -= FocusedEventHandler;
-        }
-
-        protected virtual void ClickingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void ClickedEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
-        {
         }
     }
 }

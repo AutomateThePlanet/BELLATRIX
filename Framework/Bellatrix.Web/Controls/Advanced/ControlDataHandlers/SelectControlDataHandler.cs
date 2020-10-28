@@ -19,9 +19,14 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
 {
     public class SelectControlDataHandler : IEditableControlDataHandler<Select>
     {
-        public dynamic GetData(Select element) => element.GetSelected().InnerText.Trim();
+        public virtual dynamic GetData(Select element)
+        {
+            var value = element.GetSelected().InnerText.Trim();
 
-        public void SetData(Select element, string data)
+            return value;
+        }
+
+        public virtual void SetData(Select element, string data)
         {
             element.SelectByText(data);
         }

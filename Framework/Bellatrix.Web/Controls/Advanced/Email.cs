@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Email : Element, IElementDisabled, IElementValue, IElementEmail, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementSize, IElementPlaceholder
     {
-        public static Action<Email> OverrideFocusGlobally;
         public static Action<Email> OverrideHoverGlobally;
         public static Func<Email, bool> OverrideIsDisabledGlobally;
         public static Func<Email, string> OverrideValueGlobally;
@@ -34,7 +33,6 @@ namespace Bellatrix.Web
         public static Func<Email, int?> OverrideSizeGlobally;
         public static Func<Email, string> OverridePlaceholderGlobally;
 
-        public static Action<Email> OverrideFocusLocally;
         public static Action<Email> OverrideHoverLocally;
         public static Func<Email, bool> OverrideIsDisabledLocally;
         public static Func<Email, string> OverrideValueLocally;
@@ -50,14 +48,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingEmail;
         public static event EventHandler<ElementActionEventArgs> EmailSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -89,12 +84,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -201,8 +190,6 @@ namespace Bellatrix.Web
         protected virtual int? DefaultGetSize(Email email) => base.DefaultGetSize(email);
 
         protected virtual string DefaultGetPlaceholder(Email email) => base.DefaultGetPlaceholder(email);
-
-        protected virtual void DefaultFocus(Email email) => DefaultFocus(email, Focusing, Focused);
 
         protected virtual void DefaultHover(Email email) => DefaultHover(email, Hovering, Hovered);
 

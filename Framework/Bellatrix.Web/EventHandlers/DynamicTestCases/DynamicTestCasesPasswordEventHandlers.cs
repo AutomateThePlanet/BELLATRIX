@@ -11,8 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.DynamicTestCases;
-using Bellatrix.Logging;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
@@ -20,12 +18,6 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class DynamicTestCasesPasswordEventHandlers : PasswordEventHandlers
     {
-        protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-
         protected override void SettingPasswordEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
-
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Hover {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
-
-        protected override void FocusingEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Focus {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
     }
 }

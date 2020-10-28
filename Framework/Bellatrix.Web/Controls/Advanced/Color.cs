@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Color : Element, IElementDisabled, IElementValue, IElementColor, IElementList, IElementAutoComplete, IElementRequired
     {
-        public static Action<Color> OverrideFocusGlobally;
         public static Action<Color> OverrideHoverGlobally;
         public static Func<Color, bool> OverrideIsDisabledGlobally;
         public static Func<Color, string> OverrideValueGlobally;
@@ -30,7 +29,6 @@ namespace Bellatrix.Web
         public static Func<Color, bool> OverrideIsAutoCompleteGlobally;
         public static Func<Color, bool> OverrideIsRequiredGlobally;
 
-        public static Action<Color> OverrideFocusLocally;
         public static Action<Color> OverrideHoverLocally;
         public static Func<Color, bool> OverrideIsDisabledLocally;
         public static Func<Color, string> OverrideValueLocally;
@@ -42,14 +40,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingColor;
         public static event EventHandler<ElementActionEventArgs> ColorSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -65,12 +60,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -141,8 +130,6 @@ namespace Bellatrix.Web
         protected virtual bool DefaultGetRequired(Color color) => base.DefaultGetRequired(color);
 
         protected virtual string DefaultGetList(Color color) => base.DefaultGetList(color);
-
-        protected virtual void DefaultFocus(Color color) => DefaultFocusJavaScript(color, Focusing, Focused);
 
         protected virtual void DefaultHover(Color color) => DefaultHover(color, Hovering, Hovered);
 

@@ -87,7 +87,7 @@ namespace Bellatrix.Benchmark
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                _currentTestExecutionProvider.TestInitFailed(ex, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions, ex.Message, ex.StackTrace);
+                _currentTestExecutionProvider.TestInitFailed(ex, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
                 throw;
             }
         }
@@ -110,7 +110,7 @@ namespace Bellatrix.Benchmark
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.TestCleanupFailed(ex, testName, testMethodMemberInfo, testClassType, _categories, _authors, _descriptions, consoleOutput, stackTrace);
+                _currentTestExecutionProvider.TestCleanupFailed(ex, testName, testMethodMemberInfo, testClassType, _categories, _authors, _descriptions);
                 throw;
             }
         }
@@ -125,16 +125,16 @@ namespace Bellatrix.Benchmark
                 _currentTestExecutionProvider = new TestWorkflowPluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                 MethodInfo testMethodMemberInfo = null;
-                _currentTestExecutionProvider.PreTestsArrange(ShortTestClassName, testMethodMemberInfo, testClassType);
+                _currentTestExecutionProvider.PreTestsArrange(testClassType);
                 TestsArrange();
-                _currentTestExecutionProvider.PostTestsArrange(ShortTestClassName, testMethodMemberInfo, testClassType);
-                _currentTestExecutionProvider.PreTestsAct(ShortTestClassName, testMethodMemberInfo, testClassType);
+                _currentTestExecutionProvider.PostTestsArrange(testClassType);
+                _currentTestExecutionProvider.PreTestsAct(testClassType);
                 TestsAct();
-                _currentTestExecutionProvider.PostTestsAct(ShortTestClassName, testMethodMemberInfo, testClassType);
+                _currentTestExecutionProvider.PostTestsAct(testClassType);
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.OnClassInitFailed(ex);
+                _currentTestExecutionProvider.TestsArrangeFailed(ex);
             }
         }
 

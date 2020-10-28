@@ -119,7 +119,7 @@ namespace Bellatrix.Web
 
         public GridRow GetRow(int rowIndex)
         {
-            string xpath = TableService.GetRow(rowIndex).GetXPath();
+            string xpath = $".{TableService.GetRow(rowIndex).GetXPath()}";
             GridRow row = this.CreateByXpath<GridRow>(xpath);
             row.SetParentGrid(this);
             row.Index = rowIndex;
@@ -259,6 +259,7 @@ namespace Bellatrix.Web
         public void AssertTable<TRowObject>(List<TRowObject> expectedEntities, params string[] propertiesNotToCompare)
             where TRowObject : new()
         {
+            ScrollToVisible();
             Assert.AreEqual(expectedEntities.Count, RowsCount, $"Expected rows count {expectedEntities.Count} but rows was {RowsCount}");
 
             for (int i = 0; i < RowsCount; i++)
@@ -270,22 +271,26 @@ namespace Bellatrix.Web
 
         public virtual void AssertIsEmpty()
         {
+            ScrollToVisible();
             Assert.AreEqual(0, RowsCount, $"Grid should be empty, but has {RowsCount} rows");
         }
 
         public virtual void AssertIsNotEmpty()
         {
+            ScrollToVisible();
             Assert.IsTrue(TableService.Rows.Any(), $"Grid has no rows");
         }
 
         public virtual void AssertRowsCount(int expectedRowsCount)
         {
-            Assert.AreEqual(expectedRowsCount, RowsCount, $"Grid should has {expectedRowsCount} rows, but has {RowsCount} rows");
+            ScrollToVisible();
+            Assert.AreEqual(expectedRowsCount, RowsCount, $"Grid should have {expectedRowsCount} rows, but has {RowsCount} rows");
         }
 
         public IList<TRowObject> GetItems<TRowObject>()
             where TRowObject : new()
         {
+            ScrollToVisible();
             return GetItems<TRowObject, GridRow>(GetRows().ToElementList());
         }
 
@@ -296,7 +301,10 @@ namespace Bellatrix.Web
 
             if (cells.Count != ControlColumnDataCollection.Count)
             {
-                CollectionAssert.AreEqual(cells, ControlColumnDataCollection.Select(c => c.HeaderName).ToList());
+                // Compare headers to determine why the cells count is different
+                var actual = TableService.Headers.Select(c => c.InnerText.Trim(" 0".ToCharArray())).ToList();
+                var expected = ControlColumnDataCollection.Select(c => c.HeaderName).ToList();
+                CollectionAssert.AreEqual(expected, actual, $"Expected: {expected.Stringify()}\r\nActual: {actual.Stringify()}");
             }
 
             var dto = new TRowObject();
@@ -353,7 +361,7 @@ namespace Bellatrix.Web
                     }
                     else
                     {
-                        elementValue = string.IsNullOrEmpty(htmlNodeValue) ? default : Convert.ChangeType(htmlNodeValue, type);
+                        elementValue = string.IsNullOrEmpty(htmlNodeValue) ? default : Convert.ChangeType(htmlNodeValue, type, CultureInfo.InvariantCulture);
                     }
 
                     propertyInfo.SetValue(dto, elementValue);

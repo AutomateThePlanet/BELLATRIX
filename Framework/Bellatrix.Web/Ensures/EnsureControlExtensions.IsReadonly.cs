@@ -22,14 +22,14 @@ namespace Bellatrix.Web
         public static void EnsureIsReadonly<T>(this T control, int? timeout = null, int? sleepInterval = null)
             where T : IElementReadonly, IElement
         {
-            WaitUntil(() => control.IsReadonly.Equals(true), "The control should be readonly but was NOT.", timeout, sleepInterval);
+            WaitUntil(() => control.IsReadonly.Equals(true), $"The control {control.ElementName} should be readonly but was NOT.", timeout, sleepInterval);
             EnsuredIsReadonlyEvent?.Invoke(control, new ElementActionEventArgs(control));
         }
 
         public static void EnsureIsNotReadonly<T>(this T control, int? timeout = null, int? sleepInterval = null)
             where T : IElementReadonly, IElement
         {
-            WaitUntil(() => !control.IsReadonly.Equals(true), "The control should be NOT readonly but was NOT.", timeout, sleepInterval);
+            WaitUntil(() => !control.IsReadonly.Equals(true), $"The control {control.ElementName} should be NOT readonly but was NOT.", timeout, sleepInterval);
             EnsuredIsNotReadonlyEvent?.Invoke(control, new ElementActionEventArgs(control));
         }
 

@@ -31,10 +31,6 @@ namespace Bellatrix.TestWorkflowPlugins
 
         public event EventHandler<TestWorkflowPluginEventArgs> TestCleanupFailedEvent;
 
-        public event EventHandler<Exception> ClassInitFailedEvent;
-
-        public event EventHandler<TestWorkflowPluginEventArgs> TestsArrangeFailedEvent;
-
         public event EventHandler<TestWorkflowPluginEventArgs> PreTestsActEvent;
 
         public event EventHandler<TestWorkflowPluginEventArgs> PreTestsArrangeEvent;
@@ -43,17 +39,33 @@ namespace Bellatrix.TestWorkflowPlugins
 
         public event EventHandler<TestWorkflowPluginEventArgs> PostTestsArrangeEvent;
 
-        public void PreTestsAct(string testName, MemberInfo testMethodMemberInfo, Type testClassType)
-            => RaiseTestEvent(PreTestsActEvent, TestOutcome.Unknown, testName, testMethodMemberInfo, testClassType);
+        public event EventHandler<TestWorkflowPluginEventArgs> PreTestsCleanupEvent;
 
-        public void PreTestsArrange(string testName, MemberInfo testMethodMemberInfo, Type testClassType)
-            => RaiseTestEvent(PreTestsArrangeEvent, TestOutcome.Unknown, testName, testMethodMemberInfo, testClassType);
+        public event EventHandler<TestWorkflowPluginEventArgs> PostTestsCleanupEvent;
+
+        public event EventHandler<Exception> TestsCleanupFailedEvent;
+
+        public event EventHandler<Exception> TestsArrangeFailedEvent;
+
+        public void PreTestsArrange(Type testClassType)
+            => RaiseClassTestEvent(PreTestsArrangeEvent, TestOutcome.Unknown, testClassType);
+
+        public void TestsArrangeFailed(Exception ex) => TestsArrangeFailedEvent.Invoke(this, ex);
+
+        public void PostTestsArrange(Type testClassType)
+            => RaiseClassTestEvent(PostTestsArrangeEvent, TestOutcome.Unknown, testClassType);
+
+        public void PreTestsAct(Type testClassType)
+            => RaiseClassTestEvent(PreTestsActEvent, TestOutcome.Unknown, testClassType);
+
+        public void PostTestsAct(Type testClassType)
+            => RaiseClassTestEvent(PostTestsActEvent, TestOutcome.Unknown, testClassType);
 
         public void PreTestInit(string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<string> categories, List<string> authors, List<string> descriptions)
             => RaiseTestEvent(PreTestInitEvent, TestOutcome.Unknown, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
 
-        public void TestInitFailed(Exception ex, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<string> categories, List<string> authors, List<string> descriptions, string message, string stackTrace)
-            => RaiseTestEvent(TestInitFailedEvent, ex, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions, message, stackTrace);
+        public void TestInitFailed(Exception ex, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<string> categories, List<string> authors, List<string> descriptions)
+            => RaiseTestEvent(TestInitFailedEvent, TestOutcome.Failed, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions, ex.Message, ex.StackTrace);
 
         public void PostTestInit(string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<string> categories, List<string> authors, List<string> descriptions)
             => RaiseTestEvent(PostTestInitEvent, TestOutcome.Unknown, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
@@ -61,36 +73,23 @@ namespace Bellatrix.TestWorkflowPlugins
         public void PreTestCleanup(TestOutcome testOutcome, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<string> categories, List<string> authors, List<string> descriptions, string message, string stackTrace, Exception exception)
             => RaiseTestEvent(PreTestCleanupEvent, testOutcome, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions, message, stackTrace, exception);
 
+        public void TestCleanupFailed(Exception ex, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<string> categories, List<string> authors, List<string> descriptions)
+            => RaiseTestEvent(TestCleanupFailedEvent, TestOutcome.Failed, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions, ex.Message, ex.StackTrace);
+
         public void PostTestCleanup(TestOutcome testOutcome, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<string> categories, List<string> authors, List<string> descriptions, string message, string stackTrace, Exception exception)
             => RaiseTestEvent(PostTestCleanupEvent, testOutcome, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions, message, stackTrace, exception);
 
-        public void TestCleanupFailed(Exception ex, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<string> categories, List<string> authors, List<string> descriptions, string message, string stackTrace)
-            => RaiseTestEvent(TestCleanupFailedEvent, ex, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions, message, stackTrace);
+        public void PreClassCleanup(Type testClassType)
+            => RaiseClassTestEvent(PreTestsCleanupEvent, TestOutcome.Unknown, testClassType);
 
-        public void OnClassInitFailed(Exception ex) => ClassInitFailedEvent?.Invoke(this, ex);
+        public void TestsCleanupFailed(Exception ex) => TestsCleanupFailedEvent?.Invoke(this, ex);
 
-        public void TestsArrangeFailed(Exception ex, string testName, MethodInfo testMethodMemberInfo, Type testClassType, List<string> categories, List<string> authors, List<string> descriptions, string message, string stackTrace)
-            => RaiseTestEvent(TestsArrangeFailedEvent, ex, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions, message, stackTrace);
+        public void PostClassCleanup(Type testClassType)
+            => RaiseClassTestEvent(PostTestsCleanupEvent, TestOutcome.Unknown, testClassType);
 
-        public void PostTestsAct(string testName, MemberInfo testMethodMemberInfo, Type testClassType)
-            => RaiseTestEvent(PostTestsActEvent, TestOutcome.Unknown, testName, testMethodMemberInfo, testClassType);
-
-        public void PostTestsArrange(string testName, MemberInfo testMethodMemberInfo, Type testClassType)
-            => RaiseTestEvent(PostTestsArrangeEvent, TestOutcome.Unknown, testName, testMethodMemberInfo, testClassType);
-
-        private void RaiseTestEvent(
-            EventHandler<TestWorkflowPluginEventArgs> eventHandler,
-            Exception exception,
-            string testName,
-            MemberInfo testMethodMemberInfo,
-            Type testClassType,
-            List<string> categories,
-            List<string> authors,
-            List<string> descriptions,
-            string message = null,
-            string stackTrace = null)
+        private void RaiseClassTestEvent(EventHandler<TestWorkflowPluginEventArgs> eventHandler, TestOutcome testOutcome, Type testClassType)
         {
-            var args = new TestWorkflowPluginEventArgs(exception, testName, testMethodMemberInfo, testClassType, message, stackTrace, categories, authors, descriptions);
+            var args = new TestWorkflowPluginEventArgs(testOutcome, testClassType);
             eventHandler?.Invoke(this, args);
         }
 
@@ -108,19 +107,6 @@ namespace Bellatrix.TestWorkflowPlugins
             Exception exception = null)
         {
             var args = new TestWorkflowPluginEventArgs(testOutcome, testName, testMethodMemberInfo, testClassType, message, stackTrace, exception, categories, authors, descriptions);
-            eventHandler?.Invoke(this, args);
-        }
-
-        private void RaiseTestEvent(
-            EventHandler<TestWorkflowPluginEventArgs> eventHandler,
-            TestOutcome testOutcome,
-            string testName,
-            MemberInfo testMethodMemberInfo,
-            Type testClassType,
-            string message = null,
-            string stackTrace = null)
-        {
-            var args = new TestWorkflowPluginEventArgs(testOutcome, testName, testMethodMemberInfo, testClassType, message, stackTrace);
             eventHandler?.Invoke(this, args);
         }
     }

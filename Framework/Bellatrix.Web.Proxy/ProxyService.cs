@@ -182,7 +182,7 @@ namespace Bellatrix.Web.Proxy
             => await Task.Run(
                 () =>
                 {
-                    if (_blockUrls.Count > 0)
+                    if (!_blockUrls.IsEmpty)
                     {
                         foreach (var urlToBeBlocked in _blockUrls)
                         {

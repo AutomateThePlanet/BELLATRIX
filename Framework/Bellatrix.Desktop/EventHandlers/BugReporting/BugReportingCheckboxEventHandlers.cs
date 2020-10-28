@@ -11,21 +11,15 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.BugReporting;
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
-using Bellatrix.Logging;
 
-namespace Bellatrix.Desktop.BddLogging
+namespace Bellatrix.Desktop.BugReporting
 {
     public class BugReportingCheckboxEventHandlers : CheckboxEventHandlers
     {
-        protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
-
         protected override void CheckingEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Check {arg.Element.ElementName} on {arg.Element.PageName}");
 
         protected override void UncheckingEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ElementName} on {arg.Element.PageName}");
-
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Hover {arg.Element.ElementName} on {arg.Element.PageName}");
     }
 }

@@ -23,29 +23,6 @@ namespace Bellatrix.TestWorkflowPlugins
         {
         }
 
-        public TestWorkflowPluginEventArgs(
-            Exception exception,
-            string testName,
-            MemberInfo testMethodMemberInfo,
-            Type testClassType,
-            string consoleOutputMessage,
-            string consoleOutputStackTrace,
-            List<string> categories,
-            List<string> authors,
-            List<string> descriptions)
-            : this(TestOutcome.Failed,
-                testName,
-                testMethodMemberInfo,
-                testClassType,
-                consoleOutputMessage,
-                consoleOutputStackTrace,
-                exception,
-                categories,
-                authors,
-                descriptions)
-        {
-        }
-
         public TestWorkflowPluginEventArgs(TestOutcome testOutcome,
             string testName,
             MemberInfo testMethodMemberInfo,
@@ -57,51 +34,33 @@ namespace Bellatrix.TestWorkflowPlugins
             List<string> authors,
             List<string> descriptions)
             : this(testOutcome,
-                testName,
-                testMethodMemberInfo,
                 testClassType,
                 consoleOutputMessage,
                 consoleOutputStackTrace)
         {
+            TestMethodMemberInfo = testMethodMemberInfo;
+            TestName = testName;
             Exception = exception;
             Categories = categories;
             Authors = authors;
             Descriptions = descriptions;
         }
 
-        public TestWorkflowPluginEventArgs(TestOutcome testOutcome,
-            string testName,
-            MemberInfo testMethodMemberInfo,
-            Type testClassType,
-            string consoleOutputMessage,
-            string consoleOutputStackTrace)
-            : this(testOutcome,
-                testName,
-                testMethodMemberInfo,
-                testClassType)
-        {
-            ConsoleOutputMessage = consoleOutputMessage;
-            ConsoleOutputStackTrace = consoleOutputStackTrace;
-        }
-
         public TestWorkflowPluginEventArgs(
             TestOutcome testOutcome,
-            string testName,
-            MemberInfo testMethodMemberInfo,
-            Type testClassType)
+            Type testClassType,
+            string consoleOutputMessage = null,
+            string consoleOutputStackTrace = null)
         {
             TestOutcome = testOutcome;
-            TestName = testName;
-            TestMethodMemberInfo = testMethodMemberInfo;
             TestClassType = testClassType;
             TestClassName = testClassType.FullName;
             TestFullName = $"{TestClassName}.{TestName}";
+            ConsoleOutputMessage = consoleOutputMessage;
+            ConsoleOutputStackTrace = consoleOutputStackTrace;
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
             ExecutionContext = Container.Resolve<ExecutionContext>();
         }
-
-        public TestWorkflowPluginEventArgs(MemberInfo testMethodMemberInfo)
-            => TestMethodMemberInfo = testMethodMemberInfo;
 
         public ExecutionContext ExecutionContext { get; set; }
 

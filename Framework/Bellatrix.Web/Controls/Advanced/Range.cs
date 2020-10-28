@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Range : Element, IElementDisabled, IElementValue, IElementRange, IElementList, IElementAutoComplete, IElementRequired, IElementMax, IElementMin, IElementStep
     {
-        public static Action<Range> OverrideFocusGlobally;
         public static Action<Range> OverrideHoverGlobally;
         public static Func<Range, bool> OverrideIsDisabledGlobally;
         public static Func<Range, string> OverrideValueGlobally;
@@ -33,7 +32,6 @@ namespace Bellatrix.Web
         public static Func<Range, int?> OverrideMinGlobally;
         public static Func<Range, int?> OverrideStepGlobally;
 
-        public static Action<Range> OverrideFocusLocally;
         public static Action<Range> OverrideHoverLocally;
         public static Func<Range, bool> OverrideIsDisabledLocally;
         public static Func<Range, string> OverrideValueLocally;
@@ -48,14 +46,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingRange;
         public static event EventHandler<ElementActionEventArgs> RangeSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -86,12 +81,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -186,8 +175,6 @@ namespace Bellatrix.Web
         protected virtual string DefaultGetList(Range range) => base.DefaultGetList(range);
 
         protected virtual int? DefaultGetStep(Range range) => base.DefaultGetStep(range);
-
-        protected virtual void DefaultFocus(Range range) => DefaultFocusJavaScript(range, Focusing, Focused);
 
         protected virtual void DefaultHover(Range range) => DefaultHover(range, Hovering, Hovered);
 

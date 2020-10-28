@@ -21,14 +21,10 @@ namespace Bellatrix.Web
 {
     public class TestExecutionEngine
     {
-        private IWebDriver _wrappedDriver;
-        private IServicesCollection _childContainer;
-
         public void StartBrowser(BrowserConfiguration browserConfiguration, IServicesCollection childContainer)
         {
             try
             {
-                _childContainer = childContainer;
                 var wrappedWebDriver = WrappedWebDriverCreateService.Create(browserConfiguration);
 
                 childContainer.RegisterInstance<IWebDriver>(wrappedWebDriver);
@@ -42,7 +38,6 @@ namespace Bellatrix.Web
                 childContainer.RegisterInstance(new InteractionsService(wrappedWebDriver));
                 childContainer.RegisterInstance(new NavigationService(wrappedWebDriver));
                 childContainer.RegisterInstance(new ElementCreateService());
-                _wrappedDriver = childContainer.Resolve<IWebDriver>();
                 childContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(wrappedWebDriver));
                 childContainer.RegisterNull<int?>();
                 childContainer.RegisterNull<IWebElement>();

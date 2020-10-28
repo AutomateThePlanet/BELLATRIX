@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Range.Hovering += HoveringEventHandler;
             Range.Hovered += HoveredEventHandler;
-            Range.Focusing += FocusingEventHandler;
-            Range.Focused += FocusedEventHandler;
             Range.SettingRange += SettingRangeEventHandler;
             Range.RangeSet += RangeSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Range.Hovering -= HoveringEventHandler;
             Range.Hovered -= HoveredEventHandler;
-            Range.Focusing -= FocusingEventHandler;
-            Range.Focused -= FocusedEventHandler;
             Range.SettingRange -= SettingRangeEventHandler;
             Range.RangeSet -= RangeSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void RangeSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

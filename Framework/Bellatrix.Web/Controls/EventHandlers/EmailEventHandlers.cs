@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Email.Hovering += HoveringEventHandler;
             Email.Hovered += HoveredEventHandler;
-            Email.Focusing += FocusingEventHandler;
-            Email.Focused += FocusedEventHandler;
             Email.SettingEmail += SettingEmailEventHandler;
             Email.EmailSet += EmailSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Email.Hovering -= HoveringEventHandler;
             Email.Hovered -= HoveredEventHandler;
-            Email.Focusing -= FocusingEventHandler;
-            Email.Focused -= FocusedEventHandler;
             Email.SettingEmail -= SettingEmailEventHandler;
             Email.EmailSet -= EmailSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void EmailSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

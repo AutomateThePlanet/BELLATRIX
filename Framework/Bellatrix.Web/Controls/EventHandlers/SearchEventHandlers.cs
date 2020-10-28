@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Search.Hovering += HoveringEventHandler;
             Search.Hovered += HoveredEventHandler;
-            Search.Focusing += FocusingEventHandler;
-            Search.Focused += FocusedEventHandler;
             Search.SettingSearch += SettingSearchEventHandler;
             Search.SearchSet += SearchSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Search.Hovering -= HoveringEventHandler;
             Search.Hovered -= HoveredEventHandler;
-            Search.Focusing -= FocusingEventHandler;
-            Search.Focused -= FocusedEventHandler;
             Search.SettingSearch -= SettingSearchEventHandler;
             Search.SearchSet -= SearchSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void SearchSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

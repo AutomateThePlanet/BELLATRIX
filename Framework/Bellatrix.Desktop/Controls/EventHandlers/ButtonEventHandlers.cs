@@ -34,21 +34,5 @@ namespace Bellatrix.Desktop.EventHandlers
             Button.Hovering -= HoveringEventHandler;
             Button.Hovered -= HoveredEventHandler;
         }
-
-        protected virtual void ClickingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void ClickedEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
     }
 }

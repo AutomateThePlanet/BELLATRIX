@@ -26,7 +26,8 @@ namespace Bellatrix.Web
     {
         private Table _parentTable;
         private HeaderNamesService _headerNamesService;
-        private ElementsList<TableCell> _tableCells = null;
+        private ElementsList<TableCell> _tableCells;
+
         protected virtual ElementsList<TableCell> TableCells => _tableCells ?? this.CreateAllByXpath<TableCell>("./td", true);
         public static Func<TableRow, string> OverrideInnerHtmlGlobally;
         public static Func<TableRow, string> OverrideInnerHtmlLocally;

@@ -11,7 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.Logging;
 using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
@@ -20,8 +19,6 @@ namespace Bellatrix.Mobile.BddLogging.Android
 {
     public class BDDLoggingToggleButtonEventHandlers : ToggleButtonEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         protected override void TurningOnEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn on {arg.Element.ElementName} on {arg.Element.PageName}");
 
         protected override void TurningOffEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn off {arg.Element.ElementName} on {arg.Element.PageName}");

@@ -38,18 +38,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-        <ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
-        <ProjectReference Include="..\Bellatrix.MachineAutomation\Bellatrix.MachineAutomation.csproj" />
-        <ProjectReference Include="..\Bellatrix.Mobile.TestExecutionExtensions\Bellatrix.Mobile.TestExecutionExtensions.csproj" />
-        <ProjectReference Include="..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
-        <ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
-        <ProjectReference Include="..\Bellatrix.NUnit\Bellatrix.NUnit.csproj" />
-        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Common\Bellatrix.TestExecutionExtensions.Common.csproj" />
-        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
-        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots\Bellatrix.TestExecutionExtensions.Screenshots.csproj" />
-        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video\Bellatrix.TestExecutionExtensions.Video.csproj" />
-        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
-        <ProjectReference Include="..\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
+      <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+      <ProjectReference Include="..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
+      <ProjectReference Include="..\Bellatrix.NUnit\Bellatrix.NUnit.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 </Project>

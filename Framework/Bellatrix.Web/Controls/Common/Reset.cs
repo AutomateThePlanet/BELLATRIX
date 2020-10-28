@@ -21,14 +21,12 @@ namespace Bellatrix.Web
     public class Reset : Element, IElementDisabled, IElementInnerText, IElementValue
     {
         public static Action<Reset> OverrideClickGlobally;
-        public static Action<Reset> OverrideFocusGlobally;
         public static Action<Reset> OverrideHoverGlobally;
         public static Func<Reset, string> OverrideInnerTextGlobally;
         public static Func<Reset, bool> OverrideIsDisabledGlobally;
         public static Func<Reset, string> OverrideValueGlobally;
 
         public static Action<Reset> OverrideClickLocally;
-        public static Action<Reset> OverrideFocusLocally;
         public static Action<Reset> OverrideHoverLocally;
         public static Func<Reset, string> OverrideInnerTextLocally;
         public static Func<Reset, bool> OverrideIsDisabledLocally;
@@ -38,13 +36,10 @@ namespace Bellatrix.Web
         public static event EventHandler<ElementActionEventArgs> Clicked;
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
 
         public static new void ClearLocalOverrides()
         {
             OverrideClickLocally = null;
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideInnerTextLocally = null;
             OverrideIsDisabledLocally = null;
@@ -62,12 +57,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -102,8 +91,6 @@ namespace Bellatrix.Web
         }
 
         protected virtual void DefaultClick(Reset button) => DefaultClick(button, Clicking, Clicked);
-
-        protected virtual void DefaultFocus(Reset button) => DefaultFocus(button, Focusing, Focused);
 
         protected virtual void DefaultHover(Reset button) => DefaultHover(button, Hovering, Hovered);
 

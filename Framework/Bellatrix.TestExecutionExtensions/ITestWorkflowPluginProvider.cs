@@ -29,10 +29,6 @@ namespace Bellatrix.TestWorkflowPlugins
 
         event EventHandler<TestWorkflowPluginEventArgs> TestCleanupFailedEvent;
 
-        event EventHandler<Exception> ClassInitFailedEvent;
-
-        event EventHandler<TestWorkflowPluginEventArgs> TestsArrangeFailedEvent;
-
         event EventHandler<TestWorkflowPluginEventArgs> PreTestsActEvent;
 
         event EventHandler<TestWorkflowPluginEventArgs> PreTestsArrangeEvent;
@@ -40,5 +36,13 @@ namespace Bellatrix.TestWorkflowPlugins
         event EventHandler<TestWorkflowPluginEventArgs> PostTestsActEvent;
 
         event EventHandler<TestWorkflowPluginEventArgs> PostTestsArrangeEvent;
+
+        event EventHandler<TestWorkflowPluginEventArgs> PreTestsCleanupEvent;
+
+        event EventHandler<TestWorkflowPluginEventArgs> PostTestsCleanupEvent;
+
+        event EventHandler<Exception> TestsCleanupFailedEvent;
+
+        event EventHandler<Exception> TestsArrangeFailedEvent;
     }
 }

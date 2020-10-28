@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Search : Element, IElementDisabled, IElementValue, IElementSearch, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementSize, IElementPlaceholder
     {
-        public static Action<Search> OverrideFocusGlobally;
         public static Action<Search> OverrideHoverGlobally;
         public static Func<Search, bool> OverrideIsDisabledGlobally;
         public static Func<Search, string> OverrideValueGlobally;
@@ -34,7 +33,6 @@ namespace Bellatrix.Web
         public static Func<Search, int?> OverrideSizeGlobally;
         public static Func<Search, string> OverridePlaceholderGlobally;
 
-        public static Action<Search> OverrideFocusLocally;
         public static Action<Search> OverrideHoverLocally;
         public static Func<Search, bool> OverrideIsDisabledLocally;
         public static Func<Search, string> OverrideValueLocally;
@@ -50,14 +48,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingSearch;
         public static event EventHandler<ElementActionEventArgs> SearchSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -89,12 +84,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -201,8 +190,6 @@ namespace Bellatrix.Web
         protected virtual int? DefaultGetSize(Search search) => base.DefaultGetSize(search);
 
         protected virtual string DefaultGetPlaceholder(Search search) => base.DefaultGetPlaceholder(search);
-
-        protected virtual void DefaultFocus(Search search) => DefaultFocus(search, Focusing, Focused);
 
         protected virtual void DefaultHover(Search search) => DefaultHover(search, Hovering, Hovered);
 

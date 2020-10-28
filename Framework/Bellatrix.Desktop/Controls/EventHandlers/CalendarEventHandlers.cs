@@ -30,13 +30,5 @@ namespace Bellatrix.Desktop.EventHandlers
             Calendar.Hovering -= HoveringEventHandler;
             Calendar.Hovered -= HoveredEventHandler;
         }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
     }
 }

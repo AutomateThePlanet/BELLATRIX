@@ -13,15 +13,17 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
-using Bellatrix.DynamicTestCases;
-using Bellatrix.Logging;
 
-namespace Bellatrix.Desktop.BddLogging
+namespace Bellatrix.Desktop.DynamicTestCases
 {
     public class DynamicTestCasesElementEventHandlers : ElementEventHandlers
     {
-        protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-
         protected override void ScrollingToVisibleEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Scroll to visible {arg.Element.ElementName} on {arg.Element.PageName}");
+
+        protected override void ClickingEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ElementName} on {arg.Element.PageName}");
+
+        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Hover {arg.Element.ElementName} on {arg.Element.PageName}");
+
+        protected override void FocusingEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Focus {arg.Element.ElementName} on {arg.Element.PageName}");
     }
 }

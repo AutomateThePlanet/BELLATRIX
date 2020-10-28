@@ -56,6 +56,7 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
         protected override void EnsuredTextIsEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Ensure {arg.Element.ElementName} text is '{arg.ActionValue}'");
 
         protected override void EnsuredTextContainsEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Ensure {arg.Element.ElementName} text contains '{arg.ActionValue}'");
+
         protected override void EnsuredTextNotContainsEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Ensure {arg.Element.ElementName} text doesn't contain '{arg.ActionValue}'");
 
         protected override void EnsuredTargetIsNullEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Ensure {arg.Element.ElementName} target is NULL");

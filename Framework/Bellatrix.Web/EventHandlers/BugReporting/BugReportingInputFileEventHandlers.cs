@@ -11,8 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.BugReporting;
-using Bellatrix.Logging;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
@@ -20,8 +18,6 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BugReportingInputFileEventHandlers : InputFileEventHandlers
     {
-        protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
-
         protected override void UploadingEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"I upload '{arg.ActionValue}' for {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
     }
 }

@@ -25,12 +25,19 @@
 
     <ItemGroup>
         <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1301" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.9" />
         <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
         <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 </Project>

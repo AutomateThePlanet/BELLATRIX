@@ -23,9 +23,8 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Bellatrix.Web
 {
-    public class Select : Element, IElementDisabled, IElementRequired
+    public class Select : Element, IElementDisabled, IElementRequired, IElementReadonly
     {
-        public static Action<Select> OverrideFocusGlobally;
         public static Action<Select> OverrideHoverGlobally;
         public static Func<Select, Option> OverrideGetSelectedValueGlobally;
         public static Func<Select, List<Option>> OverrideGetAllOptionsGlobally;
@@ -33,8 +32,8 @@ namespace Bellatrix.Web
         public static Action<Select, int> OverrideSelectByIndexGlobally;
         public static Func<Select, bool> OverrideIsRequiredGlobally;
         public static Func<Select, bool> OverrideIsDisabledGlobally;
+        public static Func<Select, bool> OverrideIsReadonlyGlobally;
 
-        public static Action<Select> OverrideFocusLocally;
         public static Action<Select> OverrideHoverLocally;
         public static Func<Select, Option> OverrideGetSelectedValueLocally;
         public static Func<Select, List<Option>> OverrideGetAllOptionsLocally;
@@ -42,17 +41,15 @@ namespace Bellatrix.Web
         public static Action<Select, int> OverrideSelectByIndexLocally;
         public static Func<Select, bool> OverrideIsRequiredLocally;
         public static Func<Select, bool> OverrideIsDisabledLocally;
+        public static Func<Select, bool> OverrideIsReadonlyLocally;
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> Selecting;
         public static event EventHandler<ElementActionEventArgs> Selected;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideGetSelectedValueLocally = null;
             OverrideGetAllOptionsLocally = null;
@@ -67,12 +64,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -116,6 +107,15 @@ namespace Bellatrix.Web
             get
             {
                 var action = InitializeAction(this, OverrideIsRequiredGlobally, OverrideIsRequiredLocally, DefaultGetRequired);
+                return action();
+            }
+        }
+
+        public bool IsReadonly
+        {
+            get
+            {
+                var action = InitializeAction(this, OverrideIsReadonlyGlobally, OverrideIsReadonlyLocally, DefaultGetReadonly);
                 return action();
             }
         }
@@ -174,8 +174,6 @@ namespace Bellatrix.Web
             ShouldCacheElement = false;
             Selected?.Invoke(this, new ElementActionEventArgs(select, nativeSelect.SelectedOption.Text));
         }
-
-        protected virtual void DefaultFocus(Select select) => DefaultFocus(select, Focusing, Focused);
 
         protected virtual void DefaultHover(Select select) => DefaultHover(select, Hovering, Hovered);
 
@@ -353,7 +351,7 @@ namespace Bellatrix.Web
         {
             StringBuilder builder = new StringBuilder(".//option[@value = ");
             builder.Append(EscapeQuotes(value));
-            builder.Append("]");
+            builder.Append(']');
             IList<IWebElement> options = _element.FindElements(OpenQA.Selenium.By.XPath(builder.ToString()));
 
             bool matched = false;
@@ -435,7 +433,7 @@ namespace Bellatrix.Web
             bool matched = false;
             StringBuilder builder = new StringBuilder(".//option[normalize-space(.) = ");
             builder.Append(EscapeQuotes(text));
-            builder.Append("]");
+            builder.Append(']');
             IList<IWebElement> options = _element.FindElements(OpenQA.Selenium.By.XPath(builder.ToString()));
             foreach (IWebElement option in options)
             {
@@ -471,7 +469,7 @@ namespace Bellatrix.Web
             bool matched = false;
             StringBuilder builder = new StringBuilder(".//option[@value = ");
             builder.Append(EscapeQuotes(value));
-            builder.Append("]");
+            builder.Append(']');
             IList<IWebElement> options = _element.FindElements(OpenQA.Selenium.By.XPath(builder.ToString()));
             foreach (IWebElement option in options)
             {
@@ -536,7 +534,7 @@ namespace Bellatrix.Web
                 StringBuilder quoted = new StringBuilder("concat(");
                 for (int i = 0; i < substrings.Count; i++)
                 {
-                    quoted.Append("\"").Append(substrings[i]).Append("\"");
+                    quoted.Append('"').Append(substrings[i]).Append('"');
                     if (i == substrings.Count - 1)
                     {
                         if (quoteIsLast)
@@ -545,7 +543,7 @@ namespace Bellatrix.Web
                         }
                         else
                         {
-                            quoted.Append(")");
+                            quoted.Append(')');
                         }
                     }
                     else

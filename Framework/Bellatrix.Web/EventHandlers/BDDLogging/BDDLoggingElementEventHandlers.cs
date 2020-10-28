@@ -11,7 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.Logging;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
@@ -19,8 +18,12 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BDDLoggingElementEventHandlers : AnchorEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         protected override void ScrollingToVisibleEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Scroll to visible {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+
+        protected override void ClickingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Click {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+
+        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+
+        protected override void FocusingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Focus {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
     }
 }

@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Month : Element, IElementDisabled, IElementValue, IElementMonth, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxText, IElementMinText, IElementStep
     {
-        public static Action<Month> OverrideFocusGlobally;
         public static Action<Month> OverrideHoverGlobally;
         public static Func<Month, bool> OverrideIsDisabledGlobally;
         public static Func<Month, string> OverrideValueGlobally;
@@ -33,7 +32,6 @@ namespace Bellatrix.Web
         public static Func<Month, string> OverrideMinGlobally;
         public static Func<Month, int?> OverrideStepGlobally;
 
-        public static Action<Month> OverrideFocusLocally;
         public static Action<Month> OverrideHoverLocally;
         public static Func<Month, bool> OverrideIsDisabledLocally;
         public static Func<Month, string> OverrideValueLocally;
@@ -48,14 +46,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingMonth;
         public static event EventHandler<ElementActionEventArgs> MonthSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -86,12 +81,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -186,8 +175,6 @@ namespace Bellatrix.Web
         protected virtual string DefaultGetMin(Month month) => DefaultGetMinAsString(month);
 
         protected virtual int? DefaultGetStep(Month month) => base.DefaultGetStep(month);
-
-        protected virtual void DefaultFocus(Month month) => DefaultFocus(month, Focusing, Focused);
 
         protected virtual void DefaultHover(Month month) => DefaultHover(month, Hovering, Hovered);
 

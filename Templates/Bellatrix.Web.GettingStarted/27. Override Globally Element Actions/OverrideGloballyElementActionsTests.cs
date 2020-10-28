@@ -22,10 +22,10 @@ namespace Bellatrix.Web.GettingStarted
             ////    App.JavaScriptService.Execute("arguments[0].click();", e);
             ////};
 
-            // 3. Override the anchor Focus method by assigning a local private function to the global delegate.
+            // 3. Override the element Focus method by assigning a local private function to the global delegate.
             // Note 1: Keep in mind that once the control is overridden globally, all tests call your custom logic, the default behaviour is gone.
             // Note 2: Usually, we assign the control overrides in the AssemblyInitialize method which is called once for a test run.
-            Anchor.OverrideFocusGlobally = CustomFocus;
+            Element.OverrideFocusGlobally = CustomFocus;
 
             // 4. Here is a list of all global override Button delegates:
             // OverrideClickGlobally
@@ -36,10 +36,10 @@ namespace Bellatrix.Web.GettingStarted
             // OverrideValueGlobally
         }
 
-        private void CustomFocus(Anchor anchor)
+        private void CustomFocus(Element element)
         {
             App.JavaScriptService.Execute("window.focus();");
-            App.JavaScriptService.Execute("arguments[0].focus();", anchor);
+            App.JavaScriptService.Execute("arguments[0].focus();", element);
         }
 
         [TestMethod]

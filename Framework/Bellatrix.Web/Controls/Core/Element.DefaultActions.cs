@@ -46,7 +46,7 @@ namespace Bellatrix.Web
         {
             try
             {
-                return GetAndWaitWebDriverElement(true) != null;
+                return GetAndWaitWebDriverElement(false) != null;
             }
             catch
             {
@@ -91,10 +91,9 @@ namespace Bellatrix.Web
             clicked?.Invoke(this, new ElementActionEventArgs(element));
         }
 
-        internal void DefaultFocus<TElement>(TElement element, EventHandler<ElementActionEventArgs> focusing, EventHandler<ElementActionEventArgs> focused)
-            where TElement : Element
+        internal void DefaultFocus(Element element)
         {
-            focusing?.Invoke(this, new ElementActionEventArgs(element));
+            Focusing?.Invoke(this, new ElementActionEventArgs(element));
 
             var remoteElement = (RemoteWebElement)element.ToBeClickable().WrappedElement;
 
@@ -110,7 +109,7 @@ namespace Bellatrix.Web
                 remoteElement.SendKeys(Keys.Space);
             }
 
-            focused?.Invoke(this, new ElementActionEventArgs(element));
+            Focused?.Invoke(this, new ElementActionEventArgs(element));
         }
 
         internal void DefaultFocusJavaScript<TElement>(TElement element, EventHandler<ElementActionEventArgs> focusing, EventHandler<ElementActionEventArgs> focused)
@@ -201,7 +200,7 @@ namespace Bellatrix.Web
             where TElement : Element
             => string.IsNullOrEmpty(output.GetAttribute("for")) ? null : output.GetAttribute("for");
 
-        internal bool DefaultIsDisabled<TElement>(TElement element)
+        protected bool DefaultIsDisabled<TElement>(TElement element)
             where TElement : Element
         {
             string valueAttr = WrappedElement.GetAttribute("disabled");

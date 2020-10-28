@@ -11,19 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.BugReporting;
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
-using Bellatrix.Logging;
 
 namespace Bellatrix.Desktop.BddLogging
 {
     public class BugReportingPasswordEventHandlers : PasswordEventHandlers
     {
-        protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
-
         protected override void SettingPasswordEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
-
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Hover {arg.Element.ElementName} on {arg.Element.PageName}");
-    }
+}
 }

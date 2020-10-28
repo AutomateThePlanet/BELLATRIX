@@ -33,4 +33,11 @@
         <ProjectReference Include="..\Bellatrix.Layout\Bellatrix.Layout.csproj" />
         <ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
 </Project>

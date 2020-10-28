@@ -12,7 +12,7 @@ namespace Bellatrix.NUnit
     {
         public override void AddTestAttachment(string filePath)
         {
-            if (GetTestClassName() != null)
+            if (GetTestClassName() != null && !string.IsNullOrEmpty(filePath))
             {
                 TestContext.AddTestAttachment(filePath);
             }

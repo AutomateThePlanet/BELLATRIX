@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SpecFlow" Version="3.3.30" />
+    <PackageReference Include="SpecFlow" Version="3.4.14" />
     <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
   </ItemGroup>
 
@@ -38,5 +38,12 @@
     <ProjectReference Include="..\Bellatrix.Data\Bellatrix.Data.csproj" />
     <ProjectReference Include="..\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
     <ProjectReference Include="..\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

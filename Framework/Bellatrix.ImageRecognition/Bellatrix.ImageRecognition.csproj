@@ -26,12 +26,19 @@
 
   <ItemGroup>
     <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
     <ProjectReference Include="..\Bellatrix.Infrastructure\Bellatrix.Infrastructure.csproj" />
     <ProjectReference Include="..\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

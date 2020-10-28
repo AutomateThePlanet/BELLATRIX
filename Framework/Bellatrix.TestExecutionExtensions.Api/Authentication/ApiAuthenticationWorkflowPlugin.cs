@@ -22,7 +22,7 @@ namespace Bellatrix.TestExecutionExtensions.Api
     {
         protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
         {
-            var authenticator = GetAuthenticatorByType(e.TestMethodMemberInfo.DeclaringType);
+            var authenticator = GetAuthenticatorByType(e.TestClassType);
             if (authenticator != null)
             {
                 e.Container.RegisterInstance(authenticator);

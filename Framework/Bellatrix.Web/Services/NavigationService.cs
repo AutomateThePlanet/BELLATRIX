@@ -47,7 +47,7 @@ namespace Bellatrix.Web
                 string execDir = ServicesCollection.Main.Resolve<string>("ExecutionDirectory");
                 if (Directory.Exists(execDir))
                 {
-                     path = ServicesCollection.Main.Resolve<string>("ExecutionDirectory");
+                    path = ServicesCollection.Main.Resolve<string>("ExecutionDirectory");
                 }
             }
 

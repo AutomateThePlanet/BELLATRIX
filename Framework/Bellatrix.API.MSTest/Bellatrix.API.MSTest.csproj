@@ -30,12 +30,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Bellatrix.Api\Bellatrix.API.csproj" />
-        <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-        <ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
-        <ProjectReference Include="..\Bellatrix.MachineAutomation\Bellatrix.MachineAutomation.csproj" />
-        <ProjectReference Include="..\Bellatrix.MSTest\Bellatrix.MSTest.csproj" />
-        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Api\Bellatrix.TestExecutionExtensions.API.csproj" />
-        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Common\Bellatrix.TestExecutionExtensions.Common.csproj" />
+      <ProjectReference Include="..\Bellatrix.Api\Bellatrix.API.csproj" />
+      <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+      <ProjectReference Include="..\Bellatrix.MSTest\Bellatrix.MSTest.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 </Project>

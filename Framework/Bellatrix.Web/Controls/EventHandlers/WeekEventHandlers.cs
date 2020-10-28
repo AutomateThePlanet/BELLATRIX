@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Week.Hovering += HoveringEventHandler;
             Week.Hovered += HoveredEventHandler;
-            Week.Focusing += FocusingEventHandler;
-            Week.Focused += FocusedEventHandler;
             Week.SettingWeek += SettingWeekEventHandler;
             Week.WeekSet += WeekSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Week.Hovering -= HoveringEventHandler;
             Week.Hovered -= HoveredEventHandler;
-            Week.Focusing -= FocusingEventHandler;
-            Week.Focused -= FocusedEventHandler;
             Week.SettingWeek -= SettingWeekEventHandler;
             Week.WeekSet -= WeekSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void WeekSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

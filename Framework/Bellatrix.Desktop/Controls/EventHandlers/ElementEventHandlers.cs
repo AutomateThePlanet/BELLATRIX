@@ -11,12 +11,20 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using Bellatrix.BugReporting;
 using Bellatrix.Desktop.Events;
+using Bellatrix.DynamicTestCases;
+using Bellatrix.Logging;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
     public class ElementEventHandlers : IControlEventHandlers
     {
+        // These three properties were added to reduce code duplication in child classes and improve readability. However, we realize that the SOLID principles are not followed thoroughly.
+        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
+        protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
+        protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+
         public virtual void SubscribeToAll()
         {
             Element.ScrollingToVisible += ScrollingToVisibleEventHandler;
@@ -64,6 +72,30 @@ namespace Bellatrix.Desktop.EventHandlers
         }
 
         protected virtual void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs arg)
+        {
+        }
+
+        protected virtual void ClickingEventHandler(object sender, ElementActionEventArgs arg)
+        {
+        }
+
+        protected virtual void ClickedEventHandler(object sender, ElementActionEventArgs arg)
+        {
+        }
+
+        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
+        {
+        }
+
+        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
+        {
+        }
+
+        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
+        {
+        }
+
+        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

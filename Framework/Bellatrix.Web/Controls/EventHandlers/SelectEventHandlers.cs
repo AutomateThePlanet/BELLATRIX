@@ -24,8 +24,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Select.Selected += SelectedEventHandler;
             Select.Hovering += HoveringEventHandler;
             Select.Hovered += HoveredEventHandler;
-            Select.Focusing += FocusingEventHandler;
-            Select.Focused += FocusedEventHandler;
         }
 
         public override void UnsubscribeToAll()
@@ -35,8 +33,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Select.Selected -= SelectedEventHandler;
             Select.Hovering -= HoveringEventHandler;
             Select.Hovered -= HoveredEventHandler;
-            Select.Focusing -= FocusingEventHandler;
-            Select.Focused -= FocusedEventHandler;
         }
 
         protected virtual void SelectingEventHandler(object sender, ElementActionEventArgs arg)
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void SelectedEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

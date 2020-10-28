@@ -50,7 +50,7 @@ namespace Bellatrix
 
             var testMethodMemberInfo = GetCurrentExecutionMethodInfo(ЕxecutionContext);
             var testClassType = GetCurrentExecutionTestClassType(ЕxecutionContext);
-            ExecuteActArrangePhases(testMethodMemberInfo);
+            ExecuteActArrangePhases();
 
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
             Container.RegisterInstance<ExecutionContext>(ЕxecutionContext);
@@ -69,7 +69,7 @@ namespace Bellatrix
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.TestInitFailed(ex, ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions, ex.Message, ex.StackTrace);
+                _currentTestExecutionProvider.TestInitFailed(ex, ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
                 throw;
             }
         }
@@ -101,7 +101,35 @@ namespace Bellatrix
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.TestCleanupFailed(ex, ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions, ЕxecutionContext.ExceptionMessage, ЕxecutionContext.ExceptionStackTrace);
+                _currentTestExecutionProvider.TestCleanupFailed(ex, ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                throw;
+            }
+        }
+
+        [ClassCleanup]
+        public void CoreClassCleanup()
+        {
+            if (ЕxecutionContext == null)
+            {
+                ЕxecutionContext = new MSTestExecutionContext(TestContext);
+            }
+
+            var testClassType = GetCurrentExecutionTestClassType(ЕxecutionContext);
+
+            Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+            Container.RegisterInstance<ExecutionContext>(ЕxecutionContext);
+            _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+            InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+
+            try
+            {
+                _currentTestExecutionProvider.PreClassCleanup(testClassType);
+                TestsCleanup();
+                _currentTestExecutionProvider.PostClassCleanup(testClassType);
+            }
+            catch (Exception ex)
+            {
+                _currentTestExecutionProvider.TestsCleanupFailed(ex);
                 throw;
             }
         }
@@ -126,6 +154,10 @@ namespace Bellatrix
         }
 
         public virtual void TestCleanup()
+        {
+        }
+
+        public virtual void TestsCleanup()
         {
         }
 
@@ -185,7 +217,7 @@ namespace Bellatrix
             }
         }
 
-        private void ExecuteActArrangePhases(MethodBase memberInfo)
+        private void ExecuteActArrangePhases()
         {
             try
             {
@@ -198,23 +230,18 @@ namespace Bellatrix
                     _currentTestExecutionProvider = new TestWorkflowPluginProvider();
                     InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                     TypeForAlreadyExecutedClassInits.Add(ЕxecutionContext.TestClassName);
-                    _currentTestExecutionProvider.PreTestsArrange(ЕxecutionContext.TestName, memberInfo, testClassType);
+                    _currentTestExecutionProvider.PreTestsArrange(testClassType);
                     Initialize();
                     TestsArrange();
-                    _currentTestExecutionProvider.PostTestsArrange(ЕxecutionContext.TestName, memberInfo, testClassType);
-                    _currentTestExecutionProvider.PreTestsAct(ЕxecutionContext.TestName, memberInfo, testClassType);
+                    _currentTestExecutionProvider.PostTestsArrange(testClassType);
+                    _currentTestExecutionProvider.PreTestsAct(testClassType);
                     TestsAct();
-                    _currentTestExecutionProvider.PostTestsAct(ЕxecutionContext.TestName, memberInfo, testClassType);
+                    _currentTestExecutionProvider.PostTestsAct(testClassType);
                 }
             }
             catch (Exception ex)
             {
-                var testClassType = GetCurrentExecutionTestClassType(ЕxecutionContext);
-                var testMethodMemberInfo = GetCurrentExecutionMethodInfo(ЕxecutionContext);
-                var categories = GetAllTestCategories(testMethodMemberInfo);
-                var authors = GetAllAuthors(testMethodMemberInfo);
-                var descriptions = GetAllDescriptions(testMethodMemberInfo);
-                _currentTestExecutionProvider.TestsArrangeFailed(ex, ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions, ex.Message, ex.StackTrace);
+                _currentTestExecutionProvider.TestsArrangeFailed(ex);
             }
         }
 

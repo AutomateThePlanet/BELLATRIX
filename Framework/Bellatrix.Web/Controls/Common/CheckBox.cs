@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class CheckBox : Element, IElementDisabled, IElementChecked, IElementValue
     {
-        public static Action<CheckBox> OverrideFocusGlobally;
         public static Action<CheckBox> OverrideHoverGlobally;
         public static Func<CheckBox, bool> OverrideIsDisabledGlobally;
         public static Func<CheckBox, bool> OverrideIsCheckedGlobally;
@@ -28,7 +27,6 @@ namespace Bellatrix.Web
         public static Action<CheckBox> OverrideUncheckGlobally;
         public static Func<CheckBox, string> OverrideValueGlobally;
 
-        public static Action<CheckBox> OverrideFocusLocally;
         public static Action<CheckBox> OverrideHoverLocally;
         public static Func<CheckBox, bool> OverrideIsDisabledLocally;
         public static Func<CheckBox, bool> OverrideIsCheckedLocally;
@@ -38,8 +36,6 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> Checking;
         public static event EventHandler<ElementActionEventArgs> Checked;
         public static event EventHandler<ElementActionEventArgs> Unchecking;
@@ -47,7 +43,6 @@ namespace Bellatrix.Web
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideIsCheckedLocally = null;
@@ -73,12 +68,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -127,8 +116,6 @@ namespace Bellatrix.Web
                 DefaultClick(checkBox, Unchecking, Unchecked);
             }
         }
-
-        protected virtual void DefaultFocus(CheckBox checkBox) => DefaultFocus(checkBox, Focusing, Focused);
 
         protected virtual void DefaultHover(CheckBox checkBox) => DefaultHover(checkBox, Hovering, Hovered);
 

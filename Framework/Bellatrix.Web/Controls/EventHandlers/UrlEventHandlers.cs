@@ -22,8 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.SubscribeToAll();
             Url.Hovering += HoveringEventHandler;
             Url.Hovered += HoveredEventHandler;
-            Url.Focusing += FocusingEventHandler;
-            Url.Focused += FocusedEventHandler;
             Url.SettingUrl += SettingUrlEventHandler;
             Url.UrlSet += UrlSetEventHandler;
         }
@@ -33,8 +31,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             base.UnsubscribeToAll();
             Url.Hovering -= HoveringEventHandler;
             Url.Hovered -= HoveredEventHandler;
-            Url.Focusing -= FocusingEventHandler;
-            Url.Focused -= FocusedEventHandler;
             Url.SettingUrl -= SettingUrlEventHandler;
             Url.UrlSet -= UrlSetEventHandler;
         }
@@ -44,22 +40,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void UrlSetEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

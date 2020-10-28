@@ -29,9 +29,9 @@ namespace Bellatrix.Web.Screenshots
                                                 }
                                                 genScreenshot();";
 
-        public System.Drawing.Image TakeScreenshot(IServicesCollection serviceContainer) => TakeScreenshotHtml2Canvas(serviceContainer);
+        public string TakeScreenshot(IServicesCollection serviceContainer) => TakeScreenshotHtml2Canvas(serviceContainer);
 
-        public System.Drawing.Image TakeScreenshotHtml2Canvas(IServicesCollection serviceContainer)
+        public string TakeScreenshotHtml2Canvas(IServicesCollection serviceContainer)
         {
             var html2CanvasContent = GetEmbeddedResource("html2canvas.js", Assembly.GetExecutingAssembly());
             var javaScriptService = serviceContainer.Resolve<JavaScriptService>();
@@ -55,21 +55,7 @@ namespace Bellatrix.Web.Screenshots
             wait.Until(wd => !string.IsNullOrEmpty((string)javaScriptService.Execute("return canvasImgContentDecoded;")));
             var pngContent = (string)javaScriptService.Execute("return canvasImgContentDecoded;");
             pngContent = pngContent.Replace("data:image/png;base64,", string.Empty);
-            var image = GetImageFromBase64String(pngContent);
-
-            return image;
-        }
-
-        private System.Drawing.Image GetImageFromBase64String(string pngContent)
-        {
-            byte[] data = Convert.FromBase64String(pngContent);
-            System.Drawing.Image image;
-            using (var memoryStream = new MemoryStream(data))
-            {
-                image = System.Drawing.Image.FromStream(memoryStream);
-            }
-
-            return image;
+            return pngContent;
         }
 
         public string GetEmbeddedResource(string resourceName, Assembly assembly)

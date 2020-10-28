@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Bellatrix.Api.Extensions
+namespace Bellatrix.Extensions
 {
     public static class GenericExtentions
     {

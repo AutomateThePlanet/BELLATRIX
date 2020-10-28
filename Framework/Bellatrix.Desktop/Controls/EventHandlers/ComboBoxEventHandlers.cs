@@ -42,13 +42,5 @@ namespace Bellatrix.Desktop.EventHandlers
         protected virtual void SelectedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
     }
 }

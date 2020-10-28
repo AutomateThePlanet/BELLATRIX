@@ -32,6 +32,7 @@ namespace Bellatrix.Web
         public static Func<Element, bool> OverrideIsVisibleGlobally;
         public static Func<Element, bool> OverrideIsPresentGlobally;
         public static Action OverrideScrollToVisibleGlobally;
+        public static Action<Element> OverrideFocusGlobally;
         public static Action<Element, string, string> OverrideSetAttributeGlobally;
 
         public static Func<Element, string, string> OverrideGetAttributeLocally;
@@ -39,7 +40,11 @@ namespace Bellatrix.Web
         public static Func<Element, bool> OverrideIsVisibleLocally;
         public static Func<Element, bool> OverrideIsPresentLocally;
         public static Action OverrideScrollToVisibleLocally;
+        public static Action<Element> OverrideFocusLocally;
         public static Action<Element, string, string> OverrideSetAttributeLocally;
+
+        public static event EventHandler<ElementActionEventArgs> Focusing;
+        public static event EventHandler<ElementActionEventArgs> Focused;
 
         private readonly ElementWaitService _elementWaiter;
         private readonly List<BaseUntil> _untils;
@@ -129,7 +134,6 @@ namespace Bellatrix.Web
         {
             CreatingElement?.Invoke(this, new ElementActionEventArgs(this));
 
-            Debug.WriteLine(by.Value);
             var elementRepository = new ElementRepository();
             var element = elementRepository.CreateElementWithParent(by, WrappedElement, newElementType, ShouldCacheElement);
 
@@ -144,7 +148,6 @@ namespace Bellatrix.Web
         {
             CreatingElement?.Invoke(this, new ElementActionEventArgs(this));
 
-            Debug.WriteLine(by.Value);
             var elementRepository = new ElementRepository();
             var element = elementRepository.CreateElementWithParent<TElement>(by, WrappedElement, null, 0, shouldCacheElement);
 
@@ -214,6 +217,12 @@ namespace Bellatrix.Web
         {
             var action = InitializeAction(this, OverrideSetAttributeGlobally, OverrideSetAttributeLocally, DefaultSetAttribute);
             action(name, value);
+        }
+
+        public void Focus()
+        {
+            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
+            action();
         }
 
         public string ElementName { get; internal set; }

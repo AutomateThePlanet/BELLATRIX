@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="RestSharp" Version="106.11.4" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
     <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
   </ItemGroup>
 
@@ -36,5 +36,12 @@
     <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
     <ProjectReference Include="..\Bellatrix.Infrastructure\Bellatrix.Infrastructure.csproj" />
     <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

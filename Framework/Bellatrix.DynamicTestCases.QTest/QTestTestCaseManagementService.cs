@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bellatrix.DynamicTestCases.Contracts;
+using Bellatrix.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using DTC = Bellatrix.DynamicTestCases;
@@ -30,13 +31,23 @@ namespace Bellatrix.DynamicTestCases.QTest
     {
         private QT.TestDesignService _testDesignService;
         private QT.ProjectService _projectService;
+        private IBellaLogger _bellaLogger;
 
-        public QTestTestCaseManagementService()
+        public QTestTestCaseManagementService(IBellaLogger bellaLogger)
         {
+            _bellaLogger = bellaLogger;
+
             // we must login first to be able to make any request to the server
             // or we will get 401 error
-            LoginToService(_testDesignService = new QT.TestDesignService(ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().ServiceAddress));
-            LoginToService(_projectService = new QT.ProjectService(ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().ServiceAddress));
+            try
+            {
+                LoginToService(_testDesignService = new QT.TestDesignService(ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().ServiceAddress));
+                LoginToService(_projectService = new QT.ProjectService(ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().ServiceAddress));
+            }
+            catch (Exception ex)
+            {
+                bellaLogger.LogWarning($"qTest Login was unsuccesful, {ex.Message}");
+            }
         }
 
         public DTC.TestCase InitTestCase(TestCasesContext testCasesContext)

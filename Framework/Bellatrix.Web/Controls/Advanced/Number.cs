@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Number : Element, IElementDisabled, IElementValue, IElementNumber, IElementAutoComplete, IElementRequired, IElementReadonly, IElementPlaceholder, IElementMax, IElementMin, IElementStep
     {
-        public static Action<Number> OverrideFocusGlobally;
         public static Action<Number> OverrideHoverGlobally;
         public static Func<Number, bool> OverrideIsDisabledGlobally;
         public static Func<Number, string> OverrideValueGlobally;
@@ -34,7 +33,6 @@ namespace Bellatrix.Web
         public static Func<Number, int?> OverrideStepGlobally;
         public static Func<Number, string> OverridePlaceholderGlobally;
 
-        public static Action<Number> OverrideFocusLocally;
         public static Action<Number> OverrideHoverLocally;
         public static Func<Number, bool> OverrideIsDisabledLocally;
         public static Func<Number, string> OverrideValueLocally;
@@ -50,14 +48,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingNumber;
         public static event EventHandler<ElementActionEventArgs> NumberSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -89,12 +84,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -201,8 +190,6 @@ namespace Bellatrix.Web
         protected virtual int? DefaultGetStep(Number number) => base.DefaultGetStep(number);
 
         protected virtual string DefaultGetPlaceholder(Number number) => base.DefaultGetPlaceholder(number);
-
-        protected virtual void DefaultFocus(Number number) => DefaultFocus(number, Focusing, Focused);
 
         protected virtual void DefaultHover(Number number) => DefaultHover(number, Hovering, Hovered);
 

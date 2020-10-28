@@ -30,13 +30,5 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Image.Hovering -= HoveringEventHandler;
             Image.Hovered -= HoveredEventHandler;
         }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
     }
 }

@@ -19,10 +19,6 @@ namespace Bellatrix.Desktop.BddLogging
 {
     public class BDDLoggingComboBoxEventHandlers : ComboBoxEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         protected override void SelectingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Select '{arg.ActionValue}' from {arg.Element.ElementName} on {arg.Element.PageName}");
-
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ElementName} on {arg.Element.PageName}");
     }
 }

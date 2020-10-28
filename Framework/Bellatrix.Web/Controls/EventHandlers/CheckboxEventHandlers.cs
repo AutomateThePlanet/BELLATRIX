@@ -26,8 +26,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             CheckBox.Unchecked += UncheckedEventHandler;
             CheckBox.Hovering += HoveringEventHandler;
             CheckBox.Hovered += HoveredEventHandler;
-            CheckBox.Focusing += FocusingEventHandler;
-            CheckBox.Focused += FocusedEventHandler;
         }
 
         public override void UnsubscribeToAll()
@@ -39,8 +37,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
             CheckBox.Unchecked -= UncheckedEventHandler;
             CheckBox.Hovering -= HoveringEventHandler;
             CheckBox.Hovered -= HoveredEventHandler;
-            CheckBox.Focusing -= FocusingEventHandler;
-            CheckBox.Focused -= FocusedEventHandler;
         }
 
         protected virtual void UncheckingEventHandler(object sender, ElementActionEventArgs arg)
@@ -56,22 +52,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
         }
 
         protected virtual void CheckedEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusingEventHandler(object sender, ElementActionEventArgs arg)
-        {
-        }
-
-        protected virtual void FocusedEventHandler(object sender, ElementActionEventArgs arg)
         {
         }
     }

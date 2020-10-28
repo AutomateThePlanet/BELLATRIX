@@ -20,7 +20,6 @@ namespace Bellatrix.Web
 {
     public class Password : Element, IElementDisabled, IElementValue, IElementPassword, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementSize, IElementPlaceholder
     {
-        public static Action<Password> OverrideFocusGlobally;
         public static Action<Password> OverrideHoverGlobally;
         public static Func<Password, bool> OverrideIsDisabledGlobally;
         public static Func<Password, string> OverrideValueGlobally;
@@ -34,7 +33,6 @@ namespace Bellatrix.Web
         public static Func<Password, int?> OverrideSizeGlobally;
         public static Func<Password, string> OverridePlaceholderGlobally;
 
-        public static Action<Password> OverrideFocusLocally;
         public static Action<Password> OverrideHoverLocally;
         public static Func<Password, bool> OverrideIsDisabledLocally;
         public static Func<Password, string> OverrideValueLocally;
@@ -50,14 +48,11 @@ namespace Bellatrix.Web
 
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
         public static event EventHandler<ElementActionEventArgs> SettingPassword;
         public static event EventHandler<ElementActionEventArgs> PasswordSet;
 
         public static new void ClearLocalOverrides()
         {
-            OverrideFocusLocally = null;
             OverrideHoverLocally = null;
             OverrideIsDisabledLocally = null;
             OverrideValueLocally = null;
@@ -89,12 +84,6 @@ namespace Bellatrix.Web
         public void Hover()
         {
             var action = InitializeAction(this, OverrideHoverGlobally, OverrideHoverLocally, DefaultHover);
-            action();
-        }
-
-        public void Focus()
-        {
-            var action = InitializeAction(this, OverrideFocusGlobally, OverrideFocusLocally, DefaultFocus);
             action();
         }
 
@@ -201,8 +190,6 @@ namespace Bellatrix.Web
         protected virtual int? DefaultGetSize(Password password) => base.DefaultGetSize(password);
 
         protected virtual string DefaultGetPlaceholder(Password password) => base.DefaultGetPlaceholder(password);
-
-        protected virtual void DefaultFocus(Password password) => DefaultFocus(password, Focusing, Focused);
 
         protected virtual void DefaultHover(Password password) => DefaultHover(password, Hovering, Hovered);
 
