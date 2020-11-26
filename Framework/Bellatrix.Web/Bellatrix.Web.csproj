@@ -61,10 +61,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controls\Advanced\TableControls\Table\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
