@@ -17,6 +17,7 @@ using System.Linq;
 using System.Threading;
 using Bellatrix.Logging;
 using Bellatrix.Utilities;
+using Bellatrix.Web.Configuration;
 using Microsoft.Edge.SeleniumTools;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -68,9 +69,9 @@ namespace Bellatrix.Web
 
         public void WaitUntilReady()
         {
-            int maxSeconds = ConfigurationService.Instance.GetTimeoutSettings().ElementToExistTimeout * 1000;
+            int maxSeconds = ConfigurationService.GetSection<TimeoutSettings>().ElementToExistTimeout * 1000;
 
-            Wait.Until(
+            Bellatrix.Utilities.Wait.Until(
                     () =>
                     {
                         try
@@ -210,7 +211,7 @@ namespace Bellatrix.Web
             string isAngular5 = InvokeScript("return getAllAngularRootElements()[0].attributes['ng-version']");
             if (!string.IsNullOrEmpty(isAngular5))
             {
-                Wait.Until(() => bool.Parse(InvokeScript("return window.getAllAngularTestabilities().findIndex(x=>!x.isStable()) === -1")));
+                Bellatrix.Utilities.Wait.Until(() => bool.Parse(InvokeScript("return window.getAllAngularTestabilities().findIndex(x=>!x.isStable()) === -1")));
             }
             else
             {
@@ -220,7 +221,7 @@ namespace Bellatrix.Web
                     bool isAngularInjectorUnDefined = bool.Parse(InvokeScript("return angular.element(document).injector() === undefined").ToString());
                     if (!isAngularInjectorUnDefined)
                     {
-                        Wait.Until(() => bool.Parse(InvokeScript("return angular.element(document).injector().get('$http').pendingRequests.length === 0")));
+                        Bellatrix.Utilities.Wait.Until(() => bool.Parse(InvokeScript("return angular.element(document).injector().get('$http').pendingRequests.length === 0")));
                     }
                 }
             }
@@ -229,7 +230,7 @@ namespace Bellatrix.Web
         public void WaitForJavaScriptAnimations()
         {
             WaitUntilReady();
-            Wait.Until(
+            Bellatrix.Utilities.Wait.Until(
                 () =>
                 {
                     if (bool.TryParse((string)InvokeScript("return jQuery && jQuery(':animated').length === 0"), out bool result))
@@ -241,13 +242,13 @@ namespace Bellatrix.Web
                         return false;
                     }
                 },
-                timeoutInSeconds: ConfigurationService.Instance.GetTimeoutSettings().WaitForAjaxTimeout,
-                retryRateDelay: ConfigurationService.Instance.GetTimeoutSettings().SleepInterval * 1000);
+                timeoutInSeconds: ConfigurationService.GetSection<TimeoutSettings>().WaitForAjaxTimeout,
+                retryRateDelay: ConfigurationService.GetSection<TimeoutSettings>().SleepInterval * 1000);
         }
 
         public void WaitForAjaxRequest(string requestPartialUrl, int additionalTimeoutInSeconds = 0)
         {
-            Wait.Until(
+            Bellatrix.Utilities.Wait.Until(
                 () =>
                 {
                     string result = InvokeScript($"return performance.getEntriesByType('resource').filter(item => item.initiatorType == 'xmlhttprequest' && item.name.toLowerCase().includes('{requestPartialUrl.ToLower()}'))[0] !== undefined;");
@@ -259,18 +260,18 @@ namespace Bellatrix.Web
                     return false;
                 },
 
-                timeoutInSeconds: ConfigurationService.Instance.GetTimeoutSettings().WaitForAjaxTimeout + additionalTimeoutInSeconds,
-                retryRateDelay: ConfigurationService.Instance.GetTimeoutSettings().SleepInterval * 1000,
+                timeoutInSeconds: ConfigurationService.GetSection<TimeoutSettings>().WaitForAjaxTimeout + additionalTimeoutInSeconds,
+                retryRateDelay: ConfigurationService.GetSection<TimeoutSettings>().SleepInterval * 1000,
                 exceptionMessage: $"Ajax request with url contains '{requestPartialUrl}' was not found.");
         }
 
         public void WaitForAjax()
         {
-            int maxSeconds = ConfigurationService.Instance.GetTimeoutSettings().WaitForAjaxTimeout;
+            int maxSeconds = ConfigurationService.GetSection<TimeoutSettings>().WaitForAjaxTimeout;
 
             string numberOfAjaxConnections = string.Empty;
 
-            Wait.ForConditionUntilTimeout(
+            Bellatrix.Utilities.Wait.ForConditionUntilTimeout(
                 () =>
                 {
                     numberOfAjaxConnections = InvokeScript("return window.openHTTPs ? window.openHTTPs.length : null");

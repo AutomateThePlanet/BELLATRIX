@@ -18,8 +18,8 @@ namespace Bellatrix.Mobile.Services
 {
     public class WebServicesFacade
     {
-        private IServicesCollection _childContainer;
-        public WebServicesFacade(IServicesCollection childContainer)
+        private ServicesCollection _childContainer;
+        public WebServicesFacade(ServicesCollection childContainer)
         {
             _childContainer = childContainer;
         }

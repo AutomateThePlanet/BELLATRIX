@@ -73,20 +73,20 @@ namespace Bellatrix.Web.GettingStarted
             TestGrid.ForEachCell(cell => cell.AssertFontSize("14px"));
 
             // Get Cell by Column name
-            TestGrid.GetCell("Firstname", 1).EnsureInnerTextIs("Mary");
+            TestGrid.GetCell("Firstname", 1).ValidateInnerTextIs("Mary");
 
             // Get Cell by Cell coordinates
-            TestGrid.GetCell(0, 1).EnsureInnerTextIs("John");
+            TestGrid.GetCell(0, 1).ValidateInnerTextIs("John");
 
             // Get a cell that is equal to an Object property
-            TestGrid.GetCell<Employee>(cell => cell.PersonalEmail, 1).EnsureInnerTextIs("mary@hotmail.com");
+            TestGrid.GetCell<Employee>(cell => cell.PersonalEmail, 1).ValidateInnerTextIs("mary@hotmail.com");
 
             // Get all cells that satisfy a condition using a function
             ElementsList<TableCell> matchingCells = TestGrid.GetCells<TableCell>(cell => cell.InnerText.StartsWith('J'));
             Assert.AreEqual(2, matchingCells.Count());
 
             // Get cell with multiple-row headers
-            TestGrid.GetCell("Email Business", 0).EnsureInnerTextIs("jdoe@corp.com");
+            TestGrid.GetCell("Email Business", 0).ValidateInnerTextIs("jdoe@corp.com");
 
             // Perform actions in cell elements
             var firstRowEmail = TestGrid.GetRow(0).GetCell("Email Personal");
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual(3, TestGrid.GetRows().Count());
 
             // As a shortcut, you can iterate over the grid rows through the ForEachRow method.
-            TestGrid.ForEachRow(row => row.CreateByXpath<Button>(".//input[@type='button']").EnsureIsVisible());
+            TestGrid.ForEachRow(row => row.CreateByXpath<Button>(".//input[@type='button']").ValidateIsVisible());
 
             // You can get a specific row by its index through the GetRow method.
             var secondRow = TestGrid.GetRow(1);
@@ -163,16 +163,16 @@ namespace Bellatrix.Web.GettingStarted
 
             // You can get the html through the InnerHtml property.
             Assert.IsTrue(firstRow.InnerHtml.Contains("</td>"));
-            firstRow.EnsureInnerHtmlContains("</td>");
+            firstRow.ValidateInnerHtmlContains("</td>");
 
             // There are many ways to get a specific cell through the indexer and the GetCell methods.
             var firstCell = firstRow.GetCell("Order");
 
-            firstCell.As<TextField>().EnsureValueIs("0");
+            firstCell.As<TextField>().ValidateValueIs("0");
 
             var secondCell = firstRow[1];
             secondCell = firstRow.GetCell(1);
-            secondCell.EnsureInnerTextIs("John");
+            secondCell.ValidateInnerTextIs("John");
 
             // You can get all row cells through the GetCells method.
             IEnumerable<GridCell> cells = firstRow.GetCells();
@@ -184,7 +184,7 @@ namespace Bellatrix.Web.GettingStarted
 
             // You can get the first cell matching a condition through the GetFirstOrDefaultCell method.
             var firstInputCell = firstRow.GetFirstOrDefaultCell<TextField>(cell => cell.TagName == "input");
-            firstInputCell.EnsureValueIs("0");
+            firstInputCell.ValidateValueIs("0");
 
             // You can convert a row to an instance of a specific class through the GetItem method.
             Assert.AreEqual("John Doe", $"{firstRow.GetItem<Employee>().FirstName} {firstRow.GetItem<Employee>().LastName}");
@@ -210,7 +210,7 @@ namespace Bellatrix.Web.GettingStarted
 
             // You can get the cell converted to a specific element and use the element's specific API.
             var firstCell = TestGrid.GetCell(0, 0);
-            firstCell.As<TextField>().EnsureValueIs("0");
+            firstCell.As<TextField>().ValidateValueIs("0");
 
             // You can get the cell converted to the element specified by the grid SetColumn method.
             Assert.AreEqual("0", firstCell.As().Value);
@@ -221,11 +221,11 @@ namespace Bellatrix.Web.GettingStarted
         {
             // You can get the cells of a particular column mentioning the column number.
             var firstColumn = TestGrid.GetColumn(0);
-            firstColumn[0].As<TextField>().EnsureValueIs("0");
+            firstColumn[0].As<TextField>().ValidateValueIs("0");
 
             // You can get the cells of a particular column mentioning the column name.
             firstColumn = TestGrid.GetColumn("Order");
-            firstColumn[0].As<TextField>().EnsureValueIs("0");
+            firstColumn[0].As<TextField>().ValidateValueIs("0");
 
             // You can get the name of a column mentioning its index.
             Assert.AreEqual("Email Personal", TestGrid.GetGridColumnNameByIndex(3));

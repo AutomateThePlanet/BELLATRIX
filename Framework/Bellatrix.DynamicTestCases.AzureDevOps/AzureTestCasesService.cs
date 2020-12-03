@@ -33,9 +33,9 @@ namespace Bellatrix.DynamicTestCases.AzureDevOps
 
         public AzureTestCasesService()
         {
-            _uri = ConfigurationService.Instance.GetAzureDevOpsDynamicTestCasesSettings().Url;
-            _personalAccessToken = ConfigurationService.Instance.GetAzureDevOpsDynamicTestCasesSettings().Token;
-            _project = ConfigurationService.Instance.GetAzureDevOpsDynamicTestCasesSettings().ProjectName;
+            _uri = ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Url;
+            _personalAccessToken = ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Token;
+            _project = ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().ProjectName;
         }
 
         public AzureTestCase CreatTestCase(AzureTestCase testCase)

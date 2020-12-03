@@ -72,10 +72,10 @@ namespace Bellatrix.Web.GettingStarted
             // The commented code fails 1 from 5 times.
             ////Assert.AreEqual("Coupon code applied successfully.", messageAlert.InnerText);
 
-            // To handle these situations, BELLATRIX has hundreds of Ensure methods that wait for some condition to happen before asserting.
+            // To handle these situations, BELLATRIX has hundreds of Validate methods that wait for some condition to happen before asserting.
             // Bellow the statement waits for the specific text to appear and assert it.
             // Note: There are much more details about these methods in the next chapters.
-            messageAlert.EnsureInnerTextIs("Coupon code applied successfully.");
+            messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
 
             // 13. Find the number element by class 'input-text qty text'.
             // <input type="number" id="quantity_5ad35e76b34a2" step="1" min="0" max="" value="1" size="4" pattern="[0-9]*" inputmode="numeric">
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.GettingStarted
 
             // 15. The same as the case with the DIV here we wait/assert for the total price SPAN to get updated.
             ////Assert.AreEqual("114.00€", totalSpan.InnerText);
-            totalSpan.EnsureInnerTextIs("114.00€", 15000);
+            totalSpan.ValidateInnerTextIs("114.00€", 15000);
 
             Anchor proceedToCheckout = App.ElementCreateService.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
             proceedToCheckout.Click();
@@ -107,11 +107,11 @@ namespace Bellatrix.Web.GettingStarted
 
             Anchor showLogin = App.ElementCreateService.CreateByInnerTextContaining<Anchor>("Click here to login");
 
-            // 17. All web controls have multiple properties for their most important attributes and ensure methods for their verification.
+            // 17. All web controls have multiple properties for their most important attributes and Validate methods for their verification.
             ////Assert.AreEqual("http://demos.bellatrix.solutions/checkout/#", showLogin.Href);
-            showLogin.EnsureHrefIs("http://demos.bellatrix.solutions/checkout/#");
+            showLogin.ValidateHrefIs("http://demos.bellatrix.solutions/checkout/#");
             ////Assert.AreEqual("showlogin", showLogin.CssClass);
-            showLogin.EnsureCssClassIs("showlogin");
+            showLogin.ValidateCssClassIs("showlogin");
 
             TextArea orderCommentsTextArea = App.ElementCreateService.CreateById<TextArea>("order_comments");
 

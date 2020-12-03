@@ -26,11 +26,6 @@ namespace Bellatrix.Mobile.SpecFlow
     {
         public static BaseApp UseMsTestSettings(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException("The default container for the App is not configured.\n The first method you need to call is 'App.Use{IoCFramework}Container();'\nFor example, if you have installed Unity IoC projects call 'App.UseUnityContainer();'.");
-            }
-
             ServicesCollection.Current.RegisterType<IAssert, MsTestAssert>();
             ServicesCollection.Current.RegisterType<ICollectionAssert, MsTestCollectionAssert>();
             return baseApp;

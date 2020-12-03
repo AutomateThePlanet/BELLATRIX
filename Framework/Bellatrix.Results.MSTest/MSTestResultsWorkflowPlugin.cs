@@ -21,6 +21,8 @@ namespace Bellatrix.Results.MSTest
 {
     public class MSTestResultsWorkflowPlugin : TestWorkflowPlugin, IScreenshotPlugin, IVideoPlugin
     {
+        public TestContext TestContext { get; set; }
+
         public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
         {
             provider.ScreenshotGeneratedEvent += ScreenshotGenerated;
@@ -33,7 +35,7 @@ namespace Bellatrix.Results.MSTest
 
         public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs args)
         {
-            args.ExecutionContext.AddTestAttachment(args.ScreenshotPath);
+            TestContext.AddResultFile(args.ScreenshotPath);
         }
 
         public void SubscribeVideoPlugin(IVideoPluginProvider provider)
@@ -48,7 +50,7 @@ namespace Bellatrix.Results.MSTest
 
         public void VideoGenerated(object sender, VideoPluginEventArgs args)
         {
-            args.ExecutionContext.AddTestAttachment(args.VideoPath);
+            TestContext.AddResultFile(args.VideoPath);
         }
     }
 }

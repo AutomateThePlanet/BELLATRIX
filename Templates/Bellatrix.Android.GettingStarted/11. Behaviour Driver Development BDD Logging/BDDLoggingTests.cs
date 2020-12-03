@@ -24,7 +24,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         public void CommonAssertionsAndroidControls()
         {
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.
-            //  "logging": {
+            //  "loggingSettings": {
             //      "isEnabled": "true",
             //      "isConsoleLoggingEnabled": "true",
             //      "isDebugLoggingEnabled": "true",
@@ -41,42 +41,42 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // for more info visit- https://github.com/serilog/serilog/wiki/Formatting-Output
             var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
 
-            button.EnsureIsNotDisabled();
+            button.ValidateIsNotDisabled();
 
             var checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check1");
 
             checkBox.Check();
 
-            checkBox.EnsureIsChecked();
+            checkBox.ValidateIsChecked();
 
             var comboBox = App.ElementCreateService.CreateByIdContaining<ComboBox>("spinner1");
 
             comboBox.SelectByText("Jupiter");
 
-            comboBox.EnsureTextIs("Jupiter");
+            comboBox.ValidateTextIs("Jupiter");
 
             var label = App.ElementCreateService.CreateByText<Label>("textColorPrimary");
 
-            label.EnsureIsVisible();
+            label.ValidateIsVisible();
 
             var radioButton = App.ElementCreateService.CreateByIdContaining<RadioButton>("radio2");
 
             radioButton.Click();
 
-            radioButton.EnsureIsChecked(timeout: 30, sleepInterval: 2);
+            radioButton.ValidateIsChecked(timeout: 30, sleepInterval: 2);
 
             // 3. After the test is executed the following log is created:
             //  Start Test
             //  Class = BDDLoggingTests Name = CommonAssertionsAndroidControls
-            //  Ensure control(ID = button) is NOT disabled
+            //  Validate control(ID = button) is NOT disabled
             //  Check control(ID = check1) on
-            //  Ensure control(ID = check1) is checked
+            //  Validate control(ID = check1) is checked
             //  Select 'Jupiter' from control (ID = spinner1) on
             //  Click control(Text = Jupiter) on
-            //  Ensure control(ID = spinner1) text is 'Jupiter'
-            //  Ensure control(Text = textColorPrimary) is visible
+            //  Validate control(ID = spinner1) text is 'Jupiter'
+            //  Validate control(Text = textColorPrimary) is visible
             //  Click control(ID = radio2) on
-            //  Ensure control(ID = radio2) is checked
+            //  Validate control(ID = radio2) is checked
         }
     }
 }

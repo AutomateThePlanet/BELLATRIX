@@ -22,7 +22,7 @@ namespace Bellatrix.Utilities
 {
     public static class ProcessCleanupService
     {
-        private static readonly ProcessCleanupSettings ProcessCleanupSettings = ConfigurationService.Instance?.GetProcessCleanupSettings();
+        private static readonly ProcessCleanupSettings ProcessCleanupSettings = ConfigurationService.GetSection<ProcessCleanupSettings>();
         private static readonly bool IsParallelExecutionEnabled = ProcessCleanupSettings?.IsParallelExecutionEnabled ?? false;
 
         public static void KillPreviousDriversAndBrowsersOsAgnostic(DateTime? executionStartDate)

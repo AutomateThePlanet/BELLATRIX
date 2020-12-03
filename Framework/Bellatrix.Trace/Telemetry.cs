@@ -70,8 +70,7 @@ namespace Bellatrix.Trace
             {
                 if (!isDebug)
                 {
-                    bool isParallelRun = ServicesCollection.Current.Resolve<bool>("isParallelRun");
-                    projectTrackInfo = isParallelRun ? $"{projectTrackInfo} Runner" : $"{projectTrackInfo}  Framework";
+                    projectTrackInfo = $"{projectTrackInfo}  Framework";
 
                     var assemblyFacade = new AssemblyFacade();
                     var callingAssemblies = assemblyFacade.GetAssembliesCallChain();

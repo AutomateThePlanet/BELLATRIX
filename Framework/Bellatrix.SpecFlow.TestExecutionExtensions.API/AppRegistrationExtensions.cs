@@ -22,11 +22,6 @@ namespace Bellatrix.SpecFlow
     {
         public static BaseApp UseRetryFailedRequests(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             baseApp.RegisterType<TestWorkflowPlugin, RetryFailedRequestsWorkflowPlugin>(Guid.NewGuid().ToString());
 
             return baseApp;
@@ -34,11 +29,6 @@ namespace Bellatrix.SpecFlow
 
         public static BaseApp UseLogExecution(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             baseApp.RegisterType<TestWorkflowPlugin, LogWorkflowPlugin>(Guid.NewGuid().ToString());
 
             return baseApp;

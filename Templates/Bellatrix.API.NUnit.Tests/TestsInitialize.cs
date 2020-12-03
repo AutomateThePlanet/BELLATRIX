@@ -19,7 +19,6 @@ namespace Bellatrix.API.NUnit.Tests
 
             app.UseExceptionLogger();
             app.UseNUnitSettings();
-            app.UseLogger();
             app.UseExecutionTimeUnderExtensions();
             app.UseApiAuthenticationStrategies();
             app.UseApiExtensionsBddLogging();

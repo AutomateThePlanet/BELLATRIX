@@ -40,11 +40,6 @@ namespace Bellatrix
 
         public static BaseApp UseElementsBddLogging(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var elementEventHandlers = new List<ElementEventHandlers>()
                                        {
                                            new BDDLoggingCheckboxEventHandlers(),
@@ -66,11 +61,6 @@ namespace Bellatrix
 
         public static BaseApp UseDynamicTestCases(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var elementEventHandlers = new List<ElementEventHandlers>()
                                        {
                                            new DynamicTestCasesCheckboxEventHandlers(),
@@ -92,11 +82,6 @@ namespace Bellatrix
 
         public static BaseApp UseBugReporting(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var elementEventHandlers = new List<ElementEventHandlers>()
                                        {
                                            new BugReportingCheckboxEventHandlers(),
@@ -116,52 +101,32 @@ namespace Bellatrix
             return baseApp;
         }
 
-        public static BaseApp UseEnsureExtensionsBddLogging(this BaseApp baseApp)
+        public static BaseApp UseValidateExtensionsBddLogging(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
-            var bddLoggingEnsureExtensions = new BDDLoggingEnsureExtensionsService();
-            bddLoggingEnsureExtensions.SubscribeToAll();
+            var bddLoggingValidateExtensions = new BDDLoggingValidateExtensionsService();
+            bddLoggingValidateExtensions.SubscribeToAll();
 
             return baseApp;
         }
 
-        public static BaseApp UseEnsureExtensionsDynamicTestCases(this BaseApp baseApp)
+        public static BaseApp UseValidateExtensionsDynamicTestCases(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
-            var dynamicTestCasesEnsureExtensions = new DynamicTestCasesEnsureExtensions();
-            dynamicTestCasesEnsureExtensions.SubscribeToAll();
+            var dynamicTestCasesValidateExtensions = new DynamicTestCasesValidateExtensions();
+            dynamicTestCasesValidateExtensions.SubscribeToAll();
 
             return baseApp;
         }
 
-        public static BaseApp UseEnsureExtensionsBugReporting(this BaseApp baseApp)
+        public static BaseApp UseValidateExtensionsBugReporting(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
-            var bugReportingEnsureExtensions = new BugReportingEnsureExtensions();
-            bugReportingEnsureExtensions.SubscribeToAll();
+            var bugReportingValidateExtensions = new BugReportingValidateExtensions();
+            bugReportingValidateExtensions.SubscribeToAll();
 
             return baseApp;
         }
 
         public static BaseApp UseLayoutAssertionExtensionsBddLogging(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var bddLoggingLayoutAssertionsExtensions = new BDDLoggingAssertionExtensionsService();
             bddLoggingLayoutAssertionsExtensions.SubscribeToAll();
 
@@ -170,11 +135,6 @@ namespace Bellatrix
 
         public static BaseApp UseLayoutAssertionExtensionsDynamicTestCases(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var dynamicTestCasesLayoutAssertionsExtensions = new DynamicTestCasesAssertionExtensions();
             dynamicTestCasesLayoutAssertionsExtensions.SubscribeToAll();
 
@@ -183,11 +143,6 @@ namespace Bellatrix
 
         public static BaseApp UseLayoutAssertionExtensionsBugReporting(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var bugReportingLayoutAssertionsExtensions = new BugReportingAssertionExtensions();
             bugReportingLayoutAssertionsExtensions.SubscribeToAll();
 

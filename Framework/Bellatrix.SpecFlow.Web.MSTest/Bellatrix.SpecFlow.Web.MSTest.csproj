@@ -1,48 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-	  <TargetFramework>netcoreapp3.1</TargetFramework>
-	  <LangVersion>8.0</LangVersion>
-	<Configurations>Debug;Release</Configurations>
-  </PropertyGroup>
+	<PropertyGroup>
+		<!-- See: https://github.com/techtalk/SpecFlow/issues/1516#issuecomment-488244190 -->
+		<_SpecFlow_xUnitRuntimePlugin>netstandard2.0</_SpecFlow_xUnitRuntimePlugin>
+	</PropertyGroup>
 
-  <PropertyGroup>
-	<DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
-  </PropertyGroup>
+	<Import Project="..\SharedAssemblyInfo.targets" />
 
-  <PropertyGroup>
-	<!-- See: https://github.com/techtalk/SpecFlow/issues/1516#issuecomment-488244190 -->
-	<_SpecFlow_xUnitRuntimePlugin>netstandard2.0</_SpecFlow_xUnitRuntimePlugin>
-  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+	</ItemGroup>
 
-  <Import Project="..\SharedAssemblyInfo.targets" />
-
-  <PropertyGroup>
-	<CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-
-  <ItemGroup>
-	<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<None Include="..\AutomateThePlanet.licenseheader" Link="AutomateThePlanet.licenseheader" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
-	<PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-	  <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-	  <ProjectReference Include="..\Bellatrix.SpecFlow.MSTest\Bellatrix.SpecFlow.MSTest.csproj" />
-	  <ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+		<ProjectReference Include="..\Bellatrix.SpecFlow.MSTest\Bellatrix.SpecFlow.MSTest.csproj" />
+		<ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
+		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
+	</ItemGroup>
 </Project>

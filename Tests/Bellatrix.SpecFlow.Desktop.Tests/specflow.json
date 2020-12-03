@@ -1,0 +1,15 @@
+﻿{
+  "bindingCulture": {
+    "language": "en-us"
+  },
+  "language": {
+    "feature": "en-us"
+  },
+  "stepAssemblies": [
+    { "assembly": "Bellatrix.SpecFlow.Desktop.TestExecutionExtensions" },
+    { "assembly": "Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots" },
+    { "assembly": "Bellatrix.SpecFlow.TestExecutionExtensions.Video" },
+    { "assembly": "Bellatrix.SpecFlow.Desktop" }
+  ],
+  "plugins": []
+}

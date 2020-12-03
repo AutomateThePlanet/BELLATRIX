@@ -20,7 +20,6 @@ namespace Bellatrix.GettingStarted
 
             app.UseMsTestSettings();
             app.UseExceptionLogger();
-            app.UseLogger();
             app.UseExecutionTimeUnderExtensions();
             app.UseApiAuthenticationStrategies();
             app.UseApiExtensionsBddLogging();

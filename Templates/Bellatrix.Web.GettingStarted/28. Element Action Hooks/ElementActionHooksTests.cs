@@ -34,9 +34,9 @@ namespace Bellatrix.Web.GettingStarted
 
             base.TestsArrange();
 
-            // 5. Each BELLATRIX Ensure method gives you a hook too.
-            // To implement them you can derive the EnsureExtensionsEventHandlers base class and override the event handler methods you need.
-            // For example for the method EnsureIsChecked, EnsuredIsCheckedEvent event is called after the check is done.
+            // 5. Each BELLATRIX Validate method gives you a hook too.
+            // To implement them you can derive the ValidateExtensionsEventHandlers base class and override the event handler methods you need.
+            // For example for the method ValidateIsChecked, ValidatedIsCheckedEvent event is called after the check is done.
         }
 
         [TestMethod]
@@ -67,7 +67,7 @@ namespace Bellatrix.Web.GettingStarted
             applyCouponButton.Click();
 
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
-            messageAlert.EnsureInnerTextIs("Coupon code applied successfully.");
+            messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
             App.BrowserService.WaitForAjax();
             quantityBox.SetNumber(2);
 
@@ -75,7 +75,7 @@ namespace Bellatrix.Web.GettingStarted
             updateCart.Click();
             App.BrowserService.WaitForAjax();
 
-            totalSpan.EnsureInnerTextIs("114.00€", 15000);
+            totalSpan.ValidateInnerTextIs("114.00€", 15000);
 
             proceedToCheckout.Click();
             billingDetailsHeading.ToBeVisible().WaitToBe();

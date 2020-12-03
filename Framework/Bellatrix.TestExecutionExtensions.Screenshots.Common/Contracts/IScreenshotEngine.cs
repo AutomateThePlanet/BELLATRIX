@@ -17,6 +17,6 @@ namespace Bellatrix.TestExecutionExtensions.Screenshots.Contracts
 {
     public interface IScreenshotEngine
     {
-        string TakeScreenshot(IServicesCollection serviceContainer);
+        string TakeScreenshot(ServicesCollection serviceContainer);
     }
 }

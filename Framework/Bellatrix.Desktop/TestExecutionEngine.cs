@@ -22,7 +22,7 @@ namespace Bellatrix.Desktop
 {
     public class TestExecutionEngine
     {
-        public void StartApp(AppConfiguration appConfiguration, IServicesCollection childContainer)
+        public void StartApp(AppConfiguration appConfiguration, ServicesCollection childContainer)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Bellatrix.Desktop
 
         public bool IsAppStartedCorrectly { get; set; }
 
-        public void Dispose(IServicesCollection childContainer) => DisposeDriverService.Dispose(childContainer);
+        public void Dispose(ServicesCollection childContainer) => DisposeDriverService.Dispose(childContainer);
 
         public void DisposeAll()
         {

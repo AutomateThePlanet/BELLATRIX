@@ -38,9 +38,9 @@ namespace Bellatrix.Desktop
 
         public App()
         {
-            _shouldStartLocalService = ConfigurationService.Instance.GetDesktopSettings().ShouldStartLocalService;
-            _ip = ConfigurationService.Instance.GetDesktopSettings().Ip;
-            _port = ConfigurationService.Instance.GetDesktopSettings().Port;
+            _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ShouldStartLocalService;
+            _ip = ConfigurationService.GetSection<DesktopSettings>().Ip;
+            _port = ConfigurationService.GetSection<DesktopSettings>().Port;
         }
 
         public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
@@ -48,9 +48,6 @@ namespace Bellatrix.Desktop
         public ElementWaitService ElementWaitService => ServicesCollection.Current.Resolve<ElementWaitService>();
 
         public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
-
-        public IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
         public void StartWinAppDriver()

@@ -16,15 +16,12 @@ namespace Bellatrix.GettingStarted
             app.UseControlDataHandlers();
             app.UseBrowserBehavior();
             app.UseLogExecutionBehavior();
-            app.UseControlLocalOverridesCleanBehavior();
             app.UseFFmpegVideoRecorder();
             app.UseFullPageScreenshotsOnFail();
-            app.UseLogger();
             app.UseElementsBddLogging();
             app.UseHighlightElements();
-            app.UseEnsureExtensionsBddLogging();
+            app.UseValidateExtensionsBddLogging();
             app.UseLayoutAssertionExtensionsBddLogging();
-            app.UseExceptionAnalysation();
             app.UseLoadTesting();
             app.Initialize();
 

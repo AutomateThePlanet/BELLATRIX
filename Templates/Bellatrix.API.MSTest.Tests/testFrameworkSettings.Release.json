@@ -13,7 +13,7 @@
   "processCleanupSettings": {
       "isParallelExecutionEnabled": "false"
   },
-  "logging": {
+  "loggingSettings": {
     "isEnabled": "true",
     "isConsoleLoggingEnabled": "true",
     "isDebugLoggingEnabled": "true",

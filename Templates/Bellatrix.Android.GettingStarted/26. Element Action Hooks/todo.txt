@@ -1,2 +1,2 @@
-﻿1. Extend the example and create event handlers for the EnsureTextIs method
+﻿1. Extend the example and create event handlers for the ValidateTextIs method
 2. Call in the event handler the DebugLogger

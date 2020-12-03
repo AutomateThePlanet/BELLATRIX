@@ -11,6 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -24,42 +25,37 @@ namespace Bellatrix
 {
     public sealed class ConfigurationService
     {
-        private static ConfigurationService _instance;
+        private static IConfigurationRoot _root;
 
-        public ConfigurationService() => Root = InitializeConfiguration();
-
-        public static ConfigurationService Instance
+        static ConfigurationService()
         {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new ConfigurationService();
-                }
-
-                return _instance;
-            }
+            _root = InitializeConfiguration();
         }
 
-        public IConfigurationRoot Root { get; }
+        public static TSection GetSection<TSection>()
+          where TSection : class, new()
+        {
+            string sectionName = MakeFirstLetterToLower(typeof(TSection).Name);
+            return _root.GetSection(sectionName).Get<TSection>();
+        }
 
-        private IConfigurationRoot InitializeConfiguration()
+        private static string MakeFirstLetterToLower(string text)
+        {
+            return char.ToLower(text[0]) + text.Substring(1);
+        }
+
+        private static IConfigurationRoot InitializeConfiguration()
         {
             var builder = new ConfigurationBuilder();
-            if (string.IsNullOrEmpty(ExecutionContext.SettingsFileContent))
-            {
-                var executionDir = ExecutionDirectoryResolver.GetDriverExecutablePath();
-                var filesInExecutionDir = Directory.GetFiles(executionDir);
-                var settingsFile =
+            var executionDir = ExecutionDirectoryResolver.GetDriverExecutablePath();
+            var filesInExecutionDir = Directory.GetFiles(executionDir);
+            var settingsFile =
+#pragma warning disable CA1310 // Specify StringComparison for correctness
                     filesInExecutionDir.FirstOrDefault(x => x.Contains("testFrameworkSettings") && x.EndsWith(".json"));
-                if (settingsFile != null)
-                {
-                    builder.AddJsonFile(settingsFile, optional: true, reloadOnChange: true);
-                }
-            }
-            else
+#pragma warning restore CA1310 // Specify StringComparison for correctness
+            if (settingsFile != null)
             {
-                builder.AddJsonStream(new MemoryStream(System.Text.Encoding.UTF8.GetBytes(ExecutionContext.SettingsFileContent)));
+                builder.AddJsonFile(settingsFile, optional: true, reloadOnChange: true);
             }
 
             builder.AddEnvironmentVariables();

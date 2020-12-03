@@ -20,7 +20,7 @@ namespace Bellatrix.Desktop
 
         public override void Initialize()
         {
-            App = ServicesCollection.Current.FindCollection(ЕxecutionContext.TestClassName).Resolve<App>();
+            App = ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
         }
     }
 }

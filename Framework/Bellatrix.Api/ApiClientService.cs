@@ -28,7 +28,7 @@ namespace Bellatrix.Api
     public class ApiClientService
     {
         private readonly ExecutionProvider _executionProvider;
-        private readonly ApiSettings _apiSettings = ConfigurationService.Instance.GetApiSettings();
+        private readonly ApiSettings _apiSettings = ConfigurationService.GetSection<ApiSettings>();
 
         // TODO: is this going to be accessible in the service container?
         public ApiClientService()

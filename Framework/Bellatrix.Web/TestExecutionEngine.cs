@@ -21,7 +21,7 @@ namespace Bellatrix.Web
 {
     public class TestExecutionEngine
     {
-        public void StartBrowser(BrowserConfiguration browserConfiguration, IServicesCollection childContainer)
+        public void StartBrowser(BrowserConfiguration browserConfiguration, ServicesCollection childContainer)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Bellatrix.Web
 
                 childContainer.RegisterInstance<IWebDriver>(wrappedWebDriver);
                 childContainer.RegisterInstance(((RemoteWebDriver)wrappedWebDriver).SessionId.ToString(), "SessionId");
-                childContainer.RegisterInstance(ConfigurationService.Instance.GetWebSettings().Remote.GridUri.AbsoluteUri, "GridUri");
+                childContainer.RegisterInstance(ConfigurationService.GetSection<WebSettings>().Remote.GridUri.AbsoluteUri, "GridUri");
 
                 childContainer.RegisterInstance(new BrowserService(wrappedWebDriver));
                 childContainer.RegisterInstance(new CookiesService(wrappedWebDriver));
@@ -52,7 +52,7 @@ namespace Bellatrix.Web
 
         public bool IsBrowserStartedCorrectly { get; set; }
 
-        public void Dispose(IServicesCollection container)
+        public void Dispose(ServicesCollection container)
         {
             var webDriver = container.Resolve<IWebDriver>();
             DisposeDriverService.Dispose(webDriver, container);

@@ -31,7 +31,10 @@ namespace Bellatrix.TestExecutionExtensions.Video.Plugins
                 testWorkflowPluginEventArgs.Exception,
                 testWorkflowPluginEventArgs.Categories,
                 testWorkflowPluginEventArgs.Authors,
-                testWorkflowPluginEventArgs.Descriptions) => VideoPath = videoPath;
+                testWorkflowPluginEventArgs.Descriptions)
+        {
+            VideoPath = videoPath;
+        }
 
         public string VideoPath { get; }
     }

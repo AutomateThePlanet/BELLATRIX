@@ -23,7 +23,7 @@ namespace Bellatrix.Mobile
 {
     public class TestExecutionEngine
     {
-        public void StartApp(AppConfiguration appConfiguration, IServicesCollection childContainer)
+        public void StartApp(AppConfiguration appConfiguration, ServicesCollection childContainer)
         {
             try
             {
@@ -63,20 +63,20 @@ namespace Bellatrix.Mobile
 
         public bool IsAppStartedCorrectly { get; set; }
 
-        public void CloseApp(IServicesCollection childContainer)
+        public void CloseApp(ServicesCollection childContainer)
         {
             DisposeDriverService.CloseAndroidApp(childContainer);
             DisposeDriverService.CloseIOSApp(childContainer);
-            DisposeDriverService.CloseAndroidApp(ServicesCollection.Main);
-            DisposeDriverService.CloseIOSApp(ServicesCollection.Main);
+            DisposeDriverService.CloseAndroidApp(ServicesCollection.Current);
+            DisposeDriverService.CloseIOSApp(ServicesCollection.Current);
         }
 
-        public void Dispose(IServicesCollection childContainer)
+        public void Dispose(ServicesCollection childContainer)
         {
             DisposeDriverService.DisposeAndroid(childContainer);
             DisposeDriverService.DisposeIOS(childContainer);
-            DisposeDriverService.DisposeAndroid(ServicesCollection.Main);
-            DisposeDriverService.DisposeIOS(ServicesCollection.Main);
+            DisposeDriverService.DisposeAndroid(ServicesCollection.Current);
+            DisposeDriverService.DisposeIOS(ServicesCollection.Current);
         }
 
         public void DisposeAll()
@@ -87,8 +87,8 @@ namespace Bellatrix.Mobile
                 DisposeDriverService.DisposeIOS(childContainer);
             }
 
-            DisposeDriverService.DisposeAndroid(ServicesCollection.Main);
-            DisposeDriverService.DisposeIOS(ServicesCollection.Main);
+            DisposeDriverService.DisposeAndroid(ServicesCollection.Current);
+            DisposeDriverService.DisposeIOS(ServicesCollection.Current);
         }
     }
 }

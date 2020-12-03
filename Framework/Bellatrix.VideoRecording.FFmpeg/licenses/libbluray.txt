@@ -102,7 +102,7 @@ operating system, as well as its variant, the GNU/Linux operating
 system.
 
   Although the Lesser General Public License is Less protective of the
-users' freedom, it does ensure that the user of a program that is
+users' freedom, it does Validate that the user of a program that is
 linked with the Library has the freedom and the wherewithal to run
 that program using a modified version of the Library.
 
@@ -175,7 +175,7 @@ above, provided that you also meet all of these conditions:
     d) If a facility in the modified Library refers to a function or a
     table of data to be supplied by an application program that uses
     the facility, other than as an argument passed when the facility
-    is invoked, then you must make a good faith effort to ensure that,
+    is invoked, then you must make a good faith effort to Validate that,
     in the event an application does not supply such function or
     table, the facility still operates, and performs whatever part of
     its purpose remains meaningful.

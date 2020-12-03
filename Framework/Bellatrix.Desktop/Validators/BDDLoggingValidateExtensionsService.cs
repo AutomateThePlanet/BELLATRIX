@@ -1,0 +1,49 @@
+// <copyright file="BDDLoggingValidateExtensionsService.cs" company="Automate The Planet Ltd.">
+// Copyright 2020 Automate The Planet Ltd.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+// <author>Anton Angelov</author>
+// <site>https://bellatrix.solutions/</site>
+using Bellatrix.Desktop.Events;
+using ElementNotFulfillingValidateConditionEventArgs = Bellatrix.Desktop.Validates.ElementNotFulfillingValidateConditionEventArgs;
+
+namespace Bellatrix.Desktop
+{
+    public class BDDLoggingValidateExtensionsService : ValidateExtensionsEventHandlers
+    {
+        protected override void ValidatedExceptionThrowedEventHandler(object sender, ElementNotFulfillingValidateConditionEventArgs arg) => Logger.LogInformation($"{arg.Exception.Message}");
+
+        protected override void ValidatedIsVisibleEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} is visible");
+
+        protected override void ValidatedIsNotVisibleEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} is NOT visible");
+
+        protected override void ValidatedTimeIsEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} time is '{arg.ActionValue}'");
+
+        protected override void ValidatedTextIsNullEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} text is NULL");
+
+        protected override void ValidatedTextIsEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} text is '{arg.ActionValue}'");
+
+        protected override void ValidatedIsSelectedEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} is selected");
+
+        protected override void ValidatedIsNotSelectedEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} is NOT selected");
+
+        protected override void ValidatedInnerTextIsEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} inner text is '{arg.ActionValue}'");
+
+        protected override void ValidatedIsDisabledEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} is disabled");
+
+        protected override void ValidatedIsNotDisabledEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} is NOT disabled");
+
+        protected override void ValidatedDateIsEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} date is '{arg.ActionValue}'");
+
+        protected override void ValidatedIsCheckedEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} is checked");
+
+        protected override void ValidatedIsNotCheckedEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Validate {arg.Element.ElementName} is NOT checked");
+    }
+}

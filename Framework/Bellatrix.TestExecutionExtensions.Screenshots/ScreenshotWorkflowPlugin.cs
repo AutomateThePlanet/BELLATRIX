@@ -69,7 +69,7 @@ namespace Bellatrix.TestExecutionExtensions.Screenshots
         {
             bool classScreenshotOnFail = GetTakeScreenshotOnFailModeByType(memberInfo.DeclaringType);
             bool? methodScreenshotOnFail = GetTakeScreenshotOnFailModeByMethodInfo(memberInfo);
-            bool isEnabled = ConfigurationService.Instance.GetScreenshotsSettings().IsEnabled;
+            bool isEnabled = ConfigurationService.GetSection<ScreenshotsSettings>().IsEnabled;
             if (isEnabled && testOutcome != TestOutcome.Passed)
             {
                 if (classScreenshotOnFail)

@@ -18,6 +18,7 @@ using System.Linq;
 using System.Management.Automation;
 using System.Runtime.InteropServices;
 using Bellatrix.Logging;
+using Bellatrix.MachineAutomation.Configuration;
 
 namespace Bellatrix.MachineAutomation
 {
@@ -31,7 +32,7 @@ namespace Bellatrix.MachineAutomation
             }
 
             // TODO: Later add support for Linux and OSX through https://brew.sh/ scripts.
-            var machineAutomationSettings = ConfigurationService.Instance.GetMachineAutomationSettings();
+            var machineAutomationSettings = ConfigurationService.GetSection<MachineAutomationSettings>();
             if (machineAutomationSettings.IsEnabled && machineAutomationSettings.PackagesToBeInstalled.Any())
             {
                 using var powerShellInstance = PowerShell.Create();
@@ -59,14 +60,13 @@ namespace Bellatrix.MachineAutomation
 
                     if (powerShellInstance.Streams.Error.Count > 0)
                     {
-                        var logger = ServicesCollection.Current.Resolve<IBellaLogger>();
                         foreach (var outputItem in psOutput)
                         {
                             // if null object was dumped to the pipeline during the script then a null
                             // object may be present here. check for null to prevent potential NRE.
                             if (outputItem != null)
                             {
-                                logger.LogInformation(outputItem.BaseObject.ToString());
+                                Logger.LogInformation(outputItem.BaseObject.ToString());
                                 Debug.WriteLine(outputItem.BaseObject.ToString());
                             }
                         }

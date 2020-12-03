@@ -17,7 +17,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Bellatrix.DynamicTestCases.Configuration;
 using Bellatrix.DynamicTestCases.Contracts;
 using Bellatrix.TestWorkflowPlugins;
 
@@ -36,7 +35,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
         {
-            if (!ConfigurationService.Instance.GetDynamicTestCasesSettings().IsEnabled || e.TestMethodMemberInfo == null)
+            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled || e.TestMethodMemberInfo == null)
             {
                 return;
             }
@@ -48,7 +47,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
         {
-            if (!ConfigurationService.Instance.GetDynamicTestCasesSettings().IsEnabled)
+            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled)
             {
                 return;
             }
@@ -59,7 +58,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
         {
-            if (!ConfigurationService.Instance.GetDynamicTestCasesSettings().IsEnabled)
+            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled)
             {
                 return;
             }
@@ -76,7 +75,7 @@ namespace Bellatrix.DynamicTestCases
             }
             catch (Exception ex)
             {
-                DebugLogger.LogWarning($"Test case failed to update, {ex.Message}");
+                Logger.LogWarning($"Test case failed to update, {ex.Message}");
             }
 
             _dynamicTestCasesService?.ResetContext();

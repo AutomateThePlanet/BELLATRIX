@@ -4,7 +4,7 @@
     {
         public void AssertAnswer(int answer)
         {
-            Answer.EnsureTextIs(answer.ToString());
+            Answer.ValidateTextIs(answer.ToString());
         }
     }
 }

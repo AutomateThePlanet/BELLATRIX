@@ -17,6 +17,7 @@ using System.IO;
 using System.Reflection;
 using Bellatrix.Utilities;
 using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop.Configuration
 {
@@ -28,13 +29,13 @@ namespace Bellatrix.Desktop.Configuration
         {
         }
 
-        public AppConfiguration(string appPath, AppBehavior appBehavior, Size size, string classFullName, AppiumOptions appiumOptions = null)
+        public AppConfiguration(string appPath, AppBehavior appBehavior, Size size, string classFullName, DesiredCapabilities appiumOptions = null)
         {
             AppPath = appPath;
             AppBehavior = appBehavior;
             Size = size;
             ClassFullName = classFullName;
-            AppiumOptions = appiumOptions;
+            DesiredCapabilities = appiumOptions;
         }
 
         public AppBehavior AppBehavior { get; set; } = AppBehavior.RestartEveryTime;
@@ -45,7 +46,7 @@ namespace Bellatrix.Desktop.Configuration
 
         public string AppPath { get => NormalizeAppPath(); set => _appPath = value; }
 
-        public AppiumOptions AppiumOptions { get; set; }
+        public DesiredCapabilities DesiredCapabilities { get; set; }
 
         public bool Equals(AppConfiguration other) => AppPath.Equals(other.AppPath) && AppBehavior.Equals(other.AppBehavior) && Size.Equals(other.Size);
 

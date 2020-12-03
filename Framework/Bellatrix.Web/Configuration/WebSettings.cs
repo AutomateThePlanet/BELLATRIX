@@ -11,7 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Configuration
+namespace Bellatrix.Web
 {
     public sealed class WebSettings
     {

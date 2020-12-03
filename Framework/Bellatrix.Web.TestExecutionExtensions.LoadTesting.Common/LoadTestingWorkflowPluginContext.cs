@@ -46,10 +46,10 @@ namespace Bellatrix.Web.TestExecutionExtensions.LoadTesting
         public LoadTestingWorkflowPluginContext()
         {
             HttpRequestsPerTest = new ConcurrentDictionary<string, ConcurrentBag<HttpRequestDto>>();
-            _isProxyEnabled = ConfigurationService.Instance.GetWebProxySettings().IsEnabled;
-            IsLoadTestingEnabled = ConfigurationService.Instance.GetLoadTestingSettings().IsEnabled;
+            _isProxyEnabled = ConfigurationService.GetSection<WebProxySettings>().IsEnabled;
+            IsLoadTestingEnabled = ConfigurationService.GetSection<LoadTestingSettings>().IsEnabled;
 
-            _ignoreUrlRequestsPatterns = ConfigurationService.Instance.GetLoadTestingSettings().IgnoreUrlRequestsPatterns;
+            _ignoreUrlRequestsPatterns = ConfigurationService.GetSection<LoadTestingSettings>().IgnoreUrlRequestsPatterns;
 
             if (IsLoadTestingEnabled && !_isProxyEnabled)
             {
@@ -60,14 +60,14 @@ namespace Bellatrix.Web.TestExecutionExtensions.LoadTesting
                 _httpRequestDtoFactory = new HttpRequestDtoFactory();
                 _jsonSerializer = new JsonSerializer();
                 _proxyService = ServicesCollection.Current.Resolve<ProxyService>();
-                _requestsFilePath = NormalizeRequestFilePath(ConfigurationService.Instance.GetLoadTestingSettings().RequestsFileLocation);
+                _requestsFilePath = NormalizeRequestFilePath(ConfigurationService.GetSection<LoadTestingSettings>().RequestsFileLocation);
                 _proxyService.ProxyServer.BeforeRequest += OnRequestCaptureTrafficEventHandler;
             }
         }
 
         public void PreTestInit()
         {
-            IsLoadTestingEnabled = ConfigurationService.Instance.GetLoadTestingSettings().IsEnabled;
+            IsLoadTestingEnabled = ConfigurationService.GetSection<LoadTestingSettings>().IsEnabled;
 
             if (IsLoadTestingEnabled && !_isProxyEnabled)
             {

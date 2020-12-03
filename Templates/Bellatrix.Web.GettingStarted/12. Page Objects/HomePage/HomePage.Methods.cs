@@ -33,7 +33,7 @@
         {
             var product = Element.CreateByAttributesContaining<Anchor>("data-product_id", productId.ToString()).ToBeClickable();
             product.Click();
-            ViewCartButton.EnsureIsVisible();
+            ViewCartButton.ValidateIsVisible();
         }
     }
 }

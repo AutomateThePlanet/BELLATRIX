@@ -53,13 +53,13 @@ namespace Bellatrix.Web.GettingStarted
             couponCodeTextField.SetText("happybirthday");
             applyCouponButton.Click();
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
-            messageAlert.EnsureInnerTextIs("Coupon code applied successfully.");
+            messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
 
             App.BrowserService.WaitForAjax();
             quantityBox.SetNumber(2);
             updateCart.Click();
             App.BrowserService.WaitForAjax();
-            totalSpan.EnsureInnerTextIs("114.00€", 15000);
+            totalSpan.ValidateInnerTextIs("114.00€", 15000);
             proceedToCheckout.Click();
 
             // Checkout page elements
@@ -82,15 +82,15 @@ namespace Bellatrix.Web.GettingStarted
 
             // Checkout page actions
             billingDetailsHeading.ToBeVisible().WaitToBe();
-            showLogin.EnsureHrefIs("http://demos.bellatrix.solutions/checkout/#");
-            showLogin.EnsureCssClassIs("showlogin");
+            showLogin.ValidateHrefIs("http://demos.bellatrix.solutions/checkout/#");
+            showLogin.ValidateCssClassIs("showlogin");
             orderCommentsTextArea.ScrollToVisible();
             orderCommentsTextArea.SetText("Please send the rocket to my door step! And don't use the elevator, they don't like when it is not clean...");
             billingFirstName.SetText("In");
             billingLastName.SetText("Deepthought");
             billingCompany.SetText("Automate The Planet Ltd.");
             billingCountry.SelectByText("Bulgaria");
-            billingAddress1.EnsurePlaceholderIs("House number and street name");
+            billingAddress1.ValidatePlaceholderIs("House number and street name");
             billingAddress1.SetText("bul. Yerusalim 5");
             billingAddress2.SetText("bul. Yerusalim 6");
             billingCity.SetText("Sofia");

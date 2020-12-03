@@ -5,8 +5,8 @@
     public static class ElementCreateExtensions
     {
         // public static TElement CreateByIdStartingWith<TElement>(this Element element, string idPrefix)
-        // where TElement : Element => element.Create<TElement, ByIdStartingWith>(new ByIdStartingWith(idPrefix));
+        // where TElement : Element => element.Create<TElement, FindIdStartingWithStrategy>(new FindIdStartingWithStrategy(idPrefix));
         public static ElementsList<TElement> CreateAllByIdStartingWith<TElement>(this Element element, string idEnding)
-            where TElement : Element => new ElementsList<TElement>(new ByIdStartingWith(idEnding), element.WrappedElement);
+            where TElement : Element => new ElementsList<TElement>(new FindIdStartingWithStrategy(idEnding), element.WrappedElement);
     }
 }

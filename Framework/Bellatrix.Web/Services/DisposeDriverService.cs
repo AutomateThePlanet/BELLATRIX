@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Services
             ProcessCleanupService.KillPreviousDriversAndBrowsersOsAgnostic(TestRunStartTime);
         }
 
-        public static void Dispose(IWebDriver webDriver, IServicesCollection container)
+        public static void Dispose(IWebDriver webDriver, ServicesCollection container)
         {
             try
             {

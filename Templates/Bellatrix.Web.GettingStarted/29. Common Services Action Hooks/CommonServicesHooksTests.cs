@@ -53,13 +53,13 @@ namespace Bellatrix.Web.GettingStarted
             applyCouponButton.Click();
 
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
-            messageAlert.EnsureInnerTextIs("Coupon code applied successfully.");
+            messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
             App.BrowserService.WaitForAjax();
             quantityBox.SetNumber(2);
             updateCart.Click();
             App.BrowserService.WaitForAjax();
 
-            totalSpan.EnsureInnerTextIs("114.00€", 25000);
+            totalSpan.ValidateInnerTextIs("114.00€", 25000);
 
             proceedToCheckout.Click();
             billingDetailsHeading.ToBeVisible().WaitToBe();

@@ -32,7 +32,7 @@ namespace Bellatrix.TestExecutionExtensions.ExceptionsLogging
         private static void LogExceptionTelemetry(TestWorkflowPluginEventArgs e)
         {
             if (e.Exception != null && e.Exception.Source.StartsWith("Bellatrix.")
-                                    && !e.Exception.GetType().FullName.Contains("ElementPropertyEnsureException")
+                                    && !e.Exception.GetType().FullName.Contains("ElementPropertyValidateException")
                                     && !e.Exception.GetType().FullName.Contains("LayoutAssertFailedException")
                                     && !e.ConsoleOutputStackTrace.Contains("TimeoutException")
                                     && !e.ConsoleOutputStackTrace.Contains("OpenQA.Selenium")

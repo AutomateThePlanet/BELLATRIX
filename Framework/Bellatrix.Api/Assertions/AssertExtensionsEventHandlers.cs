@@ -17,8 +17,6 @@ namespace Bellatrix.Api
 {
     public abstract class AssertExtensionsEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         public virtual void SubscribeToAll()
         {
             AssertExtensions.AssertExecutionTimeUnderEvent += AssertExecutionTimeUnderEventHandler;

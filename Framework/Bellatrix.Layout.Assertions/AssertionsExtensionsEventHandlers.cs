@@ -17,8 +17,6 @@ namespace Bellatrix.Layout
 {
     public abstract class AssertionsExtensionsEventHandlers
     {
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         public virtual void SubscribeToAll()
         {
             AssertionsExtensions.AssertedAboveOfEvent += AssertedAboveOfEventHandler;

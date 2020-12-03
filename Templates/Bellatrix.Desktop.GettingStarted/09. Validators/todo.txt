@@ -1,0 +1,6 @@
+﻿1. Create a new test for the UWP BELLATRIX demo application
+2. Locate the radioButton and click it
+3. Assert that it is selected
+4. Hover over the calendar
+5. Assert that the result label's text changed
+Note: Use Validate methods

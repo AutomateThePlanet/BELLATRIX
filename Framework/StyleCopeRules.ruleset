@@ -628,7 +628,7 @@
     <Rule Id="CS0626" Action="None" />
     <Rule Id="CS0628" Action="None" />
     <Rule Id="CS0642" Action="None" />
-	<Rule Id="CS0649" Action="None" />
+    <Rule Id="CS0649" Action="None" />
     <Rule Id="CS0652" Action="None" />
     <Rule Id="CS0657" Action="None" />
     <Rule Id="CS0658" Action="None" />
@@ -773,6 +773,10 @@
   <Rules AnalyzerId="Microsoft.CodeAnalysis.VisualBasic.Features" RuleNamespace="Microsoft.CodeAnalysis.VisualBasic.Features">
     <Rule Id="IDE1006" Action="Hidden" />
     <Rule Id="IDE1006WithoutSuggestion" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+    <Rule Id="CA1310" Action="None" />
+    <Rule Id="CA1416" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1101" Action="None" />

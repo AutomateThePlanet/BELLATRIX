@@ -26,11 +26,6 @@ namespace Bellatrix
     {
         public static BaseApp UseAllure(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             baseApp.RegisterType<TestWorkflowPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
             baseApp.RegisterType<IScreenshotPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
             baseApp.RegisterType<IVideoPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
@@ -42,7 +37,7 @@ namespace Bellatrix
 
         private static string GetAssemblyDirectory()
         {
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            string codeBase = Assembly.GetExecutingAssembly().Location;
             var uri = new UriBuilder(codeBase);
             string path = Uri.UnescapeDataString(uri.Path);
             return Path.GetDirectoryName(path);

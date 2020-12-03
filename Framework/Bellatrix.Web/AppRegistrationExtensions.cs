@@ -26,11 +26,6 @@ namespace Bellatrix.Web
     {
         public static BaseApp UseControlDataHandlers(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             // Editable Control DataHandlers - need to be registered both as readonly and editable
             ServicesCollection.Current.RegisterType<IControlDataHandler<Date>, DateControlDataHandler>();
             ServicesCollection.Current.RegisterType<IControlDataHandler<DateTimeLocal>, DateTimeLocalControlDataHandler>();
@@ -63,52 +58,32 @@ namespace Bellatrix.Web
             return baseApp;
         }
 
-        public static BaseApp UseEnsureExtensionsBddLogging(this BaseApp baseApp)
+        public static BaseApp UseValidateExtensionsBddLogging(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
-            var bddLoggingEnsureExtensions = new BDDLoggingEnsureExtensionsService();
-            bddLoggingEnsureExtensions.SubscribeToAll();
+            var bddLoggingValidateExtensions = new BDDLoggingValidateExtensionsService();
+            bddLoggingValidateExtensions.SubscribeToAll();
 
             return baseApp;
         }
 
-        public static BaseApp UseEnsureExtensionsDynamicTestCases(this BaseApp baseApp)
+        public static BaseApp UseValidateExtensionsDynamicTestCases(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
-            var dynamicTestCasesEnsureExtensions = new DynamicTestCasesEnsureExtensionsEventHandlers();
-            dynamicTestCasesEnsureExtensions.SubscribeToAll();
+            var dynamicTestCasesValidateExtensions = new DynamicTestCasesValidateExtensionsEventHandlers();
+            dynamicTestCasesValidateExtensions.SubscribeToAll();
 
             return baseApp;
         }
 
-        public static BaseApp UseEnsureExtensionsBugReporting(this BaseApp baseApp)
+        public static BaseApp UseValidateExtensionsBugReporting(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
-            var bugReportingEnsureExtensions = new BugReportingEnsureExtensionsEventHandlers();
-            bugReportingEnsureExtensions.SubscribeToAll();
+            var bugReportingValidateExtensions = new BugReportingValidateExtensionsEventHandlers();
+            bugReportingValidateExtensions.SubscribeToAll();
 
             return baseApp;
         }
 
         public static BaseApp UseLayoutAssertionExtensionsBddLogging(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var bddLoggingLayoutAssertionsExtensions = new BDDLoggingAssertionExtensionsService();
             bddLoggingLayoutAssertionsExtensions.SubscribeToAll();
 
@@ -117,11 +92,6 @@ namespace Bellatrix.Web
 
         public static BaseApp UseLayoutAssertionExtensionsDynamicTestCases(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var dynamicTestCasesLayoutAssertionsExtensions = new DynamicTestCasesAssertionExtensions();
             dynamicTestCasesLayoutAssertionsExtensions.SubscribeToAll();
 
@@ -130,11 +100,6 @@ namespace Bellatrix.Web
 
         public static BaseApp UseLayoutAssertionExtensionsBugReporting(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var bugReportingLayoutAssertionsExtensions = new BugReportingAssertionExtensions();
             bugReportingLayoutAssertionsExtensions.SubscribeToAll();
 
@@ -143,11 +108,6 @@ namespace Bellatrix.Web
 
         public static BaseApp UseElementsBddLogging(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var elementEventHandlers = new List<ElementEventHandlers>()
                                        {
                                            new BDDLoggingTextFieldEventHandlers(),
@@ -180,11 +140,6 @@ namespace Bellatrix.Web
 
         public static BaseApp UseDynamicTestCases(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var elementEventHandlers = new List<ElementEventHandlers>()
                                        {
                                            new DynamicTestCasesTextFieldEventHandlers(),
@@ -217,11 +172,6 @@ namespace Bellatrix.Web
 
         public static BaseApp UseBugReporting(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var elementEventHandlers = new List<ElementEventHandlers>()
                                        {
                                            new BugReportingTextFieldEventHandlers(),
@@ -253,18 +203,13 @@ namespace Bellatrix.Web
 
         public static BaseApp UseHighlightElements(this BaseApp baseApp)
         {
-            if (ConfigurationService.Instance.GetWebSettings() == null)
+            if (ConfigurationService.GetSection<WebSettings>() == null)
             {
                 throw new ArgumentException("Could not load web settings section from testFrameworkSettings.json");
             }
 
-            if (ConfigurationService.Instance.GetWebSettings().ShouldHighlightElements)
+            if (ConfigurationService.GetSection<WebSettings>().ShouldHighlightElements)
             {
-                if (ServicesCollection.Current == null)
-                {
-                    throw new DefaultContainerNotConfiguredException();
-                }
-
                 var highlightElementEventHandler = new HighlightElementEventHandlers();
                 highlightElementEventHandler.SubscribeToAll();
             }

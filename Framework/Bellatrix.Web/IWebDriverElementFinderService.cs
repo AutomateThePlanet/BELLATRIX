@@ -19,9 +19,9 @@ namespace Bellatrix.Web
     public interface IWebDriverElementFinderService
     {
         IWebElement Find<TBy>(TBy by)
-            where TBy : By;
+            where TBy : FindStrategy;
 
         IEnumerable<IWebElement> FindAll<TBy>(TBy by)
-            where TBy : By;
+            where TBy : FindStrategy;
     }
 }

@@ -30,11 +30,6 @@ namespace Bellatrix.Mobile.Android
     {
         public static BaseApp UseElementsBddLogging(this BaseApp androidApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var elementEventHandlers = new List<ElementEventHandlers>
                                        {
                                            new BDDLoggingButtonEventHandlers(),
@@ -59,11 +54,6 @@ namespace Bellatrix.Mobile.Android
 
         public static BaseApp UseDynamicTestCases(this BaseApp androidApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var elementEventHandlers = new List<ElementEventHandlers>
                                        {
                                            new DynamicTestCasesButtonEventHandlers(),
@@ -88,11 +78,6 @@ namespace Bellatrix.Mobile.Android
 
         public static BaseApp UseBugReporting(this BaseApp androidApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var elementEventHandlers = new List<ElementEventHandlers>
                                        {
                                            new BugReportingButtonEventHandlers(),
@@ -125,52 +110,32 @@ namespace Bellatrix.Mobile.Android
             return baseApp;
         }
 
-        public static BaseApp UseEnsureExtensionsBddLogging(this BaseApp baseApp)
+        public static BaseApp UseValidateExtensionsBddLogging(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
-            var bddLoggingEnsureExtensions = new BDDLoggingEnsureExtensionsService();
-            bddLoggingEnsureExtensions.SubscribeToAll();
+            var bddLoggingValidateExtensions = new BDDLoggingValidateExtensionsService();
+            bddLoggingValidateExtensions.SubscribeToAll();
 
             return baseApp;
         }
 
-        public static BaseApp UseEnsureExtensionsDynamicTestCases(this BaseApp baseApp)
+        public static BaseApp UseValidateExtensionsDynamicTestCases(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
-            var bddLoggingEnsureExtensions = new DynamicTestCasesEnsureExtensions();
-            bddLoggingEnsureExtensions.SubscribeToAll();
+            var bddLoggingValidateExtensions = new DynamicTestCasesValidateExtensions();
+            bddLoggingValidateExtensions.SubscribeToAll();
 
             return baseApp;
         }
 
-        public static BaseApp UseEnsureExtensionsBugReporting(this BaseApp baseApp)
+        public static BaseApp UseValidateExtensionsBugReporting(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
-            var bddLoggingEnsureExtensions = new BugReportingEnsureExtensions();
-            bddLoggingEnsureExtensions.SubscribeToAll();
+            var bddLoggingValidateExtensions = new BugReportingValidateExtensions();
+            bddLoggingValidateExtensions.SubscribeToAll();
 
             return baseApp;
         }
 
         public static BaseApp UseLayoutAssertionExtensionsBddLogging(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var bddLoggingLayoutAssertionsExtensions = new BDDLoggingAssertionExtensionsService();
             bddLoggingLayoutAssertionsExtensions.SubscribeToAll();
 
@@ -179,11 +144,6 @@ namespace Bellatrix.Mobile.Android
 
         public static BaseApp UseLayoutAssertionExtensionsDynamicTestCases(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var dynamicTestCasesLayoutAssertionsExtensions = new DynamicTestCasesAssertionExtensions();
             dynamicTestCasesLayoutAssertionsExtensions.SubscribeToAll();
 
@@ -192,11 +152,6 @@ namespace Bellatrix.Mobile.Android
 
         public static BaseApp UseLayoutAssertionExtensionsBugReporting(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var bugReportingLayoutAssertionsExtensions = new BugReportingAssertionExtensions();
             bugReportingLayoutAssertionsExtensions.SubscribeToAll();
 

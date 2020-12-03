@@ -29,7 +29,7 @@ namespace Bellatrix.ImageRecognition.Interfaces
         void Hover(string imagePath, Point offset, double? similarity, double? timeoutInSeconds);
         void DragDrop(string fromImagePath, string toImagePath, double? similarity, double? timeoutInSeconds);
         bool Exists(string imagePath, double? similarity, double? timeoutInSeconds);
-        void EnsureIsVisible(string imagePath, double? similarity, double? timeoutInSeconds);
-        void EnsureIsNotVisible(string imagePath, double? similarity, double? timeoutInSeconds);
+        void ValidateIsVisible(string imagePath, double? similarity, double? timeoutInSeconds);
+        void ValidateIsNotVisible(string imagePath, double? similarity, double? timeoutInSeconds);
     }
 }

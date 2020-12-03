@@ -22,9 +22,9 @@ namespace Bellatrix.Mobile.Screenshots
 {
     public sealed class IOSDriverScreenshotEngine : IScreenshotEngine
     {
-        public string TakeScreenshot(IServicesCollection serviceContainer) => TakeScreenshotIOSDriver(serviceContainer);
+        public string TakeScreenshot(ServicesCollection serviceContainer) => TakeScreenshotIOSDriver(serviceContainer);
 
-        public string TakeScreenshotIOSDriver(IServicesCollection serviceContainer)
+        public string TakeScreenshotIOSDriver(ServicesCollection serviceContainer)
         {
             var driver = serviceContainer.Resolve<IOSDriver<IOSElement>>();
             var screenshot = ((ITakesScreenshot)driver).GetScreenshot();

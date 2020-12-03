@@ -31,18 +31,18 @@ namespace Bellatrix.Mobile.Services
 
         static WrappedAppiumCreateService()
         {
-            _shouldStartAppiumLocalService = ConfigurationService.Instance.GetMobileSettings().ShouldStartAppiumLocalService;
+            _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 _shouldStartAppiumLocalService = false;
             }
 
-            _appiumServiceUrl = ConfigurationService.Instance.GetMobileSettings().AppiumServiceUrl;
+            _appiumServiceUrl = ConfigurationService.GetSection<MobileSettings>().AppiumServiceUrl;
         }
 
         public static AppiumLocalService AppiumLocalService { get; set; }
 
-        public static AndroidDriver<AndroidElement> CreateAndroidDriver(AppConfiguration appConfiguration, IServicesCollection childContainer)
+        public static AndroidDriver<AndroidElement> CreateAndroidDriver(AppConfiguration appConfiguration, ServicesCollection childContainer)
         {
             var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? appConfiguration.AppiumOptions;
             driverOptions = driverOptions ?? new AppiumOptions();
@@ -81,21 +81,21 @@ namespace Bellatrix.Mobile.Services
             }
             else if (appConfiguration.ExecutionType == Enums.ExecutionType.SauceLabs)
             {
-                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.Instance.GetMobileSettings().SauceLabs.GridUri, appConfiguration.AppiumOptions, TimeSpan.FromSeconds(240));
+                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.GetSection<MobileSettings>().SauceLabs.GridUri, appConfiguration.AppiumOptions, TimeSpan.FromSeconds(240));
             }
             else if (appConfiguration.ExecutionType == Enums.ExecutionType.BrowserStack)
             {
-                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.Instance.GetMobileSettings().BrowserStack.GridUri, appConfiguration.AppiumOptions);
+                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.GetSection<MobileSettings>().BrowserStack.GridUri, appConfiguration.AppiumOptions);
             }
             else if (appConfiguration.ExecutionType == Enums.ExecutionType.CrossBrowserTesting)
             {
-                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.Instance.GetMobileSettings().CrossBrowserTesting.GridUri, appConfiguration.AppiumOptions);
+                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.GetSection<MobileSettings>().CrossBrowserTesting.GridUri, appConfiguration.AppiumOptions);
             }
 
             return wrappedWebDriver;
         }
 
-        public static IOSDriver<IOSElement> CreateIOSDriver(AppConfiguration appConfiguration, IServicesCollection childContainer)
+        public static IOSDriver<IOSElement> CreateIOSDriver(AppConfiguration appConfiguration, ServicesCollection childContainer)
         {
             var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? appConfiguration.AppiumOptions;
             driverOptions.AddAdditionalCapability(MobileCapabilityType.App, appConfiguration.AppPath);

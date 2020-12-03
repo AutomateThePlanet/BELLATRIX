@@ -28,8 +28,8 @@ namespace Bellatrix.DynamicTestCases.AzureDevOps
 
         static AzureQueryExecutor()
         {
-            _uri = ConfigurationService.Instance.GetAzureDevOpsDynamicTestCasesSettings().Url;
-            _personalAccessToken = ConfigurationService.Instance.GetAzureDevOpsDynamicTestCasesSettings().Token;
+            _uri = ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Url;
+            _personalAccessToken = ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Token;
         }
 
         public static List<WorkItem> GetWorkItems(string workItemId)

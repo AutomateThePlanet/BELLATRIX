@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Url HTML Control Demo</title>
+    <link rel="stylesheet" type="text/css" href="range.css">
+</head>
+<body>
+    <label for="myRange">Default</label>
+    <input id="myRange" name="myRange" type="range" class="myTestClass">
+
+    <br>
+    <br>
+    <label for="myRange1">Test Max Min Step</label>
+    <input id="myRange1" name="myRange1" type="range" step="2" min="2" max="10">
+
+    <br>
+    <br>
+    <label for="myRange2">Default Value</label>
+    <input id="myRange2" name="myRange2" type="range" step="2" min="-2" max="10" value="7">
+
+    <br>
+    <br>
+    <label for="myRange3">Autocomplete= ON</label>
+    <input id="myRange3" name="myRange3" type="range" step="2" min="-2" max="10" autocomplete="on">
+
+    <br>
+    <br>
+    <label for="myRange4">Autocomplete= OFF</label>
+    <input id="myRange4" name="myRange4" type="range" step="2" min="-2" max="10" autocomplete="off">
+
+    <br>
+    <br>
+    <label for="myRange5">Readonly Set</label>
+    <input id="myRange5" name="myRange5" type="range" step="2" min="-2" max="10" readonly>
+
+    <br>
+    <br>
+    <label for="myRange6">Required Set</label>
+    <input id="myRange6" name="myRange6" type="range" step="2" min="-2" max="10" required>
+
+    <br>
+    <br>
+    <label for="myRange7">Test Hover</label>
+    <input id="myRange7" name="myRange7" type="range" step="2" min="-2" max="10" onmouseover="this.style.color='red';">
+
+    <br>
+    <br>
+    <label for="myRange8">Test Focus</label>
+    <input id="myRange8" name="myRange8" type="range" step="2" min="-2" max="10" onfocus="this.style.color='blue';">
+
+    <br>
+    <br>
+    <label for="myRange9">Disabled Set</label>
+    <input id="myRange9" name="myRange9" type="range" step="2" min="-2" max="10" disabled>
+
+    <br>
+    <br>
+    <label for="myRange10">List</label>
+    <input id="myRange10" name="myRange10" type="range" step="2" min="-2" max="200" list="tickmarks">
+
+    <datalist id="tickmarks">
+        <option value="0">
+        <option value="10">
+        <option value="20">
+        <option value="30">
+        <option value="40">
+        <option value="50">
+        <option value="60">
+        <option value="70">
+        <option value="80">
+        <option value="90">
+        <option value="100">
+    </datalist>
+
+    <script type="text/javascript" src="range.js"></script>
+</body>
+</html>

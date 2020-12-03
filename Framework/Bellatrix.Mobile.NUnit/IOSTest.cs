@@ -17,6 +17,6 @@ namespace Bellatrix.Mobile
 {
     public abstract class IOSTest : NUnitBaseTest
     {
-        public IOSApp App => ServicesCollection.Current.FindCollection(ЕxecutionContext.TestClassName).Resolve<IOSApp>();
+        public IOSApp App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<IOSApp>();
     }
 }

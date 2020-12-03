@@ -29,9 +29,9 @@ namespace Bellatrix.Web.Screenshots
                                                 }
                                                 genScreenshot();";
 
-        public string TakeScreenshot(IServicesCollection serviceContainer) => TakeScreenshotHtml2Canvas(serviceContainer);
+        public string TakeScreenshot(ServicesCollection serviceContainer) => TakeScreenshotHtml2Canvas(serviceContainer);
 
-        public string TakeScreenshotHtml2Canvas(IServicesCollection serviceContainer)
+        public string TakeScreenshotHtml2Canvas(ServicesCollection serviceContainer)
         {
             var html2CanvasContent = GetEmbeddedResource("html2canvas.js", Assembly.GetExecutingAssembly());
             var javaScriptService = serviceContainer.Resolve<JavaScriptService>();

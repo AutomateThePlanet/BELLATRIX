@@ -25,6 +25,8 @@ namespace Bellatrix.Results.NUnit
         {
         }
 
+        public TestContext TestContext { get; set; }
+
         public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
         {
             provider.ScreenshotGeneratedEvent += ScreenshotGenerated;
@@ -37,7 +39,7 @@ namespace Bellatrix.Results.NUnit
 
         public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs args)
         {
-            args.ExecutionContext.AddTestAttachment(args.ScreenshotPath);
+            TestContext.AddTestAttachment(args.ScreenshotPath);
         }
 
         public void SubscribeVideoPlugin(IVideoPluginProvider provider)
@@ -52,7 +54,7 @@ namespace Bellatrix.Results.NUnit
 
         public void VideoGenerated(object sender, VideoPluginEventArgs args)
         {
-            args.ExecutionContext.AddTestAttachment(args.VideoPath);
+            TestContext.AddTestAttachment(args.VideoPath);
         }
     }
 }

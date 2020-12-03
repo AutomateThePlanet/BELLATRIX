@@ -22,7 +22,7 @@ namespace Bellatrix.Desktop.Services
 {
     internal class ElementRepository
     {
-        public TElementType CreateElementWithParent<TElementType>(By by, WindowsElement webElement)
+        public TElementType CreateElementWithParent<TElementType>(FindStrategy by, WindowsElement webElement)
             where TElementType : Element
         {
             DetermineElementAttributes(out var elementName, out var pageName);
@@ -37,7 +37,7 @@ namespace Bellatrix.Desktop.Services
             return element;
         }
 
-        public TElementType CreateElementThatIsFound<TElementType>(By by, WindowsElement webElement)
+        public TElementType CreateElementThatIsFound<TElementType>(FindStrategy by, WindowsElement webElement)
             where TElementType : Element
         {
             DetermineElementAttributes(out var elementName, out var pageName);

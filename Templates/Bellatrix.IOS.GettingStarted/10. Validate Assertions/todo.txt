@@ -1,0 +1,5 @@
+﻿1. Create a new MSTest test class
+2. Use the BELLATRIX App attribute so that to reuse the app.
+3. Create a new test where you find the toggle button control.
+4. Verify that it is in ON state.
+Note: Use Validate methods

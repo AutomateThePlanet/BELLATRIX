@@ -37,6 +37,7 @@ namespace Bellatrix.SpecFlow.TestWorkflowPlugins
             FeatureTags = featureTags;
             ScenarioTags = scenarioTags;
             TestFullName = $"{FeatureName}.{ScenarioName}";
+            Container = ServicesCollection.Current.FindCollection(featureName);
         }
 
         public TestWorkflowPluginEventArgs(
@@ -71,7 +72,7 @@ namespace Bellatrix.SpecFlow.TestWorkflowPlugins
 
         public string TestFullName { get; }
 
-        public IServicesCollection Container { get; set; }
+        public ServicesCollection Container { get; set; }
 
         public string ConsoleOutputMessage { get; }
 

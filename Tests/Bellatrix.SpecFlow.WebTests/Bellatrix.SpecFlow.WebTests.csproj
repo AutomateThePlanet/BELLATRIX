@@ -1,0 +1,158 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <LangVersion>9.0</LangVersion>
+        <IsPackable>false</IsPackable>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <Configurations>Debug;Release;ObfuscatedNuGets</Configurations>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+        <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+        <RunAnalyzers>true</RunAnalyzers>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningsAsErrors />
+        <NoWarn>NU1701;NU1702;NU1705;NU1608;</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Bellatrix.FFmpeg.Recorder" Version="1.3.0" />
+        <PackageReference Include="Bellatrix.VideoRecording.FFmpeg" Version="1.9.7" />
+        <PackageReference Include="Bellatrix.Web.Chrome" Version="1.9.5.87" />
+        <PackageReference Include="Bellatrix.Web.Edge" Version="1.9.5.87" />
+        <PackageReference Include="Bellatrix.Web.Firefox" Version="1.9.5.270" />
+        <PackageReference Include="Bellatrix.Web.Opera" Version="1.9.5.85" />
+        <PackageReference Include="Bellatrix.Web.InternetExplorer" Version="1.3.0.3900" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
+        <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
+        <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+        <PackageReference Include="SpecFlow" Version="3.5.14" />
+        <PackageReference Include="SpecFlow.MsTest" Version="3.5.14" />
+        <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.5.14" />
+        <PackageReference Include="Unity" Version="5.11.9" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+            <NoWarn>NU1701</NoWarn>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Framework\Bellatrix.Application\Bellatrix.Application.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.Logging\Bellatrix.Logging.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.MSTest\Bellatrix.SpecFlow.MSTest.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestExecutionExtensions.Video\Bellatrix.SpecFlow.TestExecutionExtensions.Video.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.VideoRecording\Bellatrix.SpecFlow.VideoRecording.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.Web.MSTest\Bellatrix.SpecFlow.Web.MSTest.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.Web.Screenshots\Bellatrix.SpecFlow.Web.Screenshots.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.Web.TestExecutionExtensions.Browser\Bellatrix.SpecFlow.Web.TestExecutionExtensions.Browser.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.Web\Bellatrix.SpecFlow.Web.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.Web\Bellatrix.Web.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\Framework\AutomateThePlanet.licenseheader" Link="AutomateThePlanet.licenseheader" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="BrowserStackIntegration.feature.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>BrowserStackIntegration.feature</DependentUpon>
+        </Compile>
+        <Compile Update="CommonServices.feature.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>CommonServices.feature</DependentUpon>
+        </Compile>
+        <Compile Update="CrossBrowserTestingIntegration.feature.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>CrossBrowserTestingIntegration.feature</DependentUpon>
+        </Compile>
+        <Compile Update="GridIntegration.feature.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>GridIntegration.feature</DependentUpon>
+        </Compile>
+        <Compile Update="PageObjectsFeature.feature.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>PageObjectsFeature.feature</DependentUpon>
+        </Compile>
+        <Compile Update="SauceLabsIntegration.feature.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>SauceLabsIntegration.feature</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="specflow.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="SpecFlowFeature.feature">
+            <Generator>SpecFlowSingleFileGenerator</Generator>
+            <LastGenOutput>SpecFlowFeature.feature.cs</LastGenOutput>
+        </None>
+        <None Update="testFrameworkSettings.Debug.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="testFrameworkSettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="testFrameworkSettings.Release.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <SpecFlowFeatureFiles Update="BrowserStackIntegration.feature">
+            <Generator>SpecFlowSingleFileGenerator</Generator>
+            <LastGenOutput>BrowserStackIntegration.feature.cs</LastGenOutput>
+        </SpecFlowFeatureFiles>
+        <SpecFlowFeatureFiles Update="CommonServices.feature">
+            <Generator>SpecFlowSingleFileGenerator</Generator>
+            <LastGenOutput>CommonServices.feature.cs</LastGenOutput>
+        </SpecFlowFeatureFiles>
+        <SpecFlowFeatureFiles Update="CrossBrowserTestingIntegration.feature">
+            <Generator>SpecFlowSingleFileGenerator</Generator>
+            <LastGenOutput>CrossBrowserTestingIntegration.feature.cs</LastGenOutput>
+        </SpecFlowFeatureFiles>
+        <SpecFlowFeatureFiles Update="GridIntegration.feature">
+            <Generator>SpecFlowSingleFileGenerator</Generator>
+            <LastGenOutput>GridIntegration.feature.cs</LastGenOutput>
+        </SpecFlowFeatureFiles>
+        <SpecFlowFeatureFiles Update="PageObjectsFeature.feature">
+            <Generator>SpecFlowSingleFileGenerator</Generator>
+            <LastGenOutput>PageObjectsFeature.feature.cs</LastGenOutput>
+        </SpecFlowFeatureFiles>
+        <SpecFlowFeatureFiles Update="SauceLabsIntegration.feature">
+            <Generator>SpecFlowSingleFileGenerator</Generator>
+            <LastGenOutput>SauceLabsIntegration.feature.cs</LastGenOutput>
+        </SpecFlowFeatureFiles>
+    </ItemGroup>
+
+    <Target Name="AfterUpdateFeatureFilesInProject">
+        <ItemGroup>
+            <Compile Include="**\*.feature.cs" Exclude="@(Compile)" />
+        </ItemGroup>
+    </Target>
+</Project>

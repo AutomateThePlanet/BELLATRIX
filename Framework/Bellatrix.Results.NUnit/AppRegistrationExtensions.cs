@@ -23,11 +23,6 @@ namespace Bellatrix
     {
         public static BaseApp UseNUnitResults(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             baseApp.RegisterType<IScreenshotPlugin, NUnitResultsWorkflowPlugin>(Guid.NewGuid().ToString());
             baseApp.RegisterType<IVideoPlugin, NUnitResultsWorkflowPlugin>(Guid.NewGuid().ToString());
 

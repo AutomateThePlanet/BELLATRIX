@@ -15,6 +15,7 @@ using System;
 using System.Drawing.Imaging;
 using System.IO;
 using Bellatrix.SpecFlow.TestWorkflowPlugins;
+using Bellatrix.TestExecutionExtensions.Screenshots;
 using Bellatrix.TestExecutionExtensions.Screenshots.Contracts;
 using Bellatrix.Trace;
 using Serilog;
@@ -67,7 +68,7 @@ namespace Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots
 
         private void GetTestScreenshotOnFailMode(TestOutcome testOutcome)
         {
-            bool isEnabled = ConfigurationService.Instance.GetScreenshotsSettings().IsEnabled;
+            bool isEnabled = ConfigurationService.GetSection<ScreenshotsSettings>().IsEnabled;
             if (isEnabled && testOutcome != TestOutcome.Passed)
             {
                 ScreenshotWorkflowPluginContext.ShouldTakeScreenshot = true;

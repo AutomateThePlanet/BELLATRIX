@@ -11,10 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System.Collections.Generic;
 using Bellatrix.LoadTesting.Model.Assertions;
-using Bellatrix.LoadTesting.Model.Ensures;
 using Bellatrix.LoadTesting.Model.Locators;
+using Bellatrix.LoadTesting.Model.Validates;
+using System.Collections.Generic;
 
 namespace Bellatrix.LoadTesting.Model
 {
@@ -22,13 +22,13 @@ namespace Bellatrix.LoadTesting.Model
     {
         private readonly List<LoadTestAssertionHandler> _loadTestAssertionHandlers;
         private readonly List<LoadTestLocator> _loadTestLocators;
-        private readonly List<LoadTestEnsureHandler> _loadTestEnsureHandler;
+        private readonly List<LoadTestValidateHandler> _loadTestValidateHandler;
 
-        public LoadTestAssertions(List<LoadTestAssertionHandler> loadTestAssertionHandlers, List<LoadTestLocator> loadTestLocators, List<LoadTestEnsureHandler> loadTestEnsureHandler)
+        public LoadTestAssertions(List<LoadTestAssertionHandler> loadTestAssertionHandlers, List<LoadTestLocator> loadTestLocators, List<LoadTestValidateHandler> loadTestValidateHandler)
         {
             _loadTestAssertionHandlers = loadTestAssertionHandlers;
             _loadTestLocators = loadTestLocators;
-            _loadTestEnsureHandler = loadTestEnsureHandler;
+            _loadTestValidateHandler = loadTestValidateHandler;
         }
 
         public void AssertAllRequestStatusesAreSuccessful()
@@ -36,9 +36,9 @@ namespace Bellatrix.LoadTesting.Model
             _loadTestAssertionHandlers.Add(new SuccessStatusLoadTestAssertionHandler());
         }
 
-        public void AssertAllRecordedEnsureAssertions()
+        public void AssertAllRecordedValidateAssertions()
         {
-            _loadTestAssertionHandlers.Add(new EnsuresLoadTestAssertionHandler(_loadTestLocators, _loadTestEnsureHandler));
+            _loadTestAssertionHandlers.Add(new ValidatesLoadTestAssertionHandler(_loadTestLocators, _loadTestValidateHandler));
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Bellatrix.Web.GettingStarted
         // It is a matter of choice whether to have action methods or not. If you use the same combination of same actions against a group of elements then
         // it may be a good idea to wrap them in a page object action method. In our example, we can wrap the filling the billing info such a method.
         //
-        // 4. In the assertions file, we may place some predefined ensure methods. For example, if you always check the same email or title of a page,
+        // 4. In the assertions file, we may place some predefined Validate methods. For example, if you always check the same email or title of a page,
         // there is no need to hardcode the string in each test. Later if the title is changed, you can do it in a single place.
         // The same is true about most of the things you can assert in your tests.
         //
@@ -67,12 +67,12 @@ namespace Bellatrix.Web.GettingStarted
             applyCouponButton.Click();
             App.BrowserService.WaitForAjax();
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
-            messageAlert.EnsureInnerTextIs("Coupon code applied successfully.");
+            messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
 
             quantityBox.SetNumber(2);
             updateCart.Click();
             App.BrowserService.WaitForAjax();
-            totalSpan.EnsureInnerTextIs("114.00€", 15000);
+            totalSpan.ValidateInnerTextIs("114.00€", 15000);
             proceedToCheckout.Click();
 
             // Checkout page elements
@@ -95,15 +95,15 @@ namespace Bellatrix.Web.GettingStarted
 
             // Checkout page actions
             billingDetailsHeading.ToBeVisible().WaitToBe();
-            showLogin.EnsureHrefIs("http://demos.bellatrix.solutions/checkout/#");
-            showLogin.EnsureCssClassIs("showlogin");
+            showLogin.ValidateHrefIs("http://demos.bellatrix.solutions/checkout/#");
+            showLogin.ValidateCssClassIs("showlogin");
             orderCommentsTextArea.ScrollToVisible();
             orderCommentsTextArea.SetText("Please send the rocket to my door step! And don't use the elevator, they don't like when it is not clean...");
             billingFirstName.SetText("In");
             billingLastName.SetText("Deepthought");
             billingCompany.SetText("Automate The Planet Ltd.");
             billingCountry.SelectByText("Bulgaria");
-            billingAddress1.EnsurePlaceholderIs("House number and street name");
+            billingAddress1.ValidatePlaceholderIs("House number and street name");
             billingAddress1.SetText("bul. Yerusalim 5");
             billingAddress2.SetText("bul. Yerusalim 6");
             billingCity.SetText("Sofia");

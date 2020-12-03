@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.GettingStarted
         public void CommonActionsWithDesktopControls_Wpf()
         {
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.
-            //  "logging": {
+            //  "loggingSettings": {
             //      "isEnabled": "true",
             //      "isConsoleLoggingEnabled": "true",
             //      "isDebugLoggingEnabled": "true",
@@ -36,13 +36,13 @@ namespace Bellatrix.Desktop.GettingStarted
             // for more info visit- https://github.com/serilog/serilog/wiki/Formatting-Output
             var calendar = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
 
-            calendar.EnsureIsNotDisabled();
+            calendar.ValidateIsNotDisabled();
 
             var checkBox = App.ElementCreateService.CreateByName<CheckBox>("BellaCheckBox");
 
             checkBox.Check();
 
-            checkBox.EnsureIsChecked();
+            checkBox.ValidateIsChecked();
 
             var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("select");
 
@@ -52,23 +52,23 @@ namespace Bellatrix.Desktop.GettingStarted
 
             var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
 
-            label.EnsureIsVisible();
+            label.ValidateIsVisible();
 
             var radioButton = App.ElementCreateService.CreateByName<RadioButton>("RadioButton");
 
             radioButton.Click();
 
-            radioButton.EnsureIsChecked(timeout: 30, sleepInterval: 2);
+            radioButton.ValidateIsChecked(timeout: 30, sleepInterval: 2);
 
             // 3. After the test is executed the following log is created:
             // Start Test
-            // Class = EnsureAssertionsTests Name = CommonActionsWithDesktopControls_Wpf
-            // Ensure control (AutomationId = calendar) is NOT disabled
+            // Class = ValidateAssertionsTests Name = CommonActionsWithDesktopControls_Wpf
+            // Validate control (AutomationId = calendar) is NOT disabled
             // Check control (Name = BellaCheckBox) on WPF Sample App
-            // Ensure control (Name = BellaCheckBox) is checked
+            // Validate control (Name = BellaCheckBox) is checked
             // Select 'Item2' from control (AutomationId = select) on WPF Sample App
             // Click control (Name = RadioButton) on WPF Sample App
-            // Ensure control (Name = RadioButton) is checked
+            // Validate control (Name = RadioButton) is checked
         }
     }
 }

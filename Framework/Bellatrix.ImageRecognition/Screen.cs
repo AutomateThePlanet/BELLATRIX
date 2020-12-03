@@ -15,6 +15,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Text.RegularExpressions;
+using Bellatrix.ImageRecognition.Configuration;
 using Bellatrix.ImageRecognition.Interfaces;
 using Bellatrix.ImageRecognition.Models;
 using Bellatrix.ImageRecognition.Utilities;
@@ -54,7 +55,7 @@ namespace Bellatrix.ImageRecognition
             similarity = InitializeSimilarity(similarity);
             IImage image = ImageFactory.FromFile(imagePath, similarity);
             timeoutInSeconds = InitializeTimeout(timeoutInSeconds);
-            EnsureIsVisible(imagePath, similarity, timeoutInSeconds);
+            ValidateIsVisible(imagePath, similarity, timeoutInSeconds);
             _runtime.Run(image.ToSikuliScript("click", timeoutInSeconds), timeoutInSeconds);
         }
 
@@ -64,7 +65,7 @@ namespace Bellatrix.ImageRecognition
             similarity = InitializeSimilarity(similarity);
             IImage image = ImageFactory.FromFile(imagePath, similarity);
             timeoutInSeconds = InitializeTimeout(timeoutInSeconds);
-            EnsureIsVisible(imagePath, similarity, timeoutInSeconds);
+            ValidateIsVisible(imagePath, similarity, timeoutInSeconds);
             _runtime.Run(new OffsetImage(image, offset).ToSikuliScript("click", timeoutInSeconds), timeoutInSeconds);
         }
 
@@ -74,7 +75,7 @@ namespace Bellatrix.ImageRecognition
             similarity = InitializeSimilarity(similarity);
             IImage image = ImageFactory.FromFile(imagePath, similarity);
             timeoutInSeconds = InitializeTimeout(timeoutInSeconds);
-            EnsureIsVisible(imagePath, similarity, timeoutInSeconds);
+            ValidateIsVisible(imagePath, similarity, timeoutInSeconds);
             _runtime.Run(image.ToSikuliScript("doubleClick", timeoutInSeconds), timeoutInSeconds);
         }
 
@@ -84,11 +85,11 @@ namespace Bellatrix.ImageRecognition
             similarity = InitializeSimilarity(similarity);
             IImage image = ImageFactory.FromFile(imagePath, similarity);
             timeoutInSeconds = InitializeTimeout(timeoutInSeconds);
-            EnsureIsVisible(imagePath, similarity, timeoutInSeconds);
+            ValidateIsVisible(imagePath, similarity, timeoutInSeconds);
             _runtime.Run(new OffsetImage(image, offset).ToSikuliScript("doubleClick", timeoutInSeconds), timeoutInSeconds);
         }
 
-        public void EnsureIsVisible(string imagePath, double? similarity = null, double? timeoutInSeconds = null)
+        public void ValidateIsVisible(string imagePath, double? similarity = null, double? timeoutInSeconds = null)
         {
             InitializeRuntime();
             similarity = InitializeSimilarity(similarity);
@@ -97,7 +98,7 @@ namespace Bellatrix.ImageRecognition
             _runtime.Run(image.ToSikuliScript("wait", timeoutInSeconds), timeoutInSeconds);
         }
 
-        public void EnsureIsNotVisible(string imagePath, double? similarity = null, double? timeoutInSeconds = null)
+        public void ValidateIsNotVisible(string imagePath, double? similarity = null, double? timeoutInSeconds = null)
         {
             InitializeRuntime();
             similarity = InitializeSimilarity(similarity);
@@ -112,7 +113,7 @@ namespace Bellatrix.ImageRecognition
             similarity = InitializeSimilarity(similarity);
             IImage image = ImageFactory.FromFile(imagePath, similarity);
             timeoutInSeconds = InitializeTimeout(timeoutInSeconds);
-            EnsureIsVisible(imagePath, similarity, timeoutInSeconds);
+            ValidateIsVisible(imagePath, similarity, timeoutInSeconds);
             Click(imagePath, similarity, timeoutInSeconds);
             if (InvalidTextRegex.IsMatch(text))
             {
@@ -129,7 +130,7 @@ namespace Bellatrix.ImageRecognition
             similarity = InitializeSimilarity(similarity);
             IImage image = ImageFactory.FromFile(imagePath, similarity);
             timeoutInSeconds = InitializeTimeout(timeoutInSeconds);
-            EnsureIsVisible(imagePath, similarity, timeoutInSeconds);
+            ValidateIsVisible(imagePath, similarity, timeoutInSeconds);
             _runtime.Run(image.ToSikuliScript("hover", timeoutInSeconds), timeoutInSeconds);
         }
 
@@ -138,7 +139,7 @@ namespace Bellatrix.ImageRecognition
             InitializeRuntime();
             IImage image = ImageFactory.FromFile(imagePath, similarity);
             timeoutInSeconds = InitializeTimeout(timeoutInSeconds);
-            EnsureIsVisible(imagePath, similarity, timeoutInSeconds);
+            ValidateIsVisible(imagePath, similarity, timeoutInSeconds);
             _runtime.Run(new OffsetImage(image, offset).ToSikuliScript("hover", timeoutInSeconds), timeoutInSeconds);
         }
 
@@ -148,7 +149,7 @@ namespace Bellatrix.ImageRecognition
             similarity = InitializeSimilarity(similarity);
             IImage image = ImageFactory.FromFile(imagePath, similarity);
             timeoutInSeconds = InitializeTimeout(timeoutInSeconds);
-            EnsureIsVisible(imagePath, similarity, timeoutInSeconds);
+            ValidateIsVisible(imagePath, similarity, timeoutInSeconds);
             _runtime.Run(image.ToSikuliScript("rightClick", timeoutInSeconds), timeoutInSeconds);
         }
 
@@ -158,7 +159,7 @@ namespace Bellatrix.ImageRecognition
             similarity = InitializeSimilarity(similarity);
             IImage image = ImageFactory.FromFile(imagePath, similarity);
             timeoutInSeconds = InitializeTimeout(timeoutInSeconds);
-            EnsureIsVisible(imagePath, similarity, timeoutInSeconds);
+            ValidateIsVisible(imagePath, similarity, timeoutInSeconds);
             _runtime.Run(new OffsetImage(image, offset).ToSikuliScript("rightClick", timeoutInSeconds), timeoutInSeconds);
         }
 
@@ -187,8 +188,8 @@ namespace Bellatrix.ImageRecognition
             if (_runtime == null)
             {
                 var manager = new ImageRecognitionService();
-                _defaultSimilarity = ConfigurationService.Instance.GetImageRecognitionSettings().DefaultSimilarity;
-                _timeoutInSeconds = ConfigurationService.Instance.GetImageRecognitionSettings().TimeoutInSeconds;
+                _defaultSimilarity = ConfigurationService.GetSection<ImageRecognitionSettings>().DefaultSimilarity;
+                _timeoutInSeconds = ConfigurationService.GetSection<ImageRecognitionSettings>().TimeoutInSeconds;
                 _runtime = new ImageRecognitionRuntime(manager);
                 _runtime.Start();
             }

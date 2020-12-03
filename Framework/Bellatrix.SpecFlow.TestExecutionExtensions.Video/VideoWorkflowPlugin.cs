@@ -16,6 +16,7 @@ using Bellatrix.SpecFlow;
 using Bellatrix.SpecFlow.TestExecutionExtensions.Video;
 using Bellatrix.SpecFlow.TestExecutionExtensions.Video;
 using Bellatrix.SpecFlow.TestWorkflowPlugins;
+using Bellatrix.TestExecutionExtensions.Video;
 using Bellatrix.TestExecutionExtensions.Video.Contracts;
 using TechTalk.SpecFlow;
 
@@ -40,7 +41,7 @@ namespace Bellatrix.SpecFlow.TestExecutionExtensions.Video
 
         protected override void PreBeforeScenario(object sender, TestWorkflowPluginEventArgs e)
         {
-            VideoWorkflowPluginContext.RecordingMode = ConfigurationService.Instance.GetVideoSettings().IsEnabled ? VideoWorkflowPluginContext.RecordingMode : VideoRecordingMode.DoNotRecord;
+            VideoWorkflowPluginContext.RecordingMode = ConfigurationService.GetSection<VideoRecordingSettings>().IsEnabled ? VideoWorkflowPluginContext.RecordingMode : VideoRecordingMode.DoNotRecord;
 
             if (VideoWorkflowPluginContext.RecordingMode != VideoRecordingMode.DoNotRecord)
             {

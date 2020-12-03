@@ -44,8 +44,6 @@ namespace Bellatrix.Web
 
         public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
 
-        public IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
         public ProxyService ProxyService => ServicesCollection.Current.Resolve<ProxyService>();

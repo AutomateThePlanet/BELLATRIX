@@ -22,7 +22,6 @@ namespace Bellatrix.Application
         public void RegisterType<TFrom, TTo>(string name = null)
             where TTo : TFrom
         {
-            ValidateServiceContainer();
             if (string.IsNullOrEmpty(name))
             {
                 ServicesCollection.Current.RegisterType<TFrom, TTo>();
@@ -35,22 +34,12 @@ namespace Bellatrix.Application
 
         public void RegisterInstance<TFrom>(TFrom instance)
         {
-            ValidateServiceContainer();
             ServicesCollection.Current.RegisterInstance(instance);
         }
 
         public TFrom Resolve<TFrom>()
         {
-            ValidateServiceContainer();
             return ServicesCollection.Current.Resolve<TFrom>();
-        }
-
-        private void ValidateServiceContainer()
-        {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException("The default container for the BaseApp is not configured.\n The first method you need to call is 'BaseApp.Use{IoCFramework}Container();'\nFor example, if you have installed Unity IoC projects call 'BaseApp.UseUnityContainer();'.");
-            }
         }
 
         public void Dispose()

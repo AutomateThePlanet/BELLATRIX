@@ -23,7 +23,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // Which means that they are searched once you perform an action or assertion on them. By default on each new action, the element is searched again and be refreshed.
             var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
 
-            button.EnsureIsVisible();
+            button.ValidateIsVisible();
 
             // 2. Because of the proxy element mechanism (we have a separate type of element instead of single WebDriver IWebElement interface or Appium AndroidElement) we have several benefits.
             // Each control (element type- ComboBox, TextField and so on) contains only the actions you can do with it, and the methods are named properly.
@@ -46,7 +46,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // scrolls down till the element is visible and then searches for it.
             var textField = App.ElementCreateService.CreateByIdContaining<TextField>("edit");
 
-            textField.EnsureIsVisible();
+            textField.ValidateIsVisible();
 
             // 5. BELLATRIX extends the vanilla WebDriver (Appium) selectors and give you additional ones.
             // Available create methods:
@@ -87,7 +87,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // To do it you can use the element create service CreateAll method.
             var buttons = App.ElementCreateService.CreateAllByIdContaining<Button>("button");
 
-            buttons[0].EnsureIsVisible();
+            buttons[0].ValidateIsVisible();
 
             // Available create methods:
             //
@@ -132,7 +132,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // The proxy types are convenience wrappers so to say. Meaning they give you a better interface of predefined properties and methods to make your tests more readable.
             var button = mainElement.CreateByIdContaining<Button>("button");
 
-            button.EnsureIsVisible();
+            button.ValidateIsVisible();
 
             // Available create methods on element level:
             //

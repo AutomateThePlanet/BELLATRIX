@@ -31,22 +31,19 @@ namespace Bellatrix.DynamicTestCases.QTest
     {
         private QT.TestDesignService _testDesignService;
         private QT.ProjectService _projectService;
-        private IBellaLogger _bellaLogger;
 
-        public QTestTestCaseManagementService(IBellaLogger bellaLogger)
+        public QTestTestCaseManagementService()
         {
-            _bellaLogger = bellaLogger;
-
             // we must login first to be able to make any request to the server
             // or we will get 401 error
             try
             {
-                LoginToService(_testDesignService = new QT.TestDesignService(ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().ServiceAddress));
-                LoginToService(_projectService = new QT.ProjectService(ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().ServiceAddress));
+                LoginToService(_testDesignService = new QT.TestDesignService(ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ServiceAddress));
+                LoginToService(_projectService = new QT.ProjectService(ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ServiceAddress));
             }
             catch (Exception ex)
             {
-                bellaLogger.LogWarning($"qTest Login was unsuccesful, {ex.Message}");
+                Logger.LogWarning($"qTest Login was unsuccesful, {ex.Message}");
             }
         }
 
@@ -72,7 +69,7 @@ namespace Bellatrix.DynamicTestCases.QTest
                 testCasesContext.TestCaseDescription = $"{formattedAutomationId}-{testCasesContext.TestFullName} \r\n";
             }
 
-            long projectId = ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().ProjectId;
+            long projectId = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ProjectId;
             if (!string.IsNullOrEmpty(testCasesContext.TestCaseId))
             {
                 // Check if a test case with this ID exists in qTest
@@ -174,8 +171,8 @@ namespace Bellatrix.DynamicTestCases.QTest
             QT.ServiceResponse<QT.TestCase> result;
             QT.TestCase existingTestCase = new QT.TestCase();
             existingTestCase.Precondition = precondition;
-            existingTestCase.Properties = ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().FieldValues;
-            long projectId = ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().ProjectId;
+            existingTestCase.Properties = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().FieldValues;
+            long projectId = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ProjectId;
             result = _testDesignService.UpdateTestCase(projectId, (long)testCaseId, existingTestCase);
 
             return result;
@@ -183,14 +180,14 @@ namespace Bellatrix.DynamicTestCases.QTest
 
         private void LoginToService(QT.QTestService serviceToLogin)
         {
-            string token = ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().Token;
+            string token = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().Token;
             if (!string.IsNullOrEmpty(token))
             {
                 serviceToLogin.SetAuthorizationToken(token);
             }
 
-            string userName = ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().UserName;
-            string password = ConfigurationService.Instance.GetQTestDynamicTestCasesSettings().Password;
+            string userName = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().UserName;
+            string password = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().Password;
 
             if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
             {

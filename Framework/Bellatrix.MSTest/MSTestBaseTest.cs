@@ -18,7 +18,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using Bellatrix.Infrastructure;
-using Bellatrix.MSTest;
 using Bellatrix.TestWorkflowPlugins;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,33 +26,41 @@ namespace Bellatrix
     [TestClass]
     public class MSTestBaseTest
     {
-        public IServicesCollection Container;
-        protected MSTestExecutionContext ЕxecutionContext;
+        public ServicesCollection Container;
         private static readonly List<string> TypeForAlreadyExecutedClassInits = new List<string>();
+        private static ThreadLocal<Exception> _thrownException;
         private TestWorkflowPluginProvider _currentTestExecutionProvider;
+
+        public MSTestBaseTest()
+        {
+            _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+            InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+            AppDomain.CurrentDomain.FirstChanceException += (sender, eventArgs) =>
+            {
+                if (eventArgs.Exception.Source != "System.Private.CoreLib")
+                {
+                    if (_thrownException == null)
+                    {
+                        _thrownException = new ThreadLocal<Exception>(() => eventArgs.Exception);
+                    }
+                    else
+                    {
+                        _thrownException.Value = eventArgs.Exception;
+                    }
+                }
+            };
+        }
 
         public TestContext TestContext { get; set; }
 
         [TestInitialize]
         public void CoreTestInit()
         {
-            if (ЕxecutionContext == null)
-            {
-                ЕxecutionContext = new MSTestExecutionContext(TestContext);
-            }
-
-            ServicesCollection.Main.RegisterInstance(ЕxecutionContext.SharedData.ContainsKey("isParallelRun"), "isParallelRun");
-            if (ЕxecutionContext.SharedData.ContainsKey("ExecutionDirectory"))
-            {
-                ServicesCollection.Main.RegisterInstance((string)ЕxecutionContext.SharedData["ExecutionDirectory"], "ExecutionDirectory");
-            }
-
-            var testMethodMemberInfo = GetCurrentExecutionMethodInfo(ЕxecutionContext);
-            var testClassType = GetCurrentExecutionTestClassType(ЕxecutionContext);
+            var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
+            var testClassType = GetCurrentExecutionTestClassType();
             ExecuteActArrangePhases();
 
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            Container.RegisterInstance<ExecutionContext>(ЕxecutionContext);
             _currentTestExecutionProvider = new TestWorkflowPluginProvider();
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
@@ -63,13 +70,13 @@ namespace Bellatrix
             try
             {
                 Initialize();
-                _currentTestExecutionProvider.PreTestInit(ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.PreTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
                 TestInit();
-                _currentTestExecutionProvider.PostTestInit(ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.PostTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.TestInitFailed(ex, ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.TestInitFailed(ex, TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
                 throw;
             }
         }
@@ -77,31 +84,25 @@ namespace Bellatrix
         [TestCleanup]
         public void CoreTestCleanup()
         {
-            if (ЕxecutionContext == null)
-            {
-                ЕxecutionContext = new MSTestExecutionContext(TestContext);
-            }
-
-            var testMethodMemberInfo = GetCurrentExecutionMethodInfo(ЕxecutionContext);
-            var testClassType = GetCurrentExecutionTestClassType(ЕxecutionContext);
+            var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
+            var testClassType = GetCurrentExecutionTestClassType();
             var categories = GetAllTestCategories(testMethodMemberInfo);
             var authors = GetAllAuthors(testMethodMemberInfo);
             var descriptions = GetAllDescriptions(testMethodMemberInfo);
 
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            Container.RegisterInstance<ExecutionContext>(ЕxecutionContext);
             _currentTestExecutionProvider = new TestWorkflowPluginProvider();
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
             try
             {
-                _currentTestExecutionProvider.PreTestCleanup((TestOutcome)ЕxecutionContext.TestOutcome, ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions, ЕxecutionContext.ExceptionMessage, ЕxecutionContext.ExceptionStackTrace, ЕxecutionContext.Exception);
+                _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
                 TestCleanup();
-                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)ЕxecutionContext.TestOutcome, ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions, ЕxecutionContext.ExceptionMessage, ЕxecutionContext.ExceptionStackTrace, ЕxecutionContext.Exception);
+                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.TestCleanupFailed(ex, ЕxecutionContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.TestCleanupFailed(ex, TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
                 throw;
             }
         }
@@ -109,15 +110,9 @@ namespace Bellatrix
         [ClassCleanup]
         public void CoreClassCleanup()
         {
-            if (ЕxecutionContext == null)
-            {
-                ЕxecutionContext = new MSTestExecutionContext(TestContext);
-            }
-
-            var testClassType = GetCurrentExecutionTestClassType(ЕxecutionContext);
+            var testClassType = GetCurrentExecutionTestClassType();
 
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            Container.RegisterInstance<ExecutionContext>(ЕxecutionContext);
             _currentTestExecutionProvider = new TestWorkflowPluginProvider();
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
@@ -221,15 +216,14 @@ namespace Bellatrix
         {
             try
             {
-                var testClassType = GetCurrentExecutionTestClassType(ЕxecutionContext);
-                if (!TypeForAlreadyExecutedClassInits.Contains(ЕxecutionContext.TestClassName))
+                var testClassType = GetCurrentExecutionTestClassType();
+                if (!TypeForAlreadyExecutedClassInits.Contains(TestContext.FullyQualifiedTestClassName))
                 {
                     Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
                     Container.RegisterInstance(Container);
-                    Container.RegisterInstance<ExecutionContext>(ЕxecutionContext);
                     _currentTestExecutionProvider = new TestWorkflowPluginProvider();
                     InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
-                    TypeForAlreadyExecutedClassInits.Add(ЕxecutionContext.TestClassName);
+                    TypeForAlreadyExecutedClassInits.Add(TestContext.FullyQualifiedTestClassName);
                     _currentTestExecutionProvider.PreTestsArrange(testClassType);
                     Initialize();
                     TestsArrange();
@@ -245,15 +239,16 @@ namespace Bellatrix
             }
         }
 
-        private MethodInfo GetCurrentExecutionMethodInfo(MSTestExecutionContext executionContext)
+        private MethodInfo GetCurrentExecutionMethodInfo()
         {
-            var memberInfo = GetCurrentExecutionTestClassType(executionContext).GetMethod(executionContext.TestName);
+            var memberInfo = GetType().GetMethod(TestContext.TestName);
             return memberInfo;
         }
 
-        private Type GetCurrentExecutionTestClassType(MSTestExecutionContext executionContext)
+        private Type GetCurrentExecutionTestClassType()
         {
-            var testClassType = GetType().Assembly.GetType(executionContext.TestClassName);
+            string className = TestContext.FullyQualifiedTestClassName;
+            var testClassType = GetType().Assembly.GetType(className);
 
             return testClassType;
         }

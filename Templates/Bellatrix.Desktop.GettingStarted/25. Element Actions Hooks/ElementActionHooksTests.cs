@@ -28,9 +28,9 @@ namespace Bellatrix.Desktop.GettingStarted
             // If you need to remove it during the run you can use the method bellow.
             App.RemoveElementEventHandler<DebugLoggingButtonEventHandlers>();
 
-            // 5. Each BELLATRIX Ensure method gives you a hook too.
-            // To implement them you can derive the EnsureExtensionsEventHandlers base class and override the event handler methods you need.
-            // For example for the method EnsureIsChecked, EnsuredIsCheckedEvent event is called after the check is done.
+            // 5. Each BELLATRIX Validate method gives you a hook too.
+            // To implement them you can derive the ValidateExtensionsEventHandlers base class and override the event handler methods you need.
+            // For example for the method ValidateIsChecked, ValidatedIsCheckedEvent event is called after the check is done.
         }
 
         [TestMethod]

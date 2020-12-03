@@ -33,12 +33,10 @@ namespace Bellatrix.SpecFlow.Web.Tests
             app.UseMsTestSettings();
             app.UseAppBehavior();
             app.UseLogExecutionBehavior();
-            app.UseAndroidControlLocalOverridesCleanBehavior();
             app.UseFFmpegVideoRecorder();
             app.UseScreenshotsOnFail();
-            app.UseLogger();
             app.UseElementsBddLogging();
-            app.UseEnsureExtensionsBddLogging();
+            app.UseValidateExtensionsBddLogging();
             app.UseLayoutAssertionExtensionsBddLogging();
             app.StartAppiumLocalService();
             app.Initialize();

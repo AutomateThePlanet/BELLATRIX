@@ -24,8 +24,8 @@ namespace Bellatrix.Web.GettingStarted._12._Page_Objects
             ApplyCouponButton.Click();
             MessageAlert.ToHasContent().ToBeVisible().WaitToBe();
 
-            // Usually, it is not entirely correct to make assertions inside action methods. However, ensure methods are just waiting for something to happen.
-            MessageAlert.EnsureInnerTextIs(CouponSuccessfullyAdded);
+            // Usually, it is not entirely correct to make assertions inside action methods. However, Validate methods are just waiting for something to happen.
+            MessageAlert.ValidateInnerTextIs(CouponSuccessfullyAdded);
         }
 
         // 4. Another method that we can add here is the one for updating the quantity of a product.

@@ -20,7 +20,7 @@ namespace Bellatrix.Web.GettingStarted
         public void PurchaseRocketWithLogs()
         {
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.
-            //  "logging": {
+            //  "loggingSettings": {
             //      "isEnabled": "true",
             //      "isConsoleLoggingEnabled": "true",
             //      "isDebugLoggingEnabled": "true",
@@ -68,12 +68,12 @@ namespace Bellatrix.Web.GettingStarted
             couponCodeTextField.SetText("happybirthday");
             applyCouponButton.Click();
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
-            messageAlert.EnsureInnerTextIs("Coupon code applied successfully.");
+            messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
             App.BrowserService.WaitForAjax();
             quantityBox.SetNumber(2);
             updateCart.Click();
             App.BrowserService.WaitForAjax();
-            totalSpan.EnsureInnerTextIs("114.00€", 15000);
+            totalSpan.ValidateInnerTextIs("114.00€", 15000);
             proceedToCheckout.Click();
 
             // Checkout page elements
@@ -96,15 +96,15 @@ namespace Bellatrix.Web.GettingStarted
 
             // Checkout page actions
             billingDetailsHeading.ToBeVisible().WaitToBe();
-            showLogin.EnsureHrefIs("http://demos.bellatrix.solutions/checkout/#");
-            showLogin.EnsureCssClassIs("showlogin");
+            showLogin.ValidateHrefIs("http://demos.bellatrix.solutions/checkout/#");
+            showLogin.ValidateCssClassIs("showlogin");
             orderCommentsTextArea.ScrollToVisible();
             orderCommentsTextArea.SetText("Please send the rocket to my door step! And don't use the elevator, they don't like when it is not clean...");
             billingFirstName.SetText("In");
             billingLastName.SetText("Deepthought");
             billingCompany.SetText("Automate The Planet Ltd.");
             billingCountry.SelectByText("Bulgaria");
-            billingAddress1.EnsurePlaceholderIs("House number and street name");
+            billingAddress1.ValidatePlaceholderIs("House number and street name");
             billingAddress1.SetText("bul. Yerusalim 5");
             billingAddress2.SetText("bul. Yerusalim 6");
             billingCity.SetText("Sofia");
@@ -127,21 +127,21 @@ namespace Bellatrix.Web.GettingStarted
             //  Click control (Class = added_to_cart wc-forward)
             //  Type 'happybirthday' into control (ID = coupon_code)
             //  Click control (Value containing Apply coupon)
-            //  Ensure control (Class = woocommerce-message) inner text is 'Coupon code applied successfully.'
+            //  Validate control (Class = woocommerce-message) inner text is 'Coupon code applied successfully.'
             //  Set '0' into control (Class = input-text qty text)
             //  Set '2' into control (Class = input-text qty text)
             //  Click control (Value containing Update cart)
-            //  Ensure control (XPath = //*[@class='order-total']//span) inner text is '95.00€'
+            //  Validate control (XPath = //*[@class='order-total']//span) inner text is '95.00€'
             //  Click control (Class = checkout-button button alt wc-forward)
-            //  Ensure control (InnerText containing Click here to login) href is 'http://demos.bellatrix.solutions/checkout/#'
-            //  Ensure control (InnerText containing Click here to login) CSS class is 'showlogin'
+            //  Validate control (InnerText containing Click here to login) href is 'http://demos.bellatrix.solutions/checkout/#'
+            //  Validate control (InnerText containing Click here to login) CSS class is 'showlogin'
             //  Scroll to visible control (ID = order_comments)
             //  Type 'Please send the rocket to my door step! And don't use the elevator, they don't like when it is not clean...' into control (ID = order_comments)
             //  Type 'In' into control (ID = billing_first_name)
             //  Type 'Deepthought' into control (ID = billing_last_name)
             //  Type 'Automate The Planet Ltd.' into control (ID = billing_company)
             //  Select 'Bulgaria' from control (ID = billing_country)
-            //  Ensure control (ID = billing_address_1) placeholder is 'House number and street name'
+            //  Validate control (ID = billing_address_1) placeholder is 'House number and street name'
             //  Type 'bul. Yerusalim 5' into control (ID = billing_address_1)
             //  Type 'bul. Yerusalim 6' into control (ID = billing_address_2)
             //  Type 'Sofia' into control (ID = billing_city)
@@ -152,8 +152,8 @@ namespace Bellatrix.Web.GettingStarted
             //  Check control (ID = createaccount)
             //  Click control (for = payment_method_cheque)
 
-            // 5. You can notice that since we use Ensure assertions not the regular one they also present in the log:
-            //  Ensure control (XPath = //*[@class='order-total']//span) inner text is '95.00€'
+            // 5. You can notice that since we use Validate assertions not the regular one they also present in the log:
+            //  Validate control (XPath = //*[@class='order-total']//span) inner text is '95.00€'
 
             // 6. There are two specifics about the generation of the logs. If page objects are used, which are discussed in next chapters.
             // Two things change.

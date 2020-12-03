@@ -23,7 +23,7 @@ namespace Bellatrix.BugReporting.Configuration
     {
         public static BugReportingSettings GetBugReportingSettings(this ConfigurationService service)
         {
-            var result = ConfigurationService.Instance.Root.GetSection("bugReportingSettings").Get<BugReportingSettings>();
+            var result = ConfigurationService.GetSection<BugReportingSettings>();
 
             if (result == null)
             {

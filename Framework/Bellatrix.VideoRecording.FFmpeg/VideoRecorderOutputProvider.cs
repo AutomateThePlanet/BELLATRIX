@@ -14,6 +14,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Bellatrix.TestExecutionExtensions.Video;
 using Bellatrix.TestExecutionExtensions.Video.Contracts;
 
 namespace Bellatrix.VideoRecording.FFmpeg
@@ -22,7 +23,7 @@ namespace Bellatrix.VideoRecording.FFmpeg
     {
         public string GetOutputFolder()
         {
-            var outputDir = ConfigurationService.Instance.GetVideoSettings().FilePath;
+            var outputDir = ConfigurationService.GetSection<VideoRecordingSettings>().FilePath;
             if (outputDir.StartsWith("ApplicationData", StringComparison.Ordinal))
             {
                 var folders = outputDir.Split('\\').ToList();

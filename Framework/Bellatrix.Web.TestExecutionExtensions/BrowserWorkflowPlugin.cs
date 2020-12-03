@@ -94,21 +94,14 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
                     }
                 }
 
-                bool isParallelRun = ServicesCollection.Main.Resolve<bool>("isParallelRun");
-
-                //// This if is important for Selenoid video recording per test
-                if (isParallelRun)
-                {
-                    ShutdownBrowser(e.Container);
-                }
-                else if (currentBrowserConfiguration.BrowserBehavior == BrowserBehavior.RestartEveryTime || (currentBrowserConfiguration.BrowserBehavior == BrowserBehavior.RestartOnFail && !e.TestOutcome.Equals(TestOutcome.Passed)))
+                if (currentBrowserConfiguration.BrowserBehavior == BrowserBehavior.RestartEveryTime || (currentBrowserConfiguration.BrowserBehavior == BrowserBehavior.RestartOnFail && !e.TestOutcome.Equals(TestOutcome.Passed)))
                 {
                     ShutdownBrowser(e.Container);
                 }
             }
         }
 
-        private bool ShouldRestartBrowser(IServicesCollection container)
+        private bool ShouldRestartBrowser(ServicesCollection container)
         {
             bool shouldRestartBrowser = false;
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
@@ -129,7 +122,7 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
             return shouldRestartBrowser;
         }
 
-        private void RestartBrowser(IServicesCollection container)
+        private void RestartBrowser(ServicesCollection container)
         {
             var currentBrowserConfiguration = container.Resolve<BrowserConfiguration>("_currentBrowserConfiguration");
 
@@ -146,29 +139,21 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
             testExecutionEngine.StartBrowser(currentBrowserConfiguration, container);
         }
 
-        private void ShutdownBrowser(IServicesCollection container)
+        private void ShutdownBrowser(ServicesCollection container)
         {
             // Disposing existing engine call only dispose if in parallel.
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
-            bool isParallelRun = ServicesCollection.Current.Resolve<bool>("isParallelRun");
-            if (isParallelRun)
-            {
-                previousTestExecutionEngine?.Dispose(container);
-            }
-            else
-            {
-                previousTestExecutionEngine?.DisposeAll();
-            }
+            previousTestExecutionEngine?.DisposeAll();
 
-            bool shouldScrollToVisible = ConfigurationService.Instance.GetWebSettings().ShouldScrollToVisibleOnElementFound;
+            bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
             var browserConfiguration = new BrowserConfiguration(BrowserType.NotSet, false, shouldScrollToVisible);
             container.RegisterInstance(browserConfiguration, "_previousBrowserConfiguration");
             container.UnregisterSingleInstance<TestExecutionEngine>();
         }
 
-        private void ResolvePreviousBrowserType(IServicesCollection container)
+        private void ResolvePreviousBrowserType(ServicesCollection container)
         {
-            bool shouldScrollToVisible = ConfigurationService.Instance.GetWebSettings().ShouldScrollToVisibleOnElementFound;
+            bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
             var browserConfiguration = new BrowserConfiguration(BrowserType.NotSet, false, shouldScrollToVisible);
             if (container.IsRegistered<BrowserConfiguration>())
             {
@@ -178,7 +163,7 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
             container.RegisterInstance(browserConfiguration, "_previousBrowserConfiguration");
         }
 
-        private BrowserConfiguration GetCurrentBrowserConfiguration(MemberInfo memberInfo, Type testClassType, IServicesCollection container)
+        private BrowserConfiguration GetCurrentBrowserConfiguration(MemberInfo memberInfo, Type testClassType, ServicesCollection container)
         {
             var browserAttribute = GetBrowserAttribute(memberInfo, testClassType);
             if (browserAttribute != null)

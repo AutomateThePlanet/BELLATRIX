@@ -18,7 +18,7 @@ namespace Bellatrix.Desktop.Contracts.Services
     public interface IElementWaitService
     {
         void Wait<TUntil, TElement>(TElement element, TUntil until)
-            where TUntil : BaseUntil
+            where TUntil : WaitStrategy
             where TElement : Element;
     }
 }

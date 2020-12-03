@@ -22,11 +22,6 @@ namespace Bellatrix.Web.SpecFlow
     {
         public static BaseApp UseNUnitSettings(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException("The default container for the App is not configured.\n The first method you need to call is 'App.Use{IoCFramework}Container();'\nFor example, if you have installed Unity IoC projects call 'App.UseUnityContainer();'.");
-            }
-
             ServicesCollection.Current.RegisterType<IAssert, NUnitAssert>();
             ServicesCollection.Current.RegisterType<ICollectionAssert, NUnitCollectionAssert>();
             return baseApp;
@@ -34,40 +29,35 @@ namespace Bellatrix.Web.SpecFlow
 
         public static BaseApp UseControlDataHandlers(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             // Editable Control DataHandlers - need to be registered both as readonly and editable
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Date>, DateControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<DateTimeLocal>, DateTimeLocalControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Email>, EmailControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Month>, MonthControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Password>, PasswordControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Phone>, PhoneControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Range>, RangeControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Search>, SearchControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Time>, TimeControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Url>, UrlControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Week>, WeekControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<CheckBox>, CheckBoxControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<RadioButton>, RadioButtonControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Select>, SelectControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<TextArea>, TextAreaControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<TextField>, TextFieldControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Date>, DateControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<DateTimeLocal>, DateTimeLocalControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Email>, EmailControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Month>, MonthControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Password>, PasswordControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Phone>, PhoneControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Range>, RangeControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Search>, SearchControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Time>, TimeControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Url>, UrlControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Week>, WeekControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<CheckBox>, CheckBoxControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<RadioButton>, RadioButtonControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<Select>, SelectControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<TextArea>, TextAreaControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<TextField>, TextFieldControlDataHandler>();
 
             // Readonly Control DataHandlers - need to be registered only as readonly
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Number>, NumberControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Output>, OutputControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Anchor>, AnchorControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Button>, ButtonControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Div>, DivControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Image>, ImageControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Label>, LabelControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Reset>, ResetControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Span>, SpanControlDataHandler>();
-            ServicesCollection.Current.RegisterType<IControlDataHandler<Color>, ColorControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Number>, NumberControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Output>, OutputControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Anchor>, AnchorControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Button>, ButtonControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Div>, DivControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Image>, ImageControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Label>, LabelControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Reset>, ResetControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Span>, SpanControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Color>, ColorControlDataHandler>();
             return baseApp;
         }
     }

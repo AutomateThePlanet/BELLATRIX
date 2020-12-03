@@ -17,14 +17,12 @@ namespace Bellatrix.SpecFlow.Web.Tests
             var app = new App();
             app.UseExceptionLogger();
             app.UseMsTestSettings();
-            app.UseLogger();
             app.UseAppBehavior();
             app.UseLogExecutionBehavior();
-            app.UseControlLocalOverridesCleanBehavior();
             app.UseFFmpegVideoRecorder();
             app.UseScreenshotsOnFail();
             app.UseElementsBddLogging();
-            app.UseEnsureExtensionsBddLogging();
+            app.UseValidateExtensionsBddLogging();
             app.UseLayoutAssertionExtensionsBddLogging();
             app.StartWinAppDriver();
             app.Initialize();

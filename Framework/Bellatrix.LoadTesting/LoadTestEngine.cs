@@ -11,6 +11,16 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using Bellatrix.Api;
+using Bellatrix.Configuration;
+using Bellatrix.Infrastructure;
+using Bellatrix.LoadTesting.Configuration;
+using Bellatrix.LoadTesting.Model;
+using Bellatrix.LoadTesting.Model.Assertions;
+using Bellatrix.LoadTesting.Model.Locators;
+using Bellatrix.LoadTesting.Model.Results;
+using Bellatrix.LoadTesting.Model.Validates;
+using Bellatrix.LoadTesting.Report;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -18,16 +28,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
-using Bellatrix.Api;
-using Bellatrix.Configuration;
-using Bellatrix.Infrastructure;
-using Bellatrix.LoadTesting.Configuration;
-using Bellatrix.LoadTesting.Model;
-using Bellatrix.LoadTesting.Model.Assertions;
-using Bellatrix.LoadTesting.Model.Ensures;
-using Bellatrix.LoadTesting.Model.Locators;
-using Bellatrix.LoadTesting.Model.Results;
-using Bellatrix.LoadTesting.Report;
 
 namespace Bellatrix.LoadTesting
 {
@@ -37,7 +37,7 @@ namespace Bellatrix.LoadTesting
         private readonly ConcurrentDictionary<string, ConcurrentBag<HttpRequestDto>> _testsRequests;
         private TestScenarioMixtureDeterminer _testScenarioMixtureDeterminer;
         private List<ITestScenarioMixtureDeterminer> _testScenarioMixtureDeterminers;
-        private List<LoadTestEnsureHandler> _loadTestEnsureHandler;
+        private List<LoadTestValidateHandler> _loadTestValidateHandler;
         private ApiClientService _apiClientService;
         private List<LoadTestLocator> _loadTestLocators;
         private ConcurrentBag<TestScenario> _testScenarios;
@@ -46,10 +46,10 @@ namespace Bellatrix.LoadTesting
         {
             _testsRequests = new ConcurrentDictionary<string, ConcurrentBag<HttpRequestDto>>();
             var loadTestAssertionHandlers = new List<LoadTestAssertionHandler>();
-            InitializeEnsureHandlers();
+            InitializeValidateHandlers();
             InitializeLoadTestLocators();
-            Customizations = new LoadTestCustomizations(_loadTestLocators, _loadTestEnsureHandler, _testScenarioMixtureDeterminers);
-            Assertions = new LoadTestAssertions(loadTestAssertionHandlers, _loadTestLocators, _loadTestEnsureHandler);
+            Customizations = new LoadTestCustomizations(_loadTestLocators, _loadTestValidateHandler, _testScenarioMixtureDeterminers);
+            Assertions = new LoadTestAssertions(loadTestAssertionHandlers, _loadTestLocators, _loadTestValidateHandler);
             Settings = new LoadTestSettings();
             InitializeApiClientService();
             LoadTestsRequestsFromFiles();
@@ -167,118 +167,118 @@ namespace Bellatrix.LoadTesting
             return shouldFilter;
         }
 
-        private void InitializeEnsureHandlers()
+        private void InitializeValidateHandlers()
         {
-            _loadTestEnsureHandler = new List<LoadTestEnsureHandler>()
+            _loadTestValidateHandler = new List<LoadTestValidateHandler>()
                                      {
-                                          new EnsuredAcceptIsHandler(),
-                                          new EnsuredAcceptIsNullHandler(),
-                                          new EnsuredAccessKeyIsHandler(),
-                                          new EnsuredAccessKeyIsNullHandler(),
-                                          new EnsuredAltIsHandler(),
-                                          new EnsuredAltIsNullHandler(),
-                                          new EnsuredAutoCompleteIsOffHandler(),
-                                          new EnsuredAutoCompleteIsOnHandler(),
-                                          new EnsuredColorIsHandler(),
-                                          new EnsuredColsIsHandler(),
-                                          new EnsuredCssClassIsHandler(),
-                                          new EnsuredCssClassIsNullHandler(),
-                                          new EnsuredDateIsHandler(),
-                                          new EnsuredDirIsHandler(),
-                                          new EnsuredDirIsNullHandler(),
-                                          new EnsuredDisabledIsHandler(),
-                                          new EnsuredEmailIsHandler(),
-                                          new EnsuredForIsHandler(),
-                                          new EnsuredForIsNullHandler(),
-                                          new EnsuredHeightIsHandler(),
-                                          new EnsuredHeightIsNotNullHandler(),
-                                          new EnsuredHeightIsNullHandler(),
-                                          new EnsuredHrefIsHandler(),
-                                          new EnsuredHrefIsSetHandler(),
-                                          new EnsuredIsCheckedHandler(),
-                                          new EnsuredIsNotCheckedHandler(),
-                                          new EnsuredIsNotDisabledHandler(),
-                                          new EnsuredIsNotSelectedHandler(),
-                                          new EnsuredIsNotVisibleHandler(),
-                                          new EnsuredIsSelectedHandler(),
-                                          new EnsuredIsVisibleHandler(),
-                                          new EnsuredLangIsHandler(),
-                                          new EnsuredLangIsNullHandler(),
-                                          new EnsuredListIsHandler(),
-                                          new EnsuredListIsNullHandler(),
-                                          new EnsuredLongDescIsHandler(),
-                                          new EnsuredLongDescIsNullHandler(),
-                                          new EnsuredMaxIsHandler(),
-                                          new EnsuredMaxIsNullHandler(),
-                                          new EnsuredMaxLengthIsHandler(),
-                                          new EnsuredMaxLengthIsNullHandler(),
-                                          new EnsuredMinIsHandler(),
-                                          new EnsuredMinIsNullHandler(),
-                                          new EnsuredMinLengthIsHandler(),
-                                          new EnsuredMinLengthIsNullHandler(),
-                                          new EnsuredMinTextIsHandler(),
-                                          new EnsuredMinTextIsNullHandler(),
-                                          new EnsuredMonthIsHandler(),
-                                          new EnsuredMultipleIsHandler(),
-                                          new EnsuredMultipleIsNullHandler(),
-                                          new EnsuredNumberIsHandler(),
-                                          new EnsuredPasswordIsHandler(),
-                                          new EnsuredPhoneIsHandler(),
-                                          new EnsuredPlaceholderIsHandler(),
-                                          new EnsuredPlaceholderIsNullHandler(),
-                                          new EnsuredRangeIsHandler(),
-                                          new EnsuredReadonlyIsHandler(),
-                                          new EnsuredReadonlyIsNotHandler(),
-                                          new EnsuredRelIsHandler(),
-                                          new EnsuredRelIsNullHandler(),
-                                          new EnsuredRequiredIsHandler(),
-                                          new EnsuredRequiredIsNotHandler(),
-                                          new EnsuredRowIsHandler(),
-                                          new EnsuredRowIsNullHandler(),
-                                          new EnsuredSearchIsHandler(),
-                                          new EnsuredSizeIsHandler(),
-                                          new EnsuredSizeIsNullHandler(),
-                                          new EnsuredSizesIsHandler(),
-                                          new EnsuredSizesIsNullHandler(),
-                                          new EnsuredSpellCheckIsHandler(),
-                                          new EnsuredSpellCheckIsNullHandler(),
-                                          new EnsuredSrcIsEventHandler(),
-                                          new EnsuredSrcIsNullHandler(),
-                                          new EnsuredSrcIsNotNullHandler(),
-                                          new EnsuredSrcSetIsHandler(),
-                                          new EnsuredSrcSetIsNullHandler(),
-                                          new EnsuredStepIsEventHandler(),
-                                          new EnsuredStepIsNullHandler(),
-                                          new EnsuredStyleIsHandler(),
-                                          new EnsuredStyleIsNullHandler(),
-                                          new EnsuredTabIndexIsHandler(),
-                                          new EnsuredTabIndexIsNullHandler(),
-                                          new EnsuredTargetIsHandler(),
-                                          new EnsuredTargetIsNullHandler(),
-                                          new EnsuredTextIsHandler(),
-                                          new EnsuredTextContainsHandler(),
-                                          new EnsuredTextIsNullHandler(),
-                                          new EnsuredTimeIsHandler(),
-                                          new EnsuredTimeIsNullHandler(),
-                                          new EnsuredTitleIsHandler(),
-                                          new EnsuredTitleIsNullHandler(),
-                                          new EnsuredTitleIsNotNullHandler(),
-                                          new EnsuredUrlIsHandler(),
-                                          new EnsuredValueIsHandler(),
-                                          new EnsuredValueIsNullHandler(),
-                                          new EnsuredWeekIsHandler(),
-                                          new EnsuredWidthIsHandler(),
-                                          new EnsuredWidthIsNotNullHandler(),
-                                          new EnsuredWidthIsNullHandler(),
-                                          new EnsuredWrapIsHandler(),
-                                          new EnsuredWrapIsNullHandler(),
-                                          new EnsureInnerHtmlIsHandler(),
-                                          new EnsuredStyleContainsHandler(),
-                                          new EnsuredStyleNotContainsHandler(),
-                                          new EnsureInnerTextContainsHandler(),
-                                          new EnsureIsVisibleHandler(),
-                                          new EnsureInnerTextIsHandler(),
-                                          new EnsureIsVisibleHandler(),
+                                          new ValidatedAcceptIsHandler(),
+                                          new ValidatedAcceptIsNullHandler(),
+                                          new ValidatedAccessKeyIsHandler(),
+                                          new ValidatedAccessKeyIsNullHandler(),
+                                          new ValidatedAltIsHandler(),
+                                          new ValidatedAltIsNullHandler(),
+                                          new ValidatedAutoCompleteIsOffHandler(),
+                                          new ValidatedAutoCompleteIsOnHandler(),
+                                          new ValidatedColorIsHandler(),
+                                          new ValidatedColsIsHandler(),
+                                          new ValidatedCssClassIsHandler(),
+                                          new ValidatedCssClassIsNullHandler(),
+                                          new ValidatedDateIsHandler(),
+                                          new ValidatedDirIsHandler(),
+                                          new ValidatedDirIsNullHandler(),
+                                          new ValidatedDisabledIsHandler(),
+                                          new ValidatedEmailIsHandler(),
+                                          new ValidatedForIsHandler(),
+                                          new ValidatedForIsNullHandler(),
+                                          new ValidatedHeightIsHandler(),
+                                          new ValidatedHeightIsNotNullHandler(),
+                                          new ValidatedHeightIsNullHandler(),
+                                          new ValidatedHrefIsHandler(),
+                                          new ValidatedHrefIsSetHandler(),
+                                          new ValidatedIsCheckedHandler(),
+                                          new ValidatedIsNotCheckedHandler(),
+                                          new ValidatedIsNotDisabledHandler(),
+                                          new ValidatedIsNotSelectedHandler(),
+                                          new ValidatedIsNotVisibleHandler(),
+                                          new ValidatedIsSelectedHandler(),
+                                          new ValidatedIsVisibleHandler(),
+                                          new ValidatedLangIsHandler(),
+                                          new ValidatedLangIsNullHandler(),
+                                          new ValidatedListIsHandler(),
+                                          new ValidatedListIsNullHandler(),
+                                          new ValidatedLongDescIsHandler(),
+                                          new ValidatedLongDescIsNullHandler(),
+                                          new ValidatedMaxIsHandler(),
+                                          new ValidatedMaxIsNullHandler(),
+                                          new ValidatedMaxLengthIsHandler(),
+                                          new ValidatedMaxLengthIsNullHandler(),
+                                          new ValidatedMinIsHandler(),
+                                          new ValidatedMinIsNullHandler(),
+                                          new ValidatedMinLengthIsHandler(),
+                                          new ValidatedMinLengthIsNullHandler(),
+                                          new ValidatedMinTextIsHandler(),
+                                          new ValidatedMinTextIsNullHandler(),
+                                          new ValidatedMonthIsHandler(),
+                                          new ValidatedMultipleIsHandler(),
+                                          new ValidatedMultipleIsNullHandler(),
+                                          new ValidatedNumberIsHandler(),
+                                          new ValidatedPasswordIsHandler(),
+                                          new ValidatedPhoneIsHandler(),
+                                          new ValidatedPlaceholderIsHandler(),
+                                          new ValidatedPlaceholderIsNullHandler(),
+                                          new ValidatedRangeIsHandler(),
+                                          new ValidatedReadonlyIsHandler(),
+                                          new ValidatedReadonlyIsNotHandler(),
+                                          new ValidatedRelIsHandler(),
+                                          new ValidatedRelIsNullHandler(),
+                                          new ValidatedRequiredIsHandler(),
+                                          new ValidatedRequiredIsNotHandler(),
+                                          new ValidatedRowIsHandler(),
+                                          new ValidatedRowIsNullHandler(),
+                                          new ValidatedSearchIsHandler(),
+                                          new ValidatedSizeIsHandler(),
+                                          new ValidatedSizeIsNullHandler(),
+                                          new ValidatedSizesIsHandler(),
+                                          new ValidatedSizesIsNullHandler(),
+                                          new ValidatedSpellCheckIsHandler(),
+                                          new ValidatedSpellCheckIsNullHandler(),
+                                          new ValidatedSrcIsEventHandler(),
+                                          new ValidatedSrcIsNullHandler(),
+                                          new ValidatedSrcIsNotNullHandler(),
+                                          new ValidatedSrcSetIsHandler(),
+                                          new ValidatedSrcSetIsNullHandler(),
+                                          new ValidatedStepIsEventHandler(),
+                                          new ValidatedStepIsNullHandler(),
+                                          new ValidatedStyleIsHandler(),
+                                          new ValidatedStyleIsNullHandler(),
+                                          new ValidatedTabIndexIsHandler(),
+                                          new ValidatedTabIndexIsNullHandler(),
+                                          new ValidatedTargetIsHandler(),
+                                          new ValidatedTargetIsNullHandler(),
+                                          new ValidatedTextIsHandler(),
+                                          new ValidatedTextContainsHandler(),
+                                          new ValidatedTextIsNullHandler(),
+                                          new ValidatedTimeIsHandler(),
+                                          new ValidatedTimeIsNullHandler(),
+                                          new ValidatedTitleIsHandler(),
+                                          new ValidatedTitleIsNullHandler(),
+                                          new ValidatedTitleIsNotNullHandler(),
+                                          new ValidatedUrlIsHandler(),
+                                          new ValidatedValueIsHandler(),
+                                          new ValidatedValueIsNullHandler(),
+                                          new ValidatedWeekIsHandler(),
+                                          new ValidatedWidthIsHandler(),
+                                          new ValidatedWidthIsNotNullHandler(),
+                                          new ValidatedWidthIsNullHandler(),
+                                          new ValidatedWrapIsHandler(),
+                                          new ValidatedWrapIsNullHandler(),
+                                          new ValidateInnerHtmlIsHandler(),
+                                          new ValidatedStyleContainsHandler(),
+                                          new ValidatedStyleNotContainsHandler(),
+                                          new ValidateInnerTextContainsHandler(),
+                                          new ValidateIsVisibleHandler(),
+                                          new ValidateInnerTextIsHandler(),
+                                          new ValidateIsVisibleHandler(),
                                      };
         }
 
@@ -322,7 +322,7 @@ namespace Bellatrix.LoadTesting
 
         private void LoadTestsRequestsFromFiles()
         {
-            string allRequestsFilePath = ConfigurationService.Instance.GetLoadTestingSettings().RequestsFileLocation.NormalizeAppPath();
+            string allRequestsFilePath = ConfigurationService.GetSection<LoadTestingConfiguration>().RequestsFileLocation.NormalizeAppPath();
             if (!string.IsNullOrEmpty(allRequestsFilePath) || !Directory.Exists(allRequestsFilePath))
             {
                 var jsonSerializer = new JsonSerializer();

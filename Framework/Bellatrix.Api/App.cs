@@ -12,6 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using Bellatrix.Api.Configuration;
 using Bellatrix.Api.Extensions;
 using Bellatrix.Application;
 using Bellatrix.Configuration;
@@ -27,8 +28,6 @@ namespace Bellatrix.Api
         public bool ShouldReuseRestClient { get; set; } = true;
 
         public LoadTestService LoadTestService => new LoadTestService();
-
-        public IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
@@ -73,7 +72,7 @@ namespace Bellatrix.Api
                 client = new ApiClientService();
                 if (string.IsNullOrEmpty(url))
                 {
-                    var apiSettingsConfig = ConfigurationService.Instance.GetApiSettings();
+                    var apiSettingsConfig = ConfigurationService.GetSection<ApiSettings>();
                     if (apiSettingsConfig == null)
                     {
                         throw new ConfigurationNotFoundException("apiSettings");
