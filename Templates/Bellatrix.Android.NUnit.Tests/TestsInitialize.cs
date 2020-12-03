@@ -18,12 +18,10 @@ namespace Bellatrix.Web.NUnit.Tests
             app.UseNUnitSettings();
             app.UseAppBehavior();
             app.UseLogExecutionBehavior();
-            app.UseIOSControlLocalOverridesCleanBehavior();
             app.UseFFmpegVideoRecorder();
             app.UseIOSDriverScreenshotsOnFail();
-            app.UseLogger();
             app.UseElementsBddLogging();
-            app.UseEnsureExtensionsBddLogging();
+            app.UseValidateExtensionsBddLogging();
             app.UseLayoutAssertionExtensionsBddLogging();
             app.StartAppiumLocalService();
             app.Initialize();

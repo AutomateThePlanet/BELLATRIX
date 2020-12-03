@@ -22,8 +22,8 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
 
         protected override Tuple<string, string> GetCredentialsFromConfig()
         {
-            string user = ConfigurationService.Instance.GetWebSettings().SauceLabs.User;
-            string accessKey = ConfigurationService.Instance.GetWebSettings().SauceLabs.Key;
+            string user = ConfigurationService.GetSection<WebSettings>().SauceLabs.User;
+            string accessKey = ConfigurationService.GetSection<WebSettings>().SauceLabs.Key;
 
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(accessKey))
             {

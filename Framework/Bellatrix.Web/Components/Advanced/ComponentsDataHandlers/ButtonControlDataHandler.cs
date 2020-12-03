@@ -29,15 +29,15 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             return data;
         }
 
-        public void EnsureValueIs(Button element, string expectedValue)
+        public void ValidateValueIs(Button element, string expectedValue)
         {
             if (string.IsNullOrEmpty(element.InnerText.Trim()))
             {
-                element.EnsureValueIs(expectedValue);
+                element.ValidateValueIs(expectedValue);
             }
             else
             {
-                element.EnsureInnerTextIs(expectedValue);
+                element.ValidateInnerTextIs(expectedValue);
             }
         }
     }

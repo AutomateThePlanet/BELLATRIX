@@ -45,17 +45,17 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             }
         }
 
-        public void EnsureValueIs(CheckBox element, string expectedValue)
+        public void ValidateValueIs(CheckBox element, string expectedValue)
         {
             if (bool.TryParse(expectedValue, out bool expectedBool))
             {
                 if (expectedBool)
                 {
-                    element.EnsureIsChecked();
+                    element.ValidateIsChecked();
                 }
                 else
                 {
-                    element.EnsureIsNotChecked();
+                    element.ValidateIsNotChecked();
                 }
             }
             else

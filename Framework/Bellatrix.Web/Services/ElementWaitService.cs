@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Waits
         public static event EventHandler<ElementNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
 
         public void Wait<TUntil, TElement>(TElement element, TUntil until)
-            where TUntil : BaseUntil
+            where TUntil : WaitStrategy
             where TElement : Element
         {
             try
@@ -46,11 +46,11 @@ namespace Bellatrix.Web.Waits
         }
 
         internal void WaitInternal<TUntil, TBy>(TBy by, TUntil until)
-            where TUntil : BaseUntil
-            where TBy : By => until?.WaitUntil(@by);
+            where TUntil : WaitStrategy
+            where TBy : FindStrategy => until?.WaitUntil(@by);
 
         internal void WaitInternal<TUntil, TBy>(TBy by, TUntil until, Element parent)
-            where TUntil : BaseUntil
-            where TBy : By => until?.WaitUntil(@by, parent);
+            where TUntil : WaitStrategy
+            where TBy : FindStrategy => until?.WaitUntil(@by, parent);
     }
 }

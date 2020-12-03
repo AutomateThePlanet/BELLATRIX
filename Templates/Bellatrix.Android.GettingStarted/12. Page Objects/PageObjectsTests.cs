@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         // It is a matter of choice whether to have action methods or not. If you use the same combination of same actions against a group of elements then
         // it may be a good idea to wrap them in a page object action method. In our example, we can wrap the transfer of an item in such a method.
         //
-        // 4. In the assertions file, we may place some predefined ensure methods. For example, if you always check the same email or title of a screen,
+        // 4. In the assertions file, we may place some predefined Validate methods. For example, if you always check the same email or title of a screen,
         // there is no need to hard-code the string in each test. Later if the title is changed, you can do it in a single place.
         // The same is true about most of the things you can assert in your tests.
         //
@@ -40,18 +40,18 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         public void ActionsWithoutPageObjects()
         {
             var button = App.ElementCreateService.CreateByIdContaining<Button>("button_disabled");
-            button.EnsureIsDisabled();
+            button.ValidateIsDisabled();
             var checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check1");
             checkBox.Check();
-            checkBox.EnsureIsChecked();
+            checkBox.ValidateIsChecked();
             var comboBox = App.ElementCreateService.CreateByIdContaining<ComboBox>("spinner1");
             comboBox.SelectByText("Jupiter");
-            comboBox.EnsureTextIs("Jupiter");
+            comboBox.ValidateTextIs("Jupiter");
             var label = App.ElementCreateService.CreateByText<Label>("textColorPrimary");
-            label.EnsureIsVisible();
+            label.ValidateIsVisible();
             var radioButton = App.ElementCreateService.CreateByIdContaining<RadioButton>("radio2");
             radioButton.Click();
-            radioButton.EnsureIsChecked(timeout: 30, sleepInterval: 2);
+            radioButton.ValidateIsChecked(timeout: 30, sleepInterval: 2);
         }
 
         [TestMethod]

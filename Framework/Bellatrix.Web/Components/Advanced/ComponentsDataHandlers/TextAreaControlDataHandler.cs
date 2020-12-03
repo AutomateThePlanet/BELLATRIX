@@ -26,6 +26,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             element.SetText(data);
         }
 
-        public void EnsureValueIs(TextArea element, string expectedValue) => element.EnsureTextIs(expectedValue);
+        public void ValidateValueIs(TextArea element, string expectedValue) => element.ValidateTextIs(expectedValue);
     }
 }

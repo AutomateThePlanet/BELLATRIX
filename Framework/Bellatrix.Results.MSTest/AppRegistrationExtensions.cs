@@ -23,11 +23,6 @@ namespace Bellatrix
     {
         public static BaseApp UseMSTestResults(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             baseApp.RegisterType<IScreenshotPlugin, MSTestResultsWorkflowPlugin>(Guid.NewGuid().ToString());
             baseApp.RegisterType<IVideoPlugin, MSTestResultsWorkflowPlugin>(Guid.NewGuid().ToString());
 

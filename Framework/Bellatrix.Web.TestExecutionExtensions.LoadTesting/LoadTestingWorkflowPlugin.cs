@@ -29,7 +29,7 @@ namespace Bellatrix.Web.LoadTesting
             }
             else
             {
-                loadTestingWorkflowPluginContext.IsLoadTestingEnabled = ConfigurationService.Instance.GetLoadTestingSettings().IsEnabled;
+                loadTestingWorkflowPluginContext.IsLoadTestingEnabled = ConfigurationService.GetSection<LoadTestingSettings>().IsEnabled;
                 loadTestingWorkflowPluginContext.ShouldFilterByHost = loadTestingAttribute.ShouldRecordHostRequestsOnly;
                 loadTestingWorkflowPluginContext.FilterHost = loadTestingAttribute.Host;
             }

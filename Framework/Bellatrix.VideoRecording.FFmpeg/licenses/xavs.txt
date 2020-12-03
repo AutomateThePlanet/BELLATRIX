@@ -282,7 +282,7 @@ in one of these ways:
     that supports equivalent copying facilities, provided you maintain
     clear directions next to the object code saying where to find the
     Corresponding Source.  Regardless of what server hosts the
-    Corresponding Source, you remain obligated to ensure that it is
+    Corresponding Source, you remain obligated to Validate that it is
     available for as long as needed to satisfy these requirements.
 
     e) Convey the object code using peer-to-peer transmission, provided
@@ -311,7 +311,7 @@ the only significant mode of use of the product.
 procedures, authorization keys, or other information required to install
 and execute modified versions of a covered work in that User Product from
 a modified version of its Corresponding Source.  The information must
-suffice to ensure that the continued functioning of the modified object
+suffice to Validate that the continued functioning of the modified object
 code is in no case prevented or interfered with solely because
 modification has been made.
 

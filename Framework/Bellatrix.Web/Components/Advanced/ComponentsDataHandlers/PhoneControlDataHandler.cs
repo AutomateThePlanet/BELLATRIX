@@ -26,6 +26,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             element.SetPhone(data);
         }
 
-        public void EnsureValueIs(Phone element, string expectedValue) => element.EnsurePhoneIs(expectedValue);
+        public void ValidateValueIs(Phone element, string expectedValue) => element.ValidatePhoneIs(expectedValue);
     }
 }

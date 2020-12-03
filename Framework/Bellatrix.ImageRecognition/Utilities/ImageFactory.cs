@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.IO;
+using Bellatrix.ImageRecognition.Configuration;
 using Bellatrix.ImageRecognition.Interfaces;
 using Bellatrix.ImageRecognition.Models;
 using Bellatrix.Infrastructure;
@@ -23,7 +24,7 @@ namespace Bellatrix.ImageRecognition.Utilities
     public static class ImageFactory
     {
         private static readonly EmbeddedResourcesService EmbeddedResourcesService;
-        private static readonly double DefaultSimilarity = ConfigurationService.Instance.GetImageRecognitionSettings().DefaultSimilarity;
+        private static readonly double DefaultSimilarity = ConfigurationService.GetSection<ImageRecognitionSettings>().DefaultSimilarity;
 
         static ImageFactory()
         {

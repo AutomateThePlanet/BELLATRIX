@@ -11,6 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using Bellatrix.Web;
 using System;
 
 namespace Bellatrix.SpecFlow.Web.TestExecutionExtensions.Browser
@@ -22,8 +23,8 @@ namespace Bellatrix.SpecFlow.Web.TestExecutionExtensions.Browser
 
         protected override Tuple<string, string> GetCredentialsFromConfig()
         {
-            string user = ConfigurationService.Instance.GetWebSettings().SauceLabs.User;
-            string accessKey = ConfigurationService.Instance.GetWebSettings().SauceLabs.Key;
+            string user = ConfigurationService.GetSection<WebSettings>().SauceLabs.User;
+            string accessKey = ConfigurationService.GetSection<WebSettings>().SauceLabs.Key;
 
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(accessKey))
             {

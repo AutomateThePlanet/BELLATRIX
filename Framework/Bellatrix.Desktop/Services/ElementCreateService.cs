@@ -20,7 +20,7 @@ namespace Bellatrix.Desktop
     public class ElementCreateService
     {
         public TElement Create<TElement, TBy>(TBy by)
-            where TBy : By
+            where TBy : FindStrategy
             where TElement : Element
         {
             var elementRepository = new ElementRepository();
@@ -28,7 +28,7 @@ namespace Bellatrix.Desktop
         }
 
         public ElementsList<TElement> CreateAll<TElement, TBy>(TBy by)
-            where TBy : By
+            where TBy : FindStrategy
             where TElement : Element => new ElementsList<TElement>(by, null);
     }
 }

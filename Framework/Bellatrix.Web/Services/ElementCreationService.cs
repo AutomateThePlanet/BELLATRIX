@@ -18,7 +18,7 @@ namespace Bellatrix.Web
     public class ElementCreateService
     {
         public TElement Create<TElement, TBy>(TBy by, bool shouldCacheElement)
-            where TBy : By
+            where TBy : FindStrategy
             where TElement : Element
         {
             var elementRepository = new ElementRepository();
@@ -26,7 +26,7 @@ namespace Bellatrix.Web
         }
 
         public ElementsList<TElement> CreateAll<TElement, TBy>(TBy by, bool shouldCacheElements)
-            where TBy : By
+            where TBy : FindStrategy
             where TElement : Element => new ElementsList<TElement>(by, null, shouldCacheElements);
     }
 }

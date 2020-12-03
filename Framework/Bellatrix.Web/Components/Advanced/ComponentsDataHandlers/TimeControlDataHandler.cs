@@ -33,6 +33,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             }
         }
 
-        public void EnsureValueIs(Time element, string expectedValue) => element.EnsureTimeIs(expectedValue);
+        public void ValidateValueIs(Time element, string expectedValue) => element.ValidateTimeIs(expectedValue);
     }
 }

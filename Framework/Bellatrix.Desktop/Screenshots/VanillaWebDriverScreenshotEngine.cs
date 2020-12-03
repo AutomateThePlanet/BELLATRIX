@@ -21,9 +21,9 @@ namespace Bellatrix.TestExecutionExtensions.Screenshots
 {
     public sealed class VanillaWebDriverScreenshotEngine : IScreenshotEngine
     {
-        public string TakeScreenshot(IServicesCollection serviceContainer) => TakeScreenshotVanillaWebDriver(serviceContainer);
+        public string TakeScreenshot(ServicesCollection serviceContainer) => TakeScreenshotVanillaWebDriver(serviceContainer);
 
-        public string TakeScreenshotVanillaWebDriver(IServicesCollection serviceContainer)
+        public string TakeScreenshotVanillaWebDriver(ServicesCollection serviceContainer)
         {
             var driver = serviceContainer.Resolve<IWebDriver>();
             Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();

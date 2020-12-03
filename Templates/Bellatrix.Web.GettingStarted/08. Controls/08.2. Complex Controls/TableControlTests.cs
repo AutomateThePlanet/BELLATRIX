@@ -93,13 +93,13 @@ namespace Bellatrix.Web.GettingStarted
             Table.ForEachCell(cell => Assert.AreEqual("14px", cell.GetCssValue("font-size")));
 
             // You can get a particular cell as BELLATRIX element mentioning the column header and row number.
-            Table.GetCell("First Name", 1).EnsureInnerTextIs("Frank");
+            Table.GetCell("First Name", 1).ValidateInnerTextIs("Frank");
 
             // You can get a particular cell as BELLATRIX element mentioning the row and column number.
-            Table.GetCell(1, 2).EnsureInnerTextIs("Jason");
+            Table.GetCell(1, 2).ValidateInnerTextIs("Jason");
 
             // You can get a particular cell by header expression and row number.
-            Table.GetCell<User>(cell => cell.Email, 1).EnsureInnerTextIs("fbach@yahoo.com");
+            Table.GetCell<User>(cell => cell.Email, 1).ValidateInnerTextIs("fbach@yahoo.com");
 
             // You can get particular cells by a selector.
             ElementsList<TableCell> cells = Table.GetCells(cell => cell.InnerText.ToLower().StartsWith('j'));
@@ -107,7 +107,7 @@ namespace Bellatrix.Web.GettingStarted
 
             // As a shortcut, you can get the first cell matching a given condition through the GetFirstOrDefaultCell method.
             var matchingCell = Table.GetFirstOrDefaultCell(cell => cell.InnerText.ToLower().StartsWith('j'));
-            matchingCell.EnsureInnerTextIs("John");
+            matchingCell.ValidateInnerTextIs("John");
         }
 
         [TestMethod]
@@ -123,18 +123,18 @@ namespace Bellatrix.Web.GettingStarted
             // You can get the HTML through the InnerHtml property.
             Assert.IsTrue(firstRow.InnerHtml.Contains("</td>"));
 
-            // If you only need to assert the inner HTML you can use the built-in BELLATRIX ensure methods.
-            firstRow.EnsureInnerHtmlContains("</td>");
+            // If you only need to assert the inner HTML you can use the built-in BELLATRIX Validate methods.
+            firstRow.ValidateInnerHtmlContains("</td>");
 
             // There are many ways to get a specific cell through the indexer and the GetCell methods.
             var firstCell = Table.GetRow(0).GetCell(0);
 
-            // You can again use directly the built-in BELLATRIX ensure methods.
-            firstCell.EnsureInnerTextIs("Smith");
+            // You can again use directly the built-in BELLATRIX Validate methods.
+            firstCell.ValidateInnerTextIs("Smith");
 
             // You can get a cell by header name
             var secondCell = firstRow.GetCell("Email");
-            secondCell.EnsureInnerTextIs("jsmith@gmail.com");
+            secondCell.ValidateInnerTextIs("jsmith@gmail.com");
 
             // You can get all row cells through the GetCells method.
             IEnumerable<TableCell> cells = firstRow.GetCells();
@@ -146,7 +146,7 @@ namespace Bellatrix.Web.GettingStarted
 
             // You can get the first cell matching a condition through the GetFirstOrDefaultCell method.
             var matchingCell = firstRow.GetFirstOrDefaultCell(cell => cell.InnerText.ToLower().Contains("smith"));
-            matchingCell.EnsureInnerTextIs("Smith");
+            matchingCell.ValidateInnerTextIs("Smith");
 
             // You can convert a row to an instance of a specific class through the GetItem method.
             Assert.AreEqual("jsmith@gmail.com", firstRow.GetItem<User>().Email);
@@ -182,8 +182,8 @@ namespace Bellatrix.Web.GettingStarted
             // You can get the cell innerText.
             Assert.AreEqual("Smith", firstCell.InnerText);
 
-            // You can use built-in BELLATRIX ensure methods to assert the cell attributes.
-            firstCell.EnsureInnerTextIs("Smith");
+            // You can use built-in BELLATRIX Validate methods to assert the cell attributes.
+            firstCell.ValidateInnerTextIs("Smith");
 
             // You can get the cell innerHtml.
             var thirdCell = Table.GetCell(0, 2);
@@ -197,14 +197,14 @@ namespace Bellatrix.Web.GettingStarted
             var secondColumn = Table.GetColumn(1);
             Assert.AreEqual("John", secondColumn[0].InnerText);
 
-            // You can use built-in BELLATRIX ensure methods to assert the cell attributes.
-            secondColumn[0].EnsureInnerTextIs("John");
+            // You can use built-in BELLATRIX Validate methods to assert the cell attributes.
+            secondColumn[0].ValidateInnerTextIs("John");
 
             // You can get the cells of a particular column mentioning the column name.
             secondColumn = Table.GetColumn("First Name");
             Assert.AreEqual("John", secondColumn[0].InnerText);
 
-            secondColumn[0].EnsureInnerTextIs("John");
+            secondColumn[0].ValidateInnerTextIs("John");
         }
     }
 }

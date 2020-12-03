@@ -59,12 +59,9 @@ namespace Bellatrix.TestWorkflowPlugins
             ConsoleOutputMessage = consoleOutputMessage;
             ConsoleOutputStackTrace = consoleOutputStackTrace;
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            ExecutionContext = Container.Resolve<ExecutionContext>();
         }
 
-        public ExecutionContext ExecutionContext { get; set; }
-
-        public IServicesCollection Container { get; set; }
+        public ServicesCollection Container { get; set; }
 
         public Exception Exception { get; }
 

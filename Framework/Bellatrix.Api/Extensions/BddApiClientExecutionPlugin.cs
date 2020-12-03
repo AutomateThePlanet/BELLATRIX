@@ -19,11 +19,7 @@ namespace Bellatrix.Api.Extensions
 {
     public class BddApiClientExecutionPlugin : ApiClientExecutionPlugin
     {
-        private readonly IBellaLogger _logger;
-
-        public BddApiClientExecutionPlugin(IBellaLogger logger) => _logger = logger;
-
-        protected override void OnRequestTimeout(object sender, ClientEventArgs client) => _logger.LogInformation("Request was not executed in the specified timeout.");
+        protected override void OnRequestTimeout(object sender, ClientEventArgs client) => Logger.LogInformation("Request was not executed in the specified timeout.");
 
         protected override void OnMakingRequest(object sender, RequestEventArgs requestEventArgs)
         {
@@ -38,11 +34,11 @@ namespace Bellatrix.Api.Extensions
                 }
             }
 
-            _logger.LogInformation(sb.ToString().TrimEnd());
+            Logger.LogInformation(sb.ToString().TrimEnd());
         }
 
-        protected override void OnRequestMade(object sender, ResponseEventArgs responseEventArgs) => _logger.LogInformation($"Response of request {responseEventArgs.Response.Request.Method} against resource {responseEventArgs.RequestUri} - {responseEventArgs.Response.ResponseStatus}");
+        protected override void OnRequestMade(object sender, ResponseEventArgs responseEventArgs) => Logger.LogInformation($"Response of request {responseEventArgs.Response.Request.Method} against resource {responseEventArgs.RequestUri} - {responseEventArgs.Response.ResponseStatus}");
 
-        protected override void OnRequestFailed(object sender, ResponseEventArgs responseEventArgs) => _logger.LogInformation($"Request Failed {responseEventArgs.Response.Request.Method} on URL {responseEventArgs.RequestUri} - {responseEventArgs.Response.ResponseStatus} {responseEventArgs.Response.ErrorMessage}");
+        protected override void OnRequestFailed(object sender, ResponseEventArgs responseEventArgs) => Logger.LogInformation($"Request Failed {responseEventArgs.Response.Request.Method} on URL {responseEventArgs.RequestUri} - {responseEventArgs.Response.ResponseStatus} {responseEventArgs.Response.ErrorMessage}");
     }
 }

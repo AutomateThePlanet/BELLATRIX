@@ -31,7 +31,7 @@ namespace Bellatrix.Desktop.GettingStarted
         [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("DisappearAfterButton1");
+            var button = App.ElementCreateService.CreateByName<Button>("asd");
 
             // 2. Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the element.
             // In the above example, statement waits for the button to be clickable and visible before the click. However, in some cases, you want some element to show up

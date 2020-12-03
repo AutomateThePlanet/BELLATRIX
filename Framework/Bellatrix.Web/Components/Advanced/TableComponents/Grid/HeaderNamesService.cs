@@ -77,7 +77,7 @@ namespace Bellatrix.Web
 
                 if (exactMatchHeaders.Count() != 1)
                 {
-                    DebugLogger.LogWarning($"More than one Header with name ending with '{header}' was found. Returning the first one.");
+                    Logger.LogWarning($"More than one Header with name ending with '{header}' was found. Returning the first one.");
                     return allMatchingHeaders.FirstOrDefault().Key;
                 }
 

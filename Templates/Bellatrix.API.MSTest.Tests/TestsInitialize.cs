@@ -19,7 +19,6 @@ namespace Bellatrix.API.MSTest.Tests
 
             app.UseExceptionLogger();
             app.UseMsTestSettings();
-            app.UseLogger();
             app.UseExecutionTimeUnderExtensions();
             app.UseApiAuthenticationStrategies();
             app.UseApiExtensionsBddLogging();

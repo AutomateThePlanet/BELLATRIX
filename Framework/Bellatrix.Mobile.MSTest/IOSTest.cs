@@ -21,7 +21,7 @@ namespace Bellatrix.Mobile
 
         public override void Initialize()
         {
-            App = ServicesCollection.Current.FindCollection(ЕxecutionContext.TestClassName).Resolve<IOSApp>();
+            App = ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<IOSApp>();
         }
     }
 }

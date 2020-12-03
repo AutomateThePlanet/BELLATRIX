@@ -22,7 +22,7 @@ namespace Bellatrix.LoadTesting.MSTest.Tests
             LoadTestEngine.Settings.IgnoreUrlRequestsPatterns.Add(".*loginHash.*");
             LoadTestEngine.Settings.TestScenariosToBeExecutedPatterns.Add("Bellatrix.Web.Tests.Controls");
             LoadTestEngine.Assertions.AssertAllRequestStatusesAreSuccessful();
-            LoadTestEngine.Assertions.AssertAllRecordedEnsureAssertions();
+            LoadTestEngine.Assertions.AssertAllRecordedValidateAssertions();
             LoadTestEngine.Execute("loadTestResults.html");
         }
     }

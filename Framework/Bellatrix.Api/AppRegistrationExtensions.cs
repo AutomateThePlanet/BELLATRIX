@@ -22,11 +22,6 @@ namespace Bellatrix
     {
         public static BaseApp UseApiExtensionsBddLogging(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             baseApp.RegisterType<ApiClientExecutionPlugin, BddApiClientExecutionPlugin>(Guid.NewGuid().ToString());
 
             return baseApp;
@@ -34,11 +29,6 @@ namespace Bellatrix
 
         public static BaseApp UseAssertExtensionsBddLogging(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var bddLoggingAssertExtensions = new BDDLoggingAssertExtensions();
             bddLoggingAssertExtensions.SubscribeToAll();
 
@@ -47,11 +37,6 @@ namespace Bellatrix
 
         public static BaseApp UseApiAssertExtensionsDynamicTestCases(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var dynamicTestCasesAssertExtensions = new DynamicTestCasesAssertExtensions();
             dynamicTestCasesAssertExtensions.SubscribeToAll();
 
@@ -60,11 +45,6 @@ namespace Bellatrix
 
         public static BaseApp UseAssertExtensionsBugReporting(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             var dynamicTestCasesAssertExtensions = new BugReportingAssertExtensions();
             dynamicTestCasesAssertExtensions.SubscribeToAll();
 

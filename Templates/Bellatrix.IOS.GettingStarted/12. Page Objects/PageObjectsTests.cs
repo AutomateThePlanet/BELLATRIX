@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // It is a matter of choice whether to have action methods or not. If you use the same combination of same actions against a group of elements then
         // it may be a good idea to wrap them in a page object action method. In our example, we can wrap the transfer of an item in such a method.
         //
-        // 4. In the assertions file, we may place some predefined ensure methods. For example, if you always check the same email or title of a screen,
+        // 4. In the assertions file, we may place some predefined Validate methods. For example, if you always check the same email or title of a screen,
         // there is no need to hard-code the string in each test. Later if the title is changed, you can do it in a single place.
         // The same is true about most of the things you can assert in your tests.
         //

@@ -22,11 +22,6 @@ namespace Bellatrix.SpecFlow
     {
         public static BaseApp UseExecutionTimeUnderExtensions(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             baseApp.RegisterType<TestWorkflowPlugin, ExecutionTimeUnderTestWorkflowPlugin>(Guid.NewGuid().ToString());
 
             return baseApp;

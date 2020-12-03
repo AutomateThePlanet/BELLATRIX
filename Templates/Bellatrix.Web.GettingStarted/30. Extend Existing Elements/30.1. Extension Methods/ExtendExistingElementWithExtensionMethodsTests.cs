@@ -37,13 +37,13 @@ namespace Bellatrix.Web.GettingStarted
             applyCouponButton.Click();
 
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
-            messageAlert.EnsureInnerTextIs("Coupon code applied successfully.");
+            messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
             App.BrowserService.WaitForAjax();
             quantityBox.SetNumber(2);
             updateCart.Click();
             App.BrowserService.WaitForAjax();
 
-            totalSpan.EnsureInnerTextIs("114.00€", 15000);
+            totalSpan.ValidateInnerTextIs("114.00€", 15000);
 
             // 2. Use the custom added submit button behaviour through 'Enter' key.
             proceedToCheckout.SubmitButtonWithEnter();

@@ -43,7 +43,7 @@ namespace Bellatrix.Utilities
         public static string GetEntryProcessApplicationPath()
         {
             // If we will write tests some day, create separate interfaces for below classes. But I think there is no need.
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            string codeBase = Assembly.GetExecutingAssembly().Location;
             UriBuilder uri = new UriBuilder(codeBase);
             string path = Uri.UnescapeDataString(uri.Path);
             return Path.GetDirectoryName(path);
@@ -196,7 +196,7 @@ namespace Bellatrix.Utilities
 
         public static string GetExecutingAssemblyFolder()
         {
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            string codeBase = Assembly.GetExecutingAssembly().Location;
             var uri = new UriBuilder(codeBase);
             string path = Uri.UnescapeDataString(uri.Path);
             return Path.GetDirectoryName(path);

@@ -18,13 +18,9 @@ namespace Bellatrix.SpecFlow.Web.TestExecutionExtensions.Browser
 {
     public class LogWorkflowPlugin : TestWorkflowPlugin
     {
-        private readonly ILogger _logger;
-
-        public LogWorkflowPlugin(ILogger logger) => _logger = logger;
-
         protected override void PreBeforeScenario(object sender, TestWorkflowPluginEventArgs e)
         {
-            _logger.Information($"Start Test Feature = {e.FeatureName} ScenarioName = {e.ScenarioName}");
+            Logger.LogInformation($"Start Test Feature = {e.FeatureName} ScenarioName = {e.ScenarioName}");
         }
     }
 }

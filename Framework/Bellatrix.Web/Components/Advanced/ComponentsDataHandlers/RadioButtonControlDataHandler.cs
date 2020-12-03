@@ -38,15 +38,15 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             }
         }
 
-        public void EnsureValueIs(RadioButton element, string expectedValue)
+        public void ValidateValueIs(RadioButton element, string expectedValue)
         {
             if (bool.Parse(expectedValue))
             {
-                element.EnsureIsChecked();
+                element.ValidateIsChecked();
             }
             else
             {
-                element.EnsureIsNotChecked();
+                element.ValidateIsNotChecked();
             }
         }
     }

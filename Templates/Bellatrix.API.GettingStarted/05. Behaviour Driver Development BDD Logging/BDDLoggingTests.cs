@@ -33,7 +33,7 @@ namespace Bellatrix.API.GettingStarted
         public void ContentPopulated_When_GetAlbums()
         {
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.
-            //  "logging": {
+            //  "loggingSettings": {
             //      "isEnabled": "true",
             //      "isConsoleLoggingEnabled": "true",
             //      "isDebugLoggingEnabled": "true",

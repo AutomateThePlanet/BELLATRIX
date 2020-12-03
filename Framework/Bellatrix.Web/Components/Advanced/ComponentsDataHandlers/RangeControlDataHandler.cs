@@ -33,6 +33,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             }
         }
 
-        public void EnsureValueIs(Range element, string expectedValue) => element.EnsureRangeIs(int.Parse(expectedValue));
+        public void ValidateValueIs(Range element, string expectedValue) => element.ValidateRangeIs(int.Parse(expectedValue));
     }
 }

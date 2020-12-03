@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\SharedAssemblyInfo.targets" />
+
+  <ItemGroup>
+    <PackageReference Include="Unity" Version="5.11.9" />
+  </ItemGroup>
+</Project>

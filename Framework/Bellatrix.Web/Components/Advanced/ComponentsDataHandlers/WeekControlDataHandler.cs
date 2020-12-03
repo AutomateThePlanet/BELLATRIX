@@ -28,6 +28,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             element.SetWeek(valueToSet.Year, CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(valueToSet, CalendarWeekRule.FirstDay, DayOfWeek.Monday));
         }
 
-        public void EnsureValueIs(Week element, string expectedValue) => element.EnsureWeekIs(expectedValue);
+        public void ValidateValueIs(Week element, string expectedValue) => element.ValidateWeekIs(expectedValue);
     }
 }

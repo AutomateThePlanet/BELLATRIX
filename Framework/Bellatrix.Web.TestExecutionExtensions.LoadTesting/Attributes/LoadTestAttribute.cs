@@ -21,14 +21,14 @@ namespace Bellatrix.Web.LoadTesting
     {
         public LoadTestAttribute()
         {
-            ShouldRecordHostRequestsOnly = ConfigurationService.Instance.GetLoadTestingSettings().ShouldRecordHostRequestsOnly;
-            Host = ConfigurationService.Instance.GetLoadTestingSettings().DefaultHost;
+            ShouldRecordHostRequestsOnly = ConfigurationService.GetSection<LoadTestingSettings>().ShouldRecordHostRequestsOnly;
+            Host = ConfigurationService.GetSection<LoadTestingSettings>().DefaultHost;
         }
 
         public LoadTestAttribute(bool shouldRecordHostRequestsOnly)
         {
             ShouldRecordHostRequestsOnly = shouldRecordHostRequestsOnly;
-            Host = ConfigurationService.Instance.GetLoadTestingSettings().DefaultHost;
+            Host = ConfigurationService.GetSection<LoadTestingSettings>().DefaultHost;
         }
 
         public LoadTestAttribute(bool shouldRecordHostRequestsOnly, string host)

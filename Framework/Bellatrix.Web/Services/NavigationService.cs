@@ -41,15 +41,6 @@ namespace Bellatrix.Web
         {
             var assembly = Assembly.GetExecutingAssembly();
             string path = Path.GetDirectoryName(assembly.Location);
-            bool isParallelRun = ServicesCollection.Main.Resolve<bool>("isParallelRun");
-            if (isParallelRun)
-            {
-                string execDir = ServicesCollection.Main.Resolve<string>("ExecutionDirectory");
-                if (Directory.Exists(execDir))
-                {
-                    path = ServicesCollection.Main.Resolve<string>("ExecutionDirectory");
-                }
-            }
 
             string pageFilePath = Path.Combine(path ?? throw new InvalidOperationException(), filePath);
 

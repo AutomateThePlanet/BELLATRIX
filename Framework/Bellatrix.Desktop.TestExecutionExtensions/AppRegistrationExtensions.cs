@@ -33,12 +33,5 @@ namespace Bellatrix
 
             return baseApp;
         }
-
-        public static BaseApp UseControlLocalOverridesCleanBehavior(this BaseApp baseApp)
-        {
-            baseApp.RegisterType<TestWorkflowPlugin, ControlsLocalOverridesCleanExtension>(Guid.NewGuid().ToString());
-
-            return baseApp;
-        }
     }
 }

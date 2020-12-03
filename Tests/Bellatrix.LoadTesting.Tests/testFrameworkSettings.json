@@ -1,0 +1,30 @@
+﻿{
+  "loadTestingSettings": {
+    "isEnabled": "true",
+    "defaultHost": "dev.client.demandcaster.com",
+    "shouldRecordHostRequestsOnly": "true",
+    "requestsFileLocation": "C:\\Users\\Anton\\Source\\Repos\\BELLATRIX\\Tests\\Bellatrix.Web.Tests\\bin\\Debug\\netcoreapp2.1\\LoadTestsRequests\\allRequests.json",
+    "certificatePaths": [ "AssemblyFolder\\demandplanning.cer" ],
+    "ignoreUrlRequestsPatterns": [ ".*wp-admin.*" ]
+  },
+  "webProxySettings": {
+    "isEnabled": "true",
+    "pathToSslCertificate": "automatetheplanet.cer"
+  },
+  "logging": {
+    "isEnabled": "true",
+    "isConsoleLoggingEnabled": "true",
+    "isDebugLoggingEnabled": "true",
+    "isEventLoggingEnabled": "false",
+    "isFileLoggingEnabled": "true",
+    "outputTemplate": "[{Timestamp:HH:mm:ss}] {Message:lj}{NewLine}",
+    "addUrlToBddLogging": "true"
+  },
+  "apiSettings": {
+    "baseUrl": "https://dev.client.demandcaster.com",
+    "clientTimeoutSeconds": "30",
+    "maxRetryAttempts": "0",
+    "pauseBetweenFailures": "0",
+    "timeUnit": "1"
+  }
+}

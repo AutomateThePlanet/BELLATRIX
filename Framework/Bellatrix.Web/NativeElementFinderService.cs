@@ -23,7 +23,7 @@ namespace Bellatrix.Web
         public NativeElementFinderService(ISearchContext searchContext) => _searchContext = searchContext;
 
         public IWebElement Find<TBy>(TBy by)
-            where TBy : By
+            where TBy : FindStrategy
         {
             var element = _searchContext.FindElement(by.Convert());
 
@@ -31,7 +31,7 @@ namespace Bellatrix.Web
         }
 
         public IEnumerable<IWebElement> FindAll<TBy>(TBy by)
-            where TBy : By
+            where TBy : FindStrategy
         {
             IEnumerable<IWebElement> result = _searchContext.FindElements(@by.Convert());
 

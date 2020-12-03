@@ -21,11 +21,6 @@ namespace Bellatrix.LoadTesting.SpecFlow
     {
         public static BaseApp UseNUnitSettings(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException("The default container for the App is not configured.\n The first method you need to call is 'App.Use{IoCFramework}Container();'\nFor example, if you have installed Unity IoC projects call 'App.UseUnityContainer();'.");
-            }
-
             ServicesCollection.Current.RegisterType<IAssert, NUnitAssert>();
             ServicesCollection.Current.RegisterType<ICollectionAssert, NUnitCollectionAssert>();
             return baseApp;

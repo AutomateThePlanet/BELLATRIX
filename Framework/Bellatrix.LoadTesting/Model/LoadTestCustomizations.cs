@@ -11,23 +11,23 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using Bellatrix.LoadTesting.Model.Locators;
+using Bellatrix.LoadTesting.Model.Validates;
 using System.Collections.Generic;
 using System.Linq;
-using Bellatrix.LoadTesting.Model.Ensures;
-using Bellatrix.LoadTesting.Model.Locators;
 
 namespace Bellatrix.LoadTesting.Model
 {
     public class LoadTestCustomizations
     {
         private readonly List<LoadTestLocator> _loadTestLocators;
-        private readonly List<LoadTestEnsureHandler> _loadTestEnsureHandler;
+        private readonly List<LoadTestValidateHandler> _loadTestValidateHandler;
         private readonly List<ITestScenarioMixtureDeterminer> _testScenarioMixtureDeterminers;
 
-        public LoadTestCustomizations(List<LoadTestLocator> loadTestLocators, List<LoadTestEnsureHandler> loadTestEnsureHandler, List<ITestScenarioMixtureDeterminer> testScenarioMixtureDeterminers)
+        public LoadTestCustomizations(List<LoadTestLocator> loadTestLocators, List<LoadTestValidateHandler> loadTestValidateHandler, List<ITestScenarioMixtureDeterminer> testScenarioMixtureDeterminers)
         {
             _loadTestLocators = loadTestLocators;
-            _loadTestEnsureHandler = loadTestEnsureHandler;
+            _loadTestValidateHandler = loadTestValidateHandler;
             _testScenarioMixtureDeterminers = testScenarioMixtureDeterminers;
         }
 
@@ -47,11 +47,11 @@ namespace Bellatrix.LoadTesting.Model
             }
         }
 
-        public void AddCustomLoadTestEnsureHandler(LoadTestEnsureHandler loadTestEnsureHandler)
+        public void AddCustomLoadTestValidateHandler(LoadTestValidateHandler loadTestValidateHandler)
         {
-            if (!_loadTestEnsureHandler.Any(x => x.EnsureType.Equals(loadTestEnsureHandler.EnsureType)))
+            if (!_loadTestValidateHandler.Any(x => x.ValidateType.Equals(loadTestValidateHandler.ValidateType)))
             {
-                _loadTestEnsureHandler.Add(loadTestEnsureHandler);
+                _loadTestValidateHandler.Add(loadTestValidateHandler);
             }
         }
     }

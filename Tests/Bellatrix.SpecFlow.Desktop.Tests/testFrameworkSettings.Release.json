@@ -1,0 +1,37 @@
+﻿{
+  // All Timeout Times are in seconds!
+  "desktopSettings": {
+    "sleepInterval": "1",
+    "elementToBeVisibleTimeout": "30",
+    "elementToExistTimeout": "30",
+    "elementToNotExistTimeout": "30",
+    "elementToBeClickableTimeout": "30",
+    "elementNotToBeVisibleTimeout": "30",
+    "elementToHaveContentTimeout": "15",
+    "shouldStartLocalService": "true",
+    "serviceUrl": "http://127.0.0.1:4722",
+    "ip": "127.0.0.1",
+    "port": "4722"
+  },
+  "videoRecordingSettings": {
+    "isEnabled": "false",
+    "waitAfterFinishRecordingMilliseconds": "500",
+    "filePath": "ApplicationData\\Troubleshooting\\Videos"
+  },
+  "screenshotsSettings": {
+    "isEnabled": "false",
+    "filePath": "ApplicationData\\Troubleshooting\\Screenshots"
+  },
+  "imageRecognitionSettings": {
+    "timeoutInSeconds": "5",
+    "defaultSimilarity": "0.7"
+  },
+  "loggingSettings": {
+    "isEnabled": "true",
+    "isConsoleLoggingEnabled": "true",
+    "isDebugLoggingEnabled": "true",
+    "isEventLoggingEnabled": "false",
+    "isFileLoggingEnabled": "true",
+    "outputTemplate": "[{Timestamp:HH:mm:ss}] {Message:lj}{NewLine}"
+  }
+}

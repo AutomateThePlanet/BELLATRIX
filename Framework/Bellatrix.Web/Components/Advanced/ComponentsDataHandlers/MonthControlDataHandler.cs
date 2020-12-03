@@ -33,6 +33,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             }
         }
 
-        public void EnsureValueIs(Month element, string expectedValue) => element.EnsureMonthIs(expectedValue);
+        public void ValidateValueIs(Month element, string expectedValue) => element.ValidateMonthIs(expectedValue);
     }
 }

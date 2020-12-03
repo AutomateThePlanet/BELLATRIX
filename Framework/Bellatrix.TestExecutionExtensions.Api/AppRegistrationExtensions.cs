@@ -23,11 +23,6 @@ namespace Bellatrix
     {
         public static BaseApp UseApiAuthenticationStrategies(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             baseApp.RegisterType<TestWorkflowPlugin, ApiAuthenticationWorkflowPlugin>(Guid.NewGuid().ToString());
 
             return baseApp;
@@ -35,11 +30,6 @@ namespace Bellatrix
 
         public static BaseApp UseRetryFailedRequests(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             baseApp.RegisterType<TestWorkflowPlugin, RetryFailedRequestsWorkflowPlugin>(Guid.NewGuid().ToString());
 
             return baseApp;
@@ -47,11 +37,6 @@ namespace Bellatrix
 
         public static BaseApp UseLogExecution(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             baseApp.RegisterType<TestWorkflowPlugin, LogWorkflowPlugin>(Guid.NewGuid().ToString());
 
             return baseApp;

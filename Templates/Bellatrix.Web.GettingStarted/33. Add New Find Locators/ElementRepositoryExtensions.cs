@@ -5,9 +5,9 @@
     public static class ElementRepositoryExtensions
     {
         public static TElement CreateByIdStartingWith<TElement>(this ElementCreateService repository, string idPrefix, bool shouldCache = false)
-            where TElement : Element => repository.Create<TElement, ByIdStartingWith>(new ByIdStartingWith(idPrefix), shouldCache);
+            where TElement : Element => repository.Create<TElement, FindIdStartingWithStrategy>(new FindIdStartingWithStrategy(idPrefix), shouldCache);
 
         public static ElementsList<TElement> CreateAllByIdStartingWith<TElement>(this ElementCreateService repository, string idPrefix)
-            where TElement : Element => new ElementsList<TElement>(new ByIdStartingWith(idPrefix), null);
+            where TElement : Element => new ElementsList<TElement>(new FindIdStartingWithStrategy(idPrefix), null);
     }
 }

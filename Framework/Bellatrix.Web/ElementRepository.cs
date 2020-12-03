@@ -20,7 +20,7 @@ namespace Bellatrix.Web
 {
     public class ElementRepository
     {
-        public dynamic CreateElementWithParent(By by, IWebElement parentElement, Type newElementType, bool shouldCacheElement)
+        public dynamic CreateElementWithParent(FindStrategy by, IWebElement parentElement, Type newElementType, bool shouldCacheElement)
         {
             DetermineElementAttributes(out var elementName, out var pageName);
 
@@ -34,7 +34,7 @@ namespace Bellatrix.Web
             return element;
         }
 
-        public TElementType CreateElementWithParent<TElementType>(By by, IWebElement parentElement, IWebElement foundElement, int elementsIndex, bool shouldCacheElement)
+        public TElementType CreateElementWithParent<TElementType>(FindStrategy by, IWebElement parentElement, IWebElement foundElement, int elementsIndex, bool shouldCacheElement)
             where TElementType : Element
         {
             DetermineElementAttributes(out var elementName, out var pageName);
@@ -51,7 +51,7 @@ namespace Bellatrix.Web
             return element;
         }
 
-        public dynamic CreateElementThatIsFound(By by, IWebElement webElement, Type newElementType, bool shouldCacheElement)
+        public dynamic CreateElementThatIsFound(FindStrategy by, IWebElement webElement, Type newElementType, bool shouldCacheElement)
         {
             DetermineElementAttributes(out var elementName, out var pageName);
 
@@ -65,7 +65,7 @@ namespace Bellatrix.Web
             return element;
         }
 
-        public TElementType CreateElementThatIsFound<TElementType>(By by, IWebElement webElement, bool shouldCacheElement)
+        public TElementType CreateElementThatIsFound<TElementType>(FindStrategy by, IWebElement webElement, bool shouldCacheElement)
             where TElementType : Element
         {
             DetermineElementAttributes(out var elementName, out var pageName);

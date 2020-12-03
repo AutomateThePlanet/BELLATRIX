@@ -18,6 +18,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
     {
         public dynamic GetData(Image element) => element.Src;
 
-        public void EnsureValueIs(Image element, string expectedValue) => element.EnsureSrcIs(expectedValue);
+        public void ValidateValueIs(Image element, string expectedValue) => element.ValidateSrcIs(expectedValue);
     }
 }

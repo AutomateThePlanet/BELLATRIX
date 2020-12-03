@@ -26,6 +26,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             element.SetSearch(data);
         }
 
-        public void EnsureValueIs(Search element, string expectedValue) => element.EnsureSearchIs(expectedValue);
+        public void ValidateValueIs(Search element, string expectedValue) => element.ValidateSearchIs(expectedValue);
     }
 }

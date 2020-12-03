@@ -35,15 +35,13 @@ namespace Bellatrix.Mobile
         private readonly bool _shouldStartAppiumLocalService;
 
         public App()
-            => _shouldStartAppiumLocalService = ConfigurationService.Instance.GetMobileSettings().ShouldStartAppiumLocalService;
+            => _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
 
         public ElementWaitService<TDriver, TDriverElement> ElementWaitService => ServicesCollection.Current.Resolve<ElementWaitService<TDriver, TDriverElement>>();
 
         public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
 
         public WebServicesFacade Web => ServicesCollection.Current.Resolve<WebServicesFacade>();
-
-        public IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 

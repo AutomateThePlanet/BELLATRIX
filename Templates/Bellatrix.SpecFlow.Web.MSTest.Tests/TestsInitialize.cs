@@ -16,11 +16,9 @@ namespace Bellatrix.SpecFlow.Web.Tests
             var app = new Bellatrix.Web.App();
             app.UseExceptionLogger();
             app.UseMsTestSettings();
-            app.UseLogger();
             app.UseControlDataHandlers();
             app.UseBrowserBehavior();
             app.UseLogExecutionBehavior();
-            app.UseControlLocalOverridesCleanBehavior();
             app.UseFFmpegVideoRecorder();
             app.UseFullPageScreenshotsOnFail();
 

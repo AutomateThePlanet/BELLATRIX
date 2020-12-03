@@ -21,8 +21,6 @@ namespace Bellatrix.LoadTesting
 {
     public class App : BaseApp
     {
-        public IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
-
         public ProxyService ProxyService { get; private set; }
 
         public void AddTestWorkflowPlugin<TExecutionExtension>()

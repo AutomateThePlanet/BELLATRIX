@@ -25,11 +25,11 @@ namespace Bellatrix.Web.MSTest.Tests
             loginButton.Click();
 
             Div myAccountContentDiv = App.ElementCreateService.CreateByClass<Div>("woocommerce-MyAccount-content");
-            myAccountContentDiv.EnsureInnerTextContains("Hello info1");
+            myAccountContentDiv.ValidateInnerTextContains("Hello info1");
 
             Anchor logoutLink = App.ElementCreateService.CreateByInnerTextContaining<Anchor>("Log out");
 
-            logoutLink.EnsureIsVisible();
+            logoutLink.ValidateIsVisible();
             logoutLink.Click();
         }
 
@@ -45,11 +45,11 @@ namespace Bellatrix.Web.MSTest.Tests
             loginButton.Click();
 
             Div myAccountContentDiv = App.ElementCreateService.CreateByClass<Div>("woocommerce-MyAccount-content");
-            myAccountContentDiv.EnsureInnerTextContains("Hello info1");
+            myAccountContentDiv.ValidateInnerTextContains("Hello info1");
 
             Anchor logoutLink = App.ElementCreateService.CreateByInnerTextContaining<Anchor>("Log out");
 
-            logoutLink.EnsureIsVisible();
+            logoutLink.ValidateIsVisible();
             logoutLink.Click();
         }
     }

@@ -73,18 +73,13 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
         {
             var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
 
-            bool isParallelRun = ServicesCollection.Main.Resolve<bool>("isParallelRun");
-            if (isParallelRun)
-            {
-                ShutdownApp(e.Container);
-            }
-            else if (appConfiguration?.AppBehavior == AppBehavior.RestartOnFail && e.TestOutcome.Equals(TestOutcome.Failed))
+            if (appConfiguration?.AppBehavior == AppBehavior.RestartOnFail && e.TestOutcome.Equals(TestOutcome.Failed))
             {
                 ShutdownApp(e.Container);
             }
         }
 
-        private bool ShouldRestartApp(IServicesCollection container)
+        private bool ShouldRestartApp(ServicesCollection container)
         {
             bool shouldRestartApp = false;
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
@@ -105,7 +100,7 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
             return shouldRestartApp;
         }
 
-        private void RestartApp(IServicesCollection container)
+        private void RestartApp(ServicesCollection container)
         {
             var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
 
@@ -122,26 +117,18 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
             testExecutionEngine.StartApp(currentAppConfiguration, container);
         }
 
-        private void ShutdownApp(IServicesCollection container)
+        private void ShutdownApp(ServicesCollection container)
         {
             // Disposing existing engine call only dispose if in parallel.
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
-            bool isParallelRun = ServicesCollection.Current.Resolve<bool>("isParallelRun");
-            if (isParallelRun)
-            {
-                previousTestExecutionEngine?.Dispose(container);
-            }
-            else
-            {
-                previousTestExecutionEngine?.DisposeAll();
-            }
+            previousTestExecutionEngine?.DisposeAll();
 
             var appConfiguration = new AppConfiguration();
             container.RegisterInstance(appConfiguration, "_previousAppConfiguration");
             container.UnregisterSingleInstance<TestExecutionEngine>();
         }
 
-        private void ResolvePreviousAppConfiguration(IServicesCollection childContainer)
+        private void ResolvePreviousAppConfiguration(ServicesCollection childContainer)
         {
             var appConfiguration = new AppConfiguration();
             if (childContainer.IsRegistered<AppConfiguration>())
@@ -152,7 +139,7 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
             childContainer.RegisterInstance(appConfiguration, "_previousAppConfiguration");
         }
 
-        private AppConfiguration GetCurrentAppConfiguration(MemberInfo memberInfo, Type testClassType, IServicesCollection container)
+        private AppConfiguration GetCurrentAppConfiguration(MemberInfo memberInfo, Type testClassType, ServicesCollection container)
         {
             var appAttribute = GetAppAttribute(memberInfo, testClassType);
             if (appAttribute != null)

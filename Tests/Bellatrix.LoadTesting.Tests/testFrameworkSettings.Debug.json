@@ -1,0 +1,26 @@
+﻿{
+  "loadTestingSettings": {
+    "isEnabled": "true",
+    "defaultHost": "demos.bellatrix.solutions",
+    "shouldRecordHostRequestsOnly": "true",
+    "requestsFileLocation":"AssemblyFolder\\LoadTestsRequests\\",
+    "certificatePaths": [ "AssemblyFolder\\bellatrix.cer" ],
+    "ignoreUrlRequestsPatterns": [ ".*wp-admin.*" ]
+  },
+  "apiSettings": {
+      "baseUrl": "http://demos.bellatrix.solutions",
+      "clientTimeoutSeconds": "30",
+      "maxRetryAttempts": "0",
+      "pauseBetweenFailures": "0",
+      "timeUnit": "1"
+  },
+  "logging": {
+    "isEnabled": "true",
+    "isConsoleLoggingEnabled": "true",
+    "isDebugLoggingEnabled": "true",
+    "isEventLoggingEnabled": "false",
+    "isFileLoggingEnabled": "true",
+    "outputTemplate": "[{Timestamp:HH:mm:ss}] {Message:lj}{NewLine}",
+    "addUrlToBddLogging": "true"
+  }
+}

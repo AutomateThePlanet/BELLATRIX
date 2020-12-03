@@ -59,7 +59,9 @@ namespace Bellatrix.Infrastructure.SystemFacades
         {
             try
             {
+#pragma warning disable CA1310 // Specify StringComparison for correctness
                 var resourceName = _currentExecutingAssembly.GetManifestResourceNames().First(str => str.EndsWith(name));
+#pragma warning restore CA1310 // Specify StringComparison for correctness
                 return resourceName;
             }
             catch (InvalidOperationException e)

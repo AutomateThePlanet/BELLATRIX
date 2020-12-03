@@ -17,6 +17,6 @@ namespace Bellatrix.Mobile
 {
     public abstract class AndroidTest : NUnitBaseTest
     {
-        public AndroidApp App => ServicesCollection.Current.FindCollection(ЕxecutionContext.TestClassName).Resolve<AndroidApp>();
+        public AndroidApp App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<AndroidApp>();
     }
 }

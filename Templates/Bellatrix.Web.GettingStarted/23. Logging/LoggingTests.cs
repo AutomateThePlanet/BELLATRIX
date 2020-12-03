@@ -23,14 +23,14 @@ namespace Bellatrix.Web.GettingStarted
 
             // 1. Sometimes is useful to add information to the generated test log.
             // To do it you can use the BELLATRIX built-in logger through accessing it via App service.
-            App.Logger.LogInformation("Before adding Falcon 9 rocket to cart.");
+            Logger.LogInformation("Before adding Falcon 9 rocket to cart.");
 
             addToCartFalcon9.Focus();
             addToCartFalcon9.Click();
             viewCartButton.Click();
 
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the logs generation.
-            //  "logging": {
+            //  "loggingSettings": {
             //      "isEnabled": "true",
             //      "isConsoleLoggingEnabled": "true",
             //      "isDebugLoggingEnabled": "true",

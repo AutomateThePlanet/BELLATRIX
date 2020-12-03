@@ -28,9 +28,9 @@ namespace Bellatrix.TestExecutionExtensions.Video
 {
     public class VideoWorkflowPlugin : TestWorkflowPlugin
     {
-        private readonly IVideoRecorder _videoRecorder;
         private readonly IVideoRecorderOutputProvider _videoRecorderOutputProvider;
         private readonly IVideoPluginProvider _videoPluginProvider;
+        private IVideoRecorder _videoRecorder;
         private VideoRecordingMode _recordingMode;
 
         public VideoWorkflowPlugin(IVideoRecorder videoRecorder, IVideoRecorderOutputProvider videoRecorderOutputProvider, IVideoPluginProvider videoPluginProvider)
@@ -51,66 +51,14 @@ namespace Bellatrix.TestExecutionExtensions.Video
                 var videoRecordingDir = _videoRecorderOutputProvider.GetOutputFolder();
                 var videoRecordingFileName = _videoRecorderOutputProvider.GetUniqueFileName(fullTestName);
 
-                bool isParallelRun = ServicesCollection.Current.Resolve<bool>("isParallelRun");
-                if (!isParallelRun)
-                {
-                    string videoRecordingPath = _videoRecorder.Record(videoRecordingDir, videoRecordingFileName);
-                    e.Container.RegisterInstance(videoRecordingPath, "_videoRecordingPath");
-                }
+                string videoRecordingPath = _videoRecorder.Record(videoRecordingDir, videoRecordingFileName);
+                e.Container.RegisterInstance(videoRecordingPath, "_videoRecordingPath");
+                e.Container.RegisterInstance(_videoRecorder, "_videoRecorder");
             }
         }
 
         protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
         {
-            bool isParallelRun = ServicesCollection.Current.Resolve<bool>("isParallelRun");
-
-            if (isParallelRun)
-            {
-                try
-                {
-                    var gridUri = e.Container.Resolve<string>("GridUri")?.Replace("wd/hub", string.Empty);
-                    if (string.IsNullOrEmpty(gridUri))
-                    {
-                        return;
-                    }
-
-                    var gridVideoUri = new Uri(new Uri(gridUri), "video");
-                    var sessionId = e.Container.Resolve<string>("SessionId");
-
-                    // It is Selenoid Run. Later add SauceLabs and others.
-                    if (Ping(gridVideoUri))
-                    {
-                        var fullTestName = $"{e.TestMethodMemberInfo.DeclaringType.Name}.{e.TestName}";
-                        var videoRecordingDir = _videoRecorderOutputProvider.GetOutputFolder();
-                        var videoRecordingFileName = _videoRecorderOutputProvider.GetUniqueFileName(fullTestName);
-                        string videoPath = $"{Path.Combine(videoRecordingDir, videoRecordingFileName)}.mp4";
-                        e.Container.RegisterInstance(videoPath, "_videoRecordingPath");
-                        Wait.Until(() =>
-                            {
-                                var hw = new HtmlWeb();
-                                HtmlDocument doc = hw.Load(gridVideoUri);
-                                var lastNode = doc.DocumentNode.SelectNodes("//a[@href]");
-                                string videoName = lastNode.Last().InnerText;
-                                return !videoName.Contains("selenoid");
-                            }, retryRateDelay: 30);
-                        var hw = new HtmlWeb();
-                        HtmlDocument doc = hw.Load(gridVideoUri);
-                        var lastNode = doc.DocumentNode.SelectNodes("//a[@href]");
-                        string videoName = lastNode.Last().InnerText;
-                        var sessionVideoUri = new Uri(gridVideoUri, $"video/{videoName}");
-                        DownloadFile(sessionVideoUri, videoPath);
-
-                        // Cut the video to the latest test time- https://stackoverflow.com/questions/5041910/how-to-cut-crop-trim-a-video-in-respect-with-time-or-percentage-and-save-output
-                        // Save test time in the container by testFullName
-                        DeleteVideo(sessionVideoUri);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
-            }
-
             if (_recordingMode != VideoRecordingMode.DoNotRecord)
             {
                 bool hasTestPassed = e.TestOutcome.Equals(TestOutcome.Passed);
@@ -122,7 +70,8 @@ namespace Bellatrix.TestExecutionExtensions.Video
                 }
                 finally
                 {
-                    _videoRecorder.Dispose();
+                    _videoRecorder = e.Container.Resolve<IVideoRecorder>("_videoRecorder");
+                    _videoRecorder?.Dispose();
                     if (!isFileDeleted)
                     {
                         string videoRecordingPath = e.Container.Resolve<string>("_videoRecordingPath");
@@ -161,7 +110,7 @@ namespace Bellatrix.TestExecutionExtensions.Video
             var methodRecordingMode = GetVideoRecordingModeByMethodInfo(memberInfo);
             var classRecordingMode = GetVideoRecordingModeType(memberInfo.DeclaringType);
             var videoRecordingMode = VideoRecordingMode.DoNotRecord;
-            bool shouldTakeVideos = ConfigurationService.Instance.GetVideoSettings().IsEnabled;
+            bool shouldTakeVideos = ConfigurationService.GetSection<VideoRecordingSettings>().IsEnabled;
 
             if (!shouldTakeVideos)
             {
@@ -218,29 +167,6 @@ namespace Bellatrix.TestExecutionExtensions.Video
             {
                 observer.SubscribeVideoPlugin(_videoPluginProvider);
             }
-        }
-
-        private void DownloadFile(Uri uri, string filePath)
-        {
-            using var myWebClient = new WebClient();
-            myWebClient.DownloadFile(uri, filePath);
-        }
-
-        private void DeleteVideo(Uri uri)
-        {
-            var request = WebRequest.Create(uri);
-            request.Method = "DELETE";
-            var response = (HttpWebResponse)request.GetResponse();
-        }
-
-        private bool Ping(Uri uri)
-        {
-            var request = (HttpWebRequest)WebRequest.Create(uri);
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            using var response = (HttpWebResponse)request.GetResponse();
-            using var stream = response.GetResponseStream();
-            using var reader = new StreamReader(stream);
-            return ((int)response.StatusCode >= 200) && ((int)response.StatusCode <= 299);
         }
     }
 }

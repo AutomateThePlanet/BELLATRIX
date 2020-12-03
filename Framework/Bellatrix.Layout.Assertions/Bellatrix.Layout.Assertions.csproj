@@ -1,43 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\SharedAssemblyInfo.targets" />
 
-    <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <LangVersion>8.0</LangVersion>
-        <Configurations>Debug;Release</Configurations>
-    </PropertyGroup>
+	<PropertyGroup>
+		<RootNamespace>Bellatrix.Layout</RootNamespace>
+	</PropertyGroup>
 
-    <PropertyGroup>
-        <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
-    </PropertyGroup>
-
-    <Import Project="..\SharedAssemblyInfo.targets" />
-
-    <PropertyGroup>
-        <CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
-        <RootNamespace>Bellatrix.Layout</RootNamespace>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="..\AutomateThePlanet.licenseheader" Link="AutomateThePlanet.licenseheader" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Bellatrix.ServicesCollection" Version="2.0.1" />
-        <ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
-        <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
-        <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
-        <ProjectReference Include="..\Bellatrix.Layout\Bellatrix.Layout.csproj" />
-        <ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
+		<ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
+		<ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
+		<ProjectReference Include="..\Bellatrix.Layout\Bellatrix.Layout.csproj" />
+		<ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
+		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
+	</ItemGroup>
 </Project>

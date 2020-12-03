@@ -14,15 +14,12 @@ namespace Bellatrix.Web.MSTest.Tests
             app.UseControlDataHandlers();
             app.UseBrowserBehavior();
             app.UseLogExecutionBehavior();
-            app.UseControlLocalOverridesCleanBehavior();
             app.UseFFmpegVideoRecorder();
             app.UseVanillaWebDriverScreenshotsOnFail();
-            app.UseLogger();
             app.UseElementsBddLogging();
             app.UseHighlightElements();
-            app.UseEnsureExtensionsBddLogging();
+            app.UseValidateExtensionsBddLogging();
             app.UseLayoutAssertionExtensionsBddLogging();
-            app.UseExceptionAnalysation();
             app.UseMSTestResults();
             app.Initialize();
 

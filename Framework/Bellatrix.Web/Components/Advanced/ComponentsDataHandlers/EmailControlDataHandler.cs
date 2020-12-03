@@ -25,6 +25,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             element.SetEmail(data);
         }
 
-        public void EnsureValueIs(Email element, string expectedValue) => element.EnsureEmailIs(expectedValue);
+        public void ValidateValueIs(Email element, string expectedValue) => element.ValidateEmailIs(expectedValue);
     }
 }

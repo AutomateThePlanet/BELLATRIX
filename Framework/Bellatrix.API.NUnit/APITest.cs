@@ -17,6 +17,6 @@ namespace Bellatrix.API
 {
     public abstract class APITest : NUnitBaseTest
     {
-        public App App => ServicesCollection.Current.FindCollection(ЕxecutionContext.TestClassName).Resolve<App>();
+        public App App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<App>();
     }
 }

@@ -32,6 +32,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             }
         }
 
-        public void EnsureValueIs(Date element, string expectedValue) => element.EnsureDateIs(expectedValue);
+        public void ValidateValueIs(Date element, string expectedValue) => element.ValidateDateIs(expectedValue);
     }
 }

@@ -12,16 +12,13 @@ namespace Bellatrix.Desktop.NUnit.Tests
 
             app.UseExceptionLogger();
             app.UseNUnitSettings();
-            app.UseLogger();
             app.UseAppBehavior();
             app.UseLogExecutionBehavior();
             app.UseLogExecutionBehavior();
-            app.UseControlLocalOverridesCleanBehavior();
             app.UseFFmpegVideoRecorder();
             app.UseVanillaWebDriverScreenshotsOnFail();
-            app.UseLogger();
             app.UseElementsBddLogging();
-            app.UseEnsureExtensionsBddLogging();
+            app.UseValidateExtensionsBddLogging();
             app.UseLayoutAssertionExtensionsBddLogging();
             app.StartWinAppDriver();
             app.Initialize();

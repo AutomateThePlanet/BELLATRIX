@@ -17,6 +17,7 @@ using Bellatrix.Desktop.Configuration;
 using Bellatrix.Trace;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop.Services
 {
@@ -24,13 +25,13 @@ namespace Bellatrix.Desktop.Services
     {
         private static readonly string _serviceUrl;
 
-        static WrappedWebDriverCreateService() => _serviceUrl = ConfigurationService.Instance.GetDesktopSettings().ServiceUrl;
+        static WrappedWebDriverCreateService() => _serviceUrl = ConfigurationService.GetSection<DesktopSettings>().ServiceUrl;
 
-        public static WindowsDriver<WindowsElement> Create(AppConfiguration appConfiguration, IServicesCollection childContainer)
+        public static WindowsDriver<WindowsElement> Create(AppConfiguration appConfiguration, ServicesCollection childContainer)
         {
-            var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? childContainer.Resolve<AppiumOptions>() ?? appConfiguration.AppiumOptions;
-            driverOptions.AddAdditionalCapability("app", appConfiguration.AppPath);
-            driverOptions.AddAdditionalCapability("deviceName", "WindowsPC");
+            var driverOptions = childContainer.Resolve<DesiredCapabilities>(appConfiguration.ClassFullName) ?? childContainer.Resolve<DesiredCapabilities>() ?? appConfiguration.DesiredCapabilities;
+            driverOptions.SetCapability("app", appConfiguration.AppPath);
+            driverOptions.SetCapability("deviceName", "WindowsPC");
 
             var wrappedWebDriver = new WindowsDriver<WindowsElement>(new Uri(_serviceUrl), driverOptions);
 

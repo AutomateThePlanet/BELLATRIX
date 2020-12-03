@@ -25,14 +25,14 @@ namespace Bellatrix.Web
     public class ElementsList<TElement> : IEnumerable<TElement>
         where TElement : Element
     {
-        private readonly By _by;
+        private readonly FindStrategy _by;
         private readonly IWebElement _parentElement;
         private readonly List<TElement> _foundElements;
         private readonly bool _shouldCacheFoundElements;
         private List<TElement> _cachedElements;
 
         public ElementsList(
-            By by,
+            FindStrategy by,
             IWebElement parentElement,
             bool shouldCacheFoundElements)
         : this(by, parentElement)
@@ -41,7 +41,7 @@ namespace Bellatrix.Web
         }
 
         public ElementsList(
-            By by,
+            FindStrategy by,
             IWebElement parentElement)
         {
             _by = by;
@@ -169,13 +169,13 @@ namespace Bellatrix.Web
         // TODO: This is a technical debt, for the case with _by that is not null and we want to verify the non-existance of elements
         public IEnumerable<IWebElement> ConditionalWait(NativeElementFinderService elementFinder)
         {
-            Wait.ForConditionUntilTimeout(
+            Bellatrix.Utilities.Wait.ForConditionUntilTimeout(
                    () =>
                    {
                        return elementFinder.FindAll(_by).Any();
                    },
-                   totalRunTimeoutMilliseconds: ConfigurationService.Instance.GetTimeoutSettings().ElementToExistTimeout,
-                   sleepTimeMilliseconds: ConfigurationService.Instance.GetTimeoutSettings().SleepInterval);
+                   totalRunTimeoutMilliseconds: ConfigurationService.GetSection<TimeoutSettings>().ElementToExistTimeout,
+                   sleepTimeMilliseconds: ConfigurationService.GetSection<TimeoutSettings>().SleepInterval);
 
             return elementFinder.FindAll(_by);
         }

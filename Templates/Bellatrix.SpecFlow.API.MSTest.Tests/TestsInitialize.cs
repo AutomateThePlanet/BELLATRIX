@@ -36,7 +36,6 @@ namespace Bellatrix.SpecFlow.API.MSTest.Tests
             var app = new App();
             app.UseExceptionLogger();
             app.UseMsTestSettings();
-            app.UseLogger();
             app.UseExecutionTimeUnderExtensions();
             app.UseApiExtensionsBddLogging();
             app.UseAssertExtensionsBddLogging();

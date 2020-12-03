@@ -15,12 +15,10 @@ namespace Bellatrix.Mobile.MSTest.Tests
             app.UseMsTestSettings();
             app.UseAppBehavior();
             app.UseLogExecutionBehavior();
-            app.UseAndroidControlLocalOverridesCleanBehavior();
             app.UseFFmpegVideoRecorder();
             app.UseAndroidDriverScreenshotsOnFail();
-            app.UseLogger();
             app.UseElementsBddLogging();
-            app.UseEnsureExtensionsBddLogging();
+            app.UseValidateExtensionsBddLogging();
             app.UseLayoutAssertionExtensionsBddLogging();
             app.StartAppiumLocalService();
             app.Initialize();

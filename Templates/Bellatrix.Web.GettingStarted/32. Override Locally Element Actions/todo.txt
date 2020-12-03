@@ -1,4 +1,0 @@
-﻿1. Open the tests that you made in the page objects section
-2. For the whole test run override the Button control behaviour of IsDisabled property
-3. Open the modified tests and override the same Button behaviour but this time locally, change how you check whether the button is disabled
-4. Execute the test and see which override is called the local or the global one

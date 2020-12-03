@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
+using Bellatrix.Logging;
 using Bellatrix.SpecFlow.TestWorkflowPlugins;
 using Bellatrix.SpecFlow.Web.TestExecutionExtensions.Browser.CloudProviders;
 using Bellatrix.Web;
@@ -109,7 +111,7 @@ namespace Bellatrix.SpecFlow.Web.TestExecutionExtensions.Browser
             return shouldRestartBrowser;
         }
 
-        private void ShutdownBrowser(IServicesCollection container)
+        private void ShutdownBrowser(ServicesCollection container)
         {
             // Disposing existing engine call only dispose if in parallel.
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
@@ -117,7 +119,7 @@ namespace Bellatrix.SpecFlow.Web.TestExecutionExtensions.Browser
             container.UnregisterSingleInstance<TestExecutionEngine>();
         }
 
-        private void RestartBrowser(IServicesCollection container)
+        private void RestartBrowser(ServicesCollection container)
         {
             if (_previousBrowserConfiguration.BrowserType != BrowserType.NotSet) // NotSet = initial browser start
             {

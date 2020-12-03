@@ -35,7 +35,7 @@ namespace Bellatrix.Web.Proxy
 
         public ProxyService()
         {
-            IsEnabled = ConfigurationService.Instance.GetWebProxySettings().IsEnabled;
+            IsEnabled = ConfigurationService.GetSection<WebProxySettings>().IsEnabled;
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 IsEnabled = false;
@@ -64,7 +64,11 @@ namespace Bellatrix.Web.Proxy
 
         public void Dispose()
         {
-            ProxyServer?.Stop();
+            if (ProxyServer.ProxyRunning)
+            {
+                ProxyServer?.Stop();
+            }
+
             GC.SuppressFinalize(this);
         }
 

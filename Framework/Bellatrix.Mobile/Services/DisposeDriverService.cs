@@ -18,7 +18,7 @@ namespace Bellatrix.Mobile.Services
 {
     public static class DisposeDriverService
     {
-        public static void DisposeAndroid(IServicesCollection childContainer)
+        public static void DisposeAndroid(ServicesCollection childContainer)
         {
             var androidDriver = childContainer.Resolve<AndroidDriver<AndroidElement>>();
             androidDriver?.CloseApp();
@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Services
 
         public static void DisposeAllAndroid()
         {
-            foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
+            foreach (var childContainer in ServicesCollection.Current.GetChildServicesCollections())
             {
                 try
                 {
@@ -45,13 +45,13 @@ namespace Bellatrix.Mobile.Services
                 }
             }
 
-            var webDriver = ServicesCollection.Main.Resolve<AndroidDriver<AndroidElement>>();
+            var webDriver = ServicesCollection.Current.Resolve<AndroidDriver<AndroidElement>>();
             webDriver?.Quit();
             webDriver?.Dispose();
-            ServicesCollection.Main.UnregisterSingleInstance<AndroidDriver<AndroidElement>>();
+            ServicesCollection.Current.UnregisterSingleInstance<AndroidDriver<AndroidElement>>();
         }
 
-        public static void CloseAndroidApp(IServicesCollection childContainer)
+        public static void CloseAndroidApp(ServicesCollection childContainer)
         {
             var androidDriver = childContainer.Resolve<AndroidDriver<AndroidElement>>();
             androidDriver?.ResetApp();
@@ -60,7 +60,7 @@ namespace Bellatrix.Mobile.Services
 
         public static void DisposeAllIOS()
         {
-            foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
+            foreach (var childContainer in ServicesCollection.Current.GetChildServicesCollections())
             {
                 try
                 {
@@ -76,13 +76,13 @@ namespace Bellatrix.Mobile.Services
                 }
             }
 
-            var webDriver = ServicesCollection.Main.Resolve<IOSDriver<IOSElement>>();
+            var webDriver = ServicesCollection.Current.Resolve<IOSDriver<IOSElement>>();
             webDriver?.Quit();
             webDriver?.Dispose();
-            ServicesCollection.Main.UnregisterSingleInstance<IOSDriver<IOSElement>>();
+            ServicesCollection.Current.UnregisterSingleInstance<IOSDriver<IOSElement>>();
         }
 
-        public static void DisposeIOS(IServicesCollection childContainer)
+        public static void DisposeIOS(ServicesCollection childContainer)
         {
             var iosDriver = childContainer.Resolve<IOSDriver<IOSElement>>();
             iosDriver?.CloseApp();
@@ -90,7 +90,7 @@ namespace Bellatrix.Mobile.Services
             childContainer.UnregisterSingleInstance<IOSDriver<IOSElement>>();
         }
 
-        public static void CloseIOSApp(IServicesCollection childContainer)
+        public static void CloseIOSApp(ServicesCollection childContainer)
         {
             var iosDriver = childContainer.Resolve<IOSDriver<IOSElement>>();
             iosDriver?.CloseApp();

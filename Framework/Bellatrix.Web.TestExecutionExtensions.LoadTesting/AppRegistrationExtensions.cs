@@ -27,15 +27,10 @@ namespace Bellatrix.Web
         // Should be set after WebProxy plug-in.
         public static BaseApp UseLoadTesting(this BaseApp baseApp)
         {
-            if (ServicesCollection.Current == null)
-            {
-                throw new DefaultContainerNotConfiguredException();
-            }
-
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                var loadTestingEnsureExtensions = new LoadTestingEnsureExtensionsService();
-                loadTestingEnsureExtensions.SubscribeToAll();
+                var loadTestingValidateExtensions = new LoadTestingValidateExtensionsService();
+                loadTestingValidateExtensions.SubscribeToAll();
 
                 var elementEventHandlers = new List<ElementEventHandlers>()
                                            {

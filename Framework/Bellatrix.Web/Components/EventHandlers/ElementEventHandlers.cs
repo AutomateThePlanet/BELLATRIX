@@ -22,7 +22,6 @@ namespace Bellatrix.Web.Controls.EventHandlers
     public class ElementEventHandlers : IControlEventHandlers
     {
         // These three properties were added to reduce code duplication in child classes and improve readability. However, we realize that the SOLID principles are not followed thoroughly.
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
         protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
         protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
 

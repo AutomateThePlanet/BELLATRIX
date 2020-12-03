@@ -23,8 +23,8 @@ namespace Bellatrix.Mobile.TestExecutionExtensions
 
         protected override Tuple<string, string> GetCredentialsFromConfig()
         {
-            string user = ConfigurationService.Instance.GetMobileSettings().BrowserStack.User;
-            string accessKey = ConfigurationService.Instance.GetMobileSettings().BrowserStack.Key;
+            string user = ConfigurationService.GetSection<MobileSettings>().BrowserStack.User;
+            string accessKey = ConfigurationService.GetSection<MobileSettings>().BrowserStack.Key;
 
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(accessKey))
             {

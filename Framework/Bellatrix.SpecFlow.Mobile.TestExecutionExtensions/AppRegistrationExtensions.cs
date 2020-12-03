@@ -33,19 +33,5 @@ namespace Bellatrix.Mobile.SpecFlow
 
             return baseApp;
         }
-
-        public static BaseApp UseAndroidControlLocalOverridesCleanBehavior(this BaseApp baseApp)
-        {
-            baseApp.RegisterType<TestWorkflowPlugin, AndroidControlsLocalOverridesCleanExtension>(Guid.NewGuid().ToString());
-
-            return baseApp;
-        }
-
-        public static BaseApp UseIOSControlLocalOverridesCleanBehavior(this BaseApp baseApp)
-        {
-            baseApp.RegisterType<TestWorkflowPlugin, IOSControlsLocalOverridesCleanExtension>(Guid.NewGuid().ToString());
-
-            return baseApp;
-        }
     }
 }

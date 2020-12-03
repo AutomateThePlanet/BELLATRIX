@@ -4,7 +4,7 @@
 	I want BELLATRIX to provide me handy method to do my job
 
 Background: 
-Given I open Chrome browser 68 in CrossBrowserTesting
+Given I open Chrome browser 86 in CrossBrowserTesting
 And I want to run the browser on Windows platform
 And I want to record a video of the execution
 And I want to capture a network logs of the execution

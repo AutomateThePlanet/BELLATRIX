@@ -34,9 +34,9 @@ namespace Bellatrix.BugReporting.AzureDevOps
 
         static AzureQueryExecutor()
         {
-            _uri = ConfigurationService.Instance.GetAzureDevOpsBugReportingSettings().Url;
-            _personalAccessToken = ConfigurationService.Instance.GetAzureDevOpsBugReportingSettings().Token;
-            _project = ConfigurationService.Instance.GetAzureDevOpsBugReportingSettings().ProjectName;
+            _uri = ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().Url;
+            _personalAccessToken = ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().Token;
+            _project = ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().ProjectName;
         }
 
         public static WorkItem CreateBug(string title, string stepsToReproduce, string description, List<string> filePathsToBeAttached = null)
@@ -74,7 +74,7 @@ namespace Bellatrix.BugReporting.AzureDevOps
                 {
                     Operation = Operation.Add,
                     Path = "/fields/Microsoft.VSTS.Common.Priority",
-                    Value = ConfigurationService.Instance.GetAzureDevOpsBugReportingSettings().DefaultPriority,
+                    Value = ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().DefaultPriority,
                 });
 
             patchDocument.Add(
@@ -82,7 +82,7 @@ namespace Bellatrix.BugReporting.AzureDevOps
                 {
                     Operation = Operation.Add,
                     Path = "/fields/Microsoft.VSTS.Common.Severity",
-                    Value = ConfigurationService.Instance.GetAzureDevOpsBugReportingSettings().DefaultSeverity,
+                    Value = ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().DefaultSeverity,
                 });
 
             try

@@ -14,7 +14,7 @@ namespace Bellatrix.Web.GettingStarted._17._Elements_Snippets
             CouponCode.SetText(coupon);
             ApplyCouponButton.Click();
             MessageAlert.ToHasContent().ToBeVisible().WaitToBe();
-            MessageAlert.EnsureInnerTextIs(CouponSuccessfullyAdded);
+            MessageAlert.ValidateInnerTextIs(CouponSuccessfullyAdded);
         }
 
         public void UpdateProductQuantity(int productNumber, int newQuantity)

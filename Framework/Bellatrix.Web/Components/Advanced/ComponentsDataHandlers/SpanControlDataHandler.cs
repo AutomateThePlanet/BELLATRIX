@@ -18,6 +18,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
     {
         public dynamic GetData(Span element) => element.InnerText.Trim();
 
-        public void EnsureValueIs(Span element, string expectedValue) => element.EnsureInnerTextIs(expectedValue);
+        public void ValidateValueIs(Span element, string expectedValue) => element.ValidateInnerTextIs(expectedValue);
     }
 }

@@ -68,7 +68,7 @@ namespace Bellatrix.Web
 
         public static TGrid SetColumn<TGrid, TBy>(this TGrid table, string headerName, Type elementType, TBy controlInnerLocator, TGrid x = null)
         where TGrid : Grid
-        where TBy : By
+        where TBy : FindStrategy
         {
             if (table.ControlColumnDataCollection == null)
             {

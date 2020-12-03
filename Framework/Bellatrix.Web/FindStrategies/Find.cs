@@ -15,8 +15,8 @@ namespace Bellatrix.Web
 {
     public sealed class Find
     {
-        static Find() => By = new ByFactory();
+        static Find() => By = new FindStrategyFactory();
 
-        public static ByFactory By { get; }
+        public static FindStrategyFactory By { get; }
     }
 }

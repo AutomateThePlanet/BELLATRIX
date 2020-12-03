@@ -27,7 +27,7 @@ namespace Bellatrix.Mobile.Services
         public static event EventHandler<ElementNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
 
         internal void Wait<TUntil, TElement>(TElement element, TUntil until)
-            where TUntil : BaseUntil<TDriver, TDriverElement>
+            where TUntil : WaitStrategy<TDriver, TDriverElement>
             where TElement : Element<TDriver, TDriverElement>
         {
             try
@@ -42,7 +42,7 @@ namespace Bellatrix.Mobile.Services
         }
 
         internal void WaitInternal<TBy, TUntil>(TBy by, TUntil until)
-            where TBy : By<TDriver, TDriverElement>
-            where TUntil : BaseUntil<TDriver, TDriverElement> => until?.WaitUntil(by);
+            where TBy : FindStrategy<TDriver, TDriverElement>
+            where TUntil : WaitStrategy<TDriver, TDriverElement> => until?.WaitUntil(by);
     }
 }

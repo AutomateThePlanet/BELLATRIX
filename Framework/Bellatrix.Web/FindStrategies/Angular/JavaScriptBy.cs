@@ -15,7 +15,7 @@ using Bellatrix.Web.Locators;
 
 namespace Bellatrix.Web
 {
-    public class JavaScriptBy : By
+    public class JavaScriptBy : FindStrategy
     {
         private readonly object[] _args;
 

@@ -31,6 +31,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             element.SelectByText(data);
         }
 
-        public void EnsureValueIs(Select element, string expectedValue) => element.GetSelected().EnsureInnerTextIs(expectedValue);
+        public void ValidateValueIs(Select element, string expectedValue) => element.GetSelected().ValidateInnerTextIs(expectedValue);
     }
 }

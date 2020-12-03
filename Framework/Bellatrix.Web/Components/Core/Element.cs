@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using Bellatrix.Web.Configuration;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 using Bellatrix.Web.Untils;
@@ -28,27 +29,11 @@ namespace Bellatrix.Web
     [DebuggerDisplay("BELLATRIX Element")]
     public partial class Element : IElementVisible, IElementCssClass, IElement, IWebLayoutElement
     {
-        public static Func<Element, string, string> OverrideGetAttributeGlobally;
-        public static Func<Element, string> OverrideCssClassGlobally;
-        public static Func<Element, bool> OverrideIsVisibleGlobally;
-        public static Func<Element, bool> OverrideIsPresentGlobally;
-        public static Action OverrideScrollToVisibleGlobally;
-        public static Action<Element> OverrideFocusGlobally;
-        public static Action<Element, string, string> OverrideSetAttributeGlobally;
-
-        public static Func<Element, string, string> OverrideGetAttributeLocally;
-        public static Func<Element, string> OverrideCssClassLocally;
-        public static Func<Element, bool> OverrideIsVisibleLocally;
-        public static Func<Element, bool> OverrideIsPresentLocally;
-        public static Action OverrideScrollToVisibleLocally;
-        public static Action<Element> OverrideFocusLocally;
-        public static Action<Element, string, string> OverrideSetAttributeLocally;
-
         public static event EventHandler<ElementActionEventArgs> Focusing;
         public static event EventHandler<ElementActionEventArgs> Focused;
 
         private readonly ElementWaitService _elementWaiter;
-        private readonly List<BaseUntil> _untils;
+        private readonly List<WaitStrategy> _untils;
         private IWebElement _wrappedElement;
 
         public string TagName => WrappedElement.TagName;
@@ -57,7 +42,7 @@ namespace Bellatrix.Web
         {
             _elementWaiter = new ElementWaitService();
             WrappedDriver = ServicesCollection.Current.Resolve<IWebDriver>();
-            _untils = new List<BaseUntil>();
+            _untils = new List<WaitStrategy>();
             JavaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
             BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
             ElementCreateService = ServicesCollection.Current.Resolve<ElementCreateService>();
@@ -108,16 +93,6 @@ namespace Bellatrix.Web
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public dynamic By { get; internal set; }
 
-        public static void ClearLocalOverrides()
-        {
-            OverrideGetAttributeLocally = null;
-            OverrideCssClassLocally = null;
-            OverrideIsVisibleLocally = null;
-            OverrideIsPresentLocally = null;
-            OverrideScrollToVisibleLocally = null;
-            OverrideSetAttributeLocally = null;
-        }
-
         public string GetTitle() => string.IsNullOrEmpty(GetAttribute("title")) ? null : GetAttribute("title");
 
         public string GetTabIndex() => string.IsNullOrEmpty(GetAttribute("tabindex")) ? null : GetAttribute("tabindex");
@@ -131,7 +106,7 @@ namespace Bellatrix.Web
         public string GetLang() => string.IsNullOrEmpty(GetAttribute("lang")) ? null : GetAttribute("lang");
 
         public dynamic Create<TBy>(TBy by, Type newElementType)
-            where TBy : By
+            where TBy : FindStrategy
         {
             CreatingElement?.Invoke(this, new ElementActionEventArgs(this));
 
@@ -144,7 +119,7 @@ namespace Bellatrix.Web
         }
 
         public TElement Create<TElement, TBy>(TBy by, bool shouldCacheElement = false)
-            where TBy : By
+            where TBy : FindStrategy
             where TElement : Element
         {
             CreatingElement?.Invoke(this, new ElementActionEventArgs(this));
@@ -158,7 +133,7 @@ namespace Bellatrix.Web
         }
 
         public ElementsList<TElement> CreateAll<TElement, TBy>(TBy by)
-            where TBy : By
+            where TBy : FindStrategy
             where TElement : Element
         {
             CreatingElements?.Invoke(this, new ElementActionEventArgs(this));
@@ -264,7 +239,10 @@ namespace Bellatrix.Web
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string LocatorValue => By.Value;
 
-        public void EnsureState(BaseUntil until) => _untils.Add(until);
+        public void EnsureState(WaitStrategy until)
+        {
+            _untils.Add(until);
+        }
 
         public override string ToString()
         {
@@ -286,7 +264,7 @@ namespace Bellatrix.Web
 
             if (_untils.Count == 0 || _untils[0] == null)
             {
-                EnsureState(Until.To.Exists());
+                EnsureState(Wait.To.Exists());
             }
 
             try
@@ -298,7 +276,7 @@ namespace Bellatrix.Web
                         _elementWaiter.Wait(this, until);
                     }
 
-                    if (until != null && until.GetType() == typeof(UntilNotExist))
+                    if (until != null && until.GetType() == typeof(WaitNotToExistStrategy))
                     {
                         return _wrappedElement;
                     }
@@ -307,12 +285,12 @@ namespace Bellatrix.Web
                 _wrappedElement = GetWebDriverElement(shouldCacheElement);
 
                 ScrollToMakeElementVisible();
-                if (ConfigurationService.Instance.GetWebSettings().ShouldWaitUntilReadyOnElementFound)
+                if (ConfigurationService.GetSection<WebSettings>().ShouldWaitUntilReadyOnElementFound)
                 {
                     BrowserService.WaitUntilReady();
                 }
 
-                if (ConfigurationService.Instance.GetWebSettings().ShouldWaitForAngular)
+                if (ConfigurationService.GetSection<WebSettings>().ShouldWaitForAngular)
                 {
                     BrowserService.WaitForAngular();
                 }

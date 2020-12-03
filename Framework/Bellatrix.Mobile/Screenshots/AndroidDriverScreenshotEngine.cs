@@ -22,9 +22,9 @@ namespace Bellatrix.Mobile.Screenshots
 {
     public sealed class AndroidDriverScreenshotEngine : IScreenshotEngine
     {
-        public string TakeScreenshot(IServicesCollection container) => TakeScreenshotAndroidDriver(container);
+        public string TakeScreenshot(ServicesCollection container) => TakeScreenshotAndroidDriver(container);
 
-        public string TakeScreenshotAndroidDriver(IServicesCollection container)
+        public string TakeScreenshotAndroidDriver(ServicesCollection container)
         {
             var driver = container.Resolve<AndroidDriver<AndroidElement>>();
             Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();

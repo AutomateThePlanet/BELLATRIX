@@ -18,6 +18,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
     {
         public dynamic GetData(Color element) => element.GetColor();
 
-        public void EnsureValueIs(Color element, string expectedValue) => element.EnsureColorIs(expectedValue);
+        public void ValidateValueIs(Color element, string expectedValue) => element.ValidateColorIs(expectedValue);
     }
 }

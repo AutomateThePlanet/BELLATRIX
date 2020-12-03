@@ -20,6 +20,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
     {
         public dynamic GetData(Number element) => element.GetNumber();
 
-        public void EnsureValueIs(Number element, string expectedValue) => element.EnsureNumberIs(double.Parse(expectedValue));
+        public void ValidateValueIs(Number element, string expectedValue) => element.ValidateNumberIs(double.Parse(expectedValue));
     }
 }

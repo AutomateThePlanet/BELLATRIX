@@ -48,7 +48,7 @@ namespace Bellatrix.Benchmark
             };
         }
 
-        public IServicesCollection Container { get; set; }
+        public ServicesCollection Container { get; set; }
 
         public abstract Type TestClassType
         {

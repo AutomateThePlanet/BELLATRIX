@@ -14,7 +14,7 @@
         "pauseBetweenFailures": "0",
         "timeUnit": "1"
     },
-    "logging": {
+    "loggingSettings": {
         "isEnabled": "true",
         "isConsoleLoggingEnabled": "true",
         "isDebugLoggingEnabled": "true",

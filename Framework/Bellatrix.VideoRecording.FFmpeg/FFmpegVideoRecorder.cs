@@ -17,6 +17,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Bellatrix.TestExecutionExtensions.Video;
 using Bellatrix.TestExecutionExtensions.Video.Contracts;
 using Bellatrix.Trace;
 using Bellatrix.Utilities;
@@ -33,7 +34,7 @@ namespace Bellatrix.VideoRecording.FFmpeg
             if (_isRunning)
             {
                 // Control with setting. Waits a little bit after the recording has finished.
-                Thread.Sleep(ConfigurationService.Instance.GetVideoSettings().WaitAfterFinishRecordingMilliseconds);
+                Thread.Sleep(ConfigurationService.GetSection<VideoRecordingSettings>().WaitAfterFinishRecordingMilliseconds);
                 if (!_recorderProcess.HasExited)
                 {
                     _recorderProcess?.Kill();

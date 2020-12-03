@@ -18,6 +18,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
     where TElement : Element
     {
         dynamic GetData(TElement element);
-        void EnsureValueIs(TElement element, string expectedValue);
+        void ValidateValueIs(TElement element, string expectedValue);
     }
 }

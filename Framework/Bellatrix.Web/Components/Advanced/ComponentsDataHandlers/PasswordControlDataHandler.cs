@@ -26,6 +26,6 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
             element.SetPassword(data);
         }
 
-        public void EnsureValueIs(Password element, string expectedValue) => element.EnsurePasswordIs(expectedValue);
+        public void ValidateValueIs(Password element, string expectedValue) => element.ValidatePasswordIs(expectedValue);
     }
 }

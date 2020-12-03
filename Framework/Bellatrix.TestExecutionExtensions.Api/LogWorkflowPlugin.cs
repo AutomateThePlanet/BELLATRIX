@@ -18,13 +18,9 @@ namespace Bellatrix.TestExecutionExtensions.API
 {
     public class LogWorkflowPlugin : TestWorkflowPlugin
     {
-        private readonly ILogger _logger;
-
-        public LogWorkflowPlugin(ILogger logger) => _logger = logger;
-
         protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
         {
-            _logger.Information($"Start Test {e.TestClassType.Name}.{e.TestMethodMemberInfo.Name}");
+            Logger.LogInformation($"Start Test {e.TestClassType.Name}.{e.TestMethodMemberInfo.Name}");
         }
     }
 }

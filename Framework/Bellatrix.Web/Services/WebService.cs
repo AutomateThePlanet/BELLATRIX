@@ -25,6 +25,5 @@ namespace Bellatrix.Web
         }
 
         public IWebDriver WrappedDriver { get; }
-        protected IBellaLogger Logger => ServicesCollection.Current.Resolve<IBellaLogger>();
     }
 }

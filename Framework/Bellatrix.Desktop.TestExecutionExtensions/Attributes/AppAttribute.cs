@@ -30,7 +30,7 @@ namespace Bellatrix.Desktop
             AppConfiguration.AppPath = appPath;
             AppConfiguration.AppBehavior = behavior;
             AppConfiguration.Size = default;
-            AppConfiguration.AppiumOptions = new AppiumOptions();
+            AppConfiguration.DesiredCapabilities = new DesiredCapabilities();
         }
 
         public AppAttribute(string appPath, int width, int height, AppBehavior behavior = AppBehavior.NotSet)
@@ -38,30 +38,36 @@ namespace Bellatrix.Desktop
 
         public AppAttribute(string appPath, MobileWindowSize mobileWindowSize, AppBehavior behavior = AppBehavior.NotSet)
         : this(appPath, behavior)
-            => AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
+        {
+            AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
+        }
 
         public AppAttribute(string appPath, TabletWindowSize tabletWindowSize, AppBehavior behavior = AppBehavior.NotSet)
         : this(appPath, behavior)
-            => AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
+        {
+            AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
+        }
 
         public AppAttribute(string appPath, DesktopWindowSize desktopWindowSize, AppBehavior behavior = AppBehavior.NotSet)
         : this(appPath, behavior)
-            => AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
+        {
+            AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
+        }
 
         public AppConfiguration AppConfiguration { get; }
 
-        protected AppiumOptions AddAdditionalCapability(Type type, AppiumOptions appiumOptions)
+        protected DesiredCapabilities AddAdditionalCapability(Type type, DesiredCapabilities desiredCapabilities)
         {
             var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
             if (additionalCaps != null)
             {
                 foreach (var key in additionalCaps.Keys)
                 {
-                    appiumOptions.AddAdditionalCapability(key, additionalCaps[key]);
+                    desiredCapabilities.SetCapability(key, additionalCaps[key]);
                 }
             }
 
-            return appiumOptions;
+            return desiredCapabilities;
         }
     }
 }

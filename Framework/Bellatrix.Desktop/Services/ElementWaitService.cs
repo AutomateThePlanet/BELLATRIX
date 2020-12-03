@@ -24,7 +24,7 @@ namespace Bellatrix.Desktop.Services
         public static event EventHandler<ElementNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
 
         public void Wait<TUntil, TElement>(TElement element, TUntil until)
-            where TUntil : BaseUntil
+            where TUntil : WaitStrategy
             where TElement : Element
         {
             try
@@ -39,7 +39,7 @@ namespace Bellatrix.Desktop.Services
         }
 
         public void WaitInternal<TUntil, TBy>(TBy by, TUntil until)
-            where TUntil : BaseUntil
-            where TBy : By => until?.WaitUntil(@by);
+            where TUntil : WaitStrategy
+            where TBy : FindStrategy => until?.WaitUntil(@by);
     }
 }

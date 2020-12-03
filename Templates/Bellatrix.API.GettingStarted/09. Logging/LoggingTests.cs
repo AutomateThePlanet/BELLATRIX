@@ -17,13 +17,13 @@ namespace Bellatrix.API.GettingStarted
 
             // 1. Sometimes is useful to add information to the generated test log.
             // To do it you can use the BELLATRIX built-in logger through accessing it via App service.
-            App.Logger.LogInformation("Before GET request. CUSTOM MESSAGE ###");
+            Logger.LogInformation("Before GET request. CUSTOM MESSAGE ###");
             var response = client.Get<Albums>(request);
 
             Assert.AreEqual(10, response.Data.AlbumId);
 
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the logs generation.
-            //  "logging": {
+            //  "loggingSettings": {
             //      "isEnabled": "true",
             //      "isConsoleLoggingEnabled": "true",
             //      "isDebugLoggingEnabled": "true",

@@ -23,7 +23,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         public void CommonAssertionsIOSControls()
         {
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.
-            //  "logging": {
+            //  "loggingSettings": {
             //      "isEnabled": "true",
             //      "isConsoleLoggingEnabled": "true",
             //      "isDebugLoggingEnabled": "true",
@@ -42,11 +42,11 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
 
             button.Click();
 
-            button.EnsureIsNotDisabled();
+            button.ValidateIsNotDisabled();
 
             var answerLabel = App.ElementCreateService.CreateByName<Label>("Answer");
 
-            answerLabel.EnsureIsVisible();
+            answerLabel.ValidateIsVisible();
 
             var password = App.ElementCreateService.CreateById<Password>("IntegerB");
 
@@ -56,16 +56,16 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
 
             textField.SetText("1");
 
-            textField.EnsureTextIs("1");
+            textField.ValidateTextIs("1");
 
             // 3. After the test is executed the following log is created:
             //  Start Test
             //  Class = BDDLoggingTests Name = CommonAssertionsIOSControls
-            //  Ensure control(Name = ComputeSumButton) is NOT disabled
-            //  Ensure control(Value containing Label) is visible
+            //  Validate control(Name = ComputeSumButton) is NOT disabled
+            //  Validate control(Value containing Label) is visible
             //  Set password '9' in control(Id = IntegerB)
             //  Set text '1' in control(Id = IntegerA)
-            //  Ensure control(Id = IntegerA) text is '1'
+            //  Validate control(Id = IntegerA) text is '1'
         }
     }
 }

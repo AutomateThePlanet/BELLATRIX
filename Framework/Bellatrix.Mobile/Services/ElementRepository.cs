@@ -25,7 +25,7 @@ namespace Bellatrix.Mobile.Services
     {
         public TElement CreateElementWithParent<TElement, TBy, TDriver, TDriverElement>(TBy by, TDriverElement webElement)
             where TElement : Element<TDriver, TDriverElement>
-            where TBy : By<TDriver, TDriverElement>
+            where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
         {
@@ -42,7 +42,7 @@ namespace Bellatrix.Mobile.Services
 
         public TElement CreateElementThatIsFound<TElement, TBy, TDriver, TDriverElement>(TBy by, TDriverElement webElement)
             where TElement : Element<TDriver, TDriverElement>
-            where TBy : By<TDriver, TDriverElement>
+            where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
         {

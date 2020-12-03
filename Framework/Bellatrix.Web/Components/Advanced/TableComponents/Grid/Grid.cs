@@ -92,7 +92,7 @@ namespace Bellatrix.Web
 
         public virtual void WaitUntilPopulated()
         {
-            Wait.ForConditionUntilTimeout(
+            Bellatrix.Utilities.Wait.ForConditionUntilTimeout(
                 () =>
                 {
                     var rows = ElementCreateService.CreateAllByXpath<Label>(RowsXPathLocator);
@@ -333,7 +333,7 @@ namespace Bellatrix.Web
                     dynamic elementValue;
                     if (controlData.By == null)
                     {
-                        controlData.By = new ByXpath(xpath);
+                        controlData.By = new FindXpathStrategy(xpath);
                         elementValue = CastCell(repo, controlData, tableCell);
                         controlData.By = null;
                     }

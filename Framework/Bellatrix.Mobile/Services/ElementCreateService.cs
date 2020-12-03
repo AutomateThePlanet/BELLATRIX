@@ -23,7 +23,7 @@ namespace Bellatrix.Mobile
     {
         public TElement Create<TElement, TBy, TDriver, TDriverElement>(TBy by)
             where TElement : Element<TDriver, TDriverElement>
-            where TBy : By<TDriver, TDriverElement>
+            where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
         {
@@ -33,7 +33,7 @@ namespace Bellatrix.Mobile
 
         public ElementsList<TElement, TBy, TDriver, TDriverElement> CreateAll<TElement, TBy, TDriver, TDriverElement>(TBy by)
             where TElement : Element<TDriver, TDriverElement>
-            where TBy : By<TDriver, TDriverElement>
+            where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement => new ElementsList<TElement, TBy, TDriver, TDriverElement>(by, null);
     }

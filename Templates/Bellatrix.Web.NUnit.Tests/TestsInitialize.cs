@@ -16,14 +16,12 @@ namespace Bellatrix.Web.NUnit.Tests
             app.UseControlDataHandlers();
             app.UseBrowserBehavior();
             app.UseLogExecutionBehavior();
-            app.UseControlLocalOverridesCleanBehavior();
             app.UseNUnitResults();
             app.UseFFmpegVideoRecorder();
             app.UseVanillaWebDriverScreenshotsOnFail();
-            app.UseLogger();
             app.UseElementsBddLogging();
             app.UseHighlightElements();
-            app.UseEnsureExtensionsBddLogging();
+            app.UseValidateExtensionsBddLogging();
             app.UseLayoutAssertionExtensionsBddLogging();
             ////app.AssemblyInitialize();
             app.Initialize();

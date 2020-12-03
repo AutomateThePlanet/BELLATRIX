@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bellatrix.SpecFlow.TestWorkflowPlugins;
+using Bellatrix.Web.LoadTesting;
 using Bellatrix.Web.TestExecutionExtensions.LoadTesting;
 using TechTalk.SpecFlow;
 
@@ -61,7 +62,7 @@ namespace Bellatrix.SpecFlow.Web.LoadTesting
             bool isLoadTest = false;
             bool featureShouldTakeScreenshot = GetIsLoadTestByTags(featureTags);
             bool scenarioShouldTakeScreenshot = GetIsLoadTestByTags(scenarioTags);
-            bool isEnabled = ConfigurationService.Instance.GetLoadTestingSettings().IsEnabled;
+            bool isEnabled = ConfigurationService.GetSection<LoadTestingSettings>().IsEnabled;
             _loadTestingWorkflowPluginContext.IsLoadTestingEnabled = isEnabled && (featureShouldTakeScreenshot || scenarioShouldTakeScreenshot);
         }
 

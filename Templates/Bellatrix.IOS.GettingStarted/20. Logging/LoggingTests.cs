@@ -16,13 +16,13 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         {
             // 1. Sometimes is useful to add information to the generated test log.
             // To do it you can use the BELLATRIX built-in logger through accessing it via App service.
-            App.Logger.LogInformation("$$$ Before clicking the button $$$");
+            Logger.LogInformation("$$$ Before clicking the button $$$");
             var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
 
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the logs generation.
-            //  "logging": {
+            //  "loggingSettings": {
             //      "isEnabled": "true",
             //      "isConsoleLoggingEnabled": "true",
             //      "isDebugLoggingEnabled": "true",
