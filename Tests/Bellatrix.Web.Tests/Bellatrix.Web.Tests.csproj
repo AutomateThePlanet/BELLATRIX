@@ -59,6 +59,7 @@
         <ProjectReference Include="..\..\Framework\Bellatrix.DynamicTestCases.AzureDevOps\Bellatrix.DynamicTestCases.AzureDevOps.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.DynamicTestCases.QTest\Bellatrix.DynamicTestCases.QTest.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
+        <ProjectReference Include="..\..\Framework\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Layout.Assertions\Bellatrix.Layout.Assertions.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Layout\Bellatrix.Layout.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.MachineAutomation\Bellatrix.MachineAutomation.csproj" />

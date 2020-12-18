@@ -15,13 +15,14 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Bellatrix.Desktop.Configuration;
+using Bellatrix.Desktop.Services;
 using Bellatrix.TestWorkflowPlugins;
 
 namespace Bellatrix.Desktop.TestExecutionExtensions
 {
     public class AppWorkflowPlugin : TestWorkflowPlugin
     {
-        protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestsArrange(object sender, TestWorkflowPluginEventArgs e)
         {
             if (e.TestClassType.GetCustomAttributes().Any(x => x.GetType().Equals(typeof(AppAttribute)) || x.GetType().IsSubclassOf(typeof(AppAttribute))))
             {
@@ -36,6 +37,7 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
                     if (shouldRestartApp)
                     {
                         RestartApp(e.Container);
+                        e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
                     }
                 }
                 else
@@ -44,7 +46,7 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
                 }
             }
 
-            base.PreTestsArrange(sender, e);
+            base.PostTestsArrange(sender, e);
         }
 
         protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
@@ -65,7 +67,6 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
                 }
             }
 
-            e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
             base.PreTestInit(sender, e);
         }
 
@@ -73,10 +74,16 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
         {
             var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
 
-            if (appConfiguration?.AppBehavior == AppBehavior.RestartOnFail && e.TestOutcome.Equals(TestOutcome.Failed))
+            if (appConfiguration?.AppBehavior == AppBehavior.RestartEveryTime || (appConfiguration?.AppBehavior == AppBehavior.RestartOnFail && !e.TestOutcome.Equals(TestOutcome.Passed)))
             {
                 ShutdownApp(e.Container);
+                e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
             }
+        }
+
+        protected override void PostTestsCleanup(object sender, TestWorkflowPluginEventArgs e)
+        {
+            ShutdownApp(e.Container);
         }
 
         private bool ShouldRestartApp(ServicesCollection container)
@@ -85,14 +92,7 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             var previousAppConfiguration = container.Resolve<AppConfiguration>("_previousAppConfiguration");
             var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
-            if (previousTestExecutionEngine == null ||
-                currentAppConfiguration.AppBehavior == AppBehavior.RestartEveryTime ||
-                previousAppConfiguration.AppBehavior == AppBehavior.NotSet ||
-                !previousTestExecutionEngine.IsAppStartedCorrectly)
-            {
-                shouldRestartApp = true;
-            }
-            else if (!currentAppConfiguration.Equals(previousAppConfiguration))
+            if (previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
             {
                 shouldRestartApp = true;
             }
@@ -108,7 +108,7 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
 
             // Register the ExecutionEngine that should be used for the current run. Will be used in the next test as PreviousEngineType.
             var testExecutionEngine = new TestExecutionEngine();
-            container.RegisterInstance(testExecutionEngine);
+            ////container.RegisterInstance(testExecutionEngine);
 
             // Register the app that should be used for the current run. Will be used in the next test as PreviousappType.
             container.RegisterInstance(currentAppConfiguration);
@@ -119,13 +119,14 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
 
         private void ShutdownApp(ServicesCollection container)
         {
-            // Disposing existing engine call only dispose if in parallel.
-            var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
-            previousTestExecutionEngine?.DisposeAll();
-
+            DisposeDriverService.Dispose(container);
             var appConfiguration = new AppConfiguration();
+
+            // BUG: If we use ReuseIfStarted, there is a new child container for each class and when
+            // we initialize a new childcontainer the _previousAppConfiguration is missing and the app
+            // is still opened. Probably this won't work in parallel.
             container.RegisterInstance(appConfiguration, "_previousAppConfiguration");
-            container.UnregisterSingleInstance<TestExecutionEngine>();
+            ////container.UnregisterSingleInstance<TestExecutionEngine>();
         }
 
         private void ResolvePreviousAppConfiguration(ServicesCollection childContainer)
@@ -145,6 +146,7 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
             if (appAttribute != null)
             {
                 container.RegisterInstance(appAttribute.AppConfiguration, "_currentAppConfiguration");
+                appAttribute.AppConfiguration.ClassFullName = testClassType.FullName;
                 return appAttribute.AppConfiguration;
             }
             else

@@ -18,6 +18,7 @@ using System.Drawing;
 using System.Text;
 using Bellatrix.Desktop.Controls.Core;
 using Bellatrix.Desktop.Events;
+using Bellatrix.Desktop.Locators;
 using Bellatrix.Desktop.Services;
 using Bellatrix.Desktop.Untils;
 using OpenQA.Selenium;
@@ -55,7 +56,8 @@ namespace Bellatrix.Desktop
             get
             {
                 ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs(GetAndWaitWebDriverElement()));
-                return GetAndWaitWebDriverElement(true);
+                var element = GetWebDriverElement();
+                return element;
             }
             internal set => _wrappedElement = value;
         }
@@ -63,6 +65,8 @@ namespace Bellatrix.Desktop
         public WindowsElement ParentWrappedElement { get; set; }
 
         public WindowsElement FoundWrappedElement { get; set; }
+
+        public int ElementIndex { get; set; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public dynamic By { get; internal set; }
@@ -73,15 +77,13 @@ namespace Bellatrix.Desktop
         }
 
         public TElement Create<TElement, TBy>(TBy by)
-            where TBy : Locators.FindStrategy
-            where TElement : Element
+             where TBy : FindStrategy
+             where TElement : Element
         {
             CreatingElement?.Invoke(this, new ElementActionEventArgs(this));
 
-            Debug.WriteLine(by.Value);
-            var nativeElement = GetAndWaitWebDriverElement();
             var elementRepository = new ElementRepository();
-            var element = elementRepository.CreateElementWithParent<TElement>(by, nativeElement);
+            var element = elementRepository.CreateElementWithParent<TElement>(by, WrappedElement, null, 0);
 
             CreatedElement?.Invoke(this, new ElementActionEventArgs(this));
 
@@ -89,28 +91,22 @@ namespace Bellatrix.Desktop
         }
 
         public ElementsList<TElement> CreateAll<TElement, TBy>(TBy by)
-            where TBy : Locators.FindStrategy
+            where TBy : FindStrategy
             where TElement : Element
         {
             CreatingElements?.Invoke(this, new ElementActionEventArgs(this));
-            WindowsElement nativeElement = null;
-            try
-            {
-                nativeElement = GetWebDriverElement();
-            }
-            catch (InvalidOperationException)
-            {
-                // Ignore
-            }
 
-            var elementsCollection = new ElementsList<TElement>(by, nativeElement);
+            var elementsCollection = new ElementsList<TElement>(by, WrappedElement);
 
             CreatedElements?.Invoke(this, new ElementActionEventArgs(this));
 
             return elementsCollection;
         }
 
-        public void WaitToBe() => GetAndWaitWebDriverElement(true);
+        public void WaitToBe()
+        {
+            GetAndWaitWebDriverElement();
+        }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsPresent
@@ -119,8 +115,7 @@ namespace Bellatrix.Desktop
             {
                 try
                 {
-                    var nativeElement = GetWebDriverElement(true);
-                    if (nativeElement != null)
+                    if (WrappedElement != null)
                     {
                         return true;
                     }
@@ -141,11 +136,7 @@ namespace Bellatrix.Desktop
             {
                 try
                 {
-                    var nativeElement = GetWebDriverElement(true);
-                    if (nativeElement != null)
-                    {
-                        return GetWebDriverElement(true).Displayed;
-                    }
+                    return WrappedElement.Displayed;
                 }
                 catch (WebDriverException)
                 {
@@ -191,9 +182,9 @@ namespace Bellatrix.Desktop
             return sb.ToString();
         }
 
-        protected WindowsElement GetAndWaitWebDriverElement(bool shouldRefresh = false)
+        protected WindowsElement GetAndWaitWebDriverElement()
         {
-            if (_wrappedElement == null || shouldRefresh)
+            if (_wrappedElement == null)
             {
                 if (_untils.Count == 0 || _untils[0] == null)
                 {
@@ -215,7 +206,7 @@ namespace Bellatrix.Desktop
                         }
                     }
 
-                    _wrappedElement = GetWebDriverElement(shouldRefresh);
+                    _wrappedElement = GetWebDriverElement();
                 }
                 catch (WebDriverTimeoutException ex)
                 {
@@ -228,29 +219,30 @@ namespace Bellatrix.Desktop
             return _wrappedElement;
         }
 
-        private WindowsElement GetWebDriverElement(bool shouldRefresh = false)
+        private WindowsElement GetWebDriverElement()
         {
-            if (!shouldRefresh && _wrappedElement != null)
+            WindowsElement result = _wrappedElement;
+            if (FoundWrappedElement != null)
             {
-                return _wrappedElement;
+                result = FoundWrappedElement;
             }
 
-            if (ParentWrappedElement == null && FoundWrappedElement == null)
+            if (_wrappedElement != null)
             {
-                return By.FindElement(WrappedDriver);
+                result = _wrappedElement;
+            }
+
+            if (ParentWrappedElement == null && _wrappedElement == null)
+            {
+                result = By.FindElement(WrappedDriver);
             }
 
             if (ParentWrappedElement != null)
             {
-                return By.FindElement(ParentWrappedElement);
+                result = By.FindElement(ParentWrappedElement);
             }
 
-            if (FoundWrappedElement != null)
-            {
-                return FoundWrappedElement;
-            }
-
-            return _wrappedElement;
+            return result;
         }
     }
 }

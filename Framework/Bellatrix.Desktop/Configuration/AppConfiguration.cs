@@ -48,9 +48,15 @@ namespace Bellatrix.Desktop.Configuration
 
         public DesiredCapabilities DesiredCapabilities { get; set; }
 
-        public bool Equals(AppConfiguration other) => AppPath.Equals(other.AppPath) && AppBehavior.Equals(other.AppBehavior) && Size.Equals(other.Size);
+        public bool Equals(AppConfiguration other)
+        {
+            return AppPath.Equals(other.AppPath) && AppBehavior.Equals(other.AppBehavior) && Size.Equals(other.Size);
+        }
 
-        public override bool Equals(object obj) => Equals(obj as AppConfiguration);
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as AppConfiguration);
+        }
 
         private string NormalizeAppPath()
         {

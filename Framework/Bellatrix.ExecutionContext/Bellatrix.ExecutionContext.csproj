@@ -1,7 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\SharedAssemblyInfo.targets" />
-
-  <ItemGroup>
-	  <ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
-  </ItemGroup>
-</Project>

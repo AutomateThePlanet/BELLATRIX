@@ -70,11 +70,18 @@ namespace Bellatrix.Web
             ServicesCollection.Current.RegisterInstance(dictionary, $"caps-{fullClassName}");
         }
 
-        public void AddControlDataHandler<TElement, TControlDataHandler>()
+        public void AddReadonlyControlDataHandler<TElement, TControlDataHandler>()
            where TElement : Element
-           where TControlDataHandler : IControlDataHandler<TElement>
+           where TControlDataHandler : IReadonlyControlDataHandler<TElement>
         {
-            ServicesCollection.Current.RegisterType<IControlDataHandler<TElement>, TControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<TElement>, TControlDataHandler>();
+        }
+
+        public void AddEditableControlDataHandler<TElement, TControlDataHandler>()
+           where TElement : Element
+           where TControlDataHandler : IEditableControlDataHandler<TElement>
+        {
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<TElement>, TControlDataHandler>();
         }
 
         public void AddElementEventHandler<TElementsEventHandler>()

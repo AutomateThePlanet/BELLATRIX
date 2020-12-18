@@ -1,25 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<!-- See: https://github.com/techtalk/SpecFlow/issues/1516#issuecomment-488244190 -->
-		<_SpecFlow_xUnitRuntimePlugin>netcoreapp3.1</_SpecFlow_xUnitRuntimePlugin>
-	</PropertyGroup>
+  
+  <Import Project="..\SharedAssemblyInfo.targets" />
+  
+  <ItemGroup>
+	<PackageReference Include="NUnit" Version="3.12.0" />
+  </ItemGroup>
 
-	<Import Project="..\SharedAssemblyInfo.targets" />
-
-	<PropertyGroup>
-		<OutputType>Library</OutputType>
-		<ApplicationIcon />
-		<StartupObject />
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="NUnit" Version="3.12.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-		<ProjectReference Include="..\Bellatrix.SpecFlow.NUnit\Bellatrix.SpecFlow.NUnit.csproj" />
-		<ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
-		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+	  <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+	  <ProjectReference Include="..\Bellatrix.SpecFlow.NUnit\Bellatrix.SpecFlow.NUnit.csproj" />
+	  <ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
+  </ItemGroup>
 </Project>

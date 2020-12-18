@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\SharedAssemblyInfo.targets" />
-	
-    <ItemGroup>
-        <PackageReference Include="RestSharp" Version="106.11.7" />
-    </ItemGroup>
+  <Import Project="..\SharedAssemblyInfo.targets" />
+
+  <ItemGroup>
+    <PackageReference Include="RestSharp" Version="106.11.7" />
+  </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Bellatrix.Api\Bellatrix.API.csproj" />
@@ -11,6 +11,5 @@
         <ProjectReference Include="..\Bellatrix.Data\Bellatrix.Data.csproj" />
         <ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
         <ProjectReference Include="..\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
-		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
     </ItemGroup>
 </Project>

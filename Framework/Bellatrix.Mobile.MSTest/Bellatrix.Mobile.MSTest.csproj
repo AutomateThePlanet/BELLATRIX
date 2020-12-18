@@ -1,14 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\SharedAssemblyInfo.targets" />
+    <Import Project="..\SharedAssemblyInfo.targets" />
+    <ItemGroup>
+        <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-		<ProjectReference Include="..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
-		<ProjectReference Include="..\Bellatrix.MSTest\Bellatrix.MSTest.csproj" />
-		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+      <ProjectReference Include="..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
+      <ProjectReference Include="..\Bellatrix.MSTest\Bellatrix.MSTest.csproj" />
+    </ItemGroup>
 </Project>

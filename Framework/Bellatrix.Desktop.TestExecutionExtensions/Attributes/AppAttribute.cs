@@ -34,7 +34,10 @@ namespace Bellatrix.Desktop
         }
 
         public AppAttribute(string appPath, int width, int height, AppBehavior behavior = AppBehavior.NotSet)
-            : this(appPath, behavior) => AppConfiguration.Size = new Size(width, height);
+            : this(appPath, behavior)
+        {
+            AppConfiguration.Size = new Size(width, height);
+        }
 
         public AppAttribute(string appPath, MobileWindowSize mobileWindowSize, AppBehavior behavior = AppBehavior.NotSet)
         : this(appPath, behavior)
@@ -56,18 +59,18 @@ namespace Bellatrix.Desktop
 
         public AppConfiguration AppConfiguration { get; }
 
-        protected DesiredCapabilities AddAdditionalCapability(Type type, DesiredCapabilities desiredCapabilities)
-        {
-            var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
-            if (additionalCaps != null)
-            {
-                foreach (var key in additionalCaps.Keys)
-                {
-                    desiredCapabilities.SetCapability(key, additionalCaps[key]);
-                }
-            }
+        ////protected DesiredCapabilities AddAdditionalCapability(Type type, DesiredCapabilities desiredCapabilities)
+        ////{
+        ////    var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
+        ////    if (additionalCaps != null)
+        ////    {
+        ////        foreach (var key in additionalCaps.Keys)
+        ////        {
+        ////            desiredCapabilities.SetCapability(key, additionalCaps[key]);
+        ////        }
+        ////    }
 
-            return desiredCapabilities;
-        }
+        ////    return desiredCapabilities;
+        ////}
     }
 }

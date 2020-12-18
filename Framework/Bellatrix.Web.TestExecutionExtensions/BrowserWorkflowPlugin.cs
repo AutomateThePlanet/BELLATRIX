@@ -43,6 +43,7 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
                     if (shouldRestartBrowser)
                     {
                         RestartBrowser(e.Container);
+                        e.Container.RegisterInstance(true, "_isBrowserStartedDuringPreTestsArrange");
                     }
                 }
                 else
@@ -97,6 +98,7 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
                 if (currentBrowserConfiguration.BrowserBehavior == BrowserBehavior.RestartEveryTime || (currentBrowserConfiguration.BrowserBehavior == BrowserBehavior.RestartOnFail && !e.TestOutcome.Equals(TestOutcome.Passed)))
                 {
                     ShutdownBrowser(e.Container);
+                    e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
                 }
             }
         }
@@ -107,14 +109,7 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             var previousBrowserConfiguration = container.Resolve<BrowserConfiguration>("_previousBrowserConfiguration");
             var currentBrowserConfiguration = container.Resolve<BrowserConfiguration>("_currentBrowserConfiguration");
-            if (previousTestExecutionEngine == null ||
-                currentBrowserConfiguration.BrowserBehavior == BrowserBehavior.RestartEveryTime ||
-                previousBrowserConfiguration.BrowserType == BrowserType.NotSet ||
-                !previousTestExecutionEngine.IsBrowserStartedCorrectly)
-            {
-                shouldRestartBrowser = true;
-            }
-            else if (!currentBrowserConfiguration.Equals(previousBrowserConfiguration))
+            if (previousTestExecutionEngine == null || !previousTestExecutionEngine.IsBrowserStartedCorrectly || !currentBrowserConfiguration.Equals(previousBrowserConfiguration))
             {
                 shouldRestartBrowser = true;
             }

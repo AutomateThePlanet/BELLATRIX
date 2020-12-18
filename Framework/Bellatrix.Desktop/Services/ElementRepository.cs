@@ -22,17 +22,46 @@ namespace Bellatrix.Desktop.Services
 {
     internal class ElementRepository
     {
-        public TElementType CreateElementWithParent<TElementType>(FindStrategy by, WindowsElement webElement)
+        public dynamic CreateElementWithParent(FindStrategy by, WindowsElement parentElement, Type newElementType)
+        {
+            DetermineElementAttributes(out var elementName, out var pageName);
+
+            dynamic element = Activator.CreateInstance(newElementType);
+            element.By = by;
+            element.ParentWrappedElement = parentElement;
+            element.ElementName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+            element.PageName = pageName ?? string.Empty;
+
+            return element;
+        }
+
+        public TElementType CreateElementWithParent<TElementType>(FindStrategy by, WindowsElement parentElement, WindowsElement foundElement, int elementsIndex)
             where TElementType : Element
         {
             DetermineElementAttributes(out var elementName, out var pageName);
 
             var element = Activator.CreateInstance<TElementType>();
             element.By = by;
-            element.ParentWrappedElement = webElement;
+            element.ParentWrappedElement = parentElement;
+            element.WrappedElement = foundElement;
+            element.FoundWrappedElement = foundElement;
+            element.ElementIndex = elementsIndex;
             element.ElementName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
-            var appService = ServicesCollection.Current.Resolve<AppService>();
-            element.PageName = string.IsNullOrEmpty(pageName) ? appService.Title : pageName;
+            element.PageName = pageName ?? string.Empty;
+
+            return element;
+        }
+
+        public dynamic CreateElementThatIsFound(FindStrategy by, WindowsElement webElement, Type newElementType)
+        {
+            DetermineElementAttributes(out var elementName, out var pageName);
+
+            dynamic element = Activator.CreateInstance(newElementType);
+            element.By = by;
+            element.WrappedElement = webElement;
+            element.FoundWrappedElement = webElement;
+            element.ElementName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+            element.PageName = pageName ?? string.Empty;
 
             return element;
         }
@@ -44,10 +73,10 @@ namespace Bellatrix.Desktop.Services
 
             var element = Activator.CreateInstance<TElementType>();
             element.By = by;
+            element.WrappedElement = webElement;
             element.FoundWrappedElement = webElement;
             element.ElementName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
-            var appService = ServicesCollection.Current.Resolve<AppService>();
-            element.PageName = string.IsNullOrEmpty(pageName) ? appService.Title : pageName;
+            element.PageName = pageName ?? string.Empty;
 
             return element;
         }
@@ -56,24 +85,31 @@ namespace Bellatrix.Desktop.Services
         {
             elementName = string.Empty;
             pageName = string.Empty;
-            var callStackTrace = new StackTrace();
-            var currentAssembly = GetType().Assembly;
-
-            foreach (var frame in callStackTrace.GetFrames())
+            try
             {
-                var frameMethodInfo = frame.GetMethod() as MethodInfo;
-                if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
-                    !frameMethodInfo.IsStatic &&
-                    frameMethodInfo.ReturnType.IsSubclassOf(typeof(Element)))
-                {
-                    elementName = frame.GetMethod().Name.Replace("get_", string.Empty);
-                    if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(Page)))
-                    {
-                        pageName = frameMethodInfo.ReflectedType.Name;
-                    }
+                var callStackTrace = new StackTrace();
+                var currentAssembly = GetType().Assembly;
 
-                    break;
+                foreach (var frame in callStackTrace.GetFrames())
+                {
+                    var frameMethodInfo = frame.GetMethod() as MethodInfo;
+                    if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
+                        !frameMethodInfo.IsStatic &&
+                        frameMethodInfo.ReturnType.IsSubclassOf(typeof(Element)))
+                    {
+                        elementName = frame.GetMethod().Name.Replace("get_", string.Empty);
+                        if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(Page)))
+                        {
+                            pageName = frameMethodInfo.ReflectedType.Name;
+                        }
+
+                        break;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
             }
         }
     }

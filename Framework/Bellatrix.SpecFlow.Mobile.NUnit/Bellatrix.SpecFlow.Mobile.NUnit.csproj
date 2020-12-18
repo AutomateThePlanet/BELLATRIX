@@ -1,20 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\SharedAssemblyInfo.targets" />
+  <Import Project="..\SharedAssemblyInfo.targets" />
 
-	<PropertyGroup>
-		<OutputType>Library</OutputType>
-	</PropertyGroup>
+  <PropertyGroup>
+    <!-- See: https://github.com/techtalk/SpecFlow/issues/1516#issuecomment-488244190 -->
+    <_SpecFlow_xUnitRuntimePlugin>netstandard2.0</_SpecFlow_xUnitRuntimePlugin>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="NUnit" Version="3.12.0" />
-	</ItemGroup>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-		<ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
-		<ProjectReference Include="..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
-		<ProjectReference Include="..\Bellatrix.SpecFlow.NUnit\Bellatrix.SpecFlow.NUnit.csproj" />
-		<ProjectReference Include="..\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.csproj" />
-		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+    <ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
+    <ProjectReference Include="..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
+    <ProjectReference Include="..\Bellatrix.SpecFlow.NUnit\Bellatrix.SpecFlow.NUnit.csproj" />
+    <ProjectReference Include="..\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.csproj" />
+  </ItemGroup>
 </Project>

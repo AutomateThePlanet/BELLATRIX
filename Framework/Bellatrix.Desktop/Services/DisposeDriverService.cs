@@ -31,15 +31,15 @@ namespace Bellatrix.Desktop.Services
             webDriver?.Dispose();
             childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
 
-            webDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+            webDriver = ServicesCollection.Main.Resolve<WindowsDriver<WindowsElement>>();
             webDriver?.Quit();
             webDriver?.Dispose();
-            ServicesCollection.Current.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+            ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
         }
 
         public static void DisposeAll()
         {
-            foreach (var childContainer in ServicesCollection.Current.GetChildServicesCollections())
+            foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
             {
                 try
                 {
@@ -54,10 +54,10 @@ namespace Bellatrix.Desktop.Services
                 }
             }
 
-            var webDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+            var webDriver = ServicesCollection.Main.Resolve<WindowsDriver<WindowsElement>>();
             webDriver?.Quit();
             webDriver?.Dispose();
-            ServicesCollection.Current.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+            ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
         }
     }
 }

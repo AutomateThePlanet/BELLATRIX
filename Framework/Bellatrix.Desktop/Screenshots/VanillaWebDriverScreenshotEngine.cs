@@ -16,16 +16,20 @@ using System.Drawing;
 using System.IO;
 using Bellatrix.TestExecutionExtensions.Screenshots.Contracts;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.TestExecutionExtensions.Screenshots
 {
     public sealed class VanillaWebDriverScreenshotEngine : IScreenshotEngine
     {
-        public string TakeScreenshot(ServicesCollection serviceContainer) => TakeScreenshotVanillaWebDriver(serviceContainer);
+        public string TakeScreenshot(ServicesCollection serviceContainer)
+        {
+            return TakeScreenshotVanillaWebDriver(serviceContainer);
+        }
 
         public string TakeScreenshotVanillaWebDriver(ServicesCollection serviceContainer)
         {
-            var driver = serviceContainer.Resolve<IWebDriver>();
+            var driver = serviceContainer.Resolve<WindowsDriver<WindowsElement>>();
             Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
             return screenshot.AsBase64EncodedString;
         }

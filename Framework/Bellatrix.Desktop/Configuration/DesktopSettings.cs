@@ -23,18 +23,22 @@ namespace Bellatrix.Desktop.Configuration
 
         public int Port { get; set; }
 
-        public int SleepInterval { get; set; } = 1000;
+        public int SleepInterval { get; set; }
 
-        public int ElementToBeVisibleTimeout { get; set; } = 30000;
+        public int ElementToBeVisibleTimeout { get; set; }
 
-        public int ElementToExistTimeout { get; set; } = 30000;
+        public int ElementToExistTimeout { get; set; }
 
-        public int ElementToNotExistTimeout { get; set; } = 10000;
+        public int ElementToNotExistTimeout { get; set; }
 
-        public int ElementToBeClickableTimeout { get; set; } = 30000;
+        public int ElementToBeClickableTimeout { get; set; }
 
-        public int ElementNotToBeVisibleTimeout { get; set; } = 10000;
+        public int ElementNotToBeVisibleTimeout { get; set; }
 
-        public int ElementToHaveContentTimeout { get; set; } = 30000;
+        public int ElementToHaveContentTimeout { get; set; }
+
+        public int CreateSessionTimeout { get; set; }
+
+        public int WaitForAppLaunchTimeout { get; set; }
     }
 }

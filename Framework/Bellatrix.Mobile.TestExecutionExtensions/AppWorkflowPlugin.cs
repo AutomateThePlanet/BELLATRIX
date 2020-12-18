@@ -39,6 +39,7 @@ namespace Bellatrix.Mobile.TestExecutionExtensions
                     if (shouldRestartApp)
                     {
                         RestartApp(e.Container);
+                        e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
                     }
                 }
                 else
@@ -79,9 +80,10 @@ namespace Bellatrix.Mobile.TestExecutionExtensions
         {
             var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
 
-            if (appConfiguration?.AppBehavior == AppBehavior.RestartOnFail && e.TestOutcome.Equals(TestOutcome.Failed))
+            if (appConfiguration?.AppBehavior == AppBehavior.RestartEveryTime || (appConfiguration?.AppBehavior == AppBehavior.RestartOnFail && !e.TestOutcome.Equals(TestOutcome.Passed)))
             {
                 ShutdownApp(e.Container);
+                e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
             }
         }
 
@@ -91,14 +93,7 @@ namespace Bellatrix.Mobile.TestExecutionExtensions
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             var previousAppConfiguration = container.Resolve<AppConfiguration>("_previousAppConfiguration");
             var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
-            if (previousTestExecutionEngine == null ||
-                currentAppConfiguration.AppBehavior == AppBehavior.RestartEveryTime ||
-                previousAppConfiguration.AppBehavior == AppBehavior.NotSet ||
-                !previousTestExecutionEngine.IsAppStartedCorrectly)
-            {
-                shouldRestartApp = true;
-            }
-            else if (!currentAppConfiguration.Equals(previousAppConfiguration))
+            if (previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
             {
                 shouldRestartApp = true;
             }
@@ -125,13 +120,18 @@ namespace Bellatrix.Mobile.TestExecutionExtensions
 
         private void ShutdownApp(ServicesCollection container)
         {
-            // Disposing existing engine call only dispose if in parallel.
-            var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
-            previousTestExecutionEngine?.DisposeAll();
+            var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
 
-            var appConfiguration = new AppConfiguration();
-            container.RegisterInstance(appConfiguration, "_previousAppConfiguration");
-            container.UnregisterSingleInstance<TestExecutionEngine>();
+            ShutdownApp(container);
+
+            // Register the ExecutionEngine that should be used for the current run. Will be used in the next test as PreviousEngineType.
+            var testExecutionEngine = new TestExecutionEngine();
+
+            // Register the app that should be used for the current run. Will be used in the next test as PreviousappType.
+            container.RegisterInstance(currentAppConfiguration);
+
+            // Start the current engine
+            testExecutionEngine.StartApp(currentAppConfiguration, container);
         }
 
         private void ResolvePreviousAppConfiguration(ServicesCollection childContainer)

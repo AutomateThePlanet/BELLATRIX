@@ -39,10 +39,10 @@ namespace Bellatrix.Web.GettingStarted._12._Page_Objects
 
             // 5. CreateAll method returns a special BELLATRIX collection called ElementsList<TElementType> in this case ElementList<Number>
             // The collection has a couple of useful methods- Count, implements index which we use here.
-            Browser.WaitUntilReady();
+            Browser.WaitForAjax();
             QuantityBoxes[productNumber - 1].SetNumber(newQuantity);
             UpdateCart.Click();
-            Browser.WaitUntilReady();
+            Browser.WaitForAjax();
         }
 
         public void UpdateAllProductsQuantity(int newQuantity)

@@ -60,7 +60,6 @@
         <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Video\Bellatrix.TestExecutionExtensions.Video.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording\Bellatrix.VideoRecording.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
     </ItemGroup>
 
     <ItemGroup>

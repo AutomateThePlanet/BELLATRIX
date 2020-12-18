@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\SharedAssemblyInfo.targets" />
+  <Import Project="..\SharedAssemblyInfo.targets" />
+  
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-		<PackageReference Include="RestSharp" Version="106.11.7" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-		<ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
-		<ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
-		<ProjectReference Include="..\Bellatrix.Infrastructure\Bellatrix.Infrastructure.csproj" />
-		<ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
-		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+    <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
+    <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
+    <ProjectReference Include="..\Bellatrix.Infrastructure\Bellatrix.Infrastructure.csproj" />
+    <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
+  </ItemGroup>
 </Project>

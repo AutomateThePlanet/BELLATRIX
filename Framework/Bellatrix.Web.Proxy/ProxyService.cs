@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Proxy
 
         public void Dispose()
         {
-            if (ProxyServer.ProxyRunning)
+            if (ProxyServer != null && ProxyServer.ProxyRunning)
             {
                 ProxyServer?.Stop();
             }

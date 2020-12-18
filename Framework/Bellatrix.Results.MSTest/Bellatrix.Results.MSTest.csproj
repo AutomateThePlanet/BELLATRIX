@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\SharedAssemblyInfo.targets" />
+    <Import Project="..\SharedAssemblyInfo.targets" />
+  
+    <ItemGroup>
+        <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots\Bellatrix.TestExecutionExtensions.Screenshots.csproj" />
-		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video\Bellatrix.TestExecutionExtensions.Video.csproj" />
-		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots\Bellatrix.TestExecutionExtensions.Screenshots.csproj" />
+        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video\Bellatrix.TestExecutionExtensions.Video.csproj" />
+        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
+    </ItemGroup>
 </Project>

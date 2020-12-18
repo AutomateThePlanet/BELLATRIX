@@ -4,7 +4,7 @@
 // Proprietary and confidential
 // </copyright>
 // <author>Anton Angelov</author>
-// <site>https://bellatrix.solutions/</site>
+// <site>https://bellatrix.solutions/
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,6 +31,21 @@ namespace Bellatrix
         {
             _container = container;
             _containers = new Dictionary<string, ServicesCollection>();
+        }
+
+        public static ServicesCollection Main
+        {
+            get
+            {
+                if (_serviceProvider == null)
+                {
+                    var unityContainer = new UnityContainer();
+                    _serviceProvider = new ServicesCollection(unityContainer);
+                    _serviceProvider.RegisterInstance(unityContainer);
+                }
+
+                return _serviceProvider;
+            }
         }
 
         public static ServicesCollection Current
@@ -214,7 +229,7 @@ namespace Bellatrix
         }
 
         public void RegisterType<TFrom, TTo>()
-            where TTo : TFrom
+       where TTo : TFrom
         {
             lock (_lockObject)
             {
@@ -223,7 +238,7 @@ namespace Bellatrix
         }
 
         public void RegisterType<TFrom, TTo>(string name)
-            where TTo : TFrom
+       where TTo : TFrom
         {
             lock (_lockObject)
             {
@@ -232,7 +247,7 @@ namespace Bellatrix
         }
 
         public void RegisterType<TFrom, TTo>(bool useSingleInstance)
-            where TTo : TFrom
+       where TTo : TFrom
         {
             lock (_lockObject)
             {
@@ -283,7 +298,7 @@ namespace Bellatrix
         }
 
         public void RegisterSingleInstance<TFrom, TTo>(InjectionConstructor injectionConstructor)
-            where TTo : TFrom
+       where TTo : TFrom
         {
             lock (_lockObject)
             {
@@ -308,10 +323,10 @@ namespace Bellatrix
                 var singleInstanceType = typeof(TFrom);
                 var containerControlledLifetimeManagerType = typeof(ContainerControlledLifetimeManager);
                 var singleInstanceRegistrations = _container.Registrations.Where(
-                        r =>
-                            r.RegisteredType == singleInstanceType &&
-                            r.LifetimeManager.GetType() == containerControlledLifetimeManagerType).
-                    ToArray();
+                r =>
+                r.RegisteredType == singleInstanceType &&
+                r.LifetimeManager.GetType() == containerControlledLifetimeManagerType).
+                ToArray();
                 foreach (var singleInstanceRegistration in singleInstanceRegistrations)
                 {
                     singleInstanceRegistration.LifetimeManager.RemoveValue();
@@ -326,11 +341,11 @@ namespace Bellatrix
                 var singleInstanceType = typeof(TFrom);
                 var containerControlledLifetimeManagerType = typeof(ContainerControlledLifetimeManager);
                 var singleInstanceRegistrations = _container.Registrations.Where(
-                        r =>
-                            r.RegisteredType == singleInstanceType &&
-                            r.LifetimeManager.GetType() == containerControlledLifetimeManagerType
-                            && r.Name.Equals(name)).
-                    ToArray();
+                r =>
+                r.RegisteredType == singleInstanceType &&
+                r.LifetimeManager.GetType() == containerControlledLifetimeManagerType
+                && r.Name.Equals(name)).
+                ToArray();
                 foreach (var singleInstanceRegistration in singleInstanceRegistrations)
                 {
                     singleInstanceRegistration.LifetimeManager.RemoveValue();
@@ -339,7 +354,7 @@ namespace Bellatrix
         }
 
         public void RegisterType<TFrom, TTo>(string name, InjectionConstructor injectionConstructor)
-            where TTo : TFrom
+       where TTo : TFrom
         {
             lock (_lockObject)
             {
@@ -414,8 +429,8 @@ namespace Bellatrix
             lock (_lockObject)
             {
                 var singleInstanceRegistrations = _container.Registrations.Where(
-                 r =>
-                     r.LifetimeManager.GetType().GetInterfaces().Contains(typeof(TPrimaryInterfaceType)));
+                r =>
+                r.LifetimeManager.GetType().GetInterfaces().Contains(typeof(TPrimaryInterfaceType)));
                 foreach (var registration in singleInstanceRegistrations)
                 {
                     registration.LifetimeManager.RemoveValue();

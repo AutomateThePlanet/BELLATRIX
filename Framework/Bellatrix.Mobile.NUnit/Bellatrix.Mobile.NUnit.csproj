@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\SharedAssemblyInfo.targets" />
+    <Import Project="..\SharedAssemblyInfo.targets" />
+  
+    <ItemGroup>
+        <PackageReference Include="NUnit" Version="3.12.0" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="NUnit" Version="3.12.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-		<ProjectReference Include="..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
-		<ProjectReference Include="..\Bellatrix.NUnit\Bellatrix.NUnit.csproj" />
-		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+      <ProjectReference Include="..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
+      <ProjectReference Include="..\Bellatrix.NUnit\Bellatrix.NUnit.csproj" />
+    </ItemGroup>
 </Project>

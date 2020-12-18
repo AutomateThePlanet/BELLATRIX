@@ -67,16 +67,16 @@ namespace Bellatrix.Mobile
         {
             DisposeDriverService.CloseAndroidApp(childContainer);
             DisposeDriverService.CloseIOSApp(childContainer);
-            DisposeDriverService.CloseAndroidApp(ServicesCollection.Current);
-            DisposeDriverService.CloseIOSApp(ServicesCollection.Current);
+            DisposeDriverService.CloseAndroidApp(ServicesCollection.Main);
+            DisposeDriverService.CloseIOSApp(ServicesCollection.Main);
         }
 
         public void Dispose(ServicesCollection childContainer)
         {
             DisposeDriverService.DisposeAndroid(childContainer);
             DisposeDriverService.DisposeIOS(childContainer);
-            DisposeDriverService.DisposeAndroid(ServicesCollection.Current);
-            DisposeDriverService.DisposeIOS(ServicesCollection.Current);
+            DisposeDriverService.DisposeAndroid(ServicesCollection.Main);
+            DisposeDriverService.DisposeIOS(ServicesCollection.Main);
         }
 
         public void DisposeAll()
@@ -87,8 +87,8 @@ namespace Bellatrix.Mobile
                 DisposeDriverService.DisposeIOS(childContainer);
             }
 
-            DisposeDriverService.DisposeAndroid(ServicesCollection.Current);
-            DisposeDriverService.DisposeIOS(ServicesCollection.Current);
+            DisposeDriverService.DisposeAndroid(ServicesCollection.Main);
+            DisposeDriverService.DisposeIOS(ServicesCollection.Main);
         }
     }
 }

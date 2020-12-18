@@ -417,14 +417,12 @@ namespace Bellatrix.Web
         {
             var element = repo.CreateElementWithParent(controlData.By, tableCell.WrappedElement, controlData.ElementType, false);
 
-            // Resolve the appropriate Editable Control Data Handler
-            Type editableControlDataHandler = typeof(IControlDataHandler<>);
-            Type typeSpecificControlDataHandler = editableControlDataHandler.MakeGenericType(element.GetType());
-            dynamic controlDataHandler = ServicesCollection.Current.Resolve(typeSpecificControlDataHandler);
+            // Resolve the appropriate Readonly Control Data Handler
+            dynamic controlDataHandler = ControlDataHandlerResolver.ResolveReadonlyDataHandler(element.GetType());
 
             if (controlDataHandler == null)
             {
-                throw new Exception($"Cannot find proper IControlDataHandler for type: {element.GetType().Name}. Make sure it is registered in the ServiceContainer");
+                throw new Exception($"Cannot find proper IReadonlyControlDataHandler for type: {element.GetType().Name}. Make sure it is registered in the ServiceContainer");
             }
 
             dynamic elementValue = controlDataHandler.GetData(element);

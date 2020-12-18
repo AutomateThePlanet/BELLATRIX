@@ -42,7 +42,6 @@ namespace Bellatrix.Desktop.GettingStarted
 
         // 2.4. As mentioned above you can override the app behaviour for a particular test. The global behaviour for all tests in the class is to reuse the app instance.
         // Only for this particular test, BELLATRIX opens it and restarts it only on fail.
-        [App(Constants.WpfAppPath, AppBehavior.RestartOnFail)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
             var button = App.ElementCreateService.CreateByName<Button>("E Button");

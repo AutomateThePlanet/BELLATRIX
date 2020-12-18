@@ -35,7 +35,10 @@ namespace Bellatrix.Results.MSTest
 
         public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs args)
         {
-            TestContext.AddResultFile(args.ScreenshotPath);
+            if (!string.IsNullOrEmpty(args.ScreenshotPath))
+            {
+                TestContext.AddResultFile(args.ScreenshotPath);
+            }
         }
 
         public void SubscribeVideoPlugin(IVideoPluginProvider provider)
@@ -50,7 +53,10 @@ namespace Bellatrix.Results.MSTest
 
         public void VideoGenerated(object sender, VideoPluginEventArgs args)
         {
-            TestContext.AddResultFile(args.VideoPath);
+            if (!string.IsNullOrEmpty(args.VideoPath))
+            {
+                TestContext.AddResultFile(args.VideoPath);
+            }
         }
     }
 }

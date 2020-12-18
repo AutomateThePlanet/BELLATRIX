@@ -55,12 +55,14 @@ namespace Bellatrix.Desktop.GettingStarted
         // some of it through the usage of TestInit and TestCleanup methods.
         public override void TestsArrange()
         {
-            _mainButton = App.ElementCreateService.CreateByName<Button>("E Button");
-            _resultsLabel = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            ////_mainButton = App.ElementCreateService.CreateByName<Button>("E Button");
+            ////_resultsLabel = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
         }
 
         public override void TestsAct()
         {
+            _mainButton = App.ElementCreateService.CreateByName<Button>("E Button");
+            _resultsLabel = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
             _mainButton.Hover();
         }
 

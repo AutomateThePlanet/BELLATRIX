@@ -38,7 +38,7 @@ namespace Bellatrix.Mobile.IOS
             return baseApp;
         }
 
-        public static BaseApp UseElementsBddLogging(this BaseApp androidApp)
+        public static BaseApp UseElementsBddLogging(this BaseApp iosApp)
         {
             var elementEventHandlers = new List<ElementEventHandlers>
                                        {
@@ -58,7 +58,7 @@ namespace Bellatrix.Mobile.IOS
                 elementEventHandler.SubscribeToAll();
             }
 
-            return androidApp;
+            return iosApp;
         }
 
         public static BaseApp UseDynamicTestCases(this BaseApp iosApp)

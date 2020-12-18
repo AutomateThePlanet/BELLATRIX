@@ -63,7 +63,6 @@
         <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Web\Bellatrix.Web.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
     </ItemGroup>
 
     <ItemGroup>

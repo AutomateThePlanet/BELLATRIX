@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\SharedAssemblyInfo.targets" />
+  <Import Project="..\SharedAssemblyInfo.targets" />
 
-    <PropertyGroup>
-        <RootNamespace>Bellatrix.TestExecutionExtensions.Video</RootNamespace>
-    </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Bellatrix.TestExecutionExtensions.Video</RootNamespace>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="SpecFlow" Version="3.5.14" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SpecFlow" Version="3.5.14" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
-        <ProjectReference Include="..\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
-        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video.Common\Bellatrix.TestExecutionExtensions.Video.Common.csproj" />
-        <ProjectReference Include="..\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
-		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
+    <ProjectReference Include="..\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
+    <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video.Common\Bellatrix.TestExecutionExtensions.Video.Common.csproj" />
+    <ProjectReference Include="..\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
+    <ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
+  </ItemGroup>
 </Project>

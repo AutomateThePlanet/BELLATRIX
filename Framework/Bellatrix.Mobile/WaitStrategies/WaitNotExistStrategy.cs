@@ -54,10 +54,6 @@ namespace Bellatrix.Mobile.Untils
             {
                 return true;
             }
-            catch (InvalidOperationException)
-            {
-                return true;
-            }
         }
     }
 }

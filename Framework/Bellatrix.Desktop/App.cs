@@ -86,9 +86,9 @@ namespace Bellatrix.Desktop
         public void AddAdditionalCapability(string name, object value)
         {
             string fullClassName = DetermineTestClassFullNameAttributes();
-            var dictionary = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{fullClassName}") ?? new Dictionary<string, object>();
+            var dictionary = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{fullClassName}") ?? new Dictionary<string, object>();
             dictionary.Add(name, value);
-            ServicesCollection.Current.RegisterInstance(dictionary, $"caps-{fullClassName}");
+            ServicesCollection.Main.RegisterInstance(dictionary, $"caps-{fullClassName}");
         }
 
         public void AddElementEventHandler<TElementsEventHandler>()

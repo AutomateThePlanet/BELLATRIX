@@ -29,18 +29,19 @@ namespace Bellatrix.Web
 
         public string GetText()
         {
-            return base.GetText();
+            var text = base.GetText();
+
+            if (string.IsNullOrEmpty(text))
+            {
+                return WrappedElement.GetAttribute("value");
+            }
+
+            return text;
         }
 
-        public void SetText(string value)
-        {
-            DefaultSetText(SettingText, TextSet, value);
-        }
+        public void SetText(string value) => DefaultSetText(SettingText, TextSet, value);
 
-        public void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
+        public void Hover() => Hover(Hovering, Hovered);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string InnerText => GetInnerText();

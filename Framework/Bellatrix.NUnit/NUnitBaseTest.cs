@@ -261,7 +261,7 @@ namespace Bellatrix
 
         private MethodInfo GetCurrentExecutionMethodInfo()
         {
-            var testMethodMemberInfo = GetType().GetMethod(TestContext.CurrentContext.Test.Name);
+            var testMethodMemberInfo = GetType().GetMethod(TestContext.CurrentContext.Test.MethodName);
             return testMethodMemberInfo;
         }
 

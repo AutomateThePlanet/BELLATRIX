@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\SharedAssemblyInfo.targets" />
-	<ItemGroup>
-		<PackageReference Include="Serilog" Version="2.10.0" />
-	</ItemGroup>
+    <Import Project="..\SharedAssemblyInfo.targets" />
+    <ItemGroup>
+        <PackageReference Include="Serilog" Version="2.10.0" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
-		<ProjectReference Include="..\Bellatrix.Web.Screenshots\Bellatrix.Web.Screenshots.csproj" />
-		<ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
+        <ProjectReference Include="..\Bellatrix.Web.Screenshots\Bellatrix.Web.Screenshots.csproj" />
+        <ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
+    </ItemGroup>
 </Project>

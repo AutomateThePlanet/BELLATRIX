@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\SharedAssemblyInfo.targets" />
+  
+  <Import Project="..\SharedAssemblyInfo.targets" />
+  
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-		<ProjectReference Include="..\Bellatrix.Infrastructure\Bellatrix.Infrastructure.csproj" />
-		<ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
-		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
-		<Reference Include="QTestSDK">
-			<HintPath>QTestSDK.dll</HintPath>
-		</Reference>
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+    <ProjectReference Include="..\Bellatrix.Infrastructure\Bellatrix.Infrastructure.csproj" />
+    <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
+    <Reference Include="QTestSDK">
+      <HintPath>QTestSDK.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

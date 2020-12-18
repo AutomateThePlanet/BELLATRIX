@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.GettingStarted
 
         [TestMethod]
         [TestCategory(Categories.CI)]
+        [Ignore]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             var button = App.ElementCreateService.CreateByName<Button>("E Button");
@@ -32,6 +33,7 @@ namespace Bellatrix.Desktop.GettingStarted
         [TestMethod]
         [TestCategory(Categories.CI)]
         [App(Constants.WpfAppPath, AppBehavior.RestartOnFail)]
+        [Ignore]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
             var button = App.ElementCreateService.CreateByName<Button>("E Button");

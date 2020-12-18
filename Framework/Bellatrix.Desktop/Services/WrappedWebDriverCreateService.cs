@@ -12,7 +12,9 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Trace;
 using OpenQA.Selenium.Appium;
@@ -25,15 +27,30 @@ namespace Bellatrix.Desktop.Services
     {
         private static readonly string _serviceUrl;
 
-        static WrappedWebDriverCreateService() => _serviceUrl = ConfigurationService.GetSection<DesktopSettings>().ServiceUrl;
+        static WrappedWebDriverCreateService()
+        {
+            _serviceUrl = ConfigurationService.GetSection<DesktopSettings>().ServiceUrl;
+        }
 
         public static WindowsDriver<WindowsElement> Create(AppConfiguration appConfiguration, ServicesCollection childContainer)
         {
             var driverOptions = childContainer.Resolve<DesiredCapabilities>(appConfiguration.ClassFullName) ?? childContainer.Resolve<DesiredCapabilities>() ?? appConfiguration.DesiredCapabilities;
             driverOptions.SetCapability("app", appConfiguration.AppPath);
             driverOptions.SetCapability("deviceName", "WindowsPC");
+            driverOptions.SetCapability("platformName", "Windows");
+            string workingDir = Path.GetDirectoryName(appConfiguration.AppPath);
+            driverOptions.SetCapability("appWorkingDir", workingDir);
+            driverOptions.SetCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().CreateSessionTimeout);
+            driverOptions.SetCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().WaitForAppLaunchTimeout);
+
+            var additionalCapabilities = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{appConfiguration.ClassFullName}") ?? new Dictionary<string, object>();
+            foreach (var additionalCapability in additionalCapabilities)
+            {
+                driverOptions.SetCapability(additionalCapability.Key, additionalCapability.Value);
+            }
 
             var wrappedWebDriver = new WindowsDriver<WindowsElement>(new Uri(_serviceUrl), driverOptions);
+            wrappedWebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
             ChangeWindowSize(appConfiguration.Size, wrappedWebDriver);
             wrappedWebDriver.SwitchTo().Window(wrappedWebDriver.CurrentWindowHandle);

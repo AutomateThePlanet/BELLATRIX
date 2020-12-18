@@ -39,7 +39,10 @@ namespace Bellatrix.Results.NUnit
 
         public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs args)
         {
-            TestContext.AddTestAttachment(args.ScreenshotPath);
+            if (!string.IsNullOrEmpty(args.ScreenshotPath))
+            {
+                TestContext.AddTestAttachment(args.ScreenshotPath);
+            }
         }
 
         public void SubscribeVideoPlugin(IVideoPluginProvider provider)
@@ -54,7 +57,10 @@ namespace Bellatrix.Results.NUnit
 
         public void VideoGenerated(object sender, VideoPluginEventArgs args)
         {
-            TestContext.AddTestAttachment(args.VideoPath);
+            if (!string.IsNullOrEmpty(args.VideoPath))
+            {
+                TestContext.AddTestAttachment(args.VideoPath);
+            }
         }
     }
 }

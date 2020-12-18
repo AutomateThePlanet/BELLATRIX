@@ -21,10 +21,7 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
     {
         public dynamic GetData(TextArea element) => element.GetText().Trim();
 
-        public void SetData(TextArea element, string data)
-        {
-            element.SetText(data);
-        }
+        public void SetData(TextArea element, string data) => element.SetText(data);
 
         public void ValidateValueIs(TextArea element, string expectedValue) => element.ValidateTextIs(expectedValue);
     }

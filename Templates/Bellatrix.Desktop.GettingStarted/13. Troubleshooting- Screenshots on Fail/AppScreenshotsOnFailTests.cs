@@ -29,7 +29,6 @@ namespace Bellatrix.Desktop.GettingStarted
         // The global behaviour for all tests in the class is to make screenshots on fail.
         // Only for this particular test, we tell BELLATRIX not to make screenshots.
         [TestMethod]
-        [App(Constants.WpfAppPath, AppBehavior.RestartOnFail)]
         [ScreenshotOnFail(false)]
         [TestCategory(Categories.CI)]
         public void MessageChanged_When_ButtonClicked_Wpf()

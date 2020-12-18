@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\SharedAssemblyInfo.targets" />
-
-	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-		<ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
-		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video.Common\Bellatrix.TestExecutionExtensions.Video.Common.csproj" />
-		<ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
-		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
-	</ItemGroup>
+  <Import Project="..\SharedAssemblyInfo.targets" />
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
+    <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
+    <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video.Common\Bellatrix.TestExecutionExtensions.Video.Common.csproj" />
+    <ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
+  </ItemGroup>
 </Project>
