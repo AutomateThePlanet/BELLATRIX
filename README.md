@@ -7,7 +7,7 @@ BELLATRIX is not a single thing it contains multiple framework libraries, extens
 
 Simple Installation
 ------------------
-1. Download the BELLATRIX projects zip file from the email you received after the downloading step.
+1. Download the BELLATRIX projects as a zip file from the Code green button in the right corner.
 2. Unzip it. The projects are grouped by technology: web, desktop, mobile, API, load testing
 
 ![Unzip Step](images/unzip-bellatrix-templates.png)
@@ -72,7 +72,7 @@ NOTE: After the support for .NET Framework 5.0 and higher, Microsoft officially 
 
 SDKs and Frameworks Prerequisites
 -------------------------------- 
-[**.NET Core SDK 3.1**](https://www.microsoft.com/net/download/windows) or higher (usually comes with Visual Studio installation or updates)
+[**.NET Core SDK 5**](https://www.microsoft.com/net/download/windows) or higher (usually comes with Visual Studio installation or updates)
 
 For BELLATRIX desktop modules you need to download [**WinAppDriver**](https://github.com/Microsoft/WinAppDriver/releases). You need to make sure it is started before running any BELLATRIX desktop tests.
 
