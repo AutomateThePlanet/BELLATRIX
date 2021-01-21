@@ -10,8 +10,6 @@ Simple Installation
 1. Download the BELLATRIX projects as a zip file from the Code green button in the right corner.
 2. Unzip it. The projects are grouped by technology: web, desktop, mobile, API, load testing
 
-![Unzip Step](images/unzip-bellatrix-templates.png)
-
 ![Grouping By Technology](images/projects-grouping-by-technology.png)
 
 3. Open the project based on the test framework you prefer: MSTest or NUnit.
