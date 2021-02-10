@@ -29,11 +29,18 @@ namespace Bellatrix
     {
         public ServicesCollection Container;
         protected static ThreadLocal<Exception> ThrownException;
+        private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
         private TestWorkflowPluginProvider _currentTestExecutionProvider;
 
         public NUnitBaseTest()
         {
             Container = ServicesCollection.Current;
+            if (!_isConfigurationExecuted.Value)
+            {
+                Configure();
+                _isConfigurationExecuted.Value = true;
+            }
+
             AppDomain.CurrentDomain.FirstChanceException += (sender, eventArgs) =>
             {
                 if (eventArgs.Exception.Source != "System.Private.CoreLib")
@@ -51,6 +58,10 @@ namespace Bellatrix
         }
 
         public TestContext TestContext => TestContext.CurrentContext;
+
+        public virtual void Configure()
+        {
+        }
 
         [OneTimeSetUp]
         public void OneTimeArrangeAct()

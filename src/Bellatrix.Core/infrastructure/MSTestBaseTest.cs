@@ -27,12 +27,18 @@ namespace Bellatrix
     {
         public ServicesCollection Container;
         private static readonly List<string> TypeForAlreadyExecutedClassInits = new List<string>();
+        private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
         private static ThreadLocal<Exception> _thrownException;
         private TestWorkflowPluginProvider _currentTestExecutionProvider;
 
         public MSTestBaseTest()
         {
             _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+            if (!_isConfigurationExecuted.Value)
+            {
+                Configure();
+                _isConfigurationExecuted.Value = true;
+            }
 
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
             AppDomain.CurrentDomain.FirstChanceException += (sender, eventArgs) =>
@@ -49,6 +55,10 @@ namespace Bellatrix
                     }
                 }
             };
+        }
+
+        public virtual void Configure()
+        {
         }
 
         public TestContext TestContext { get; set; }
