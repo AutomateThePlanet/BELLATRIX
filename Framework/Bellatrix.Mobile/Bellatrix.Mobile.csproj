@@ -16,7 +16,6 @@
 		<ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
 		<ProjectReference Include="..\Bellatrix.Layout.Assertions\Bellatrix.Layout.Assertions.csproj" />
 		<ProjectReference Include="..\Bellatrix.Layout\Bellatrix.Layout.csproj" />
-		<ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
 		<ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
 		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
 	</ItemGroup>

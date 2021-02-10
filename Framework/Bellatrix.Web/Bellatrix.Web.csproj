@@ -22,7 +22,6 @@
 		<ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
 		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots.Common\Bellatrix.TestExecutionExtensions.Screenshots.Common.csproj" />
 		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
-		<ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
 		<ProjectReference Include="..\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
 		<ProjectReference Include="..\Bellatrix.Web.Proxy\Bellatrix.Web.Proxy.csproj" />
 		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />

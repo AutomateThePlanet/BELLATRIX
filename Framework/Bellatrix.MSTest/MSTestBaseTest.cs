@@ -17,7 +17,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using Bellatrix.Infrastructure;
 using Bellatrix.TestWorkflowPlugins;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -34,6 +33,7 @@ namespace Bellatrix
         public MSTestBaseTest()
         {
             _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
             AppDomain.CurrentDomain.FirstChanceException += (sender, eventArgs) =>
             {

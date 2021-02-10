@@ -9,6 +9,5 @@
 		<ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
 		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
 		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
-		<ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
 	</ItemGroup>
 </Project>

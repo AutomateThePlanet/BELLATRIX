@@ -75,7 +75,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\AutomateThePlanet.licenseheader" Link="AutomateThePlanet.licenseheader" />
 		<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
 		<None Include="..\bellatrix_icon.png" Pack="true" PackagePath=""/>
 		<None Include="..\LICENSE.txt" Pack="true" PackagePath=""/>

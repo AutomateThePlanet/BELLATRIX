@@ -7,7 +7,6 @@
     <ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
     <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video\Bellatrix.TestExecutionExtensions.Video.csproj" />
     <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
-    <ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
     <ProjectReference Include="..\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
   </ItemGroup>
 </Project>

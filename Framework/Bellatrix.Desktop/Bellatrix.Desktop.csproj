@@ -25,7 +25,6 @@
     <ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
     <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots\Bellatrix.TestExecutionExtensions.Screenshots.csproj" />
     <ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
-    <ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
     <ProjectReference Include="..\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
   </ItemGroup>
 </Project>

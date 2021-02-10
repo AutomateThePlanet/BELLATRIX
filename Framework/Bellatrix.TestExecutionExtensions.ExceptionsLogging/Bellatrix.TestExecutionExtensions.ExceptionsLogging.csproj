@@ -10,7 +10,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
 		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
-		<ProjectReference Include="..\Bellatrix.Trace\Bellatrix.Trace.csproj" />
 		<ProjectReference Include="..\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
 	</ItemGroup>
 </Project>
