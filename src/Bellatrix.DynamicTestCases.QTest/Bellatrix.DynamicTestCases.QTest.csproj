@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+  
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
+    <Reference Include="QTestSDK">
+      <HintPath>QTestSDK.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

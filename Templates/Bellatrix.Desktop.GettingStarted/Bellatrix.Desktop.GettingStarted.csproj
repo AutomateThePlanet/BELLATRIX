@@ -64,13 +64,4 @@
   <ItemGroup>
     <Folder Include="16. Selenium Grid Integration\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Bellatrix.Desktop.MSTest\Bellatrix.Desktop.MSTest.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.Desktop.TestExecutionExtensions\Bellatrix.Desktop.TestExecutionExtensions.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Common\Bellatrix.TestExecutionExtensions.Common.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording\Bellatrix.VideoRecording.csproj" />
-  </ItemGroup>
 </Project>

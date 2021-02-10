@@ -1,0 +1,2087 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Tests\\Bellatrix.LoadTesting.Tests\\Bellatrix.LoadTesting.Tests.csproj": {}
+  },
+  "projects": {
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Api\\Bellatrix.API.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Api\\Bellatrix.API.csproj",
+        "projectName": "Bellatrix.API",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Api\\Bellatrix.API.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Api\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Data\\Bellatrix.Data.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Data\\Bellatrix.Data.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Common\\Bellatrix.TestExecutionExtensions.Common.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Common\\Bellatrix.TestExecutionExtensions.Common.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Newtonsoft.Json.Schema": {
+              "target": "Package",
+              "version": "[3.0.13, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[7.2.0, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.10.1, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj",
+        "projectName": "Bellatrix.Application",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj",
+        "projectName": "Bellatrix.Assertions",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj",
+        "projectName": "Bellatrix.Configuration",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Configuration.EnvironmentVariables": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Data\\Bellatrix.Data.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Data\\Bellatrix.Data.csproj",
+        "projectName": "Bellatrix.Data",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Data\\Bellatrix.Data.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj",
+        "projectName": "Bellatrix.DynamicTestCases",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj",
+        "projectName": "Bellatrix.Infrastructure.Contracts",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj",
+        "projectName": "Bellatrix.Infrastructure",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting.MSTest\\Bellatrix.LoadTesting.MSTest.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting.MSTest\\Bellatrix.LoadTesting.MSTest.csproj",
+        "projectName": "Bellatrix.LoadTesting.MSTest",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting.MSTest\\Bellatrix.LoadTesting.MSTest.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting.MSTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting\\Bellatrix.LoadTesting.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting\\Bellatrix.LoadTesting.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MachineAutomation\\Bellatrix.MachineAutomation.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MachineAutomation\\Bellatrix.MachineAutomation.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MSTest\\Bellatrix.MSTest.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MSTest\\Bellatrix.MSTest.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer.Unity\\Bellatrix.ServiceContainer.Unity.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer.Unity\\Bellatrix.ServiceContainer.Unity.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.ExceptionsLogging\\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.ExceptionsLogging\\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Bellatrix.Licensing": {
+              "target": "Package",
+              "version": "[1.9.5, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting\\Bellatrix.LoadTesting.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting\\Bellatrix.LoadTesting.csproj",
+        "projectName": "Bellatrix.LoadTesting",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting\\Bellatrix.LoadTesting.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Api\\Bellatrix.API.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Api\\Bellatrix.API.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Web.Proxy\\Bellatrix.Web.Proxy.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Web.Proxy\\Bellatrix.Web.Proxy.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.23, )"
+            },
+            "HtmlAgilityPack.CssSelectors.NetCore": {
+              "target": "Package",
+              "version": "[1.2.1, )"
+            },
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "YUICompressor.NET": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj",
+        "projectName": "Bellatrix.Logging",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Logging.Configuration": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Logging.Console": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Logging.Debug": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Serilog.Extensions.Logging.File": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "Serilog.Settings.Configuration": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Serilog.Sinks.Debug": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MachineAutomation\\Bellatrix.MachineAutomation.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MachineAutomation\\Bellatrix.MachineAutomation.csproj",
+        "projectName": "Bellatrix.MachineAutomation",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MachineAutomation\\Bellatrix.MachineAutomation.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MachineAutomation\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.PowerShell.Commands.Diagnostics": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.PowerShell.Commands.Utility": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.PowerShell.SDK": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "System.Management.Automation": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MSTest\\Bellatrix.MSTest.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MSTest\\Bellatrix.MSTest.csproj",
+        "projectName": "Bellatrix.MSTest",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MSTest\\Bellatrix.MSTest.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.MSTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer.Unity\\Bellatrix.ServiceContainer.Unity.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer.Unity\\Bellatrix.ServiceContainer.Unity.csproj",
+        "projectName": "Bellatrix.ServiceContainer.Unity",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer.Unity\\Bellatrix.ServiceContainer.Unity.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer.Unity\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "Unity": {
+              "target": "Package",
+              "version": "[5.11.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj",
+        "projectName": "Bellatrix.ServiceContainer",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure.Contracts\\Bellatrix.Infrastructure.Contracts.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Infrastructure\\Bellatrix.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Common\\Bellatrix.TestExecutionExtensions.Common.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Common\\Bellatrix.TestExecutionExtensions.Common.csproj",
+        "projectName": "Bellatrix.TestExecutionExtensions.Common",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Common\\Bellatrix.TestExecutionExtensions.Common.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Data\\Bellatrix.Data.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Data\\Bellatrix.Data.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.ExceptionsLogging\\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.ExceptionsLogging\\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj",
+        "projectName": "Bellatrix.TestExecutionExtensions.ExceptionsLogging",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.ExceptionsLogging\\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.ExceptionsLogging\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Application\\Bellatrix.Application.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj",
+        "projectName": "Bellatrix.TestWorkflowPlugins",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\Bellatrix.TestWorkflowPlugins.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj",
+        "projectName": "Bellatrix.Trace",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\Bellatrix.Trace.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Trace\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Bellatrix.Encryption": {
+              "target": "Package",
+              "version": "[1.9.5, )"
+            },
+            "Bellatrix.Telemetry": {
+              "target": "Package",
+              "version": "[1.9.5, )"
+            },
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Logging.Configuration": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Serilog.Extensions.Logging.File": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj",
+        "projectName": "Bellatrix.Utilities",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\Bellatrix.Utilities.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Utilities\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Data\\Bellatrix.Data.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Data\\Bellatrix.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "System.Management": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Web.Proxy\\Bellatrix.Web.Proxy.csproj": {
+      "version": "1.9.5",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Web.Proxy\\Bellatrix.Web.Proxy.csproj",
+        "projectName": "Bellatrix.Web.Proxy",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Web.Proxy\\Bellatrix.Web.Proxy.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Web.Proxy\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Configuration\\Bellatrix.Configuration.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1701"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "Titanium.Web.Proxy": {
+              "target": "Package",
+              "version": "[3.1.1276, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Tests\\Bellatrix.LoadTesting.Tests\\Bellatrix.LoadTesting.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Tests\\Bellatrix.LoadTesting.Tests\\Bellatrix.LoadTesting.Tests.csproj",
+        "projectName": "Bellatrix.LoadTesting.Tests",
+        "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Tests\\Bellatrix.LoadTesting.Tests\\Bellatrix.LoadTesting.Tests.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Tests\\Bellatrix.LoadTesting.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Asserts\\Bellatrix.Assertions.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting.MSTest\\Bellatrix.LoadTesting.MSTest.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting.MSTest\\Bellatrix.LoadTesting.MSTest.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting\\Bellatrix.LoadTesting.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.LoadTesting\\Bellatrix.LoadTesting.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.Logging\\Bellatrix.Logging.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer.Unity\\Bellatrix.ServiceContainer.Unity.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer.Unity\\Bellatrix.ServiceContainer.Unity.csproj"
+              },
+              "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj": {
+                "projectPath": "D:\\SourceCode\\AutomateThePlanet\\BELLATRIX\\Framework\\Bellatrix.ServiceContainer\\Bellatrix.ServiceContainer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.5.0, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )",
+              "noWarn": [
+                "NU1701"
+              ]
+            },
+            "System.Security.Permissions": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "Unity": {
+              "target": "Package",
+              "version": "[5.11.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

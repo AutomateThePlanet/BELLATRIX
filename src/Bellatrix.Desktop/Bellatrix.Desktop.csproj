@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+
+	<ItemGroup>
+		<!--<PackageReference Include="Appium.WebDriver" Version="4.2.1" />-->
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
+		<PackageReference Include="Microsoft.WinAppDriver.Appium.WebDriver" Version="1.0.1-Preview" />
+
+		<!--Do not Update to 3.14.0, it has bugs incompatible with Appium.WebDriver 3.0.0.1-->
+		<!--<PackageReference Include="Selenium.WebDriver" Version="3.141.0" />-->
+		<PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
+    <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
+    <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
+    <ProjectReference Include="..\Bellatrix.Layout\Bellatrix.Layout.csproj" />
+    <ProjectReference Include="..\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
+    <ProjectReference Include="..\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
+  </ItemGroup>
+</Project>

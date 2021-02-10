@@ -45,13 +45,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Framework\Bellatrix.Desktop.NUnit\Bellatrix.Desktop.NUnit.csproj" />
-      <ProjectReference Include="..\..\Framework\Bellatrix.Desktop.TestExecutionExtensions\Bellatrix.Desktop.TestExecutionExtensions.csproj" />
-      <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
-      <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording\Bellatrix.VideoRecording.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <None Update=".editorconfig">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>

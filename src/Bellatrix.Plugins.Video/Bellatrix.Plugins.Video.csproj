@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+
+    <PropertyGroup>
+        <RootNamespace>Bellatrix.TestExecutionExtensions.Video</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
+    </ItemGroup>
+</Project>

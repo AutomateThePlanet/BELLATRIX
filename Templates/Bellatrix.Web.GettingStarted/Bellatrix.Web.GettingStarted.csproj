@@ -46,12 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	<ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Common\Bellatrix.TestExecutionExtensions.Common.csproj" />
-	<ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
-	<ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
-	<ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording\Bellatrix.VideoRecording.csproj" />
 	<ProjectReference Include="..\..\Framework\Bellatrix.Web.MSTest\Bellatrix.Web.MSTest.csproj" />
-	<ProjectReference Include="..\..\Framework\Bellatrix.Web.TestExecutionExtensions.LoadTesting\Bellatrix.Web.TestExecutionExtensions.LoadTesting.csproj" />
 	<ProjectReference Include="..\..\Framework\Bellatrix.Web.TestExecutionExtensions\Bellatrix.Web.TestExecutionExtensions.Browser.csproj" />
 	  
   </ItemGroup>

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
+    <ProjectReference Include="..\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
+    <ProjectReference Include="..\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
+  </ItemGroup>
+</Project>

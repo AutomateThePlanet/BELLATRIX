@@ -52,9 +52,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Framework\Bellatrix.Mobile.NUnit\Bellatrix.Mobile.NUnit.csproj" />
       <ProjectReference Include="..\..\Framework\Bellatrix.Mobile.TestExecutionExtensions\Bellatrix.Mobile.TestExecutionExtensions.csproj" />
-      <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
-      <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
-      <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording\Bellatrix.VideoRecording.csproj" />
       <ProjectReference Include="..\..\Framework\Bellatrix.Web.NUnit\Bellatrix.Web.NUnit.csproj" />
     </ItemGroup>
 

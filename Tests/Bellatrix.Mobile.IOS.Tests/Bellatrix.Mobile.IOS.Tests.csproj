@@ -46,16 +46,10 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Framework\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Mobile.MSTest\Bellatrix.Mobile.MSTest.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Mobile.TestExecutionExtensions\Bellatrix.Mobile.TestExecutionExtensions.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Layout.Assertions\Bellatrix.Layout.Assertions.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Layout\Bellatrix.Layout.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.MSTest\Bellatrix.MSTest.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Logging\Bellatrix.Logging.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording\Bellatrix.VideoRecording.csproj" />
     </ItemGroup>
 
     <ItemGroup>

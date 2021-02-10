@@ -1,0 +1,25 @@
+[
+    {
+        "name": "Ignored tests", 
+        "matchedStatuses": ["skipped"] 
+    },
+    {
+        "name": "Infrastructure Problems",
+        "matchedStatuses": ["broken", "failed"],
+        "messageRegex": ".*failed man.*"
+    },
+    {
+        "name": "TESTING THE FRAMEWORK Tests",
+        "matchedStatuses": ["failed"],
+        "messageRegex": ".*AssertFailedException.*"
+    },
+    {
+        "name": "Product Defects",
+        "matchedStatuses": ["failed"]
+    },
+    {
+        "name": "Test Defects",
+        "messageRegex": ".*failed man.*",
+        "matchedStatuses": ["broken"]
+    }
+]

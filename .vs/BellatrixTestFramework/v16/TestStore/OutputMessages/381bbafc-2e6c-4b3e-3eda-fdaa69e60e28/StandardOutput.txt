@@ -1,0 +1,70 @@
+Start Test BDDLoggingTests.PurchaseRocketWithLogs
+Select 'Sort by price: low to high' from control (Name ending with orderby)
+Hover control (InnerText containing Read more)
+Focus control (data-product_id = 28)
+Click control (data-product_id = 28)
+Click control (Class containing added_to_cart wc-forward)
+Type 'happybirthday' into control (ID = coupon_code)
+Validate control (Class containing woocommerce-message) inner text is 'Coupon code applied successfully.'
+Timed out waiting for open connections to be closed. Wait time: 30 sec.
+Set '2' into control (Class containing input-text qty text)
+Timed out waiting for open connections to be closed. Wait time: 30 sec.
+Validate control (XPath = //*[@class='order-total']//span) inner text is '114.00€'
+Click control (Class containing checkout-button button alt wc-forward)
+Validate control (InnerText containing Click here to login) href is 'http://demos.bellatrix.solutions/checkout/#'
+Validate control (InnerText containing Click here to login) CSS class is 'showlogin'
+Scroll to visible control (ID = order_comments)
+Type 'Please send the rocket to my door step! And don't use the elevator, they don't like when it is not clean...' into control (ID = order_comments)
+Type 'In' into control (ID = billing_first_name)
+Type 'Deepthought' into control (ID = billing_last_name)
+Type 'Automate The Planet Ltd.' into control (ID = billing_company)
+Select 'Bulgaria' from control (ID = billing_country)
+Validate control (ID = billing_address_1) placeholder is 'House number and street name'
+Type 'bul. Yerusalim 5' into control (ID = billing_address_1)
+Type 'bul. Yerusalim 6' into control (ID = billing_address_2)
+Type 'Sofia' into control (ID = billing_city)
+Select 'Sofia-Grad' from control (ID = billing_state)
+Type '1000' into control (ID = billing_postcode)
+Type '+00359894646464' into control (ID = billing_phone)
+Type 'info@bellatrix.solutions' into control (ID = billing_email)
+Check control (ID = createaccount)
+
+
+Debug Trace:
+Start Test BDDLoggingTests.PurchaseRocketWithLogs
+Select 'Sort by price: low to high' from control (Name ending with orderby)
+Hover control (InnerText containing Read more)
+OpenQA.Selenium.WebDriverException: javascript error: arguments[0].onmouseover is not a function
+  (Session info: chrome=87.0.4280.88)
+   at OpenQA.Selenium.Remote.RemoteWebDriver.UnpackAndThrowOnError(Response errorResponse)
+   at OpenQA.Selenium.Remote.RemoteWebDriver.Execute(String driverCommandToExecute, Dictionary`2 parameters)
+   at OpenQA.Selenium.Remote.RemoteWebDriver.ExecuteScriptCommand(String script, String commandName, Object[] args)
+   at OpenQA.Selenium.Remote.RemoteWebDriver.ExecuteScript(String script, Object[] args)
+   at Bellatrix.Web.JavaScriptService.Execute[TElement](String script, TElement element) in D:\SourceCode\BELLATRIX\Framework\Bellatrix.Web\Services\JavaScriptService.cs:line 95
+Focus control (data-product_id = 28)
+Click control (data-product_id = 28)
+Click control (Class containing added_to_cart wc-forward)
+Type 'happybirthday' into control (ID = coupon_code)
+Validate control (Class containing woocommerce-message) inner text is 'Coupon code applied successfully.'
+Timed out waiting for open connections to be closed. Wait time: 30 sec.
+Set '2' into control (Class containing input-text qty text)
+Timed out waiting for open connections to be closed. Wait time: 30 sec.
+Validate control (XPath = //*[@class='order-total']//span) inner text is '114.00€'
+Click control (Class containing checkout-button button alt wc-forward)
+Validate control (InnerText containing Click here to login) href is 'http://demos.bellatrix.solutions/checkout/#'
+Validate control (InnerText containing Click here to login) CSS class is 'showlogin'
+Scroll to visible control (ID = order_comments)
+Type 'Please send the rocket to my door step! And don't use the elevator, they don't like when it is not clean...' into control (ID = order_comments)
+Type 'In' into control (ID = billing_first_name)
+Type 'Deepthought' into control (ID = billing_last_name)
+Type 'Automate The Planet Ltd.' into control (ID = billing_company)
+Select 'Bulgaria' from control (ID = billing_country)
+Validate control (ID = billing_address_1) placeholder is 'House number and street name'
+Type 'bul. Yerusalim 5' into control (ID = billing_address_1)
+Type 'bul. Yerusalim 6' into control (ID = billing_address_2)
+Type 'Sofia' into control (ID = billing_city)
+Select 'Sofia-Grad' from control (ID = billing_state)
+Type '1000' into control (ID = billing_postcode)
+Type '+00359894646464' into control (ID = billing_phone)
+Type 'info@bellatrix.solutions' into control (ID = billing_email)
+Check control (ID = createaccount)

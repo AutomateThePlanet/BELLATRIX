@@ -46,11 +46,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Framework\Bellatrix.API.MSTest\Bellatrix.API.MSTest.csproj" />
 		<ProjectReference Include="..\..\Framework\Bellatrix.Api\Bellatrix.API.csproj" />
-		<ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Api\Bellatrix.TestExecutionExtensions.API.csproj" />
-		<ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Common\Bellatrix.TestExecutionExtensions.Common.csproj" />
-		<ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

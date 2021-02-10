@@ -52,31 +52,20 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Framework\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.BugReporting.AzureDevOps\Bellatrix.BugReporting.AzureDevOps.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.BugReporting.Jira\Bellatrix.BugReporting.Jira.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.DynamicTestCases.AzureDevOps\Bellatrix.DynamicTestCases.AzureDevOps.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.DynamicTestCases.QTest\Bellatrix.DynamicTestCases.QTest.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Layout.Assertions\Bellatrix.Layout.Assertions.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Layout\Bellatrix.Layout.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.MachineAutomation\Bellatrix.MachineAutomation.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.MSTest\Bellatrix.MSTest.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Screenshots\Bellatrix.TestExecutionExtensions.Screenshots.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Video\Bellatrix.TestExecutionExtensions.Video.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording\Bellatrix.VideoRecording.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Web.MSTest\Bellatrix.Web.MSTest.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Web.Screenshots\Bellatrix.Web.Screenshots.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Web.TestExecutionExtensions.LoadTesting\Bellatrix.Web.TestExecutionExtensions.LoadTesting.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Web.TestExecutionExtensions\Bellatrix.Web.TestExecutionExtensions.Browser.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Logging\Bellatrix.Logging.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Web\Bellatrix.Web.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
     </ItemGroup>
 
     <ItemGroup>

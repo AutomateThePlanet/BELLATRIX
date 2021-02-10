@@ -1,26 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Configurations>Debug;Release;ObfuscatedNuGets</Configurations>
-    <IsPackable>false</IsPackable>
-    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
-    <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
-    <RunAnalyzers>true</RunAnalyzers>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <NoWarn>NU1701</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
+ <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
   <ItemGroup>
     <PackageReference Include="Bellatrix.API.DemoApps" Version="1.3.0" />
@@ -36,37 +15,16 @@
     <PackageReference Include="Unity" Version="5.11.9" />
     <PackageReference Include="RestSharp" Version="106.11.7" />
     <PackageReference Include="AutoFixture" Version="4.14.0" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <NoWarn>NU1701</NoWarn>
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <!--<ProjectReference Include="..\..\..\BellatrixTestFramework-Demos\MediaStore.Demo.API\MediaStore.Demo.API.csproj" />-->
     <ProjectReference Include="..\..\Framework\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.API.MSTest\Bellatrix.API.MSTest.csproj" />
     <ProjectReference Include="..\..\Framework\Bellatrix.Api\Bellatrix.API.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.MSTest\Bellatrix.MSTest.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.Logging\Bellatrix.Logging.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Api\Bellatrix.TestExecutionExtensions.API.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Common\Bellatrix.TestExecutionExtensions.Common.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions\Bellatrix.TestWorkflowPlugins.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Categories Include="categories.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\Framework\AutomateThePlanet.licenseheader" Link="AutomateThePlanet.licenseheader" />
   </ItemGroup>
 
   <ItemGroup>

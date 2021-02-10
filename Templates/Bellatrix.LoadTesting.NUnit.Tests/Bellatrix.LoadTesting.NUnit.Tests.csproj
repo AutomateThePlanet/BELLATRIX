@@ -49,11 +49,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Framework\Bellatrix.LoadTesting.NUnit\Bellatrix.LoadTesting.NUnit.csproj" />
-      <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <None Update="testFrameworkSettings.$(Configuration).json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
