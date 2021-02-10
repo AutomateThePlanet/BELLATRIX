@@ -5,10 +5,10 @@ namespace Bellatrix.Web.GettingStarted
 {
     // 1. Style testing is a module from BELLATRIX that allows you to test the CSS styles of your website such as
     // background, border and other colors, font size, size, weight and many others.
-    [Browser(BrowserType.Chrome, DesktopWindowSize._1280_1024,  BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Chrome, DesktopWindowSize._1280_1024, BrowserBehavior.RestartEveryTime)]
+    [Browser(BrowserType.Chrome, DesktopWindowSize._1280_1024,  Lifecycle.RestartEveryTime)]
+    [Browser(OS.OSX, BrowserType.Chrome, DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
     [TestClass]
-    public class StyleTestingTests : WebTest
+    public class StyleTestingTests : MSTest.WebTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

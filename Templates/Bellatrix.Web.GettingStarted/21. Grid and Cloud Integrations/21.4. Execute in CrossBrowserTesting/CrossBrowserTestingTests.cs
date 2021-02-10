@@ -23,11 +23,11 @@ namespace Bellatrix.Web.GettingStarted
     [CrossBrowserTesting(BrowserType.Chrome,
         "62",
         "Windows 10",
-        BrowserBehavior.ReuseIfStarted,
+        Lifecycle.ReuseIfStarted,
         recordVideo: true,
         recordNetwork: true,
         build: "myUniqueBuildName")]
-    public class CrossBrowserTesting : WebTest
+    public class CrossBrowserTesting : MSTest.WebTest
     {
         [TestMethod]
         [Ignore]
@@ -44,11 +44,11 @@ namespace Bellatrix.Web.GettingStarted
         // As you can see with the CrossBrowserTesting attribute we can change the browser window size again.
         [TestMethod]
         [Ignore]
-        [CrossBrowserTesting(BrowserType.Chrome, "62", "Windows 10", DesktopWindowSize._1280_1024, BrowserBehavior.ReuseIfStarted)]
+        [CrossBrowserTesting(BrowserType.Chrome, "62", "Windows 10", DesktopWindowSize._1280_1024, Lifecycle.ReuseIfStarted)]
 
-        // [BrowserStack(BrowserType.Chrome, "62", "Windows 10", 1000, 500, BrowserBehavior.ReuseIfStarted)]
-        // [BrowserStack(BrowserType.Chrome, "62", "Windows 10", MobileWindowSize._320_568, BrowserBehavior.ReuseIfStarted)]
-        // [BrowserStack(BrowserType.Chrome, "62", "Windows 10", TabletWindowSize._600_1024, BrowserBehavior.ReuseIfStarted)]
+        // [BrowserStack(BrowserType.Chrome, "62", "Windows 10", 1000, 500, Lifecycle.ReuseIfStarted)]
+        // [BrowserStack(BrowserType.Chrome, "62", "Windows 10", MobileWindowSize._320_568, Lifecycle.ReuseIfStarted)]
+        // [BrowserStack(BrowserType.Chrome, "62", "Windows 10", TabletWindowSize._600_1024, Lifecycle.ReuseIfStarted)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");

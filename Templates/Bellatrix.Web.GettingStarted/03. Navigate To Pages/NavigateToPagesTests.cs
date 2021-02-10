@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Web.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
-    public class NavigateToPagesTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
+    public class NavigateToPagesTests : MSTest.WebTest
     {
         // Depending on the types of tests you want to write there are a couple of ways to navigate to specific pages.
         // In later chapters, there are more details about the different test workflow hooks. Find here two of them.

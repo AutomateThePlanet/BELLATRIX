@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Web.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
-    public class DialogServiceTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
+    public class DialogServiceTests : MSTest.WebTest
     {
         // 1. BELLATRIX gives you some methods for handling dialogs.
         [TestMethod]

@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
+using Bellatrix.Web.MSTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
-    public class BrowserServiceTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
+    public class BrowserServiceTests : MSTest.WebTest
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the started browser through the BrowserService class.
         // We already saw one of them WaitUntilReady waiting for all Ajax calls to complete.

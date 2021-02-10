@@ -770,6 +770,9 @@
     <Rule Id="IDE0020WithoutSuggestion" Action="None" />
     <Rule Id="IDE1006WithoutSuggestion" Action="None" />
   </Rules>
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+    <Rule Id="CA1310" Action="None" />
+  </Rules>
   <Rules AnalyzerId="Microsoft.CodeAnalysis.VisualBasic.Features" RuleNamespace="Microsoft.CodeAnalysis.VisualBasic.Features">
     <Rule Id="IDE1006" Action="Hidden" />
     <Rule Id="IDE1006WithoutSuggestion" Action="None" />

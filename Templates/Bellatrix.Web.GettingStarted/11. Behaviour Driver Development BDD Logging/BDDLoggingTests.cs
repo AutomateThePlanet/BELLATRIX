@@ -3,9 +3,9 @@
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
-    public class BDDLoggingTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
+    public class BDDLoggingTests : MSTest.WebTest
     {
         // 1. There cases when you need to show your colleagues or managers what tests do you have.
         // Sometimes you may have manual test cases, but their maintenance and up-to-date state are questionable.

@@ -12,10 +12,9 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-
+using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Contracts;
-using Bellatrix.Plugins;
 using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.Screenshots

@@ -3,9 +3,9 @@
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
-    public class LoggingTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
+    public class LoggingTests : MSTest.WebTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

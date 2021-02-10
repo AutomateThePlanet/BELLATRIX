@@ -8,10 +8,10 @@ namespace Bellatrix.Web.GettingStarted
     [SauceLabs(BrowserType.Firefox,
         "50",
         "Windows",
-        BrowserBehavior.ReuseIfStarted,
+        Lifecycle.ReuseIfStarted,
         recordScreenshots: true,
         recordVideo: true)]
-    public class CustomWebDriverCapabilitiesTests : WebTest
+    public class CustomWebDriverCapabilitiesTests : MSTest.WebTest
     {
         // 1. BELLATRIX hides the complexity of initialisation of WebDriver and all related services.
         // In some cases, you need to customise the set up of a browser with using WebDriver options, adding driver capabilities or using browser profile.

@@ -3,22 +3,22 @@
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
-    public class CustomTestCaseExtensionTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
+    public class CustomTestCaseExtensionTests : MSTest.WebTest
     {
         // 1. Once we created the test workflow plugin, we need to add it to the existing test workflow.
-        // It is done using the App service's method AddTestWorkflowPlugin.
+        // It is done using the App service's method AddPlugin.
         // It doesn't need to be added multiple times as will happen here with the TestInit method.
         // Usually this is done in the TestsInitialize file in the AssemblyInitialize method.
         //
         //  public static void AssemblyInitialize(TestContext testContext)
         //  {
-        //      App.AddTestWorkflowPlugin<AssociatedTestCaseExtension>();
+        //      App.AddPlugin<AssociatedTestCaseExtension>();
         //  }
         public override void TestInit()
         {
-            // App.AddTestWorkflowPlugin<AssociatedTestCaseExtension>();
+            // App.AddPlugin<AssociatedTestCaseExtension>();
         }
 
         [TestMethod]

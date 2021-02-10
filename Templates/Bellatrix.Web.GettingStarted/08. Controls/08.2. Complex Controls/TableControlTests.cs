@@ -7,8 +7,8 @@ using Assert = Bellatrix.Assertions.Assert;
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    public class TableControlTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    public class TableControlTests : MSTest.WebTest
     {
         private List<User> _expectedUsers;
 
@@ -86,7 +86,7 @@ namespace Bellatrix.Web.GettingStarted
         }
 
         [TestMethod]
-        [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
+        [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
         public void AssertCells()
         {
             // As a shortcut, you can iterate over all table cells through the ForEachCell method.
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.GettingStarted
         }
 
         [TestMethod]
-        [Browser(BrowserType.FirefoxHeadless, BrowserBehavior.ReuseIfStarted)]
+        [Browser(BrowserType.FirefoxHeadless, Lifecycle.ReuseIfStarted)]
         public void AssertSpecificRow()
         {
           // You can get a specific row using the GetRow method by the index of the row.

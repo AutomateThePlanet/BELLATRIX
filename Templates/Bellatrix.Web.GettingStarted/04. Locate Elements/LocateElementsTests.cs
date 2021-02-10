@@ -1,12 +1,12 @@
 ﻿using System;
+using Bellatrix.Web.MSTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
-    public class LocateElementsTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
+    public class LocateElementsTests : MSTest.WebTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -32,7 +32,7 @@ namespace Bellatrix.Web.GettingStarted
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [Browser(BrowserType.Chrome, BrowserBehavior.RestartOnFail)]
+        [Browser(BrowserType.Chrome, Lifecycle.RestartOnFail)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");

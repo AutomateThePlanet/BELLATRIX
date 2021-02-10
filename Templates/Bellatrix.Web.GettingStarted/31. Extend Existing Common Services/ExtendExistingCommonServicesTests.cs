@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.FirefoxHeadless, BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
-    public class ExtendExistingCommonServicesTests : WebTest
+    [Browser(BrowserType.FirefoxHeadless, Lifecycle.RestartEveryTime)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
+    public class ExtendExistingCommonServicesTests : MSTest.WebTest
     {
         [TestMethod]
         [Ignore]

@@ -13,8 +13,8 @@ namespace Bellatrix.Web.GettingStarted
     // we have created the Table and Grid controls, which ease the selection of cells/rows and assertion of the data.
     // Moreover, in many cases there isn't a unique item which you can use to select the row/cell.
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    public class GridControlTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    public class GridControlTests : MSTest.WebTest
     {
         private static GridTestPage _gridTestPage;
         private static List<Employee> _expectedItems;

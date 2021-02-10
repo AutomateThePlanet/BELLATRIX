@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Web.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Web.GettingStarted
 {
@@ -8,7 +9,7 @@ namespace Bellatrix.Web.GettingStarted
     // 2. This is the attribute for automatic start/control of WebDriver browsers by Bellatrix. If you have to do it manually properly, you will need thousands of lines of code.
     // 2.1. BrowserType controls which browser is used. Available options are Chrome, Firefox, Edge, InternetExplorer, Opera, Chrome in headless mode, Firefox in headless mode.
     // (Headless mode = executed in the browser but the browser's UI is not rendered, in theory, should be faster. In practice the time gain is little.)
-    // 2.2. BrowserBehavior enum controls when the browser is started and stopped. This can drastically increase or decrease the tests execution time, depending on your needs.
+    // 2.2. Lifecycle enum controls when the browser is started and stopped. This can drastically increase or decrease the tests execution time, depending on your needs.
     // However you need to be careful because in case of tests failures the browser may need to be restarted.
     // Available options:
     // RestartEveryTime- for each test a separate WebDriver instance is created and the previous browser is closed. The new browser comes with new cookies and cache.
@@ -19,11 +20,11 @@ namespace Bellatrix.Web.GettingStarted
     // There are even more things you can do with this attribute, but we look into them in the next sections.
     //
     // If you place attribute over the class all tests inherit the behaviour. It is possible to place it over each test and this way it overrides the class behaviour only for this particular test.
-    [Browser(BrowserType.FirefoxHeadless, BrowserBehavior.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
+    [Browser(BrowserType.FirefoxHeadless, Lifecycle.ReuseIfStarted)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
 
     // 2.2. All web BELLATRIX test classes should inherit from the WebTest base class. This way you can use all built-in BELLATRIX tools and functionalities.
-    public class BellatrixBrowserBehaviourTests : WebTest
+    public class BellatrixBrowserBehaviourTests : MSTest.WebTest
     {
         // 2.3. All MSTest tests should be marked with the TestMethod attribute.
         [TestMethod]
@@ -45,8 +46,8 @@ namespace Bellatrix.Web.GettingStarted
 
         // 2.4. As mentioned above you can override the browser behaviour for a particular test. The global behaviour for all tests in the class is to reuse an instance of Edge browser.
         // Only for this particular test, BELLATRIX opens Chrome and restarts it only on fail.
-        [Browser(BrowserType.Chrome, BrowserBehavior.RestartOnFail)]
-        [Browser(OS.OSX, BrowserType.Chrome, BrowserBehavior.RestartOnFail)]
+        [Browser(BrowserType.Chrome, Lifecycle.RestartOnFail)]
+        [Browser(OS.OSX, BrowserType.Chrome, Lifecycle.RestartOnFail)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");

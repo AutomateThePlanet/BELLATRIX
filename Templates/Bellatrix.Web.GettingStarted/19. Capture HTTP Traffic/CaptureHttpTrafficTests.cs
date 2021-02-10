@@ -14,9 +14,9 @@ namespace Bellatrix.Web.GettingStarted
     // After that, each request and response made by the browser is captured, and you have
     // the option to modify it or make assertions against it.
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime, shouldCaptureHttpTraffic: true)]
-    [Browser(OS.OSX, BrowserType.Chrome, BrowserBehavior.RestartEveryTime, shouldCaptureHttpTraffic: false)]
-    public class CaptureHttpTrafficTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: true)]
+    [Browser(OS.OSX, BrowserType.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: false)]
+    public class CaptureHttpTrafficTests : MSTest.WebTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

@@ -23,10 +23,10 @@ namespace Bellatrix.Web.GettingStarted
     [SauceLabs(BrowserType.Chrome,
         "62",
         "Windows",
-        BrowserBehavior.ReuseIfStarted,
+        Lifecycle.ReuseIfStarted,
         recordScreenshots: true,
         recordVideo: true)]
-    public class SauceLabsTests : WebTest
+    public class SauceLabsTests : MSTest.WebTest
     {
         [TestMethod]
         [Ignore]
@@ -42,12 +42,12 @@ namespace Bellatrix.Web.GettingStarted
         // 2. As mentioned if you use the SauceLabs attribute on method level it overrides the class settings.
         // As you can see with the SauceLabs attribute we can change the browser window size again.
         [TestMethod]
-        [SauceLabs(BrowserType.Chrome, "62", "Windows", DesktopWindowSize._1280_1024, BrowserBehavior.ReuseIfStarted)]
+        [SauceLabs(BrowserType.Chrome, "62", "Windows", DesktopWindowSize._1280_1024, Lifecycle.ReuseIfStarted)]
         [Ignore]
 
-        // [SauceLabs(BrowserType.Chrome, "62", "Windows", 1000, 500, BrowserBehavior.ReuseIfStarted)]
-        // [SauceLabs(BrowserType.Chrome, "62", "Windows", MobileWindowSize._320_568, BrowserBehavior.ReuseIfStarted)]
-        // [SauceLabs(BrowserType.Chrome, "62", "Windows", TabletWindowSize._600_1024, BrowserBehavior.ReuseIfStarted)]
+        // [SauceLabs(BrowserType.Chrome, "62", "Windows", 1000, 500, Lifecycle.ReuseIfStarted)]
+        // [SauceLabs(BrowserType.Chrome, "62", "Windows", MobileWindowSize._320_568, Lifecycle.ReuseIfStarted)]
+        // [SauceLabs(BrowserType.Chrome, "62", "Windows", TabletWindowSize._600_1024, Lifecycle.ReuseIfStarted)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");

@@ -4,9 +4,8 @@ using OpenQA.Selenium;
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
-    public class InteractionsServiceTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
+    public class InteractionsServiceTests : MSTest.WebTest
     {
         // 1. BELLATRIX gives you an interface for easier execution of complex UI interactions such as drag & drop, move to element, double click, etc.
         // BELLATRIX interaction APIs are simplified and made to be user-friendly as possible.

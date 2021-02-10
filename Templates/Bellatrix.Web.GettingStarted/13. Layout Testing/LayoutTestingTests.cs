@@ -12,13 +12,13 @@ namespace Bellatrix.Web.GettingStarted
     // Browser attribute gives you the option to resize your browser window so that you can test the rearrangement of the web elements on your pages.
     // To make it, even more, easier for you, we included a couple of enums containing the most popular desktop, mobile and tablet resolutions.
     // Of course, you always have the option to set a custom size.
-    // [Browser(BrowserType.FirefoxHeadless, MobileWindowSize._360_640,  BrowserBehavior.RestartEveryTime)]
-    // [Browser(BrowserType.FirefoxHeadless, TabletWindowSize._600_1024,  BrowserBehavior.RestartEveryTime)]
-    // [Browser(BrowserType.FirefoxHeadless, width: 600, height: 900, behavior: BrowserBehavior.RestartEveryTime)]
-    [Browser(BrowserType.Chrome, DesktopWindowSize._1280_1024,  BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Chrome, DesktopWindowSize._1280_1024, BrowserBehavior.RestartEveryTime)]
+    // [Browser(BrowserType.FirefoxHeadless, MobileWindowSize._360_640,  Lifecycle.RestartEveryTime)]
+    // [Browser(BrowserType.FirefoxHeadless, TabletWindowSize._600_1024,  Lifecycle.RestartEveryTime)]
+    // [Browser(BrowserType.FirefoxHeadless, width: 600, height: 900, behavior: Lifecycle.RestartEveryTime)]
+    [Browser(BrowserType.Chrome, DesktopWindowSize._1280_1024,  Lifecycle.RestartEveryTime)]
+    [Browser(OS.OSX, BrowserType.Chrome, DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
     [TestClass]
-    public class LayoutTestingTests : WebTest
+    public class LayoutTestingTests : MSTest.WebTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

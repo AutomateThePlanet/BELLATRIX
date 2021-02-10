@@ -18,8 +18,8 @@ namespace Bellatrix.Web.GettingStarted
     //     }
     //
     // There you can set the grid URL and set some additional timeouts.
-    [Selenoid(BrowserType.Chrome, "77", BrowserBehavior.RestartEveryTime, recordVideo: true, enableVnc: true, saveSessionLogs: true)]
-    public class SelenoidTests : WebTest
+    [Selenoid(BrowserType.Chrome, "77", Lifecycle.RestartEveryTime, recordVideo: true, enableVnc: true, saveSessionLogs: true)]
+    public class SelenoidTests : MSTest.WebTest
     {
         [TestMethod]
         [Ignore]
@@ -36,11 +36,11 @@ namespace Bellatrix.Web.GettingStarted
         // As you can see with the CrossBrowserTesting attribute we can change the browser window size again.
         [TestMethod]
         [Ignore]
-        [Selenoid(BrowserType.Chrome, "76", DesktopWindowSize._1280_1024, BrowserBehavior.RestartEveryTime)]
+        [Selenoid(BrowserType.Chrome, "76", DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
 
-        ////[Selenoid(BrowserType.Chrome, "76", 1000, 500, BrowserBehavior.RestartEveryTime)]
-        ////[Selenoid(BrowserType.Chrome, "76", MobileWindowSize._320_568, BrowserBehavior.RestartEveryTime)]
-        ////[Selenoid(BrowserType.Chrome, "76", TabletWindowSize._600_1024, BrowserBehavior.RestartEveryTime)]
+        ////[Selenoid(BrowserType.Chrome, "76", 1000, 500, Lifecycle.RestartEveryTime)]
+        ////[Selenoid(BrowserType.Chrome, "76", MobileWindowSize._320_568, Lifecycle.RestartEveryTime)]
+        ////[Selenoid(BrowserType.Chrome, "76", TabletWindowSize._600_1024, Lifecycle.RestartEveryTime)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");

@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
     [ScreenshotOnFail(true)]
-    public class AngularTests : WebTest
+    public class AngularTests : MSTest.WebTest
     {
         [TestMethod]
         public void ShouldGreetUsingBinding()

@@ -15,9 +15,9 @@ namespace Bellatrix.Web.GettingStarted
     // If you place attribute over the class all tests inherit the behaviour.
     // It is possible to put it over each test and this way you override the class behaviour only for this particular test.
     [VideoRecording(VideoRecordingMode.OnlyFail)]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    public class VideoRecordingTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    [Browser(OS.OSX, BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    public class VideoRecordingTests : MSTest.WebTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

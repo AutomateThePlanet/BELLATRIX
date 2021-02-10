@@ -4,9 +4,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.GettingStarted
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.RestartEveryTime)]
-    public class ElementActionHooksTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
+    public class ElementActionHooksTests : MSTest.WebTest
     {
         // 1. Another way to extend BELLATRIX is to use the controls hooks. This is how the BDD logging and highlighting are implemented.
         // For each method of the control, there are two hooks- one that is called before the action and one after.

@@ -18,8 +18,8 @@ namespace Bellatrix.Web.GettingStarted
     //     }
     //
     // There you can set the grid URL and set some additional timeouts.
-    [Remote(BrowserType.Chrome, "62", PlatformType.Windows, BrowserBehavior.ReuseIfStarted)]
-    public class SeleniumGridTests : WebTest
+    [Remote(BrowserType.Chrome, "62", PlatformType.Windows, Lifecycle.ReuseIfStarted)]
+    public class SeleniumGridTests : MSTest.WebTest
     {
         [TestMethod]
         [Ignore]
@@ -36,11 +36,11 @@ namespace Bellatrix.Web.GettingStarted
         // As you can see with the Remote attribute we can change the browser window size again.
         [TestMethod]
         [Ignore]
-        [Remote(BrowserType.Chrome, "62", PlatformType.Windows, DesktopWindowSize._1280_1024, BrowserBehavior.ReuseIfStarted)]
+        [Remote(BrowserType.Chrome, "62", PlatformType.Windows, DesktopWindowSize._1280_1024, Lifecycle.ReuseIfStarted)]
 
-        // [Remote(BrowserType.Chrome, "62", PlatformType.Windows, 1000, 500, BrowserBehavior.ReuseIfStarted)]
-        // [Remote(BrowserType.Chrome, "62", PlatformType.Windows, MobileWindowSize._320_568, BrowserBehavior.ReuseIfStarted)]
-        // [Remote(BrowserType.Chrome, "62", PlatformType.Windows, TabletWindowSize._600_1024, BrowserBehavior.ReuseIfStarted)]
+        // [Remote(BrowserType.Chrome, "62", PlatformType.Windows, 1000, 500, Lifecycle.ReuseIfStarted)]
+        // [Remote(BrowserType.Chrome, "62", PlatformType.Windows, MobileWindowSize._320_568, Lifecycle.ReuseIfStarted)]
+        // [Remote(BrowserType.Chrome, "62", PlatformType.Windows, TabletWindowSize._600_1024, Lifecycle.ReuseIfStarted)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
