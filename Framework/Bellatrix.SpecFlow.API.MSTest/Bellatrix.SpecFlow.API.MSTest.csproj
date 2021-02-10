@@ -12,6 +12,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Bellatrix.Api\Bellatrix.API.csproj" />
     <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-    <ProjectReference Include="..\Bellatrix.SpecFlow.MSTest\Bellatrix.SpecFlow.MSTest.csproj" />
   </ItemGroup>
 </Project>

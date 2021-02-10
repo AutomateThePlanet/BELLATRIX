@@ -8,7 +8,6 @@
 
   <ItemGroup>
 	  <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-	  <ProjectReference Include="..\Bellatrix.SpecFlow.NUnit\Bellatrix.SpecFlow.NUnit.csproj" />
 	  <ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
   </ItemGroup>
 </Project>

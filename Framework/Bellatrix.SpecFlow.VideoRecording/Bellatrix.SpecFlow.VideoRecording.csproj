@@ -12,8 +12,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Bellatrix.Configuration\Bellatrix.Configuration.csproj" />
-		<ProjectReference Include="..\Bellatrix.SpecFlow.TestExecutionExtensions.Video\Bellatrix.SpecFlow.TestExecutionExtensions.Video.csproj" />
-		<ProjectReference Include="..\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
 		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video.Common\Bellatrix.TestExecutionExtensions.Video.Common.csproj" />
 		<ProjectReference Include="..\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
 		<ProjectReference Include="..\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />

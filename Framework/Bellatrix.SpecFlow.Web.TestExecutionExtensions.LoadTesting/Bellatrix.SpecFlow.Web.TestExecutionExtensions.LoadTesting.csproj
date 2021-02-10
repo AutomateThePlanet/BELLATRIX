@@ -10,7 +10,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
 		<ProjectReference Include="..\Bellatrix.Web.Proxy\Bellatrix.Web.Proxy.csproj" />
 		<ProjectReference Include="..\Bellatrix.Web.TestExecutionExtensions.LoadTesting.Common\Bellatrix.Web.TestExecutionExtensions.LoadTesting.Common.csproj" />
 		<ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />

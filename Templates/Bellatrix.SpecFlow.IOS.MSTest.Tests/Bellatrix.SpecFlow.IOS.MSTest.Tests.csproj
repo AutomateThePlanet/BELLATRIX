@@ -51,14 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.Mobile.MSTest\Bellatrix.SpecFlow.Mobile.MSTest.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.Mobile.TestExecutionExtensions\Bellatrix.SpecFlow.Mobile.TestExecutionExtensions.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.Mobile\Bellatrix.SpecFlow.Mobile.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestExecutionExtensions.Common\Bellatrix.SpecFlow.TestExecutionExtensions.Common.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestExecutionExtensions.Video\Bellatrix.SpecFlow.TestExecutionExtensions.Video.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.VideoRecording\Bellatrix.SpecFlow.VideoRecording.csproj" />
     <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
     <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording.FFmpeg\Bellatrix.VideoRecording.FFmpeg.csproj" />
   </ItemGroup>

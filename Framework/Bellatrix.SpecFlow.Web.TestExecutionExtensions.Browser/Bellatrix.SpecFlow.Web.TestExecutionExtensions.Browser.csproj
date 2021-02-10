@@ -7,8 +7,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
-		<ProjectReference Include="..\Bellatrix.SpecFlow.Web.Screenshots\Bellatrix.SpecFlow.Web.Screenshots.csproj" />
 		<ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
 	</ItemGroup>
 </Project>

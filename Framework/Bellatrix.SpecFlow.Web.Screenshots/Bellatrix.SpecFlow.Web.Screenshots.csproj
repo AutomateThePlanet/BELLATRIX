@@ -12,7 +12,5 @@
 		<ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots.Common\Bellatrix.TestExecutionExtensions.Screenshots.Common.csproj" />
 		<ProjectReference Include="..\Bellatrix.Web.Screenshots.Html2Canvas\Bellatrix.Web.Screenshots.Html2Canvas.csproj" />
 		<ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
-		<ProjectReference Include="..\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.csproj" />
-		<ProjectReference Include="..\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
 	</ItemGroup>
 </Project>

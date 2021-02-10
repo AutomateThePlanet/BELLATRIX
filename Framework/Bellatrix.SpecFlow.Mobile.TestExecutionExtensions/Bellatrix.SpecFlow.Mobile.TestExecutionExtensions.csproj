@@ -9,6 +9,5 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
 		<ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
-		<ProjectReference Include="..\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
 	</ItemGroup>
 </Project>

@@ -18,7 +18,5 @@
     <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
     <ProjectReference Include="..\Bellatrix.Asserts\Bellatrix.Assertions.csproj" />
     <ProjectReference Include="..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
-    <ProjectReference Include="..\Bellatrix.SpecFlow.NUnit\Bellatrix.SpecFlow.NUnit.csproj" />
-    <ProjectReference Include="..\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.csproj" />
   </ItemGroup>
 </Project>

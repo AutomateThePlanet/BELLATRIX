@@ -48,11 +48,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.Desktop.MSTest\Bellatrix.SpecFlow.Desktop.MSTest.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.Desktop.TestExecutionExtensions\Bellatrix.SpecFlow.Desktop.TestExecutionExtensions.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.Desktop\Bellatrix.SpecFlow.Desktop.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestExecutionExtensions.Video\Bellatrix.SpecFlow.TestExecutionExtensions.Video.csproj" />
     <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.ExceptionsLogging\Bellatrix.TestExecutionExtensions.ExceptionsLogging.csproj" />
     <ProjectReference Include="..\..\Framework\Bellatrix.VideoRecording\Bellatrix.VideoRecording.csproj" />
   </ItemGroup>

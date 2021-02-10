@@ -56,8 +56,6 @@
         <ProjectReference Include="..\..\Framework\Bellatrix.Logging\Bellatrix.Logging.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.API.MSTest\Bellatrix.SpecFlow.API.MSTest.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestExecutionExtensions.API\Bellatrix.SpecFlow.TestExecutionExtensions.API.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestExecutionExtensions.Common\Bellatrix.SpecFlow.TestExecutionExtensions.Common.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.SpecFlow.TestWorkflowPlugins\Bellatrix.SpecFlow.TestWorkflowPlugins.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.Utilities\Bellatrix.Utilities.csproj" />
         <ProjectReference Include="..\..\Framework\Bellatrix.ServicesCollection\Bellatrix.ServicesCollection.csproj" />
     </ItemGroup>

@@ -11,8 +11,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
-    <ProjectReference Include="..\Bellatrix.SpecFlow.Desktop\Bellatrix.SpecFlow.Desktop.csproj" />
-    <ProjectReference Include="..\Bellatrix.SpecFlow.NUnit\Bellatrix.SpecFlow.NUnit.csproj" />
-    <ProjectReference Include="..\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots\Bellatrix.SpecFlow.TestExecutionExtensions.Screenshots.csproj" />
   </ItemGroup>
 </Project>

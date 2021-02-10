@@ -10,6 +10,5 @@
         <ProjectReference Include="..\Bellatrix.Application\Bellatrix.Application.csproj" />
         <ProjectReference Include="..\Bellatrix.LoadTesting\Bellatrix.LoadTesting.csproj" />
         <ProjectReference Include="..\Bellatrix.Logging\Bellatrix.Logging.csproj" />
-        <ProjectReference Include="..\Bellatrix.SpecFlow.MSTest\Bellatrix.SpecFlow.MSTest.csproj" />
     </ItemGroup>
 </Project>
