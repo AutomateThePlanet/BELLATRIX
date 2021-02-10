@@ -24,7 +24,7 @@ namespace Bellatrix.ImageRecognition.Utilities
     public static class ImageFactory
     {
         private static readonly EmbeddedResourcesService EmbeddedResourcesService;
-        private static readonly double DefaultSimilarity = ConfigurationService.GetSection<ImageRecognitionSettings>().DefaultSimilarity;
+        private static readonly double DefaultSimilarity = SettingsService.GetSection<ImageRecognitionSettings>().DefaultSimilarity;
 
         static ImageFactory()
         {

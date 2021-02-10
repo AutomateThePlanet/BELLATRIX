@@ -23,7 +23,7 @@ namespace Bellatrix.Desktop.Untils
         public WaitToBeClickable(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().ElementToBeClickableTimeout;
+            TimeoutInterval = timeoutInterval ?? SettingsService.GetSection<DesktopSettings>().ElementToBeClickableTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

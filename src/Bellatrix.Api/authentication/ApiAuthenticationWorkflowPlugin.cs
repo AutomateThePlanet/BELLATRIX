@@ -18,7 +18,7 @@ using RestSharp.Authenticators;
 
 namespace Bellatrix.TestExecutionExtensions.Api
 {
-    public class ApiAuthenticationWorkflowPlugin : TestWorkflowPlugin
+    public class ApiAuthenticationWorkflowPlugin : Plugin
     {
         protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
         {

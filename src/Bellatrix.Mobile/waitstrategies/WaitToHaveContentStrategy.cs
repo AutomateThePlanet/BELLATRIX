@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.Untils
         public WaitToHaveContentStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().ElementToHaveContentTimeout;
+            TimeoutInterval = timeoutInterval ?? SettingsService.GetSection<MobileSettings>().ElementToHaveContentTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

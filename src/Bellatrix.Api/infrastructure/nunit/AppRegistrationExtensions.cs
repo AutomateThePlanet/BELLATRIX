@@ -11,7 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.Application;
+
 using Bellatrix.Assertions;
 using Bellatrix.Assertions.NUnit;
 using Bellatrix.NUnit;
@@ -20,11 +20,11 @@ namespace Bellatrix.NUnit
 {
     public static class AppRegistrationExtensions
     {
-        public static BaseApp UseNUnitSettings(this BaseApp baseApp)
+        public static void UseNUnitSettings()
         {
             ServicesCollection.Current.RegisterType<IAssert, NUnitAssert>();
             ServicesCollection.Current.RegisterType<ICollectionAssert, NUnitCollectionAssert>();
-            return baseApp;
+
         }
     }
 }

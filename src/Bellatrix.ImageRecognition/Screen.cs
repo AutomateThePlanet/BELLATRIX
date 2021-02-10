@@ -188,8 +188,8 @@ namespace Bellatrix.ImageRecognition
             if (_runtime == null)
             {
                 var manager = new ImageRecognitionService();
-                _defaultSimilarity = ConfigurationService.GetSection<ImageRecognitionSettings>().DefaultSimilarity;
-                _timeoutInSeconds = ConfigurationService.GetSection<ImageRecognitionSettings>().TimeoutInSeconds;
+                _defaultSimilarity = SettingsService.GetSection<ImageRecognitionSettings>().DefaultSimilarity;
+                _timeoutInSeconds = SettingsService.GetSection<ImageRecognitionSettings>().TimeoutInSeconds;
                 _runtime = new ImageRecognitionRuntime(manager);
                 _runtime.Start();
             }

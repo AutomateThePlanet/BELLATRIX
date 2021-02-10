@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using Bellatrix.Application;
+
 using Bellatrix.DynamicTestCases;
 using Bellatrix.Mobile.Configuration;
 using Bellatrix.Mobile.PageObjects;
@@ -27,7 +27,7 @@ using OpenQA.Selenium.Appium.Service.Options;
 
 namespace Bellatrix.Mobile
 {
-    public abstract class App<TDriver, TDriverElement> : BaseApp, IDisposable
+    public abstract class App<TDriver, TDriverElement> : IDisposable
         where TDriver : AppiumDriver<TDriverElement>
         where TDriverElement : AppiumWebElement
     {
@@ -35,7 +35,7 @@ namespace Bellatrix.Mobile
 
         public App()
         {
-            _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
+            _shouldStartAppiumLocalService = SettingsService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
         }
 
         public ElementWaitService<TDriver, TDriverElement> ElementWaitService => ServicesCollection.Current.Resolve<ElementWaitService<TDriver, TDriverElement>>();
@@ -73,9 +73,9 @@ namespace Bellatrix.Mobile
         }
 
         public void AddTestWorkflowPlugin<TExecutionExtension>()
-            where TExecutionExtension : TestWorkflowPlugin
+            where TExecutionExtension : Plugin
         {
-            RegisterType<TestWorkflowPlugin, TExecutionExtension>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
         }
 
         public abstract void Dispose();

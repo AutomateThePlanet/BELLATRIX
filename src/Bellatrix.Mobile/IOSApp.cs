@@ -12,7 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using Bellatrix.Application;
+
 using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Services;

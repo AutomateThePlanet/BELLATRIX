@@ -148,7 +148,7 @@ namespace Bellatrix.Benchmark
 
         private void InitializeBenchmarksExecutionBehaviorObservers(TestWorkflowPluginProvider testExecutionProvider)
         {
-            var observers = ServicesCollection.Current.ResolveAll<TestWorkflowPlugin>();
+            var observers = ServicesCollection.Current.ResolveAll<Plugin>();
             foreach (var observer in observers)
             {
                 observer.Subscribe(testExecutionProvider);

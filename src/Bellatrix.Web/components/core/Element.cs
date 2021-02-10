@@ -285,12 +285,12 @@ namespace Bellatrix.Web
                 _wrappedElement = GetWebDriverElement(shouldCacheElement);
 
                 ScrollToMakeElementVisible();
-                if (ConfigurationService.GetSection<WebSettings>().ShouldWaitUntilReadyOnElementFound)
+                if (SettingsService.GetSection<WebSettings>().ShouldWaitUntilReadyOnElementFound)
                 {
                     BrowserService.WaitUntilReady();
                 }
 
-                if (ConfigurationService.GetSection<WebSettings>().ShouldWaitForAngular)
+                if (SettingsService.GetSection<WebSettings>().ShouldWaitForAngular)
                 {
                     BrowserService.WaitForAngular();
                 }

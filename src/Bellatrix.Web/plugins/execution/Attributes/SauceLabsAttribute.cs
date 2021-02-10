@@ -27,7 +27,7 @@ namespace Bellatrix.Web
             BrowserType browser,
             string browserVersion,
             string platform,
-            BrowserBehavior behavior = BrowserBehavior.NotSet,
+            Lifecycle behavior = Lifecycle.NotSet,
             bool recordVideo = false,
             bool recordScreenshots = false,
             bool shouldAutomaticallyScrollToVisible = true)
@@ -46,7 +46,7 @@ namespace Bellatrix.Web
             string platform,
             int width,
             int height,
-            BrowserBehavior behavior = BrowserBehavior.NotSet,
+            Lifecycle behavior = Lifecycle.NotSet,
             bool recordVideo = false,
             bool recordScreenshots = false,
             bool shouldAutomaticallyScrollToVisible = true)
@@ -65,7 +65,7 @@ namespace Bellatrix.Web
             string browserVersion,
             string platform,
             MobileWindowSize mobileWindowSize,
-            BrowserBehavior behavior = BrowserBehavior.NotSet,
+            Lifecycle behavior = Lifecycle.NotSet,
             bool recordVideo = false,
             bool recordScreenshots = false,
             bool shouldAutomaticallyScrollToVisible = true)
@@ -77,7 +77,7 @@ namespace Bellatrix.Web
             string browserVersion,
             string platform,
             TabletWindowSize tabletWindowSize,
-            BrowserBehavior behavior = BrowserBehavior.NotSet,
+            Lifecycle behavior = Lifecycle.NotSet,
             bool recordVideo = false,
             bool recordScreenshots = false,
             bool shouldAutomaticallyScrollToVisible = true)
@@ -89,7 +89,7 @@ namespace Bellatrix.Web
             string browserVersion,
             string platform,
             DesktopWindowSize desktopWindowSize,
-            BrowserBehavior behavior = BrowserBehavior.NotSet,
+            Lifecycle behavior = Lifecycle.NotSet,
             bool recordVideo = false,
             bool recordScreenshots = false,
             bool shouldAutomaticallyScrollToVisible = true)

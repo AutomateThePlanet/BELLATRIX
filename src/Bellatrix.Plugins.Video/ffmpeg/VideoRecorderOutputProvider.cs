@@ -23,7 +23,7 @@ namespace Bellatrix.VideoRecording.FFmpeg
     {
         public string GetOutputFolder()
         {
-            var outputDir = ConfigurationService.GetSection<VideoRecordingSettings>().FilePath;
+            var outputDir = SettingsService.GetSection<VideoRecordingSettings>().FilePath;
             if (outputDir.StartsWith("ApplicationData", StringComparison.Ordinal))
             {
                 var folders = outputDir.Split('\\').ToList();

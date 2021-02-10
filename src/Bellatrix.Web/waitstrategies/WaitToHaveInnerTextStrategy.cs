@@ -24,7 +24,7 @@ namespace Bellatrix.Web.Untils
             : base(timeoutInterval, sleepInterval)
         {
             _elementText = elementText;
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<TimeoutSettings>().ElementToHaveContentTimeout;
+            TimeoutInterval = timeoutInterval ?? SettingsService.GetSection<TimeoutSettings>().ElementToHaveContentTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

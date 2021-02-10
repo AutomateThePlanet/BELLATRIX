@@ -174,8 +174,8 @@ namespace Bellatrix.Web
                    {
                        return elementFinder.FindAll(_by).Any();
                    },
-                   totalRunTimeoutMilliseconds: ConfigurationService.GetSection<TimeoutSettings>().ElementToExistTimeout,
-                   sleepTimeMilliseconds: ConfigurationService.GetSection<TimeoutSettings>().SleepInterval);
+                   totalRunTimeoutMilliseconds: SettingsService.GetSection<TimeoutSettings>().ElementToExistTimeout,
+                   sleepTimeMilliseconds: SettingsService.GetSection<TimeoutSettings>().SleepInterval);
 
             return elementFinder.FindAll(_by);
         }

@@ -11,7 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.Application;
+
 using Bellatrix.Assertions;
 using Bellatrix.Assertions.MSTest;
 
@@ -19,11 +19,11 @@ namespace Bellatrix.MSTest
 {
     public static class AppRegistrationExtensions
     {
-        public static BaseApp UseMsTestSettings(this BaseApp baseApp)
+        public static void UseMsTestSettings()
         {
             ServicesCollection.Current.RegisterType<IAssert, MsTestAssert>();
             ServicesCollection.Current.RegisterType<ICollectionAssert, MsTestCollectionAssert>();
-            return baseApp;
+
         }
     }
 }

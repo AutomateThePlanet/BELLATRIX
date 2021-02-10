@@ -27,7 +27,7 @@ namespace Bellatrix.Mobile
             string appPath,
             string platformVersion,
             string deviceName,
-            AppBehavior behavior = AppBehavior.NotSet,
+            Lifecycle behavior = Lifecycle.NotSet,
             bool captureVideo = false,
             bool captureNetworkLogs = false,
             BrowserStackConsoleLogType consoleLogType = BrowserStackConsoleLogType.Disable,

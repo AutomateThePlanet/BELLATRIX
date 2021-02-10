@@ -19,7 +19,7 @@ using Bellatrix.TestWorkflowPlugins;
 
 namespace Bellatrix.TestExecutionExtensions.Common
 {
-    public class ExecutionTimeUnderTestWorkflowPlugin : TestWorkflowPlugin
+    public class ExecutionTimeUnderTestWorkflowPlugin : Plugin
     {
         private static readonly Dictionary<string, DateTime> _testsExecutionTimes = new Dictionary<string, DateTime>();
 

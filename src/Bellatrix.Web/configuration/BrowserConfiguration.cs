@@ -25,7 +25,7 @@ namespace Bellatrix.Web
         }
 
 #pragma warning disable 618
-        public BrowserConfiguration(ExecutionType executionType, BrowserBehavior browserBehavior, BrowserType browserType, Size size, string classFullName, bool shouldCaptureHttpTraffic, bool shouldAutomaticallyScrollToVisible, DriverOptions driverOptions = null)
+        public BrowserConfiguration(ExecutionType executionType, Lifecycle browserBehavior, BrowserType browserType, Size size, string classFullName, bool shouldCaptureHttpTraffic, bool shouldAutomaticallyScrollToVisible, DriverOptions driverOptions = null)
 #pragma warning restore 618
             : this(browserBehavior, browserType, size, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible)
         {
@@ -34,7 +34,7 @@ namespace Bellatrix.Web
             DriverOptions = driverOptions;
         }
 
-        public BrowserConfiguration(BrowserBehavior browserBehavior, BrowserType browserType, Size size, bool shouldCaptureHttpTraffic, bool shouldAutomaticallyScrollToVisible)
+        public BrowserConfiguration(Lifecycle browserBehavior, BrowserType browserType, Size size, bool shouldCaptureHttpTraffic, bool shouldAutomaticallyScrollToVisible)
             : this(browserType, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible)
         {
             BrowserBehavior = browserBehavior;
@@ -50,7 +50,7 @@ namespace Bellatrix.Web
 
         public BrowserType BrowserType { get; set; } = BrowserType.Chrome;
 
-        public BrowserBehavior BrowserBehavior { get; set; } = BrowserBehavior.RestartEveryTime;
+        public Lifecycle BrowserBehavior { get; set; } = Lifecycle.RestartEveryTime;
 
         public Size Size { get; set; }
 

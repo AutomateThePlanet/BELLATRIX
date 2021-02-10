@@ -20,7 +20,7 @@ using Bellatrix.TestWorkflowPlugins;
 
 namespace Bellatrix.Mobile.TestExecutionExtensions
 {
-    public class AppWorkflowPlugin : TestWorkflowPlugin
+    public class AppWorkflowPlugin : Plugin
     {
         protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
         {
@@ -80,7 +80,7 @@ namespace Bellatrix.Mobile.TestExecutionExtensions
         {
             var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
 
-            if (appConfiguration?.AppBehavior == AppBehavior.RestartEveryTime || (appConfiguration?.AppBehavior == AppBehavior.RestartOnFail && !e.TestOutcome.Equals(TestOutcome.Passed)))
+            if (appConfiguration?.Lifecycle == Lifecycle.RestartEveryTime || (appConfiguration?.Lifecycle == Lifecycle.RestartOnFail && !e.TestOutcome.Equals(TestOutcome.Passed)))
             {
                 ShutdownApp(e.Container);
                 e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");

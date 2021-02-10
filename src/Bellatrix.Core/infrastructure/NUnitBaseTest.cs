@@ -263,7 +263,7 @@ namespace Bellatrix
 
         private void InitializeTestExecutionBehaviorObservers(TestWorkflowPluginProvider testExecutionProvider)
         {
-            var observers = ServicesCollection.Current.ResolveAll<TestWorkflowPlugin>();
+            var observers = ServicesCollection.Current.ResolveAll<Plugin>();
             foreach (var observer in observers)
             {
                 observer.Subscribe(testExecutionProvider);

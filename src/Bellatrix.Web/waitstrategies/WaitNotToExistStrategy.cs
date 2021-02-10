@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Untils
         public WaitNotToExistStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<TimeoutSettings>().ElementToNotExistTimeout;
+            TimeoutInterval = timeoutInterval ?? SettingsService.GetSection<TimeoutSettings>().ElementToNotExistTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

@@ -16,7 +16,7 @@ using Serilog;
 
 namespace Bellatrix.TestExecutionExtensions.API
 {
-    public class LogWorkflowPlugin : TestWorkflowPlugin
+    public class LogWorkflowPlugin : Plugin
     {
         protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
         {

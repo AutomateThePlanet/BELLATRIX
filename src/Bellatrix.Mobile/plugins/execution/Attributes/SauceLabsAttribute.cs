@@ -27,7 +27,7 @@ namespace Bellatrix.Mobile
             string appPath,
             string platformVersion,
             string deviceName,
-            AppBehavior behavior = AppBehavior.NotSet,
+            Lifecycle behavior = Lifecycle.NotSet,
             bool recordVideo = false,
             bool recordScreenshots = false)
             : base(appPath, platformVersion, deviceName, behavior)

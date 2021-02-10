@@ -10,8 +10,9 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
-    <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Screenshots\Bellatrix.TestExecutionExtensions.Screenshots.csproj" />
-    <ProjectReference Include="..\Bellatrix.TestExecutionExtensions.Video\Bellatrix.TestExecutionExtensions.Video.csproj" />
+    <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />    
+    <ProjectReference Include="..\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
+    <ProjectReference Include="..\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
+
   </ItemGroup>
 </Project>

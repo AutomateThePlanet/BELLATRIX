@@ -72,3 +72,12 @@ D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\obj\Debug\net
 D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\obj\Debug\net5.0\Bellatrix.DynamicTestCases.AzureDevOps.dll
 D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\obj\Debug\net5.0\ref\Bellatrix.DynamicTestCases.AzureDevOps.dll
 D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\obj\Debug\net5.0\Bellatrix.DynamicTestCases.AzureDevOps.pdb
+D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\bin\Debug\net5.0\Bellatrix.DynamicTestCases.AzureDevOps.deps.json
+D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\bin\Debug\net5.0\Bellatrix.DynamicTestCases.AzureDevOps.dll
+D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\bin\Debug\net5.0\ref\Bellatrix.DynamicTestCases.AzureDevOps.dll
+D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\bin\Debug\net5.0\Bellatrix.DynamicTestCases.AzureDevOps.pdb
+D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\bin\Debug\net5.0\Bellatrix.Core.dll
+D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\bin\Debug\net5.0\Bellatrix.DynamicTestCases.dll
+D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\bin\Debug\net5.0\Bellatrix.DynamicTestCases.pdb
+D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\bin\Debug\net5.0\Bellatrix.Core.pdb
+D:\SourceCode\BELLATRIX\src\Bellatrix.DynamicTestCases.AzureDevOps\obj\Debug\net5.0\Bellatrix.DynamicTestCases.AzureDevOps.csproj.CopyComplete

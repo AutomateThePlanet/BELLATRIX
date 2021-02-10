@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile
             string deviceName,
             string appPackage,
             string appActivity,
-            AppBehavior behavior = AppBehavior.NotSet,
+            Lifecycle behavior = Lifecycle.NotSet,
             bool recordVideo = false,
             bool recordNetwork = false,
             string build = null)

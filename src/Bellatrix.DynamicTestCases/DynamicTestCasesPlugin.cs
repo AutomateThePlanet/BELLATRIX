@@ -22,7 +22,7 @@ using Bellatrix.TestWorkflowPlugins;
 
 namespace Bellatrix.DynamicTestCases
 {
-    public class DynamicTestCasesPlugin : TestWorkflowPlugin
+    public class DynamicTestCasesPlugin : Plugin
     {
         private readonly ITestCaseManagementService _testCaseManagementService;
         private readonly DynamicTestCasesService _dynamicTestCasesService;
@@ -35,7 +35,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled || e.TestMethodMemberInfo == null)
+            if (!SettingsService.GetSection<DynamicTestCasesSettings>().IsEnabled || e.TestMethodMemberInfo == null)
             {
                 return;
             }
@@ -47,7 +47,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled)
+            if (!SettingsService.GetSection<DynamicTestCasesSettings>().IsEnabled)
             {
                 return;
             }
@@ -58,7 +58,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled)
+            if (!SettingsService.GetSection<DynamicTestCasesSettings>().IsEnabled)
             {
                 return;
             }

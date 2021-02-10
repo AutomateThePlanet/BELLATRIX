@@ -24,40 +24,40 @@ namespace Bellatrix.Desktop
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AppAttribute : Attribute
     {
-        public AppAttribute(string appPath, AppBehavior behavior = AppBehavior.NotSet)
+        public AppAttribute(string appPath, Lifecycle lifecycle = Lifecycle.NotSet)
         {
-            AppConfiguration = new AppConfiguration();
+            AppConfiguration = new AppInitializationInfo();
             AppConfiguration.AppPath = appPath;
-            AppConfiguration.AppBehavior = behavior;
+            AppConfiguration.Lifecycle = lifecycle;
             AppConfiguration.Size = default;
             AppConfiguration.DesiredCapabilities = new DesiredCapabilities();
         }
 
-        public AppAttribute(string appPath, int width, int height, AppBehavior behavior = AppBehavior.NotSet)
+        public AppAttribute(string appPath, int width, int height, Lifecycle behavior = Lifecycle.NotSet)
             : this(appPath, behavior)
         {
             AppConfiguration.Size = new Size(width, height);
         }
 
-        public AppAttribute(string appPath, MobileWindowSize mobileWindowSize, AppBehavior behavior = AppBehavior.NotSet)
+        public AppAttribute(string appPath, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet)
         : this(appPath, behavior)
         {
             AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
         }
 
-        public AppAttribute(string appPath, TabletWindowSize tabletWindowSize, AppBehavior behavior = AppBehavior.NotSet)
+        public AppAttribute(string appPath, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet)
         : this(appPath, behavior)
         {
             AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
         }
 
-        public AppAttribute(string appPath, DesktopWindowSize desktopWindowSize, AppBehavior behavior = AppBehavior.NotSet)
+        public AppAttribute(string appPath, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet)
         : this(appPath, behavior)
         {
             AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
         }
 
-        public AppConfiguration AppConfiguration { get; }
+        public AppInitializationInfo AppConfiguration { get; }
 
         ////protected DesiredCapabilities AddAdditionalCapability(Type type, DesiredCapabilities desiredCapabilities)
         ////{

@@ -21,7 +21,7 @@ namespace Bellatrix.Desktop
 {
     public class TestExecutionEngine
     {
-        public void StartApp(AppConfiguration appConfiguration, ServicesCollection childContainer)
+        public void StartApp(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
         {
             try
             {

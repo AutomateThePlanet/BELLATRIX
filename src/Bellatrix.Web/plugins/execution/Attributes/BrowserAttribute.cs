@@ -33,77 +33,77 @@ namespace Bellatrix.Web
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class BrowserAttribute : Attribute
     {
-        public BrowserAttribute(BrowserType browser, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        public BrowserAttribute(BrowserType browser, Lifecycle lifecycle = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
         {
             OS = OS.Windows;
             Browser = browser;
-            BrowserBehavior = behavior;
+            Lifecycle = lifecycle;
             ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
             Size = default;
             ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldCaptureHttpTraffic && ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            ShouldAutomaticallyScrollToVisible = shouldCaptureHttpTraffic && SettingsService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
         }
 
-        public BrowserAttribute(BrowserType browser, int width, int height, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        public BrowserAttribute(BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
         {
             OS = OS.Windows;
             Browser = browser;
-            BrowserBehavior = behavior;
+            Lifecycle = behavior;
             ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
             Size = new Size(width, height);
             ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && SettingsService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
         }
 
-        public BrowserAttribute(OS oS, BrowserType browser, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        public BrowserAttribute(OS oS, BrowserType browser, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
         {
             OS = oS;
             Browser = browser;
-            BrowserBehavior = behavior;
+            Lifecycle = behavior;
             ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
             Size = default;
             ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && SettingsService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
         }
 
-        public BrowserAttribute(OS oS, BrowserType browser, int width, int height, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        public BrowserAttribute(OS oS, BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
         {
             OS = oS;
             Browser = browser;
-            BrowserBehavior = behavior;
+            Lifecycle = behavior;
             ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
             Size = new Size(width, height);
             ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && SettingsService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
         }
 
-        public BrowserAttribute(BrowserType browser, MobileWindowSize mobileWindowSize, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        public BrowserAttribute(BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
         : this(browser, behavior, shouldCaptureHttpTraffic)
             => Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
 
-        public BrowserAttribute(BrowserType browser, TabletWindowSize tabletWindowSize, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        public BrowserAttribute(BrowserType browser, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
         : this(browser, behavior, shouldCaptureHttpTraffic)
             => Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
 
-        public BrowserAttribute(BrowserType browser, DesktopWindowSize desktopWindowSize, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        public BrowserAttribute(BrowserType browser, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
         : this(browser, behavior, shouldCaptureHttpTraffic)
             => Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
 
-        public BrowserAttribute(OS oS, BrowserType browser, MobileWindowSize mobileWindowSize, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        public BrowserAttribute(OS oS, BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
             : this(oS, browser, behavior, shouldCaptureHttpTraffic)
             => Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
 
-        public BrowserAttribute(OS oS, BrowserType browser, TabletWindowSize tabletWindowSize, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        public BrowserAttribute(OS oS, BrowserType browser, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
             : this(oS, browser, behavior, shouldCaptureHttpTraffic)
             => Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
 
-        public BrowserAttribute(OS oS, BrowserType browser, DesktopWindowSize desktopWindowSize, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        public BrowserAttribute(OS oS, BrowserType browser, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
             : this(oS, browser, behavior, shouldCaptureHttpTraffic)
             => Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
 
         public BrowserType Browser { get; }
 
-        public BrowserBehavior BrowserBehavior { get; }
+        public Lifecycle Lifecycle { get; }
 
         public Size Size { get; }
 

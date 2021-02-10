@@ -24,7 +24,7 @@ namespace Bellatrix.Desktop.Untils
         public WaitNotExistStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().ElementToNotExistTimeout;
+            TimeoutInterval = timeoutInterval ?? SettingsService.GetSection<DesktopSettings>().ElementToNotExistTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

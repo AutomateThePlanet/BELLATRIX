@@ -9,10 +9,9 @@
       "Bellatrix.Results.Allure/2.3.0.0": {
         "dependencies": {
           "Allure.Commons": "3.5.0.4",
-          "Bellatrix.Application": "2.3.0",
-          "Bellatrix.TestExecutionExtensions.Screenshots": "2.3.0",
-          "Bellatrix.TestExecutionExtensions.Video": "2.3.0",
-          "Bellatrix.TestWorkflowPlugins": "2.3.0",
+          "Bellatrix.Core": "2.3.0",
+          "Bellatrix.Plugins.Screenshots": "2.3.0",
+          "Bellatrix.Plugins.Video": "2.3.0",
           "Microsoft.CodeAnalysis.NetAnalyzers": "5.0.1",
           "StyleCop.Analyzers": "1.1.118"
         },
@@ -32,11 +31,11 @@
           }
         }
       },
-      "HtmlAgilityPack/1.11.28": {
+      "HtmlAgilityPack/1.11.30": {
         "runtime": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {
-            "assemblyVersion": "1.11.28.0",
-            "fileVersion": "1.11.28.0"
+            "assemblyVersion": "1.11.30.0",
+            "fileVersion": "1.11.30.0"
           }
         }
       },
@@ -148,14 +147,6 @@
           }
         }
       },
-      "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
       "Microsoft.Extensions.Primitives/5.0.0": {
         "runtime": {
           "lib/netcoreapp3.0/Microsoft.Extensions.Primitives.dll": {
@@ -198,11 +189,39 @@
           }
         }
       },
+      "MSTest.TestFramework/2.1.2": {
+        "runtime": {
+          "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
+            "assemblyVersion": "14.0.0.0",
+            "fileVersion": "14.0.4908.2"
+          },
+          "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {
+            "assemblyVersion": "14.0.0.0",
+            "fileVersion": "14.0.4908.2"
+          }
+        }
+      },
+      "NETStandard.Library/2.0.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "5.0.0"
+        }
+      },
       "Newtonsoft.Json/12.0.3": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {
             "assemblyVersion": "12.0.0.0",
             "fileVersion": "12.0.3.23909"
+          }
+        }
+      },
+      "NUnit/3.12.0": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/nunit.framework.dll": {
+            "assemblyVersion": "3.12.0.0",
+            "fileVersion": "3.12.0.0"
           }
         }
       },
@@ -292,122 +311,38 @@
           }
         }
       },
-      "Bellatrix.Application/2.3.0": {
+      "Bellatrix.Core/2.3.0": {
         "dependencies": {
-          "Bellatrix.Infrastructure": "2.3.0",
-          "Bellatrix.ServicesCollection": "2.3.0",
-          "Bellatrix.TestWorkflowPlugins": "2.3.0"
-        },
-        "runtime": {
-          "Bellatrix.Application.dll": {}
-        }
-      },
-      "Bellatrix.Configuration/2.3.0": {
-        "dependencies": {
-          "Bellatrix.Utilities": "2.3.0",
+          "HtmlAgilityPack": "1.11.30",
+          "MSTest.TestFramework": "2.1.2",
           "Microsoft.Extensions.Configuration": "5.0.0",
           "Microsoft.Extensions.Configuration.Binder": "5.0.0",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "5.0.0",
-          "Microsoft.Extensions.Configuration.Json": "5.0.0"
-        },
-        "runtime": {
-          "Bellatrix.Configuration.dll": {}
-        }
-      },
-      "Bellatrix.Infrastructure/2.3.0": {
-        "runtime": {
-          "Bellatrix.Infrastructure.dll": {}
-        }
-      },
-      "Bellatrix.ServicesCollection/2.3.0": {
-        "dependencies": {
+          "Microsoft.Extensions.Configuration.Json": "5.0.0",
+          "NUnit": "3.12.0",
+          "System.Management": "5.0.0",
           "Unity": "5.11.9"
         },
         "runtime": {
-          "Bellatrix.ServicesCollection.dll": {}
+          "Bellatrix.Core.dll": {}
         }
       },
-      "Bellatrix.TestExecutionExtensions.Screenshots/2.3.0": {
+      "Bellatrix.Plugins.Screenshots/2.3.0": {
         "dependencies": {
-          "Bellatrix.Application": "2.3.0",
-          "Bellatrix.Configuration": "2.3.0",
-          "Bellatrix.ServicesCollection": "2.3.0",
-          "Bellatrix.TestExecutionExtensions.Screenshots.Common": "2.3.0",
-          "Bellatrix.TestWorkflowPlugins": "2.3.0",
+          "Bellatrix.Core": "2.3.0",
           "Serilog": "2.10.0",
           "System.Drawing.Common": "5.0.0"
         },
         "runtime": {
-          "Bellatrix.TestExecutionExtensions.Screenshots.dll": {}
+          "Bellatrix.Plugins.Screenshots.dll": {}
         }
       },
-      "Bellatrix.TestExecutionExtensions.Screenshots.Common/2.3.0": {
+      "Bellatrix.Plugins.Video/2.3.0": {
         "dependencies": {
-          "Bellatrix.Application": "2.3.0",
-          "Bellatrix.Configuration": "2.3.0",
-          "Bellatrix.ServicesCollection": "2.3.0",
-          "Serilog": "2.10.0",
-          "System.Drawing.Common": "5.0.0"
+          "Bellatrix.Core": "2.3.0"
         },
         "runtime": {
-          "Bellatrix.TestExecutionExtensions.Screenshots.Common.dll": {}
-        }
-      },
-      "Bellatrix.TestExecutionExtensions.Video/2.3.0": {
-        "dependencies": {
-          "Bellatrix.Configuration": "2.3.0",
-          "Bellatrix.ServicesCollection": "2.3.0",
-          "Bellatrix.TestExecutionExtensions.Video.Common": "2.3.0",
-          "Bellatrix.TestWorkflowPlugins": "2.3.0",
-          "Bellatrix.Utilities": "2.3.0",
-          "HtmlAgilityPack": "1.11.28",
-          "Microsoft.Extensions.Logging.Abstractions": "5.0.0"
-        },
-        "runtime": {
-          "Bellatrix.TestExecutionExtensions.Video.dll": {}
-        }
-      },
-      "Bellatrix.TestExecutionExtensions.Video.Common/2.3.0": {
-        "dependencies": {
-          "Bellatrix.Configuration": "2.3.0",
-          "Bellatrix.ServicesCollection": "2.3.0",
-          "Bellatrix.Utilities": "2.3.0",
-          "Microsoft.Extensions.Logging.Abstractions": "5.0.0"
-        },
-        "runtime": {
-          "Bellatrix.TestExecutionExtensions.Video.Common.dll": {}
-        }
-      },
-      "Bellatrix.TestWorkflowPlugins/2.3.0": {
-        "dependencies": {
-          "Bellatrix.ServicesCollection": "2.3.0"
-        },
-        "runtime": {
-          "Bellatrix.TestWorkflowPlugins.dll": {}
-        }
-      },
-      "Bellatrix.Utilities/2.3.0": {
-        "dependencies": {
-          "System.Management": "5.0.0"
-        },
-        "runtime": {
-          "Bellatrix.Utilities.dll": {}
-        }
-      },
-      "Bellatrix.Trace/2.2.0.0": {
-        "runtime": {
-          "Bellatrix.Trace.dll": {
-            "assemblyVersion": "2.2.0.0",
-            "fileVersion": "2.2.0.0"
-          }
-        }
-      },
-      "Bellatrix.Data/2.2.0.0": {
-        "runtime": {
-          "Bellatrix.Data.dll": {
-            "assemblyVersion": "2.2.0.0",
-            "fileVersion": "2.2.0.0"
-          }
+          "Bellatrix.Plugins.Video.dll": {}
         }
       }
     }
@@ -425,12 +360,12 @@
       "path": "allure.commons/3.5.0.4",
       "hashPath": "allure.commons.3.5.0.4.nupkg.sha512"
     },
-    "HtmlAgilityPack/1.11.28": {
+    "HtmlAgilityPack/1.11.30": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-aclp8f2p+xeNNR02qfMu2r4K49sNWE13VDHiLpv9SoKBDIwwy62HQIMnT+oeuyFquQRzwSGD3vUWUmtOT+eNzQ==",
-      "path": "htmlagilitypack/1.11.28",
-      "hashPath": "htmlagilitypack.1.11.28.nupkg.sha512"
+      "sha512": "sha512-IuOSVuuHCJKrnAjNe5rZnZCyR/NpXL6ExEL7UiM8h4fnhbt8tLqIKol9q5Lv0uoxWO8fl9Uq+1kpGfMDUdr5zA==",
+      "path": "htmlagilitypack/1.11.30",
+      "hashPath": "htmlagilitypack.1.11.30.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.NetAnalyzers/5.0.1": {
       "type": "package",
@@ -502,13 +437,6 @@
       "path": "microsoft.extensions.filesystemglobbing/5.0.0",
       "hashPath": "microsoft.extensions.filesystemglobbing.5.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-NxP6ahFcBnnSfwNBi2KH2Oz8Xl5Sm2krjId/jRR3I7teFphwiUoUeZPwTNA21EX+5PtjqmyAvKaOeBXcJjcH/w==",
-      "path": "microsoft.extensions.logging.abstractions/5.0.0",
-      "hashPath": "microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512"
-    },
     "Microsoft.Extensions.Primitives/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -544,12 +472,33 @@
       "path": "mimetypesmap/1.0.8",
       "hashPath": "mimetypesmap.1.0.8.nupkg.sha512"
     },
+    "MSTest.TestFramework/2.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DXTDuBumPC4oo9KKZMt5zgOuLdfUjqcsLRLyqeubaIxfl7ZBfk8wfsKRWYd1m5aCL3ekifW5pwT3rwuB2mDdLw==",
+      "path": "mstest.testframework/2.1.2",
+      "hashPath": "mstest.testframework.2.1.2.nupkg.sha512"
+    },
+    "NETStandard.Library/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7jnbRU+L08FXKMxqUflxEXtVymWvNOrS8yHgu9s6EM8Anr6T/wIX4nZ08j/u3Asz+tCufp3YVwFSEvFTPYmBPA==",
+      "path": "netstandard.library/2.0.0",
+      "hashPath": "netstandard.library.2.0.0.nupkg.sha512"
+    },
     "Newtonsoft.Json/12.0.3": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
       "path": "newtonsoft.json/12.0.3",
       "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
+    },
+    "NUnit/3.12.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3oJTrcUcT9wmweBUwgUf0f1XIYy6RZq2ziV+RM95HMKAJGsHPN2i3MKK1dAPvDPMRLz799Llj4eyu/STB9Q7OA==",
+      "path": "nunit/3.12.0",
+      "hashPath": "nunit.3.12.0.nupkg.sha512"
     },
     "Serilog/2.10.0": {
       "type": "package",
@@ -614,63 +563,18 @@
       "path": "unity/5.11.9",
       "hashPath": "unity.5.11.9.nupkg.sha512"
     },
-    "Bellatrix.Application/2.3.0": {
+    "Bellatrix.Core/2.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Bellatrix.Configuration/2.3.0": {
+    "Bellatrix.Plugins.Screenshots/2.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Bellatrix.Infrastructure/2.3.0": {
+    "Bellatrix.Plugins.Video/2.3.0": {
       "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Bellatrix.ServicesCollection/2.3.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Bellatrix.TestExecutionExtensions.Screenshots/2.3.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Bellatrix.TestExecutionExtensions.Screenshots.Common/2.3.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Bellatrix.TestExecutionExtensions.Video/2.3.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Bellatrix.TestExecutionExtensions.Video.Common/2.3.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Bellatrix.TestWorkflowPlugins/2.3.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Bellatrix.Utilities/2.3.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Bellatrix.Trace/2.2.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Bellatrix.Data/2.2.0.0": {
-      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

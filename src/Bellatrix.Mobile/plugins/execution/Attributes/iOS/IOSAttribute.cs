@@ -18,14 +18,14 @@ namespace Bellatrix.Mobile
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class IOSAttribute : AppAttribute
     {
-        public IOSAttribute(string appPath, string platformVersion, string deviceName, AppBehavior behavior = AppBehavior.NotSet)
+        public IOSAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
             : base(appPath, platformVersion, deviceName, behavior)
         {
             AppConfiguration.OSPlatform = OS.OSX;
             AppConfiguration.MobileOSType = MobileOSType.IOS;
         }
 
-        public IOSAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, AppBehavior behavior = AppBehavior.NotSet)
+        public IOSAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
             : base(osPlatform, appPath, platformVersion, deviceName, behavior)
             => AppConfiguration.MobileOSType = MobileOSType.IOS;
     }

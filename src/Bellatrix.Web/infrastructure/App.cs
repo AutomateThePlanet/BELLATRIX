@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using Bellatrix.Application;
+
 using Bellatrix.DynamicTestCases;
 using Bellatrix.TestWorkflowPlugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
@@ -26,7 +26,7 @@ using OpenQA.Selenium;
 
 namespace Bellatrix.Web
 {
-    public class App : BaseApp, IDisposable
+    public class App : IDisposable
     {
         public BrowserService BrowserService => ServicesCollection.Current.Resolve<BrowserService>();
 
@@ -97,9 +97,9 @@ namespace Bellatrix.Web
         }
 
         public void AddTestWorkflowPlugin<TExecutionExtension>()
-            where TExecutionExtension : TestWorkflowPlugin
+            where TExecutionExtension : Plugin
         {
-            RegisterType<TestWorkflowPlugin, TExecutionExtension>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
         }
 
         public void Initialize()

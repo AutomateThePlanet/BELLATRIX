@@ -24,7 +24,7 @@ namespace Bellatrix.Web
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class RemoteAttribute : BrowserAttribute, IDriverOptionsAttribute
     {
-        public RemoteAttribute(BrowserType browser, string browserVersion, PlatformType platform, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true)
+        public RemoteAttribute(BrowserType browser, string browserVersion, PlatformType platform, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
         : base(browser, behavior, shouldAutomaticallyScrollToVisible)
         {
             BrowserVersion = browserVersion;
@@ -32,7 +32,7 @@ namespace Bellatrix.Web
             ExecutionType = ExecutionType.Grid;
         }
 
-        public RemoteAttribute(BrowserType browser, string browserVersion, PlatformType platform, int width, int height, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true)
+        public RemoteAttribute(BrowserType browser, string browserVersion, PlatformType platform, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
             : base(browser, width, height, behavior, shouldAutomaticallyScrollToVisible)
         {
             BrowserVersion = browserVersion;
@@ -40,7 +40,7 @@ namespace Bellatrix.Web
             ExecutionType = ExecutionType.Grid;
         }
 
-        public RemoteAttribute(BrowserType browser, string browserVersion, PlatformType platform, MobileWindowSize mobileWindowSize, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true)
+        public RemoteAttribute(BrowserType browser, string browserVersion, PlatformType platform, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
             : base(browser, mobileWindowSize, behavior, shouldAutomaticallyScrollToVisible)
         {
             BrowserVersion = browserVersion;
@@ -48,7 +48,7 @@ namespace Bellatrix.Web
             ExecutionType = ExecutionType.Grid;
         }
 
-        public RemoteAttribute(BrowserType browser, string browserVersion, PlatformType platform, TabletWindowSize tabletWindowSize, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true)
+        public RemoteAttribute(BrowserType browser, string browserVersion, PlatformType platform, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
             : base(browser, tabletWindowSize, behavior, shouldAutomaticallyScrollToVisible)
         {
             BrowserVersion = browserVersion;
@@ -56,7 +56,7 @@ namespace Bellatrix.Web
             ExecutionType = ExecutionType.Grid;
         }
 
-        public RemoteAttribute(BrowserType browser, string browserVersion, PlatformType platform, DesktopWindowSize desktopWindowSize, BrowserBehavior behavior = BrowserBehavior.NotSet, bool shouldAutomaticallyScrollToVisible = true)
+        public RemoteAttribute(BrowserType browser, string browserVersion, PlatformType platform, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
             : base(browser, desktopWindowSize, behavior, shouldAutomaticallyScrollToVisible)
         {
             BrowserVersion = browserVersion;

@@ -18,9 +18,9 @@ namespace Bellatrix
 {
     public static class ConfigurationSettingsExtensions
     {
-        public static ApiSettings GetApiSettings(this ConfigurationService service)
+        public static ApiSettings GetApiSettings(this SettingsService service)
         {
-            return ConfigurationService.GetSection<ApiSettings>();
+            return SettingsService.GetSection<ApiSettings>();
         }
     }
 }

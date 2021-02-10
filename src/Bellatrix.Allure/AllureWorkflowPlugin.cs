@@ -25,7 +25,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Bellatrix.Results.Allure
 {
-    public class AllureWorkflowPlugin : TestWorkflowPlugin, IScreenshotPlugin, IVideoPlugin
+    public class AllureWorkflowPlugin : Plugin, IScreenshotPlugin, IVideoPlugin
     {
         private static AllureLifecycle _allureLifecycle => AllureLifecycle.Instance;
         private string _testContainerId;

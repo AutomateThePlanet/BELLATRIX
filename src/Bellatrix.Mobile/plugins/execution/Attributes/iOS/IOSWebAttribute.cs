@@ -18,7 +18,7 @@ namespace Bellatrix.Mobile
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class IOSWebAttribute : AppAttribute
     {
-        public IOSWebAttribute(string appPath, string platformVersion, string deviceName, AppBehavior behavior = AppBehavior.NotSet)
+        public IOSWebAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
             : base(appPath, platformVersion, deviceName, behavior)
         {
             AppConfiguration.OSPlatform = OS.OSX;
@@ -27,7 +27,7 @@ namespace Bellatrix.Mobile
             AppConfiguration.BrowserName = "Safari";
         }
 
-        public IOSWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, AppBehavior behavior = AppBehavior.NotSet)
+        public IOSWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
             : base(osPlatform, appPath, platformVersion, deviceName, behavior)
         {
             AppConfiguration.OSPlatform = OS.OSX;

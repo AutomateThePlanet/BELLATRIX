@@ -14,20 +14,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Bellatrix.Configuration;
+using Bellatrix.Settings;
 using Microsoft.Extensions.Configuration;
 
 namespace Bellatrix.BugReporting.Configuration
 {
     public static class ConfigurationServiceExtensions
     {
-        public static BugReportingSettings GetBugReportingSettings(this ConfigurationService service)
+        public static BugReportingSettings GetBugReportingSettings(this SettingsService service)
         {
-            var result = ConfigurationService.GetSection<BugReportingSettings>();
+            var result = SettingsService.GetSection<BugReportingSettings>();
 
             if (result == null)
             {
-                throw new ConfigurationNotFoundException(typeof(BugReportingSettings).ToString());
+                throw new SettingsNotFoundException(typeof(BugReportingSettings).ToString());
             }
 
             return result;

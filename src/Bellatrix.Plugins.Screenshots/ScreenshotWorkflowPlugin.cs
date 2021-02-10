@@ -22,7 +22,7 @@ using Serilog;
 
 namespace Bellatrix.TestExecutionExtensions.Screenshots
 {
-    public class ScreenshotWorkflowPlugin : TestWorkflowPlugin
+    public class ScreenshotWorkflowPlugin : Plugin
     {
         private readonly IScreenshotEngine _screenshotEngine;
         private readonly IScreenshotOutputProvider _screenshotOutputProvider;
@@ -68,7 +68,7 @@ namespace Bellatrix.TestExecutionExtensions.Screenshots
         {
             bool classScreenshotOnFail = GetTakeScreenshotOnFailModeByType(memberInfo.DeclaringType);
             bool? methodScreenshotOnFail = GetTakeScreenshotOnFailModeByMethodInfo(memberInfo);
-            bool isEnabled = ConfigurationService.GetSection<ScreenshotsSettings>().IsEnabled;
+            bool isEnabled = SettingsService.GetSection<ScreenshotsSettings>().IsEnabled;
             if (isEnabled && testOutcome != TestOutcome.Passed)
             {
                 if (classScreenshotOnFail)

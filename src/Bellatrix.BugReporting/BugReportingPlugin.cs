@@ -26,7 +26,7 @@ using Bellatrix.TestWorkflowPlugins;
 
 namespace Bellatrix.BugReporting
 {
-    public class BugReportingPlugin : TestWorkflowPlugin, IScreenshotPlugin, IVideoPlugin
+    public class BugReportingPlugin : Plugin, IScreenshotPlugin, IVideoPlugin
     {
         private static List<string> _filesToBeAttached;
         private readonly IBugReportingService _bugReportingService;
@@ -41,7 +41,7 @@ namespace Bellatrix.BugReporting
 
         protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<BugReportingSettings>().IsEnabled)
+            if (!SettingsService.GetSection<BugReportingSettings>().IsEnabled)
             {
                 return;
             }
@@ -52,7 +52,7 @@ namespace Bellatrix.BugReporting
 
         protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<BugReportingSettings>().IsEnabled)
+            if (!SettingsService.GetSection<BugReportingSettings>().IsEnabled)
             {
                 return;
             }

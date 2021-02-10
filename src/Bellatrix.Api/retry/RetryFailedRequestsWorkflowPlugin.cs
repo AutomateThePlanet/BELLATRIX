@@ -20,7 +20,7 @@ using Bellatrix.Utilities;
 
 namespace Bellatrix.TestExecutionExtensions.Api
 {
-    public class RetryFailedRequestsWorkflowPlugin : TestWorkflowPlugin
+    public class RetryFailedRequestsWorkflowPlugin : Plugin
     {
         protected override void PostTestInit(object sender, TestWorkflowPluginEventArgs e)
         {

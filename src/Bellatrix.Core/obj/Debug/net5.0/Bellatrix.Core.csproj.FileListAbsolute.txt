@@ -10,7 +10,6 @@ D:\SourceCode\BELLATRIX\Framework\Bellatrix.Core\obj\Debug\net5.0\Bellatrix.Core
 D:\SourceCode\BELLATRIX\Framework\Bellatrix.Core\obj\Debug\net5.0\ref\Bellatrix.Core.dll
 D:\SourceCode\BELLATRIX\Framework\Bellatrix.Core\obj\Debug\net5.0\Bellatrix.Core.pdb
 D:\SourceCode\BELLATRIX\Framework\Bellatrix.Core\obj\Debug\net5.0\Bellatrix.Core.csprojAssemblyReference.cache
-D:\SourceCode\BELLATRIX\src\Bellatrix.Core\obj\Debug\net5.0\Bellatrix.Core.csprojAssemblyReference.cache
 D:\SourceCode\BELLATRIX\src\Bellatrix.Core\obj\Debug\net5.0\Bellatrix.Core.GeneratedMSBuildEditorConfig.editorconfig
 D:\SourceCode\BELLATRIX\src\Bellatrix.Core\obj\Debug\net5.0\Bellatrix.Core.AssemblyInfoInputs.cache
 D:\SourceCode\BELLATRIX\src\Bellatrix.Core\obj\Debug\net5.0\Bellatrix.Core.AssemblyInfo.cs

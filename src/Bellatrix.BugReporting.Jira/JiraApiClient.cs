@@ -29,9 +29,9 @@ namespace Bellatrix.BugReporting.Jira
 
         static JiraApiClient()
         {
-            string baseUrl = ConfigurationService.GetSection<JiraBugReportingSettings>().Url;
-            _token = ConfigurationService.GetSection<JiraBugReportingSettings>().Token;
-            _projectName = ConfigurationService.GetSection<JiraBugReportingSettings>().ProjectName;
+            string baseUrl = SettingsService.GetSection<JiraBugReportingSettings>().Url;
+            _token = SettingsService.GetSection<JiraBugReportingSettings>().Token;
+            _projectName = SettingsService.GetSection<JiraBugReportingSettings>().ProjectName;
             _restClient = new RestClient(baseUrl).UseSerializer<JsonNetSerializer>();
         }
 
@@ -76,7 +76,7 @@ namespace Bellatrix.BugReporting.Jira
 
         public static IssueCreateResponse CreateBug(string title, List<string> summaryLines, List<string> filesToUpload = null)
         {
-            string defaultPriority = ConfigurationService.GetSection<JiraBugReportingSettings>().DefaultPriority;
+            string defaultPriority = SettingsService.GetSection<JiraBugReportingSettings>().DefaultPriority;
 
             var issueCreateDto = IssueCreateDto.CreateDto(_projectName, defaultPriority, title, summaryLines);
 

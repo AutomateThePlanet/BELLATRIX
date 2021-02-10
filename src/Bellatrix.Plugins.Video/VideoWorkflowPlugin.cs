@@ -26,7 +26,7 @@ using HtmlAgilityPack;
 
 namespace Bellatrix.TestExecutionExtensions.Video
 {
-    public class VideoWorkflowPlugin : TestWorkflowPlugin
+    public class VideoWorkflowPlugin : Plugin
     {
         private readonly IVideoRecorderOutputProvider _videoRecorderOutputProvider;
         private readonly IVideoPluginProvider _videoPluginProvider;
@@ -110,7 +110,7 @@ namespace Bellatrix.TestExecutionExtensions.Video
             var methodRecordingMode = GetVideoRecordingModeByMethodInfo(memberInfo);
             var classRecordingMode = GetVideoRecordingModeType(memberInfo.DeclaringType);
             var videoRecordingMode = VideoRecordingMode.DoNotRecord;
-            bool shouldTakeVideos = ConfigurationService.GetSection<VideoRecordingSettings>().IsEnabled;
+            bool shouldTakeVideos = SettingsService.GetSection<VideoRecordingSettings>().IsEnabled;
 
             if (!shouldTakeVideos)
             {

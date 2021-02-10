@@ -21,22 +21,22 @@ namespace Bellatrix.Mobile
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public abstract class AppAttribute : Attribute
     {
-        protected AppAttribute(string appPath, string platformVersion, string deviceName, AppBehavior behavior = AppBehavior.NotSet)
+        protected AppAttribute(string appPath, string platformVersion, string deviceName, Lifecycle lifecycle = Lifecycle.NotSet)
             => AppConfiguration = new AppConfiguration
             {
                 AppPath = appPath,
-                AppBehavior = behavior,
+                Lifecycle = lifecycle,
                 PlatformVersion = platformVersion,
                 DeviceName = deviceName,
                 AppiumOptions = new AppiumOptions(),
                 OSPlatform = OS.Windows,
             };
 
-        protected AppAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, AppBehavior behavior = AppBehavior.NotSet)
+        protected AppAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
             => AppConfiguration = new AppConfiguration
                                   {
                                       AppPath = appPath,
-                                      AppBehavior = behavior,
+                                      Lifecycle = behavior,
                                       PlatformVersion = platformVersion,
                                       DeviceName = deviceName,
                                       AppiumOptions = new AppiumOptions(),

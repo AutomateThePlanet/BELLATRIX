@@ -23,7 +23,7 @@ namespace Bellatrix.Desktop.Untils
         public WaitNotBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().ElementNotToBeVisibleTimeout;
+            TimeoutInterval = timeoutInterval ?? SettingsService.GetSection<DesktopSettings>().ElementNotToBeVisibleTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

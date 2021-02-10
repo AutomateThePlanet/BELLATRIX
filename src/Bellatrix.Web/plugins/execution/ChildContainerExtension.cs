@@ -15,7 +15,7 @@ using Bellatrix.TestWorkflowPlugins;
 
 namespace Bellatrix.Web.TestExecutionExtensions.Browser
 {
-    public class ChildContainerExtension : TestWorkflowPlugin
+    public class ChildContainerExtension : Plugin
     {
         protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
         {

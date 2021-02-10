@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using Bellatrix.Application;
+
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.PageObjects;
@@ -27,7 +27,7 @@ using Bellatrix.Utilities;
 
 namespace Bellatrix.Desktop
 {
-    public class App : BaseApp, IDisposable
+    public class App : IDisposable
     {
         private static Process _winAppDriverProcess;
         private readonly bool _shouldStartLocalService;
@@ -36,9 +36,9 @@ namespace Bellatrix.Desktop
 
         public App()
         {
-            _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ShouldStartLocalService;
-            _ip = ConfigurationService.GetSection<DesktopSettings>().Ip;
-            _port = ConfigurationService.GetSection<DesktopSettings>().Port;
+            _shouldStartLocalService = SettingsService.GetSection<DesktopSettings>().ShouldStartLocalService;
+            _ip = SettingsService.GetSection<DesktopSettings>().Ip;
+            _port = SettingsService.GetSection<DesktopSettings>().Port;
         }
 
         public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
@@ -104,9 +104,9 @@ namespace Bellatrix.Desktop
         }
 
         public void AddTestWorkflowPlugin<TExecutionExtension>()
-            where TExecutionExtension : TestWorkflowPlugin
+            where TExecutionExtension : Plugin
         {
-            RegisterType<TestWorkflowPlugin, TExecutionExtension>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
         }
 
         public void Dispose()

@@ -14,7 +14,7 @@
 using System;
 using Bellatrix.Api;
 using Bellatrix.Api.Extensions;
-using Bellatrix.Application;
+
 using Bellatrix.TestExecutionExtensions.Api;
 using Bellatrix.TestExecutionExtensions.API;
 using Bellatrix.TestWorkflowPlugins;
@@ -23,56 +23,56 @@ namespace Bellatrix
 {
     public static class AppRegistrationExtensions
     {
-        public static BaseApp UseApiExtensionsBddLogging(this BaseApp baseApp)
+        public static void UseApiExtensionsBddLogging()
         {
-            baseApp.RegisterType<ApiClientExecutionPlugin, BddApiClientExecutionPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<ApiClientExecutionPlugin, BddApiClientExecutionPlugin>(Guid.NewGuid().ToString());
 
-            return baseApp;
+
         }
 
-        public static BaseApp UseAssertExtensionsBddLogging(this BaseApp baseApp)
+        public static void UseAssertExtensionsBddLogging()
         {
             var bddLoggingAssertExtensions = new BDDLoggingAssertExtensions();
             bddLoggingAssertExtensions.SubscribeToAll();
 
-            return baseApp;
+
         }
 
-        public static BaseApp UseApiAssertExtensionsDynamicTestCases(this BaseApp baseApp)
+        public static void UseApiAssertExtensionsDynamicTestCases()
         {
             var dynamicTestCasesAssertExtensions = new DynamicTestCasesAssertExtensions();
             dynamicTestCasesAssertExtensions.SubscribeToAll();
 
-            return baseApp;
+
         }
 
-        public static BaseApp UseAssertExtensionsBugReporting(this BaseApp baseApp)
+        public static void UseAssertExtensionsBugReporting()
         {
             var dynamicTestCasesAssertExtensions = new BugReportingAssertExtensions();
             dynamicTestCasesAssertExtensions.SubscribeToAll();
 
-            return baseApp;
+
         }
 
-        public static BaseApp UseApiAuthenticationStrategies(this BaseApp baseApp)
+        public static void UseApiAuthenticationStrategies()
         {
-            baseApp.RegisterType<TestWorkflowPlugin, ApiAuthenticationWorkflowPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, ApiAuthenticationWorkflowPlugin>(Guid.NewGuid().ToString());
 
-            return baseApp;
+
         }
 
-        public static BaseApp UseRetryFailedRequests(this BaseApp baseApp)
+        public static void UseRetryFailedRequests()
         {
-            baseApp.RegisterType<TestWorkflowPlugin, RetryFailedRequestsWorkflowPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, RetryFailedRequestsWorkflowPlugin>(Guid.NewGuid().ToString());
 
-            return baseApp;
+
         }
 
-        public static BaseApp UseLogExecution(this BaseApp baseApp)
+        public static void UseLogExecution()
         {
-            baseApp.RegisterType<TestWorkflowPlugin, LogWorkflowPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, LogWorkflowPlugin>(Guid.NewGuid().ToString());
 
-            return baseApp;
+
         }
     }
 }

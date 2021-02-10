@@ -14,7 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Bellatrix.Application;
+
 using Bellatrix.DynamicTestCases;
 using Bellatrix.DynamicTestCases.Contracts;
 using Bellatrix.DynamicTestCases.QTest;
@@ -28,7 +28,7 @@ namespace Bellatrix
         {
             ServicesCollection.Current.RegisterInstance(new DynamicTestCasesService());
             ServicesCollection.Current.RegisterType<ITestCaseManagementService, QTestTestCaseManagementService>();
-            ServicesCollection.Current.RegisterType<TestWorkflowPlugin, DynamicTestCasesPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, DynamicTestCasesPlugin>(Guid.NewGuid().ToString());
         }
     }
 }

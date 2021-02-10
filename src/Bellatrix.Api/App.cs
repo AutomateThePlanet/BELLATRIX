@@ -14,15 +14,14 @@
 using System;
 using Bellatrix.Api.Configuration;
 using Bellatrix.Api.Extensions;
-using Bellatrix.Application;
-using Bellatrix.Configuration;
 using Bellatrix.DynamicTestCases;
+using Bellatrix.Settings;
 using Bellatrix.TestWorkflowPlugins;
 using Bellatrix.Utilities;
 
 namespace Bellatrix.Api
 {
-    public class App : BaseApp
+    public class App
     {
         public bool ShouldReuseRestClient { get; set; } = true;
 
@@ -33,13 +32,13 @@ namespace Bellatrix.Api
         public void AddApiClientExecutionPlugin<TExecutionExtension>()
             where TExecutionExtension : ApiClientExecutionPlugin
         {
-            RegisterType<ApiClientExecutionPlugin, TExecutionExtension>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<ApiClientExecutionPlugin, TExecutionExtension>(Guid.NewGuid().ToString());
         }
 
         public void AddTestWorkflowPlugin<TExecutionExtension>()
-            where TExecutionExtension : TestWorkflowPlugin
+            where TExecutionExtension : Plugin
         {
-            RegisterType<TestWorkflowPlugin, TExecutionExtension>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
         }
 
         public void AddAssertionsEventHandler<TElementsEventHandler>()
@@ -71,10 +70,10 @@ namespace Bellatrix.Api
                 client = new ApiClientService();
                 if (string.IsNullOrEmpty(url))
                 {
-                    var apiSettingsConfig = ConfigurationService.GetSection<ApiSettings>();
+                    var apiSettingsConfig = SettingsService.GetSection<ApiSettings>();
                     if (apiSettingsConfig == null)
                     {
-                        throw new ConfigurationNotFoundException("apiSettings");
+                        throw new SettingsNotFoundException("apiSettings");
                     }
 
                     client.WrappedClient.BaseUrl = new Uri(apiSettingsConfig.BaseUrl);

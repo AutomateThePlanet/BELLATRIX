@@ -18,7 +18,7 @@ namespace Bellatrix.Mobile
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class AndroidWebAttribute : AppAttribute
     {
-        public AndroidWebAttribute(string appPath, string platformVersion, string deviceName, AppBehavior behavior = AppBehavior.NotSet)
+        public AndroidWebAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
             : base(appPath, platformVersion, deviceName, behavior)
         {
             AppConfiguration.MobileOSType = MobileOSType.Android;
@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile
             AppConfiguration.BrowserName = "Chrome";
         }
 
-        public AndroidWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, AppBehavior behavior = AppBehavior.NotSet)
+        public AndroidWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
             : base(osPlatform, appPath, platformVersion, deviceName, behavior)
         {
             AppConfiguration.MobileOSType = MobileOSType.Android;

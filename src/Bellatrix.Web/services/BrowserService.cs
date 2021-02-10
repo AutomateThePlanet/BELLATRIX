@@ -68,7 +68,7 @@ namespace Bellatrix.Web
 
         public void WaitUntilReady()
         {
-            int maxSeconds = ConfigurationService.GetSection<TimeoutSettings>().ElementToExistTimeout * 1000;
+            int maxSeconds = SettingsService.GetSection<TimeoutSettings>().ElementToExistTimeout * 1000;
 
             Bellatrix.Utilities.Wait.Until(
                     () =>
@@ -241,8 +241,8 @@ namespace Bellatrix.Web
                         return false;
                     }
                 },
-                timeoutInSeconds: ConfigurationService.GetSection<TimeoutSettings>().WaitForAjaxTimeout,
-                retryRateDelay: ConfigurationService.GetSection<TimeoutSettings>().SleepInterval * 1000);
+                timeoutInSeconds: SettingsService.GetSection<TimeoutSettings>().WaitForAjaxTimeout,
+                retryRateDelay: SettingsService.GetSection<TimeoutSettings>().SleepInterval * 1000);
         }
 
         public void WaitForAjaxRequest(string requestPartialUrl, int additionalTimeoutInSeconds = 0)
@@ -259,14 +259,14 @@ namespace Bellatrix.Web
                     return false;
                 },
 
-                timeoutInSeconds: ConfigurationService.GetSection<TimeoutSettings>().WaitForAjaxTimeout + additionalTimeoutInSeconds,
-                retryRateDelay: ConfigurationService.GetSection<TimeoutSettings>().SleepInterval * 1000,
+                timeoutInSeconds: SettingsService.GetSection<TimeoutSettings>().WaitForAjaxTimeout + additionalTimeoutInSeconds,
+                retryRateDelay: SettingsService.GetSection<TimeoutSettings>().SleepInterval * 1000,
                 exceptionMessage: $"Ajax request with url contains '{requestPartialUrl}' was not found.");
         }
 
         public void WaitForAjax()
         {
-            int maxSeconds = ConfigurationService.GetSection<TimeoutSettings>().WaitForAjaxTimeout;
+            int maxSeconds = SettingsService.GetSection<TimeoutSettings>().WaitForAjaxTimeout;
 
             string numberOfAjaxConnections = string.Empty;
 
