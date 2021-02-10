@@ -17,7 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix
@@ -29,11 +29,11 @@ namespace Bellatrix
         private static readonly List<string> TypeForAlreadyExecutedClassInits = new List<string>();
         private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
         private static ThreadLocal<Exception> _thrownException;
-        private TestWorkflowPluginProvider _currentTestExecutionProvider;
+        private PluginProvider _currentTestExecutionProvider;
 
         public MSTestBaseTest()
         {
-            _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+            _currentTestExecutionProvider = new PluginProvider();
             if (!_isConfigurationExecuted.Value)
             {
                 Configure();
@@ -71,7 +71,7 @@ namespace Bellatrix
             ExecuteActArrangePhases();
 
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+            _currentTestExecutionProvider = new PluginProvider();
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
             var categories = GetAllTestCategories(testMethodMemberInfo);
@@ -101,7 +101,7 @@ namespace Bellatrix
             var descriptions = GetAllDescriptions(testMethodMemberInfo);
 
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+            _currentTestExecutionProvider = new PluginProvider();
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
             try
@@ -123,7 +123,7 @@ namespace Bellatrix
             var testClassType = GetCurrentExecutionTestClassType();
 
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+            _currentTestExecutionProvider = new PluginProvider();
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
             try
@@ -213,7 +213,7 @@ namespace Bellatrix
             return descriptions;
         }
 
-        private void InitializeTestExecutionBehaviorObservers(TestWorkflowPluginProvider testExecutionProvider)
+        private void InitializeTestExecutionBehaviorObservers(PluginProvider testExecutionProvider)
         {
             var observers = ServicesCollection.Current.ResolveAll<Plugin>();
             foreach (var observer in observers)
@@ -231,7 +231,7 @@ namespace Bellatrix
                 {
                     Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
                     Container.RegisterInstance(Container);
-                    _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+                    _currentTestExecutionProvider = new PluginProvider();
                     InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                     TypeForAlreadyExecutedClassInits.Add(TestContext.FullyQualifiedTestClassName);
                     _currentTestExecutionProvider.PreTestsArrange(testClassType);

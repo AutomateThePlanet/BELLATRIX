@@ -22,17 +22,18 @@ using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.PageObjects;
 using Bellatrix.Desktop.Services;
 using Bellatrix.DynamicTestCases;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 
 namespace Bellatrix.Desktop
 {
     public class App : IDisposable
     {
+        // TODO: Change to be ThreadLocal.
+        private static bool _shouldStartLocalService;
         private static Process _winAppDriverProcess;
-        private readonly bool _shouldStartLocalService;
-        private readonly string _ip;
-        private readonly int _port;
+        private static string _ip;
+        private static int _port;
 
         public App()
         {
@@ -48,7 +49,7 @@ namespace Bellatrix.Desktop
         public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
-        public void StartWinAppDriver()
+        public static void StartWinAppDriver()
         {
             if (_shouldStartLocalService)
             {
@@ -70,7 +71,7 @@ namespace Bellatrix.Desktop
             }
         }
 
-        public void StopWinAppDriver()
+        public static void StopWinAppDriver()
         {
             if (_shouldStartLocalService)
             {
@@ -103,7 +104,7 @@ namespace Bellatrix.Desktop
             elementEventHandler.UnsubscribeToAll();
         }
 
-        public void AddTestWorkflowPlugin<TExecutionExtension>()
+        public void AddPlugin<TExecutionExtension>()
             where TExecutionExtension : Plugin
         {
             ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());

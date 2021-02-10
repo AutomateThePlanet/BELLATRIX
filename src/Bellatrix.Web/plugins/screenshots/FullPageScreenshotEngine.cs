@@ -14,7 +14,7 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Bellatrix.TestExecutionExtensions.Screenshots.Contracts;
+using Bellatrix.Plugins.Screenshots.Contracts;
 using OpenQA.Selenium.Support.UI;
 
 namespace Bellatrix.Web.Screenshots

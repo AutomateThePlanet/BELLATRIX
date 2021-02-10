@@ -32,10 +32,10 @@ namespace Bellatrix.Mobile.Configuration
 
         public AppConfiguration(OS os) => OSPlatform = os;
 
-        public AppConfiguration(string appPath, Lifecycle appBehavior, string classFullName, AppiumOptions appiumOptions = null)
+        public AppConfiguration(string appPath, Lifecycle Lifecycle, string classFullName, AppiumOptions appiumOptions = null)
         {
             AppPath = appPath;
-            Lifecycle = appBehavior;
+            Lifecycle = Lifecycle;
             ClassFullName = classFullName;
             AppiumOptions = appiumOptions;
         }

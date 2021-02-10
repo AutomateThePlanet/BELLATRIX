@@ -18,9 +18,9 @@ using System.Text;
 using Bellatrix.BugReporting;
 using Bellatrix.BugReporting.AzureDevOps;
 using Bellatrix.BugReporting.Contracts;
-using Bellatrix.TestExecutionExtensions.Screenshots.Plugins;
-using Bellatrix.TestExecutionExtensions.Video.Plugins;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins.Screenshots.Plugins;
+using Bellatrix.Plugins.Video.Plugins;
+using Bellatrix.Plugins;
 
 namespace Bellatrix
 {

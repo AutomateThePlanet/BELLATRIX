@@ -1,10 +1,11 @@
 ﻿using Bellatrix.Desktop.GettingStarted.Elements.ChildElements;
+using Bellatrix.Desktop.MSTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class ExtendExistingElementWithChildElementsTests : DesktopTest
     {
         [TestMethod]

@@ -15,8 +15,8 @@ using System;
 using Bellatrix.Api.Configuration;
 using Bellatrix.Api.Extensions;
 using Bellatrix.DynamicTestCases;
+using Bellatrix.Plugins;
 using Bellatrix.Settings;
-using Bellatrix.TestWorkflowPlugins;
 using Bellatrix.Utilities;
 
 namespace Bellatrix.Api
@@ -35,7 +35,7 @@ namespace Bellatrix.Api
             ServicesCollection.Current.RegisterType<ApiClientExecutionPlugin, TExecutionExtension>(Guid.NewGuid().ToString());
         }
 
-        public void AddTestWorkflowPlugin<TExecutionExtension>()
+        public void AddPlugin<TExecutionExtension>()
             where TExecutionExtension : Plugin
         {
             ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());

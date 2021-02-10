@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.TestExecutionExtensions.Common.ExecutionTime
+namespace Bellatrix.Plugins.Common.ExecutionTime
 {
     public class ExecutionTimeoutException : Exception
     {

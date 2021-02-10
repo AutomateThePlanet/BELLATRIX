@@ -12,17 +12,17 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
-namespace Bellatrix.TestExecutionExtensions.Video.Plugins
+namespace Bellatrix.Plugins.Video.Plugins
 {
     public class VideoPluginProvider : IVideoPluginProvider
     {
         public event EventHandler<VideoPluginEventArgs> VideoGeneratedEvent;
 
-        public void VideoGenerated(TestWorkflowPluginEventArgs e, string videoPath) => RaiseTestEvent(VideoGeneratedEvent, e, videoPath);
+        public void VideoGenerated(PluginEventArgs e, string videoPath) => RaiseTestEvent(VideoGeneratedEvent, e, videoPath);
 
-        private void RaiseTestEvent(EventHandler<VideoPluginEventArgs> eventHandler, TestWorkflowPluginEventArgs e, string videoPath) =>
+        private void RaiseTestEvent(EventHandler<VideoPluginEventArgs> eventHandler, PluginEventArgs e, string videoPath) =>
             eventHandler?.Invoke(this, new VideoPluginEventArgs(e, videoPath));
     }
 }

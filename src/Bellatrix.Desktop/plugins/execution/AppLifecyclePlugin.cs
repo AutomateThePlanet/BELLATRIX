@@ -16,13 +16,13 @@ using System.Linq;
 using System.Reflection;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.Services;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
-namespace Bellatrix.Desktop.TestExecutionExtensions
+namespace Bellatrix.Desktop.Plugins
 {
     public class AppLifecyclePlugin : Plugin
     {
-        protected override void PostTestsArrange(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestsArrange(object sender, PluginEventArgs e)
         {
             if (e.TestClassType.GetCustomAttributes().Any(x => x.GetType().Equals(typeof(AppAttribute)) || x.GetType().IsSubclassOf(typeof(AppAttribute))))
             {
@@ -49,7 +49,7 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
             base.PostTestsArrange(sender, e);
         }
 
-        protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestInit(object sender, PluginEventArgs e)
         {
             bool isappStartedDuringPreTestsArrange = e.Container.Resolve<bool>("_isAppStartedDuringPreTestsArrange");
             if (!isappStartedDuringPreTestsArrange)
@@ -70,7 +70,7 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
             base.PreTestInit(sender, e);
         }
 
-        protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
             var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
 
@@ -81,7 +81,7 @@ namespace Bellatrix.Desktop.TestExecutionExtensions
             }
         }
 
-        protected override void PostTestsCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestsCleanup(object sender, PluginEventArgs e)
         {
             ShutdownApp(e.Container);
         }

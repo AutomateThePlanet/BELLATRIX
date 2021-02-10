@@ -21,3 +21,4 @@ D:\SourceCode\BELLATRIX\src\Bellatrix.Core\bin\Debug\net5.0\Bellatrix.Core.deps.
 D:\SourceCode\BELLATRIX\src\Bellatrix.Core\bin\Debug\net5.0\Bellatrix.Core.dll
 D:\SourceCode\BELLATRIX\src\Bellatrix.Core\bin\Debug\net5.0\ref\Bellatrix.Core.dll
 D:\SourceCode\BELLATRIX\src\Bellatrix.Core\bin\Debug\net5.0\Bellatrix.Core.pdb
+D:\SourceCode\BELLATRIX\src\Bellatrix.Core\obj\Debug\net5.0\Bellatrix.Core.csprojAssemblyReference.cache

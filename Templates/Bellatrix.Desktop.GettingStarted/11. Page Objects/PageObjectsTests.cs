@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class PageObjectsTests : DesktopTest
     {
            // 1. As you most probably noticed this is like the 4th time we use almost the same elements and logic inside our tests.

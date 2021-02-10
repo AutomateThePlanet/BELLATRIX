@@ -18,7 +18,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using Bellatrix.NUnit;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
@@ -30,7 +30,7 @@ namespace Bellatrix
         public ServicesCollection Container;
         protected static ThreadLocal<Exception> ThrownException;
         private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
-        private TestWorkflowPluginProvider _currentTestExecutionProvider;
+        private PluginProvider _currentTestExecutionProvider;
 
         public NUnitBaseTest()
         {
@@ -72,7 +72,7 @@ namespace Bellatrix
 
                 Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
                 Container.RegisterInstance(Container);
-                _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+                _currentTestExecutionProvider = new PluginProvider();
                 Initialize();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                 _currentTestExecutionProvider.PreTestsArrange(testClassType);
@@ -99,7 +99,7 @@ namespace Bellatrix
 
                 Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
                 Container.RegisterInstance(Container);
-                _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+                _currentTestExecutionProvider = new PluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
                 _currentTestExecutionProvider.PreClassCleanup(testClassType);
@@ -130,7 +130,7 @@ namespace Bellatrix
             var authors = GetAllAuthors();
             var descriptions = GetAllDescriptions();
 
-            _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+            _currentTestExecutionProvider = new PluginProvider();
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
             try
             {
@@ -157,7 +157,7 @@ namespace Bellatrix
 
             try
             {
-                _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+                _currentTestExecutionProvider = new PluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                 _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.Name, testMethodMemberInfo, testClassType, categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, ThrownException?.Value);
                 TestCleanup();
@@ -261,7 +261,7 @@ namespace Bellatrix
             return descriptions;
         }
 
-        private void InitializeTestExecutionBehaviorObservers(TestWorkflowPluginProvider testExecutionProvider)
+        private void InitializeTestExecutionBehaviorObservers(PluginProvider testExecutionProvider)
         {
             var observers = ServicesCollection.Current.ResolveAll<Plugin>();
             foreach (var observer in observers)

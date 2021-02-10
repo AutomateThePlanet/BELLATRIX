@@ -29,10 +29,10 @@ namespace Bellatrix.Desktop.Configuration
         {
         }
 
-        public AppInitializationInfo(string appPath, Lifecycle appBehavior, Size size, string classFullName, DesiredCapabilities appiumOptions = null)
+        public AppInitializationInfo(string appPath, Lifecycle lifecycle, Size size, string classFullName, DesiredCapabilities appiumOptions = null)
         {
             AppPath = appPath;
-            Lifecycle = appBehavior;
+            lifecycle = lifecycle;
             Size = size;
             ClassFullName = classFullName;
             DesiredCapabilities = appiumOptions;

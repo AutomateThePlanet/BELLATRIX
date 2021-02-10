@@ -1,5 +1,6 @@
 ﻿using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.TestExecutionExtensions.Api;
+using Bellatrix.API.MSTest;
+using Bellatrix.Plugins.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 

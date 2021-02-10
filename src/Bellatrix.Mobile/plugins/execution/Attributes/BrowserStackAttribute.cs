@@ -14,8 +14,8 @@
 using System;
 using System.Reflection;
 using Bellatrix.Mobile.Enums;
-using Bellatrix.Mobile.TestExecutionExtensions;
-using Bellatrix.Mobile.TestExecutionExtensions.Attributes;
+using Bellatrix.Mobile.Plugins;
+using Bellatrix.Mobile.Plugins.Attributes;
 using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile

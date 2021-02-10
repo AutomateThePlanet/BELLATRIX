@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Bellatrix.Assertions;
 using Bellatrix.Assertions.MSTest;
 
-namespace Bellatrix.Core.infrastructure
+namespace Bellatrix
 {
     public static class MSTestPluginConfiguration
     {

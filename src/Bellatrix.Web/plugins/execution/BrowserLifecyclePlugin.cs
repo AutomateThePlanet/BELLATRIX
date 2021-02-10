@@ -16,17 +16,17 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Proxy;
 using Bellatrix.Web.Services;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web.TestExecutionExtensions.Browser
+namespace Bellatrix.Web.Plugins.Browser
 {
     public class BrowserLifecyclePlugin : Plugin
     {
-        protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
             if (e.TestClassType.GetCustomAttributes().Any(x => x.GetType().Equals(typeof(BrowserAttribute)) || x.GetType().IsSubclassOf(typeof(BrowserAttribute))))
             {
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
             base.PreTestsArrange(sender, e);
         }
 
-        protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestInit(object sender, PluginEventArgs e)
         {
             bool isBrowserStartedDuringPreTestsArrange = e.Container.Resolve<bool>("_isBrowserStartedDuringPreTestsArrange");
             if (!isBrowserStartedDuringPreTestsArrange)
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.TestExecutionExtensions.Browser
             base.PreTestInit(sender, e);
         }
 
-        protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
             var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
             if (currentBrowserConfiguration != null)

@@ -64,4 +64,8 @@
   <ItemGroup>
     <Folder Include="16. Selenium Grid Integration\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Bellatrix.Desktop\Bellatrix.Desktop.csproj" />
+  </ItemGroup>
 </Project>

@@ -12,9 +12,9 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using Bellatrix.TestExecutionExtensions.Api.Retry;
+using Bellatrix.Plugins.Api.Retry;
 
-namespace Bellatrix.TestExecutionExtensions.Api
+namespace Bellatrix.Plugins.Api
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public class RetryFailedRequestsAttribute : Attribute

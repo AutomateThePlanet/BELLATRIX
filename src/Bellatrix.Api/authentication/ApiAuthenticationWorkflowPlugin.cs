@@ -13,14 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Reflection;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 using RestSharp.Authenticators;
 
-namespace Bellatrix.TestExecutionExtensions.Api
+namespace Bellatrix.Plugins.Api
 {
     public class ApiAuthenticationWorkflowPlugin : Plugin
     {
-        protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
             var authenticator = GetAuthenticatorByType(e.TestClassType);
             if (authenticator != null)

@@ -16,18 +16,6 @@ namespace Bellatrix.GettingStarted
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            var app = new App();
-
-            app.UseMsTestSettings();
-            app.UseExceptionLogger();
-            app.UseExecutionTimeUnderExtensions();
-            app.UseApiAuthenticationStrategies();
-            app.UseApiExtensionsBddLogging();
-            app.UseAssertExtensionsBddLogging();
-            app.UseLogExecution();
-            app.UseRetryFailedRequests();
-            app.Initialize();
-
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");

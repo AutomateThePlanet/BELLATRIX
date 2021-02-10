@@ -11,8 +11,8 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.TestExecutionExtensions.Video.Plugins;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
+using Bellatrix.Plugins.Video.Plugins;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Results.MSTest

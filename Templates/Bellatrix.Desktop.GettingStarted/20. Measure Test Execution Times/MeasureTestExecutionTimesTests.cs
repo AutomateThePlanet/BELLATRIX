@@ -1,4 +1,5 @@
-﻿using Bellatrix.TestExecutionExtensions.Common.ExecutionTime;
+﻿using Bellatrix.Desktop.MSTest;
+using Bellatrix.Plugins.Common.ExecutionTime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
@@ -9,10 +10,10 @@ namespace Bellatrix.Desktop.GettingStarted
     // is not slow. To do that BELLATRIX libraries offer the ExecutionTimeUnder attribute. You specify a timeout and if the
     // test is executed over it the test will fail.
     //
-    // 1.1. You need to add the NuGet package- Bellatrix.TestExecutionExtensions.Common
-    // 1.2. After that you need to add a using statement to Bellatrix.TestExecutionExtensions.Common.ExecutionTime
+    // 1.1. You need to add the NuGet package- Bellatrix.Plugins.Common
+    // 1.2. After that you need to add a using statement to Bellatrix.Plugins.Common.ExecutionTime
     [ExecutionTimeUnder(2000, TimeUnit.Milliseconds)]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class MeasureTestExecutionTimesTests : DesktopTest
     {
         [TestMethod]

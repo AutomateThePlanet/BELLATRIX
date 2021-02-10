@@ -1,4 +1,4 @@
-﻿// <copyright file="TestWorkflowPluginEventArgs.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="PluginEventArgs.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -15,15 +15,15 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Bellatrix.TestWorkflowPlugins
+namespace Bellatrix.Plugins
 {
-    public class TestWorkflowPluginEventArgs : EventArgs
+    public class PluginEventArgs : EventArgs
     {
-        public TestWorkflowPluginEventArgs()
+        public PluginEventArgs()
         {
         }
 
-        public TestWorkflowPluginEventArgs(TestOutcome testOutcome,
+        public PluginEventArgs(TestOutcome testOutcome,
             string testName,
             MemberInfo testMethodMemberInfo,
             Type testClassType,
@@ -46,7 +46,7 @@ namespace Bellatrix.TestWorkflowPlugins
             Descriptions = descriptions;
         }
 
-        public TestWorkflowPluginEventArgs(
+        public PluginEventArgs(
             TestOutcome testOutcome,
             Type testClassType,
             string consoleOutputMessage = null,

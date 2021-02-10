@@ -1,4 +1,4 @@
-﻿// <copyright file="TestWorkflowPluginProvider.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="PluginProvider.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -15,33 +15,33 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Bellatrix.TestWorkflowPlugins
+namespace Bellatrix.Plugins
 {
-    public class TestWorkflowPluginProvider : ITestWorkflowPluginProvider
+    public class PluginProvider : IPluginProvider
     {
-        public event EventHandler<TestWorkflowPluginEventArgs> PreTestInitEvent;
+        public event EventHandler<PluginEventArgs> PreTestInitEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> TestInitFailedEvent;
+        public event EventHandler<PluginEventArgs> TestInitFailedEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> PostTestInitEvent;
+        public event EventHandler<PluginEventArgs> PostTestInitEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> PreTestCleanupEvent;
+        public event EventHandler<PluginEventArgs> PreTestCleanupEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> PostTestCleanupEvent;
+        public event EventHandler<PluginEventArgs> PostTestCleanupEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> TestCleanupFailedEvent;
+        public event EventHandler<PluginEventArgs> TestCleanupFailedEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> PreTestsActEvent;
+        public event EventHandler<PluginEventArgs> PreTestsActEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> PreTestsArrangeEvent;
+        public event EventHandler<PluginEventArgs> PreTestsArrangeEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> PostTestsActEvent;
+        public event EventHandler<PluginEventArgs> PostTestsActEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> PostTestsArrangeEvent;
+        public event EventHandler<PluginEventArgs> PostTestsArrangeEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> PreTestsCleanupEvent;
+        public event EventHandler<PluginEventArgs> PreTestsCleanupEvent;
 
-        public event EventHandler<TestWorkflowPluginEventArgs> PostTestsCleanupEvent;
+        public event EventHandler<PluginEventArgs> PostTestsCleanupEvent;
 
         public event EventHandler<Exception> TestsCleanupFailedEvent;
 
@@ -87,14 +87,14 @@ namespace Bellatrix.TestWorkflowPlugins
         public void PostClassCleanup(Type testClassType)
             => RaiseClassTestEvent(PostTestsCleanupEvent, TestOutcome.Unknown, testClassType);
 
-        private void RaiseClassTestEvent(EventHandler<TestWorkflowPluginEventArgs> eventHandler, TestOutcome testOutcome, Type testClassType)
+        private void RaiseClassTestEvent(EventHandler<PluginEventArgs> eventHandler, TestOutcome testOutcome, Type testClassType)
         {
-            var args = new TestWorkflowPluginEventArgs(testOutcome, testClassType);
+            var args = new PluginEventArgs(testOutcome, testClassType);
             eventHandler?.Invoke(this, args);
         }
 
         private void RaiseTestEvent(
-            EventHandler<TestWorkflowPluginEventArgs> eventHandler,
+            EventHandler<PluginEventArgs> eventHandler,
             TestOutcome testOutcome,
             string testName,
             MemberInfo testMethodMemberInfo,
@@ -106,7 +106,7 @@ namespace Bellatrix.TestWorkflowPlugins
             string stackTrace = null,
             Exception exception = null)
         {
-            var args = new TestWorkflowPluginEventArgs(testOutcome, testName, testMethodMemberInfo, testClassType, message, stackTrace, exception, categories, authors, descriptions);
+            var args = new PluginEventArgs(testOutcome, testName, testMethodMemberInfo, testClassType, message, stackTrace, exception, categories, authors, descriptions);
             eventHandler?.Invoke(this, args);
         }
     }

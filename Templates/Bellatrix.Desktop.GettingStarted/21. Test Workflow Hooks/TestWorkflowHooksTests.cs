@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
-    [App(Constants.WpfAppPath, AppBehavior.ReuseIfStarted)]
+    [App(Constants.WpfAppPath, Lifecycle.ReuseIfStarted)]
     public class TestWorkflowHooksTests : DesktopTest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.

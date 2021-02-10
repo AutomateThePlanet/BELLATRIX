@@ -11,7 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.TestExecutionExtensions.Video.Plugins
+namespace Bellatrix.Plugins.Video.Plugins
 {
     public interface IVideoPlugin
     {

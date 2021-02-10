@@ -1,4 +1,4 @@
-﻿// <copyright file="ExecutionTimeUnderTestWorkflowPlugin.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ExecutionTimeUnderPlugin.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,16 +14,16 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Bellatrix.TestExecutionExtensions.Common.ExecutionTime;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
+using Bellatrix.Plugins.Common.ExecutionTime;
 
-namespace Bellatrix.TestExecutionExtensions.Common
+namespace Bellatrix.Plugins.Common
 {
-    public class ExecutionTimeUnderTestWorkflowPlugin : Plugin
+    public class ExecutionTimeUnderPlugin : Plugin
     {
         private static readonly Dictionary<string, DateTime> _testsExecutionTimes = new Dictionary<string, DateTime>();
 
-        protected override void PostTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestInit(object sender, PluginEventArgs e)
         {
             TimeSpan executionTimeout = GetExecutionTimeout(e.TestMethodMemberInfo);
             string testFullName = GetTestFullName(e);
@@ -41,7 +41,7 @@ namespace Bellatrix.TestExecutionExtensions.Common
             }
         }
 
-        protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
             TimeSpan executionTimeout = GetExecutionTimeout(e.TestMethodMemberInfo);
             string testFullName = GetTestFullName(e);
@@ -61,7 +61,7 @@ namespace Bellatrix.TestExecutionExtensions.Common
             }
         }
 
-        private string GetTestFullName(TestWorkflowPluginEventArgs e) => $"{e.TestMethodMemberInfo.DeclaringType.FullName}.{e.TestMethodMemberInfo.Name}";
+        private string GetTestFullName(PluginEventArgs e) => $"{e.TestMethodMemberInfo.DeclaringType.FullName}.{e.TestMethodMemberInfo.Name}";
 
         private TimeSpan GetExecutionTimeout(MemberInfo memberInfo)
         {

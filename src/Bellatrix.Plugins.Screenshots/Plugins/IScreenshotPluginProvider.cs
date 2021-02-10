@@ -12,14 +12,14 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
-namespace Bellatrix.TestExecutionExtensions.Screenshots
+namespace Bellatrix.Plugins.Screenshots
 {
     public interface IScreenshotPluginProvider
     {
         event EventHandler<ScreenshotPluginEventArgs> ScreenshotGeneratedEvent;
 
-        void ScreenshotGenerated(TestWorkflowPluginEventArgs e, string screenshotPath);
+        void ScreenshotGenerated(PluginEventArgs e, string screenshotPath);
     }
 }

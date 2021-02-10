@@ -11,7 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.TestExecutionExtensions.Video.Contracts
+namespace Bellatrix.Plugins.Video.Contracts
 {
     public interface IVideoRecorderOutputProvider
     {

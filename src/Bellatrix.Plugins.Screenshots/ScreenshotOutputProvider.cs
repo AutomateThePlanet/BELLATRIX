@@ -14,9 +14,9 @@
 using System;
 using System.IO;
 using System.Linq;
-using Bellatrix.TestExecutionExtensions.Screenshots.Contracts;
+using Bellatrix.Plugins.Screenshots.Contracts;
 
-namespace Bellatrix.TestExecutionExtensions.Screenshots
+namespace Bellatrix.Plugins.Screenshots
 {
     public class ScreenshotOutputProvider : IScreenshotOutputProvider
     {

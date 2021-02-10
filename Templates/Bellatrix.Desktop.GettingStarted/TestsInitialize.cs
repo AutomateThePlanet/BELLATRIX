@@ -3,24 +3,12 @@
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
-    public class TestsInitialize : DesktopTest
+    public class TestsInitialize
     {
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            var app = new App();
-
-            app.UseExceptionLogger();
-            app.UseMsTestSettings();
-            app.UseAppBehavior();
-            app.UseLogExecutionBehavior();
-            app.UseFFmpegVideoRecorder();
-            app.UseVanillaWebDriverScreenshotsOnFail();
-            app.UseElementsBddLogging();
-            app.UseValidateExtensionsBddLogging();
-            app.UseLayoutAssertionExtensionsBddLogging();
-            app.StartWinAppDriver();
-            app.Initialize();
+            App.StartWinAppDriver();
         }
 
         [AssemblyCleanup]
@@ -28,7 +16,7 @@ namespace Bellatrix.Desktop.GettingStarted
         {
             var app = ServicesCollection.Current.Resolve<App>();
             app?.Dispose();
-            app?.StopWinAppDriver();
+            App.StopWinAppDriver();
         }
     }
 }

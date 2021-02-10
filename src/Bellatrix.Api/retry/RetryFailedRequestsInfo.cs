@@ -11,7 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.TestExecutionExtensions.Api.Retry
+namespace Bellatrix.Plugins.Api.Retry
 {
     public class RetryFailedRequestsInfo
     {

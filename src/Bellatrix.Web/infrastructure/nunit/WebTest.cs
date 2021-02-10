@@ -16,5 +16,10 @@ namespace Bellatrix.Web.NUnit
     public abstract class WebTest : NUnitBaseTest
     {
         public App App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<App>();
+
+        public override void Configure()
+        {
+            NUnitPluginConfiguration.Add();
+        }
     }
 }

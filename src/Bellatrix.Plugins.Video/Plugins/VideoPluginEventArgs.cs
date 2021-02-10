@@ -11,27 +11,27 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
-namespace Bellatrix.TestExecutionExtensions.Video.Plugins
+namespace Bellatrix.Plugins.Video.Plugins
 {
-    public sealed class VideoPluginEventArgs : TestWorkflowPluginEventArgs
+    public sealed class VideoPluginEventArgs : PluginEventArgs
     {
         public VideoPluginEventArgs()
         {
         }
 
-        public VideoPluginEventArgs(TestWorkflowPluginEventArgs testWorkflowPluginEventArgs, string videoPath)
-            : base(testWorkflowPluginEventArgs.TestOutcome,
-                testWorkflowPluginEventArgs.TestName,
-                testWorkflowPluginEventArgs.TestMethodMemberInfo,
-                testWorkflowPluginEventArgs.TestClassType,
-                testWorkflowPluginEventArgs.ConsoleOutputMessage,
-                testWorkflowPluginEventArgs.ConsoleOutputStackTrace,
-                testWorkflowPluginEventArgs.Exception,
-                testWorkflowPluginEventArgs.Categories,
-                testWorkflowPluginEventArgs.Authors,
-                testWorkflowPluginEventArgs.Descriptions)
+        public VideoPluginEventArgs(PluginEventArgs pluginEventArgs, string videoPath)
+            : base(pluginEventArgs.TestOutcome,
+                pluginEventArgs.TestName,
+                pluginEventArgs.TestMethodMemberInfo,
+                pluginEventArgs.TestClassType,
+                pluginEventArgs.ConsoleOutputMessage,
+                pluginEventArgs.ConsoleOutputStackTrace,
+                pluginEventArgs.Exception,
+                pluginEventArgs.Categories,
+                pluginEventArgs.Authors,
+                pluginEventArgs.Descriptions)
         {
             VideoPath = videoPath;
         }

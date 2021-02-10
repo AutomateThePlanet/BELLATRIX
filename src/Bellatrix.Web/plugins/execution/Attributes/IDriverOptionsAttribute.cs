@@ -14,7 +14,7 @@
 using System;
 using System.Reflection;
 
-namespace Bellatrix.Web.TestExecutionExtensions.Browser
+namespace Bellatrix.Web.Plugins.Browser
 {
     public interface IDriverOptionsAttribute
     {

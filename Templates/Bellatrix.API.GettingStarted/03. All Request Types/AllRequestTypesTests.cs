@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using Bellatrix.Api;
 using Bellatrix.API.GettingStarted.Models;
+using Bellatrix.API.MSTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 using System;

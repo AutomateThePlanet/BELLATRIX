@@ -18,5 +18,17 @@ namespace Bellatrix.API.NUnit
     public abstract class APITest : NUnitBaseTest
     {
         public App App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<App>();
+
+        public override void Configure()
+        {
+            NUnitPluginConfiguration.Add();
+            ExecutionTimePlugin.Add();
+            APIPluginsConfiguration.AddAssertExtensionsBddLogging();
+            APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
+            APIPluginsConfiguration.AddAssertExtensionsBugReporting();
+            APIPluginsConfiguration.AddApiAuthenticationStrategies();
+            APIPluginsConfiguration.AddRetryFailedRequests();
+            APIPluginsConfiguration.AddLogExecution();
+        }
     }
 }

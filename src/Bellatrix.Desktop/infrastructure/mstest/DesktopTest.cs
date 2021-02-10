@@ -16,11 +16,26 @@ namespace Bellatrix.Desktop.MSTest
 {
     public abstract class DesktopTest : MSTestBaseTest
     {
-        public App App { get; private set; }
+        public App App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
 
-        public override void Initialize()
+        public override void Configure()
         {
-            App = ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
+            MSTestPluginConfiguration.Add();
+            ExecutionTimePlugin.Add();
+            VideoRecorderPluginConfiguration.AddMSTest();
+            ScreenshotsPluginConfiguration.AddMSTest();
+            DesktopPluginsConfiguration.AddLifecycle();
+            DesktopPluginsConfiguration.AddLogExecutionLifecycle();
+            DesktopPluginsConfiguration.AddVanillaWebDriverScreenshotsOnFail();
+            DesktopPluginsConfiguration.AddElementsBddLogging();
+            DesktopPluginsConfiguration.AddDynamicTestCases();
+            DesktopPluginsConfiguration.AddBugReporting();
+            DesktopPluginsConfiguration.AddValidateExtensionsBddLogging();
+            DesktopPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+            DesktopPluginsConfiguration.AddValidateExtensionsBugReporting();
+            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
         }
     }
 }

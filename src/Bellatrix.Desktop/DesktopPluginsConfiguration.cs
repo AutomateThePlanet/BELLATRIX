@@ -18,11 +18,11 @@ using Bellatrix.Desktop.BddLogging;
 using Bellatrix.Desktop.BugReporting;
 using Bellatrix.Desktop.DynamicTestCases;
 using Bellatrix.Desktop.EventHandlers;
-using Bellatrix.Desktop.TestExecutionExtensions;
+using Bellatrix.Desktop.Plugins;
 using Bellatrix.Layout;
-using Bellatrix.TestExecutionExtensions.Screenshots;
-using Bellatrix.TestExecutionExtensions.Screenshots.Contracts;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
+using Bellatrix.Plugins.Screenshots;
+using Bellatrix.Plugins.Screenshots.Contracts;
 
 namespace Bellatrix
 {

@@ -1,24 +1,25 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
     [VideoRecording(VideoRecordingMode.OnlyFail)]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class CustomTestCaseExtensionTests : DesktopTest
     {
         // 1. Once we created the test workflow plugin, we need to add it to the existing test workflow.
-        // It is done using the App service's method AddTestWorkflowPlugin.
+        // It is done using the App service's method AddPlugin.
         // It doesn't need to be added multiple times as will happen here with the TestInit method.
         // Usually this is done in the TestsInitialize file in the AssemblyInitialize method.
         //
         //  public static void AssemblyInitialize(TestContext testContext)
         //  {
-        //      App.AddTestWorkflowPlugin<AssociatedTestCaseExtension>();
+        //      App.AddPlugin<AssociatedTestCaseExtension>();
         //  }
         public override void TestInit()
         {
-            // App.AddTestWorkflowPlugin<AssociatedTestCaseExtension>();
+            // App.AddPlugin<AssociatedTestCaseExtension>();
         }
 
         [TestMethod]
@@ -35,7 +36,7 @@ namespace Bellatrix.Desktop.GettingStarted
         }
 
         [TestMethod]
-        [App(Constants.WpfAppPath, AppBehavior.RestartOnFail)]
+        [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
         [TestCategory(Categories.CI)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {

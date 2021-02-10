@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp.Authenticators;
 
-namespace Bellatrix.TestExecutionExtensions.Api
+namespace Bellatrix.Plugins.Api
 {
     /// <summary>
     ///     Tries to Authenticate with the credentials of the currently logged in user, or impersonate a user.

@@ -11,14 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 using Serilog;
 
-namespace Bellatrix.Desktop.TestExecutionExtensions
+namespace Bellatrix.Desktop.Plugins
 {
     public class LogLifecyclePlugin : Plugin
     {
-        protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestInit(object sender, PluginEventArgs e)
         {
             Logger.LogInformation($"Start Test {e.TestClassType.Name}.{e.TestMethodMemberInfo.Name}");
         }

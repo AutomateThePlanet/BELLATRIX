@@ -19,10 +19,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Bellatrix.BugReporting.Configuration;
 using Bellatrix.BugReporting.Contracts;
-using Bellatrix.TestExecutionExtensions.Screenshots;
-using Bellatrix.TestExecutionExtensions.Screenshots.Plugins;
-using Bellatrix.TestExecutionExtensions.Video.Plugins;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
+using Bellatrix.Plugins.Screenshots;
+using Bellatrix.Plugins.Screenshots.Plugins;
+using Bellatrix.Plugins.Video.Plugins;
 
 namespace Bellatrix.BugReporting
 {
@@ -39,7 +39,7 @@ namespace Bellatrix.BugReporting
             _filesToBeAttached = new List<string>();
         }
 
-        protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestInit(object sender, PluginEventArgs e)
         {
             if (!SettingsService.GetSection<BugReportingSettings>().IsEnabled)
             {
@@ -50,7 +50,7 @@ namespace Bellatrix.BugReporting
             InitializeTestCase(e);
         }
 
-        protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
             if (!SettingsService.GetSection<BugReportingSettings>().IsEnabled)
             {
@@ -97,7 +97,7 @@ namespace Bellatrix.BugReporting
             _filesToBeAttached.Add(e.VideoPath);
         }
 
-        private void InitializeTestCase(TestWorkflowPluginEventArgs args)
+        private void InitializeTestCase(PluginEventArgs args)
         {
             if (args.TestMethodMemberInfo == null)
             {

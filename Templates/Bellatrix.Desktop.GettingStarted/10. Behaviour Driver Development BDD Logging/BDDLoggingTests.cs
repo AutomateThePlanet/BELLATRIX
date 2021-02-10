@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class BDDLoggingTests : DesktopTest
     {
          // 1. There cases when you need to show your colleagues or managers what tests do you have.

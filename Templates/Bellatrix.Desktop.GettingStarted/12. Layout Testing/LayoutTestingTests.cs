@@ -1,4 +1,5 @@
-﻿using Bellatrix.Layout;
+﻿using Bellatrix.Desktop.MSTest;
+using Bellatrix.Layout;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
@@ -14,10 +15,10 @@ namespace Bellatrix.Desktop.GettingStarted
     // App attribute gives you the option to resize your browser window so that you can test the rearrangement of the elements on your screens.
     // To make it, even more, easier for you, we included a couple of enums containing the most popular desktop, mobile and tablet resolutions.
     // Of course, you always have the option to set a custom size.
-    // [App(Constants.WpfAppPath, MobileWindowSize._360_640,  AppBehavior.RestartEveryTime)]
-    // [App(Constants.WpfAppPath, TabletWindowSize._600_1024,  AppBehavior.RestartEveryTime)]
-    // [App(Constants.WpfAppPath, width: 600, height: 900, behavior: AppBehavior.RestartEveryTime)]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    // [App(Constants.WpfAppPath, MobileWindowSize._360_640,  Lifecycle.RestartEveryTime)]
+    // [App(Constants.WpfAppPath, TabletWindowSize._600_1024,  Lifecycle.RestartEveryTime)]
+    // [App(Constants.WpfAppPath, width: 600, height: 900, behavior: Lifecycle.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class LayoutTestingTests : DesktopTest
     {
         [TestMethod]

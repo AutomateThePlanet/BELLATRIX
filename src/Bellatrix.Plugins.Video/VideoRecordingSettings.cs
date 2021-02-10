@@ -11,7 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.TestExecutionExtensions.Video
+namespace Bellatrix.Plugins.Video
 {
     public class VideoRecordingSettings
     {

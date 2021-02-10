@@ -15,12 +15,12 @@ using System;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
-using Bellatrix.TestExecutionExtensions.Screenshots.Contracts;
-using Bellatrix.TestExecutionExtensions.Screenshots.Plugins;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
+using Bellatrix.Plugins.Screenshots.Contracts;
+using Bellatrix.Plugins.Screenshots.Plugins;
 using Serilog;
 
-namespace Bellatrix.TestExecutionExtensions.Screenshots
+namespace Bellatrix.Plugins.Screenshots
 {
     public class ScreenshotWorkflowPlugin : Plugin
     {
@@ -40,7 +40,7 @@ namespace Bellatrix.TestExecutionExtensions.Screenshots
             InitializeScreenshotProviderObservers();
         }
 
-        protected override void PreTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestCleanup(object sender, PluginEventArgs e)
         {
             GetTestScreenshotOnFailMode(e.TestMethodMemberInfo, e.TestOutcome);
 

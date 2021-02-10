@@ -11,6 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+
 namespace Bellatrix.Web.MSTest
 {
     public abstract class WebTest : MSTestBaseTest
@@ -20,6 +21,11 @@ namespace Bellatrix.Web.MSTest
         public override void Initialize()
         {
             App = ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
+        }
+
+        public override void Configure()
+        {
+            MSTestPluginConfiguration.Add();
         }
     }
 }

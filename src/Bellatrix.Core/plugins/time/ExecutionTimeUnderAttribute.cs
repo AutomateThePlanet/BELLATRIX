@@ -14,7 +14,7 @@
 using System;
 using Bellatrix.Utilities;
 
-namespace Bellatrix.TestExecutionExtensions.Common.ExecutionTime
+namespace Bellatrix.Plugins.Common.ExecutionTime
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public class ExecutionTimeUnderAttribute : Attribute

@@ -20,10 +20,10 @@ using Bellatrix.Mobile.BugReporting.IOS;
 using Bellatrix.Mobile.DynamicTestCases.IOS;
 using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Screenshots;
-using Bellatrix.Mobile.TestExecutionExtensions;
-using Bellatrix.TestExecutionExtensions.Screenshots;
-using Bellatrix.TestExecutionExtensions.Screenshots.Contracts;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Mobile.Plugins;
+using Bellatrix.Plugins.Screenshots;
+using Bellatrix.Plugins.Screenshots.Contracts;
+using Bellatrix.Plugins;
 
 namespace Bellatrix.Mobile.IOS
 {
@@ -136,7 +136,7 @@ namespace Bellatrix.Mobile.IOS
             bugReportingLayoutAssertionsExtensions.SubscribeToAll();
         }
 
-        public static void AddAppBehavior()
+        public static void AddLifecycle()
         {
             ServicesCollection.Current.RegisterType<Plugin, AppWorkflowPlugin>(Guid.NewGuid().ToString());
         }

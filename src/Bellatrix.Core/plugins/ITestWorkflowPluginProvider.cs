@@ -1,4 +1,4 @@
-﻿// <copyright file="ITestWorkflowPluginProvider.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="IPluginProvider.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -13,33 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.TestWorkflowPlugins
+namespace Bellatrix.Plugins
 {
-    public interface ITestWorkflowPluginProvider
+    public interface IPluginProvider
     {
-        event EventHandler<TestWorkflowPluginEventArgs> PreTestInitEvent;
+        event EventHandler<PluginEventArgs> PreTestInitEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> TestInitFailedEvent;
+        event EventHandler<PluginEventArgs> TestInitFailedEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> PostTestInitEvent;
+        event EventHandler<PluginEventArgs> PostTestInitEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> PreTestCleanupEvent;
+        event EventHandler<PluginEventArgs> PreTestCleanupEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> PostTestCleanupEvent;
+        event EventHandler<PluginEventArgs> PostTestCleanupEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> TestCleanupFailedEvent;
+        event EventHandler<PluginEventArgs> TestCleanupFailedEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> PreTestsActEvent;
+        event EventHandler<PluginEventArgs> PreTestsActEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> PreTestsArrangeEvent;
+        event EventHandler<PluginEventArgs> PreTestsArrangeEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> PostTestsActEvent;
+        event EventHandler<PluginEventArgs> PostTestsActEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> PostTestsArrangeEvent;
+        event EventHandler<PluginEventArgs> PostTestsArrangeEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> PreTestsCleanupEvent;
+        event EventHandler<PluginEventArgs> PreTestsCleanupEvent;
 
-        event EventHandler<TestWorkflowPluginEventArgs> PostTestsCleanupEvent;
+        event EventHandler<PluginEventArgs> PostTestsCleanupEvent;
 
         event EventHandler<Exception> TestsCleanupFailedEvent;
 

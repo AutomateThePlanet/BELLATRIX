@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
@@ -7,7 +8,7 @@ namespace Bellatrix.Desktop.GettingStarted
 
     // 2. This is the attribute for automatic start/control of WebDriver applications by Bellatrix. If you have to do it manually properly, you will need thousands of lines of code.
     // 2.1. appPath- sets the path where your application is.
-    // 2.2. AppBehavior enum controls when the app is started and stopped. This can drastically increase or decrease the tests execution time, depending on your needs.
+    // 2.2. Lifecycle enum controls when the app is started and stopped. This can drastically increase or decrease the tests execution time, depending on your needs.
     // However you need to be careful because in case of tests failures the app may need to be restarted.
     // Available options:
     // RestartEveryTime- for each test a separate WebDriver instance is created and the previous app instance is closed.
@@ -18,7 +19,7 @@ namespace Bellatrix.Desktop.GettingStarted
     // There are even more things you can do with this attribute, but we look into them in the next sections.
     //
     // If you place attribute over the class all tests inherit the behaviour. It is possible to place it over each test and this way it overrides the class behaviour only for this particular test.
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
 
     // 2.2. All web BELLATRIX test classes should inherit from the DesktopTest base class. This way you can use all built-in BELLATRIX tools and functionalities.
     public class ControlAppTests : DesktopTest

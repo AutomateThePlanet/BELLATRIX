@@ -20,10 +20,10 @@ using Bellatrix.Mobile.BugReporting.Android;
 using Bellatrix.Mobile.DynamicTestCases.Android;
 using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Screenshots;
-using Bellatrix.Mobile.TestExecutionExtensions;
-using Bellatrix.TestExecutionExtensions.Screenshots;
-using Bellatrix.TestExecutionExtensions.Screenshots.Contracts;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Mobile.Plugins;
+using Bellatrix.Plugins.Screenshots;
+using Bellatrix.Plugins.Screenshots.Contracts;
+using Bellatrix.Plugins;
 
 namespace Bellatrix.Mobile.Android
 {
@@ -139,7 +139,7 @@ namespace Bellatrix.Mobile.Android
             bugReportingLayoutAssertionsExtensions.SubscribeToAll();
         }
 
-        public static void AddAppBehavior()
+        public static void AddLifecycle()
         {
             ServicesCollection.Current.RegisterType<Plugin, AppWorkflowPlugin>(Guid.NewGuid().ToString());
         }

@@ -14,8 +14,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using Bellatrix.TestExecutionExtensions.Video;
-using Bellatrix.TestExecutionExtensions.Video.Contracts;
+using Bellatrix.Plugins.Video;
+using Bellatrix.Plugins.Video.Contracts;
 
 namespace Bellatrix.VideoRecording.FFmpeg
 {

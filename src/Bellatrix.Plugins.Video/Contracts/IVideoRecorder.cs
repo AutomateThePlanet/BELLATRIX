@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.TestExecutionExtensions.Video.Contracts
+namespace Bellatrix.Plugins.Video.Contracts
 {
     public interface IVideoRecorder : IDisposable
     {

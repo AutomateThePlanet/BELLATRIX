@@ -17,14 +17,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
 namespace Bellatrix.Benchmark
 {
     public abstract class BenchmarkTest
     {
         protected static ThreadLocal<Exception> ThrownException;
-        private TestWorkflowPluginProvider _currentTestExecutionProvider;
+        private PluginProvider _currentTestExecutionProvider;
         private List<string> _authors = new List<string>();
         private List<string> _categories = new List<string>();
         private List<string> _descriptions = new List<string>();
@@ -73,7 +73,7 @@ namespace Bellatrix.Benchmark
             var testClassType = TestClassType;
             var testMethodMemberInfo = GetCurrentExecutionMethodInfo(testName);
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+            _currentTestExecutionProvider = new PluginProvider();
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
             var categories = _categories;
             var authors = _authors;
@@ -100,7 +100,7 @@ namespace Bellatrix.Benchmark
             var testClassType = TestClassType;
             var testMethodMemberInfo = GetCurrentExecutionMethodInfo(testName);
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+            _currentTestExecutionProvider = new PluginProvider();
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
             try
             {
@@ -122,7 +122,7 @@ namespace Bellatrix.Benchmark
                 var testClassType = TestClassType;
                 Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
                 Container.RegisterInstance(Container);
-                _currentTestExecutionProvider = new TestWorkflowPluginProvider();
+                _currentTestExecutionProvider = new PluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                 MethodInfo testMethodMemberInfo = null;
                 _currentTestExecutionProvider.PreTestsArrange(testClassType);
@@ -154,7 +154,7 @@ namespace Bellatrix.Benchmark
         {
         }
 
-        private void InitializeTestExecutionBehaviorObservers(TestWorkflowPluginProvider testExecutionProvider)
+        private void InitializeTestExecutionBehaviorObservers(PluginProvider testExecutionProvider)
         {
             var observers = ServicesCollection.Current.ResolveAll<Plugin>();
             foreach (var observer in observers)

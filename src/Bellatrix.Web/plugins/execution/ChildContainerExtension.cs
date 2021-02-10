@@ -11,17 +11,17 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
-namespace Bellatrix.Web.TestExecutionExtensions.Browser
+namespace Bellatrix.Web.Plugins.Browser
 {
     public class ChildContainerExtension : Plugin
     {
-        protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
         }
 
-        protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
         }
     }

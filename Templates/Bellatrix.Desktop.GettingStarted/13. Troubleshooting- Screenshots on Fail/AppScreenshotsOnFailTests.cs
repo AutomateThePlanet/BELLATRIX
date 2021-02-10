@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
@@ -10,7 +11,7 @@ namespace Bellatrix.Desktop.GettingStarted
     // If you place attribute over the class all tests inherit the behaviour.
     // It is possible to put it over each test and this way you override the class behaviour only for this particular test.
     [ScreenshotOnFail(true)]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class AppScreenshotsOnFailTests : DesktopTest
     {
         [TestMethod]

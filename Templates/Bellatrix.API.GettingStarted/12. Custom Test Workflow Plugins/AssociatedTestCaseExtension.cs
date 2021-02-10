@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
 namespace Bellatrix.API.GettingStarted
 {
     // 1. To create a custom test workflow plugin:
     // 1.1. Create a new class that derives from the 'TestExecutionExtension' base class.
     // 1.2. Then override some of the workflow's protected methods adding there your logic.
-    // 1.3. Register the workflow plugin using the AddTestWorkflowPlugin method of the App service.
-    public class AssociatedTestCaseExtension : TestWorkflowPlugin
+    // 1.3. Register the workflow plugin using the AddPlugin method of the App service.
+    public class AssociatedTestCaseExtension : Plugin
     {
         // 2. You can override all mentioned test workflow method hooks in your custom handlers.
         // The method uses reflection to find out if the ManualTestCase attribute is set to the run test.
         // If the attribute is not set or is set more than once an exception is thrown.
         // The logic executes before the actual test run, during the PreTestInit phase.
-        protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestInit(object sender, PluginEventArgs e)
         {
             base.PreTestInit(sender, e);
             ValidateManualTestCaseAttribute(e.TestMethodMemberInfo);

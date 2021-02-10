@@ -1,4 +1,4 @@
-﻿// <copyright file="TestWorkflowPlugin.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="Plugin.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Bellatrix.TestWorkflowPlugins
+namespace Bellatrix.Plugins
 {
     public class Plugin
     {
-        public void Subscribe(ITestWorkflowPluginProvider provider)
+        public void Subscribe(IPluginProvider provider)
         {
             provider.PreTestInitEvent += PreTestInit;
             provider.TestInitFailedEvent += TestInitFailed;
@@ -38,7 +38,7 @@ namespace Bellatrix.TestWorkflowPlugins
             provider.TestsCleanupFailedEvent += TestsCleanupFailed;
         }
 
-        public void Unsubscribe(ITestWorkflowPluginProvider provider)
+        public void Unsubscribe(IPluginProvider provider)
         {
             provider.PreTestInitEvent -= PreTestInit;
             provider.TestInitFailedEvent -= TestInitFailed;
@@ -60,35 +60,35 @@ namespace Bellatrix.TestWorkflowPlugins
         {
         }
 
-        protected virtual void PreTestsCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void PreTestsCleanup(object sender, PluginEventArgs e)
         {
         }
 
-        protected virtual void PostTestsCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void PostTestsCleanup(object sender, PluginEventArgs e)
         {
         }
 
-        protected virtual void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void PreTestInit(object sender, PluginEventArgs e)
         {
         }
 
-        protected virtual void TestInitFailed(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void TestInitFailed(object sender, PluginEventArgs e)
         {
         }
 
-        protected virtual void PostTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void PostTestInit(object sender, PluginEventArgs e)
         {
         }
 
-        protected virtual void PreTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void PreTestCleanup(object sender, PluginEventArgs e)
         {
         }
 
-        protected virtual void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void PostTestCleanup(object sender, PluginEventArgs e)
         {
         }
 
-        protected virtual void TestCleanupFailed(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void TestCleanupFailed(object sender, PluginEventArgs e)
         {
         }
 
@@ -96,19 +96,19 @@ namespace Bellatrix.TestWorkflowPlugins
         {
         }
 
-        protected virtual void PreTestsAct(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void PreTestsAct(object sender, PluginEventArgs e)
         {
         }
 
-        protected virtual void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void PreTestsArrange(object sender, PluginEventArgs e)
         {
         }
 
-        protected virtual void PostTestsAct(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void PostTestsAct(object sender, PluginEventArgs e)
         {
         }
 
-        protected virtual void PostTestsArrange(object sender, TestWorkflowPluginEventArgs e)
+        protected virtual void PostTestsArrange(object sender, PluginEventArgs e)
         {
         }
 

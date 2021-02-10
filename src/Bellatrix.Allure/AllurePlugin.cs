@@ -15,9 +15,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using Bellatrix.Results.Allure;
-using Bellatrix.TestExecutionExtensions.Screenshots.Plugins;
-using Bellatrix.TestExecutionExtensions.Video.Plugins;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins.Screenshots.Plugins;
+using Bellatrix.Plugins.Video.Plugins;
+using Bellatrix.Plugins;
 
 namespace Bellatrix
 {

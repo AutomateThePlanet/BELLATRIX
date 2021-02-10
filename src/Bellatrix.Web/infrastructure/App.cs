@@ -17,7 +17,7 @@ using System.Diagnostics;
 using System.Reflection;
 
 using Bellatrix.DynamicTestCases;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Proxy;
@@ -96,7 +96,7 @@ namespace Bellatrix.Web
             elementEventHandler.UnsubscribeToAll();
         }
 
-        public void AddTestWorkflowPlugin<TExecutionExtension>()
+        public void AddPlugin<TExecutionExtension>()
             where TExecutionExtension : Plugin
         {
             ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());

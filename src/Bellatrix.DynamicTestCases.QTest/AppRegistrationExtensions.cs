@@ -18,7 +18,7 @@ using System.Text;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.DynamicTestCases.Contracts;
 using Bellatrix.DynamicTestCases.QTest;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
 namespace Bellatrix
 {

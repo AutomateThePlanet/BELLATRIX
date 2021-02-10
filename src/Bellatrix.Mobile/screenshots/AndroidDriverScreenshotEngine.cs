@@ -14,7 +14,7 @@
 using System;
 using System.Drawing;
 using System.IO;
-using Bellatrix.TestExecutionExtensions.Screenshots.Contracts;
+using Bellatrix.Plugins.Screenshots.Contracts;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Android;
 

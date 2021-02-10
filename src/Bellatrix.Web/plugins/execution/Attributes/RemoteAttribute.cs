@@ -15,7 +15,7 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 using Bellatrix.Web.Enums;
-using Bellatrix.Web.TestExecutionExtensions.Browser;
+using Bellatrix.Web.Plugins.Browser;
 using OpenQA.Selenium;
 
 namespace Bellatrix.Web

@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp.Authenticators;
 
-namespace Bellatrix.TestExecutionExtensions.Api
+namespace Bellatrix.Plugins.Api
 {
     public class SimpleAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
     {

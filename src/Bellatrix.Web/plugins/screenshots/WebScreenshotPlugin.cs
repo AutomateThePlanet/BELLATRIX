@@ -13,9 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-using Bellatrix.TestExecutionExtensions.Screenshots;
-using Bellatrix.TestExecutionExtensions.Screenshots.Contracts;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins.Screenshots;
+using Bellatrix.Plugins.Screenshots.Contracts;
+using Bellatrix.Plugins;
 using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.Screenshots

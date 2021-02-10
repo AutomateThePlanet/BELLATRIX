@@ -12,9 +12,8 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-
-using Bellatrix.TestExecutionExtensions.Common;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
+using Bellatrix.Plugins.Common;
 
 namespace Bellatrix
 {
@@ -22,7 +21,7 @@ namespace Bellatrix
     {
         public static void Add()
         {
-            ServicesCollection.Current.RegisterType<Plugin, ExecutionTimeUnderTestWorkflowPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, ExecutionTimeUnderPlugin>(Guid.NewGuid().ToString());
         }
     }
 }

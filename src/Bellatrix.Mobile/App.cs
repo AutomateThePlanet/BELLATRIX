@@ -20,7 +20,7 @@ using Bellatrix.DynamicTestCases;
 using Bellatrix.Mobile.Configuration;
 using Bellatrix.Mobile.PageObjects;
 using Bellatrix.Mobile.Services;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Service;
 using OpenQA.Selenium.Appium.Service.Options;
@@ -72,7 +72,7 @@ namespace Bellatrix.Mobile
             ServicesCollection.Current.RegisterInstance(dictionary, $"caps-{fullClassName}");
         }
 
-        public void AddTestWorkflowPlugin<TExecutionExtension>()
+        public void AddPlugin<TExecutionExtension>()
             where TExecutionExtension : Plugin
         {
             ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());

@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Reflection;
-using Bellatrix.Mobile.TestExecutionExtensions.Attributes;
+using Bellatrix.Mobile.Plugins.Attributes;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SourceCode\\BELLATRIX\\Templates\\Bellatrix.API.GettingStarted\\Bellatrix.API.GettingStarted.csproj": {}
+    "D:\\SourceCode\\BELLATRIX\\templates\\Bellatrix.API.GettingStarted\\Bellatrix.API.GettingStarted.csproj": {}
   },
   "projects": {
-    "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Api\\Bellatrix.API.csproj": {
+    "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Api\\Bellatrix.API.csproj": {
       "version": "2.3.0",
       "restore": {
-        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Api\\Bellatrix.API.csproj",
+        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Api\\Bellatrix.API.csproj",
         "projectName": "Bellatrix.API",
-        "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Api\\Bellatrix.API.csproj",
+        "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Api\\Bellatrix.API.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Api\\obj\\",
+        "outputPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -32,14 +32,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.BugReporting\\Bellatrix.BugReporting.csproj": {
-                "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.BugReporting\\Bellatrix.BugReporting.csproj"
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.BugReporting\\Bellatrix.BugReporting.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.BugReporting\\Bellatrix.BugReporting.csproj"
               },
-              "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Core\\Bellatrix.Core.csproj": {
-                "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Core\\Bellatrix.Core.csproj"
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj"
               },
-              "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj": {
-                "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj"
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj"
               }
             }
           }
@@ -113,14 +113,14 @@
         }
       }
     },
-    "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.BugReporting\\Bellatrix.BugReporting.csproj": {
+    "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.BugReporting\\Bellatrix.BugReporting.csproj": {
       "version": "2.3.0",
       "restore": {
-        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.BugReporting\\Bellatrix.BugReporting.csproj",
+        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.BugReporting\\Bellatrix.BugReporting.csproj",
         "projectName": "Bellatrix.BugReporting",
-        "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.BugReporting\\Bellatrix.BugReporting.csproj",
+        "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.BugReporting\\Bellatrix.BugReporting.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.BugReporting\\obj\\",
+        "outputPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.BugReporting\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -141,11 +141,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Screenshots\\Bellatrix.TestExecutionExtensions.Screenshots.csproj": {
-                "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Screenshots\\Bellatrix.TestExecutionExtensions.Screenshots.csproj"
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj"
               },
-              "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Video\\Bellatrix.TestExecutionExtensions.Video.csproj": {
-                "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Video\\Bellatrix.TestExecutionExtensions.Video.csproj"
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Screenshots\\Bellatrix.Plugins.Screenshots.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Screenshots\\Bellatrix.Plugins.Screenshots.csproj"
+              },
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Video\\Bellatrix.Plugins.Video.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Video\\Bellatrix.Plugins.Video.csproj"
               }
             }
           }
@@ -195,14 +198,14 @@
         }
       }
     },
-    "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Core\\Bellatrix.Core.csproj": {
+    "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj": {
       "version": "2.3.0",
       "restore": {
-        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Core\\Bellatrix.Core.csproj",
+        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj",
         "projectName": "Bellatrix.Core",
-        "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Core\\Bellatrix.Core.csproj",
+        "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Core\\obj\\",
+        "outputPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -238,6 +241,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.30, )"
+            },
             "MSTest.TestFramework": {
               "target": "Package",
               "version": "[2.1.2, )"
@@ -274,6 +281,10 @@
               "target": "Package",
               "version": "[1.1.118, )"
             },
+            "System.Management": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
             "Unity": {
               "target": "Package",
               "version": "[5.11.9, )"
@@ -298,14 +309,14 @@
         }
       }
     },
-    "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj": {
+    "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj": {
       "version": "2.3.0",
       "restore": {
-        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj",
+        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj",
         "projectName": "Bellatrix.DynamicTestCases",
-        "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj",
+        "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.DynamicTestCases\\Bellatrix.DynamicTestCases.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.DynamicTestCases\\obj\\",
+        "outputPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.DynamicTestCases\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -325,7 +336,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -373,14 +388,14 @@
         }
       }
     },
-    "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Screenshots\\Bellatrix.TestExecutionExtensions.Screenshots.csproj": {
+    "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Screenshots\\Bellatrix.Plugins.Screenshots.csproj": {
       "version": "2.3.0",
       "restore": {
-        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Screenshots\\Bellatrix.TestExecutionExtensions.Screenshots.csproj",
-        "projectName": "Bellatrix.TestExecutionExtensions.Screenshots",
-        "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Screenshots\\Bellatrix.TestExecutionExtensions.Screenshots.csproj",
+        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Screenshots\\Bellatrix.Plugins.Screenshots.csproj",
+        "projectName": "Bellatrix.Plugins.Screenshots",
+        "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Screenshots\\Bellatrix.Plugins.Screenshots.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Screenshots\\obj\\",
+        "outputPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Screenshots\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -400,7 +415,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -456,14 +475,14 @@
         }
       }
     },
-    "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Video\\Bellatrix.TestExecutionExtensions.Video.csproj": {
+    "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Video\\Bellatrix.Plugins.Video.csproj": {
       "version": "2.3.0",
       "restore": {
-        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Video\\Bellatrix.TestExecutionExtensions.Video.csproj",
-        "projectName": "Bellatrix.TestExecutionExtensions.Video",
-        "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Video\\Bellatrix.TestExecutionExtensions.Video.csproj",
+        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Video\\Bellatrix.Plugins.Video.csproj",
+        "projectName": "Bellatrix.Plugins.Video",
+        "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Video\\Bellatrix.Plugins.Video.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.TestExecutionExtensions.Video\\obj\\",
+        "outputPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Video\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -483,7 +502,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -499,19 +522,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "HtmlAgilityPack": {
-              "target": "Package",
-              "version": "[1.11.28, )"
-            },
             "Microsoft.CodeAnalysis.NetAnalyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.1, )"
-            },
-            "Microsoft.Extensions.Logging.Abstractions": {
-              "target": "Package",
-              "version": "[5.0.0, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
@@ -539,14 +554,14 @@
         }
       }
     },
-    "D:\\SourceCode\\BELLATRIX\\Templates\\Bellatrix.API.GettingStarted\\Bellatrix.API.GettingStarted.csproj": {
+    "D:\\SourceCode\\BELLATRIX\\templates\\Bellatrix.API.GettingStarted\\Bellatrix.API.GettingStarted.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\Templates\\Bellatrix.API.GettingStarted\\Bellatrix.API.GettingStarted.csproj",
+        "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\templates\\Bellatrix.API.GettingStarted\\Bellatrix.API.GettingStarted.csproj",
         "projectName": "Bellatrix.API.GettingStarted",
-        "projectPath": "D:\\SourceCode\\BELLATRIX\\Templates\\Bellatrix.API.GettingStarted\\Bellatrix.API.GettingStarted.csproj",
+        "projectPath": "D:\\SourceCode\\BELLATRIX\\templates\\Bellatrix.API.GettingStarted\\Bellatrix.API.GettingStarted.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "D:\\SourceCode\\BELLATRIX\\Templates\\Bellatrix.API.GettingStarted\\obj\\",
+        "outputPath": "D:\\SourceCode\\BELLATRIX\\templates\\Bellatrix.API.GettingStarted\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -567,8 +582,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Api\\Bellatrix.API.csproj": {
-                "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Api\\Bellatrix.API.csproj"
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Api\\Bellatrix.API.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Api\\Bellatrix.API.csproj"
+              },
+              "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj": {
+                "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Core\\Bellatrix.Core.csproj"
               }
             }
           }

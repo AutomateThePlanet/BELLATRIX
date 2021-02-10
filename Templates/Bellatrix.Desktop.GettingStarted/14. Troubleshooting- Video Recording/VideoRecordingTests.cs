@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
@@ -15,7 +16,7 @@ namespace Bellatrix.Desktop.GettingStarted
     // If you place attribute over the class all tests inherit the behaviour.
     // It is possible to put it over each test and this way you override the class behaviour only for this particular test.
     [VideoRecording(VideoRecordingMode.OnlyFail)]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class VideoRecordingTests : DesktopTest
     {
         [TestMethod]
@@ -34,7 +35,7 @@ namespace Bellatrix.Desktop.GettingStarted
         // The global behaviour for all tests in the class is to save the videos only for failed tests.
         // Only for this particular test, we tell BELLATRIX not to make a video.
         [TestMethod]
-        [App(Constants.WpfAppPath, AppBehavior.RestartOnFail)]
+        [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
         [VideoRecording(VideoRecordingMode.DoNotRecord)]
         [TestCategory(Categories.CI)]
         public void MessageChanged_When_ButtonClicked_Wpf()

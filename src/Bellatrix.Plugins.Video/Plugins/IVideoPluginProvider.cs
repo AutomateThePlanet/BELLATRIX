@@ -12,14 +12,14 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
-namespace Bellatrix.TestExecutionExtensions.Video.Plugins
+namespace Bellatrix.Plugins.Video.Plugins
 {
     public interface IVideoPluginProvider
     {
         event EventHandler<VideoPluginEventArgs> VideoGeneratedEvent;
 
-        void VideoGenerated(TestWorkflowPluginEventArgs e, string screenshotPath);
+        void VideoGenerated(PluginEventArgs e, string screenshotPath);
     }
 }

@@ -18,7 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Bellatrix.DynamicTestCases.Contracts;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
 namespace Bellatrix.DynamicTestCases
 {
@@ -33,7 +33,7 @@ namespace Bellatrix.DynamicTestCases
             _dynamicTestCasesService = dynamicTestCasesService;
         }
 
-        protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
             if (!SettingsService.GetSection<DynamicTestCasesSettings>().IsEnabled || e.TestMethodMemberInfo == null)
             {
@@ -45,7 +45,7 @@ namespace Bellatrix.DynamicTestCases
             InitializeTestCase(e);
         }
 
-        protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestInit(object sender, PluginEventArgs e)
         {
             if (!SettingsService.GetSection<DynamicTestCasesSettings>().IsEnabled)
             {
@@ -56,7 +56,7 @@ namespace Bellatrix.DynamicTestCases
             InitializeTestCase(e);
         }
 
-        protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
             if (!SettingsService.GetSection<DynamicTestCasesSettings>().IsEnabled)
             {
@@ -81,7 +81,7 @@ namespace Bellatrix.DynamicTestCases
             _dynamicTestCasesService?.ResetContext();
         }
 
-        private void InitializeTestCase(TestWorkflowPluginEventArgs args)
+        private void InitializeTestCase(PluginEventArgs args)
         {
             var methodInfo = args.TestMethodMemberInfo;
             var methodAttribute = GetMethodAttribute<DynamicTestCaseAttribute>(methodInfo);

@@ -15,7 +15,7 @@ using System;
 using System.Reflection;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.TestExecutionExtensions.Attributes
+namespace Bellatrix.Mobile.Plugins.Attributes
 {
     public interface IAppiumOptionsFactory
     {

@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp.Authenticators;
 
-namespace Bellatrix.TestExecutionExtensions.Api
+namespace Bellatrix.Plugins.Api
 {
     /// <summary>
     ///     JSON WEB TOKEN (JWT) Authenticator class.

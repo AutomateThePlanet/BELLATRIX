@@ -17,5 +17,25 @@ namespace Bellatrix.Desktop.NUnit
     public abstract class DesktopTest : NUnitBaseTest
     {
         public App App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<App>();
+
+        public override void Configure()
+        {
+            NUnitPluginConfiguration.Add();
+            ExecutionTimePlugin.Add();
+            VideoRecorderPluginConfiguration.AddNUnit();
+            ScreenshotsPluginConfiguration.AddNUnit();
+            DesktopPluginsConfiguration.AddLifecycle();
+            DesktopPluginsConfiguration.AddLogExecutionLifecycle();
+            DesktopPluginsConfiguration.AddVanillaWebDriverScreenshotsOnFail();
+            DesktopPluginsConfiguration.AddElementsBddLogging();
+            DesktopPluginsConfiguration.AddDynamicTestCases();
+            DesktopPluginsConfiguration.AddBugReporting();
+            DesktopPluginsConfiguration.AddValidateExtensionsBddLogging();
+            DesktopPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+            DesktopPluginsConfiguration.AddValidateExtensionsBugReporting();
+            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bellatrix.Api;
+using Bellatrix.API.MSTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 

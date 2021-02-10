@@ -28,7 +28,7 @@
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgStyleCop_Analyzers Condition=" '$(PkgStyleCop_Analyzers)' == '' ">C:\Users\angel\.nuget\packages\stylecop.analyzers\1.1.118</PkgStyleCop_Analyzers>
-    <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Users\angel\.nuget\packages\newtonsoft.json\9.0.1</PkgNewtonsoft_Json>
+    <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Users\angel\.nuget\packages\newtonsoft.json\10.0.3</PkgNewtonsoft_Json>
     <PkgMicrosoft_NetFramework_Analyzers Condition=" '$(PkgMicrosoft_NetFramework_Analyzers)' == '' ">C:\Users\angel\.nuget\packages\microsoft.netframework.analyzers\3.3.1</PkgMicrosoft_NetFramework_Analyzers>
     <PkgMicrosoft_NetCore_Analyzers Condition=" '$(PkgMicrosoft_NetCore_Analyzers)' == '' ">C:\Users\angel\.nuget\packages\microsoft.netcore.analyzers\3.3.1</PkgMicrosoft_NetCore_Analyzers>
     <PkgMicrosoft_CodeQuality_Analyzers Condition=" '$(PkgMicrosoft_CodeQuality_Analyzers)' == '' ">C:\Users\angel\.nuget\packages\microsoft.codequality.analyzers\3.3.1</PkgMicrosoft_CodeQuality_Analyzers>

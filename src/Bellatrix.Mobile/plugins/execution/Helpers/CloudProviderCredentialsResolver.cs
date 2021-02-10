@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Mobile.TestExecutionExtensions
+namespace Bellatrix.Mobile.Plugins
 {
     public abstract class CloudProviderCredentialsResolver
     {

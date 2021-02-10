@@ -18,11 +18,18 @@ namespace Bellatrix.API.MSTest
 {
     public abstract class APITest : MSTestBaseTest
     {
-        public App App { get; private set; }
+        public App App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
 
-        public override void Initialize()
+        public override void Configure()
         {
-            App = ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
+            MSTestPluginConfiguration.Add();
+            ExecutionTimePlugin.Add();
+            APIPluginsConfiguration.AddAssertExtensionsBddLogging();
+            APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
+            APIPluginsConfiguration.AddAssertExtensionsBugReporting();
+            APIPluginsConfiguration.AddApiAuthenticationStrategies();
+            APIPluginsConfiguration.AddRetryFailedRequests();
+            APIPluginsConfiguration.AddLogExecution();
         }
     }
 }

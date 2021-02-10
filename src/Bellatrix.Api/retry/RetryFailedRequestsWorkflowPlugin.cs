@@ -14,15 +14,15 @@
 using System;
 using System.Reflection;
 using Bellatrix.Api;
-using Bellatrix.TestExecutionExtensions.Api.Retry;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
+using Bellatrix.Plugins.Api.Retry;
 using Bellatrix.Utilities;
 
-namespace Bellatrix.TestExecutionExtensions.Api
+namespace Bellatrix.Plugins.Api
 {
     public class RetryFailedRequestsWorkflowPlugin : Plugin
     {
-        protected override void PostTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestInit(object sender, PluginEventArgs e)
         {
             RetryFailedRequestsInfo retryFailedRequestsInfo = GetRetryFailedRequestsInfo(e.TestMethodMemberInfo);
 

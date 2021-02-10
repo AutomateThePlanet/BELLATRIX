@@ -11,7 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.TestWorkflowPlugins
+namespace Bellatrix.Plugins
 {
     public enum TestOutcome
     {

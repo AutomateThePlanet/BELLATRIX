@@ -17,10 +17,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Allure.Commons;
-using Bellatrix.TestExecutionExtensions.Screenshots;
-using Bellatrix.TestExecutionExtensions.Screenshots.Plugins;
-using Bellatrix.TestExecutionExtensions.Video.Plugins;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins.Screenshots;
+using Bellatrix.Plugins.Screenshots.Plugins;
+using Bellatrix.Plugins.Video.Plugins;
+using Bellatrix.Plugins;
 using Newtonsoft.Json.Linq;
 
 namespace Bellatrix.Results.Allure
@@ -68,7 +68,7 @@ namespace Bellatrix.Results.Allure
             }
         }
 
-        protected override void TestInitFailed(object sender, TestWorkflowPluginEventArgs e)
+        protected override void TestInitFailed(object sender, PluginEventArgs e)
         {
             StartTestContainer(e.TestFullName);
             StartTestCase(e.TestName, e.TestClassName, e.TestFullName);
@@ -78,7 +78,7 @@ namespace Bellatrix.Results.Allure
             base.TestInitFailed(sender, e);
         }
 
-        protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestInit(object sender, PluginEventArgs e)
         {
             _hasStarted = false;
             StartTestContainer(e.TestFullName);
@@ -87,7 +87,7 @@ namespace Bellatrix.Results.Allure
             base.PreTestInit(sender, e);
         }
 
-        protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
             if (_hasStarted)
             {

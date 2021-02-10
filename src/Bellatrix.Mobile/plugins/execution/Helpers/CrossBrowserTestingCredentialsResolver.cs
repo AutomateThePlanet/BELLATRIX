@@ -14,7 +14,7 @@
 using System;
 using Bellatrix.Mobile.Configuration;
 
-namespace Bellatrix.Mobile.TestExecutionExtensions
+namespace Bellatrix.Mobile.Plugins
 {
     public class CrossBrowserTestingCredentialsResolver : CloudProviderCredentialsResolver
     {

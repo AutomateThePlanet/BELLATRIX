@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Web.TestExecutionExtensions.Browser
+namespace Bellatrix.Web.Plugins.Browser
 {
     public class CrossBrowserTestingCredentialsResolver : CloudProviderCredentialsResolver
     {

@@ -15,12 +15,12 @@ using System;
 using System.Collections.Generic;
 
 using Bellatrix.Layout;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.EventHandlers.DynamicTestCases;
 using Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
-using Bellatrix.Web.TestExecutionExtensions.Browser;
+using Bellatrix.Web.Plugins.Browser;
 
 namespace Bellatrix.Web
 {

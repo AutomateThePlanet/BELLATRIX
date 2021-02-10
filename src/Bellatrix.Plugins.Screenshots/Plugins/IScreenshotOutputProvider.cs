@@ -11,7 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.TestExecutionExtensions.Screenshots.Contracts
+namespace Bellatrix.Plugins.Screenshots.Contracts
 {
     public interface IScreenshotOutputProvider
     {

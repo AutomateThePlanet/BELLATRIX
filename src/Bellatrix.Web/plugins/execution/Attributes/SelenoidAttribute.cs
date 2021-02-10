@@ -16,7 +16,7 @@ using System.Drawing;
 using System.Reflection;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Services;
-using Bellatrix.Web.TestExecutionExtensions.Browser;
+using Bellatrix.Web.Plugins.Browser;
 
 namespace Bellatrix.Web
 {

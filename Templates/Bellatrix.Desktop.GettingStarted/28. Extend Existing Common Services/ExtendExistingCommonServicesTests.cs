@@ -1,11 +1,12 @@
 ﻿// 1. To use the additional method you created, add a using statement to the extension methods' namespace.
 using Bellatrix.Desktop.GettingStarted.AppService.Extensions;
+using Bellatrix.Desktop.MSTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class ExtendExistingCommonServicesTests : DesktopTest
     {
         [TestMethod]

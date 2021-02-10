@@ -12,18 +12,18 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
-namespace Bellatrix.TestExecutionExtensions.Screenshots
+namespace Bellatrix.Plugins.Screenshots
 {
     public class ScreenshotPluginProvider : IScreenshotPluginProvider
     {
         public event EventHandler<ScreenshotPluginEventArgs> ScreenshotGeneratedEvent;
 
-        public void ScreenshotGenerated(TestWorkflowPluginEventArgs e, string screenshotPath) =>
+        public void ScreenshotGenerated(PluginEventArgs e, string screenshotPath) =>
             RaiseTestEvent(ScreenshotGeneratedEvent, e, screenshotPath);
 
-        private void RaiseTestEvent(EventHandler<ScreenshotPluginEventArgs> eventHandler, TestWorkflowPluginEventArgs e, string screenshotPath) =>
+        private void RaiseTestEvent(EventHandler<ScreenshotPluginEventArgs> eventHandler, PluginEventArgs e, string screenshotPath) =>
             eventHandler?.Invoke(this, new ScreenshotPluginEventArgs(e, screenshotPath));
     }
 }

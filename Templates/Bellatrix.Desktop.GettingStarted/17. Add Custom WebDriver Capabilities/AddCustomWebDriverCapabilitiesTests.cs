@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class AddCustomWebDriverCapabilitiesTests : DesktopTest
     {
         // 1. BELLATRIX hides the complexity of initialisation of WebDriver and all related services.
@@ -32,7 +33,7 @@ namespace Bellatrix.Desktop.GettingStarted
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [App(Constants.WpfAppPath, AppBehavior.RestartOnFail)]
+        [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
         [Ignore]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {

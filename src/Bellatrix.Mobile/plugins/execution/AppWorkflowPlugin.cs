@@ -16,13 +16,13 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Bellatrix.Mobile.Configuration;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
-namespace Bellatrix.Mobile.TestExecutionExtensions
+namespace Bellatrix.Mobile.Plugins
 {
     public class AppWorkflowPlugin : Plugin
     {
-        protected override void PreTestsArrange(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
             if (e.TestClassType.GetCustomAttributes().Any(x => x.GetType().Equals(typeof(AppAttribute)) || x.GetType().IsSubclassOf(typeof(AppAttribute))))
             {
@@ -51,7 +51,7 @@ namespace Bellatrix.Mobile.TestExecutionExtensions
             base.PreTestsArrange(sender, e);
         }
 
-        protected override void PreTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PreTestInit(object sender, PluginEventArgs e)
         {
             bool isAppStartedDuringPreTestsArrange = e.Container.Resolve<bool>("_isAppStartedDuringPreTestsArrange");
             if (!isAppStartedDuringPreTestsArrange)
@@ -76,7 +76,7 @@ namespace Bellatrix.Mobile.TestExecutionExtensions
             base.PreTestInit(sender, e);
         }
 
-        protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
             var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
 

@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Drawing;
 
-namespace Bellatrix.TestExecutionExtensions.Screenshots.Contracts
+namespace Bellatrix.Plugins.Screenshots.Contracts
 {
     public interface IScreenshotEngine
     {

@@ -4,6 +4,7 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)netstandard.library\2.0.0\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('$(NuGetPackageRoot)netstandard.library\2.0.0\build\netstandard2.0\NETStandard.Library.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.netframework.analyzers\3.3.1\build\Microsoft.NetFramework.Analyzers.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.netframework.analyzers\3.3.1\build\Microsoft.NetFramework.Analyzers.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.netcore.analyzers\3.3.1\build\Microsoft.NetCore.Analyzers.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.netcore.analyzers\3.3.1\build\Microsoft.NetCore.Analyzers.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.codecoverage\16.8.0\build\netstandard1.0\Microsoft.CodeCoverage.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.codecoverage\16.8.0\build\netstandard1.0\Microsoft.CodeCoverage.targets')" />

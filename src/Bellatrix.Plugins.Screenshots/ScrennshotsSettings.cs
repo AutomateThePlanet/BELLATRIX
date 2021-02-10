@@ -11,7 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.TestExecutionExtensions.Screenshots
+namespace Bellatrix.Plugins.Screenshots
 {
     public class ScreenshotsSettings
     {

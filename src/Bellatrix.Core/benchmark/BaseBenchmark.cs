@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
 namespace Bellatrix.Benchmark
 {
@@ -24,14 +24,14 @@ namespace Bellatrix.Benchmark
     {
         private static readonly List<string> TypeForAlreadyExecutedBenchmarkInits = new List<string>();
         private static ThreadLocal<Exception> _thrownException;
-        private readonly TestWorkflowPluginProvider _currentBenchmarkExecutionProvider;
+        private readonly PluginProvider _currentBenchmarkExecutionProvider;
         private readonly List<string> _authors = new List<string>();
         private readonly List<string> _categories = new List<string>();
         private readonly List<string> _descriptions = new List<string>();
 
         protected BaseBenchmark()
         {
-            _currentBenchmarkExecutionProvider = new TestWorkflowPluginProvider();
+            _currentBenchmarkExecutionProvider = new PluginProvider();
             InitializeBenchmarksExecutionBehaviorObservers(_currentBenchmarkExecutionProvider);
             AppDomain.CurrentDomain.FirstChanceException += (sender, eventArgs) =>
             {
@@ -146,7 +146,7 @@ namespace Bellatrix.Benchmark
         {
         }
 
-        private void InitializeBenchmarksExecutionBehaviorObservers(TestWorkflowPluginProvider testExecutionProvider)
+        private void InitializeBenchmarksExecutionBehaviorObservers(PluginProvider testExecutionProvider)
         {
             var observers = ServicesCollection.Current.ResolveAll<Plugin>();
             foreach (var observer in observers)

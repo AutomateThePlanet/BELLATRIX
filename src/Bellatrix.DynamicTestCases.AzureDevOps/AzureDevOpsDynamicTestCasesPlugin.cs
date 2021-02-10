@@ -18,7 +18,7 @@ using System.Text;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.DynamicTestCases.AzureDevOps;
 using Bellatrix.DynamicTestCases.Contracts;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
 namespace Bellatrix
 {

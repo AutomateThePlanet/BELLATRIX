@@ -11,27 +11,27 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
 
-namespace Bellatrix.TestExecutionExtensions.Screenshots
+namespace Bellatrix.Plugins.Screenshots
 {
-    public sealed class ScreenshotPluginEventArgs : TestWorkflowPluginEventArgs
+    public sealed class ScreenshotPluginEventArgs : PluginEventArgs
     {
         public ScreenshotPluginEventArgs()
         {
         }
 
-        public ScreenshotPluginEventArgs(TestWorkflowPluginEventArgs testWorkflowPluginEventArgs, string screenshotPath)
-        : base(testWorkflowPluginEventArgs.TestOutcome,
-            testWorkflowPluginEventArgs.TestName,
-            testWorkflowPluginEventArgs.TestMethodMemberInfo,
-            testWorkflowPluginEventArgs.TestClassType,
-            testWorkflowPluginEventArgs.ConsoleOutputMessage,
-            testWorkflowPluginEventArgs.ConsoleOutputStackTrace,
-            testWorkflowPluginEventArgs.Exception,
-            testWorkflowPluginEventArgs.Categories,
-            testWorkflowPluginEventArgs.Authors,
-            testWorkflowPluginEventArgs.Descriptions) => ScreenshotPath = screenshotPath;
+        public ScreenshotPluginEventArgs(PluginEventArgs pluginEventArgs, string screenshotPath)
+        : base(pluginEventArgs.TestOutcome,
+            pluginEventArgs.TestName,
+            pluginEventArgs.TestMethodMemberInfo,
+            pluginEventArgs.TestClassType,
+            pluginEventArgs.ConsoleOutputMessage,
+            pluginEventArgs.ConsoleOutputStackTrace,
+            pluginEventArgs.Exception,
+            pluginEventArgs.Categories,
+            pluginEventArgs.Authors,
+            pluginEventArgs.Descriptions) => ScreenshotPath = screenshotPath;
 
         public string ScreenshotPath { get; }
     }

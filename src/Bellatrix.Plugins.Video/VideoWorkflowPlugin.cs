@@ -18,13 +18,13 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading;
-using Bellatrix.TestExecutionExtensions.Video.Contracts;
-using Bellatrix.TestExecutionExtensions.Video.Plugins;
-using Bellatrix.TestWorkflowPlugins;
+using Bellatrix.Plugins;
+using Bellatrix.Plugins.Video.Contracts;
+using Bellatrix.Plugins.Video.Plugins;
 using Bellatrix.Utilities;
 using HtmlAgilityPack;
 
-namespace Bellatrix.TestExecutionExtensions.Video
+namespace Bellatrix.Plugins.Video
 {
     public class VideoWorkflowPlugin : Plugin
     {
@@ -41,7 +41,7 @@ namespace Bellatrix.TestExecutionExtensions.Video
             InitializeVideoProviderObservers();
         }
 
-        protected override void PostTestInit(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestInit(object sender, PluginEventArgs e)
         {
             _recordingMode = ConfigureTestVideoRecordingMode(e.TestMethodMemberInfo);
 
@@ -57,7 +57,7 @@ namespace Bellatrix.TestExecutionExtensions.Video
             }
         }
 
-        protected override void PostTestCleanup(object sender, TestWorkflowPluginEventArgs e)
+        protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
             if (_recordingMode != VideoRecordingMode.DoNotRecord)
             {

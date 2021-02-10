@@ -17,8 +17,8 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Bellatrix.TestExecutionExtensions.Video;
-using Bellatrix.TestExecutionExtensions.Video.Contracts;
+using Bellatrix.Plugins.Video;
+using Bellatrix.Plugins.Video.Contracts;
 using Bellatrix.Utilities;
 
 namespace Bellatrix.VideoRecording.FFmpeg
