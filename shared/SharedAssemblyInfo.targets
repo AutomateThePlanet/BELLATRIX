@@ -12,14 +12,17 @@
 		<AssemblyVersion>2.3.0.0</AssemblyVersion>
 		<FileVersion>2.3.0.0</FileVersion>
 		<NeutralLanguage>en</NeutralLanguage>
-		<Copyright>Automate The Planet Ltd. 2020</Copyright>
+		<Copyright>Automate The Planet Ltd. 2021</Copyright>
 		<PackageReleaseNotes>
-			- Deprecate SpecFlow projects
+      - Deprecate SpecFlow projects
       - Create simplified project structure
       - Simplify project templates
-		</PackageReleaseNotes>
+      - Deprecate BELLATRIX browser driver packages, use WebDriverManager.NET instead
+      - Refactor BELLATRIX plugins- easier usage
+      - Change full page screenshot engine web with aShot
+    </PackageReleaseNotes>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-		<PackageIcon>bellatrix_icon.png</PackageIcon>
+		<!--<PackageIcon>bellatrix_icon.png</PackageIcon>-->
 		<PackageProjectUrl>https://bellatrix.solutions</PackageProjectUrl>
 		<PackageTags>TestFramework,UITests,SystemTests</PackageTags>
 		<Description>Bellatrix is a cross-platform, easily customizable and extendable .NET test automation framework that increases tests’ reliability.</Description>
@@ -61,8 +64,8 @@
 
 	<ItemGroup>
 		<AdditionalFiles Include="..\..\shared\stylecop.json" Link="stylecop.json" />
-		<None Include="..\..\shared\bellatrix_icon.png" Pack="true" PackagePath=""/>
-		<None Include="..\..\shared\LICENSE.txt" Pack="true" PackagePath=""/>
+		<!--<None Include="..\..\shared\bellatrix_icon.png" Pack="true" PackagePath=""/>-->
+		<!--<None Include="..\..\shared\LICENSE.txt" Pack="true" PackagePath=""/>-->
     <!--<None Include="..\..\shared\.editorconfig" Pack="true" PackagePath=""/>-->
 	</ItemGroup>
 </Project>
