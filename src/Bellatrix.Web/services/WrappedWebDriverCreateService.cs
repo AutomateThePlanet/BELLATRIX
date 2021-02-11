@@ -34,6 +34,8 @@ using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Opera;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 
 namespace Bellatrix.Web
 {
@@ -195,6 +197,7 @@ namespace Bellatrix.Web
             switch (executionConfiguration.BrowserType)
             {
                 case BrowserType.Chrome:
+                    new DriverManager().SetUpDriver(new ChromeConfig());
                     var chromeDriverService = ChromeDriverService.CreateDefaultService(_driverExecutablePath);
                     chromeDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeDriverService.EnableVerboseLogging = false;
@@ -214,6 +217,7 @@ namespace Bellatrix.Web
                     BrowserSettings = SettingsService.GetSection<WebSettings>().Chrome;
                     break;
                 case BrowserType.ChromeHeadless:
+                    new DriverManager().SetUpDriver(new ChromeConfig());
                     var chromeHeadlessDriverService = ChromeDriverService.CreateDefaultService(_driverExecutablePath);
                     chromeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeHeadlessDriverService.Port = GetFreeTcpPort();
@@ -233,6 +237,7 @@ namespace Bellatrix.Web
                     BrowserSettings = SettingsService.GetSection<WebSettings>().ChromeHeadless;
                     break;
                 case BrowserType.Firefox:
+                    new DriverManager().SetUpDriver(new FirefoxConfig());
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     var firefoxOptions = GetFirefoxOptions(executionConfiguration.ClassFullName);
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
@@ -272,6 +277,7 @@ namespace Bellatrix.Web
                     BrowserSettings = SettingsService.GetSection<WebSettings>().Firefox;
                     break;
                 case BrowserType.FirefoxHeadless:
+                    new DriverManager().SetUpDriver(new FirefoxConfig());
                     var firefoxHeadlessOptions = GetFirefoxOptions(executionConfiguration.ClassFullName);
                     firefoxHeadlessOptions.AddArguments("--headless");
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
@@ -304,6 +310,7 @@ namespace Bellatrix.Web
                     BrowserSettings = SettingsService.GetSection<WebSettings>().FirefoxHeadless;
                     break;
                 case BrowserType.Edge:
+                    new DriverManager().SetUpDriver(new EdgeConfig());
                     var edgeDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService(_driverExecutablePath);
                     edgeDriverService.SuppressInitialDiagnosticInformation = true;
                     var edgeOptions = GetEdgeOptions(executionConfiguration.ClassFullName);
@@ -323,6 +330,7 @@ namespace Bellatrix.Web
                     BrowserSettings = SettingsService.GetSection<WebSettings>().Edge;
                     break;
                 case BrowserType.EdgeHeadless:
+                    new DriverManager().SetUpDriver(new EdgeConfig());
                     var edgeHeadlessDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService(_driverExecutablePath);
                     edgeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
                     var edgeHeadlessOptions = GetEdgeOptions(executionConfiguration.ClassFullName);
@@ -343,6 +351,8 @@ namespace Bellatrix.Web
                     BrowserSettings = SettingsService.GetSection<WebSettings>().Edge;
                     break;
                 case BrowserType.Opera:
+                    new DriverManager().SetUpDriver(new OperaConfig());
+
                     // the driver will be different for different OS.
                     // Check for different releases- https://github.com/operasoftware/operachromiumdriver/releases
                     var operaOptions = GetOperaOptions(executionConfiguration.ClassFullName);
@@ -372,6 +382,8 @@ namespace Bellatrix.Web
                     BrowserSettings = SettingsService.GetSection<WebSettings>().Opera;
                     break;
                 case BrowserType.InternetExplorer:
+                    new DriverManager().SetUpDriver(new InternetExplorerConfig());
+
                     // Steps to configure IE to always allow blocked content:
                     // From Internet Explorer, select the Tools menu, then the Options...
                     // In the Internet Options dialog, select the Advanced tab...

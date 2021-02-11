@@ -21,6 +21,7 @@
 		<PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
 		<PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
     <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1344" />
+    <PackageReference Include="WebDriverManager" Version="2.11.1" />
 	</ItemGroup>
 
 	<ItemGroup>

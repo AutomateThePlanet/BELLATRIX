@@ -27,18 +27,12 @@ namespace Bellatrix.Utilities
 
         public static void KillPreviousDriversAndBrowsersOsAgnostic(DateTime? executionStartDate)
         {
-            bool isParallelRun = ServicesCollection.Current.Resolve<bool>("isParallelRun");
-            if (IsParallelExecutionEnabled || isParallelRun)
-            {
-                return;
-            }
-
             // TODO: Anton(16.12.2019): This should be moved to configuration and the service should be made more generic for other processes as well.
             var browsersToCheck = new List<string>
             {
                 "opera",
                 "chrome",
-                "firefox",
+                "Firefox",
                 "edge",
                 "iexplore",
                 "safari",
@@ -72,9 +66,7 @@ namespace Bellatrix.Utilities
                 return;
             }
 
-            bool isParallelRun = ServicesCollection.Current.Resolve<bool>("isParallelRun");
-
-            if (IsParallelExecutionEnabled || isParallelRun)
+            if (IsParallelExecutionEnabled)
             {
                 return;
             }

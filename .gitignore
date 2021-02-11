@@ -8,6 +8,9 @@
 _ReSharper.*
 bin
 obj
+net5.0
 packages
 *.csproj.vspscc
 .vs
+*/net5.0/*
+templates/Bellatrix.Web.Tests/bin/Debug/net5.0/Bellatrix.DynamicTestCases.pdb

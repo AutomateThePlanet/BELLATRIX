@@ -8,7 +8,7 @@ namespace Bellatrix.Web.Tests
     // uncomment to use MSTest
     ////[TestClass]
     [TestFixture]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [VideoRecording(VideoRecordingMode.DoNotRecord)]
     [ScreenshotOnFail(true)]
     public class LoginTests : WebTest

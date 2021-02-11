@@ -26,6 +26,22 @@ namespace Bellatrix.Web.MSTest
         public override void Configure()
         {
             MSTestPluginConfiguration.Add();
+            ExecutionTimePlugin.Add();
+            VideoRecorderPluginConfiguration.AddMSTest();
+            ScreenshotsPluginConfiguration.AddMSTest();
+            WebPluginsConfiguration.AddBrowserLifecycle();
+            WebPluginsConfiguration.AddLogExecutionLifecycle();
+            WebPluginsConfiguration.AddControlDataHandlers();
+            WebPluginsConfiguration.AddValidateExtensionsBddLogging();
+            WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+            WebPluginsConfiguration.AddValidateExtensionsBugReporting();
+            WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+            WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+            WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+            WebPluginsConfiguration.AddElementsBddLogging();
+            WebPluginsConfiguration.AddDynamicTestCases();
+            WebPluginsConfiguration.AddBugReporting();
+            WebPluginsConfiguration.AddHighlightElements();
         }
     }
 }

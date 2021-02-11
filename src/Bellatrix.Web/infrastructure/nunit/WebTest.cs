@@ -20,6 +20,22 @@ namespace Bellatrix.Web.NUnit
         public override void Configure()
         {
             NUnitPluginConfiguration.Add();
+            ExecutionTimePlugin.Add();
+            VideoRecorderPluginConfiguration.AddNUnit();
+            ScreenshotsPluginConfiguration.AddNUnit();
+            WebPluginsConfiguration.AddBrowserLifecycle();
+            WebPluginsConfiguration.AddLogExecutionLifecycle();
+            WebPluginsConfiguration.AddControlDataHandlers();
+            WebPluginsConfiguration.AddValidateExtensionsBddLogging();
+            WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+            WebPluginsConfiguration.AddValidateExtensionsBugReporting();
+            WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+            WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+            WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+            WebPluginsConfiguration.AddElementsBddLogging();
+            WebPluginsConfiguration.AddDynamicTestCases();
+            WebPluginsConfiguration.AddBugReporting();
+            WebPluginsConfiguration.AddHighlightElements();
         }
     }
 }

@@ -26,12 +26,12 @@ namespace Bellatrix.Web
 {
     public static class WebPluginsConfiguration
     {
-        public static void AddBrowserBehavior()
+        public static void AddBrowserLifecycle()
         {
             ServicesCollection.Current.RegisterType<Plugin, BrowserLifecyclePlugin>(Guid.NewGuid().ToString());
         }
 
-        public static void AddLogExecutionBehavior()
+        public static void AddLogExecutionLifecycle()
         {
             ServicesCollection.Current.RegisterType<Plugin, LogLifecyclePlugin>(Guid.NewGuid().ToString());
         }

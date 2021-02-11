@@ -18,8 +18,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
-        <ProjectReference Include="..\..\src\Bellatrix.BugReporting.AzureDevOps\Bellatrix.BugReporting.AzureDevOps.csproj" />
-        <ProjectReference Include="..\..\src\Bellatrix.DynamicTestCases.AzureDevOps\Bellatrix.DynamicTestCases.AzureDevOps.csproj" />
         <ProjectReference Include="..\..\src\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
         <ProjectReference Include="..\..\src\Bellatrix.Web\Bellatrix.Web.csproj" />
     </ItemGroup>

@@ -89,13 +89,6 @@
   "webProxySettings": {
     "isEnabled": "false"
   },
-  "loadTestingSettings": {
-    "isEnabled": "true",
-    "defaultHost": "demos.bellatrix.solutions",
-    "shouldRecordHostRequestsOnly": "true",
-    "requestsFileLocation": "AssemblyFolder\\LoadTestsRequests\\",
-    "ignoreUrlRequestsPatterns": [ ".*wp-admin.*" ]
-  },
   "videoRecordingSettings": {
     "isEnabled": "true",
     "waitAfterFinishRecordingMilliseconds": "500",
