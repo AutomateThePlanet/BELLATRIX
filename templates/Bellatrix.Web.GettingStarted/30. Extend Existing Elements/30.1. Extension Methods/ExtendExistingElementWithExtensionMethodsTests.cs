@@ -35,15 +35,11 @@ namespace Bellatrix.Web.GettingStarted
             viewCartButton.Click();
             couponCodeTextField.SetText("happybirthday");
             applyCouponButton.Click();
-
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
             messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
             App.BrowserService.WaitForAjax();
-            quantityBox.SetNumber(2);
-            updateCart.Click();
-            App.BrowserService.WaitForAjax();
-
-            totalSpan.ValidateInnerTextIs("114.00€", 15000);
+            totalSpan.ValidateInnerTextIs("54.00€");
+            proceedToCheckout.Click();
 
             // 2. Use the custom added submit button behaviour through 'Enter' key.
             proceedToCheckout.SubmitButtonWithEnter();

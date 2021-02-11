@@ -20,7 +20,7 @@ namespace Bellatrix.Results.MSTest
 {
     public class MSTestResultsWorkflowPlugin : Plugin, IScreenshotPlugin
     {
-        public TestContext TestContext { get; set; }
+        public static TestContext TestContext { get; set; }
 
         public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
         {
@@ -36,7 +36,7 @@ namespace Bellatrix.Results.MSTest
         {
             if (!string.IsNullOrEmpty(args.ScreenshotPath))
             {
-                TestContext.AddResultFile(args.ScreenshotPath);
+                TestContext?.AddResultFile(args.ScreenshotPath);
             }
         }
     }

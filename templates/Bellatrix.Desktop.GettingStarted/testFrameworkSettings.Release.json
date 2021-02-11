@@ -9,8 +9,6 @@
     "elementNotToBeVisibleTimeout": "30",
     "elementToHaveContentTimeout": "15",
     "shouldStartLocalService": "true",
-    "createSessionTimeout": "20000",
-    "waitForAppLaunchTimeout": "0",
     "serviceUrl": "http://127.0.0.1:4722",
     "ip": "127.0.0.1",
     "port": "4722"
@@ -21,7 +19,7 @@
     "filePath": "ApplicationData\\Troubleshooting\\Videos"
   },
   "screenshotsSettings": {
-    "isEnabled": "false",
+    "isEnabled": "true",
     "filePath": "ApplicationData\\Troubleshooting\\Screenshots"
   },
   "imageRecognitionSettings": {

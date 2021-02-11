@@ -65,14 +65,10 @@ namespace Bellatrix.Web.GettingStarted
             // Cart page actions
             couponCodeTextField.SetText("happybirthday");
             applyCouponButton.Click();
-            App.BrowserService.WaitForAjax();
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
             messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
-
-            quantityBox.SetNumber(2);
-            updateCart.Click();
             App.BrowserService.WaitForAjax();
-            totalSpan.ValidateInnerTextIs("114.00€", 15000);
+            totalSpan.ValidateInnerTextIs("54.00€");
             proceedToCheckout.Click();
 
             // Checkout page elements

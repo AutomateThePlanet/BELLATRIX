@@ -12,7 +12,7 @@
   },
   "webSettings": {
     "shouldScrollToVisibleOnElementFound": "false",
-    "shouldWaitUntilReadyOnElementFound": "false",
+    "shouldWaitUntilReadyOnElementFound": "true",
     "shouldWaitForAngular": "false",
     "shouldHighlightElements": "false",
     "chrome": {
@@ -87,17 +87,10 @@
     }
   },
   "webProxySettings": {
-    "isEnabled": "true"
-  },
-  "loadTestingSettings": {
-    "isEnabled": "true",
-    "defaultHost": "demos.bellatrix.solutions",
-    "shouldRecordHostRequestsOnly": "true",
-    "requestsFileLocation": "AssemblyFolder\\LoadTestsRequests\\",
-    "ignoreUrlRequestsPatterns": [ ".*wp-admin.*" ]
+    "isEnabled": "false"
   },
   "videoRecordingSettings": {
-    "isEnabled": "true",
+    "isEnabled": "false",
     "waitAfterFinishRecordingMilliseconds": "500",
     "filePath": "ApplicationData\\Troubleshooting\\Videos"
   },
@@ -108,10 +101,6 @@
   "imageRecognitionSettings": {
     "timeoutInSeconds": "5",
     "defaultSimilarity": "0.7"
-  },
-  "machineAutomationSettings": {
-    "isEnabled": "true",
-    "packagesToBeInstalled": [ "googlechrome", "firefox --version=65.0.2", "opera" ]
   },
   "processCleanupSettings": {
     "isParallelExecutionEnabled": "false"

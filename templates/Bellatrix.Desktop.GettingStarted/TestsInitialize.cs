@@ -8,7 +8,7 @@ namespace Bellatrix.Desktop.GettingStarted
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            App.StartWinAppDriver();
+            ////App.StartWinAppDriver();
         }
 
         [AssemblyCleanup]
@@ -16,7 +16,7 @@ namespace Bellatrix.Desktop.GettingStarted
         {
             var app = ServicesCollection.Current.Resolve<App>();
             app?.Dispose();
-            App.StopWinAppDriver();
+            ////App.StopWinAppDriver();
         }
     }
 }

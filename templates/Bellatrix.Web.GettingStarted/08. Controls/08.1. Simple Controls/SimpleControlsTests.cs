@@ -83,16 +83,12 @@ namespace Bellatrix.Web.GettingStarted
 
             // 14. For numbers elements, you can set the number and get most of the properties of these elements.
             App.BrowserService.WaitForAjax();
-            quantityBox.SetNumber(2);
-            Button updateCart = App.ElementCreateService.CreateByValueContaining<Button>("Update cart").ToBeClickable();
-            updateCart.Click();
-            App.BrowserService.WaitForAjax();
 
             Span totalSpan = App.ElementCreateService.CreateByXpath<Span>("//*[@class='order-total']//span");
 
             // 15. The same as the case with the DIV here we wait/assert for the total price SPAN to get updated.
             ////Assert.AreEqual("114.00€", totalSpan.InnerText);
-            totalSpan.ValidateInnerTextIs("114.00€", 15000);
+            totalSpan.ValidateInnerTextIs("54.00€", 15000);
 
             Anchor proceedToCheckout = App.ElementCreateService.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
             proceedToCheckout.Click();

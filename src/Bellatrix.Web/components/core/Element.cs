@@ -201,7 +201,7 @@ namespace Bellatrix.Web
             SettingAttribute?.Invoke(this, new ElementActionEventArgs(this));
 
             JavaScriptService.Execute(
-                $"arguments[0].setAttribute('{name}', '{name}');", this);
+                $"arguments[0].setAttribute('{name}', '{value}');", WrappedElement);
 
             AttributeSet?.Invoke(this, new ElementActionEventArgs(this));
         }

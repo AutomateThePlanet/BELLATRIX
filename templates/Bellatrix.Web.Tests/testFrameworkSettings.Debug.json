@@ -11,10 +11,10 @@
     "elementToHaveContentTimeout": "15"
   },
   "webSettings": {
-    "shouldScrollToVisibleOnElementFound": "true",
+    "shouldScrollToVisibleOnElementFound": "false",
     "shouldWaitUntilReadyOnElementFound": "true",
     "shouldWaitForAngular": "false",
-    "shouldHighlightElements": "true",
+    "shouldHighlightElements": "false",
     "chrome": {
       "pageLoadTimeout": "30",
       "scriptTimeout": "1",
@@ -90,7 +90,7 @@
     "isEnabled": "false"
   },
   "videoRecordingSettings": {
-    "isEnabled": "true",
+    "isEnabled": "false",
     "waitAfterFinishRecordingMilliseconds": "500",
     "filePath": "ApplicationData\\Troubleshooting\\Videos"
   },
@@ -102,12 +102,8 @@
     "timeoutInSeconds": "5",
     "defaultSimilarity": "0.7"
   },
-  "machineAutomationSettings": {
-    "isEnabled": "true",
-    "packagesToBeInstalled": [ "googlechrome", "firefox --version=65.0.2", "opera" ]
-  },
   "processCleanupSettings": {
-      "isParallelExecutionEnabled": "false"
+    "isParallelExecutionEnabled": "false"
   },
   "loggingSettings": {
     "isEnabled": "true",
@@ -115,7 +111,7 @@
     "isDebugLoggingEnabled": "true",
     "isEventLoggingEnabled": "false",
     "isFileLoggingEnabled": "true",
-    "outputTemplate": "[{Timestamp:HH:mm:ss}] {Message:lj}{NewLine}",
+    "outputTemplate": "{Message:lj}{NewLine}",
     "addUrlToBddLogging": "false"
   }
 }

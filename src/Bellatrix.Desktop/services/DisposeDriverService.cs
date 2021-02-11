@@ -30,10 +30,6 @@ namespace Bellatrix.Desktop.Services
             webDriver?.Quit();
             webDriver?.Dispose();
             childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-
-            webDriver = ServicesCollection.Main.Resolve<WindowsDriver<WindowsElement>>();
-            webDriver?.Quit();
-            webDriver?.Dispose();
             ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
         }
 
@@ -54,9 +50,6 @@ namespace Bellatrix.Desktop.Services
                 }
             }
 
-            var webDriver = ServicesCollection.Main.Resolve<WindowsDriver<WindowsElement>>();
-            webDriver?.Quit();
-            webDriver?.Dispose();
             ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
         }
     }

@@ -8,12 +8,26 @@ namespace Bellatrix
     {
         public static void LogInformation(string message, params object[] args)
         {
-            Console.WriteLine(message, args);
+            try
+            {
+                Console.WriteLine(message, args);
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         public static void LogError(string message, params object[] args)
         {
-            Console.Error.WriteLine(message, args);
+            try
+            {
+                Console.Error.WriteLine(message, args);
+            }
+            catch
+            {
+                // ignore
+            }
         }
     }
 }

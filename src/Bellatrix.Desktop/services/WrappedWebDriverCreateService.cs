@@ -33,19 +33,19 @@ namespace Bellatrix.Desktop.Services
 
         public static WindowsDriver<WindowsElement> Create(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
         {
-            var driverOptions = childContainer.Resolve<DesiredCapabilities>(appConfiguration.ClassFullName) ?? childContainer.Resolve<DesiredCapabilities>() ?? appConfiguration.DesiredCapabilities;
-            driverOptions.SetCapability("app", appConfiguration.AppPath);
-            driverOptions.SetCapability("deviceName", "WindowsPC");
-            driverOptions.SetCapability("platformName", "Windows");
+            var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? childContainer.Resolve<AppiumOptions>() ?? appConfiguration.AppiumOptioons;
+            driverOptions.AddAdditionalCapability("app", appConfiguration.AppPath);
+            driverOptions.AddAdditionalCapability("deviceName", "WindowsPC");
+            driverOptions.AddAdditionalCapability("platformName", "Windows");
             string workingDir = Path.GetDirectoryName(appConfiguration.AppPath);
-            driverOptions.SetCapability("appWorkingDir", workingDir);
-            driverOptions.SetCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().CreateSessionTimeout);
-            driverOptions.SetCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().WaitForAppLaunchTimeout);
+            driverOptions.AddAdditionalCapability("appWorkingDir", workingDir);
+            ////driverOptions.AddAdditionalCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().CreateSessionTimeout);
+            ////driverOptions.AddAdditionalCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().WaitForAppLaunchTimeout);
 
             var additionalCapabilities = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{appConfiguration.ClassFullName}") ?? new Dictionary<string, object>();
             foreach (var additionalCapability in additionalCapabilities)
             {
-                driverOptions.SetCapability(additionalCapability.Key, additionalCapability.Value);
+                driverOptions.AddAdditionalCapability(additionalCapability.Key, additionalCapability.Value);
             }
 
             var wrappedWebDriver = new WindowsDriver<WindowsElement>(new Uri(_serviceUrl), driverOptions);

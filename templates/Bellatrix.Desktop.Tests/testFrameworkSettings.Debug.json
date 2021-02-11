@@ -14,7 +14,7 @@
     "port": "4722"
   },
   "videoRecordingSettings": {
-    "isEnabled": "true",
+    "isEnabled": "false",
     "waitAfterFinishRecordingMilliseconds": "500",
     "filePath": "ApplicationData\\Troubleshooting\\Videos"
   },

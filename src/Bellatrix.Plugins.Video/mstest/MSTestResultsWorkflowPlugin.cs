@@ -19,7 +19,7 @@ namespace Bellatrix.Results.MSTest
 {
     public class MSTestResultsWorkflowPlugin : Plugin, IVideoPlugin
     {
-        public TestContext TestContext { get; set; }
+        public static TestContext TestContext { get; set; }
 
         public void SubscribeVideoPlugin(IVideoPluginProvider provider)
         {
@@ -35,7 +35,14 @@ namespace Bellatrix.Results.MSTest
         {
             if (!string.IsNullOrEmpty(args.VideoPath))
             {
-                TestContext.AddResultFile(args.VideoPath);
+                try
+                {
+                    TestContext?.AddResultFile(args.VideoPath);
+                }
+                catch
+                {
+                    // ignore
+                }
             }
         }
     }

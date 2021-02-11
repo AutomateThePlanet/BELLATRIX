@@ -39,7 +39,14 @@ namespace Bellatrix.Results.NUnit
         {
             if (!string.IsNullOrEmpty(args.VideoPath))
             {
-                TestContext.AddTestAttachment(args.VideoPath);
+                try
+                {
+                    TestContext.AddTestAttachment(args.VideoPath);
+                }
+                catch
+                {
+                    // ignore
+                }
             }
         }
     }

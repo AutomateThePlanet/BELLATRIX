@@ -12,9 +12,9 @@
   },
   "webSettings": {
     "shouldScrollToVisibleOnElementFound": "false",
-    "shouldWaitUntilReadyOnElementFound": "false",
+    "shouldWaitUntilReadyOnElementFound": "true",
     "shouldWaitForAngular": "false",
-    "shouldHighlightElements": "true",
+    "shouldHighlightElements": "false",
     "chrome": {
       "pageLoadTimeout": "30",
       "scriptTimeout": "1",
@@ -28,7 +28,7 @@
     "fireFox": {
       "pageLoadTimeout": "30",
       "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "20"
+      "artificialDelayBeforeAction": "0"
     },
     "firefoxHeadless": {
       "pageLoadTimeout": "30",
@@ -87,10 +87,10 @@
     }
   },
   "webProxySettings": {
-    "isEnabled": "true"
+    "isEnabled": "false"
   },
   "videoRecordingSettings": {
-    "isEnabled": "true",
+    "isEnabled": "false",
     "waitAfterFinishRecordingMilliseconds": "500",
     "filePath": "ApplicationData\\Troubleshooting\\Videos"
   },
@@ -98,20 +98,9 @@
     "isEnabled": "true",
     "filePath": "ApplicationData\\Troubleshooting\\Screenshots"
   },
-  "loadTestingSettings": {
-    "isEnabled": "true",
-    "defaultHost": "demos.bellatrix.solutions",
-    "shouldRecordHostRequestsOnly": "true",
-    "requestsFileLocation": "AssemblyFolder\\LoadTestsRequests\\",
-    "ignoreUrlRequestsPatterns": [ ".*wp-admin.*" ]
-  },
   "imageRecognitionSettings": {
     "timeoutInSeconds": "5",
     "defaultSimilarity": "0.7"
-  },
-  "machineAutomationSettings": {
-    "isEnabled": "true",
-    "packagesToBeInstalled": [ "googlechrome", "firefox --version=65.0.2", "opera" ]
   },
   "processCleanupSettings": {
     "isParallelExecutionEnabled": "false"
