@@ -152,6 +152,22 @@
               "target": "Package",
               "version": "[5.0.1, )"
             },
+            "Microsoft.TeamFoundationServer.Client": {
+              "target": "Package",
+              "version": "[16.153.0, )"
+            },
+            "Microsoft.TeamFoundationServer.ExtendedClient": {
+              "target": "Package",
+              "version": "[16.153.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.11.7, )"
+            },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
               "suppressParent": "All",
@@ -459,6 +475,18 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.1, )"
+            },
+            "Microsoft.TeamFoundationServer.Client": {
+              "target": "Package",
+              "version": "[16.153.0, )"
+            },
+            "Microsoft.TeamFoundationServer.ExtendedClient": {
+              "target": "Package",
+              "version": "[16.153.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",

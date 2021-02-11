@@ -903,6 +903,15 @@
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
         }
       },
+      "RestSharp/106.11.7": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -2542,28 +2551,17 @@
         "dependencies": {
           "Bellatrix.Core": "2.3.0",
           "Bellatrix.Plugins.Screenshots": "2.3.0",
-          "Bellatrix.Plugins.Video": "2.3.0"
-        },
-        "compile": {
-          "bin/placeholder/Bellatrix.BugReporting.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Bellatrix.BugReporting.dll": {}
-        }
-      },
-      "Bellatrix.BugReporting.AzureDevOps/2.3.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "Bellatrix.BugReporting": "2.3.0",
+          "Bellatrix.Plugins.Video": "2.3.0",
           "Microsoft.TeamFoundationServer.Client": "16.153.0",
-          "Microsoft.TeamFoundationServer.ExtendedClient": "16.153.0"
+          "Microsoft.TeamFoundationServer.ExtendedClient": "16.153.0",
+          "Newtonsoft.Json": "12.0.3",
+          "RestSharp": "106.11.7"
         },
         "compile": {
-          "bin/placeholder/Bellatrix.BugReporting.AzureDevOps.dll": {}
+          "bin/placeholder/Bellatrix.BugReporting.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Bellatrix.BugReporting.AzureDevOps.dll": {}
+          "bin/placeholder/Bellatrix.BugReporting.dll": {}
         }
       },
       "Bellatrix.Core/2.3.0": {
@@ -2591,28 +2589,16 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "Bellatrix.Core": "2.3.0"
-        },
-        "compile": {
-          "bin/placeholder/Bellatrix.DynamicTestCases.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Bellatrix.DynamicTestCases.dll": {}
-        }
-      },
-      "Bellatrix.DynamicTestCases.AzureDevOps/2.3.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "Bellatrix.DynamicTestCases": "2.3.0",
+          "Bellatrix.Core": "2.3.0",
           "Microsoft.TeamFoundationServer.Client": "16.153.0",
-          "Microsoft.TeamFoundationServer.ExtendedClient": "16.153.0"
+          "Microsoft.TeamFoundationServer.ExtendedClient": "16.153.0",
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
-          "bin/placeholder/Bellatrix.DynamicTestCases.AzureDevOps.dll": {}
+          "bin/placeholder/Bellatrix.DynamicTestCases.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Bellatrix.DynamicTestCases.AzureDevOps.dll": {}
+          "bin/placeholder/Bellatrix.DynamicTestCases.dll": {}
         }
       },
       "Bellatrix.ImageRecognition/2.3.0": {
@@ -4818,6 +4804,22 @@
         "lib/netstandard2.0/BouncyCastle.Crypto.xml",
         "portable.bouncycastle.1.8.8.nupkg.sha512",
         "portable.bouncycastle.nuspec"
+      ]
+    },
+    "RestSharp/106.11.7": {
+      "sha512": "NzndH096CTulvq+ihr7u1mBJ29oukdi9A8bypQJk+kaHxbRzTTrtgsEEQAb04ptTUZmQa7cgo7uF5z7NuEPX1Q==",
+      "type": "package",
+      "path": "restsharp/106.11.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/RestSharp.dll",
+        "lib/net452/RestSharp.xml",
+        "lib/netstandard2.0/RestSharp.dll",
+        "lib/netstandard2.0/RestSharp.xml",
+        "restsharp.106.11.7.nupkg.sha512",
+        "restsharp.nuspec",
+        "restsharp.png"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -9360,11 +9362,6 @@
       "path": "../../src/Bellatrix.BugReporting/Bellatrix.BugReporting.csproj",
       "msbuildProject": "../../src/Bellatrix.BugReporting/Bellatrix.BugReporting.csproj"
     },
-    "Bellatrix.BugReporting.AzureDevOps/2.3.0": {
-      "type": "project",
-      "path": "../../src/Bellatrix.BugReporting.AzureDevOps/Bellatrix.BugReporting.AzureDevOps.csproj",
-      "msbuildProject": "../../src/Bellatrix.BugReporting.AzureDevOps/Bellatrix.BugReporting.AzureDevOps.csproj"
-    },
     "Bellatrix.Core/2.3.0": {
       "type": "project",
       "path": "../../src/Bellatrix.Core/Bellatrix.Core.csproj",
@@ -9374,11 +9371,6 @@
       "type": "project",
       "path": "../../src/Bellatrix.DynamicTestCases/Bellatrix.DynamicTestCases.csproj",
       "msbuildProject": "../../src/Bellatrix.DynamicTestCases/Bellatrix.DynamicTestCases.csproj"
-    },
-    "Bellatrix.DynamicTestCases.AzureDevOps/2.3.0": {
-      "type": "project",
-      "path": "../../src/Bellatrix.DynamicTestCases.AzureDevOps/Bellatrix.DynamicTestCases.AzureDevOps.csproj",
-      "msbuildProject": "../../src/Bellatrix.DynamicTestCases.AzureDevOps/Bellatrix.DynamicTestCases.AzureDevOps.csproj"
     },
     "Bellatrix.ImageRecognition/2.3.0": {
       "type": "project",
@@ -9413,8 +9405,6 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Bellatrix.BugReporting.AzureDevOps >= 2.3.0",
-      "Bellatrix.DynamicTestCases.AzureDevOps >= 2.3.0",
       "Bellatrix.FFmpeg.Recorder >= 1.3.0",
       "Bellatrix.ImageRecognition >= 2.3.0",
       "Bellatrix.Results.Allure >= 2.3.0",
@@ -9468,12 +9458,6 @@
           "projectReferences": {
             "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Allure\\Bellatrix.Results.Allure.csproj": {
               "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Allure\\Bellatrix.Results.Allure.csproj"
-            },
-            "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.BugReporting.AzureDevOps\\Bellatrix.BugReporting.AzureDevOps.csproj": {
-              "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.BugReporting.AzureDevOps\\Bellatrix.BugReporting.AzureDevOps.csproj"
-            },
-            "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.DynamicTestCases.AzureDevOps\\Bellatrix.DynamicTestCases.AzureDevOps.csproj": {
-              "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.DynamicTestCases.AzureDevOps\\Bellatrix.DynamicTestCases.AzureDevOps.csproj"
             },
             "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.ImageRecognition\\Bellatrix.ImageRecognition.csproj": {
               "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.ImageRecognition\\Bellatrix.ImageRecognition.csproj"

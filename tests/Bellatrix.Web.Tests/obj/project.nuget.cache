@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EMJP+V0IRki17NsDLFlr9zLQISCdzX2cLsgl+RiIjXbB9rkLZnbe31GhsFJXEw0DoRNs1ewFycYK3bNdC684Dw==",
+  "dgSpecHash": "wVJApQ9lnuzJ90O3dOEZsrPOjV7ksCXzdBpjBNmekMsHKd5pb2xxtj25Sj4Jcna6kUsVFMm9OiPVsPFIskmgrw==",
   "success": true,
   "projectFilePath": "D:\\SourceCode\\BELLATRIX\\tests\\Bellatrix.Web.tests\\Bellatrix.Web.Tests.csproj",
   "expectedPackageFiles": [
@@ -57,6 +57,7 @@
     "C:\\Users\\angel\\.nuget\\packages\\nuget.frameworks\\5.0.0\\nuget.frameworks.5.0.0.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\nunit\\3.12.0\\nunit.3.12.0.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\portable.bouncycastle\\1.8.8\\portable.bouncycastle.1.8.8.nupkg.sha512",
+    "C:\\Users\\angel\\.nuget\\packages\\restsharp\\106.11.7\\restsharp.106.11.7.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

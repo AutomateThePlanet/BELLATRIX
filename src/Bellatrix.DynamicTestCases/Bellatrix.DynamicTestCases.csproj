@@ -3,4 +3,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.153.0" />
+    <PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="16.153.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <Reference Include="QTestSDK">
+      <HintPath>QTestSDK.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
