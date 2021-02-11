@@ -15,10 +15,15 @@
 		<Copyright>Automate The Planet Ltd. 2021</Copyright>
 		<PackageReleaseNotes>
       - Deprecate SpecFlow projects
+      - Deprecate load testing projects
+      - Deprecate machine automation projects
+      - Deprecate BELLATRIX browser driver packages, use WebDriverManager.NET instead
       - Create simplified project structure
       - Simplify project templates
-      - Deprecate BELLATRIX browser driver packages, use WebDriverManager.NET instead
       - Refactor BELLATRIX plugins- easier usage
+      - Simplify usage of screenshots and videos on failure
+      - Merge NUnit and MSTest project templates for easier usage
+      - Merge Android and IOS project templates for easier usage
     </PackageReleaseNotes>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<!--<PackageIcon>bellatrix_icon.png</PackageIcon>-->
