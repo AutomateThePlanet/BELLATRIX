@@ -86,19 +86,12 @@
       "key": "mySecretKey"
     }
   },
-  "loadTestingSettings": {
-    "isEnabled": "true",
-    "defaultHost": "demos.bellatrix.solutions",
-    "shouldRecordHostRequestsOnly": "true",
-    "requestsFileLocation": "AssemblyFolder\\LoadTestsRequests\\",
-    "ignoreUrlRequestsPatterns": [ ".*wp-admin.*" ]
-  },
   "webProxySettings": {
-    "isEnabled": "true",
-    "pathToSslCertificate": "bellatrix.cer"
+    "isEnabled": "false",
+    "pathToSslCertificate": "demandplanning.cer"
   },
   "videoRecordingSettings": {
-    "isEnabled": "true",
+    "isEnabled": "false",
     "waitAfterFinishRecordingMilliseconds": "500",
     "filePath": "ApplicationData\\Troubleshooting\\Videos"
   },
@@ -109,10 +102,6 @@
   "imageRecognitionSettings": {
     "timeoutInSeconds": "5",
     "defaultSimilarity": "0.7"
-  },
-  "machineAutomationSettings": {
-    "isEnabled": "true",
-    "packagesToBeInstalled": [ "googlechrome", "firefox --version=65.0.2", "opera" ]
   },
   "loggingSettings": {
     "isEnabled": "true",
@@ -186,67 +175,31 @@
     "weekLocalPage": "TestPages\\Week\\week.html",
     "tableWebPage": "http://fiddle.jshell.net/angelovstanton/8066fzws/4/show/",
     "tableLocalPage": "TestPages\\Table\\table.html",
-    "layoutPricingPage": "TestPages\\Layout\\pricing.html",
-    "gridLocalPage": "TestPages\\Grid\\grid.html"
+    "layoutPricingPage": "TestPages\\Layout\\pricing.html"
   },
-  //"qTestDynamicTestCasesSettings": {
-  //  "isEnabled": "true",
-  //  "serviceAddress": "https://aangelovbella.qtestnet.com/",
-  //  "token": "",
-  //  "userName": "aangelov@automatetheplanet.com",
-  //  "password": "Rq7d3PBjPw",
-  //  "projectId": "99370",
-  //  "fieldValues": [
-  //    //{
-  //    //  "id": "7057261",
-  //    //  "value": "702",
-  //    //  "displayValue": "Automation"
-  //    //},
-  //    //{
-  //    //  "id": "7057269",
-  //    //  "value": "[1]",
-  //    //  "displayValue": "[UX]"
-  //    //},
-  //    //{
-  //    //  "id": "7057271",
-  //    //  "value": "46",
-  //    //  "displayValue": "Accounting-Adaptive OfficeConnect"
-  //    //}
-  //  ]
-  //},
-  //"azureDevOpsDynamicTestCasesSettings": {
-  //  "isEnabled": "true",
-  //  "url": "https://dev.azure.com/automatetheplanet",
-  //  "token": "hxzwhzjwmm5q4uewqdt5ljgq3lojmw5ml22sd6umdaewugsrheza",
-  //  "organizationName": "automatetheplanet",
-  //  "projectName": "AutomateThePlanet"
-  //},
-  //AzureDevOps bugs
-  //"azureDevOpsBugReportingSettings": {
-  //  "isEnabled": "true",
-  //  "url": "https://dev.azure.com/automatetheplanet",
-  //  "token": "hxzwhzjwmm5q4uewqdt5ljgq3lojmw5ml22sd6umdaewugsrheza",
-  //  "organizationName": "automatetheplanet",
-  //  "projectName": "AutomateThePlanet",
-  //  "defaultPriority": "2",
-  //  "defaultSeverity": "2 - High"
-  //}
-  //"jiraBugReportingSettings": {
-  //  "isEnabled": "true",
-  //  "url": "https://automatetheplanetbellatrix.atlassian.net/",
-  //  "token": "YW5nZWxvdi5zdC5hbnRvbkBnbWFpbC5jb206Y2hwUHU4ckxEZUVmWDN2dGR1YVdCMUFG",
-  //  "projectName": "BEL",
-  //  "defaultPriority": "Medium"
-  //}
-  "bugReportingSettings": {
+  "dynamicTestCasesSettings": {
     "isEnabled": "true",
-    "url": "http://localhost:3978/",
-    "authorizationToken": "24dd9f96-7dec-4a7e-93d0-fc770f4cc582",
-    "projectName": "Bellatrix",
-    "companyName": "AutomateThePlanet"
-  },
-  "botServiceSettings": {
-    "companyName": "AutomateThePlanet",
-    "projectName": "Bellatrix"
+    "serviceAddress": "https://plex1.qtestnet.com/",
+    "token": "",
+    "userName": "aangelov@plex.com",
+    "password": "Kk!9VTi*h460",
+    "projectId": "92404",
+    "fieldValues": [
+      {
+        "id": "7057261",
+        "value": "702",
+        "displayValue": "Automation"
+      },
+      {
+        "id": "7057269",
+        "value": "[1]",
+        "displayValue": "[UX]"
+      },
+      {
+        "id": "7057271",
+        "value": "46",
+        "displayValue": "Accounting-Adaptive OfficeConnect"
+      }
+    ]
   }
 }

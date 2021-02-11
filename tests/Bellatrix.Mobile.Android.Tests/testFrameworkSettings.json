@@ -26,11 +26,11 @@
             "key":  "d4qq6H9xYs7gvzW3NGDx" 
         }
     },
-    "videoRecordingSettings": {
-        "isEnabled": "true",
-        "waitAfterFinishRecordingMilliseconds": "500",
-        "filePath": "ApplicationData\\Troubleshooting\\Videos"
-    },
+  "videoRecordingSettings": {
+    "isEnabled": "false",
+    "waitAfterFinishRecordingMilliseconds": "500",
+    "filePath": "ApplicationData\\Troubleshooting\\Videos"
+  },
     "screenshotsSettings": {
         "isEnabled": "true",
         "filePath": "ApplicationData\\Troubleshooting\\Screenshots"
