@@ -19,10 +19,10 @@ namespace Bellatrix.Mobile.Android.Tests
     [AndroidWeb(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("Services")]
     [AllureFeature("WebService")]
-    public class WebAppTests : AndroidTest
+    public class WebAppTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

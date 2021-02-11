@@ -21,9 +21,9 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.RadioGroup1",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("RadioGroup Control")]
-    public class RadioGroupControlTests : AndroidTest
+    public class RadioGroupControlTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

@@ -24,10 +24,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".ApiDemos",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Services")]
     [AllureFeature("FileSystemService")]
-    public class FileSystemServiceTests : AndroidTest
+    public class FileSystemServiceTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

@@ -22,10 +22,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".ApiDemos",
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("Services")]
     [AllureFeature("TouchActionsService")]
-    public class TouchActionsServiceTests : AndroidTest
+    public class TouchActionsServiceTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

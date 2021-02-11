@@ -24,10 +24,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Services")]
     [AllureFeature("AppService")]
-    public class AppServiceTests : AndroidTest
+    public class AppServiceTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

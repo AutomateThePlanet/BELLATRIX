@@ -21,10 +21,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("ComboBox Control")]
     [AllureFeature("ValidateExtensions")]
-    public class ComboBoxControlValidateExtensionsTests : AndroidTest
+    public class ComboBoxControlValidateExtensionsTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

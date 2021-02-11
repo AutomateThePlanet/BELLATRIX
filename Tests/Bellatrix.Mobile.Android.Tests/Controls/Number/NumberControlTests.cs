@@ -21,9 +21,9 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.NumberPickerActivity",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Number Control")]
-    public class NumberControlTests : AndroidTest
+    public class NumberControlTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

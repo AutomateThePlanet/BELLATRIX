@@ -21,9 +21,9 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.SeekBar1",
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("SeekBar Control")]
-    public class SeekBarControlTests : AndroidTest
+    public class SeekBarControlTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

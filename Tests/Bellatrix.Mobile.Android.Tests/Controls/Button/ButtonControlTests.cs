@@ -21,9 +21,9 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Button Control")]
-    public class ButtonControlTests : AndroidTest
+    public class ButtonControlTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

@@ -21,9 +21,9 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Switches",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Switch Control")]
-    public class SwitchControlTests : AndroidTest
+    public class SwitchControlTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

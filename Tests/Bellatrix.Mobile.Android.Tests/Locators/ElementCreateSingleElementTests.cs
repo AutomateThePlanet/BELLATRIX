@@ -23,10 +23,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidRealDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.ControlsMaterialDark",
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("Services")]
     [AllureFeature("ElementCreateService")]
-    public class ElementCreateSingleElementTests : AndroidTest
+    public class ElementCreateSingleElementTests : MSTest.AndroidTest
     {
         private Element _mainElement;
 

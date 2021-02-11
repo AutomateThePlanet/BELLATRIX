@@ -21,10 +21,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Button Control")]
     [AllureFeature("ValidateExtensions")]
-    public class ButtonControlValidateExtensionsTests : AndroidTest
+    public class ButtonControlValidateExtensionsTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

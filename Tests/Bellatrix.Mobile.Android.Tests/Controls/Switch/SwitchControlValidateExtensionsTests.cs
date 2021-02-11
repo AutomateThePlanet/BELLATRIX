@@ -21,10 +21,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Switches",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Switch Control")]
     [AllureFeature("ValidateExtensions")]
-    public class SwitchControlValidateExtensionsTests : AndroidTest
+    public class SwitchControlValidateExtensionsTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

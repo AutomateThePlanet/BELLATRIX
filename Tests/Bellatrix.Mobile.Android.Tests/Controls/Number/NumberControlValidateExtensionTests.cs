@@ -21,10 +21,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.NumberPickerActivity",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Number Control")]
     [AllureFeature("ValidateExtensions")]
-    public class NumberControlValidateExtensionTests : AndroidTest
+    public class NumberControlValidateExtensionTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

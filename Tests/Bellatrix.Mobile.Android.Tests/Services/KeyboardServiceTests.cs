@@ -24,10 +24,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".app.CustomTitle",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Services")]
     [AllureFeature("KeyboardService")]
-    public class KeyboardServiceTests : AndroidTest
+    public class KeyboardServiceTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

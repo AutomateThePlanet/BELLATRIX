@@ -21,10 +21,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("ToggleButton Control")]
     [AllureFeature("ValidateExtensions")]
-    public class ToggleButtonControlValidateExtensionsTests : AndroidTest
+    public class ToggleButtonControlValidateExtensionsTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

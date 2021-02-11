@@ -25,10 +25,10 @@ namespace Bellatrix.Mobile.Android.Tests
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.ControlsMaterialDark",
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("Services")]
     [AllureFeature("DeviceService")]
-    public class DeviceServiceTests : AndroidTest
+    public class DeviceServiceTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

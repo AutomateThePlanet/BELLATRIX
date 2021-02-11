@@ -6,7 +6,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Attributes\" />
+    <Folder Include="attributes\" />
   </ItemGroup>
   
   <ItemGroup>

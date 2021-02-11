@@ -16,23 +16,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Mobile.Android.Tests
 {
     [TestClass]
-    public class TestsInitialize : AndroidTest
+    public class TestsInitialize
     {
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            var app = new AndroidApp();
-
-            app.UseMsTestSettings();
-            app.UseAppBehavior();
-            app.UseLogExecutionBehavior();
-            app.UseFFmpegVideoRecorder();
-            app.UseAndroidDriverScreenshotsOnFail();
-            app.UseElementsBddLogging();
-            app.UseValidateExtensionsBddLogging();
-            app.UseLayoutAssertionExtensionsBddLogging();
-            app.StartAppiumLocalService();
-            app.UseAllure();
+            AllurePlugin.Add();
+            AndroidApp.StartAppiumLocalService();
         }
 
         [AssemblyCleanup]
