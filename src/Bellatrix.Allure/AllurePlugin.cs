@@ -23,7 +23,7 @@ namespace Bellatrix
 {
     public static class AllurePlugin
     {
-        public static void UseAllure()
+        public static void Add()
         {
             ServicesCollection.Current.RegisterType<Plugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
             ServicesCollection.Current.RegisterType<IScreenshotPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());

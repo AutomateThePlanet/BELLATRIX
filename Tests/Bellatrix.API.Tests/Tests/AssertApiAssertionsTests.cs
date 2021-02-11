@@ -14,7 +14,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using Bellatrix.Api;
-using Bellatrix.TestExecutionExtensions.Api;
 using MediaStore.Demo.API.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
@@ -25,7 +24,7 @@ namespace Bellatrix.API.Tests
     [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
     [AllureFeature("API Assertions")]
     [AllureSuite("API Assertions")]
-    public class AssertApiAssertionsTests : APITest
+    public class AssertApiAssertionsTests : MSTest.APITest
     {
         private ApiClientService _apiClientService;
 

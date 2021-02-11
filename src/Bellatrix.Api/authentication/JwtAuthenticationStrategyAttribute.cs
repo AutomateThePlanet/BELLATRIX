@@ -11,9 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using Bellatrix.Plugins.Api;
 using RestSharp.Authenticators;
 
-namespace Bellatrix.Plugins.Api
+namespace Bellatrix
 {
     /// <summary>
     ///     JSON WEB TOKEN (JWT) Authenticator class.

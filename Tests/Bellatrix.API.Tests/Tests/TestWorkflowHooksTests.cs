@@ -21,7 +21,7 @@ namespace Bellatrix.API.Tests
 {
     [TestClass]
     [AllureSuite("TestWorkflowHooks")]
-    public class TestWorkflowHooksTests : APITest
+    public class TestWorkflowHooksTests : MSTest.APITest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.
         // It gives you the possibility to execute your logic in every part of the test workflow.

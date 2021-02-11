@@ -14,7 +14,7 @@
 using System;
 using Bellatrix.Plugins.Api.Retry;
 
-namespace Bellatrix.Plugins.Api
+namespace Bellatrix
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     public class RetryFailedRequestsAttribute : Attribute

@@ -14,7 +14,7 @@
 using System;
 using RestSharp.Authenticators;
 
-namespace Bellatrix.Plugins.Api
+namespace Bellatrix
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
     public abstract class AuthenticationStrategyAttribute : Attribute

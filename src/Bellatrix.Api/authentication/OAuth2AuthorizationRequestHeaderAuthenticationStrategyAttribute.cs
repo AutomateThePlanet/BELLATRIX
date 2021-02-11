@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp.Authenticators;
 
-namespace Bellatrix.Plugins.Api
+namespace Bellatrix
 {
     /// <summary>
     ///     The OAuth 2 authenticator using the authorization request header field.

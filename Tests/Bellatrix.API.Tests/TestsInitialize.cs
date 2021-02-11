@@ -27,16 +27,7 @@ namespace Bellatrix.API.Tests
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            var app = new App();
-
-            app.UseMsTestSettings();
-            app.UseExecutionTimeUnderExtensions();
-            app.UseApiAuthenticationStrategies();
-            app.UseApiExtensionsBddLogging();
-            app.UseAssertExtensionsBddLogging();
-            app.UseLogExecution();
-            app.UseRetryFailedRequests();
-            app.UseAllure();
+            AllurePlugin.Add();
             string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");
             _testApiProcess = ProcessProvider.StartProcess("dotnet", workingDir, " run", true);
             ProcessProvider.WaitPortToGetBusy(55215);

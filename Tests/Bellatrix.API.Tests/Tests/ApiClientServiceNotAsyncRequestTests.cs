@@ -16,8 +16,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using Bellatrix.Api;
-using Bellatrix.TestExecutionExtensions.Api;
-using Bellatrix.TestExecutionExtensions.Common.ExecutionTime;
 using MediaStore.Demo.API.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
@@ -29,7 +27,7 @@ namespace Bellatrix.API.Tests
     [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
     [AllureFeature("Not Async Requests")]
     [AllureSuite("Not Async Requests")]
-    public class ApiClientServiceNotAsyncRequestTests : APITest
+    public class ApiClientServiceNotAsyncRequestTests : MSTest.APITest
     {
         private ApiClientService _apiClientService;
         private Fixture _fixture;

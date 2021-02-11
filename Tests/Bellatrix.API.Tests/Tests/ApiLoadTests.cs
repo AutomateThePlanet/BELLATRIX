@@ -12,7 +12,6 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Api;
-using Bellatrix.TestExecutionExtensions.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
@@ -22,7 +21,7 @@ namespace Bellatrix.API.Tests
     [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
     [AllureFeature("Load Testing")]
     [AllureSuite("Load Testing")]
-    public class ApiLoadTests : APITest
+    public class ApiLoadTests : MSTest.APITest
     {
         private ApiClientService _apiClientService;
 

@@ -16,7 +16,7 @@ using System.Reflection;
 using Bellatrix.Plugins;
 using RestSharp.Authenticators;
 
-namespace Bellatrix.Plugins.Api
+namespace Bellatrix
 {
     public class ApiAuthenticationWorkflowPlugin : Plugin
     {
