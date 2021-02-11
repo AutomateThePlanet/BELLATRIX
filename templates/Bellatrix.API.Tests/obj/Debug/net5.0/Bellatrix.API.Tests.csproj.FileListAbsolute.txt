@@ -8,12 +8,7 @@ D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\NUnit3.Te
 D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\nunit.engine.dll
 D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\nunit.engine.api.dll
 D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\nunit.engine.core.dll
-D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\.editorconfig
-D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\stylecop.json
-D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\StyleCopeRules.ruleset
 D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\testFrameworkSettings.Debug.json
-D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\testFrameworkSettings.json
-D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\testFrameworkSettings.Release.json
 D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\Bellatrix.API.Tests.deps.json
 D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\Bellatrix.API.Tests.runtimeconfig.json
 D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\bin\Debug\net5.0\Bellatrix.API.Tests.runtimeconfig.dev.json
@@ -147,3 +142,5 @@ D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\obj\Debug\net5.0\Bellatrix
 D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\obj\Debug\net5.0\ref\Bellatrix.API.Tests.dll
 D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\obj\Debug\net5.0\Bellatrix.API.Tests.pdb
 D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\obj\Debug\net5.0\Bellatrix.API.Tests.genruntimeconfig.cache
+D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\obj\Debug\net5.0\Bellatrix.API.Tests.AssemblyInfoInputs.cache
+D:\SourceCode\BELLATRIX\templates\Bellatrix.API.Tests\obj\Debug\net5.0\Bellatrix.API.Tests.AssemblyInfo.cs

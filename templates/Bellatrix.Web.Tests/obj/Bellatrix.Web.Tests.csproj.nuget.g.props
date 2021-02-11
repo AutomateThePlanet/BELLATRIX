@@ -20,22 +20,14 @@
     <Import Project="$(NuGetPackageRoot)nunit\3.12.0\build\NUnit.props" Condition="Exists('$(NuGetPackageRoot)nunit\3.12.0\build\NUnit.props')" />
     <Import Project="$(NuGetPackageRoot)mstest.testadapter\2.1.2\build\netcoreapp1.0\MSTest.TestAdapter.props" Condition="Exists('$(NuGetPackageRoot)mstest.testadapter\2.1.2\build\netcoreapp1.0\MSTest.TestAdapter.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.testplatform.testhost\16.8.0\build\netcoreapp2.1\Microsoft.TestPlatform.TestHost.props" Condition="Exists('$(NuGetPackageRoot)microsoft.testplatform.testhost\16.8.0\build\netcoreapp2.1\Microsoft.TestPlatform.TestHost.props')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.netframework.analyzers\3.3.1\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.netframework.analyzers\3.3.1\build\Microsoft.NetFramework.Analyzers.props')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.netcore.analyzers\3.3.1\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.netcore.analyzers\3.3.1\build\Microsoft.NetCore.Analyzers.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.codecoverage\16.8.0\build\netstandard1.0\Microsoft.CodeCoverage.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codecoverage\16.8.0\build\netstandard1.0\Microsoft.CodeCoverage.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.net.test.sdk\16.8.0\build\netcoreapp2.1\Microsoft.NET.Test.Sdk.props" Condition="Exists('$(NuGetPackageRoot)microsoft.net.test.sdk\16.8.0\build\netcoreapp2.1\Microsoft.NET.Test.Sdk.props')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.codequality.analyzers\3.3.1\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codequality.analyzers\3.3.1\build\Microsoft.CodeQuality.Analyzers.props')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.codeanalysis.versioncheckanalyzer\3.3.1\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codeanalysis.versioncheckanalyzer\3.3.1\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.codeanalysis.fxcopanalyzers\3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codeanalysis.fxcopanalyzers\3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.codeanalysis.netanalyzers\5.0.1\build\Microsoft.CodeAnalysis.NetAnalyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codeanalysis.netanalyzers\5.0.1\build\Microsoft.CodeAnalysis.NetAnalyzers.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgStyleCop_Analyzers Condition=" '$(PkgStyleCop_Analyzers)' == '' ">C:\Users\angel\.nuget\packages\stylecop.analyzers\1.1.118</PkgStyleCop_Analyzers>
     <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Users\angel\.nuget\packages\newtonsoft.json\10.0.3</PkgNewtonsoft_Json>
-    <PkgMicrosoft_NetFramework_Analyzers Condition=" '$(PkgMicrosoft_NetFramework_Analyzers)' == '' ">C:\Users\angel\.nuget\packages\microsoft.netframework.analyzers\3.3.1</PkgMicrosoft_NetFramework_Analyzers>
-    <PkgMicrosoft_NetCore_Analyzers Condition=" '$(PkgMicrosoft_NetCore_Analyzers)' == '' ">C:\Users\angel\.nuget\packages\microsoft.netcore.analyzers\3.3.1</PkgMicrosoft_NetCore_Analyzers>
-    <PkgMicrosoft_CodeQuality_Analyzers Condition=" '$(PkgMicrosoft_CodeQuality_Analyzers)' == '' ">C:\Users\angel\.nuget\packages\microsoft.codequality.analyzers\3.3.1</PkgMicrosoft_CodeQuality_Analyzers>
-    <PkgMicrosoft_CodeAnalysis_VersionCheckAnalyzer Condition=" '$(PkgMicrosoft_CodeAnalysis_VersionCheckAnalyzer)' == '' ">C:\Users\angel\.nuget\packages\microsoft.codeanalysis.versioncheckanalyzer\3.3.1</PkgMicrosoft_CodeAnalysis_VersionCheckAnalyzer>
-    <PkgMicrosoft_CodeAnalysis_FxCopAnalyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_FxCopAnalyzers)' == '' ">C:\Users\angel\.nuget\packages\microsoft.codeanalysis.fxcopanalyzers\3.3.1</PkgMicrosoft_CodeAnalysis_FxCopAnalyzers>
+    <PkgMicrosoft_CodeAnalysis_NetAnalyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_NetAnalyzers)' == '' ">C:\Users\angel\.nuget\packages\microsoft.codeanalysis.netanalyzers\5.0.1</PkgMicrosoft_CodeAnalysis_NetAnalyzers>
     <PkgBellatrix_FFmpeg_Recorder Condition=" '$(PkgBellatrix_FFmpeg_Recorder)' == '' ">C:\Users\angel\.nuget\packages\bellatrix.ffmpeg.recorder\1.3.0</PkgBellatrix_FFmpeg_Recorder>
   </PropertyGroup>
 </Project>

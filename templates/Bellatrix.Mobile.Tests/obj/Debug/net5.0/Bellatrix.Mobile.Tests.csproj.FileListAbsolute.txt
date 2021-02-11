@@ -8,7 +8,6 @@ D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\bin\Debug\net5.0\NUnit3
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\bin\Debug\net5.0\nunit.engine.dll
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\bin\Debug\net5.0\nunit.engine.api.dll
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\bin\Debug\net5.0\nunit.engine.core.dll
-D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\bin\Debug\net5.0\StyleCopeRules.ruleset
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\bin\Debug\net5.0\testFrameworkSettings.Debug.json
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\bin\Debug\net5.0\Bellatrix.Mobile.Tests.deps.json
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\bin\Debug\net5.0\Bellatrix.Mobile.Tests.runtimeconfig.json
@@ -156,3 +155,5 @@ D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\obj\Debug\net5.0\Bellat
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\obj\Debug\net5.0\ref\Bellatrix.Mobile.Tests.dll
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\obj\Debug\net5.0\Bellatrix.Mobile.Tests.pdb
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\obj\Debug\net5.0\Bellatrix.Mobile.Tests.genruntimeconfig.cache
+D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\obj\Debug\net5.0\Bellatrix.Mobile.Tests.AssemblyInfoInputs.cache
+D:\SourceCode\BELLATRIX\templates\Bellatrix.Mobile.Tests\obj\Debug\net5.0\Bellatrix.Mobile.Tests.AssemblyInfo.cs

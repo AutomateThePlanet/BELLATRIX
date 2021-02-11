@@ -150,3 +150,5 @@ D:\SourceCode\BELLATRIX\templates\Bellatrix.Web.Tests\bin\Debug\net5.0\System.Ma
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Web.Tests\bin\Debug\net5.0\System.Xml.XPath.XmlDocument.dll
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Web.Tests\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.0\System.Management.dll
 D:\SourceCode\BELLATRIX\templates\Bellatrix.Web.Tests\obj\Debug\net5.0\Bellatrix.Web.Tests.genruntimeconfig.cache
+D:\SourceCode\BELLATRIX\templates\Bellatrix.Web.Tests\obj\Debug\net5.0\Bellatrix.Web.Tests.AssemblyInfoInputs.cache
+D:\SourceCode\BELLATRIX\templates\Bellatrix.Web.Tests\obj\Debug\net5.0\Bellatrix.Web.Tests.AssemblyInfo.cs

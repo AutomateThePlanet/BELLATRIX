@@ -555,7 +555,7 @@
       }
     },
     "D:\\SourceCode\\BELLATRIX\\templates\\Bellatrix.API.GettingStarted\\Bellatrix.API.GettingStarted.csproj": {
-      "version": "1.0.0",
+      "version": "2.3.0",
       "restore": {
         "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\templates\\Bellatrix.API.GettingStarted\\Bellatrix.API.GettingStarted.csproj",
         "projectName": "Bellatrix.API.GettingStarted",
@@ -594,6 +594,7 @@
         "warningProperties": {
           "allWarningsAsErrors": true,
           "noWarn": [
+            "NU1608",
             "NU1701",
             "NU1702"
           ]
@@ -619,11 +620,11 @@
               "target": "Package",
               "version": "[2.1.2, )"
             },
-            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+            "Microsoft.CodeAnalysis.NetAnalyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.3.1, )"
+              "version": "[5.0.1, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -645,10 +646,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[1.1.118, )",
-              "noWarn": [
-                "NU1701"
-              ]
+              "version": "[1.1.118, )"
             },
             "System.Security.Permissions": {
               "target": "Package",
