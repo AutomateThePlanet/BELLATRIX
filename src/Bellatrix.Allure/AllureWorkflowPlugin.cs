@@ -17,10 +17,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Allure.Commons;
+using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Plugins.Video.Plugins;
-using Bellatrix.Plugins;
 using Newtonsoft.Json.Linq;
 
 namespace Bellatrix.Results.Allure

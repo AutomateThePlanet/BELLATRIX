@@ -31,7 +31,7 @@ namespace Bellatrix.Mobile
         where TDriver : AppiumDriver<TDriverElement>
         where TDriverElement : AppiumWebElement
     {
-        private readonly bool _shouldStartAppiumLocalService;
+        private static bool _shouldStartAppiumLocalService;
 
         public App()
         {
@@ -46,7 +46,7 @@ namespace Bellatrix.Mobile
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
-        public void StartAppiumLocalService()
+        public static void StartAppiumLocalService()
         {
             if (_shouldStartAppiumLocalService)
             {

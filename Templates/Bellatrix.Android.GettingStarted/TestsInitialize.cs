@@ -8,8 +8,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            var app = new AndroidApp();
-            app.StartAppiumLocalService();
+            AndroidApp.StartAppiumLocalService();
         }
 
         [AssemblyCleanup]

@@ -8,8 +8,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            var app = new IOSApp();
-            app.StartAppiumLocalService();
+            IOSApp.StartAppiumLocalService();
         }
 
         [AssemblyCleanup]

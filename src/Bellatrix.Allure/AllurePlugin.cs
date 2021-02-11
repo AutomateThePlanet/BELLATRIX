@@ -14,10 +14,10 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Bellatrix.Results.Allure;
+using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Plugins.Video.Plugins;
-using Bellatrix.Plugins;
+using Bellatrix.Results.Allure;
 
 namespace Bellatrix
 {

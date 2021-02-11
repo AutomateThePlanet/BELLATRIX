@@ -14,13 +14,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 using Bellatrix.BugReporting;
 using Bellatrix.BugReporting.Contracts;
 using Bellatrix.BugReporting.Jira;
+using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Plugins.Video.Plugins;
-using Bellatrix.Plugins;
 
 namespace Bellatrix
 {
