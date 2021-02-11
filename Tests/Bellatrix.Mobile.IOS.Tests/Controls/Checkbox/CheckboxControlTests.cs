@@ -19,9 +19,9 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.AppleCalendarBundleId,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("CheckBox Control")]
-    public class CheckboxControlTests : IOSTest
+    public class CheckboxControlTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

@@ -21,10 +21,10 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Services")]
     [AllureFeature("TouchActionsService")]
-    public class TouchActionsServiceTests : IOSTest
+    public class TouchActionsServiceTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

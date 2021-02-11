@@ -19,10 +19,10 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("Label Control")]
     [AllureFeature("ValidateExtensions")]
-    public class LabelControlValidateExtensionsTests : IOSTest
+    public class LabelControlValidateExtensionsTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

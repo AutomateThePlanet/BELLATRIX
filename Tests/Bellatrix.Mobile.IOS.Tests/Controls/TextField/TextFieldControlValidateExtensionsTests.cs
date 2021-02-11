@@ -19,10 +19,10 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("TextField Control")]
     [AllureFeature("ValidateExtensions")]
-    public class TextFieldControlValidateExtensionsTests : IOSTest
+    public class TextFieldControlValidateExtensionsTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

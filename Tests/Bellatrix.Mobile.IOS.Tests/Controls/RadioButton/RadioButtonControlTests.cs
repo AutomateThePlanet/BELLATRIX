@@ -19,9 +19,9 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.AppleCalendarBundleId,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("RadioButton Control")]
-    public class RadioButtonControlTests : IOSTest
+    public class RadioButtonControlTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

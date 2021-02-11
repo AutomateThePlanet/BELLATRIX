@@ -16,23 +16,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Mobile.IOS.Tests
 {
     [TestClass]
-    public class TestsInitialize : IOSTest
+    public class TestsInitialize
     {
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            var app = new IOSApp();
-            app.UseMsTestSettings();
-            app.UseAppBehavior();
-            app.UseLogExecutionBehavior();
-            app.UseLogExecutionBehavior();
-            app.UseFFmpegVideoRecorder();
-            app.UseIOSDriverScreenshotsOnFail();
-            app.UseElementsBddLogging();
-            app.UseValidateExtensionsBddLogging();
-            app.UseLayoutAssertionExtensionsBddLogging();
-            app.StartAppiumLocalService();
-            app.UseAllure();
+            AllurePlugin.Add();
+            IOSApp.StartAppiumLocalService();
         }
 
         [AssemblyCleanup]

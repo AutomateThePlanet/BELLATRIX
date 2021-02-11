@@ -19,9 +19,9 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("Number Control")]
-    public class NumberControlTests : IOSTest
+    public class NumberControlTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

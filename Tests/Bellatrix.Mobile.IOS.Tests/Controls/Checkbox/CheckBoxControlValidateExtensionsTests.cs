@@ -19,10 +19,10 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.AppleCalendarBundleId,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("CheckBox Control")]
     [AllureFeature("ValidateExtensions")]
-    public class CheckBoxControlValidateExtensionsTests : IOSTest
+    public class CheckBoxControlValidateExtensionsTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

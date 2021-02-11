@@ -19,9 +19,9 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("ComboBox Control")]
-    public class ComboBoxControlTests : IOSTest
+    public class ComboBoxControlTests : MSTest.IOSTest
     {
         [TestMethod]
         [Ignore]

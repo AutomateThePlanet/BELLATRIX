@@ -19,9 +19,9 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("TextField Control")]
-    public class TextFieldControlTests : IOSTest
+    public class TextFieldControlTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

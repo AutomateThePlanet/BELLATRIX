@@ -19,9 +19,9 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("Tabs Control")]
-    public class TabsControlTests : IOSTest
+    public class TabsControlTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

@@ -20,10 +20,10 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Services")]
     [AllureFeature("AppService")]
-    public class AppServiceTests : IOSTest
+    public class AppServiceTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

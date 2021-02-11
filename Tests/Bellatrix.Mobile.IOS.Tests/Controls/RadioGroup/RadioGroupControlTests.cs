@@ -19,9 +19,9 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("RadioGroup Control")]
-    public class RadioGroupControlTests : IOSTest
+    public class RadioGroupControlTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

@@ -20,10 +20,10 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [AllureSuite("Button Control")]
     [AllureFeature("ValidateExtensions")]
-    public class ButtonControlValidateExtensionsExceptionMessagesTests : IOSTest
+    public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.IOSTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

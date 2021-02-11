@@ -19,9 +19,9 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("Button Control")]
-    public class ButtonControlTests : IOSTest
+    public class ButtonControlTests : MSTest.IOSTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

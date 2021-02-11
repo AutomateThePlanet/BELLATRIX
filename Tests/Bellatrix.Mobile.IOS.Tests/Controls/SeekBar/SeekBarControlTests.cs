@@ -19,9 +19,9 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("SeekBar Control")]
-    public class SeekBarControlTests : IOSTest
+    public class SeekBarControlTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

@@ -19,9 +19,9 @@ namespace Bellatrix.Mobile.IOS.Tests
     [IOS(Constants.AppleCalendarBundleId,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
+        Lifecycle.RestartEveryTime)]
     [AllureSuite("ToggleButton Control")]
-    public class ToggleButtonControlTests : IOSTest
+    public class ToggleButtonControlTests : MSTest.IOSTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]
