@@ -19,7 +19,6 @@
       - Simplify project templates
       - Deprecate BELLATRIX browser driver packages, use WebDriverManager.NET instead
       - Refactor BELLATRIX plugins- easier usage
-      - Change full page screenshot engine web with aShot
     </PackageReleaseNotes>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<!--<PackageIcon>bellatrix_icon.png</PackageIcon>-->

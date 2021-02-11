@@ -11,6 +11,8 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using Bellatrix.Web.Screenshots;
+
 namespace Bellatrix.Web.NUnit
 {
     public abstract class WebTest : NUnitBaseTest
@@ -36,6 +38,8 @@ namespace Bellatrix.Web.NUnit
             WebPluginsConfiguration.AddDynamicTestCases();
             WebPluginsConfiguration.AddBugReporting();
             WebPluginsConfiguration.AddHighlightElements();
+
+            WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
         }
     }
 }

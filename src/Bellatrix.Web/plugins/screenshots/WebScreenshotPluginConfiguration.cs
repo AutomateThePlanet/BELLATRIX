@@ -19,7 +19,7 @@ using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.Screenshots
 {
-    public static class WebScreenshotPlugin
+    public static class WebScreenshotPluginConfiguration
     {
         public static void UseFullPageScreenshotsOnFail()
         {

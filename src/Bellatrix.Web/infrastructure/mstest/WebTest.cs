@@ -12,6 +12,8 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Web.Screenshots;
+
 namespace Bellatrix.Web.MSTest
 {
     public abstract class WebTest : MSTestBaseTest
@@ -42,6 +44,8 @@ namespace Bellatrix.Web.MSTest
             WebPluginsConfiguration.AddDynamicTestCases();
             WebPluginsConfiguration.AddBugReporting();
             WebPluginsConfiguration.AddHighlightElements();
+
+            WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
         }
     }
 }
