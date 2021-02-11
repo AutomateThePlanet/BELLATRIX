@@ -10,8 +10,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
-    public class KeyboardServiceTests : AndroidTest
+        Lifecycle.ReuseIfStarted)]
+    public class KeyboardServiceTests : MSTest.AndroidTest
     {
         // 1. BELLATRIX gives you an interface for easier work with device's keyboard through KeyboardService class.
         [TestMethod]

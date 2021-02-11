@@ -43,9 +43,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Bellatrix.Mobile.MSTest\Bellatrix.Mobile.MSTest.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.Mobile.TestExecutionExtensions\Bellatrix.Mobile.TestExecutionExtensions.csproj" />
-    <ProjectReference Include="..\..\Framework\Bellatrix.Web.MSTest\Bellatrix.Web.MSTest.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Core\Bellatrix.Core.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
   </ItemGroup>
 
   <ItemGroup>

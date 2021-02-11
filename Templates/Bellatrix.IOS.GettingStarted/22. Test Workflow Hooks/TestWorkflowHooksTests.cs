@@ -7,8 +7,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.ReuseIfStarted)]
-    public class TestWorkflowHooksTests : IOSTest
+        Lifecycle.ReuseIfStarted)]
+    public class TestWorkflowHooksTests : MSTest.IOSTest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.
         // It gives you the possibility to execute your logic in every part of the test workflow.

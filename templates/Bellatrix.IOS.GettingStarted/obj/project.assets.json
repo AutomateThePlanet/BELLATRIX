@@ -76,7 +76,7 @@
           "lib/netstandard2.0/SeleniumExtras.PageObjects.dll": {}
         }
       },
-      "HtmlAgilityPack/1.11.28": {
+      "HtmlAgilityPack/1.11.30": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {}
@@ -260,15 +260,6 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.FileSystemGlobbing.dll": {}
-        }
-      },
-      "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.Primitives/5.0.0": {
@@ -729,6 +720,15 @@
       "StyleCop.Analyzers/1.1.118": {
         "type": "package"
       },
+      "System.CodeDom/5.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.CodeDom.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.CodeDom.dll": {}
+        }
+      },
       "System.Collections/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1128,6 +1128,26 @@
           "lib/netstandard1.6/System.Linq.Expressions.dll": {}
         }
       },
+      "System.Management/5.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "5.0.0",
+          "Microsoft.Win32.Registry": "5.0.0",
+          "System.CodeDom": "5.0.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Management.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Management.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.0/System.Management.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "System.ObjectModel/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1515,8 +1535,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "Bellatrix.TestExecutionExtensions.Screenshots": "2.3.0",
-          "Bellatrix.TestExecutionExtensions.Video": "2.3.0"
+          "Bellatrix.Core": "2.3.0",
+          "Bellatrix.Plugins.Screenshots": "2.3.0",
+          "Bellatrix.Plugins.Video": "2.3.0"
         },
         "compile": {
           "bin/placeholder/Bellatrix.BugReporting.dll": {}
@@ -1529,12 +1550,14 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "HtmlAgilityPack": "1.11.30",
           "MSTest.TestFramework": "2.1.2",
           "Microsoft.Extensions.Configuration": "5.0.0",
           "Microsoft.Extensions.Configuration.Binder": "5.0.0",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "5.0.0",
           "Microsoft.Extensions.Configuration.Json": "5.0.0",
           "NUnit": "3.12.0",
+          "System.Management": "5.0.0",
           "Unity": "5.11.9"
         },
         "compile": {
@@ -1547,6 +1570,9 @@
       "Bellatrix.DynamicTestCases/2.3.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Bellatrix.Core": "2.3.0"
+        },
         "compile": {
           "bin/placeholder/Bellatrix.DynamicTestCases.dll": {}
         },
@@ -1574,8 +1600,10 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Appium.WebDriver": "4.2.1",
+          "Bellatrix.Core": "2.3.0",
           "Bellatrix.DynamicTestCases": "2.3.0",
           "Bellatrix.Layout": "2.3.0",
+          "Bellatrix.Plugins.Screenshots": "2.3.0",
           "Bellatrix.Web": "2.3.0",
           "Microsoft.CSharp": "4.7.0",
           "Microsoft.Extensions.Configuration": "5.0.0",
@@ -1590,110 +1618,57 @@
           "bin/placeholder/Bellatrix.Mobile.dll": {}
         }
       },
-      "Bellatrix.Mobile.MSTest/2.3.0": {
+      "Bellatrix.Plugins.Screenshots/2.3.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "Bellatrix.Mobile": "2.3.0",
-          "MSTest.TestFramework": "2.1.2"
-        },
-        "compile": {
-          "bin/placeholder/Bellatrix.Mobile.MSTest.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Bellatrix.Mobile.MSTest.dll": {}
-        }
-      },
-      "Bellatrix.Mobile.TestExecutionExtensions/2.3.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "Bellatrix.Mobile": "2.3.0",
-          "Serilog": "2.10.0"
-        },
-        "compile": {
-          "bin/placeholder/Bellatrix.Mobile.TestExecutionExtensions.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Bellatrix.Mobile.TestExecutionExtensions.dll": {}
-        }
-      },
-      "Bellatrix.TestExecutionExtensions.Screenshots/2.3.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
+          "Bellatrix.Core": "2.3.0",
           "Serilog": "2.10.0",
           "System.Drawing.Common": "5.0.0"
         },
         "compile": {
-          "bin/placeholder/Bellatrix.TestExecutionExtensions.Screenshots.dll": {}
+          "bin/placeholder/Bellatrix.Plugins.Screenshots.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Bellatrix.TestExecutionExtensions.Screenshots.dll": {}
+          "bin/placeholder/Bellatrix.Plugins.Screenshots.dll": {}
         }
       },
-      "Bellatrix.TestExecutionExtensions.Video/2.3.0": {
+      "Bellatrix.Plugins.Video/2.3.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "HtmlAgilityPack": "1.11.28",
-          "Microsoft.Extensions.Logging.Abstractions": "5.0.0"
+          "Bellatrix.Core": "2.3.0"
         },
         "compile": {
-          "bin/placeholder/Bellatrix.TestExecutionExtensions.Video.dll": {}
+          "bin/placeholder/Bellatrix.Plugins.Video.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Bellatrix.TestExecutionExtensions.Video.dll": {}
+          "bin/placeholder/Bellatrix.Plugins.Video.dll": {}
         }
       },
       "Bellatrix.Web/2.3.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "Bellatrix.Core": "2.3.0",
           "Bellatrix.DynamicTestCases": "2.3.0",
           "Bellatrix.Layout": "2.3.0",
-          "Bellatrix.Web.Proxy": "2.3.0",
-          "HtmlAgilityPack": "1.11.28",
+          "Bellatrix.Plugins.Screenshots": "2.3.0",
+          "Bellatrix.Plugins.Video": "2.3.0",
+          "HtmlAgilityPack": "1.11.30",
           "Microsoft.CSharp": "4.7.0",
           "Microsoft.Edge.SeleniumTools": "3.141.2",
           "Selenium.WebDriver": "3.141.0",
           "System.Composition": "5.0.0",
           "System.Drawing.Primitives": "4.3.0",
-          "System.Text.Encoding.CodePages": "5.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Bellatrix.Web.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Bellatrix.Web.dll": {}
-        }
-      },
-      "Bellatrix.Web.MSTest/2.3.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "Bellatrix.Web": "2.3.0",
-          "MSTest.TestFramework": "2.1.2"
-        },
-        "compile": {
-          "bin/placeholder/Bellatrix.Web.MSTest.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Bellatrix.Web.MSTest.dll": {}
-        }
-      },
-      "Bellatrix.Web.Proxy/2.3.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
+          "System.Text.Encoding.CodePages": "5.0.0",
           "Titanium.Web.Proxy": "3.1.1344"
         },
         "compile": {
-          "bin/placeholder/Bellatrix.Web.Proxy.dll": {}
+          "bin/placeholder/Bellatrix.Web.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Bellatrix.Web.Proxy.dll": {}
+          "bin/placeholder/Bellatrix.Web.dll": {}
         }
       }
     }
@@ -1851,14 +1826,14 @@
         "lib/netstandard2.0/SeleniumExtras.PageObjects.dll"
       ]
     },
-    "HtmlAgilityPack/1.11.28": {
-      "sha512": "aclp8f2p+xeNNR02qfMu2r4K49sNWE13VDHiLpv9SoKBDIwwy62HQIMnT+oeuyFquQRzwSGD3vUWUmtOT+eNzQ==",
+    "HtmlAgilityPack/1.11.30": {
+      "sha512": "IuOSVuuHCJKrnAjNe5rZnZCyR/NpXL6ExEL7UiM8h4fnhbt8tLqIKol9q5Lv0uoxWO8fl9Uq+1kpGfMDUdr5zA==",
       "type": "package",
-      "path": "htmlagilitypack/1.11.28",
+      "path": "htmlagilitypack/1.11.30",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "htmlagilitypack.1.11.28.nupkg.sha512",
+        "htmlagilitypack.1.11.30.nupkg.sha512",
         "htmlagilitypack.nuspec",
         "lib/Net35/HtmlAgilityPack.dll",
         "lib/Net35/HtmlAgilityPack.pdb",
@@ -2438,26 +2413,6 @@
         "lib/netstandard2.0/Microsoft.Extensions.FileSystemGlobbing.xml",
         "microsoft.extensions.filesystemglobbing.5.0.0.nupkg.sha512",
         "microsoft.extensions.filesystemglobbing.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
-    "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
-      "sha512": "NxP6ahFcBnnSfwNBi2KH2Oz8Xl5Sm2krjId/jRR3I7teFphwiUoUeZPwTNA21EX+5PtjqmyAvKaOeBXcJjcH/w==",
-      "type": "package",
-      "path": "microsoft.extensions.logging.abstractions/5.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/Microsoft.Extensions.Logging.Abstractions.dll",
-        "lib/net461/Microsoft.Extensions.Logging.Abstractions.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.xml",
-        "microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
-        "microsoft.extensions.logging.abstractions.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
@@ -3492,6 +3447,30 @@
         "stylecop.analyzers.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
+      ]
+    },
+    "System.CodeDom/5.0.0": {
+      "sha512": "JPJArwA1kdj8qDAkY2XGjSWoYnqiM7q/3yRNkt6n28Mnn95MuEGkZXUbPBf7qc3IjwrGY5ttQon7yqHZyQJmOQ==",
+      "type": "package",
+      "path": "system.codedom/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.CodeDom.dll",
+        "lib/net461/System.CodeDom.xml",
+        "lib/netstandard2.0/System.CodeDom.dll",
+        "lib/netstandard2.0/System.CodeDom.xml",
+        "ref/net461/System.CodeDom.dll",
+        "ref/net461/System.CodeDom.xml",
+        "ref/netstandard2.0/System.CodeDom.dll",
+        "ref/netstandard2.0/System.CodeDom.xml",
+        "system.codedom.5.0.0.nupkg.sha512",
+        "system.codedom.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Collections/4.3.0": {
@@ -4628,6 +4607,31 @@
         "runtimes/aot/lib/netcore50/System.Linq.Expressions.dll",
         "system.linq.expressions.4.3.0.nupkg.sha512",
         "system.linq.expressions.nuspec"
+      ]
+    },
+    "System.Management/5.0.0": {
+      "sha512": "MF1CHaRcC+MLFdnDthv4/bKWBZnlnSpkGqa87pKukQefgEdwtb9zFW6zs0GjPp73qtpYYg4q6PEKbzJbxCpKfw==",
+      "type": "package",
+      "path": "system.management/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net45/_._",
+        "lib/netstandard2.0/System.Management.dll",
+        "lib/netstandard2.0/System.Management.xml",
+        "ref/net45/_._",
+        "ref/netstandard2.0/System.Management.dll",
+        "ref/netstandard2.0/System.Management.xml",
+        "runtimes/win/lib/net45/_._",
+        "runtimes/win/lib/netcoreapp2.0/System.Management.dll",
+        "runtimes/win/lib/netcoreapp2.0/System.Management.xml",
+        "system.management.5.0.0.nupkg.sha512",
+        "system.management.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.ObjectModel/4.3.0": {
@@ -6159,72 +6163,52 @@
     },
     "Bellatrix.BugReporting/2.3.0": {
       "type": "project",
-      "path": "../../Framework/Bellatrix.BugReporting/Bellatrix.BugReporting.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.BugReporting/Bellatrix.BugReporting.csproj"
+      "path": "../../src/Bellatrix.BugReporting/Bellatrix.BugReporting.csproj",
+      "msbuildProject": "../../src/Bellatrix.BugReporting/Bellatrix.BugReporting.csproj"
     },
     "Bellatrix.Core/2.3.0": {
       "type": "project",
-      "path": "../../Framework/Bellatrix.Core/Bellatrix.Core.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.Core/Bellatrix.Core.csproj"
+      "path": "../../src/Bellatrix.Core/Bellatrix.Core.csproj",
+      "msbuildProject": "../../src/Bellatrix.Core/Bellatrix.Core.csproj"
     },
     "Bellatrix.DynamicTestCases/2.3.0": {
       "type": "project",
-      "path": "../../Framework/Bellatrix.DynamicTestCases/Bellatrix.DynamicTestCases.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.DynamicTestCases/Bellatrix.DynamicTestCases.csproj"
+      "path": "../../src/Bellatrix.DynamicTestCases/Bellatrix.DynamicTestCases.csproj",
+      "msbuildProject": "../../src/Bellatrix.DynamicTestCases/Bellatrix.DynamicTestCases.csproj"
     },
     "Bellatrix.Layout/2.3.0": {
       "type": "project",
-      "path": "../../Framework/Bellatrix.Layout/Bellatrix.Layout.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.Layout/Bellatrix.Layout.csproj"
+      "path": "../../src/Bellatrix.Layout/Bellatrix.Layout.csproj",
+      "msbuildProject": "../../src/Bellatrix.Layout/Bellatrix.Layout.csproj"
     },
     "Bellatrix.Mobile/2.3.0": {
       "type": "project",
-      "path": "../../Framework/Bellatrix.Mobile/Bellatrix.Mobile.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.Mobile/Bellatrix.Mobile.csproj"
+      "path": "../../src/Bellatrix.Mobile/Bellatrix.Mobile.csproj",
+      "msbuildProject": "../../src/Bellatrix.Mobile/Bellatrix.Mobile.csproj"
     },
-    "Bellatrix.Mobile.MSTest/2.3.0": {
+    "Bellatrix.Plugins.Screenshots/2.3.0": {
       "type": "project",
-      "path": "../../Framework/Bellatrix.Mobile.MSTest/Bellatrix.Mobile.MSTest.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.Mobile.MSTest/Bellatrix.Mobile.MSTest.csproj"
+      "path": "../../src/Bellatrix.Plugins.Screenshots/Bellatrix.Plugins.Screenshots.csproj",
+      "msbuildProject": "../../src/Bellatrix.Plugins.Screenshots/Bellatrix.Plugins.Screenshots.csproj"
     },
-    "Bellatrix.Mobile.TestExecutionExtensions/2.3.0": {
+    "Bellatrix.Plugins.Video/2.3.0": {
       "type": "project",
-      "path": "../../Framework/Bellatrix.Mobile.TestExecutionExtensions/Bellatrix.Mobile.TestExecutionExtensions.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.Mobile.TestExecutionExtensions/Bellatrix.Mobile.TestExecutionExtensions.csproj"
-    },
-    "Bellatrix.TestExecutionExtensions.Screenshots/2.3.0": {
-      "type": "project",
-      "path": "../../Framework/Bellatrix.TestExecutionExtensions.Screenshots/Bellatrix.TestExecutionExtensions.Screenshots.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.TestExecutionExtensions.Screenshots/Bellatrix.TestExecutionExtensions.Screenshots.csproj"
-    },
-    "Bellatrix.TestExecutionExtensions.Video/2.3.0": {
-      "type": "project",
-      "path": "../../Framework/Bellatrix.TestExecutionExtensions.Video/Bellatrix.TestExecutionExtensions.Video.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.TestExecutionExtensions.Video/Bellatrix.TestExecutionExtensions.Video.csproj"
+      "path": "../../src/Bellatrix.Plugins.Video/Bellatrix.Plugins.Video.csproj",
+      "msbuildProject": "../../src/Bellatrix.Plugins.Video/Bellatrix.Plugins.Video.csproj"
     },
     "Bellatrix.Web/2.3.0": {
       "type": "project",
-      "path": "../../Framework/Bellatrix.Web/Bellatrix.Web.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.Web/Bellatrix.Web.csproj"
-    },
-    "Bellatrix.Web.MSTest/2.3.0": {
-      "type": "project",
-      "path": "../../Framework/Bellatrix.Web.MSTest/Bellatrix.Web.MSTest.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.Web.MSTest/Bellatrix.Web.MSTest.csproj"
-    },
-    "Bellatrix.Web.Proxy/2.3.0": {
-      "type": "project",
-      "path": "../../Framework/Bellatrix.Web.Proxy/Bellatrix.Web.Proxy.csproj",
-      "msbuildProject": "../../Framework/Bellatrix.Web.Proxy/Bellatrix.Web.Proxy.csproj"
+      "path": "../../src/Bellatrix.Web/Bellatrix.Web.csproj",
+      "msbuildProject": "../../src/Bellatrix.Web/Bellatrix.Web.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "Bellatrix.FFmpeg.Recorder >= 1.3.0",
+      "Bellatrix.Mobile >= 2.3.0",
       "Bellatrix.Mobile.DemoApps >= 1.3.0",
-      "Bellatrix.Mobile.MSTest >= 2.3.0",
-      "Bellatrix.Mobile.TestExecutionExtensions >= 2.3.0",
-      "Bellatrix.Web.MSTest >= 2.3.0",
+      "Bellatrix.Plugins.Screenshots >= 2.3.0",
+      "Bellatrix.Plugins.Video >= 2.3.0",
       "MSTest.TestAdapter >= 2.1.2",
       "MSTest.TestFramework >= 2.1.2",
       "Microsoft.CodeAnalysis.FxCopAnalyzers >= 3.3.1",
@@ -6240,11 +6224,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\Templates\\Bellatrix.IOS.GettingStarted\\Bellatrix.IOS.GettingStarted.csproj",
+      "projectUniqueName": "D:\\SourceCode\\BELLATRIX\\templates\\Bellatrix.IOS.GettingStarted\\Bellatrix.IOS.GettingStarted.csproj",
       "projectName": "Bellatrix.IOS.GettingStarted",
-      "projectPath": "D:\\SourceCode\\BELLATRIX\\Templates\\Bellatrix.IOS.GettingStarted\\Bellatrix.IOS.GettingStarted.csproj",
+      "projectPath": "D:\\SourceCode\\BELLATRIX\\templates\\Bellatrix.IOS.GettingStarted\\Bellatrix.IOS.GettingStarted.csproj",
       "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "D:\\SourceCode\\BELLATRIX\\Templates\\Bellatrix.IOS.GettingStarted\\obj\\",
+      "outputPath": "D:\\SourceCode\\BELLATRIX\\templates\\Bellatrix.IOS.GettingStarted\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -6265,14 +6249,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Mobile.MSTest\\Bellatrix.Mobile.MSTest.csproj": {
-              "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Mobile.MSTest\\Bellatrix.Mobile.MSTest.csproj"
+            "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Mobile\\Bellatrix.Mobile.csproj": {
+              "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Mobile\\Bellatrix.Mobile.csproj"
             },
-            "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Mobile.TestExecutionExtensions\\Bellatrix.Mobile.TestExecutionExtensions.csproj": {
-              "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Mobile.TestExecutionExtensions\\Bellatrix.Mobile.TestExecutionExtensions.csproj"
+            "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Screenshots\\Bellatrix.Plugins.Screenshots.csproj": {
+              "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Screenshots\\Bellatrix.Plugins.Screenshots.csproj"
             },
-            "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Web.MSTest\\Bellatrix.Web.MSTest.csproj": {
-              "projectPath": "D:\\SourceCode\\BELLATRIX\\Framework\\Bellatrix.Web.MSTest\\Bellatrix.Web.MSTest.csproj"
+            "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Video\\Bellatrix.Plugins.Video.csproj": {
+              "projectPath": "D:\\SourceCode\\BELLATRIX\\src\\Bellatrix.Plugins.Video\\Bellatrix.Plugins.Video.csproj"
             }
           }
         }

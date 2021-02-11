@@ -8,8 +8,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.ReuseIfStarted)]
-    public class LocateElementsTests : IOSTest
+        Lifecycle.ReuseIfStarted)]
+    public class LocateElementsTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]
@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [IOS(Constants.AppleCalendarBundleId,
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
-            AppBehavior.RestartEveryTime)]
+            Lifecycle.RestartEveryTime)]
         [Ignore]
         public void ElementFound_When_CreateById_And_ElementIsNotOnScreen()
         {

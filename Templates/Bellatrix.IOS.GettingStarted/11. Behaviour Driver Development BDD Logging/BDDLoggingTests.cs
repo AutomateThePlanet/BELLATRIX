@@ -6,8 +6,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class BDDLoggingTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class BDDLoggingTests : MSTest.IOSTest
     {
         // 1. There cases when you need to show your colleagues or managers what tests do you have.
         // Sometimes you may have manual test cases, but their maintenance and up-to-date state are questionable.

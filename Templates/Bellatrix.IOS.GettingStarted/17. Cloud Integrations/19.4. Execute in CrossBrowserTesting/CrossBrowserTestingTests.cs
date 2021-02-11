@@ -20,11 +20,11 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOSCrossBrowserTesting("crossBrowser-storage:TestApp.app.zip",
         "11.3",
         "iPhone 6",
-        AppBehavior.RestartEveryTime,
+        Lifecycle.RestartEveryTime,
         recordVideo: true,
         recordNetwork: true,
         build: "CI Execution")]
-    public class CrossBrowserTesting : IOSTest
+    public class CrossBrowserTesting : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]
@@ -43,7 +43,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [IOSCrossBrowserTesting("crossBrowser-storage:TestApp.app.zip",
             "11.3",
             "iPhone 6",
-            AppBehavior.ReuseIfStarted,
+            Lifecycle.ReuseIfStarted,
             recordVideo: true,
             recordNetwork: true,
             build: "CI Execution")]

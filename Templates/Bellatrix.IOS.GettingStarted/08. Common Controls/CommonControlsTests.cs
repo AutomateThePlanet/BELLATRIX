@@ -6,8 +6,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class CommonControlsTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class CommonControlsTests : MSTest.IOSTest
     {
         // 1. As mentioned before BELLATRIX exposes 15+ iOS controls. All of them implement Proxy design pattern which means that they are not located immediately when
         // they are created. Another benefit is that each of them includes only the actions that you should be able to do with the specific control and nothing more.
@@ -55,7 +55,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [IOS(Constants.AppleCalendarBundleId,
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
-            AppBehavior.RestartEveryTime)]
+            Lifecycle.RestartEveryTime)]
         [Ignore]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
         {
@@ -80,7 +80,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [IOS(Constants.AppleCalendarBundleId,
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
-            AppBehavior.RestartEveryTime)]
+            Lifecycle.RestartEveryTime)]
         [Ignore]
         public void ButtonClicked_When_ClickMethodCalled()
         {

@@ -7,8 +7,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOSWebAttribute(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.ReuseIfStarted)]
-    public class WebServiceTests : IOSTest
+        Lifecycle.ReuseIfStarted)]
+    public class WebServiceTests : MSTest.IOSTest
     {
         // 2. BELLATRIX gives you an interface for easier work with web apps. Using it, you can access most of the features
         // of BELLATRIX web APIs.

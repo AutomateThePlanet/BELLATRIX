@@ -15,9 +15,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
     [TestClass]
-    public class LayoutTestingTests : AndroidTest
+    public class LayoutTestingTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

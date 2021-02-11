@@ -12,8 +12,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.RestartEveryTime)]
-    public class DeviceServiceTests : AndroidTest
+        Lifecycle.RestartEveryTime)]
+    public class DeviceServiceTests : MSTest.AndroidTest
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the device through the DeviceService class.
         [TestMethod]

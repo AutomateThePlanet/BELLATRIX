@@ -8,8 +8,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
-    public class NormalAssertions : AndroidTest
+        Lifecycle.ReuseIfStarted)]
+    public class NormalAssertions : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

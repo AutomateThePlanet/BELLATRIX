@@ -8,8 +8,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.RestartEveryTime)]
-    public class LocateAndWaitElementsTests : AndroidTest
+        Lifecycle.RestartEveryTime)]
+    public class LocateAndWaitElementsTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

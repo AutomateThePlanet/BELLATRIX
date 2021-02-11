@@ -1,4 +1,4 @@
-﻿using Bellatrix.TestExecutionExtensions.Common.ExecutionTime;
+﻿using Bellatrix.Plugins.Common.ExecutionTime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
@@ -17,8 +17,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
-    public class MeasureTestExecutionTimesTests : AndroidTest
+        Lifecycle.ReuseIfStarted)]
+    public class MeasureTestExecutionTimesTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

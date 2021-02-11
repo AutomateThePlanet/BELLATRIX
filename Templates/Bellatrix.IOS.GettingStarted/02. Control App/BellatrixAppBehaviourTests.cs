@@ -7,7 +7,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
 
     // 2. This is the attribute for automatic start/control of iOS apps by Bellatrix. If you have to do it manually properly, you will need thousands of lines of code.
     // 2.1. appPath- sets the path where your application is.
-    // 2.2. AppBehavior enum controls when the app is started and stopped. This can drastically increase or decrease the tests execution time, depending on your needs.
+    // 2.2. Lifecycle enum controls when the app is started and stopped. This can drastically increase or decrease the tests execution time, depending on your needs.
     // However you need to be careful because in case of tests failures the app may need to be restarted.
     // Available options:
     // RestartEveryTime- for each test a separate Appium instance is created and the previous app instance is closed.
@@ -21,11 +21,11 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
 
     // 2.2. All iOS BELLATRIX test classes should inherit from the IOSTest base class.
     // This way you can use all built-in BELLATRIX tools and functionalities.
-    public class BellatrixAppBehaviourTests : IOSTest
+    public class BellatrixAppBehaviourTests : MSTest.IOSTest
     {
         // 2.3. All MSTest tests should be marked with the TestMethod attribute.
         [TestMethod]
@@ -49,7 +49,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [IOS(Constants.IOSNativeAppPath,
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
-            AppBehavior.RestartOnFail)]
+            Lifecycle.RestartOnFail)]
         public void ReturnsTrue_When_CallButtonIsPresent()
         {
             var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");

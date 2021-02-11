@@ -8,8 +8,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class AppServiceTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class AppServiceTests : MSTest.IOSTest
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the iOS app through the AppService class.
         [TestMethod]

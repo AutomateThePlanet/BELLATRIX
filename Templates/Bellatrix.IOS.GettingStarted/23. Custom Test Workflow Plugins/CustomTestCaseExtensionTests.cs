@@ -6,21 +6,21 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class CustomTestCaseExtensionTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class CustomTestCaseExtensionTests : MSTest.IOSTest
     {
         // 1. Once we created the test workflow plugin, we need to add it to the existing test workflow.
-        // It is done using the App service's method AddTestWorkflowPlugin.
+        // It is done using the App service's method AddPlugin.
         // It doesn't need to be added multiple times as will happen here with the TestInit method.
         // Usually this is done in the TestsInitialize file in the AssemblyInitialize method.
         //
         //  public static void AssemblyInitialize(TestContext testContext)
         //  {
-        //      App.AddTestWorkflowPlugin<AssociatedTestWorkflowPlugin>();
+        //      App.AddPlugin<AssociatedPlugin>();
         //  }
         public override void TestInit()
         {
-            App.AddTestWorkflowPlugin<AssociatedTestWorkflowPlugin>();
+            App.AddPlugin<AssociatedPlugin>();
         }
 
         [TestMethod]

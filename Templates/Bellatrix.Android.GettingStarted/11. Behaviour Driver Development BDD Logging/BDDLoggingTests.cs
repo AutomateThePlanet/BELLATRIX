@@ -8,8 +8,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
-    public class BDDLoggingTests : AndroidTest
+        Lifecycle.ReuseIfStarted)]
+    public class BDDLoggingTests : MSTest.AndroidTest
     {
         // 1. There cases when you need to show your colleagues or managers what tests do you have.
         // Sometimes you may have manual test cases, but their maintenance and up-to-date state are questionable.

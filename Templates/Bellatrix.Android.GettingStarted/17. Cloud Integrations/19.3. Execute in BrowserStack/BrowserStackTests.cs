@@ -22,13 +22,13 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         "Android GoogleAPI Emulator",
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.ControlsMaterialDark",
-        AppBehavior.RestartEveryTime,
+        Lifecycle.RestartEveryTime,
         captureVideo: true,
         captureNetworkLogs: true,
         consoleLogType: BrowserStackConsoleLogType.Disable,
         debug: false,
         build: "CI Execution")]
-    public class BrowserStackTests : AndroidTest
+    public class BrowserStackTests : MSTest.AndroidTest
     {
         [TestMethod]
         [Ignore]
@@ -47,7 +47,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             "Android GoogleAPI Emulator",
             Constants.AndroidNativeAppAppExamplePackage,
             ".view.ControlsMaterialDark",
-            AppBehavior.ReuseIfStarted,
+            Lifecycle.ReuseIfStarted,
             captureVideo: true,
             captureNetworkLogs: true,
             consoleLogType: BrowserStackConsoleLogType.Disable,

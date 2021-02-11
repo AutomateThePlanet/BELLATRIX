@@ -20,8 +20,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOSSauceLabs("sauce-storage:TestApp.app.zip",
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class SauceLabsTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class SauceLabsTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]
@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [IOSSauceLabs("sauce-storage:TestApp.app.zip",
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
-            AppBehavior.ReuseIfStarted)]
+            Lifecycle.ReuseIfStarted)]
         [Ignore]
         public void ButtonClicked_When_CallClickMethodSecond()
         {

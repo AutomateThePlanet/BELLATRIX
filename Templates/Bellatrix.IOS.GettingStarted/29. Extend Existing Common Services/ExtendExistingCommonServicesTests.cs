@@ -9,8 +9,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class ExtendExistingCommonServicesTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class ExtendExistingCommonServicesTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

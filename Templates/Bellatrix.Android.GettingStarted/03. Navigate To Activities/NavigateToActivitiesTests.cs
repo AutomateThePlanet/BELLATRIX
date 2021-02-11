@@ -10,8 +10,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
-    public class NavigateToActivitiesTests : AndroidTest
+        Lifecycle.ReuseIfStarted)]
+    public class NavigateToActivitiesTests : MSTest.AndroidTest
     {
         // In later chapters, there are more details about the different test workflow hooks. Find here two of them.
         //

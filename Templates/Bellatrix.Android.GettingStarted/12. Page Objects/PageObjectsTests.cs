@@ -8,8 +8,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.RestartEveryTime)]
-    public class PageObjectsTests : AndroidTest
+        Lifecycle.RestartEveryTime)]
+    public class PageObjectsTests : MSTest.AndroidTest
     {
         // 1. As you most probably noticed this is like the 4th time we use almost the same elements and logic inside our tests.
         // Similar test writing approach leads to unreadable and hard to maintain tests.

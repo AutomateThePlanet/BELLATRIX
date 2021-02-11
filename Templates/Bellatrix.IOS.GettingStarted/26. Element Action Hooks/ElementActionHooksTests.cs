@@ -6,8 +6,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class ElementActionHooksTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class ElementActionHooksTests : MSTest.IOSTest
     {
         // 1. Another way to extend BELLATRIX is to use the controls hooks. This is how the BDD logging is implemented.
         // For each method of the control, there are two hooks- one that is called before the action and one after.

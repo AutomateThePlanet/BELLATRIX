@@ -6,8 +6,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class PageObjectsTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class PageObjectsTests : MSTest.IOSTest
     {
         // 1. As you most probably noticed this is like the 4th time we use almost the same elements and logic inside our tests.
         // Similar test writing approach leads to unreadable and hard to maintain tests.

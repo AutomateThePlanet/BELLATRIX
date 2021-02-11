@@ -3,25 +3,13 @@
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
     [TestClass]
-    public class TestsInitialize : IOSTest
+    public class TestsInitialize
     {
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
             var app = new IOSApp();
-
-            app.UseExceptionLogger();
-            app.UseMsTestSettings();
-            app.UseAppBehavior();
-            app.UseLogExecutionBehavior();
-            app.UseLogExecutionBehavior();
-            app.UseFFmpegVideoRecorder();
-            app.UseIOSDriverScreenshotsOnFail();
-            app.UseElementsBddLogging();
-            app.UseValidateExtensionsBddLogging();
-            app.UseLayoutAssertionExtensionsBddLogging();
             app.StartAppiumLocalService();
-            app.Initialize();
         }
 
         [AssemblyCleanup]

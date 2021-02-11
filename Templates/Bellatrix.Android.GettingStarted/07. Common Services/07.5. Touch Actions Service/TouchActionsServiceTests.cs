@@ -9,8 +9,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".ApiDemos",
-        AppBehavior.RestartEveryTime)]
-    public class TouchActionsServiceTests : AndroidTest
+        Lifecycle.RestartEveryTime)]
+    public class TouchActionsServiceTests : MSTest.AndroidTest
     {
         // 1. BELLATRIX gives you an interface for easier work with touch actions through TouchActionsService.
         // Performing series of touch actions can be one of the most complicated jobs in automating mobile apps.

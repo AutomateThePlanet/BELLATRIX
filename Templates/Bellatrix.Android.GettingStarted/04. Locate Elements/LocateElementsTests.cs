@@ -10,8 +10,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.ControlsMaterialDark",
-        AppBehavior.RestartEveryTime)]
-    public class LocateElementsTests : AndroidTest
+        Lifecycle.RestartEveryTime)]
+    public class LocateElementsTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

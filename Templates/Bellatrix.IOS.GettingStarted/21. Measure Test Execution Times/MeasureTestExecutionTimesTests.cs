@@ -1,5 +1,4 @@
-﻿using Bellatrix.TestExecutionExtensions.Common.ExecutionTime;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
@@ -15,8 +14,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class MeasureTestExecutionTimesTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class MeasureTestExecutionTimesTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]

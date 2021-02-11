@@ -6,8 +6,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class NormalAssertions : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class NormalAssertions : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]
@@ -50,7 +50,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [IOS(Constants.AppleCalendarBundleId,
           Constants.IOSDefaultVersion,
           Constants.IOSDefaultDeviceName,
-          AppBehavior.RestartEveryTime)]
+          Lifecycle.RestartEveryTime)]
         [Ignore]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
         {
@@ -76,7 +76,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [IOS(Constants.AppleCalendarBundleId,
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
-            AppBehavior.RestartEveryTime)]
+            Lifecycle.RestartEveryTime)]
         [Ignore]
         public void ButtonClicked_When_ClickMethodCalled()
         {

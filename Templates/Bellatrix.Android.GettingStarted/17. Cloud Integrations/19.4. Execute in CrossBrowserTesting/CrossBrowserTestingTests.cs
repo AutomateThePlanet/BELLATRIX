@@ -22,11 +22,11 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         "Android GoogleAPI Emulator",
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.ControlsMaterialDark",
-        AppBehavior.RestartEveryTime,
+        Lifecycle.RestartEveryTime,
         recordVideo: true,
         recordNetwork: true,
         build: "CI Execution")]
-    public class CrossBrowserTesting : AndroidTest
+    public class CrossBrowserTesting : MSTest.AndroidTest
     {
         [TestMethod]
         [Ignore]
@@ -45,7 +45,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             "Android GoogleAPI Emulator",
             Constants.AndroidNativeAppAppExamplePackage,
             ".view.ControlsMaterialDark",
-            AppBehavior.ReuseIfStarted,
+            Lifecycle.ReuseIfStarted,
             recordVideo: true,
             recordNetwork: true,
             build: "CI Execution")]

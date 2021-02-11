@@ -22,8 +22,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         "Android GoogleAPI Emulator",
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.ControlsMaterialDark",
-        AppBehavior.RestartEveryTime)]
-    public class SauceLabsTests : AndroidTest
+        Lifecycle.RestartEveryTime)]
+    public class SauceLabsTests : MSTest.AndroidTest
     {
         [TestMethod]
         [Ignore]
@@ -41,7 +41,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             "Android GoogleAPI Emulator",
             Constants.AndroidNativeAppAppExamplePackage,
             ".view.ControlsMaterialDark",
-            AppBehavior.ReuseIfStarted)]
+            Lifecycle.ReuseIfStarted)]
         [Ignore]
         public void ButtonClicked_When_CallClickMethodSecond()
         {

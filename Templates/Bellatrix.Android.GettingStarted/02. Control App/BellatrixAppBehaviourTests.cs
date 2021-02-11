@@ -23,11 +23,11 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
+        Lifecycle.ReuseIfStarted)]
 
     // 2.2. All Android BELLATRIX test classes should inherit from the AndroidTest base class.
     // This way you can use all built-in BELLATRIX tools and functionalities.
-    public class BellatrixAppBehaviourTests : AndroidTest
+    public class BellatrixAppBehaviourTests : MSTest.AndroidTest
     {
         // 2.3. All MSTest tests should be marked with the TestMethod attribute.
         [TestMethod]
@@ -53,7 +53,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Constants.AndroidDefaultDeviceName,
             Constants.AndroidNativeAppAppExamplePackage,
             ".view.Controls1",
-            AppBehavior.RestartOnFail)]
+            Lifecycle.RestartOnFail)]
         [TestCategory(Categories.CI)]
         public void ReturnsSave_When_GetText()
         {

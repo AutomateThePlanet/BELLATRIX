@@ -6,8 +6,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class CustomWebDriverCapabilitiesTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class CustomWebDriverCapabilitiesTests : MSTest.IOSTest
     {
         // 1. BELLATRIX hides the complexity of initialisation of WebDriver/Appium and all related services.
         // In some cases, you need to customise the set up of a Appium with using custom Appium options.

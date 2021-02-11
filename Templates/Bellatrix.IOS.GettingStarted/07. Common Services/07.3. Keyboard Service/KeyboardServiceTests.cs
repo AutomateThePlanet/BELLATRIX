@@ -6,8 +6,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class KeyboardServiceTests : IOSTest
+        Lifecycle.RestartEveryTime)]
+    public class KeyboardServiceTests : MSTest.IOSTest
     {
         // 1. BELLATRIX gives you an interface for easier work with device's keyboard through KeyboardService class.
         [TestMethod]

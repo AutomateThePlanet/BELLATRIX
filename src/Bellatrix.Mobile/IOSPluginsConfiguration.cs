@@ -13,17 +13,16 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Collections.Generic;
-
 using Bellatrix.Layout;
 using Bellatrix.Mobile.BddLogging.IOS;
 using Bellatrix.Mobile.BugReporting.IOS;
 using Bellatrix.Mobile.DynamicTestCases.IOS;
 using Bellatrix.Mobile.EventHandlers.IOS;
-using Bellatrix.Mobile.Screenshots;
 using Bellatrix.Mobile.Plugins;
+using Bellatrix.Mobile.Screenshots;
+using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Contracts;
-using Bellatrix.Plugins;
 
 namespace Bellatrix.Mobile.IOS
 {

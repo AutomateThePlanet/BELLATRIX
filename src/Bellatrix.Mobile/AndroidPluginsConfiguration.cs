@@ -13,17 +13,16 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Collections.Generic;
-
 using Bellatrix.Layout;
 using Bellatrix.Mobile.BddLogging.Android;
 using Bellatrix.Mobile.BugReporting.Android;
 using Bellatrix.Mobile.DynamicTestCases.Android;
 using Bellatrix.Mobile.EventHandlers.Android;
-using Bellatrix.Mobile.Screenshots;
 using Bellatrix.Mobile.Plugins;
+using Bellatrix.Mobile.Screenshots;
+using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Contracts;
-using Bellatrix.Plugins;
 
 namespace Bellatrix.Mobile.Android
 {

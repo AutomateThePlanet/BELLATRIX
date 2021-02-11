@@ -7,8 +7,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     [AndroidWeb(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
-        AppBehavior.RestartEveryTime)]
-    public class WebServiceTests : AndroidTest
+        Lifecycle.RestartEveryTime)]
+    public class WebServiceTests : MSTest.AndroidTest
     {
         // 2. BELLATRIX gives you an interface for easier work with web apps. Using it, you can access most of the features
         // of BELLATRIX web APIs.

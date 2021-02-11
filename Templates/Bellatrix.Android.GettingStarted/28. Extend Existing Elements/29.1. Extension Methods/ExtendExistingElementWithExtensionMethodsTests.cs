@@ -11,8 +11,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
-        AppBehavior.ReuseIfStarted)]
-    public class ExtendExistingElementWithExtensionMethodsTests : AndroidTest
+        Lifecycle.ReuseIfStarted)]
+    public class ExtendExistingElementWithExtensionMethodsTests : MSTest.AndroidTest
     {
         [TestMethod]
         [Ignore]

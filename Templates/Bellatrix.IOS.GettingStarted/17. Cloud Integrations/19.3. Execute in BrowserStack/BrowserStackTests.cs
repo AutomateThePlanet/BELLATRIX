@@ -20,13 +20,13 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     [IOSBrowserStack("pngG38y26LZ5muB1p46P",
         "11.3",
         "iPhone 6",
-        AppBehavior.RestartEveryTime,
+        Lifecycle.RestartEveryTime,
         captureVideo: true,
         captureNetworkLogs: true,
         consoleLogType: BrowserStackConsoleLogType.Disable,
         debug: false,
         build: "CI Execution")]
-    public class BrowserStackTests : IOSTest
+    public class BrowserStackTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]
@@ -45,7 +45,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [IOSBrowserStack("pngG38y26LZ5muB1p46P",
             "11.3",
             "iPhone 6",
-            AppBehavior.RestartOnFail,
+            Lifecycle.RestartOnFail,
             captureVideo: true,
             captureNetworkLogs: true,
             consoleLogType: BrowserStackConsoleLogType.Disable,
