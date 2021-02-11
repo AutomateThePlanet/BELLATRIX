@@ -28,7 +28,6 @@ namespace Bellatrix.Web.Tests.Controls
     [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted, false)]
     [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Anchor Control")]
-    [ScreenshotOnFail(true)]
     public class AnchorControlTestsChrome : MSTest.WebTest
     {
         public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().AnchorLocalPage);
@@ -51,7 +50,6 @@ namespace Bellatrix.Web.Tests.Controls
         [AllureTms("8910448")]
         [AllureLink("https://confengine.com/appium-conf-2019/proposals")]
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        [VideoRecording(VideoRecordingMode.Always)]
         public void ReturnRed_When_Hover_Chrome()
         {
             var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor1");

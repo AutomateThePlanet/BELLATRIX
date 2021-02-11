@@ -16,7 +16,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests
 {
     [TestClass]
-    [ScreenshotOnFail(true)]
     [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
     public class FullPageScreenshotsOnFailTests : MSTest.WebTest
@@ -31,7 +30,6 @@ namespace Bellatrix.Web.Tests
         }
 
         [TestMethod]
-        [ScreenshotOnFail(false)]
         [TestCategory(Categories.CI)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {

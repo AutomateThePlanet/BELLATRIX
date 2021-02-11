@@ -14,7 +14,6 @@ namespace Bellatrix.Web.GettingStarted
     // OnlyFail - saves the videos only for failed tests.
     // If you place attribute over the class all tests inherit the behaviour.
     // It is possible to put it over each test and this way you override the class behaviour only for this particular test.
-    [VideoRecording(VideoRecordingMode.OnlyFail)]
     [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     [Browser(OS.OSX, BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     public class VideoRecordingTests : MSTest.WebTest
@@ -33,7 +32,6 @@ namespace Bellatrix.Web.GettingStarted
         // Only for this particular test, we tell BELLATRIX not to make a video.
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [VideoRecording(VideoRecordingMode.DoNotRecord)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");

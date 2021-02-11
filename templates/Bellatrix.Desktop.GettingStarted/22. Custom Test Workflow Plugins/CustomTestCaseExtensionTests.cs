@@ -4,7 +4,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
-    [VideoRecording(VideoRecordingMode.OnlyFail)]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class CustomTestCaseExtensionTests : DesktopTest
     {

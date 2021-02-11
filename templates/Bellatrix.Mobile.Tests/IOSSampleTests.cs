@@ -11,8 +11,6 @@ namespace Bellatrix.Mobile.Tests
         "7.1",
         "yourTestDeviceName",
         Lifecycle.ReuseIfStarted)]
-    [VideoRecording(VideoRecordingMode.OnlyFail)]
-    [ScreenshotOnFail(true)]
     public class IOSSampleTests : NUnit.IOSTest
     {
         ////[TestMethod]

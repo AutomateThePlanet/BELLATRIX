@@ -17,7 +17,6 @@ namespace Bellatrix.Web.Tests.Controls.Element
 {
     [TestClass]
     [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [ScreenshotOnFail(true)]
     [AllureSuite("Element Control")]
     [AllureFeature("ValidateExtensions")]
     public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest

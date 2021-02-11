@@ -22,18 +22,19 @@ using Serilog;
 
 namespace Bellatrix.Plugins.Screenshots
 {
-    public class ScreenshotWorkflowPlugin : Plugin
+    public class ScreenshotPlugin : Plugin
     {
         private readonly IScreenshotEngine _screenshotEngine;
         private readonly IScreenshotOutputProvider _screenshotOutputProvider;
         private readonly IScreenshotPluginProvider _screenshotPluginProvider;
-        private bool _shouldTakeScreenshot;
+        private bool _isEnabled;
 
-        public ScreenshotWorkflowPlugin(
+        public ScreenshotPlugin(
             IScreenshotEngine screenshotEngine,
             IScreenshotOutputProvider screenshotOutputProvider,
             IScreenshotPluginProvider screenshotPluginProvider)
         {
+            _isEnabled = SettingsService.GetSection<ScreenshotsSettings>().IsEnabled;
             _screenshotEngine = screenshotEngine;
             _screenshotOutputProvider = screenshotOutputProvider;
             _screenshotPluginProvider = screenshotPluginProvider;
@@ -42,11 +43,9 @@ namespace Bellatrix.Plugins.Screenshots
 
         protected override void PreTestCleanup(object sender, PluginEventArgs e)
         {
-            GetTestScreenshotOnFailMode(e.TestMethodMemberInfo, e.TestOutcome);
-
             try
             {
-                if (_shouldTakeScreenshot)
+                if (_isEnabled && e.TestOutcome == TestOutcome.Failed)
                 {
                     var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
                     var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestFullName);
@@ -56,58 +55,12 @@ namespace Bellatrix.Plugins.Screenshots
                     _screenshotPluginProvider.ScreenshotGenerated(e, imagePath);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 // Ignore since it is failing often because of bugs in Remote driver for Chrome
             }
 
             base.PreTestCleanup(sender, e);
-        }
-
-        private void GetTestScreenshotOnFailMode(MemberInfo memberInfo, TestOutcome testOutcome)
-        {
-            bool classScreenshotOnFail = GetTakeScreenshotOnFailModeByType(memberInfo.DeclaringType);
-            bool? methodScreenshotOnFail = GetTakeScreenshotOnFailModeByMethodInfo(memberInfo);
-            bool isEnabled = SettingsService.GetSection<ScreenshotsSettings>().IsEnabled;
-            if (isEnabled && testOutcome != TestOutcome.Passed)
-            {
-                if (classScreenshotOnFail)
-                {
-                    _shouldTakeScreenshot = true;
-                }
-
-                if (methodScreenshotOnFail != null)
-                {
-                    _shouldTakeScreenshot = (bool)methodScreenshotOnFail;
-                }
-            }
-            else
-            {
-                _shouldTakeScreenshot = false;
-            }
-        }
-
-        private bool GetTakeScreenshotOnFailModeByType(Type currentType)
-        {
-            var takeScreenshotOnFailClassAttribute = currentType.GetCustomAttribute<ScreenshotOnFailAttribute>(true);
-            if (takeScreenshotOnFailClassAttribute != null)
-            {
-                return takeScreenshotOnFailClassAttribute.Enabled;
-            }
-
-            return false;
-        }
-
-        private bool? GetTakeScreenshotOnFailModeByMethodInfo(MemberInfo memberInfo)
-        {
-            if (memberInfo == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            var takeScreenshotOnFailClassAttribute = memberInfo.GetCustomAttribute<ScreenshotOnFailAttribute>(true);
-
-            return takeScreenshotOnFailClassAttribute?.Enabled;
         }
 
         private void InitializeScreenshotProviderObservers()

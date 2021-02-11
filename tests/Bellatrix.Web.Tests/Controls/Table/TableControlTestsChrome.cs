@@ -23,7 +23,6 @@ namespace Bellatrix.Web.Tests.Controls
     [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Table Control")]
-    [ScreenshotOnFail(true)]
     public class TableControlTestsChrome : MSTest.WebTest
     {
         public override void TestInit()

@@ -41,7 +41,7 @@ namespace Bellatrix
             ServicesCollection.Current.RegisterType<IVideoRecorder, FFmpegVideoRecorder>();
             ServicesCollection.Current.RegisterType<IVideoRecorderOutputProvider, VideoRecorderOutputProvider>();
             ServicesCollection.Current.RegisterType<IVideoPluginProvider, VideoPluginProvider>();
-            ServicesCollection.Current.RegisterType<Plugin, VideoWorkflowPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, VideoPlugin>(Guid.NewGuid().ToString());
         }
     }
 }

@@ -26,15 +26,16 @@ using HtmlAgilityPack;
 
 namespace Bellatrix.Plugins.Video
 {
-    public class VideoWorkflowPlugin : Plugin
+    public class VideoPlugin : Plugin
     {
         private readonly IVideoRecorderOutputProvider _videoRecorderOutputProvider;
         private readonly IVideoPluginProvider _videoPluginProvider;
         private IVideoRecorder _videoRecorder;
-        private VideoRecordingMode _recordingMode;
+        private bool _isEnabled;
 
-        public VideoWorkflowPlugin(IVideoRecorder videoRecorder, IVideoRecorderOutputProvider videoRecorderOutputProvider, IVideoPluginProvider videoPluginProvider)
+        public VideoPlugin(IVideoRecorder videoRecorder, IVideoRecorderOutputProvider videoRecorderOutputProvider, IVideoPluginProvider videoPluginProvider)
         {
+            _isEnabled = SettingsService.GetSection<VideoRecordingSettings>().IsEnabled;
             _videoRecorder = videoRecorder;
             _videoRecorderOutputProvider = videoRecorderOutputProvider;
             _videoPluginProvider = videoPluginProvider;
@@ -43,9 +44,7 @@ namespace Bellatrix.Plugins.Video
 
         protected override void PostTestInit(object sender, PluginEventArgs e)
         {
-            _recordingMode = ConfigureTestVideoRecordingMode(e.TestMethodMemberInfo);
-
-            if (_recordingMode != VideoRecordingMode.DoNotRecord)
+            if (_isEnabled)
             {
                 var fullTestName = $"{e.TestMethodMemberInfo.DeclaringType.Name}.{e.TestName}";
                 var videoRecordingDir = _videoRecorderOutputProvider.GetOutputFolder();
@@ -59,7 +58,7 @@ namespace Bellatrix.Plugins.Video
 
         protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
-            if (_recordingMode != VideoRecordingMode.DoNotRecord)
+            if (_isEnabled)
             {
                 bool hasTestPassed = e.TestOutcome.Equals(TestOutcome.Passed);
                 bool isFileDeleted = false;
@@ -84,80 +83,18 @@ namespace Bellatrix.Plugins.Video
         private bool DeleteVideoDependingOnTestOutcome(bool haveTestPassed, string videoRecordingPath)
         {
             bool isFileDeleted = false;
-            if (_recordingMode != VideoRecordingMode.DoNotRecord)
+            if (_isEnabled)
             {
-                bool shouldRecordAlways = _recordingMode == VideoRecordingMode.Always;
-                bool shouldRecordAllPassedTests = haveTestPassed && _recordingMode.Equals(VideoRecordingMode.OnlyPass);
-                bool shouldRecordAllFailedTests = !haveTestPassed && _recordingMode.Equals(VideoRecordingMode.OnlyFail);
-                if (!(shouldRecordAlways || shouldRecordAllPassedTests || shouldRecordAllFailedTests))
+                // Release the video file then delete it.
+                _videoRecorder?.Stop();
+                if (haveTestPassed && File.Exists(videoRecordingPath))
                 {
-                    // Release the video file then delete it.
-                    _videoRecorder?.Stop();
-
-                    if (File.Exists(videoRecordingPath))
-                    {
-                        File.Delete(videoRecordingPath);
-                        isFileDeleted = true;
-                    }
+                    File.Delete(videoRecordingPath);
+                    isFileDeleted = true;
                 }
             }
 
             return isFileDeleted;
-        }
-
-        private VideoRecordingMode ConfigureTestVideoRecordingMode(MemberInfo memberInfo)
-        {
-            var methodRecordingMode = GetVideoRecordingModeByMethodInfo(memberInfo);
-            var classRecordingMode = GetVideoRecordingModeType(memberInfo.DeclaringType);
-            var videoRecordingMode = VideoRecordingMode.DoNotRecord;
-            bool shouldTakeVideos = SettingsService.GetSection<VideoRecordingSettings>().IsEnabled;
-
-            if (!shouldTakeVideos)
-            {
-                videoRecordingMode = VideoRecordingMode.DoNotRecord;
-            }
-            else if (methodRecordingMode != VideoRecordingMode.Ignore)
-            {
-                videoRecordingMode = methodRecordingMode;
-            }
-            else if (classRecordingMode != VideoRecordingMode.Ignore)
-            {
-                videoRecordingMode = classRecordingMode;
-            }
-
-            return videoRecordingMode;
-        }
-
-        private VideoRecordingMode GetVideoRecordingModeByMethodInfo(MemberInfo memberInfo)
-        {
-            if (memberInfo == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            var recordingModeMethodAttribute = memberInfo.GetCustomAttribute<VideoRecordingAttribute>(true);
-            if (recordingModeMethodAttribute != null)
-            {
-                return recordingModeMethodAttribute.VideoRecording;
-            }
-
-            return VideoRecordingMode.Ignore;
-        }
-
-        private VideoRecordingMode GetVideoRecordingModeType(System.Type currentType)
-        {
-            if (currentType == null)
-            {
-                throw new System.ArgumentNullException();
-            }
-
-            var recordingModeClassAttribute = currentType.GetCustomAttribute<VideoRecordingAttribute>(true);
-            if (recordingModeClassAttribute != null)
-            {
-                return recordingModeClassAttribute.VideoRecording;
-            }
-
-            return VideoRecordingMode.Ignore;
         }
 
         private void InitializeVideoProviderObservers()

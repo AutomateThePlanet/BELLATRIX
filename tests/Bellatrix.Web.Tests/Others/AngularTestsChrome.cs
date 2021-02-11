@@ -20,7 +20,6 @@ namespace Bellatrix.Web.Tests.Controls
     [TestClass]
     [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [ScreenshotOnFail(true)]
     public class AngularTestsChrome : MSTest.WebTest
     {
         [TestMethod]

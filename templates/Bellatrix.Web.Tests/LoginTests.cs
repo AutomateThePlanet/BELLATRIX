@@ -9,8 +9,6 @@ namespace Bellatrix.Web.Tests
     ////[TestClass]
     [TestFixture]
     [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [VideoRecording(VideoRecordingMode.DoNotRecord)]
-    [ScreenshotOnFail(true)]
     public class LoginTests : WebTest
     {
         public override void TestInit() => App.NavigationService.Navigate("http://demos.bellatrix.solutions/my-account/");

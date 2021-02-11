@@ -20,8 +20,6 @@ namespace Bellatrix.Web.Tests.Controls
     [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Anchor Control")]
     [AllureTag("Edge Browser")]
-    [ScreenshotOnFail(true)]
-    [VideoRecording(VideoRecordingMode.OnlyFail)]
     public class AnchorControlTestsEdge : MSTest.WebTest
     {
         public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().AnchorLocalPage);

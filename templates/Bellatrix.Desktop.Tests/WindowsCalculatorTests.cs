@@ -9,8 +9,6 @@ namespace Bellatrix.Desktop.Tests
     ////[TestClass]
     [TestFixture]
     [App("Microsoft.WindowsCalculator_8wekyb3d8bbwe!App", Lifecycle.RestartOnFail)]
-    [VideoRecording(VideoRecordingMode.OnlyFail)]
-    [ScreenshotOnFail(true)]
     public class WindowsCalculatorTests : DesktopTest
     {
         ////[TestMethod]

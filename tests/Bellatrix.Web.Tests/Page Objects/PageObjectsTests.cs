@@ -7,8 +7,6 @@ namespace Bellatrix.Web.Tests
     [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
     [AzureDevOpsDynamicTestCaseAttribute(AreaPath = "AutomateThePlanet", IterationPath = "AutomateThePlanet", RequirementId = "482")]
     ////[DynamicTestCase(SuiteId = "8260474")]
-    [ScreenshotOnFail(true)]
-    [VideoRecording(VideoRecordingMode.OnlyFail)]
     public class PageObjectsTests : MSTest.WebTest
     {
         [TestMethod]

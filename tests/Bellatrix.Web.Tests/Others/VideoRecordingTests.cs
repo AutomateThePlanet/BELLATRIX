@@ -16,7 +16,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests
 {
     [TestClass]
-    [VideoRecording(VideoRecordingMode.Always)]
     [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
     public class VideoRecordingTests : MSTest.WebTest
@@ -34,7 +33,6 @@ namespace Bellatrix.Web.Tests
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.OSX)]
-        [VideoRecording(VideoRecordingMode.DoNotRecord)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");

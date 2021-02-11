@@ -13,8 +13,6 @@ namespace Bellatrix.Mobile.Tests
         "testPackageName",
         "testActivityName",
         Lifecycle.ReuseIfStarted)]
-    [VideoRecording(VideoRecordingMode.OnlyFail)]
-    [ScreenshotOnFail(true)]
     public class AndroidSampleTests : NUnit.AndroidTest
     {
         ////[TestMethod]

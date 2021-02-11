@@ -26,7 +26,7 @@ namespace Bellatrix.Web.Screenshots
             ServicesCollection.Current.RegisterType<IScreenshotEngine, FullPageScreenshotEngine>();
             ServicesCollection.Current.RegisterType<IScreenshotOutputProvider, ScreenshotOutputProvider>();
             ServicesCollection.Current.RegisterType<IScreenshotPluginProvider, ScreenshotPluginProvider>();
-            ServicesCollection.Current.RegisterType<Plugin, ScreenshotWorkflowPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, ScreenshotPlugin>(Guid.NewGuid().ToString());
         }
 
         public static void UseVanillaWebDriverScreenshotsOnFail()
@@ -34,7 +34,7 @@ namespace Bellatrix.Web.Screenshots
             ServicesCollection.Current.RegisterType<IScreenshotEngine, VanillaWebDriverScreenshotEngine>();
             ServicesCollection.Current.RegisterType<IScreenshotOutputProvider, ScreenshotOutputProvider>();
             ServicesCollection.Current.RegisterType<IScreenshotPluginProvider, ScreenshotPluginProvider>();
-            ServicesCollection.Current.RegisterType<Plugin, ScreenshotWorkflowPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, ScreenshotPlugin>(Guid.NewGuid().ToString());
         }
     }
 }
