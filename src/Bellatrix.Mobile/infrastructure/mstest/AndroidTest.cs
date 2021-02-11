@@ -12,15 +12,32 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Mobile.Android;
+
 namespace Bellatrix.Mobile.MSTest
 {
     public abstract class AndroidTest : MSTestBaseTest
     {
-        public AndroidApp App { get; private set; }
+        public AndroidApp App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<AndroidApp>();
 
-        public override void Initialize()
+        public override void Configure()
         {
-            App = ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<AndroidApp>();
+            MSTestPluginConfiguration.Add();
+            ExecutionTimePlugin.Add();
+            VideoRecorderPluginConfiguration.AddMSTest();
+            ScreenshotsPluginConfiguration.AddMSTest();
+            AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();
+            AndroidPluginsConfiguration.AddElementsBddLogging();
+            AndroidPluginsConfiguration.AddDynamicTestCases();
+            AndroidPluginsConfiguration.AddBugReporting();
+            AndroidPluginsConfiguration.AddValidateExtensionsBddLogging();
+            AndroidPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+            AndroidPluginsConfiguration.AddValidateExtensionsBugReporting();
+            AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+            AndroidPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+            AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+            AndroidPluginsConfiguration.AddLifecycle();
+            AndroidPluginsConfiguration.AddLogExecutionLifecycle();
         }
     }
 }

@@ -12,15 +12,32 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Mobile.IOS;
+
 namespace Bellatrix.Mobile.MSTest
 {
     public abstract class IOSTest : MSTestBaseTest
     {
-        public IOSApp App { get; private set; }
+        public IOSApp App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<IOSApp>();
 
-        public override void Initialize()
+        public override void Configure()
         {
-            App = ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<IOSApp>();
+            MSTestPluginConfiguration.Add();
+            ExecutionTimePlugin.Add();
+            VideoRecorderPluginConfiguration.AddMSTest();
+            ScreenshotsPluginConfiguration.AddMSTest();
+            IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
+            IOSPluginsConfiguration.AddElementsBddLogging();
+            IOSPluginsConfiguration.AddDynamicTestCases();
+            IOSPluginsConfiguration.AddBugReporting();
+            IOSPluginsConfiguration.AddValidateExtensionsBddLogging();
+            IOSPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+            IOSPluginsConfiguration.AddValidateExtensionsBugReporting();
+            IOSPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+            IOSPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+            IOSPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+            IOSPluginsConfiguration.AddLifecycle();
+            IOSPluginsConfiguration.AddLogExecutionLifecycle();
         }
     }
 }

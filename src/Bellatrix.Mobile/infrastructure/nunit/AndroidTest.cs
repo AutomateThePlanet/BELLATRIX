@@ -12,10 +12,32 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Mobile.Android;
+
 namespace Bellatrix.Mobile.NUnit
 {
     public abstract class AndroidTest : NUnitBaseTest
     {
         public AndroidApp App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<AndroidApp>();
+
+        public override void Configure()
+        {
+            NUnitPluginConfiguration.Add();
+            ExecutionTimePlugin.Add();
+            VideoRecorderPluginConfiguration.AddNUnit();
+            ScreenshotsPluginConfiguration.AddNUnit();
+            AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();
+            AndroidPluginsConfiguration.AddElementsBddLogging();
+            AndroidPluginsConfiguration.AddDynamicTestCases();
+            AndroidPluginsConfiguration.AddBugReporting();
+            AndroidPluginsConfiguration.AddValidateExtensionsBddLogging();
+            AndroidPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+            AndroidPluginsConfiguration.AddValidateExtensionsBugReporting();
+            AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+            AndroidPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+            AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+            AndroidPluginsConfiguration.AddLifecycle();
+            AndroidPluginsConfiguration.AddLogExecutionLifecycle();
+        }
     }
 }

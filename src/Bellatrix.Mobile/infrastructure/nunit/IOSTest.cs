@@ -12,10 +12,32 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Mobile.IOS;
+
 namespace Bellatrix.Mobile.NUnit
 {
     public abstract class IOSTest : NUnitBaseTest
     {
         public IOSApp App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<IOSApp>();
+
+        public override void Configure()
+        {
+            NUnitPluginConfiguration.Add();
+            ExecutionTimePlugin.Add();
+            VideoRecorderPluginConfiguration.AddNUnit();
+            ScreenshotsPluginConfiguration.AddNUnit();
+            IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
+            IOSPluginsConfiguration.AddElementsBddLogging();
+            IOSPluginsConfiguration.AddDynamicTestCases();
+            IOSPluginsConfiguration.AddBugReporting();
+            IOSPluginsConfiguration.AddValidateExtensionsBddLogging();
+            IOSPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+            IOSPluginsConfiguration.AddValidateExtensionsBugReporting();
+            IOSPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+            IOSPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+            IOSPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+            IOSPluginsConfiguration.AddLifecycle();
+            IOSPluginsConfiguration.AddLogExecutionLifecycle();
+        }
     }
 }

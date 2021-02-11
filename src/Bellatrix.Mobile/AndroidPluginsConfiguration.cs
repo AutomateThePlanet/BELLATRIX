@@ -143,7 +143,7 @@ namespace Bellatrix.Mobile.Android
             ServicesCollection.Current.RegisterType<Plugin, AppWorkflowPlugin>(Guid.NewGuid().ToString());
         }
 
-        public static void AddLogExecutionBehavior()
+        public static void AddLogExecutionLifecycle()
         {
             ServicesCollection.Current.RegisterType<Plugin, LogWorkflowPlugin>(Guid.NewGuid().ToString());
         }
