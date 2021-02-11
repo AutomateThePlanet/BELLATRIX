@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Div Control")]
     public class DivControlTestsFirefox : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().DivLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DivLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]

@@ -156,8 +156,8 @@ namespace Bellatrix.Desktop.Controls.Core
                        var elements = _parentElement == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parentElement);
                        return elements.Any();
                    },
-                   totalRunTimeoutMilliseconds: SettingsService.GetSection<DesktopSettings>().ElementToExistTimeout,
-                   sleepTimeMilliseconds: SettingsService.GetSection<DesktopSettings>().SleepInterval);
+                   totalRunTimeoutMilliseconds: ConfigurationService.GetSection<DesktopSettings>().ElementToExistTimeout,
+                   sleepTimeMilliseconds: ConfigurationService.GetSection<DesktopSettings>().SleepInterval);
             var elements = _parentElement == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parentElement);
 
             return elements;

@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class TextFieldControlValidateExtensionsTests : MSTest.WebTest
     {
-        private string _url = SettingsService.GetSection<TestPagesSettings>().TextFieldLocalPage;
+        private string _url = ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage;
 
         public override void TestInit()
         {

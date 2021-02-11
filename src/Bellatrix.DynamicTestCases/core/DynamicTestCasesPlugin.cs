@@ -35,7 +35,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
-            if (!SettingsService.GetSection<DynamicTestCasesSettings>().IsEnabled || e.TestMethodMemberInfo == null)
+            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled || e.TestMethodMemberInfo == null)
             {
                 return;
             }
@@ -47,7 +47,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestInit(object sender, PluginEventArgs e)
         {
-            if (!SettingsService.GetSection<DynamicTestCasesSettings>().IsEnabled)
+            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled)
             {
                 return;
             }
@@ -58,7 +58,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
-            if (!SettingsService.GetSection<DynamicTestCasesSettings>().IsEnabled)
+            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled)
             {
                 return;
             }

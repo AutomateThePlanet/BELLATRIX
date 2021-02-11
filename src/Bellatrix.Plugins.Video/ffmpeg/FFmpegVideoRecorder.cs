@@ -33,7 +33,7 @@ namespace Bellatrix.VideoRecording.FFmpeg
             if (_isRunning)
             {
                 // Control with setting. Waits a little bit after the recording has finished.
-                Thread.Sleep(SettingsService.GetSection<VideoRecordingSettings>().WaitAfterFinishRecordingMilliseconds);
+                Thread.Sleep(ConfigurationService.GetSection<VideoRecordingSettings>().WaitAfterFinishRecordingMilliseconds);
                 if (!_recorderProcess.HasExited)
                 {
                     _recorderProcess?.Kill();

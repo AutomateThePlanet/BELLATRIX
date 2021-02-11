@@ -28,7 +28,7 @@ namespace Bellatrix.Desktop.Services
 
         static WrappedWebDriverCreateService()
         {
-            _serviceUrl = SettingsService.GetSection<DesktopSettings>().ServiceUrl;
+            _serviceUrl = ConfigurationService.GetSection<DesktopSettings>().ServiceUrl;
         }
 
         public static WindowsDriver<WindowsElement> Create(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
@@ -39,8 +39,8 @@ namespace Bellatrix.Desktop.Services
             driverOptions.SetCapability("platformName", "Windows");
             string workingDir = Path.GetDirectoryName(appConfiguration.AppPath);
             driverOptions.SetCapability("appWorkingDir", workingDir);
-            driverOptions.SetCapability("createSessionTimeout", SettingsService.GetSection<DesktopSettings>().CreateSessionTimeout);
-            driverOptions.SetCapability("ms:waitForAppLaunch", SettingsService.GetSection<DesktopSettings>().WaitForAppLaunchTimeout);
+            driverOptions.SetCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().CreateSessionTimeout);
+            driverOptions.SetCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().WaitForAppLaunchTimeout);
 
             var additionalCapabilities = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{appConfiguration.ClassFullName}") ?? new Dictionary<string, object>();
             foreach (var additionalCapability in additionalCapabilities)

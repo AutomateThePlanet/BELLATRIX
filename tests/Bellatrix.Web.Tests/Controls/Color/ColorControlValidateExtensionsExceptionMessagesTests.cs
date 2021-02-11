@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class ColorControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
     {
-        private string _url = SettingsService.GetSection<TestPagesSettings>().ColorLocalPage;
+        private string _url = ConfigurationService.GetSection<TestPagesSettings>().ColorLocalPage;
 
         public override void TestInit()
         {

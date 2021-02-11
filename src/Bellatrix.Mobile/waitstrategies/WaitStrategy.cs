@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile.Untils
         {
             WrappedWebDriver = ServicesCollection.Current.Resolve<TDriver>();
             TimeoutInterval = timeoutInterval;
-            SleepInterval = sleepInterval ?? SettingsService.GetSection<MobileSettings>().SleepInterval;
+            SleepInterval = sleepInterval ?? ConfigurationService.GetSection<MobileSettings>().SleepInterval;
         }
 
         protected TDriver WrappedWebDriver { get; }

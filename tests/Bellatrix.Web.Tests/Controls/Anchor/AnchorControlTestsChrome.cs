@@ -30,7 +30,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Anchor Control")]
     public class AnchorControlTestsChrome : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().AnchorLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]

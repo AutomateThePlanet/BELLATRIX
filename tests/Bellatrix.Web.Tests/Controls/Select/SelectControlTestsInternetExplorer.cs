@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Select Control")]
     public class SelectControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().SelectLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]

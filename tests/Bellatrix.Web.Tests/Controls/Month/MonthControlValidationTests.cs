@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Month Control")]
     public class MonthControlValidationTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().MonthLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]

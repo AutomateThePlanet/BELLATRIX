@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Label Control")]
     public class LabelControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().LabelLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]

@@ -196,12 +196,12 @@ namespace Bellatrix.Web
 
         public static void AddHighlightElements()
         {
-            if (SettingsService.GetSection<WebSettings>() == null)
+            if (ConfigurationService.GetSection<WebSettings>() == null)
             {
                 throw new ArgumentException("Could not load web settings section from testFrameworkSettings.json");
             }
 
-            if (SettingsService.GetSection<WebSettings>().ShouldHighlightElements)
+            if (ConfigurationService.GetSection<WebSettings>().ShouldHighlightElements)
             {
                 var highlightElementEventHandler = new HighlightElementEventHandlers();
                 highlightElementEventHandler.SubscribeToAll();

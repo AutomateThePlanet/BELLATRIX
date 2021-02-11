@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class CheckBoxControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
     {
-        private string _url = SettingsService.GetSection<TestPagesSettings>().CheckBoxLocalPage;
+        private string _url = ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage;
 
         public override void TestInit()
         {

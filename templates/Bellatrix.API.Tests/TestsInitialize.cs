@@ -2,17 +2,18 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using Bellatrix.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+////using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.API.MSTest.Tests
 {
-    [TestClass]
+    [SetUpFixture]
     public class TestsInitialize
     {
         private static Process _testApiProcess;
 
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
+        [OneTimeSetUp]
+        public void AssemblyInitialize()
         {
             // TODO: Remove this code once you use your own web service! It is needed only to run the sample tests.
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -24,8 +25,8 @@ namespace Bellatrix.API.MSTest.Tests
         }
 
         // TODO: Remove this code once you use your own web service! It is needed only to run the sample tests.
-        [AssemblyCleanup]
-        public static void AssemblyCleanUp()
+        [OneTimeTearDown]
+        public void AssemblyCleanUp()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -33,4 +34,33 @@ namespace Bellatrix.API.MSTest.Tests
             }
         }
     }
+
+    // Uncomment if you want to use MSTest
+    ////[TestClass]
+    ////public class TestsInitialize
+    ////{
+    ////    private static Process _testApiProcess;
+
+    ////    [AssemblyInitialize]
+    ////    public static void AssemblyInitialize(TestContext testContext)
+    ////    {
+    ////        // TODO: Remove this code once you use your own web service! It is needed only to run the sample tests.
+    ////        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+    ////        {
+    ////            string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");
+    ////            _testApiProcess = ProcessProvider.StartProcess("dotnet", workingDir, " run", true);
+    ////            ProcessProvider.WaitPortToGetBusy(55215);
+    ////        }
+    ////    }
+
+    ////    // TODO: Remove this code once you use your own web service! It is needed only to run the sample tests.
+    ////    [AssemblyCleanup]
+    ////    public static void AssemblyCleanUp()
+    ////    {
+    ////        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+    ////        {
+    ////            ProcessProvider.CloseProcess(_testApiProcess);
+    ////        }
+    ////    }
+    ////}
 }

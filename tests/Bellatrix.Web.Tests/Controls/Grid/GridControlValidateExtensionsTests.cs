@@ -11,7 +11,7 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().GridLocalPage);
+            App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().GridLocalPage);
             _testGrid = new ElementCreateService().CreateById<Grid>("sampleGrid")
                 .SetColumn("Order", typeof(TextField), Find.By.Tag("input"))
                 .SetColumn("Firstname")

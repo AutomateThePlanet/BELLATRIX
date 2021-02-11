@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class SpanControlValidateExtensionsTests : MSTest.WebTest
     {
-        private string _url = SettingsService.GetSection<TestPagesSettings>().SpanLocalPage;
+        private string _url = ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage;
 
         public override void TestInit()
         {

@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
     {
-        private string _url = SettingsService.GetSection<TestPagesSettings>().AnchorLocalPage;
+        private string _url = ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage;
 
         public override void TestInit()
         {

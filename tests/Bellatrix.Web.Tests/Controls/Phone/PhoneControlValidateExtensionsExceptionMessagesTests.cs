@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class PhoneControlValidateExtensionsTests : MSTest.WebTest
     {
-        private string _url = SettingsService.GetSection<TestPagesSettings>().PhoneLocalPage;
+        private string _url = ConfigurationService.GetSection<TestPagesSettings>().PhoneLocalPage;
 
         public override void TestInit()
         {

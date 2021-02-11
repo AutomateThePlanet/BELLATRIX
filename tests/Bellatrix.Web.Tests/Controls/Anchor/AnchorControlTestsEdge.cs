@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureTag("Edge Browser")]
     public class AnchorControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().AnchorLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
 
         [TestMethod]
         [AllureSeverity(SeverityLevel.critical)]

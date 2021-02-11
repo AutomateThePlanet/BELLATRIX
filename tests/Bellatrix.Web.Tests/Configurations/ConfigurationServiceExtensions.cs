@@ -1,4 +1,4 @@
-// <copyright file="SettingsServiceExtensions.cs" company="Automate The Planet Ltd.">
+// <copyright file="ConfigurationServiceExtensions.cs" company="Automate The Planet Ltd.">
 // Copyright 2020 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace Bellatrix.Web.Tests
 {
-    public static class SettingsServiceExtensions
+    public static class ConfigurationServiceExtensions
     {
-        public static TestPagesSettings GetTestPagesSettings(this SettingsService service)
-            => SettingsService.GetSection<TestPagesSettings>();
+        public static TestPagesSettings GetTestPagesSettings(this ConfigurationService service)
+            => ConfigurationService.GetSection<TestPagesSettings>();
     }
 }

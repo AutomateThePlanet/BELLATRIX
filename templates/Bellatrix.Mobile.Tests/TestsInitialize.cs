@@ -8,13 +8,13 @@ namespace Bellatrix.Mobile.Tests
     public class TestsInitialize
     {
         [OneTimeSetUp]
-        public static void AssemblyInitialize()
+        public void AssemblyInitialize()
         {
             AndroidApp.StartAppiumLocalService();
         }
 
         [OneTimeTearDown]
-        public static void AssemblyCleanUp()
+        public void AssemblyCleanUp()
         {
             var app = ServicesCollection.Current.Resolve<AndroidApp>();
             app?.Dispose();

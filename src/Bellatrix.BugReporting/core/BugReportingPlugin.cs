@@ -41,7 +41,7 @@ namespace Bellatrix.BugReporting
 
         protected override void PreTestInit(object sender, PluginEventArgs e)
         {
-            if (!SettingsService.GetSection<BugReportingSettings>().IsEnabled)
+            if (!ConfigurationService.GetSection<BugReportingSettings>().IsEnabled)
             {
                 return;
             }
@@ -52,7 +52,7 @@ namespace Bellatrix.BugReporting
 
         protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
-            if (!SettingsService.GetSection<BugReportingSettings>().IsEnabled)
+            if (!ConfigurationService.GetSection<BugReportingSettings>().IsEnabled)
             {
                 return;
             }

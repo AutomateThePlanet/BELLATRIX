@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Extensions
     {
         public static string AddUrlOrPageToBddLogging(this string loggingMessage, string location)
         {
-            var loggingSettings = SettingsService.GetSection<WebSettings>();
+            var loggingSettings = ConfigurationService.GetSection<WebSettings>();
 
             if (loggingSettings == null || string.IsNullOrEmpty(location))
             {

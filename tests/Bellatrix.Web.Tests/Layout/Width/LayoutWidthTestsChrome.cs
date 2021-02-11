@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Layout")]
     public class LayoutWidthTestsChrome : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().LayoutPricingPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
 
         [TestMethod]
         [TestCategory(Categories.Layout)]

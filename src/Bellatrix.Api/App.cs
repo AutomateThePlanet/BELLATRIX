@@ -70,7 +70,7 @@ namespace Bellatrix.Api
                 client = new ApiClientService();
                 if (string.IsNullOrEmpty(url))
                 {
-                    var apiSettingsConfig = SettingsService.GetSection<ApiSettings>();
+                    var apiSettingsConfig = ConfigurationService.GetSection<ApiSettings>();
                     if (apiSettingsConfig == null)
                     {
                         throw new SettingsNotFoundException("apiSettings");

@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     public class ColorControlTestsEdge : MSTest.WebTest
     {
         public override void TestsArrange() => base.TestsArrange();
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().ColorLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ColorLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]

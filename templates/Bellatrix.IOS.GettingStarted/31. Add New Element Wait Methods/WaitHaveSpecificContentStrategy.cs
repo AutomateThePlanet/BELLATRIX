@@ -20,7 +20,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             : base(timeoutInterval, sleepInterval)
         {
             _elementContent = elementContent;
-            TimeoutInterval = timeoutInterval ?? SettingsService.GetSection<MobileSettings>().ElementToHaveContentTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().ElementToHaveContentTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by) => WaitUntil(ElementHasSpecificContent(WrappedWebDriver, by), TimeoutInterval, SleepInterval);

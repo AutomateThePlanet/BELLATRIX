@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class TimeControlValidateExtensionsTests : MSTest.WebTest
     {
-        private string _url = SettingsService.GetSection<TestPagesSettings>().TimeLocalPage;
+        private string _url = ConfigurationService.GetSection<TestPagesSettings>().TimeLocalPage;
 
         public override void TestInit()
         {

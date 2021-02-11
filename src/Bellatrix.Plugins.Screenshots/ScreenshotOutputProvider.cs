@@ -22,7 +22,7 @@ namespace Bellatrix.Plugins.Screenshots
     {
         public virtual string GetOutputFolder()
         {
-            var outputDir = SettingsService.GetSection<ScreenshotsSettings>().FilePath;
+            var outputDir = ConfigurationService.GetSection<ScreenshotsSettings>().FilePath;
 
             if (outputDir.StartsWith("ApplicationData", StringComparison.Ordinal))
             {

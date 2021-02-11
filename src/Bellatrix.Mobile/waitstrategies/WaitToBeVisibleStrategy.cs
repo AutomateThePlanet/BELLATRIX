@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.Untils
         public WaitToBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? SettingsService.GetSection<MobileSettings>().ElementToBeVisibleTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().ElementToBeVisibleTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

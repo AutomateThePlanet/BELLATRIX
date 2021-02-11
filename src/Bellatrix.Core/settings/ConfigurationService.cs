@@ -23,11 +23,11 @@ using Microsoft.Extensions.Configuration;
 // ReSharper disable All
 namespace Bellatrix
 {
-    public sealed class SettingsService
+    public sealed class ConfigurationService
     {
         private static IConfigurationRoot _root;
 
-        static SettingsService()
+        static ConfigurationService()
         {
             _root = InitializeConfiguration();
         }

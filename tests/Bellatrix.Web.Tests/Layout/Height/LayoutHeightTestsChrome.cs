@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     public class LayoutHeightTestsChrome : MSTest.WebTest
     {
         public override void TestInit()
-            => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().LayoutPricingPage);
+            => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
 
         [TestMethod]
         [TestCategory(Categories.Layout)]

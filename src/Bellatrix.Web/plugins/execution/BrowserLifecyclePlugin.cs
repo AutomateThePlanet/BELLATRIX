@@ -140,7 +140,7 @@ namespace Bellatrix.Web.Plugins.Browser
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             previousTestExecutionEngine?.DisposeAll();
 
-            bool shouldScrollToVisible = SettingsService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
             var browserConfiguration = new BrowserConfiguration(BrowserType.NotSet, false, shouldScrollToVisible);
             container.RegisterInstance(browserConfiguration, "_previousBrowserConfiguration");
             container.UnregisterSingleInstance<TestExecutionEngine>();
@@ -148,7 +148,7 @@ namespace Bellatrix.Web.Plugins.Browser
 
         private void ResolvePreviousBrowserType(ServicesCollection container)
         {
-            bool shouldScrollToVisible = SettingsService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
             var browserConfiguration = new BrowserConfiguration(BrowserType.NotSet, false, shouldScrollToVisible);
             if (container.IsRegistered<BrowserConfiguration>())
             {

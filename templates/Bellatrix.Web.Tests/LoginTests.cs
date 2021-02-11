@@ -1,5 +1,4 @@
 ﻿using System;
-using Bellatrix.Web.NUnit;
 ////using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 
@@ -9,7 +8,7 @@ namespace Bellatrix.Web.Tests
     ////[TestClass]
     [TestFixture]
     [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    public class LoginTests : WebTest
+    public class LoginTests : NUnit.WebTest
     {
         public override void TestInit() => App.NavigationService.Navigate("http://demos.bellatrix.solutions/my-account/");
 

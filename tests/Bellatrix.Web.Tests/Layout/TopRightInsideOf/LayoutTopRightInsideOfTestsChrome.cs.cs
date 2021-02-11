@@ -26,7 +26,7 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().LayoutPricingPage);
+            App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
             _navigationDiv = App.ElementCreateService.CreateByXpath<Div>("/html/body/div[1]");
             _features = App.ElementCreateService.CreateByXpath<Anchor>("/html/body/div[1]/nav/a[1]");
         }

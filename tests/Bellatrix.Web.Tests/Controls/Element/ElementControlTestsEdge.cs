@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
     [AllureFeature("Edge Browser")]
     public class ElementControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().ElementLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]

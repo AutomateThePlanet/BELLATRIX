@@ -1,6 +1,5 @@
 ﻿////using Microsoft.VisualStudio.TestTools.UnitTesting;
 ////using Bellatrix.Desktop.MSTest;
-using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.Tests
@@ -9,7 +8,7 @@ namespace Bellatrix.Desktop.Tests
     ////[TestClass]
     [TestFixture]
     [App("Microsoft.WindowsCalculator_8wekyb3d8bbwe!App", Lifecycle.RestartOnFail)]
-    public class WindowsCalculatorTests : DesktopTest
+    public class WindowsCalculatorTests : NUnit.DesktopTest
     {
         ////[TestMethod]
         [Test]

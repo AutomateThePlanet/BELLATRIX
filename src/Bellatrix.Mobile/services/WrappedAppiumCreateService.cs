@@ -31,13 +31,13 @@ namespace Bellatrix.Mobile.Services
 
         static WrappedAppiumCreateService()
         {
-            _shouldStartAppiumLocalService = SettingsService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
+            _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 _shouldStartAppiumLocalService = false;
             }
 
-            _appiumServiceUrl = SettingsService.GetSection<MobileSettings>().AppiumServiceUrl;
+            _appiumServiceUrl = ConfigurationService.GetSection<MobileSettings>().AppiumServiceUrl;
         }
 
         public static AppiumLocalService AppiumLocalService { get; set; }
@@ -81,15 +81,15 @@ namespace Bellatrix.Mobile.Services
             }
             else if (appConfiguration.ExecutionType == Enums.ExecutionType.SauceLabs)
             {
-                wrappedWebDriver = new AndroidDriver<AndroidElement>(SettingsService.GetSection<MobileSettings>().SauceLabs.GridUri, appConfiguration.AppiumOptions, TimeSpan.FromSeconds(240));
+                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.GetSection<MobileSettings>().SauceLabs.GridUri, appConfiguration.AppiumOptions, TimeSpan.FromSeconds(240));
             }
             else if (appConfiguration.ExecutionType == Enums.ExecutionType.BrowserStack)
             {
-                wrappedWebDriver = new AndroidDriver<AndroidElement>(SettingsService.GetSection<MobileSettings>().BrowserStack.GridUri, appConfiguration.AppiumOptions);
+                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.GetSection<MobileSettings>().BrowserStack.GridUri, appConfiguration.AppiumOptions);
             }
             else if (appConfiguration.ExecutionType == Enums.ExecutionType.CrossBrowserTesting)
             {
-                wrappedWebDriver = new AndroidDriver<AndroidElement>(SettingsService.GetSection<MobileSettings>().CrossBrowserTesting.GridUri, appConfiguration.AppiumOptions);
+                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.GetSection<MobileSettings>().CrossBrowserTesting.GridUri, appConfiguration.AppiumOptions);
             }
 
             return wrappedWebDriver;

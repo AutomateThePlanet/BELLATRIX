@@ -37,9 +37,9 @@ namespace Bellatrix.Desktop
 
         public App()
         {
-            _shouldStartLocalService = SettingsService.GetSection<DesktopSettings>().ShouldStartLocalService;
-            _ip = SettingsService.GetSection<DesktopSettings>().Ip;
-            _port = SettingsService.GetSection<DesktopSettings>().Port;
+            _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ShouldStartLocalService;
+            _ip = ConfigurationService.GetSection<DesktopSettings>().Ip;
+            _port = ConfigurationService.GetSection<DesktopSettings>().Port;
         }
 
         public AppService AppService => ServicesCollection.Current.Resolve<AppService>();

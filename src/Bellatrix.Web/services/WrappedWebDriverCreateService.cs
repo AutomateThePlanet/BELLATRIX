@@ -68,7 +68,7 @@ namespace Bellatrix.Web
                     wrappedWebDriver = InitializeDriverRegularMode(executionConfiguration, webDriverProxy);
                     break;
                 case ExecutionType.Grid:
-                    var gridUri = SettingsService.GetSection<WebSettings>().Remote.GridUri;
+                    var gridUri = ConfigurationService.GetSection<WebSettings>().Remote.GridUri;
                     if (gridUri == null || !Uri.IsWellFormedUriString(gridUri.ToString(), UriKind.Absolute))
                     {
                         throw new ArgumentException("To execute your tests in WebDriver Grid mode you need to set the gridUri in the browserSettings file.");
@@ -76,43 +76,43 @@ namespace Bellatrix.Web
 
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     wrappedWebDriver = new RemoteWebDriver(gridUri, executionConfiguration.DriverOptions);
-                    var gridPageLoadTimeout = SettingsService.GetSection<WebSettings>().Remote.PageLoadTimeout;
+                    var gridPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Remote.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(gridPageLoadTimeout);
-                    var gridScriptTimeout = SettingsService.GetSection<WebSettings>().Remote.ScriptTimeout;
+                    var gridScriptTimeout = ConfigurationService.GetSection<WebSettings>().Remote.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(gridScriptTimeout);
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().Remote;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Remote;
                     ChangeWindowSize(executionConfiguration.BrowserType, executionConfiguration.Size, wrappedWebDriver);
                     break;
                 case ExecutionType.BrowserStack:
-                    var browserStackUri = SettingsService.GetSection<WebSettings>().BrowserStack.GridUri;
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().BrowserStack;
+                    var browserStackUri = ConfigurationService.GetSection<WebSettings>().BrowserStack.GridUri;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().BrowserStack;
                     if (browserStackUri == null || !Uri.IsWellFormedUriString(browserStackUri.ToString(), UriKind.Absolute))
                     {
                         throw new ArgumentException("To execute your tests in BrowserStack you need to set the gridUri in the browserSettings file.");
                     }
 
                     wrappedWebDriver = new RemoteWebDriver(browserStackUri, executionConfiguration.DriverOptions);
-                    var browserStackPageLoadTimeout = SettingsService.GetSection<WebSettings>().BrowserStack.PageLoadTimeout;
+                    var browserStackPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().BrowserStack.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(browserStackPageLoadTimeout);
-                    var browserStackScriptTimeout = SettingsService.GetSection<WebSettings>().BrowserStack.ScriptTimeout;
+                    var browserStackScriptTimeout = ConfigurationService.GetSection<WebSettings>().BrowserStack.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(browserStackScriptTimeout);
                     break;
                 case ExecutionType.CrossBrowserTesting:
-                    var crossBrowserTestingUri = SettingsService.GetSection<WebSettings>().CrossBrowserTesting.GridUri;
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().CrossBrowserTesting;
+                    var crossBrowserTestingUri = ConfigurationService.GetSection<WebSettings>().CrossBrowserTesting.GridUri;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().CrossBrowserTesting;
                     if (crossBrowserTestingUri == null || !Uri.IsWellFormedUriString(crossBrowserTestingUri.ToString(), UriKind.Absolute))
                     {
                         throw new ArgumentException("To execute your tests in CrossBrowserTesting you need to set the gridUri in the browserSettings file.");
                     }
 
                     wrappedWebDriver = new RemoteWebDriver(crossBrowserTestingUri, executionConfiguration.DriverOptions);
-                    var crossBrowserTestingPageLoadTimeout = SettingsService.GetSection<WebSettings>().CrossBrowserTesting.PageLoadTimeout;
+                    var crossBrowserTestingPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().CrossBrowserTesting.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(crossBrowserTestingPageLoadTimeout);
-                    var crossBrowserTestingScriptTimeout = SettingsService.GetSection<WebSettings>().CrossBrowserTesting.ScriptTimeout;
+                    var crossBrowserTestingScriptTimeout = ConfigurationService.GetSection<WebSettings>().CrossBrowserTesting.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(crossBrowserTestingScriptTimeout);
                     break;
                 case ExecutionType.SauceLabs:
-                    var sauceLabsSettings = SettingsService.GetSection<WebSettings>().SauceLabs;
+                    var sauceLabsSettings = ConfigurationService.GetSection<WebSettings>().SauceLabs;
                     var sauceLabsUri = sauceLabsSettings.GridUri;
                     if (sauceLabsUri == null || !Uri.IsWellFormedUriString(sauceLabsUri.ToString(), UriKind.Absolute))
                     {
@@ -210,11 +210,11 @@ namespace Bellatrix.Web
                     }
 
                     wrappedWebDriver = new ChromeDriver(chromeDriverService, chromeOptions);
-                    var chromePageLoadTimeout = SettingsService.GetSection<WebSettings>().Chrome.PageLoadTimeout;
+                    var chromePageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Chrome.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(chromePageLoadTimeout);
-                    var chromeScriptTimeout = SettingsService.GetSection<WebSettings>().Chrome.ScriptTimeout;
+                    var chromeScriptTimeout = ConfigurationService.GetSection<WebSettings>().Chrome.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(chromeScriptTimeout);
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().Chrome;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Chrome;
                     break;
                 case BrowserType.ChromeHeadless:
                     new DriverManager().SetUpDriver(new ChromeConfig());
@@ -230,11 +230,11 @@ namespace Bellatrix.Web
                     }
 
                     wrappedWebDriver = new ChromeDriver(chromeHeadlessDriverService, chromeHeadlessOptions);
-                    var chromeHeadlessPageLoadTimeout = SettingsService.GetSection<WebSettings>().ChromeHeadless.PageLoadTimeout;
+                    var chromeHeadlessPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(chromeHeadlessPageLoadTimeout);
-                    var chromeHeadlessScriptTimeout = SettingsService.GetSection<WebSettings>().ChromeHeadless.ScriptTimeout;
+                    var chromeHeadlessScriptTimeout = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(chromeHeadlessScriptTimeout);
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().ChromeHeadless;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().ChromeHeadless;
                     break;
                 case BrowserType.Firefox:
                     new DriverManager().SetUpDriver(new FirefoxConfig());
@@ -270,11 +270,11 @@ namespace Bellatrix.Web
 
                     var firefoxTimeout = TimeSpan.FromSeconds(180);
                     wrappedWebDriver = new FirefoxDriver(firefoxService, firefoxOptions, firefoxTimeout);
-                    var firefoxPageLoadTimeout = SettingsService.GetSection<WebSettings>().Firefox.PageLoadTimeout;
+                    var firefoxPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Firefox.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(firefoxPageLoadTimeout);
-                    var firefoxScriptTimeout = SettingsService.GetSection<WebSettings>().Firefox.ScriptTimeout;
+                    var firefoxScriptTimeout = ConfigurationService.GetSection<WebSettings>().Firefox.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(firefoxScriptTimeout);
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().Firefox;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Firefox;
                     break;
                 case BrowserType.FirefoxHeadless:
                     new DriverManager().SetUpDriver(new FirefoxConfig());
@@ -303,11 +303,11 @@ namespace Bellatrix.Web
 
                     service.Port = GetFreeTcpPort();
                     wrappedWebDriver = new FirefoxDriver(service, firefoxHeadlessOptions);
-                    var firefoxHeadlessPageLoadTimeout = SettingsService.GetSection<WebSettings>().FirefoxHeadless.PageLoadTimeout;
+                    var firefoxHeadlessPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(firefoxHeadlessPageLoadTimeout);
-                    var firefoxHeadlessScriptTimeout = SettingsService.GetSection<WebSettings>().FirefoxHeadless.ScriptTimeout;
+                    var firefoxHeadlessScriptTimeout = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(firefoxHeadlessScriptTimeout);
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().FirefoxHeadless;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless;
                     break;
                 case BrowserType.Edge:
                     new DriverManager().SetUpDriver(new EdgeConfig());
@@ -323,11 +323,11 @@ namespace Bellatrix.Web
                     }
 
                     wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeDriverService, edgeOptions);
-                    var edgePageLoadTimeout = SettingsService.GetSection<WebSettings>().Edge.PageLoadTimeout;
+                    var edgePageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Edge.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(edgePageLoadTimeout);
-                    var edgeScriptTimeout = SettingsService.GetSection<WebSettings>().Edge.ScriptTimeout;
+                    var edgeScriptTimeout = ConfigurationService.GetSection<WebSettings>().Edge.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(edgeScriptTimeout);
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().Edge;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Edge;
                     break;
                 case BrowserType.EdgeHeadless:
                     new DriverManager().SetUpDriver(new EdgeConfig());
@@ -344,11 +344,11 @@ namespace Bellatrix.Web
                     }
 
                     wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeHeadlessDriverService, edgeHeadlessOptions);
-                    var edgeHeadlessPageLoadTimeout = SettingsService.GetSection<WebSettings>().Edge.PageLoadTimeout;
+                    var edgeHeadlessPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Edge.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(edgeHeadlessPageLoadTimeout);
-                    var edgeHeadlessScriptTimeout = SettingsService.GetSection<WebSettings>().Edge.ScriptTimeout;
+                    var edgeHeadlessScriptTimeout = ConfigurationService.GetSection<WebSettings>().Edge.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(edgeHeadlessScriptTimeout);
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().Edge;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Edge;
                     break;
                 case BrowserType.Opera:
                     new DriverManager().SetUpDriver(new OperaConfig());
@@ -375,11 +375,11 @@ namespace Bellatrix.Web
                         throw new Exception("This is a known issue in the latest versions of Opera driver. It is reported to the Opera team. As soon it is fixed we will update BELLATRIX.", ex);
                     }
 
-                    var operaPageLoadTimeout = SettingsService.GetSection<WebSettings>().Opera.PageLoadTimeout;
+                    var operaPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Opera.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(operaPageLoadTimeout);
-                    var operaScriptTimeout = SettingsService.GetSection<WebSettings>().Opera.ScriptTimeout;
+                    var operaScriptTimeout = ConfigurationService.GetSection<WebSettings>().Opera.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(operaScriptTimeout);
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().Opera;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Opera;
                     break;
                 case BrowserType.InternetExplorer:
                     new DriverManager().SetUpDriver(new InternetExplorerConfig());
@@ -406,11 +406,11 @@ namespace Bellatrix.Web
 
                     wrappedWebDriver = new InternetExplorerDriver(_driverExecutablePath, ieOptions);
 
-                    var iePageLoadTimeout = SettingsService.GetSection<WebSettings>().InternetExplorer.PageLoadTimeout;
+                    var iePageLoadTimeout = ConfigurationService.GetSection<WebSettings>().InternetExplorer.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(iePageLoadTimeout);
-                    var ieScriptTimeout = SettingsService.GetSection<WebSettings>().InternetExplorer.ScriptTimeout;
+                    var ieScriptTimeout = ConfigurationService.GetSection<WebSettings>().InternetExplorer.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(ieScriptTimeout);
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().InternetExplorer;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().InternetExplorer;
                     break;
                 case BrowserType.Safari:
                     var safariOptions = GetSafariOptions(executionConfiguration.ClassFullName);
@@ -422,11 +422,11 @@ namespace Bellatrix.Web
 
                     wrappedWebDriver = new SafariDriver(safariOptions);
 
-                    var safariPageLoadTimeout = SettingsService.GetSection<WebSettings>().Safari.PageLoadTimeout;
+                    var safariPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Safari.PageLoadTimeout;
                     wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(safariPageLoadTimeout);
-                    var safariScriptTimeout = SettingsService.GetSection<WebSettings>().Safari.ScriptTimeout;
+                    var safariScriptTimeout = ConfigurationService.GetSection<WebSettings>().Safari.ScriptTimeout;
                     wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(safariScriptTimeout);
-                    BrowserSettings = SettingsService.GetSection<WebSettings>().Safari;
+                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Safari;
                     break;
                 default:
                     throw new NotSupportedException($"Not supported browser {executionConfiguration.BrowserType}");

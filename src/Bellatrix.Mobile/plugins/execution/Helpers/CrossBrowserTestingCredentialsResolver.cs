@@ -23,8 +23,8 @@ namespace Bellatrix.Mobile.Plugins
 
         protected override Tuple<string, string> GetCredentialsFromConfig()
         {
-            string user = SettingsService.GetSection<MobileSettings>().CrossBrowserTesting.User;
-            string accessKey = SettingsService.GetSection<MobileSettings>().CrossBrowserTesting.Key;
+            string user = ConfigurationService.GetSection<MobileSettings>().CrossBrowserTesting.User;
+            string accessKey = ConfigurationService.GetSection<MobileSettings>().CrossBrowserTesting.Key;
 
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(accessKey))
             {

@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class ProgressControlValidateExtensionsTests : MSTest.WebTest
     {
-        private string _url = SettingsService.GetSection<TestPagesSettings>().ProgressLocalPage;
+        private string _url = ConfigurationService.GetSection<TestPagesSettings>().ProgressLocalPage;
 
         public override void TestInit()
         {

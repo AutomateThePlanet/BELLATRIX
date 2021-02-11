@@ -21,9 +21,9 @@ namespace Bellatrix.BugReporting.Configuration
 {
     public static class ConfigurationServiceExtensions
     {
-        public static BugReportingSettings GetBugReportingSettings(this SettingsService service)
+        public static BugReportingSettings GetBugReportingSettings(this ConfigurationService service)
         {
-            var result = SettingsService.GetSection<BugReportingSettings>();
+            var result = ConfigurationService.GetSection<BugReportingSettings>();
 
             if (result == null)
             {

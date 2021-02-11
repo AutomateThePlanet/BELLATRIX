@@ -35,7 +35,7 @@ namespace Bellatrix.Plugins.Video
 
         public VideoPlugin(IVideoRecorder videoRecorder, IVideoRecorderOutputProvider videoRecorderOutputProvider, IVideoPluginProvider videoPluginProvider)
         {
-            _isEnabled = SettingsService.GetSection<VideoRecordingSettings>().IsEnabled;
+            _isEnabled = ConfigurationService.GetSection<VideoRecordingSettings>().IsEnabled;
             _videoRecorder = videoRecorder;
             _videoRecorderOutputProvider = videoRecorderOutputProvider;
             _videoPluginProvider = videoPluginProvider;

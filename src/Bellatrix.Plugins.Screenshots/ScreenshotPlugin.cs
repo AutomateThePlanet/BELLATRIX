@@ -34,7 +34,7 @@ namespace Bellatrix.Plugins.Screenshots
             IScreenshotOutputProvider screenshotOutputProvider,
             IScreenshotPluginProvider screenshotPluginProvider)
         {
-            _isEnabled = SettingsService.GetSection<ScreenshotsSettings>().IsEnabled;
+            _isEnabled = ConfigurationService.GetSection<ScreenshotsSettings>().IsEnabled;
             _screenshotEngine = screenshotEngine;
             _screenshotOutputProvider = screenshotOutputProvider;
             _screenshotPluginProvider = screenshotPluginProvider;
