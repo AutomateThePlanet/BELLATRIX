@@ -16,12 +16,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Edge, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Radio Control")]
     [AllureFeature("ValidateExtensions")]
-    public class RadioButtonControlValidateExtensionsExceptionMessagesTests : WebTest
+    public class RadioButtonControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage;
+        private string _url = SettingsService.GetSection<TestPagesSettings>().RadioLocalPage;
 
         public override void TestInit()
         {

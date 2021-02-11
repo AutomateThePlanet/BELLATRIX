@@ -16,11 +16,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Safari, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Reset Control")]
-    public class ResetControlTestsSafari : WebTest
+    public class ResetControlTestsSafari : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().ResetLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]

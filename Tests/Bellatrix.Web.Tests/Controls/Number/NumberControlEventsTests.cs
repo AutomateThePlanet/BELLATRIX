@@ -17,12 +17,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Edge, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Number Control")]
     [AllureFeature("ControlEvents")]
-    public class NumberControlEventsTests : WebTest
+    public class NumberControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().NumberLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().NumberLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]

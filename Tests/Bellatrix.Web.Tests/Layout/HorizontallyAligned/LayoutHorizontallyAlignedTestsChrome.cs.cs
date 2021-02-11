@@ -17,9 +17,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, 1280, 600, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Layout")]
-    public class LayoutHorizontallyAlignedTestsChrome : WebTest
+    public class LayoutHorizontallyAlignedTestsChrome : MSTest.WebTest
     {
         private Heading _free;
         private Heading _pro;
@@ -27,7 +27,7 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+            App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().LayoutPricingPage);
             _free = App.ElementCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
             _pro = App.ElementCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
             _enterprise = App.ElementCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[3]/div[1]/h4");

@@ -16,12 +16,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Edge, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [AllureSuite("CheckBox Control")]
     [AllureFeature("ValidateExtensions")]
-    public class CheckBoxControlValidateExtensionsExceptionMessagesTests : WebTest
+    public class CheckBoxControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage;
+        private string _url = SettingsService.GetSection<TestPagesSettings>().CheckBoxLocalPage;
 
         public override void TestInit()
         {

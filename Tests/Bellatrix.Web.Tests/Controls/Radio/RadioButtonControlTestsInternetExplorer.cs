@@ -16,11 +16,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.InternetExplorer, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.InternetExplorer, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Radio Control")]
-    public class RadioButtonControlTestsInternetExplorer : WebTest
+    public class RadioButtonControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().RadioLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]

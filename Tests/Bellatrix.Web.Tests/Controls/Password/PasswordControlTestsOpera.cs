@@ -16,11 +16,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Opera, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Opera, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Password Control")]
-    public class PasswordControlTestsOpera : WebTest
+    public class PasswordControlTestsOpera : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PasswordLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().PasswordLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Opera)]

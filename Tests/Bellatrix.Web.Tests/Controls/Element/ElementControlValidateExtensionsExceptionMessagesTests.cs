@@ -16,13 +16,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls.Element
 {
     [TestClass]
-    [Browser(BrowserType.Edge, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [ScreenshotOnFail(true)]
     [AllureSuite("Element Control")]
     [AllureFeature("ValidateExtensions")]
-    public class ElementControlValidateExtensionsExceptionMessagesTests : WebTest
+    public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage;
+        private string _url = SettingsService.GetSection<TestPagesSettings>().ElementLocalPage;
 
         public override void TestInit()
         {

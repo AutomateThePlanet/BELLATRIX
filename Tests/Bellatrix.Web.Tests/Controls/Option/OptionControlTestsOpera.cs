@@ -16,11 +16,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Opera, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Opera, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Option Control")]
-    public class OptionControlTestsOpera : WebTest
+    public class OptionControlTestsOpera : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OptionLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().OptionLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Opera)]

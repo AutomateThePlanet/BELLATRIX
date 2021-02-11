@@ -16,11 +16,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls.Element
 {
     [TestClass]
-    [Browser(BrowserType.InternetExplorer, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.InternetExplorer, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Element Control")]
-    public class ElementControlTestsInternetExplorer : WebTest
+    public class ElementControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().ElementLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]

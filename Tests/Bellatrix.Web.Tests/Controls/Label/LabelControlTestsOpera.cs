@@ -16,11 +16,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Opera, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Opera, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Label Control")]
-    public class LabelControlTestsOpera : WebTest
+    public class LabelControlTestsOpera : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().LabelLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Opera)]

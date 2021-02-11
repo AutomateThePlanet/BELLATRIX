@@ -16,12 +16,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls.Element
 {
     [TestClass]
-    [Browser(OS.Windows, BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.ReuseIfStarted)]
+    [Browser(OS.Windows, BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Element Control")]
-    public class ElementControlTestsChrome : WebTest
+    public class ElementControlTestsChrome : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().ElementLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]

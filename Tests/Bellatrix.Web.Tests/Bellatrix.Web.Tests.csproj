@@ -1,27 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <LangVersion>9.0</LangVersion>
-        <IsPackable>false</IsPackable>
-        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-        <Configurations>Debug;Release;ObfuscatedNuGets</Configurations>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
-        <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
-        <RunAnalyzers>true</RunAnalyzers>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <WarningsAsErrors />
-        <NoWarn>NU1701;NU1702;NU1705;</NoWarn>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <CodeAnalysisRuleSet>..\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
-    </ItemGroup>
+ <Import Project="..\..\shared\SharedAssemblyInfo.targets" />     
 
     <ItemGroup>
         <PackageReference Include="Bellatrix.FFmpeg.Recorder" Version="1.3.0" />
@@ -30,42 +8,20 @@
         <PackageReference Include="Bellatrix.Web.Firefox" Version="1.9.5.270" />
         <PackageReference Include="Bellatrix.Web.Opera" Version="1.9.5.85" />
         <PackageReference Include="Bellatrix.Web.InternetExplorer" Version="1.3.0.3900" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
         <PackageReference Include="Moq" Version="4.15.2" />
         <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
         <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
         <PackageReference Include="System.Security.Permissions" Version="5.0.0" />
         <PackageReference Include="Unity" Version="5.11.9" />
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-            <NoWarn>NU1701</NoWarn>
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Framework\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.BugReporting.AzureDevOps\Bellatrix.BugReporting.AzureDevOps.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.BugReporting.Jira\Bellatrix.BugReporting.Jira.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.DynamicTestCases.AzureDevOps\Bellatrix.DynamicTestCases.AzureDevOps.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.DynamicTestCases.QTest\Bellatrix.DynamicTestCases.QTest.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Layout\Bellatrix.Layout.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.MachineAutomation\Bellatrix.MachineAutomation.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Screenshots\Bellatrix.TestExecutionExtensions.Screenshots.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.TestExecutionExtensions.Video\Bellatrix.TestExecutionExtensions.Video.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Web.MSTest\Bellatrix.Web.MSTest.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Web.Screenshots\Bellatrix.Web.Screenshots.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Web.TestExecutionExtensions\Bellatrix.Web.TestExecutionExtensions.Browser.csproj" />
-        <ProjectReference Include="..\..\Framework\Bellatrix.Web\Bellatrix.Web.csproj" />
+        <ProjectReference Include="..\..\src\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
+        <ProjectReference Include="..\..\src\Bellatrix.BugReporting.AzureDevOps\Bellatrix.BugReporting.AzureDevOps.csproj" />
+        <ProjectReference Include="..\..\src\Bellatrix.DynamicTestCases.AzureDevOps\Bellatrix.DynamicTestCases.AzureDevOps.csproj" />
+        <ProjectReference Include="..\..\src\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
+        <ProjectReference Include="..\..\src\Bellatrix.Web\Bellatrix.Web.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -384,10 +340,6 @@
 
     <ItemGroup>
         <Folder Include="TestPages\Button\" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="..\..\Framework\AutomateThePlanet.licenseheader" Link="AutomateThePlanet.licenseheader" />
     </ItemGroup>
 
 

@@ -17,9 +17,9 @@ namespace Bellatrix.Web.Tests
 {
     [TestClass]
     [VideoRecording(VideoRecordingMode.Always)]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.ReuseIfStarted)]
-    public class VideoRecordingTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+    public class VideoRecordingTests : MSTest.WebTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

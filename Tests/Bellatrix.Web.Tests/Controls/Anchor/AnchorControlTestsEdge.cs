@@ -17,14 +17,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Edge, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Anchor Control")]
     [AllureTag("Edge Browser")]
     [ScreenshotOnFail(true)]
     [VideoRecording(VideoRecordingMode.OnlyFail)]
-    public class AnchorControlTestsEdge : WebTest
+    public class AnchorControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().AnchorLocalPage);
 
         [TestMethod]
         [AllureSeverity(SeverityLevel.critical)]

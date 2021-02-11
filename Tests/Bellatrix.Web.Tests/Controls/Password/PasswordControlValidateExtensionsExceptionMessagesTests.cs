@@ -16,12 +16,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Edge, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Password Control")]
     [AllureFeature("ValidateExtensions")]
-    public class PasswordControlValidateExtensionsExceptionMessagesTests : WebTest
+    public class PasswordControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().PasswordLocalPage;
+        private string _url = SettingsService.GetSection<TestPagesSettings>().PasswordLocalPage;
 
         public override void TestInit()
         {

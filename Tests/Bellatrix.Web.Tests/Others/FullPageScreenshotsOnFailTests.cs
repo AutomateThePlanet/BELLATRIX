@@ -17,9 +17,9 @@ namespace Bellatrix.Web.Tests
 {
     [TestClass]
     [ScreenshotOnFail(true)]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.ReuseIfStarted)]
-    public class FullPageScreenshotsOnFailTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+    public class FullPageScreenshotsOnFailTests : MSTest.WebTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

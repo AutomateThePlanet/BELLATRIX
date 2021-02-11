@@ -18,10 +18,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
     [ScreenshotOnFail(true)]
-    public class AngularTestsChrome : WebTest
+    public class AngularTestsChrome : MSTest.WebTest
     {
         [TestMethod]
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]

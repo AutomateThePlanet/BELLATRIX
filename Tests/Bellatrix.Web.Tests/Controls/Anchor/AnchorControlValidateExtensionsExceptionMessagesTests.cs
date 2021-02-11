@@ -17,12 +17,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Anchor Control")]
     [AllureFeature("ValidateExtensions")]
-    public class AnchorControlValidateExtensionsExceptionMessagesTests : WebTest
+    public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage;
+        private string _url = SettingsService.GetSection<TestPagesSettings>().AnchorLocalPage;
 
         public override void TestInit()
         {

@@ -5,8 +5,8 @@ using ImageRecognition = Bellatrix.ImageRecognition;
 namespace Bellatrix.Web.Demos
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    public class ImageRecognitionTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    public class ImageRecognitionTests : MSTest.WebTest
     {
         [TestMethod]
         public void AssertPrintPreview()

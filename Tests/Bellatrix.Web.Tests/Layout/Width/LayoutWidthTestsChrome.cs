@@ -17,11 +17,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, 1280, 600, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Layout")]
-    public class LayoutWidthTestsChrome : WebTest
+    public class LayoutWidthTestsChrome : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().LayoutPricingPage);
 
         [TestMethod]
         [TestCategory(Categories.Layout)]

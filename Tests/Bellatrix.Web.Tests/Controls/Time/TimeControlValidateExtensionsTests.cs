@@ -16,12 +16,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Edge, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Time Control")]
     [AllureFeature("ValidateExtensions")]
-    public class TimeControlValidateExtensionsTests : WebTest
+    public class TimeControlValidateExtensionsTests : MSTest.WebTest
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().TimeLocalPage;
+        private string _url = SettingsService.GetSection<TestPagesSettings>().TimeLocalPage;
 
         public override void TestInit()
         {

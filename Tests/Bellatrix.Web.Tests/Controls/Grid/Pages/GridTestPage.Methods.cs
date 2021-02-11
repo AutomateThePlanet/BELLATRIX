@@ -2,6 +2,6 @@
 {
     public partial class GridTestPage : AssertedNavigatablePage
     {
-        public override string Url => ConfigurationService.GetSection<TestPagesSettings>().GridLocalPage;
+        public override string Url => SettingsService.GetSection<TestPagesSettings>().GridLocalPage;
     }
 }

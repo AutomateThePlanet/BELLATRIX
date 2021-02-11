@@ -3,15 +3,15 @@
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Grid Control")]
-    public class GridControlValidateExtensionsTests : WebTest
+    public class GridControlValidateExtensionsTests : MSTest.WebTest
     {
         private Grid _testGrid;
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().GridLocalPage);
+            App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().GridLocalPage);
             _testGrid = new ElementCreateService().CreateById<Grid>("sampleGrid")
                 .SetColumn("Order", typeof(TextField), Find.By.Tag("input"))
                 .SetColumn("Firstname")

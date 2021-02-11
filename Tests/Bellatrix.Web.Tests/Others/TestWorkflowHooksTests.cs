@@ -20,10 +20,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    [Browser(OS.OSX, BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     [AllureSuite("TestWorkflowHooks")]
-    public class TestWorkflowHooksTests : WebTest
+    public class TestWorkflowHooksTests : MSTest.WebTest
     {
         private static Select _sortDropDown;
         private static Anchor _protonRocketAnchor;

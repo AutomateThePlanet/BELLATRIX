@@ -16,11 +16,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.FirefoxHeadless, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.FirefoxHeadless, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Anchor Control")]
-    public class AnchorControlTestsFirefoxHeadless : WebTest
+    public class AnchorControlTestsFirefoxHeadless : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
+        public override void TestInit() => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().AnchorLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.FirefoxHeadless), TestCategory(Categories.Windows)]

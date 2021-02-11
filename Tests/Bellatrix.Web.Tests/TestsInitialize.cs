@@ -14,53 +14,17 @@
 
 using System;
 using Bellatrix.Infrastructure;
-using Bellatrix.MachineAutomation;
-using Bellatrix.Trace;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Web.Tests
 {
     [TestClass]
-    public class TestsInitialize : WebTest
+    public class TestsInitialize : MSTest.WebTest
     {
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            var app = new App();
-
-            app.UseMsTestSettings();
-            app.UseControlDataHandlers();
-            app.UseExceptionLogger();
-            app.UseBrowserBehavior();
-            app.UseLogExecutionBehavior();
-            app.UseFFmpegVideoRecorder();
-            app.UseFullPageScreenshotsOnFail();
-            app.UseElementsBddLogging();
-            app.UseHighlightElements();
-            app.UseValidateExtensionsBddLogging();
-            app.UseLayoutAssertionExtensionsBddLogging();
-
-            ////app.UseTestResultsAnalysisTraining();
-            ////app.UseLoadTesting();
-            app.Initialize();
-            ////App.UseAllure();
-
-            ////App.UseDynamicTestCases();
-            ////App.UseAssertExtensionsDynamicTestCases();
-            ////App.UseValidateExtensionsDynamicTestCases();
-            ////App.UseLayoutAssertionExtensionsDynamicTestCases();
-
-            ////App.UseQTestDynamicTestCases();
-            ////App.UseAzureDevOpsDynamicTestCases();
-
-            app.UseBugReporting();
-            ////app.UseAssertExtensionsBugReporting();
-            app.UseValidateExtensionsBugReporting();
-            app.UseLayoutAssertionExtensionsBugReporting();
-            ////App.UseAzureDevOpsBugReporting();
-            ////App.UseJiraBugReporting();
-            ////app.UseBotBugReporting();
-            ////SoftwareAutomationService.InstallRequiredSoftware();
+            AllurePlugin.Add();
         }
 
         [AssemblyCleanup]

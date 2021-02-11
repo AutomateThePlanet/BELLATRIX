@@ -13,7 +13,6 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Drawing;
 using Bellatrix.Layout;
-using Bellatrix.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

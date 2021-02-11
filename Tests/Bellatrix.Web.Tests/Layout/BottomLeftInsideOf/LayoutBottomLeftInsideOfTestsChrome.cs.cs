@@ -17,16 +17,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, 1280, 600, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Layout")]
-    public class LayoutBottomLeftInsideOfTestsChrome : WebTest
+    public class LayoutBottomLeftInsideOfTestsChrome : MSTest.WebTest
     {
         private Div _navigationDiv;
         private Anchor _features;
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+            App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().LayoutPricingPage);
             _navigationDiv = App.ElementCreateService.CreateByXpath<Div>("/html/body/div[1]");
             _features = App.ElementCreateService.CreateByXpath<Anchor>("/html/body/div[1]/nav/a[1]");
         }

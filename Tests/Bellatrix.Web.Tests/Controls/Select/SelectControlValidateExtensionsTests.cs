@@ -16,12 +16,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Edge, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Select Control")]
     [AllureFeature("ValidateExtensions")]
-    public class SelectControlValidateExtensionsTests : WebTest
+    public class SelectControlValidateExtensionsTests : MSTest.WebTest
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage;
+        private string _url = SettingsService.GetSection<TestPagesSettings>().SelectLocalPage;
 
         public override void TestInit()
         {

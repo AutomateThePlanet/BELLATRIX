@@ -20,14 +20,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Safari, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Table Control")]
     [ScreenshotOnFail(true)]
-    public class TableControlTestsChrome : WebTest
+    public class TableControlTestsChrome : MSTest.WebTest
     {
         public override void TestInit()
-            => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TableLocalPage);
+            => App.NavigationService.NavigateToLocalPage(SettingsService.GetSection<TestPagesSettings>().TableLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]

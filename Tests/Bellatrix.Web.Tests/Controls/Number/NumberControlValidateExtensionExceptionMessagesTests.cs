@@ -16,11 +16,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Edge, BrowserBehavior.ReuseIfStarted)]
+    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Number Control")]
-    public class NumberControlValidateExtensionExceptionMessagesTests : WebTest
+    public class NumberControlValidateExtensionExceptionMessagesTests : MSTest.WebTest
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().NumberLocalPage;
+        private string _url = SettingsService.GetSection<TestPagesSettings>().NumberLocalPage;
 
         public override void TestInit()
         {

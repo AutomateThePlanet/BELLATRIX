@@ -17,8 +17,8 @@ namespace Bellatrix.Web.Tests
 {
     [TestClass]
     [AllureSuite("CaptureHttpTraffic")]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime, shouldCaptureHttpTraffic: true)]
-    public class CaptureHttpTrafficTests : WebTest
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: true)]
+    public class CaptureHttpTrafficTests : MSTest.WebTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

@@ -4,12 +4,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests
 {
     [TestClass]
-    [Browser(BrowserType.Chrome, BrowserBehavior.RestartEveryTime)]
+    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
     [AzureDevOpsDynamicTestCaseAttribute(AreaPath = "AutomateThePlanet", IterationPath = "AutomateThePlanet", RequirementId = "482")]
     ////[DynamicTestCase(SuiteId = "8260474")]
     [ScreenshotOnFail(true)]
     [VideoRecording(VideoRecordingMode.OnlyFail)]
-    public class PageObjectsTests : WebTest
+    public class PageObjectsTests : MSTest.WebTest
     {
         [TestMethod]
         ////[DynamicTestCase(
