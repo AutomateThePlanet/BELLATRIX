@@ -1,9 +1,0 @@
-D:\SourceCode\AutomateThePlanet\BELLATRIX\Framework\Bellatrix.Layout\bin\Debug\netcoreapp3.1\Bellatrix.Layout.deps.json
-D:\SourceCode\AutomateThePlanet\BELLATRIX\Framework\Bellatrix.Layout\bin\Debug\netcoreapp3.1\Bellatrix.Layout.dll
-D:\SourceCode\AutomateThePlanet\BELLATRIX\Framework\Bellatrix.Layout\bin\Debug\netcoreapp3.1\Bellatrix.Layout.pdb
-D:\SourceCode\AutomateThePlanet\BELLATRIX\Framework\Bellatrix.Layout\obj\Debug\netcoreapp3.1\Bellatrix.Layout.AssemblyInfoInputs.cache
-D:\SourceCode\AutomateThePlanet\BELLATRIX\Framework\Bellatrix.Layout\obj\Debug\netcoreapp3.1\Bellatrix.Layout.AssemblyInfo.cs
-D:\SourceCode\AutomateThePlanet\BELLATRIX\Framework\Bellatrix.Layout\obj\Debug\netcoreapp3.1\Bellatrix.Layout.csproj.CoreCompileInputs.cache
-D:\SourceCode\AutomateThePlanet\BELLATRIX\Framework\Bellatrix.Layout\obj\Debug\netcoreapp3.1\Bellatrix.Layout.dll
-D:\SourceCode\AutomateThePlanet\BELLATRIX\Framework\Bellatrix.Layout\obj\Debug\netcoreapp3.1\Bellatrix.Layout.pdb
-D:\SourceCode\AutomateThePlanet\BELLATRIX\Framework\Bellatrix.Layout\obj\Debug\netcoreapp3.1\Bellatrix.Layout.csprojAssemblyReference.cache
