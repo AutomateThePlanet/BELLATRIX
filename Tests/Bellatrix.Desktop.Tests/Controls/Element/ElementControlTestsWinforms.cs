@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.Tests
 {
     [TestClass]
-    [App(Constants.WinFormsAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Element Control")]
     [AllureTag("WinForms")]
     public class ElementControlTestsWinForms : BellatrixBaseTest
@@ -98,7 +98,7 @@ namespace Bellatrix.Desktop.Tests
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Desktop)]
-        [App(Constants.WinFormsAppPath, AppBehavior.RestartEveryTime)]
+        [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToExists_When_ElementIsNotVisibleInitially_WinForms()
         {
             var disappearBtn = App.ElementCreateService.CreateByAutomationId<Button>("btnDisappear");
@@ -113,7 +113,7 @@ namespace Bellatrix.Desktop.Tests
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Desktop)]
-        [App(Constants.WinFormsAppPath, AppBehavior.RestartEveryTime)]
+        [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_WinForms()
         {
             var button = App.ElementCreateService.CreateByAutomationId<Button>("btnDisappear");

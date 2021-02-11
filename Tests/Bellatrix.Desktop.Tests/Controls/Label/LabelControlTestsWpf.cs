@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.Tests
 {
     [TestClass]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Label Control")]
     [AllureTag("WPF")]
     public class LabelControlTestsWpf : BellatrixBaseTest

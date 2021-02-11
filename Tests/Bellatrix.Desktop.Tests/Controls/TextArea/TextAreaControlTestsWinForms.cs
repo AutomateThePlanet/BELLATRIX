@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.Tests
 {
     [TestClass]
-    [App(Constants.WinFormsAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("TextArea Control")]
     [AllureTag("WinForms")]
     public class TextAreaControlTestsWinForms : BellatrixBaseTest

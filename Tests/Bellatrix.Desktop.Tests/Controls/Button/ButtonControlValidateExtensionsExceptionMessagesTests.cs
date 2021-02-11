@@ -17,7 +17,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.Tests
 {
     [TestClass]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Button Control")]
     [AllureFeature("ValidateExtensionsExceptionMessages")]
     [AllureTag("WPF")]

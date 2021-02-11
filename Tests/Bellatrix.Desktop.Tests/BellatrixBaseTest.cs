@@ -15,7 +15,7 @@ using OpenQA.Selenium.Interactions;
 
 namespace Bellatrix.Desktop.Tests
 {
-    public class BellatrixBaseTest : DesktopTest
+    public class BellatrixBaseTest : MSTest.DesktopTest
     {
         public override void TestCleanup()
         {

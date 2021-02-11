@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.Tests
 {
     [TestClass]
-    [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Element Control")]
     [AllureTag("WPF")]
     public class ElementControlTestsWpf : BellatrixBaseTest
@@ -87,7 +87,7 @@ namespace Bellatrix.Desktop.Tests
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Desktop)]
-        [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+        [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToExists_When_ElementIsNotVisibleInitially_Wpf()
         {
             var button = App.ElementCreateService.CreateByName<Button>("ShowAfterButton");
@@ -100,7 +100,7 @@ namespace Bellatrix.Desktop.Tests
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Desktop)]
-        [App(Constants.WpfAppPath, AppBehavior.RestartEveryTime)]
+        [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Wpf()
         {
             var button = App.ElementCreateService.CreateByName<Button>("DisappearAfterButton1");

@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.Tests
 {
     [TestClass]
-    [App(Constants.UniversalAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("ListBox Control")]
     [AllureTag("Universal")]
     public class ListBoxControlTestsUniversal : BellatrixBaseTest

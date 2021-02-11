@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.Tests
 {
     [TestClass]
-    [App(Constants.WinFormsAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Radio Control")]
     [AllureTag("WinForms")]
     public class RadioControlTestsWinForms : BellatrixBaseTest

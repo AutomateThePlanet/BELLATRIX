@@ -16,24 +16,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.Tests
 {
     [TestClass]
-    public class TestsInitialize : DesktopTest
+    public class TestsInitialize
     {
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            var app = new App();
-
-            app.UseMsTestSettings();
-            app.UseAppBehavior();
-            app.UseLogExecutionBehavior();
-            app.UseFFmpegVideoRecorder();
-            app.UseVanillaWebDriverScreenshotsOnFail();
-            app.UseElementsBddLogging();
-            app.UseValidateExtensionsBddLogging();
-            app.UseLayoutAssertionExtensionsBddLogging();
-            app.StartWinAppDriver();
-            app.UseAllure();
-            app.Initialize();
+            AllurePlugin.Add();
+            App.StartWinAppDriver();
         }
 
         [AssemblyCleanup]
@@ -41,7 +30,7 @@ namespace Bellatrix.Desktop.Tests
         {
             var app = ServicesCollection.Current.Resolve<App>();
             app.Dispose();
-            app.StopWinAppDriver();
+            App.StopWinAppDriver();
         }
     }
 }

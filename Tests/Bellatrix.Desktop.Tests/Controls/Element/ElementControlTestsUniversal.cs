@@ -17,7 +17,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.Tests
 {
     [TestClass]
-    [App(Constants.UniversalAppPath, AppBehavior.RestartEveryTime)]
+    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Element Control")]
     [AllureTag("Universal")]
     public class ElementControlTestsUniversal : BellatrixBaseTest
@@ -99,7 +99,7 @@ namespace Bellatrix.Desktop.Tests
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Desktop)]
-        [App(Constants.UniversalAppPath, AppBehavior.RestartEveryTime)]
+        [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToExists_When_ElementIsNotVisibleInitially_Universal()
         {
             var disappearButton = App.ElementCreateService.CreateByAutomationId<Button>("DisappearAfter");
@@ -114,7 +114,7 @@ namespace Bellatrix.Desktop.Tests
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Desktop)]
-        [App(Constants.UniversalAppPath, AppBehavior.RestartEveryTime)]
+        [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Universal()
         {
             var button = App.ElementCreateService.CreateByAutomationId<Button>("DisappearAfter");
