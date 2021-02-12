@@ -8,21 +8,14 @@ BELLATRIX is not a single thing it contains multiple framework libraries, extens
 Simple Installation
 ------------------
 1. Download the BELLATRIX projects as a zip file from the Code green button in the right corner.
-2. Unzip it. The projects are grouped by technology: web, desktop, mobile, API, load testing
+2. Unzip it. Open BellatrixTestFramework.sln in Visual Studio 
+3. Open one of the preconfigured projects. It works for both MSTest and NUnit without additional configuration.
 
-![Grouping By Technology](images/projects-grouping-by-technology.png)
+![Bellatrix Preconfigured Web Project](images/bellatrix-web-preconfigured.PNG)
 
-3. Open the project based on the test framework you prefer: MSTest or NUnit.
-
-![Grouping By Test Framework](images/projects-templates-grouping-by-test-framework.png)
-
-4. Click on the csproj file.
-
-![Open csproj](images/open-csproj.png)
-
-5. Run the sample tests.
-6. You can try to write a simple test yourself.
-7. For an in-depth revision of all framework features you can open the getting started projects.
+4. Run the sample tests.
+5. You can try to write a simple test yourself.
+6. For an in-depth revision of all framework features you can open the getting started projects.
 
 How to use starter kits?
 ------------------
@@ -34,7 +27,7 @@ The starter kits are one of the greatest features of BELLATRIX. For each module-
 5. Run the sample tests.
 6. You can try to write a simple test yourself.
 
-![Open csproj](images/open-csproj.png)
+![Starter Kits](images/starter-kits.PNG)
 
 Running Tests through CLI
 --------------------------
