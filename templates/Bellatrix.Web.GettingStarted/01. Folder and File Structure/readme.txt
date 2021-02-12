@@ -1,13 +1,8 @@
 ﻿Find detailed information about what each empty project contains or should contain if you wish to create it manually.
 
-1. Each new BELLATRIX tests project targets .NET Core 2.0
+1. Each new BELLATRIX tests project targets .NET Core 5.0
 
 2. Contains the following NuGet dependencies:
-<PackageReference Include="Bellatrix.Web.Chrome.Win32" Version="1.1.0.2380" />        
-<PackageReference Include="Bellatrix.Web.Firefox.Win64" Version="1.1.0.200" />
-<PackageReference Include="Bellatrix.Web.Opera.Win64" Version="1.1.0.236" />
-<PackageReference Include="Bellatrix.Web.InternetExplorer" Version="1.1.0.3120" />
-<PackageReference Include="Bellatrix.Web.MSTest" Version="1.1.0.16" />
 
 <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
 <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.0.0" />
@@ -19,11 +14,7 @@
 <PackageReference Include="Unity" Version="5.8.6" />
 <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004"/>
 
-    Note: the version may vary if you install the template now.
-
-As you can see the most important package that you need is Bellatrix.Web.MSTest, it depends on all below packages. This is the bare minimum. 
-Next you need to install the BELLATRIX browser nugets. Each of them brings the correct version of WebDriver for the specific platform.
-This way you can install the version you like depending on your needs, making possible to use the latest version of Chrome but have 2 versions old Firefox.
+Note: the version may vary if you install the template now.
 
 In short:
  - we reference Microsoft configuration packages so that we can work with configuration files where the different framework settings are placed.

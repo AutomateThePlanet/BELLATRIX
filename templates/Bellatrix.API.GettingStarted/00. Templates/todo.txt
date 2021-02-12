@@ -1,3 +1,1 @@
-﻿1. Open CMD
-2. Type the command to see all available BELLATRIX templates
-3. Create a new API mstest BELLATRIX empty project
+﻿1. Add a test to the Bellatrix.API.Tests project

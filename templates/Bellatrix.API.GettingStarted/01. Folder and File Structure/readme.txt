@@ -1,14 +1,10 @@
 ﻿Find detailed information about what each empty project contains or should contain if you wish to create it manually.
 
-1. Each new BELLATRIX tests project targets .NET Core 2.0
+1. Each new BELLATRIX tests project targets .NET Core 5.0
 2. Contains the following NuGet dependencies:
     <ItemGroup>
-    <PackageReference Include="Bellatrix.API.MSTest" Version="1.1.0.15" />
 
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
     <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />

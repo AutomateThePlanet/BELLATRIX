@@ -1,29 +1,16 @@
 ﻿Find detailed information about what each empty project contains or should contain if you wish to create it manually.
 
-1. Each new BELLATRIX tests project targets .NET Core 2.0
+1. Each new BELLATRIX tests project targets .NET Core 5.0
 
 2. Contains the following NuGet dependencies:
 <PackageReference Include="Bellatrix.Mobile.MSTest" Version="1.1.0.16" />
 
-<PackageReference Include="Bellatrix.Web.MSTest" Version="1.2.8" />
-<PackageReference Include="Bellatrix.Web.Chrome" Version="1.2.2.2410" />
-
-<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
-<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.0.0" />
-<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
 <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
 <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
-<PackageReference Include="System.Security.Permissions" Version="4.6.0" />
-<PackageReference Include="Unity" Version="5.8.6" />
 <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004"/>
 
-    Note: the version may vary if you install the template now.
-
-As you can see the most important package that you need is Bellatrix.Mobile.MSTest, it depends on all below packages. This is the bare minimum. 
-Next, you need to install the BELLATRIX browser package- in this case, Chrome. It brings the correct version of WebDriver for the specific platform.
-We use the chrome driver for testing mobile web and hybrid application. This is why there is a dependency on Bellatrix.Web.MSTest which gives you 
-everything you need to test web apps.
+Note: the version may vary if you install the template now.
 
 In short:
  - we reference Microsoft configuration packages so that we can work with configuration files where the different framework settings are placed.
@@ -63,7 +50,7 @@ Note: There isn't a way as in .NET Framework to reuse the content, so if you wan
 
 There is a separate more detailed section in the guide describing how to use the configuration files.
 
-6. MobileTestsGlobalInitialize file
+6. TestInitialize file
 This is the entry point for all tests. The methods here are executed only once per tests execution. You need it to start and stop some BELLATRIX services that you can use in your tests.
 
 Note: There are separate sections describing in more details the AndroidTest base class and the App class.
