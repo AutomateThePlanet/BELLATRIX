@@ -7,7 +7,7 @@ namespace Bellatrix.Web.GettingStarted
     // 1. To execute BELLATRIX tests in Docker containers using Selenoid (https://github.com/aerokube/selenoid), you should use the Selenoid attribute instead of Browser.
     // Selenoid has the same parameters as Browser but adds to additional ones-
     // browser version, recordVideo, saveSessionLogs and enableVnc.
-    // As with the Browser attribute you can override the class behaviour on Test level.
+    // As with the Browser attribute you can override the class lifecycle on Test level.
     //
      // 2. You can find a dedicated section about Selenium grid in testFrameworkSettings file under the webSettings section.
     // "remote": {

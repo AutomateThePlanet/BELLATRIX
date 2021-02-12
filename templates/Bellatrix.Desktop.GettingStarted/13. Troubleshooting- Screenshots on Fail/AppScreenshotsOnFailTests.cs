@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    // If you open the testFrameworkSettings file, you find the screenshotsSettings section that controls this behaviour.
+    // If you open the testFrameworkSettings file, you find the screenshotsSettings section that controls this lifecycle.
     // "screenshotsSettings": {
     //     "isEnabled": "true",
     //     "filePath": "ApplicationData\\Troubleshooting\\Screenshots"

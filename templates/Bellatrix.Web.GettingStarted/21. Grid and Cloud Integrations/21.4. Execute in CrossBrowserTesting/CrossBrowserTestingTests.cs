@@ -7,7 +7,7 @@ namespace Bellatrix.Web.GettingStarted
     // 1. To execute BELLATRIX tests in CrossBrowserTesting cloud, you should use the CrossBrowserTesting attribute instead of Browser.
     // CrossBrowserTesting has the same parameters as Browser but adds to additional ones-
     // browser version, platform, recordVideo, recordNetwork and build. The last three are optional and have default values.
-    // As with the Browser attribute you can override the class behaviour on Test level.
+    // As with the Browser attribute you can override the class lifecycle on Test level.
     //
     // 2. You can find a dedicated section about SauceLabs in testFrameworkSettings file under the webSettings section.
     //     "crossBrowserTesting": {

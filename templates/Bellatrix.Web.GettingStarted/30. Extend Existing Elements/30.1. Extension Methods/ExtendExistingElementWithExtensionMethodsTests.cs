@@ -41,7 +41,7 @@ namespace Bellatrix.Web.GettingStarted
             totalSpan.ValidateInnerTextIs("54.00€");
             proceedToCheckout.Click();
 
-            // 2. Use the custom added submit button behaviour through 'Enter' key.
+            // 2. Use the custom added submit button lifecycle through 'Enter' key.
             proceedToCheckout.SubmitButtonWithEnter();
             billingDetailsHeading.ToBeVisible().WaitToBe();
         }

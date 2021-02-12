@@ -19,12 +19,11 @@ namespace Bellatrix.Web.GettingStarted
     //
     // There are even more things you can do with this attribute, but we look into them in the next sections.
     //
-    // If you place attribute over the class all tests inherit the behaviour. It is possible to place it over each test and this way it overrides the class behaviour only for this particular test.
-    [Browser(BrowserType.FirefoxHeadless, Lifecycle.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
+    // If you place attribute over the class all tests inherit the lifecycle. It is possible to place it over each test and this way it overrides the class lifecycle only for this particular test.
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
 
     // 2.2. All web BELLATRIX test classes should inherit from the WebTest base class. This way you can use all built-in BELLATRIX tools and functionalities.
-    public class BellatrixBrowserBehaviourTests : MSTest.WebTest
+    public class BellatrixBrowserLifecycleTests : MSTest.WebTest
     {
         // 2.3. All MSTest tests should be marked with the TestMethod attribute.
         [TestMethod]
@@ -44,10 +43,9 @@ namespace Bellatrix.Web.GettingStarted
         [TestMethod]
         [TestCategory(Categories.CI)]
 
-        // 2.4. As mentioned above you can override the browser behaviour for a particular test. The global behaviour for all tests in the class is to reuse an instance of Edge browser.
+        // 2.4. As mentioned above you can override the browser lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse an instance of Edge browser.
         // Only for this particular test, BELLATRIX opens Chrome and restarts it only on fail.
         [Browser(BrowserType.Chrome, Lifecycle.RestartOnFail)]
-        [Browser(OS.OSX, BrowserType.Chrome, Lifecycle.RestartOnFail)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");

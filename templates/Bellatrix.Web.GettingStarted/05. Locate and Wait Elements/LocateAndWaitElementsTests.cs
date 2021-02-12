@@ -53,7 +53,7 @@ namespace Bellatrix.Web.GettingStarted
             // 3. All available ToBe methods:
             // ToExists  --> App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToExists();
             // Waits for the element to exist on the page. BELLATRIX always does it by default.
-            // But if use another ToBe methods you need to add it again since you have to override the default behaviour.
+            // But if use another ToBe methods you need to add it again since you have to override the default lifecycle.
             //
             // ToNotExists  --> App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToNotExists();
             // Waits for the element to disappear. Usually, we use in assertion methods.

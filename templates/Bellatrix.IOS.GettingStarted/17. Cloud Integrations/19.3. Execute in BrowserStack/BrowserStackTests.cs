@@ -7,7 +7,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     // 1. To execute BELLATRIX tests in BrowserStack cloud, you should use the BrowserStack attribute instead of IOS.
     // BrowserStack has the same parameters as IOS but adds to additional ones-
     // device name, captureVideo, captureNetworkLogs, consoleLogType, build and debug. The last five are optional and have default values.
-    // As with the IOS attribute you can override the class behaviour on Test level.
+    // As with the IOS attribute you can override the class lifecycle on Test level.
     //
     // 2. You can find a dedicated section about SauceLabs in testFrameworkSettings file under the mobileSettings section.
     //     "browserStack": {

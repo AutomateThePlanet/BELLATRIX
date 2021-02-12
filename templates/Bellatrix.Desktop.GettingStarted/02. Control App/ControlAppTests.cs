@@ -18,7 +18,7 @@ namespace Bellatrix.Desktop.GettingStarted
     //
     // There are even more things you can do with this attribute, but we look into them in the next sections.
     //
-    // If you place attribute over the class all tests inherit the behaviour. It is possible to place it over each test and this way it overrides the class behaviour only for this particular test.
+    // If you place attribute over the class all tests inherit the lifecycle. It is possible to place it over each test and this way it overrides the class lifecycle only for this particular test.
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
 
     // 2.2. All web BELLATRIX test classes should inherit from the DesktopTest base class. This way you can use all built-in BELLATRIX tools and functionalities.
@@ -41,7 +41,7 @@ namespace Bellatrix.Desktop.GettingStarted
         [TestMethod]
         [TestCategory(Categories.CI)]
 
-        // 2.4. As mentioned above you can override the app behaviour for a particular test. The global behaviour for all tests in the class is to reuse the app instance.
+        // 2.4. As mentioned above you can override the app lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse the app instance.
         // Only for this particular test, BELLATRIX opens it and restarts it only on fail.
         public void MessageChanged_When_ButtonClicked_Wpf()
         {

@@ -17,7 +17,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     //
     // There are even more things you can do with this attribute, but we look into them in the next sections.
     //
-    // If you place attribute over the class all tests inherit the behaviour. It is possible to place it over each test and this way it overrides the class behaviour only for this particular test.
+    // If you place attribute over the class all tests inherit the lifecycle. It is possible to place it over each test and this way it overrides the class lifecycle only for this particular test.
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -27,7 +27,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
 
     // 2.2. All Android BELLATRIX test classes should inherit from the AndroidTest base class.
     // This way you can use all built-in BELLATRIX tools and functionalities.
-    public class BellatrixAppBehaviourTests : MSTest.AndroidTest
+    public class BellatrixAppLifecycleTests : MSTest.AndroidTest
     {
         // 2.3. All MSTest tests should be marked with the TestMethod attribute.
         [TestMethod]
@@ -46,7 +46,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
 
         [TestMethod]
 
-        // 2.4. As mentioned above you can override the app behaviour for a particular test. The global behaviour for all tests in the class is to reuse an instance of the app.
+        // 2.4. As mentioned above you can override the app lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse an instance of the app.
         // Only for this particular test, BELLATRIX opens the app and restarts it only on fail.
         [Android(Constants.AndroidNativeAppPath,
             Constants.AndroidDefaultAndroidVersion,

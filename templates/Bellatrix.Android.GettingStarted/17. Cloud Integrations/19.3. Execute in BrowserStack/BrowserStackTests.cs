@@ -7,7 +7,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     // 1. To execute BELLATRIX tests in BrowserStack cloud, you should use the BrowserStack attribute instead of Android.
     // BrowserStack has the same parameters as Android but adds to additional ones-
     // device name, captureVideo, captureNetworkLogs, consoleLogType, build and debug. The last five are optional and have default values.
-    // As with the Android attribute you can override the class behaviour on Test level.
+    // As with the Android attribute you can override the class lifecycle on Test level.
     //
     // 2. You can find a dedicated section about SauceLabs in testFrameworkSettings file under the mobileSettings section.
     //     "browserStack": {

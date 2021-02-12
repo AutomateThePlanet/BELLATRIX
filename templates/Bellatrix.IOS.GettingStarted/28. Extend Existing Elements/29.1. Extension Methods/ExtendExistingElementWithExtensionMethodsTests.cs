@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         {
             var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
 
-            // 2. Use the custom added submit button  with scroll-to-visible behaviour.
+            // 2. Use the custom added submit button  with scroll-to-visible lifecycle.
             button.SubmitButtonWithScroll();
         }
     }

@@ -15,7 +15,7 @@ namespace Bellatrix.Desktop.GettingStarted
         {
             var button = App.ElementCreateService.CreateByName<Button>("E Button");
 
-            // 2. Use the custom added submit button behaviour through 'Enter' key.
+            // 2. Use the custom added submit button lifecycle through 'Enter' key.
             button.SubmitButtonWithEnter();
 
             var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");

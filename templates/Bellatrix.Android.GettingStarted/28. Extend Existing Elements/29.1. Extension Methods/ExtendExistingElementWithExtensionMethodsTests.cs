@@ -20,7 +20,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         {
             var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
 
-            // 2. Use the custom added submit button  with scroll-to-visible behaviour.
+            // 2. Use the custom added submit button  with scroll-to-visible lifecycle.
             button.SubmitButtonWithScroll();
         }
     }

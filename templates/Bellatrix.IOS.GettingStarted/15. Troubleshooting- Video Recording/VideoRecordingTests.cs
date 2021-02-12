@@ -2,7 +2,7 @@
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    // If you open the testFrameworkSettings file, you find the videoRecordingSettings section that controls this behaviour.
+    // If you open the testFrameworkSettings file, you find the videoRecordingSettings section that controls this lifecycle.
     //  "videoRecordingSettings": {
     //      "isEnabled": "true",
     //      "waitAfterFinishRecordingMilliseconds": "500",

@@ -2,7 +2,7 @@
 
 namespace Bellatrix.Web.GettingStarted
 {
-    // If you open the testFrameworkSettings file, you find the screenshotsSettings section that controls this behaviour.
+    // If you open the testFrameworkSettings file, you find the screenshotsSettings section that controls this lifecycle.
     // "screenshotsSettings": {
     //     "isEnabled": "true",
     //     "filePath": "ApplicationData\\Troubleshooting\\Screenshots"
@@ -12,7 +12,6 @@ namespace Bellatrix.Web.GettingStarted
     // In the extensibility chapters read more about how you can create different screenshots engine or change the saving strategy.
     [TestClass]
     [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     public class FullPageScreenshotsOnFailTests : MSTest.WebTest
     {
         [TestMethod]
