@@ -73,7 +73,5 @@ namespace Bellatrix.Assertions
         public static void IsSubsetOf(ICollection subset, ICollection superset) => _collectionAssert.IsSubsetOf(subset, superset);
 
         public static void IsSubsetOf(ICollection subset, ICollection superset, string message) => _collectionAssert.IsSubsetOf(subset, superset, message);
-
-        public static void IsOrdered(ICollection collection) => _collectionAssert.IsOrdered(collection);
     }
 }

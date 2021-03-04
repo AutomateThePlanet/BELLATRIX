@@ -22,6 +22,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using Bellatrix.Settings;
 using Bellatrix.Utilities;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Proxy;
@@ -36,6 +37,7 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager.Helpers;
 
 namespace Bellatrix.Web
 {
@@ -197,7 +199,8 @@ namespace Bellatrix.Web
             switch (executionConfiguration.BrowserType)
             {
                 case BrowserType.Chrome:
-                    var chromeDriverService = ChromeDriverService.CreateDefaultService(_driverExecutablePath);
+                    new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
+                    var chromeDriverService = ChromeDriverService.CreateDefaultService();
                     chromeDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeDriverService.EnableVerboseLogging = false;
                     chromeDriverService.Port = GetFreeTcpPort();
@@ -207,14 +210,14 @@ namespace Bellatrix.Web
                     if (ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath != null)
                     {
                         string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath.NormalizeAppPath();
-                        Log.Information($"Trying to load packed extension from path: {packedExtensionPath}");
+                        Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
                         chromeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath);
                     }
 
                     if (ConfigurationService.GetSection<WebSettings>().Chrome.UnpackedExtensionPath != null)
                     {
                         string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Chrome.UnpackedExtensionPath.NormalizeAppPath();
-                        Log.Information($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
+                        Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         chromeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
 
@@ -231,7 +234,8 @@ namespace Bellatrix.Web
                     BrowserSettings = ConfigurationService.GetSection<WebSettings>().Chrome;
                     break;
                 case BrowserType.ChromeHeadless:
-                    var chromeHeadlessDriverService = ChromeDriverService.CreateDefaultService(_driverExecutablePath);
+                    new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
+                    var chromeHeadlessDriverService = ChromeDriverService.CreateDefaultService();
                     chromeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeHeadlessDriverService.Port = GetFreeTcpPort();
                     var chromeHeadlessOptions = GetChromeOptions(executionConfiguration.ClassFullName);
@@ -241,14 +245,14 @@ namespace Bellatrix.Web
                     if (ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath != null)
                     {
                         string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath.NormalizeAppPath();
-                        Log.Information($"Trying to load packed extension from path: {packedExtensionPath}");
+                        Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
                         chromeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath);
                     }
 
                     if (ConfigurationService.GetSection<WebSettings>().ChromeHeadless.UnpackedExtensionPath != null)
                     {
                         string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.UnpackedExtensionPath.NormalizeAppPath();
-                        Log.Information($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
+                        Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         chromeHeadlessOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
 
@@ -265,6 +269,7 @@ namespace Bellatrix.Web
                     BrowserSettings = ConfigurationService.GetSection<WebSettings>().ChromeHeadless;
                     break;
                 case BrowserType.Firefox:
+                    new DriverManager().SetUpDriver(new FirefoxConfig());
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     var firefoxOptions = GetFirefoxOptions(executionConfiguration.ClassFullName);
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
@@ -272,7 +277,7 @@ namespace Bellatrix.Web
                         firefoxOptions.Proxy = webDriverProxy;
                     }
 
-                    var firefoxService = FirefoxDriverService.CreateDefaultService(_driverExecutablePath);
+                    var firefoxService = FirefoxDriverService.CreateDefaultService();
                     firefoxService.SuppressInitialDiagnosticInformation = true;
                     firefoxService.Port = GetFreeTcpPort();
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -298,17 +303,17 @@ namespace Bellatrix.Web
 
                     if (ConfigurationService.GetSection<WebSettings>().Firefox.PackedExtensionPath != null)
                     {
-                        Log.Error($"Packed Extension loading not supported in Firefox!");
+                        Logger.LogError($"Packed Extension loading not supported in Firefox!");
 
                         // 05-Nov-2020 navramov: Extension loading does not work
                         ////string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Firefox.PackedExtensionPath.NormalizeAppPath();
-                        ////Log.Information($"Trying to load packed extension from path: {packedExtensionPath}");
+                        ////Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
                         ////firefoxOptions.Profile.AddExtension(ConfigurationService.GetSection<WebSettings>().Firefox.PackedExtensionPath);
                     }
 
                     if (ConfigurationService.GetSection<WebSettings>().Firefox.UnpackedExtensionPath != null)
                     {
-                        Log.Error($"Unpacked Extension loading not supported in Firefox!");
+                        Logger.LogError($"Unpacked Extension loading not supported in Firefox!");
                     }
 
                     var firefoxTimeout = TimeSpan.FromSeconds(180);
@@ -320,6 +325,7 @@ namespace Bellatrix.Web
                     BrowserSettings = ConfigurationService.GetSection<WebSettings>().Firefox;
                     break;
                 case BrowserType.FirefoxHeadless:
+                    new DriverManager().SetUpDriver(new FirefoxConfig());
                     var firefoxHeadlessOptions = GetFirefoxOptions(executionConfiguration.ClassFullName);
                     firefoxHeadlessOptions.AddArguments("--headless");
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
@@ -330,16 +336,16 @@ namespace Bellatrix.Web
                     if (ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath != null)
                     {
                         string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath.NormalizeAppPath();
-                        Log.Information($"Trying to load packed extension from path: {packedExtensionPath}");
+                        Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
                         firefoxHeadlessOptions.Profile.AddExtension(ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath);
                     }
 
                     if (ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.UnpackedExtensionPath != null)
                     {
-                        Log.Error($"Unpacked Extension loading not supported in Firefox!");
+                        Logger.LogError($"Unpacked Extension loading not supported in Firefox!");
                     }
 
-                    var service = FirefoxDriverService.CreateDefaultService(_driverExecutablePath);
+                    var service = FirefoxDriverService.CreateDefaultService();
                     service.SuppressInitialDiagnosticInformation = true;
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     {
@@ -364,7 +370,8 @@ namespace Bellatrix.Web
                     BrowserSettings = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless;
                     break;
                 case BrowserType.Edge:
-                    var edgeDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService(_driverExecutablePath);
+                    new DriverManager().SetUpDriver(new EdgeConfig());
+                    var edgeDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
                     edgeDriverService.SuppressInitialDiagnosticInformation = true;
                     var edgeOptions = GetEdgeOptions(executionConfiguration.ClassFullName);
                     edgeOptions.PageLoadStrategy = PageLoadStrategy.Normal;
@@ -378,14 +385,14 @@ namespace Bellatrix.Web
                     if (ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath != null)
                     {
                         string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath.NormalizeAppPath();
-                        Log.Information($"Trying to load packed extension from path: {packedExtensionPath}");
+                        Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
                         edgeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath);
                     }
 
                     if (ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath != null)
                     {
                         string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath.NormalizeAppPath();
-                        Log.Information($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
+                        Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         edgeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
 
@@ -397,7 +404,8 @@ namespace Bellatrix.Web
                     BrowserSettings = ConfigurationService.GetSection<WebSettings>().Edge;
                     break;
                 case BrowserType.EdgeHeadless:
-                    var edgeHeadlessDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService(_driverExecutablePath);
+                    new DriverManager().SetUpDriver(new EdgeConfig());
+                    var edgeHeadlessDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
                     edgeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
                     var edgeHeadlessOptions = GetEdgeOptions(executionConfiguration.ClassFullName);
                     edgeHeadlessOptions.AddArguments("--headless");
@@ -412,14 +420,14 @@ namespace Bellatrix.Web
                     if (ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath != null)
                     {
                         string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath.NormalizeAppPath();
-                        Log.Information($"Trying to load packed extension from path: {packedExtensionPath}");
+                        Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
                         edgeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath);
                     }
 
                     if (ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath != null)
                     {
                         string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath.NormalizeAppPath();
-                        Log.Information($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
+                        Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         edgeHeadlessOptions.AddExtensionPath(unpackedExtensionPath);
                     }
 
@@ -431,6 +439,8 @@ namespace Bellatrix.Web
                     BrowserSettings = ConfigurationService.GetSection<WebSettings>().Edge;
                     break;
                 case BrowserType.Opera:
+                    new DriverManager().SetUpDriver(new OperaConfig());
+
                     // the driver will be different for different OS.
                     // Check for different releases- https://github.com/operasoftware/operachromiumdriver/releases
                     var operaOptions = GetOperaOptions(executionConfiguration.ClassFullName);
@@ -440,7 +450,7 @@ namespace Bellatrix.Web
                         operaOptions.Proxy = webDriverProxy;
                     }
 
-                    var operaService = OperaDriverService.CreateDefaultService(_driverExecutablePath);
+                    var operaService = OperaDriverService.CreateDefaultService();
                     operaService.SuppressInitialDiagnosticInformation = true;
                     operaService.Port = GetFreeTcpPort();
 
@@ -460,6 +470,8 @@ namespace Bellatrix.Web
                     BrowserSettings = ConfigurationService.GetSection<WebSettings>().Opera;
                     break;
                 case BrowserType.InternetExplorer:
+                    new DriverManager().SetUpDriver(new InternetExplorerConfig());
+
                     // Steps to configure IE to always allow blocked content:
                     // From Internet Explorer, select the Tools menu, then the Options...
                     // In the Internet Options dialog, select the Advanced tab...

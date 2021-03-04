@@ -18,6 +18,20 @@ namespace Bellatrix
             }
         }
 
+        public static void LogWarning(string message, params object[] args)
+        {
+            try
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(message, args);
+                Console.ResetColor();
+            }
+            catch
+            {
+                // ignore
+            }
+        }
+
         public static void LogError(string message, params object[] args)
         {
             try

@@ -32,7 +32,7 @@ namespace Bellatrix.Utilities
             {
                 "opera",
                 "chrome",
-                "Firefox",
+                "firefox",
                 "edge",
                 "iexplore",
                 "safari",
