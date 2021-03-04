@@ -33,6 +33,11 @@ namespace Bellatrix.Settings
                 var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
                 appPath = appPath.Replace("AssemblyFolder", executionFolder);
             }
+            else if (appPath.StartsWith("RootFolder", StringComparison.Ordinal))
+            {
+                var executionFolder = ExecutionDirectoryResolver.GetRootPath();
+                appPath = appPath.Replace("RootFolder", executionFolder);
+            }
 
             return appPath;
         }

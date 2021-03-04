@@ -69,5 +69,7 @@ namespace Bellatrix.Assertions
         void IsSubsetOf(ICollection subset, ICollection superset);
 
         void IsSubsetOf(ICollection subset, ICollection superset, string message);
+
+        void IsOrdered(ICollection collection);
     }
 }

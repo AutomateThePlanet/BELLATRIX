@@ -18,5 +18,7 @@ namespace Bellatrix.Web
         public int PageLoadTimeout { get; set; } = 30000;
         public int ScriptTimeout { get; set; } = 1000;
         public int ArtificialDelayBeforeAction { get; set; }
+        public string PackedExtensionPath { get; set; }
+        public string UnpackedExtensionPath { get; set; }
     }
 }
