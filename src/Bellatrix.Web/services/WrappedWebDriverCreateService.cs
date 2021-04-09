@@ -22,6 +22,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using Bellatrix.Settings;
 using Bellatrix.Utilities;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Proxy;
@@ -36,6 +37,7 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager.Helpers;
 
 namespace Bellatrix.Web
 {
@@ -197,13 +199,14 @@ namespace Bellatrix.Web
             switch (executionConfiguration.BrowserType)
             {
                 case BrowserType.Chrome:
-                    new DriverManager().SetUpDriver(new ChromeConfig());
-                    var chromeDriverService = ChromeDriverService.CreateDefaultService(_driverExecutablePath);
+                    new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
+                    var chromeDriverService = ChromeDriverService.CreateDefaultService();
                     chromeDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeDriverService.EnableVerboseLogging = false;
                     chromeDriverService.Port = GetFreeTcpPort();
                     var chromeOptions = GetChromeOptions(executionConfiguration.ClassFullName);
                     chromeOptions.AddArguments("--log-level=3");
+
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         chromeOptions.Proxy = webDriverProxy;
@@ -217,13 +220,14 @@ namespace Bellatrix.Web
                     BrowserSettings = ConfigurationService.GetSection<WebSettings>().Chrome;
                     break;
                 case BrowserType.ChromeHeadless:
-                    new DriverManager().SetUpDriver(new ChromeConfig());
-                    var chromeHeadlessDriverService = ChromeDriverService.CreateDefaultService(_driverExecutablePath);
+                    new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
+                    var chromeHeadlessDriverService = ChromeDriverService.CreateDefaultService();
                     chromeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeHeadlessDriverService.Port = GetFreeTcpPort();
                     var chromeHeadlessOptions = GetChromeOptions(executionConfiguration.ClassFullName);
                     chromeHeadlessOptions.AddArguments("--headless");
                     chromeHeadlessOptions.AddArguments("--log-level=3");
+
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         chromeHeadlessOptions.Proxy = webDriverProxy;
@@ -245,7 +249,7 @@ namespace Bellatrix.Web
                         firefoxOptions.Proxy = webDriverProxy;
                     }
 
-                    var firefoxService = FirefoxDriverService.CreateDefaultService(_driverExecutablePath);
+                    var firefoxService = FirefoxDriverService.CreateDefaultService();
                     firefoxService.SuppressInitialDiagnosticInformation = true;
                     firefoxService.Port = GetFreeTcpPort();
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -263,9 +267,10 @@ namespace Bellatrix.Web
                     }
 
                     var firefoxProfile = ServicesCollection.Current.Resolve<FirefoxProfile>(executionConfiguration.ClassFullName);
-                    if (firefoxProfile != null)
+                    if (firefoxProfile == null)
                     {
-                        firefoxOptions.Profile = firefoxProfile;
+                        firefoxOptions.Profile = new FirefoxProfile(_driverExecutablePath);
+                        ServicesCollection.Current.RegisterInstance(firefoxOptions.Profile, executionConfiguration.ClassFullName);
                     }
 
                     var firefoxTimeout = TimeSpan.FromSeconds(180);
@@ -285,7 +290,7 @@ namespace Bellatrix.Web
                         firefoxHeadlessOptions.Proxy = webDriverProxy;
                     }
 
-                    var service = FirefoxDriverService.CreateDefaultService(_driverExecutablePath);
+                    var service = FirefoxDriverService.CreateDefaultService();
                     service.SuppressInitialDiagnosticInformation = true;
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     {
@@ -311,7 +316,7 @@ namespace Bellatrix.Web
                     break;
                 case BrowserType.Edge:
                     new DriverManager().SetUpDriver(new EdgeConfig());
-                    var edgeDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService(_driverExecutablePath);
+                    var edgeDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
                     edgeDriverService.SuppressInitialDiagnosticInformation = true;
                     var edgeOptions = GetEdgeOptions(executionConfiguration.ClassFullName);
                     edgeOptions.PageLoadStrategy = PageLoadStrategy.Normal;
@@ -331,7 +336,7 @@ namespace Bellatrix.Web
                     break;
                 case BrowserType.EdgeHeadless:
                     new DriverManager().SetUpDriver(new EdgeConfig());
-                    var edgeHeadlessDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService(_driverExecutablePath);
+                    var edgeHeadlessDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
                     edgeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
                     var edgeHeadlessOptions = GetEdgeOptions(executionConfiguration.ClassFullName);
                     edgeHeadlessOptions.AddArguments("--headless");
@@ -362,7 +367,7 @@ namespace Bellatrix.Web
                         operaOptions.Proxy = webDriverProxy;
                     }
 
-                    var operaService = OperaDriverService.CreateDefaultService(_driverExecutablePath);
+                    var operaService = OperaDriverService.CreateDefaultService();
                     operaService.SuppressInitialDiagnosticInformation = true;
                     operaService.Port = GetFreeTcpPort();
 
