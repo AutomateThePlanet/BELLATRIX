@@ -18,6 +18,7 @@
     <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
     <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
     <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
+    <ProjectReference Include="..\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
     <ProjectReference Include="..\Bellatrix.Layout\Bellatrix.Layout.csproj" />
     <ProjectReference Include="..\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
     <ProjectReference Include="..\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />

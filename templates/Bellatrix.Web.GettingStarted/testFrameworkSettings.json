@@ -1,27 +1,27 @@
 ﻿{
   // All Timeout Times are in seconds!
   "timeoutSettings": {
-    "waitForAjaxTimeout": "30",
+    "waitForAjaxTimeout": "15",
     "sleepInterval": "1",
-    "elementToBeVisibleTimeout": "30",
-    "elementToExistTimeout": "30",
-    "elementToNotExistTimeout": "30",
-    "elementToBeClickableTimeout": "30",
-    "elementNotToBeVisibleTimeout": "30",
-    "elementToHaveContentTimeout": "15"
+    "elementToBeVisibleTimeout": "15",
+    "elementToExistTimeout": "15",
+    "elementToNotExistTimeout": "15",
+    "elementToBeClickableTimeout": "15",
+    "elementNotToBeVisibleTimeout": "15",
+    "elementToHaveContentTimeout": "10"
   },
   "webSettings": {
     "shouldScrollToVisibleOnElementFound": "false",
-    "shouldWaitUntilReadyOnElementFound": "true",
+    "shouldWaitUntilReadyOnElementFound": "false",
     "shouldWaitForAngular": "false",
     "shouldHighlightElements": "false",
     "chrome": {
-      "pageLoadTimeout": "30",
+      "pageLoadTimeout": "15",
       "scriptTimeout": "1",
       "artificialDelayBeforeAction": "0"
     },
     "chromeHeadless": {
-      "pageLoadTimeout": "30",
+      "pageLoadTimeout": "15",
       "scriptTimeout": "1",
       "artificialDelayBeforeAction": "0"
     },
@@ -100,7 +100,9 @@
   },
   "imageRecognitionSettings": {
     "timeoutInSeconds": "5",
-    "defaultSimilarity": "0.7"
+    "defaultSimilarity": "0.7",
+    "computerVisionEndpoint": "",
+    "computerVisionSubscriptionKey": ""
   },
   "processCleanupSettings": {
     "isParallelExecutionEnabled": "false"

@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="sampleinvoice.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="testFrameworkSettings.$(Configuration).json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

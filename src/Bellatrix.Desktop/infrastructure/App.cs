@@ -22,6 +22,7 @@ using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.PageObjects;
 using Bellatrix.Desktop.Services;
 using Bellatrix.DynamicTestCases;
+using Bellatrix.ImageRecognition.ComputerVision;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 
@@ -48,6 +49,7 @@ namespace Bellatrix.Desktop
 
         public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+        public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
         public static void StartWinAppDriver()
         {

@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Reflection;
 
 using Bellatrix.DynamicTestCases;
+using Bellatrix.ImageRecognition.ComputerVision;
 using Bellatrix.Plugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
@@ -45,6 +46,8 @@ namespace Bellatrix.Web
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
         public ProxyService ProxyService => ServicesCollection.Current.Resolve<ProxyService>();
+
+        public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
         public void AddWebDriverOptions<TDriverOptions>(TDriverOptions options)
             where TDriverOptions : DriverOptions

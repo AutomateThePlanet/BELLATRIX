@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Bellatrix.ImageRecognition.ComputerVision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.GettingStarted
+namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
-    public class TextVerificationPDF : MSTest.WebTest
+    public class TextVerificationPDF : MSTest.DesktopTest
     {
         [TestMethod]
         public void MakeTextExtractionFromPDF()

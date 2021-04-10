@@ -34,12 +34,13 @@ namespace Bellatrix.ImageRecognition.ComputerVision
             var imageRecognitionSettings = ConfigurationService.GetSection<ImageRecognitionSettings>();
             string endpoint = imageRecognitionSettings.ComputerVisionEndpoint;
             string subscriptionKey = imageRecognitionSettings.ComputerVisionSubscriptionKey;
-            _client = Authenticate(endpoint, subscriptionKey);
-        }
 
-        public void ValidateText(string localFile, string language, params string[] expectedTextSnippets)
-        {
-            ValidateText(localFile, language, expectedTextSnippets);
+            if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(subscriptionKey))
+            {
+                throw new ArgumentException("To use the Computer Vision you need to set a valid endpoint and subscription key for Azure Computer Vision Cognitive Service in the testFrameworkSettings.json under imageRecognitionSettings section. Please check BELLATRIX docs for more info - https://docs.bellatrix.solutions/web-automation/image-recognition/");
+            }
+
+            _client = Authenticate(endpoint, subscriptionKey);
         }
 
         public void ValidateText(string localFile, string language, List<string> expectedTextSnippets)
