@@ -15,6 +15,7 @@ using System;
 
 namespace Bellatrix.Web
 {
+    [Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
     public abstract class NavigatablePage : Page
     {
         protected NavigatablePage() => NavigationService = ServicesCollection.Current.Resolve<NavigationService>();
