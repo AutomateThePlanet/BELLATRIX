@@ -15,6 +15,7 @@
     "shouldWaitUntilReadyOnElementFound": "true",
     "shouldWaitForAngular": "false",
     "shouldHighlightElements": "false",
+    "fullPageScreenshotsEnabled": "false",
     "chrome": {
       "pageLoadTimeout": "30",
       "scriptTimeout": "1",

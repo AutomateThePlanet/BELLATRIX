@@ -46,7 +46,8 @@ namespace Bellatrix.Plugins.Video
         {
             if (_isEnabled)
             {
-                var fullTestName = $"{e.TestMethodMemberInfo.DeclaringType.Name}.{e.TestName}";
+                string cleanTestName = e.TestName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty);
+                var fullTestName = $"{e.TestMethodMemberInfo.DeclaringType.Name}.{cleanTestName}";
                 var videoRecordingDir = _videoRecorderOutputProvider.GetOutputFolder();
                 var videoRecordingFileName = _videoRecorderOutputProvider.GetUniqueFileName(fullTestName);
 
@@ -89,8 +90,15 @@ namespace Bellatrix.Plugins.Video
                 _videoRecorder?.Stop();
                 if (haveTestPassed && File.Exists(videoRecordingPath))
                 {
-                    File.Delete(videoRecordingPath);
-                    isFileDeleted = true;
+                    try
+                    {
+                        File.Delete(videoRecordingPath);
+                        isFileDeleted = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
                 }
             }
 

@@ -16,6 +16,7 @@
 		<PackageReleaseNotes>
       - Fixes in WebDriverManager initialziation of browsers
       - Add new cognitive service support for validation text in PDFs and Images.
+      - Fix known bugs in video recording and screenshots on failure
     </PackageReleaseNotes>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<!--<PackageIcon>bellatrix_icon.png</PackageIcon>-->

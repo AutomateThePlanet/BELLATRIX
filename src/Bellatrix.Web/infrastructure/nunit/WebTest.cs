@@ -39,7 +39,14 @@ namespace Bellatrix.Web.NUnit
             WebPluginsConfiguration.AddBugReporting();
             WebPluginsConfiguration.AddHighlightElements();
 
-            WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
+            if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
+            {
+                WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
+            }
+            else
+            {
+                WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
+            }
         }
     }
 }

@@ -45,10 +45,11 @@ namespace Bellatrix.Plugins.Screenshots
         {
             try
             {
-                if (_isEnabled && e.TestOutcome == TestOutcome.Failed)
+                if (_isEnabled && (e.TestOutcome == TestOutcome.Failed || e.TestOutcome == TestOutcome.Error))
                 {
                     var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
-                    var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestFullName);
+                    string cleanTestName = e.TestFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty);
+                    var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(cleanTestName);
                     string image = _screenshotEngine.TakeScreenshot(e.Container);
                     string imagePath = Path.Combine(screenshotSaveDir, screenshotFileName);
                     File.WriteAllBytes(imagePath, Convert.FromBase64String(image));

@@ -1,27 +1,28 @@
 ﻿{
   // All Timeout Times are in seconds!
   "timeoutSettings": {
-    "waitForAjaxTimeout": "15",
+    "waitForAjaxTimeout": "30",
     "sleepInterval": "1",
-    "elementToBeVisibleTimeout": "15",
-    "elementToExistTimeout": "15",
-    "elementToNotExistTimeout": "15",
-    "elementToBeClickableTimeout": "15",
-    "elementNotToBeVisibleTimeout": "15",
-    "elementToHaveContentTimeout": "10"
+    "elementToBeVisibleTimeout": "30",
+    "elementToExistTimeout": "30",
+    "elementToNotExistTimeout": "30",
+    "elementToBeClickableTimeout": "30",
+    "elementNotToBeVisibleTimeout": "30",
+    "elementToHaveContentTimeout": "15"
   },
   "webSettings": {
     "shouldScrollToVisibleOnElementFound": "false",
-    "shouldWaitUntilReadyOnElementFound": "false",
+    "shouldWaitUntilReadyOnElementFound": "true",
     "shouldWaitForAngular": "false",
     "shouldHighlightElements": "false",
+    "fullPageScreenshotsEnabled": "false",
     "chrome": {
-      "pageLoadTimeout": "15",
+      "pageLoadTimeout": "30",
       "scriptTimeout": "1",
       "artificialDelayBeforeAction": "0"
     },
     "chromeHeadless": {
-      "pageLoadTimeout": "15",
+      "pageLoadTimeout": "30",
       "scriptTimeout": "1",
       "artificialDelayBeforeAction": "0"
     },
