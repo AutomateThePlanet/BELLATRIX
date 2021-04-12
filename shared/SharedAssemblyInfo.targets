@@ -17,6 +17,7 @@
       - Fixes in WebDriverManager initialziation of browsers
       - Add new cognitive service support for validation text in PDFs and Images.
       - Fix known bugs in video recording and screenshots on failure
+      - Add new WebPage page objects base class, mark the old 4 base classes as Obsolete
     </PackageReleaseNotes>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<!--<PackageIcon>bellatrix_icon.png</PackageIcon>-->
