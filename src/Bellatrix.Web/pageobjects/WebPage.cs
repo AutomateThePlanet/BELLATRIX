@@ -43,7 +43,7 @@ namespace Bellatrix.Web
 
         public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
-        protected IAssert Assert { get; }
+        protected IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
         public abstract string Url { get; }
 
