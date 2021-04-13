@@ -109,6 +109,7 @@ namespace Bellatrix.DynamicTestCases
             _dynamicTestCasesService.Context.TestCaseId = testCaseId;
             _dynamicTestCasesService.Context.RequirementId = requirementId;
             _dynamicTestCasesService.Context.TestFullName = $"{args.TestClassName}.{args.TestName}";
+            _dynamicTestCasesService.Context.TestProjectName = args.TestClassType.Assembly.GetName().Name;
         }
 
         private string TestNameToDesciption(string name)
