@@ -49,7 +49,7 @@ namespace Bellatrix.Web.GettingStarted
 
             Span totalSpan = App.ElementCreateService.CreateByXpath<Span>("//*[@class='order-total']//span");
 
-            // 5. We check the total price contained in the order-total span HTML element.
+            // 5. We check the total price contained in the order-total span HTML ElementCreateService.
             Assert.AreEqual("120.00€", totalSpan.InnerText);
 
             // 6. One more thing you need to keep in mind is that normal assertion methods do not include BDD logging and any available hooks.

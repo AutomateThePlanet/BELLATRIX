@@ -19,6 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="devPortalGraph1.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="devPortalGraph2.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="sampleinvoice.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

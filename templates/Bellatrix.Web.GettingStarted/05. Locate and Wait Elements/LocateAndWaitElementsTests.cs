@@ -23,9 +23,9 @@ namespace Bellatrix.Web.GettingStarted
             // As you can see in the example below you can chain multiple of this methods.
             //
             // Note: Since Bellatrix, elements creation logic is lazy loading as mentioned before,
-            // BELLATRIX waits for the conditions to be True on the first action you perform with the element.
+            // BELLATRIX waits for the conditions to be True on the first action you perform with the ElementCreateService.
             //
-            // Note 2: Keep in mind that with this syntax these conditions are checked everytime you perform an action with the element.
+            // Note 2: Keep in mind that with this syntax these conditions are checked everytime you perform an action with the ElementCreateService.
             // Which can lead tо small execution delays.
             //
             // The default timeouts that BELLATRIX use are placed inside the testFrameworkSettings file, mentioned in '01. Folder and File Structure' chapter.

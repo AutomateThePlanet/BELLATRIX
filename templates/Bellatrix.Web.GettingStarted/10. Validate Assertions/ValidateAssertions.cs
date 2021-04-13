@@ -60,7 +60,7 @@ namespace Bellatrix.Web.GettingStarted
 
             Span totalSpan = App.ElementCreateService.CreateByXpath<Span>("//*[@class='order-total']//span");
 
-            // 5. Check the total price contained in the order-total span HTML element.
+            // 5. Check the total price contained in the order-total span HTML ElementCreateService.
             // By default, all Validate methods have 5 seconds timeout. However, you can specify a custom timeout and sleep interval (period for checking again)
             totalSpan.ValidateInnerTextIs("120.00€", timeout: 30, sleepInterval: 2);
             ////Assert.AreEqual("120.00€", totalSpan.InnerText);

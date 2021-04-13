@@ -25,5 +25,20 @@ namespace Bellatrix.Web.GettingStarted
 
             App.ComputerVision.ValidateText("sampleinvoice.pdf", "en", expectedTextSnippets);
         }
+
+        [TestMethod]
+        public void ExtractTextFromGraph()
+        {
+            var textSnippets = App.ComputerVision.ExtractOCRTextFromLocalFile("devPortalGraph1.PNG");
+            textSnippets.ForEach(Console.WriteLine);
+
+            List<string> expectedTextSnippets = new List<string>()
+            {
+                "Apr 12 01:00",
+                "Apr 13 00:00",
+            };
+
+            App.ComputerVision.ValidateText("devPortalGraph1.PNG", "en", expectedTextSnippets);
+        }
     }
 }
