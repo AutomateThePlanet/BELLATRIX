@@ -64,7 +64,7 @@
 	<ItemGroup>
 		<AdditionalFiles Include="..\..\shared\stylecop.json" Link="stylecop.json" />
 		<!--<None Include="..\..\shared\bellatrix_icon.png" Pack="true" PackagePath=""/>-->
-		<!--<None Include="..\..\shared\LICENSE.txt" Pack="true" PackagePath=""/>-->
+		<!--<None Include="..\..\shared\LICENSE.txt" Pack="true" Packag.ePath=""/>-->
     <!--<None Include="..\..\shared\.editorconfig" Pack="true" PackagePath=""/>-->
 	</ItemGroup>
 </Project>
