@@ -33,7 +33,7 @@ namespace Bellatrix.Web
 
         public InteractionsService InteractionsService => ServicesCollection.Current.Resolve<InteractionsService>();
 
-        public CookiesService CookieService => ServicesCollection.Current.Resolve<CookiesService>();
+        public CookiesService CookiesService => ServicesCollection.Current.Resolve<CookiesService>();
 
         public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
 

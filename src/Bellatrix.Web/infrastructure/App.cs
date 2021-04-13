@@ -39,7 +39,7 @@ namespace Bellatrix.Web
 
         public InteractionsService InteractionsService => ServicesCollection.Current.Resolve<InteractionsService>();
 
-        public CookiesService CookieService => ServicesCollection.Current.Resolve<CookiesService>();
+        public CookiesService CookiesService => ServicesCollection.Current.Resolve<CookiesService>();
 
         public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
 
@@ -121,14 +121,14 @@ namespace Bellatrix.Web
         }
 
         public TPage Create<TPage>()
-            where TPage : Page
+            where TPage : WebPage
         {
             TPage page = ServicesCollection.Current.Resolve<TPage>();
             return page;
         }
 
         public TPage GoTo<TPage>()
-            where TPage : NavigatablePage
+            where TPage : WebPage
         {
             TPage page = ServicesCollection.Current.Resolve<TPage>();
             page.Open();
