@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+	<ItemGroup>
+	  <PackageReference Include="Azure.AI.FormRecognizer" Version="3.0.1" />
+	  <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="7.0.0" />
+	</ItemGroup>  
+	<ItemGroup>
+	  <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
+	</ItemGroup>
+</Project>
