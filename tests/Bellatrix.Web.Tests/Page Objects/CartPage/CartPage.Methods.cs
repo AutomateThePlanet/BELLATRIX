@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Bellatrix.Web.Tests
 {
-    public partial class CartPage : AssertedNavigatablePage
+    public partial class CartPage : WebPage
     {
         private const string CouponSuccessfullyAdded = @"Coupon code applied successfully.";
 
@@ -25,10 +25,10 @@ namespace Bellatrix.Web.Tests
                 throw new ArgumentException("There are less added items in the cart. Please specify smaller product number.");
             }
 
-            Browser.WaitUntilReady();
+            BrowserService.WaitUntilReady();
             QuantityBoxes[productNumber - 1].SetNumber(newQuantity);
             UpdateCart.Click();
-            Browser.WaitUntilReady();
+            BrowserService.WaitUntilReady();
         }
 
         public void UpdateAllProductsQuantity(int newQuantity)

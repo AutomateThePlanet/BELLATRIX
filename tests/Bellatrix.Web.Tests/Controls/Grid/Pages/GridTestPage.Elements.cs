@@ -2,7 +2,7 @@
 {
     public partial class GridTestPage
     {
-        public Grid Grid => Element.CreateById<Grid>("sampleGrid")
+        public Grid Grid => ElementCreateService.CreateById<Grid>("sampleGrid")
             .SetColumn("Order", typeof(TextField), Find.By.Tag("input"))
             .SetColumn("Firstname")
             .SetColumn("Lastname")
