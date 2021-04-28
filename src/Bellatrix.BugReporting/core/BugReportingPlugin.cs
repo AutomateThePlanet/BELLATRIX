@@ -59,7 +59,7 @@ namespace Bellatrix.BugReporting
 
             base.PostTestCleanup(sender, e);
 
-            if (e.TestOutcome == TestOutcome.Failed && _bugReportingContextService?.Context != null)
+            if ((e.TestOutcome == TestOutcome.Failed || e.TestOutcome == TestOutcome.Error) && _bugReportingContextService?.Context != null)
             {
                 _bugReportingService.LogBug(_bugReportingContextService.Context, e.Exception.ToString(), _filesToBeAttached);
             }
