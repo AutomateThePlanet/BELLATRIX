@@ -1,6 +1,6 @@
 ﻿namespace Bellatrix.Web.Tests
 {
-    public partial class HomePage : NavigatablePage
+    public partial class HomePage : WebPage
     {
         public override string Url => "http://demos.bellatrix.solutions/";
 
@@ -28,7 +28,7 @@
 
         public void AddProductById(int productId)
         {
-            var product = Element.CreateByAttributesContaining<Anchor>("data-product_id", productId.ToString()).ToBeClickable();
+            var product = ElementCreateService.CreateByAttributesContaining<Anchor>("data-product_id", productId.ToString()).ToBeClickable();
             product.Click();
             ViewCartButton.ValidateIsVisible();
         }
