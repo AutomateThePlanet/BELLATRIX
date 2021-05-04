@@ -25,22 +25,22 @@ namespace Bellatrix.Desktop
         public static event EventHandler<ElementActionEventArgs> SettingTime;
         public static event EventHandler<ElementActionEventArgs> TimeSet;
 
-        public string GetTime()
+        public virtual string GetTime()
         {
             return GetInnerText();
         }
 
-        public void SetTime(int hours, int minutes)
+        public virtual void SetTime(int hours, int minutes)
         {
             SetText(SettingTime, TimeSet, $"{hours}:{minutes}:00");
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

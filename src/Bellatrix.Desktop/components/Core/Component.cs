@@ -71,7 +71,7 @@ namespace Bellatrix.Desktop
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public dynamic By { get; internal set; }
 
-        public string GetAttribute(string name)
+        public virtual string GetAttribute(string name)
         {
             return WrappedElement.GetAttribute(name);
         }
@@ -109,7 +109,7 @@ namespace Bellatrix.Desktop
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsPresent
+        public virtual bool IsPresent
         {
             get
             {
@@ -130,7 +130,7 @@ namespace Bellatrix.Desktop
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsVisible
+        public virtual bool IsVisible
         {
             get
             {
@@ -147,7 +147,7 @@ namespace Bellatrix.Desktop
             }
         }
 
-        public void ScrollToVisible()
+        public virtual void ScrollToVisible()
         {
             ScrollingToVisible?.Invoke(this, new ElementActionEventArgs(this));
 
@@ -162,9 +162,9 @@ namespace Bellatrix.Desktop
 
         public string PageName { get; internal set; }
 
-        public Point Location => WrappedElement.Location;
+        public virtual Point Location => WrappedElement.Location;
 
-        public Size Size => WrappedElement.Size;
+        public virtual Size Size => WrappedElement.Size;
 
         public void EnsureState(WaitStrategy until)
         {

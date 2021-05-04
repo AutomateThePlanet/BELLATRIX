@@ -22,7 +22,7 @@ namespace Bellatrix.Desktop
 {
     public partial class Component : IElementVisible, IElement, ILayoutElement
     {
-        internal void Click(EventHandler<ElementActionEventArgs> clicking, EventHandler<ElementActionEventArgs> clicked)
+        internal virtual void Click(EventHandler<ElementActionEventArgs> clicking, EventHandler<ElementActionEventArgs> clicked)
         {
             clicking?.Invoke(this, new ElementActionEventArgs(this));
 
@@ -31,7 +31,7 @@ namespace Bellatrix.Desktop
             clicked?.Invoke(this, new ElementActionEventArgs(this));
         }
 
-        internal void Hover(EventHandler<ElementActionEventArgs> hovering, EventHandler<ElementActionEventArgs> hovered)
+        internal virtual void Hover(EventHandler<ElementActionEventArgs> hovering, EventHandler<ElementActionEventArgs> hovered)
         {
             hovering?.Invoke(this, new ElementActionEventArgs(this));
 
@@ -40,13 +40,17 @@ namespace Bellatrix.Desktop
             hovered?.Invoke(this, new ElementActionEventArgs(this));
         }
 
-        internal string GetInnerText()
-            => WrappedElement.Text.Replace("\r\n", string.Empty);
+        internal virtual string GetInnerText()
+        {
+            return WrappedElement.Text.Replace("\r\n", string.Empty);
+        }
 
-        internal bool GetIsDisabled()
-            => !WrappedElement.Enabled;
+        internal virtual bool GetIsDisabled()
+        {
+            return !WrappedElement.Enabled;
+        }
 
-        internal void SetText(EventHandler<ElementActionEventArgs> settingValue, EventHandler<ElementActionEventArgs> valueSet, string value)
+        internal virtual void SetText(EventHandler<ElementActionEventArgs> settingValue, EventHandler<ElementActionEventArgs> valueSet, string value)
         {
             settingValue?.Invoke(this, new ElementActionEventArgs(this, value));
             WrappedElement.Clear();

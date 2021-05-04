@@ -25,12 +25,12 @@ namespace Bellatrix.Desktop
         public static event EventHandler<ElementActionEventArgs> Selecting;
         public static event EventHandler<ElementActionEventArgs> Selected;
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
-        public void SelectByText(string value)
+        public virtual void SelectByText(string value)
         {
             Selecting?.Invoke(this, new ElementActionEventArgs(this, value));
 
@@ -43,9 +43,9 @@ namespace Bellatrix.Desktop
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
+        public virtual string InnerText => GetInnerText();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

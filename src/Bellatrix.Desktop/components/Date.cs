@@ -25,12 +25,12 @@ namespace Bellatrix.Desktop
         public static event EventHandler<ElementActionEventArgs> SettingDate;
         public static event EventHandler<ElementActionEventArgs> DateSet;
 
-        public string GetDate()
+        public virtual string GetDate()
         {
             return WrappedElement.Text;
         }
 
-        public void SetDate(int year, int month, int day)
+        public virtual void SetDate(int year, int month, int day)
         {
             if (year <= 0)
             {
@@ -52,12 +52,12 @@ namespace Bellatrix.Desktop
             SetText(SettingDate, DateSet, valueToBeSet);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

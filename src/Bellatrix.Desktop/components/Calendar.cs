@@ -24,9 +24,9 @@ namespace Bellatrix.Desktop
         public static event EventHandler<ElementActionEventArgs> Hovered;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }

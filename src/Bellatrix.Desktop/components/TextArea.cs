@@ -25,25 +25,25 @@ namespace Bellatrix.Desktop
         public static event EventHandler<ElementActionEventArgs> SettingText;
         public static event EventHandler<ElementActionEventArgs> TextSet;
 
-        public string GetText()
+        public virtual string GetText()
         {
             return WrappedElement.Text;
         }
 
-        public void SetText(string value)
+        public virtual void SetText(string value)
         {
             SetText(SettingText, TextSet, value);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
+        public virtual string InnerText => GetInnerText();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

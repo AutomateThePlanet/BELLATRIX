@@ -27,7 +27,7 @@ namespace Bellatrix.Desktop
         public static event EventHandler<ElementActionEventArgs> Unchecking;
         public static event EventHandler<ElementActionEventArgs> Unchecked;
 
-        public void Check(bool isChecked = true)
+        public virtual void Check(bool isChecked = true)
         {
             if (isChecked && !WrappedElement.Selected || !isChecked && WrappedElement.Selected)
             {
@@ -35,7 +35,7 @@ namespace Bellatrix.Desktop
             }
         }
 
-        public void Uncheck()
+        public virtual void Uncheck()
         {
             if (WrappedElement.Selected)
             {
@@ -43,15 +43,15 @@ namespace Bellatrix.Desktop
             }
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsChecked => WrappedElement.Selected;
+        public virtual bool IsChecked => WrappedElement.Selected;
     }
 }
