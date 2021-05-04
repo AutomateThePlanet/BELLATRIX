@@ -16,6 +16,7 @@ namespace Bellatrix.Desktop.MSTest
 {
     public abstract class DesktopTest : MSTestBaseTest
     {
+
         public App App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
 
         public override void Configure()

@@ -18,26 +18,37 @@ namespace Bellatrix.Mobile.MSTest
 {
     public abstract class AndroidTest : MSTestBaseTest
     {
+        private static readonly object _lockObject = new object();
+        private static bool _arePluginsAlreadyInitialized;
+
         public AndroidApp App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<AndroidApp>();
 
         public override void Configure()
         {
-            MSTestPluginConfiguration.Add();
-            ExecutionTimePlugin.Add();
-            VideoRecorderPluginConfiguration.AddMSTest();
-            ScreenshotsPluginConfiguration.AddMSTest();
-            AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();
-            AndroidPluginsConfiguration.AddElementsBddLogging();
-            AndroidPluginsConfiguration.AddDynamicTestCases();
-            AndroidPluginsConfiguration.AddBugReporting();
-            AndroidPluginsConfiguration.AddValidateExtensionsBddLogging();
-            AndroidPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-            AndroidPluginsConfiguration.AddValidateExtensionsBugReporting();
-            AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-            AndroidPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-            AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
-            AndroidPluginsConfiguration.AddLifecycle();
-            AndroidPluginsConfiguration.AddLogExecutionLifecycle();
+            lock (_lockObject)
+            {
+                if (!_arePluginsAlreadyInitialized)
+                {
+                    MSTestPluginConfiguration.Add();
+                    ExecutionTimePlugin.Add();
+                    VideoRecorderPluginConfiguration.AddMSTest();
+                    ScreenshotsPluginConfiguration.AddMSTest();
+                    AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();
+                    AndroidPluginsConfiguration.AddElementsBddLogging();
+                    AndroidPluginsConfiguration.AddDynamicTestCases();
+                    AndroidPluginsConfiguration.AddBugReporting();
+                    AndroidPluginsConfiguration.AddValidateExtensionsBddLogging();
+                    AndroidPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+                    AndroidPluginsConfiguration.AddValidateExtensionsBugReporting();
+                    AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+                    AndroidPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+                    AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+                    AndroidPluginsConfiguration.AddLifecycle();
+                    AndroidPluginsConfiguration.AddLogExecutionLifecycle();
+
+                    _arePluginsAlreadyInitialized = true;
+                }
+            }
         }
     }
 }
