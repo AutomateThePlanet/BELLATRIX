@@ -39,27 +39,27 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // If you execute your tests in CI with some CLI test runner the logs are printed there as well.
             // outputTemplate - controls how the message is formatted. You can add additional info such as timestamp and much more.
             // for more info visit- https://github.com/serilog/serilog/wiki/Formatting-Output
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
 
             button.ValidateIsNotDisabled();
 
-            var checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check1");
+            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check1");
 
             checkBox.Check();
 
             checkBox.ValidateIsChecked();
 
-            var comboBox = App.ElementCreateService.CreateByIdContaining<ComboBox>("spinner1");
+            var comboBox = App.ComponentCreateService.CreateByIdContaining<ComboBox>("spinner1");
 
             comboBox.SelectByText("Jupiter");
 
             comboBox.ValidateTextIs("Jupiter");
 
-            var label = App.ElementCreateService.CreateByText<Label>("textColorPrimary");
+            var label = App.ComponentCreateService.CreateByText<Label>("textColorPrimary");
 
             label.ValidateIsVisible();
 
-            var radioButton = App.ElementCreateService.CreateByIdContaining<RadioButton>("radio2");
+            var radioButton = App.ComponentCreateService.CreateByIdContaining<RadioButton>("radio2");
 
             radioButton.Click();
 

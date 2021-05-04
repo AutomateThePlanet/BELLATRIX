@@ -26,7 +26,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void EmailSet_When_UseSetEmailMethod_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
 
             emailElement.SetEmail("aangelov@bellatrix.solutions");
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetEmailReturnsCorrectEmail_When_DefaultEmailIsSet_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail3");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail3");
 
             Assert.AreEqual("aangelov@bellatrix.solutions", emailElement.GetEmail());
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
 
             Assert.AreEqual(false, emailElement.IsAutoComplete);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail5");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail5");
 
             Assert.AreEqual(false, emailElement.IsAutoComplete);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail4");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail4");
 
             Assert.AreEqual(true, emailElement.IsAutoComplete);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail4");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail4");
 
             Assert.AreEqual(false, emailElement.IsReadonly);
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail6");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail6");
 
             Assert.AreEqual(true, emailElement.IsReadonly);
         }
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
 
             var maxLength = emailElement.MaxLength;
 
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
 
             Assert.IsNull(emailElement.MinLength);
         }
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(20, emailElement.Size);
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
 
             Assert.AreEqual(80, emailElement.MaxLength);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
 
             Assert.AreEqual(10, emailElement.MinLength);
         }
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
 
             Assert.AreEqual(30, emailElement.Size);
         }
@@ -148,7 +148,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail4");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail4");
 
             Assert.AreEqual(false, emailElement.IsRequired);
         }
@@ -157,7 +157,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail7");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail7");
 
             Assert.AreEqual(true, emailElement.IsRequired);
         }
@@ -166,7 +166,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
 
             Assert.AreEqual("your email term goes here", emailElement.Placeholder);
         }
@@ -175,7 +175,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail1");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail1");
 
             Assert.IsNull(emailElement.Placeholder);
         }
@@ -184,7 +184,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail8");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail8");
 
             emailElement.Hover();
 
@@ -195,7 +195,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail9");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail9");
 
             emailElement.Focus();
 
@@ -206,7 +206,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail9");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail9");
 
             bool isDisabled = emailElement.IsDisabled;
 
@@ -217,7 +217,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Safari()
         {
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail10");
+            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail10");
 
             bool isDisabled = emailElement.IsDisabled;
 

@@ -34,7 +34,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var headingElement = App.ElementCreateService.CreateById<Heading>("myHeading");
+            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading");
 
             headingElement.Hover();
 
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_When_InnerText()
         {
-            var headingElement = App.ElementCreateService.CreateById<Heading>("myHeading2");
+            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading2");
 
             headingElement.ValidateInnerTextIs("Automate The Planet");
         }

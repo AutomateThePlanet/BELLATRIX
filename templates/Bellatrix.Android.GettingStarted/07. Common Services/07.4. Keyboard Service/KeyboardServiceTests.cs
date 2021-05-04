@@ -18,7 +18,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         [TestCategory(Categories.CI)]
         public void TestHideKeyBoard()
         {
-            var textField = App.ElementCreateService.CreateByIdContaining<TextField>("edit");
+            var textField = App.ComponentCreateService.CreateByIdContaining<TextField>("edit");
             textField.SetText(string.Empty);
 
             // Hides the keyboard.

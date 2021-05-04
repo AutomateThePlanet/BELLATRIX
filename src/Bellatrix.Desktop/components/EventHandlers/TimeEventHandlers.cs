@@ -15,7 +15,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
-    public class TimeEventHandlers : ElementEventHandlers
+    public class TimeEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Desktop.EventHandlers
             Time.TimeSet -= TimeSetEventHandler;
         }
 
-        protected virtual void SettingTimeEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void TimeSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void TimeSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

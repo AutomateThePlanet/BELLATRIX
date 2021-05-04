@@ -15,7 +15,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         [TestCategory(Categories.CI)]
         public void CommonAssertionsAndroidControls()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
 
             // 1. We can assert whether the control is disabled
             // The different BELLATRIX Android elements classes contain lots of these properties which are a representation
@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             button.ValidateIsNotDisabled();
             ////Assert.AreEqual(false, button.IsDisabled);
 
-            var checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check1");
+            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check1");
 
             checkBox.Check();
 
@@ -43,7 +43,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // "The control should be checked but was NOT."
             checkBox.ValidateIsChecked();
 
-            var comboBox = App.ElementCreateService.CreateByIdContaining<ComboBox>("spinner1");
+            var comboBox = App.ComponentCreateService.CreateByIdContaining<ComboBox>("spinner1");
 
             comboBox.SelectByText("Jupiter");
 
@@ -51,13 +51,13 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             comboBox.ValidateTextIs("Jupiter");
             ////Assert.AreEqual("Jupiter", comboBox.GetText());
 
-            var label = App.ElementCreateService.CreateByText<Label>("textColorPrimary");
+            var label = App.ComponentCreateService.CreateByText<Label>("textColorPrimary");
 
             // 4. See if the element is present or not using the IsPresent property.
             label.ValidateIsVisible();
             ////Assert.IsTrue(label.IsPresent);
 
-            var radioButton = App.ElementCreateService.CreateByIdContaining<RadioButton>("radio2");
+            var radioButton = App.ComponentCreateService.CreateByIdContaining<RadioButton>("radio2");
 
             radioButton.Click();
 

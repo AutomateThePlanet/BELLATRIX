@@ -20,12 +20,12 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class Tabs<TElement> : Element
-            where TElement : Component<IOSDriver<IOSElement>, IOSElement>
+    public class Tabs<TComponent> : IOSComponent
+            where TComponent : Component<IOSDriver<IOSElement>, IOSElement>
     {
-        public ComponentsList<TElement, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll(string searchClass)
+        public ComponentsList<TComponent, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll(string searchClass)
         {
-            var elements = this.CreateAllByClass<TElement>(searchClass);
+            var elements = this.CreateAllByClass<TComponent>(searchClass);
             return elements;
         }
     }

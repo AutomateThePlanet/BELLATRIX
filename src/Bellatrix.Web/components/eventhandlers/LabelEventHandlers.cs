@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class LabelEventHandlers : ElementEventHandlers
+    public class LabelEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {

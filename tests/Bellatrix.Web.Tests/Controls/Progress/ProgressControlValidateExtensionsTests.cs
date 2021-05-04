@@ -34,7 +34,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateValueIs_DoesNotThrowException_When_UseGetValueMethod()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress");
+            var progressElement = App.ComponentCreateService.CreateById<Progress>("myProgress");
 
             progressElement.ValidateValueIs("70");
         }
@@ -44,7 +44,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxTextIs_DoesNotThrowException_When_UseGetMaxMethod()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress");
+            var progressElement = App.ComponentCreateService.CreateById<Progress>("myProgress");
 
             progressElement.ValidateMaxTextIs("100");
         }
@@ -54,7 +54,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_When_UseGetInnerTextMethod()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress");
+            var progressElement = App.ComponentCreateService.CreateById<Progress>("myProgress");
 
             progressElement.ValidateInnerTextIs("70 %");
         }

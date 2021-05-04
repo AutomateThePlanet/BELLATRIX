@@ -14,7 +14,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [TestCategory(Categories.CI)]
         public void CommonAssertionsIOSControls()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
 
@@ -31,17 +31,17 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             button.ValidateIsNotDisabled();
             ////Assert.AreEqual(false, button.IsDisabled);
 
-            var answerLabel = App.ElementCreateService.CreateByName<Label>("Answer");
+            var answerLabel = App.ComponentCreateService.CreateByName<Label>("Answer");
 
             // 4. See if the element is present or not using the IsPresent property.
             answerLabel.ValidateIsVisible();
             ////Assert.IsTrue(label.IsPresent);
 
-            var password = App.ElementCreateService.CreateById<Password>("IntegerB");
+            var password = App.ComponentCreateService.CreateById<Password>("IntegerB");
 
             password.SetPassword("9");
 
-            var textField = App.ElementCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
 
             textField.SetText("1");
 
@@ -59,10 +59,10 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [Ignore]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
             addButton.Click();
 
-            var checkBox = App.ElementCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var checkBox = App.ComponentCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             checkBox.Check();
 
@@ -89,10 +89,10 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [Ignore]
         public void ButtonClicked_When_ClickMethodCalled()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
             addButton.Click();
 
-            var radioButton = App.ElementCreateService.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var radioButton = App.ComponentCreateService.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             radioButton.Click();
 

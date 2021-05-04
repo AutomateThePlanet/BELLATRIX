@@ -207,7 +207,7 @@ namespace Bellatrix.Web
 
         public void WaitForAngular()
         {
-            string isAngular5 = InvokeScript("return getAllAngularRootElements()[0].attributes['ng-version']");
+            string isAngular5 = InvokeScript("return getAllAngularRooTComponents()[0].attributes['ng-version']");
             if (!string.IsNullOrEmpty(isAngular5))
             {
                 Bellatrix.Utilities.Wait.Until(() => bool.Parse(InvokeScript("return window.getAllAngularTestabilities().findIndex(x=>!x.isStable()) === -1")));

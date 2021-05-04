@@ -17,9 +17,9 @@ using Bellatrix.Web.Contracts;
 
 namespace Bellatrix.Web
 {
-    public class Option : Component, IElementInnerText, IElementValue, IElementDisabled, IElementSelected
+    public class Option : Component, IComponentInnerText, IComponentValue, IComponentDisabled, IComponentSelected
     {
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string InnerText => GetInnerText();

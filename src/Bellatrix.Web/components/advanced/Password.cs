@@ -18,14 +18,14 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Password : Component, IElementDisabled, IElementValue, IElementPassword, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementSize, IElementPlaceholder
+    public class Password : Component, IComponentDisabled, IComponentValue, IComponentPassword, IComponentAutoComplete, IComponentReadonly, IComponentRequired, IComponentMaxLength, IComponentMinLength, IComponentSize, IComponentPlaceholder
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingPassword;
-        public static event EventHandler<ElementActionEventArgs> PasswordSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingPassword;
+        public static event EventHandler<ComponentActionEventArgs> PasswordSet;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         public string GetPassword()
         {

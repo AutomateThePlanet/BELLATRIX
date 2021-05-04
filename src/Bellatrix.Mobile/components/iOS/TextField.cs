@@ -20,10 +20,10 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class TextField : Element, IElementDisabled, IElementText
+    public class TextField : IOSComponent, IComponentDisabled, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> SettingText;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> TextSet;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingText;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> TextSet;
 
         public void SetText(string value)
         {

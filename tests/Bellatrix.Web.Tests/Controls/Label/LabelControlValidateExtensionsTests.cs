@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.ComponentCreateService.CreateById<Label>("myLabel");
 
             labelElement.Hover();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_When_InnerTextSet()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.ComponentCreateService.CreateById<Label>("myLabel");
 
             labelElement.ValidateInnerTextIs("Hover");
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerHtmlIs_DoesNotThrowException_When_InnerHtmlSet()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel1");
+            var labelElement = App.ComponentCreateService.CreateById<Label>("myLabel1");
 
             labelElement.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateForIsNull_DoesNotThrowException_When_ForNotSet()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel2");
+            var labelElement = App.ComponentCreateService.CreateById<Label>("myLabel2");
 
             labelElement.ValidateForIsNull();
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateForIs_DoesNotThrowException_When_ForSet()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.ComponentCreateService.CreateById<Label>("myLabel");
 
             labelElement.ValidateForIs("myLabel");
         }

@@ -26,7 +26,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ColorSet_When_UseSetColorMethod_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
 
             colorElement.SetColor("#f00030");
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetColorReturnsCorrectColor_When_DefaultColorIsSet_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor2");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor2");
 
             // TODO: Investigate why WebDriver returns 8 instead of 7.
             Assert.AreEqual("#f00030", colorElement.GetColor());
@@ -47,7 +47,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
 
             Assert.IsFalse(colorElement.IsAutoComplete);
         }
@@ -56,7 +56,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor4");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor4");
 
             Assert.IsFalse(colorElement.IsAutoComplete);
         }
@@ -65,7 +65,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor3");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor3");
 
             Assert.IsTrue(colorElement.IsAutoComplete);
         }
@@ -74,7 +74,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor4");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor4");
 
             Assert.AreEqual(false, colorElement.IsRequired);
         }
@@ -83,7 +83,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor6");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor6");
 
             Assert.IsTrue(colorElement.IsRequired);
         }
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor7");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor7");
 
             colorElement.Hover();
 
@@ -103,7 +103,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor8");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor8");
 
             colorElement.Focus();
 
@@ -114,7 +114,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
 
             bool isDisabled = colorElement.IsDisabled;
 
@@ -125,7 +125,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor9");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor9");
 
             bool isDisabled = colorElement.IsDisabled;
 
@@ -136,7 +136,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetListReturnsNull_When_ListAttributeIsNotPresent_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
 
             Assert.IsNull(colorElement.List);
         }
@@ -145,7 +145,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetListReturnsTickmarks_When_MaxAttributeIsPresent_Safari()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor10");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor10");
 
             Assert.AreEqual("tickmarks", colorElement.List);
         }

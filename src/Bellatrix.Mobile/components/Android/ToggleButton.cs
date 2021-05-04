@@ -19,12 +19,12 @@ using Bellatrix.Mobile.Events;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class ToggleButton : Element, IElementDisabled, IElementOn, IElementText
+    public class ToggleButton : AndroidComponent, IComponentDisabled, IComponentOn, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TurningOn;
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TurnedOn;
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TurningOff;
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TurnedOff;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TurningOn;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TurnedOn;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TurningOff;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TurnedOff;
 
         public virtual void TurnOn()
         {

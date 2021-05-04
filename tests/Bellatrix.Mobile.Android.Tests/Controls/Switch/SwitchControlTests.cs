@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsOnTrue_When_SwitchTurnedOffAndTurnOn()
         {
-            var switchControl = App.ElementCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][1]");
+            var switchControl = App.ComponentCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][1]");
 
             Assert.IsFalse(switchControl.IsOn);
 
@@ -42,7 +42,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsOnFalse_When_SwitchTurnedOnAndTurnOff()
         {
-            var switchControl = App.ElementCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
+            var switchControl = App.ComponentCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
 
             switchControl.TurnOff();
 
@@ -53,7 +53,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void DefaultIsOnTextReturned_When_CallGetTextMethod()
         {
-            var switchControl = App.ElementCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
+            var switchControl = App.ComponentCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
 
             switchControl.TurnOn();
             string text = switchControl.GetText();
@@ -65,7 +65,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsCheckedFalse_When_ToggleButtonIsTurnedOff()
         {
-            var switchControl = App.ElementCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
+            var switchControl = App.ComponentCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
 
             Assert.IsFalse(switchControl.IsOn);
         }
@@ -74,7 +74,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_ToggleButtonIsNotDisabled()
         {
-            var switchControl = App.ElementCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
+            var switchControl = App.ComponentCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
 
             Assert.AreEqual(false, switchControl.IsDisabled);
         }

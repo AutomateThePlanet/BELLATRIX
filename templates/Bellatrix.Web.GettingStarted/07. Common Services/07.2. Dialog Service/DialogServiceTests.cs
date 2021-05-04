@@ -14,7 +14,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/welcome/");
 
-            var couponButton = App.ElementCreateService.CreateById<Button>("couponBtn");
+            var couponButton = App.ComponentCreateService.CreateById<Button>("couponBtn");
             couponButton.Click();
 
             // 2. You can click on the OK button and handle the alert.
@@ -27,7 +27,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/welcome/");
 
-            var couponButton = App.ElementCreateService.CreateById<Button>("couponBtn");
+            var couponButton = App.ComponentCreateService.CreateById<Button>("couponBtn");
             couponButton.Click();
 
             // 3. You can pass an anonymous lambda function and do something with the alert.
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/welcome/");
 
-            var couponButton = App.ElementCreateService.CreateById<Button>("couponBtn");
+            var couponButton = App.ComponentCreateService.CreateById<Button>("couponBtn");
             couponButton.Click();
 
             // 4. You can tell the dialog service to click a different button.

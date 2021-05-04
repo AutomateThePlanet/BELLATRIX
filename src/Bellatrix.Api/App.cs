@@ -41,17 +41,17 @@ namespace Bellatrix.Api
             ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
         }
 
-        public void AddAssertionsEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : AssertExtensionsEventHandlers
+        public void AddAssertionsEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : AssertExtensionsEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.SubscribeToAll();
         }
 
-        public void RemoveAssertionsEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : AssertExtensionsEventHandlers
+        public void RemoveAssertionsEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : AssertExtensionsEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.UnsubscribeToAll();
         }
 

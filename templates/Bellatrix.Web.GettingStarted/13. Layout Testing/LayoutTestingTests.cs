@@ -26,12 +26,12 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.ElementCreateService.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonRocketAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
-            Anchor protonMAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-m/");
-            Anchor saturnVAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/saturn-v/");
-            Anchor falconHeavyAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/falcon-heavy/");
-            Anchor falcon9Anchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/falcon-9/");
+            Select sortDropDown = App.ComponentCreateService.CreateByNameEndingWith<Select>("orderby");
+            Anchor protonRocketAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
+            Anchor protonMAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-m/");
+            Anchor saturnVAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/saturn-v/");
+            Anchor falconHeavyAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/falcon-heavy/");
+            Anchor falcon9Anchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/falcon-9/");
             Div saturnVRating = saturnVAnchor.CreateByClassContaining<Div>("star-rating");
 
             // 2. Depending on what you want to check, BELLATRIX gives lots of options. You can test px perfect or just that some element is below another.

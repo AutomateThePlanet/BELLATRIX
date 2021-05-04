@@ -33,7 +33,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMonthIsThrowsException()
         {
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth");
 
             monthElement.SetMonth(2017, 7);
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 monthElement.ValidateMonthIs("2017-08", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's month should be '2017-08' but was '2017-07'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

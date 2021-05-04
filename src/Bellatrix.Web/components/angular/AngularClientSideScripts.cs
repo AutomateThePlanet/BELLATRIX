@@ -153,7 +153,7 @@ if (angular.getTestability) {
     return getNg1Hooks(arguments[2]).$$testability.
         findBindings(using, binding, exactMatch);
 }
-var bindings = using.getElementsByClassName('ng-binding');
+var bindings = using.geTComponentsByClassName('ng-binding');
 var matches = [];
 for (var i = 0; i < bindings.length; ++i) {
     var dataBinding = angular.element(bindings[i]).data('$binding');

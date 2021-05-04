@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.EventHandlers.IOS
 {
-    public class NumberEventHandlers : ElementEventHandlers
+    public class NumberEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -33,11 +33,11 @@ namespace Bellatrix.Mobile.EventHandlers.IOS
             Number.NumberSet -= NumberSetEventHandler;
         }
 
-        protected virtual void SettingNumberEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void SettingNumberEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void NumberSetEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void NumberSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
     }

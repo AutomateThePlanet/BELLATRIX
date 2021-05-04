@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePhoneIs_DoesNotThrowException_When_UseSetPhoneMethod()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             phoneElement.SetPhone("123-4567-8901");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             phoneElement.ValidateAutoCompleteOff();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone4");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone4");
 
             phoneElement.ValidateAutoCompleteOn();
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone4");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone4");
 
             phoneElement.ValidateIsNotReadonly();
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone6");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone6");
 
             phoneElement.ValidateIsReadonly();
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             phoneElement.ValidateMaxLengthIsNull();
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             phoneElement.ValidateMinLengthIsNull();
         }
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateSizeIs_DoesNotThrowException_When_SizeAttributeIsNotPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             phoneElement.ValidateSizeIs(20);
         }
@@ -110,7 +110,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone2");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone2");
 
             phoneElement.ValidateMaxLengthIs(80);
         }
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone2");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone2");
 
             phoneElement.ValidateMinLengthIs(10);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone4");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone4");
 
             phoneElement.ValidateIsNotRequired();
         }
@@ -140,7 +140,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone7");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone7");
 
             phoneElement.ValidateIsRequired();
         }
@@ -150,7 +150,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             phoneElement.ValidatePlaceholderIs("123-4567-8901");
         }
@@ -160,7 +160,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone1");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone1");
 
             phoneElement.ValidatePlaceholderIsNull();
         }
@@ -170,7 +170,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone8");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone8");
 
             phoneElement.Hover();
 
@@ -182,7 +182,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone9");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone9");
 
             phoneElement.ValidateIsNotDisabled();
         }
@@ -192,7 +192,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone10");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone10");
 
             phoneElement.ValidateIsDisabled();
         }

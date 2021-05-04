@@ -15,28 +15,28 @@ namespace Bellatrix.Web.Angular
 {
     public static class ElementCreateExtensions
     {
-        public static TElement CreateByNgBinding<TElement>(this Component element, string binding)
-            where TElement : Component => element.Create<TElement, ByNgBinding>(new ByNgBinding(binding));
+        public static TComponent CreateByNgBinding<TComponent>(this Component element, string binding)
+            where TComponent : Component => element.Create<TComponent, ByNgBinding>(new ByNgBinding(binding));
 
-        public static TElement CreateByNgModel<TElement>(this Component element, string model)
-            where TElement : Component => element.Create<TElement, ByNgModel>(new ByNgModel(model));
+        public static TComponent CreateByNgModel<TComponent>(this Component element, string model)
+            where TComponent : Component => element.Create<TComponent, ByNgModel>(new ByNgModel(model));
 
-        public static TElement CreateByNgRepeater<TElement>(this Component element, string repeater)
-            where TElement : Component => element.Create<TElement, ByNgRepeater>(new ByNgRepeater(repeater));
+        public static TComponent CreateByNgRepeater<TComponent>(this Component element, string repeater)
+            where TComponent : Component => element.Create<TComponent, ByNgRepeater>(new ByNgRepeater(repeater));
 
-        public static TElement CreateByNgSelectedOption<TElement>(this Component element, string selectedOption)
-            where TElement : Component => element.Create<TElement, ByNgSelectedOption>(new ByNgSelectedOption(selectedOption));
+        public static TComponent CreateByNgSelectedOption<TComponent>(this Component element, string selectedOption)
+            where TComponent : Component => element.Create<TComponent, ByNgSelectedOption>(new ByNgSelectedOption(selectedOption));
 
-        public static ComponentsList<TElement> CreateAllByNgBinding<TElement>(this Component element, string binding)
-            where TElement : Component => new ComponentsList<TElement>(new ByNgBinding(binding), element.WrappedElement);
+        public static ComponentsList<TComponent> CreateAllByNgBinding<TComponent>(this Component element, string binding)
+            where TComponent : Component => new ComponentsList<TComponent>(new ByNgBinding(binding), element.WrappedElement);
 
-        public static ComponentsList<TElement> CreateAllByNgModel<TElement>(this Component element, string model)
-            where TElement : Component => new ComponentsList<TElement>(new ByNgModel(model), element.WrappedElement);
+        public static ComponentsList<TComponent> CreateAllByNgModel<TComponent>(this Component element, string model)
+            where TComponent : Component => new ComponentsList<TComponent>(new ByNgModel(model), element.WrappedElement);
 
-        public static ComponentsList<TElement> CreateAllByNgRepeater<TElement>(this Component element, string repeater)
-            where TElement : Component => new ComponentsList<TElement>(new ByNgRepeater(repeater), element.WrappedElement);
+        public static ComponentsList<TComponent> CreateAllByNgRepeater<TComponent>(this Component element, string repeater)
+            where TComponent : Component => new ComponentsList<TComponent>(new ByNgRepeater(repeater), element.WrappedElement);
 
-        public static ComponentsList<TElement> CreateAllByNgSelectedOption<TElement>(this Component element, string selectedOption)
-            where TElement : Component => new ComponentsList<TElement>(new ByNgSelectedOption(selectedOption), element.WrappedElement);
+        public static ComponentsList<TComponent> CreateAllByNgSelectedOption<TComponent>(this Component element, string selectedOption)
+            where TComponent : Component => new ComponentsList<TComponent>(new ByNgSelectedOption(selectedOption), element.WrappedElement);
     }
 }

@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class TextFieldEventHandlers : ElementEventHandlers
+    public class TextFieldEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             TextField.TextSet -= TextSetEventHandler;
         }
 
-        protected virtual void SettingTextEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingTextEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void TextSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void TextSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

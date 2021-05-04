@@ -18,12 +18,12 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class Password : Component, IElementDisabled
+    public class Password : Component, IComponentDisabled
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingPassword;
-        public static event EventHandler<ElementActionEventArgs> PasswordSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingPassword;
+        public static event EventHandler<ComponentActionEventArgs> PasswordSet;
 
         public virtual string GetPassword()
         {

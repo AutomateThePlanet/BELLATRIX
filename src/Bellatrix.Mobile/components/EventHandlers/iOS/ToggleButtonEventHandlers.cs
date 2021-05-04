@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.EventHandlers.IOS
 {
-    public class ToggleButtonEventHandlers : ElementEventHandlers
+    public class ToggleButtonEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -37,19 +37,19 @@ namespace Bellatrix.Mobile.EventHandlers.IOS
             ToggleButton.TurnedOff -= TurnedOffEventHandler;
         }
 
-        protected virtual void TurningOffEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void TurningOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void TurnedOffEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void TurnedOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void TurningOnEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void TurningOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void TurnedOnEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void TurnedOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
     }

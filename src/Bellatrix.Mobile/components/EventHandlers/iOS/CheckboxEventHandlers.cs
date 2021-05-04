@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.EventHandlers.IOS
 {
-    public class CheckboxEventHandlers : ElementEventHandlers
+    public class CheckboxEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -37,19 +37,19 @@ namespace Bellatrix.Mobile.EventHandlers.IOS
             CheckBox.Unchecked -= UncheckedEventHandler;
         }
 
-        protected virtual void UncheckingEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void UncheckedEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void CheckingEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void CheckedEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
     }

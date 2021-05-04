@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ProgressHovered_Wpf()
         {
-            var progress = App.ElementCreateService.CreateByAutomationId<Progress>("progress");
+            var progress = App.ComponentCreateService.CreateByAutomationId<Progress>("progress");
 
             progress.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("progressHovered", label.InnerText);
         }
     }

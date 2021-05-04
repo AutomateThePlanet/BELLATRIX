@@ -25,9 +25,9 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Controls.Core
 {
-    public class ComponentsList<TElement, TBy, TDriver, TDriverElement> : IEnumerable<TElement>
+    public class ComponentsList<TComponent, TBy, TDriver, TDriverElement> : IEnumerable<TComponent>
         where TBy : FindStrategy<TDriver, TDriverElement>
-        where TElement : Component<TDriver, TDriverElement>
+        where TComponent : Component<TDriver, TDriverElement>
         where TDriver : AppiumDriver<TDriverElement>
         where TDriverElement : AppiumWebElement
     {
@@ -43,17 +43,17 @@ namespace Bellatrix.Mobile.Controls.Core
 
         public TDriver WrappedDriver { get; }
 
-        public TElement this[int i] => GetAndWaitWebDriverElements().ElementAt(i);
+        public TComponent this[int i] => GetAndWaitWebDriverElements().ElementAt(i);
 
-        public IEnumerator<TElement> GetEnumerator() => GetAndWaitWebDriverElements().GetEnumerator();
+        public IEnumerator<TComponent> GetEnumerator() => GetAndWaitWebDriverElements().GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public int Count() => GetAndWaitWebDriverElements().Count();
 
-        private IEnumerable<TElement> GetAndWaitWebDriverElements()
+        private IEnumerable<TComponent> GetAndWaitWebDriverElements()
         {
-            var elementWaiter = new ElementWaitService<TDriver, TDriverElement>();
+            var elementWaiter = new ComponentWaitService<TDriver, TDriverElement>();
             elementWaiter.WaitInternal(_by, new WaitToExistStrategy<TDriver, TDriverElement>());
 
             var nativeElements = _mobileElement == null
@@ -62,7 +62,7 @@ namespace Bellatrix.Mobile.Controls.Core
 
             foreach (var nativeElement in nativeElements)
             {
-                var elementRepository = new ElementRepository();
+                var elementRepository = new ComponentRepository();
                 var wrappedDriver = ServicesCollection.Current.Resolve<TDriver>();
                 TDriverElement currentNativeElement;
                 if (wrappedDriver is AndroidDriver<AndroidElement>)
@@ -74,7 +74,7 @@ namespace Bellatrix.Mobile.Controls.Core
                     currentNativeElement = (TDriverElement)Activator.CreateInstance(typeof(IOSElement), wrappedDriver, nativeElement.Id);
                 }
 
-                yield return elementRepository.CreateElementThatIsFound<TElement, TBy, TDriver, TDriverElement>(_by, currentNativeElement);
+                yield return elementRepository.CreateComponentThatIsFound<TComponent, TBy, TDriver, TDriverElement>(_by, currentNativeElement);
             }
         }
     }

@@ -20,10 +20,10 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class Password : Element, IElementDisabled
+    public class Password : IOSComponent, IComponentDisabled
     {
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> SettingPassword;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> PasswordSet;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingPassword;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> PasswordSet;
 
         public string GetPassword()
         {

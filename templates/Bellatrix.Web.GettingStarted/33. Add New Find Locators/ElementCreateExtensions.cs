@@ -1,12 +1,12 @@
 ﻿namespace Bellatrix.Web.GettingStarted.ExtensionMethodsLocators
 {
-    // 1. To ease the usage of the locator, we need to create extension methods of ElementCreateService.
+    // 1. To ease the usage of the locator, we need to create extension methods of ComponentCreateService.
     // This is everything after that you can use your new locator as it was originally part of Bellatrix.
     public static class ElementCreateExtensions
     {
-        // public static TElement CreateByIdStartingWith<TElement>(this Element element, string idPrefix)
-        // where TElement : Element => ElementCreateService.Create<TElement, FindIdStartingWithStrategy>(new FindIdStartingWithStrategy(idPrefix));
-        public static ComponentsList<TElement> CreateAllByIdStartingWith<TElement>(this Component element, string idEnding)
-            where TElement : Component => new ComponentsList<TElement>(new FindIdStartingWithStrategy(idEnding), element.WrappedElement);
+        // public static TComponent CreateByIdStartingWith<TComponent>(this Element element, string idPrefix)
+        // where TComponent : Element => ComponentCreateService.Create<TComponent, FindIdStartingWithStrategy>(new FindIdStartingWithStrategy(idPrefix));
+        public static ComponentsList<TComponent> CreateAllByIdStartingWith<TComponent>(this Component element, string idEnding)
+            where TComponent : Component => new ComponentsList<TComponent>(new FindIdStartingWithStrategy(idEnding), element.WrappedElement);
     }
 }

@@ -15,7 +15,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
-    public class PasswordEventHandlers : ElementEventHandlers
+    public class PasswordEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Desktop.EventHandlers
             Password.PasswordSet -= PasswordSetEventHandler;
         }
 
-        protected virtual void SettingPasswordEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void PasswordSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

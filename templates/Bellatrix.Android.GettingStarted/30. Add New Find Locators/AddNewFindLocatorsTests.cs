@@ -20,7 +20,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         public void ButtonClicked_When_CallClickMethod()
         {
             // 2. After that, you can use the new locator as it was originally part of Bellatrix.
-            var button = App.ElementCreateService.CreateByIdStartingWith<Button>("button");
+            var button = App.ComponentCreateService.CreateByIdStartingWith<Button>("button");
 
             button.Click();
         }

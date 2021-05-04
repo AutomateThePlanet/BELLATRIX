@@ -20,7 +20,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             // 2. Use newly added login method which is not part of the original implementation of the common service.
             App.AppService.LoginToApp("bellatrix", "topSecret");
 
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }

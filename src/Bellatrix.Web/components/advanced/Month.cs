@@ -18,14 +18,14 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Month : Component, IElementDisabled, IElementValue, IElementMonth, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxText, IElementMinText, IElementStep
+    public class Month : Component, IComponentDisabled, IComponentValue, IComponentMonth, IComponentAutoComplete, IComponentReadonly, IComponentRequired, IComponentMaxText, IComponentMinText, IComponentStep
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingMonth;
-        public static event EventHandler<ElementActionEventArgs> MonthSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingMonth;
+        public static event EventHandler<ComponentActionEventArgs> MonthSet;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         public string GetMonth()
         {

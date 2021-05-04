@@ -27,10 +27,10 @@ using OpenQA.Selenium.Remote;
 namespace Bellatrix.Web
 {
     [DebuggerDisplay("BELLATRIX Element")]
-    public partial class Component : IElementVisible, IElementCssClass, IElement, IWebLayoutElement
+    public partial class Component : IComponentVisible, IComponentCssClass, IComponent, IWebLayoutComponent
     {
-        public static event EventHandler<ElementActionEventArgs> Focusing;
-        public static event EventHandler<ElementActionEventArgs> Focused;
+        public static event EventHandler<ComponentActionEventArgs> Focusing;
+        public static event EventHandler<ComponentActionEventArgs> Focused;
 
         private readonly ElementWaitService _elementWaiter;
         private readonly List<WaitStrategy> _untils;
@@ -45,22 +45,22 @@ namespace Bellatrix.Web
             _untils = new List<WaitStrategy>();
             JavaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
             BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
-            ElementCreateService = ServicesCollection.Current.Resolve<ElementCreateService>();
+            ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
         }
 
         // ReSharper disable All
 #pragma warning disable 67
-        public static event EventHandler<ElementActionEventArgs> ScrollingToVisible;
-        public static event EventHandler<ElementActionEventArgs> ScrolledToVisible;
-        public static event EventHandler<ElementActionEventArgs> SettingAttribute;
-        public static event EventHandler<ElementActionEventArgs> AttributeSet;
+        public static event EventHandler<ComponentActionEventArgs> ScrollingToVisible;
+        public static event EventHandler<ComponentActionEventArgs> ScrolledToVisible;
+        public static event EventHandler<ComponentActionEventArgs> SettingAttribute;
+        public static event EventHandler<ComponentActionEventArgs> AttributeSet;
 #pragma warning restore 67
 
         // ReSharper restore All
-        public static event EventHandler<ElementActionEventArgs> CreatingElement;
-        public static event EventHandler<ElementActionEventArgs> CreatedElement;
-        public static event EventHandler<ElementActionEventArgs> CreatingElements;
-        public static event EventHandler<ElementActionEventArgs> CreatedElements;
+        public static event EventHandler<ComponentActionEventArgs> CreatingComponent;
+        public static event EventHandler<ComponentActionEventArgs> CreatedComponent;
+        public static event EventHandler<ComponentActionEventArgs> CreatingComponents;
+        public static event EventHandler<ComponentActionEventArgs> CreatedComponents;
         public static event EventHandler<NativeElementActionEventArgs> ReturningWrappedElement;
 
         public IWebDriver WrappedDriver { get; }
@@ -88,7 +88,7 @@ namespace Bellatrix.Web
 
         protected readonly JavaScriptService JavaScriptService;
         protected readonly BrowserService BrowserService;
-        protected readonly ElementCreateService ElementCreateService;
+        protected readonly ComponentCreateService ComponentCreateService;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public dynamic By { get; internal set; }
@@ -108,39 +108,39 @@ namespace Bellatrix.Web
         public dynamic Create<TBy>(TBy by, Type newElementType)
             where TBy : FindStrategy
         {
-            CreatingElement?.Invoke(this, new ElementActionEventArgs(this));
+            CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
-            var elementRepository = new ElementRepository();
-            var element = elementRepository.CreateElementWithParent(by, WrappedElement, newElementType, ShouldCacheElement);
+            var elementRepository = new ComponentRepository();
+            var element = elementRepository.CreateComponentWithParent(by, WrappedElement, newElementType, ShouldCacheElement);
 
-            CreatedElement?.Invoke(this, new ElementActionEventArgs(this));
-
-            return element;
-        }
-
-        public TElement Create<TElement, TBy>(TBy by, bool shouldCacheElement = false)
-            where TBy : FindStrategy
-            where TElement : Component
-        {
-            CreatingElement?.Invoke(this, new ElementActionEventArgs(this));
-
-            var elementRepository = new ElementRepository();
-            var element = elementRepository.CreateElementWithParent<TElement>(by, WrappedElement, null, 0, shouldCacheElement);
-
-            CreatedElement?.Invoke(this, new ElementActionEventArgs(this));
+            CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
             return element;
         }
 
-        public ComponentsList<TElement> CreateAll<TElement, TBy>(TBy by)
+        public TComponent Create<TComponent, TBy>(TBy by, bool shouldCacheElement = false)
             where TBy : FindStrategy
-            where TElement : Component
+            where TComponent : Component
         {
-            CreatingElements?.Invoke(this, new ElementActionEventArgs(this));
+            CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
-            var elementsCollection = new ComponentsList<TElement>(by, WrappedElement, ShouldCacheElement);
+            var elementRepository = new ComponentRepository();
+            var element = elementRepository.CreateComponentWithParent<TComponent>(by, WrappedElement, null, 0, shouldCacheElement);
 
-            CreatedElements?.Invoke(this, new ElementActionEventArgs(this));
+            CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
+
+            return element;
+        }
+
+        public ComponentsList<TComponent> CreateAll<TComponent, TBy>(TBy by)
+            where TBy : FindStrategy
+            where TComponent : Component
+        {
+            CreatingComponents?.Invoke(this, new ComponentActionEventArgs(this));
+
+            var elementsCollection = new ComponentsList<TComponent>(by, WrappedElement, ShouldCacheElement);
+
+            CreatedComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
             return elementsCollection;
         }
@@ -198,17 +198,17 @@ namespace Bellatrix.Web
 
         public void SetAttribute(string name, string value)
         {
-            SettingAttribute?.Invoke(this, new ElementActionEventArgs(this));
+            SettingAttribute?.Invoke(this, new ComponentActionEventArgs(this));
 
             JavaScriptService.Execute(
                 $"arguments[0].setAttribute('{name}', '{value}');", WrappedElement);
 
-            AttributeSet?.Invoke(this, new ElementActionEventArgs(this));
+            AttributeSet?.Invoke(this, new ComponentActionEventArgs(this));
         }
 
         public void Focus()
         {
-            Focusing?.Invoke(this, new ElementActionEventArgs(this));
+            Focusing?.Invoke(this, new ComponentActionEventArgs(this));
 
             var remoteElement = (RemoteWebElement)this.ToBeClickable().WrappedElement;
 
@@ -224,14 +224,14 @@ namespace Bellatrix.Web
                 remoteElement.SendKeys(Keys.Space);
             }
 
-            Focused?.Invoke(this, new ElementActionEventArgs(this));
+            Focused?.Invoke(this, new ComponentActionEventArgs(this));
         }
 
-        public string ElementName { get; internal set; }
+        public string ComponentName { get; internal set; }
 
         public string PageName { get; internal set; }
 
-        public virtual Type ElementType => GetType();
+        public virtual Type ComponentType => GetType();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public Type LocatorType => By.GetType();
@@ -247,7 +247,7 @@ namespace Bellatrix.Web
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"{ElementName}");
+            sb.AppendLine($"{ComponentName}");
             sb.AppendLine($"X = {Location.X}");
             sb.AppendLine($"Y = {Location.Y}");
             sb.AppendLine($"Height = {Size.Height}");
@@ -301,7 +301,7 @@ namespace Bellatrix.Web
             }
             catch (WebDriverTimeoutException)
             {
-                throw new TimeoutException($"\n\nThe element: \n Name: '{ElementName}', \n Locator: '{LocatorType.Name} = {LocatorValue}', \n Type: '{ElementType.Name}' \nWas not found on the page or didn't fulfill the specified conditions.\n\n");
+                throw new TimeoutException($"\n\nThe element: \n Name: '{ComponentName}', \n Locator: '{LocatorType.Name} = {LocatorValue}', \n Type: '{ComponentType.Name}' \nWas not found on the page or didn't fulfill the specified conditions.\n\n");
             }
 
             return _wrappedElement;

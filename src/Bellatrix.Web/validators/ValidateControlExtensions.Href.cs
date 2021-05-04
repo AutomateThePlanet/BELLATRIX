@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateHrefIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementHref, IElement
+            where T : IComponentHref, IComponent
         {
             WaitUntil(() => control.Href.Equals(value), $"The control's href should be '{value}' but was '{control.Href}'.", timeout, sleepInterval);
-            ValidatedHrefIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedHrefIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
         public static void ValidateHrefIsSet<T>(this T control, int? timeout = null, int? sleepInterval = null)
-           where T : IElementHref, IElement
+           where T : IComponentHref, IComponent
         {
             WaitUntil(() => !string.IsNullOrEmpty(control.Href), $"The control's href shouldn't be empty but was.", timeout, sleepInterval);
-            ValidatedHrefIsSetEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedHrefIsSetEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedHrefIsEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedHrefIsSetEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedHrefIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedHrefIsSetEvent;
     }
 }

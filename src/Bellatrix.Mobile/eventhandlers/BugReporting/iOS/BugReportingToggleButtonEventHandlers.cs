@@ -19,8 +19,8 @@ namespace Bellatrix.Mobile.BugReporting.IOS
 {
     public class BugReportingToggleButtonEventHandlers : ToggleButtonEventHandlers
     {
-        protected override void TurningOnEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void TurningOffEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

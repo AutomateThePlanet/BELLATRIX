@@ -20,15 +20,15 @@ using OpenQA.Selenium;
 
 namespace Bellatrix.Mobile.Core
 {
-    public partial class Component<TDriver, TDriverElement> : IElementVisible, ILayoutElement
+    public partial class Component<TDriver, TDriverElement> : IComponentVisible, ILayoutComponent
     {
-        internal void Click(EventHandler<ElementActionEventArgs<TDriverElement>> clicking, EventHandler<ElementActionEventArgs<TDriverElement>> clicked)
+        internal void Click(EventHandler<ComponentActionEventArgs<TDriverElement>> clicking, EventHandler<ComponentActionEventArgs<TDriverElement>> clicked)
         {
-            clicking?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
+            clicking?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
 
             WrappedElement.Click();
 
-            clicked?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
+            clicked?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
         }
 
         internal bool GetIsCheckedValue()
@@ -64,17 +64,17 @@ namespace Bellatrix.Mobile.Core
             return !WrappedElement.Enabled;
         }
 
-        internal void SetValue(EventHandler<ElementActionEventArgs<TDriverElement>> settingValue, EventHandler<ElementActionEventArgs<TDriverElement>> valueSet, string value)
+        internal void SetValue(EventHandler<ComponentActionEventArgs<TDriverElement>> settingValue, EventHandler<ComponentActionEventArgs<TDriverElement>> valueSet, string value)
         {
-            settingValue?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this, value));
+            settingValue?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
             WrappedElement.Clear();
             WrappedElement.SetImmediateValue(value);
-            valueSet?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this, value));
+            valueSet?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
         }
 
-        internal void SetText(EventHandler<ElementActionEventArgs<TDriverElement>> settingValue, EventHandler<ElementActionEventArgs<TDriverElement>> valueSet, string value)
+        internal void SetText(EventHandler<ComponentActionEventArgs<TDriverElement>> settingValue, EventHandler<ComponentActionEventArgs<TDriverElement>> valueSet, string value)
         {
-            settingValue?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this, value));
+            settingValue?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
             WrappedElement.Clear();
             WrappedElement.SendKeys(value);
 
@@ -87,7 +87,7 @@ namespace Bellatrix.Mobile.Core
                 // ignore
             }
 
-            valueSet?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this, value));
+            valueSet?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
         }
 
         private void MobileScroll(ScrollDirection direction)

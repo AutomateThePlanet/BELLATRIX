@@ -44,7 +44,7 @@ namespace Bellatrix.Mobile
                     WrappedAppiumCreateService.CreateIOSDriver(appConfiguration, childContainer);
                 }
 
-                childContainer.RegisterInstance(childContainer.Resolve<ElementCreateService>());
+                childContainer.RegisterInstance(childContainer.Resolve<ComponentCreateService>());
                 childContainer.RegisterNull<int?>();
                 childContainer.RegisterNull<IWebElement>();
                 childContainer.RegisterNull<AndroidElement>();

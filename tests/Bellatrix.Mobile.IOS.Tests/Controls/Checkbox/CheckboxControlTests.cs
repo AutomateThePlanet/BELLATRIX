@@ -27,10 +27,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
             addButton.Click();
 
-            var checkBox = App.ElementCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var checkBox = App.ComponentCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             checkBox.Check();
 
@@ -41,10 +41,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
             addButton.Click();
 
-            var checkBox = App.ElementCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var checkBox = App.ComponentCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             checkBox.Check();
             checkBox.Uncheck();
@@ -56,10 +56,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
             addButton.Click();
 
-            var checkBox = App.ElementCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var checkBox = App.ComponentCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             Assert.AreEqual(false, checkBox.IsDisabled);
         }

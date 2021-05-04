@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsChecked_DoesNotThrowException_When_CheckBoxIsChecked()
         {
-            var checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check1");
+            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check1");
 
             checkBox.Check();
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsNotChecked_DoesNotThrowException_When_CheckBoxIsNotChecked()
         {
-            var checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check2");
+            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check2");
 
             checkBox.ValidateIsNotChecked();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIs_DoesNotThrowException_When_CheckBoxCorrectTextSet()
         {
-            var checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check1");
+            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check1");
 
             checkBox.ValidateTextIs("Checkbox 1");
         }
@@ -59,7 +59,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsDisabled_DoesNotThrowException_When_CheckBoxIsNotDisabled()
         {
-            var checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check2");
+            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check2");
 
             checkBox.ValidateIsNotDisabled();
         }

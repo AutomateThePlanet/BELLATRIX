@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.BugReporting.IOS
 {
     public class BugReportingRadioButtonEventHandlers : RadioButtonEventHandlers
     {
-        protected override void ClickingEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

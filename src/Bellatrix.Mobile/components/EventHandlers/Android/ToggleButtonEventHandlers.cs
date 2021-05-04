@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.EventHandlers.Android
 {
-    public class ToggleButtonEventHandlers : ElementEventHandlers
+    public class ToggleButtonEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -37,19 +37,19 @@ namespace Bellatrix.Mobile.EventHandlers.Android
             ToggleButton.TurnedOff -= TurnedOffEventHandler;
         }
 
-        protected virtual void TurningOffEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void TurnedOffEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void TurnedOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void TurningOnEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void TurnedOnEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void TurnedOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
     }

@@ -13,7 +13,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted.CommonServicesExtensions
         // Later to use the method in your tests, add a using statement containing this class's namespace.
         public static void LoginToApp(this AndroidAppService appService, string userName, string password)
         {
-            var elementCreateService = new ElementCreateService();
+            var elementCreateService = new ComponentCreateService();
             var userNameField = elementCreateService.CreateByIdContaining<TextField>("textBox");
             var passwordField = elementCreateService.CreateByIdContaining<Password>("passwordBox");
             var loginButton = elementCreateService.CreateByIdContaining<Button>("loginButton");

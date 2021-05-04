@@ -19,8 +19,8 @@ namespace Bellatrix.Mobile.BddLogging.IOS
 {
     public class BDDLoggingCheckboxEventHandlers : CheckboxEventHandlers
     {
-        protected override void CheckingEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Check {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void UncheckingEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Uncheck {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

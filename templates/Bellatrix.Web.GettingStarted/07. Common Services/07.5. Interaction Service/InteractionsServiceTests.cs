@@ -17,8 +17,8 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            Anchor protonRocketAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
-            Anchor protonMAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-m/");
+            Anchor protonRocketAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
+            Anchor protonMAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-m/");
 
             // 2. You can access the interaction methods through the App class.
             // 3. You can chain more than one method.
@@ -32,8 +32,8 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            Anchor protonRocketAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
-            Anchor protonMAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-m/");
+            Anchor protonRocketAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
+            Anchor protonMAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-m/");
 
             App.InteractionsService.MoveToElement(protonRocketAnchor).KeyUp(Keys.LeftShift).ContextClick().Perform();
             App.InteractionsService.DoubleClick(protonRocketAnchor).KeyUp(Keys.LeftShift).ContextClick().Perform();

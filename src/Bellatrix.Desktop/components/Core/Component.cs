@@ -30,23 +30,23 @@ namespace Bellatrix.Desktop
     [DebuggerDisplay("BELLATRIX Element")]
     public partial class Component
     {
-        private readonly ElementWaitService _elementWait;
+        private readonly ComponentWaitService _elementWait;
         private readonly List<WaitStrategy> _untils;
         private WindowsElement _wrappedElement;
 
         public Component()
         {
-            _elementWait = new ElementWaitService();
+            _elementWait = new ComponentWaitService();
             WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
             _untils = new List<WaitStrategy>();
         }
 
-        public static event EventHandler<ElementActionEventArgs> ScrollingToVisible;
-        public static event EventHandler<ElementActionEventArgs> ScrolledToVisible;
-        public static event EventHandler<ElementActionEventArgs> CreatingElement;
-        public static event EventHandler<ElementActionEventArgs> CreatedElement;
-        public static event EventHandler<ElementActionEventArgs> CreatingElements;
-        public static event EventHandler<ElementActionEventArgs> CreatedElements;
+        public static event EventHandler<ComponentActionEventArgs> ScrollingToVisible;
+        public static event EventHandler<ComponentActionEventArgs> ScrolledToVisible;
+        public static event EventHandler<ComponentActionEventArgs> CreatingComponent;
+        public static event EventHandler<ComponentActionEventArgs> CreatedComponent;
+        public static event EventHandler<ComponentActionEventArgs> CreatingComponents;
+        public static event EventHandler<ComponentActionEventArgs> CreatedComponents;
         public static event EventHandler<NativeElementActionEventArgs> ReturningWrappedElement;
 
         public WindowsDriver<WindowsElement> WrappedDriver { get; }
@@ -76,29 +76,29 @@ namespace Bellatrix.Desktop
             return WrappedElement.GetAttribute(name);
         }
 
-        public TElement Create<TElement, TBy>(TBy by)
+        public TComponent Create<TComponent, TBy>(TBy by)
              where TBy : FindStrategy
-             where TElement : Component
+             where TComponent : Component
         {
-            CreatingElement?.Invoke(this, new ElementActionEventArgs(this));
+            CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
-            var elementRepository = new ElementRepository();
-            var element = elementRepository.CreateElementWithParent<TElement>(by, WrappedElement, null, 0);
+            var elementRepository = new ComponentsRepository();
+            var element = elementRepository.CreateComponentWithParent<TComponent>(by, WrappedElement, null, 0);
 
-            CreatedElement?.Invoke(this, new ElementActionEventArgs(this));
+            CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
             return element;
         }
 
-        public ComponentsList<TElement> CreateAll<TElement, TBy>(TBy by)
+        public ComponentsList<TComponent> CreateAll<TComponent, TBy>(TBy by)
             where TBy : FindStrategy
-            where TElement : Component
+            where TComponent : Component
         {
-            CreatingElements?.Invoke(this, new ElementActionEventArgs(this));
+            CreatingComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
-            var elementsCollection = new ComponentsList<TElement>(by, WrappedElement);
+            var elementsCollection = new ComponentsList<TComponent>(by, WrappedElement);
 
-            CreatedElements?.Invoke(this, new ElementActionEventArgs(this));
+            CreatedComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
             return elementsCollection;
         }
@@ -149,16 +149,16 @@ namespace Bellatrix.Desktop
 
         public virtual void ScrollToVisible()
         {
-            ScrollingToVisible?.Invoke(this, new ElementActionEventArgs(this));
+            ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs(this));
 
             var touchActions = new RemoteTouchScreen(WrappedDriver);
             System.Threading.Thread.Sleep(2000);
             touchActions.Scroll(WrappedElement.Coordinates, 0, 0);
             this.ToBeVisible().ToExists().WaitToBe();
-            ScrolledToVisible?.Invoke(this, new ElementActionEventArgs(this));
+            ScrolledToVisible?.Invoke(this, new ComponentActionEventArgs(this));
         }
 
-        public string ElementName { get; internal set; }
+        public string ComponentName { get; internal set; }
 
         public string PageName { get; internal set; }
 
@@ -174,7 +174,7 @@ namespace Bellatrix.Desktop
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"{ElementName}");
+            sb.AppendLine($"{ComponentName}");
             sb.AppendLine($"X = {Location.X}");
             sb.AppendLine($"Y = {Location.Y}");
             sb.AppendLine($"Height = {Size.Height}");
@@ -210,7 +210,7 @@ namespace Bellatrix.Desktop
                 }
                 catch (WebDriverTimeoutException ex)
                 {
-                    throw new TimeoutException($"The element with Name = {ElementName} Locator {By.Value} was not found on the page or didn't fulfill the specified conditions.", ex);
+                    throw new TimeoutException($"The element with Name = {ComponentName} Locator {By.Value} was not found on the page or didn't fulfill the specified conditions.", ex);
                 }
             }
 

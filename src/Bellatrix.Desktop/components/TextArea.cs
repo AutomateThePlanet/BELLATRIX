@@ -18,12 +18,12 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class TextArea : Component, IElementInnerText, IElementText, IElementDisabled
+    public class TextArea : Component, IComponentInnerText, IComponentText, IComponentDisabled
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingText;
-        public static event EventHandler<ElementActionEventArgs> TextSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingText;
+        public static event EventHandler<ComponentActionEventArgs> TextSet;
 
         public virtual string GetText()
         {

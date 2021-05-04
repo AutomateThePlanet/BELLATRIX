@@ -18,14 +18,14 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Search : Component, IElementDisabled, IElementValue, IElementSearch, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementSize, IElementPlaceholder
+    public class Search : Component, IComponentDisabled, IComponentValue, IComponentSearch, IComponentAutoComplete, IComponentReadonly, IComponentRequired, IComponentMaxLength, IComponentMinLength, IComponentSize, IComponentPlaceholder
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingSearch;
-        public static event EventHandler<ElementActionEventArgs> SearchSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingSearch;
+        public static event EventHandler<ComponentActionEventArgs> SearchSet;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         public string GetSearch()
         {

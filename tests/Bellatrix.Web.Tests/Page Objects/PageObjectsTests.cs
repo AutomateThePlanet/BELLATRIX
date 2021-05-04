@@ -19,10 +19,10 @@ namespace Bellatrix.Web.Tests
             App.TestCases.AddPrecondition($"Navigate to http://demos.bellatrix.solutions/");
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.ElementCreateService.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonMReadMoreButton = App.ElementCreateService.CreateByInnerTextContaining<Anchor>("Read more");
-            Anchor addToCartFalcon9 = App.ElementCreateService.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
-            Anchor viewCartButton = App.ElementCreateService.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
+            Select sortDropDown = App.ComponentCreateService.CreateByNameEndingWith<Select>("orderby");
+            Anchor protonMReadMoreButton = App.ComponentCreateService.CreateByInnerTextContaining<Anchor>("Read more");
+            Anchor addToCartFalcon9 = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
+            Anchor viewCartButton = App.ComponentCreateService.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
 
             sortDropDown.SelectByText("Sort by price: low to high");
             protonMReadMoreButton.Hover();
@@ -30,10 +30,10 @@ namespace Bellatrix.Web.Tests
             addToCartFalcon9.Click();
             viewCartButton.Click();
 
-            TextField couponCodeTextField = App.ElementCreateService.CreateById<TextField>("coupon_code");
-            Button applyCouponButton = App.ElementCreateService.CreateByValueContaining<Button>("Apply coupon");
-            Div messageAlert = App.ElementCreateService.CreateByClassContaining<Div>("woocommerce-message");
-            Anchor proceedToCheckout = App.ElementCreateService.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
+            TextField couponCodeTextField = App.ComponentCreateService.CreateById<TextField>("coupon_code");
+            Button applyCouponButton = App.ComponentCreateService.CreateByValueContaining<Button>("Apply coupon");
+            Div messageAlert = App.ComponentCreateService.CreateByClassContaining<Div>("woocommerce-message");
+            Anchor proceedToCheckout = App.ComponentCreateService.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
 
             couponCodeTextField.SetText("happybirthday");
             applyCouponButton.Click();
@@ -43,22 +43,22 @@ namespace Bellatrix.Web.Tests
             App.BrowserService.WaitUntilReady();
             proceedToCheckout.Click();
 
-            Heading billingDetailsHeading = App.ElementCreateService.CreateByInnerTextContaining<Heading>("Billing details");
-            Anchor showLogin = App.ElementCreateService.CreateByInnerTextContaining<Anchor>("Click here to login");
-            TextArea orderCommentsTextArea = App.ElementCreateService.CreateById<TextArea>("order_comments");
-            TextField billingFirstName = App.ElementCreateService.CreateById<TextField>("billing_first_name");
-            TextField billingLastName = App.ElementCreateService.CreateById<TextField>("billing_last_name");
-            TextField billingCompany = App.ElementCreateService.CreateById<TextField>("billing_company");
-            Select billingCountry = App.ElementCreateService.CreateById<Select>("billing_country");
-            TextField billingAddress1 = App.ElementCreateService.CreateById<TextField>("billing_address_1");
-            TextField billingAddress2 = App.ElementCreateService.CreateById<TextField>("billing_address_2");
-            TextField billingCity = App.ElementCreateService.CreateById<TextField>("billing_city");
-            Select billingState = App.ElementCreateService.CreateById<Select>("billing_state").ToBeVisible().ToBeClickable();
-            TextField billingZip = App.ElementCreateService.CreateById<TextField>("billing_postcode");
-            Phone billingPhone = App.ElementCreateService.CreateById<Phone>("billing_phone");
-            Email billingEmail = App.ElementCreateService.CreateById<Email>("billing_email");
-            CheckBox createAccountCheckBox = App.ElementCreateService.CreateById<CheckBox>("createaccount");
-            RadioButton checkPaymentsRadioButton = App.ElementCreateService.CreateByAttributesContaining<RadioButton>("for", "payment_method_cheque");
+            Heading billingDetailsHeading = App.ComponentCreateService.CreateByInnerTextContaining<Heading>("Billing details");
+            Anchor showLogin = App.ComponentCreateService.CreateByInnerTextContaining<Anchor>("Click here to login");
+            TextArea orderCommentsTextArea = App.ComponentCreateService.CreateById<TextArea>("order_comments");
+            TextField billingFirstName = App.ComponentCreateService.CreateById<TextField>("billing_first_name");
+            TextField billingLastName = App.ComponentCreateService.CreateById<TextField>("billing_last_name");
+            TextField billingCompany = App.ComponentCreateService.CreateById<TextField>("billing_company");
+            Select billingCountry = App.ComponentCreateService.CreateById<Select>("billing_country");
+            TextField billingAddress1 = App.ComponentCreateService.CreateById<TextField>("billing_address_1");
+            TextField billingAddress2 = App.ComponentCreateService.CreateById<TextField>("billing_address_2");
+            TextField billingCity = App.ComponentCreateService.CreateById<TextField>("billing_city");
+            Select billingState = App.ComponentCreateService.CreateById<Select>("billing_state").ToBeVisible().ToBeClickable();
+            TextField billingZip = App.ComponentCreateService.CreateById<TextField>("billing_postcode");
+            Phone billingPhone = App.ComponentCreateService.CreateById<Phone>("billing_phone");
+            Email billingEmail = App.ComponentCreateService.CreateById<Email>("billing_email");
+            CheckBox createAccountCheckBox = App.ComponentCreateService.CreateById<CheckBox>("createaccount");
+            RadioButton checkPaymentsRadioButton = App.ComponentCreateService.CreateByAttributesContaining<RadioButton>("for", "payment_method_cheque");
 
             billingDetailsHeading.ToBeVisible().WaitToBe();
             showLogin.ValidateHrefIs("http://demos.bellatrix.solutions/checkout/#");

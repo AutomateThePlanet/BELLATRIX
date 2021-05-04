@@ -21,20 +21,20 @@ namespace Bellatrix.Mobile.Android
     public static partial class ValidateControlExtensions
     {
         public static void ValidateIsVisible<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementVisible, IElement<AndroidElement>
+            where T : IComponentVisible, IComponent<AndroidElement>
         {
             ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsVisible.Equals(true), "The control should be visible but was NOT.", timeout, sleepInterval);
-            ValidatedIsVisibleEvent?.Invoke(control, new ElementActionEventArgs<AndroidElement>(control));
+            ValidatedIsVisibleEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
         }
 
         public static void ValidateIsNotVisible<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementVisible, IElement<AndroidElement>
+            where T : IComponentVisible, IComponent<AndroidElement>
         {
             ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => !control.IsVisible.Equals(true), "The control should be NOT visible but was NOT.", timeout, sleepInterval);
-            ValidatedIsNotVisibleEvent?.Invoke(control, new ElementActionEventArgs<AndroidElement>(control));
+            ValidatedIsNotVisibleEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
         }
 
-        public static event EventHandler<ElementActionEventArgs<AndroidElement>> ValidatedIsVisibleEvent;
-        public static event EventHandler<ElementActionEventArgs<AndroidElement>> ValidatedIsNotVisibleEvent;
+        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsVisibleEvent;
+        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsNotVisibleEvent;
     }
 }

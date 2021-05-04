@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIs_DoesNotThrowException_When_ButtonTextIsAsExpected()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
 
             button.ValidateTextIs("Save");
         }
@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_ButtonIsNotDisabled()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
 
             button.ValidateIsNotDisabled();
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsDisabled_DoesNotThrowException_When_ButtonIsDisabled()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button_disabled");
+            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button_disabled");
 
             button.ValidateIsDisabled();
         }

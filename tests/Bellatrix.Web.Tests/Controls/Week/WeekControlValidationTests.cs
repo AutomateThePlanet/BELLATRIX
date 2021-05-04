@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void WeekSetThrowsArgumentException_When_Year0_Edge()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(0, 7));
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void WeekSetThrowsArgumentException_When_YearMinus1_Edge()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(-1, 7));
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void WeekSetThrowsArgumentException_When_WeekMinus1_Edge()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, -1));
         }
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void WeekSetThrowsArgumentException_When_Week0_Edge()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, 0));
         }
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void WeekSetThrowsArgumentException_When_Week53_Edge()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, 53));
         }

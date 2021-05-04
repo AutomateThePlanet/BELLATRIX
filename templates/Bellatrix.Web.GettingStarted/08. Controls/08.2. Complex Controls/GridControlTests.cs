@@ -23,8 +23,8 @@ namespace Bellatrix.Web.GettingStarted
         // Through the SetColumn you map the headers of the table if for some reason you don't want some column, just don't add it.
         // The method returns a list of all rows' data as C# data mapped to the map you provided.
         // You can get the cell converted to the element specified by the grid SetColumn method. Also, since some of this simple controls
-        // sometimes are wrapped inside DIV or SPAN elements, you can specify additional locator for finding the ElementCreateService.
-        public Grid TestGrid => App.ElementCreateService.CreateById<Grid>("sampleGrid")
+        // sometimes are wrapped inside DIV or SPAN elements, you can specify additional locator for finding the ComponentCreateService.
+        public Grid TestGrid => App.ComponentCreateService.CreateById<Grid>("sampleGrid")
             .SetColumn("Order", typeof(TextField), Find.By.Tag("input"))
             .SetColumn("Firstname")
             .SetColumn("Lastname")

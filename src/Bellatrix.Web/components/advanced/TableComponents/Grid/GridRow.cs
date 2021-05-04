@@ -24,12 +24,12 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class GridRow : Component, IElementInnerHtml
+    public class GridRow : Component, IComponentInnerHtml
     {
         private Grid _parentGrid;
 
-        public static event EventHandler<ElementActionEventArgs> Clicking;
-        public static event EventHandler<ElementActionEventArgs> Clicked;
+        public static event EventHandler<ComponentActionEventArgs> Clicking;
+        public static event EventHandler<ComponentActionEventArgs> Clicked;
 
         public int Index { get; set; }
 
@@ -71,7 +71,7 @@ namespace Bellatrix.Web
             for (int rowCellsIndex = 0; rowCellsIndex < rowCells.Count; rowCellsIndex++)
             {
                 var rowCellXPath = rowCells[rowCellsIndex].GetXPath();
-                var cell = ElementCreateService.CreateByXpath<GridCell>(rowCellXPath);
+                var cell = ComponentCreateService.CreateByXpath<GridCell>(rowCellXPath);
                 _parentGrid.SetCellMetaData(cell, Index, rowCellsIndex);
                 listOfCells.Add(cell);
             }
@@ -79,23 +79,23 @@ namespace Bellatrix.Web
             return listOfCells;
         }
 
-        public IEnumerable<TElement> GetCells<TElement>()
-            where TElement : Component, new()
+        public IEnumerable<TComponent> GetCells<TComponent>()
+            where TComponent : Component, new()
         {
-            var listOfElements = new List<TElement>();
+            var listOfElements = new List<TComponent>();
             var cells = GetCells().ToList();
             for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
             {
                 var cell = cells[columnIndex];
-                TElement element = new TElement();
-                if (cell.CellControlElementType == null)
+                TComponent element = new TComponent();
+                if (cell.CellControlComponentType == null)
                 {
-                    listOfElements.Add(cell.As<TElement>());
+                    listOfElements.Add(cell.As<TComponent>());
                 }
                 else
                 {
-                    var repo = new ElementRepository();
-                    element = repo.CreateElementWithParent(cell.CellControlBy, cell.WrappedElement, typeof(TElement), false);
+                    var repo = new ComponentRepository();
+                    element = repo.CreateComponentWithParent(cell.CellControlBy, cell.WrappedElement, typeof(TComponent), false);
                     listOfElements.Add(element);
                 }
             }
@@ -103,14 +103,14 @@ namespace Bellatrix.Web
             return listOfElements;
         }
 
-        public ComponentsList<TElement> GetCells<TElement>(Func<TElement, bool> selector)
-            where TElement : Component, new()
+        public ComponentsList<TComponent> GetCells<TComponent>(Func<TComponent, bool> selector)
+            where TComponent : Component, new()
         {
-            return GetCells<TElement>().Where(selector).ToElementList();
+            return GetCells<TComponent>().Where(selector).ToElementList();
         }
 
-        public TElement GetFirstOrDefaultCell<TElement>(Func<TElement, bool> selector)
-            where TElement : Component, new()
+        public TComponent GetFirstOrDefaultCell<TComponent>(Func<TComponent, bool> selector)
+            where TComponent : Component, new()
         {
             return GetCells(selector).FirstOrDefault();
         }
@@ -129,18 +129,18 @@ namespace Bellatrix.Web
             EntitiesAsserter.AreEqual(expectedItem, actualItem, propertiesNotToCompare);
         }
 
-        internal void DefaultClick<TElement>(
-            TElement element,
-            EventHandler<ElementActionEventArgs> clicking,
-            EventHandler<ElementActionEventArgs> clicked)
-            where TElement : Component
+        internal void DefaultClick<TComponent>(
+            TComponent element,
+            EventHandler<ComponentActionEventArgs> clicking,
+            EventHandler<ComponentActionEventArgs> clicked)
+            where TComponent : Component
         {
-            clicking?.Invoke(this, new ElementActionEventArgs(element));
+            clicking?.Invoke(this, new ComponentActionEventArgs(element));
 
             element.ToExists().ToBeClickable().WaitToBe();
             element.WrappedElement.Click();
 
-            clicked?.Invoke(this, new ElementActionEventArgs(element));
+            clicked?.Invoke(this, new ComponentActionEventArgs(element));
         }
     }
 }

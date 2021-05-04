@@ -16,9 +16,9 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.ElementCreateService.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonRocketAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
-            Anchor saturnVAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/saturn-v/");
+            Select sortDropDown = App.ComponentCreateService.CreateByNameEndingWith<Select>("orderby");
+            Anchor protonRocketAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
+            Anchor saturnVAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/saturn-v/");
 
             sortDropDown.AssertFontSize("14px");
             sortDropDown.AssertFontWeight("400");

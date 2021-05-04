@@ -17,7 +17,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         public void ButtonClicked_When_CallClickMethod()
         {
             // 2. After that, you can use the new locator as it was originally part of Bellatrix.
-            var button = App.ElementCreateService.CreateByNameStartingWith<Button>("Compute");
+            var button = App.ComponentCreateService.CreateByNameStartingWith<Button>("Compute");
 
             button.Click();
         }

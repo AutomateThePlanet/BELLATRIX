@@ -17,7 +17,7 @@ namespace Bellatrix.Web.GettingStarted
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
             // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
-            var promotionsLink = App.ElementCreateService.CreateByLinkText<Anchor>("promo").ToHasSpecificStyle("padding: 1.618em 1em");
+            var promotionsLink = App.ComponentCreateService.CreateByLinkText<Anchor>("promo").ToHasSpecificStyle("padding: 1.618em 1em");
 
             promotionsLink.Click();
         }

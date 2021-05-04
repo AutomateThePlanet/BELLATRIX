@@ -18,14 +18,14 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Url : Component, IElementDisabled, IElementValue, IElementUrl, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementSize, IElementPlaceholder
+    public class Url : Component, IComponentDisabled, IComponentValue, IComponentUrl, IComponentAutoComplete, IComponentReadonly, IComponentRequired, IComponentMaxLength, IComponentMinLength, IComponentSize, IComponentPlaceholder
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingUrl;
-        public static event EventHandler<ElementActionEventArgs> UrlSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingUrl;
+        public static event EventHandler<ComponentActionEventArgs> UrlSet;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         public string GetUrl()
         {

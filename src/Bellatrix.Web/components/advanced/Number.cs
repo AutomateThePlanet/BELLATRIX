@@ -18,14 +18,14 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Number : Component, IElementDisabled, IElementValue, IElementNumber, IElementAutoComplete, IElementRequired, IElementReadonly, IElementPlaceholder, IElementMax, IElementMin, IElementStep
+    public class Number : Component, IComponentDisabled, IComponentValue, IComponentNumber, IComponentAutoComplete, IComponentRequired, IComponentReadonly, IComponentPlaceholder, IComponentMax, IComponentMin, IComponentStep
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingNumber;
-        public static event EventHandler<ElementActionEventArgs> NumberSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingNumber;
+        public static event EventHandler<ComponentActionEventArgs> NumberSet;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         public double GetNumber()
         {

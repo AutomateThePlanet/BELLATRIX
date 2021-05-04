@@ -19,7 +19,7 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class RadioGroup : Element
+    public class RadioGroup : AndroidComponent
     {
         public virtual void ClickByText(string text)
         {

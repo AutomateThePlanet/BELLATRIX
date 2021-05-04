@@ -27,11 +27,11 @@ namespace Bellatrix.Web.Tests.Controls
         public void ShouldGreetUsingBinding()
         {
             App.NavigationService.Navigate("http://www.angularjs.org");
-            var textField = App.ElementCreateService.CreateByNgModel<TextField>("yourName");
+            var textField = App.ComponentCreateService.CreateByNgModel<TextField>("yourName");
 
             textField.SetText("Julie");
 
-            var heading = App.ElementCreateService.CreateByNgBinding<Heading>("yourName");
+            var heading = App.ComponentCreateService.CreateByNgBinding<Heading>("yourName");
 
             heading.ValidateInnerTextIs("Hello Julie!");
         }
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
         public void ShouldListTodos()
         {
             App.NavigationService.Navigate("http://www.angularjs.org");
-            var labels = App.ElementCreateService.CreateAllByNgRepeater<Label>("todo in todoList.todos");
+            var labels = App.ComponentCreateService.CreateAllByNgRepeater<Label>("todo in todoList.todos");
 
             Assert.AreEqual("build an AngularJS app", labels[1].InnerText.Trim());
         }
@@ -51,7 +51,7 @@ namespace Bellatrix.Web.Tests.Controls
         public void Angular2Test()
         {
             App.NavigationService.Navigate("https://material.angular.io/");
-            var button = App.ElementCreateService.CreateByXpath<Button>("//a[@routerlink='/guide/getting-started']");
+            var button = App.ComponentCreateService.CreateByXpath<Button>("//a[@routerlink='/guide/getting-started']");
             button.Click();
 
             Assert.AreEqual("https://material.angular.io/guide/getting-started", App.BrowserService.Url.ToString());

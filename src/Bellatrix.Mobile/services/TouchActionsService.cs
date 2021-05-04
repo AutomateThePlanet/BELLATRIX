@@ -31,8 +31,8 @@ namespace Bellatrix.Mobile.Services
 
         public IMultiAction WrappedMultiAction { get; }
 
-        public TouchActionsService<TDriver, TDriverElement> Tap<TElement>(TElement element, int count = 1)
-            where TElement : Component<TDriver, TDriverElement>
+        public TouchActionsService<TDriver, TDriverElement> Tap<TComponent>(TComponent element, int count = 1)
+            where TComponent : Component<TDriver, TDriverElement>
         {
             WrappedMultiAction.Add(new TouchAction(WrappedAppiumDriver).Tap(element.Location.X, element.Location.Y, count));
 
@@ -45,8 +45,8 @@ namespace Bellatrix.Mobile.Services
             return this;
         }
 
-        public TouchActionsService<TDriver, TDriverElement> Press<TElement>(TElement element, int waitTimeSeconds = 0)
-            where TElement : Component<TDriver, TDriverElement>
+        public TouchActionsService<TDriver, TDriverElement> Press<TComponent>(TComponent element, int waitTimeSeconds = 0)
+            where TComponent : Component<TDriver, TDriverElement>
         {
             WrappedMultiAction.Add(new TouchAction(WrappedAppiumDriver).Press(element.Location.X, element.Location.Y).Wait(TimeSpan.FromSeconds(waitTimeSeconds).Milliseconds));
             return this;
@@ -58,8 +58,8 @@ namespace Bellatrix.Mobile.Services
             return this;
         }
 
-        public TouchActionsService<TDriver, TDriverElement> LongPress<TElement>(TElement element, int waitTimeSeconds)
-            where TElement : Component<TDriver, TDriverElement>
+        public TouchActionsService<TDriver, TDriverElement> LongPress<TComponent>(TComponent element, int waitTimeSeconds)
+            where TComponent : Component<TDriver, TDriverElement>
         {
             WrappedMultiAction.Add(new TouchAction(WrappedAppiumDriver).LongPress(element.Location.X, element.Location.Y).Wait(TimeSpan.FromSeconds(waitTimeSeconds).Milliseconds));
             return this;
@@ -77,8 +77,8 @@ namespace Bellatrix.Mobile.Services
             return this;
         }
 
-        public TouchActionsService<TDriver, TDriverElement> MoveTo<TElement>(TElement element)
-            where TElement : Component<TDriver, TDriverElement>
+        public TouchActionsService<TDriver, TDriverElement> MoveTo<TComponent>(TComponent element)
+            where TComponent : Component<TDriver, TDriverElement>
         {
             WrappedMultiAction.Add(new TouchAction(WrappedAppiumDriver).MoveTo(element.Location.X, element.Location.Y));
             return this;
@@ -102,10 +102,10 @@ namespace Bellatrix.Mobile.Services
             return this;
         }
 
-        public TouchActionsService<TDriver, TDriverElement> Swipe<TElement>(TElement firstElement, TElement secondElement, int duration)
-            where TElement : Component<TDriver, TDriverElement>
+        public TouchActionsService<TDriver, TDriverElement> Swipe<TComponent>(TComponent firsTComponent, TComponent secondElement, int duration)
+            where TComponent : Component<TDriver, TDriverElement>
         {
-            WrappedMultiAction.Add(new TouchAction(WrappedAppiumDriver).Press(firstElement.Location.X, firstElement.Location.Y).Wait(duration).MoveTo(secondElement.Location.X, secondElement.Location.Y).Release());
+            WrappedMultiAction.Add(new TouchAction(WrappedAppiumDriver).Press(firsTComponent.Location.X, firsTComponent.Location.Y).Wait(duration).MoveTo(secondElement.Location.X, secondElement.Location.Y).Release());
             return this;
         }
 

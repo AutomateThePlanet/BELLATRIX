@@ -15,7 +15,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
-    public class ExpanderEventHandlers : ElementEventHandlers
+    public class ExpanderEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,19 +35,19 @@ namespace Bellatrix.Desktop.EventHandlers
             Expander.Hovered -= HoveredEventHandler;
         }
 
-        protected virtual void ClickingEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ClickedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void HoveringEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void HoveringEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void HoveredEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void HoveredEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

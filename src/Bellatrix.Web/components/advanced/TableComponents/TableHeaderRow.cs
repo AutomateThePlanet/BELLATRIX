@@ -18,7 +18,7 @@ using Bellatrix.Web.Contracts;
 
 namespace Bellatrix.Web
 {
-    public class TableHeaderRow : Component, IElementInnerHtml
+    public class TableHeaderRow : Component, IComponentInnerHtml
     {
         public ComponentsList<TableCell> HeaderCells => this.CreateAllByTag<TableCell>("th", true);
 

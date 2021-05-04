@@ -45,7 +45,7 @@ namespace Bellatrix.Web
             }
             catch (WebDriverTimeoutException)
             {
-                var elementPropertyValidateException = new ElementPropertyValidateException(exceptionMessage, wrappedWebDriver.Url);
+                var elementPropertyValidateException = new ComponentPropertyValidateException(exceptionMessage, wrappedWebDriver.Url);
                 ValidatedExceptionThrowedEvent?.Invoke(waitCondition, new ElementNotFulfillingValidateConditionEventArgs(elementPropertyValidateException));
                 throw elementPropertyValidateException;
             }

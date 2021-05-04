@@ -22,7 +22,7 @@ using Bellatrix.Web.Contracts;
 
 namespace Bellatrix.Web
 {
-    public class TableRow : Component, IElementInnerHtml
+    public class TableRow : Component, IComponentInnerHtml
     {
         private Table _parentTable;
         private HeaderNamesService _headerNamesService;

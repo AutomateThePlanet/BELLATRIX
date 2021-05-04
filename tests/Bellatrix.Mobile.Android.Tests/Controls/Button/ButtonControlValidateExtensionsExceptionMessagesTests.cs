@@ -33,11 +33,11 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             try
             {
-                var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+                var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
 
                 button.ValidateTextIs("GoTo");
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = "The control's text should be 'GoTo'";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -50,11 +50,11 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             try
             {
-                var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+                var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
 
                 button.ValidateTextIsNotSet();
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = "The control's text should be null but was 'Save'";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -67,11 +67,11 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             try
             {
-                var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+                var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
 
                 button.ValidateIsDisabled();
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = "The control should be disabled but it was NOT.";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -84,11 +84,11 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             try
             {
-                var button = App.ElementCreateService.CreateByIdContaining<Button>("button_disabled");
+                var button = App.ComponentCreateService.CreateByIdContaining<Button>("button_disabled");
 
                 button.ValidateIsNotDisabled();
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = "The control should NOT be disabled but it was.";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

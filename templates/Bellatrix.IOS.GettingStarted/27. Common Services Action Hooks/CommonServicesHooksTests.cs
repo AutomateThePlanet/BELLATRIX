@@ -25,7 +25,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [Ignore]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }

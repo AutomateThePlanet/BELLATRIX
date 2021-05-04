@@ -20,7 +20,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         public void ButtonClicked_When_WaitToHaveSpecificContent()
         {
             // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button").ToHaveSpecificContent("button");
+            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button").ToHaveSpecificContent("button");
 
             button.Click();
         }

@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateColorIs_DoesNotThrowException_When_ColorIsAsSpecified()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
 
             colorElement.SetColor("#f00030");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_AutoCompleteIsOff()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
 
             colorElement.ValidateAutoCompleteOff();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor3");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor3");
 
             colorElement.ValidateAutoCompleteOn();
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor4");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor4");
 
             colorElement.ValidateIsNotRequired();
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor6");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor6");
 
             colorElement.ValidateIsRequired();
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor7");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor7");
 
             colorElement.Hover();
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
 
             colorElement.ValidateIsNotDisabled();
         }
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor9");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor9");
 
             colorElement.ValidateIsDisabled();
         }
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateListIsNull_DoesNotThrowException_When_ListAttributeIsNotPresent()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
 
             colorElement.ValidateListIsNull();
         }
@@ -122,7 +122,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateListIs_DoesNotThrowException_When_MaxAttributeIsPresent()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor10");
+            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor10");
 
             Assert.AreEqual("tickmarks", colorElement.List);
             colorElement.ValidateListIs("tickmarks");

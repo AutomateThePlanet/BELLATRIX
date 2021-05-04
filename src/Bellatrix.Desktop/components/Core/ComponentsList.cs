@@ -23,51 +23,51 @@ using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.Controls.Core
 {
-    public class ComponentsList<TElement> : IEnumerable<TElement>
-        where TElement : Component
+    public class ComponentsList<TComponent> : IEnumerable<TComponent>
+        where TComponent : Component
     {
         private readonly FindStrategy _by;
-        private readonly WindowsElement _parentElement;
-        private readonly List<TElement> _foundElements;
+        private readonly WindowsElement _parenTComponent;
+        private readonly List<TComponent> _foundElements;
         private readonly bool _shouldCacheFoundElements;
-        private List<TElement> _cachedElements;
+        private List<TComponent> _cachedElements;
 
         public ComponentsList(
             FindStrategy by,
-            WindowsElement parentElement,
+            WindowsElement parenTComponent,
             bool shouldCacheFoundElements)
-        : this(by, parentElement)
+        : this(by, parenTComponent)
         {
             _shouldCacheFoundElements = shouldCacheFoundElements;
         }
 
         public ComponentsList(
             FindStrategy by,
-            WindowsElement parentElement)
+            WindowsElement parenTComponent)
         {
             _by = by;
-            _parentElement = parentElement;
-            _foundElements = new List<TElement>();
+            _parenTComponent = parenTComponent;
+            _foundElements = new List<TComponent>();
             WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
         }
 
         public ComponentsList()
         {
-            _foundElements = new List<TElement>();
+            _foundElements = new List<TComponent>();
             WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
         }
 
-        public ComponentsList(IEnumerable<TElement> nativeElementList)
+        public ComponentsList(IEnumerable<TComponent> nativeElementList)
         {
-            _foundElements = new List<TElement>(nativeElementList);
+            _foundElements = new List<TComponent>(nativeElementList);
             WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
         }
 
         public WindowsDriver<WindowsElement> WrappedDriver { get; }
 
-        public TElement this[int i] => GetAndWaitWebDriverElements().ElementAt(i);
+        public TComponent this[int i] => GetAndWaitWebDriverElements().ElementAt(i);
 
-        public IEnumerator<TElement> GetEnumerator() => GetAndWaitWebDriverElements().GetEnumerator();
+        public IEnumerator<TComponent> GetEnumerator() => GetAndWaitWebDriverElements().GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -82,7 +82,7 @@ namespace Bellatrix.Desktop.Controls.Core
             return nativeElements.Count();
         }
 
-        public void ForEach(Action<TElement> action)
+        public void ForEach(Action<TComponent> action)
         {
             foreach (var tableRow in this)
             {
@@ -90,12 +90,12 @@ namespace Bellatrix.Desktop.Controls.Core
             }
         }
 
-        public void Add(TElement element)
+        public void Add(TComponent element)
         {
             _foundElements.Add(element);
         }
 
-        private IEnumerable<TElement> GetAndWaitWebDriverElements()
+        private IEnumerable<TComponent> GetAndWaitWebDriverElements()
         {
             if (_shouldCacheFoundElements && _cachedElements == null)
             {
@@ -117,30 +117,30 @@ namespace Bellatrix.Desktop.Controls.Core
                 }
             }
 
-            IEnumerable<TElement> GetAndWaitNativeElements()
+            IEnumerable<TComponent> GetAndWaitNativeElements()
             {
                 foreach (var foundElement in _foundElements)
                 {
                     yield return foundElement;
                 }
 
-                if (_parentElement != null)
+                if (_parenTComponent != null)
                 {
-                    var elementRepository = new ElementRepository();
-                    foreach (var nativeElement in _by?.FindAllElements(_parentElement))
+                    var elementRepository = new ComponentsRepository();
+                    foreach (var nativeElement in _by?.FindAllElements(_parenTComponent))
                     {
                         var element =
-                               elementRepository.CreateElementThatIsFound<TElement>(_by, (WindowsElement)nativeElement);
+                               elementRepository.CreateComponentThatIsFound<TComponent>(_by, (WindowsElement)nativeElement);
                         yield return element;
                     }
                 }
                 else
                 {
-                    var elementRepository = new ElementRepository();
+                    var elementRepository = new ComponentsRepository();
                     foreach (var nativeElement in _by?.FindAllElements(WrappedDriver))
                     {
                         var element =
-                              elementRepository.CreateElementThatIsFound<TElement>(_by, nativeElement);
+                              elementRepository.CreateComponentThatIsFound<TComponent>(_by, nativeElement);
                         yield return element;
                     }
                 }
@@ -153,12 +153,12 @@ namespace Bellatrix.Desktop.Controls.Core
             Utilities.Wait.ForConditionUntilTimeout(
                    () =>
                    {
-                       var elements = _parentElement == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parentElement);
+                       var elements = _parenTComponent == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parenTComponent);
                        return elements.Any();
                    },
                    totalRunTimeoutMilliseconds: ConfigurationService.GetSection<DesktopSettings>().ElementToExistTimeout,
                    sleepTimeMilliseconds: ConfigurationService.GetSection<DesktopSettings>().SleepInterval);
-            var elements = _parentElement == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parentElement);
+            var elements = _parenTComponent == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parenTComponent);
 
             return elements;
         }

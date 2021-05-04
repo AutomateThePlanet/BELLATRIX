@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.EventHandlers.Android
 {
-    public class CheckboxEventHandlers : ElementEventHandlers
+    public class CheckboxEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -37,19 +37,19 @@ namespace Bellatrix.Mobile.EventHandlers.Android
             CheckBox.Unchecked -= UncheckedEventHandler;
         }
 
-        protected virtual void UncheckingEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void UncheckedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void CheckingEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void CheckedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
     }

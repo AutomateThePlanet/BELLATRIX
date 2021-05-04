@@ -24,10 +24,10 @@ namespace Bellatrix.Desktop.GettingStarted
         [TestMethod]
         public void CommonActionsWithDesktopControls_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
-            var calendar = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
-            var radioButton = App.ElementCreateService.CreateByName<RadioButton>("RadioButton");
-            var selectedRadioButton = App.ElementCreateService.CreateByName<RadioButton>("SelectedRadioButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var calendar = App.ComponentCreateService.CreateByAutomationId<Calendar>("calendar");
+            var radioButton = App.ComponentCreateService.CreateByName<RadioButton>("RadioButton");
+            var selectedRadioButton = App.ComponentCreateService.CreateByName<RadioButton>("SelectedRadioButton");
 
             // 2. Depending on what you want to check, BELLATRIX gives lots of options. You can test px perfect or just that some element is below another.
             // Check that the button is above the calendar.

@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class NumberEventHandlers : ElementEventHandlers
+    public class NumberEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Number.NumberSet -= NumberSetEventHandler;
         }
 
-        protected virtual void SettingNumberEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingNumberEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void NumberSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void NumberSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

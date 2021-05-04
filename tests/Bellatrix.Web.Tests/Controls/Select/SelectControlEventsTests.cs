@@ -29,18 +29,18 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SelectingCalled_BeforeActuallySelectByText()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
             Select.Selecting += AssertIsCheckedFalse;
 
-            selectElement.SelectByText("Awesome");
+            selectComponent.SelectByText("Awesome");
 
-            Assert.AreEqual("bella2", selectElement.GetSelected().Value);
+            Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
 
             Select.Selecting -= AssertIsCheckedFalse;
 
-            void AssertIsCheckedFalse(object sender, ElementActionEventArgs args)
+            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
             {
-                Assert.AreEqual("bella", selectElement.GetSelected().Value);
+                Assert.AreEqual("bella", selectComponent.GetSelected().Value);
             }
         }
 
@@ -49,18 +49,18 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SelectingCalled_BeforeActuallySelectByIndex()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
             Select.Selecting += AssertIsCheckedFalse;
 
-            selectElement.SelectByIndex(2);
+            selectComponent.SelectByIndex(2);
 
-            Assert.AreEqual("bella2", selectElement.GetSelected().Value);
+            Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
 
             Select.Selecting -= AssertIsCheckedFalse;
 
-            void AssertIsCheckedFalse(object sender, ElementActionEventArgs args)
+            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
             {
-                Assert.AreEqual("bella", selectElement.GetSelected().Value);
+                Assert.AreEqual("bella", selectComponent.GetSelected().Value);
             }
         }
 
@@ -69,16 +69,16 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SelectedCalled_AfterSelectByText()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
             Select.Selected += AssertIsCheckedFalse;
 
-            selectElement.SelectByText("Awesome");
+            selectComponent.SelectByText("Awesome");
 
             Select.Selected -= AssertIsCheckedFalse;
 
-            void AssertIsCheckedFalse(object sender, ElementActionEventArgs args)
+            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
             {
-                Assert.AreEqual("bella2", selectElement.GetSelected().Value);
+                Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
             }
         }
 
@@ -87,16 +87,16 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SelectedCalled_AfterSelectByIndex()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
             Select.Selected += AssertIsCheckedFalse;
 
-            selectElement.SelectByIndex(2);
+            selectComponent.SelectByIndex(2);
 
             Select.Selected -= AssertIsCheckedFalse;
 
-            void AssertIsCheckedFalse(object sender, ElementActionEventArgs args)
+            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
             {
-                Assert.AreEqual("bella2", selectElement.GetSelected().Value);
+                Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
             }
         }
 
@@ -107,15 +107,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Select.Hovering += AssertStyleAttributeEmpty;
 
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect1");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect1");
 
-            selectElement.Hover();
+            selectComponent.Hover();
 
-            Assert.AreEqual("color: red;", selectElement.GetStyle());
+            Assert.AreEqual("color: red;", selectComponent.GetStyle());
 
             Select.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -128,15 +128,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Select.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect1");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect1");
 
-            selectElement.Hover();
+            selectComponent.Hover();
 
             Select.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Select>("mySelect1").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<Select>("mySelect1").ValidateStyleIs("color: red;");
             }
         }
 
@@ -147,15 +147,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Select.Focusing += AssertStyleAttributeEmpty;
 
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
 
-            selectElement.Focus();
+            selectComponent.Focus();
 
-            Assert.AreEqual("color: blue;", selectElement.GetStyle());
+            Assert.AreEqual("color: blue;", selectComponent.GetStyle());
 
             Select.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -168,13 +168,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Select.Focused += AssertStyleAttributeContainsNewValue;
 
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
 
-            selectElement.Focus();
+            selectComponent.Focus();
 
             Select.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

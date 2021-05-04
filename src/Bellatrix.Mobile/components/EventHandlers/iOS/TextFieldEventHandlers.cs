@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.EventHandlers.IOS
 {
-    public class TextFieldEventHandlers : ElementEventHandlers
+    public class TextFieldEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -33,11 +33,11 @@ namespace Bellatrix.Mobile.EventHandlers.IOS
             TextField.TextSet -= TextSetEventHandler;
         }
 
-        protected virtual void SettingTextEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void SettingTextEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void TextSetEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void TextSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
     }

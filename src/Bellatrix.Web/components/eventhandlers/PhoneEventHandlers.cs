@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class PhoneEventHandlers : ElementEventHandlers
+    public class PhoneEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Phone.PhoneSet -= PhoneSetEventHandler;
         }
 
-        protected virtual void SettingPhoneEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingPhoneEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void PhoneSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void PhoneSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

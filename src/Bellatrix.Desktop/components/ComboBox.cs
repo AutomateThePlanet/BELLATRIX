@@ -18,12 +18,12 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class ComboBox : Component, IElementDisabled, IElementInnerText
+    public class ComboBox : Component, IComponentDisabled, IComponentInnerText
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Selecting;
-        public static event EventHandler<ElementActionEventArgs> Selected;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Selecting;
+        public static event EventHandler<ComponentActionEventArgs> Selected;
 
         public virtual void Hover()
         {
@@ -32,14 +32,14 @@ namespace Bellatrix.Desktop
 
         public virtual void SelectByText(string value)
         {
-            Selecting?.Invoke(this, new ElementActionEventArgs(this, value));
+            Selecting?.Invoke(this, new ComponentActionEventArgs(this, value));
 
             if (WrappedElement.Text != value)
             {
                 WrappedElement.SendKeys(value);
             }
 
-            Selected?.Invoke(this, new ElementActionEventArgs(this, value));
+            Selected?.Invoke(this, new ComponentActionEventArgs(this, value));
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]

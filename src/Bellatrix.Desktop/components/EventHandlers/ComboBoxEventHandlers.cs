@@ -15,7 +15,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
-    public class ComboBoxEventHandlers : ElementEventHandlers
+    public class ComboBoxEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Desktop.EventHandlers
             ComboBox.Hovered -= HoveredEventHandler;
         }
 
-        protected virtual void SelectingEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void SelectedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

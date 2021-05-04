@@ -18,14 +18,14 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class TextArea : Component, IElementInnerText, IElementText, IElementDisabled, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementRows, IElementCols, IElementPlaceholder, IElementSpellCheck, IElementWrap
+    public class TextArea : Component, IComponentInnerText, IComponentText, IComponentDisabled, IComponentAutoComplete, IComponentReadonly, IComponentRequired, IComponentMaxLength, IComponentMinLength, IComponentRows, IComponentCols, IComponentPlaceholder, IComponentSpellCheck, IComponentWrap
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingText;
-        public static event EventHandler<ElementActionEventArgs> TextSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingText;
+        public static event EventHandler<ComponentActionEventArgs> TextSet;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         public string GetText()
         {

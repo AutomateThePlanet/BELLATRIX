@@ -26,7 +26,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void Return70_When_UseGetValueMethod_Opera()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress");
+            var progressElement = App.ComponentCreateService.CreateById<Progress>("myProgress");
 
             Assert.AreEqual("70", progressElement.Value);
         }
@@ -35,7 +35,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnNull_When_NoValueAttributeAttributePresent_Opera()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress2");
+            var progressElement = App.ComponentCreateService.CreateById<Progress>("myProgress2");
 
             Assert.IsNotNull(progressElement.Value);
         }
@@ -44,7 +44,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void Return100_When_UseGetMaxMethod_Opera()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress");
+            var progressElement = App.ComponentCreateService.CreateById<Progress>("myProgress");
 
             Assert.AreEqual("100", progressElement.Max);
         }
@@ -53,7 +53,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void Return1_When_NoMaxAttributePresent_Opera()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress1");
+            var progressElement = App.ComponentCreateService.CreateById<Progress>("myProgress1");
 
             var actualMax = progressElement.Max;
 
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void Return70_When_UseGetInnerTextMethod_Opera()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress");
+            var progressElement = App.ComponentCreateService.CreateById<Progress>("myProgress");
 
             Assert.AreEqual("70 %", progressElement.InnerText);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnEmpty_When_NoInnerTextPresent_Opera()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress3");
+            var progressElement = App.ComponentCreateService.CreateById<Progress>("myProgress3");
 
             var actualInnerText = progressElement.InnerText;
 

@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Color.SettingColor += AssertValueAttributeEmpty;
 
-            var rangeElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var rangeElement = App.ComponentCreateService.CreateById<Color>("myColor");
 
             rangeElement.SetColor("#ff0000");
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Color.SettingColor -= AssertValueAttributeEmpty;
 
-            void AssertValueAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("#000000", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Color.ColorSet += AssertValueAttributeContainsNewValue;
 
-            var rangeElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var rangeElement = App.ComponentCreateService.CreateById<Color>("myColor");
 
             rangeElement.SetColor("#ff0000");
 
             Color.ColorSet -= AssertValueAttributeContainsNewValue;
 
-            void AssertValueAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("#ff0000", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Color.Hovering += AssertStyleAttributeEmpty;
 
-            var rangeElement = App.ElementCreateService.CreateById<Color>("myColor7");
+            var rangeElement = App.ComponentCreateService.CreateById<Color>("myColor7");
 
             rangeElement.Hover();
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Color.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -92,15 +92,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Color.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var rangeElement = App.ElementCreateService.CreateById<Color>("myColor7");
+            var rangeElement = App.ComponentCreateService.CreateById<Color>("myColor7");
 
             rangeElement.Hover();
 
             Color.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Color>("myColor7").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<Color>("myColor7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Color.Focusing += AssertStyleAttributeEmpty;
 
-            var rangeElement = App.ElementCreateService.CreateById<Color>("myColor8");
+            var rangeElement = App.ComponentCreateService.CreateById<Color>("myColor8");
 
             rangeElement.Focus();
 
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Color.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -132,13 +132,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Color.Focused += AssertStyleAttributeContainsNewValue;
 
-            var rangeElement = App.ElementCreateService.CreateById<Color>("myColor8");
+            var rangeElement = App.ComponentCreateService.CreateById<Color>("myColor8");
 
             rangeElement.Focus();
 
             Color.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

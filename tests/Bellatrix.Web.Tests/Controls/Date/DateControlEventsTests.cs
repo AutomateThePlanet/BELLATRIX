@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.SettingDate += AssertValueAttributeEmpty;
 
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
 
             dateElement.SetDate(2017, 7, 6);
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Date.SettingDate -= AssertValueAttributeEmpty;
 
-            void AssertValueAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.DateSet += AssertValueAttributeContainsNewValue;
 
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
 
             dateElement.SetDate(2017, 7, 6);
 
             Date.DateSet -= AssertValueAttributeContainsNewValue;
 
-            void AssertValueAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("2017-07-06", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.Hovering += AssertStyleAttributeEmpty;
 
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate7");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate7");
 
             dateElement.Hover();
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Date.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -92,15 +92,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate7");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate7");
 
             dateElement.Hover();
 
             Date.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Date>("myDate7").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<Date>("myDate7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.Focusing += AssertStyleAttributeEmpty;
 
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate8");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate8");
 
             dateElement.Focus();
 
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Date.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -132,13 +132,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.Focused += AssertStyleAttributeContainsNewValue;
 
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate8");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate8");
 
             dateElement.Focus();
 
             Date.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

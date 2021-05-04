@@ -23,14 +23,14 @@ namespace Bellatrix.Mobile.IOS.Tests
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
     [AllureSuite("Services")]
-    [AllureFeature("ElementCreateService")]
+    [AllureFeature("ComponentCreateService")]
     public class ElementCreateSingleElementTests : MSTest.IOSTest
     {
-        private Element _mainElement;
+        private IOSComponent _mainElement;
 
         public override void TestInit()
         {
-            _mainElement = App.ElementCreateService.CreateByIOSNsPredicate<Element>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+            _mainElement = App.ComponentCreateService.CreateByIOSNsPredicate<IOSComponent>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
         }
 
         [TestMethod]

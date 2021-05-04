@@ -27,7 +27,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void Return1RadioButtons_When_CallGetAllMethod()
         {
-            var radioGroup = App.ElementCreateService.CreateByIOSNsPredicate<RadioGroup>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+            var radioGroup = App.ComponentCreateService.CreateByIOSNsPredicate<RadioGroup>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
 
             var radioButtons = radioGroup.GetAll();
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ClickFirstRadioButton_When_CallClickByIndex()
         {
-            var radioGroup = App.ElementCreateService.CreateByIOSNsPredicate<RadioGroup>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+            var radioGroup = App.ComponentCreateService.CreateByIOSNsPredicate<RadioGroup>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
 
             radioGroup.ClickByIndex(0);
             var clickedRadioButton = radioGroup.GetChecked();

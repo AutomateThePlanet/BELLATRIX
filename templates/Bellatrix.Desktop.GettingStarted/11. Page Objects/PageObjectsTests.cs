@@ -33,43 +33,43 @@ namespace Bellatrix.Desktop.GettingStarted
         [TestCategory(Categories.CI)]
         public void ActionsWithoutPageObjects_Wpf()
         {
-            var permanentTransfer = App.ElementCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var permanentTransfer = App.ComponentCreateService.CreateByName<CheckBox>("BellaCheckBox");
 
             permanentTransfer.Check();
 
             Assert.IsTrue(permanentTransfer.IsChecked);
 
-            var items = App.ElementCreateService.CreateByAutomationId<ComboBox>("select");
+            var items = App.ComponentCreateService.CreateByAutomationId<ComboBox>("select");
 
             items.SelectByText("Item2");
 
             Assert.AreEqual("Item2", items.InnerText);
 
-            var returnItemAfter = App.ElementCreateService.CreateByName<Component>("DisappearAfterButton1");
+            var returnItemAfter = App.ComponentCreateService.CreateByName<Component>("DisappearAfterButton1");
 
             returnItemAfter.ToNotExists().WaitToBe();
 
-            var password = App.ElementCreateService.CreateByAutomationId<Password>("passwordBox");
+            var password = App.ComponentCreateService.CreateByAutomationId<Password>("passwordBox");
 
             password.SetPassword("topsecret");
 
-            var userName = App.ElementCreateService.CreateByAutomationId<TextField>("textBox");
+            var userName = App.ComponentCreateService.CreateByAutomationId<TextField>("textBox");
 
             userName.SetText("bellatrix");
 
             Assert.AreEqual("bellatrix", userName.InnerText);
 
-            var keepMeLogged = App.ElementCreateService.CreateByName<RadioButton>("RadioButton");
+            var keepMeLogged = App.ComponentCreateService.CreateByName<RadioButton>("RadioButton");
 
             keepMeLogged.Click();
 
             Assert.IsTrue(keepMeLogged.IsChecked);
 
-            var byName = App.ElementCreateService.CreateByName<Button>("E Button");
+            var byName = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             byName.Click();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
 
             Assert.IsTrue(label.IsPresent);
         }

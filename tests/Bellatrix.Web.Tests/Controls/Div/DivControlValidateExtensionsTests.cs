@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var divElement = App.ElementCreateService.CreateById<Div>("myDiv");
+            var divElement = App.ComponentCreateService.CreateById<Div>("myDiv");
 
             divElement.Hover();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_When_InnerText()
         {
-            var divElement = App.ElementCreateService.CreateById<Div>("myDiv1");
+            var divElement = App.ComponentCreateService.CreateById<Div>("myDiv1");
 
             divElement.ValidateInnerTextIs("Automate The Planet");
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerHtmlIs_DoesNotThrowException_When_InnerHtmlSet()
         {
-            var divElement = App.ElementCreateService.CreateById<Div>("myDiv2");
+            var divElement = App.ComponentCreateService.CreateById<Div>("myDiv2");
 
             divElement.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
         }

@@ -20,24 +20,24 @@ using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop
 {
-    public partial class Component : IElementVisible, IElement, ILayoutElement
+    public partial class Component : IComponentVisible, IComponent, ILayoutComponent
     {
-        internal virtual void Click(EventHandler<ElementActionEventArgs> clicking, EventHandler<ElementActionEventArgs> clicked)
+        internal virtual void Click(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked)
         {
-            clicking?.Invoke(this, new ElementActionEventArgs(this));
+            clicking?.Invoke(this, new ComponentActionEventArgs(this));
 
             WrappedElement.Click();
 
-            clicked?.Invoke(this, new ElementActionEventArgs(this));
+            clicked?.Invoke(this, new ComponentActionEventArgs(this));
         }
 
-        internal virtual void Hover(EventHandler<ElementActionEventArgs> hovering, EventHandler<ElementActionEventArgs> hovered)
+        internal virtual void Hover(EventHandler<ComponentActionEventArgs> hovering, EventHandler<ComponentActionEventArgs> hovered)
         {
-            hovering?.Invoke(this, new ElementActionEventArgs(this));
+            hovering?.Invoke(this, new ComponentActionEventArgs(this));
 
             WrappedDriver.Mouse.MouseMove(WrappedElement.Coordinates);
 
-            hovered?.Invoke(this, new ElementActionEventArgs(this));
+            hovered?.Invoke(this, new ComponentActionEventArgs(this));
         }
 
         internal virtual string GetInnerText()
@@ -50,12 +50,12 @@ namespace Bellatrix.Desktop
             return !WrappedElement.Enabled;
         }
 
-        internal virtual void SetText(EventHandler<ElementActionEventArgs> settingValue, EventHandler<ElementActionEventArgs> valueSet, string value)
+        internal virtual void SetText(EventHandler<ComponentActionEventArgs> settingValue, EventHandler<ComponentActionEventArgs> valueSet, string value)
         {
-            settingValue?.Invoke(this, new ElementActionEventArgs(this, value));
+            settingValue?.Invoke(this, new ComponentActionEventArgs(this, value));
             WrappedElement.Clear();
             WrappedElement.SendKeys(value);
-            valueSet?.Invoke(this, new ElementActionEventArgs(this, value));
+            valueSet?.Invoke(this, new ComponentActionEventArgs(this, value));
         }
     }
 }

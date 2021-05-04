@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.SettingNumber += AssertValueAttributeEmpty;
 
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
 
             numberElement.SetNumber(13);
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Number.SettingNumber -= AssertValueAttributeEmpty;
 
-            void AssertValueAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.NumberSet += AssertValueAttributeContainsNewValue;
 
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
 
             numberElement.SetNumber(13);
 
             Number.NumberSet -= AssertValueAttributeContainsNewValue;
 
-            void AssertValueAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("13", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.Hovering += AssertStyleAttributeEmpty;
 
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber7");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber7");
 
             numberElement.Hover();
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Number.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -92,15 +92,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber7");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber7");
 
             numberElement.Hover();
 
             Number.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Number>("myNumber7").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<Number>("myNumber7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.Focusing += AssertStyleAttributeEmpty;
 
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber8");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber8");
 
             numberElement.Focus();
 
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Number.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -132,13 +132,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.Focused += AssertStyleAttributeContainsNewValue;
 
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber8");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber8");
 
             numberElement.Focus();
 
             Number.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

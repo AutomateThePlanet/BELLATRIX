@@ -21,20 +21,20 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class SeekBar : Element, IElementDisabled
+    public class SeekBar : AndroidComponent, IComponentDisabled
     {
-        public static event EventHandler<ElementActionEventArgs<AndroidElement>> SettingPercentage;
-        public static event EventHandler<ElementActionEventArgs<AndroidElement>> PercentageSet;
+        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> SettingPercentage;
+        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> PercentageSet;
 
         public virtual void Set(double percentage)
         {
-            SettingPercentage?.Invoke(this, new ElementActionEventArgs<AndroidElement>(this, percentage.ToString()));
+            SettingPercentage?.Invoke(this, new ComponentActionEventArgs<AndroidElement>(this, percentage.ToString()));
             int end = WrappedElement.Size.Width;
             int y = WrappedElement.Location.Y;
             var touchActionsService = ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement>>();
             int moveTo = (int)((percentage / 100) * end);
             touchActionsService.Press(moveTo, y, 0).Release().Perform();
-            PercentageSet?.Invoke(this, new ElementActionEventArgs<AndroidElement>(this, percentage.ToString()));
+            PercentageSet?.Invoke(this, new ComponentActionEventArgs<AndroidElement>(this, percentage.ToString()));
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]

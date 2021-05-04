@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.SettingMonth += AssertValueAttributeEmpty;
 
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth");
 
             monthElement.SetMonth(2017, 7);
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Month.SettingMonth -= AssertValueAttributeEmpty;
 
-            void AssertValueAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.MonthSet += AssertValueAttributeContainsNewValue;
 
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth");
 
             monthElement.SetMonth(2017, 7);
 
             Month.MonthSet -= AssertValueAttributeContainsNewValue;
 
-            void AssertValueAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("2017-07", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.Hovering += AssertStyleAttributeEmpty;
 
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth7");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth7");
 
             monthElement.Hover();
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Month.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -92,15 +92,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth7");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth7");
 
             monthElement.Hover();
 
             Month.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Month>("myMonth7").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<Month>("myMonth7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.Focusing += AssertStyleAttributeEmpty;
 
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth8");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth8");
 
             monthElement.Focus();
 
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Month.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -132,13 +132,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.Focused += AssertStyleAttributeContainsNewValue;
 
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth8");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth8");
 
             monthElement.Focus();
 
             Month.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

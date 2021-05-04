@@ -34,7 +34,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateTitleIs_DoesNotThrowException_When_UseSetTimeMethod()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime");
 
             timeElement.SetTime(11, 11);
 
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime");
 
             Assert.IsFalse(timeElement.IsAutoComplete);
             timeElement.ValidateAutoCompleteOff();
@@ -57,7 +57,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime3");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime3");
 
             timeElement.ValidateAutoCompleteOn();
         }
@@ -67,7 +67,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime4");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime4");
 
             timeElement.ValidateIsNotReadonly();
         }
@@ -77,7 +77,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime5");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime5");
 
             timeElement.ValidateIsReadonly();
         }
@@ -87,7 +87,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxTextIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime");
 
             timeElement.ValidateMaxTextIsNull();
         }
@@ -97,7 +97,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinTextIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime");
 
             timeElement.ValidateMinTextIsNull();
         }
@@ -107,7 +107,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime");
 
             timeElement.ValidateStepIsNull();
         }
@@ -117,7 +117,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxTextIs_DoesNotThrowException_When_MaxAttributeIsPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime1");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime1");
 
             timeElement.ValidateMaxTextIs("11:11");
         }
@@ -127,7 +127,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinTextIs_DoesNotThrowException_When_MinAttributeIsPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime1");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime1");
 
             timeElement.ValidateMinTextIs("00:01");
         }
@@ -137,7 +137,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime1");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime1");
 
             timeElement.ValidateStepIs(10);
         }
@@ -147,7 +147,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime4");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime4");
 
             timeElement.ValidateIsNotRequired();
         }
@@ -157,7 +157,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime6");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime6");
 
             timeElement.ValidateIsRequired();
         }
@@ -167,7 +167,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime7");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime7");
 
             timeElement.Hover();
 
@@ -179,7 +179,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime");
 
             timeElement.ValidateIsNotDisabled();
         }
@@ -189,7 +189,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime9");
+            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime9");
 
             timeElement.ValidateIsDisabled();
         }

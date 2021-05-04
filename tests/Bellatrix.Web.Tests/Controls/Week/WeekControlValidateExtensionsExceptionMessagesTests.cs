@@ -33,7 +33,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateWeekIsThrowsException()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             weekElement.SetWeek(2017, 7);
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 weekElement.ValidateWeekIs("2017-W08", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's week should be '2017-W08' but was '2017-W07'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

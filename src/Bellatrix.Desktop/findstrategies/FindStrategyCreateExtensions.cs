@@ -18,20 +18,20 @@ namespace Bellatrix.Desktop.SytaxSugar
 {
     public static class FindStrategyCreateExtensions
     {
-        public static TElement Create<TElement, TBy>(this TBy by)
+        public static TComponent Create<TComponent, TBy>(this TBy by)
             where TBy : FindStrategy
-            where TElement : Component
+            where TComponent : Component
         {
-            var elementRepository = ServicesCollection.Current.Resolve<ElementCreateService>();
-            return elementRepository.Create<TElement, TBy>(by);
+            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+            return elementRepository.Create<TComponent, TBy>(by);
         }
 
-        public static ComponentsList<TElement> CreateAll<TElement, TBy>(this TBy by)
+        public static ComponentsList<TComponent> CreateAll<TComponent, TBy>(this TBy by)
             where TBy : FindStrategy
-            where TElement : Component
+            where TComponent : Component
         {
-            var elementRepository = ServicesCollection.Current.Resolve<ElementCreateService>();
-            return elementRepository.CreateAll<TElement, TBy>(by);
+            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+            return elementRepository.CreateAll<TComponent, TBy>(by);
         }
     }
 }

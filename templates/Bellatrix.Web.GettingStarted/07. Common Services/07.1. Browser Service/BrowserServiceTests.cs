@@ -66,10 +66,10 @@ namespace Bellatrix.Web.GettingStarted
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
             // 9. To work with elements inside a frame, you should switch to it first.
-            var frame = App.ElementCreateService.CreateById<Frame>("myFrameId");
+            var frame = App.ComponentCreateService.CreateById<Frame>("myFrameId");
             App.BrowserService.SwitchToFrame(frame);
 
-            // Search for the button inside the frame ElementCreateService. Of course, once you switched to frame, you can create the element through ElementCreateService too.
+            // Search for the button inside the frame ComponentCreateService. Of course, once you switched to frame, you can create the element through ComponentCreateService too.
             var myButton = frame.CreateById<Button>("purchaseBtnId");
 
             myButton.Click();

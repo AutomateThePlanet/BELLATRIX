@@ -32,13 +32,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateIsSelectedThrowsException()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
             try
             {
-                selectElement.GetAllOptions()[1].ValidateIsSelected(200, 50);
+                selectComponent.GetAllOptions()[1].ValidateIsSelected(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control should be selected but was NOT. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -49,13 +49,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateIsNotSelectedThrowsException()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
             try
             {
-                selectElement.GetAllOptions()[0].ValidateIsNotSelected(200, 50);
+                selectComponent.GetAllOptions()[0].ValidateIsNotSelected(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control should be not selected but it WAS. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

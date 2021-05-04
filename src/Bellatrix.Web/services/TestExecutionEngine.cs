@@ -36,7 +36,7 @@ namespace Bellatrix.Web
                 ////childContainer.RegisterInstance(new JavaScriptService(wrappedWebDriver));
                 ////childContainer.RegisterInstance(new InteractionsService(wrappedWebDriver));
                 ////childContainer.RegisterInstance(new NavigationService(wrappedWebDriver));
-                ////childContainer.RegisterInstance(new ElementCreateService());
+                ////childContainer.RegisterInstance(new ComponentCreateService());
                 childContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(wrappedWebDriver));
                 childContainer.RegisterNull<int?>();
                 childContainer.RegisterNull<IWebElement>();

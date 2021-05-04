@@ -15,7 +15,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
-    public class TextAreaEventHandlers : ElementEventHandlers
+    public class TextAreaEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Desktop.EventHandlers
             TextArea.Hovered -= HoveredEventHandler;
         }
 
-        protected virtual void SettingTextEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingTextEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void TextSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void TextSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

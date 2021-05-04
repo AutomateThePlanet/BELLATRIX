@@ -26,62 +26,62 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void SelectByTextToAwesome_When_UseSelectByTextMethod_Firefox()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            selectElement.SelectByText("Awesome");
+            selectComponent.SelectByText("Awesome");
 
-            Assert.AreEqual("bella2", selectElement.GetSelected().Value);
+            Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void SelectByIndexToAwesome_When_UseSelectByTextMethod_Firefox()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            selectElement.SelectByIndex(2);
+            selectComponent.SelectByIndex(2);
 
-            Assert.AreEqual("bella2", selectElement.GetSelected().Value);
+            Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnAwesome_When_UseGetSelectedValueMethod_Firefox()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
 
-            Assert.AreEqual("bella2", selectElement.GetSelected().Value);
+            Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Firefox()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect1");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect1");
 
-            selectElement.Hover();
+            selectComponent.Hover();
 
-            selectElement.ValidateStyleIs("color: red;");
+            selectComponent.ValidateStyleIs("color: red;");
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Firefox()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
 
-            selectElement.Focus();
+            selectComponent.Focus();
 
-            selectElement.ValidateStyleIs("color: blue;");
+            selectComponent.ValidateStyleIs("color: blue;");
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            bool isDisabled = selectElement.IsDisabled;
+            bool isDisabled = selectComponent.IsDisabled;
 
             Assert.IsFalse(isDisabled);
         }
@@ -90,9 +90,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Firefox()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect3");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect3");
 
-            bool isDisabled = selectElement.IsDisabled;
+            bool isDisabled = selectComponent.IsDisabled;
 
             Assert.IsTrue(isDisabled);
         }
@@ -101,9 +101,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_RequiredAttributePresent_Firefox()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect4");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect4");
 
-            var actualValue = selectElement.IsRequired;
+            var actualValue = selectComponent.IsRequired;
 
             Assert.IsTrue(actualValue);
         }
@@ -112,9 +112,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_RequiredAttributeNotPresent_Firefox()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            var actualValue = selectElement.IsRequired;
+            var actualValue = selectComponent.IsRequired;
 
             Assert.IsFalse(actualValue);
         }
@@ -123,9 +123,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void Return3Options_When_GetAllOptions_Firefox()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            var allOptions = selectElement.GetAllOptions();
+            var allOptions = selectComponent.GetAllOptions();
 
             Assert.AreEqual(3, allOptions.Count);
         }

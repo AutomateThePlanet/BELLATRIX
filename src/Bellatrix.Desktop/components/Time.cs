@@ -18,12 +18,12 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class Time : Component, IElementDisabled, IElementTime
+    public class Time : Component, IComponentDisabled, IComponentTime
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingTime;
-        public static event EventHandler<ElementActionEventArgs> TimeSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingTime;
+        public static event EventHandler<ComponentActionEventArgs> TimeSet;
 
         public virtual string GetTime()
         {

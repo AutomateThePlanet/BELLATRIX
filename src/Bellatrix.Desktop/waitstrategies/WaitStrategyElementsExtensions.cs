@@ -17,48 +17,48 @@ namespace Bellatrix.Desktop
 {
     public static class WaitStrategyElementsExtensions
     {
-        public static TElementType ToExists<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-            where TElementType : Component
+        public static TComponentType ToExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+            where TComponentType : Component
         {
             var until = new WaitToExistStrategy(timeoutInterval, sleepInterval);
             element.EnsureState(until);
             return element;
         }
 
-        public static TElementType ToNotExists<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-           where TElementType : Component
+        public static TComponentType ToNotExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+           where TComponentType : Component
         {
             var until = new WaitNotExistStrategy(timeoutInterval, sleepInterval);
             element.EnsureState(until);
             return element;
         }
 
-        public static TElementType ToBeVisible<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-          where TElementType : Component
+        public static TComponentType ToBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+          where TComponentType : Component
         {
             var until = new WaitToBeVisibleStrategy(timeoutInterval, sleepInterval);
             element.EnsureState(until);
             return element;
         }
 
-        public static TElementType ToNotBeVisible<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TElementType : Component
+        public static TComponentType ToNotBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+         where TComponentType : Component
         {
             var until = new WaitNotBeVisibleStrategy(timeoutInterval, sleepInterval);
             element.EnsureState(until);
             return element;
         }
 
-        public static TElementType ToBeClickable<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TElementType : Component
+        public static TComponentType ToBeClickable<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+         where TComponentType : Component
         {
             var until = new WaitToBeClickable(timeoutInterval, sleepInterval);
             element.EnsureState(until);
             return element;
         }
 
-        public static TElementType ToHasContent<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TElementType : Component
+        public static TComponentType ToHasContent<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+         where TComponentType : Component
         {
             var until = new WaitToHaveContentStrategy(timeoutInterval, sleepInterval);
             element.EnsureState(until);

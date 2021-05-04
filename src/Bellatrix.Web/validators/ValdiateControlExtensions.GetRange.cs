@@ -20,12 +20,12 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateRangeIs<T>(this T control, int value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementRange, IElement
+            where T : IComponentRange, IComponent
         {
             WaitUntil(() => control.GetRange().Equals(value), $"The control's range should be '{value}' but was '{control.GetRange()}'.", timeout, sleepInterval);
-            ValidatedRangeIsEvent?.Invoke(control, new ElementActionEventArgs(control, value.ToString()));
+            ValidatedRangeIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value.ToString()));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedRangeIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedRangeIsEvent;
     }
 }

@@ -26,65 +26,65 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Firefox()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
 
-            outputElement.Hover();
+            outputComponent.Hover();
 
-            Assert.AreEqual("color: red;", outputElement.GetStyle());
+            Assert.AreEqual("color: red;", outputComponent.GetStyle());
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void Return10_When_InnerText_Firefox()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
 
-            Assert.AreEqual("10", outputElement.InnerText);
+            Assert.AreEqual("10", outputComponent.InnerText);
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnNull_When_InnerTextNotSet_Firefox()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput2");
+            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput2");
 
-            Assert.IsNotNull(outputElement.InnerText);
+            Assert.IsNotNull(outputComponent.InnerText);
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnNull_When_InnerHtmlNotSet_Firefox()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput2");
+            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput2");
 
-            Assert.IsNotNull(outputElement.InnerHtml);
+            Assert.IsNotNull(outputComponent.InnerHtml);
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnButtonHtml_When_InnerHtmlSet_Firefox()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput1");
+            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput1");
 
-            Assert.AreEqual("<button name=\"button\">Click me</button>", outputElement.InnerHtml);
+            Assert.AreEqual("<button name=\"button\">Click me</button>", outputComponent.InnerHtml);
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnNull_When_ForNotSet_Firefox()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput2");
+            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput2");
 
-            Assert.IsNull(outputElement.For);
+            Assert.IsNull(outputComponent.For);
         }
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnOutputFor_When_ForSet_Firefox()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
 
-            Assert.AreEqual("myOutput", outputElement.For);
+            Assert.AreEqual("myOutput", outputComponent.For);
         }
     }
 }

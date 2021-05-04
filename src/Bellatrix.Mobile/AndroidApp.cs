@@ -37,17 +37,17 @@ namespace Bellatrix.Mobile
             GC.SuppressFinalize(this);
         }
 
-        public void AddElementEventHandler<TElementsEventHandler>()
-           where TElementsEventHandler : ElementEventHandlers
+        public void AddElementEventHandler<TComponentsEventHandler>()
+           where TComponentsEventHandler : ComponentEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.SubscribeToAll();
         }
 
-        public void RemoveElementEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : ElementEventHandlers
+        public void RemoveElementEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : ComponentEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.UnsubscribeToAll();
         }
     }

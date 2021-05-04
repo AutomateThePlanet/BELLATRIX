@@ -20,12 +20,12 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateColorIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementColor, IElement
+            where T : IComponentColor, IComponent
         {
             WaitUntil(() => control.GetColor().Equals(value), $"The control's color should be '{value}' but was '{control.GetColor()}'.", timeout, sleepInterval);
-            ValidatedColorIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedColorIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedColorIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedColorIsEvent;
     }
 }

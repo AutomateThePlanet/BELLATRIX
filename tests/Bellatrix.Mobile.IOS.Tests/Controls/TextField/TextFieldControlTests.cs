@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void OneTextSet_When_CallSetTextMethod()
         {
-            var textField = App.ElementCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
 
             textField.SetText("1");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ReturnsEmpty_When_CallGetTextMethodAndNoTextSet()
         {
-            var textField = App.ElementCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
 
             textField.SetText(string.Empty);
 
@@ -51,7 +51,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_TextFieldIsNotDisabled()
         {
-            var textField = App.ElementCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
 
             Assert.AreEqual(false, textField.IsDisabled);
         }

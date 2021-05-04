@@ -34,7 +34,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateTimeIsThrowsException()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.ComponentCreateService.CreateById<DateTimeLocal>("myTime");
 
             timeElement.SetTime(new DateTime(1989, 10, 28, 23, 23, 0));
 
@@ -42,7 +42,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 timeElement.ValidateTimeIs("1989-10-28T23:22", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's time should be '1989-10-28T23:22' but was '1989-10-28T23:23'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

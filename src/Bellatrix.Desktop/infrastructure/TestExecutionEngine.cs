@@ -28,7 +28,7 @@ namespace Bellatrix.Desktop
                 var wrappedWebDriver = WrappedWebDriverCreateService.Create(appConfiguration, childContainer);
                 childContainer.RegisterInstance(wrappedWebDriver);
                 childContainer.RegisterInstance(new AppService(wrappedWebDriver));
-                childContainer.RegisterInstance(new ElementCreateService());
+                childContainer.RegisterInstance(new ComponentCreateService());
                 childContainer.RegisterNull<int?>();
                 childContainer.RegisterNull<IWebElement>();
                 childContainer.RegisterNull<WindowsElement>();

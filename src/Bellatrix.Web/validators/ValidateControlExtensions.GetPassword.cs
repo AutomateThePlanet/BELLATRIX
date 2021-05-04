@@ -20,12 +20,12 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidatePasswordIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementPassword, IElement
+            where T : IComponentPassword, IComponent
         {
             WaitUntil(() => control.GetPassword().Equals(value), $"The control's password should be '{value}' but was '{control.GetPassword()}'.", timeout, sleepInterval);
-            ValidatedPasswordIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedPasswordIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedPasswordIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedPasswordIsEvent;
     }
 }

@@ -21,7 +21,7 @@ namespace Bellatrix.Desktop.Tests
         {
             try
             {
-                var closeButton = App.ElementCreateService.CreateByAccessibilityId<Button>("Close");
+                var closeButton = App.ComponentCreateService.CreateByAccessibilityId<Button>("Close");
                 var actions = new Actions(App.AppService.WrappedDriver);
                 actions.MoveToElement(closeButton.WrappedElement).Perform();
             }

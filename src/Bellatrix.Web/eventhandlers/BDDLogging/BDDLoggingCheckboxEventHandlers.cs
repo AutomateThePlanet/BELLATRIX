@@ -18,8 +18,8 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BDDLoggingCheckboxEventHandlers : CheckboxEventHandlers
     {
-        protected override void CheckingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Check {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Check {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 
-        protected override void UncheckingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Uncheck {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Uncheck {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
     }
 }

@@ -26,7 +26,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void DecimalNumberSet_When_UseSetNumberMethod_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
 
             numberElement.SetNumber(12.1);
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void IntegerNumberSet_When_UseSetNumberMethod_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
 
             numberElement.SetNumber(12);
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetNumberReturnsCorrectNumber_When_DefaultNumberIsSet_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber2");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber2");
 
             Assert.AreEqual(4, numberElement.GetNumber());
         }
@@ -57,7 +57,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
 
             Assert.IsFalse(numberElement.IsAutoComplete);
         }
@@ -66,7 +66,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber4");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber4");
 
             Assert.IsFalse(numberElement.IsAutoComplete);
         }
@@ -75,7 +75,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber3");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber3");
 
             Assert.IsTrue(numberElement.IsAutoComplete);
         }
@@ -84,7 +84,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber4");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber4");
 
             Assert.AreEqual(false, numberElement.IsReadonly);
         }
@@ -93,7 +93,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber5");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber5");
 
             Assert.AreEqual(true, numberElement.IsReadonly);
         }
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMaxReturnsNull_When_MaxAttributeIsNotPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
 
             var max = numberElement.Max;
 
@@ -113,7 +113,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMinReturnsNull_When_MinAttributeIsNotPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
 
             Assert.IsNull(numberElement.Min);
         }
@@ -122,7 +122,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
 
             Assert.IsNull(numberElement.Step);
         }
@@ -131,7 +131,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMaxReturns80_When_MaxAttributeIsPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber1");
 
             Assert.AreEqual(20, numberElement.Max);
         }
@@ -140,7 +140,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMinReturns10_When_MinAttributeIsPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber1");
 
             Assert.AreEqual(10, numberElement.Min);
         }
@@ -149,7 +149,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetStepReturns30_When_StepAttributeIsNotPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber1");
 
             Assert.AreEqual(2, numberElement.Step);
         }
@@ -158,7 +158,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber4");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber4");
 
             Assert.AreEqual(false, numberElement.IsRequired);
         }
@@ -167,7 +167,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber6");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber6");
 
             Assert.IsTrue(numberElement.IsRequired);
         }
@@ -176,7 +176,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
 
             Assert.AreEqual("Multiple of 10", numberElement.Placeholder);
         }
@@ -185,7 +185,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber1");
 
             Assert.IsNull(numberElement.Placeholder);
         }
@@ -194,7 +194,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber7");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber7");
 
             numberElement.Hover();
 
@@ -205,7 +205,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber8");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber8");
 
             numberElement.Focus();
 
@@ -216,7 +216,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
 
             bool isDisabled = numberElement.IsDisabled;
 
@@ -227,7 +227,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Chrome()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber9");
+            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber9");
 
             bool isDisabled = numberElement.IsDisabled;
 

@@ -33,7 +33,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidatePasswordIsThrowsException()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword");
+            var passwordElement = App.ComponentCreateService.CreateById<Password>("myPassword");
 
             passwordElement.SetPassword("bellatrix");
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 passwordElement.ValidatePasswordIs("bellatrix1", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's password should be 'bellatrix1' but was 'bellatrix'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

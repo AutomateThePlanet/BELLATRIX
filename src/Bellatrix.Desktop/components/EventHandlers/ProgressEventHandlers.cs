@@ -15,7 +15,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
-    public class ProgressEventHandlers : ElementEventHandlers
+    public class ProgressEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {

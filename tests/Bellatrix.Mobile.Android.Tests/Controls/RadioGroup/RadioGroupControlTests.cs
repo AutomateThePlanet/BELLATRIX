@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void Return5RadioButtons_When_CallGetAllMethod()
         {
-            var radioGroup = App.ElementCreateService.CreateByIdContaining<RadioGroup>("menu");
+            var radioGroup = App.ComponentCreateService.CreateByIdContaining<RadioGroup>("menu");
 
             var radioButtons = radioGroup.GetAll();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ClickDinnerRadioButton_When_CallClickByText()
         {
-            var radioGroup = App.ElementCreateService.CreateByIdContaining<RadioGroup>("menu");
+            var radioGroup = App.ComponentCreateService.CreateByIdContaining<RadioGroup>("menu");
 
             radioGroup.ClickByText("Dinner");
             var clickedRadioButton = radioGroup.GetChecked();
@@ -53,7 +53,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ClickLunchRadioButton_When_CallClickByIndex()
         {
-            var radioGroup = App.ElementCreateService.CreateByIdContaining<RadioGroup>("menu");
+            var radioGroup = App.ComponentCreateService.CreateByIdContaining<RadioGroup>("menu");
 
             radioGroup.ClickByIndex(2);
             var clickedRadioButton = radioGroup.GetChecked();

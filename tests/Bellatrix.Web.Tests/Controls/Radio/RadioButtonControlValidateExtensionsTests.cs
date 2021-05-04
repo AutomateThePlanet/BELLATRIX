@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsChecked_DoesNotThrowException_When_UseClickMethod()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio");
+            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio");
 
             radioElement.Click();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio1");
+            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio1");
 
             radioElement.Hover();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio");
+            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio");
 
             radioElement.ValidateIsNotDisabled();
         }
@@ -62,7 +62,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio3");
+            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio3");
 
             radioElement.ValidateIsDisabled();
         }
@@ -72,7 +72,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateValueIs_DoesNotThrowException_When_ValueAttributeNotPresent()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio1");
+            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio1");
 
             radioElement.ValidateValueIs("on");
         }

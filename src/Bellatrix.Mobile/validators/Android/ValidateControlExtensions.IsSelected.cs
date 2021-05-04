@@ -21,20 +21,20 @@ namespace Bellatrix.Mobile.Android
     public static partial class ValidateControlExtensions
     {
         public static void ValidateIsSelected<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementSelected, IElement<AndroidElement>
+            where T : IComponentSelected, IComponent<AndroidElement>
         {
             ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsSelected.Equals(true), "The control should be selected but was NOT.", timeout, sleepInterval);
-            ValidatedIsSelectedEvent?.Invoke(control, new ElementActionEventArgs<AndroidElement>(control));
+            ValidatedIsSelectedEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
         }
 
         public static void ValidateIsNotSelected<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementSelected, IElement<AndroidElement>
+            where T : IComponentSelected, IComponent<AndroidElement>
         {
             ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsSelected.Equals(false), "The control should be not selected but it WAS.", timeout, sleepInterval);
-            ValidatedIsNotSelectedEvent?.Invoke(control, new ElementActionEventArgs<AndroidElement>(control));
+            ValidatedIsNotSelectedEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
         }
 
-        public static event EventHandler<ElementActionEventArgs<AndroidElement>> ValidatedIsSelectedEvent;
-        public static event EventHandler<ElementActionEventArgs<AndroidElement>> ValidatedIsNotSelectedEvent;
+        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsSelectedEvent;
+        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsNotSelectedEvent;
     }
 }

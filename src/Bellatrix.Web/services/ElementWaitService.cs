@@ -21,9 +21,9 @@ namespace Bellatrix.Web.Waits
     {
         public static event EventHandler<ElementNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
 
-        public void Wait<TUntil, TElement>(TElement element, TUntil until)
+        public void Wait<TUntil, TComponent>(TComponent element, TUntil until)
             where TUntil : WaitStrategy
-            where TElement : Component
+            where TComponent : Component
         {
             try
             {
@@ -33,9 +33,9 @@ namespace Bellatrix.Web.Waits
                 }
                 else
                 {
-                    var elementRepository = new ElementRepository();
-                    Component parentElement = elementRepository.CreateElementThatIsFound<Component>(element.By, element.ParentWrappedElement, true);
-                    WaitInternal(element.By, until, parentElement);
+                    var elementRepository = new ComponentRepository();
+                    Component parenTComponent = elementRepository.CreateComponentThatIsFound<Component>(element.By, element.ParentWrappedElement, true);
+                    WaitInternal(element.By, until, parenTComponent);
                 }
             }
             catch (Exception ex)

@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void MonthSetThrowsArgumentException_When_Month0_Edge()
         {
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth");
 
             Assert.ThrowsException<ArgumentException>(() => monthElement.SetMonth(2017, 0));
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void MonthSetThrowsArgumentException_When_MonthMinus1_Edge()
         {
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth");
 
             Assert.ThrowsException<ArgumentException>(() => monthElement.SetMonth(2017, -1));
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void MonthSetThrowsArgumentException_When_YearMinus1_Edge()
         {
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth");
 
             Assert.ThrowsException<ArgumentException>(() => monthElement.SetMonth(-1, 2));
         }
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void MonthSetThrowsArgumentException_When_Year0_Edge()
         {
-            var monthElement = App.ElementCreateService.CreateById<Month>("myMonth");
+            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth");
 
             Assert.ThrowsException<ArgumentException>(() => monthElement.SetMonth(0, 1));
         }

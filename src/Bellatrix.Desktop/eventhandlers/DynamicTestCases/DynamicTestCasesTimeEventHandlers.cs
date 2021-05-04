@@ -18,6 +18,6 @@ namespace Bellatrix.Desktop.DynamicTestCases
 {
     public class DynamicTestCasesTimeEventHandlers : TimeEventHandlers
     {
-        protected override void SettingTimeEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Set '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Set '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }
 }

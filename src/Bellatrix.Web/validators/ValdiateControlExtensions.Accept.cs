@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateAcceptIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementAccept, IElement
+            where T : IComponentAccept, IComponent
         {
             WaitUntil(() => control.Accept == null, $"The control's accept should be null but was '{control.Accept}'.", timeout, sleepInterval);
-            ValidatedAcceptIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedAcceptIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateAcceptIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementAccept, IElement
+            where T : IComponentAccept, IComponent
         {
             WaitUntil(() => control.Accept.Equals(value), $"The control's accept should be '{value}' but was '{control.Accept}'.", timeout, sleepInterval);
-            ValidatedAcceptIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedAcceptIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedAcceptIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedAcceptIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedAcceptIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedAcceptIsEvent;
     }
 }

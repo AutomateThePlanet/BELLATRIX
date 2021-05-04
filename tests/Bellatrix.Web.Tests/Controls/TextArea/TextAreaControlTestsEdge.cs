@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void TextSet_When_UseSetTextMethod_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
 
             textAreaElement.SetText("aangelov@bellatrix.solutions");
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
 
             Assert.AreEqual(false, textAreaElement.IsAutoComplete);
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea5");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea5");
 
             Assert.AreEqual(false, textAreaElement.IsAutoComplete);
         }
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea4");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea4");
 
             Assert.AreEqual(true, textAreaElement.IsAutoComplete);
         }
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea4");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea4");
 
             Assert.AreEqual(false, textAreaElement.IsReadonly);
         }
@@ -78,7 +78,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea6");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea6");
 
             Assert.AreEqual(true, textAreaElement.IsReadonly);
         }
@@ -88,7 +88,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
 
             var maxLength = textAreaElement.MaxLength;
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
 
             Assert.IsNull(textAreaElement.MinLength);
         }
@@ -110,7 +110,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetRowsReturnsDefault2_When_RowsAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(2, textAreaElement.Rows);
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetColsReturnsDefault20_When_ColsAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(20, textAreaElement.Cols);
@@ -132,7 +132,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea2");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea2");
 
             Assert.AreEqual(80, textAreaElement.MaxLength);
         }
@@ -142,7 +142,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea2");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea2");
 
             Assert.AreEqual(10, textAreaElement.MinLength);
         }
@@ -152,7 +152,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetRowsReturns5_When_RowsAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea11");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea11");
 
             Assert.AreEqual(5, textAreaElement.Rows);
         }
@@ -162,7 +162,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetColsReturns5_When_ColsAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea11");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea11");
 
             Assert.AreEqual(50, textAreaElement.Cols);
         }
@@ -172,7 +172,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea4");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea4");
 
             Assert.AreEqual(false, textAreaElement.IsRequired);
         }
@@ -182,7 +182,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea7");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea7");
 
             Assert.AreEqual(true, textAreaElement.IsRequired);
         }
@@ -192,7 +192,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
 
             Assert.AreEqual("your Text term goes here", textAreaElement.Placeholder);
         }
@@ -202,7 +202,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea1");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea1");
 
             Assert.IsNull(textAreaElement.Placeholder);
         }
@@ -212,7 +212,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea8");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea8");
 
             textAreaElement.Hover();
 
@@ -224,7 +224,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnBlue_When_Focus_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea9");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea9");
 
             textAreaElement.Focus();
 
@@ -236,7 +236,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea9");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea9");
 
             bool isDisabled = textAreaElement.IsDisabled;
 
@@ -248,7 +248,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea10");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea10");
 
             bool isDisabled = textAreaElement.IsDisabled;
 
@@ -260,7 +260,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetWrap_When_WrapAttributeIsSet_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea13");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea13");
 
             Assert.AreEqual("hard", textAreaElement.Wrap);
         }
@@ -270,7 +270,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetWrapReturnsNull_When_WrapAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea1");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea1");
 
             Assert.AreEqual("soft", textAreaElement.Wrap);
         }
@@ -280,7 +280,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSpellCheck_When_SpellCheckAttributeIsSet_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea12");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea12");
 
             Assert.AreEqual("true", textAreaElement.SpellCheck);
         }
@@ -290,7 +290,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSpellCheckReturnsTrue_When_SpellCheckAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea1");
+            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea1");
 
             Assert.AreEqual("true", textAreaElement.SpellCheck);
         }

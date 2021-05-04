@@ -31,15 +31,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Output.Hovering += AssertStyleAttributeEmpty;
 
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
 
-            outputElement.Hover();
+            outputComponent.Hover();
 
-            Assert.AreEqual("color: red;", outputElement.GetStyle());
+            Assert.AreEqual("color: red;", outputComponent.GetStyle());
 
             Output.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -52,15 +52,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Output.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
 
-            outputElement.Hover();
+            outputComponent.Hover();
 
             Output.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Output>("myOutput").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<Output>("myOutput").ValidateStyleIs("color: red;");
             }
         }
     }

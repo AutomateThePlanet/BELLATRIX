@@ -16,9 +16,9 @@ using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.Services
 {
-    public class KeyboardService<TDriver, TElement> : MobileService<TDriver, TElement>
-        where TDriver : AppiumDriver<TElement>
-        where TElement : AppiumWebElement
+    public class KeyboardService<TDriver, TComponent> : MobileService<TDriver, TComponent>
+        where TDriver : AppiumDriver<TComponent>
+        where TComponent : AppiumWebElement
     {
         public KeyboardService(TDriver wrappedDriver)
             : base(wrappedDriver)

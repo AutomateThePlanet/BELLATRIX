@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.EventHandlers.Android
 {
-    public class SeekBarEventHandlers : ElementEventHandlers
+    public class SeekBarEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -33,11 +33,11 @@ namespace Bellatrix.Mobile.EventHandlers.Android
             SeekBar.PercentageSet -= PercentageSetEventHandler;
         }
 
-        protected virtual void SettingPercentageEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void PercentageSetEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void PercentageSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
     }

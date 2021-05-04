@@ -9,7 +9,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.RestartEveryTime)]
-    public class LocateAndWaitElementsTests : MSTest.AndroidTest
+    public class LocateAndWaiTComponentsTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -40,37 +40,37 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             //    "elementToBeClickableTimeout": "30",
             //    "elementNotToBeVisibleTimeout": "30",
             //    "elementToHaveContentTimeout": "15",
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button").ToBeClickable().ToBeVisible();
+            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button").ToBeClickable().ToBeVisible();
 
             button.Click();
 
             // 2. You can always override the timeout settings for each method.
             // The first value is the timeout in seconds and the second one controls how often the engine checks the condition.
-            var radioButton = App.ElementCreateService.CreateByIdContaining<RadioButton>("radio2").ToHasContent(40, 1);
+            var radioButton = App.ComponentCreateService.CreateByIdContaining<RadioButton>("radio2").ToHasContent(40, 1);
 
             radioButton.Click();
 
             // 3. All available ToBe methods:
-            // ToExists  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToExists();
+            // ToExists  --> App.ComponentCreateService.CreateByIdContaining<Button>("button").ToExists();
             // Waits for the element to exist on the page. BELLATRIX always does it by default.
             // But if use another ToBe methods you need to add it again since you have to override the default lifecycle.
             //
-            // ToNotExists  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToNotExists();
+            // ToNotExists  --> App.ComponentCreateService.CreateByIdContaining<Button>("button").ToNotExists();
             // Waits for the element to disappear. Usually, we use in assertion methods.
             //
-            // ToBeVisible  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToBeVisible();
+            // ToBeVisible  --> App.ComponentCreateService.CreateByIdContaining<Button>("button").ToBeVisible();
             // Waits for the element to be visible.
             //
-            // ToNotBeVisible  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToNotBeVisible();
+            // ToNotBeVisible  --> App.ComponentCreateService.CreateByIdContaining<Button>("button").ToNotBeVisible();
             // Waits for the element to be invisible.
             //
-            // ToBeClickable  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToBeClickable();
+            // ToBeClickable  --> App.ComponentCreateService.CreateByIdContaining<Button>("button").ToBeClickable();
             // Waits for the element to be clickable (may be disabled at first).
             //
-            // ToHasContent  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToHasContent();
+            // ToHasContent  --> App.ComponentCreateService.CreateByIdContaining<Button>("button").ToHasContent();
             // Waits for the element to has some content in it. For example, some validation DIV or label.
             //
-            // ToBeDisabled  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToBeDisabled();
+            // ToBeDisabled  --> App.ComponentCreateService.CreateByIdContaining<Button>("button").ToBeDisabled();
             // Waits for the element to be disabled.
         }
     }

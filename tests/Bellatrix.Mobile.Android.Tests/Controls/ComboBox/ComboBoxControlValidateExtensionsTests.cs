@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIs_DoesNotThrowException_When_ComboBoxTextIsAsExpected()
         {
-            var comboBox = App.ElementCreateService.CreateByIdContaining<ComboBox>("spinner1");
+            var comboBox = App.ComponentCreateService.CreateByIdContaining<ComboBox>("spinner1");
 
             comboBox.SelectByText("Jupiter");
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_ComboBoxIsNotDisabled()
         {
-            var comboBox = App.ElementCreateService.CreateByIdContaining<ComboBox>("spinner1");
+            var comboBox = App.ComponentCreateService.CreateByIdContaining<ComboBox>("spinner1");
 
             Assert.AreEqual(false, comboBox.IsDisabled);
         }

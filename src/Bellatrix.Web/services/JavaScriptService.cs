@@ -24,8 +24,8 @@ namespace Bellatrix.Web
         {
         }
 
-        public object Execute<TElement>(string script, TElement element, params object[] args)
-            where TElement : Component
+        public object Execute<TComponent>(string script, TComponent element, params object[] args)
+            where TComponent : Component
         {
             try
             {
@@ -86,8 +86,8 @@ namespace Bellatrix.Web
             }
         }
 
-        public string Execute<TElement>(string script, TElement element)
-            where TElement : Component
+        public string Execute<TComponent>(string script, TComponent element)
+            where TComponent : Component
         {
             try
             {

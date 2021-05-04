@@ -22,25 +22,25 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Layout")]
     public class LayoutExceptionTests
     {
-        private Mock<ILayoutElement> _firstElement;
-        private Mock<ILayoutElement> _secondElement;
-        private Mock<ILayoutElement> _thirdlement;
+        private Mock<ILayoutComponent> _firstComponent;
+        private Mock<ILayoutComponent> _secondComponent;
+        private Mock<ILayoutComponent> _thirdComponent;
 
         [TestInitialize]
         public void TestInit()
         {
-            _firstElement = new Mock<ILayoutElement>();
-            _firstElement.Setup(x => x.Location).Returns(new Point(0, 10));
-            _firstElement.Setup(x => x.Size).Returns(new Size(20, 30));
-            _firstElement.Setup(x => x.ElementName).Returns("1stE");
-            _secondElement = new Mock<ILayoutElement>();
-            _secondElement.Setup(x => x.Location).Returns(new Point(20, 40));
-            _secondElement.Setup(x => x.Size).Returns(new Size(20, 30));
-            _secondElement.Setup(x => x.ElementName).Returns("2ndE");
-            _thirdlement = new Mock<ILayoutElement>();
-            _thirdlement.Setup(x => x.Location).Returns(new Point(10, 40));
-            _thirdlement.Setup(x => x.Size).Returns(new Size(20, 30));
-            _thirdlement.Setup(x => x.ElementName).Returns("3dE");
+            _firstComponent = new Mock<ILayoutComponent>();
+            _firstComponent.Setup(x => x.Location).Returns(new Point(0, 10));
+            _firstComponent.Setup(x => x.Size).Returns(new Size(20, 30));
+            _firstComponent.Setup(x => x.ComponentName).Returns("1stE");
+            _secondComponent = new Mock<ILayoutComponent>();
+            _secondComponent.Setup(x => x.Location).Returns(new Point(20, 40));
+            _secondComponent.Setup(x => x.Size).Returns(new Size(20, 30));
+            _secondComponent.Setup(x => x.ComponentName).Returns("2ndE");
+            _thirdComponent = new Mock<ILayoutComponent>();
+            _thirdComponent.Setup(x => x.Location).Returns(new Point(10, 40));
+            _thirdComponent.Setup(x => x.Size).Returns(new Size(20, 30));
+            _thirdComponent.Setup(x => x.ComponentName).Returns("3dE");
         }
 
         [TestMethod]
@@ -49,7 +49,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                LayoutAssert.AssertAlignedVerticallyCentered(_firstElement.Object, _thirdlement.Object);
+                LayoutAssert.AssertAlignedVerticallyCentered(_firstComponent.Object, _thirdComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -63,7 +63,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                LayoutAssert.AssertAlignedVerticallyRight(_firstElement.Object, _thirdlement.Object);
+                LayoutAssert.AssertAlignedVerticallyRight(_firstComponent.Object, _thirdComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -77,7 +77,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                LayoutAssert.AssertAlignedVerticallyLeft(_firstElement.Object, _thirdlement.Object);
+                LayoutAssert.AssertAlignedVerticallyLeft(_firstComponent.Object, _thirdComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                LayoutAssert.AssertAlignedVerticallyAll(_firstElement.Object, _thirdlement.Object);
+                LayoutAssert.AssertAlignedVerticallyAll(_firstComponent.Object, _thirdComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -105,7 +105,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                LayoutAssert.AssertAlignedHorizontallyCentered(_firstElement.Object, _thirdlement.Object);
+                LayoutAssert.AssertAlignedHorizontallyCentered(_firstComponent.Object, _thirdComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                LayoutAssert.AssertAlignedHorizontallyBottom(_firstElement.Object, _thirdlement.Object);
+                LayoutAssert.AssertAlignedHorizontallyBottom(_firstComponent.Object, _thirdComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -133,7 +133,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                LayoutAssert.AssertAlignedHorizontallyTop(_firstElement.Object, _thirdlement.Object);
+                LayoutAssert.AssertAlignedHorizontallyTop(_firstComponent.Object, _thirdComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -147,7 +147,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                LayoutAssert.AssertAlignedHorizontallyAll(_firstElement.Object, _thirdlement.Object);
+                LayoutAssert.AssertAlignedHorizontallyAll(_firstComponent.Object, _thirdComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -161,7 +161,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertTopInsideOf(_secondElement.Object);
+                _firstComponent.Object.AssertTopInsideOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -175,7 +175,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertTopInsideOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertTopInsideOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -189,7 +189,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertTopInsideOfBetween(_secondElement.Object, 100, 200);
+                _firstComponent.Object.AssertTopInsideOfBetween(_secondComponent.Object, 100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -203,7 +203,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertTopInsideOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertTopInsideOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -217,7 +217,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertTopInsideOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertTopInsideOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -231,7 +231,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertTopInsideOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertTopInsideOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -245,7 +245,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertTopInsideOfLessThanOrEqual(_secondElement.Object, -70);
+                _firstComponent.Object.AssertTopInsideOfLessThanOrEqual(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -259,7 +259,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertTopInsideOfApproximate(_secondElement.Object, 100, -5);
+                _firstComponent.Object.AssertTopInsideOfApproximate(_secondComponent.Object, 100, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -273,7 +273,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightOf(_secondElement.Object);
+                _firstComponent.Object.AssertRightOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -287,7 +287,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertRightOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -301,7 +301,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightOfBetween(_secondElement.Object, 100, 200);
+                _firstComponent.Object.AssertRightOfBetween(_secondComponent.Object, 100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -315,7 +315,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertRightOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -329,7 +329,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertRightOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -343,7 +343,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertRightOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -357,7 +357,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertRightOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -371,7 +371,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightOfApproximate(_secondElement.Object, 100, -5);
+                _firstComponent.Object.AssertRightOfApproximate(_secondComponent.Object, 100, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -385,7 +385,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightInsideOf(_secondElement.Object);
+                _firstComponent.Object.AssertRightInsideOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -399,7 +399,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightInsideOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertRightInsideOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -413,7 +413,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightInsideOfBetween(_secondElement.Object, 100, 200);
+                _firstComponent.Object.AssertRightInsideOfBetween(_secondComponent.Object, 100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -427,7 +427,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightInsideOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertRightInsideOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -441,7 +441,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightInsideOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertRightInsideOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -455,7 +455,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightInsideOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertRightInsideOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -469,7 +469,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightInsideOfLessThanOrEqual(_secondElement.Object, -70);
+                _firstComponent.Object.AssertRightInsideOfLessThanOrEqual(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -483,7 +483,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertRightInsideOfApproximate(_secondElement.Object, 100, -5);
+                _firstComponent.Object.AssertRightInsideOfApproximate(_secondComponent.Object, 100, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -497,7 +497,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearTopOf(_secondElement.Object);
+                _firstComponent.Object.AssertNearTopOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -511,7 +511,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearTopOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearTopOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -525,7 +525,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearTopOfBetween(_secondElement.Object, 100, 200);
+                _firstComponent.Object.AssertNearTopOfBetween(_secondComponent.Object, 100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -539,7 +539,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearTopOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearTopOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -553,7 +553,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearTopOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearTopOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -567,7 +567,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearTopOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertNearTopOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -581,7 +581,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearTopOfLessThanOrEqual(_secondElement.Object, -70);
+                _firstComponent.Object.AssertNearTopOfLessThanOrEqual(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -595,7 +595,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearTopOfApproximate(_secondElement.Object, 100, -5);
+                _firstComponent.Object.AssertNearTopOfApproximate(_secondComponent.Object, 100, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -609,7 +609,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearRightOf(_secondElement.Object);
+                _firstComponent.Object.AssertNearRightOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -623,7 +623,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearRightOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearRightOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -637,7 +637,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearRightOfBetween(_secondElement.Object, 100, 200);
+                _firstComponent.Object.AssertNearRightOfBetween(_secondComponent.Object, 100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -651,7 +651,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearRightOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearRightOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -665,7 +665,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearRightOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearRightOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -679,7 +679,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearRightOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertNearRightOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -693,7 +693,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearRightOfLessThanOrEqual(_secondElement.Object, -70);
+                _firstComponent.Object.AssertNearRightOfLessThanOrEqual(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -707,7 +707,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearRightOfApproximate(_secondElement.Object, 100, -5);
+                _firstComponent.Object.AssertNearRightOfApproximate(_secondComponent.Object, 100, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -721,7 +721,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearLeftOf(_secondElement.Object);
+                _firstComponent.Object.AssertNearLeftOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -735,7 +735,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearLeftOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearLeftOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -749,7 +749,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearLeftOfBetween(_secondElement.Object, 100, 200);
+                _firstComponent.Object.AssertNearLeftOfBetween(_secondComponent.Object, 100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -763,7 +763,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearLeftOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearLeftOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -777,7 +777,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearLeftOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearLeftOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -791,7 +791,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearLeftOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertNearLeftOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -805,7 +805,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearLeftOfLessThanOrEqual(_secondElement.Object, -70);
+                _firstComponent.Object.AssertNearLeftOfLessThanOrEqual(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -819,7 +819,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearLeftOfApproximate(_secondElement.Object, 100, -5);
+                _firstComponent.Object.AssertNearLeftOfApproximate(_secondComponent.Object, 100, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -833,7 +833,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearBottomOf(_secondElement.Object);
+                _firstComponent.Object.AssertNearBottomOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -847,7 +847,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearBottomOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearBottomOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -861,7 +861,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearBottomOfBetween(_secondElement.Object, 100, 200);
+                _firstComponent.Object.AssertNearBottomOfBetween(_secondComponent.Object, 100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -875,7 +875,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearBottomOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearBottomOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -889,7 +889,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearBottomOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertNearBottomOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -903,7 +903,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearBottomOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertNearBottomOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -917,7 +917,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearBottomOfLessThanOrEqual(_secondElement.Object, -70);
+                _firstComponent.Object.AssertNearBottomOfLessThanOrEqual(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -931,7 +931,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertNearBottomOfApproximate(_secondElement.Object, 100, -5);
+                _firstComponent.Object.AssertNearBottomOfApproximate(_secondComponent.Object, 100, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -945,7 +945,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftOf(_secondElement.Object);
+                _firstComponent.Object.AssertLeftOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -959,7 +959,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertLeftOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -973,7 +973,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftOfBetween(_secondElement.Object, 100, 200);
+                _firstComponent.Object.AssertLeftOfBetween(_secondComponent.Object, 100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -987,7 +987,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertLeftOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1001,7 +1001,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertLeftOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1015,7 +1015,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertLeftOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1029,7 +1029,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftOfLessThanOrEqual(_secondElement.Object, -70);
+                _firstComponent.Object.AssertLeftOfLessThanOrEqual(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1043,7 +1043,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftOfApproximate(_secondElement.Object, 100, -5);
+                _firstComponent.Object.AssertLeftOfApproximate(_secondComponent.Object, 100, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1057,7 +1057,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftInsideOf(_secondElement.Object);
+                _firstComponent.Object.AssertLeftInsideOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1071,7 +1071,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftInsideOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertLeftInsideOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1085,7 +1085,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftInsideOfBetween(_secondElement.Object, 100, 200);
+                _firstComponent.Object.AssertLeftInsideOfBetween(_secondComponent.Object, 100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1099,7 +1099,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftInsideOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertLeftInsideOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1113,7 +1113,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftInsideOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertLeftInsideOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1127,7 +1127,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftInsideOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertLeftInsideOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1141,7 +1141,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftInsideOfLessThanOrEqual(_secondElement.Object, -70);
+                _firstComponent.Object.AssertLeftInsideOfLessThanOrEqual(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1155,7 +1155,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertLeftInsideOfApproximate(_secondElement.Object, 100, -5);
+                _firstComponent.Object.AssertLeftInsideOfApproximate(_secondComponent.Object, 100, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1169,7 +1169,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertWidth(100);
+                _firstComponent.Object.AssertWidth(100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1183,7 +1183,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertWidthBetween(100, 200);
+                _firstComponent.Object.AssertWidthBetween(100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1197,7 +1197,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertWidthGreaterThan(100);
+                _firstComponent.Object.AssertWidthGreaterThan(100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1211,7 +1211,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertWidthGreaterThanOrEqual(100);
+                _firstComponent.Object.AssertWidthGreaterThanOrEqual(100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1225,7 +1225,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertWidthLessThan(-70);
+                _firstComponent.Object.AssertWidthLessThan(-70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1239,7 +1239,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertWidthLessThanOrEqual(-70);
+                _firstComponent.Object.AssertWidthLessThanOrEqual(-70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1253,7 +1253,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertWidthApproximate(_secondElement.Object, -5);
+                _firstComponent.Object.AssertWidthApproximate(_secondComponent.Object, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1267,7 +1267,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertHeight(100);
+                _firstComponent.Object.AssertHeight(100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1281,7 +1281,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertHeightBetween(100, 200);
+                _firstComponent.Object.AssertHeightBetween(100, 200);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1295,7 +1295,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertHeightGreaterThan(100);
+                _firstComponent.Object.AssertHeightGreaterThan(100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1309,7 +1309,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertHeightGreaterThanOrEqual(100);
+                _firstComponent.Object.AssertHeightGreaterThanOrEqual(100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1323,7 +1323,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertHeightLessThan(-10);
+                _firstComponent.Object.AssertHeightLessThan(-10);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1337,7 +1337,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertHeightLessThanOrEqual(-10);
+                _firstComponent.Object.AssertHeightLessThanOrEqual(-10);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1351,7 +1351,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertHeightApproximate(_secondElement.Object, -5);
+                _firstComponent.Object.AssertHeightApproximate(_secondComponent.Object, -5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1365,7 +1365,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBottomInsideOf(_secondElement.Object);
+                _firstComponent.Object.AssertBottomInsideOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1379,7 +1379,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBottomInsideOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertBottomInsideOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1393,7 +1393,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBottomInsideOfBetween(_secondElement.Object, -70, 0);
+                _firstComponent.Object.AssertBottomInsideOfBetween(_secondComponent.Object, -70, 0);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1407,7 +1407,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBottomInsideOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertBottomInsideOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1421,7 +1421,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBottomInsideOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertBottomInsideOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1435,7 +1435,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBottomInsideOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertBottomInsideOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1449,7 +1449,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBottomInsideOfLessThanOrEqual(_secondElement.Object, -70);
+                _firstComponent.Object.AssertBottomInsideOfLessThanOrEqual(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1463,7 +1463,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBottomInsideOfApproximate(_secondElement.Object, -70, 5);
+                _firstComponent.Object.AssertBottomInsideOfApproximate(_secondComponent.Object, -70, 5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1477,7 +1477,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBelowOf(_secondElement.Object);
+                _firstComponent.Object.AssertBelowOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1491,7 +1491,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBelowOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertBelowOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1505,7 +1505,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBelowOfBetween(_secondElement.Object, 0, 100);
+                _firstComponent.Object.AssertBelowOfBetween(_secondComponent.Object, 0, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1519,7 +1519,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBelowOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertBelowOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1533,7 +1533,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBelowOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertBelowOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1547,7 +1547,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBelowOfLessThan(_secondElement.Object, -70);
+                _firstComponent.Object.AssertBelowOfLessThan(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1561,7 +1561,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBelowOfLessThanOrEqual(_secondElement.Object, -70);
+                _firstComponent.Object.AssertBelowOfLessThanOrEqual(_secondComponent.Object, -70);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1575,7 +1575,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertBelowOfApproximate(_secondElement.Object, 100, 5);
+                _firstComponent.Object.AssertBelowOfApproximate(_secondComponent.Object, 100, 5);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1589,7 +1589,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertAboveOf(_secondElement.Object);
+                _firstComponent.Object.AssertAboveOf(_secondComponent.Object);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1603,7 +1603,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertAboveOf(_secondElement.Object, 100);
+                _firstComponent.Object.AssertAboveOf(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1617,7 +1617,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertAboveOfBetween(_secondElement.Object, 10, 100);
+                _firstComponent.Object.AssertAboveOfBetween(_secondComponent.Object, 10, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1631,7 +1631,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertAboveOfGreaterThan(_secondElement.Object, 100);
+                _firstComponent.Object.AssertAboveOfGreaterThan(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1645,7 +1645,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertAboveOfGreaterThanOrEqual(_secondElement.Object, 100);
+                _firstComponent.Object.AssertAboveOfGreaterThanOrEqual(_secondComponent.Object, 100);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1659,7 +1659,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertAboveOfLessThan(_secondElement.Object, -10);
+                _firstComponent.Object.AssertAboveOfLessThan(_secondComponent.Object, -10);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1673,7 +1673,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertAboveOfLessThanOrEqual(_secondElement.Object, -10);
+                _firstComponent.Object.AssertAboveOfLessThanOrEqual(_secondComponent.Object, -10);
             }
             catch (LayoutAssertFailedException e)
             {
@@ -1687,7 +1687,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             try
             {
-                _firstElement.Object.AssertAboveOfApproximate(_secondElement.Object, 100, 5);
+                _firstComponent.Object.AssertAboveOfApproximate(_secondComponent.Object, 100, 5);
             }
             catch (LayoutAssertFailedException e)
             {

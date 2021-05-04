@@ -26,7 +26,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void PhoneSet_When_UseSetPhoneMethod_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             phoneElement.SetPhone("123-4567-8901");
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetPhoneReturnsCorrectPhone_When_DefaultPhoneIsSet_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone3");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone3");
 
             Assert.AreEqual("123-4567-8901", phoneElement.GetPhone());
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             Assert.AreEqual(false, phoneElement.IsAutoComplete);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone5");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone5");
 
             Assert.AreEqual(false, phoneElement.IsAutoComplete);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone4");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone4");
 
             Assert.AreEqual(true, phoneElement.IsAutoComplete);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone4");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone4");
 
             Assert.AreEqual(false, phoneElement.IsReadonly);
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone6");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone6");
 
             Assert.AreEqual(true, phoneElement.IsReadonly);
         }
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             var maxLength = phoneElement.MaxLength;
 
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             Assert.IsNull(phoneElement.MinLength);
         }
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(20, phoneElement.Size);
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone2");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone2");
 
             Assert.AreEqual(80, phoneElement.MaxLength);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone2");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone2");
 
             Assert.AreEqual(10, phoneElement.MinLength);
         }
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone2");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone2");
 
             Assert.AreEqual(30, phoneElement.Size);
         }
@@ -148,7 +148,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone4");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone4");
 
             Assert.AreEqual(false, phoneElement.IsRequired);
         }
@@ -157,7 +157,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone7");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone7");
 
             Assert.AreEqual(true, phoneElement.IsRequired);
         }
@@ -166,7 +166,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
 
             Assert.AreEqual("123-4567-8901", phoneElement.Placeholder);
         }
@@ -175,7 +175,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone1");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone1");
 
             Assert.IsNull(phoneElement.Placeholder);
         }
@@ -184,7 +184,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone8");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone8");
 
             phoneElement.Hover();
 
@@ -195,7 +195,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone9");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone9");
 
             phoneElement.Focus();
 
@@ -206,7 +206,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone9");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone9");
 
             bool isDisabled = phoneElement.IsDisabled;
 
@@ -217,7 +217,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Firefox()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone10");
+            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone10");
 
             bool isDisabled = phoneElement.IsDisabled;
 

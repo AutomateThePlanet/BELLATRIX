@@ -34,7 +34,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         [Ignore]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
 
             button.Click();
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             build: "CI Execution")]
         public void ButtonClicked_When_CallClickMethodSecond()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
 
             button.Click();
         }

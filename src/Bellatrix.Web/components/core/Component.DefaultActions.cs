@@ -33,12 +33,12 @@ namespace Bellatrix.Web
 
         protected virtual void DefaultSetAttribute(string attributeName, string attributeValue)
         {
-            SettingAttribute?.Invoke(this, new ElementActionEventArgs(this));
+            SettingAttribute?.Invoke(this, new ComponentActionEventArgs(this));
 
             JavaScriptService.Execute(
                 $"arguments[0].setAttribute('{attributeName}', '{attributeValue}');", this);
 
-            AttributeSet?.Invoke(this, new ElementActionEventArgs(this));
+            AttributeSet?.Invoke(this, new ComponentActionEventArgs(this));
         }
 
         protected virtual string GetClassAttribute()
@@ -46,23 +46,23 @@ namespace Bellatrix.Web
             return string.IsNullOrEmpty(WrappedElement.GetAttribute("class")) ? null : WrappedElement.GetAttribute("class");
         }
 
-        internal void Click(EventHandler<ElementActionEventArgs> clicking, EventHandler<ElementActionEventArgs> clicked)
+        internal void Click(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked)
         {
-            clicking?.Invoke(this, new ElementActionEventArgs(this));
+            clicking?.Invoke(this, new ComponentActionEventArgs(this));
 
             this.ToExists().ToBeClickable().WaitToBe();
             WrappedElement.Click();
 
-            clicked?.Invoke(this, new ElementActionEventArgs(this));
+            clicked?.Invoke(this, new ComponentActionEventArgs(this));
         }
 
-        internal void Hover(EventHandler<ElementActionEventArgs> hovering, EventHandler<ElementActionEventArgs> hovered)
+        internal void Hover(EventHandler<ComponentActionEventArgs> hovering, EventHandler<ComponentActionEventArgs> hovered)
         {
-            hovering?.Invoke(this, new ElementActionEventArgs(this));
+            hovering?.Invoke(this, new ComponentActionEventArgs(this));
 
             JavaScriptService.Execute("arguments[0].onmouseover();", this);
 
-            hovered?.Invoke(this, new ElementActionEventArgs(this));
+            hovered?.Invoke(this, new ComponentActionEventArgs(this));
         }
 
         internal string GetInnerText()
@@ -70,11 +70,11 @@ namespace Bellatrix.Web
             return WrappedElement.Text.Replace("\r\n", string.Empty);
         }
 
-        internal void SetValue(EventHandler<ElementActionEventArgs> gettingValue, EventHandler<ElementActionEventArgs> gotValue, string value)
+        internal void SetValue(EventHandler<ComponentActionEventArgs> gettingValue, EventHandler<ComponentActionEventArgs> gotValue, string value)
         {
-            gettingValue?.Invoke(this, new ElementActionEventArgs(this, value));
+            gettingValue?.Invoke(this, new ComponentActionEventArgs(this, value));
             SetAttribute("value", value);
-            gotValue?.Invoke(this, new ElementActionEventArgs(this, value));
+            gotValue?.Invoke(this, new ComponentActionEventArgs(this, value));
         }
 
         internal string DefaultGetValue()
@@ -191,9 +191,9 @@ namespace Bellatrix.Web
             return string.IsNullOrEmpty(GetAttribute("list")) ? null : GetAttribute("list");
         }
 
-        internal void DefaultSetText(EventHandler<ElementActionEventArgs> settingValue, EventHandler<ElementActionEventArgs> valueSet, string value)
+        internal void DefaultSetText(EventHandler<ComponentActionEventArgs> settingValue, EventHandler<ComponentActionEventArgs> valueSet, string value)
         {
-            settingValue?.Invoke(this, new ElementActionEventArgs(this, value));
+            settingValue?.Invoke(this, new ComponentActionEventArgs(this, value));
 
             Thread.Sleep(50);
 
@@ -212,12 +212,12 @@ namespace Bellatrix.Web
 
             wrappedElement.SendKeys(value);
 
-            valueSet?.Invoke(this, new ElementActionEventArgs(this, value));
+            valueSet?.Invoke(this, new ComponentActionEventArgs(this, value));
         }
 
         private void ScrollToVisible(bool shouldWait = true)
         {
-            ScrollingToVisible?.Invoke(this, new ElementActionEventArgs(this));
+            ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs(this));
             try
             {
                 var wrappedElement = _wrappedElement ?? WrappedElement;
@@ -233,7 +233,7 @@ namespace Bellatrix.Web
                 // ignore
             }
 
-            ScrolledToVisible?.Invoke(this, new ElementActionEventArgs(this));
+            ScrolledToVisible?.Invoke(this, new ComponentActionEventArgs(this));
         }
     }
 }

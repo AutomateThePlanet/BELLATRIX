@@ -37,7 +37,7 @@ namespace Bellatrix.Web.GettingStarted._12._Page_Objects
                 throw new ArgumentException("There are less added items in the cart. Please specify smaller product number.");
             }
 
-            // 5. CreateAll method returns a special BELLATRIX collection called ElementsList<TElementType> in this case ElementList<Number>
+            // 5. CreateAll method returns a special BELLATRIX collection called ElementsList<TComponentType> in this case ElementList<Number>
             // The collection has a couple of useful methods- Count, implements index which we use here.
             BrowserService.WaitForAjax();
             QuantityBoxes[productNumber - 1].SetNumber(newQuantity);

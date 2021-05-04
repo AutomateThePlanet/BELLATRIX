@@ -13,12 +13,12 @@ namespace Bellatrix.Desktop.GettingStarted
         [TestCategory(Categories.CI)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             // 2. Use the custom added submit button lifecycle through 'Enter' key.
             button.SubmitButtonWithEnter();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
     }

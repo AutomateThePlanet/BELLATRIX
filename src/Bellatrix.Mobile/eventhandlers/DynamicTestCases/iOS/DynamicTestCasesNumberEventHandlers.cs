@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.DynamicTestCases.IOS
 {
     public class DynamicTestCasesNumberEventHandlers : NumberEventHandlers
     {
-        protected override void SettingNumberEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SettingNumberEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

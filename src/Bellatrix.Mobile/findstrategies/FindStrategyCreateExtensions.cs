@@ -20,24 +20,24 @@ namespace Bellatrix.Mobile.SytaxSugar
 {
     public static class FindStrategyCreateExtensions
     {
-        public static TElement Create<TElement, TBy, TDriver, TDriverElement>(this TBy by)
-            where TElement : Component<TDriver, TDriverElement>
+        public static TComponent Create<TComponent, TBy, TDriver, TDriverElement>(this TBy by)
+            where TComponent : Component<TDriver, TDriverElement>
             where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
         {
-            var elementRepository = ServicesCollection.Current.Resolve<ElementCreateService>();
-            return elementRepository.Create<TElement, TBy, TDriver, TDriverElement>(by);
+            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+            return elementRepository.Create<TComponent, TBy, TDriver, TDriverElement>(by);
         }
 
-        public static ComponentsList<TElement, TBy, TDriver, TDriverElement> CreateAll<TElement, TBy, TDriver, TDriverElement>(this TBy by)
-            where TElement : Component<TDriver, TDriverElement>
+        public static ComponentsList<TComponent, TBy, TDriver, TDriverElement> CreateAll<TComponent, TBy, TDriver, TDriverElement>(this TBy by)
+            where TComponent : Component<TDriver, TDriverElement>
             where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
         {
-            var elementRepository = ServicesCollection.Current.Resolve<ElementCreateService>();
-            return elementRepository.CreateAll<TElement, TBy, TDriver, TDriverElement>(by);
+            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+            return elementRepository.CreateAll<TComponent, TBy, TDriver, TDriverElement>(by);
         }
     }
 }

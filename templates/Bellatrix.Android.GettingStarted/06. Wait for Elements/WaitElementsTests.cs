@@ -9,7 +9,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.RestartEveryTime)]
-    public class WaitElementsTests : MSTest.AndroidTest
+    public class WaiTComponentsTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -23,7 +23,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // and wait for the condition to be satisfied.
 
             // This is also valid syntax the conditions are performed once the Click method is called. It is the same as placing ToBe methods after CreateByIdContaining.
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
             button.ToBeClickable().ToBeVisible().Click();
 
             // 2. Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the element.

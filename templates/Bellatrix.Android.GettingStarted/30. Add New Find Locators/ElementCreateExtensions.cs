@@ -8,10 +8,10 @@ namespace Bellatrix.Mobile.Android.GettingStarted.ExtensionMethodsLocators
     // This is everything after that you can use your new locator as it was originally part of Bellatrix.
     public static class ElementCreateExtensions
     {
-        public static TElement CreateByIdStartingWith<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
-            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindIdStartingWithStrategy>(new FindIdStartingWithStrategy(id));
+        public static TComponent CreateByIdStartingWith<TComponent>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
+            where TComponent : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TComponent, FindIdStartingWithStrategy>(new FindIdStartingWithStrategy(id));
 
-        public static ComponentsList<TElement, FindIdStartingWithStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByIdStartingWith<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
-            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TElement, FindIdStartingWithStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindIdStartingWithStrategy(id), element.WrappedElement);
+        public static ComponentsList<TComponent, FindIdStartingWithStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByIdStartingWith<TComponent>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
+            where TComponent : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TComponent, FindIdStartingWithStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindIdStartingWithStrategy(id), element.WrappedElement);
     }
 }

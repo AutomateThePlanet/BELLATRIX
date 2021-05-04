@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_TextFieldHovered_Wpf()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<TextField>("textBox");
+            var button = App.ComponentCreateService.CreateByAutomationId<TextField>("textBox");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("textFieldHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_NewTextSet_Wpf()
         {
-            var textField = App.ElementCreateService.CreateByAutomationId<TextField>("textBox");
+            var textField = App.ComponentCreateService.CreateByAutomationId<TextField>("textBox");
 
             textField.SetText("Meissa Is Beautiful!");
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void GetContent_When_TextFieldLocated_Wpf()
         {
-            var textField = App.ElementCreateService.CreateByAutomationId<TextField>("textBox");
+            var textField = App.ComponentCreateService.CreateByAutomationId<TextField>("textBox");
 
             Assert.AreEqual("Bellatrix Is Awesome!", textField.InnerText);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_TextFieldIsNotDisabled_Wpf()
         {
-            var textField = App.ElementCreateService.CreateByAutomationId<TextField>("textBox");
+            var textField = App.ComponentCreateService.CreateByAutomationId<TextField>("textBox");
 
             Assert.AreEqual(false, textField.IsDisabled);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_TextFieldIsDisabled_Wpf()
         {
-            var textField = App.ElementCreateService.CreateByAutomationId<TextField>("disabledTextBox");
+            var textField = App.ComponentCreateService.CreateByAutomationId<TextField>("disabledTextBox");
 
             Assert.AreEqual(true, textField.IsDisabled);
         }

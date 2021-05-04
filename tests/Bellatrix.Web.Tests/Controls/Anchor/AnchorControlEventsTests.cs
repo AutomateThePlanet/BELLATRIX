@@ -33,7 +33,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Anchor.Clicking += AssertUrlNotAutomateThePlanet;
 
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
 
             anchorElement.Click();
 
@@ -43,7 +43,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Anchor.Clicking -= AssertUrlNotAutomateThePlanet;
 
-            void AssertUrlNotAutomateThePlanet(object sender, ElementActionEventArgs args)
+            void AssertUrlNotAutomateThePlanet(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreNotEqual("https://automatetheplanet.com/", browserService.Url.ToString());
             }
@@ -56,13 +56,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Anchor.Clicked += AssertUrlAutomateThePlanet;
 
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
 
             anchorElement.Click();
 
             Anchor.Clicked -= AssertUrlAutomateThePlanet;
 
-            void AssertUrlAutomateThePlanet(object sender, ElementActionEventArgs args)
+            void AssertUrlAutomateThePlanet(object sender, ComponentActionEventArgs args)
             {
                 App.NavigationService.WaitForPartialUrl("automatetheplanet");
                 Assert.AreEqual("https://www.automatetheplanet.com/", App.BrowserService.Url.ToString());
@@ -76,7 +76,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Anchor.Hovering += AssertStyleAttributeEmpty;
 
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
 
             anchorElement.Hover();
 
@@ -84,7 +84,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Anchor.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -97,15 +97,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Anchor.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
 
             anchorElement.Hover();
 
             Anchor.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Anchor>("myAnchor1").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<Anchor>("myAnchor1").ValidateStyleIs("color: red;");
             }
         }
 
@@ -116,13 +116,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Anchor.Focusing += AssertStyleAttributeEmpty;
 
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
 
             anchorElement.Focus();
 
             Anchor.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -135,13 +135,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Anchor.Focused += AssertStyleAttributeContainsNewValue;
 
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor2");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor2");
 
             anchorElement.Focus();
 
             Anchor.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

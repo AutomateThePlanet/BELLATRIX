@@ -95,7 +95,7 @@ namespace Bellatrix.Web
             Bellatrix.Utilities.Wait.ForConditionUntilTimeout(
                 () =>
                 {
-                    var rows = ElementCreateService.CreateAllByXpath<Label>(RowsXPathLocator);
+                    var rows = ComponentCreateService.CreateAllByXpath<Label>(RowsXPathLocator);
                     return rows != null && rows.Any();
                 },
                 totalRunTimeoutMilliseconds: 3000,
@@ -135,14 +135,14 @@ namespace Bellatrix.Web
             }
         }
 
-        public virtual ComponentsList<GridRow> GetRows<TElement>(Func<TElement, bool> selector)
-            where TElement : Component, new()
+        public virtual ComponentsList<GridRow> GetRows<TComponent>(Func<TComponent, bool> selector)
+            where TComponent : Component, new()
         {
-            return GetRows().Where(r => r.GetCells<TElement>(selector).Any()).ToElementList();
+            return GetRows().Where(r => r.GetCells<TComponent>(selector).Any()).ToElementList();
         }
 
-        public GridRow GetFirstOrDefaultRow<TElement>(Func<TElement, bool> selector)
-            where TElement : Component, new()
+        public GridRow GetFirstOrDefaultRow<TComponent>(Func<TComponent, bool> selector)
+            where TComponent : Component, new()
         {
             return GetRows(selector).FirstOrDefault();
         }
@@ -159,9 +159,9 @@ namespace Bellatrix.Web
         public GridCell GetCell(int row, int column)
         {
             string innerXpath = TableService.GetCell(row, column).GetXPath();
-            string outerXpath = GetCurrentElementXPath();
+            string outerXpath = GetCurrenTComponentXPath();
             string fullXpath = outerXpath + innerXpath;
-            GridCell cell = ElementCreateService.CreateByXpath<GridCell>(fullXpath);
+            GridCell cell = ComponentCreateService.CreateByXpath<GridCell>(fullXpath);
             SetCellMetaData(cell, row, column);
             return cell;
         }
@@ -192,7 +192,7 @@ namespace Bellatrix.Web
 
         public void ForEachCell(Action<GridCell> action)
         {
-            string outerXPath = GetCurrentElementXPath();
+            string outerXPath = GetCurrenTComponentXPath();
             foreach (var gridCell in TableService.GetCells())
             {
                 string fullXPath = outerXPath + gridCell.GetXPath();
@@ -200,29 +200,29 @@ namespace Bellatrix.Web
             }
         }
 
-        public ComponentsList<TElement> GetCells<TElement>(Func<TElement, bool> selector)
-            where TElement : Component, new()
+        public ComponentsList<TComponent> GetCells<TComponent>(Func<TComponent, bool> selector)
+            where TComponent : Component, new()
         {
-            var filteredCells = new List<TElement>();
+            var filteredCells = new List<TComponent>();
             foreach (var gridRow in GetRows())
             {
-                var currentFilteredCells = gridRow.GetCells<TElement>(selector);
+                var currentFilteredCells = gridRow.GetCells<TComponent>(selector);
                 filteredCells.AddRange(currentFilteredCells);
             }
 
             return filteredCells.ToElementList();
         }
 
-        public TElement GetFirstOrDefaultCell<TElement>(Func<TElement, bool> selector)
-            where TElement : Component, new()
+        public TComponent GetFirstOrDefaultCell<TComponent>(Func<TComponent, bool> selector)
+            where TComponent : Component, new()
         {
-            return GetCells<TElement>(selector).FirstOrDefault();
+            return GetCells<TComponent>(selector).FirstOrDefault();
         }
 
-        public TElement GetLastOrDefaultCell<TElement>(Func<TElement, bool> selector)
-            where TElement : Component, new()
+        public TComponent GetLastOrDefaultCell<TComponent>(Func<TComponent, bool> selector)
+            where TComponent : Component, new()
         {
-            return GetCells<TElement>(selector).LastOrDefault();
+            return GetCells<TComponent>(selector).LastOrDefault();
         }
 
         public string GetGridColumnNameByIndex(int index) => HeaderNamesService.GetHeaderNames()[index];
@@ -325,9 +325,9 @@ namespace Bellatrix.Web
                 }
 
                 var controlData = GetControlDataByProperty(propertyInfo);
-                if (controlData != null && controlData.ElementType != null && controlData.ElementType.IsSubclassOf(typeof(Component)))
+                if (controlData != null && controlData.ComponentType != null && controlData.ComponentType.IsSubclassOf(typeof(Component)))
                 {
-                    var repo = new ElementRepository();
+                    var repo = new ComponentRepository();
                     var xpath = $".{cells[(int)headerPosition].GetXPath()}";
                     var tableCell = this.CreateByXpath<TableCell>(xpath);
                     dynamic elementValue;
@@ -378,7 +378,7 @@ namespace Bellatrix.Web
             var headerName = ControlColumnDataCollection[column].HeaderName;
             var controlData = ControlColumnDataCollection.GetControlColumnDataByHeaderName(headerName.Trim());
             cell.CellControlBy = controlData.By;
-            cell.CellControlElementType = controlData.ElementType;
+            cell.CellControlComponentType = controlData.ComponentType;
         }
 
         protected virtual IList<TRowObject> GetItems<TRowObject, TRow>(ComponentsList<TRow> rows)
@@ -413,9 +413,9 @@ namespace Bellatrix.Web
             return headerInfo as ControlColumnData;
         }
 
-        private dynamic CastCell(ElementRepository repo, ControlColumnData controlData, TableCell tableCell)
+        private dynamic CastCell(ComponentRepository repo, ControlColumnData controlData, TableCell tableCell)
         {
-            var element = repo.CreateElementWithParent(controlData.By, tableCell.WrappedElement, controlData.ElementType, false);
+            var element = repo.CreateComponentWithParent(controlData.By, tableCell.WrappedElement, controlData.ComponentType, false);
 
             // Resolve the appropriate Readonly Control Data Handler
             dynamic controlDataHandler = ControlDataHandlerResolver.ResolveReadonlyDataHandler(element.GetType());
@@ -430,11 +430,11 @@ namespace Bellatrix.Web
             return elementValue;
         }
 
-        private string GetCurrentElementXPath()
+        private string GetCurrenTComponentXPath()
         {
             string jsScriptText =
                 @"function createXPathFromElement(elm) {
-                    var allNodes = document.getElementsByTagName('*');
+                    var allNodes = document.geTComponentsByTagName('*');
                     for (var segs = []; elm && elm.nodeType === 1; elm = elm.parentNode) {
                         if (elm.hasAttribute('id')) {
                             var uniqueIdCount = 0;

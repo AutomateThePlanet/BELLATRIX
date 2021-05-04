@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_CalendarHovered_Universal()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var button = App.ComponentCreateService.CreateByAutomationId<Calendar>("calendar");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultTextBlock");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultTextBlock");
             Assert.AreEqual("calendarHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_CalendarIsNotDisabled_Universal()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var button = App.ComponentCreateService.CreateByAutomationId<Calendar>("calendar");
 
             Assert.AreEqual(false, button.IsDisabled);
         }

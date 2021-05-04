@@ -18,12 +18,12 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class InputFile : Component, IElementRequired, IElementMultiple, IElementAccept
+    public class InputFile : Component, IComponentRequired, IComponentMultiple, IComponentAccept
     {
-        public static event EventHandler<ElementActionEventArgs> Uploading;
-        public static event EventHandler<ElementActionEventArgs> Uploaded;
+        public static event EventHandler<ComponentActionEventArgs> Uploading;
+        public static event EventHandler<ComponentActionEventArgs> Uploaded;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         public void Upload(string file)
         {
@@ -41,11 +41,11 @@ namespace Bellatrix.Web
 
         protected virtual void DefaultUpload(string filePath)
         {
-            Uploading?.Invoke(this, new ElementActionEventArgs(this));
+            Uploading?.Invoke(this, new ComponentActionEventArgs(this));
 
             WrappedElement.SendKeys(filePath);
 
-            Uploaded?.Invoke(this, new ElementActionEventArgs(this));
+            Uploaded?.Invoke(this, new ComponentActionEventArgs(this));
         }
     }
 }

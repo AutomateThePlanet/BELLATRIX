@@ -18,14 +18,14 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Color : Component, IElementDisabled, IElementValue, IElementColor, IElementList, IElementAutoComplete, IElementRequired
+    public class Color : Component, IComponentDisabled, IComponentValue, IComponentColor, IComponentList, IComponentAutoComplete, IComponentRequired
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingColor;
-        public static event EventHandler<ElementActionEventArgs> ColorSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingColor;
+        public static event EventHandler<ComponentActionEventArgs> ColorSet;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         public void Hover()
         {

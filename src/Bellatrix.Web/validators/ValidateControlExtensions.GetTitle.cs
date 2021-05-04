@@ -22,25 +22,25 @@ namespace Bellatrix.Web
             where T : Component
         {
             WaitUntil(() => control.GetTitle() == null, $"The control's title should be null but was '{control.GetTitle()}'.", timeout, sleepInterval);
-            ValidatedTitleIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedTitleIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateTitleIsNotNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
            where T : Component
         {
             WaitUntil(() => control.GetTitle() != null, $"The control's title shouldn't be null but was.", timeout, sleepInterval);
-            ValidatedTitleIsNotNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedTitleIsNotNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateTitleIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
             where T : Component
         {
             WaitUntil(() => control.GetTitle().Equals(value), $"The control's title should be '{value}' but was '{control.GetTitle()}'.", timeout, sleepInterval);
-            ValidatedTitleIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedTitleIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedTitleIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedTitleIsNotNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedTitleIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTitleIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTitleIsNotNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTitleIsEvent;
     }
 }

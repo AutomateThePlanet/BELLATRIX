@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class ImageEventHandlers : ElementEventHandlers
+    public class ImageEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {

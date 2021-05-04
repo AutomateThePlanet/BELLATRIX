@@ -61,7 +61,7 @@ namespace Bellatrix.Web
 
         public List<HeaderInfo> ColumnHeaderNames { get; set; }
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public virtual ComponentsList<Label> ColumnHeaders => this.CreateAllByTag<Label>("th", true);

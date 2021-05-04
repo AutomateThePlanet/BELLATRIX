@@ -20,10 +20,10 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class ImageButton : Element, IElementDisabled, IElementText
+    public class ImageButton : IOSComponent, IComponentDisabled, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Clicking;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Clicked;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicking;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicked;
 
         public void Click()
         {

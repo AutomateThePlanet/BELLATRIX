@@ -38,7 +38,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            var promotionsLink = App.ElementCreateService.CreateByLinkText<Anchor>("Promotions");
+            var promotionsLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Promotions");
 
             promotionsLink.Click();
         }
@@ -56,7 +56,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            var blogLink = App.ElementCreateService.CreateByLinkText<Anchor>("Blog");
+            var blogLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Blog");
 
             blogLink.Click();
         }

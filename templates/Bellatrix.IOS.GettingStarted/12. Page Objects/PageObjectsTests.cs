@@ -36,10 +36,10 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [TestCategory(Categories.CI)]
         public void ActionsWithoutPageObjectsFirst()
         {
-            var numberOne = App.ElementCreateService.CreateById<TextField>("IntegerA");
-            var numberTwo = App.ElementCreateService.CreateById<TextField>("IntegerB");
-            var compute = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
-            var answer = App.ElementCreateService.CreateByName<Label>("Answer");
+            var numberOne = App.ComponentCreateService.CreateById<TextField>("IntegerA");
+            var numberTwo = App.ComponentCreateService.CreateById<TextField>("IntegerB");
+            var compute = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+            var answer = App.ComponentCreateService.CreateByName<Label>("Answer");
 
             numberOne.SetText("5");
             numberTwo.SetText("6");
@@ -53,10 +53,10 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [TestCategory(Categories.CI)]
         public void ActionsWithoutPageObjectsSecond()
         {
-            var numberOne = App.ElementCreateService.CreateById<TextField>("IntegerA");
-            var numberTwo = App.ElementCreateService.CreateById<TextField>("IntegerB");
-            var compute = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
-            var answer = App.ElementCreateService.CreateByName<Label>("Answer");
+            var numberOne = App.ComponentCreateService.CreateById<TextField>("IntegerA");
+            var numberTwo = App.ComponentCreateService.CreateById<TextField>("IntegerB");
+            var compute = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+            var answer = App.ComponentCreateService.CreateByName<Label>("Answer");
 
             numberOne.SetText("20");
             numberTwo.SetText("30");

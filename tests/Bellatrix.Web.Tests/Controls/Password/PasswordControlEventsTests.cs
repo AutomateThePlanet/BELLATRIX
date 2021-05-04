@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Password.SettingPassword += AssertValueAttributeEmpty;
 
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword");
+            var passwordElement = App.ComponentCreateService.CreateById<Password>("myPassword");
 
             passwordElement.SetPassword("bellatrix");
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Password.SettingPassword -= AssertValueAttributeEmpty;
 
-            void AssertValueAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Password.PasswordSet += AssertValueAttributeContainsNewValue;
 
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword");
+            var passwordElement = App.ComponentCreateService.CreateById<Password>("myPassword");
 
             passwordElement.SetPassword("bellatrix");
 
             Password.PasswordSet -= AssertValueAttributeContainsNewValue;
 
-            void AssertValueAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("bellatrix", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Password.Hovering += AssertStyleAttributeEmpty;
 
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword8");
+            var passwordElement = App.ComponentCreateService.CreateById<Password>("myPassword8");
 
             passwordElement.Hover();
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Password.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -92,15 +92,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Password.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword8");
+            var passwordElement = App.ComponentCreateService.CreateById<Password>("myPassword8");
 
             passwordElement.Hover();
 
             Password.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Password>("myPassword8").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<Password>("myPassword8").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Password.Focusing += AssertStyleAttributeEmpty;
 
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword9");
+            var passwordElement = App.ComponentCreateService.CreateById<Password>("myPassword9");
 
             passwordElement.Focus();
 
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Password.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -132,13 +132,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Password.Focused += AssertStyleAttributeContainsNewValue;
 
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword9");
+            var passwordElement = App.ComponentCreateService.CreateById<Password>("myPassword9");
 
             passwordElement.Focus();
 
             Password.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

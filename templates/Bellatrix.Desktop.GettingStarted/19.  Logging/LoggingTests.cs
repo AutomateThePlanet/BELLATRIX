@@ -11,11 +11,11 @@ namespace Bellatrix.Desktop.GettingStarted
         [TestCategory(Categories.CI)]
         public void CommonActionsWithDesktopControls_Wpf()
         {
-            var calendar = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.ComponentCreateService.CreateByAutomationId<Calendar>("calendar");
 
             calendar.ValidateIsNotDisabled();
 
-            var checkBox = App.ElementCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("BellaCheckBox");
 
             // 1. Sometimes is useful to add information to the generated test log.
             // To do it you can use the BELLATRIX built-in logger through accessing it via App service.
@@ -25,17 +25,17 @@ namespace Bellatrix.Desktop.GettingStarted
 
             checkBox.ValidateIsChecked();
 
-            var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("select");
+            var comboBox = App.ComponentCreateService.CreateByAutomationId<ComboBox>("select");
 
             comboBox.SelectByText("Item2");
 
             Assert.AreEqual("Item2", comboBox.InnerText);
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
 
             label.ValidateIsVisible();
 
-            var radioButton = App.ElementCreateService.CreateByName<RadioButton>("RadioButton");
+            var radioButton = App.ComponentCreateService.CreateByName<RadioButton>("RadioButton");
 
             radioButton.Click();
 

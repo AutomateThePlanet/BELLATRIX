@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.EventHandlers.IOS
 {
-    public class RadioButtonEventHandlers : ElementEventHandlers
+    public class RadioButtonEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -33,11 +33,11 @@ namespace Bellatrix.Mobile.EventHandlers.IOS
             RadioButton.Clicked -= ClickedEventHandler;
         }
 
-        protected virtual void ClickingEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ClickedEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
     }

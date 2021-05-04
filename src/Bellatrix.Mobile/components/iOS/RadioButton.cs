@@ -20,10 +20,10 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class RadioButton : Element, IElementDisabled, IElementChecked, IElementText
+    public class RadioButton : IOSComponent, IComponentDisabled, IComponentChecked, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Clicking;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Clicked;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicking;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicked;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsDisabled => GetIsDisabled();

@@ -26,54 +26,54 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnBellatrix_When_UseGetInnerTextMethod_Safari()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            Assert.AreEqual("Bellatrix", selectElement.GetSelected().InnerText);
+            Assert.AreEqual("Bellatrix", selectComponent.GetSelected().InnerText);
         }
 
         [TestMethod]
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnBella_When_UseGetValueMethod_Safari()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
 
-            Assert.AreEqual("bella2", selectElement.GetSelected().Value);
+            Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
         }
 
         [TestMethod]
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_OptionSelectedAndCallGetIsSelectedMethod_Safari()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            Assert.IsTrue(selectElement.GetAllOptions()[0].IsSelected);
+            Assert.IsTrue(selectComponent.GetAllOptions()[0].IsSelected);
         }
 
         [TestMethod]
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_OptionNotSelectedAndCallGetIsSelectedMethod_Safari()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            Assert.IsFalse(selectElement.GetAllOptions()[1].IsSelected);
+            Assert.IsFalse(selectComponent.GetAllOptions()[1].IsSelected);
         }
 
         [TestMethod]
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            Assert.IsFalse(selectElement.GetSelected().IsDisabled);
+            Assert.IsFalse(selectComponent.GetSelected().IsDisabled);
         }
 
         [TestMethod]
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributeIsPresent_Safari()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect4");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect4");
 
-            Assert.IsFalse(selectElement.GetAllOptions()[2].IsDisabled);
+            Assert.IsFalse(selectComponent.GetAllOptions()[2].IsDisabled);
         }
     }
 }

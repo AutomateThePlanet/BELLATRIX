@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateNumberIs_DoesNotThrowException_When_NumberIsSet()
         {
-            var number = App.ElementCreateService.CreateByClass<Number>("android.widget.NumberPicker");
+            var number = App.ComponentCreateService.CreateByClass<Number>("android.widget.NumberPicker");
 
             number.SetNumber(9);
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsDisabled_DoesNotThrowException_When_NumberIsNotDisabled()
         {
-            var number = App.ElementCreateService.CreateByClass<Number>("android.widget.NumberPicker");
+            var number = App.ComponentCreateService.CreateByClass<Number>("android.widget.NumberPicker");
 
             number.ValidateIsNotDisabled();
         }

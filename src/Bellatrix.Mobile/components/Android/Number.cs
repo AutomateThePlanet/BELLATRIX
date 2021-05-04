@@ -19,10 +19,10 @@ using Bellatrix.Mobile.Events;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class Number : Element, IElementDisabled, IElementNumber
+    public class Number : AndroidComponent, IComponentDisabled, IComponentNumber
     {
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingNumber;
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> NumberSet;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingNumber;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> NumberSet;
 
         public virtual void SetNumber(int value)
         {

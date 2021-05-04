@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ButtonHovered_WinForms()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultLabel");
             Assert.IsTrue(label.IsVisible);
         }
 
@@ -38,11 +38,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ButtonClicked_WinForms()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             button.Click();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultLabel");
             Assert.IsTrue(label.IsPresent);
         }
 
@@ -51,7 +51,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void EButtonContent_When_ButtonLocated_WinForms()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             Assert.AreEqual("E Button", button.InnerText);
         }
@@ -61,7 +61,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled_WinForms()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             Assert.AreEqual(false, button.IsDisabled);
         }
@@ -71,7 +71,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_ButtonIsDisabled_WinForms()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("D Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("D Button");
 
             Assert.AreEqual(true, button.IsDisabled);
         }

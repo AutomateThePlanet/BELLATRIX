@@ -14,11 +14,11 @@ namespace Bellatrix.Desktop.GettingStarted
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             // 2. After that, you can use the new locator as it was originally part of Bellatrix.
-            var button = App.ElementCreateService.CreateByNameStartingWith<Button>("E Butto");
+            var button = App.ComponentCreateService.CreateByNameStartingWith<Button>("E Butto");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
     }

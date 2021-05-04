@@ -32,7 +32,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void Table_GetItems()
         {
-            var table = App.ElementCreateService.CreateById<Web.Table>("table1");
+            var table = App.ComponentCreateService.CreateById<Web.Table>("table1");
             table.SetColumn("Last Name");
             table.SetColumn("First Name");
             table.SetColumn("Email");
@@ -51,7 +51,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void BasicTable_Has_Header()
         {
-            var table = App.ElementCreateService.CreateById<Web.Table>("table1");
+            var table = App.ComponentCreateService.CreateById<Web.Table>("table1");
             var headerNames = table.GetHeaderNames();
             var tableCell = table.GetCell(3, 1);
             Assert.IsTrue(headerNames.Contains("Due"));
@@ -62,7 +62,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void TableWithHeader_GetItems()
         {
-            var table = App.ElementCreateService.CreateById<Web.Table>("table1");
+            var table = App.ComponentCreateService.CreateById<Web.Table>("table1");
             table.SetColumn("Last Name");
             table.SetColumn("First Name");
             table.SetColumn("Email");
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void TableWithHeader_Returns_Value()
         {
-            var table = App.ElementCreateService.CreateById<Web.Table>("table1");
+            var table = App.ComponentCreateService.CreateById<Web.Table>("table1");
             table.SetColumn("Last Name");
             table.SetColumn("First Name");
             table.SetColumn("Email");
@@ -98,7 +98,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void SimpleTable_Returns_AllRowsAndCells()
         {
-            var table = App.ElementCreateService.CreateById<Web.Table>("simpleTable");
+            var table = App.ComponentCreateService.CreateById<Web.Table>("simpleTable");
             var firstRowCellsCount = table.GetRow(0).GetCells().Count();
             var secondRowCellsCount = table.GetRow(1).GetCells().Count();
 
@@ -110,7 +110,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void NestedTables_Returns_TableCellsCountEqualToTableHeadersCount()
         {
-            var table = App.ElementCreateService.CreateById<Web.Table>("nestedTable");
+            var table = App.ComponentCreateService.CreateById<Web.Table>("nestedTable");
             table.SetColumn("Last Name");
             table.SetColumn("First Name");
             table.SetColumn("Email");
@@ -127,7 +127,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void NestedTables_Returns_TableCellsCountEqualBetweenRows()
         {
-            var table = App.ElementCreateService.CreateById<Web.Table>("nestedTable");
+            var table = App.ComponentCreateService.CreateById<Web.Table>("nestedTable");
             table.SetColumn("Last Name");
             table.SetColumn("First Name");
             table.SetColumn("Email");

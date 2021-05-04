@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void DateSetThrowsArgumentException_When_Month0_Edge()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
 
             Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, 0, 1));
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void DateSetThrowsArgumentException_When_MonthMinus1_Edge()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
 
             Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, -1, 1));
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void DateSetThrowsArgumentException_When_YearMinus1_Edge()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
 
             Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(-1, 2, 1));
         }
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void DateSetThrowsArgumentException_When_Year0_Edge()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
 
             Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(0, 1, 1));
         }
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void DateSetThrowsArgumentException_When_DayMinus1_Edge()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
 
             Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, 1, -1));
         }
@@ -78,7 +78,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void DateSetThrowsArgumentException_When_Day0_Edge()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
 
             Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2007, 2, 0));
         }
@@ -88,7 +88,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void DateSetThrowsArgumentException_When_Day32_Edge()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
 
             Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2007, 1, 32));
         }

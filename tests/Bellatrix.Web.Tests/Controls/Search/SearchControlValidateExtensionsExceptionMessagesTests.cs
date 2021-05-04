@@ -33,7 +33,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSearchIsThrowsException()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
 
             searchElement.SetSearch("bellatrix test framework");
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 searchElement.ValidateSearchIs("bellatrix test framework1", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's search should be 'bellatrix test framework1' but was 'bellatrix test framework'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

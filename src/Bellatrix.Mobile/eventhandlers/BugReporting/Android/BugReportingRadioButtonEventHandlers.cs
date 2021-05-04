@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.BugReporting.Android
 {
     public class BugReportingRadioButtonEventHandlers : RadioButtonEventHandlers
     {
-        protected override void ClickingEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

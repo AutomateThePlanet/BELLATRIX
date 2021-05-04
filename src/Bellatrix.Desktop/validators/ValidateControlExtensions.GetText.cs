@@ -20,20 +20,20 @@ namespace Bellatrix.Desktop
     public static partial class ValidateControlExtensions
     {
         public static void ValidateTextIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementText, IElement
+            where T : IComponentText, IComponent
         {
             WaitUntil(() => control.GetText() == null, $"The control's text should be null but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedTextIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateTextIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementText, IElement
+            where T : IComponentText, IComponent
         {
             WaitUntil(() => control.GetText().Equals(value), $"The control's text should be '{value}' but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedTextIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedTextIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedTextIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTextIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTextIsEvent;
     }
 }

@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateSpellCheckIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementSpellCheck, IElement
+            where T : IComponentSpellCheck, IComponent
         {
             WaitUntil(() => control.SpellCheck == null, $"The control's spellcheck should be null but was '{control.SpellCheck}'.", timeout, sleepInterval);
-            ValidatedSpellCheckIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedSpellCheckIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateSpellCheckIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementSpellCheck, IElement
+            where T : IComponentSpellCheck, IComponent
         {
             WaitUntil(() => control.SpellCheck.Equals(value), $"The control's spellcheck should be '{value}' but was '{control.SpellCheck}'.", timeout, sleepInterval);
-            ValidatedSpellCheckIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedSpellCheckIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedSpellCheckIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedSpellCheckIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedSpellCheckIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedSpellCheckIsEvent;
     }
 }

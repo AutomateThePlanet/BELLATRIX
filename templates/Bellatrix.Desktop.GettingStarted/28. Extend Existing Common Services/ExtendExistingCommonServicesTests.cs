@@ -16,27 +16,27 @@ namespace Bellatrix.Desktop.GettingStarted
             // 2. Use newly added login method which is not part of the original implementation of the common service.
             App.AppService.LoginToApp("bellatrix", "topSecret");
 
-            var calendar = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.ComponentCreateService.CreateByAutomationId<Calendar>("calendar");
 
             Assert.AreEqual(false, calendar.IsDisabled);
 
-            var checkBox = App.ElementCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("BellaCheckBox");
 
             checkBox.Check();
 
             Assert.IsTrue(checkBox.IsChecked);
 
-            var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("select");
+            var comboBox = App.ComponentCreateService.CreateByAutomationId<ComboBox>("select");
 
             comboBox.SelectByText("Item2");
 
             Assert.AreEqual("Item2", comboBox.InnerText);
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
 
             Assert.IsTrue(label.IsPresent);
 
-            var radioButton = App.ElementCreateService.CreateByName<RadioButton>("RadioButton");
+            var radioButton = App.ComponentCreateService.CreateByName<RadioButton>("RadioButton");
 
             radioButton.Click();
 

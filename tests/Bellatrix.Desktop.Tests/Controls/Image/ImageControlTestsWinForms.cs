@@ -26,11 +26,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ImageHovered_WinForms()
         {
-            var image = App.ElementCreateService.CreateByAutomationId<Image>("image");
+            var image = App.ComponentCreateService.CreateByAutomationId<Image>("image");
 
             image.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultLabel");
             Assert.IsTrue(label.IsPresent);
         }
     }

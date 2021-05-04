@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ProgressHovered_Universal()
         {
-            var progress = App.ElementCreateService.CreateByAutomationId<Progress>("progress");
+            var progress = App.ComponentCreateService.CreateByAutomationId<Progress>("progress");
 
             progress.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultTextBlock");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultTextBlock");
             Assert.AreEqual("progressHovered", label.InnerText);
         }
     }

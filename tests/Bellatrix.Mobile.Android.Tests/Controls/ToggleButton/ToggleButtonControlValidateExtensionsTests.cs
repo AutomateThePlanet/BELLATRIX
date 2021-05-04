@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsOn_DoesNotThrowException_When_ToggleButtonIsTurnedOn()
         {
-            var toggleButton = App.ElementCreateService.CreateByIdContaining<ToggleButton>("toggle1");
+            var toggleButton = App.ComponentCreateService.CreateByIdContaining<ToggleButton>("toggle1");
 
             toggleButton.TurnOn();
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsOff_DoesNotThrowException_When_ToggleButtonIsTurnedoff()
         {
-            var toggleButton = App.ElementCreateService.CreateByIdContaining<ToggleButton>("toggle2");
+            var toggleButton = App.ComponentCreateService.CreateByIdContaining<ToggleButton>("toggle2");
 
             toggleButton.ValidateIsOff();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIs_DoesNotThrowException_When_CorrectTextSet()
         {
-            var toggleButton = App.ElementCreateService.CreateByIdContaining<ToggleButton>("toggle1");
+            var toggleButton = App.ComponentCreateService.CreateByIdContaining<ToggleButton>("toggle1");
 
             toggleButton.ValidateTextIs("OFF");
         }
@@ -59,7 +59,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsDisabled_DoesNotThrowException_When_ToggleButtonIsNotDisabled()
         {
-            var toggleButton = App.ElementCreateService.CreateByIdContaining<ToggleButton>("toggle2");
+            var toggleButton = App.ComponentCreateService.CreateByIdContaining<ToggleButton>("toggle2");
 
             toggleButton.ValidateIsNotDisabled();
         }

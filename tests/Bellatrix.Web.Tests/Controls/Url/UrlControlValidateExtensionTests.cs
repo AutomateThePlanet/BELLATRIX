@@ -27,7 +27,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateUrlIs_DoesNotThrowException_When_UseSetUrlMethod()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
 
             urlElement.SetUrl("bellatrix.solutions");
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
 
             urlElement.ValidateAutoCompleteOff();
         }
@@ -49,7 +49,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL4");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL4");
 
             urlElement.ValidateAutoCompleteOn();
         }
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL4");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL4");
 
             urlElement.ValidateIsNotReadonly();
         }
@@ -69,7 +69,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL6");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL6");
 
             urlElement.ValidateIsReadonly();
         }
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
 
             urlElement.ValidateMaxLengthIsNull();
         }
@@ -89,7 +89,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
 
             urlElement.ValidateMinLengthIsNull();
         }
@@ -99,7 +99,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateSizeIs_DoesNotThrowException_When_SizeAttributeIsNotPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
 
             urlElement.ValidateSizeIs(20);
         }
@@ -109,7 +109,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL2");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL2");
 
             urlElement.ValidateMaxLengthIs(80);
         }
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL2");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL2");
 
             urlElement.ValidateMinLengthIs(10);
         }
@@ -129,7 +129,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL4");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL4");
 
             urlElement.ValidateIsNotRequired();
         }
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL7");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL7");
 
             urlElement.ValidateIsRequired();
         }
@@ -149,7 +149,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
 
             urlElement.ValidatePlaceholderIs("http://www.example.com");
         }
@@ -159,7 +159,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL1");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL1");
 
             urlElement.ValidatePlaceholderIsNull();
         }
@@ -169,7 +169,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL8");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL8");
 
             urlElement.Hover();
 
@@ -181,7 +181,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL9");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL9");
 
             urlElement.ValidateIsNotDisabled();
         }
@@ -191,7 +191,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL10");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL10");
 
             urlElement.ValidateIsDisabled();
         }

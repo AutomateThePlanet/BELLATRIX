@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         {
             Bellatrix.Web.Component.SettingAttribute += AssertClassAttributeEmpty;
 
-            var urlElement = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL");
+            var urlElement = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL");
 
             urlElement.SetAttribute("class", "myTestClass1");
             var cssClass = urlElement.GetAttribute("class");
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
 
             Bellatrix.Web.Component.SettingAttribute -= AssertClassAttributeEmpty;
 
-            void AssertClassAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertClassAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("myTestClass", args.Element.WrappedElement.GetAttribute("class"));
             }
@@ -53,7 +53,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         {
             Bellatrix.Web.Component.AttributeSet += AssertClassAttributeContainsNewValue;
 
-            var urlElement = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL");
+            var urlElement = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL");
 
             urlElement.SetAttribute("class", "myTestClass1");
             var cssClass = urlElement.GetAttribute("class");
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
 
             Bellatrix.Web.Component.AttributeSet -= AssertClassAttributeContainsNewValue;
 
-            void AssertClassAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertClassAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("myTestClass1", args.Element.WrappedElement.GetAttribute("class"));
             }
@@ -77,7 +77,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         {
             Bellatrix.Web.Component.ReturningWrappedElement += AssertNativeElementNotNullAfterCallingAction;
 
-            var urlElement = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL");
+            var urlElement = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL");
 
             var cssClass = urlElement.GetAttribute("class");
 
@@ -98,7 +98,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         {
             Bellatrix.Web.Component.ScrollingToVisible += AssertStyleAttributeEmpty;
 
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
+            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
 
             element.ScrollToVisible();
 
@@ -106,7 +106,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
 
             Bellatrix.Web.Component.ScrollingToVisible -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         ////{
         ////    Bellatrix.Web.Element.ScrolledToVisible += AssertStyleAttributeContainsNewValue;
 
-        ////    var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+        ////    var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
 
         ////    Assert.IsNull(element.GetStyle());
 

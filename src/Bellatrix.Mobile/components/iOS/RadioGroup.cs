@@ -19,7 +19,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class RadioGroup : Element
+    public class RadioGroup : IOSComponent
     {
         public void ClickByText(string text)
         {

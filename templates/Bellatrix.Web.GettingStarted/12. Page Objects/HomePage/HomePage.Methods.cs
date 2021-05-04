@@ -31,7 +31,7 @@
         // 3. Generic method for adding products to the cart by ID.
         public void AddProductById(int productId)
         {
-            var product = ElementCreateService.CreateByAttributesContaining<Anchor>("data-product_id", productId.ToString()).ToBeClickable();
+            var product = ComponentCreateService.CreateByAttributesContaining<Anchor>("data-product_id", productId.ToString()).ToBeClickable();
             product.Click();
             ViewCartButton.ValidateIsVisible();
         }

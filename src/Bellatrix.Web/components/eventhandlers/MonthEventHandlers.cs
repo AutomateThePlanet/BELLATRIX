@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class MonthEventHandlers : ElementEventHandlers
+    public class MonthEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Month.MonthSet -= MonthSetEventHandler;
         }
 
-        protected virtual void SettingMonthEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingMonthEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void MonthSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void MonthSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

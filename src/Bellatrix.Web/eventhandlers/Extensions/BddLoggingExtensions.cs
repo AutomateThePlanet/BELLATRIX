@@ -31,9 +31,9 @@ namespace Bellatrix.Web.Extensions
             return result;
         }
 
-        public static string AddDynamicTestCasesUsingLocatorsMessage(this string loggingMessage, ElementActionEventArgs arg)
+        public static string AddDynamicTestCasesUsingLocatorsMessage(this string loggingMessage, ComponentActionEventArgs arg)
         {
-            return $"{loggingMessage} {arg.Element.ElementType.Name} using {arg.Element.LocatorType.Name} locator: '{arg.Element.LocatorValue}'";
+            return $"{loggingMessage} {arg.Element.ComponentType.Name} using {arg.Element.LocatorType.Name} locator: '{arg.Element.LocatorValue}'";
         }
     }
 }

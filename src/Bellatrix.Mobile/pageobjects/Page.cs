@@ -17,9 +17,9 @@ namespace Bellatrix.Mobile.PageObjects
 {
     public abstract class Page
     {
-        protected Page() => Element = new ElementCreateService();
+        protected Page() => Element = new ComponentCreateService();
 
-        protected ElementCreateService Element { get; }
+        protected ComponentCreateService Element { get; }
 
         protected DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
     }

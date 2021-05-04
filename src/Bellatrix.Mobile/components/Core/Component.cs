@@ -1,4 +1,4 @@
-﻿// <copyright file="Element.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="Component.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -28,27 +28,27 @@ using OpenQA.Selenium.Appium;
 namespace Bellatrix.Mobile.Core
 {
     [DebuggerDisplay("BELLATRIX Element")]
-    public partial class Component<TDriver, TDriverElement> : IElement<TDriverElement>
+    public partial class Component<TDriver, TDriverElement> : IComponent<TDriverElement>
         where TDriver : AppiumDriver<TDriverElement>
         where TDriverElement : AppiumWebElement
     {
-        private readonly ElementWaitService<TDriver, TDriverElement> _elementWait;
+        private readonly ComponentWaitService<TDriver, TDriverElement> _elementWait;
         private readonly List<WaitStrategy<TDriver, TDriverElement>> _untils;
         private TDriverElement _wrappedElement;
 
         public Component()
         {
-            _elementWait = new ElementWaitService<TDriver, TDriverElement>();
+            _elementWait = new ComponentWaitService<TDriver, TDriverElement>();
             WrappedDriver = ServicesCollection.Current.Resolve<TDriver>();
             _untils = new List<WaitStrategy<TDriver, TDriverElement>>();
         }
 
-        public static event EventHandler<ElementActionEventArgs<TDriverElement>> ScrollingToVisible;
-        public static event EventHandler<ElementActionEventArgs<TDriverElement>> ScrolledToVisible;
-        public static event EventHandler<ElementActionEventArgs<TDriverElement>> CreatingElement;
-        public static event EventHandler<ElementActionEventArgs<TDriverElement>> CreatedElement;
-        public static event EventHandler<ElementActionEventArgs<TDriverElement>> CreatingElements;
-        public static event EventHandler<ElementActionEventArgs<TDriverElement>> CreatedElements;
+        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> ScrollingToVisible;
+        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> ScrolledToVisible;
+        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatingComponent;
+        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatedComponent;
+        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatingComponents;
+        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatedComponents;
         public static event EventHandler<NativeElementActionEventArgs<TDriverElement>> ReturningWrappedElement;
 
         public TDriver WrappedDriver { get; }
@@ -75,26 +75,26 @@ namespace Bellatrix.Mobile.Core
             return WrappedElement.GetAttribute(name);
         }
 
-        public TElement Create<TElement, TBy>(TBy by)
+        public TComponent Create<TComponent, TBy>(TBy by)
             where TBy : FindStrategy<TDriver, TDriverElement>
-            where TElement : Component<TDriver, TDriverElement>
+            where TComponent : Component<TDriver, TDriverElement>
         {
-            CreatingElement?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
+            CreatingComponent?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
 
             var nativeElement = GetAndWaitWebDriverElement();
-            var elementRepository = new ElementRepository();
-            var element = elementRepository.CreateElementWithParent<TElement, TBy, TDriver, TDriverElement>(by, nativeElement);
+            var elementRepository = new ComponentRepository();
+            var element = elementRepository.CreateComponentWithParent<TComponent, TBy, TDriver, TDriverElement>(by, nativeElement);
 
-            CreatedElement?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
+            CreatedComponent?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
 
             return element;
         }
 
-        public ComponentsList<TElement, TBy, TDriver, TDriverElement> CreateAll<TElement, TBy>(TBy by)
+        public ComponentsList<TComponent, TBy, TDriver, TDriverElement> CreateAll<TComponent, TBy>(TBy by)
             where TBy : FindStrategy<TDriver, TDriverElement>
-            where TElement : Component<TDriver, TDriverElement>
+            where TComponent : Component<TDriver, TDriverElement>
         {
-            CreatingElements?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
+            CreatingComponents?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
             TDriverElement nativeElement = null;
             try
             {
@@ -105,9 +105,9 @@ namespace Bellatrix.Mobile.Core
                 // Ignore
             }
 
-            var elementsCollection = new ComponentsList<TElement, TBy, TDriver, TDriverElement>(by, nativeElement);
+            var elementsCollection = new ComponentsList<TComponent, TBy, TDriver, TDriverElement>(by, nativeElement);
 
-            CreatedElements?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
+            CreatedComponents?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
 
             return elementsCollection;
         }
@@ -160,7 +160,7 @@ namespace Bellatrix.Mobile.Core
 
         public virtual void ScrollToVisible(ScrollDirection direction)
         {
-            ScrollingToVisible?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
+            ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
             int timeOut = 10000;
 
             while (!IsVisible && timeOut > 0)
@@ -169,10 +169,10 @@ namespace Bellatrix.Mobile.Core
                 timeOut -= 30;
             }
 
-            ScrolledToVisible?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
+            ScrolledToVisible?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
         }
 
-        public string ElementName { get; internal set; }
+        public string ComponentName { get; internal set; }
 
         public string PageName { get; internal set; }
 
@@ -185,7 +185,7 @@ namespace Bellatrix.Mobile.Core
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"{ElementName}");
+            sb.AppendLine($"{ComponentName}");
             sb.AppendLine($"X = {Location.X}");
             sb.AppendLine($"Y = {Location.Y}");
             sb.AppendLine($"Height = {Size.Height}");
@@ -221,7 +221,7 @@ namespace Bellatrix.Mobile.Core
                 }
                 catch (WebDriverTimeoutException ex)
                 {
-                    throw new TimeoutException($"The element with Name = {ElementName} Locator {By.Value} was not found on the page or didn't fulfill the specified conditions.", ex);
+                    throw new TimeoutException($"The element with Name = {ComponentName} Locator {By.Value} was not found on the page or didn't fulfill the specified conditions.", ex);
                 }
             }
 

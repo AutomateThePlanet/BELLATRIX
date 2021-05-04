@@ -20,12 +20,12 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateMonthIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementMonth, IElement
+            where T : IComponentMonth, IComponent
         {
             WaitUntil(() => control.GetMonth().Equals(value), $"The control's month should be '{value}' but was '{control.GetMonth()}'.", timeout, sleepInterval);
-            ValidatedMonthIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedMonthIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedMonthIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedMonthIsEvent;
     }
 }

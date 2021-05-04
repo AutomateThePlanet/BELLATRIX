@@ -19,10 +19,10 @@ using Bellatrix.Mobile.Events;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class ImageButton : Element, IElementDisabled, IElementText
+    public class ImageButton : AndroidComponent, IComponentDisabled, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicking;
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicked;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicking;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicked;
 
         public virtual void Click()
         {

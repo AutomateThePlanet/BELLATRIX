@@ -27,7 +27,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsVisibleReturnsTrue_When_ElementIsVisible_Universal()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             Assert.IsTrue(button.IsVisible);
         }
@@ -37,7 +37,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsPresentReturnsTrue_When_ElementIsPresent_Universal()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             Assert.IsTrue(button.IsPresent);
         }
@@ -47,7 +47,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsPresentReturnsFalse_When_ElementIsNotPresent_Universal()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E1 Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E1 Button");
 
             Assert.IsFalse(button.IsPresent);
         }
@@ -57,7 +57,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsVisibleReturnsFalse_When_ElementIsNotVisible_Universal()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<Button>("ShowAfterButton");
+            var button = App.ComponentCreateService.CreateByAutomationId<Button>("ShowAfterButton");
 
             Assert.IsFalse(button.IsVisible);
         }
@@ -67,7 +67,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void GetAttributeReturnsName_When_NameAttributeIsSet_Universal()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<Button>("EnabledButton");
+            var button = App.ComponentCreateService.CreateByAutomationId<Button>("EnabledButton");
 
             var nameValue = button.GetAttribute("Name");
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ReturnNestedElement_When_ElementContainsOneChildElement_Universal()
         {
-            var comboBox = App.ElementCreateService.CreateByClass<Button>("CalendarView");
+            var comboBox = App.ComponentCreateService.CreateByClass<Button>("CalendarView");
             var comboBoxItem = comboBox.CreateByName<Button>("25");
 
             Assert.AreEqual("25", comboBoxItem.InnerText);
@@ -90,7 +90,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ReturnNestedElements_When_ElementContainsMoreThanOneChildElement_Universal()
         {
-            var comboBox = App.ElementCreateService.CreateByClass<Button>("CalendarView");
+            var comboBox = App.ComponentCreateService.CreateByClass<Button>("CalendarView");
             var comboBoxItems = comboBox.CreateAllByName<Button>("2");
 
             Assert.AreEqual(2, comboBoxItems.ToList().Count);
@@ -102,9 +102,9 @@ namespace Bellatrix.Desktop.Tests
         [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToExists_When_ElementIsNotVisibleInitially_Universal()
         {
-            var disappearButton = App.ElementCreateService.CreateByAutomationId<Button>("DisappearAfter");
+            var disappearButton = App.ComponentCreateService.CreateByAutomationId<Button>("DisappearAfter");
             disappearButton.Click();
-            var button = App.ElementCreateService.CreateByAutomationId<Button>("ShowAfterButton");
+            var button = App.ComponentCreateService.CreateByAutomationId<Button>("ShowAfterButton");
 
             button.ToExists().WaitToBe();
 
@@ -117,7 +117,7 @@ namespace Bellatrix.Desktop.Tests
         [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Universal()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<Button>("DisappearAfter");
+            var button = App.ComponentCreateService.CreateByAutomationId<Button>("DisappearAfter");
             button.Click();
             button.ToNotExists().WaitToBe();
 

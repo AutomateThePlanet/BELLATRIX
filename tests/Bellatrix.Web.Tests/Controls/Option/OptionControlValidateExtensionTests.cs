@@ -27,9 +27,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_When_UseGetInnerTextMethod()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            selectElement.GetSelected().ValidateInnerTextIs("Bellatrix");
+            selectComponent.GetSelected().ValidateInnerTextIs("Bellatrix");
         }
 
         [TestMethod]
@@ -37,9 +37,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateValueIs_DoesNotThrowException_When_UseGetValueMethod()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
 
-            selectElement.GetSelected().ValidateValueIs("bella2");
+            selectComponent.GetSelected().ValidateValueIs("bella2");
         }
 
         [TestMethod]
@@ -47,9 +47,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsSelected_DoesNotThrowException_When_OptionSelectedAndCallGetIsSelectedMethod()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            selectElement.GetAllOptions()[0].ValidateIsSelected();
+            selectComponent.GetAllOptions()[0].ValidateIsSelected();
         }
 
         [TestMethod]
@@ -57,9 +57,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotSelected_DoesNotThrowException_When_OptionNotSelectedAndCallGetIsSelectedMethod()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            selectElement.GetAllOptions()[1].ValidateIsNotSelected();
+            selectComponent.GetAllOptions()[1].ValidateIsNotSelected();
         }
 
         [TestMethod]
@@ -67,9 +67,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
 
-            selectElement.GetSelected().ValidateIsNotDisabled();
+            selectComponent.GetSelected().ValidateIsNotDisabled();
         }
 
         [TestMethod]
@@ -77,9 +77,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributeIsPresent()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect4");
+            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect4");
 
-            selectElement.GetAllOptions()[1].ValidateIsDisabled();
+            selectComponent.GetAllOptions()[1].ValidateIsDisabled();
         }
     }
 }

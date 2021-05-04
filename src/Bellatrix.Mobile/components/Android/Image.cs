@@ -15,7 +15,7 @@ using Bellatrix.Mobile.Controls.Android;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class Image : Element
+    public class Image : AndroidComponent
     {
     }
 }

@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class RangeEventHandlers : ElementEventHandlers
+    public class RangeEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Range.RangeSet -= RangeSetEventHandler;
         }
 
-        protected virtual void SettingRangeEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingRangeEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void RangeSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void RangeSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

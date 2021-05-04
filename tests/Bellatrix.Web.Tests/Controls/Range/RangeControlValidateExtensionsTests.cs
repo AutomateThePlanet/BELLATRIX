@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateRangeIs_DoesNotThrowException_When_UseSetRangeMethod()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
 
             rangeElement.SetRange(4);
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
 
             rangeElement.ValidateAutoCompleteOff();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange3");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange3");
 
             rangeElement.ValidateAutoCompleteOn();
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
 
             rangeElement.ValidateMaxIsNull();
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
 
             rangeElement.ValidateMinIsNull();
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
 
             rangeElement.ValidateStepIsNull();
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxIs_DoesNotThrowException_When_MaxAttributeIsPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange1");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange1");
 
             rangeElement.ValidateMaxIs(10);
         }
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinIs_DoesNotThrowException_When_MinAttributeIsPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange1");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange1");
 
             rangeElement.ValidateMinIs(2);
         }
@@ -110,7 +110,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange1");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange1");
 
             rangeElement.ValidateStepIs(2);
         }
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange4");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange4");
 
             rangeElement.ValidateIsNotRequired();
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange6");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange6");
 
             rangeElement.ValidateIsRequired();
         }
@@ -140,7 +140,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange7");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange7");
 
             rangeElement.Hover();
 
@@ -152,7 +152,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
 
             rangeElement.ValidateIsNotDisabled();
         }
@@ -162,7 +162,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange9");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange9");
 
             rangeElement.ValidateIsDisabled();
         }
@@ -172,7 +172,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateListIsNull_DoesNotThrowException_When_ListAttributeIsNotPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
 
             rangeElement.ValidateListIsNull();
         }
@@ -182,7 +182,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateListIs_DoesNotThrowException_When_MaxAttributeIsPresent()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange10");
+            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange10");
 
             rangeElement.ValidateListIs("tickmarks");
         }

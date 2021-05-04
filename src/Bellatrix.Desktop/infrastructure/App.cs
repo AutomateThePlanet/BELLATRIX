@@ -45,9 +45,9 @@ namespace Bellatrix.Desktop
 
         public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
 
-        public ElementWaitService ElementWaitService => ServicesCollection.Current.Resolve<ElementWaitService>();
+        public ComponentWaitService ElementWaitService => ServicesCollection.Current.Resolve<ComponentWaitService>();
 
-        public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
+        public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
         public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
@@ -92,17 +92,17 @@ namespace Bellatrix.Desktop
             ServicesCollection.Main.RegisterInstance(dictionary, $"caps-{fullClassName}");
         }
 
-        public void AddElementEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : ElementEventHandlers
+        public void AddElementEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : ComponentEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.SubscribeToAll();
         }
 
-        public void RemoveElementEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : ElementEventHandlers
+        public void RemoveElementEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : ComponentEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.UnsubscribeToAll();
         }
 

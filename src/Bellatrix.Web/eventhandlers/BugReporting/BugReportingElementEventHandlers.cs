@@ -18,12 +18,12 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BugReportingElementEventHandlers : AnchorEventHandlers
     {
-        protected override void ScrollingToVisibleEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Scroll to visible {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+        protected override void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Scroll to visible {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 
-        protected override void ClickingEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Click {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Hover {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+        protected override void HoveringEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Hover {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 
-        protected override void FocusingEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Focus {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+        protected override void FocusingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Focus {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
     }
 }

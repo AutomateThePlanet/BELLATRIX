@@ -17,9 +17,9 @@ using Bellatrix.Web.Contracts;
 
 namespace Bellatrix.Web
 {
-    public class Progress : Component, IElementMaxText, IElementValue, IElementInnerText
+    public class Progress : Component, IComponentMaxText, IComponentValue, IComponentInnerText
     {
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string Max => GetMaxAttributeAsString();

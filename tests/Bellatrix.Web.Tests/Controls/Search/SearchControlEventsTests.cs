@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Search.SettingSearch += AssertValueAttributeEmpty;
 
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
 
             searchElement.SetSearch("bellatrix test framework");
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Search.SettingSearch -= AssertValueAttributeEmpty;
 
-            void AssertValueAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Search.SearchSet += AssertValueAttributeContainsNewValue;
 
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
 
             searchElement.SetSearch("bellatrix test framework");
 
             Search.SearchSet -= AssertValueAttributeContainsNewValue;
 
-            void AssertValueAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("bellatrix test framework", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Search.Hovering += AssertStyleAttributeEmpty;
 
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch8");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch8");
 
             searchElement.Hover();
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Search.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -92,15 +92,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Search.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch8");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch8");
 
             searchElement.Hover();
 
             Search.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Search>("mySearch8").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<Search>("mySearch8").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Search.Focusing += AssertStyleAttributeEmpty;
 
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch9");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch9");
 
             searchElement.Focus();
 
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Search.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -132,13 +132,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Search.Focused += AssertStyleAttributeContainsNewValue;
 
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch9");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch9");
 
             searchElement.Focus();
 
             Search.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

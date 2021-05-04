@@ -19,24 +19,24 @@ using Bellatrix.Mobile.Events;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class ComboBox : Element, IElementDisabled, IElementText
+    public class ComboBox : AndroidComponent, IComponentDisabled, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Selecting;
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Selected;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Selecting;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Selected;
 
         public virtual void SelectByText(string value)
         {
-            Selecting?.Invoke(this, new ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>(this, value));
+            Selecting?.Invoke(this, new ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>(this, value));
 
             if (WrappedElement.Text != value)
             {
                 WrappedElement.Click();
-                var elementCreateService = ServicesCollection.Current.Resolve<ElementCreateService>();
+                var elementCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
                 var innerElementToClick = elementCreateService.CreateByTextContaining<RadioButton>(value);
                 innerElementToClick.Click();
             }
 
-            Selected?.Invoke(this, new ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>(this, value));
+            Selected?.Invoke(this, new ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>(this, value));
         }
 
         public virtual string GetText()

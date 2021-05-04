@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         public void ClickButton_When_WaitForSpecificContent()
         {
             // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton").ToHaveSpecificContent("button");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton").ToHaveSpecificContent("button");
 
             button.Click();
         }

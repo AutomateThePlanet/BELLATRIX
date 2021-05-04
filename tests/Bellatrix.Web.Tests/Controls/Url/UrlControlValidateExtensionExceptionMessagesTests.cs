@@ -32,7 +32,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateUrlIsThrowsException()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL");
+            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
 
             urlElement.SetUrl("bellatrix.solutions");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 urlElement.ValidateUrlIs("bellatrix.solutions1", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's URL should be 'bellatrix.solutions1' but was 'bellatrix.solutions'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

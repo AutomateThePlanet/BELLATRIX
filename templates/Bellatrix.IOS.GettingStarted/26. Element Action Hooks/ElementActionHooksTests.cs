@@ -24,10 +24,10 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // Note: Usually, we add element event handlers in the AssemblyInitialize method which is called once for a test run.
         public override void TestsArrange()
         {
-            App.AddElementEventHandler<DebugLoggingButtonEventHandlers>();
+            App.AddComponentEventHandler<DebugLoggingButtonEventHandlers>();
 
             // If you need to remove it during the run you can use the method bellow.
-            App.RemoveElementEventHandler<DebugLoggingButtonEventHandlers>();
+            App.RemoveComponentEventHandler<DebugLoggingButtonEventHandlers>();
 
             // 5. Each BELLATRIX Validate method gives you a hook too.
             // To implement them you can derive the ValidateExtensionsEventHandlers base class and override the event handler methods you need.
@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [TestCategory(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }

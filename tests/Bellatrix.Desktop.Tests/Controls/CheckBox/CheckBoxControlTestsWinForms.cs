@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_CheckBoxHovered_WinForms()
         {
-            var checkBox = App.ElementCreateService.CreateByAutomationId<CheckBox>("checkBox");
+            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("checkBox");
 
             checkBox.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultLabel");
             Assert.IsTrue(label.IsPresent);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt_WinForms()
         {
-            var checkBox = App.ElementCreateService.CreateByAutomationId<CheckBox>("checkBox");
+            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("checkBox");
 
             checkBox.Check();
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt_WinForms()
         {
-            var checkBox = App.ElementCreateService.CreateByAutomationId<CheckBox>("checkedCheckBox");
+            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("checkedCheckBox");
 
             checkBox.Uncheck();
 
@@ -62,7 +62,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedReturnsTrue_When_CheckBoxChecked_WinForms()
         {
-            var checkBox = App.ElementCreateService.CreateByAutomationId<CheckBox>("disabledCheckBox");
+            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("disabledCheckBox");
 
             Assert.IsTrue(checkBox.IsChecked);
         }
@@ -72,7 +72,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled_WinForms()
         {
-            var checkBox = App.ElementCreateService.CreateByAutomationId<CheckBox>("checkedCheckBox");
+            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("checkedCheckBox");
 
             Assert.AreEqual(false, checkBox.IsDisabled);
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_CheckBoxIsDisabled_WinForms()
         {
-            var checkBox = App.ElementCreateService.CreateByAutomationId<CheckBox>("disabledCheckBox");
+            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("disabledCheckBox");
 
             Assert.AreEqual(true, checkBox.IsDisabled);
         }

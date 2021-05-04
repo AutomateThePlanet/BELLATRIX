@@ -26,7 +26,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsVisibleReturnsTrue_When_ElementIsVisible_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             Assert.IsTrue(button.IsVisible);
         }
@@ -36,7 +36,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsPresentReturnsTrue_When_ElementIsPresent_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             Assert.IsTrue(button.IsPresent);
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsPresentReturnsFalse_When_ElementIsNotPresent_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E1 Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E1 Button");
 
             Assert.IsFalse(button.IsPresent);
         }
@@ -56,7 +56,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsVisibleReturnsFalse_When_ElementIsNotVisible_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("V Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("V Button");
 
             Assert.IsFalse(button.IsVisible);
         }
@@ -66,7 +66,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void GetAttributeReturnsName_When_NameAttributeIsSet_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             var nameValue = button.GetAttribute("Name");
 
@@ -78,7 +78,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ReturnNestedElement_When_ElementContainsOneChildElement_Wpf()
         {
-            var comboBox = App.ElementCreateService.CreateByAutomationId<Button>("listBoxEnabled");
+            var comboBox = App.ComponentCreateService.CreateByAutomationId<Button>("listBoxEnabled");
             var comboBoxItem = comboBox.CreateByAutomationId<Button>("lb2");
 
             Assert.AreEqual("ListBox Item #2", comboBoxItem.InnerText);
@@ -90,7 +90,7 @@ namespace Bellatrix.Desktop.Tests
         [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToExists_When_ElementIsNotVisibleInitially_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ShowAfterButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ShowAfterButton");
 
             button.ToExists().WaitToBe();
 
@@ -103,7 +103,7 @@ namespace Bellatrix.Desktop.Tests
         [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("DisappearAfterButton1");
+            var button = App.ComponentCreateService.CreateByName<Button>("DisappearAfterButton1");
 
             button.ToNotExists().WaitToBe();
 

@@ -25,7 +25,7 @@ namespace Bellatrix.Web.GettingStarted
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
             // Use the element creation service to create an instance of the anchor. There are much more details about this process in the next sections.
-            var promotionsLink = App.ElementCreateService.CreateByLinkText<Anchor>("Promotions");
+            var promotionsLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Promotions");
 
             promotionsLink.Click();
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            var blogLink = App.ElementCreateService.CreateByLinkText<Anchor>("Blog");
+            var blogLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Blog");
 
             blogLink.Click();
 

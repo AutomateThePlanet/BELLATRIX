@@ -17,7 +17,7 @@ using Bellatrix.Mobile.Controls.Android;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class Progress : Element
+    public class Progress : AndroidComponent
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsDisabled => GetIsDisabled();

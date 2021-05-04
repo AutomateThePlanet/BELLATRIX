@@ -35,7 +35,7 @@ namespace Bellatrix.Api.Extensions
 
         public string Namespace { get; set; }
 
-        public string RootElement { get; set; }
+        public string RooTComponent { get; set; }
 
         public string Serialize(object obj)
         {

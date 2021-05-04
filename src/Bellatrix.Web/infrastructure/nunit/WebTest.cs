@@ -46,7 +46,7 @@ namespace Bellatrix.Web.NUnit
                     WebPluginsConfiguration.AddElementsBddLogging();
                     WebPluginsConfiguration.AddDynamicTestCases();
                     WebPluginsConfiguration.AddBugReporting();
-                    WebPluginsConfiguration.AddHighlightElements();
+                    WebPluginsConfiguration.AddhighlightComponents();
 
                     if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
                     {

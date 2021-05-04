@@ -18,12 +18,12 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class RadioButton : Component, IElementDisabled, IElementChecked
+    public class RadioButton : Component, IComponentDisabled, IComponentChecked
     {
-        public static event EventHandler<ElementActionEventArgs> Clicking;
-        public static event EventHandler<ElementActionEventArgs> Clicked;
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Clicking;
+        public static event EventHandler<ComponentActionEventArgs> Clicked;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public virtual bool IsDisabled => GetIsDisabled();

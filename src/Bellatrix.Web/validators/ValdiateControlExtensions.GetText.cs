@@ -20,36 +20,36 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateTextIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementText, IElement
+            where T : IComponentText, IComponent
         {
             WaitUntil(() => control.GetText() == null, $"The control's text should be null but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedTextIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateTextIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementText, IElement
+            where T : IComponentText, IComponent
         {
             WaitUntil(() => control.GetText().Equals(value), $"The control's text should be '{value}' but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedTextIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
         public static void ValidateTextContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-          where T : IElementText, IElement
+          where T : IComponentText, IComponent
         {
             WaitUntil(() => control.GetText().Contains(value), $"The control's text should contain '{value}' but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextContainsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedTextContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
         public static void ValidateInnerTextNotContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementInnerText, IElement
+            where T : IComponentInnerText, IComponent
         {
             WaitUntil(() => !control.InnerText.Contains(value), $"The control's inner text should not contain '{value}' but does: '{control.InnerText}'.", timeout, sleepInterval);
-            ValidatedTextNotContainsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedTextNotContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedTextIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedTextIsEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedTextContainsEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedTextNotContainsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTextIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTextIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTextContainsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTextNotContainsEvent;
     }
 }

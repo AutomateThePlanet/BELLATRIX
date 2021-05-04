@@ -25,14 +25,14 @@ namespace Bellatrix.Mobile.Android.Tests
         ".view.ControlsMaterialDark",
         Lifecycle.RestartEveryTime)]
     [AllureSuite("Services")]
-    [AllureFeature("ElementCreateService")]
+    [AllureFeature("ComponentCreateService")]
     public class ElementCreateSingleElementTests : MSTest.AndroidTest
     {
-        private Element _mainElement;
+        private AndroidComponent _mainElement;
 
         public override void TestInit()
         {
-            _mainElement = App.ElementCreateService.CreateByIdContaining<Element>("decor_content_parent");
+            _mainElement = App.ComponentCreateService.CreateByIdContaining<AndroidComponent>("decor_content_parent");
         }
 
         [TestMethod]

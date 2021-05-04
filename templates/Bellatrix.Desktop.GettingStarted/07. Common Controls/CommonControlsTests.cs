@@ -16,18 +16,18 @@ namespace Bellatrix.Desktop.GettingStarted
         {
             // 2. Create methods accept a generic parameter the type of the web control. Then only the methods for this specific control are accessible.
             // Here we tell BELLATRIX to find your element by name attribute equals to 'E Button'.
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
 
             // 3. Clicking the button. At this moment BELLATRIX locates the element.
             button.Click();
 
             // 4. Locating the calendar control using automationId = calendar
-            var calendar = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.ComponentCreateService.CreateByAutomationId<Calendar>("calendar");
 
             // 5. Most desktop controls have properties such as checking whether the calendar is enabled or not.
             Assert.AreEqual(false, calendar.IsDisabled);
 
-            var checkBox = App.ElementCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("BellaCheckBox");
 
             // 6. Checking and unchecking the checkbox with name = 'BellaCheckBox'
             checkBox.Check();
@@ -39,7 +39,7 @@ namespace Bellatrix.Desktop.GettingStarted
 
             Assert.IsFalse(checkBox.IsChecked);
 
-            var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("select");
+            var comboBox = App.ComponentCreateService.CreateByAutomationId<ComboBox>("select");
 
             // 8. Select a value in combobox but text.
             comboBox.SelectByText("Item2");
@@ -47,34 +47,34 @@ namespace Bellatrix.Desktop.GettingStarted
             // 9. Get the current comboBox text through InnerText property.
             Assert.AreEqual("Item2", comboBox.InnerText);
 
-            var datePicker = App.ElementCreateService.CreateByAutomationId<Date>("DatePicker");
+            var datePicker = App.ComponentCreateService.CreateByAutomationId<Date>("DatePicker");
 
             // 10. You can hover on most desktop controls or search for elements inside them.
             datePicker.Hover();
 
-            var element = App.ElementCreateService.CreateByName<Component>("DisappearAfterButton1");
+            var element = App.ComponentCreateService.CreateByName<Component>("DisappearAfterButton1");
 
             // 11. Wait for the element to disappear.
             element.ToNotExists().WaitToBe();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
 
             // 12. See if the element is present or not using the IsPresent property.
             Assert.IsTrue(label.IsPresent);
 
-            var password = App.ElementCreateService.CreateByAutomationId<Password>("passwordBox");
+            var password = App.ComponentCreateService.CreateByAutomationId<Password>("passwordBox");
 
             // 13. Instead of using the non-meaningful method SendKeys, BELLATRIX gives you more readable tests through proper methods and properties names.
             // In this case, we set the text in the password field using the SetPassword method and SetText for regular text fields.
             password.SetPassword("topsecret");
 
-            var textField = App.ElementCreateService.CreateByAutomationId<TextField>("textBox");
+            var textField = App.ComponentCreateService.CreateByAutomationId<TextField>("textBox");
 
             textField.SetText("Meissa Is Beautiful!");
 
             Assert.AreEqual("Meissa Is Beautiful!", textField.InnerText);
 
-            var radioButton = App.ElementCreateService.CreateByName<RadioButton>("RadioButton");
+            var radioButton = App.ComponentCreateService.CreateByName<RadioButton>("RadioButton");
 
             // 14. Select the radio button.
             radioButton.Click();

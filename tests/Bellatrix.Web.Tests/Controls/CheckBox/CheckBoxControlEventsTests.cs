@@ -29,7 +29,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CheckingCalled_BeforeActuallyCheck()
         {
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
             CheckBox.Checking += AssertIsCheckedFalse;
 
             checkBoxElement.Check(false);
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             CheckBox.Checking -= AssertIsCheckedFalse;
 
-            void AssertIsCheckedFalse(object sender, ElementActionEventArgs args)
+            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
             {
                 Assert.IsTrue(checkBoxElement.IsChecked);
             }
@@ -49,14 +49,14 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CheckedCalled_AfterCheck()
         {
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
             CheckBox.Checked += AssertIsCheckedFalse;
 
             checkBoxElement.Check(false);
 
             CheckBox.Checked -= AssertIsCheckedFalse;
 
-            void AssertIsCheckedFalse(object sender, ElementActionEventArgs args)
+            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
             {
                 Assert.IsFalse(checkBoxElement.IsChecked);
             }
@@ -69,7 +69,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             CheckBox.Hovering += AssertStyleAttributeEmpty;
 
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox1");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox1");
 
             checkBoxElement.Hover();
 
@@ -77,7 +77,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             CheckBox.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -90,15 +90,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             CheckBox.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox1");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox1");
 
             checkBoxElement.Hover();
 
             CheckBox.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<CheckBox>("myCheckbox1").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<CheckBox>("myCheckbox1").ValidateStyleIs("color: red;");
             }
         }
 
@@ -109,7 +109,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             CheckBox.Focusing += AssertStyleAttributeEmpty;
 
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox2");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox2");
 
             checkBoxElement.Focus();
 
@@ -117,7 +117,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             CheckBox.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -130,13 +130,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             CheckBox.Focused += AssertStyleAttributeContainsNewValue;
 
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox2");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox2");
 
             checkBoxElement.Focus();
 
             CheckBox.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

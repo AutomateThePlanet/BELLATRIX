@@ -41,7 +41,7 @@ namespace Bellatrix.Web
 
         public CookiesService CookiesService => ServicesCollection.Current.Resolve<CookiesService>();
 
-        public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
+        public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
@@ -71,31 +71,31 @@ namespace Bellatrix.Web
             ServicesCollection.Current.RegisterInstance(dictionary, $"caps-{fullClassName}");
         }
 
-        public void AddReadonlyControlDataHandler<TElement, TControlDataHandler>()
-           where TElement : Component
-           where TControlDataHandler : IReadonlyControlDataHandler<TElement>
+        public void AddReadonlyControlDataHandler<TComponent, TControlDataHandler>()
+           where TComponent : Component
+           where TControlDataHandler : IReadonlyControlDataHandler<TComponent>
         {
-            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<TElement>, TControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<TComponent>, TControlDataHandler>();
         }
 
-        public void AddEditableControlDataHandler<TElement, TControlDataHandler>()
-           where TElement : Component
-           where TControlDataHandler : IEditableControlDataHandler<TElement>
+        public void AddEditableControlDataHandler<TComponent, TControlDataHandler>()
+           where TComponent : Component
+           where TControlDataHandler : IEditableControlDataHandler<TComponent>
         {
-            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<TElement>, TControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<TComponent>, TControlDataHandler>();
         }
 
-        public void AddElementEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : ElementEventHandlers
+        public void AddElementEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : ComponentEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.SubscribeToAll();
         }
 
-        public void RemoveElementEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : ElementEventHandlers
+        public void RemoveElementEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : ComponentEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.UnsubscribeToAll();
         }
 

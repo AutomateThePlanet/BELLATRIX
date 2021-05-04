@@ -28,10 +28,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ValidateIsChecked_DoesNotThrowException_When_CheckBoxIsChecked()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
             addButton.Click();
 
-            var checkBox = App.ElementCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var checkBox = App.ComponentCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
             checkBox.Check();
 
             checkBox.ValidateIsChecked();
@@ -41,10 +41,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ValidateIsNotChecked_DoesNotThrowException_When_CheckBoxIsNotChecked()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
             addButton.Click();
 
-            var checkBox = App.ElementCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var checkBox = App.ComponentCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             checkBox.Check();
             checkBox.Uncheck();
@@ -56,10 +56,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ValidateIsDisabled_DoesNotThrowException_When_CheckBoxIsNotDisabled()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
             addButton.Click();
 
-            var checkBox = App.ElementCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var checkBox = App.ComponentCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             checkBox.ValidateIsNotDisabled();
         }

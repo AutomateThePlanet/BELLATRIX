@@ -17,7 +17,7 @@ using Bellatrix.Mobile.Controls.IOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-   public class Label : Element, IElementText
+   public class Label : IOSComponent, IComponentText
     {
         public string GetText()
         {

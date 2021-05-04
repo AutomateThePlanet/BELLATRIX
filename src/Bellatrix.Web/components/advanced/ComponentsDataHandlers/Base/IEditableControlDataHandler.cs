@@ -14,9 +14,9 @@
 
 namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
 {
-    public interface IEditableControlDataHandler<TElement> : IReadonlyControlDataHandler<TElement>
-        where TElement : Component
+    public interface IEditableControlDataHandler<TComponent> : IReadonlyControlDataHandler<TComponent>
+        where TComponent : Component
     {
-        void SetData(TElement element, string data);
+        void SetData(TComponent element, string data);
     }
 }

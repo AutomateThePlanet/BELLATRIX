@@ -128,7 +128,7 @@ namespace Bellatrix.Mobile.Services
             childContainer.RegisterInstance(childContainer.Resolve<DialogService>());
             childContainer.RegisterInstance(childContainer.Resolve<JavaScriptService>());
             childContainer.RegisterInstance(childContainer.Resolve<NavigationService>());
-            childContainer.RegisterInstance(childContainer.Resolve<ElementCreateService>());
+            childContainer.RegisterInstance(childContainer.Resolve<ComponentCreateService>());
             var webDriver = childContainer.Resolve<IWebDriver>();
             childContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(webDriver));
             childContainer.RegisterNull<int?>();

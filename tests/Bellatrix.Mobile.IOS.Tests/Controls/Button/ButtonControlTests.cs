@@ -28,11 +28,11 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ZeroReturnForButtonText_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
 
-            var answerLabel = App.ElementCreateService.CreateByName<Label>("Answer");
+            var answerLabel = App.ComponentCreateService.CreateByName<Label>("Answer");
 
             answerLabel.ValidateTextIs("0");
         }
@@ -42,7 +42,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ReturnsComputeSum_When_GetText()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
 
             Assert.AreEqual("Compute Sum", button.GetText());
         }
@@ -51,7 +51,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
 
             Assert.AreEqual(false, button.IsDisabled);
         }

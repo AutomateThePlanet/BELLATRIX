@@ -50,12 +50,12 @@ namespace Bellatrix.Mobile
             }
             catch (WebDriverTimeoutException)
             {
-                var elementPropertyValidateException = new ElementPropertyValidateException(exceptionMessage);
-                ValidatedExceptionThrowedEvent?.Invoke(waitCondition, new ElementNotFulfillingValidateConditionEventArgs(elementPropertyValidateException));
+                var elementPropertyValidateException = new ComponentPropertyValidateException(exceptionMessage);
+                ValidatedExceptionThrowedEvent?.Invoke(waitCondition, new ComponentNotFulfillingValidateConditionEventArgs(elementPropertyValidateException));
                 throw elementPropertyValidateException;
             }
         }
 
-        public static event EventHandler<ElementNotFulfillingValidateConditionEventArgs> ValidatedExceptionThrowedEvent;
+        public static event EventHandler<ComponentNotFulfillingValidateConditionEventArgs> ValidatedExceptionThrowedEvent;
     }
 }

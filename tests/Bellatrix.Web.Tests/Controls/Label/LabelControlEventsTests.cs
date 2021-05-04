@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Label.Hovering += AssertStyleAttributeEmpty;
 
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.ComponentCreateService.CreateById<Label>("myLabel");
 
             labelElement.Hover();
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Label.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -52,15 +52,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Label.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.ComponentCreateService.CreateById<Label>("myLabel");
 
             labelElement.Hover();
 
             Label.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Label>("myLabel").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<Label>("myLabel").ValidateStyleIs("color: red;");
             }
         }
     }

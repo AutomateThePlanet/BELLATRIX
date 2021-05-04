@@ -18,10 +18,10 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-   public class Label : Component, IElementInnerText
+   public class Label : Component, IComponentInnerText
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
 
         public virtual void Hover()
         {

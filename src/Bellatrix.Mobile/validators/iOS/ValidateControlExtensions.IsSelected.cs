@@ -21,20 +21,20 @@ namespace Bellatrix.Mobile.IOS
     public static partial class ValidateControlExtensions
     {
         public static void ValidateIsSelected<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementSelected, IElement<IOSElement>
+            where T : IComponentSelected, IComponent<IOSElement>
         {
             ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsSelected.Equals(true), "The control should be selected but was NOT.", timeout, sleepInterval);
-            ValidatedIsSelectedEvent?.Invoke(control, new ElementActionEventArgs<IOSElement>(control));
+            ValidatedIsSelectedEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
         }
 
         public static void ValidateIsNotSelected<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementSelected, IElement<IOSElement>
+            where T : IComponentSelected, IComponent<IOSElement>
         {
             ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsSelected.Equals(false), "The control should be not selected but it WAS.", timeout, sleepInterval);
-            ValidatedIsNotSelectedEvent?.Invoke(control, new ElementActionEventArgs<IOSElement>(control));
+            ValidatedIsNotSelectedEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
         }
 
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> ValidatedIsSelectedEvent;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> ValidatedIsNotSelectedEvent;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsSelectedEvent;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsNotSelectedEvent;
     }
 }

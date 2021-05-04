@@ -18,14 +18,14 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-   public class CheckBox : Component, IElementDisabled, IElementChecked
+   public class CheckBox : Component, IComponentDisabled, IComponentChecked
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Checking;
-        public static event EventHandler<ElementActionEventArgs> Checked;
-        public static event EventHandler<ElementActionEventArgs> Unchecking;
-        public static event EventHandler<ElementActionEventArgs> Unchecked;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Checking;
+        public static event EventHandler<ComponentActionEventArgs> Checked;
+        public static event EventHandler<ComponentActionEventArgs> Unchecking;
+        public static event EventHandler<ComponentActionEventArgs> Unchecked;
 
         public virtual void Check(bool isChecked = true)
         {

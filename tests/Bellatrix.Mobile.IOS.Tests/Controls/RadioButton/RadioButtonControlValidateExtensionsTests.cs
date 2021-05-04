@@ -30,10 +30,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.KnownIssue)]
         public void ValidateIsChecked_DoesNotThrowException_When_RadioButtonIsChecked()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
             addButton.Click();
 
-            var radioButton = App.ElementCreateService.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var radioButton = App.ComponentCreateService.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             radioButton.ValidateIsNotChecked();
 
@@ -48,10 +48,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.KnownIssue)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_RadioButtonIsNotDisabled()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
             addButton.Click();
 
-            var radioButton = App.ElementCreateService.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var radioButton = App.ComponentCreateService.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             radioButton.ValidateIsNotDisabled();
         }

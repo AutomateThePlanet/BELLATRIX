@@ -26,7 +26,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ClickOpensAutomateThePlanetUrl_When_DefaultClickIsSet_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
 
             anchorElement.Click();
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
 
             anchorElement.Hover();
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor2");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor2");
 
             anchorElement.Focus();
         }
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnAutomateThePlanet_When_InnerText_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
 
             Assert.AreEqual("Automate The Planet", anchorElement.InnerText);
         }
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnButtonHtml_When_InnerHtml_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor4");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor4");
 
             Assert.IsTrue(anchorElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
         }
@@ -77,7 +77,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnEmpty_When_InnerTextNotSet_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor6");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor6");
 
             Assert.AreEqual(string.Empty, anchorElement.InnerText);
         }
@@ -86,7 +86,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnEmpty_When_InnerHtmlNotSet_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor6");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor6");
 
             string actualInnerHtml = anchorElement.InnerHtml;
 
@@ -97,7 +97,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnEmpty_When_RelNotSet_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
 
             string actualRel = anchorElement.Rel;
 
@@ -108,7 +108,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnCanonical_When_RelRel_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor5");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor5");
 
             Assert.AreEqual("canonical", anchorElement.Rel);
         }
@@ -117,7 +117,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnEmpty_When_TargetNotSet_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
 
             Assert.AreEqual(string.Empty, anchorElement.Target);
         }
@@ -126,7 +126,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnSelf_When_RelRel_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
 
             Assert.AreEqual("_self", anchorElement.Target);
         }
@@ -135,7 +135,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnNull_When_HrefNotSet_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor5");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor5");
 
             Assert.IsNull(anchorElement.Href);
         }
@@ -144,7 +144,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnAutomateThePlanetUrl_When_Href_Safari()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
 
             Assert.AreEqual("https://automatetheplanet.com/", anchorElement.Href);
         }

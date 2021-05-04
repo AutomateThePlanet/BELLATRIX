@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void ValidateChecked_DoesNotThrowException_Checkbox_When_Checked()
         {
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
 
             checkBoxElement.Check();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void ValidateNotChecked_DoesNotThrowException_Checkbox_When_Unchecked()
         {
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
 
             checkBoxElement.Uncheck();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void ValidateStyleIs_DoesNotThrowException_Checkbox_When_StyleIsExact()
         {
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox1");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox1");
 
             checkBoxElement.Hover();
 
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void ValidateIsNotDisabled_DoesNotThrowException_Checkbox_When_DisabledAttributeNotPresent()
         {
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
 
             checkBoxElement.ValidateIsNotDisabled();
         }
@@ -74,7 +74,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void ValidateIsDisabled_DoesNotThrowException_Checkbox_When_DisabledAttributePresent()
         {
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox3");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox3");
 
             checkBoxElement.ValidateIsDisabled();
         }
@@ -84,7 +84,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void ValidateIsDisabled_DoesNotThrowException_Checkbox_When_ValueAttributeNotPresent()
         {
-            var checkBoxElement = App.ElementCreateService.CreateById<CheckBox>("myCheckbox1");
+            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox1");
 
             checkBoxElement.ValidateValueIs("on");
         }

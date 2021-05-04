@@ -18,8 +18,8 @@ namespace Bellatrix.Desktop
 {
    public class Menu : Component
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
 
         public virtual void Hover()
         {

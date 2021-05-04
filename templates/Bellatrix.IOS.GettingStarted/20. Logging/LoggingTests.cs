@@ -17,7 +17,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             // 1. Sometimes is useful to add information to the generated test log.
             // To do it you can use the BELLATRIX built-in logger through accessing it via App service.
             Logger.LogInformation("$$$ Before clicking the button $$$");
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
 

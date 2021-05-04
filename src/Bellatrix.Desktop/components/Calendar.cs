@@ -18,10 +18,10 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class Calendar : Component, IElementDisabled
+    public class Calendar : Component, IComponentDisabled
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public virtual bool IsDisabled => GetIsDisabled();

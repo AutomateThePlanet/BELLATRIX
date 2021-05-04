@@ -30,8 +30,8 @@ namespace Bellatrix.Web.Tests
 
         public override void TestsArrange()
         {
-            _sortDropDown = App.ElementCreateService.CreateByXpath<Select>("//*[@id='main']/div[1]/form/select");
-            _protonRocketAnchor = App.ElementCreateService.CreateByXpath<Anchor>("//*[@id='main']/div[2]/ul/li[1]/a[1]");
+            _sortDropDown = App.ComponentCreateService.CreateByXpath<Select>("//*[@id='main']/div[1]/form/select");
+            _protonRocketAnchor = App.ComponentCreateService.CreateByXpath<Anchor>("//*[@id='main']/div[2]/ul/li[1]/a[1]");
         }
 
         public override void TestsAct()

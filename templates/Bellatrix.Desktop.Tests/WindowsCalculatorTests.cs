@@ -14,10 +14,10 @@ namespace Bellatrix.Desktop.Tests
         [Test]
         public void Addition()
         {
-            App.ElementCreateService.CreateByName<Button>("Five").Click();
-            App.ElementCreateService.CreateByName<Button>("Plus").Click();
-            App.ElementCreateService.CreateByName<Button>("Seven").Click();
-            App.ElementCreateService.CreateByName<Button>("Equals").Click();
+            App.ComponentCreateService.CreateByName<Button>("Five").Click();
+            App.ComponentCreateService.CreateByName<Button>("Plus").Click();
+            App.ComponentCreateService.CreateByName<Button>("Seven").Click();
+            App.ComponentCreateService.CreateByName<Button>("Equals").Click();
 
             var calculatorResult = GetCalculatorResultText();
             Assert.AreEqual("12", calculatorResult);
@@ -27,12 +27,12 @@ namespace Bellatrix.Desktop.Tests
         [Test]
         public void Division()
         {
-            App.ElementCreateService.CreateByAccessibilityId<Button>("num8Button").Click();
-            App.ElementCreateService.CreateByAccessibilityId<Button>("num8Button").Click();
-            App.ElementCreateService.CreateByAccessibilityId<Button>("divideButton").Click();
-            App.ElementCreateService.CreateByAccessibilityId<Button>("num1Button").Click();
-            App.ElementCreateService.CreateByAccessibilityId<Button>("num1Button").Click();
-            App.ElementCreateService.CreateByAccessibilityId<Button>("equalButton").Click();
+            App.ComponentCreateService.CreateByAccessibilityId<Button>("num8Button").Click();
+            App.ComponentCreateService.CreateByAccessibilityId<Button>("num8Button").Click();
+            App.ComponentCreateService.CreateByAccessibilityId<Button>("divideButton").Click();
+            App.ComponentCreateService.CreateByAccessibilityId<Button>("num1Button").Click();
+            App.ComponentCreateService.CreateByAccessibilityId<Button>("num1Button").Click();
+            App.ComponentCreateService.CreateByAccessibilityId<Button>("equalButton").Click();
 
             Assert.AreEqual("8", GetCalculatorResultText());
         }
@@ -41,10 +41,10 @@ namespace Bellatrix.Desktop.Tests
         [Test]
         public void Multiplication()
         {
-            App.ElementCreateService.CreateByXPath<Button>("//Button[@Name='Nine']").Click();
-            App.ElementCreateService.CreateByXPath<Button>("//Button[@Name='Multiply by']").Click();
-            App.ElementCreateService.CreateByXPath<Button>("//Button[@Name='Nine']").Click();
-            App.ElementCreateService.CreateByXPath<Button>("//Button[@Name='Equals']").Click();
+            App.ComponentCreateService.CreateByXPath<Button>("//Button[@Name='Nine']").Click();
+            App.ComponentCreateService.CreateByXPath<Button>("//Button[@Name='Multiply by']").Click();
+            App.ComponentCreateService.CreateByXPath<Button>("//Button[@Name='Nine']").Click();
+            App.ComponentCreateService.CreateByXPath<Button>("//Button[@Name='Equals']").Click();
 
             Assert.AreEqual("81", GetCalculatorResultText());
         }
@@ -53,17 +53,17 @@ namespace Bellatrix.Desktop.Tests
         [Test]
         public void Subtraction()
         {
-            App.ElementCreateService.CreateByXPath<Button>("//Button[@AutomationId='num9Button']").Click();
-            App.ElementCreateService.CreateByXPath<Button>("//Button[@AutomationId='minusButton']").Click();
-            App.ElementCreateService.CreateByXPath<Button>("//Button[@AutomationId='num1Button']").Click();
-            App.ElementCreateService.CreateByXPath<Button>("//Button[@AutomationId='equalButton']").Click();
+            App.ComponentCreateService.CreateByXPath<Button>("//Button[@AutomationId='num9Button']").Click();
+            App.ComponentCreateService.CreateByXPath<Button>("//Button[@AutomationId='minusButton']").Click();
+            App.ComponentCreateService.CreateByXPath<Button>("//Button[@AutomationId='num1Button']").Click();
+            App.ComponentCreateService.CreateByXPath<Button>("//Button[@AutomationId='equalButton']").Click();
 
             Assert.AreEqual("8", GetCalculatorResultText());
         }
 
         private string GetCalculatorResultText()
         {
-            return App.ElementCreateService.CreateByAccessibilityId<TextField>("CalculatorResults").InnerText.Replace("Display is", string.Empty).Trim();
+            return App.ComponentCreateService.CreateByAccessibilityId<TextField>("CalculatorResults").InnerText.Replace("Display is", string.Empty).Trim();
         }
     }
 }

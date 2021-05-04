@@ -46,7 +46,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/welcome/");
 
-            var protonRocketAddToCartBtn = App.ElementCreateService.CreateAllByInnerTextContaining<Anchor>("Add to cart").First();
+            var protonRocketAddToCartBtn = App.ComponentCreateService.CreateAllByInnerTextContaining<Anchor>("Add to cart").First();
             protonRocketAddToCartBtn.Click();
 
             // 4. Delete all cookies.
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/welcome/");
 
-            var protonRocketAddToCartBtn = App.ElementCreateService.CreateAllByInnerTextContaining<Anchor>("Add to cart").First();
+            var protonRocketAddToCartBtn = App.ComponentCreateService.CreateAllByInnerTextContaining<Anchor>("Add to cart").First();
             protonRocketAddToCartBtn.Click();
 
             // 5. Delete a specific cookie by name.

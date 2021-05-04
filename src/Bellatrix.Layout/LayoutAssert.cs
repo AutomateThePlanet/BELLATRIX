@@ -19,144 +19,144 @@ namespace Bellatrix.Layout
 {
     public static class LayoutAssert
     {
-        public static event EventHandler<LayoutElementsActionEventArgs> AssertedAlignedHorizontallyAllEvent;
-        public static event EventHandler<LayoutElementsActionEventArgs> AssertedAlignedHorizontallyTopEvent;
-        public static event EventHandler<LayoutElementsActionEventArgs> AssertedAlignedHorizontallyBottomEvent;
-        public static event EventHandler<LayoutElementsActionEventArgs> AssertedAlignedHorizontallyCenteredEvent;
-        public static event EventHandler<LayoutElementsActionEventArgs> AssertedAlignedVerticallyAllEvent;
-        public static event EventHandler<LayoutElementsActionEventArgs> AssertedAlignedVerticallyLeftEvent;
-        public static event EventHandler<LayoutElementsActionEventArgs> AssertedAlignedVerticallyRightEvent;
-        public static event EventHandler<LayoutElementsActionEventArgs> AssertedAlignedVerticallyCenteredEvent;
+        public static event EventHandler<LayoutComponentsActionEventArgs> AssertedAlignedHorizontallyAllEvent;
+        public static event EventHandler<LayoutComponentsActionEventArgs> AssertedAlignedHorizontallyTopEvent;
+        public static event EventHandler<LayoutComponentsActionEventArgs> AssertedAlignedHorizontallyBottomEvent;
+        public static event EventHandler<LayoutComponentsActionEventArgs> AssertedAlignedHorizontallyCenteredEvent;
+        public static event EventHandler<LayoutComponentsActionEventArgs> AssertedAlignedVerticallyAllEvent;
+        public static event EventHandler<LayoutComponentsActionEventArgs> AssertedAlignedVerticallyLeftEvent;
+        public static event EventHandler<LayoutComponentsActionEventArgs> AssertedAlignedVerticallyRightEvent;
+        public static event EventHandler<LayoutComponentsActionEventArgs> AssertedAlignedVerticallyCenteredEvent;
 
-        public static void AssertAlignedVerticallyAll(params ILayoutElement[] layoutElements)
+        public static void AssertAlignedVerticallyAll(params ILayoutComponent[] layoutComponents)
         {
-            ValidateLayoutElementsCount(layoutElements);
+            ValidateLayoutComponentsCount(layoutComponents);
 
-            var baseLineLeftY = layoutElements.First().Location.X;
-            var baseLineRightY = layoutElements.First().Location.X + layoutElements.First().Size.Width;
+            var baseLineLeftY = layoutComponents.First().Location.X;
+            var baseLineRightY = layoutComponents.First().Location.X + layoutComponents.First().Size.Width;
 
-            for (int i = 1; i < layoutElements.Length; i++)
+            for (int i = 1; i < layoutComponents.Length; i++)
             {
-                var leftX = layoutElements[i].Location.X;
-                var rightX = layoutElements[i].Location.X + layoutElements[i].Size.Width;
-                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineLeftY, leftX, $"{layoutElements.First().ElementName} should be aligned left vertically {layoutElements[i].ElementName} Y = {baseLineLeftY} px but was {leftX} px.");
-                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineRightY, rightX, $"{layoutElements.First().ElementName} should be aligned right vertically {layoutElements[i].ElementName} Y = {baseLineRightY} px but was {rightX} px.");
+                var leftX = layoutComponents[i].Location.X;
+                var rightX = layoutComponents[i].Location.X + layoutComponents[i].Size.Width;
+                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineLeftY, leftX, $"{layoutComponents.First().ComponentName} should be aligned left vertically {layoutComponents[i].ComponentName} Y = {baseLineLeftY} px but was {leftX} px.");
+                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineRightY, rightX, $"{layoutComponents.First().ComponentName} should be aligned right vertically {layoutComponents[i].ComponentName} Y = {baseLineRightY} px but was {rightX} px.");
             }
 
-            AssertedAlignedVerticallyAllEvent?.Invoke(layoutElements, new LayoutElementsActionEventArgs(layoutElements));
+            AssertedAlignedVerticallyAllEvent?.Invoke(layoutComponents, new LayoutComponentsActionEventArgs(layoutComponents));
         }
 
-        public static void AssertAlignedVerticallyCentered(params ILayoutElement[] layoutElements)
+        public static void AssertAlignedVerticallyCentered(params ILayoutComponent[] layoutComponents)
         {
-            ValidateLayoutElementsCount(layoutElements);
+            ValidateLayoutComponentsCount(layoutComponents);
 
-            var baseLineRightY = layoutElements.First().Location.X + layoutElements.First().Size.Width / 2;
+            var baseLineRightY = layoutComponents.First().Location.X + layoutComponents.First().Size.Width / 2;
 
-            for (int i = 1; i < layoutElements.Length; i++)
+            for (int i = 1; i < layoutComponents.Length; i++)
             {
-                var rightX = layoutElements[i].Location.X + layoutElements[i].Size.Width / 2;
-                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineRightY, rightX, $"{layoutElements.First().ElementName} should be aligned centered vertically {layoutElements[i].ElementName} Y = {baseLineRightY} px but was {rightX} px.");
+                var rightX = layoutComponents[i].Location.X + layoutComponents[i].Size.Width / 2;
+                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineRightY, rightX, $"{layoutComponents.First().ComponentName} should be aligned centered vertically {layoutComponents[i].ComponentName} Y = {baseLineRightY} px but was {rightX} px.");
             }
 
-            AssertedAlignedVerticallyCenteredEvent?.Invoke(layoutElements, new LayoutElementsActionEventArgs(layoutElements));
+            AssertedAlignedVerticallyCenteredEvent?.Invoke(layoutComponents, new LayoutComponentsActionEventArgs(layoutComponents));
         }
 
-        public static void AssertAlignedVerticallyRight(params ILayoutElement[] layoutElements)
+        public static void AssertAlignedVerticallyRight(params ILayoutComponent[] layoutComponents)
         {
-            ValidateLayoutElementsCount(layoutElements);
+            ValidateLayoutComponentsCount(layoutComponents);
 
-            var baseLineRightY = layoutElements.First().Location.X + layoutElements.First().Size.Width;
+            var baseLineRightY = layoutComponents.First().Location.X + layoutComponents.First().Size.Width;
 
-            for (int i = 1; i < layoutElements.Length; i++)
+            for (int i = 1; i < layoutComponents.Length; i++)
             {
-                var rightX = layoutElements[i].Location.X + layoutElements[i].Size.Width;
-                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineRightY, rightX, $"{layoutElements.First().ElementName} should be aligned right vertically {layoutElements[i].ElementName} Y = {baseLineRightY} px but was {rightX} px.");
+                var rightX = layoutComponents[i].Location.X + layoutComponents[i].Size.Width;
+                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineRightY, rightX, $"{layoutComponents.First().ComponentName} should be aligned right vertically {layoutComponents[i].ComponentName} Y = {baseLineRightY} px but was {rightX} px.");
             }
 
-            AssertedAlignedVerticallyRightEvent?.Invoke(layoutElements, new LayoutElementsActionEventArgs(layoutElements));
+            AssertedAlignedVerticallyRightEvent?.Invoke(layoutComponents, new LayoutComponentsActionEventArgs(layoutComponents));
         }
 
-        public static void AssertAlignedVerticallyLeft(params ILayoutElement[] layoutElements)
+        public static void AssertAlignedVerticallyLeft(params ILayoutComponent[] layoutComponents)
         {
-            ValidateLayoutElementsCount(layoutElements);
+            ValidateLayoutComponentsCount(layoutComponents);
 
-            var baseLineLeftY = layoutElements.First().Location.X;
+            var baseLineLeftY = layoutComponents.First().Location.X;
 
-            for (int i = 1; i < layoutElements.Length; i++)
+            for (int i = 1; i < layoutComponents.Length; i++)
             {
-                var leftX = layoutElements[i].Location.X;
-                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineLeftY, leftX, $"{layoutElements.First().ElementName} should be aligned left vertically {layoutElements[i].ElementName} Y = {baseLineLeftY} px but was {leftX} px.");
+                var leftX = layoutComponents[i].Location.X;
+                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineLeftY, leftX, $"{layoutComponents.First().ComponentName} should be aligned left vertically {layoutComponents[i].ComponentName} Y = {baseLineLeftY} px but was {leftX} px.");
             }
 
-            AssertedAlignedVerticallyLeftEvent?.Invoke(layoutElements, new LayoutElementsActionEventArgs(layoutElements));
+            AssertedAlignedVerticallyLeftEvent?.Invoke(layoutComponents, new LayoutComponentsActionEventArgs(layoutComponents));
         }
 
-        public static void AssertAlignedHorizontallyAll(params ILayoutElement[] layoutElements)
+        public static void AssertAlignedHorizontallyAll(params ILayoutComponent[] layoutComponents)
         {
-            ValidateLayoutElementsCount(layoutElements);
+            ValidateLayoutComponentsCount(layoutComponents);
 
-            var baseLineTopY = layoutElements.First().Location.Y;
-            var baseLineBottomY = layoutElements.First().Location.Y + layoutElements.First().Size.Height;
+            var baseLineTopY = layoutComponents.First().Location.Y;
+            var baseLineBottomY = layoutComponents.First().Location.Y + layoutComponents.First().Size.Height;
 
-            for (int i = 1; i < layoutElements.Length; i++)
+            for (int i = 1; i < layoutComponents.Length; i++)
             {
-                var topY = layoutElements[i].Location.Y;
-                var bottomY = layoutElements[i].Location.Y + layoutElements[i].Size.Height;
-                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineTopY, topY, $"{layoutElements.First().ElementName} should be aligned top horizontally {layoutElements[i].ElementName} Y = {baseLineTopY} px but was {topY} px.");
-                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineBottomY, bottomY, $"{layoutElements.First().ElementName} should be aligned bottom horizontally {layoutElements[i].ElementName} Y = {baseLineBottomY} px but was {bottomY} px.");
+                var topY = layoutComponents[i].Location.Y;
+                var bottomY = layoutComponents[i].Location.Y + layoutComponents[i].Size.Height;
+                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineTopY, topY, $"{layoutComponents.First().ComponentName} should be aligned top horizontally {layoutComponents[i].ComponentName} Y = {baseLineTopY} px but was {topY} px.");
+                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineBottomY, bottomY, $"{layoutComponents.First().ComponentName} should be aligned bottom horizontally {layoutComponents[i].ComponentName} Y = {baseLineBottomY} px but was {bottomY} px.");
             }
 
-            AssertedAlignedHorizontallyAllEvent?.Invoke(layoutElements, new LayoutElementsActionEventArgs(layoutElements));
+            AssertedAlignedHorizontallyAllEvent?.Invoke(layoutComponents, new LayoutComponentsActionEventArgs(layoutComponents));
         }
 
-        public static void AssertAlignedHorizontallyCentered(params ILayoutElement[] layoutElements)
+        public static void AssertAlignedHorizontallyCentered(params ILayoutComponent[] layoutComponents)
         {
-            ValidateLayoutElementsCount(layoutElements);
+            ValidateLayoutComponentsCount(layoutComponents);
 
-            var baseLineTopY = layoutElements.First().Location.Y + layoutElements.First().Size.Height / 2;
+            var baseLineTopY = layoutComponents.First().Location.Y + layoutComponents.First().Size.Height / 2;
 
-            for (int i = 1; i < layoutElements.Length; i++)
+            for (int i = 1; i < layoutComponents.Length; i++)
             {
-                var centeredY = layoutElements[i].Location.Y + layoutElements[i].Size.Height / 2;
-                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineTopY, centeredY, $"{layoutElements.First().ElementName} should be aligned centered horizontally {layoutElements[i].ElementName} Y = {baseLineTopY} px but was {centeredY} px.");
+                var centeredY = layoutComponents[i].Location.Y + layoutComponents[i].Size.Height / 2;
+                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineTopY, centeredY, $"{layoutComponents.First().ComponentName} should be aligned centered horizontally {layoutComponents[i].ComponentName} Y = {baseLineTopY} px but was {centeredY} px.");
             }
 
-            AssertedAlignedHorizontallyCenteredEvent?.Invoke(layoutElements, new LayoutElementsActionEventArgs(layoutElements));
+            AssertedAlignedHorizontallyCenteredEvent?.Invoke(layoutComponents, new LayoutComponentsActionEventArgs(layoutComponents));
         }
 
-        public static void AssertAlignedHorizontallyTop(params ILayoutElement[] layoutElements)
+        public static void AssertAlignedHorizontallyTop(params ILayoutComponent[] layoutComponents)
         {
-            ValidateLayoutElementsCount(layoutElements);
+            ValidateLayoutComponentsCount(layoutComponents);
 
-            var baseLineTopY = layoutElements.First().Location.Y;
+            var baseLineTopY = layoutComponents.First().Location.Y;
 
-            for (int i = 1; i < layoutElements.Length; i++)
+            for (int i = 1; i < layoutComponents.Length; i++)
             {
-                var topY = layoutElements[i].Location.Y;
-                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineTopY, topY, $"{layoutElements.First().ElementName} should be aligned top horizontally {layoutElements[i].ElementName} Y = {baseLineTopY} px but was {topY} px.");
+                var topY = layoutComponents[i].Location.Y;
+                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineTopY, topY, $"{layoutComponents.First().ComponentName} should be aligned top horizontally {layoutComponents[i].ComponentName} Y = {baseLineTopY} px but was {topY} px.");
             }
 
-            AssertedAlignedHorizontallyTopEvent?.Invoke(layoutElements, new LayoutElementsActionEventArgs(layoutElements));
+            AssertedAlignedHorizontallyTopEvent?.Invoke(layoutComponents, new LayoutComponentsActionEventArgs(layoutComponents));
         }
 
-        public static void AssertAlignedHorizontallyBottom(params ILayoutElement[] layoutElements)
+        public static void AssertAlignedHorizontallyBottom(params ILayoutComponent[] layoutComponents)
         {
-            ValidateLayoutElementsCount(layoutElements);
+            ValidateLayoutComponentsCount(layoutComponents);
 
-            var baseLineBottomY = layoutElements.First().Location.Y + layoutElements.First().Size.Height;
+            var baseLineBottomY = layoutComponents.First().Location.Y + layoutComponents.First().Size.Height;
 
-            for (int i = 1; i < layoutElements.Length; i++)
+            for (int i = 1; i < layoutComponents.Length; i++)
             {
-                var bottomY = layoutElements[i].Location.Y + layoutElements[i].Size.Height;
-                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineBottomY, bottomY, $"{layoutElements.First().ElementName} should be aligned bottom horizontally {layoutElements[i].ElementName} Y = {baseLineBottomY} px but was {bottomY} px.");
+                var bottomY = layoutComponents[i].Location.Y + layoutComponents[i].Size.Height;
+                BA.Assert.AreEqual<LayoutAssertFailedException, double>(baseLineBottomY, bottomY, $"{layoutComponents.First().ComponentName} should be aligned bottom horizontally {layoutComponents[i].ComponentName} Y = {baseLineBottomY} px but was {bottomY} px.");
             }
 
-            AssertedAlignedHorizontallyBottomEvent?.Invoke(layoutElements, new LayoutElementsActionEventArgs(layoutElements));
+            AssertedAlignedHorizontallyBottomEvent?.Invoke(layoutComponents, new LayoutComponentsActionEventArgs(layoutComponents));
         }
 
-        private static void ValidateLayoutElementsCount(params ILayoutElement[] layoutElements)
+        private static void ValidateLayoutComponentsCount(params ILayoutComponent[] layoutComponents)
         {
-            if (layoutElements.Length <= 1)
+            if (layoutComponents.Length <= 1)
             {
                 throw new ArgumentException("You need to pass at least two elements.");
             }

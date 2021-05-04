@@ -18,8 +18,8 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class DynamicTestCasesCheckboxEventHandlers : CheckboxEventHandlers
     {
-        protected override void CheckingEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Check {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Check {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 
-        protected override void UncheckingEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Uncheck {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Uncheck {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
     }
 }

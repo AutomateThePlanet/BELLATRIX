@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextField.SettingText += SettingTextCalled;
 
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText");
             bool setTextCalled = false;
 
             textFieldElement.SetText("bellatrix@solutions.com");
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             TextField.SettingText -= SettingTextCalled;
 
-            void SettingTextCalled(object sender, ElementActionEventArgs args)
+            void SettingTextCalled(object sender, ComponentActionEventArgs args)
             {
                 setTextCalled = true;
             }
@@ -53,13 +53,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextField.TextSet += AssertValueAttributeContainsNewValue;
 
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText");
 
             textFieldElement.SetText("bellatrix@solutions.com");
 
             TextField.TextSet -= AssertValueAttributeContainsNewValue;
 
-            void AssertValueAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("bellatrix@solutions.com", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -72,7 +72,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextField.Hovering += AssertStyleAttributeEmpty;
 
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText8");
+            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText8");
 
             textFieldElement.Hover();
 
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             TextField.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -93,15 +93,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextField.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText8");
+            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText8");
 
             textFieldElement.Hover();
 
             TextField.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<TextField>("myText8").ValidateStyleIs("color: red;");
+                App.ComponentCreateService.CreateById<TextField>("myText8").ValidateStyleIs("color: red;");
             }
         }
 
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextField.Focusing += AssertStyleAttributeEmpty;
 
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText9");
+            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText9");
 
             textFieldElement.Focus();
 
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             TextField.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -133,13 +133,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextField.Focused += AssertStyleAttributeContainsNewValue;
 
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText9");
+            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText9");
 
             textFieldElement.Focus();
 
             TextField.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

@@ -16,10 +16,10 @@ namespace Bellatrix.Web.GettingStarted
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/my-account/");
 
             // 2. Execute a JavaScript code on the page. Here we find an element with id = 'firstName' and sets its value to 'Bellatrix'.
-            App.JavaScriptService.Execute("document.getElementById('username').value = 'Bellatrix';");
+            App.JavaScriptService.Execute("document.geTComponentById('username').value = 'Bellatrix';");
 
-            App.ElementCreateService.CreateById<Password>("password").SetPassword("Gorgeous");
-            var button = App.ElementCreateService.CreateByClassContaining<Button>("woocommerce-Button button");
+            App.ComponentCreateService.CreateById<Password>("password").SetPassword("Gorgeous");
+            var button = App.ComponentCreateService.CreateByClassContaining<Button>("woocommerce-Button button");
 
             // 3. It is possible to pass an element, and the script executes on it.
             App.JavaScriptService.Execute("arguments[0].click();", button);
@@ -27,11 +27,11 @@ namespace Bellatrix.Web.GettingStarted
 
         [TestMethod]
         [Ignore]
-        public void GetElementStyle()
+        public void GeTComponentStyle()
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            var resultsCount = App.ElementCreateService.CreateByClassContaining<Component>("woocommerce-result-count");
+            var resultsCount = App.ComponentCreateService.CreateByClassContaining<Component>("woocommerce-result-count");
 
             // 4. Get the results from a script. After that, get the value for a specific style and assert it.
             string fontSize = App.JavaScriptService.Execute("return arguments[0].style.font-size", resultsCount.WrappedElement);

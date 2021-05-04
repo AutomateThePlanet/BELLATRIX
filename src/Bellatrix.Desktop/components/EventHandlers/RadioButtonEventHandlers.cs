@@ -15,7 +15,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
-    public class RadioButtonEventHandlers : ElementEventHandlers
+    public class RadioButtonEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {

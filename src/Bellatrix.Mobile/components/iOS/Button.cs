@@ -19,22 +19,22 @@ using Bellatrix.Mobile.Events;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class Button : Element, IElementDisabled, IElementText
+    public class Button : IOSComponent, IComponentDisabled, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>> Clicking;
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>> Clicked;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>> Clicking;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>> Clicked;
 
-        public void Click()
+        public virtual void Click()
         {
             Click(Clicking, Clicked);
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             return GetText();
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

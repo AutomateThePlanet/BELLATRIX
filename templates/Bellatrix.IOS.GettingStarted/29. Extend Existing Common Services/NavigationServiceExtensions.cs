@@ -13,7 +13,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted.CommonServicesExtensions
         // Later to use the method in your tests, add a using statement containing this class's namespace.
         public static void LoginToApp(this IOSAppService appService, string userName, string password)
         {
-            var elementCreateService = new ElementCreateService();
+            var elementCreateService = new ComponentCreateService();
             var userNameField = elementCreateService.CreateById<TextField>("IntegerA");
             var passwordField = elementCreateService.CreateById<Password>("IntegerB");
             var loginButton = elementCreateService.CreateById<Button>("ComputeSumButton");

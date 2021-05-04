@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ImageHovered_Wpf()
         {
-            var image = App.ElementCreateService.CreateByAutomationId<Image>("image");
+            var image = App.ComponentCreateService.CreateByAutomationId<Image>("image");
 
             image.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("imageHovered", label.InnerText);
         }
     }

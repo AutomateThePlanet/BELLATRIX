@@ -15,7 +15,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
-    public class ImageEventHandlers : ElementEventHandlers
+    public class ImageEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {

@@ -18,7 +18,7 @@ namespace Bellatrix.Layout
 {
     public static partial class AssertionsExtensions
     {
-        public static void AssertInsideOf(this ILayoutElement innerElement, ILayoutElement outerElement, double left, double right, double top, double bottom)
+        public static void AssertInsideOf(this ILayoutComponent innerElement, ILayoutComponent outerElement, double left, double right, double top, double bottom)
         {
             AssertLeftInsideOf(innerElement, outerElement, left);
             AssertRightInsideOf(innerElement, outerElement, right);
@@ -26,7 +26,7 @@ namespace Bellatrix.Layout
             AssertBottomInsideOf(innerElement, outerElement, bottom);
         }
 
-        public static void AssertInsideOf(this ILayoutElement innerElement, ILayoutElement outerElement)
+        public static void AssertInsideOf(this ILayoutComponent innerElement, ILayoutComponent outerElement)
         {
             Console.WriteLine("Coordinates:");
             Console.WriteLine(innerElement.Location);

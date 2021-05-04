@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateWeekIs_DoesNotThrowException_When_UseSetWeekMethod()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             weekElement.SetWeek(2017, 7);
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             weekElement.ValidateAutoCompleteOff();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek3");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek3");
 
             Assert.IsTrue(weekElement.IsAutoComplete);
             weekElement.ValidateAutoCompleteOn();
@@ -61,7 +61,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek4");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek4");
 
             weekElement.ValidateIsNotReadonly();
         }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek5");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek5");
 
             weekElement.ValidateIsReadonly();
         }
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxTextIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             weekElement.ValidateMaxTextIsNull();
         }
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinTextIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             weekElement.ValidateMinTextIsNull();
         }
@@ -101,7 +101,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             weekElement.ValidateStepIsNull();
         }
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxTextIs_DoesNotThrowException_When_MaxAttributeIsPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek1");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek1");
 
             weekElement.ValidateMaxTextIs("2017-W52");
         }
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinTextIs_DoesNotThrowException_When_MinAttributeIsPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek1");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek1");
 
             weekElement.ValidateMinTextIs("2017-W01");
         }
@@ -131,7 +131,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek1");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek1");
 
             weekElement.ValidateStepIs(10);
         }
@@ -141,7 +141,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek4");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek4");
 
             weekElement.ValidateIsNotRequired();
         }
@@ -151,7 +151,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek6");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek6");
 
             weekElement.ValidateIsRequired();
         }
@@ -161,7 +161,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek7");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek7");
 
             weekElement.Hover();
 
@@ -173,7 +173,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
 
             weekElement.ValidateIsNotDisabled();
         }
@@ -183,7 +183,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek9");
+            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek9");
 
             weekElement.ValidateIsDisabled();
         }

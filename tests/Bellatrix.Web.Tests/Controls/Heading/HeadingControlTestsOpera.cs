@@ -26,7 +26,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnRed_When_Hover_Opera()
         {
-            var headingElement = App.ElementCreateService.CreateById<Heading>("myHeading");
+            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading");
 
             headingElement.Hover();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnAutomateThePlanet_When_InnerText_Opera()
         {
-            var headingElement = App.ElementCreateService.CreateById<Heading>("myHeading2");
+            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading2");
 
             Assert.AreEqual("Automate The Planet", headingElement.InnerText);
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnEmpty_When_InnerTextNotSet_Opera()
         {
-            var headingElement = App.ElementCreateService.CreateById<Heading>("myHeading4");
+            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading4");
 
             Assert.AreEqual(string.Empty, headingElement.InnerText);
         }

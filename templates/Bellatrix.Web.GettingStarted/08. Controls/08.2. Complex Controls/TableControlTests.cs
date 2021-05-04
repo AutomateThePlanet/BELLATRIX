@@ -21,7 +21,7 @@ namespace Bellatrix.Web.GettingStarted
         // BELLATRIX gives you API for easing the work with HTML tables.
         // Through the SetColumn you map the headers of the table if for some reason you don't want some column, just don't add it.
         // The method returns a list of all rows' data as C# data mapped to the map you provided.
-        private Table Table => App.ElementCreateService.CreateById<Table>("table1")
+        private Table Table => App.ComponentCreateService.CreateById<Table>("table1")
             .SetColumn("Last Name")
             .SetColumn("First Name")
             .SetColumn("Email")

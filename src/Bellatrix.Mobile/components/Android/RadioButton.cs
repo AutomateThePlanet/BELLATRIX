@@ -19,10 +19,10 @@ using Bellatrix.Mobile.Events;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class RadioButton : Element, IElementDisabled, IElementChecked, IElementText
+    public class RadioButton : AndroidComponent, IComponentDisabled, IComponentChecked, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicking;
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicked;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicking;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicked;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public virtual bool IsDisabled => GetIsDisabled();

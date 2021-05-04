@@ -22,17 +22,17 @@ namespace Bellatrix.Web
             where T : Component
         {
             WaitUntil(() => control.GetLang() == null, $"The control's lang should be null but was '{control.GetLang()}'.", timeout, sleepInterval);
-            ValidatedLangIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedLangIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateLangIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
             where T : Component
         {
             WaitUntil(() => control.GetLang().Equals(value), $"The control's lang should be '{value}' but was '{control.GetLang()}'.", timeout, sleepInterval);
-            ValidatedLangIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedLangIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedLangIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedLangIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedLangIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedLangIsEvent;
     }
 }

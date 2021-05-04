@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSrcReturnsCorrectImage_When_DefaultSrcIsSet_Edge()
         {
-            var imageElement = App.ElementCreateService.CreateById<Image>("myImage");
+            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
 
             Assert.AreEqual("https://bellatrix.solutions/assets/uploads/2017/09/logo.png", imageElement.Src);
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSrc_When_SrcAttributeIsSet_Edge()
         {
-            var imageElement = App.ElementCreateService.CreateById<Image>("myImage");
+            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
 
             Assert.AreEqual("https://bellatrix.solutions/assets/uploads/2017/09/logo.png", imageElement.Src);
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetHeight_When_HeightAttributeIsSet_Edge()
         {
-            var imageElement = App.ElementCreateService.CreateById<Image>("myImage3");
+            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage3");
 
             Assert.IsNotNull(imageElement.Height);
         }
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetWidth_When_WidthAttributeIsSet_Edge()
         {
-            var imageElement = App.ElementCreateService.CreateById<Image>("myImage3");
+            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage3");
 
             Assert.IsNotNull(imageElement.Width);
         }
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetHeight_When_HeightAttributeIsNotPresent_Edge()
         {
-            var imageElement = App.ElementCreateService.CreateById<Image>("myImage");
+            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
 
             Assert.IsNotNull(imageElement.Height);
         }
@@ -78,7 +78,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetWidth_When_WidthAttributeIsNotPresent_Edge()
         {
-            var imageElement = App.ElementCreateService.CreateById<Image>("myImage");
+            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
 
             Assert.IsNotNull(imageElement.Width);
         }
@@ -88,7 +88,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetAlt_When_AltAttributePresent_Edge()
         {
-            var imageElement = App.ElementCreateService.CreateById<Image>("myImage");
+            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
 
             Assert.AreEqual("MDN", imageElement.Alt);
         }
@@ -98,7 +98,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSrcSet_When_SrcSetAttributePresent_Edge()
         {
-            var imageElement = App.ElementCreateService.CreateById<Image>("myImage1");
+            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage1");
 
             Assert.AreEqual("mdn-logo-HD.png 2x", imageElement.SrcSet);
         }
@@ -108,7 +108,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSizes_When_SizesAttributePresent_Edge()
         {
-            var imageElement = App.ElementCreateService.CreateById<Image>("myImage2");
+            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage2");
 
             Assert.AreEqual("(min-width: 600px) 200px, 50vw", imageElement.Sizes);
         }
@@ -118,7 +118,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SetClassToHovered_When_Hover_Edge()
         {
-            var imageElement = App.ElementCreateService.CreateById<Image>("myImage4");
+            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage4");
 
             imageElement.Hover();
 

@@ -20,12 +20,12 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class ToggleButton : Element, IElementDisabled, IElementOn, IElementText
+    public class ToggleButton : IOSComponent, IComponentDisabled, IComponentOn, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> TurningOn;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> TurnedOn;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> TurningOff;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> TurnedOff;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurningOn;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurnedOn;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurningOff;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurnedOff;
 
         public void TurnOn()
         {

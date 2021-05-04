@@ -35,7 +35,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         {
             // Use the element creation service to create an instance of the button. There are much more details about this process in the next sections.
             // There is more about the App class in the next sections. However, it is the primary point where you access the BELLATRIX services.
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }
@@ -52,7 +52,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             Lifecycle.RestartOnFail)]
         public void ReturnsTrue_When_CallButtonIsPresent()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
 
             Assert.IsTrue(button.IsPresent);
         }

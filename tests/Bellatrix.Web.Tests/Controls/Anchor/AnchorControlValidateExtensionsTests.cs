@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_Anchor_When_StyleIsExact()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
 
             anchorElement.Hover();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_Anchor_When_InnerTextIsExact()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
 
             anchorElement.ValidateInnerTextIs("Automate The Planet");
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerHtmlIs_DoesNotThrowException_Anchor_When_InnerHtmlIsExact()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor4");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor4");
 
             anchorElement.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateRelIs_DoesNotThrowException_Anchor_When_RelIsExact()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor5");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor5");
 
             anchorElement.ValidateRelIs("canonical");
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateTargetIs_DoesNotThrowException_Anchor_When_TargetIsExact()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
 
             anchorElement.ValidateTargetIs("_self");
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateHrefIs_DoesNotThrowException_Anchor_When_HrefIsExact()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
 
             anchorElement.ValidateHrefIs("https://automatetheplanet.com/");
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateHrefSet_DoesNotThrowException_Anchor_When_HrefIsSet()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor2");
+            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor2");
 
             anchorElement.ValidateHrefIsSet();
         }

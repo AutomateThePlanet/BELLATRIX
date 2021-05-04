@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateMaxTextIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementMaxText, IElement
+            where T : IComponentMaxText, IComponent
         {
             WaitUntil(() => control.Max == null, $"The control's max should be null but was '{control.Max}'.", timeout, sleepInterval);
-            ValidatedMaxTextIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedMaxTextIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateMaxTextIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementMaxText, IElement
+            where T : IComponentMaxText, IComponent
         {
             WaitUntil(() => control.Max.Equals(value), $"The control's max should be '{value}' but was '{control.Max}'.", timeout, sleepInterval);
-            ValidatedMaxTextIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedMaxTextIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedMaxTextIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedMaxTextIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedMaxTextIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedMaxTextIsEvent;
     }
 }

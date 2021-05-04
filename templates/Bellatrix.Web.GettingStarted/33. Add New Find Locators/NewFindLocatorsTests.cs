@@ -17,7 +17,7 @@ namespace Bellatrix.Web.GettingStarted
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
             // 2. After that, you can use the new locator as it was originally part of Bellatrix.
-            var promotionsLink = App.ElementCreateService.CreateByIdStartingWith<Anchor>("promo");
+            var promotionsLink = App.ComponentCreateService.CreateByIdStartingWith<Anchor>("promo");
 
             promotionsLink.Click();
         }

@@ -20,12 +20,12 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateUrlIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementUrl, IElement
+            where T : IComponentUrl, IComponent
         {
             WaitUntil(() => control.GetUrl().Equals(value), $"The control's URL should be '{value}' but was '{control.GetUrl()}'.", timeout, sleepInterval);
-            ValidatedUrlIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedUrlIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedUrlIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedUrlIsEvent;
     }
 }

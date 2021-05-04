@@ -28,7 +28,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateSearchIs_DoesNotThrowException_When_UseSetSearchMethod_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
 
             searchElement.SetSearch("bellatrix test framework");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
 
             searchElement.ValidateAutoCompleteOff();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch4");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch4");
 
             searchElement.ValidateAutoCompleteOn();
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch4");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch4");
 
             searchElement.ValidateIsNotReadonly();
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch6");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch6");
 
             searchElement.ValidateIsReadonly();
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
 
             searchElement.ValidateMaxLengthIsNull();
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
 
             searchElement.ValidateMinLengthIsNull();
         }
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateSizeIs_DoesNotThrowException_When_SizeAttributeIsNotPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
 
             searchElement.ValidateSizeIs(20);
         }
@@ -110,7 +110,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch2");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch2");
 
             searchElement.ValidateMaxLengthIs(80);
         }
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch2");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch2");
 
             searchElement.ValidateMinLengthIs(10);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch4");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch4");
 
             searchElement.ValidateIsNotRequired();
         }
@@ -140,7 +140,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch7");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch7");
 
             searchElement.ValidateIsRequired();
         }
@@ -150,7 +150,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
 
             searchElement.ValidatePlaceholderIs("your search term goes here");
         }
@@ -160,7 +160,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch1");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch1");
 
             searchElement.ValidatePlaceholderIsNull();
         }
@@ -170,7 +170,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch8");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch8");
 
             searchElement.Hover();
 
@@ -182,7 +182,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch9");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch9");
 
             searchElement.ValidateIsNotDisabled();
         }
@@ -192,7 +192,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent_Edge()
         {
-            var searchElement = App.ElementCreateService.CreateById<Search>("mySearch10");
+            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch10");
 
             searchElement.ValidateIsDisabled();
         }
