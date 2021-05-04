@@ -18,7 +18,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class InputFile : Element, IElementRequired, IElementMultiple, IElementAccept
+    public class InputFile : Component, IElementRequired, IElementMultiple, IElementAccept
     {
         public static event EventHandler<ElementActionEventArgs> Uploading;
         public static event EventHandler<ElementActionEventArgs> Uploaded;

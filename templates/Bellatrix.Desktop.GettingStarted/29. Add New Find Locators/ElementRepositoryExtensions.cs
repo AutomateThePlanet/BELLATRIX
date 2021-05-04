@@ -7,9 +7,9 @@ namespace Bellatrix.Desktop.GettingStarted.ExtensionMethodsLocators
     public static class ElementRepositoryExtensions
     {
         public static TElement CreateByNameStartingWith<TElement>(this ElementCreateService repo, string tag)
-            where TElement : Element => repo.Create<TElement, FindNameStartingWithStrategy>(new FindNameStartingWithStrategy(tag));
+            where TElement : Component => repo.Create<TElement, FindNameStartingWithStrategy>(new FindNameStartingWithStrategy(tag));
 
-        public static ElementsList<TElement> CreateAllByNameStartingWith<TElement>(this ElementCreateService repo, string tag)
-            where TElement : Element => new ElementsList<TElement>(new FindNameStartingWithStrategy(tag), null);
+        public static ComponentsList<TElement> CreateAllByNameStartingWith<TElement>(this ElementCreateService repo, string tag)
+            where TElement : Component => new ComponentsList<TElement>(new FindNameStartingWithStrategy(tag), null);
     }
 }

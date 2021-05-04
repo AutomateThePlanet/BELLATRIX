@@ -18,9 +18,9 @@ using Bellatrix.Web.Contracts;
 
 namespace Bellatrix.Web
 {
-    public class TableHeaderRow : Element, IElementInnerHtml
+    public class TableHeaderRow : Component, IElementInnerHtml
     {
-        public ElementsList<TableCell> HeaderCells => this.CreateAllByTag<TableCell>("th", true);
+        public ComponentsList<TableCell> HeaderCells => this.CreateAllByTag<TableCell>("th", true);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string InnerHtml => GetInnerHtmlAttribute();

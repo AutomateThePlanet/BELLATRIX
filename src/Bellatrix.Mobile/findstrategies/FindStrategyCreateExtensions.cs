@@ -21,7 +21,7 @@ namespace Bellatrix.Mobile.SytaxSugar
     public static class FindStrategyCreateExtensions
     {
         public static TElement Create<TElement, TBy, TDriver, TDriverElement>(this TBy by)
-            where TElement : Element<TDriver, TDriverElement>
+            where TElement : Component<TDriver, TDriverElement>
             where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
@@ -30,8 +30,8 @@ namespace Bellatrix.Mobile.SytaxSugar
             return elementRepository.Create<TElement, TBy, TDriver, TDriverElement>(by);
         }
 
-        public static ElementsList<TElement, TBy, TDriver, TDriverElement> CreateAll<TElement, TBy, TDriver, TDriverElement>(this TBy by)
-            where TElement : Element<TDriver, TDriverElement>
+        public static ComponentsList<TElement, TBy, TDriver, TDriverElement> CreateAll<TElement, TBy, TDriver, TDriverElement>(this TBy by)
+            where TElement : Component<TDriver, TDriverElement>
             where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement

@@ -23,7 +23,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Bellatrix.Web
 {
-    public class Select : Element, IElementDisabled, IElementRequired, IElementReadonly
+    public class Select : Component, IElementDisabled, IElementRequired, IElementReadonly
     {
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;

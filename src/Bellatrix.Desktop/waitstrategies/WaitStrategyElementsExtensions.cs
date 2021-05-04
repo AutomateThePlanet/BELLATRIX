@@ -18,7 +18,7 @@ namespace Bellatrix.Desktop
     public static class WaitStrategyElementsExtensions
     {
         public static TElementType ToExists<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-            where TElementType : Element
+            where TElementType : Component
         {
             var until = new WaitToExistStrategy(timeoutInterval, sleepInterval);
             element.EnsureState(until);
@@ -26,7 +26,7 @@ namespace Bellatrix.Desktop
         }
 
         public static TElementType ToNotExists<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-           where TElementType : Element
+           where TElementType : Component
         {
             var until = new WaitNotExistStrategy(timeoutInterval, sleepInterval);
             element.EnsureState(until);
@@ -34,7 +34,7 @@ namespace Bellatrix.Desktop
         }
 
         public static TElementType ToBeVisible<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-          where TElementType : Element
+          where TElementType : Component
         {
             var until = new WaitToBeVisibleStrategy(timeoutInterval, sleepInterval);
             element.EnsureState(until);
@@ -42,7 +42,7 @@ namespace Bellatrix.Desktop
         }
 
         public static TElementType ToNotBeVisible<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TElementType : Element
+         where TElementType : Component
         {
             var until = new WaitNotBeVisibleStrategy(timeoutInterval, sleepInterval);
             element.EnsureState(until);
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop
         }
 
         public static TElementType ToBeClickable<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TElementType : Element
+         where TElementType : Component
         {
             var until = new WaitToBeClickable(timeoutInterval, sleepInterval);
             element.EnsureState(until);
@@ -58,7 +58,7 @@ namespace Bellatrix.Desktop
         }
 
         public static TElementType ToHasContent<TElementType>(this TElementType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TElementType : Element
+         where TElementType : Component
         {
             var until = new WaitToHaveContentStrategy(timeoutInterval, sleepInterval);
             element.EnsureState(until);

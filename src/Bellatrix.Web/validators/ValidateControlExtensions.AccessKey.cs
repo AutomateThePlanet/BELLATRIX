@@ -19,14 +19,14 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateAccessKeyIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : Element
+            where T : Component
         {
             WaitUntil(() => control.GetAccessKey() == null, $"The control's accesskey should be null but was '{control.GetAccessKey()}'.", timeout, sleepInterval);
             ValidatedAccessKeyIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
         }
 
         public static void ValidateAccessKeyIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : Element
+            where T : Component
         {
             WaitUntil(() => control.GetAccessKey().Equals(value), $"The control's accesskey should be '{value}' but was '{control.GetAccessKey()}'.", timeout, sleepInterval);
             ValidatedAccessKeyIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));

@@ -20,52 +20,52 @@ namespace Bellatrix.Mobile.IOS
 {
    public static class ElementCreateExtensions
     {
-        public static TElement CreateByTag<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string tag)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindTagNameStrategy>(new FindTagNameStrategy(tag));
+        public static TElement CreateByTag<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string tag)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindTagNameStrategy>(new FindTagNameStrategy(tag));
 
-        public static TElement CreateById<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string id)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindStrategyId>(new FindStrategyId(id));
+        public static TElement CreateById<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string id)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindStrategyId>(new FindStrategyId(id));
 
-        public static TElement CreateByAccessibilityId<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string accessibilityId)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindAccessibilityIdStrategy>(new FindAccessibilityIdStrategy(accessibilityId));
+        public static TElement CreateByAccessibilityId<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string accessibilityId)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindAccessibilityIdStrategy>(new FindAccessibilityIdStrategy(accessibilityId));
 
-        public static TElement CreateByName<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string name)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindNameStrategy>(new FindNameStrategy(name));
+        public static TElement CreateByName<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string name)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindNameStrategy>(new FindNameStrategy(name));
 
-        public static TElement CreateByClass<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string elementClass)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindClassNameStrategy>(new FindClassNameStrategy(elementClass));
+        public static TElement CreateByClass<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string elementClass)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindClassNameStrategy>(new FindClassNameStrategy(elementClass));
 
-        public static TElement CreateByIOSUIAutomation<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string automationId)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindIOSUIAutomationStrategy>(new FindIOSUIAutomationStrategy(automationId));
+        public static TElement CreateByIOSUIAutomation<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string automationId)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindIOSUIAutomationStrategy>(new FindIOSUIAutomationStrategy(automationId));
 
-        public static TElement CreateByXPath<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string xpath)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindXPathStrategy>(new FindXPathStrategy(xpath));
+        public static TElement CreateByXPath<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string xpath)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindXPathStrategy>(new FindXPathStrategy(xpath));
 
-        public static TElement CreateByValueContaining<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string text)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindValueContainingStrategy>(new FindValueContainingStrategy(text));
+        public static TElement CreateByValueContaining<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string text)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TElement, FindValueContainingStrategy>(new FindValueContainingStrategy(text));
 
-        public static ElementsList<TElement, FindTagNameStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByTag<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string tag)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => new ElementsList<TElement, FindTagNameStrategy, IOSDriver<IOSElement>, IOSElement>(new FindTagNameStrategy(tag), element.WrappedElement);
+        public static ComponentsList<TElement, FindTagNameStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByTag<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string tag)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TElement, FindTagNameStrategy, IOSDriver<IOSElement>, IOSElement>(new FindTagNameStrategy(tag), element.WrappedElement);
 
-        public static ElementsList<TElement, FindStrategyId, IOSDriver<IOSElement>, IOSElement> CreateAllById<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string id)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => new ElementsList<TElement, FindStrategyId, IOSDriver<IOSElement>, IOSElement>(new FindStrategyId(id), element.WrappedElement);
+        public static ComponentsList<TElement, FindStrategyId, IOSDriver<IOSElement>, IOSElement> CreateAllById<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string id)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TElement, FindStrategyId, IOSDriver<IOSElement>, IOSElement>(new FindStrategyId(id), element.WrappedElement);
 
-        public static ElementsList<TElement, FindAccessibilityIdStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByAccessibilityId<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string accessibilityId)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => new ElementsList<TElement, FindAccessibilityIdStrategy, IOSDriver<IOSElement>, IOSElement>(new FindAccessibilityIdStrategy(accessibilityId), element.WrappedElement);
+        public static ComponentsList<TElement, FindAccessibilityIdStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByAccessibilityId<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string accessibilityId)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TElement, FindAccessibilityIdStrategy, IOSDriver<IOSElement>, IOSElement>(new FindAccessibilityIdStrategy(accessibilityId), element.WrappedElement);
 
-        public static ElementsList<TElement, FindNameStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByName<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string name)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => new ElementsList<TElement, FindNameStrategy, IOSDriver<IOSElement>, IOSElement>(new FindNameStrategy(name), element.WrappedElement);
+        public static ComponentsList<TElement, FindNameStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByName<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string name)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TElement, FindNameStrategy, IOSDriver<IOSElement>, IOSElement>(new FindNameStrategy(name), element.WrappedElement);
 
-        public static ElementsList<TElement, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByClass<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string elementClass)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => new ElementsList<TElement, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement>(new FindClassNameStrategy(elementClass), element.WrappedElement);
+        public static ComponentsList<TElement, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByClass<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string elementClass)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TElement, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement>(new FindClassNameStrategy(elementClass), element.WrappedElement);
 
-        public static ElementsList<TElement, FindIOSUIAutomationStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByIOSUIAutomation<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string automationId)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => new ElementsList<TElement, FindIOSUIAutomationStrategy, IOSDriver<IOSElement>, IOSElement>(new FindIOSUIAutomationStrategy(automationId), element.WrappedElement);
+        public static ComponentsList<TElement, FindIOSUIAutomationStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByIOSUIAutomation<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string automationId)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TElement, FindIOSUIAutomationStrategy, IOSDriver<IOSElement>, IOSElement>(new FindIOSUIAutomationStrategy(automationId), element.WrappedElement);
 
-        public static ElementsList<TElement, FindXPathStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByXPath<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string xpath)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => new ElementsList<TElement, FindXPathStrategy, IOSDriver<IOSElement>, IOSElement>(new FindXPathStrategy(xpath), element.WrappedElement);
+        public static ComponentsList<TElement, FindXPathStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByXPath<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string xpath)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TElement, FindXPathStrategy, IOSDriver<IOSElement>, IOSElement>(new FindXPathStrategy(xpath), element.WrappedElement);
 
-        public static ElementsList<TElement, FindValueContainingStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByValueContaining<TElement>(this Element<IOSDriver<IOSElement>, IOSElement> element, string text)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => new ElementsList<TElement, FindValueContainingStrategy, IOSDriver<IOSElement>, IOSElement>(new FindValueContainingStrategy(text), element.WrappedElement);
+        public static ComponentsList<TElement, FindValueContainingStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByValueContaining<TElement>(this Component<IOSDriver<IOSElement>, IOSElement> element, string text)
+            where TElement : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TElement, FindValueContainingStrategy, IOSDriver<IOSElement>, IOSElement>(new FindValueContainingStrategy(text), element.WrappedElement);
     }
 }

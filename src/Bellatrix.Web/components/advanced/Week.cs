@@ -18,7 +18,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Week : Element, IElementDisabled, IElementValue, IElementWeek, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxText, IElementMinText, IElementStep
+    public class Week : Component, IElementDisabled, IElementValue, IElementWeek, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxText, IElementMinText, IElementStep
     {
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;

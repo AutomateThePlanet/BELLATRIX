@@ -35,7 +35,7 @@ namespace Bellatrix.Web.Untils
         public abstract void WaitUntil<TBy>(TBy by)
             where TBy : FindStrategy;
 
-        public abstract void WaitUntil<TBy>(TBy by, Element parent)
+        public abstract void WaitUntil<TBy>(TBy by, Component parent)
             where TBy : FindStrategy;
 
         protected void WaitUntil(Func<IWebDriver, bool> waitCondition, int? timeout, int? sleepInterval)

@@ -8,7 +8,7 @@ namespace Bellatrix.Desktop.GettingStarted.ExtensionMethodsLocators
     {
         // public static TElement CreateByNameStartingWith<TElement>(this Element element, string idPart)
         // where TElement : Element => element.Create<TElement, ByIdStartingWith>(new ByIdStartingWith(idPart));
-        public static ElementsList<TElement> CreateAllByNameStartingWith<TElement>(this Element element, string tag)
-            where TElement : Element => new ElementsList<TElement>(new FindNameStartingWithStrategy(tag), element.WrappedElement);
+        public static ComponentsList<TElement> CreateAllByNameStartingWith<TElement>(this Component element, string tag)
+            where TElement : Component => new ComponentsList<TElement>(new FindNameStartingWithStrategy(tag), element.WrappedElement);
     }
 }

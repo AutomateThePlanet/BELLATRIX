@@ -24,7 +24,7 @@ namespace Bellatrix.Mobile.Services
     internal class ElementRepository
     {
         public TElement CreateElementWithParent<TElement, TBy, TDriver, TDriverElement>(TBy by, TDriverElement webElement)
-            where TElement : Element<TDriver, TDriverElement>
+            where TElement : Component<TDriver, TDriverElement>
             where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
@@ -41,7 +41,7 @@ namespace Bellatrix.Mobile.Services
         }
 
         public TElement CreateElementThatIsFound<TElement, TBy, TDriver, TDriverElement>(TBy by, TDriverElement webElement)
-            where TElement : Element<TDriver, TDriverElement>
+            where TElement : Component<TDriver, TDriverElement>
             where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
@@ -71,7 +71,7 @@ namespace Bellatrix.Mobile.Services
                 var frameMethodInfo = frame.GetMethod() as MethodInfo;
                 if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
                     !frameMethodInfo.IsStatic &&
-                    frameMethodInfo.ReturnType.IsSubclassOf(typeof(Element<TDriver, TDriverElement>)))
+                    frameMethodInfo.ReturnType.IsSubclassOf(typeof(Component<TDriver, TDriverElement>)))
                 {
                     elementName = frame.GetMethod().Name.Replace("get_", string.Empty);
                     if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(Page)))

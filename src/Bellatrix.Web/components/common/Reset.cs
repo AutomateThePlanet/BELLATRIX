@@ -18,7 +18,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Reset : Element, IElementDisabled, IElementInnerText, IElementValue
+    public class Reset : Component, IElementDisabled, IElementInnerText, IElementValue
     {
         public static event EventHandler<ElementActionEventArgs> Clicking;
         public static event EventHandler<ElementActionEventArgs> Clicked;

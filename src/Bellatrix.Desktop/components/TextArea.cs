@@ -18,7 +18,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class TextArea : Element, IElementInnerText, IElementText, IElementDisabled
+    public class TextArea : Component, IElementInnerText, IElementText, IElementDisabled
     {
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;

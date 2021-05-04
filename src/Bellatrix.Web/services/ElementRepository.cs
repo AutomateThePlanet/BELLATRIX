@@ -35,7 +35,7 @@ namespace Bellatrix.Web
         }
 
         public TElementType CreateElementWithParent<TElementType>(FindStrategy by, IWebElement parentElement, IWebElement foundElement, int elementsIndex, bool shouldCacheElement)
-            where TElementType : Element
+            where TElementType : Component
         {
             DetermineElementAttributes(out var elementName, out var pageName);
 
@@ -66,7 +66,7 @@ namespace Bellatrix.Web
         }
 
         public TElementType CreateElementThatIsFound<TElementType>(FindStrategy by, IWebElement webElement, bool shouldCacheElement)
-            where TElementType : Element
+            where TElementType : Component
         {
             DetermineElementAttributes(out var elementName, out var pageName);
 
@@ -94,7 +94,7 @@ namespace Bellatrix.Web
                     var frameMethodInfo = frame.GetMethod() as MethodInfo;
                     if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
                         !frameMethodInfo.IsStatic &&
-                        frameMethodInfo.ReturnType.IsSubclassOf(typeof(Element)))
+                        frameMethodInfo.ReturnType.IsSubclassOf(typeof(Component)))
                     {
                         elementName = frame.GetMethod().Name.Replace("get_", string.Empty);
                         if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(Page)))

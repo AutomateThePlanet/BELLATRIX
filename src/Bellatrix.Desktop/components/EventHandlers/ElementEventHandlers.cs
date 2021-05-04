@@ -25,24 +25,24 @@ namespace Bellatrix.Desktop.EventHandlers
 
         public virtual void SubscribeToAll()
         {
-            Element.ScrollingToVisible += ScrollingToVisibleEventHandler;
-            Element.ScrolledToVisible += ScrolledToVisibleEventHandler;
-            Element.CreatingElement += CreatingElementEventHandler;
-            Element.CreatedElement += CreatedElementEventHandler;
-            Element.CreatingElements += CreatingElementsEventHandler;
-            Element.CreatedElements += CreatedElementsEventHandler;
-            Element.ReturningWrappedElement += ReturningWrappedElementEventHandler;
+            Component.ScrollingToVisible += ScrollingToVisibleEventHandler;
+            Component.ScrolledToVisible += ScrolledToVisibleEventHandler;
+            Component.CreatingElement += CreatingElementEventHandler;
+            Component.CreatedElement += CreatedElementEventHandler;
+            Component.CreatingElements += CreatingElementsEventHandler;
+            Component.CreatedElements += CreatedElementsEventHandler;
+            Component.ReturningWrappedElement += ReturningWrappedElementEventHandler;
         }
 
         public virtual void UnsubscribeToAll()
         {
-            Element.ScrollingToVisible -= ScrollingToVisibleEventHandler;
-            Element.ScrolledToVisible -= ScrolledToVisibleEventHandler;
-            Element.CreatingElement -= CreatingElementEventHandler;
-            Element.CreatedElement -= CreatedElementEventHandler;
-            Element.CreatingElements -= CreatingElementsEventHandler;
-            Element.CreatedElements -= CreatedElementsEventHandler;
-            Element.ReturningWrappedElement -= ReturningWrappedElementEventHandler;
+            Component.ScrollingToVisible -= ScrollingToVisibleEventHandler;
+            Component.ScrolledToVisible -= ScrolledToVisibleEventHandler;
+            Component.CreatingElement -= CreatingElementEventHandler;
+            Component.CreatedElement -= CreatedElementEventHandler;
+            Component.CreatingElements -= CreatingElementsEventHandler;
+            Component.CreatedElements -= CreatedElementsEventHandler;
+            Component.ReturningWrappedElement -= ReturningWrappedElementEventHandler;
         }
 
         protected virtual void ScrollingToVisibleEventHandler(object sender, ElementActionEventArgs arg)

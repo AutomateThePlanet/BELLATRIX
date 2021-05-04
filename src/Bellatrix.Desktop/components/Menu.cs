@@ -16,7 +16,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-   public class Menu : Element
+   public class Menu : Component
     {
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;

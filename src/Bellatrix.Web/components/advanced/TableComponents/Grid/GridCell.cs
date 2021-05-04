@@ -19,7 +19,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class GridCell : Element, IElementInnerText, IElementInnerHtml
+    public class GridCell : Component, IElementInnerText, IElementInnerHtml
     {
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;
@@ -51,7 +51,7 @@ namespace Bellatrix.Web
         public string InnerHtml => GetInnerHtmlAttribute();
 
         public TElement As<TElement>()
-            where TElement : Element, new()
+            where TElement : Component, new()
         {
             CellControlElementType = typeof(TElement);
             if (CellControlBy == null)
@@ -114,7 +114,7 @@ namespace Bellatrix.Web
            TElement element,
            EventHandler<ElementActionEventArgs> clicking,
            EventHandler<ElementActionEventArgs> clicked)
-           where TElement : Element
+           where TElement : Component
         {
             clicking?.Invoke(this, new ElementActionEventArgs(element));
 

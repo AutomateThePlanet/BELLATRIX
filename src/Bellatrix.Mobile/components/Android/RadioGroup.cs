@@ -61,7 +61,7 @@ namespace Bellatrix.Mobile.Android
             return clickedRadioButton;
         }
 
-        public ElementsList<RadioButton, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll()
+        public ComponentsList<RadioButton, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll()
         {
             var radioButtons = this.CreateAllByClass<RadioButton>("android.widget.RadioButton");
             return radioButtons;

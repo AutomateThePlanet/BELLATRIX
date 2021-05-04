@@ -18,7 +18,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class RadioButton : Element, IElementDisabled, IElementValue, IElementChecked
+    public class RadioButton : Component, IElementDisabled, IElementValue, IElementChecked
     {
         public static event EventHandler<ElementActionEventArgs> Clicking;
         public static event EventHandler<ElementActionEventArgs> Clicked;

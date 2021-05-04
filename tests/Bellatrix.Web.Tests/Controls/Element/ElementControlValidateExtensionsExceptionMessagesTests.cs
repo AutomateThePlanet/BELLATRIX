@@ -103,7 +103,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateTitleIsThrowsException()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL13");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL13");
 
             try
             {
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateTitleIsNotNullThrowsException()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL11");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL11");
 
             try
             {
@@ -137,7 +137,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateTitleIsNullThrowsException()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL13");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL13");
 
             try
             {
@@ -154,7 +154,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateTabIndexIsThrowsException()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL14");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL14");
 
             try
             {
@@ -171,7 +171,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateStyleIsNullThrowsException()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL16");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL16");
 
             try
             {
@@ -188,7 +188,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateDirIsThrowsException()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL19");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL19");
 
             try
             {
@@ -205,7 +205,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateDirIsNullThrowsException()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL19");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL19");
 
             try
             {
@@ -222,7 +222,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateLangIsThrowsException()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL20");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL20");
 
             try
             {
@@ -239,7 +239,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateLangIsNullThrowsException()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL20");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL20");
 
             try
             {

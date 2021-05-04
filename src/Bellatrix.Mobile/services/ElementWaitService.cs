@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile.Services
 
         internal void Wait<TUntil, TElement>(TElement element, TUntil until)
             where TUntil : WaitStrategy<TDriver, TDriverElement>
-            where TElement : Element<TDriver, TDriverElement>
+            where TElement : Component<TDriver, TDriverElement>
         {
             try
             {

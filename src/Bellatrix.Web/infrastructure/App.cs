@@ -72,14 +72,14 @@ namespace Bellatrix.Web
         }
 
         public void AddReadonlyControlDataHandler<TElement, TControlDataHandler>()
-           where TElement : Element
+           where TElement : Component
            where TControlDataHandler : IReadonlyControlDataHandler<TElement>
         {
             ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<TElement>, TControlDataHandler>();
         }
 
         public void AddEditableControlDataHandler<TElement, TControlDataHandler>()
-           where TElement : Element
+           where TElement : Component
            where TControlDataHandler : IEditableControlDataHandler<TElement>
         {
             ServicesCollection.Current.RegisterType<IEditableControlDataHandler<TElement>, TControlDataHandler>();

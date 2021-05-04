@@ -15,7 +15,7 @@
 namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
 {
     public interface IReadonlyControlDataHandler<TElement> : IControlDataHandler<TElement>
-    where TElement : Element
+    where TElement : Component
     {
         dynamic GetData(TElement element);
         void ValidateValueIs(TElement element, string expectedValue);

@@ -18,7 +18,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-   public class CheckBox : Element, IElementDisabled, IElementChecked
+   public class CheckBox : Component, IElementDisabled, IElementChecked
     {
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;

@@ -17,7 +17,7 @@ using Bellatrix.Web.Contracts;
 
 namespace Bellatrix.Web
 {
-    public class Progress : Element, IElementMaxText, IElementValue, IElementInnerText
+    public class Progress : Component, IElementMaxText, IElementValue, IElementInnerText
     {
         public override Type ElementType => GetType();
 

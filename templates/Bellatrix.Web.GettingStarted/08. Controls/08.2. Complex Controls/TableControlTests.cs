@@ -102,7 +102,7 @@ namespace Bellatrix.Web.GettingStarted
             Table.GetCell<User>(cell => cell.Email, 1).ValidateInnerTextIs("fbach@yahoo.com");
 
             // You can get particular cells by a selector.
-            ElementsList<TableCell> cells = Table.GetCells(cell => cell.InnerText.ToLower().StartsWith('j'));
+            ComponentsList<TableCell> cells = Table.GetCells(cell => cell.InnerText.ToLower().StartsWith('j'));
             Assert.AreEqual(4, cells.Count());
 
             // As a shortcut, you can get the first cell matching a given condition through the GetFirstOrDefaultCell method.
@@ -141,7 +141,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual(6, cells.Count());
 
             // You can get the cells matching a condition.
-            ElementsList<TableCell> matchingCells = firstRow.GetCells(cell => cell.InnerText.ToLower().Contains("smith"));
+            ComponentsList<TableCell> matchingCells = firstRow.GetCells(cell => cell.InnerText.ToLower().Contains("smith"));
             Assert.AreEqual(3, matchingCells.Count());
 
             // You can get the first cell matching a condition through the GetFirstOrDefaultCell method.
@@ -166,7 +166,7 @@ namespace Bellatrix.Web.GettingStarted
             Table.ForEachHeader(row => row.AssertFontFamily("\"Times New Roman\""));
 
             // You can get all table header cells through the ColumnHeaders property.
-            ElementsList<Label> headerCells = Table.ColumnHeaders;
+            ComponentsList<Label> headerCells = Table.ColumnHeaders;
             headerCells.ForEach(cell => cell.AssertFontSize("16px"));
         }
 

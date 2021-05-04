@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 namespace Bellatrix.Web
 {
-    public class Frame : Element
+    public class Frame : Component
     {
         public string Name => GetAttribute("name");
     }

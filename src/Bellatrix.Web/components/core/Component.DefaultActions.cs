@@ -21,7 +21,7 @@ using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Web
 {
-    public partial class Element
+    public partial class Component
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public Point Location => WrappedElement.Location;
@@ -195,30 +195,22 @@ namespace Bellatrix.Web
         {
             settingValue?.Invoke(this, new ElementActionEventArgs(this, value));
 
-            // HACK: (Anton: 06.09.2018): InternetExplorer SendKeys is typing everything twice.
-            if (!WrappedWebDriverCreateService.BrowserConfiguration.BrowserType.Equals(BrowserType.InternetExplorer))
+            Thread.Sleep(50);
+
+            // (Anton: 11.09.2019): We do this for optimization purposes so that we don't make two WebDriver calls.
+            var wrappedElement = WrappedElement;
+            try
             {
-                Thread.Sleep(50);
-
-                // (Anton: 11.09.2019): We do this for optimization purposes so that we don't make two WebDriver calls.
-                var wrappedElement = WrappedElement;
-                try
-                {
-                    wrappedElement.Clear();
-                }
-                catch
-                {
-                    // ignore
-                }
-
-                Thread.Sleep(50);
-
-                wrappedElement.SendKeys(value);
+                wrappedElement.Clear();
             }
-            else
+            catch
             {
-                SetAttribute("value", value);
+                // ignore
             }
+
+            Thread.Sleep(50);
+
+            wrappedElement.SendKeys(value);
 
             valueSet?.Invoke(this, new ElementActionEventArgs(this, value));
         }

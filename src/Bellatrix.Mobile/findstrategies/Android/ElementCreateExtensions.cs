@@ -23,67 +23,67 @@ namespace Bellatrix.Mobile.Android
         ////public static TElement CreateByTag<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string tag)
         ////    where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, ByTagName>(new ByTagName(tag));
 
-        public static TElement CreateById<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindIdStrategy>(new FindIdStrategy(id));
+        public static TElement CreateById<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindIdStrategy>(new FindIdStrategy(id));
 
-        public static TElement CreateByIdContaining<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindIdContainingStrategy>(new FindIdContainingStrategy(id));
+        public static TElement CreateByIdContaining<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindIdContainingStrategy>(new FindIdContainingStrategy(id));
 
-        public static TElement CreateByDescription<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string description)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindDescriptionStrategy>(new FindDescriptionStrategy(description));
+        public static TElement CreateByDescription<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string description)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindDescriptionStrategy>(new FindDescriptionStrategy(description));
 
-        public static TElement CreateByDescriptionContaining<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string description)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindDescriptionContainingStrategy>(new FindDescriptionContainingStrategy(description));
+        public static TElement CreateByDescriptionContaining<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string description)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindDescriptionContainingStrategy>(new FindDescriptionContainingStrategy(description));
 
-        public static TElement CreateByText<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string text)
-           where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindTextStrategy>(new FindTextStrategy(text));
+        public static TElement CreateByText<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string text)
+           where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindTextStrategy>(new FindTextStrategy(text));
 
-        public static TElement CreateByTextContaining<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string text)
-           where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindTextContainingStrategy>(new FindTextContainingStrategy(text));
+        public static TElement CreateByTextContaining<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string text)
+           where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindTextContainingStrategy>(new FindTextContainingStrategy(text));
 
         ////public static TElement CreateByName<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string name)
         ////    where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, ByName>(new ByName(name));
 
-        public static TElement CreateByClass<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string elementClass)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindClassNameStrategy>(new FindClassNameStrategy(elementClass));
+        public static TElement CreateByClass<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string elementClass)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindClassNameStrategy>(new FindClassNameStrategy(elementClass));
 
-        public static TElement CreateByAndroidUIAutomator<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string automationId)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindAndroidUIAutomatorStrategy>(new FindAndroidUIAutomatorStrategy(automationId));
+        public static TElement CreateByAndroidUIAutomator<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string automationId)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindAndroidUIAutomatorStrategy>(new FindAndroidUIAutomatorStrategy(automationId));
 
-        public static TElement CreateByXPath<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string xpath)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindXPathStrategy>(new FindXPathStrategy(xpath));
+        public static TElement CreateByXPath<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string xpath)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => element.Create<TElement, FindXPathStrategy>(new FindXPathStrategy(xpath));
 
         ////public static ElementsList<TElement, ByTagName, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByTag<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string tag)
         ////    where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, ByTagName, AndroidDriver<AndroidElement>, AndroidElement>(new ByTagName(tag), element.WrappedElement);
 
-        public static ElementsList<TElement, FindIdStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllById<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, FindIdStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindIdStrategy(id), element.WrappedElement);
+        public static ComponentsList<TElement, FindIdStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllById<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TElement, FindIdStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindIdStrategy(id), element.WrappedElement);
 
-        public static ElementsList<TElement, FindIdContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByIdContaining<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, FindIdContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindIdContainingStrategy(id), element.WrappedElement);
+        public static ComponentsList<TElement, FindIdContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByIdContaining<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string id)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TElement, FindIdContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindIdContainingStrategy(id), element.WrappedElement);
 
-        public static ElementsList<TElement, FindDescriptionStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByDescription<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string description)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, FindDescriptionStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindDescriptionStrategy(description), element.WrappedElement);
+        public static ComponentsList<TElement, FindDescriptionStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByDescription<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string description)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TElement, FindDescriptionStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindDescriptionStrategy(description), element.WrappedElement);
 
-        public static ElementsList<TElement, FindDescriptionContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByDescriptionContaining<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string description)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, FindDescriptionContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindDescriptionContainingStrategy(description), element.WrappedElement);
+        public static ComponentsList<TElement, FindDescriptionContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByDescriptionContaining<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string description)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TElement, FindDescriptionContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindDescriptionContainingStrategy(description), element.WrappedElement);
 
-        public static ElementsList<TElement, FindTextStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByText<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string text)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, FindTextStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindTextStrategy(text), element.WrappedElement);
+        public static ComponentsList<TElement, FindTextStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByText<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string text)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TElement, FindTextStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindTextStrategy(text), element.WrappedElement);
 
-        public static ElementsList<TElement, FindTextContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByTextContaining<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string text)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, FindTextContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindTextContainingStrategy(text), element.WrappedElement);
+        public static ComponentsList<TElement, FindTextContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByTextContaining<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string text)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TElement, FindTextContainingStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindTextContainingStrategy(text), element.WrappedElement);
 
         ////public static ElementsList<TElement, ByName, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByName<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string name)
         ////    where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, ByName, AndroidDriver<AndroidElement>, AndroidElement>(new ByName(name), element.WrappedElement);
 
-        public static ElementsList<TElement, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByClass<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string elementClass)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindClassNameStrategy(elementClass), element.WrappedElement);
+        public static ComponentsList<TElement, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByClass<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string elementClass)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TElement, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindClassNameStrategy(elementClass), element.WrappedElement);
 
-        public static ElementsList<TElement, FindAndroidUIAutomatorStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByAndroidUIAutomator<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string automationId)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, FindAndroidUIAutomatorStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindAndroidUIAutomatorStrategy(automationId), element.WrappedElement);
+        public static ComponentsList<TElement, FindAndroidUIAutomatorStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByAndroidUIAutomator<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string automationId)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TElement, FindAndroidUIAutomatorStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindAndroidUIAutomatorStrategy(automationId), element.WrappedElement);
 
-        public static ElementsList<TElement, FindXPathStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByXPath<TElement>(this Element<AndroidDriver<AndroidElement>, AndroidElement> element, string xpath)
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement> => new ElementsList<TElement, FindXPathStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindXPathStrategy(xpath), element.WrappedElement);
+        public static ComponentsList<TElement, FindXPathStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByXPath<TElement>(this Component<AndroidDriver<AndroidElement>, AndroidElement> element, string xpath)
+            where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TElement, FindXPathStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindXPathStrategy(xpath), element.WrappedElement);
     }
 }

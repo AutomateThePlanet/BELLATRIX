@@ -18,7 +18,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class Button : Element, IElementDisabled, IElementInnerText
+    public class Button : Component, IElementDisabled, IElementInnerText
     {
         public static event EventHandler<ElementActionEventArgs> Clicking;
         public static event EventHandler<ElementActionEventArgs> Clicked;

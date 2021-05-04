@@ -18,7 +18,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Output : Element, IElementInnerHtml, IElementInnerText, IElementFor
+    public class Output : Component, IElementInnerHtml, IElementInnerText, IElementFor
     {
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;

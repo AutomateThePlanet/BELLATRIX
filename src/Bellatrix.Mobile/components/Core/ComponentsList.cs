@@ -25,16 +25,16 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Controls.Core
 {
-    public class ElementsList<TElement, TBy, TDriver, TDriverElement> : IEnumerable<TElement>
+    public class ComponentsList<TElement, TBy, TDriver, TDriverElement> : IEnumerable<TElement>
         where TBy : FindStrategy<TDriver, TDriverElement>
-        where TElement : Element<TDriver, TDriverElement>
+        where TElement : Component<TDriver, TDriverElement>
         where TDriver : AppiumDriver<TDriverElement>
         where TDriverElement : AppiumWebElement
     {
         private readonly TBy _by;
         private readonly TDriverElement _mobileElement;
 
-        public ElementsList(TBy by, TDriverElement mobileElement)
+        public ComponentsList(TBy by, TDriverElement mobileElement)
         {
             _by = by;
             _mobileElement = mobileElement;

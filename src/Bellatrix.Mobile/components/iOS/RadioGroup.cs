@@ -61,7 +61,7 @@ namespace Bellatrix.Mobile.IOS
             return clickedRadioButton;
         }
 
-        public ElementsList<RadioButton, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll()
+        public ComponentsList<RadioButton, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll()
         {
             var radioButtons = this.CreateAllByClass<RadioButton>("XCUIElementTypeSwitch");
             return radioButtons;

@@ -17,7 +17,7 @@ using Bellatrix.Web.Contracts;
 
 namespace Bellatrix.Web
 {
-    public class Option : Element, IElementInnerText, IElementValue, IElementDisabled, IElementSelected
+    public class Option : Component, IElementInnerText, IElementValue, IElementDisabled, IElementSelected
     {
         public override Type ElementType => GetType();
 

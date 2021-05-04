@@ -122,7 +122,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetTitle_When_TitleAttributeIsPresent_Safari()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL13");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL13");
 
             string title = element.GetTitle();
 
@@ -133,7 +133,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetNull_When_TitleAttributeIsNotPresent_Safari()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
 
             string title = element.GetTitle();
 
@@ -144,7 +144,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetTabIndexOne_When_TabIndexAttributeIsPresent_Safari()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL14");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL14");
 
             string tabIndex = element.GetTabIndex();
 
@@ -155,7 +155,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnsNull_When_TabIndexAttributeIsNotPresent_Safari()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
 
             string tabIndex = element.GetTabIndex();
 
@@ -166,7 +166,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetStyle_When_StyleAttributeIsPresent_Safari()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL16");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL16");
 
             var style = element.GetStyle();
 
@@ -177,7 +177,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnsNull_When_StyleAttributeIsNotPresent_Safari()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL");
 
             string style = element.GetStyle();
 
@@ -188,7 +188,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetDir_When_DirAttributeIsPresent_Safari()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL19");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL19");
 
             var dir = element.GetDir();
 
@@ -199,7 +199,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnsNull_When_DirAttributeIsNotPresent_Safari()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
 
             string dir = element.GetDir();
 
@@ -210,7 +210,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetLang_When_LangAttributeIsPresent_Safari()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL20");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL20");
 
             var lang = element.GetLang();
 
@@ -221,7 +221,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnsNull_When_LangAttributeIsNotPresent_Safari()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
 
             string lang = element.GetLang();
 

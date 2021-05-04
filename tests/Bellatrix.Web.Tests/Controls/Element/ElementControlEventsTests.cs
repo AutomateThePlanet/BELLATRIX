@@ -29,16 +29,16 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SettingAttributeCalled_BeforeActuallySetAttribute()
         {
-            Bellatrix.Web.Element.SettingAttribute += AssertClassAttributeEmpty;
+            Bellatrix.Web.Component.SettingAttribute += AssertClassAttributeEmpty;
 
-            var urlElement = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL");
+            var urlElement = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL");
 
             urlElement.SetAttribute("class", "myTestClass1");
             var cssClass = urlElement.GetAttribute("class");
 
             Assert.AreEqual("myTestClass1", cssClass);
 
-            Bellatrix.Web.Element.SettingAttribute -= AssertClassAttributeEmpty;
+            Bellatrix.Web.Component.SettingAttribute -= AssertClassAttributeEmpty;
 
             void AssertClassAttributeEmpty(object sender, ElementActionEventArgs args)
             {
@@ -51,18 +51,18 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AttributeSetCalled_AfterSetAttribute()
         {
-            Bellatrix.Web.Element.AttributeSet += AssertClassAttributeContainsNewValue;
+            Bellatrix.Web.Component.AttributeSet += AssertClassAttributeContainsNewValue;
 
-            var urlElement = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL");
+            var urlElement = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL");
 
             urlElement.SetAttribute("class", "myTestClass1");
             var cssClass = urlElement.GetAttribute("class");
 
             Assert.AreEqual("myTestClass1", cssClass);
 
-            Bellatrix.Web.Element.SettingAttribute -= AssertClassAttributeContainsNewValue;
+            Bellatrix.Web.Component.SettingAttribute -= AssertClassAttributeContainsNewValue;
 
-            Bellatrix.Web.Element.AttributeSet -= AssertClassAttributeContainsNewValue;
+            Bellatrix.Web.Component.AttributeSet -= AssertClassAttributeContainsNewValue;
 
             void AssertClassAttributeContainsNewValue(object sender, ElementActionEventArgs args)
             {
@@ -75,15 +75,15 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturningWrappedElementCalled_AfterElementCreated()
         {
-            Bellatrix.Web.Element.ReturningWrappedElement += AssertNativeElementNotNullAfterCallingAction;
+            Bellatrix.Web.Component.ReturningWrappedElement += AssertNativeElementNotNullAfterCallingAction;
 
-            var urlElement = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL");
+            var urlElement = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL");
 
             var cssClass = urlElement.GetAttribute("class");
 
             Assert.AreEqual("myTestClass", cssClass);
 
-            Bellatrix.Web.Element.ReturningWrappedElement -= AssertNativeElementNotNullAfterCallingAction;
+            Bellatrix.Web.Component.ReturningWrappedElement -= AssertNativeElementNotNullAfterCallingAction;
 
             void AssertNativeElementNotNullAfterCallingAction(object sender, NativeElementActionEventArgs args)
             {
@@ -96,15 +96,15 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ScrollingToVisibleCalled_BeforeActuallyScrollingToVisible()
         {
-            Bellatrix.Web.Element.ScrollingToVisible += AssertStyleAttributeEmpty;
+            Bellatrix.Web.Component.ScrollingToVisible += AssertStyleAttributeEmpty;
 
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
 
             element.ScrollToVisible();
 
             Assert.AreEqual("color: red;", element.ToHasStyle("color: red;").GetStyle());
 
-            Bellatrix.Web.Element.ScrollingToVisible -= AssertStyleAttributeEmpty;
+            Bellatrix.Web.Component.ScrollingToVisible -= AssertStyleAttributeEmpty;
 
             void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
             {

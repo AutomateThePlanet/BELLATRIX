@@ -19,7 +19,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Image : Element, IElementSrc, IElementHeight, IElementWidth, IElementLongDesc, IElementAlt, IElementSrcSet, IElementSizes
+    public class Image : Component, IElementSrc, IElementHeight, IElementWidth, IElementLongDesc, IElementAlt, IElementSrcSet, IElementSizes
     {
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;

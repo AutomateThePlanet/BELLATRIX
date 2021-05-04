@@ -22,7 +22,7 @@ namespace Bellatrix.Mobile
     public class ElementCreateService
     {
         public TElement Create<TElement, TBy, TDriver, TDriverElement>(TBy by)
-            where TElement : Element<TDriver, TDriverElement>
+            where TElement : Component<TDriver, TDriverElement>
             where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
@@ -31,10 +31,10 @@ namespace Bellatrix.Mobile
             return elementRepository.CreateElementThatIsFound<TElement, TBy, TDriver, TDriverElement>(by, null);
         }
 
-        public ElementsList<TElement, TBy, TDriver, TDriverElement> CreateAll<TElement, TBy, TDriver, TDriverElement>(TBy by)
-            where TElement : Element<TDriver, TDriverElement>
+        public ComponentsList<TElement, TBy, TDriver, TDriverElement> CreateAll<TElement, TBy, TDriver, TDriverElement>(TBy by)
+            where TElement : Component<TDriver, TDriverElement>
             where TBy : FindStrategy<TDriver, TDriverElement>
             where TDriver : AppiumDriver<TDriverElement>
-            where TDriverElement : AppiumWebElement => new ElementsList<TElement, TBy, TDriver, TDriverElement>(by, null);
+            where TDriverElement : AppiumWebElement => new ComponentsList<TElement, TBy, TDriver, TDriverElement>(by, null);
     }
 }

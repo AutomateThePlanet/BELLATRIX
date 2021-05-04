@@ -19,7 +19,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Anchor : Element, IElementHref, IElementInnerText, IElementInnerHtml, IElementRel, IElementTarget
+    public class Anchor : Component, IElementHref, IElementInnerText, IElementInnerHtml, IElementRel, IElementTarget
     {
         public static event EventHandler<ElementActionEventArgs> Clicking;
         public static event EventHandler<ElementActionEventArgs> Clicked;

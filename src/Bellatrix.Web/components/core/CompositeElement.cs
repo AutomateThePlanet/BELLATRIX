@@ -15,14 +15,14 @@ namespace Bellatrix.Web
 {
     public abstract class CompositeElement
     {
-        protected CompositeElement(Element wrappedElement)
+        protected CompositeElement(Component wrappedElement)
         {
             ElementCreateService = ServicesCollection.Current.Resolve<ElementCreateService>();
             BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
             Element = wrappedElement;
         }
 
-        protected Element Element { get; set; }
+        protected Component Element { get; set; }
         protected ElementCreateService ElementCreateService { get; set; }
         protected BrowserService BrowserService { get; set; }
     }

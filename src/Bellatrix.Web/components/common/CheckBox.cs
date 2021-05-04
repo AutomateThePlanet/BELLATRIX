@@ -18,7 +18,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class CheckBox : Element, IElementDisabled, IElementChecked, IElementValue
+    public class CheckBox : Component, IElementDisabled, IElementChecked, IElementValue
     {
         public static event EventHandler<ElementActionEventArgs> Hovering;
         public static event EventHandler<ElementActionEventArgs> Hovered;

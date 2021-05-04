@@ -24,7 +24,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class GridRow : Element, IElementInnerHtml
+    public class GridRow : Component, IElementInnerHtml
     {
         private Grid _parentGrid;
 
@@ -80,7 +80,7 @@ namespace Bellatrix.Web
         }
 
         public IEnumerable<TElement> GetCells<TElement>()
-            where TElement : Element, new()
+            where TElement : Component, new()
         {
             var listOfElements = new List<TElement>();
             var cells = GetCells().ToList();
@@ -103,14 +103,14 @@ namespace Bellatrix.Web
             return listOfElements;
         }
 
-        public ElementsList<TElement> GetCells<TElement>(Func<TElement, bool> selector)
-            where TElement : Element, new()
+        public ComponentsList<TElement> GetCells<TElement>(Func<TElement, bool> selector)
+            where TElement : Component, new()
         {
             return GetCells<TElement>().Where(selector).ToElementList();
         }
 
         public TElement GetFirstOrDefaultCell<TElement>(Func<TElement, bool> selector)
-            where TElement : Element, new()
+            where TElement : Component, new()
         {
             return GetCells(selector).FirstOrDefault();
         }
@@ -133,7 +133,7 @@ namespace Bellatrix.Web
             TElement element,
             EventHandler<ElementActionEventArgs> clicking,
             EventHandler<ElementActionEventArgs> clicked)
-            where TElement : Element
+            where TElement : Component
         {
             clicking?.Invoke(this, new ElementActionEventArgs(element));
 

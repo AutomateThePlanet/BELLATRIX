@@ -29,7 +29,7 @@ namespace Bellatrix.Web.Untils
             WaitUntil(d => ElementIsVisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
         }
 
-        public override void WaitUntil<TBy>(TBy by, Element parent)
+        public override void WaitUntil<TBy>(TBy by, Component parent)
         {
             WaitUntil(d => ElementIsVisible(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
         }

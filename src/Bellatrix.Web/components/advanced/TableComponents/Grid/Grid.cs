@@ -32,7 +32,7 @@ using HtmlAgilityPack;
 
 namespace Bellatrix.Web
 {
-    public class Grid : Element
+    public class Grid : Component
     {
         private const string RowsXPathLocator = "//tr[descendant::td]";
         private TableService _tableService;
@@ -60,11 +60,11 @@ namespace Bellatrix.Web
 
         public List<IHeaderInfo> ControlColumnDataCollection { get; set; }
 
-        public virtual ElementsList<Button> ColumnHeaders
+        public virtual ComponentsList<Button> ColumnHeaders
         {
             get
             {
-                var list = new ElementsList<Button>();
+                var list = new ComponentsList<Button>();
                 foreach (HtmlNode node in TableService.Headers)
                 {
                     var element = this.CreateByXpath<Button>(node.GetXPath());
@@ -75,11 +75,11 @@ namespace Bellatrix.Web
             }
         }
 
-        public virtual ElementsList<TableHeaderRow> TableHeaderRows
+        public virtual ComponentsList<TableHeaderRow> TableHeaderRows
         {
             get
             {
-                var list = new ElementsList<TableHeaderRow>();
+                var list = new ComponentsList<TableHeaderRow>();
                 foreach (HtmlNode header in TableService.HeaderRows)
                 {
                     var element = this.CreateByXpath<TableHeaderRow>(header.GetXPath());
@@ -135,14 +135,14 @@ namespace Bellatrix.Web
             }
         }
 
-        public virtual ElementsList<GridRow> GetRows<TElement>(Func<TElement, bool> selector)
-            where TElement : Element, new()
+        public virtual ComponentsList<GridRow> GetRows<TElement>(Func<TElement, bool> selector)
+            where TElement : Component, new()
         {
             return GetRows().Where(r => r.GetCells<TElement>(selector).Any()).ToElementList();
         }
 
         public GridRow GetFirstOrDefaultRow<TElement>(Func<TElement, bool> selector)
-            where TElement : Element, new()
+            where TElement : Component, new()
         {
             return GetRows(selector).FirstOrDefault();
         }
@@ -200,8 +200,8 @@ namespace Bellatrix.Web
             }
         }
 
-        public ElementsList<TElement> GetCells<TElement>(Func<TElement, bool> selector)
-            where TElement : Element, new()
+        public ComponentsList<TElement> GetCells<TElement>(Func<TElement, bool> selector)
+            where TElement : Component, new()
         {
             var filteredCells = new List<TElement>();
             foreach (var gridRow in GetRows())
@@ -214,13 +214,13 @@ namespace Bellatrix.Web
         }
 
         public TElement GetFirstOrDefaultCell<TElement>(Func<TElement, bool> selector)
-            where TElement : Element, new()
+            where TElement : Component, new()
         {
             return GetCells<TElement>(selector).FirstOrDefault();
         }
 
         public TElement GetLastOrDefaultCell<TElement>(Func<TElement, bool> selector)
-            where TElement : Element, new()
+            where TElement : Component, new()
         {
             return GetCells<TElement>(selector).LastOrDefault();
         }
@@ -325,7 +325,7 @@ namespace Bellatrix.Web
                 }
 
                 var controlData = GetControlDataByProperty(propertyInfo);
-                if (controlData != null && controlData.ElementType != null && controlData.ElementType.IsSubclassOf(typeof(Element)))
+                if (controlData != null && controlData.ElementType != null && controlData.ElementType.IsSubclassOf(typeof(Component)))
                 {
                     var repo = new ElementRepository();
                     var xpath = $".{cells[(int)headerPosition].GetXPath()}";
@@ -381,7 +381,7 @@ namespace Bellatrix.Web
             cell.CellControlElementType = controlData.ElementType;
         }
 
-        protected virtual IList<TRowObject> GetItems<TRowObject, TRow>(ElementsList<TRow> rows)
+        protected virtual IList<TRowObject> GetItems<TRowObject, TRow>(ComponentsList<TRow> rows)
             where TRowObject : new()
             where TRow : GridRow, new()
         {

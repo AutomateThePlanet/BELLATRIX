@@ -19,6 +19,6 @@ namespace Bellatrix.Desktop.Contracts.Services
     {
         void Wait<TUntil, TElement>(TElement element, TUntil until)
             where TUntil : WaitStrategy
-            where TElement : Element;
+            where TElement : Component;
     }
 }

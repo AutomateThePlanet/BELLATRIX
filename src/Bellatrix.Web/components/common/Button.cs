@@ -18,7 +18,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Button : Element, IElementValue, IElementDisabled, IElementInnerText
+    public class Button : Component, IElementValue, IElementDisabled, IElementInnerText
     {
         public static event EventHandler<ElementActionEventArgs> Clicking;
         public static event EventHandler<ElementActionEventArgs> Clicked;

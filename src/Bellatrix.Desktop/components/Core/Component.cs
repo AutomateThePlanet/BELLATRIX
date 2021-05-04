@@ -28,13 +28,13 @@ using OpenQA.Selenium.Remote;
 namespace Bellatrix.Desktop
 {
     [DebuggerDisplay("BELLATRIX Element")]
-    public partial class Element
+    public partial class Component
     {
         private readonly ElementWaitService _elementWait;
         private readonly List<WaitStrategy> _untils;
         private WindowsElement _wrappedElement;
 
-        public Element()
+        public Component()
         {
             _elementWait = new ElementWaitService();
             WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
@@ -78,7 +78,7 @@ namespace Bellatrix.Desktop
 
         public TElement Create<TElement, TBy>(TBy by)
              where TBy : FindStrategy
-             where TElement : Element
+             where TElement : Component
         {
             CreatingElement?.Invoke(this, new ElementActionEventArgs(this));
 
@@ -90,13 +90,13 @@ namespace Bellatrix.Desktop
             return element;
         }
 
-        public ElementsList<TElement> CreateAll<TElement, TBy>(TBy by)
+        public ComponentsList<TElement> CreateAll<TElement, TBy>(TBy by)
             where TBy : FindStrategy
-            where TElement : Element
+            where TElement : Component
         {
             CreatingElements?.Invoke(this, new ElementActionEventArgs(this));
 
-            var elementsCollection = new ElementsList<TElement>(by, WrappedElement);
+            var elementsCollection = new ComponentsList<TElement>(by, WrappedElement);
 
             CreatedElements?.Invoke(this, new ElementActionEventArgs(this));
 

@@ -12,7 +12,7 @@
 
         // 2. If you want to find multiple elements, you can use the special BELLATRIX collection ElementsList<TElementType>.
         // You can read more about it in the actions file.
-        public ElementsList<Number> QuantityBoxes => ElementCreateService.CreateAllByClassContaining<Number>("input-text qty text");
+        public ComponentsList<Number> QuantityBoxes => ElementCreateService.CreateAllByClassContaining<Number>("input-text qty text");
         public Button UpdateCart => ElementCreateService.CreateByValueContaining<Button>("Update cart").ToBeClickable();
         public Span TotalSpan => ElementCreateService.CreateByXpath<Span>("//*[@class='order-total']//span");
         public Anchor ProceedToCheckout => ElementCreateService.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");

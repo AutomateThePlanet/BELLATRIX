@@ -17,7 +17,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls
 {
-    public class Container : Element
+    public class Container : Component
     {
         public Action Hover { get; set; }
 

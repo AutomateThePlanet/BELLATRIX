@@ -82,7 +82,7 @@ namespace Bellatrix.Web.GettingStarted
             TestGrid.GetCell<Employee>(cell => cell.PersonalEmail, 1).ValidateInnerTextIs("mary@hotmail.com");
 
             // Get all cells that satisfy a condition using a function
-            ElementsList<TableCell> matchingCells = TestGrid.GetCells<TableCell>(cell => cell.InnerText.StartsWith('J'));
+            ComponentsList<TableCell> matchingCells = TestGrid.GetCells<TableCell>(cell => cell.InnerText.StartsWith('J'));
             Assert.AreEqual(2, matchingCells.Count());
 
             // Get cell with multiple-row headers
@@ -179,7 +179,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual(6, cells.Count());
 
             // You can get the cells matching a condition. Also, they will be returned as elements of a type of your choice.
-            ElementsList<TableCell> textFields = firstRow.GetCells<TableCell>(cell => cell.InnerText.StartsWith("John") || cell.InnerText.StartsWith("john"));
+            ComponentsList<TableCell> textFields = firstRow.GetCells<TableCell>(cell => cell.InnerText.StartsWith("John") || cell.InnerText.StartsWith("john"));
             Assert.AreEqual(2, textFields.Count());
 
             // You can get the first cell matching a condition through the GetFirstOrDefaultCell method.

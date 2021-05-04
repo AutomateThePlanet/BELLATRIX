@@ -43,7 +43,7 @@ namespace Bellatrix.Web
         /// <summary>Releases the mouse button on the specified element.</summary>
         /// <param name="element">The element on which to release the button.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService Release(Element element)
+        public InteractionsService Release(Component element)
         {
             WrappedActions.Release(element.WrappedElement);
             return this;
@@ -64,7 +64,7 @@ namespace Bellatrix.Web
         /// <param name="element">The element to which to send the key command.</param>
         /// <param name="theKey">The key to be sent.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService KeyDown(Element element, string theKey)
+        public InteractionsService KeyDown(Component element, string theKey)
         {
             WrappedActions.KeyDown(element.WrappedElement, theKey);
             return this;
@@ -85,7 +85,7 @@ namespace Bellatrix.Web
         /// <param name="element">The element to which to send the key command.</param>
         /// <param name="theKey">The key to be sent.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService KeyUp(Element element, string theKey)
+        public InteractionsService KeyUp(Component element, string theKey)
         {
             WrappedActions.KeyUp(element.WrappedElement, theKey);
             return this;
@@ -106,7 +106,7 @@ namespace Bellatrix.Web
         /// <param name="element">The element to which to send the keystrokes.</param>
         /// <param name="keysToSend">The keystrokes to send to the browser.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService SendKeys(Element element, string keysToSend)
+        public InteractionsService SendKeys(Component element, string keysToSend)
         {
             WrappedActions.SendKeys(element.WrappedElement, keysToSend);
             return this;
@@ -123,7 +123,7 @@ namespace Bellatrix.Web
         /// <summary>Clicks the mouse on the specified element.</summary>
         /// <param name="element">The element on which to click.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService Click(Element element)
+        public InteractionsService Click(Component element)
         {
             WrappedActions.Click(element.WrappedElement);
             return this;
@@ -144,7 +144,7 @@ namespace Bellatrix.Web
         /// </summary>
         /// <param name="element">The element on which to click and hold.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService ClickAndHold(Element element)
+        public InteractionsService ClickAndHold(Component element)
         {
             WrappedActions.ClickAndHold(element.WrappedElement);
             return this;
@@ -163,7 +163,7 @@ namespace Bellatrix.Web
         /// <summary>Double-clicks the mouse on the specified element.</summary>
         /// <param name="element">The element on which to double-click.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService DoubleClick(Element element)
+        public InteractionsService DoubleClick(Component element)
         {
             WrappedActions.DoubleClick(element.WrappedElement);
             return this;
@@ -182,7 +182,7 @@ namespace Bellatrix.Web
         /// <summary>Right-clicks the mouse on the specified element.</summary>
         /// <param name="element">The element on which to right-click.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService ContextClick(Element element)
+        public InteractionsService ContextClick(Component element)
         {
             WrappedActions.ContextClick(element.WrappedElement);
             return this;
@@ -194,7 +194,7 @@ namespace Bellatrix.Web
         /// <param name="sourceElement">The element on which the drag operation is started.</param>
         /// <param name="destinationElement">The element on which the drop is performed.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService DragAndDrop(Element sourceElement, Element destinationElement)
+        public InteractionsService DragAndDrop(Component sourceElement, Component destinationElement)
         {
             WrappedActions.DragAndDrop(sourceElement.WrappedElement, destinationElement.WrappedElement);
             return this;
@@ -207,7 +207,7 @@ namespace Bellatrix.Web
         /// <param name="offsetX">The horizontal offset to which to move the mouse.</param>
         /// <param name="offsetY">The vertical offset to which to move the mouse.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService DragAndDrop(Element sourceElement, int offsetX, int offsetY)
+        public InteractionsService DragAndDrop(Component sourceElement, int offsetX, int offsetY)
         {
             WrappedActions.DragAndDropToOffset(sourceElement.WrappedElement, offsetX, offsetY);
             return this;
@@ -216,7 +216,7 @@ namespace Bellatrix.Web
         /// <summary>Moves the mouse to the specified element.</summary>
         /// <param name="element">The element to which to move the mouse.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService MoveToElement(Element element)
+        public InteractionsService MoveToElement(Component element)
         {
             WrappedActions.MoveToElement(element.WrappedElement);
             return this;
@@ -229,7 +229,7 @@ namespace Bellatrix.Web
         /// <param name="offsetX">The horizontal offset to which to move the mouse.</param>
         /// <param name="offsetY">The vertical offset to which to move the mouse.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService MoveToElement(Element sourceElement, int offsetX, int offsetY)
+        public InteractionsService MoveToElement(Component sourceElement, int offsetX, int offsetY)
         {
             WrappedActions.MoveToElement(sourceElement.WrappedElement, offsetX, offsetY);
             return this;
@@ -243,7 +243,7 @@ namespace Bellatrix.Web
         /// <param name="offsetY">The vertical offset to which to move the mouse.</param>
         /// <param name="offsetOrigin">The <see cref="OpenQA.Selenium.Interactions.MoveToElementOffsetOrigin" /> value from which to calculate the offset.</param>
         /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService MoveToElement(Element sourceElement, int offsetX, int offsetY, MoveToElementOffsetOrigin offsetOrigin)
+        public InteractionsService MoveToElement(Component sourceElement, int offsetX, int offsetY, MoveToElementOffsetOrigin offsetOrigin)
         {
             WrappedActions.MoveToElement(sourceElement.WrappedElement, offsetX, offsetY, offsetOrigin);
             return this;

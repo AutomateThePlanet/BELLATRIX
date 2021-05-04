@@ -20,15 +20,15 @@ namespace Bellatrix.Desktop.SytaxSugar
     {
         public static TElement Create<TElement, TBy>(this TBy by)
             where TBy : FindStrategy
-            where TElement : Element
+            where TElement : Component
         {
             var elementRepository = ServicesCollection.Current.Resolve<ElementCreateService>();
             return elementRepository.Create<TElement, TBy>(by);
         }
 
-        public static ElementsList<TElement> CreateAll<TElement, TBy>(this TBy by)
+        public static ComponentsList<TElement> CreateAll<TElement, TBy>(this TBy by)
             where TBy : FindStrategy
-            where TElement : Element
+            where TElement : Component
         {
             var elementRepository = ServicesCollection.Current.Resolve<ElementCreateService>();
             return elementRepository.CreateAll<TElement, TBy>(by);

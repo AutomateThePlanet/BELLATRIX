@@ -17,15 +17,15 @@ namespace Bellatrix.Web
     {
         public static TElement Create<TElement, TBy>(this TBy by, bool shouldCacheElement = false)
             where TBy : FindStrategy
-            where TElement : Element
+            where TElement : Component
         {
             var elementRepository = ServicesCollection.Current.Resolve<ElementCreateService>();
             return elementRepository.Create<TElement, TBy>(by, shouldCacheElement);
         }
 
-        public static ElementsList<TElement> CreateAll<TElement, TBy>(this TBy by, bool shouldCacheElement = false)
+        public static ComponentsList<TElement> CreateAll<TElement, TBy>(this TBy by, bool shouldCacheElement = false)
             where TBy : FindStrategy
-            where TElement : Element
+            where TElement : Component
         {
             var elementRepository = ServicesCollection.Current.Resolve<ElementCreateService>();
             return elementRepository.CreateAll<TElement, TBy>(by, shouldCacheElement);

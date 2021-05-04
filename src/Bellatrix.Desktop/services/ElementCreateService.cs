@@ -21,14 +21,14 @@ namespace Bellatrix.Desktop
     {
         public TElement Create<TElement, TBy>(TBy by)
             where TBy : FindStrategy
-            where TElement : Element
+            where TElement : Component
         {
             var elementRepository = new ElementRepository();
             return elementRepository.CreateElementThatIsFound<TElement>(by, null);
         }
 
-        public ElementsList<TElement> CreateAll<TElement, TBy>(TBy by)
+        public ComponentsList<TElement> CreateAll<TElement, TBy>(TBy by)
             where TBy : FindStrategy
-            where TElement : Element => new ElementsList<TElement>(by, null);
+            where TElement : Component => new ComponentsList<TElement>(by, null);
     }
 }

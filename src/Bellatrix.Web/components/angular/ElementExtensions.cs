@@ -17,7 +17,7 @@ namespace Bellatrix.Web.Services.Angular
     public static class ElementExtensions
     {
         public static object Evaluate<TElement>(this TElement element, string expression)
-            where TElement : Element
+            where TElement : Component
         {
             var javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
             var browserService = ServicesCollection.Current.Resolve<BrowserService>();

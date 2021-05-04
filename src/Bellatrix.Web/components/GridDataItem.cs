@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 namespace Bellatrix.Web
 {
-    public class GridDataItem : Element
+    public class GridDataItem : Component
     {
     }
 }

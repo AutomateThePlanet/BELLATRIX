@@ -20,10 +20,10 @@ using Bellatrix.Assertions;
 
 namespace Bellatrix.Web
 {
-    public class Table : Element
+    public class Table : Component
     {
         private HeaderNamesService _headerNamesService;
-        private ElementsList<TableRow> _rows;
+        private ComponentsList<TableRow> _rows;
         private TableService _tableService;
 
         public Table()
@@ -64,10 +64,10 @@ namespace Bellatrix.Web
         public override Type ElementType => GetType();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual ElementsList<Label> ColumnHeaders => this.CreateAllByTag<Label>("th", true);
+        public virtual ComponentsList<Label> ColumnHeaders => this.CreateAllByTag<Label>("th", true);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual ElementsList<TableHeaderRow> TableHeaderRows => this.CreateAllByXpath<TableHeaderRow>(".//tr[descendant::th]").ToElementList();
+        public virtual ComponentsList<TableHeaderRow> TableHeaderRows => this.CreateAllByXpath<TableHeaderRow>(".//tr[descendant::th]").ToElementList();
 
         public IEnumerable<TableRow> GetRows()
         {
@@ -168,7 +168,7 @@ namespace Bellatrix.Web
             return cell;
         }
 
-        public ElementsList<TableCell> GetCells(Func<TableCell, bool> selector)
+        public ComponentsList<TableCell> GetCells(Func<TableCell, bool> selector)
         {
             var filteredCells = new List<TableCell>();
             foreach (var tableRow in GetRows())
@@ -185,7 +185,7 @@ namespace Bellatrix.Web
             return GetCells(selector).FirstOrDefault();
         }
 
-        public ElementsList<TableRow> GetRows(Func<TableCell, bool> selector)
+        public ComponentsList<TableRow> GetRows(Func<TableCell, bool> selector)
         {
             return GetRows().Where(r => r.GetCells(selector).Any()).ToElementList();
         }
@@ -212,7 +212,7 @@ namespace Bellatrix.Web
             return GetItems<T, TableRow>(GetRows().ToElementList());
         }
 
-        protected void AssertTable<T, TRow>(ElementsList<TRow> rows, List<T> expectedEntities)
+        protected void AssertTable<T, TRow>(ComponentsList<TRow> rows, List<T> expectedEntities)
             where T : new()
             where TRow : TableRow
         {
@@ -228,7 +228,7 @@ namespace Bellatrix.Web
             }
         }
 
-        protected IList<T> GetItems<T, TRow>(ElementsList<TRow> rows)
+        protected IList<T> GetItems<T, TRow>(ComponentsList<TRow> rows)
             where T : new()
             where TRow : TableRow
         {

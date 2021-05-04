@@ -17,27 +17,27 @@ namespace Bellatrix.Web.Angular
     public static class ElementRepositoryExtensions
     {
         public static TElement CreateByNgBinding<TElement>(this ElementCreateService repository, string binding, bool shouldCacheElement = false)
-            where TElement : Element => repository.Create<TElement, ByNgBinding>(new ByNgBinding(binding), shouldCacheElement);
+            where TElement : Component => repository.Create<TElement, ByNgBinding>(new ByNgBinding(binding), shouldCacheElement);
 
         public static TElement CreateByNgModel<TElement>(this ElementCreateService repository, string model, bool shouldCacheElement = false)
-            where TElement : Element => repository.Create<TElement, ByNgModel>(new ByNgModel(model), shouldCacheElement);
+            where TElement : Component => repository.Create<TElement, ByNgModel>(new ByNgModel(model), shouldCacheElement);
 
         public static TElement CreateByNgRepeater<TElement>(this ElementCreateService repository, string repeater, bool shouldCacheElement = false)
-            where TElement : Element => repository.Create<TElement, ByNgRepeater>(new ByNgRepeater(repeater), shouldCacheElement);
+            where TElement : Component => repository.Create<TElement, ByNgRepeater>(new ByNgRepeater(repeater), shouldCacheElement);
 
         public static TElement CreateByNgSelectedOption<TElement>(this ElementCreateService repository, string selectedOption, bool shouldCacheElement = false)
-            where TElement : Element => repository.Create<TElement, ByNgSelectedOption>(new ByNgSelectedOption(selectedOption), shouldCacheElement);
+            where TElement : Component => repository.Create<TElement, ByNgSelectedOption>(new ByNgSelectedOption(selectedOption), shouldCacheElement);
 
-        public static ElementsList<TElement> CreateAllByNgBinding<TElement>(this ElementCreateService repository, string binding, bool shouldCacheElement = false)
-            where TElement : Element => new ElementsList<TElement>(new ByNgBinding(binding), null, shouldCacheElement);
+        public static ComponentsList<TElement> CreateAllByNgBinding<TElement>(this ElementCreateService repository, string binding, bool shouldCacheElement = false)
+            where TElement : Component => new ComponentsList<TElement>(new ByNgBinding(binding), null, shouldCacheElement);
 
-        public static ElementsList<TElement> CreateAllByNgModel<TElement>(this ElementCreateService repository, string model, bool shouldCacheElement = false)
-            where TElement : Element => new ElementsList<TElement>(new ByNgModel(model), null, shouldCacheElement);
+        public static ComponentsList<TElement> CreateAllByNgModel<TElement>(this ElementCreateService repository, string model, bool shouldCacheElement = false)
+            where TElement : Component => new ComponentsList<TElement>(new ByNgModel(model), null, shouldCacheElement);
 
-        public static ElementsList<TElement> CreateAllByNgRepeater<TElement>(this ElementCreateService repository, string repeater, bool shouldCacheElement = false)
-            where TElement : Element => new ElementsList<TElement>(new ByNgRepeater(repeater), null, shouldCacheElement);
+        public static ComponentsList<TElement> CreateAllByNgRepeater<TElement>(this ElementCreateService repository, string repeater, bool shouldCacheElement = false)
+            where TElement : Component => new ComponentsList<TElement>(new ByNgRepeater(repeater), null, shouldCacheElement);
 
-        public static ElementsList<TElement> CreateAllByNgSelectedOption<TElement>(this ElementCreateService repository, string selectedOption, bool shouldCacheElement = false)
-            where TElement : Element => new ElementsList<TElement>(new ByNgSelectedOption(selectedOption), null, shouldCacheElement);
+        public static ComponentsList<TElement> CreateAllByNgSelectedOption<TElement>(this ElementCreateService repository, string selectedOption, bool shouldCacheElement = false)
+            where TElement : Component => new ComponentsList<TElement>(new ByNgSelectedOption(selectedOption), null, shouldCacheElement);
     }
 }

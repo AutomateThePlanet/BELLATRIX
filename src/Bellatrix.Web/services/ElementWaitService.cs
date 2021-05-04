@@ -23,7 +23,7 @@ namespace Bellatrix.Web.Waits
 
         public void Wait<TUntil, TElement>(TElement element, TUntil until)
             where TUntil : WaitStrategy
-            where TElement : Element
+            where TElement : Component
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Bellatrix.Web.Waits
                 else
                 {
                     var elementRepository = new ElementRepository();
-                    Element parentElement = elementRepository.CreateElementThatIsFound<Element>(element.By, element.ParentWrappedElement, true);
+                    Component parentElement = elementRepository.CreateElementThatIsFound<Component>(element.By, element.ParentWrappedElement, true);
                     WaitInternal(element.By, until, parentElement);
                 }
             }
@@ -49,7 +49,7 @@ namespace Bellatrix.Web.Waits
             where TUntil : WaitStrategy
             where TBy : FindStrategy => until?.WaitUntil(@by);
 
-        internal void WaitInternal<TUntil, TBy>(TBy by, TUntil until, Element parent)
+        internal void WaitInternal<TUntil, TBy>(TBy by, TUntil until, Component parent)
             where TUntil : WaitStrategy
             where TBy : FindStrategy => until?.WaitUntil(@by, parent);
     }

@@ -45,7 +45,7 @@ namespace Bellatrix.Desktop.GettingStarted
 
             Assert.AreEqual("Item2", items.InnerText);
 
-            var returnItemAfter = App.ElementCreateService.CreateByName<Element>("DisappearAfterButton1");
+            var returnItemAfter = App.ElementCreateService.CreateByName<Component>("DisappearAfterButton1");
 
             returnItemAfter.ToNotExists().WaitToBe();
 

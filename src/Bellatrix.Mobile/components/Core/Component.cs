@@ -28,7 +28,7 @@ using OpenQA.Selenium.Appium;
 namespace Bellatrix.Mobile.Core
 {
     [DebuggerDisplay("BELLATRIX Element")]
-    public partial class Element<TDriver, TDriverElement> : IElement<TDriverElement>
+    public partial class Component<TDriver, TDriverElement> : IElement<TDriverElement>
         where TDriver : AppiumDriver<TDriverElement>
         where TDriverElement : AppiumWebElement
     {
@@ -36,7 +36,7 @@ namespace Bellatrix.Mobile.Core
         private readonly List<WaitStrategy<TDriver, TDriverElement>> _untils;
         private TDriverElement _wrappedElement;
 
-        public Element()
+        public Component()
         {
             _elementWait = new ElementWaitService<TDriver, TDriverElement>();
             WrappedDriver = ServicesCollection.Current.Resolve<TDriver>();
@@ -77,7 +77,7 @@ namespace Bellatrix.Mobile.Core
 
         public TElement Create<TElement, TBy>(TBy by)
             where TBy : FindStrategy<TDriver, TDriverElement>
-            where TElement : Element<TDriver, TDriverElement>
+            where TElement : Component<TDriver, TDriverElement>
         {
             CreatingElement?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
 
@@ -90,9 +90,9 @@ namespace Bellatrix.Mobile.Core
             return element;
         }
 
-        public ElementsList<TElement, TBy, TDriver, TDriverElement> CreateAll<TElement, TBy>(TBy by)
+        public ComponentsList<TElement, TBy, TDriver, TDriverElement> CreateAll<TElement, TBy>(TBy by)
             where TBy : FindStrategy<TDriver, TDriverElement>
-            where TElement : Element<TDriver, TDriverElement>
+            where TElement : Component<TDriver, TDriverElement>
         {
             CreatingElements?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
             TDriverElement nativeElement = null;
@@ -105,7 +105,7 @@ namespace Bellatrix.Mobile.Core
                 // Ignore
             }
 
-            var elementsCollection = new ElementsList<TElement, TBy, TDriver, TDriverElement>(by, nativeElement);
+            var elementsCollection = new ComponentsList<TElement, TBy, TDriver, TDriverElement>(by, nativeElement);
 
             CreatedElements?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
 

@@ -17,18 +17,18 @@ using Bellatrix.Web.Contracts;
 
 namespace Bellatrix.Web
 {
-    public static class ElementsListExtensions
+    public static class ComponentsListExtensions
     {
-        public static IEnumerable<string> SelectInnerText<TElement>(this ElementsList<TElement> elementsList)
-            where TElement : Element, IElementInnerText
+        public static IEnumerable<string> SelectInnerText<TElement>(this ComponentsList<TElement> elementsList)
+            where TElement : Component, IElementInnerText
         {
             return elementsList.Select(e => e.InnerText);
         }
 
-        public static ElementsList<TElement> ToElementList<TElement>(this IEnumerable<TElement> nativeElementsList)
-            where TElement : Element
+        public static ComponentsList<TElement> ToElementList<TElement>(this IEnumerable<TElement> nativeElementsList)
+            where TElement : Component
         {
-            var elementList = new ElementsList<TElement>(nativeElementsList);
+            var elementList = new ComponentsList<TElement>(nativeElementsList);
 
             return elementList;
         }

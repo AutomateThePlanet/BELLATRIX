@@ -11,58 +11,59 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Bellatrix.Utilities;
-using Bellatrix.Web.Waits;
-using OpenQA.Selenium;
+using Bellatrix.Desktop.Configuration;
+using Bellatrix.Desktop.Locators;
+using Bellatrix.Desktop.Services;
+using Bellatrix.Desktop.Untils;
+using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Desktop.Controls.Core
 {
-    public class ElementsList<TElement> : IEnumerable<TElement>
-        where TElement : Element
+    public class ComponentsList<TElement> : IEnumerable<TElement>
+        where TElement : Component
     {
         private readonly FindStrategy _by;
-        private readonly IWebElement _parentElement;
+        private readonly WindowsElement _parentElement;
         private readonly List<TElement> _foundElements;
         private readonly bool _shouldCacheFoundElements;
         private List<TElement> _cachedElements;
 
-        public ElementsList(
+        public ComponentsList(
             FindStrategy by,
-            IWebElement parentElement,
+            WindowsElement parentElement,
             bool shouldCacheFoundElements)
         : this(by, parentElement)
         {
             _shouldCacheFoundElements = shouldCacheFoundElements;
         }
 
-        public ElementsList(
+        public ComponentsList(
             FindStrategy by,
-            IWebElement parentElement)
+            WindowsElement parentElement)
         {
             _by = by;
             _parentElement = parentElement;
             _foundElements = new List<TElement>();
-            WrappedDriver = ServicesCollection.Current.Resolve<IWebDriver>();
+            WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
         }
 
-        public ElementsList()
+        public ComponentsList()
         {
             _foundElements = new List<TElement>();
-            WrappedDriver = ServicesCollection.Current.Resolve<IWebDriver>();
+            WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
         }
 
-        public ElementsList(IEnumerable<TElement> nativeElementList)
+        public ComponentsList(IEnumerable<TElement> nativeElementList)
         {
             _foundElements = new List<TElement>(nativeElementList);
-            WrappedDriver = ServicesCollection.Current.Resolve<IWebDriver>();
+            WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
         }
 
-        public IWebDriver WrappedDriver { get; }
+        public WindowsDriver<WindowsElement> WrappedDriver { get; }
 
         public TElement this[int i] => GetAndWaitWebDriverElements().ElementAt(i);
 
@@ -123,61 +124,43 @@ namespace Bellatrix.Web
                     yield return foundElement;
                 }
 
-                if (_by != null)
+                if (_parentElement != null)
                 {
-                    var nativeElements = WaitWebDriverElements();
-                    int index = 0;
-                    foreach (var nativeElement in nativeElements)
+                    var elementRepository = new ElementRepository();
+                    foreach (var nativeElement in _by?.FindAllElements(_parentElement))
                     {
-                        var elementRepository = new ElementRepository();
-                        if (_parentElement != null)
-                        {
-                            var element =
-                                elementRepository.CreateElementWithParent<TElement>(_by, _parentElement, nativeElement, index++, _shouldCacheFoundElements);
-                            yield return element;
-                        }
-                        else
-                        {
-                            var element =
-                                elementRepository.CreateElementThatIsFound<TElement>(_by, nativeElement, _shouldCacheFoundElements);
-                            yield return element;
-                        }
+                        var element =
+                               elementRepository.CreateElementThatIsFound<TElement>(_by, (WindowsElement)nativeElement);
+                        yield return element;
+                    }
+                }
+                else
+                {
+                    var elementRepository = new ElementRepository();
+                    foreach (var nativeElement in _by?.FindAllElements(WrappedDriver))
+                    {
+                        var element =
+                              elementRepository.CreateElementThatIsFound<TElement>(_by, nativeElement);
+                        yield return element;
                     }
                 }
             }
         }
 
-        private IEnumerable<IWebElement> WaitWebDriverElements()
-        {
-            var elementFinder = _parentElement == null
-                ? new NativeElementFinderService(WrappedDriver)
-                : new NativeElementFinderService(_parentElement);
-            var elementWaiter = new ElementWaitService();
-            if (_parentElement == null)
-            {
-                return ConditionalWait(elementFinder);
-            }
-            else
-            {
-                var elementRepository = new ElementRepository();
-                var parentElement = elementRepository.CreateElementThatIsFound<Element>(_by, _parentElement, true);
-
-                return ConditionalWait(elementFinder);
-            }
-        }
-
         // TODO: This is a technical debt, for the case with _by that is not null and we want to verify the non-existance of elements
-        public IEnumerable<IWebElement> ConditionalWait(NativeElementFinderService elementFinder)
+        public dynamic WaitWebDriverElements()
         {
-            Bellatrix.Utilities.Wait.ForConditionUntilTimeout(
+            Utilities.Wait.ForConditionUntilTimeout(
                    () =>
                    {
-                       return elementFinder.FindAll(_by).Any();
+                       var elements = _parentElement == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parentElement);
+                       return elements.Any();
                    },
-                   totalRunTimeoutMilliseconds: ConfigurationService.GetSection<TimeoutSettings>().ElementToExistTimeout,
-                   sleepTimeMilliseconds: ConfigurationService.GetSection<TimeoutSettings>().SleepInterval);
+                   totalRunTimeoutMilliseconds: ConfigurationService.GetSection<DesktopSettings>().ElementToExistTimeout,
+                   sleepTimeMilliseconds: ConfigurationService.GetSection<DesktopSettings>().SleepInterval);
+            var elements = _parentElement == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parentElement);
 
-            return elementFinder.FindAll(_by);
+            return elements;
         }
     }
 }

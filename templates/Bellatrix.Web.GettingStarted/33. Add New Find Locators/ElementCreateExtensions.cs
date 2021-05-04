@@ -6,7 +6,7 @@
     {
         // public static TElement CreateByIdStartingWith<TElement>(this Element element, string idPrefix)
         // where TElement : Element => ElementCreateService.Create<TElement, FindIdStartingWithStrategy>(new FindIdStartingWithStrategy(idPrefix));
-        public static ElementsList<TElement> CreateAllByIdStartingWith<TElement>(this Element element, string idEnding)
-            where TElement : Element => new ElementsList<TElement>(new FindIdStartingWithStrategy(idEnding), element.WrappedElement);
+        public static ComponentsList<TElement> CreateAllByIdStartingWith<TElement>(this Component element, string idEnding)
+            where TElement : Component => new ComponentsList<TElement>(new FindIdStartingWithStrategy(idEnding), element.WrappedElement);
     }
 }

@@ -20,7 +20,7 @@ using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop
 {
-    public partial class Element : IElementVisible, IElement, ILayoutElement
+    public partial class Component : IElementVisible, IElement, ILayoutElement
     {
         internal void Click(EventHandler<ElementActionEventArgs> clicking, EventHandler<ElementActionEventArgs> clicked)
         {

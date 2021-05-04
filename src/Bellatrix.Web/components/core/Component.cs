@@ -27,7 +27,7 @@ using OpenQA.Selenium.Remote;
 namespace Bellatrix.Web
 {
     [DebuggerDisplay("BELLATRIX Element")]
-    public partial class Element : IElementVisible, IElementCssClass, IElement, IWebLayoutElement
+    public partial class Component : IElementVisible, IElementCssClass, IElement, IWebLayoutElement
     {
         public static event EventHandler<ElementActionEventArgs> Focusing;
         public static event EventHandler<ElementActionEventArgs> Focused;
@@ -38,7 +38,7 @@ namespace Bellatrix.Web
 
         public string TagName => WrappedElement.TagName;
 
-        public Element()
+        public Component()
         {
             _elementWaiter = new ElementWaitService();
             WrappedDriver = ServicesCollection.Current.Resolve<IWebDriver>();
@@ -120,7 +120,7 @@ namespace Bellatrix.Web
 
         public TElement Create<TElement, TBy>(TBy by, bool shouldCacheElement = false)
             where TBy : FindStrategy
-            where TElement : Element
+            where TElement : Component
         {
             CreatingElement?.Invoke(this, new ElementActionEventArgs(this));
 
@@ -132,13 +132,13 @@ namespace Bellatrix.Web
             return element;
         }
 
-        public ElementsList<TElement> CreateAll<TElement, TBy>(TBy by)
+        public ComponentsList<TElement> CreateAll<TElement, TBy>(TBy by)
             where TBy : FindStrategy
-            where TElement : Element
+            where TElement : Component
         {
             CreatingElements?.Invoke(this, new ElementActionEventArgs(this));
 
-            var elementsCollection = new ElementsList<TElement>(by, WrappedElement, ShouldCacheElement);
+            var elementsCollection = new ComponentsList<TElement>(by, WrappedElement, ShouldCacheElement);
 
             CreatedElements?.Invoke(this, new ElementActionEventArgs(this));
 

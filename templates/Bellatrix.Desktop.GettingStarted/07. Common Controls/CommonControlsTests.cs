@@ -52,7 +52,7 @@ namespace Bellatrix.Desktop.GettingStarted
             // 10. You can hover on most desktop controls or search for elements inside them.
             datePicker.Hover();
 
-            var element = App.ElementCreateService.CreateByName<Element>("DisappearAfterButton1");
+            var element = App.ElementCreateService.CreateByName<Component>("DisappearAfterButton1");
 
             // 11. Wait for the element to disappear.
             element.ToNotExists().WaitToBe();

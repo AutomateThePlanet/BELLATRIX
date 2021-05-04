@@ -20,7 +20,7 @@ using OpenQA.Selenium;
 
 namespace Bellatrix.Mobile.Core
 {
-    public partial class Element<TDriver, TDriverElement> : IElementVisible, ILayoutElement
+    public partial class Component<TDriver, TDriverElement> : IElementVisible, ILayoutElement
     {
         internal void Click(EventHandler<ElementActionEventArgs<TDriverElement>> clicking, EventHandler<ElementActionEventArgs<TDriverElement>> clicked)
         {

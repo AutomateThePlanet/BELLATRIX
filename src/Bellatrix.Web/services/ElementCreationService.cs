@@ -19,14 +19,14 @@ namespace Bellatrix.Web
     {
         public TElement Create<TElement, TBy>(TBy by, bool shouldCacheElement)
             where TBy : FindStrategy
-            where TElement : Element
+            where TElement : Component
         {
             var elementRepository = new ElementRepository();
             return elementRepository.CreateElementThatIsFound<TElement>(by, null, shouldCacheElement);
         }
 
-        public ElementsList<TElement> CreateAll<TElement, TBy>(TBy by, bool shouldCacheElements)
+        public ComponentsList<TElement> CreateAll<TElement, TBy>(TBy by, bool shouldCacheElements)
             where TBy : FindStrategy
-            where TElement : Element => new ElementsList<TElement>(by, null, shouldCacheElements);
+            where TElement : Component => new ComponentsList<TElement>(by, null, shouldCacheElements);
     }
 }

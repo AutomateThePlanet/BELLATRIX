@@ -31,7 +31,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            var resultsCount = App.ElementCreateService.CreateByClassContaining<Element>("woocommerce-result-count");
+            var resultsCount = App.ElementCreateService.CreateByClassContaining<Component>("woocommerce-result-count");
 
             // 4. Get the results from a script. After that, get the value for a specific style and assert it.
             string fontSize = App.JavaScriptService.Execute("return arguments[0].style.font-size", resultsCount.WrappedElement);

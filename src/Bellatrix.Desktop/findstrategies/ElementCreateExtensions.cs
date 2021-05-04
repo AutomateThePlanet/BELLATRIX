@@ -18,52 +18,52 @@ namespace Bellatrix.Desktop
 {
    public static class ElementCreateExtensions
     {
-        public static TElement CreateByIdEndingWith<TElement>(this Element element, string idPart)
-            where TElement : Element => element.Create<TElement, FindIdEndingWithStrategy>(new FindIdEndingWithStrategy(idPart));
+        public static TElement CreateByIdEndingWith<TElement>(this Component element, string idPart)
+            where TElement : Component => element.Create<TElement, FindIdEndingWithStrategy>(new FindIdEndingWithStrategy(idPart));
 
-        public static TElement CreateByTag<TElement>(this Element element, string tag)
-            where TElement : Element => element.Create<TElement, FindTagNameStrategy>(new FindTagNameStrategy(tag));
+        public static TElement CreateByTag<TElement>(this Component element, string tag)
+            where TElement : Component => element.Create<TElement, FindTagNameStrategy>(new FindTagNameStrategy(tag));
 
-        public static TElement CreateById<TElement>(this Element element, string id)
-            where TElement : Element => element.Create<TElement, FindIdStrategy>(new FindIdStrategy(id));
+        public static TElement CreateById<TElement>(this Component element, string id)
+            where TElement : Component => element.Create<TElement, FindIdStrategy>(new FindIdStrategy(id));
 
-        public static TElement CreateByAccessibilityId<TElement>(this Element element, string accessibilityId)
-            where TElement : Element => element.Create<TElement, FindAccessibilityIdStrategy>(new FindAccessibilityIdStrategy(accessibilityId));
+        public static TElement CreateByAccessibilityId<TElement>(this Component element, string accessibilityId)
+            where TElement : Component => element.Create<TElement, FindAccessibilityIdStrategy>(new FindAccessibilityIdStrategy(accessibilityId));
 
-        public static TElement CreateByName<TElement>(this Element element, string name)
-            where TElement : Element => element.Create<TElement, FindNameStrategy>(new FindNameStrategy(name));
+        public static TElement CreateByName<TElement>(this Component element, string name)
+            where TElement : Component => element.Create<TElement, FindNameStrategy>(new FindNameStrategy(name));
 
-        public static TElement CreateByClass<TElement>(this Element element, string elementClass)
-            where TElement : Element => element.Create<TElement, FindClassNameStrategy>(new FindClassNameStrategy(elementClass));
+        public static TElement CreateByClass<TElement>(this Component element, string elementClass)
+            where TElement : Component => element.Create<TElement, FindClassNameStrategy>(new FindClassNameStrategy(elementClass));
 
-        public static TElement CreateByAutomationId<TElement>(this Element element, string automationId)
-            where TElement : Element => element.Create<TElement, FindAutomationIdStrategy>(new FindAutomationIdStrategy(automationId));
+        public static TElement CreateByAutomationId<TElement>(this Component element, string automationId)
+            where TElement : Component => element.Create<TElement, FindAutomationIdStrategy>(new FindAutomationIdStrategy(automationId));
 
-        public static TElement CreateByXPath<TElement>(this Element element, string xpath)
-            where TElement : Element => element.Create<TElement, FindXPathStrategy>(new FindXPathStrategy(xpath));
+        public static TElement CreateByXPath<TElement>(this Component element, string xpath)
+            where TElement : Component => element.Create<TElement, FindXPathStrategy>(new FindXPathStrategy(xpath));
 
-        public static ElementsList<TElement> CreateAllByIdEndingWith<TElement>(this Element element, string tag)
-            where TElement : Element => new ElementsList<TElement>(new FindIdEndingWithStrategy(tag), element.WrappedElement);
+        public static ComponentsList<TElement> CreateAllByIdEndingWith<TElement>(this Component element, string tag)
+            where TElement : Component => new ComponentsList<TElement>(new FindIdEndingWithStrategy(tag), element.WrappedElement);
 
-        public static ElementsList<TElement> CreateAllByTag<TElement>(this Element element, string tag)
-            where TElement : Element => new ElementsList<TElement>(new FindTagNameStrategy(tag), element.WrappedElement);
+        public static ComponentsList<TElement> CreateAllByTag<TElement>(this Component element, string tag)
+            where TElement : Component => new ComponentsList<TElement>(new FindTagNameStrategy(tag), element.WrappedElement);
 
-        public static ElementsList<TElement> CreateAllById<TElement>(this Element element, string id)
-            where TElement : Element => new ElementsList<TElement>(new FindIdStrategy(id), element.WrappedElement);
+        public static ComponentsList<TElement> CreateAllById<TElement>(this Component element, string id)
+            where TElement : Component => new ComponentsList<TElement>(new FindIdStrategy(id), element.WrappedElement);
 
-        public static ElementsList<TElement> CreateAllByAccessibilityId<TElement>(this Element element, string accessibilityId)
-            where TElement : Element => new ElementsList<TElement>(new FindAccessibilityIdStrategy(accessibilityId), element.WrappedElement);
+        public static ComponentsList<TElement> CreateAllByAccessibilityId<TElement>(this Component element, string accessibilityId)
+            where TElement : Component => new ComponentsList<TElement>(new FindAccessibilityIdStrategy(accessibilityId), element.WrappedElement);
 
-        public static ElementsList<TElement> CreateAllByName<TElement>(this Element element, string name)
-            where TElement : Element => new ElementsList<TElement>(new FindNameStrategy(name), element.WrappedElement);
+        public static ComponentsList<TElement> CreateAllByName<TElement>(this Component element, string name)
+            where TElement : Component => new ComponentsList<TElement>(new FindNameStrategy(name), element.WrappedElement);
 
-        public static ElementsList<TElement> CreateAllByClass<TElement>(this Element element, string elementClass)
-            where TElement : Element => new ElementsList<TElement>(new FindClassNameStrategy(elementClass), element.WrappedElement);
+        public static ComponentsList<TElement> CreateAllByClass<TElement>(this Component element, string elementClass)
+            where TElement : Component => new ComponentsList<TElement>(new FindClassNameStrategy(elementClass), element.WrappedElement);
 
-        public static ElementsList<TElement> CreateAllByAutomationId<TElement>(this Element element, string automationId)
-            where TElement : Element => new ElementsList<TElement>(new FindAutomationIdStrategy(automationId), element.WrappedElement);
+        public static ComponentsList<TElement> CreateAllByAutomationId<TElement>(this Component element, string automationId)
+            where TElement : Component => new ComponentsList<TElement>(new FindAutomationIdStrategy(automationId), element.WrappedElement);
 
-        public static ElementsList<TElement> CreateAllByXPath<TElement>(this Element element, string xpath)
-            where TElement : Element => new ElementsList<TElement>(new FindXPathStrategy(xpath), element.WrappedElement);
+        public static ComponentsList<TElement> CreateAllByXPath<TElement>(this Component element, string xpath)
+            where TElement : Component => new ComponentsList<TElement>(new FindXPathStrategy(xpath), element.WrappedElement);
     }
 }

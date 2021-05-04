@@ -18,7 +18,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class RadioButton : Element, IElementDisabled, IElementChecked
+    public class RadioButton : Component, IElementDisabled, IElementChecked
     {
         public static event EventHandler<ElementActionEventArgs> Clicking;
         public static event EventHandler<ElementActionEventArgs> Clicked;
