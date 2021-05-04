@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.Android
         public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Unchecking;
         public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Unchecked;
 
-        public void Check(bool isChecked = true)
+        public virtual void Check(bool isChecked = true)
         {
             bool isElementChecked = GetIsChecked();
             if (isChecked && !isElementChecked || !isChecked && isElementChecked)
@@ -35,7 +35,7 @@ namespace Bellatrix.Mobile.Android
             }
         }
 
-        public void Uncheck()
+        public virtual void Uncheck()
         {
             bool isChecked = GetIsChecked();
             if (isChecked)
@@ -44,15 +44,15 @@ namespace Bellatrix.Mobile.Android
             }
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             return GetText();
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsChecked => GetIsChecked();
+        public virtual bool IsChecked => GetIsChecked();
     }
 }

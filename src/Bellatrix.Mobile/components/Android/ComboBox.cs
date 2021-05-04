@@ -24,7 +24,7 @@ namespace Bellatrix.Mobile.Android
         public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Selecting;
         public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Selected;
 
-        public void SelectByText(string value)
+        public virtual void SelectByText(string value)
         {
             Selecting?.Invoke(this, new ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>(this, value));
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.Android
             Selected?.Invoke(this, new ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>(this, value));
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             var result = base.GetText();
             if (string.IsNullOrEmpty(result))
@@ -52,6 +52,6 @@ namespace Bellatrix.Mobile.Android
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

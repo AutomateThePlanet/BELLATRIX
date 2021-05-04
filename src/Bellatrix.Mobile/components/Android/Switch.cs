@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.Android
         public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TurningOff;
         public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TurnedOff;
 
-        public void TurnOn()
+        public virtual void TurnOn()
         {
             bool isElementChecked = GetIsChecked();
             if (!isElementChecked)
@@ -35,7 +35,7 @@ namespace Bellatrix.Mobile.Android
             }
         }
 
-        public void TurnOff()
+        public virtual void TurnOff()
         {
             bool isChecked = GetIsChecked();
             if (isChecked)
@@ -44,15 +44,15 @@ namespace Bellatrix.Mobile.Android
             }
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             return GetText();
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsOn => GetIsChecked();
+        public virtual bool IsOn => GetIsChecked();
     }
 }

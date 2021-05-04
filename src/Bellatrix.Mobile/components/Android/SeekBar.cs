@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.Android
         public static event EventHandler<ElementActionEventArgs<AndroidElement>> SettingPercentage;
         public static event EventHandler<ElementActionEventArgs<AndroidElement>> PercentageSet;
 
-        public void Set(double percentage)
+        public virtual void Set(double percentage)
         {
             SettingPercentage?.Invoke(this, new ElementActionEventArgs<AndroidElement>(this, percentage.ToString()));
             int end = WrappedElement.Size.Width;
@@ -38,6 +38,6 @@ namespace Bellatrix.Mobile.Android
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

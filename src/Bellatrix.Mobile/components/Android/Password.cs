@@ -24,17 +24,17 @@ namespace Bellatrix.Mobile.Android
         public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingPassword;
         public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> PasswordSet;
 
-        public string GetPassword()
+        public virtual string GetPassword()
         {
             return GetText();
         }
 
-        public void SetPassword(string password)
+        public virtual void SetPassword(string password)
         {
             SetText(SettingPassword, PasswordSet, password);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

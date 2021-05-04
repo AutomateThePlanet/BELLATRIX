@@ -23,7 +23,7 @@ namespace Bellatrix.Mobile.Android
     public class Grid<TElement> : Element
             where TElement : Component<AndroidDriver<AndroidElement>, AndroidElement>
     {
-        public ComponentsList<TElement, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll(string searchClass)
+        public virtual ComponentsList<TElement, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll(string searchClass)
         {
             var elements = this.CreateAllByClass<TElement>(searchClass);
             return elements;

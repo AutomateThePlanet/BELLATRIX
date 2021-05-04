@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.Android
 {
     public class Label : Element, IElementText
     {
-        public string GetText()
+        public virtual string GetText()
         {
             return GetText();
         }

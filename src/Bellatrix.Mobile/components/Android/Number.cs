@@ -24,12 +24,12 @@ namespace Bellatrix.Mobile.Android
         public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingNumber;
         public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> NumberSet;
 
-        public void SetNumber(int value)
+        public virtual void SetNumber(int value)
         {
             SetText(SettingNumber, NumberSet, value.ToString());
         }
 
-        public int GetNumber()
+        public virtual int GetNumber()
         {
             var resultText = GetText();
             if (string.IsNullOrEmpty(resultText))
@@ -44,6 +44,6 @@ namespace Bellatrix.Mobile.Android
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

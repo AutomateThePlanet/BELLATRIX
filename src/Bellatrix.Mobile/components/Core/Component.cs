@@ -70,7 +70,7 @@ namespace Bellatrix.Mobile.Core
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public dynamic By { get; internal set; }
 
-        public string GetAttribute(string name)
+        public virtual string GetAttribute(string name)
         {
             return WrappedElement.GetAttribute(name);
         }
@@ -115,7 +115,7 @@ namespace Bellatrix.Mobile.Core
         public void WaitToBe() => GetAndWaitWebDriverElement(true);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsPresent
+        public virtual bool IsPresent
         {
             get
             {
@@ -137,7 +137,7 @@ namespace Bellatrix.Mobile.Core
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsVisible
+        public virtual bool IsVisible
         {
             get
             {
@@ -158,7 +158,7 @@ namespace Bellatrix.Mobile.Core
             }
         }
 
-        public void ScrollToVisible(ScrollDirection direction)
+        public virtual void ScrollToVisible(ScrollDirection direction)
         {
             ScrollingToVisible?.Invoke(this, new ElementActionEventArgs<TDriverElement>(this));
             int timeOut = 10000;
@@ -176,9 +176,9 @@ namespace Bellatrix.Mobile.Core
 
         public string PageName { get; internal set; }
 
-        public Point Location => WrappedElement.Location;
+        public virtual Point Location => WrappedElement.Location;
 
-        public Size Size => WrappedElement.Size;
+        public virtual Size Size => WrappedElement.Size;
 
         public void EnsureState(WaitStrategy<TDriver, TDriverElement> until) => _untils.Add(until);
 
