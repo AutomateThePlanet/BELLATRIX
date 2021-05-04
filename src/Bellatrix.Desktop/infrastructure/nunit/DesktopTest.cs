@@ -16,26 +16,37 @@ namespace Bellatrix.Desktop.NUnit
 {
     public abstract class DesktopTest : NUnitBaseTest
     {
+        private static readonly object _lockObject = new object();
+        private static bool _arePluginsAlreadyInitialized;
+
         public App App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<App>();
 
         public override void Configure()
         {
-            NUnitPluginConfiguration.Add();
-            ExecutionTimePlugin.Add();
-            VideoRecorderPluginConfiguration.AddNUnit();
-            ScreenshotsPluginConfiguration.AddNUnit();
-            DesktopPluginsConfiguration.AddLifecycle();
-            DesktopPluginsConfiguration.AddLogExecutionLifecycle();
-            DesktopPluginsConfiguration.AddVanillaWebDriverScreenshotsOnFail();
-            DesktopPluginsConfiguration.AddElementsBddLogging();
-            DesktopPluginsConfiguration.AddDynamicTestCases();
-            DesktopPluginsConfiguration.AddBugReporting();
-            DesktopPluginsConfiguration.AddValidateExtensionsBddLogging();
-            DesktopPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-            DesktopPluginsConfiguration.AddValidateExtensionsBugReporting();
-            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+            lock (_lockObject)
+            {
+                if (!_arePluginsAlreadyInitialized)
+                {
+                    NUnitPluginConfiguration.Add();
+                    ExecutionTimePlugin.Add();
+                    VideoRecorderPluginConfiguration.AddNUnit();
+                    ScreenshotsPluginConfiguration.AddNUnit();
+                    DesktopPluginsConfiguration.AddLifecycle();
+                    DesktopPluginsConfiguration.AddLogExecutionLifecycle();
+                    DesktopPluginsConfiguration.AddVanillaWebDriverScreenshotsOnFail();
+                    DesktopPluginsConfiguration.AddElementsBddLogging();
+                    DesktopPluginsConfiguration.AddDynamicTestCases();
+                    DesktopPluginsConfiguration.AddBugReporting();
+                    DesktopPluginsConfiguration.AddValidateExtensionsBddLogging();
+                    DesktopPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+                    DesktopPluginsConfiguration.AddValidateExtensionsBugReporting();
+                    DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+                    DesktopPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+                    DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+
+                    _arePluginsAlreadyInitialized = true;
+                }
+            }
         }
     }
 }
