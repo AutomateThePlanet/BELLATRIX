@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.IOS
         public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingPercentage;
         public static event EventHandler<ComponentActionEventArgs<IOSElement>> PercentageSet;
 
-        public void Set(double value)
+        public virtual void Set(double value)
         {
             SettingPercentage?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value.ToString()));
             int end = WrappedElement.Size.Width;
@@ -38,6 +38,6 @@ namespace Bellatrix.Mobile.IOS
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

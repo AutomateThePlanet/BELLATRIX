@@ -25,17 +25,17 @@ namespace Bellatrix.Mobile.IOS
         public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicking;
         public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicked;
 
-        public void Click()
+        public virtual void Click()
         {
             Click(Clicking, Clicked);
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             return GetText();
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

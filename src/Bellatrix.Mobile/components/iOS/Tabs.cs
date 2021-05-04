@@ -23,7 +23,7 @@ namespace Bellatrix.Mobile.IOS
     public class Tabs<TComponent> : IOSComponent
             where TComponent : Component<IOSDriver<IOSElement>, IOSElement>
     {
-        public ComponentsList<TComponent, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll(string searchClass)
+        public virtual ComponentsList<TComponent, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll(string searchClass)
         {
             var elements = this.CreateAllByClass<TComponent>(searchClass);
             return elements;

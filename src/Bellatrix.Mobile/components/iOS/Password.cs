@@ -25,17 +25,17 @@ namespace Bellatrix.Mobile.IOS
         public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingPassword;
         public static event EventHandler<ComponentActionEventArgs<IOSElement>> PasswordSet;
 
-        public string GetPassword()
+        public virtual string GetPassword()
         {
             return GetValueAttribute();
         }
 
-        public void SetPassword(string password)
+        public virtual void SetPassword(string password)
         {
             SetValue(SettingPassword, PasswordSet, password);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

@@ -27,7 +27,7 @@ namespace Bellatrix.Mobile.IOS
         public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurningOff;
         public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurnedOff;
 
-        public void TurnOn()
+        public virtual void TurnOn()
         {
             bool isElementChecked = GetIsChecked();
             if (!isElementChecked)
@@ -36,7 +36,7 @@ namespace Bellatrix.Mobile.IOS
             }
         }
 
-        public void TurnOff()
+        public virtual void TurnOff()
         {
             bool isChecked = GetIsChecked();
             if (isChecked)
@@ -45,15 +45,15 @@ namespace Bellatrix.Mobile.IOS
             }
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             return GetText();
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsOn => GetIsChecked();
+        public virtual bool IsOn => GetIsChecked();
     }
 }

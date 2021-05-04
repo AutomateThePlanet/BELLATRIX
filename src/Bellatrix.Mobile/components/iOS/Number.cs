@@ -25,12 +25,12 @@ namespace Bellatrix.Mobile.IOS
         public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingNumber;
         public static event EventHandler<ComponentActionEventArgs<IOSElement>> NumberSet;
 
-        public void SetNumber(int value)
+        public virtual void SetNumber(int value)
         {
             SetValue(SettingNumber, NumberSet, value.ToString());
         }
 
-        public int GetNumber()
+        public virtual int GetNumber()
         {
             var resultText = GetValueAttribute();
             int.TryParse(resultText, out var result);
@@ -38,6 +38,6 @@ namespace Bellatrix.Mobile.IOS
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }
