@@ -18,18 +18,29 @@ namespace Bellatrix.API.MSTest
 {
     public abstract class APITest : MSTestBaseTest
     {
+        private static readonly object _lockObject = new object();
+        private static bool _arePluginsAlreadyInitialized;
+
         public App App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
 
         public override void Configure()
         {
-            MSTestPluginConfiguration.Add();
-            ExecutionTimePlugin.Add();
-            APIPluginsConfiguration.AddAssertExtensionsBddLogging();
-            APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
-            APIPluginsConfiguration.AddAssertExtensionsBugReporting();
-            APIPluginsConfiguration.AddApiAuthenticationStrategies();
-            APIPluginsConfiguration.AddRetryFailedRequests();
-            APIPluginsConfiguration.AddLogExecution();
+            lock (_lockObject)
+            {
+                if (!_arePluginsAlreadyInitialized)
+                {
+                    MSTestPluginConfiguration.Add();
+                    ExecutionTimePlugin.Add();
+                    APIPluginsConfiguration.AddAssertExtensionsBddLogging();
+                    APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
+                    APIPluginsConfiguration.AddAssertExtensionsBugReporting();
+                    APIPluginsConfiguration.AddApiAuthenticationStrategies();
+                    APIPluginsConfiguration.AddRetryFailedRequests();
+                    APIPluginsConfiguration.AddLogExecution();
+
+                    _arePluginsAlreadyInitialized = true;
+                }
+            }
         }
     }
 }

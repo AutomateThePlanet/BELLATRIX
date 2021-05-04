@@ -17,18 +17,29 @@ namespace Bellatrix.API.NUnit
 {
     public abstract class APITest : NUnitBaseTest
     {
+        private static readonly object _lockObject = new object();
+        private static bool _arePluginsAlreadyInitialized;
+
         public App App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<App>();
 
         public override void Configure()
         {
-            NUnitPluginConfiguration.Add();
-            ExecutionTimePlugin.Add();
-            APIPluginsConfiguration.AddAssertExtensionsBddLogging();
-            APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
-            APIPluginsConfiguration.AddAssertExtensionsBugReporting();
-            APIPluginsConfiguration.AddApiAuthenticationStrategies();
-            APIPluginsConfiguration.AddRetryFailedRequests();
-            APIPluginsConfiguration.AddLogExecution();
+            lock (_lockObject)
+            {
+                if (!_arePluginsAlreadyInitialized)
+                {
+                    NUnitPluginConfiguration.Add();
+                    ExecutionTimePlugin.Add();
+                    APIPluginsConfiguration.AddAssertExtensionsBddLogging();
+                    APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
+                    APIPluginsConfiguration.AddAssertExtensionsBugReporting();
+                    APIPluginsConfiguration.AddApiAuthenticationStrategies();
+                    APIPluginsConfiguration.AddRetryFailedRequests();
+                    APIPluginsConfiguration.AddLogExecution();
+
+                    _arePluginsAlreadyInitialized = true;
+                }
+            }
         }
     }
 }
