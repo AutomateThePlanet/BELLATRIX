@@ -1,4 +1,4 @@
-﻿// <copyright file="UntilElementsExtensions.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="WaitStrategyComponentsExtensions.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@ using Bellatrix.Web.Untils;
 
 namespace Bellatrix.Web
 {
-    public static class WaitStrategyElementsExtensions
+    public static class WaitStrategyComponentsExtensions
     {
         public static TComponentType ToExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
             where TComponentType : Component

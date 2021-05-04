@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Extensions.Controls
 {
     public static class Elementhighlighter
     {
-        public static void highlight(this IWebElement nativeElement, int waitBeforeUnhighlightMilliseconds = 100, string color = "yellow")
+        public static void Highlight(this IWebElement nativeElement, int waitBeforeUnhighlightMilliseconds = 100, string color = "yellow")
         {
             if (WrappedWebDriverCreateService.BrowserConfiguration.BrowserType == BrowserType.ChromeHeadless || WrappedWebDriverCreateService.BrowserConfiguration.BrowserType == BrowserType.FirefoxHeadless)
             {

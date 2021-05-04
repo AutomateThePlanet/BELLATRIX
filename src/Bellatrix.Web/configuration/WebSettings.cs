@@ -19,7 +19,7 @@ namespace Bellatrix.Web
         public bool ShouldScrollToVisibleOnElementFound { get; set; }
         public bool ShouldWaitUntilReadyOnElementFound { get; set; }
         public bool ShouldWaitForAngular { get; set; }
-        public bool ShouldhighlightComponents { get; set; }
+        public bool ShouldHighlightElements { get; set; }
         public bool FullPageScreenshotsEnabled { get; set; }
         public BrowserSettings Chrome { get; set; }
         public BrowserSettings ChromeHeadless { get; set; }

@@ -152,7 +152,7 @@ namespace Bellatrix.Web
             var elementFinder = _parenTComponent == null
                 ? new NativeElementFinderService(WrappedDriver)
                 : new NativeElementFinderService(_parenTComponent);
-            var elementWaiter = new ElementWaitService();
+            var elementWaiter = new ComponentWaitService();
             if (_parenTComponent == null)
             {
                 return ConditionalWait(elementFinder);

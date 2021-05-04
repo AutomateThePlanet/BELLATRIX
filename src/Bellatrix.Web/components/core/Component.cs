@@ -32,7 +32,7 @@ namespace Bellatrix.Web
         public static event EventHandler<ComponentActionEventArgs> Focusing;
         public static event EventHandler<ComponentActionEventArgs> Focused;
 
-        private readonly ElementWaitService _elementWaiter;
+        private readonly ComponentWaitService _elementWaiter;
         private readonly List<WaitStrategy> _untils;
         private IWebElement _wrappedElement;
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web
 
         public Component()
         {
-            _elementWaiter = new ElementWaitService();
+            _elementWaiter = new ComponentWaitService();
             WrappedDriver = ServicesCollection.Current.Resolve<IWebDriver>();
             _untils = new List<WaitStrategy>();
             JavaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();

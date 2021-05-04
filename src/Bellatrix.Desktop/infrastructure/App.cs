@@ -45,7 +45,7 @@ namespace Bellatrix.Desktop
 
         public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
 
-        public ComponentWaitService ElementWaitService => ServicesCollection.Current.Resolve<ComponentWaitService>();
+        public ComponentWaitService ComponentWaitService => ServicesCollection.Current.Resolve<ComponentWaitService>();
 
         public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();

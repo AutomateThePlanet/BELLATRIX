@@ -1,6 +1,6 @@
 ﻿namespace Bellatrix.Desktop.GettingStarted.ExtensionMethodsWaitMethods
 {
-    public static class WaitStrategyElementsExtensions
+    public static class WaitStrategyComponentsExtensions
     {
         // 1. The next and final step is to create an extension method for all UI elements.
         // After WaitToHaveSpecificContentStrategy is created, it is important to be passed on to the element’s ValidateState method.

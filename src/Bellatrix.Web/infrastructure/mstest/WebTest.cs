@@ -51,7 +51,7 @@ namespace Bellatrix.Web.MSTest
                     WebPluginsConfiguration.AddElementsBddLogging();
                     WebPluginsConfiguration.AddDynamicTestCases();
                     WebPluginsConfiguration.AddBugReporting();
-                    WebPluginsConfiguration.AddhighlightComponents();
+                    WebPluginsConfiguration.AddHighlightComponents();
 
                     if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
                     {

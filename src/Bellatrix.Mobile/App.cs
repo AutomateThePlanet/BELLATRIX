@@ -38,7 +38,7 @@ namespace Bellatrix.Mobile
             _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
         }
 
-        public ComponentWaitService<TDriver, TDriverElement> ElementWaitService => ServicesCollection.Current.Resolve<ComponentWaitService<TDriver, TDriverElement>>();
+        public ComponentWaitService<TDriver, TDriverElement> ComponentWaitService => ServicesCollection.Current.Resolve<ComponentWaitService<TDriver, TDriverElement>>();
 
         public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
 

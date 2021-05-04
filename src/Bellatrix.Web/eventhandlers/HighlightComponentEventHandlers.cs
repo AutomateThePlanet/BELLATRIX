@@ -18,6 +18,6 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class HighlightComponentEventHandlers : ComponentEventHandlers
     {
-        protected override void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs arg) => arg.Element.highlight();
+        protected override void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs arg) => arg.Element.Highlight();
     }
 }

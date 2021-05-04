@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-     public static class WaitStrategyElementsExtensions
+     public static class WaitStrategyComponentsExtensions
     {
         public static TComponentType ToExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
             where TComponentType : IOSComponent
