@@ -13,11 +13,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.30" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.33" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="Microsoft.Edge.SeleniumTools" Version="3.141.2" />
 		<PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-		<PackageReference Include="System.Composition" Version="5.0.0" />
+		<PackageReference Include="System.Composition" Version="5.0.1" />
 		<PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
 		<PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
     <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1344" />
