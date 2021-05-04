@@ -30,6 +30,7 @@ namespace Bellatrix
         public ServicesCollection Container;
         protected static ThreadLocal<Exception> ThrownException;
         private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
+
         private PluginProvider _currentTestExecutionProvider;
 
         public NUnitBaseTest()

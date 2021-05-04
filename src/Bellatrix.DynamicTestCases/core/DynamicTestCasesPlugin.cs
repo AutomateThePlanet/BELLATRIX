@@ -70,7 +70,7 @@ namespace Bellatrix.DynamicTestCases
                 // Update the test case only upon test pass. In case of failure, only the basic test case - name, description, etc will remain - without the test steps
                 if (e.TestOutcome == TestOutcome.Passed && _dynamicTestCasesService?.Context != null)
                 {
-                    _dynamicTestCasesService.Context.TestCase = _testCaseManagementService.InitTestCase(_dynamicTestCasesService.Context);
+                    _dynamicTestCasesService.Context.Value.TestCase = _testCaseManagementService.InitTestCase(_dynamicTestCasesService.Context.Value);
                 }
             }
             catch (Exception ex)
@@ -103,13 +103,13 @@ namespace Bellatrix.DynamicTestCases
                 testCaseName = TestNameToDesciption(args.TestName);
             }
 
-            _dynamicTestCasesService.Context.SuiteId = suiteId;
-            _dynamicTestCasesService.Context.TestCaseName = testCaseName;
-            _dynamicTestCasesService.Context.TestCaseDescription = testCaseDescription;
-            _dynamicTestCasesService.Context.TestCaseId = testCaseId;
-            _dynamicTestCasesService.Context.RequirementId = requirementId;
-            _dynamicTestCasesService.Context.TestFullName = $"{args.TestClassName}.{args.TestName}";
-            _dynamicTestCasesService.Context.TestProjectName = args.TestClassType.Assembly.GetName().Name;
+            _dynamicTestCasesService.Context.Value.SuiteId = suiteId;
+            _dynamicTestCasesService.Context.Value.TestCaseName = testCaseName;
+            _dynamicTestCasesService.Context.Value.TestCaseDescription = testCaseDescription;
+            _dynamicTestCasesService.Context.Value.TestCaseId = testCaseId;
+            _dynamicTestCasesService.Context.Value.RequirementId = requirementId;
+            _dynamicTestCasesService.Context.Value.TestFullName = $"{args.TestClassName}.{args.TestName}";
+            _dynamicTestCasesService.Context.Value.TestProjectName = args.TestClassType.Assembly.GetName().Name;
         }
 
         private string TestNameToDesciption(string name)

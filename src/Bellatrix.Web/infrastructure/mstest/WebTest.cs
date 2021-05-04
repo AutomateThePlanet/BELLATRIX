@@ -12,12 +12,16 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
+using System;
 using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.MSTest
 {
     public abstract class WebTest : MSTestBaseTest
     {
+        private static readonly object _lockObject = new object();
+        private static bool _arePluginsAlreadyInitialized;
+
         public App App { get; private set; }
 
         public override void Initialize()
@@ -27,31 +31,39 @@ namespace Bellatrix.Web.MSTest
 
         public override void Configure()
         {
-            MSTestPluginConfiguration.Add();
-            ExecutionTimePlugin.Add();
-            VideoRecorderPluginConfiguration.AddMSTest();
-            ScreenshotsPluginConfiguration.AddMSTest();
-            WebPluginsConfiguration.AddBrowserLifecycle();
-            WebPluginsConfiguration.AddLogExecutionLifecycle();
-            WebPluginsConfiguration.AddControlDataHandlers();
-            WebPluginsConfiguration.AddValidateExtensionsBddLogging();
-            WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-            WebPluginsConfiguration.AddValidateExtensionsBugReporting();
-            WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-            WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-            WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
-            WebPluginsConfiguration.AddElementsBddLogging();
-            WebPluginsConfiguration.AddDynamicTestCases();
-            WebPluginsConfiguration.AddBugReporting();
-            WebPluginsConfiguration.AddHighlightElements();
+            lock (_lockObject)
+            {
+                if (!_arePluginsAlreadyInitialized)
+                {
+                    MSTestPluginConfiguration.Add();
+                    ExecutionTimePlugin.Add();
+                    VideoRecorderPluginConfiguration.AddMSTest();
+                    ScreenshotsPluginConfiguration.AddMSTest();
+                    WebPluginsConfiguration.AddBrowserLifecycle();
+                    WebPluginsConfiguration.AddLogExecutionLifecycle();
+                    WebPluginsConfiguration.AddControlDataHandlers();
+                    WebPluginsConfiguration.AddValidateExtensionsBddLogging();
+                    WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+                    WebPluginsConfiguration.AddValidateExtensionsBugReporting();
+                    WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+                    WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+                    WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+                    WebPluginsConfiguration.AddElementsBddLogging();
+                    WebPluginsConfiguration.AddDynamicTestCases();
+                    WebPluginsConfiguration.AddBugReporting();
+                    WebPluginsConfiguration.AddHighlightElements();
 
-            if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
-            {
-                WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
-            }
-            else
-            {
-                WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
+                    if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
+                    {
+                        WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
+                    }
+                    else
+                    {
+                        WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
+                    }
+
+                    _arePluginsAlreadyInitialized = true;
+                }
             }
         }
     }

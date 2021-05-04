@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Bellatrix.DynamicTestCases
 {
@@ -28,26 +29,26 @@ namespace Bellatrix.DynamicTestCases
     {
         public DynamicTestCasesService()
         {
-            Context = new TestCasesContext();
+            Context = new ThreadLocal<TestCasesContext>(() => new TestCasesContext());
         }
 
-        public TestCasesContext Context { get; internal set; }
+        public ThreadLocal<TestCasesContext> Context { get; internal set; }
 
         public void ResetContext()
         {
-            Context = new TestCasesContext();
+            Context = new ThreadLocal<TestCasesContext>(() => new TestCasesContext());
         }
 
         // Appends precondition to the test case.
         public void AddPrecondition(string precondition)
         {
-            Context.Precondition += precondition;
+            Context.Value.Precondition += precondition;
         }
 
         // Adds a regular test step
         public void AddStep(string description)
         {
-            Context.TestSteps.Add(new TestStep(description));
+            Context.Value.TestSteps.Add(new TestStep(description));
         }
 
         // Adds a test step, using description generated from the method name, from which it was invoked.
@@ -61,29 +62,29 @@ namespace Bellatrix.DynamicTestCases
                 description += " using data: " + parameters.Stringify();
             }
 
-            Context.TestSteps.Add(new TestStep(description));
+            Context.Value.TestSteps.Add(new TestStep(description));
         }
 
         // Adds test case using the description and expected result columns.
         public void AddAssertStep(string assertDescription, string expectedResult)
         {
-            Context.TestSteps.Add(new TestStep(assertDescription, expectedResult));
+            Context.Value.TestSteps.Add(new TestStep(assertDescription, expectedResult));
         }
 
         public void AddAdditionalProperty(string name, string value)
         {
-            if (Context.AdditionalProperties.ContainsKey(name))
+            if (Context.Value.AdditionalProperties.ContainsKey(name))
             {
                 if (string.IsNullOrEmpty(value))
                 {
                     return;
                 }
 
-                Context.AdditionalProperties[name] = value;
+                Context.Value.AdditionalProperties[name] = value;
             }
             else
             {
-                Context.AdditionalProperties.Add(name, value);
+                Context.Value.AdditionalProperties.Add(name, value);
             }
         }
 

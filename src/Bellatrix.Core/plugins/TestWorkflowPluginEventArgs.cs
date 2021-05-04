@@ -40,6 +40,7 @@ namespace Bellatrix.Plugins
         {
             TestMethodMemberInfo = testMethodMemberInfo;
             TestName = testName;
+            TestFullName = $"{TestClassName}.{TestName}";
             Exception = exception;
             Categories = categories;
             Authors = authors;
@@ -55,7 +56,6 @@ namespace Bellatrix.Plugins
             TestOutcome = testOutcome;
             TestClassType = testClassType;
             TestClassName = testClassType.FullName;
-            TestFullName = $"{TestClassName}.{TestName}";
             ConsoleOutputMessage = consoleOutputMessage;
             ConsoleOutputStackTrace = consoleOutputStackTrace;
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);

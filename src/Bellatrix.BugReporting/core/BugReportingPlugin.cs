@@ -59,9 +59,9 @@ namespace Bellatrix.BugReporting
 
             base.PostTestCleanup(sender, e);
 
-            if (e.TestOutcome == TestOutcome.Failed && _bugReportingContextService?.Context != null)
+            if ((e.TestOutcome == TestOutcome.Failed || e.TestOutcome == TestOutcome.Error) && _bugReportingContextService?.Context != null)
             {
-                _bugReportingService.LogBug(_bugReportingContextService.Context, e.Exception.ToString(), _filesToBeAttached);
+                _bugReportingService.LogBug(_bugReportingContextService.Context.Value, e.Exception.ToString(), _filesToBeAttached);
             }
 
             _bugReportingContextService?.ResetContext();
@@ -105,10 +105,10 @@ namespace Bellatrix.BugReporting
             }
 
             _filesToBeAttached = new List<string>();
-            _bugReportingContextService.Context = new BugReportingContext();
-            _bugReportingContextService.Context.TestCaseName = TestNameToDesciption(args.TestName);
-            _bugReportingContextService.Context.TestFullName = $"{args.TestMethodMemberInfo.DeclaringType.Name}.{args.TestName}";
-            _bugReportingContextService.Context.TestProjectName = args.TestMethodMemberInfo.DeclaringType.FullName;
+            _bugReportingContextService.Context.Value = new BugReportingContext();
+            _bugReportingContextService.Context.Value.TestCaseName = TestNameToDesciption(args.TestName);
+            _bugReportingContextService.Context.Value.TestFullName = $"{args.TestMethodMemberInfo.DeclaringType.Name}.{args.TestName}";
+            _bugReportingContextService.Context.Value.TestProjectName = args.TestMethodMemberInfo.DeclaringType.FullName;
         }
 
         private string TestNameToDesciption(string name)

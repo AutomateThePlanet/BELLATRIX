@@ -15,6 +15,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Bellatrix.Plugins.Screenshots.Contracts;
+using Bellatrix.Utilities;
 
 namespace Bellatrix.Plugins.Screenshots
 {
@@ -46,6 +47,6 @@ namespace Bellatrix.Plugins.Screenshots
             return outputDir;
         }
 
-        public virtual string GetUniqueFileName(string testName) => string.Concat(testName, Guid.NewGuid().ToString(), ".png");
+        public virtual string GetUniqueFileName(string testName) => string.Concat(TimestampBuilder.BuildUniqueText(testName), ".png");
     }
 }
