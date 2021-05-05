@@ -33,6 +33,7 @@ namespace Bellatrix.Desktop.NUnit
                     ScreenshotsPluginConfiguration.AddNUnit();
                     DynamicTestCasesPlugin.Add();
                     AllurePlugin.Add();
+                    BugReportingPlugin.Add();
                     DesktopPluginsConfiguration.AddLifecycle();
                     DesktopPluginsConfiguration.AddLogExecutionLifecycle();
                     DesktopPluginsConfiguration.AddVanillaWebDriverScreenshotsOnFail();

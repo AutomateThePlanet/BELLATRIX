@@ -32,6 +32,7 @@ namespace Bellatrix.API.NUnit
                     ExecutionTimePlugin.Add();
                     DynamicTestCasesPlugin.Add();
                     AllurePlugin.Add();
+                    BugReportingPlugin.Add();
                     APIPluginsConfiguration.AddAssertExtensionsBddLogging();
                     APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
                     APIPluginsConfiguration.AddAssertExtensionsBugReporting();

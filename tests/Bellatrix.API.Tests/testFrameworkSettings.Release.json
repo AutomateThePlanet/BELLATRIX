@@ -30,7 +30,7 @@
     "defaultPriority": "2",
     "defaultSeverity": "2 - High"
   },
-  "jiraReportingSettings": {
+  "jiraBugReportingSettings": {
     "isEnabled": "false",
     "url": "yourServerUrl",
     "token": "authenticationToken",

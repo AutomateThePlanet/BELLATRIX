@@ -36,6 +36,7 @@ namespace Bellatrix.Web.NUnit
                     ScreenshotsPluginConfiguration.AddNUnit();
                     DynamicTestCasesPlugin.Add();
                     AllurePlugin.Add();
+                    BugReportingPlugin.Add();
 
                     WebPluginsConfiguration.AddBrowserLifecycle();
                     WebPluginsConfiguration.AddLogExecutionLifecycle();

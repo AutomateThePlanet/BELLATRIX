@@ -33,6 +33,7 @@ namespace Bellatrix.Mobile.NUnit
                     ExecutionTimePlugin.Add();
                     DynamicTestCasesPlugin.Add();
                     AllurePlugin.Add();
+                    BugReportingPlugin.Add();
                     VideoRecorderPluginConfiguration.AddNUnit();
                     ScreenshotsPluginConfiguration.AddNUnit();
                     AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();

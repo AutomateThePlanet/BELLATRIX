@@ -1,4 +1,4 @@
-﻿// <copyright file="JiraBugReportingSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="DynamicTestCasesPlugin.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,15 +14,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Bellatrix.BugReporting.AzureDevOps;
+using Bellatrix.BugReporting.Jira;
+using Bellatrix.Plugins;
 
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix
 {
-    public class JiraBugReportingSettings
+    public static class BugReportingPlugin
     {
-        public bool IsEnabled { get; set; }
-        public string Url { get; set; }
-        public string Token { get; set; }
-        public string ProjectName { get; set; }
-        public string DefaultPriority { get; set; }
+        public static void Add()
+        {
+            if (ConfigurationService.GetSection<JiraBugReportingSettings>().IsEnabled)
+            {
+                JiraBugReportingPlugin.Add();
+            }
+            else if (ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().IsEnabled)
+            {
+                AzureDevOpsBugReportingPlugin.Add();
+            }
+        }
     }
 }

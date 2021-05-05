@@ -35,6 +35,7 @@ namespace Bellatrix.Mobile.MSTest
                     ScreenshotsPluginConfiguration.AddMSTest();
                     DynamicTestCasesPlugin.Add();
                     AllurePlugin.Add();
+                    BugReportingPlugin.Add();
                     IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
                     IOSPluginsConfiguration.AddElementsBddLogging();
                     IOSPluginsConfiguration.AddDynamicTestCases();

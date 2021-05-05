@@ -33,6 +33,7 @@ namespace Bellatrix.Desktop.MSTest
                     ScreenshotsPluginConfiguration.AddMSTest();
                     DynamicTestCasesPlugin.Add();
                     AllurePlugin.Add();
+                    BugReportingPlugin.Add();
                     DesktopPluginsConfiguration.AddLifecycle();
                     DesktopPluginsConfiguration.AddLogExecutionLifecycle();
                     DesktopPluginsConfiguration.AddVanillaWebDriverScreenshotsOnFail();
