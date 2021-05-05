@@ -38,7 +38,7 @@
   "azureDevOpsDynamicTestCasesSettings": {
     "isEnabled": "false",
     "url": "https://dev.azure.com/yourCompany",
-    "token": "64qzkpw2134hlgxz5ly6iww3hef7njgieq1312izcpvox572vyca",
+    "token": "yourToken",
     "organizationName": "organizationName",
     "projectName": "projectName"
   },
@@ -53,7 +53,7 @@
   "azureDevOpsBugReportingSettings": {
     "isEnabled": "false",
     "url": "https://dev.azure.com/yourCompany",
-    "token": "64qzkpwb2vhlgxz5ly6iww3hef7njgieqfls4zizcpvox572vyca",
+    "token": "yourToken",
     "organizationName": "organizationName",
     "projectName": "projectName",
     "defaultPriority": "2",
