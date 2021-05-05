@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-
+using Bellatrix.Assertions;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.PageObjects;
@@ -45,11 +45,18 @@ namespace Bellatrix.Desktop
 
         public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
 
+        [Obsolete("ComponentWaitService is deprecated use Wait property instead.")]
         public ComponentWaitService ComponentWaitService => ServicesCollection.Current.Resolve<ComponentWaitService>();
+        public ComponentWaitService Wait => ServicesCollection.Current.Resolve<ComponentWaitService>();
 
+        [Obsolete("ComponentCreateService is deprecated use Components property instead.")]
         public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
+        public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
+
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
         public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
+
+        public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
         public static void StartWinAppDriver()
         {
