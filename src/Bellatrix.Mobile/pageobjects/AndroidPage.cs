@@ -1,4 +1,4 @@
-﻿// <copyright file="NavigatablePage.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="AndroidPage.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -13,17 +13,15 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Services.Android;
 
-namespace Bellatrix.Mobile.PageObjects.Android
+namespace Bellatrix.Mobile.PageObjects
 {
-    public abstract class NavigatablePage : Page
+    public abstract class AndroidPage : MobilePage
     {
-        protected NavigatablePage() => ServicesCollection.Current.Resolve<AndroidAppService>();
-
-        protected AndroidAppService AndroidAppService { get; set; }
+        public AndroidApp App => ServicesCollection.Current.Resolve<AndroidApp>();
 
         protected abstract string ActivityName { get; }
         protected abstract string PackageName { get; }
 
-        public void GoTo() => AndroidAppService.StartActivity(PackageName, ActivityName);
+        public void GoTo() => App.AppService.StartActivity(PackageName, ActivityName);
     }
 }

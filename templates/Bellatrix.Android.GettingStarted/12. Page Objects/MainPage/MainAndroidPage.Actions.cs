@@ -1,4 +1,4 @@
-﻿using Bellatrix.Mobile.PageObjects.Android;
+﻿using Bellatrix.Mobile.PageObjects;
 using Bellatrix.Mobile.Services.Android;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
@@ -6,9 +6,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     // 1. All BELLATRIX page objects are implemented as partial classes which means that you have separate files for different parts of it- actions, elements, assertions
     // but at the end, they are all built into a single type. This makes the maintainability and readability of these classes much better. Also, you can easier locate what you need.
     //
-    // You can always create BELLATRIX page objects yourself inherit one of the 4 classes- Page, AssertedPage, NavigatablePage, AssertedNavigatablePage
+    // You can always create BELLATRIX page objects yourself inherit AndroidPage
     // We advise you to follow the convention with partial classes, but you are always free to put all pieces in a single file.
-    public partial class MainAndroidPage : AssertedNavigatablePage
+    public partial class MainAndroidPage : AndroidPage
     {
         private AndroidKeyboardService _keyboardService;
 

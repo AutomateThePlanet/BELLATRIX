@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-
+using Bellatrix.Assertions;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.Mobile.Configuration;
 using Bellatrix.Mobile.PageObjects;
@@ -49,6 +49,8 @@ namespace Bellatrix.Mobile
         public WebServicesFacade Web => ServicesCollection.Current.Resolve<WebServicesFacade>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+
+        public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
         public static void StartAppiumLocalService()
         {
@@ -85,7 +87,7 @@ namespace Bellatrix.Mobile
         public abstract void Dispose();
 
         public TPage Create<TPage>()
-            where TPage : Page
+            where TPage : MobilePage
         {
             TPage page = ServicesCollection.Current.Resolve<TPage>();
             return page;

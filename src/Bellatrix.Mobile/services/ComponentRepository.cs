@@ -74,7 +74,7 @@ namespace Bellatrix.Mobile.Services
                     frameMethodInfo.ReturnType.IsSubclassOf(typeof(Component<TDriver, TDriverElement>)))
                 {
                     elementName = frame.GetMethod().Name.Replace("get_", string.Empty);
-                    if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(Page)))
+                    if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(MobilePage)))
                     {
                         pageName = frameMethodInfo.ReflectedType.Name;
                     }

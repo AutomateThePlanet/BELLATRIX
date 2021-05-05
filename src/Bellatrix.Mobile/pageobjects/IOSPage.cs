@@ -1,4 +1,4 @@
-﻿// <copyright file="AssertedNavigatablePage.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="IOSPage.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,14 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.Assertions;
+using Bellatrix.Mobile.Services.Android;
 
-namespace Bellatrix.Mobile.PageObjects.Android
+namespace Bellatrix.Mobile.PageObjects
 {
-    public abstract class AssertedNavigatablePage : NavigatablePage
+    public abstract class IOSPage : MobilePage
     {
-        protected AssertedNavigatablePage() => Assert = ServicesCollection.Current.Resolve<IAssert>();
-
-        protected IAssert Assert { get; }
+        public IOSApp App => ServicesCollection.Current.Resolve<IOSApp>();
     }
 }

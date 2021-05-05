@@ -15,18 +15,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         // Similar test writing approach leads to unreadable and hard to maintain tests.
         // Because of that people use the so-called Page Object design pattern to reuse their elements and pages' logic.
         // BELLATRIX comes with powerful built-in page objects which are much more readable and maintainable than regular vanilla WebDriver ones.
-
-        // 2. To create a new page object, you have a couple of options. You can create it manually. However, why wasting time?
-        // BELLATRIX comes with ready-to-go page object templates. How to create a new page object?
-        // 2.1. Create a new folder for your page and name it properly.
-        // 2.2. Open the context menu and click 'New Item...'
-        // 2.3. Choose one of the 4 Android page objects templates
-        // - Bellatrix-AssertedAndroidPage - contains 3 files- one for actions, one for element declarations and one for assertions (all of them make one-page object)
-        // - Bellatrix-AndroidPage- one for actions and one for elements (all of them make a one-page object), don't have methods for navigation
-        // - Bellatrix-AndroidAssertedNavigatablePage- one for actions and one for elements (all of them make a one-page object), one for assertions and contains methods for navigating to specific activity.
-        // - Bellatrix-AndroidNavigatablePage- one for actions and one for elements (all of them make a one-page object) and contains methods for navigating to specific activity.
         //
-        // 3. On most pages, you need to define elements. Placing them in a single place makes the changing of the locators easy.
+        // 2. On most pages, you need to define elements. Placing them in a single place makes the changing of the locators easy.
         // It is a matter of choice whether to have action methods or not. If you use the same combination of same actions against a group of elements then
         // it may be a good idea to wrap them in a page object action method. In our example, we can wrap the transfer of an item in such a method.
         //
