@@ -14,6 +14,9 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<Copyright>Automate The Planet Ltd. 2021</Copyright>
 		<PackageReleaseNotes>
+      - Refactor Page Objects to have unified access to App instead of using services directly
+      - Refactor App services' properties to have shorter names
+      - Refactor Page Objects naming convention
       - Fixes in WebDriverManager initialziation of browsers
       - Add new cognitive service support for validation text in PDFs and Images
       - Fix known bugs in video recording and screenshots on failure

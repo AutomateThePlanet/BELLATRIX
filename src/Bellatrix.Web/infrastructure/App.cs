@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-
+using Bellatrix.Assertions;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.ImageRecognition.ComputerVision;
 using Bellatrix.Plugins;
@@ -29,23 +29,41 @@ namespace Bellatrix.Web
 {
     public class App : IDisposable
     {
+        [Obsolete("BrowserService is deprecated use Browser property instead.")]
         public BrowserService BrowserService => ServicesCollection.Current.Resolve<BrowserService>();
+        public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
 
+        [Obsolete("NavigationService is deprecated use Navigation property instead.")]
         public NavigationService NavigationService => ServicesCollection.Current.Resolve<NavigationService>();
+        public NavigationService Navigation => ServicesCollection.Current.Resolve<NavigationService>();
 
+        [Obsolete("DialogService is deprecated use Dialogs property instead.")]
         public DialogService DialogService => ServicesCollection.Current.Resolve<DialogService>();
+        public DialogService Dialogs => ServicesCollection.Current.Resolve<DialogService>();
 
+        [Obsolete("JavaScriptService is deprecated use JavaScript property instead.")]
         public JavaScriptService JavaScriptService => ServicesCollection.Current.Resolve<JavaScriptService>();
+        public JavaScriptService JavaScript => ServicesCollection.Current.Resolve<JavaScriptService>();
 
+        [Obsolete("InteractionsService is deprecated use Interactions property instead.")]
         public InteractionsService InteractionsService => ServicesCollection.Current.Resolve<InteractionsService>();
+        public InteractionsService Interactions => ServicesCollection.Current.Resolve<InteractionsService>();
 
+        [Obsolete("CookiesService is deprecated use Cookies property instead.")]
         public CookiesService CookiesService => ServicesCollection.Current.Resolve<CookiesService>();
+        public CookiesService Cookies => ServicesCollection.Current.Resolve<CookiesService>();
 
+        [Obsolete("ComponentCreateService is deprecated use Components property instead.")]
         public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
+        public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
+        public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
+
+        [Obsolete("ProxyService is deprecated use Proxy property instead.")]
         public ProxyService ProxyService => ServicesCollection.Current.Resolve<ProxyService>();
+        public ProxyService Proxy => ServicesCollection.Current.Resolve<ProxyService>();
 
         public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
