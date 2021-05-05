@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateColorIsThrowsException()
         {
-            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
+            var colorElement = App.Components.CreateById<Color>("myColor");
 
             colorElement.SetColor("#f00030");
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateAutoCompleteOffThrowsException()
         {
-            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor3");
+            var colorElement = App.Components.CreateById<Color>("myColor3");
 
             try
             {
@@ -69,7 +69,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateAutoCompleteOnThrowsException()
         {
-            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
+            var colorElement = App.Components.CreateById<Color>("myColor");
 
             try
             {
@@ -86,7 +86,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateNotRequiredThrowsException()
         {
-            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor6");
+            var colorElement = App.Components.CreateById<Color>("myColor6");
 
             try
             {
@@ -103,7 +103,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateRequiredThrowsException()
         {
-            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor4");
+            var colorElement = App.Components.CreateById<Color>("myColor4");
 
             try
             {
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateListIsNullThrowsException()
         {
-            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor10");
+            var colorElement = App.Components.CreateById<Color>("myColor10");
 
             try
             {
@@ -137,7 +137,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateListIsThrowsException()
         {
-            var colorElement = App.ComponentCreateService.CreateById<Color>("myColor");
+            var colorElement = App.Components.CreateById<Color>("myColor");
 
             try
             {

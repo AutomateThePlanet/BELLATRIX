@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_LabelHovered_Wpf()
         {
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
 
             label.Hover();
 
-            var changedLabel = App.ComponentCreateService.CreateByName<Label>("labelHovered");
+            var changedLabel = App.Components.CreateByName<Label>("labelHovered");
 
             Assert.IsTrue(changedLabel.IsPresent);
         }

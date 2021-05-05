@@ -11,7 +11,7 @@ namespace Bellatrix.Web.GettingStarted
         [TestCategory(Categories.CI)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 1. Besides the ToBe methods that you can use on element creation, you have a couple of other options if you need to wait for elements.
             // For example, if you want to reuse your element in multiple tests or if you use it through page objects (more about that in later chapters),
@@ -21,7 +21,7 @@ namespace Bellatrix.Web.GettingStarted
             // and wait for the condition to be satisfied.
 
             // This is also valid syntax the conditions are performed once the Click method is called. It is the same as placing ToBe methods after CreateByLinkText.
-            var blogLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Blog");
+            var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
             blogLink.ToBeClickable().ToBeVisible().Click();
 
             // 2. Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the ComponentCreateService.

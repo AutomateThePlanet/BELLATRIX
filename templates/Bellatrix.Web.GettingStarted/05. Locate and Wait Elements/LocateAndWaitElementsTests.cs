@@ -11,7 +11,7 @@ namespace Bellatrix.Web.GettingStarted
         [TestCategory(Categories.CI)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 1. Sometimes you need to perform an action against an element only when a specific condition is true.
             // As mentioned in previous part of the guide, BELLATRIX by default always waits for elements to exist.
@@ -40,40 +40,40 @@ namespace Bellatrix.Web.GettingStarted
             //    "elementNotToBeVisibleTimeout": "30",
             //    "elementToHaveContentTimeout": "15"
             // },
-            var blogLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Blog").ToBeClickable().ToBeVisible();
+            var blogLink = App.Components.CreateByLinkText<Anchor>("Blog").ToBeClickable().ToBeVisible();
 
             blogLink.Click();
 
             // 2. You can always override the timeout settings for each method.
             // The first value is the timeout in seconds and the second one controls how often the engine checks the condition.
-            var promotionsLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Promotions").ToHasContent(40, 1);
+            var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions").ToHasContent(40, 1);
 
             promotionsLink.Click();
 
             // 3. All available ToBe methods:
-            // ToExists  --> App.ComponentCreateService.CreateByLinkText<Anchor>("Blog").ToExists();
+            // ToExists  --> App.Components.CreateByLinkText<Anchor>("Blog").ToExists();
             // Waits for the element to exist on the page. BELLATRIX always does it by default.
             // But if use another ToBe methods you need to add it again since you have to override the default lifecycle.
             //
-            // ToNotExists  --> App.ComponentCreateService.CreateByLinkText<Anchor>("Blog").ToNotExists();
+            // ToNotExists  --> App.Components.CreateByLinkText<Anchor>("Blog").ToNotExists();
             // Waits for the element to disappear. Usually, we use in assertion methods.
             //
-            // ToBeVisible  --> App.ComponentCreateService.CreateByLinkText<Anchor>("Blog").ToBeVisible();
+            // ToBeVisible  --> App.Components.CreateByLinkText<Anchor>("Blog").ToBeVisible();
             // Waits for the element to be visible.
             //
-            // ToNotBeVisible  --> App.ComponentCreateService.CreateByLinkText<Anchor>("Blog").ToNotBeVisible();
+            // ToNotBeVisible  --> App.Components.CreateByLinkText<Anchor>("Blog").ToNotBeVisible();
             // Waits for the element to be invisible.
             //
-            // ToBeClickable  --> App.ComponentCreateService.CreateByLinkText<Anchor>("Blog").ToBeClickable();
+            // ToBeClickable  --> App.Components.CreateByLinkText<Anchor>("Blog").ToBeClickable();
             // Waits for the element to be clickable (may be disabled at first).
             //
-            // ToHasContent  --> App.ComponentCreateService.CreateByLinkText<Anchor>("Blog").ToHasContent();
+            // ToHasContent  --> App.Components.CreateByLinkText<Anchor>("Blog").ToHasContent();
             // Waits for the element to has some content in it. For example, some validation DIV or label.
             //
-            // ToHasStyle  --> App.ComponentCreateService.CreateByLinkText<Anchor>("Blog").ToHasStyle("disabled");
+            // ToHasStyle  --> App.Components.CreateByLinkText<Anchor>("Blog").ToHasStyle("disabled");
             // Waits for the element to have some content in it. For example, some validation DIV or label.
             //
-            // ToBeDisabled  --> App.ComponentCreateService.CreateByLinkText<Anchor>("Blog").ToBeDisabled();
+            // ToBeDisabled  --> App.Components.CreateByLinkText<Anchor>("Blog").ToBeDisabled();
             // Waits for the element to be disabled.
         }
     }

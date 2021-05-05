@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class PhoneControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PhoneLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PhoneLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Phone.SettingPhone += AssertValueAttributeEmpty;
 
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
             phoneElement.SetPhone("bellatrix.solutions");
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Phone.PhoneSet += AssertValueAttributeContainsNewValue;
 
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
             phoneElement.SetPhone("bellatrix.solutions");
 
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Phone.Hovering += AssertStyleAttributeEmpty;
 
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone8");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone8");
 
             phoneElement.Hover();
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Phone.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone8");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone8");
 
             phoneElement.Hover();
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Phone>("myPhone8").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Phone>("myPhone8").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Phone.Focusing += AssertStyleAttributeEmpty;
 
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone9");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone9");
 
             phoneElement.Focus();
 
@@ -132,7 +132,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Phone.Focused += AssertStyleAttributeContainsNewValue;
 
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone9");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone9");
 
             phoneElement.Focus();
 

@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Div Control")]
     public class DivControlTestsFirefox : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DivLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DivLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Firefox()
         {
-            var divElement = App.ComponentCreateService.CreateById<Div>("myDiv");
+            var divElement = App.Components.CreateById<Div>("myDiv");
 
             divElement.Hover();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnAutomateThePlanet_When_InnerText_Firefox()
         {
-            var divElement = App.ComponentCreateService.CreateById<Div>("myDiv1");
+            var divElement = App.Components.CreateById<Div>("myDiv1");
 
             Assert.AreEqual("Automate The Planet", divElement.InnerText);
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnNull_When_InnerTextNotSet_Firefox()
         {
-            var divElement = App.ComponentCreateService.CreateById<Div>("myDiv3");
+            var divElement = App.Components.CreateById<Div>("myDiv3");
 
             Assert.IsNotNull(divElement.InnerText);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnNull_When_InnerHtmlNotSet_Firefox()
         {
-            var divElement = App.ComponentCreateService.CreateById<Div>("myDiv3");
+            var divElement = App.Components.CreateById<Div>("myDiv3");
 
             Assert.IsNotNull(divElement.InnerHtml);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnButtonHtml_When_InnerHtmlSet_Firefox()
         {
-            var divElement = App.ComponentCreateService.CreateById<Div>("myDiv2");
+            var divElement = App.Components.CreateById<Div>("myDiv2");
 
             Assert.AreEqual("<button name=\"button\">Click me</button>", divElement.InnerHtml);
         }

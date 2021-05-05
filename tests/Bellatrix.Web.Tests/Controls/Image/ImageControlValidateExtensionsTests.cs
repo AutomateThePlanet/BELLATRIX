@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class ImageControlValidateExtensionsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateSrcIs_DoesNotThrowException_When_DefaultSrcIsSet()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             imageElement.ValidateSrcIs("https://bellatrix.solutions/assets/uploads/2017/09/logo.png");
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateSrcIsNotNull_DoesNotThrowException_When_DefaultSrcIsSet()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             imageElement.ValidateSrcIsNotNull();
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateHeightIsNotNull_DoesNotThrowException_When_HeightAttributeIsNotPresent()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             imageElement.ValidateHeightIsNotNull();
         }
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateWidthIsNotNull_DoesNotThrowException_When_WidthAttributeIsNotPresent()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             imageElement.ValidateWidthIsNotNull();
         }
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAltIs_DoesNotThrowException_When_AltAttributePresent()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             imageElement.ValidateAltIs("MDN");
         }
@@ -78,7 +78,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateSrcSetIs_DoesNotThrowException_When_SrcSetAttributePresent()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage1");
+            var imageElement = App.Components.CreateById<Image>("myImage1");
 
             imageElement.ValidateSrcSetIs("mdn-logo-HD.png 2x");
         }
@@ -88,7 +88,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateSizesIs_DoesNotThrowException_When_SizesAttributePresent()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage2");
+            var imageElement = App.Components.CreateById<Image>("myImage2");
 
             imageElement.ValidateSizesIs("(min-width: 600px) 200px, 50vw");
         }

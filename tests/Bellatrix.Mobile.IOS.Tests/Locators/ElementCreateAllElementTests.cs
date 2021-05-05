@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.IOS.Tests
 
         public override void TestInit()
         {
-            _mainElement = App.ComponentCreateService.CreateByIOSNsPredicate<IOSComponent>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+            _mainElement = App.Components.CreateByIOSNsPredicate<IOSComponent>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
         }
 
         [TestMethod]

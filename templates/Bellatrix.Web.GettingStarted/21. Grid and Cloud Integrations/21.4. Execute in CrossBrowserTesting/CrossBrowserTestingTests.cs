@@ -33,9 +33,9 @@ namespace Bellatrix.Web.GettingStarted
         [Ignore]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            var promotionsLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Promotions");
+            var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
 
             promotionsLink.Click();
         }
@@ -51,9 +51,9 @@ namespace Bellatrix.Web.GettingStarted
         // [BrowserStack(BrowserType.Chrome, "62", "Windows 10", TabletWindowSize._600_1024, Lifecycle.ReuseIfStarted)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            var blogLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Blog");
+            var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
 
             blogLink.Click();
         }

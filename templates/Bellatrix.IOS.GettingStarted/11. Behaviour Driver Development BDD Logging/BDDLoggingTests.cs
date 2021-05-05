@@ -38,21 +38,21 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             // If you execute your tests in CI with some CLI test runner the logs are printed there as well.
             // outputTemplate - controls how the message is formatted. You can add additional info such as timestamp and much more.
             // for more info visit- https://github.com/serilog/serilog/wiki/Formatting-Output
-            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
 
             button.ValidateIsNotDisabled();
 
-            var answerLabel = App.ComponentCreateService.CreateByName<Label>("Answer");
+            var answerLabel = App.Components.CreateByName<Label>("Answer");
 
             answerLabel.ValidateIsVisible();
 
-            var password = App.ComponentCreateService.CreateById<Password>("IntegerB");
+            var password = App.Components.CreateById<Password>("IntegerB");
 
             password.SetPassword("9");
 
-            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
 
             textField.SetText("1");
 

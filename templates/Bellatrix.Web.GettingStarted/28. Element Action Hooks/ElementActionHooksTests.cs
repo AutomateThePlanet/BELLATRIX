@@ -43,20 +43,20 @@ namespace Bellatrix.Web.GettingStarted
         [TestCategory(Categories.CI)]
         public void PurchaseRocketWithGloballyOverridenMethods()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.ComponentCreateService.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonMReadMoreButton = App.ComponentCreateService.CreateByInnerTextContaining<Anchor>("Read more");
-            Anchor addToCartFalcon9 = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
-            Anchor viewCartButton = App.ComponentCreateService.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
-            TextField couponCodeTextField = App.ComponentCreateService.CreateById<TextField>("coupon_code");
-            Button applyCouponButton = App.ComponentCreateService.CreateByValueContaining<Button>("Apply coupon");
-            Number quantityBox = App.ComponentCreateService.CreateByClassContaining<Number>("input-text qty text");
-            Div messageAlert = App.ComponentCreateService.CreateByClassContaining<Div>("woocommerce-message");
-            Button updateCart = App.ComponentCreateService.CreateByValueContaining<Button>("Update cart").ToBeClickable();
-            Anchor proceedToCheckout = App.ComponentCreateService.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
-            Heading billingDetailsHeading = App.ComponentCreateService.CreateByInnerTextContaining<Heading>("Billing details");
-            Span totalSpan = App.ComponentCreateService.CreateByXpath<Span>("//*[@class='order-total']//span");
+            Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
+            Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
+            Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
+            Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
+            TextField couponCodeTextField = App.Components.CreateById<TextField>("coupon_code");
+            Button applyCouponButton = App.Components.CreateByValueContaining<Button>("Apply coupon");
+            Number quantityBox = App.Components.CreateByClassContaining<Number>("input-text qty text");
+            Div messageAlert = App.Components.CreateByClassContaining<Div>("woocommerce-message");
+            Button updateCart = App.Components.CreateByValueContaining<Button>("Update cart").ToBeClickable();
+            Anchor proceedToCheckout = App.Components.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
+            Heading billingDetailsHeading = App.Components.CreateByInnerTextContaining<Heading>("Billing details");
+            Span totalSpan = App.Components.CreateByXpath<Span>("//*[@class='order-total']//span");
 
             sortDropDown.SelectByText("Sort by price: low to high");
             protonMReadMoreButton.Hover();
@@ -67,7 +67,7 @@ namespace Bellatrix.Web.GettingStarted
             applyCouponButton.Click();
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
             messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
-            App.BrowserService.WaitForAjax();
+            App.Browser.WaitForAjax();
             totalSpan.ValidateInnerTextIs("54.00€");
             proceedToCheckout.Click();
 

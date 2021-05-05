@@ -59,8 +59,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // some of it through the usage of TestInit and TestCleanup methods.
         public override void TestsArrange()
         {
-            _textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
-            _button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+            _textField = App.Components.CreateById<TextField>("IntegerA");
+            _button = App.Components.CreateByName<Button>("ComputeSumButton");
         }
 
         public override void TestsAct()

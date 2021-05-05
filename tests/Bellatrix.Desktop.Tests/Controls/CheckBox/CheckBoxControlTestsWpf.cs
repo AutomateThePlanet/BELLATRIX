@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_CheckBoxHovered_Wpf()
         {
-            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 
             checkBox.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("checkBoxHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt_Wpf()
         {
-            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 
             checkBox.Check();
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void BellaCheckBoxTextReturned_When_CallInnerText_Wpf()
         {
-            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 
             checkBox.Check();
 
@@ -62,7 +62,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt_Wpf()
         {
-            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("MeissaCheckBox");
+            var checkBox = App.Components.CreateByName<CheckBox>("MeissaCheckBox");
 
             checkBox.Uncheck();
 
@@ -74,7 +74,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedReturnsTrue_When_CheckBoxChecked_Wpf()
         {
-            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("CheckBox");
+            var checkBox = App.Components.CreateByName<CheckBox>("CheckBox");
 
             Assert.IsTrue(checkBox.IsChecked);
         }
@@ -84,7 +84,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled_Wpf()
         {
-            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 
             Assert.AreEqual(false, checkBox.IsDisabled);
         }
@@ -94,7 +94,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_CheckBoxIsDisabled_Wpf()
         {
-            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("CheckBox");
+            var checkBox = App.Components.CreateByName<CheckBox>("CheckBox");
 
             Assert.AreEqual(true, checkBox.IsDisabled);
         }

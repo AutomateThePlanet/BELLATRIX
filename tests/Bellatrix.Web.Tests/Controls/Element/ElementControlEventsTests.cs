@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
     [AllureFeature("ControlEvents")]
     public class ElementControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         {
             Bellatrix.Web.Component.SettingAttribute += AssertClassAttributeEmpty;
 
-            var urlElement = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL");
+            var urlElement = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
 
             urlElement.SetAttribute("class", "myTestClass1");
             var cssClass = urlElement.GetAttribute("class");
@@ -53,7 +53,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         {
             Bellatrix.Web.Component.AttributeSet += AssertClassAttributeContainsNewValue;
 
-            var urlElement = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL");
+            var urlElement = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
 
             urlElement.SetAttribute("class", "myTestClass1");
             var cssClass = urlElement.GetAttribute("class");
@@ -77,7 +77,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         {
             Bellatrix.Web.Component.ReturningWrappedElement += AssertNativeElementNotNullAfterCallingAction;
 
-            var urlElement = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL");
+            var urlElement = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
 
             var cssClass = urlElement.GetAttribute("class");
 
@@ -98,7 +98,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         {
             Bellatrix.Web.Component.ScrollingToVisible += AssertStyleAttributeEmpty;
 
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
             element.ScrollToVisible();
 
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         ////{
         ////    Bellatrix.Web.Element.ScrolledToVisible += AssertStyleAttributeContainsNewValue;
 
-        ////    var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+        ////    var element = App.Components.CreateById<Bellatrix.Web.Element>("myURL12");
 
         ////    Assert.IsNull(element.GetStyle());
 

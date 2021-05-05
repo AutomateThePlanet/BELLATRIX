@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateIsNotDisabledThrowsException()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton11");
+            var buttonElement = App.Components.CreateById<Button>("myButton11");
 
             try
             {
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateIsDisabledThrowsException()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton8");
+            var buttonElement = App.Components.CreateById<Button>("myButton8");
 
             try
             {
@@ -67,7 +67,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateValueIsThrowsException()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton8");
+            var buttonElement = App.Components.CreateById<Button>("myButton8");
 
             try
             {
@@ -84,7 +84,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateValueIsNullThrowsException()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton11");
+            var buttonElement = App.Components.CreateById<Button>("myButton11");
 
             try
             {

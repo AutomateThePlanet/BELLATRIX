@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Range Control")]
     public class RangeControlTestsOpera : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Opera)]
         public void RangeSet_When_UseSetRangeMethod_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             rangeElement.SetRange(4);
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetRangeReturnsCorrectRange_When_DefaultRangeIsSet_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange2");
+            var rangeElement = App.Components.CreateById<Range>("myRange2");
 
             // TODO: Investigate why WebDriver returns 8 instead of 7.
             Assert.AreEqual(8, rangeElement.GetRange());
@@ -47,7 +47,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             Assert.IsFalse(rangeElement.IsAutoComplete);
         }
@@ -56,7 +56,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange4");
+            var rangeElement = App.Components.CreateById<Range>("myRange4");
 
             Assert.IsFalse(rangeElement.IsAutoComplete);
         }
@@ -65,7 +65,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange3");
+            var rangeElement = App.Components.CreateById<Range>("myRange3");
 
             Assert.IsTrue(rangeElement.IsAutoComplete);
         }
@@ -74,7 +74,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             var max = rangeElement.Max;
 
@@ -85,7 +85,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             Assert.IsNull(rangeElement.Min);
         }
@@ -94,7 +94,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             Assert.IsNull(rangeElement.Step);
         }
@@ -103,7 +103,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMaxReturns10Range_When_MaxAttributeIsPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange1");
+            var rangeElement = App.Components.CreateById<Range>("myRange1");
 
             Assert.AreEqual(10, rangeElement.Max);
         }
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMinReturns2Range_When_MinAttributeIsPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange1");
+            var rangeElement = App.Components.CreateById<Range>("myRange1");
 
             Assert.AreEqual(2, rangeElement.Min);
         }
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetStepReturns2_When_StepAttributeIsNotPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange1");
+            var rangeElement = App.Components.CreateById<Range>("myRange1");
 
             Assert.AreEqual(2, rangeElement.Step);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange4");
+            var rangeElement = App.Components.CreateById<Range>("myRange4");
 
             Assert.AreEqual(false, rangeElement.IsRequired);
         }
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange6");
+            var rangeElement = App.Components.CreateById<Range>("myRange6");
 
             Assert.IsTrue(rangeElement.IsRequired);
         }
@@ -148,7 +148,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnRed_When_Hover_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange7");
+            var rangeElement = App.Components.CreateById<Range>("myRange7");
 
             rangeElement.Hover();
 
@@ -159,7 +159,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnBlue_When_Focus_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange8");
+            var rangeElement = App.Components.CreateById<Range>("myRange8");
 
             rangeElement.Focus();
 
@@ -170,7 +170,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             bool isDisabled = rangeElement.IsDisabled;
 
@@ -181,7 +181,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnTrue_When_DisabledAttributePresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange9");
+            var rangeElement = App.Components.CreateById<Range>("myRange9");
 
             bool isDisabled = rangeElement.IsDisabled;
 
@@ -192,7 +192,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetListReturnsNull_When_ListAttributeIsNotPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             Assert.IsNull(rangeElement.List);
         }
@@ -201,7 +201,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetListReturnsTickmarks_When_MaxAttributeIsPresent_Opera()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange10");
+            var rangeElement = App.Components.CreateById<Range>("myRange10");
 
             Assert.AreEqual("tickmarks", rangeElement.List);
         }

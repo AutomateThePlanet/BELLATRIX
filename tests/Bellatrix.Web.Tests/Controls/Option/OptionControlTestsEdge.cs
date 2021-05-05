@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("Edge Browser")]
     public class OptionControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OptionLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OptionLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnBellatrix_When_UseGetInnerTextMethod_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             Assert.AreEqual("Bellatrix", selectComponent.GetSelected().InnerText);
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnBella_When_UseGetValueMethod_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.Components.CreateById<Select>("mySelect2");
 
             Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_OptionSelectedAndCallGetIsSelectedMethod_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             Assert.IsTrue(selectComponent.GetAllOptions()[0].IsSelected);
         }
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_OptionNotSelectedAndCallGetIsSelectedMethod_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             Assert.IsFalse(selectComponent.GetAllOptions()[1].IsSelected);
         }
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             Assert.IsFalse(selectComponent.GetSelected().IsDisabled);
         }
@@ -78,7 +78,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributeIsPresent_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect4");
+            var selectComponent = App.Components.CreateById<Select>("mySelect4");
 
             Assert.IsFalse(selectComponent.GetAllOptions()[2].IsDisabled);
         }

@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Layout")]
     public class LayoutWidthTestsChrome : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
 
         [TestMethod]
         [TestCategory(Categories.Layout)]
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void HeadingWidthEqual248_WhenDesktopWindowsSize_1280_1024_Chrome()
         {
-            var free = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
             free.AssertWidth(248);
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void HeadingWidthBetween10And250_WhenDesktopWindowsSize_1280_1024_Chrome()
         {
-            var free = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
             free.AssertWidthBetween(10, 250);
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void HeadingWidthGreaterThan247_WhenDesktopWindowsSize_1280_1024_Chrome()
         {
-            var free = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
             free.AssertWidthGreaterThan(247);
         }
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void HeadingWidthGreaterThanOrEqual248_WhenDesktopWindowsSize_1280_1024_Chrome()
         {
-            var free = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
             free.AssertWidthGreaterThanOrEqual(248);
         }
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void HeadingWidthLessThan249_WhenDesktopWindowsSize_1280_1024_Chrome()
         {
-            var free = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
             free.AssertWidthLessThan(249);
         }
@@ -78,7 +78,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void HeadingWidthLessThanOrEqual248_WhenDesktopWindowsSize_1280_1024_Chrome()
         {
-            var free = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
             free.AssertWidthLessThanOrEqual(248);
         }
@@ -88,8 +88,8 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
         public void HeadingWidthApproximate1PercentDifference_WhenDesktopWindowsSize_1280_1024_Chrome()
         {
-            var free = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
-            var pro = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
+            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+            var pro = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
 
             free.AssertWidthApproximate(pro, 1);
         }

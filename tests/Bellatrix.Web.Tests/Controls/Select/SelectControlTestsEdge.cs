@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Select Control")]
     public class SelectControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SelectByTextToAwesome_When_UseSelectByTextMethod_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             selectComponent.SelectByText("Awesome");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SelectByIndexToAwesome_When_UseSelectByTextMethod_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             selectComponent.SelectByIndex(2);
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnAwesome_When_UseGetSelectedValueMethod_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.Components.CreateById<Select>("mySelect2");
 
             Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
         }
@@ -62,7 +62,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect1");
+            var selectComponent = App.Components.CreateById<Select>("mySelect1");
 
             selectComponent.Hover();
 
@@ -74,7 +74,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnBlue_When_Focus_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.Components.CreateById<Select>("mySelect2");
 
             selectComponent.Focus();
 
@@ -86,7 +86,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             bool isDisabled = selectComponent.IsDisabled;
 
@@ -98,7 +98,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect3");
+            var selectComponent = App.Components.CreateById<Select>("mySelect3");
 
             bool isDisabled = selectComponent.IsDisabled;
 
@@ -110,7 +110,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_RequiredAttributePresent_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect4");
+            var selectComponent = App.Components.CreateById<Select>("mySelect4");
 
             var actualValue = selectComponent.IsRequired;
 
@@ -122,7 +122,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_RequiredAttributeNotPresent_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             var actualValue = selectComponent.IsRequired;
 
@@ -134,7 +134,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void Return3Options_When_GetAllOptions_Edge()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             var allOptions = selectComponent.GetAllOptions();
 

@@ -40,7 +40,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         [TestCategory(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.Click();
         }

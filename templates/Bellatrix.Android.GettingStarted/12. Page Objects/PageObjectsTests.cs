@@ -39,17 +39,17 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         [TestCategory(Categories.CI)]
         public void ActionsWithoutPageObjects()
         {
-            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button_disabled");
+            var button = App.Components.CreateByIdContaining<Button>("button_disabled");
             button.ValidateIsDisabled();
-            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check1");
+            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
             checkBox.Check();
             checkBox.ValidateIsChecked();
-            var comboBox = App.ComponentCreateService.CreateByIdContaining<ComboBox>("spinner1");
+            var comboBox = App.Components.CreateByIdContaining<ComboBox>("spinner1");
             comboBox.SelectByText("Jupiter");
             comboBox.ValidateTextIs("Jupiter");
-            var label = App.ComponentCreateService.CreateByText<Label>("textColorPrimary");
+            var label = App.Components.CreateByText<Label>("textColorPrimary");
             label.ValidateIsVisible();
-            var radioButton = App.ComponentCreateService.CreateByIdContaining<RadioButton>("radio2");
+            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
             radioButton.Click();
             radioButton.ValidateIsChecked(timeout: 30, sleepInterval: 2);
         }

@@ -23,7 +23,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class DateTimeLocalControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -32,7 +32,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             DateTimeLocal.SettingTime += AssertValueAttributeEmpty;
 
-            var timeElement = App.ComponentCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             timeElement.SetTime(new DateTime(1989, 10, 28, 23, 23, 0));
 
@@ -53,7 +53,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             DateTimeLocal.TimeSet += AssertValueAttributeContainsNewValue;
 
-            var timeElement = App.ComponentCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             timeElement.SetTime(new DateTime(1989, 10, 28, 23, 23, 0));
 
@@ -72,7 +72,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             DateTimeLocal.Hovering += AssertStyleAttributeEmpty;
 
-            var timeElement = App.ComponentCreateService.CreateById<DateTimeLocal>("myTime7");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime7");
 
             timeElement.Hover();
 
@@ -93,7 +93,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             DateTimeLocal.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var timeElement = App.ComponentCreateService.CreateById<DateTimeLocal>("myTime7");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime7");
 
             timeElement.Hover();
 
@@ -101,7 +101,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<DateTimeLocal>("myTime7").ValidateStyleIs("color: red;");
+                App.Components.CreateById<DateTimeLocal>("myTime7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             DateTimeLocal.Focusing += AssertStyleAttributeEmpty;
 
-            var timeElement = App.ComponentCreateService.CreateById<DateTimeLocal>("myTime8");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime8");
 
             timeElement.Focus();
 
@@ -133,7 +133,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             DateTimeLocal.Focused += AssertStyleAttributeContainsNewValue;
 
-            var timeElement = App.ComponentCreateService.CreateById<DateTimeLocal>("myTime8");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime8");
 
             timeElement.Focus();
 

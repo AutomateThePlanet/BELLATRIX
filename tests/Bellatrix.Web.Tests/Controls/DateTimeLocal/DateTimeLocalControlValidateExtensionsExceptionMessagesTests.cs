@@ -26,15 +26,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateTimeIsThrowsException()
         {
-            var timeElement = App.ComponentCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             timeElement.SetTime(new DateTime(1989, 10, 28, 23, 23, 0));
 

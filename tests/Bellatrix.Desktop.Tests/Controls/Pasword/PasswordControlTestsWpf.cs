@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_PasswordHovered_Wpf()
         {
-            var password = App.ComponentCreateService.CreateByAutomationId<Password>("passwordBox");
+            var password = App.Components.CreateByAutomationId<Password>("passwordBox");
 
             password.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("passwordBoxHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_NewTextSet_Wpf()
         {
-            var textField = App.ComponentCreateService.CreateByAutomationId<Password>("passwordBox");
+            var textField = App.Components.CreateByAutomationId<Password>("passwordBox");
 
             textField.SetPassword("topsecret");
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_PasswordIsNotDisabled_Wpf()
         {
-            var textField = App.ComponentCreateService.CreateByAutomationId<Password>("passwordBox");
+            var textField = App.Components.CreateByAutomationId<Password>("passwordBox");
 
             Assert.AreEqual(false, textField.IsDisabled);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_PasswordIsDisabled_Wpf()
         {
-            var textField = App.ComponentCreateService.CreateByAutomationId<Password>("disabledPasswordBox");
+            var textField = App.Components.CreateByAutomationId<Password>("disabledPasswordBox");
 
             Assert.AreEqual(true, textField.IsDisabled);
         }

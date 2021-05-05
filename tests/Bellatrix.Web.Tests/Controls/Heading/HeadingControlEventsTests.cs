@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class HeadingControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Heading.Hovering += AssertStyleAttributeEmpty;
 
-            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading");
+            var headingElement = App.Components.CreateById<Heading>("myHeading");
 
             headingElement.Hover();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Heading.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading");
+            var headingElement = App.Components.CreateById<Heading>("myHeading");
 
             headingElement.Hover();
 
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Heading>("myHeading").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Heading>("myHeading").ValidateStyleIs("color: red;");
             }
         }
     }

@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_PasswordHovered_Universal()
         {
-            var password = App.ComponentCreateService.CreateByAutomationId<Password>("passwordBox");
+            var password = App.Components.CreateByAutomationId<Password>("passwordBox");
 
             password.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultTextBlock");
+            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
             Assert.AreEqual("passwordBoxHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_NewTextSet_Universal()
         {
-            var password = App.ComponentCreateService.CreateByAutomationId<Password>("passwordBox");
+            var password = App.Components.CreateByAutomationId<Password>("passwordBox");
 
             password.SetPassword("topsecret");
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_PasswordIsNotDisabled_Universal()
         {
-            var password = App.ComponentCreateService.CreateByAutomationId<Password>("passwordBox");
+            var password = App.Components.CreateByAutomationId<Password>("passwordBox");
 
             Assert.AreEqual(false, password.IsDisabled);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_PasswordIsDisabled_Universal()
         {
-            var password = App.ComponentCreateService.CreateByAutomationId<Password>("disabledPassword");
+            var password = App.Components.CreateByAutomationId<Password>("disabledPassword");
 
             Assert.AreEqual(true, password.IsDisabled);
         }

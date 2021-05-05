@@ -12,13 +12,13 @@ namespace Bellatrix.Web.GettingStarted
         [TestCategory(Categories.CI)]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 1. There are different ways to locate elements on the page. To do it you use the element create service.
             // You need to know that BELLATRIX has a built-in complex mechanism for waiting for elements, so you do not need to worry about this anymore.
             // Keep in mind that when you use the Create methods, the element is not searched on the page. All elements use lazy loading.
             // Which means that they are searched once you perform an action or assertion on them. By default on each new action, the element is searched again and be refreshed.
-            var promotionsLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Promotions");
+            var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
 
             // 2. You can access the WebDriver wrapped element through WrappedElement and the current WebDriver instance through- WrappedDriver
             Console.WriteLine(promotionsLink.WrappedElement.TagName);
@@ -35,50 +35,50 @@ namespace Bellatrix.Web.GettingStarted
         [Browser(BrowserType.Chrome, Lifecycle.RestartOnFail)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 4. BELLATRIX extends the vanilla WebDriver selectors and give you additional ones.
             // Available create methods:
             //
-            // CreateByIdEndingWith  --> App.ComponentCreateService.CreateByIdEndingWith<Anchor>("myIdSuffix");
+            // CreateByIdEndingWith  --> App.Components.CreateByIdEndingWith<Anchor>("myIdSuffix");
             // Searches the element by ID ending with the locator.
             //
-            // CreateByTag   -->  App.ComponentCreateService.CreateByTag<Anchor>("a");
+            // CreateByTag   -->  App.Components.CreateByTag<Anchor>("a");
             // Searches the element by its tag.
             //
-            // CreateById   -->  App.ComponentCreateService.CreateById<Button>("myId");
+            // CreateById   -->  App.Components.CreateById<Button>("myId");
             // Searches the element by its ID.
             //
-            // CreateByIdContaining   -->  App.ComponentCreateService.CreateByIdContaining<Button>("myIdMiddle");
+            // CreateByIdContaining   -->  App.Components.CreateByIdContaining<Button>("myIdMiddle");
             // Searches the element by ID containing the specified text.
             //
-            // CreateByValueEndingWith   -->  App.ComponentCreateService.CreateByIdContaining<Button>("pay");
+            // CreateByValueEndingWith   -->  App.Components.CreateByIdContaining<Button>("pay");
             // Searches the element by value attribute containing the specified text.
             //
-            // CreateByXpath   -->  App.ComponentCreateService.CreateByXpath<Button>("//*[@title='Add to cart']");
+            // CreateByXpath   -->  App.Components.CreateByXpath<Button>("//*[@title='Add to cart']");
             // Searches the element by XPath locator.
             //
-            // CreateByLinkText   -->  App.ComponentCreateService.CreateByLinkText<Anchor>("blog");
+            // CreateByLinkText   -->  App.Components.CreateByLinkText<Anchor>("blog");
             // Searches the element by its link (href)
             //
-            // CreateByLinkTextContaining   -->  App.ComponentCreateService.CreateByLinkTextContaining<Anchor>("account");
+            // CreateByLinkTextContaining   -->  App.Components.CreateByLinkTextContaining<Anchor>("account");
             // Searches the element by its link (href) if it contains specified value.
             //
-            // CreateByClass   -->  App.ComponentCreateService.CreateByClassContaining<Anchor>("ul.products");
+            // CreateByClass   -->  App.Components.CreateByClassContaining<Anchor>("ul.products");
             // Searches the element by its CSS classes.
             //
-            // CreateByClassContaining   -->  App.ComponentCreateService.CreateByClassContaining<Anchor>(".products");
+            // CreateByClassContaining   -->  App.Components.CreateByClassContaining<Anchor>(".products");
             // Searches the element by its CSS classes containing the specified values.
             //
-            // CreateByInnerTextContaining   -->  App.ComponentCreateService.CreateByInnerTextContaining<Div>("Showing all");
+            // CreateByInnerTextContaining   -->  App.Components.CreateByInnerTextContaining<Div>("Showing all");
             // Searches the element by its inner text content, including all child HTML elements.
             //
-            // CreateByNameEndingWith   -->  App.ComponentCreateService.CreateByNameEndingWith<Search>("a");
+            // CreateByNameEndingWith   -->  App.Components.CreateByNameEndingWith<Search>("a");
             // Searches the element by its name containing the specified text.
             //
-            // CreateByAttributesContaining   -->  App.ComponentCreateService.CreateByAttributesContaining<Anchor>("data-product_id", "31");
+            // CreateByAttributesContaining   -->  App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "31");
             // Searches the element by some of its attribute containing the specifed value.
-            var blogLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Blog");
+            var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
 
             blogLink.Click();
         }
@@ -87,64 +87,64 @@ namespace Bellatrix.Web.GettingStarted
         [TestCategory(Categories.CI)]
         public void CheckAllAddToCartButtons()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 5. Sometimes we need to find more than one ComponentCreateService. For example, in this test we want to locate all Add to Cart buttons.
             // To do it you can use the element create service CreateAll method.
             // Available create methods:
             //
-            // CreateAllByIdEndingWith  --> App.ComponentCreateService.CreateAllByIdEndingWith<Anchor>("myIdSuffix");
+            // CreateAllByIdEndingWith  --> App.Components.CreateAllByIdEndingWith<Anchor>("myIdSuffix");
             // Searches the elements by ID ending with the locator.
             //
-            // CreateAllByTag   -->  App.ComponentCreateService.CreateAllByTag<Anchor>("a");
+            // CreateAllByTag   -->  App.Components.CreateAllByTag<Anchor>("a");
             // Searches the elements by its tag.
             //
-            // CreateAllById   -->  App.ComponentCreateService.CreateAllById<Button>("myId");
+            // CreateAllById   -->  App.Components.CreateAllById<Button>("myId");
             // Searches the elements by its ID.
             //
-            // CreateAllByIdContaining   -->  App.ComponentCreateService.CreateAllByIdContaining<Button>("myIdMiddle");
+            // CreateAllByIdContaining   -->  App.Components.CreateAllByIdContaining<Button>("myIdMiddle");
             // Searches the elements by ID containing the specified text.
             //
-            // CreateAllByValueEndingWith   -->  App.ComponentCreateService.CreateAllByValueEndingWith<Button>("pay");
+            // CreateAllByValueEndingWith   -->  App.Components.CreateAllByValueEndingWith<Button>("pay");
             // Searches the elements by value attribute containing the specified text.
             //
-            // CreateAllByXpath   -->  App.ComponentCreateService.CreateAllByXpath<Button>("//*[@title='Add to cart']");
+            // CreateAllByXpath   -->  App.Components.CreateAllByXpath<Button>("//*[@title='Add to cart']");
             // Searches the elements by XPath locator.
             //
-            // CreateAllByLinkText   -->  App.ComponentCreateService.CreateAllByLinkText<Anchor>("blog");
+            // CreateAllByLinkText   -->  App.Components.CreateAllByLinkText<Anchor>("blog");
             // Searches the elements by its link (href)
             //
-            // CreateAllByLinkTextContaining   -->  App.ComponentCreateService.CreateAllByLinkTextContaining<Anchor>("account");
+            // CreateAllByLinkTextContaining   -->  App.Components.CreateAllByLinkTextContaining<Anchor>("account");
             // Searches the elements by its link (href) if it contains specified value.
             //
-            // CreateAllByClass   -->  App.ComponentCreateService.CreateAllByClass<Anchor>("ul.products");
+            // CreateAllByClass   -->  App.Components.CreateAllByClass<Anchor>("ul.products");
             // Searches the elements by its CSS classes.
             //
-            // CreateAllByClassContaining   -->  App.ComponentCreateService.CreateAllByClassContaining<Anchor>(".products");
+            // CreateAllByClassContaining   -->  App.Components.CreateAllByClassContaining<Anchor>(".products");
             // Searches the elements by its CSS classes containing the specified values.
             //
-            // CreateAllByInnerTextContaining   -->  App.ComponentCreateService.CreateAllByInnerTextContaining<Div>("Showing all");
+            // CreateAllByInnerTextContaining   -->  App.Components.CreateAllByInnerTextContaining<Div>("Showing all");
             // Searches the elements by its inner text content, including all child HTML elements.
             //
-            // CreateAllByNameEndingWith   -->  App.ComponentCreateService.CreateAllByNameEndingWith<Search>("a");
+            // CreateAllByNameEndingWith   -->  App.Components.CreateAllByNameEndingWith<Search>("a");
             // Searches the elements by its name containing the specified text.
             //
-            // CreateAllByAttributesContaining   -->  App.ComponentCreateService.CreateAllByAttributesContaining<Anchor>("data-product_id", "31");
+            // CreateAllByAttributesContaining   -->  App.Components.CreateAllByAttributesContaining<Anchor>("data-product_id", "31");
             // Searches the elements by some of its attribute containing the specifed value.
 
-            ////var blogLink = App.ComponentCreateService.CreateAllByXpath<Anchor>("//*[@title='Add to cart']");
+            ////var blogLink = App.Components.CreateAllByXpath<Anchor>("//*[@title='Add to cart']");
         }
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void OpenSalesPage_When_LocatedSaleButtonInsideProductImage()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 6. Sometimes it is easier to locate one element and then find the next one that you need, inside it.
             // For example in this test we want to locate the Sale! button inside the product's description.
             // To do it you can use the element's Create methods.
-            var productsColumn = App.ComponentCreateService.CreateByClassContaining<Option>("products columns-4");
+            var productsColumn = App.Components.CreateByClassContaining<Option>("products columns-4");
 
             // The first products row is located. Then search inside it for the first product image, inside it search for the Sale! Span ComponentCreateService.
             // Note: it is entirely legal to create a Button instead of Span. BELLATRIX library does not care about the real type of the HTML elements.

@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ReturnsCorrectText_When_GetText()
         {
-            var label = App.ComponentCreateService.CreateByText<Label>("textColorPrimary");
+            var label = App.Components.CreateByText<Label>("textColorPrimary");
 
             Assert.AreEqual("textColorPrimary", label.GetText());
         }

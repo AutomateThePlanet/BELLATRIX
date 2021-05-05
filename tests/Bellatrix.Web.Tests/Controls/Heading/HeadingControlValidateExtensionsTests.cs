@@ -25,8 +25,8 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading");
+            var headingElement = App.Components.CreateById<Heading>("myHeading");
 
             headingElement.Hover();
 
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_When_InnerText()
         {
-            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading2");
+            var headingElement = App.Components.CreateById<Heading>("myHeading2");
 
             headingElement.ValidateInnerTextIs("Automate The Planet");
         }

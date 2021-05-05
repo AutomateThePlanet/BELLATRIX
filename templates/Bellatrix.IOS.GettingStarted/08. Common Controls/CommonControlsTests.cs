@@ -19,12 +19,12 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         {
             // 2. Create methods accept a generic parameter the type of the iOS control. Then only the methods for this specific control are accessible.
             // Here we tell BELLATRIX to find your element by name equals the value 'button'.
-            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             // 3. Clicking the button. At this moment BELLATRIX locates the element.
             button.Click();
 
-            var seekBar = App.ComponentCreateService.CreateByName<SeekBar>("AppElem");
+            var seekBar = App.Components.CreateByName<SeekBar>("AppElem");
 
             // 4. Moves the seekbar.
             seekBar.Set(9);
@@ -32,18 +32,18 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             // 5. Wait for the element to exists.
             seekBar.ToExists().WaitToBe();
 
-            var answerLabel = App.ComponentCreateService.CreateByName<Label>("Answer");
+            var answerLabel = App.Components.CreateByName<Label>("Answer");
 
             // 6. See if the element is present or not using the IsPresent property.
             Assert.IsTrue(answerLabel.IsPresent);
 
-            var password = App.ComponentCreateService.CreateById<Password>("IntegerB");
+            var password = App.Components.CreateById<Password>("IntegerB");
 
             // 7. Instead of using the non-meaningful method SendKeys, BELLATRIX gives you more readable tests through proper methods and properties names.
             // In this case, we set the text in the password field using the SetPassword method and SetText for regular text fields.
             password.SetPassword("9");
 
-            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
 
             textField.SetText("1");
 
@@ -59,10 +59,10 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [Ignore]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
         {
-            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
+            var addButton = App.Components.CreateById<Button>("Add");
             addButton.Click();
 
-            var checkBox = App.ComponentCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var checkBox = App.Components.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             // 8. Checking and unchecking the checkbox with IOSNsPredicate = 'type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"'
             checkBox.Check();
@@ -84,11 +84,11 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [Ignore]
         public void ButtonClicked_When_ClickMethodCalled()
         {
-            var addButton = App.ComponentCreateService.CreateById<Button>("Add");
+            var addButton = App.Components.CreateById<Button>("Add");
             addButton.Click();
 
             // 10. Locating the radio button control using IOSNsPredicate type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"
-            var radioButton = App.ComponentCreateService.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var radioButton = App.Components.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             Assert.IsFalse(radioButton.IsChecked);
 

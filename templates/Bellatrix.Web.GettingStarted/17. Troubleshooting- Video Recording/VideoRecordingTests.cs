@@ -20,8 +20,8 @@ namespace Bellatrix.Web.GettingStarted
         [TestCategory(Categories.CI)]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
-            var promotionsLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Promotions");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+            var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
             promotionsLink.Click();
         }
     }

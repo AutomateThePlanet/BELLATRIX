@@ -37,16 +37,16 @@ namespace Bellatrix.Web.GettingStarted
             // outputTemplate - controls how the message is formatted. You can add additional info such as timestamp and much more.
             // for more info visit- https://github.com/serilog/serilog/wiki/Formatting-Output
             // If addUrlToBddLogging is true, after each action the current page's URL will be added.
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 3. As mentioned before BELLATRIX searches for elements not immediately but after you perform an action or assert.
             // This is why we can place all elements and later perform actions on them. It is possible at the moment of declaring them,
             // not to be yet present on the page.
             // Home page elements
-            Select sortDropDown = App.ComponentCreateService.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonMReadMoreButton = App.ComponentCreateService.CreateByInnerTextContaining<Anchor>("Read more");
-            Anchor addToCartFalcon9 = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
-            Anchor viewCartButton = App.ComponentCreateService.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
+            Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
+            Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
+            Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
+            Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
 
             // Home Page actions
             sortDropDown.SelectByText("Sort by price: low to high");
@@ -56,40 +56,40 @@ namespace Bellatrix.Web.GettingStarted
             viewCartButton.Click();
 
             // Cart page elements
-            TextField couponCodeTextField = App.ComponentCreateService.CreateById<TextField>("coupon_code");
-            Button applyCouponButton = App.ComponentCreateService.CreateByValueContaining<Button>("Apply coupon");
-            Div messageAlert = App.ComponentCreateService.CreateByClassContaining<Div>("woocommerce-message");
-            Number quantityBox = App.ComponentCreateService.CreateByClassContaining<Number>("input-text qty text");
-            Button updateCart = App.ComponentCreateService.CreateByValueContaining<Button>("Update cart").ToBeClickable();
-            Span totalSpan = App.ComponentCreateService.CreateByXpath<Span>("//*[@class='order-total']//span");
-            Anchor proceedToCheckout = App.ComponentCreateService.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
+            TextField couponCodeTextField = App.Components.CreateById<TextField>("coupon_code");
+            Button applyCouponButton = App.Components.CreateByValueContaining<Button>("Apply coupon");
+            Div messageAlert = App.Components.CreateByClassContaining<Div>("woocommerce-message");
+            Number quantityBox = App.Components.CreateByClassContaining<Number>("input-text qty text");
+            Button updateCart = App.Components.CreateByValueContaining<Button>("Update cart").ToBeClickable();
+            Span totalSpan = App.Components.CreateByXpath<Span>("//*[@class='order-total']//span");
+            Anchor proceedToCheckout = App.Components.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
 
             // Cart page actions
             couponCodeTextField.SetText("happybirthday");
             applyCouponButton.Click();
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
             messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
-            App.BrowserService.WaitForAjax();
+            App.Browser.WaitForAjax();
             totalSpan.ValidateInnerTextIs("54.00€");
             proceedToCheckout.Click();
 
             // Checkout page elements
-            Heading billingDetailsHeading = App.ComponentCreateService.CreateByInnerTextContaining<Heading>("Billing details");
-            Anchor showLogin = App.ComponentCreateService.CreateByInnerTextContaining<Anchor>("Click here to login");
-            TextArea orderCommentsTextArea = App.ComponentCreateService.CreateById<TextArea>("order_comments");
-            TextField billingFirstName = App.ComponentCreateService.CreateById<TextField>("billing_first_name");
-            TextField billingLastName = App.ComponentCreateService.CreateById<TextField>("billing_last_name");
-            TextField billingCompany = App.ComponentCreateService.CreateById<TextField>("billing_company");
-            Select billingCountry = App.ComponentCreateService.CreateById<Select>("billing_country");
-            TextField billingAddress1 = App.ComponentCreateService.CreateById<TextField>("billing_address_1");
-            TextField billingAddress2 = App.ComponentCreateService.CreateById<TextField>("billing_address_2");
-            TextField billingCity = App.ComponentCreateService.CreateById<TextField>("billing_city");
-            Select billingState = App.ComponentCreateService.CreateById<Select>("billing_state").ToBeVisible().ToBeClickable();
-            TextField billingZip = App.ComponentCreateService.CreateById<TextField>("billing_postcode");
-            Phone billingPhone = App.ComponentCreateService.CreateById<Phone>("billing_phone");
-            Email billingEmail = App.ComponentCreateService.CreateById<Email>("billing_email");
-            CheckBox createAccountCheckBox = App.ComponentCreateService.CreateById<CheckBox>("createaccount");
-            RadioButton checkPaymentsRadioButton = App.ComponentCreateService.CreateByAttributesContaining<RadioButton>("for", "payment_method_cheque");
+            Heading billingDetailsHeading = App.Components.CreateByInnerTextContaining<Heading>("Billing details");
+            Anchor showLogin = App.Components.CreateByInnerTextContaining<Anchor>("Click here to login");
+            TextArea orderCommentsTextArea = App.Components.CreateById<TextArea>("order_comments");
+            TextField billingFirstName = App.Components.CreateById<TextField>("billing_first_name");
+            TextField billingLastName = App.Components.CreateById<TextField>("billing_last_name");
+            TextField billingCompany = App.Components.CreateById<TextField>("billing_company");
+            Select billingCountry = App.Components.CreateById<Select>("billing_country");
+            TextField billingAddress1 = App.Components.CreateById<TextField>("billing_address_1");
+            TextField billingAddress2 = App.Components.CreateById<TextField>("billing_address_2");
+            TextField billingCity = App.Components.CreateById<TextField>("billing_city");
+            Select billingState = App.Components.CreateById<Select>("billing_state").ToBeVisible().ToBeClickable();
+            TextField billingZip = App.Components.CreateById<TextField>("billing_postcode");
+            Phone billingPhone = App.Components.CreateById<Phone>("billing_phone");
+            Email billingEmail = App.Components.CreateById<Email>("billing_email");
+            CheckBox createAccountCheckBox = App.Components.CreateById<CheckBox>("createaccount");
+            RadioButton checkPaymentsRadioButton = App.Components.CreateByAttributesContaining<RadioButton>("for", "payment_method_cheque");
 
             // Checkout page actions
             billingDetailsHeading.ToBeVisible().WaitToBe();

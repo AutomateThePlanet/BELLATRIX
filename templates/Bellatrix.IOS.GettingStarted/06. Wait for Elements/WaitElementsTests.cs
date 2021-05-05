@@ -22,7 +22,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             // and wait for the condition to be satisfied.
 
             // This is also valid syntax the conditions are performed once the Click method is called. It is the same as placing ToBe methods after CreateByName.
-            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
             button.ToBeClickable().ToBeVisible().Click();
 
             // 2. Why we have two different syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the element.

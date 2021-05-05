@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class DateControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.SettingDate += AssertValueAttributeEmpty;
 
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
+            var dateElement = App.Components.CreateById<Date>("myDate");
 
             dateElement.SetDate(2017, 7, 6);
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.DateSet += AssertValueAttributeContainsNewValue;
 
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
+            var dateElement = App.Components.CreateById<Date>("myDate");
 
             dateElement.SetDate(2017, 7, 6);
 
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.Hovering += AssertStyleAttributeEmpty;
 
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate7");
+            var dateElement = App.Components.CreateById<Date>("myDate7");
 
             dateElement.Hover();
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate7");
+            var dateElement = App.Components.CreateById<Date>("myDate7");
 
             dateElement.Hover();
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Date>("myDate7").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Date>("myDate7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.Focusing += AssertStyleAttributeEmpty;
 
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate8");
+            var dateElement = App.Components.CreateById<Date>("myDate8");
 
             dateElement.Focus();
 
@@ -132,7 +132,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Date.Focused += AssertStyleAttributeContainsNewValue;
 
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate8");
+            var dateElement = App.Components.CreateById<Date>("myDate8");
 
             dateElement.Focus();
 

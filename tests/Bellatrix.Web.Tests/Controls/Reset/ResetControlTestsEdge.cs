@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("Edge Browser")]
     public class ResetControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SetTextToStop_When_UseClickMethod_Edge()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             buttonElement.Click();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton1");
+            var buttonElement = App.Components.CreateById<Reset>("myButton1");
 
             buttonElement.Hover();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnBlue_When_Focus_Edge()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton2");
+            var buttonElement = App.Components.CreateById<Reset>("myButton2");
 
             buttonElement.Focus();
 
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             bool isDisabled = buttonElement.IsDisabled;
 
@@ -76,7 +76,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_Edge()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton3");
+            var buttonElement = App.Components.CreateById<Reset>("myButton3");
 
             bool isDisabled = buttonElement.IsDisabled;
 
@@ -88,7 +88,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnStart_When_ValueAttributePresent_Edge()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             var actualValue = buttonElement.Value;
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnEmpty_When_UseInnerText_Edge()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             Assert.AreEqual(string.Empty, buttonElement.InnerText);
         }

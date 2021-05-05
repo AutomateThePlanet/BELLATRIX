@@ -27,17 +27,17 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void GetAllTabs_When_CallGetAllWithButtonControl()
         {
-            var tabs = App.ComponentCreateService.CreateByIOSNsPredicate<Tabs<TextField>>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+            var tabs = App.Components.CreateByIOSNsPredicate<Tabs<TextField>>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
 
             var tabButtons = tabs.GetAll("XCUIElementTypeTextField");
             tabButtons[0].SetText("1");
             tabButtons[1].SetText("2");
 
-            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
 
-            var resultLabel = App.ComponentCreateService.CreateByName<Label>("Answer");
+            var resultLabel = App.Components.CreateByName<Label>("Answer");
 
             resultLabel.ValidateTextIs("3");
         }

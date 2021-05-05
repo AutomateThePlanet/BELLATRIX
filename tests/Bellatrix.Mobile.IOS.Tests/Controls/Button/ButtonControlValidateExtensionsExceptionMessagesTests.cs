@@ -32,7 +32,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         {
             try
             {
-                var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+                var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
                 button.ValidateTextIs("Compute");
             }
@@ -50,7 +50,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         {
             try
             {
-                var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+                var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
                 button.ValidateTextIsNotSet();
             }
@@ -68,7 +68,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         {
             try
             {
-                var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+                var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
                 button.ValidateIsDisabled();
             }

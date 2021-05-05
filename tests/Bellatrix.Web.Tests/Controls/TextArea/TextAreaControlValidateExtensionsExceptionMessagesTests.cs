@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateRowsIsThrowsException()
         {
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             try
             {
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateColsIsThrowsException()
         {
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             try
             {
@@ -67,7 +67,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateWrapIsThrowsException()
         {
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea13");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea13");
 
             try
             {
@@ -84,7 +84,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateWrapIsNullThrowsException()
         {
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea13");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea13");
 
             try
             {
@@ -101,7 +101,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSpellCheckIsThrowsException()
         {
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea12");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea12");
 
             try
             {
@@ -118,7 +118,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSpellCheckIsNullThrowsException()
         {
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea12");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea12");
 
             try
             {

@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_TabsHovered_Wpf()
         {
-            var listBox = App.ComponentCreateService.CreateByAutomationId<Tabs>("tabs");
+            var listBox = App.Components.CreateByAutomationId<Tabs>("tabs");
 
             listBox.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             label.ValidateInnerTextIs("tabsHovered");
         }
     }

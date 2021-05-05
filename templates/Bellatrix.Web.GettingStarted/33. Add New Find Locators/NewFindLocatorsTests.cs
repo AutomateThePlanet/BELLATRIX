@@ -14,10 +14,10 @@ namespace Bellatrix.Web.GettingStarted
         [Ignore]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 2. After that, you can use the new locator as it was originally part of Bellatrix.
-            var promotionsLink = App.ComponentCreateService.CreateByIdStartingWith<Anchor>("promo");
+            var promotionsLink = App.Components.CreateByIdStartingWith<Anchor>("promo");
 
             promotionsLink.Click();
         }

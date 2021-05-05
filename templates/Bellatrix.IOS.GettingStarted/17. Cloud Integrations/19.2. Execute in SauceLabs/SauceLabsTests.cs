@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [Ignore]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }
@@ -43,7 +43,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [Ignore]
         public void ButtonClicked_When_CallClickMethodSecond()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }

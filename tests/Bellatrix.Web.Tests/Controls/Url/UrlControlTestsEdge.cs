@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("Edge Browser")]
     public class UrlControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().UrlLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().UrlLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void UrlSet_When_UseSetUrlMethod_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             urlElement.SetUrl("bellatrix.solutions");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetUrlReturnsCorrectUrl_When_DefaultUrlIsSet_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL3");
+            var urlElement = App.Components.CreateById<Url>("myURL3");
 
             Assert.AreEqual("http://www.example.com", urlElement.GetUrl());
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             Assert.AreEqual(false, urlElement.IsAutoComplete);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL5");
+            var urlElement = App.Components.CreateById<Url>("myURL5");
 
             Assert.AreEqual(false, urlElement.IsAutoComplete);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL4");
+            var urlElement = App.Components.CreateById<Url>("myURL4");
 
             Assert.AreEqual(true, urlElement.IsAutoComplete);
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL4");
+            var urlElement = App.Components.CreateById<Url>("myURL4");
 
             Assert.AreEqual(false, urlElement.IsReadonly);
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL6");
+            var urlElement = App.Components.CreateById<Url>("myURL6");
 
             Assert.AreEqual(true, urlElement.IsReadonly);
         }
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             var maxLength = urlElement.MaxLength;
 
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             Assert.IsNull(urlElement.MinLength);
         }
@@ -122,7 +122,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(20, urlElement.Size);
@@ -133,7 +133,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL2");
+            var urlElement = App.Components.CreateById<Url>("myURL2");
 
             Assert.AreEqual(80, urlElement.MaxLength);
         }
@@ -143,7 +143,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL2");
+            var urlElement = App.Components.CreateById<Url>("myURL2");
 
             Assert.AreEqual(10, urlElement.MinLength);
         }
@@ -153,7 +153,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL2");
+            var urlElement = App.Components.CreateById<Url>("myURL2");
 
             Assert.AreEqual(30, urlElement.Size);
         }
@@ -163,7 +163,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL4");
+            var urlElement = App.Components.CreateById<Url>("myURL4");
 
             Assert.AreEqual(false, urlElement.IsRequired);
         }
@@ -173,7 +173,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL7");
+            var urlElement = App.Components.CreateById<Url>("myURL7");
 
             Assert.AreEqual(true, urlElement.IsRequired);
         }
@@ -183,7 +183,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             Assert.AreEqual("http://www.example.com", urlElement.Placeholder);
         }
@@ -193,7 +193,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL1");
+            var urlElement = App.Components.CreateById<Url>("myURL1");
 
             Assert.IsNull(urlElement.Placeholder);
         }
@@ -203,7 +203,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL8");
+            var urlElement = App.Components.CreateById<Url>("myURL8");
 
             urlElement.Hover();
 
@@ -215,7 +215,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnBlue_When_Focus_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL9");
+            var urlElement = App.Components.CreateById<Url>("myURL9");
 
             urlElement.Focus();
 
@@ -227,7 +227,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL9");
+            var urlElement = App.Components.CreateById<Url>("myURL9");
 
             bool isDisabled = urlElement.IsDisabled;
 
@@ -239,7 +239,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_Edge()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL10");
+            var urlElement = App.Components.CreateById<Url>("myURL10");
 
             bool isDisabled = urlElement.IsDisabled;
 

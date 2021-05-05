@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_RadioButtonHovered_Wpf()
         {
-            var button = App.ComponentCreateService.CreateByName<RadioButton>("RadioButton");
+            var button = App.Components.CreateByName<RadioButton>("RadioButton");
 
             button.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("radioHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
-            var radioButton = App.ComponentCreateService.CreateByName<RadioButton>("RadioButton");
+            var radioButton = App.Components.CreateByName<RadioButton>("RadioButton");
 
             radioButton.Click();
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedReturnsTrue_When_RadioChecked_Wpf()
         {
-            var button = App.ComponentCreateService.CreateByName<RadioButton>("SelectedRadioButton");
+            var button = App.Components.CreateByName<RadioButton>("SelectedRadioButton");
 
             Assert.IsTrue(button.IsChecked);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_RadioIsNotDisabled_Wpf()
         {
-            var button = App.ComponentCreateService.CreateByName<RadioButton>("RadioButton");
+            var button = App.Components.CreateByName<RadioButton>("RadioButton");
 
             Assert.AreEqual(false, button.IsDisabled);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_RadioIsDisabled_Wpf()
         {
-            var button = App.ComponentCreateService.CreateByName<RadioButton>("SelectedRadioButton");
+            var button = App.Components.CreateByName<RadioButton>("SelectedRadioButton");
 
             Assert.AreEqual(true, button.IsDisabled);
         }

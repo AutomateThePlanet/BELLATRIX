@@ -26,7 +26,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsVisibleReturnsTrue_When_ElementIsVisible_WinForms()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             Assert.IsTrue(button.IsVisible);
         }
@@ -36,7 +36,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsPresentReturnsTrue_When_ElementIsPresent_WinForms()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             Assert.IsTrue(button.IsPresent);
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsPresentReturnsFalse_When_ElementIsNotPresent_WinForms()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("E1 Button");
+            var button = App.Components.CreateByName<Button>("E1 Button");
 
             Assert.IsFalse(button.IsPresent);
         }
@@ -56,7 +56,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsVisibleReturnsFalse_When_ElementIsNotVisible_WinForms()
         {
-            var button = App.ComponentCreateService.CreateByAutomationId<Button>("btnShowAfter");
+            var button = App.Components.CreateByAutomationId<Button>("btnShowAfter");
 
             Assert.IsFalse(button.IsVisible);
         }
@@ -66,7 +66,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void GetAttributeReturnsName_When_NameAttributeIsSet_WinForms()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             var nameValue = button.GetAttribute("Name");
 
@@ -77,7 +77,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ElementVisible_AfterCallingScrollToVisible_WinForms()
         {
-            var label = App.ComponentCreateService.CreateByAccessibilityId<Button>("labelScrolledTo");
+            var label = App.Components.CreateByAccessibilityId<Button>("labelScrolledTo");
 
             label.ScrollToVisible();
 
@@ -89,7 +89,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ReturnNestedElement_When_ElementContainsOneChildElement_WinForms()
         {
-            var comboBox = App.ComponentCreateService.CreateByAccessibilityId<Button>("clBox");
+            var comboBox = App.Components.CreateByAccessibilityId<Button>("clBox");
             var comboBoxItem = comboBox.CreateByName<Button>("First Item 1");
 
             Assert.AreEqual("First Item 1", comboBoxItem.GetAttribute("Name"));
@@ -101,8 +101,8 @@ namespace Bellatrix.Desktop.Tests
         [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToExists_When_ElementIsNotVisibleInitially_WinForms()
         {
-            var disappearBtn = App.ComponentCreateService.CreateByAutomationId<Button>("btnDisappear");
-            var button = App.ComponentCreateService.CreateByAutomationId<Button>("btnShowAfter");
+            var disappearBtn = App.Components.CreateByAutomationId<Button>("btnDisappear");
+            var button = App.Components.CreateByAutomationId<Button>("btnShowAfter");
             disappearBtn.Click();
 
             button.ToExists().WaitToBe();
@@ -116,7 +116,7 @@ namespace Bellatrix.Desktop.Tests
         [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_WinForms()
         {
-            var button = App.ComponentCreateService.CreateByAutomationId<Button>("btnDisappear");
+            var button = App.Components.CreateByAutomationId<Button>("btnDisappear");
 
             button.Click();
 

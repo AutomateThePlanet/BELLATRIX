@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls.Element
     [AllureSuite("Element Control")]
     public class ElementControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void IsVisibleReturnsTrue_When_ElementIsPresent_InternetExplorer()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             Assert.IsTrue(urlElement.IsVisible);
         }
@@ -35,7 +35,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void IsVisibleReturnsFalse_When_ElementIsHidden_InternetExplorer()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL11");
+            var urlElement = App.Components.CreateById<Url>("myURL11");
 
             Assert.IsFalse(urlElement.IsVisible);
         }
@@ -44,7 +44,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void SetAttributeChangesAttributeValue_InternetExplorer()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             urlElement.SetAttribute("class", "myTestClass1");
             var cssClass = urlElement.GetAttribute("class");
@@ -56,7 +56,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetAttributeReturnsName_When_NameAttributeIsSet_InternetExplorer()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             var nameValue = urlElement.GetAttribute("name");
 
@@ -67,7 +67,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetAttributeReturnsEmpty_When_NameAttributeIsNotPresent_InternetExplorer()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             var nameValue = urlElement.GetAttribute("style");
 
@@ -78,7 +78,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void CssClassReturnsMyTestClass_When_ClassAttributeIsSet_InternetExplorer()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             var cssClass = urlElement.CssClass;
 
@@ -89,7 +89,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void CssClassReturnsNull_When_ClassAttributeIsNotPresent_InternetExplorer()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL1");
+            var urlElement = App.Components.CreateById<Url>("myURL1");
 
             var cssClass = urlElement.CssClass;
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ElementVisible_AfterCallingScrollToVisible_InternetExplorer()
         {
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL12");
+            var urlElement = App.Components.CreateById<Url>("myURL12");
 
             urlElement.ScrollToVisible();
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void CreateElement_When_InsideAnotherElementAndIsPresent_InternetExplorer()
         {
-            var wrapperDiv = App.ComponentCreateService.CreateById<Div>("myURL10Wrapper");
+            var wrapperDiv = App.Components.CreateById<Div>("myURL10Wrapper");
 
             var urlElement = wrapperDiv.CreateById<Url>("myURL10");
 
@@ -122,7 +122,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetTitle_When_TitleAttributeIsPresent_InternetExplorer()
         {
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL13");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
 
             string title = element.GetTitle();
 
@@ -133,7 +133,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnsNull_When_TitleAttributeIsNotPresent_InternetExplorer()
         {
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
             string title = element.GetTitle();
 
@@ -144,7 +144,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetTabIndexOne_When_TabIndexAttributeIsPresent_InternetExplorer()
         {
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL14");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL14");
 
             string tabIndex = element.GetTabIndex();
 
@@ -155,7 +155,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnsNull_When_TabIndexAttributeIsNotPresent_InternetExplorer()
         {
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
             string tabIndex = element.GetTabIndex();
 
@@ -166,7 +166,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetStyle_When_StyleAttributeIsPresent_InternetExplorer()
         {
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL16");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL16");
 
             var style = element.GetStyle();
 
@@ -177,7 +177,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnsNull_When_StyleAttributeIsNotPresent_InternetExplorer()
         {
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
 
             string style = element.GetStyle();
 
@@ -188,7 +188,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetDir_When_DirAttributeIsPresent_InternetExplorer()
         {
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL19");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL19");
 
             var dir = element.GetDir();
 
@@ -199,7 +199,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnsNull_When_DirAttributeIsNotPresent_InternetExplorer()
         {
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
             string dir = element.GetDir();
 
@@ -210,7 +210,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetLang_When_LangAttributeIsPresent_InternetExplorer()
         {
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL20");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL20");
 
             var lang = element.GetLang();
 
@@ -221,7 +221,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnsNull_When_LangAttributeIsNotPresent_InternetExplorer()
         {
-            var element = App.ComponentCreateService.CreateById<Bellatrix.Web.Component>("myURL12");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
             string lang = element.GetLang();
 

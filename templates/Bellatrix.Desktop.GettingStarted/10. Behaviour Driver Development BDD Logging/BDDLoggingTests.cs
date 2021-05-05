@@ -35,27 +35,27 @@ namespace Bellatrix.Desktop.GettingStarted
             // If you execute your tests in CI with some CLI test runner the logs are printed there as well.
             // outputTemplate - controls how the message is formatted. You can add additional info such as timestamp and much more.
             // for more info visit- https://github.com/serilog/serilog/wiki/Formatting-Output
-            var calendar = App.ComponentCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
             calendar.ValidateIsNotDisabled();
 
-            var checkBox = App.ComponentCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 
             checkBox.Check();
 
             checkBox.ValidateIsChecked();
 
-            var comboBox = App.ComponentCreateService.CreateByAutomationId<ComboBox>("select");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("select");
 
             comboBox.SelectByText("Item2");
 
             Assert.AreEqual("Item2", comboBox.InnerText);
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
 
             label.ValidateIsVisible();
 
-            var radioButton = App.ComponentCreateService.CreateByName<RadioButton>("RadioButton");
+            var radioButton = App.Components.CreateByName<RadioButton>("RadioButton");
 
             radioButton.Click();
 

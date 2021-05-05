@@ -61,8 +61,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         // some of it through the usage of TestInit and TestCleanup methods.
         public override void TestsArrange()
         {
-            _button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
-            _checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check1");
+            _button = App.Components.CreateByIdContaining<Button>("button");
+            _checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
         }
 
         public override void TestsAct()

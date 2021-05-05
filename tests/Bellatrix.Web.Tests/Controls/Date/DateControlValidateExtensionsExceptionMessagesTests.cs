@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateDateIsThrowsException()
         {
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate");
+            var dateElement = App.Components.CreateById<Date>("myDate");
 
             dateElement.SetDate(2017, 7, 6);
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateNotReadonlyThrowsException()
         {
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate5");
+            var dateElement = App.Components.CreateById<Date>("myDate5");
 
             try
             {
@@ -69,7 +69,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateReadonlyThrowsException()
         {
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate4");
+            var dateElement = App.Components.CreateById<Date>("myDate4");
 
             try
             {
@@ -86,7 +86,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMaxTextIsNullThrowsException()
         {
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
@@ -103,7 +103,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMinTextIsNullThrowsException()
         {
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateStepIsNullThrowsException()
         {
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
@@ -137,7 +137,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMaxTextIsThrowsException()
         {
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
@@ -154,7 +154,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMinTextIsThrowsException()
         {
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
@@ -171,7 +171,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateStepIsThrowsException()
         {
-            var dateElement = App.ComponentCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {

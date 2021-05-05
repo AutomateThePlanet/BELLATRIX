@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ComboBoxHovered_WinForms()
         {
-            var comboBox = App.ComponentCreateService.CreateByAutomationId<ComboBox>("comboBox");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("comboBox");
 
             comboBox.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
             Assert.AreEqual("comboBoxHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void Item2Selected_When_ComboBoxSecondOption_WinForms()
         {
-            var comboBox = App.ComponentCreateService.CreateByAutomationId<ComboBox>("comboBox");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("comboBox");
 
             comboBox.SelectByText("Item2");
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_ComboBoxIsNotDisabled_WinForms()
         {
-            var comboBox = App.ComponentCreateService.CreateByAutomationId<ComboBox>("comboBox");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("comboBox");
 
             Assert.AreEqual(false, comboBox.IsDisabled);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_ComboBoxIsDisabled_WinForms()
         {
-            var comboBox = App.ComponentCreateService.CreateByAutomationId<ComboBox>("disabledComboBox");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("disabledComboBox");
 
             Assert.AreEqual(true, comboBox.IsDisabled);
         }

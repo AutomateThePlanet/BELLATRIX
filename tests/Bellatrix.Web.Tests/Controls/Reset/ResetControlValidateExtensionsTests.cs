@@ -25,8 +25,8 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateValueIs_DoesNotThrowException_When_UseClickMethod()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             buttonElement.Click();
 
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton1");
+            var buttonElement = App.Components.CreateById<Reset>("myButton1");
 
             buttonElement.Hover();
 
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             buttonElement.ValidateIsNotDisabled();
         }
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton3");
+            var buttonElement = App.Components.CreateById<Reset>("myButton3");
 
             buttonElement.ValidateIsDisabled();
         }
@@ -78,7 +78,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_When_UseInnerText()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             buttonElement.ValidateInnerTextIs(string.Empty);
         }

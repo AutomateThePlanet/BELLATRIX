@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("TextField Control")]
     public class TextFieldControlTestsOpera : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Opera)]
         public void TextSet_When_UseSetTextMethod_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             textFieldElement.SetText("aangelov@bellatrix.solutions");
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             Assert.AreEqual(false, textFieldElement.IsAutoComplete);
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText5");
+            var textFieldElement = App.Components.CreateById<TextField>("myText5");
 
             Assert.AreEqual(false, textFieldElement.IsAutoComplete);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText4");
+            var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
             Assert.AreEqual(true, textFieldElement.IsAutoComplete);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText4");
+            var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
             Assert.AreEqual(false, textFieldElement.IsReadonly);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText6");
+            var textFieldElement = App.Components.CreateById<TextField>("myText6");
 
             Assert.AreEqual(true, textFieldElement.IsReadonly);
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             var maxLength = textFieldElement.MaxLength;
 
@@ -93,7 +93,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             Assert.IsNull(textFieldElement.MinLength);
         }
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(20, textFieldElement.Size);
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText2");
+            var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
             Assert.AreEqual(80, textFieldElement.MaxLength);
         }
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText2");
+            var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
             Assert.AreEqual(10, textFieldElement.MinLength);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText2");
+            var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
             Assert.AreEqual(30, textFieldElement.Size);
         }
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText4");
+            var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
             Assert.AreEqual(false, textFieldElement.IsRequired);
         }
@@ -148,7 +148,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText7");
+            var textFieldElement = App.Components.CreateById<TextField>("myText7");
 
             Assert.AreEqual(true, textFieldElement.IsRequired);
         }
@@ -157,7 +157,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             Assert.AreEqual("your Text term goes here", textFieldElement.Placeholder);
         }
@@ -166,7 +166,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText1");
+            var textFieldElement = App.Components.CreateById<TextField>("myText1");
 
             Assert.IsNull(textFieldElement.Placeholder);
         }
@@ -175,7 +175,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnRed_When_Hover_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText8");
+            var textFieldElement = App.Components.CreateById<TextField>("myText8");
 
             textFieldElement.Hover();
 
@@ -186,7 +186,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnBlue_When_Focus_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText9");
+            var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
             textFieldElement.Focus();
 
@@ -197,7 +197,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText9");
+            var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
             bool isDisabled = textFieldElement.IsDisabled;
 
@@ -208,7 +208,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnTrue_When_DisabledAttributePresent_Opera()
         {
-            var textFieldElement = App.ComponentCreateService.CreateById<TextField>("myText10");
+            var textFieldElement = App.Components.CreateById<TextField>("myText10");
 
             bool isDisabled = textFieldElement.IsDisabled;
 

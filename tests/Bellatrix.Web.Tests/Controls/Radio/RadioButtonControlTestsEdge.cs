@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("Edge Browser")]
     public class RadioButtonControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void Checked_When_UseClickMethod_Edge()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
             radioElement.Click();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio1");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
 
             radioElement.Hover();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
             bool isDisabled = radioElement.IsDisabled;
 
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_Edge()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio3");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio3");
 
             bool isDisabled = radioElement.IsDisabled;
 
@@ -76,7 +76,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnOn_When_ValueAttributeNotPresent_Edge()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio1");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
 
             var actualValue = radioElement.Value;
 
@@ -88,7 +88,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnNewsletter_When_ValueAttributePresent_Edge()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio2");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio2");
 
             var actualValue = radioElement.Value;
 

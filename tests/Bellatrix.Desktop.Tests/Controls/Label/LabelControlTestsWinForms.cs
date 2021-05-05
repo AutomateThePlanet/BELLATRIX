@@ -25,7 +25,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_LabelHovered_WinForms()
         {
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
 
             label.Hover();
 

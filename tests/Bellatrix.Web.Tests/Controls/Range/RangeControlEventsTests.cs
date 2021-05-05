@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class RangeControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.SettingRange += AssertValueAttributeEmpty;
 
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             rangeElement.SetRange(9);
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.RangeSet += AssertValueAttributeContainsNewValue;
 
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             rangeElement.SetRange(9);
 
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.Hovering += AssertStyleAttributeEmpty;
 
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange7");
+            var rangeElement = App.Components.CreateById<Range>("myRange7");
 
             rangeElement.Hover();
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange7");
+            var rangeElement = App.Components.CreateById<Range>("myRange7");
 
             rangeElement.Hover();
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Range>("myRange7").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Range>("myRange7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.Focusing += AssertStyleAttributeEmpty;
 
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange8");
+            var rangeElement = App.Components.CreateById<Range>("myRange8");
 
             rangeElement.Focus();
 
@@ -132,7 +132,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.Focused += AssertStyleAttributeContainsNewValue;
 
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange8");
+            var rangeElement = App.Components.CreateById<Range>("myRange8");
 
             rangeElement.Focus();
 

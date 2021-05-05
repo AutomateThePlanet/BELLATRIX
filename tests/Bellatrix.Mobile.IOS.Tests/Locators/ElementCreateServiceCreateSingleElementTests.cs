@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateById_And_ElementIsOnScreen()
         {
-            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
 
             textField.ValidateIsVisible();
         }
@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByClass()
         {
-            var textFields = App.ComponentCreateService.CreateByClass<TextField>("XCUIElementTypeTextField");
+            var textFields = App.Components.CreateByClass<TextField>("XCUIElementTypeTextField");
 
             textFields.ValidateIsNotDisabled();
         }
@@ -49,7 +49,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByValueContaining_And_ElementIsOnScreen()
         {
-            var label = App.ComponentCreateService.CreateByValueContaining<Label>("SumLabel");
+            var label = App.Components.CreateByValueContaining<Label>("SumLabel");
 
             label.ValidateIsVisible();
         }
@@ -59,7 +59,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByIOSNsPredicate_And_ElementIsOnScreen()
         {
-            var button = App.ComponentCreateService.CreateByIOSNsPredicate<Button>("type == \"XCUIElementTypeButton\" AND name == \"ComputeSumButton\"");
+            var button = App.Components.CreateByIOSNsPredicate<Button>("type == \"XCUIElementTypeButton\" AND name == \"ComputeSumButton\"");
 
             button.ValidateIsVisible();
         }
@@ -69,7 +69,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByXPath_And_ElementIsOnScreen()
         {
-            var button = App.ComponentCreateService.CreateByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");
+            var button = App.Components.CreateByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");
 
             button.ValidateIsVisible();
         }

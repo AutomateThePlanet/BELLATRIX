@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class ImageControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Image.Hovering += AssertStyleAttributeEmpty;
 
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage4");
+            var imageElement = App.Components.CreateById<Image>("myImage4");
 
             imageElement.Hover();
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Image>("myImage4").ValidateCssClassIsNull();
+                App.Components.CreateById<Image>("myImage4").ValidateCssClassIsNull();
             }
         }
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Image.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage4");
+            var imageElement = App.Components.CreateById<Image>("myImage4");
 
             imageElement.Hover();
 
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Image>("myImage4").ValidateCssClassIs("hovered");
+                App.Components.CreateById<Image>("myImage4").ValidateCssClassIs("hovered");
             }
         }
     }

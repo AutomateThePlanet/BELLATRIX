@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Input Button Control")]
     public class InputSubmitControlTestsOpera : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Opera)]
         public void SetTextToStop_When_UseClickMethod_Opera()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton4");
+            var buttonElement = App.Components.CreateById<Button>("myButton4");
 
             buttonElement.Click();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnRed_When_Hover_Opera()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton5");
+            var buttonElement = App.Components.CreateById<Button>("myButton5");
 
             buttonElement.Hover();
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnBlue_When_Focus_Opera()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton6");
+            var buttonElement = App.Components.CreateById<Button>("myButton6");
 
             buttonElement.Focus();
 
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Opera()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton4");
+            var buttonElement = App.Components.CreateById<Button>("myButton4");
 
             bool isDisabled = buttonElement.IsDisabled;
 
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnTrue_When_DisabledAttributePresent_Opera()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton7");
+            var buttonElement = App.Components.CreateById<Button>("myButton7");
 
             bool isDisabled = buttonElement.IsDisabled;
 
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnStart_When_ValueAttributePresent_Opera()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton4");
+            var buttonElement = App.Components.CreateById<Button>("myButton4");
 
             var actualValue = buttonElement.Value;
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnEmpty_When_UseInnerText_Opera()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton4");
+            var buttonElement = App.Components.CreateById<Button>("myButton4");
 
             Assert.AreEqual(string.Empty, buttonElement.InnerText);
         }

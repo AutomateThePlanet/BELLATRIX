@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Select Control")]
     public class SelectControlTestsChrome : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void SelectByTextToAwesome_When_UseSelectByTextMethod_Chrome()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             selectComponent.SelectByText("Awesome");
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void SelectByIndexToAwesome_When_UseSelectByTextMethod_Chrome()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             selectComponent.SelectByIndex(2);
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnAwesome_When_UseGetSelectedValueMethod_Chrome()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.Components.CreateById<Select>("mySelect2");
 
             Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
         }
@@ -57,7 +57,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Chrome()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect1");
+            var selectComponent = App.Components.CreateById<Select>("mySelect1");
 
             selectComponent.Hover();
 
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Chrome()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.Components.CreateById<Select>("mySelect2");
 
             selectComponent.Focus();
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Chrome()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             bool isDisabled = selectComponent.IsDisabled;
 
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Chrome()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect3");
+            var selectComponent = App.Components.CreateById<Select>("mySelect3");
 
             bool isDisabled = selectComponent.IsDisabled;
 
@@ -101,7 +101,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_RequiredAttributePresent_Chrome()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect4");
+            var selectComponent = App.Components.CreateById<Select>("mySelect4");
 
             var actualValue = selectComponent.IsRequired;
 
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_RequiredAttributeNotPresent_Chrome()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             var actualValue = selectComponent.IsRequired;
 
@@ -123,7 +123,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void Return3Options_When_GetAllOptions_Chrome()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
             var allOptions = selectComponent.GetAllOptions();
 

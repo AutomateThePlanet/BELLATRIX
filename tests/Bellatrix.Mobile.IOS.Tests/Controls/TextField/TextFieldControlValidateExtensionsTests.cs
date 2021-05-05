@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
         {
-            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
 
             textField.SetText("1");
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIsNotSet_DoesNotThrowException_When_TextFieldIsNotSet()
         {
-            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
 
             textField.SetText(string.Empty);
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsDisabled_DoesNotThrowException_When_TextFieldIsNotDisabled()
         {
-            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
 
             Assert.AreEqual(false, textField.IsDisabled);
         }

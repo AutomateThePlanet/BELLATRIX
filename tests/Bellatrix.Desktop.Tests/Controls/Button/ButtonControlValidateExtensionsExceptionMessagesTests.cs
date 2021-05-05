@@ -30,7 +30,7 @@ namespace Bellatrix.Desktop.Tests
         {
             try
             {
-                var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+                var button = App.Components.CreateByName<Button>("E Button");
                 button.ValidateInnerTextIs("ebuttonHovered");
             }
             catch (ComponentPropertyValidateException e)
@@ -45,7 +45,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ValidateIsNotDisabled_ThrowException_When_ButtonNotDisabled()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             try
             {
@@ -63,7 +63,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ValidateIsDisabled_ThrowException_When_ButtonDisabled()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("D Button");
+            var button = App.Components.CreateByName<Button>("D Button");
 
             try
             {

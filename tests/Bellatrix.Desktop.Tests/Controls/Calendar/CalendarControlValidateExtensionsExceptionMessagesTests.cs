@@ -28,7 +28,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ValidateIsNotDisabled_ThrowException_When_CalendarNotDisabled()
         {
-            var calendar = App.ComponentCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
             try
             {

@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class DivControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DivLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DivLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Div.Hovering += AssertStyleAttributeEmpty;
 
-            var divElement = App.ComponentCreateService.CreateById<Div>("myDiv");
+            var divElement = App.Components.CreateById<Div>("myDiv");
 
             divElement.Hover();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Div.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var divElement = App.ComponentCreateService.CreateById<Div>("myDiv");
+            var divElement = App.Components.CreateById<Div>("myDiv");
 
             divElement.Hover();
 
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Div>("myDiv").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Div>("myDiv").ValidateStyleIs("color: red;");
             }
         }
     }

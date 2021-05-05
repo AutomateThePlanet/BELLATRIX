@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class SpanControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Span.Hovering += AssertStyleAttributeEmpty;
 
-            var spanElement = App.ComponentCreateService.CreateById<Span>("mySpan");
+            var spanElement = App.Components.CreateById<Span>("mySpan");
 
             spanElement.Hover();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Span.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var spanElement = App.ComponentCreateService.CreateById<Span>("mySpan");
+            var spanElement = App.Components.CreateById<Span>("mySpan");
 
             spanElement.Hover();
 
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Span>("mySpan").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Span>("mySpan").ValidateStyleIs("color: red;");
             }
         }
     }

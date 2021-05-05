@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_CheckBoxHovered_Unversal()
         {
-            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("checkBox");
+            var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkBox");
 
             checkBox.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Button>("resultTextBlock");
+            var label = App.Components.CreateByAutomationId<Button>("resultTextBlock");
             Assert.AreEqual("checkBoxHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt_Unversal()
         {
-            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("checkBox");
+            var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkBox");
 
             checkBox.Check();
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt_Unversal()
         {
-            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("checkedCheckBox");
+            var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkedCheckBox");
 
             checkBox.Uncheck();
 
@@ -62,7 +62,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedReturnsTrue_When_CheckBoxChecked_Unversal()
         {
-            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("disabledCheckBox");
+            var checkBox = App.Components.CreateByAutomationId<CheckBox>("disabledCheckBox");
 
             Assert.IsTrue(checkBox.IsChecked);
         }
@@ -72,7 +72,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled_Unversal()
         {
-            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("checkedCheckBox");
+            var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkedCheckBox");
 
             Assert.AreEqual(false, checkBox.IsDisabled);
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_CheckBoxIsDisabled_Unversal()
         {
-            var checkBox = App.ComponentCreateService.CreateByAutomationId<CheckBox>("disabledCheckBox");
+            var checkBox = App.Components.CreateByAutomationId<CheckBox>("disabledCheckBox");
 
             Assert.AreEqual(true, checkBox.IsDisabled);
         }

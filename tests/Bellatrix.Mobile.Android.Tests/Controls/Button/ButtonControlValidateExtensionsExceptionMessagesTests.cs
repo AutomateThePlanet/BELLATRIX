@@ -33,7 +33,7 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             try
             {
-                var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
+                var button = App.Components.CreateByIdContaining<Button>("button");
 
                 button.ValidateTextIs("GoTo");
             }
@@ -50,7 +50,7 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             try
             {
-                var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
+                var button = App.Components.CreateByIdContaining<Button>("button");
 
                 button.ValidateTextIsNotSet();
             }
@@ -67,7 +67,7 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             try
             {
-                var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
+                var button = App.Components.CreateByIdContaining<Button>("button");
 
                 button.ValidateIsDisabled();
             }
@@ -84,7 +84,7 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             try
             {
-                var button = App.ComponentCreateService.CreateByIdContaining<Button>("button_disabled");
+                var button = App.Components.CreateByIdContaining<Button>("button_disabled");
 
                 button.ValidateIsNotDisabled();
             }

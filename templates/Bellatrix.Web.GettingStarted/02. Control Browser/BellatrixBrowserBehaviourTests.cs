@@ -32,10 +32,10 @@ namespace Bellatrix.Web.GettingStarted
         {
             // There is more about the App class in the next sections. However, it is the primary point where you access the BELLATRIX services.
             // It comes from the WebTest class as a property. Here we use the BELLATRIX navigation service to navigate to the demo page.
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // Use the element creation service to create an instance of the anchor. There are much more details about this process in the next sections.
-            var promotionsLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Promotions");
+            var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
 
             promotionsLink.Click();
         }
@@ -48,9 +48,9 @@ namespace Bellatrix.Web.GettingStarted
         [Browser(BrowserType.Chrome, Lifecycle.RestartOnFail)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            var blogLink = App.ComponentCreateService.CreateByLinkText<Anchor>("Blog");
+            var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
 
             blogLink.Click();
         }

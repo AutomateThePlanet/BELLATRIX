@@ -21,7 +21,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // You need to know that BELLATRIX has a built-in complex mechanism for waiting for elements, so you do not need to worry about this anymore.
             // Keep in mind that when you use the Create methods, the element is not searched on the screen. All elements use lazy loading.
             // Which means that they are searched once you perform an action or assertion on them. By default on each new action, the element is searched again and be refreshed.
-            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.ValidateIsVisible();
 
@@ -44,38 +44,38 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // complex AndroidUIAutomator expressions. To save you lots of trouble and complex code, most of BELLATRIX locators
             // contains the scroll logic built-in. The below element is initially not visible on the screen. BELLATRIX automatically
             // scrolls down till the element is visible and then searches for it.
-            var textField = App.ComponentCreateService.CreateByIdContaining<TextField>("edit");
+            var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
             textField.ValidateIsVisible();
 
             // 5. BELLATRIX extends the vanilla WebDriver (Appium) selectors and give you additional ones.
             // Available create methods:
             //
-            // CreateById  --> App.ComponentCreateService.CreateById<Button>("myId");
+            // CreateById  --> App.Components.CreateById<Button>("myId");
             // Searches the element by its ID.
             //
-            // CreateByIdContaining  --> App.ComponentCreateService.CreateByIdContaining<Button>("myIdMiddle");
+            // CreateByIdContaining  --> App.Components.CreateByIdContaining<Button>("myIdMiddle");
             // Searches the element by ID containing the specified value.
             //
-            // CreateByDescription  --> App.ComponentCreateService.CreateByDescription<Button>("myDescription");
+            // CreateByDescription  --> App.Components.CreateByDescription<Button>("myDescription");
             // Searches the element by ID ending with the locator.
             //
-            // CreateByDescriptionContaining  --> App.ComponentCreateService.CreateByDescriptionContaining<Button>("description");
+            // CreateByDescriptionContaining  --> App.Components.CreateByDescriptionContaining<Button>("description");
             // Searches the element by its description if it contains specified value.
             //
-            // CreateByText  --> App.ComponentCreateService.CreateByText<Button>("text");
+            // CreateByText  --> App.Components.CreateByText<Button>("text");
             // Searches the element by its text.
             //
-            // CreateByTextContaining  --> App.ComponentCreateService.CreateByTextContaining<Button>("partOfText");
+            // CreateByTextContaining  --> App.Components.CreateByTextContaining<Button>("partOfText");
             // Searches the element by its text if it contains specified value.
             //
-            // CreateByClass  --> App.ComponentCreateService.CreateByClass<Button>("myClass");
+            // CreateByClass  --> App.Components.CreateByClass<Button>("myClass");
             // Searches the element by its class.
             //
-            // CreateByAndroidUIAutomator  --> App.ComponentCreateService.CreateByAndroidUIAutomator<Button>("ui-automator-expression");
+            // CreateByAndroidUIAutomator  --> App.Components.CreateByAndroidUIAutomator<Button>("ui-automator-expression");
             // Searches the element by Android UIAutomator expression.
             //
-            // CreateByXPath  --> App.ComponentCreateService.CreateByXPath<Button>("//*[@title='Add to cart']");
+            // CreateByXPath  --> App.Components.CreateByXPath<Button>("//*[@title='Add to cart']");
             // Searches the element by XPath locator.
         }
 
@@ -85,37 +85,37 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         {
             // 5. Sometimes we need to find more than one element. For example, in this test we want to locate all Add to Cart buttons.
             // To do it you can use the element create service CreateAll method.
-            var buttons = App.ComponentCreateService.CreateAllByIdContaining<Button>("button");
+            var buttons = App.Components.CreateAllByIdContaining<Button>("button");
 
             buttons[0].ValidateIsVisible();
 
             // Available create methods:
             //
-            // CreateAllById  --> App.ComponentCreateService.CreateAllById<Button>("myId");
+            // CreateAllById  --> App.Components.CreateAllById<Button>("myId");
             // Searches the elements by its ID.
             //
-            // CreateAllByIdContaining  --> App.ComponentCreateService.CreateAllByIdContaining<Button>("myIdMiddle");
+            // CreateAllByIdContaining  --> App.Components.CreateAllByIdContaining<Button>("myIdMiddle");
             // Searches the elements by ID containing the specified value.
             //
-            // CreateAllByDescription  --> App.ComponentCreateService.CreateAllByDescription<Button>("myDescription");
+            // CreateAllByDescription  --> App.Components.CreateAllByDescription<Button>("myDescription");
             // Searches the elements by ID ending with the locator.
             //
-            // CreateAllByDescriptionContaining  --> App.ComponentCreateService.CreateAllByDescriptionContaining<Button>("description");
+            // CreateAllByDescriptionContaining  --> App.Components.CreateAllByDescriptionContaining<Button>("description");
             // Searches the elements by its description if it contains specified value.
             //
-            // CreateAllByText  --> App.ComponentCreateService.CreateAllByText<Button>("text");
+            // CreateAllByText  --> App.Components.CreateAllByText<Button>("text");
             // Searches the elements by its text.
             //
-            // CreateAllByTextContaining  --> App.ComponentCreateService.CreateAllByTextContaining<Button>("partOfText");
+            // CreateAllByTextContaining  --> App.Components.CreateAllByTextContaining<Button>("partOfText");
             // Searches the elements by its text if it contains specified value.
             //
-            // CreateAllByClass  --> App.ComponentCreateService.CreateAllByClass<Button>("myClass");
+            // CreateAllByClass  --> App.Components.CreateAllByClass<Button>("myClass");
             // Searches the elements by its class.
             //
-            // CreateAllByAndroidUIAutomator  --> App.ComponentCreateService.CreateAllByAndroidUIAutomator<Button>("ui-automator-expression");
+            // CreateAllByAndroidUIAutomator  --> App.Components.CreateAllByAndroidUIAutomator<Button>("ui-automator-expression");
             // Searches the elements by Android UIAutomator expression.
             //
-            // CreateAllByXPath  --> App.ComponentCreateService.CreateAllByXPath<Button>("//*[@title='Add to cart']");
+            // CreateAllByXPath  --> App.Components.CreateAllByXPath<Button>("//*[@title='Add to cart']");
             // Searches the elements by XPath locator.
         }
 
@@ -126,7 +126,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // 6. Sometimes it is easier to locate one element and then find the next one that you need, inside it.
             // For example in this test we want to locate the button inside the main view element.
             // To do it you can use the element's Create methods.
-            var mainElement = App.ComponentCreateService.CreateByIdContaining<AndroidComponent>("decor_content_parent");
+            var mainElement = App.Components.CreateByIdContaining<AndroidComponent>("decor_content_parent");
 
             // Note: it is entirely legal to create a Button instead of ToggleButton. BELLATRIX library does not care about the real type of the Android elements.
             // The proxy types are convenience wrappers so to say. Meaning they give you a better interface of predefined properties and methods to make your tests more readable.

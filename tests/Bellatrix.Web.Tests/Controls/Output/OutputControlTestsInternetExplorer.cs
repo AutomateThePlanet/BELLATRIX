@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Output Control")]
     public class OutputControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OutputLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OutputLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_InternetExplorer()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.Components.CreateById<Output>("myOutput");
 
             outputComponent.Hover();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void Return10_When_InnerText_InternetExplorer()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.Components.CreateById<Output>("myOutput");
 
             Assert.AreEqual("10", outputComponent.InnerText);
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnNull_When_InnerTextNotSet_InternetExplorer()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput2");
+            var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
             Assert.IsNotNull(outputComponent.InnerText);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnNull_When_InnerHtmlNotSet_InternetExplorer()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput2");
+            var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
             Assert.IsNotNull(outputComponent.InnerHtml);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnButtonHtml_When_InnerHtmlSet_InternetExplorer()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput1");
+            var outputComponent = App.Components.CreateById<Output>("myOutput1");
 
             Assert.AreEqual("<button name=\"button\">Click me</button>", outputComponent.InnerHtml);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnNull_When_ForNotSet_InternetExplorer()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput2");
+            var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
             Assert.IsNull(outputComponent.For);
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnOutputFor_When_ForSet_InternetExplorer()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.Components.CreateById<Output>("myOutput");
 
             Assert.AreEqual("myOutput", outputComponent.For);
         }

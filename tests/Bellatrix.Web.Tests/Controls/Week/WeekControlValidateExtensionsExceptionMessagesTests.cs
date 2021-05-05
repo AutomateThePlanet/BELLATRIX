@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateWeekIsThrowsException()
         {
-            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             weekElement.SetWeek(2017, 7);
 

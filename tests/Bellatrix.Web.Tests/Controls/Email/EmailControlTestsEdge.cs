@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("Edge Browser")]
     public class EmailControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void EmailSet_When_UseSetEmailMethod_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             emailElement.SetEmail("aangelov@bellatrix.solutions");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetEmailReturnsCorrectEmail_When_DefaultEmailIsSet_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail3");
+            var emailElement = App.Components.CreateById<Email>("myEmail3");
 
             Assert.AreEqual("aangelov@bellatrix.solutions", emailElement.GetEmail());
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             Assert.AreEqual(false, emailElement.IsAutoComplete);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail5");
+            var emailElement = App.Components.CreateById<Email>("myEmail5");
 
             Assert.AreEqual(false, emailElement.IsAutoComplete);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail4");
+            var emailElement = App.Components.CreateById<Email>("myEmail4");
 
             Assert.AreEqual(true, emailElement.IsAutoComplete);
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail4");
+            var emailElement = App.Components.CreateById<Email>("myEmail4");
 
             Assert.AreEqual(false, emailElement.IsReadonly);
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail6");
+            var emailElement = App.Components.CreateById<Email>("myEmail6");
 
             Assert.AreEqual(true, emailElement.IsReadonly);
         }
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             var maxLength = emailElement.MaxLength;
 
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             Assert.IsNull(emailElement.MinLength);
         }
@@ -122,7 +122,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(20, emailElement.Size);
@@ -133,7 +133,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.Components.CreateById<Email>("myEmail2");
 
             Assert.AreEqual(80, emailElement.MaxLength);
         }
@@ -143,7 +143,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.Components.CreateById<Email>("myEmail2");
 
             Assert.AreEqual(10, emailElement.MinLength);
         }
@@ -153,7 +153,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.Components.CreateById<Email>("myEmail2");
 
             Assert.AreEqual(30, emailElement.Size);
         }
@@ -163,7 +163,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail4");
+            var emailElement = App.Components.CreateById<Email>("myEmail4");
 
             Assert.AreEqual(false, emailElement.IsRequired);
         }
@@ -173,7 +173,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail7");
+            var emailElement = App.Components.CreateById<Email>("myEmail7");
 
             Assert.AreEqual(true, emailElement.IsRequired);
         }
@@ -183,7 +183,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             Assert.AreEqual("your email term goes here", emailElement.Placeholder);
         }
@@ -193,7 +193,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail1");
+            var emailElement = App.Components.CreateById<Email>("myEmail1");
 
             Assert.IsNull(emailElement.Placeholder);
         }
@@ -203,7 +203,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail8");
+            var emailElement = App.Components.CreateById<Email>("myEmail8");
 
             emailElement.Hover();
 
@@ -215,7 +215,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnBlue_When_Focus_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail9");
+            var emailElement = App.Components.CreateById<Email>("myEmail9");
 
             emailElement.Focus();
 
@@ -227,7 +227,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail9");
+            var emailElement = App.Components.CreateById<Email>("myEmail9");
 
             bool isDisabled = emailElement.IsDisabled;
 
@@ -239,7 +239,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_Edge()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail10");
+            var emailElement = App.Components.CreateById<Email>("myEmail10");
 
             bool isDisabled = emailElement.IsDisabled;
 

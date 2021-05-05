@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_DateHovered_Wpf()
         {
-            var datePicker = App.ComponentCreateService.CreateByAutomationId<Date>("DatePicker");
+            var datePicker = App.Components.CreateByAutomationId<Date>("DatePicker");
 
             datePicker.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("edatepickerHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_DatePickerIsNotDisabled_Wpf()
         {
-            var datePicker = App.ComponentCreateService.CreateByAutomationId<Date>("DatePicker");
+            var datePicker = App.Components.CreateByAutomationId<Date>("DatePicker");
 
             Assert.AreEqual(false, datePicker.IsDisabled);
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_DatePickerIsDisabled_Wpf()
         {
-            var datePicker = App.ComponentCreateService.CreateByAutomationId<Date>("DatePickerDisabled");
+            var datePicker = App.Components.CreateByAutomationId<Date>("DatePickerDisabled");
 
             Assert.AreEqual(true, datePicker.IsDisabled);
         }

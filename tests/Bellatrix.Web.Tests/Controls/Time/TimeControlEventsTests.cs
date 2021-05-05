@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class TimeControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TimeLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TimeLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Time.SettingTime += AssertValueAttributeEmpty;
 
-            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime");
+            var timeElement = App.Components.CreateById<Time>("myTime");
 
             timeElement.SetTime(13, 13);
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Time.TimeSet += AssertValueAttributeContainsNewValue;
 
-            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime");
+            var timeElement = App.Components.CreateById<Time>("myTime");
 
             timeElement.SetTime(13, 13);
 
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Time.Hovering += AssertStyleAttributeEmpty;
 
-            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime7");
+            var timeElement = App.Components.CreateById<Time>("myTime7");
 
             timeElement.Hover();
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Time.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime7");
+            var timeElement = App.Components.CreateById<Time>("myTime7");
 
             timeElement.Hover();
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Time>("myTime7").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Time>("myTime7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Time.Focusing += AssertStyleAttributeEmpty;
 
-            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime8");
+            var timeElement = App.Components.CreateById<Time>("myTime8");
 
             timeElement.Focus();
 
@@ -132,7 +132,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Time.Focused += AssertStyleAttributeContainsNewValue;
 
-            var timeElement = App.ComponentCreateService.CreateById<Time>("myTime8");
+            var timeElement = App.Components.CreateById<Time>("myTime8");
 
             timeElement.Focus();
 

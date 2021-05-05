@@ -14,10 +14,10 @@ namespace Bellatrix.Web.GettingStarted
         [Ignore]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
-            var promotionsLink = App.ComponentCreateService.CreateByLinkText<Anchor>("promo").ToHasSpecificStyle("padding: 1.618em 1em");
+            var promotionsLink = App.Components.CreateByLinkText<Anchor>("promo").ToHasSpecificStyle("padding: 1.618em 1em");
 
             promotionsLink.Click();
         }

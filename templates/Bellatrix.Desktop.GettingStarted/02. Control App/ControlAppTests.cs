@@ -30,11 +30,11 @@ namespace Bellatrix.Desktop.GettingStarted
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             // Use the element creation service to create an instance of the button. There are much more details about this process in the next sections.
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
 
@@ -45,11 +45,11 @@ namespace Bellatrix.Desktop.GettingStarted
         // Only for this particular test, BELLATRIX opens it and restarts it only on fail.
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonClicked", label.InnerText);
         }
     }

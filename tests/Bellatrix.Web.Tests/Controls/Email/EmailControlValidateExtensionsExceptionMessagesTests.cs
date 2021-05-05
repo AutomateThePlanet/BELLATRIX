@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateEmailIsThrowsException()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             emailElement.SetEmail("aangelov@bellatrix.solutions");
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMaxLengthIsNullThrowsException()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.Components.CreateById<Email>("myEmail2");
 
             try
             {
@@ -69,7 +69,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMinLengthIsNullThrowsException()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.Components.CreateById<Email>("myEmail2");
 
             try
             {
@@ -86,7 +86,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSizeIsThrowsException()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             try
             {
@@ -103,7 +103,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMaxLengthIsThrowsException()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.Components.CreateById<Email>("myEmail2");
 
             try
             {
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMinLengthIsThrowsException()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.Components.CreateById<Email>("myEmail2");
 
             try
             {
@@ -137,7 +137,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidatePlaceholderIsThrowsException()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             try
             {
@@ -154,7 +154,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidatePlaceholderIsNullThrowsException()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             try
             {

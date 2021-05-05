@@ -12,12 +12,12 @@ namespace Bellatrix.Web.GettingStarted
         public void AssertValidateCartPageFields()
         {
             // Instead of going to the main page and clicking the Add to Cart buttons we can directly add a product to the cart following the below link.
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/?add-to-cart=26");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/?add-to-cart=26");
 
             // Instead of clicking the view cart button we can directly navigate to the cart.
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/cart/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/cart/");
 
-            TextField couponCodeTextField = App.ComponentCreateService.CreateById<TextField>("coupon_code");
+            TextField couponCodeTextField = App.Components.CreateById<TextField>("coupon_code");
 
             // 1. We can assert the default text in the coupon text fiend through the BELLATRIX element Placeholder property.
             // The different BELLATRIX web elements classes contain lots of these properties which are a representation of the most important HTML element attributes.
@@ -32,7 +32,7 @@ namespace Bellatrix.Web.GettingStarted
             couponCodeTextField.ValidatePlaceholderIs("Coupon code");
             ////Assert.AreEqual("Coupon code ", couponCodeTextField.Placeholder);
 
-            Button applyCouponButton = App.ComponentCreateService.CreateByValueContaining<Button>("Apply coupon");
+            Button applyCouponButton = App.Components.CreateByValueContaining<Button>("Apply coupon");
 
             // 2. Assert that the apply coupon button exists and is visible on the page.
             // On fail the following message is displayed: "Message: Assert.IsTrue failed."
@@ -46,19 +46,19 @@ namespace Bellatrix.Web.GettingStarted
             ////Assert.IsTrue(applyCouponButton.IsVisible);
             applyCouponButton.ValidateIsVisible();
 
-            Div messageAlert = App.ComponentCreateService.CreateByClassContaining<Div>("woocommerce-message");
+            Div messageAlert = App.Components.CreateByClassContaining<Div>("woocommerce-message");
 
             // 3. Since there are no validation errors, verify that the message div is not visible.
             messageAlert.ValidateIsNotVisible();
             ////Assert.IsFalse(messageAlert.IsVisible);
 
-            Button updateCart = App.ComponentCreateService.CreateByValueContaining<Button>("Update cart");
+            Button updateCart = App.Components.CreateByValueContaining<Button>("Update cart");
 
             // 4. No changes are made to the added products so the update cart button should be disabled.
             updateCart.ValidateIsDisabled();
             ////Assert.IsTrue(updateCart.IsDisabled);
 
-            Span totalSpan = App.ComponentCreateService.CreateByXpath<Span>("//*[@class='order-total']//span");
+            Span totalSpan = App.Components.CreateByXpath<Span>("//*[@class='order-total']//span");
 
             // 5. Check the total price contained in the order-total span HTML ComponentCreateService.
             // By default, all Validate methods have 5 seconds timeout. However, you can specify a custom timeout and sleep interval (period for checking again)

@@ -15,7 +15,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [TestCategory(Categories.CI)]
         public void TestHideKeyBoard()
         {
-            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
             textField.SetText(string.Empty);
 
             // Hides the keyboard.

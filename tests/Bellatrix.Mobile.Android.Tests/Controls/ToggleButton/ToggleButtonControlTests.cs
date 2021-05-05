@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsOnTrue_When_ToggleButtonTurnedOffAndTurnOn()
         {
-            var toggleButton = App.ComponentCreateService.CreateByIdContaining<ToggleButton>("toggle1");
+            var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle1");
 
             Assert.IsFalse(toggleButton.IsOn);
 
@@ -42,7 +42,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsOnFalse_When_ToggleButtonTurnedOnAndTurnOff()
         {
-            var toggleButton = App.ComponentCreateService.CreateByIdContaining<ToggleButton>("toggle1");
+            var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle1");
 
             toggleButton.TurnOn();
             toggleButton.TurnOff();
@@ -54,7 +54,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void OffTextReturned_When_CallGetTextMethod()
         {
-            var toggleButton = App.ComponentCreateService.CreateByIdContaining<ToggleButton>("toggle1");
+            var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle1");
 
             string text = toggleButton.GetText();
 
@@ -65,7 +65,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsCheckedFalse_When_ToggleButtonIsTurnedOff()
         {
-            var toggleButton = App.ComponentCreateService.CreateByIdContaining<ToggleButton>("toggle2");
+            var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle2");
 
             Assert.IsFalse(toggleButton.IsOn);
         }
@@ -74,7 +74,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_ToggleButtonIsNotDisabled()
         {
-            var toggleButton = App.ComponentCreateService.CreateByIdContaining<ToggleButton>("toggle2");
+            var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle2");
 
             Assert.AreEqual(false, toggleButton.IsDisabled);
         }

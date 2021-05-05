@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".view.Controls1");
 
             // Use the element creation service to create an instance of the button. There are much more details about this process in the next sections.
-            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.Click();
         }
@@ -57,7 +57,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         [TestCategory(Categories.CI)]
         public void ReturnsSave_When_GetText()
         {
-            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             Assert.AreEqual("Save", button.GetText());
         }

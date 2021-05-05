@@ -12,39 +12,39 @@ namespace Bellatrix.Web.GettingStarted
         [TestCategory(Categories.CI)]
         public void AcceptDialogAlert()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/welcome/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
 
-            var couponButton = App.ComponentCreateService.CreateById<Button>("couponBtn");
+            var couponButton = App.Components.CreateById<Button>("couponBtn");
             couponButton.Click();
 
             // 2. You can click on the OK button and handle the alert.
-            App.DialogService.Handle();
+            App.Dialogs.Handle();
         }
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void HappyBirthdayCouponDisplayed_When_ClickOnCouponButton()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/welcome/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
 
-            var couponButton = App.ComponentCreateService.CreateById<Button>("couponBtn");
+            var couponButton = App.Components.CreateById<Button>("couponBtn");
             couponButton.Click();
 
             // 3. You can pass an anonymous lambda function and do something with the alert.
-            ////App.DialogService.Handle((a) => Assert.AreEqual("Try the coupon- happybirthday", a.Text));
+            ////App.Dialogs.Handle((a) => Assert.AreEqual("Try the coupon- happybirthday", a.Text));
         }
 
         [TestMethod]
         [Ignore]
         public void DismissDialogAlert()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/welcome/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
 
-            var couponButton = App.ComponentCreateService.CreateById<Button>("couponBtn");
+            var couponButton = App.Components.CreateById<Button>("couponBtn");
             couponButton.Click();
 
             // 4. You can tell the dialog service to click a different button.
-            App.DialogService.Handle(dialogButton: DialogButton.Cancel);
+            App.Dialogs.Handle(dialogButton: DialogButton.Cancel);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class UrlControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().UrlLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().UrlLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Url.SettingUrl += AssertValueAttributeEmpty;
 
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             urlElement.SetUrl("bellatrix.solutions");
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Url.UrlSet += AssertValueAttributeContainsNewValue;
 
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             urlElement.SetUrl("bellatrix.solutions");
 
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Url.Hovering += AssertStyleAttributeEmpty;
 
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL8");
+            var urlElement = App.Components.CreateById<Url>("myURL8");
 
             urlElement.Hover();
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Url.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL8");
+            var urlElement = App.Components.CreateById<Url>("myURL8");
 
             urlElement.Hover();
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Url>("myURL8").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Url>("myURL8").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Url.Focusing += AssertStyleAttributeEmpty;
 
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL9");
+            var urlElement = App.Components.CreateById<Url>("myURL9");
 
             urlElement.Focus();
 
@@ -132,7 +132,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Url.Focused += AssertStyleAttributeContainsNewValue;
 
-            var urlElement = App.ComponentCreateService.CreateById<Url>("myURL9");
+            var urlElement = App.Components.CreateById<Url>("myURL9");
 
             urlElement.Focus();
 

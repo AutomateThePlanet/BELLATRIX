@@ -26,10 +26,10 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.BrowserService.WrappedDriver.SwitchTo().Window("nameWindow");
-            App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
-            _free = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
-            _enterprise = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[3]/div[1]/h4");
+            App.Browser.WrappedDriver.SwitchTo().Window("nameWindow");
+            App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+            _free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+            _enterprise = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[3]/div[1]/h4");
         }
 
         [TestMethod]

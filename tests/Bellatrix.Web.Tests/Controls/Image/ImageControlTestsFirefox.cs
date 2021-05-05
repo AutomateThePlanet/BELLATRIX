@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Image Control")]
     public class ImageControlTestsFirefox : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetSrc_When_SrcAttributeIsSet_Firefox()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             Assert.AreEqual("https://bellatrix.solutions/assets/uploads/2017/09/logo.png", imageElement.Src);
         }
@@ -35,7 +35,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetHeight_When_HeightAttributeIsSet_Firefox()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage3");
+            var imageElement = App.Components.CreateById<Image>("myImage3");
 
             Assert.IsNotNull(imageElement.Height);
         }
@@ -44,7 +44,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetWidth_When_WidthAttributeIsSet_Firefox()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage3");
+            var imageElement = App.Components.CreateById<Image>("myImage3");
 
             Assert.IsNotNull(imageElement.Width);
         }
@@ -53,7 +53,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetHeight_When_HeightAttributeIsNotPresent_Firefox()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             Assert.IsNotNull(imageElement.Height);
         }
@@ -62,7 +62,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetWidth_When_WidthAttributeIsNotPresent_Firefox()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             Assert.IsNotNull(imageElement.Width);
         }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetAlt_When_AltAttributePresent_Firefox()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             Assert.AreEqual("MDN", imageElement.Alt);
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetSrcSet_When_SrcSetAttributePresent_Firefox()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage1");
+            var imageElement = App.Components.CreateById<Image>("myImage1");
 
             Assert.AreEqual("mdn-logo-HD.png 2x", imageElement.SrcSet);
         }
@@ -89,7 +89,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetSizes_When_SizesAttributePresent_Firefox()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage2");
+            var imageElement = App.Components.CreateById<Image>("myImage2");
 
             Assert.AreEqual("(min-width: 600px) 200px, 50vw", imageElement.Sizes);
         }
@@ -98,7 +98,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void SetClassToHovered_When_Hover_Firefox()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage4");
+            var imageElement = App.Components.CreateById<Image>("myImage4");
 
             imageElement.Hover();
 

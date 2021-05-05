@@ -20,7 +20,7 @@ namespace Bellatrix.Desktop.GettingStarted
             // and wait for the condition to be satisfied.
 
             // This is also valid syntax the conditions are performed once the Click method is called. It is the same as placing ToBe methods after CreateByName.
-            var button = App.ComponentCreateService.CreateByName<Button>("ShowAfterButton").ToExists();
+            var button = App.Components.CreateByName<Button>("ShowAfterButton").ToExists();
 
             button.Click();
 
@@ -32,7 +32,7 @@ namespace Bellatrix.Desktop.GettingStarted
         [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Wpf()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("asd");
+            var button = App.Components.CreateByName<Button>("asd");
 
             // 2. Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the element.
             // In the above example, statement waits for the button to be clickable and visible before the click. However, in some cases, you want some element to show up

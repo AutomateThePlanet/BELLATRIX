@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("CheckBox Control")]
     public class CheckBoxControlTestsSafari : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void Unchecked_When_UseCheckMethod_Safari()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
             checkBoxElement.Check(false);
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void Unchecked_When_UseUncheckMethod_Safari()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
             checkBoxElement.Uncheck();
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Safari()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox1");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
 
             checkBoxElement.Hover();
 
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Safari()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox2");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
 
             checkBoxElement.Focus();
 
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
             bool isDisabled = checkBoxElement.IsDisabled;
 
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.KnownIssueMacOS)]
         public void ReturnTrue_When_DisabledAttributePresent_Safari()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox3");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox3");
 
             bool isDisabled = checkBoxElement.IsDisabled;
 
@@ -93,7 +93,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnOn_When_ValueAttributeNotPresent_Safari()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox1");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
 
             var actualValue = checkBoxElement.Value;
 
@@ -104,7 +104,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnNewsletter_When_ValueAttributePresent_Safari()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox2");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
 
             var actualValue = checkBoxElement.Value;
 

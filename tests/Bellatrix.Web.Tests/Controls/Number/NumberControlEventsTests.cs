@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class NumberControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().NumberLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().NumberLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.SettingNumber += AssertValueAttributeEmpty;
 
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.SetNumber(13);
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.NumberSet += AssertValueAttributeContainsNewValue;
 
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.SetNumber(13);
 
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.Hovering += AssertStyleAttributeEmpty;
 
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber7");
+            var numberElement = App.Components.CreateById<Number>("myNumber7");
 
             numberElement.Hover();
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber7");
+            var numberElement = App.Components.CreateById<Number>("myNumber7");
 
             numberElement.Hover();
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Number>("myNumber7").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Number>("myNumber7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.Focusing += AssertStyleAttributeEmpty;
 
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber8");
+            var numberElement = App.Components.CreateById<Number>("myNumber8");
 
             numberElement.Focus();
 
@@ -132,7 +132,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Number.Focused += AssertStyleAttributeContainsNewValue;
 
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber8");
+            var numberElement = App.Components.CreateById<Number>("myNumber8");
 
             numberElement.Focus();
 

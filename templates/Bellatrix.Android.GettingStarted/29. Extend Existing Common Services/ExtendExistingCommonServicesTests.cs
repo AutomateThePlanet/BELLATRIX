@@ -21,7 +21,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // 2. Use newly added login method which is not part of the original implementation of the common service.
             App.AppService.LoginToApp("bellatrix", "topSecret");
 
-            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.Click();
         }

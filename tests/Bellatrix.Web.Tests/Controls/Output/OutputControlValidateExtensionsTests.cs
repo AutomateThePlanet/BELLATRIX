@@ -25,8 +25,8 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateDateIs_DoesNotThrowException_When_Hover_Edge()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.Components.CreateById<Output>("myOutput");
 
             outputComponent.Hover();
 
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_When_InnerText_Edge()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.Components.CreateById<Output>("myOutput");
 
             outputComponent.ValidateInnerTextIs("10");
         }
@@ -56,7 +56,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerHtmlIs_DoesNotThrowException_When_InnerHtmlSet_Edge()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput1");
+            var outputComponent = App.Components.CreateById<Output>("myOutput1");
 
             outputComponent.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
         }
@@ -66,7 +66,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateForIsNull_DoesNotThrowException_When_ForNotSet_Edge()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput2");
+            var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
             outputComponent.ValidateForIsNull();
         }
@@ -76,7 +76,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateForIs_DoesNotThrowException_When_ForSet_Edge()
         {
-            var outputComponent = App.ComponentCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.Components.CreateById<Output>("myOutput");
 
             outputComponent.ValidateForIs("myOutput");
         }

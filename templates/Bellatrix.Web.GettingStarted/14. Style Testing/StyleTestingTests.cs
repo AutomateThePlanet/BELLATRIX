@@ -14,11 +14,11 @@ namespace Bellatrix.Web.GettingStarted
         [TestCategory(Categories.CI)]
         public void TestStyles()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.ComponentCreateService.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonRocketAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
-            Anchor saturnVAnchor = App.ComponentCreateService.CreateByAttributesContaining<Anchor>("href", "/saturn-v/");
+            Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
+            Anchor protonRocketAnchor = App.Components.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
+            Anchor saturnVAnchor = App.Components.CreateByAttributesContaining<Anchor>("href", "/saturn-v/");
 
             sortDropDown.AssertFontSize("14px");
             sortDropDown.AssertFontWeight("400");

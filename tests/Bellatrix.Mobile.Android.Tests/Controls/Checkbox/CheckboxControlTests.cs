@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
         {
-            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check1");
+            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
 
             checkBox.Check();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void Checkbox1TextReturned_When_CheckBoxGetTextMethodCalled()
         {
-            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check1");
+            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
 
             string text = checkBox.GetText();
 
@@ -51,7 +51,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt()
         {
-            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check2");
+            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check2");
 
             checkBox.Check();
             checkBox.Uncheck();
@@ -63,7 +63,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled()
         {
-            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check2");
+            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check2");
 
             Assert.AreEqual(false, checkBox.IsDisabled);
         }

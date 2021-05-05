@@ -25,8 +25,8 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_RadioHovered_Universal()
         {
-            var button = App.ComponentCreateService.CreateByAutomationId<RadioButton>("radioButton");
-            var label = App.ComponentCreateService.CreateByAutomationId<Button>("resultTextBlock");
+            var button = App.Components.CreateByAutomationId<RadioButton>("radioButton");
+            var label = App.Components.CreateByAutomationId<Button>("resultTextBlock");
 
             button.Hover();
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedTrue_When_RadioClicked_Universal()
         {
-            var button = App.ComponentCreateService.CreateByAutomationId<RadioButton>("radioButton");
+            var button = App.Components.CreateByAutomationId<RadioButton>("radioButton");
 
             button.Click();
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedReturnsTrue_When_RadioChecked_Universal()
         {
-            var button = App.ComponentCreateService.CreateByAutomationId<RadioButton>("selectedRadioButton");
+            var button = App.Components.CreateByAutomationId<RadioButton>("selectedRadioButton");
 
             Assert.IsTrue(button.IsChecked);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_RadioIsNotDisabled_Universal()
         {
-            var button = App.ComponentCreateService.CreateByAutomationId<RadioButton>("radioButton");
+            var button = App.Components.CreateByAutomationId<RadioButton>("radioButton");
 
             Assert.AreEqual(false, button.IsDisabled);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_RadioIsDisabled_Universal()
         {
-            var button = App.ComponentCreateService.CreateByAutomationId<RadioButton>("selectedRadioButton");
+            var button = App.Components.CreateByAutomationId<RadioButton>("selectedRadioButton");
 
             Assert.AreEqual(true, button.IsDisabled);
         }

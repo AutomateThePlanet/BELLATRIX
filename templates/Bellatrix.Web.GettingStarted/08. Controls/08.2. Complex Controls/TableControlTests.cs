@@ -21,7 +21,7 @@ namespace Bellatrix.Web.GettingStarted
         // BELLATRIX gives you API for easing the work with HTML tables.
         // Through the SetColumn you map the headers of the table if for some reason you don't want some column, just don't add it.
         // The method returns a list of all rows' data as C# data mapped to the map you provided.
-        private Table Table => App.ComponentCreateService.CreateById<Table>("table1")
+        private Table Table => App.Components.CreateById<Table>("table1")
             .SetColumn("Last Name")
             .SetColumn("First Name")
             .SetColumn("Email")
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.GettingStarted
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage("TestPages\\Table\\table.html");
+            App.Navigation.NavigateToLocalPage("TestPages\\Table\\table.html");
 
             // In order GetItems to be able to work you need to map the properties to headers through the HeaderName attribute
             // this is how we handle differences between the property name, spaces in the headers and such.

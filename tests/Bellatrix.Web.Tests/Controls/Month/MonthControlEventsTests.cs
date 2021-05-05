@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class MonthControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.SettingMonth += AssertValueAttributeEmpty;
 
-            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth");
+            var monthElement = App.Components.CreateById<Month>("myMonth");
 
             monthElement.SetMonth(2017, 7);
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.MonthSet += AssertValueAttributeContainsNewValue;
 
-            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth");
+            var monthElement = App.Components.CreateById<Month>("myMonth");
 
             monthElement.SetMonth(2017, 7);
 
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.Hovering += AssertStyleAttributeEmpty;
 
-            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth7");
+            var monthElement = App.Components.CreateById<Month>("myMonth7");
 
             monthElement.Hover();
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth7");
+            var monthElement = App.Components.CreateById<Month>("myMonth7");
 
             monthElement.Hover();
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Month>("myMonth7").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Month>("myMonth7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.Focusing += AssertStyleAttributeEmpty;
 
-            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth8");
+            var monthElement = App.Components.CreateById<Month>("myMonth8");
 
             monthElement.Focus();
 
@@ -132,7 +132,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Month.Focused += AssertStyleAttributeContainsNewValue;
 
-            var monthElement = App.ComponentCreateService.CreateById<Month>("myMonth8");
+            var monthElement = App.Components.CreateById<Month>("myMonth8");
 
             monthElement.Focus();
 

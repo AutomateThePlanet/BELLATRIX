@@ -37,39 +37,39 @@ namespace Bellatrix.Desktop.GettingStarted
             //    "elementNotToBeVisibleTimeout": "30",
             //    "elementToHaveContentTimeout": "15"
             // },
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button").ToBeVisible();
+            var button = App.Components.CreateByName<Button>("E Button").ToBeVisible();
 
             button.Hover();
 
             // 2. You can always override the timeout settings for each method.
             // The first value is the timeout in seconds and the second one controls how often the engine checks the condition.
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId").ToHasContent(40, 1);
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId").ToHasContent(40, 1);
             Assert.AreEqual("ebuttonHovered", label.InnerText);
 
             // 3. All available ToBe methods:
-            // ToExists  --> App.ComponentCreateService.CreateByName<Button>("Purchase").ToExists();
+            // ToExists  --> App.Components.CreateByName<Button>("Purchase").ToExists();
             // Waits for the element to exist. BELLATRIX always does it by default.
             // But if use another ToBe methods you need to add it again since you have to override the default lifecycle.
             //
-            // ToNotExists  --> App.ComponentCreateService.CreateByName<Button>("Purchase").ToNotExists();
+            // ToNotExists  --> App.Components.CreateByName<Button>("Purchase").ToNotExists();
             // Waits for the element to disappear. Usually, we use in assertion methods.
             //
-            // ToBeVisible  --> App.ComponentCreateService.CreateByName<Button>("Purchase").ToBeVisible();
+            // ToBeVisible  --> App.Components.CreateByName<Button>("Purchase").ToBeVisible();
             // Waits for the element to be visible.
             //
-            // ToNotBeVisible  --> App.ComponentCreateService.CreateByName<Button>("Purchase").ToNotBeVisible();
+            // ToNotBeVisible  --> App.Components.CreateByName<Button>("Purchase").ToNotBeVisible();
             // Waits for the element to be invisible.
             //
-            // ToBeClickable  --> App.ComponentCreateService.CreateByName<Button>("Purchase").ToBeClickable();
+            // ToBeClickable  --> App.Components.CreateByName<Button>("Purchase").ToBeClickable();
             // Waits for the element to be clickable (may be disabled at first).
             //
-            // ToHasContent  --> App.ComponentCreateService.CreateByName<Button>("Purchase").ToHasContent();
+            // ToHasContent  --> App.Components.CreateByName<Button>("Purchase").ToHasContent();
             // Waits for the element to has some content in it. For example, some validation or label.
             //
-            // ToHasStyle  --> App.ComponentCreateService.CreateByName<Button>("Purchase").ToHasStyle("disabled");
+            // ToHasStyle  --> App.Components.CreateByName<Button>("Purchase").ToHasStyle("disabled");
             // Waits for the element to have some content in it. For example, some validation or label.
             //
-            // ToBeDisabled  --> App.ComponentCreateService.CreateByName<Anchor>("Purchase").ToBeDisabled();
+            // ToBeDisabled  --> App.Components.CreateByName<Anchor>("Purchase").ToBeDisabled();
             // Waits for the element to be disabled.
         }
     }

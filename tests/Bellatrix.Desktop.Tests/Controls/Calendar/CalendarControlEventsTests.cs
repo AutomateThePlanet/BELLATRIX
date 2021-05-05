@@ -30,18 +30,18 @@ namespace Bellatrix.Desktop.Tests
         {
             Calendar.Hovering += AssertTextResultLabel;
 
-            var calendar = App.ComponentCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
             calendar.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.IsTrue(label.IsVisible);
 
             Calendar.Hovering -= AssertTextResultLabel;
 
             void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
             {
-                var label1 = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+                var label1 = App.Components.CreateByAutomationId<Label>("ResultLabelId");
                 Assert.IsTrue(label1.IsVisible);
             }
         }
@@ -53,7 +53,7 @@ namespace Bellatrix.Desktop.Tests
         {
             Calendar.Hovered += AssertTextResultLabel;
 
-            var calendar = App.ComponentCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
             calendar.Hover();
 
@@ -61,7 +61,7 @@ namespace Bellatrix.Desktop.Tests
 
             void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
             {
-                var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+                var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
                 Assert.IsTrue(label.IsVisible);
             }
         }

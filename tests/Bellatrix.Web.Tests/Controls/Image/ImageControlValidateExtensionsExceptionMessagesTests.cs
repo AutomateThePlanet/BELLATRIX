@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSrcIsThrowsException()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             try
             {
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSrcIsNotNullThrowsException()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             try
             {
@@ -67,7 +67,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSrcIsNullThrowsException()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             try
             {
@@ -84,7 +84,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateAltIsThrowsException()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             try
             {
@@ -101,7 +101,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateAltIsNullThrowsException()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage");
+            var imageElement = App.Components.CreateById<Image>("myImage");
 
             try
             {
@@ -118,7 +118,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSrcSetIsThrowsException()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage1");
+            var imageElement = App.Components.CreateById<Image>("myImage1");
 
             try
             {
@@ -135,7 +135,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSrcSetIsNullThrowsException()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage2");
+            var imageElement = App.Components.CreateById<Image>("myImage2");
 
             try
             {
@@ -152,7 +152,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSizesIsThrowsException()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage2");
+            var imageElement = App.Components.CreateById<Image>("myImage2");
 
             try
             {
@@ -169,7 +169,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSizesIsNullThrowsException()
         {
-            var imageElement = App.ComponentCreateService.CreateById<Image>("myImage2");
+            var imageElement = App.Components.CreateById<Image>("myImage2");
 
             try
             {

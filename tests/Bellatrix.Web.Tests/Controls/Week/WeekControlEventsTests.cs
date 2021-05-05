@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class WeekControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().WeekLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().WeekLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.SettingWeek += AssertValueAttributeEmpty;
 
-            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             weekElement.SetWeek(2017, 7);
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.WeekSet += AssertValueAttributeContainsNewValue;
 
-            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             weekElement.SetWeek(2017, 7);
 
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.Hovering += AssertStyleAttributeEmpty;
 
-            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek7");
+            var weekElement = App.Components.CreateById<Week>("myWeek7");
 
             weekElement.Hover();
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek7");
+            var weekElement = App.Components.CreateById<Week>("myWeek7");
 
             weekElement.Hover();
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Week>("myWeek7").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Week>("myWeek7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.Focusing += AssertStyleAttributeEmpty;
 
-            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek8");
+            var weekElement = App.Components.CreateById<Week>("myWeek8");
 
             weekElement.Focus();
 
@@ -132,7 +132,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.Focused += AssertStyleAttributeContainsNewValue;
 
-            var weekElement = App.ComponentCreateService.CreateById<Week>("myWeek8");
+            var weekElement = App.Components.CreateById<Week>("myWeek8");
 
             weekElement.Focus();
 

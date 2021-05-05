@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void NineSet_When_CallSetTextMethod()
         {
-            var number = App.ComponentCreateService.CreateById<Number>("IntegerA");
+            var number = App.Components.CreateById<Number>("IntegerA");
 
             number.SetNumber(9);
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_NumberIsNotDisabled()
         {
-            var number = App.ComponentCreateService.CreateById<Number>("IntegerA");
+            var number = App.Components.CreateById<Number>("IntegerA");
 
             Assert.AreEqual(false, number.IsDisabled);
         }

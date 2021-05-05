@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Heading Control")]
     public class HeadingControlTestsFirefox : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Firefox()
         {
-            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading");
+            var headingElement = App.Components.CreateById<Heading>("myHeading");
 
             headingElement.Hover();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnAutomateThePlanet_When_InnerText_Firefox()
         {
-            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading2");
+            var headingElement = App.Components.CreateById<Heading>("myHeading2");
 
             Assert.AreEqual("Automate The Planet", headingElement.InnerText);
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnEmpty_When_InnerTextNotSet_Firefox()
         {
-            var headingElement = App.ComponentCreateService.CreateById<Heading>("myHeading4");
+            var headingElement = App.Components.CreateById<Heading>("myHeading4");
 
             Assert.AreEqual(string.Empty, headingElement.InnerText);
         }

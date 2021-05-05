@@ -22,14 +22,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class RadioButtonControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickingCalled_BeforeActuallyClick()
         {
-            var radioButtonElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio");
+            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio");
             RadioButton.Clicking += AssertIsCheckedFalse;
 
             radioButtonElement.Click();
@@ -49,7 +49,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickedCalled_AfterClick()
         {
-            var radioButtonElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio");
+            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio");
             RadioButton.Clicked += AssertIsCheckedFalse;
 
             radioButtonElement.Click();
@@ -69,7 +69,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             RadioButton.Hovering += AssertStyleAttributeEmpty;
 
-            var radioButtonElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio1");
+            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio1");
 
             radioButtonElement.Hover();
 
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             RadioButton.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var radioButtonElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio1");
+            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio1");
 
             radioButtonElement.Hover();
 
@@ -98,7 +98,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<RadioButton>("myRadio1").ValidateStyleIs("color: red;");
+                App.Components.CreateById<RadioButton>("myRadio1").ValidateStyleIs("color: red;");
             }
         }
     }

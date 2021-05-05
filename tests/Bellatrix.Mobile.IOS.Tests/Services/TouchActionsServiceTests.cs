@@ -31,7 +31,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementSwiped_When_CallSwipeByCoordinatesMethod()
         {
-            var textField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
             Point point = textField.Location;
             Size size = textField.Size;
 
@@ -55,7 +55,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementTaped_When_CallTap()
         {
-            var buttons = App.ComponentCreateService.CreateAllByClass<Button>("XCUIElementTypeButton");
+            var buttons = App.Components.CreateAllByClass<Button>("XCUIElementTypeButton");
 
             App.TouchActionsService.Tap(buttons[0], 10).Perform();
         }
@@ -65,7 +65,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinates()
         {
-            var element = App.ComponentCreateService.CreateByName<IOSComponent>("AppElem");
+            var element = App.Components.CreateByName<IOSComponent>("AppElem");
             int end = element.Size.Width;
             int y = element.Location.Y;
             int moveTo = (9 / 100) * end;
@@ -78,7 +78,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinatesMultiAction()
         {
-            var element = App.ComponentCreateService.CreateByName<IOSComponent>("AppElem");
+            var element = App.Components.CreateByName<IOSComponent>("AppElem");
             int end = element.Size.Width;
             int y = element.Location.Y;
             int moveTo = (9 / 100) * end;
@@ -92,7 +92,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void TwoTouchActionExecutedInOneMultiAction_When_CallPerformAllActions()
         {
-            var buttons = App.ComponentCreateService.CreateAllByClass<Button>("XCUIElementTypeButton");
+            var buttons = App.Components.CreateAllByClass<Button>("XCUIElementTypeButton");
 
             App.TouchActionsService.Tap(buttons[0], 10);
             App.TouchActionsService.Tap(buttons[0], 10);

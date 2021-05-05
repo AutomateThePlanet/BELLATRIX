@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ListBoxHovered_WinForms()
         {
-            var listBox = App.ComponentCreateService.CreateByAutomationId<ListBox>("listBox");
+            var listBox = App.Components.CreateByAutomationId<ListBox>("listBox");
 
             listBox.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
             Assert.AreEqual("listBoxHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_ListBoxIsNotDisabled_WinForms()
         {
-            var listBox = App.ComponentCreateService.CreateByAutomationId<ListBox>("listBox");
+            var listBox = App.Components.CreateByAutomationId<ListBox>("listBox");
 
             Assert.AreEqual(false, listBox.IsDisabled);
         }

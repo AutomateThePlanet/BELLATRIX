@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Search Control")]
     public class SearchControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SearchLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SearchLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void SearchSet_When_UseSetSearchMethod_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.Components.CreateById<Search>("mySearch");
 
             searchElement.SetSearch("bellatrix test framework");
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetSearchReturnsCorrectSearch_When_DefaultSearchIsSet_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch3");
+            var searchElement = App.Components.CreateById<Search>("mySearch3");
 
             Assert.AreEqual("search for stars", searchElement.GetSearch());
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.Components.CreateById<Search>("mySearch");
 
             Assert.AreEqual(false, searchElement.IsAutoComplete);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch5");
+            var searchElement = App.Components.CreateById<Search>("mySearch5");
 
             Assert.AreEqual(false, searchElement.IsAutoComplete);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch4");
+            var searchElement = App.Components.CreateById<Search>("mySearch4");
 
             Assert.AreEqual(true, searchElement.IsAutoComplete);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch4");
+            var searchElement = App.Components.CreateById<Search>("mySearch4");
 
             Assert.AreEqual(false, searchElement.IsReadonly);
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch6");
+            var searchElement = App.Components.CreateById<Search>("mySearch6");
 
             Assert.AreEqual(true, searchElement.IsReadonly);
         }
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.Components.CreateById<Search>("mySearch");
 
             var maxLength = searchElement.MaxLength;
 
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.Components.CreateById<Search>("mySearch");
 
             Assert.IsNull(searchElement.MinLength);
         }
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.Components.CreateById<Search>("mySearch");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(20, searchElement.Size);
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch2");
+            var searchElement = App.Components.CreateById<Search>("mySearch2");
 
             Assert.AreEqual(80, searchElement.MaxLength);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch2");
+            var searchElement = App.Components.CreateById<Search>("mySearch2");
 
             Assert.AreEqual(10, searchElement.MinLength);
         }
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetSizeReturns30_When_SizeAttributeIsNotPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch2");
+            var searchElement = App.Components.CreateById<Search>("mySearch2");
 
             Assert.AreEqual(30, searchElement.Size);
         }
@@ -148,7 +148,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch4");
+            var searchElement = App.Components.CreateById<Search>("mySearch4");
 
             Assert.AreEqual(false, searchElement.IsRequired);
         }
@@ -157,7 +157,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch7");
+            var searchElement = App.Components.CreateById<Search>("mySearch7");
 
             Assert.AreEqual(true, searchElement.IsRequired);
         }
@@ -166,7 +166,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch");
+            var searchElement = App.Components.CreateById<Search>("mySearch");
 
             Assert.AreEqual("your search term goes here", searchElement.Placeholder);
         }
@@ -175,7 +175,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch1");
+            var searchElement = App.Components.CreateById<Search>("mySearch1");
 
             Assert.IsNull(searchElement.Placeholder);
         }
@@ -184,7 +184,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch8");
+            var searchElement = App.Components.CreateById<Search>("mySearch8");
 
             searchElement.Hover();
 
@@ -195,7 +195,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnBlue_When_Focus_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch9");
+            var searchElement = App.Components.CreateById<Search>("mySearch9");
 
             searchElement.Focus();
 
@@ -206,7 +206,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch9");
+            var searchElement = App.Components.CreateById<Search>("mySearch9");
 
             bool isDisabled = searchElement.IsDisabled;
 
@@ -217,7 +217,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_InternetExplorer()
         {
-            var searchElement = App.ComponentCreateService.CreateById<Search>("mySearch10");
+            var searchElement = App.Components.CreateById<Search>("mySearch10");
 
             bool isDisabled = searchElement.IsDisabled;
 

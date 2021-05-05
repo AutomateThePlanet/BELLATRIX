@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Span Control")]
     public class SpanControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_InternetExplorer()
         {
-            var spanElement = App.ComponentCreateService.CreateById<Span>("mySpan");
+            var spanElement = App.Components.CreateById<Span>("mySpan");
 
             spanElement.Hover();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnAutomateThePlanet_When_InnerText_InternetExplorer()
         {
-            var spanElement = App.ComponentCreateService.CreateById<Span>("mySpan1");
+            var spanElement = App.Components.CreateById<Span>("mySpan1");
 
             Assert.AreEqual("Automate The Planet", spanElement.InnerText);
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnNull_When_InnerTextNotSet_InternetExplorer()
         {
-            var spanElement = App.ComponentCreateService.CreateById<Span>("mySpan3");
+            var spanElement = App.Components.CreateById<Span>("mySpan3");
 
             Assert.IsNotNull(spanElement.InnerText);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnNull_When_InnerHtmlNotSet_InternetExplorer()
         {
-            var spanElement = App.ComponentCreateService.CreateById<Span>("mySpan3");
+            var spanElement = App.Components.CreateById<Span>("mySpan3");
 
             Assert.IsNotNull(spanElement.InnerHtml);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnButtonHtml_When_InnerHtmlSet_InternetExplorer()
         {
-            var spanElement = App.ComponentCreateService.CreateById<Span>("mySpan2");
+            var spanElement = App.Components.CreateById<Span>("mySpan2");
 
             Assert.AreEqual("<button name=\"button\">Click me</button>", spanElement.InnerHtml);
         }

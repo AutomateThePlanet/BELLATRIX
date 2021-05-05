@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ButtonClicked_When_ClickMethodCalled()
         {
-            var radioButton = App.ComponentCreateService.CreateByIdContaining<RadioButton>("radio2");
+            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
 
             Assert.IsFalse(radioButton.IsChecked);
 
@@ -42,7 +42,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_RadioButtonIsNotDisabled()
         {
-            var radioButton = App.ComponentCreateService.CreateByIdContaining<RadioButton>("radio2");
+            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
 
             Assert.IsFalse(radioButton.IsDisabled);
         }
@@ -51,7 +51,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void RadioButton1TextReturned_When_RadioButtonGetTextMethodCalled()
         {
-            var radioButton = App.ComponentCreateService.CreateByIdContaining<RadioButton>("radio1");
+            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio1");
 
             string text = radioButton.GetText();
 

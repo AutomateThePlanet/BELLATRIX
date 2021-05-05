@@ -25,11 +25,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ProgressHovered_WinForms()
         {
-            var progress = App.ComponentCreateService.CreateByAutomationId<Calendar>("progress");
+            var progress = App.Components.CreateByAutomationId<Calendar>("progress");
 
             progress.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
             Assert.IsTrue(label.IsVisible);
         }
     }

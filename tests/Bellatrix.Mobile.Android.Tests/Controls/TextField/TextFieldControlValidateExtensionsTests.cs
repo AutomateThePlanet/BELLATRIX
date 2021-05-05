@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
         {
-            var textField = App.ComponentCreateService.CreateByIdContaining<TextField>("edit");
+            var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
             textField.SetText("Bellatrix");
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIsNotSet_DoesNotThrowException_When_TextFieldIsNotSet()
         {
-            var textField = App.ComponentCreateService.CreateByIdContaining<TextField>("edit");
+            var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
             textField.SetText(string.Empty);
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsDisabled_DoesNotThrowException_When_TextFieldIsNotDisabled()
         {
-            var textField = App.ComponentCreateService.CreateByIdContaining<TextField>("edit");
+            var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
             Assert.AreEqual(false, textField.IsDisabled);
         }

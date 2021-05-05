@@ -22,14 +22,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class SelectControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SelectingCalled_BeforeActuallySelectByText()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
             Select.Selecting += AssertIsCheckedFalse;
 
             selectComponent.SelectByText("Awesome");
@@ -49,7 +49,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SelectingCalled_BeforeActuallySelectByIndex()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
             Select.Selecting += AssertIsCheckedFalse;
 
             selectComponent.SelectByIndex(2);
@@ -69,7 +69,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SelectedCalled_AfterSelectByText()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
             Select.Selected += AssertIsCheckedFalse;
 
             selectComponent.SelectByText("Awesome");
@@ -87,7 +87,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void SelectedCalled_AfterSelectByIndex()
         {
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
             Select.Selected += AssertIsCheckedFalse;
 
             selectComponent.SelectByIndex(2);
@@ -107,7 +107,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Select.Hovering += AssertStyleAttributeEmpty;
 
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect1");
+            var selectComponent = App.Components.CreateById<Select>("mySelect1");
 
             selectComponent.Hover();
 
@@ -128,7 +128,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Select.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect1");
+            var selectComponent = App.Components.CreateById<Select>("mySelect1");
 
             selectComponent.Hover();
 
@@ -136,7 +136,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Select>("mySelect1").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Select>("mySelect1").ValidateStyleIs("color: red;");
             }
         }
 
@@ -147,7 +147,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Select.Focusing += AssertStyleAttributeEmpty;
 
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.Components.CreateById<Select>("mySelect2");
 
             selectComponent.Focus();
 
@@ -168,7 +168,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Select.Focused += AssertStyleAttributeContainsNewValue;
 
-            var selectComponent = App.ComponentCreateService.CreateById<Select>("mySelect2");
+            var selectComponent = App.Components.CreateById<Select>("mySelect2");
 
             selectComponent.Focus();
 

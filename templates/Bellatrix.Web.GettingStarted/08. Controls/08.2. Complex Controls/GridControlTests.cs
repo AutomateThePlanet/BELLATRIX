@@ -24,7 +24,7 @@ namespace Bellatrix.Web.GettingStarted
         // The method returns a list of all rows' data as C# data mapped to the map you provided.
         // You can get the cell converted to the element specified by the grid SetColumn method. Also, since some of this simple controls
         // sometimes are wrapped inside DIV or SPAN elements, you can specify additional locator for finding the ComponentCreateService.
-        public Grid TestGrid => App.ComponentCreateService.CreateById<Grid>("sampleGrid")
+        public Grid TestGrid => App.Components.CreateById<Grid>("sampleGrid")
             .SetColumn("Order", typeof(TextField), Find.By.Tag("input"))
             .SetColumn("Firstname")
             .SetColumn("Lastname")
@@ -35,7 +35,7 @@ namespace Bellatrix.Web.GettingStarted
         public override void TestInit()
         {
             _gridTestPage = App.Create<GridTestPage>();
-            App.NavigationService.NavigateToLocalPage("TestPages\\Grid\\Grid.html");
+            App.Navigation.NavigateToLocalPage("TestPages\\Grid\\Grid.html");
 
             _expectedItems = new List<Employee>
             {

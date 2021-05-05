@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Radio Control")]
     public class RadioButtonControlTestsOpera : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Opera)]
         public void Checked_When_UseClickMethod_Opera()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
             radioElement.Click();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnRed_When_Hover_Opera()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio1");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
 
             radioElement.Hover();
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Opera()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
             bool isDisabled = radioElement.IsDisabled;
 
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnTrue_When_DisabledAttributePresent_Opera()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio3");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio3");
 
             bool isDisabled = radioElement.IsDisabled;
 
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnOn_When_ValueAttributeNotPresent_Opera()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio1");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
 
             var actualValue = radioElement.Value;
 
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnNewsletter_When_ValueAttributePresent_Opera()
         {
-            var radioElement = App.ComponentCreateService.CreateById<RadioButton>("myRadio2");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio2");
 
             var actualValue = radioElement.Value;
 

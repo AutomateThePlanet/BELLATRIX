@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Phone Control")]
     public class PhoneControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PhoneLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PhoneLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void PhoneSet_When_UseSetPhoneMethod_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
             phoneElement.SetPhone("123-4567-8901");
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetPhoneReturnsCorrectPhone_When_DefaultPhoneIsSet_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone3");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone3");
 
             Assert.AreEqual("123-4567-8901", phoneElement.GetPhone());
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
             Assert.AreEqual(false, phoneElement.IsAutoComplete);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone5");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone5");
 
             Assert.AreEqual(false, phoneElement.IsAutoComplete);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone4");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone4");
 
             Assert.AreEqual(true, phoneElement.IsAutoComplete);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone4");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone4");
 
             Assert.AreEqual(false, phoneElement.IsReadonly);
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone6");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone6");
 
             Assert.AreEqual(true, phoneElement.IsReadonly);
         }
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
             var maxLength = phoneElement.MaxLength;
 
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
             Assert.IsNull(phoneElement.MinLength);
         }
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(20, phoneElement.Size);
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone2");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone2");
 
             Assert.AreEqual(80, phoneElement.MaxLength);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone2");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone2");
 
             Assert.AreEqual(10, phoneElement.MinLength);
         }
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetSizeReturns30_When_SizeAttributeIsNotPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone2");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone2");
 
             Assert.AreEqual(30, phoneElement.Size);
         }
@@ -148,7 +148,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone4");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone4");
 
             Assert.AreEqual(false, phoneElement.IsRequired);
         }
@@ -157,7 +157,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone7");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone7");
 
             Assert.AreEqual(true, phoneElement.IsRequired);
         }
@@ -166,7 +166,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
             Assert.AreEqual("123-4567-8901", phoneElement.Placeholder);
         }
@@ -175,7 +175,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone1");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone1");
 
             Assert.IsNull(phoneElement.Placeholder);
         }
@@ -184,7 +184,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone8");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone8");
 
             phoneElement.Hover();
 
@@ -195,7 +195,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnBlue_When_Focus_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone9");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone9");
 
             phoneElement.Focus();
 
@@ -206,7 +206,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone9");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone9");
 
             bool isDisabled = phoneElement.IsDisabled;
 
@@ -217,7 +217,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_InternetExplorer()
         {
-            var phoneElement = App.ComponentCreateService.CreateById<Phone>("myPhone10");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone10");
 
             bool isDisabled = phoneElement.IsDisabled;
 

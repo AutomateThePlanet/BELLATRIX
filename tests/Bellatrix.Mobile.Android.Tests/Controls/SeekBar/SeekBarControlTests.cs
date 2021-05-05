@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void NinePercentageSet_When_CallSeekBarSetMethod()
         {
-            var seekBar = App.ComponentCreateService.CreateByClass<SeekBar>("android.widget.SeekBar");
+            var seekBar = App.Components.CreateByClass<SeekBar>("android.widget.SeekBar");
 
             seekBar.Set(9);
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_SeekbarIsNotDisabled()
         {
-            var seekBar = App.ComponentCreateService.CreateByClass<SeekBar>("android.widget.SeekBar");
+            var seekBar = App.Components.CreateByClass<SeekBar>("android.widget.SeekBar");
 
             Assert.AreEqual(false, seekBar.IsDisabled);
         }

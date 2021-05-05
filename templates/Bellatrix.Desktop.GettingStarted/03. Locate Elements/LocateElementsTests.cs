@@ -17,7 +17,7 @@ namespace Bellatrix.Desktop.GettingStarted
             // You need to know that BELLATRIX has a built-in complex mechanism for waiting for elements, so you do not need to worry about this anymore.
             // Keep in mind that when you use the Create methods, the element is not searched. All elements use lazy loading.
             // Which means that they are searched once you perform an action or assertion on them. By default on each new action, the element is searched again and be refreshed.
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
@@ -39,27 +39,27 @@ namespace Bellatrix.Desktop.GettingStarted
             // 4. BELLATRIX extends the vanilla WebDriver selectors and give you additional ones.
             // Available create methods:
             //
-            // CreateByTag   -->  App.ComponentCreateService.CreateByTag<Button>("button");
+            // CreateByTag   -->  App.Components.CreateByTag<Button>("button");
             // Searches the element by its tag.
             //
-            // CreateById   -->  App.ComponentCreateService.CreateById<Button>("myId");
+            // CreateById   -->  App.Components.CreateById<Button>("myId");
             // Searches the element by its ID.
             //
-            // CreateByXpath   -->  App.ComponentCreateService.CreateByXpath<Button>("//*[@title='Add to cart']");
+            // CreateByXpath   -->  App.Components.CreateByXpath<Button>("//*[@title='Add to cart']");
             // Searches the element by XPath locator.
             //
-            // CreateByClass   -->  App.ComponentCreateService.CreateByClassContaining<Button>("ul.products");
+            // CreateByClass   -->  App.Components.CreateByClassContaining<Button>("ul.products");
             // Searches the element by its CSS classes.
             //
-            // CreateByName   -->  App.ComponentCreateService.CreateByName<Button>("products");
+            // CreateByName   -->  App.Components.CreateByName<Button>("products");
             // Searches the element by its name.
             //
-            // CreateByAccessibilityId   -->  App.ComponentCreateService.CreateByAccessibilityId<Button>("myCustomButton");
+            // CreateByAccessibilityId   -->  App.Components.CreateByAccessibilityId<Button>("myCustomButton");
             // Searches the element by its accessibility ID.
             //
-            // CreateByAutomationId   -->  App.ComponentCreateService.CreateByAutomationId<Search>("search");
+            // CreateByAutomationId   -->  App.Components.CreateByAutomationId<Search>("search");
             // Searches the element by its automation ID.
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 
@@ -67,25 +67,25 @@ namespace Bellatrix.Desktop.GettingStarted
             // To do it you can use the element create service CreateAll method.
             // Available create methods:
             //
-            // CreateAllByTag   -->  App.ComponentCreateService.CreateAllByTag<Button>("button");
+            // CreateAllByTag   -->  App.Components.CreateAllByTag<Button>("button");
             // Searches the elements by its tag.
             //
-            // CreateAllById   -->  App.ComponentCreateService.CreateAllById<Button>("myId");
+            // CreateAllById   -->  App.Components.CreateAllById<Button>("myId");
             // Searches the elements by its ID.
             //
-            // CreateAllByXpath   -->  App.ComponentCreateService.CreateAllByXpath<Button>("//*[@title='Add to cart']");
+            // CreateAllByXpath   -->  App.Components.CreateAllByXpath<Button>("//*[@title='Add to cart']");
             // Searches the elements by XPath locator.
             //
-            // CreateAllByClass   -->  App.ComponentCreateService.CreateAllByClassContaining<Button>("ul.products");
+            // CreateAllByClass   -->  App.Components.CreateAllByClassContaining<Button>("ul.products");
             // Searches the elements by its CSS classes.
             //
-            // CreateAllByName   -->  App.ComponentCreateService.CreateAllByName<Button>("products");
+            // CreateAllByName   -->  App.Components.CreateAllByName<Button>("products");
             // Searches the elements by its name.
             //
-            // CreateAllByAccessibilityId   -->  App.ComponentCreateService.CreateAllByAccessibilityId<Button>("myCustomButton");
+            // CreateAllByAccessibilityId   -->  App.Components.CreateAllByAccessibilityId<Button>("myCustomButton");
             // Searches the elements by its accessibility ID.
             //
-            // CreateAllByAutomationId   -->  App.ComponentCreateService.CreateAllByAutomationId<Search>("search");
+            // CreateAllByAutomationId   -->  App.Components.CreateAllByAutomationId<Search>("search");
             // Searches the elements by its automation ID.
         }
 
@@ -95,7 +95,7 @@ namespace Bellatrix.Desktop.GettingStarted
         {
             // 6. Sometimes it is easier to locate one element and then find the next one that you need, inside it.
             // For example in this test the list box is located and then the button inside it.
-            var comboBox = App.ComponentCreateService.CreateByAutomationId<ComboBox>("listBoxEnabled");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("listBoxEnabled");
             var comboBoxItem = comboBox.CreateByAutomationId<Button>("lb2");
 
             comboBoxItem.Hover();

@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class EmailControlValidateExtensionsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateDateIs_DoesNotThrowException_When_UseSetEmailMethod()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             emailElement.SetEmail("aangelov@bellatrix.solutions");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             emailElement.ValidateAutoCompleteOff();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail4");
+            var emailElement = App.Components.CreateById<Email>("myEmail4");
 
             emailElement.ValidateAutoCompleteOn();
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail4");
+            var emailElement = App.Components.CreateById<Email>("myEmail4");
 
             emailElement.ValidateIsNotReadonly();
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail6");
+            var emailElement = App.Components.CreateById<Email>("myEmail6");
 
             emailElement.ValidateIsReadonly();
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             emailElement.ValidateMaxLengthIsNull();
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             emailElement.ValidateMinLengthIsNull();
         }
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateSizeIs_DoesNotThrowException_When_SizeAttributeIsNotPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             emailElement.ValidateSizeIs(20);
         }
@@ -110,7 +110,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.Components.CreateById<Email>("myEmail2");
 
             emailElement.ValidateMaxLengthIs(80);
         }
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail2");
+            var emailElement = App.Components.CreateById<Email>("myEmail2");
 
             emailElement.ValidateMinLengthIs(10);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail4");
+            var emailElement = App.Components.CreateById<Email>("myEmail4");
 
             emailElement.ValidateIsNotRequired();
         }
@@ -140,7 +140,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail7");
+            var emailElement = App.Components.CreateById<Email>("myEmail7");
 
             emailElement.ValidateIsRequired();
         }
@@ -150,7 +150,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             emailElement.ValidatePlaceholderIs("your email term goes here");
         }
@@ -160,7 +160,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail1");
+            var emailElement = App.Components.CreateById<Email>("myEmail1");
 
             emailElement.ValidatePlaceholderIsNull();
         }
@@ -170,7 +170,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail8");
+            var emailElement = App.Components.CreateById<Email>("myEmail8");
 
             emailElement.Hover();
 
@@ -182,7 +182,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail9");
+            var emailElement = App.Components.CreateById<Email>("myEmail9");
 
             emailElement.ValidateIsNotDisabled();
         }
@@ -192,7 +192,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var emailElement = App.ComponentCreateService.CreateById<Email>("myEmail10");
+            var emailElement = App.Components.CreateById<Email>("myEmail10");
 
             emailElement.ValidateIsDisabled();
         }

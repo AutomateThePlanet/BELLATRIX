@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class TextAreaControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextAreaLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextAreaLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextArea.SettingText += SettingTextCalled;
 
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
             bool setTextCalled = false;
 
             textAreaElement.SetText("bellatrix@solutions.com");
@@ -53,7 +53,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextArea.TextSet += AssertValueAttributeContainsNewValue;
 
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             textAreaElement.SetText("bellatrix@solutions.com");
 
@@ -72,7 +72,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextArea.Hovering += AssertStyleAttributeEmpty;
 
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea8");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea8");
 
             textAreaElement.Hover();
 
@@ -93,7 +93,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextArea.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea8");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea8");
 
             textAreaElement.Hover();
 
@@ -101,7 +101,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<TextArea>("myTextArea8").ValidateStyleIs("color: red;");
+                App.Components.CreateById<TextArea>("myTextArea8").ValidateStyleIs("color: red;");
             }
         }
 
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextArea.Focusing += AssertStyleAttributeEmpty;
 
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea9");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea9");
 
             textAreaElement.Focus();
 
@@ -133,7 +133,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             TextArea.Focused += AssertStyleAttributeContainsNewValue;
 
-            var textAreaElement = App.ComponentCreateService.CreateById<TextArea>("myTextArea9");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea9");
 
             textAreaElement.Focus();
 

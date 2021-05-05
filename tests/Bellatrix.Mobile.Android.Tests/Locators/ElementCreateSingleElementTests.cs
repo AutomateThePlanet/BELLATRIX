@@ -32,7 +32,7 @@ namespace Bellatrix.Mobile.Android.Tests
 
         public override void TestInit()
         {
-            _mainElement = App.ComponentCreateService.CreateByIdContaining<AndroidComponent>("decor_content_parent");
+            _mainElement = App.Components.CreateByIdContaining<AndroidComponent>("decor_content_parent");
         }
 
         [TestMethod]

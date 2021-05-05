@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_WhenValidateRangeIsThrowsException()
         {
-            var rangeElement = App.ComponentCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             rangeElement.SetRange(4);
 

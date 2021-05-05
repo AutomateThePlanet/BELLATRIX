@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("CheckBox Control")]
     public class CheckBoxControlTestsOpera : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Opera)]
         public void Unchecked_When_UseCheckMethod_Opera()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
             checkBoxElement.Check(false);
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void Unchecked_When_UseUncheckMethod_Opera()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
             checkBoxElement.Uncheck();
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnRed_When_Hover_Opera()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox1");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
 
             checkBoxElement.Hover();
 
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnBlue_When_Focus_Opera()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox2");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
 
             checkBoxElement.Focus();
 
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Opera()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
             bool isDisabled = checkBoxElement.IsDisabled;
 
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnTrue_When_DisabledAttributePresent_Opera()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox3");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox3");
 
             bool isDisabled = checkBoxElement.IsDisabled;
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnOn_When_ValueAttributeNotPresent_Opera()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox1");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
 
             var actualValue = checkBoxElement.Value;
 
@@ -103,7 +103,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnNewsletter_When_ValueAttributePresent_Opera()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox2");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
 
             var actualValue = checkBoxElement.Value;
 

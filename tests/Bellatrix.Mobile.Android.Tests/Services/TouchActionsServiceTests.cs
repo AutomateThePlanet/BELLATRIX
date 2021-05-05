@@ -33,7 +33,7 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".graphics.FingerPaint");
 
-            var textField = App.ComponentCreateService.CreateByIdContaining<TextField>("content");
+            var textField = App.Components.CreateByIdContaining<TextField>("content");
             Point point = textField.Location;
             Size size = textField.Size;
 
@@ -55,15 +55,15 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestMethod]
         public void ElementTaped_When_CallTap()
         {
-            var elements = App.ComponentCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
             int initialCount = elements.Count();
 
             App.TouchActionsService.Tap(elements[6]).Perform();
 
-            var consumerTextView = App.ComponentCreateService.CreateByText<TextField>("Consumer IR");
+            var consumerTextView = App.Components.CreateByText<TextField>("Consumer IR");
             consumerTextView.ToBeVisible().WaitToBe();
 
-            elements = App.ComponentCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
             Assert.AreNotEqual(initialCount, elements.Count());
             Assert.AreEqual(2, elements.Count());
@@ -72,7 +72,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestMethod]
         public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinates()
         {
-            var elements = App.ComponentCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
             var locationOne = elements[7].Location;
             var locationTwo = elements[1].Location;
 
@@ -81,7 +81,7 @@ namespace Bellatrix.Mobile.Android.Tests
                 Release().
                 Perform();
 
-            elements = App.ComponentCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
             Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
         }
@@ -89,7 +89,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestMethod]
         public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinatesMultiAction()
         {
-            var elements = App.ComponentCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
             var locationOne = elements[7].Location;
             var locationTwo = elements[1].Location;
 
@@ -98,7 +98,7 @@ namespace Bellatrix.Mobile.Android.Tests
                 Release();
             App.TouchActionsService.Perform();
 
-            elements = App.ComponentCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
             Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
         }
@@ -111,12 +111,12 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             string originalActivity = App.AppService.CurrentActivity;
 
-            var elements = App.ComponentCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
             App.TouchActionsService.Press(elements[5], 1500).Release();
             App.TouchActionsService.Press(elements[5], 1500).Release();
             App.TouchActionsService.Perform();
-            elements = App.ComponentCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
             App.TouchActionsService.Press(elements[1], 1500).Release();
             App.TouchActionsService.Press(elements[1], 1500).Release();

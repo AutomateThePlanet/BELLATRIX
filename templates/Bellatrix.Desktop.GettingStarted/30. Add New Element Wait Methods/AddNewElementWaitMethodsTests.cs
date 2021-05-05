@@ -14,11 +14,11 @@ namespace Bellatrix.Desktop.GettingStarted
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button").ToHaveSpecificContent("E Button");
+            var button = App.Components.CreateByName<Button>("E Button").ToHaveSpecificContent("E Button");
 
             button.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
     }

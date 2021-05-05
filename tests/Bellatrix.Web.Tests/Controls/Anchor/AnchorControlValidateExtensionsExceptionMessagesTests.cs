@@ -26,15 +26,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateStyleIsThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
             anchorElement.Hover();
 
@@ -53,7 +53,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateStyleContainsThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
             anchorElement.Hover();
 
@@ -72,7 +72,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateStyleNotContainsThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
             anchorElement.Hover();
 
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateInnerTextIsThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
             try
             {
@@ -108,7 +108,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateInnerHtmlIsIsThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
             try
             {
@@ -125,7 +125,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateRelIsThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
             try
             {
@@ -142,7 +142,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateRelIsNullThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor5");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
 
             try
             {
@@ -159,7 +159,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateTargetIsThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
             try
             {
@@ -176,7 +176,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateTargetIsNullThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
             try
             {
@@ -193,7 +193,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateHrefIsThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
             try
             {
@@ -210,7 +210,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateHrefIsSetThrowsException()
         {
-            var anchorElement = App.ComponentCreateService.CreateById<Anchor>("myAnchor6");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
 
             try
             {

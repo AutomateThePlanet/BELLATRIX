@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class ButtonControlValidateExtensionsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_Button_When_InnerTextIsAsExpected()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton8");
+            var buttonElement = App.Components.CreateById<Button>("myButton8");
 
             buttonElement.Click();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_Button_When_Hovered()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton9");
+            var buttonElement = App.Components.CreateById<Button>("myButton9");
 
             buttonElement.Hover();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleContains_DoesNotThrowException_Button_When_Hovered()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton9");
+            var buttonElement = App.Components.CreateById<Button>("myButton9");
 
             buttonElement.Hover();
 
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleNotContains_DoesNotThrowException_Button_When_Hovered()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton9");
+            var buttonElement = App.Components.CreateById<Button>("myButton9");
 
             buttonElement.Hover();
 
@@ -76,7 +76,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_Button_When_DisabledAttributeNotPresent()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton8");
+            var buttonElement = App.Components.CreateById<Button>("myButton8");
 
             buttonElement.ValidateIsNotDisabled();
         }
@@ -86,7 +86,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_Button_When_DisabledAttributePresent()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton11");
+            var buttonElement = App.Components.CreateById<Button>("myButton11");
 
             buttonElement.ValidateIsDisabled();
         }
@@ -96,7 +96,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateValueIs_DoesNotThrowException_Button_When_ValueAttributePresent()
         {
-            var buttonElement = App.ComponentCreateService.CreateById<Button>("myButton8");
+            var buttonElement = App.Components.CreateById<Button>("myButton8");
 
             buttonElement.ValidateValueIs("Start");
         }

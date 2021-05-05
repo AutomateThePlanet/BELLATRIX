@@ -17,7 +17,7 @@ namespace Bellatrix.Mobile.Tests
         [Test]
         public void CorrectTextDisplayed_When_ClickSubscribeButton()
         {
-            var button = App.ComponentCreateService.CreateById<Button>("button");
+            var button = App.Components.CreateById<Button>("button");
 
             button.Click();
         }

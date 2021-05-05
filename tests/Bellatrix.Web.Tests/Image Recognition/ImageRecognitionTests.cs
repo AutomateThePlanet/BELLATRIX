@@ -12,7 +12,7 @@ namespace Bellatrix.Web.Demos
         public void AssertPrintPreview()
         {
             var gridTestPage = App.Create<GridTestPage>();
-            App.NavigationService.NavigateToLocalPage(gridTestPage.Url);
+            App.Navigation.NavigateToLocalPage(gridTestPage.Url);
             using (var screen = new ImageRecognition.Screen())
             {
                 var firstOrderCell = gridTestPage.Grid.GetRow(0).GetCell(0).As<TextField>();

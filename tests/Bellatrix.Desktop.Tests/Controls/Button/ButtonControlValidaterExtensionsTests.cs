@@ -27,11 +27,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ValidateInnerTextIs_DoesNotThrowException_Button_When_InnerTextIsAsExpected()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
-            var label = App.ComponentCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             label.ValidateInnerTextIs("ebuttonHovered");
         }
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ValidateIsNotDisabled_DoesNotThrowException_Button_When_DisabledAttributeNotPresent()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.ValidateIsNotDisabled();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ValidateIsDisabled_DoesNotThrowException_When_ButtonIsNotDisabled()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("D Button");
+            var button = App.Components.CreateByName<Button>("D Button");
 
             button.ValidateIsDisabled();
         }

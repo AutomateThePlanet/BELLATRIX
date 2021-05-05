@@ -26,9 +26,9 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
-            _free = App.ComponentCreateService.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
-            _getStarted = App.ComponentCreateService.CreateByXpath<Button>("//*[text()='Get started']");
+            App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+            _free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+            _getStarted = App.Components.CreateByXpath<Button>("//*[text()='Get started']");
         }
 
         [TestMethod]

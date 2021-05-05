@@ -23,11 +23,11 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         [TestCategory(Categories.CI)]
         public void TestPageLayout()
         {
-            var button = App.ComponentCreateService.CreateByIdContaining<Button>("button");
-            var secondButton = App.ComponentCreateService.CreateByIdContaining<Button>("button_disabled");
-            var checkBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check1");
-            var secondCheckBox = App.ComponentCreateService.CreateByIdContaining<CheckBox>("check2");
-            var mainElement = App.ComponentCreateService.CreateById<AndroidComponent>("android:id/content");
+            var button = App.Components.CreateByIdContaining<Button>("button");
+            var secondButton = App.Components.CreateByIdContaining<Button>("button_disabled");
+            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
+            var secondCheckBox = App.Components.CreateByIdContaining<CheckBox>("check2");
+            var mainElement = App.Components.CreateById<AndroidComponent>("android:id/content");
 
             // 2. Depending on what you want to check, BELLATRIX gives lots of options. You can test px perfect or just that some element is below another.
             // Check that the button is above the checkbox.

@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsChecked_DoesNotThrowException_When_RadioButtonIsChecked()
         {
-            var radioButton = App.ComponentCreateService.CreateByIdContaining<RadioButton>("radio2");
+            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
 
             radioButton.ValidateIsNotChecked();
 
@@ -43,7 +43,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIs_DoesNotThrowException_When_RadioButtonCorrectTextSet()
         {
-            var radioButton = App.ComponentCreateService.CreateByIdContaining<RadioButton>("radio1");
+            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio1");
 
             radioButton.ValidateTextIs("RadioButton 1");
         }
@@ -52,7 +52,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_RadioButtonIsNotDisabled()
         {
-            var radioButton = App.ComponentCreateService.CreateByIdContaining<RadioButton>("radio2");
+            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
 
             radioButton.ValidateIsNotDisabled();
         }

@@ -13,28 +13,28 @@ namespace Bellatrix.Web.GettingStarted
         [TestCategory(Categories.CI)]
         public void FillUpAllFields()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/my-account/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
 
             // 2. Execute a JavaScript code on the page. Here we find an element with id = 'firstName' and sets its value to 'Bellatrix'.
-            App.JavaScriptService.Execute("document.geTComponentById('username').value = 'Bellatrix';");
+            App.JavaScript.Execute("document.geTComponentById('username').value = 'Bellatrix';");
 
-            App.ComponentCreateService.CreateById<Password>("password").SetPassword("Gorgeous");
-            var button = App.ComponentCreateService.CreateByClassContaining<Button>("woocommerce-Button button");
+            App.Components.CreateById<Password>("password").SetPassword("Gorgeous");
+            var button = App.Components.CreateByClassContaining<Button>("woocommerce-Button button");
 
             // 3. It is possible to pass an element, and the script executes on it.
-            App.JavaScriptService.Execute("arguments[0].click();", button);
+            App.JavaScript.Execute("arguments[0].click();", button);
         }
 
         [TestMethod]
         [Ignore]
         public void GeTComponentStyle()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            var resultsCount = App.ComponentCreateService.CreateByClassContaining<Component>("woocommerce-result-count");
+            var resultsCount = App.Components.CreateByClassContaining<Component>("woocommerce-result-count");
 
             // 4. Get the results from a script. After that, get the value for a specific style and assert it.
-            string fontSize = App.JavaScriptService.Execute("return arguments[0].style.font-size", resultsCount.WrappedElement);
+            string fontSize = App.JavaScript.Execute("return arguments[0].style.font-size", resultsCount.WrappedElement);
 
             Assert.AreEqual("14px", fontSize);
         }

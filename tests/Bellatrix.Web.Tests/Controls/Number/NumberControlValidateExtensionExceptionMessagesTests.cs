@@ -24,15 +24,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateNumberIsThrowsException()
         {
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.SetNumber(12.1);
 
@@ -51,7 +51,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMaxIsNullThrowsException()
         {
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             try
             {
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_WhenValidateMinIsNullThrowsException()
         {
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             try
             {
@@ -85,7 +85,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_WhenValidateStepIsNullThrowsException()
         {
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             try
             {
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_WhenValidateMaxIsThrowsException()
         {
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             try
             {
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_WhenValidateMinIsThrowsException()
         {
-            var numberElement = App.ComponentCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             try
             {

@@ -27,7 +27,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Ignore]
         public void JupiterOptionSelected_When_CallSelectByTextMethod()
         {
-            var comboBox = App.ComponentCreateService.CreateById<ComboBox>("spinner1");
+            var comboBox = App.Components.CreateById<ComboBox>("spinner1");
 
             comboBox.SelectByText("Jupiter");
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Ignore]
         public void IsDisabledReturnsFalse_When_ComboBoxIsNotDisabled()
         {
-            var comboBox = App.ComponentCreateService.CreateById<ComboBox>("spinner1");
+            var comboBox = App.Components.CreateById<ComboBox>("spinner1");
 
             Assert.AreEqual(false, comboBox.IsDisabled);
         }

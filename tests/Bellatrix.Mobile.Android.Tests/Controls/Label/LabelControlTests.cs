@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
         {
-            var label = App.ComponentCreateService.CreateByText<Label>("textColorPrimary");
+            var label = App.Components.CreateByText<Label>("textColorPrimary");
 
             label.ValidateTextIs("textColorPrimary");
         }

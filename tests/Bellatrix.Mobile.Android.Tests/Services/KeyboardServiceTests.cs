@@ -33,7 +33,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void TestHideKeyBoard()
         {
-            var textField = App.ComponentCreateService.CreateByIdContaining<TextField>("left_text_edit");
+            var textField = App.Components.CreateByIdContaining<TextField>("left_text_edit");
             textField.SetText(string.Empty);
 
             App.KeyboardService.HideKeyboard();

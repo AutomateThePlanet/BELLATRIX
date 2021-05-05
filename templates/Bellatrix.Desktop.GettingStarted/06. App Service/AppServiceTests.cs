@@ -21,7 +21,7 @@ namespace Bellatrix.Desktop.GettingStarted
         [TestCategory(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
-            var button = App.ComponentCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 

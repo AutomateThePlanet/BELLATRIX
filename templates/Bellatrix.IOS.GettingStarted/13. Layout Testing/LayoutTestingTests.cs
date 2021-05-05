@@ -22,10 +22,10 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         [TestCategory(Categories.CI)]
         public void TestPageLayout()
         {
-            var numberOneTextField = App.ComponentCreateService.CreateById<TextField>("IntegerA");
-            var computeButton = App.ComponentCreateService.CreateByName<Button>("ComputeSumButton");
-            ////var answerLabel = App.ComponentCreateService.CreateByName<Label>("Answer");
-            var mainElement = App.ComponentCreateService.CreateByIOSNsPredicate<IOSComponent>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+            var numberOneTextField = App.Components.CreateById<TextField>("IntegerA");
+            var computeButton = App.Components.CreateByName<Button>("ComputeSumButton");
+            ////var answerLabel = App.Components.CreateByName<Label>("Answer");
+            var mainElement = App.Components.CreateByIOSNsPredicate<IOSComponent>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
 
             // 2. Depending on what you want to check, BELLATRIX gives lots of options. You can test px perfect or just that some element is below another.
             // Check that the text field is above the button.

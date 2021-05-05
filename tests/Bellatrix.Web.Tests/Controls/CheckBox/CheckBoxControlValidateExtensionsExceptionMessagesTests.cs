@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateCheckedThrowsException()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
             checkBoxElement.Uncheck();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateNotCheckedThrowsException()
         {
-            var checkBoxElement = App.ComponentCreateService.CreateById<CheckBox>("myCheckbox");
+            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
             checkBoxElement.Check();
             try

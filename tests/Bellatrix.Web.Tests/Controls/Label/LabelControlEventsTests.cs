@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class LabelControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Label.Hovering += AssertStyleAttributeEmpty;
 
-            var labelElement = App.ComponentCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.Components.CreateById<Label>("myLabel");
 
             labelElement.Hover();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Label.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var labelElement = App.ComponentCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.Components.CreateById<Label>("myLabel");
 
             labelElement.Hover();
 
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ComponentCreateService.CreateById<Label>("myLabel").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Label>("myLabel").ValidateStyleIs("color: red;");
             }
         }
     }
