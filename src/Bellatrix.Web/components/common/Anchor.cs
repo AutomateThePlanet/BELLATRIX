@@ -28,29 +28,29 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public void Click()
+        public virtual void Click()
         {
             Click(Clicking, Clicked);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Href => HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("href")));
+        public virtual string Href => HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("href")));
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
+        public virtual string InnerText => GetInnerText();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
+        public virtual string InnerHtml => GetInnerHtmlAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Target => WrappedElement.GetAttribute("target");
+        public virtual string Target => WrappedElement.GetAttribute("target");
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Rel => WrappedElement.GetAttribute("rel");
+        public virtual string Rel => WrappedElement.GetAttribute("rel");
     }
 }

@@ -25,19 +25,19 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public void Upload(string file)
+        public virtual void Upload(string file)
         {
             DefaultUpload(file);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsMultiple => !string.IsNullOrEmpty(GetAttribute("multiple"));
+        public virtual bool IsMultiple => !string.IsNullOrEmpty(GetAttribute("multiple"));
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Accept => string.IsNullOrEmpty(GetAttribute("accept")) ? null : GetAttribute("accept");
+        public virtual string Accept => string.IsNullOrEmpty(GetAttribute("accept")) ? null : GetAttribute("accept");
 
         protected virtual void DefaultUpload(string filePath)
         {

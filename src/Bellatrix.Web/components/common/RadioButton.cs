@@ -28,20 +28,20 @@ namespace Bellatrix.Web
         public override Type ComponentType => GetType();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Value => DefaultGetValue();
+        public virtual string Value => DefaultGetValue();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsChecked => WrappedElement.Selected;
+        public virtual bool IsChecked => WrappedElement.Selected;
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
-        public void Click()
+        public virtual void Click()
         {
             Click(Clicking, Clicked);
         }

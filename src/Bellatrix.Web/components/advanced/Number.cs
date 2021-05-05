@@ -27,46 +27,46 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public double GetNumber()
+        public virtual double GetNumber()
         {
             return double.Parse(DefaultGetValue());
         }
 
-        public void SetNumber(double value)
+        public virtual void SetNumber(double value)
         {
             DefaultSetText(SettingNumber, NumberSet, value.ToString());
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Value => DefaultGetValue();
+        public virtual string Value => DefaultGetValue();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsAutoComplete => GetAutoCompleteAttribute();
+        public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsReadonly => GetReadonlyAttribute();
+        public virtual bool IsReadonly => GetReadonlyAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Placeholder => GetPlaceholderAttribute();
+        public virtual string Placeholder => GetPlaceholderAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Max => GetMaxAttribute();
+        public virtual int? Max => GetMaxAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Min => GetMinAttribute();
+        public virtual int? Min => GetMinAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Step => GetStepAttribute();
+        public virtual int? Step => GetStepAttribute();
     }
 }

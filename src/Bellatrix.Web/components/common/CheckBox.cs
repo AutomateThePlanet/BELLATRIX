@@ -29,29 +29,29 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public void Check(bool isChecked = true)
+        public virtual void Check(bool isChecked = true)
         {
             DefaultCheck(isChecked);
         }
 
-        public void Uncheck()
+        public virtual void Uncheck()
         {
             DefaultUncheck();
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Value => DefaultGetValue();
+        public virtual string Value => DefaultGetValue();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsChecked => WrappedElement.Selected;
+        public virtual bool IsChecked => WrappedElement.Selected;
 
         protected virtual void DefaultCheck(bool isChecked = true)
         {

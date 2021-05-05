@@ -25,18 +25,18 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
+        public virtual string InnerText => GetInnerText();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
+        public virtual string InnerHtml => GetInnerHtmlAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string For => GetForAttribute();
+        public virtual string For => GetForAttribute();
     }
 }

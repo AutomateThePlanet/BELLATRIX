@@ -26,30 +26,30 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Src => HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("src")));
+        public virtual string Src => HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("src")));
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string LongDesc => string.IsNullOrEmpty(GetAttribute("longdesc")) ? null : GetAttribute("longdesc");
+        public virtual string LongDesc => string.IsNullOrEmpty(GetAttribute("longdesc")) ? null : GetAttribute("longdesc");
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Alt => string.IsNullOrEmpty(GetAttribute("alt")) ? null : GetAttribute("alt");
+        public virtual string Alt => string.IsNullOrEmpty(GetAttribute("alt")) ? null : GetAttribute("alt");
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string SrcSet => string.IsNullOrEmpty(GetAttribute("srcset")) ? null : GetAttribute("srcset");
+        public virtual string SrcSet => string.IsNullOrEmpty(GetAttribute("srcset")) ? null : GetAttribute("srcset");
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Sizes => string.IsNullOrEmpty(GetAttribute("sizes")) ? null : GetAttribute("sizes");
+        public virtual string Sizes => string.IsNullOrEmpty(GetAttribute("sizes")) ? null : GetAttribute("sizes");
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Height => GetHeightAttribute();
+        public virtual int? Height => GetHeightAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Width => GetWidthAttribute();
+        public virtual int? Width => GetWidthAttribute();
     }
 }

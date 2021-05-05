@@ -27,7 +27,7 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public string GetText()
+        public virtual string GetText()
         {
             var text = base.GetText();
 
@@ -39,44 +39,44 @@ namespace Bellatrix.Web
             return text;
         }
 
-        public void SetText(string value) => DefaultSetText(SettingText, TextSet, value);
+        public virtual void SetText(string value) => DefaultSetText(SettingText, TextSet, value);
 
-        public void Hover() => Hover(Hovering, Hovered);
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
+        public virtual void Hover() => Hover(Hovering, Hovered);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual string InnerText => GetInnerText();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsAutoComplete => GetAutoCompleteAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsReadonly => GetReadonlyAttribute();
+        public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsReadonly => GetReadonlyAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Placeholder => GetPlaceholderAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? MaxLength => DefaultGetMaxLength();
+        public virtual string Placeholder => GetPlaceholderAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? MinLength => DefaultGetMinLength();
+        public virtual int? MaxLength => DefaultGetMaxLength();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Rows => string.IsNullOrEmpty(GetAttribute("rows")) ? null : (int?)int.Parse(GetAttribute("rows"));
+        public virtual int? MinLength => DefaultGetMinLength();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Cols => string.IsNullOrEmpty(GetAttribute("cols")) ? null : (int?)int.Parse(GetAttribute("cols"));
+        public virtual int? Rows => string.IsNullOrEmpty(GetAttribute("rows")) ? null : (int?)int.Parse(GetAttribute("rows"));
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string SpellCheck => string.IsNullOrEmpty(GetAttribute("spellcheck")) ? null : GetAttribute("spellcheck");
+        public virtual int? Cols => string.IsNullOrEmpty(GetAttribute("cols")) ? null : (int?)int.Parse(GetAttribute("cols"));
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Wrap => string.IsNullOrEmpty(GetAttribute("wrap")) ? null : GetAttribute("wrap");
+        public virtual string SpellCheck => string.IsNullOrEmpty(GetAttribute("spellcheck")) ? null : GetAttribute("spellcheck");
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public virtual string Wrap => string.IsNullOrEmpty(GetAttribute("wrap")) ? null : GetAttribute("wrap");
     }
 }

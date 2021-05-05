@@ -32,38 +32,38 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
-        public Option GetSelected()
+        public virtual Option GetSelected()
         {
             return DefaultSelectedValue(this);
         }
 
-        public List<Option> GetAllOptions()
+        public virtual List<Option> GetAllOptions()
         {
             return DefaultGetAllOptions(this);
         }
 
-        public void SelectByText(string text)
+        public virtual void SelectByText(string text)
         {
             DefaultSelectByText(this, text);
         }
 
-        public void SelectByIndex(int index)
+        public virtual void SelectByIndex(int index)
         {
             DefaultSelectByIndex(this, index);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
-        public bool IsReadonly => GetReadonlyAttribute();
+        public virtual bool IsReadonly => GetReadonlyAttribute();
 
         protected virtual List<Option> DefaultGetAllOptions(Select select)
         {

@@ -27,43 +27,43 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public int GetRange()
+        public virtual int GetRange()
         {
             return DefaultGetValue().ToInt();
         }
 
-        public void SetRange(int value)
+        public virtual void SetRange(int value)
         {
             SetValue(SettingRange, RangeSet, value.ToString());
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Value => DefaultGetValue();
+        public virtual string Value => DefaultGetValue();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsAutoComplete => GetAutoCompleteAttribute();
+        public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string List => GetList();
+        public virtual string List => GetList();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Max => GetMaxAttribute();
+        public virtual int? Max => GetMaxAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Min => GetMinAttribute();
+        public virtual int? Min => GetMinAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Step => GetStepAttribute();
+        public virtual int? Step => GetStepAttribute();
     }
 }

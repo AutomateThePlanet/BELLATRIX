@@ -27,44 +27,44 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public string GetDate()
+        public virtual string GetDate()
         {
             return DefaultGetValue();
         }
 
-        public void SetDate(int year, int month, int day)
+        public virtual void SetDate(int year, int month, int day)
         {
             DefaultSetDate(year, month, day);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Value => DefaultGetValue();
+        public virtual string Value => DefaultGetValue();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsAutoComplete => GetAutoCompleteAttribute();
+        public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsReadonly => GetReadonlyAttribute();
+        public virtual bool IsReadonly => GetReadonlyAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Max => GetMaxAttributeAsString();
+        public virtual string Max => GetMaxAttributeAsString();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Min => GetMinAttributeAsString();
+        public virtual string Min => GetMinAttributeAsString();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Step => GetStepAttribute();
+        public virtual int? Step => GetStepAttribute();
 
         protected virtual void DefaultSetDate(int year, int month, int day)
         {
