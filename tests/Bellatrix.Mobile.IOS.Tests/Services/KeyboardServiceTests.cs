@@ -33,7 +33,7 @@ namespace Bellatrix.Mobile.IOS.Tests
             var textField = App.Components.CreateById<TextField>("IntegerA");
             textField.SetText(string.Empty);
 
-            App.KeyboardService.HideKeyboard();
+            App.Keyboard.HideKeyboard();
         }
     }
 }

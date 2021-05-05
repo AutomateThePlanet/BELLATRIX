@@ -36,35 +36,35 @@ namespace Bellatrix.Mobile.Android.Tests
             var textField = App.Components.CreateByIdContaining<TextField>("left_text_edit");
             textField.SetText(string.Empty);
 
-            App.KeyboardService.HideKeyboard();
+            App.Keyboard.HideKeyboard();
         }
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void PressKeyCodeTest()
         {
-            App.KeyboardService.PressKeyCode(AndroidKeyCode.Home);
+            App.Keyboard.PressKeyCode(AndroidKeyCode.Home);
         }
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void PressKeyCodeWithMetastateTest()
         {
-            App.KeyboardService.PressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
+            App.Keyboard.PressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
         }
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void LongPressKeyCodeTest()
         {
-            App.KeyboardService.LongPressKeyCode(AndroidKeyCode.Home);
+            App.Keyboard.LongPressKeyCode(AndroidKeyCode.Home);
         }
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void LongPressKeyCodeWithMetastateTest()
         {
-            App.KeyboardService.LongPressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
+            App.Keyboard.LongPressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
         }
     }
 }

@@ -38,9 +38,13 @@ namespace Bellatrix.Mobile
             _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
         }
 
+        [Obsolete("ComponentWaitService is deprecated use Wait property instead.")]
         public ComponentWaitService<TDriver, TDriverElement> ComponentWaitService => ServicesCollection.Current.Resolve<ComponentWaitService<TDriver, TDriverElement>>();
+        public ComponentWaitService<TDriver, TDriverElement> Wait => ServicesCollection.Current.Resolve<ComponentWaitService<TDriver, TDriverElement>>();
 
+        [Obsolete("ComponentCreateService is deprecated use Components property instead.")]
         public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
+        public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
 
         public WebServicesFacade Web => ServicesCollection.Current.Resolve<WebServicesFacade>();
 

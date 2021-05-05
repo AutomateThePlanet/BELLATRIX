@@ -22,14 +22,14 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             textField.SetText(string.Empty);
 
             // Hides the keyboard.
-            App.KeyboardService.HideKeyboard();
+            App.Keyboard.HideKeyboard();
         }
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void PressKeyCodeTest()
         {
-            App.KeyboardService.PressKeyCode(AndroidKeyCode.Home);
+            App.Keyboard.PressKeyCode(AndroidKeyCode.Home);
         }
 
         [TestMethod]
@@ -37,7 +37,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         public void PressKeyCodeWithMetaStateTest()
         {
             // Press Space key simulating that the Shift key is ON.
-            App.KeyboardService.PressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
+            App.Keyboard.PressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         public void LongPressKeyCodeTest()
         {
             // Long press the Home button.
-            App.KeyboardService.LongPressKeyCode(AndroidKeyCode.Home);
+            App.Keyboard.LongPressKeyCode(AndroidKeyCode.Home);
         }
 
         [TestMethod]
@@ -53,7 +53,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         public void LongPressKeyCodeWithMetaStateTest()
         {
             // Long press Space key simulating that the Shift key is ON.
-            App.KeyboardService.LongPressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
+            App.Keyboard.LongPressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
         }
     }
 }

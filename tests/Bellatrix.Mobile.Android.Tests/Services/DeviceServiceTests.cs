@@ -34,9 +34,9 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void OrientationSetToLandscape_When_CallRotateWithLandscape()
         {
-            App.DeviceService.Rotate(ScreenOrientation.Landscape);
+            App.Device.Rotate(ScreenOrientation.Landscape);
 
-            Assert.AreEqual(ScreenOrientation.Landscape, App.DeviceService.Orientation);
+            Assert.AreEqual(ScreenOrientation.Landscape, App.Device.Orientation);
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.KnownIssue)]
         public void CorrectTimeReturned_When_CallDeviceTime()
         {
-            BA.DateTimeAssert.AreEqual(DateTime.Now, App.DeviceService.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
+            BA.DateTimeAssert.AreEqual(DateTime.Now, App.Device.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
         }
 
         ////[TestMethod]
@@ -70,9 +70,9 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.KnownIssue)]
         public void DeviceIsLockedFalse_When_DeviceIsUnlocked()
         {
-            App.DeviceService.Unlock();
+            App.Device.Unlock();
 
-            Assert.IsTrue(App.DeviceService.IsLocked);
+            Assert.IsTrue(App.Device.IsLocked);
         }
 
         [TestMethod]
@@ -80,9 +80,9 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.KnownIssue)]
         public void DeviceIsLockedTrue_When_CallLock()
         {
-            App.DeviceService.Lock();
+            App.Device.Lock();
 
-            Assert.IsTrue(App.DeviceService.IsLocked);
+            Assert.IsTrue(App.Device.IsLocked);
         }
 
         [TestMethod]
@@ -92,15 +92,15 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             try
             {
-                App.DeviceService.ConnectionType = ConnectionType.AirplaneMode;
-                Assert.AreEqual(ConnectionType.AirplaneMode, App.DeviceService.ConnectionType);
+                App.Device.ConnectionType = ConnectionType.AirplaneMode;
+                Assert.AreEqual(ConnectionType.AirplaneMode, App.Device.ConnectionType);
 
-                App.DeviceService.ConnectionType = ConnectionType.AllNetworkOn;
-                Assert.AreEqual(ConnectionType.AllNetworkOn, App.DeviceService.ConnectionType);
+                App.Device.ConnectionType = ConnectionType.AllNetworkOn;
+                Assert.AreEqual(ConnectionType.AllNetworkOn, App.Device.ConnectionType);
             }
             finally
             {
-                App.DeviceService.ConnectionType = ConnectionType.AllNetworkOn;
+                App.Device.ConnectionType = ConnectionType.AllNetworkOn;
             }
         }
 
@@ -108,14 +108,14 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void TestTurnOnLocationService()
         {
-            App.DeviceService.TurnOnLocationService();
+            App.Device.TurnOnLocationService();
         }
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void TestOpenNotifications()
         {
-            App.DeviceService.OpenNotifications();
+            App.Device.OpenNotifications();
         }
     }
 }

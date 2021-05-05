@@ -27,14 +27,14 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Size size = textField.Size;
 
             // Performs swipe by using coordinates.
-            App.TouchActionsService.Swipe(
+            App.TouchActions.Swipe(
                 point.X + 5,
                 point.Y + 5,
                 point.X + size.Width - 5,
                 point.Y + size.Height - 5,
                 200);
 
-            App.TouchActionsService.Swipe(
+            App.TouchActions.Swipe(
                 point.X + size.Width - 5,
                 point.Y + 5,
                 point.X + 5,
@@ -49,7 +49,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             int initialCount = elements.Count();
 
             // Tap 10 times using BELLATRIX UI element directly.
-            App.TouchActionsService.Tap(elements[6]).Perform();
+            App.TouchActions.Tap(elements[6]).Perform();
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             var locationTwo = elements[1].Location;
 
             // Performs a series of actions using elements coordinates.
-            App.TouchActionsService.Press(locationOne.X, locationOne.Y, 100).
+            App.TouchActions.Press(locationOne.X, locationOne.Y, 100).
                 MoveTo(locationTwo.X, locationTwo.Y).
                 Release().
                 Perform();
@@ -78,7 +78,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             var locationTwo = elements[1].Location;
 
             // Performs multiple actions.
-            App.TouchActionsService.Press(locationOne.X, locationOne.Y, 100).
+            App.TouchActions.Press(locationOne.X, locationOne.Y, 100).
                 MoveTo(locationTwo.X, locationTwo.Y).
                 Release().
                 Perform();
@@ -97,14 +97,14 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
             // Executes two multi actions.
-            App.TouchActionsService.Press(elements[5], 1500).Release();
-            App.TouchActionsService.Press(elements[5], 1500).Release();
-            App.TouchActionsService.Perform();
+            App.TouchActions.Press(elements[5], 1500).Release();
+            App.TouchActions.Press(elements[5], 1500).Release();
+            App.TouchActions.Perform();
             elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
-            App.TouchActionsService.Press(elements[1], 1500).Release();
-            App.TouchActionsService.Press(elements[1], 1500).Release();
-            App.TouchActionsService.Perform();
+            App.TouchActions.Press(elements[1], 1500).Release();
+            App.TouchActions.Press(elements[1], 1500).Release();
+            App.TouchActions.Perform();
 
             Assert.AreNotEqual(originalActivity, App.AppService.CurrentActivity);
         }

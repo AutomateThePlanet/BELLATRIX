@@ -34,9 +34,9 @@ namespace Bellatrix.Mobile.Android.Tests
         public void FileSavedToDevice_When_CallPushFile()
         {
             string data = "The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra";
-            App.FileSystemService.PushFile("/data/local/tmp/remote.txt", data);
+            App.Files.PushFile("/data/local/tmp/remote.txt", data);
 
-            byte[] returnDataBytes = App.FileSystemService.PullFile("/data/local/tmp/remote.txt");
+            byte[] returnDataBytes = App.Files.PullFile("/data/local/tmp/remote.txt");
             string returnedData = Encoding.UTF8.GetString(returnDataBytes);
 
             Assert.AreEqual(data, returnedData);
@@ -49,9 +49,9 @@ namespace Bellatrix.Mobile.Android.Tests
             string data = "The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra";
             var bytes = Encoding.UTF8.GetBytes(data);
 
-            App.FileSystemService.PushFile("/data/local/tmp/remote.txt", bytes);
+            App.Files.PushFile("/data/local/tmp/remote.txt", bytes);
 
-            byte[] returnDataBytes = App.FileSystemService.PullFile("/data/local/tmp/remote.txt");
+            byte[] returnDataBytes = App.Files.PullFile("/data/local/tmp/remote.txt");
             string returnedData = Encoding.UTF8.GetString(returnDataBytes);
 
             Assert.AreEqual(data, returnedData);
@@ -71,9 +71,9 @@ namespace Bellatrix.Mobile.Android.Tests
             try
             {
                 var file = new FileInfo(fullPath);
-                App.FileSystemService.PushFile("/data/local/tmp/remote.txt", file);
+                App.Files.PushFile("/data/local/tmp/remote.txt", file);
 
-                byte[] returnDataBytes = App.FileSystemService.PullFile("/data/local/tmp/remote.txt");
+                byte[] returnDataBytes = App.Files.PullFile("/data/local/tmp/remote.txt");
                 string returnedData = Encoding.UTF8.GetString(returnDataBytes);
                 Assert.AreEqual(
                     "The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra",
@@ -91,9 +91,9 @@ namespace Bellatrix.Mobile.Android.Tests
         public void AllFilesReturned_When_CallPullFolder()
         {
             string data = "The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra";
-            App.FileSystemService.PushFile("\\data\\local\\tmp\\remote.txt", data);
+            App.Files.PushFile("\\data\\local\\tmp\\remote.txt", data);
 
-            byte[] returnDataBytes = App.FileSystemService.PullFolder("\\data\\local\\tmp\\");
+            byte[] returnDataBytes = App.Files.PullFolder("\\data\\local\\tmp\\");
 
             Assert.IsTrue(returnDataBytes.Length > 0);
         }

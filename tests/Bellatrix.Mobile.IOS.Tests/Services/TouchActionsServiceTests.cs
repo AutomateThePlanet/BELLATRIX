@@ -35,14 +35,14 @@ namespace Bellatrix.Mobile.IOS.Tests
             Point point = textField.Location;
             Size size = textField.Size;
 
-            App.TouchActionsService.Swipe(
+            App.TouchActions.Swipe(
                 point.X + 5,
                 point.Y + 5,
                 point.X + size.Width - 5,
                 point.Y + size.Height - 5,
                 200);
 
-            App.TouchActionsService.Swipe(
+            App.TouchActions.Swipe(
                 point.X + size.Width - 5,
                 point.Y + 5,
                 point.X + 5,
@@ -57,7 +57,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         {
             var buttons = App.Components.CreateAllByClass<Button>("XCUIElementTypeButton");
 
-            App.TouchActionsService.Tap(buttons[0], 10).Perform();
+            App.TouchActions.Tap(buttons[0], 10).Perform();
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace Bellatrix.Mobile.IOS.Tests
             int y = element.Location.Y;
             int moveTo = (9 / 100) * end;
 
-            App.TouchActionsService.Press(moveTo, y, 0).Release().Perform();
+            App.TouchActions.Press(moveTo, y, 0).Release().Perform();
         }
 
         [TestMethod]
@@ -83,8 +83,8 @@ namespace Bellatrix.Mobile.IOS.Tests
             int y = element.Location.Y;
             int moveTo = (9 / 100) * end;
 
-            App.TouchActionsService.Press(moveTo, y, 0).Release();
-            App.TouchActionsService.Perform();
+            App.TouchActions.Press(moveTo, y, 0).Release();
+            App.TouchActions.Perform();
         }
 
         [TestMethod]
@@ -94,13 +94,13 @@ namespace Bellatrix.Mobile.IOS.Tests
         {
             var buttons = App.Components.CreateAllByClass<Button>("XCUIElementTypeButton");
 
-            App.TouchActionsService.Tap(buttons[0], 10);
-            App.TouchActionsService.Tap(buttons[0], 10);
-            App.TouchActionsService.Perform();
+            App.TouchActions.Tap(buttons[0], 10);
+            App.TouchActions.Tap(buttons[0], 10);
+            App.TouchActions.Perform();
 
-            App.TouchActionsService.Tap(buttons[0], 10);
-            App.TouchActionsService.Tap(buttons[0], 10);
-            App.TouchActionsService.Perform();
+            App.TouchActions.Tap(buttons[0], 10);
+            App.TouchActions.Tap(buttons[0], 10);
+            App.TouchActions.Perform();
         }
     }
 }

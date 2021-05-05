@@ -25,13 +25,22 @@ namespace Bellatrix.Mobile
     {
         public IOSAppService AppService => ServicesCollection.Current.Resolve<IOSAppService>();
 
+        [Obsolete("DeviceService is deprecated use Device property instead.")]
+
         public IOSDeviceService DeviceService => ServicesCollection.Current.Resolve<IOSDeviceService>();
+        public IOSDeviceService Device => ServicesCollection.Current.Resolve<IOSDeviceService>();
 
+        [Obsolete("FileSystemService is deprecated use Files property instead.")]
         public FileSystemService<IOSDriver<IOSElement>, IOSElement> FileSystemService => ServicesCollection.Current.Resolve<FileSystemService<IOSDriver<IOSElement>, IOSElement>>();
+        public FileSystemService<IOSDriver<IOSElement>, IOSElement> Files => ServicesCollection.Current.Resolve<FileSystemService<IOSDriver<IOSElement>, IOSElement>>();
 
+        [Obsolete("KeyboardService is deprecated use Keyboard property instead.")]
         public KeyboardService<IOSDriver<IOSElement>, IOSElement> KeyboardService => ServicesCollection.Current.Resolve<KeyboardService<IOSDriver<IOSElement>, IOSElement>>();
+        public KeyboardService<IOSDriver<IOSElement>, IOSElement> Keyboard => ServicesCollection.Current.Resolve<KeyboardService<IOSDriver<IOSElement>, IOSElement>>();
 
+        [Obsolete("TouchActionsService is deprecated use TouchActions property instead.")]
         public TouchActionsService<IOSDriver<IOSElement>, IOSElement> TouchActionsService => ServicesCollection.Current.Resolve<TouchActionsService<IOSDriver<IOSElement>, IOSElement>>();
+        public TouchActionsService<IOSDriver<IOSElement>, IOSElement> TouchActions => ServicesCollection.Current.Resolve<TouchActionsService<IOSDriver<IOSElement>, IOSElement>>();
 
         public override void Dispose()
         {

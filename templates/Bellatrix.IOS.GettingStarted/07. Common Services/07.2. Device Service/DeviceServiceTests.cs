@@ -19,12 +19,12 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         public void OrientationSetToLandscape_When_CallRotateWithLandscape()
         {
             // Rotates the device horizontally.
-            App.DeviceService.Rotate(ScreenOrientation.Landscape);
+            App.Device.Rotate(ScreenOrientation.Landscape);
 
             // Gets the current device orientation.
-            Assert.AreEqual(ScreenOrientation.Landscape, App.DeviceService.Orientation);
+            Assert.AreEqual(ScreenOrientation.Landscape, App.Device.Orientation);
 
-            App.DeviceService.Rotate(ScreenOrientation.Portrait);
+            App.Device.Rotate(ScreenOrientation.Portrait);
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         public void CorrectTimeReturned_When_CallDeviceTime()
         {
             // Gets current device time.
-            BA.DateTimeAssert.AreEqual(DateTime.Now, App.DeviceService.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
+            BA.DateTimeAssert.AreEqual(DateTime.Now, App.Device.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         public void DeviceIsLockedTrue_When_CallLock()
         {
             // Locks the device
-            App.DeviceService.Lock(1);
+            App.Device.Lock(1);
         }
 
         [TestMethod]
@@ -51,7 +51,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         public void TestShakeDevice()
         {
             // Shakes the device
-            App.DeviceService.ShakeDevice();
+            App.Device.ShakeDevice();
         }
     }
 }

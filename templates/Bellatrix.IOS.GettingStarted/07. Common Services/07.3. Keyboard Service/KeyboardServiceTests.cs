@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             textField.SetText(string.Empty);
 
             // Hides the keyboard.
-            App.KeyboardService.HideKeyboard();
+            App.Keyboard.HideKeyboard();
         }
     }
 }

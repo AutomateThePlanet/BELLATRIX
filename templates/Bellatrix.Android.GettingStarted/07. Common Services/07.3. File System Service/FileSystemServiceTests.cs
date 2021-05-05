@@ -21,10 +21,10 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         {
             // Creates a new file on the device with the specified text.
             string data = "The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra";
-            App.FileSystemService.PushFile("/data/local/tmp/remote.txt", data);
+            App.Files.PushFile("/data/local/tmp/remote.txt", data);
 
             // Returns the content of the specified file as a byte array.
-            byte[] returnDataBytes = App.FileSystemService.PullFile("/data/local/tmp/remote.txt");
+            byte[] returnDataBytes = App.Files.PullFile("/data/local/tmp/remote.txt");
             string returnedData = Encoding.UTF8.GetString(returnDataBytes);
 
             Assert.AreEqual(data, returnedData);
@@ -38,10 +38,10 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             var bytes = Encoding.UTF8.GetBytes(data);
 
             // Creates a new file on the device from the specified byte array.
-            App.FileSystemService.PushFile("/data/local/tmp/remote.txt", bytes);
+            App.Files.PushFile("/data/local/tmp/remote.txt", bytes);
 
             // Returns the content of the specified file as a byte array.
-            byte[] returnDataBytes = App.FileSystemService.PullFile("/data/local/tmp/remote.txt");
+            byte[] returnDataBytes = App.Files.PullFile("/data/local/tmp/remote.txt");
             string returnedData = Encoding.UTF8.GetString(returnDataBytes);
 
             Assert.AreEqual(data, returnedData);
@@ -63,9 +63,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted
                 var file = new FileInfo(fullPath);
 
                 // Creates a new file on the device from the specified file info.
-                App.FileSystemService.PushFile("/data/local/tmp/remote.txt", file);
+                App.Files.PushFile("/data/local/tmp/remote.txt", file);
 
-                byte[] returnDataBytes = App.FileSystemService.PullFile("/data/local/tmp/remote.txt");
+                byte[] returnDataBytes = App.Files.PullFile("/data/local/tmp/remote.txt");
                 string returnedData = Encoding.UTF8.GetString(returnDataBytes);
                 Assert.AreEqual(
                     "The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra",
@@ -82,10 +82,10 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         public void AllFilesReturned_When_CallPullFolder()
         {
             string data = "The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra";
-            App.FileSystemService.PushFile("/data/local/tmp/remote.txt", data);
+            App.Files.PushFile("/data/local/tmp/remote.txt", data);
 
             // Returns the content of the specified folder as a byte array.
-            byte[] returnDataBytes = App.FileSystemService.PullFolder("/data/local/tmp/");
+            byte[] returnDataBytes = App.Files.PullFolder("/data/local/tmp/");
 
             Assert.IsTrue(returnDataBytes.Length > 0);
         }

@@ -23,13 +23,21 @@ namespace Bellatrix.Mobile
     {
         public AndroidAppService AppService => ServicesCollection.Current.Resolve<AndroidAppService>();
 
+        [Obsolete("FileSystemService is deprecated use Files property instead.")]
         public AndroidFileSystemService FileSystemService => ServicesCollection.Current.Resolve<AndroidFileSystemService>();
+        public AndroidFileSystemService Files => ServicesCollection.Current.Resolve<AndroidFileSystemService>();
 
+        [Obsolete("DeviceService is deprecated use Device property instead.")]
         public AndroidDeviceService DeviceService => ServicesCollection.Current.Resolve<AndroidDeviceService>();
+        public AndroidDeviceService Device => ServicesCollection.Current.Resolve<AndroidDeviceService>();
 
+        [Obsolete("KeyboardService is deprecated use Keyboard property instead.")]
         public AndroidKeyboardService KeyboardService => ServicesCollection.Current.Resolve<AndroidKeyboardService>();
+        public AndroidKeyboardService Keyboard => ServicesCollection.Current.Resolve<AndroidKeyboardService>();
 
+        [Obsolete("TouchActionsService is deprecated use TouchActions property instead.")]
         public TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement> TouchActionsService => ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement>>();
+        public TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement> TouchActions => ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement>>();
 
         public override void Dispose()
         {
