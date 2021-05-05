@@ -15,12 +15,8 @@ using Bellatrix.DynamicTestCases;
 
 namespace Bellatrix.Desktop.PageObjects
 {
-    public abstract class Page
+    public abstract class DesktopPage
     {
-        protected Page() => Element = new ComponentCreateService();
-
-        protected ComponentCreateService Element { get; }
-
-        protected DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+        public App App => ServicesCollection.Current.Resolve<App>();
     }
 }

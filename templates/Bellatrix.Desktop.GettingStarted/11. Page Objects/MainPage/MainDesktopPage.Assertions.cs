@@ -4,22 +4,22 @@
     {
         public void AssertPermanentTransferIsChecked()
         {
-            Assert.IsTrue(PermanentTransfer.IsChecked);
+            App.Assert.IsTrue(PermanentTransfer.IsChecked);
         }
 
         public void AssertRightItemSelected(string itemName)
         {
-            Assert.AreEqual(itemName, Items.InnerText);
+            App.Assert.AreEqual(itemName, Items.InnerText);
         }
 
         public void AssertRightUserNameSet(string userName)
         {
-            Assert.AreEqual(userName, UserName.InnerText);
+            App.Assert.AreEqual(userName, UserName.InnerText);
         }
 
         public void AssertKeepMeLoggedChecked()
         {
-            Assert.IsTrue(KeepMeLogged.IsChecked);
+            App.Assert.IsTrue(KeepMeLogged.IsChecked);
         }
     }
 }

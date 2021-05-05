@@ -126,7 +126,7 @@ namespace Bellatrix.Desktop
         }
 
         public TPage Create<TPage>()
-            where TPage : Page
+            where TPage : DesktopPage
         {
             TPage page = ServicesCollection.Current.Resolve<TPage>();
             return page;
