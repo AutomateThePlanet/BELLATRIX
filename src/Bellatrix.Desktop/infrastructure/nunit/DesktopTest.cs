@@ -31,6 +31,8 @@ namespace Bellatrix.Desktop.NUnit
                     ExecutionTimePlugin.Add();
                     VideoRecorderPluginConfiguration.AddNUnit();
                     ScreenshotsPluginConfiguration.AddNUnit();
+                    DynamicTestCasesPlugin.Add();
+                    AllurePlugin.Add();
                     DesktopPluginsConfiguration.AddLifecycle();
                     DesktopPluginsConfiguration.AddLogExecutionLifecycle();
                     DesktopPluginsConfiguration.AddVanillaWebDriverScreenshotsOnFail();

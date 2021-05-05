@@ -17,6 +17,9 @@
       - Refactor Page Objects to have unified access to App instead of using services directly
       - Refactor App services' properties to have shorter names
       - Refactor Page Objects naming convention
+      - Add by default Azure, QTest dynamic test cases plugins
+      - Add by default Azure, Jira bug plugins
+      - Add by default Allure and Report Portal plugins
       - Fixes in WebDriverManager initialziation of browsers
       - Add new cognitive service support for validation text in PDFs and Images
       - Fix known bugs in video recording and screenshots on failure

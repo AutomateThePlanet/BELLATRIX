@@ -14,6 +14,7 @@
 		<PackageReference Include="Unity" Version="5.11.10" />
 		<PackageReference Include="RestSharp" Version="106.11.7" />
 		<PackageReference Include="AutoFixture" Version="4.17.0" />
+    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -22,6 +23,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="allureConfig.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="testFrameworkSettings.$(Configuration).json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

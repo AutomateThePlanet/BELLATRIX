@@ -34,6 +34,9 @@ namespace Bellatrix.Web.NUnit
                     ExecutionTimePlugin.Add();
                     VideoRecorderPluginConfiguration.AddNUnit();
                     ScreenshotsPluginConfiguration.AddNUnit();
+                    DynamicTestCasesPlugin.Add();
+                    AllurePlugin.Add();
+
                     WebPluginsConfiguration.AddBrowserLifecycle();
                     WebPluginsConfiguration.AddLogExecutionLifecycle();
                     WebPluginsConfiguration.AddControlDataHandlers();

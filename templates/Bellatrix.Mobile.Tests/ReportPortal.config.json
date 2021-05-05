@@ -1,0 +1,17 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/reportportal/agent-net-vstest/master/ReportPortal.VSTest.TestLogger/ReportPortal.config.schema",
+  "enabled": true,
+  "server": {
+    "url": "http://127.0.0.1:8080/api/v1/",
+    "project": "superadmin_personal",
+    "authentication": {
+      "uuid": "71e1f40f-6e92-4df3-b64d-9a552b9e5b2e"
+    }
+  },
+  "launch": {
+    "name": "BELLATRIX Mobile Tests",
+    "description": "Running BELLATRIX Mobile Tests.",
+    "debugMode": false,
+    "tags": [ "BELLATRIX", "Test Reporting", "NUnit" ]
+  }
+}

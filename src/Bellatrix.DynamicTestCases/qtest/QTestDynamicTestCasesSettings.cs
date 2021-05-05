@@ -18,8 +18,9 @@ using QASymphony.QTest;
 
 namespace Bellatrix.DynamicTestCases.QTest
 {
-    public class QTestDynamicTestCasesSettings : DynamicTestCasesSettings
+    public class QTestDynamicTestCasesSettings
     {
+        public bool IsEnabled { get; set; }
         public string ServiceAddress { get; set; }
         public string Token { get; set; }
         public string UserName { get; set; }

@@ -1,4 +1,4 @@
-﻿// <copyright file="DynamicTestCasesSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="AllureReportingSettings.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.DynamicTestCases
+namespace Bellatrix.Results.Allure
 {
-    public class DynamicTestCasesSettings
+    public class AllureReportingSettings
     {
         public bool IsEnabled { get; set; }
     }

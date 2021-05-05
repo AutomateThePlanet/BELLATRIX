@@ -25,11 +25,14 @@ namespace Bellatrix
     {
         public static void Add()
         {
-            ServicesCollection.Current.RegisterType<Plugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
-            ServicesCollection.Current.RegisterType<IScreenshotPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
-            ServicesCollection.Current.RegisterType<IVideoPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
+            if (ConfigurationService.GetSection<AllureReportingSettings>().IsEnabled)
+            {
+                ServicesCollection.Current.RegisterType<Plugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
+                ServicesCollection.Current.RegisterType<IScreenshotPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
+                ServicesCollection.Current.RegisterType<IVideoPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
 
-            Environment.SetEnvironmentVariable("ALLURE_CONFIG", Path.Combine(GetAssemblyDirectory(), "allureConfig.json"));
+                Environment.SetEnvironmentVariable("ALLURE_CONFIG", Path.Combine(GetAssemblyDirectory(), "allureConfig.json"));
+            }
         }
 
         private static string GetAssemblyDirectory()

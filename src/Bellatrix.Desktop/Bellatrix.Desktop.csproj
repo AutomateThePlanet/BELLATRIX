@@ -15,6 +15,7 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
     <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
     <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
     <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />

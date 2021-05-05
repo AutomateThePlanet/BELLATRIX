@@ -3,6 +3,8 @@
 
   <ItemGroup>
     <PackageReference Include="Bellatrix.API.DemoApps" Version="1.3.0" />
+    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.0.2" />
+    
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />

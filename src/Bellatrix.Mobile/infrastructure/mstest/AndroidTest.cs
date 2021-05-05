@@ -33,6 +33,8 @@ namespace Bellatrix.Mobile.MSTest
                     ExecutionTimePlugin.Add();
                     VideoRecorderPluginConfiguration.AddMSTest();
                     ScreenshotsPluginConfiguration.AddMSTest();
+                    DynamicTestCasesPlugin.Add();
+                    AllurePlugin.Add();
                     AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();
                     AndroidPluginsConfiguration.AddElementsBddLogging();
                     AndroidPluginsConfiguration.AddDynamicTestCases();

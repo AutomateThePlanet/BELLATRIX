@@ -35,12 +35,38 @@
     "isEnabled": "true",
     "filePath": "ApplicationData\\Troubleshooting\\Screenshots"
   },
-  "loggingSettings": {
-    "isEnabled": "true",
-    "isConsoleLoggingEnabled": "true",
-    "isDebugLoggingEnabled": "true",
-    "isEventLoggingEnabled": "false",
-    "isFileLoggingEnabled": "true",
-    "outputTemplate": "[{Timestamp:HH:mm:ss}] {Message:lj}{NewLine}"
+  "azureDevOpsDynamicTestCasesSettings": {
+    "isEnabled": "false",
+    "url": "https://dev.azure.com/yourCompany",
+    "token": "64qzkpw2134hlgxz5ly6iww3hef7njgieq1312izcpvox572vyca",
+    "organizationName": "organizationName",
+    "projectName": "projectName"
+  },
+  "qTestDynamicTestCasesSettings": {
+    "isEnabled": "false",
+    "serviceAddress": "https://yourProject.qtestnet.com/",
+    "token": "yourAuthenticationToken",
+    "userName": "yourUserName",
+    "password": "yourPass",
+    "projectId": "559370"
+  },
+  "azureDevOpsBugReportingSettings": {
+    "isEnabled": "false",
+    "url": "https://dev.azure.com/yourCompany",
+    "token": "64qzkpwb2vhlgxz5ly6iww3hef7njgieqfls4zizcpvox572vyca",
+    "organizationName": "organizationName",
+    "projectName": "projectName",
+    "defaultPriority": "2",
+    "defaultSeverity": "2 - High"
+  },
+  "jiraReportingSettings": {
+    "isEnabled": "false",
+    "url": "yourServerUrl",
+    "token": "authenticationToken",
+    "projectName": "projectName",
+    "defaultPriority": "Medium"
+  },
+  "allureReportingSettings": {
+    "isEnabled": "false"
   }
 }

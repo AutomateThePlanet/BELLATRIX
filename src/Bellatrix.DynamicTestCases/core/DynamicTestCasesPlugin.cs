@@ -17,10 +17,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Bellatrix.DynamicTestCases.AzureDevOps;
 using Bellatrix.DynamicTestCases.Contracts;
+using Bellatrix.DynamicTestCases.QTest;
 using Bellatrix.Plugins;
 
-namespace Bellatrix.DynamicTestCases
+namespace Bellatrix.DynamicTestCases.Core
 {
     public class DynamicTestCasesPlugin : Plugin
     {
@@ -35,7 +37,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled || e.TestMethodMemberInfo == null)
+            if (!AreDynamicTestCasesEnabled() || e.TestMethodMemberInfo == null)
             {
                 return;
             }
@@ -47,7 +49,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestInit(object sender, PluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled)
+            if (!AreDynamicTestCasesEnabled())
             {
                 return;
             }
@@ -58,7 +60,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled)
+            if (!AreDynamicTestCasesEnabled())
             {
                 return;
             }
@@ -117,6 +119,12 @@ namespace Bellatrix.DynamicTestCases
             var noUnderScoreName = Regex.Replace(name, "_", string.Empty);
             var properName = Regex.Replace(noUnderScoreName, "([a-z])([A-Z])", "$1 $2");
             return properName;
+        }
+
+        private bool AreDynamicTestCasesEnabled()
+        {
+            return ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().IsEnabled ||
+                ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().IsEnabled;
         }
     }
 }

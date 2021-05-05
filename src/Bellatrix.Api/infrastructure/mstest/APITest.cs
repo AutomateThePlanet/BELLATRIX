@@ -31,6 +31,8 @@ namespace Bellatrix.API.MSTest
                 {
                     MSTestPluginConfiguration.Add();
                     ExecutionTimePlugin.Add();
+                    DynamicTestCasesPlugin.Add();
+                    AllurePlugin.Add();
                     APIPluginsConfiguration.AddAssertExtensionsBddLogging();
                     APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
                     APIPluginsConfiguration.AddAssertExtensionsBugReporting();

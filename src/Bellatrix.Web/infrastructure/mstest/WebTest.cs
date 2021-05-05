@@ -39,6 +39,8 @@ namespace Bellatrix.Web.MSTest
                     ExecutionTimePlugin.Add();
                     VideoRecorderPluginConfiguration.AddMSTest();
                     ScreenshotsPluginConfiguration.AddMSTest();
+                    DynamicTestCasesPlugin.Add();
+                    AllurePlugin.Add();
                     WebPluginsConfiguration.AddBrowserLifecycle();
                     WebPluginsConfiguration.AddLogExecutionLifecycle();
                     WebPluginsConfiguration.AddControlDataHandlers();
