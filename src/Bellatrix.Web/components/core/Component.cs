@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
-using Bellatrix.Web.Configuration;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 using Bellatrix.Web.Untils;
@@ -295,8 +294,6 @@ namespace Bellatrix.Web
                     BrowserService.WaitForAngular();
                 }
 
-                AddArtificialDelay();
-
                 _untils.Clear();
             }
             catch (WebDriverTimeoutException)
@@ -305,14 +302,6 @@ namespace Bellatrix.Web
             }
 
             return _wrappedElement;
-        }
-
-        private void AddArtificialDelay()
-        {
-            if (WrappedWebDriverCreateService.BrowserSettings.ArtificialDelayBeforeAction != 0)
-            {
-                Thread.Sleep(WrappedWebDriverCreateService.BrowserSettings.ArtificialDelayBeforeAction);
-            }
         }
 
         private void ScrollToMakeElementVisible()

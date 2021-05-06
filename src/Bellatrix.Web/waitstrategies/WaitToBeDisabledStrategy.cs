@@ -12,7 +12,6 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using Bellatrix.Web.Configuration;
 using OpenQA.Selenium;
 
 namespace Bellatrix.Web.Untils

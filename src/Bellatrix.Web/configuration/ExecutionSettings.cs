@@ -11,12 +11,16 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using System.Collections.Generic;
+
 namespace Bellatrix.Web
 {
-    public class BrowserSettings
+    public class ExecutionSettings
     {
-        public int PageLoadTimeout { get; set; } = 30000;
-        public int ScriptTimeout { get; set; } = 1000;
-        public int ArtificialDelayBeforeAction { get; set; }
+        public string ExecutionType { get; set; }
+        public string DefaultBrowser { get; set; }
+        public string DefaultLifeCycle { get; set; }
+        public string Url { get; set; }
+        public List<Dictionary<string, string>> Arguments { get; set; }
     }
 }

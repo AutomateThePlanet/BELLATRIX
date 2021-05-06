@@ -118,8 +118,7 @@ namespace Bellatrix.Web
             driverOptions.AddAdditionalCapability("recordVideo", RecordVideo);
             driverOptions.AddAdditionalCapability("recordScreenshots", RecordScreenshots);
 
-            var sauceLabsCredentialsResolver = new SauceLabsCredentialsResolver();
-            var credentials = sauceLabsCredentialsResolver.GetCredentials();
+            var credentials = CloudProviderCredentialsResolver.GetCredentials();
             driverOptions.AddAdditionalCapability("username", credentials.Item1);
             driverOptions.AddAdditionalCapability("accessKey", credentials.Item2);
             driverOptions.AddAdditionalCapability("name", testClassType.FullName);

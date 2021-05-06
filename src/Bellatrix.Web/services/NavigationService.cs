@@ -67,7 +67,7 @@ namespace Bellatrix.Web
         {
             try
             {
-                var wait = new WebDriverWait(WrappedDriver, TimeSpan.FromSeconds(10));
+                var wait = new WebDriverWait(WrappedDriver, TimeSpan.FromSeconds(ConfigurationService.GetSection<TimeoutSettings>().WaitForPartialUrl));
                 wait.Until((d) => WrappedDriver.Url.Contains(partialUrl));
             }
             catch (Exception ex)

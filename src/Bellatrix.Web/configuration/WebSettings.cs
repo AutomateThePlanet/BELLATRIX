@@ -21,17 +21,9 @@ namespace Bellatrix.Web
         public bool ShouldWaitForAngular { get; set; }
         public bool ShouldHighlightElements { get; set; }
         public bool FullPageScreenshotsEnabled { get; set; }
-        public BrowserSettings Chrome { get; set; }
-        public BrowserSettings ChromeHeadless { get; set; }
-        public BrowserSettings Firefox { get; set; }
-        public BrowserSettings FirefoxHeadless { get; set; }
-        public BrowserSettings Edge { get; set; }
-        public BrowserSettings Opera { get; set; }
-        public BrowserSettings InternetExplorer { get; set; }
-        public BrowserSettings Safari { get; set; }
-        public RemoteSettings Remote { get; set; }
-        public CloudRemoteSettings SauceLabs { get; set; }
-        public CloudRemoteSettings BrowserStack { get; set; }
-        public CloudRemoteSettings CrossBrowserTesting { get; set; }
+        public bool ShouldCaptureHttpTraffic { get; set; }
+        public bool IsParallelExecutionEnabled { get; set; }
+        public TimeoutSettings TimeoutSettings { get; set; }
+        public ExecutionSettings ExecutionSettings { get; set; }
     }
 }
