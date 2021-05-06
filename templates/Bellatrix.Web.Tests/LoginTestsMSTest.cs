@@ -1,22 +1,19 @@
 ﻿using System;
-////using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Web.Tests
 {
-    // uncomment to use MSTest
-    ////[TestClass]
-    [TestFixture]
+    [TestClass]
     ////[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    public class LoginTests : NUnit.WebTest
+    public class LoginTestsMSTest : MSTest.WebTest
     {
         public override void TestInit() => App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
 
-        [TestCase(BrowserType.Chrome, 86)]
-        [TestCase(BrowserType.Chrome, 87)]
-        [TestCase(BrowserType.Firefox, 82)]
-        [TestCase(BrowserType.Firefox, 83)]
-        ////[Test]
+        [DataRow(BrowserType.Chrome, 86)]
+        [DataRow(BrowserType.Chrome, 87)]
+        [DataRow(BrowserType.Firefox, 82)]
+        [DataRow(BrowserType.Firefox, 83)]
+        [DataTestMethod]
         public void SuccessfullyLoginToMyAccount(BrowserType browserType, int browserVersion)
         {
             TextField userNameField = App.Components.CreateById<TextField>("username");
@@ -36,9 +33,12 @@ namespace Bellatrix.Web.Tests
             logoutLink.Click();
         }
 
-        ////[TestMethod]
-        [Test]
-        public void SuccessfullyLoginToMyAccount1()
+        [DataRow(BrowserType.Chrome, 86)]
+        [DataRow(BrowserType.Chrome, 87)]
+        [DataRow(BrowserType.Firefox, 82)]
+        [DataRow(BrowserType.Firefox, 83)]
+        [DataTestMethod]
+        public void SuccessfullyLoginToMyAccount1(BrowserType browserType, int browserVersion)
         {
             TextField userNameField = App.Components.CreateById<TextField>("username");
             Password passwordField = App.Components.CreateById<Password>("password");

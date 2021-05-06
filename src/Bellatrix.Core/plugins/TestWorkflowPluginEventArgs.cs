@@ -27,6 +27,7 @@ namespace Bellatrix.Plugins
             string testName,
             MemberInfo testMethodMemberInfo,
             Type testClassType,
+            List<object> arguments,
             string consoleOutputMessage,
             string consoleOutputStackTrace,
             Exception exception,
@@ -35,6 +36,7 @@ namespace Bellatrix.Plugins
             List<string> descriptions)
             : this(testOutcome,
                 testClassType,
+                arguments,
                 consoleOutputMessage,
                 consoleOutputStackTrace)
         {
@@ -50,11 +52,13 @@ namespace Bellatrix.Plugins
         public PluginEventArgs(
             TestOutcome testOutcome,
             Type testClassType,
+            List<object> arguments,
             string consoleOutputMessage = null,
             string consoleOutputStackTrace = null)
         {
             TestOutcome = testOutcome;
             TestClassType = testClassType;
+            Arguments = arguments;
             TestClassName = testClassType.FullName;
             ConsoleOutputMessage = consoleOutputMessage;
             ConsoleOutputStackTrace = consoleOutputStackTrace;
@@ -68,6 +72,7 @@ namespace Bellatrix.Plugins
         public MemberInfo TestMethodMemberInfo { get; }
 
         public Type TestClassType { get; }
+        public List<object> Arguments { get; }
 
         public TestOutcome TestOutcome { get; }
 

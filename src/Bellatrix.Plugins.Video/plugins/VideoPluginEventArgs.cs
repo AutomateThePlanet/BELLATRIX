@@ -26,6 +26,7 @@ namespace Bellatrix.Plugins.Video.Plugins
                 pluginEventArgs.TestName,
                 pluginEventArgs.TestMethodMemberInfo,
                 pluginEventArgs.TestClassType,
+                pluginEventArgs.Arguments,
                 pluginEventArgs.ConsoleOutputMessage,
                 pluginEventArgs.ConsoleOutputStackTrace,
                 pluginEventArgs.Exception,

@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Plugins.Browser
             if (e.TestClassType.GetCustomAttributes().Any(x => x.GetType().Equals(typeof(BrowserAttribute)) || x.GetType().IsSubclassOf(typeof(BrowserAttribute))))
             {
                 // Resolve required data for decision making
-                var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+                var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container, e.Arguments);
 
                 if (currentBrowserConfiguration != null)
                 {
@@ -67,7 +67,7 @@ namespace Bellatrix.Web.Plugins.Browser
             if (!isBrowserStartedDuringPreTestsArrange)
             {
                 // Resolve required data for decision making
-                var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+                var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container, e.Arguments);
                 if (currentBrowserConfiguration != null)
                 {
                     ResolvePreviousBrowserType(e.Container);
@@ -88,7 +88,7 @@ namespace Bellatrix.Web.Plugins.Browser
 
         protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
-            var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+            var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container, e.Arguments);
             if (currentBrowserConfiguration != null)
             {
                 if (currentBrowserConfiguration.ShouldCaptureHttpTraffic)
@@ -164,7 +164,7 @@ namespace Bellatrix.Web.Plugins.Browser
             container.RegisterInstance(browserConfiguration, "_previousBrowserConfiguration");
         }
 
-        private BrowserConfiguration GetCurrentBrowserConfiguration(MemberInfo memberInfo, Type testClassType, ServicesCollection container)
+        private BrowserConfiguration GetCurrentBrowserConfiguration(MemberInfo memberInfo, Type testClassType, ServicesCollection container, List<object> arguments)
         {
             var browserAttribute = GetBrowserAttribute(memberInfo, testClassType);
             string fullClassName = testClassType.FullName;
@@ -190,6 +190,15 @@ namespace Bellatrix.Web.Plugins.Browser
             else
             {
                 BrowserType currentBrowserType = Parse<BrowserType>(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.DefaultBrowser);
+
+                if (arguments != null & arguments.Any())
+                {
+                    if (arguments[0] is BrowserType)
+                    {
+                        currentBrowserType = (BrowserType)arguments[0];
+                    }
+                }
+
                 Lifecycle currentLifecycle = Parse<Lifecycle>(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.DefaultLifeCycle);
 
                 Size currentBrowserSize = default;
@@ -206,6 +215,14 @@ namespace Bellatrix.Web.Plugins.Browser
                 if (!string.IsNullOrEmpty(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.BrowserVersion))
                 {
                     options.BrowserVersion = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.BrowserVersion;
+                }
+
+                if (arguments != null & arguments.Count >= 2)
+                {
+                    if (arguments[1] is int)
+                    {
+                        options.BrowserVersion = arguments[1].ToString();
+                    }
                 }
 
                 InitializeGridOptionsFromConfiguration(options, testClassType);

@@ -80,14 +80,14 @@ namespace Bellatrix.Benchmark
             var descriptions = _descriptions;
             try
             {
-                _currentTestExecutionProvider.PreTestInit(testName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.PreTestInit(testName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
                 TestInit();
-                _currentTestExecutionProvider.PostTestInit(testName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.PostTestInit(testName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                _currentTestExecutionProvider.TestInitFailed(ex, testName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.TestInitFailed(ex, testName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
                 throw;
             }
         }
@@ -104,13 +104,13 @@ namespace Bellatrix.Benchmark
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
             try
             {
-                _currentTestExecutionProvider.PreTestCleanup(TestOutcome.Passed, testName, testMethodMemberInfo, testClassType, _categories, _authors, _descriptions, consoleOutput, stackTrace, ThrownException?.Value);
+                _currentTestExecutionProvider.PreTestCleanup(TestOutcome.Passed, testName, testMethodMemberInfo, testClassType, new List<object>(), _categories, _authors, _descriptions, consoleOutput, stackTrace, ThrownException?.Value);
                 TestCleanup();
-                _currentTestExecutionProvider.PostTestCleanup(TestOutcome.Passed, testName, testMethodMemberInfo, testClassType, _categories, _authors, _descriptions, consoleOutput, stackTrace, ThrownException?.Value);
+                _currentTestExecutionProvider.PostTestCleanup(TestOutcome.Passed, testName, testMethodMemberInfo, testClassType, new List<object>(), _categories, _authors, _descriptions, consoleOutput, stackTrace, ThrownException?.Value);
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.TestCleanupFailed(ex, testName, testMethodMemberInfo, testClassType, _categories, _authors, _descriptions);
+                _currentTestExecutionProvider.TestCleanupFailed(ex, testName, testMethodMemberInfo, testClassType, new List<object>(), _categories, _authors, _descriptions);
                 throw;
             }
         }
@@ -125,12 +125,12 @@ namespace Bellatrix.Benchmark
                 _currentTestExecutionProvider = new PluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                 MethodInfo testMethodMemberInfo = null;
-                _currentTestExecutionProvider.PreTestsArrange(testClassType);
+                _currentTestExecutionProvider.PreTestsArrange(testClassType, new List<object>());
                 TestsArrange();
                 _currentTestExecutionProvider.PostTestsArrange(testClassType);
-                _currentTestExecutionProvider.PreTestsAct(testClassType);
+                _currentTestExecutionProvider.PreTestsAct(testClassType, new List<object>());
                 TestsAct();
-                _currentTestExecutionProvider.PostTestsAct(testClassType);
+                _currentTestExecutionProvider.PostTestsAct(testClassType, new List<object>());
             }
             catch (Exception ex)
             {
