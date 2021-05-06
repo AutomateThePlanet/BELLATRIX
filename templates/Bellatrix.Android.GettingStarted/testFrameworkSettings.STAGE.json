@@ -1,4 +1,7 @@
 ﻿{
+  "troubleshootingSettings": {
+    "debugInformationEnabled": "false"
+  },
   // All Timeout Times are in seconds!
   "mobileSettings": {
     "sleepInterval": "1",

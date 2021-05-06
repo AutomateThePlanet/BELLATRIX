@@ -1,4 +1,7 @@
 ﻿{
+  "troubleshootingSettings": {
+    "debugInformationEnabled": "false"
+  },
   "apiSettings": {
     "baseUrl": "http://127.0.0.1:55215",
     "clientTimeoutSeconds": "30",

@@ -53,7 +53,7 @@ namespace Bellatrix.Mobile
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                e.PrintStackTrace();
                 IsAppStartedCorrectly = false;
                 throw;
             }

@@ -109,7 +109,7 @@ namespace Bellatrix.Desktop.Services
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                e.PrintStackTrace();
             }
         }
     }

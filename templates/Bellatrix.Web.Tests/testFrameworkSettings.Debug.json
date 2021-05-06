@@ -1,7 +1,7 @@
 ﻿{
   // All Timeout Times are in seconds!
   "troubleshootingSettings": {
-    "debugInformationEnabled": "true"
+    "debugInformationEnabled": "false"
   },
   "webSettings": {
     "isParallelExecutionEnabled": "false",

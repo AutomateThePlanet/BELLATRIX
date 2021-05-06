@@ -130,9 +130,10 @@ namespace Bellatrix.Web
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 // Failed to apply fix of command execution delay.
+                e.PrintStackTrace();
             }
         }
 

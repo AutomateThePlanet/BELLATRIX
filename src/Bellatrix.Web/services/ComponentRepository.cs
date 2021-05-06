@@ -108,7 +108,7 @@ namespace Bellatrix.Web
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                e.PrintStackTrace();
             }
         }
     }

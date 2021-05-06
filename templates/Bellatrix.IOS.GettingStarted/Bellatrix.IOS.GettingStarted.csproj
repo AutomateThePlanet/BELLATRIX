@@ -28,4 +28,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties testframeworksettings_1stage_1json__JsonSchema="https://json-schema.org/draft/2019-09/schema" /></VisualStudio></ProjectExtensions>
 </Project>

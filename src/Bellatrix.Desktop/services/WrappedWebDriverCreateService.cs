@@ -81,6 +81,7 @@ namespace Bellatrix.Desktop.Services
             }
             catch (Exception e)
             {
+                e.PrintStackTrace();
                 throw;
             }
         }

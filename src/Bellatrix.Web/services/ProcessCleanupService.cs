@@ -102,7 +102,7 @@ namespace Bellatrix.Utilities
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine(e);
+                    e.PrintStackTrace();
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace Bellatrix.Utilities
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine(e);
+                    e.PrintStackTrace();
                 }
             }
         }
