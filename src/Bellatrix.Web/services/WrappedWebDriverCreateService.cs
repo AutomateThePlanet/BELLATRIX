@@ -77,76 +77,16 @@ namespace Bellatrix.Web
 
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), executionConfiguration.DriverOptions);
-                    ChangeWindowSize(executionConfiguration.BrowserType, executionConfiguration.Size, wrappedWebDriver);
                     break;
-            }
-
-            // TEST IF THIS IS STILL NEEDED?
-            if (executionConfiguration.BrowserType != BrowserType.Edge)
-            {
-                FixDriverCommandExecutionDelay((RemoteWebDriver)wrappedWebDriver);
             }
 
             var gridPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.PageLoadTimeout;
             wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(gridPageLoadTimeout);
             var gridScriptTimeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ScriptTimeout;
             wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(gridScriptTimeout);
-            ChangeWindowSize(executionConfiguration.BrowserType, executionConfiguration.Size, wrappedWebDriver);
+            ChangeWindowSize(executionConfiguration.Size, wrappedWebDriver);
 
             return wrappedWebDriver;
-        }
-
-        private static void FixDriverCommandExecutionDelay(RemoteWebDriver driver)
-        {
-            try
-            {
-                PropertyInfo commandExecutorProperty = GetPropertyWithThrowOnError(typeof(RemoteWebDriver), "CommandExecutor", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetProperty);
-                ICommandExecutor commandExecutor = (ICommandExecutor)commandExecutorProperty.GetValue(driver);
-
-                FieldInfo GetRemoteServerUriField(ICommandExecutor executor)
-                {
-                    return executor.GetType().GetField("remoteServerUri", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.SetField);
-                }
-
-                FieldInfo remoteServerUriField = GetRemoteServerUriField(commandExecutor);
-
-                if (remoteServerUriField == null)
-                {
-                    FieldInfo internalExecutorField = commandExecutor.GetType().GetField("internalExecutor", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField);
-                    commandExecutor = (ICommandExecutor)internalExecutorField.GetValue(commandExecutor);
-                    remoteServerUriField = GetRemoteServerUriField(commandExecutor);
-                }
-
-                if (remoteServerUriField != null)
-                {
-                    string remoteServerUri = remoteServerUriField.GetValue(commandExecutor).ToString();
-
-                    string localhostUriPrefix = "http://localhost";
-
-                    if (remoteServerUri.StartsWith(localhostUriPrefix, StringComparison.Ordinal))
-                    {
-                        remoteServerUri = remoteServerUri.Replace(localhostUriPrefix, "http://127.0.0.1");
-
-                        remoteServerUriField.SetValue(commandExecutor, new Uri(remoteServerUri));
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                // Failed to apply fix of command execution delay.
-            }
-        }
-
-        internal static PropertyInfo GetPropertyWithThrowOnError(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default)
-        {
-            PropertyInfo property = bindingFlags == BindingFlags.Default ? type.GetProperty(name) : type.GetProperty(name, bindingFlags);
-
-            if (property == null)
-            {
-                throw new MissingMemberException(type.FullName, name);
-            }
-
-            return property;
         }
 
         private static IWebDriver InitializeDriverRegularMode(BrowserConfiguration executionConfiguration, OpenQA.Selenium.Proxy webDriverProxy)
@@ -160,7 +100,7 @@ namespace Bellatrix.Web
                     chromeDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeDriverService.EnableVerboseLogging = false;
                     chromeDriverService.Port = GetFreeTcpPort();
-                    var chromeOptions = GetChromeOptions(executionConfiguration.ClassFullName);
+                    var chromeOptions = executionConfiguration.DriverOptions;
                     chromeOptions.AddArguments("--log-level=3");
 
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
@@ -175,7 +115,7 @@ namespace Bellatrix.Web
                     var chromeHeadlessDriverService = ChromeDriverService.CreateDefaultService();
                     chromeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeHeadlessDriverService.Port = GetFreeTcpPort();
-                    var chromeHeadlessOptions = GetChromeOptions(executionConfiguration.ClassFullName);
+                    var chromeHeadlessOptions = executionConfiguration.DriverOptions;
                     chromeHeadlessOptions.AddArguments("--headless");
                     chromeHeadlessOptions.AddArguments("--log-level=3");
 
@@ -189,7 +129,7 @@ namespace Bellatrix.Web
                 case BrowserType.Firefox:
                     new DriverManager().SetUpDriver(new FirefoxConfig());
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                    var firefoxOptions = GetFirefoxOptions(executionConfiguration.ClassFullName);
+                    var firefoxOptions = executionConfiguration.DriverOptions;
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         firefoxOptions.Proxy = webDriverProxy;
@@ -224,7 +164,7 @@ namespace Bellatrix.Web
                     break;
                 case BrowserType.FirefoxHeadless:
                     new DriverManager().SetUpDriver(new FirefoxConfig());
-                    var firefoxHeadlessOptions = GetFirefoxOptions(executionConfiguration.ClassFullName);
+                    var firefoxHeadlessOptions = executionConfiguration.DriverOptions;
                     firefoxHeadlessOptions.AddArguments("--headless");
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
@@ -254,7 +194,7 @@ namespace Bellatrix.Web
                     new DriverManager().SetUpDriver(new EdgeConfig());
                     var edgeDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
                     edgeDriverService.SuppressInitialDiagnosticInformation = true;
-                    var edgeOptions = GetEdgeOptions(executionConfiguration.ClassFullName);
+                    var edgeOptions = executionConfiguration.DriverOptions;
                     edgeOptions.PageLoadStrategy = PageLoadStrategy.Normal;
                     edgeOptions.UseChromium = true;
                     edgeOptions.AddArguments("--log-level=3");
@@ -269,7 +209,7 @@ namespace Bellatrix.Web
                     new DriverManager().SetUpDriver(new EdgeConfig());
                     var edgeHeadlessDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
                     edgeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
-                    var edgeHeadlessOptions = GetEdgeOptions(executionConfiguration.ClassFullName);
+                    var edgeHeadlessOptions = executionConfiguration.DriverOptions;
                     edgeHeadlessOptions.AddArguments("--headless");
                     edgeHeadlessOptions.AddArguments("--log-level=3");
                     edgeHeadlessOptions.PageLoadStrategy = PageLoadStrategy.Normal;
@@ -286,7 +226,7 @@ namespace Bellatrix.Web
 
                     // the driver will be different for different OS.
                     // Check for different releases- https://github.com/operasoftware/operachromiumdriver/releases
-                    var operaOptions = GetOperaOptions(executionConfiguration.ClassFullName);
+                    var operaOptions = executionConfiguration.DriverOptions;
 
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
@@ -316,7 +256,7 @@ namespace Bellatrix.Web
                     // Scroll down until you see the Security options. Enable the checkbox "Allow active content to run in files on My Computer"
                     // Also, check https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration
                     // in case of OpenQA.Selenium.NoSuchWindowException: Unable to get browser --> Uncheck IE Options --> Security Tab -> Uncheck "Enable Protected Mode"
-                    var ieOptions = GetInternetExplorerOptions(executionConfiguration.ClassFullName);
+                    var ieOptions = executionConfiguration.DriverOptions;
                     ieOptions.IntroduceInstabilityByIgnoringProtectedModeSettings = true;
                     ieOptions.IgnoreZoomLevel = true;
                     ieOptions.EnableNativeEvents = false;
@@ -333,7 +273,7 @@ namespace Bellatrix.Web
                     wrappedWebDriver = new InternetExplorerDriver(_driverExecutablePath, ieOptions);
                     break;
                 case BrowserType.Safari:
-                    var safariOptions = GetSafariOptions(executionConfiguration.ClassFullName);
+                    var safariOptions = executionConfiguration.DriverOptions;
 
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
@@ -349,27 +289,15 @@ namespace Bellatrix.Web
             return wrappedWebDriver;
         }
 
-        private static void ChangeWindowSize(BrowserType browserType, Size windowSize, IWebDriver wrappedWebDriver)
+        private static void ChangeWindowSize(Size windowSize, IWebDriver wrappedWebDriver)
         {
-            try
+            if (windowSize != default)
             {
-                // HACK: (Anton: 09.12.2017) Temporary solution until they fix it in the official release.
-                // Maximize in Opera throws invalid exception
-                // System.InvalidOperationException: disconnected: unable to connect to renderer
-                //    (Session info: chrome with embedded Chromium 62.0.3202.89)
-                // (Driver info: OperaDriver = 2.32(cfa164127aab5f93e5e47d9dcf8407380eb42c50), platform = Windows NT 10.0.15063 x86_64)(102).
-                if (windowSize != default)
-                {
-                    wrappedWebDriver.Manage().Window.Size = windowSize;
-                }
-                else if (browserType != BrowserType.Opera)
-                {
-                    wrappedWebDriver.Manage().Window.Maximize();
-                }
+                wrappedWebDriver.Manage().Window.Size = windowSize;
             }
-            catch (Exception e)
+            else
             {
-                throw;
+                wrappedWebDriver.Manage().Window.Maximize();
             }
         }
 
@@ -381,48 +309,6 @@ namespace Bellatrix.Web
             int port = ((IPEndPoint)tcpListener.LocalEndpoint).Port;
             tcpListener.Stop();
             return port;
-        }
-
-        private static SafariOptions GetSafariOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<SafariOptions>(classFullName) ?? new SafariOptions();
-
-            return options;
-        }
-
-        private static InternetExplorerOptions GetInternetExplorerOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<InternetExplorerOptions>(classFullName) ?? new InternetExplorerOptions();
-
-            return options;
-        }
-
-        private static OperaOptions GetOperaOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<OperaOptions>(classFullName) ?? new OperaOptions();
-
-            return options;
-        }
-
-        private static Microsoft.Edge.SeleniumTools.EdgeOptions GetEdgeOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<Microsoft.Edge.SeleniumTools.EdgeOptions>(classFullName) ?? new Microsoft.Edge.SeleniumTools.EdgeOptions();
-
-            return options;
-        }
-
-        private static ChromeOptions GetChromeOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<ChromeOptions>(classFullName) ?? new ChromeOptions();
-
-            return options;
-        }
-
-        private static FirefoxOptions GetFirefoxOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<FirefoxOptions>(classFullName) ?? new FirefoxOptions();
-
-            return options;
         }
     }
 }

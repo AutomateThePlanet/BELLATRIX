@@ -58,9 +58,7 @@ namespace Bellatrix.Web
 
         public string ClassFullName { get; set; }
 
-#pragma warning disable 618
-        public DriverOptions DriverOptions { get; set; }
-#pragma warning restore 618
+        public dynamic DriverOptions { get; set; }
 
         public ExecutionType ExecutionType { get; set; } = ExecutionType.Regular;
 

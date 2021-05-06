@@ -16,12 +16,13 @@ namespace Bellatrix.Web
     public sealed class WebSettings
     {
         public bool AddUrlToBddLogging { get; set; }
-        public bool ShouldScrollToVisibleOnElementFound { get; set; }
+        public bool ShouldAutomaticallyScrollToVisible { get; set; }
         public bool ShouldWaitUntilReadyOnElementFound { get; set; }
         public bool ShouldWaitForAngular { get; set; }
         public bool ShouldHighlightElements { get; set; }
         public bool FullPageScreenshotsEnabled { get; set; }
         public bool ShouldCaptureHttpTraffic { get; set; }
+        public string PathToSslCertificate { get; set; }
         public bool IsParallelExecutionEnabled { get; set; }
         public TimeoutSettings TimeoutSettings { get; set; }
         public ExecutionSettings ExecutionSettings { get; set; }

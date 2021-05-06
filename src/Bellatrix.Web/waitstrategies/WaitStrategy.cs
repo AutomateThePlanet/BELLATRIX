@@ -23,7 +23,7 @@ namespace Bellatrix.Web.Untils
         {
             WrappedWebDriver = ServicesCollection.Current.Resolve<IWebDriver>();
             TimeoutInterval = timeoutInterval;
-            SleepInterval = sleepInterval ?? ConfigurationService.GetSection<TimeoutSettings>().SleepInterval;
+            SleepInterval = sleepInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval;
         }
 
         protected IWebDriver WrappedWebDriver { get; }

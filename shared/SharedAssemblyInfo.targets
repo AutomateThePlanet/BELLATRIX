@@ -14,6 +14,10 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<Copyright>Automate The Planet Ltd. 2021</Copyright>
 		<PackageReleaseNotes>
+      - Add default grid and browser settings without attribute for web
+      - Add additional web timeout settings
+      - Add support for usage of TestCase attribute for running same test under multiple browsers
+      - Simplify web settings
       - Refactor Page Objects to have unified access to App instead of using services directly
       - Refactor App services' properties to have shorter names
       - Refactor Page Objects naming convention

@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Untils
         public WaitNotBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<TimeoutSettings>().ElementNotToBeVisibleTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementNotToBeVisibleTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

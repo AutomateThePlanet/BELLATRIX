@@ -35,7 +35,7 @@ namespace Bellatrix.Web.Proxy
 
         public ProxyService()
         {
-            IsEnabled = ConfigurationService.GetSection<WebProxySettings>().IsEnabled;
+            IsEnabled = ConfigurationService.GetSection<WebSettings>().ShouldCaptureHttpTraffic;
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 IsEnabled = false;

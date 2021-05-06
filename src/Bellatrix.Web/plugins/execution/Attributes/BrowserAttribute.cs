@@ -41,7 +41,7 @@ namespace Bellatrix.Web
             ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
             Size = default;
             ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldCaptureHttpTraffic && ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            ShouldAutomaticallyScrollToVisible = shouldCaptureHttpTraffic && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
         }
 
         public BrowserAttribute(BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
@@ -52,7 +52,7 @@ namespace Bellatrix.Web
             ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
             Size = new Size(width, height);
             ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
         }
 
         public BrowserAttribute(OS oS, BrowserType browser, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
@@ -63,7 +63,7 @@ namespace Bellatrix.Web
             ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
             Size = default;
             ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
         }
 
         public BrowserAttribute(OS oS, BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
@@ -74,7 +74,7 @@ namespace Bellatrix.Web
             ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
             Size = new Size(width, height);
             ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
         }
 
         public BrowserAttribute(BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)

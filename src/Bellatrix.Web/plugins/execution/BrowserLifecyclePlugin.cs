@@ -12,6 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -20,7 +21,12 @@ using Bellatrix.Plugins;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Proxy;
 using Bellatrix.Web.Services;
+using Microsoft.Edge.SeleniumTools;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Opera;
 
 namespace Bellatrix.Web.Plugins.Browser
 {
@@ -140,7 +146,7 @@ namespace Bellatrix.Web.Plugins.Browser
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             previousTestExecutionEngine?.DisposeAll();
 
-            bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
             var browserConfiguration = new BrowserConfiguration(BrowserType.NotSet, false, shouldScrollToVisible);
             container.RegisterInstance(browserConfiguration, "_previousBrowserConfiguration");
             container.UnregisterSingleInstance<TestExecutionEngine>();
@@ -148,7 +154,7 @@ namespace Bellatrix.Web.Plugins.Browser
 
         private void ResolvePreviousBrowserType(ServicesCollection container)
         {
-            bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldScrollToVisibleOnElementFound;
+            bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
             var browserConfiguration = new BrowserConfiguration(BrowserType.NotSet, false, shouldScrollToVisible);
             if (container.IsRegistered<BrowserConfiguration>())
             {
@@ -161,28 +167,149 @@ namespace Bellatrix.Web.Plugins.Browser
         private BrowserConfiguration GetCurrentBrowserConfiguration(MemberInfo memberInfo, Type testClassType, ServicesCollection container)
         {
             var browserAttribute = GetBrowserAttribute(memberInfo, testClassType);
+            string fullClassName = testClassType.FullName;
+
             if (browserAttribute != null)
             {
                 BrowserType currentBrowserType = browserAttribute.Browser;
 
-                Lifecycle currentBrowserBehavior = browserAttribute.Lifecycle;
+                Lifecycle currentLifecycle = browserAttribute.Lifecycle;
                 bool shouldCaptureHttpTraffic = browserAttribute.ShouldCaptureHttpTraffic;
-                Size currentBrowserSize = browserAttribute.Size;
-                string classFullName = testClassType.FullName;
-                ExecutionType executionType = browserAttribute.ExecutionType;
                 bool shouldAutomaticallyScrollToVisible = browserAttribute.ShouldAutomaticallyScrollToVisible;
+                Size currentBrowserSize = browserAttribute.Size;
+                ExecutionType executionType = browserAttribute.ExecutionType;
+
                 var options = (browserAttribute as IDriverOptionsAttribute)?.CreateOptions(memberInfo, testClassType);
-                var browserConfiguration = new BrowserConfiguration(executionType, currentBrowserBehavior, currentBrowserType, currentBrowserSize, classFullName, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible, options);
+                InitializeCustomCodeOptions(options, testClassType);
+
+                var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible, options);
                 container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
 
                 return browserConfiguration;
             }
             else
             {
-                container.RegisterInstance(default(BrowserConfiguration), "_currentBrowserConfiguration");
+                BrowserType currentBrowserType = Parse<BrowserType>(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.DefaultBrowser);
+                Lifecycle currentLifecycle = Parse<Lifecycle>(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.DefaultLifeCycle);
 
-                return null;
+                Size currentBrowserSize = default;
+                if (!string.IsNullOrEmpty(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Resolution))
+                {
+                    currentBrowserSize = WindowsSizeResolver.GetWindowSize(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Resolution);
+                }
+
+                ExecutionType executionType = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.ExecutionType.ToLower() == "regular" ? ExecutionType.Regular : ExecutionType.Grid;
+                bool shouldCaptureHttpTraffic = ConfigurationService.GetSection<WebSettings>().ShouldCaptureHttpTraffic;
+                bool shouldAutomaticallyScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
+                var options = GetDriverOptionsBasedOnBrowser(currentBrowserType, testClassType);
+
+                if (!string.IsNullOrEmpty(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.BrowserVersion))
+                {
+                    options.BrowserVersion = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.BrowserVersion;
+                }
+
+                InitializeGridOptionsFromConfiguration(options, testClassType);
+                InitializeCustomCodeOptions(options, testClassType);
+                var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible, options);
+                container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
+
+                return browserConfiguration;
             }
+        }
+
+        private TEnum Parse<TEnum>(string value)
+         where TEnum : struct
+        {
+            return (TEnum)Enum.Parse(typeof(TEnum), value.Replace(" ", string.Empty), true);
+        }
+
+        private void InitializeCustomCodeOptions(dynamic options, Type testClassType)
+        {
+            var customCodeOptions = ServicesCollection.Current.Resolve<Dictionary<string, string>>($"caps-{testClassType.FullName}");
+            if (customCodeOptions != null && customCodeOptions.Count > 0)
+            {
+                foreach (var item in customCodeOptions)
+                {
+                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    {
+                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType), true);
+                    }
+                }
+            }
+        }
+
+        private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
+        {
+            if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0].Count > 0)
+            {
+                foreach (var item in ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0])
+                {
+                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    {
+                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType), true);
+                    }
+                }
+            }
+        }
+
+        private dynamic FormatGridOptions(string option, Type testClassType)
+        {
+            if (bool.TryParse(option, out bool result))
+            {
+                return result;
+            }
+            else if (int.TryParse(option, out int resultNumber))
+            {
+                return resultNumber;
+            }
+            else if (double.TryParse(option, out double resultRealNumber))
+            {
+                return resultRealNumber;
+            }
+            else
+            {
+                var runName = testClassType.Assembly.GetName().Name;
+                var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
+                return option.Replace("{runName}", timestamp).Replace("{runName}", runName);
+            }
+        }
+
+        private dynamic GetDriverOptionsBasedOnBrowser(BrowserType browserType, Type type)
+        {
+            dynamic driverOptions;
+            switch (browserType)
+            {
+                case BrowserType.Chrome:
+                case BrowserType.ChromeHeadless:
+                    driverOptions = ServicesCollection.Current.Resolve<ChromeOptions>(type.FullName) ?? new ChromeOptions();
+                    break;
+                case BrowserType.Firefox:
+                case BrowserType.FirefoxHeadless:
+                    driverOptions = ServicesCollection.Current.Resolve<FirefoxOptions>(type.FullName) ?? new FirefoxOptions();
+                    var firefoxProfile = ServicesCollection.Current.Resolve<FirefoxProfile>(type.FullName);
+
+                    if (firefoxProfile != null)
+                    {
+                        driverOptions.Profile = firefoxProfile;
+                    }
+
+                    break;
+                case BrowserType.InternetExplorer:
+                    driverOptions = ServicesCollection.Current.Resolve<InternetExplorerOptions>(type.FullName) ?? new InternetExplorerOptions();
+                    break;
+                case BrowserType.Edge:
+                    driverOptions = ServicesCollection.Current.Resolve<EdgeOptions>(type.FullName) ?? new EdgeOptions();
+                    break;
+                case BrowserType.Opera:
+                    driverOptions = ServicesCollection.Current.Resolve<OperaOptions>(type.FullName) ?? new OperaOptions();
+                    break;
+                default:
+                    {
+                        throw new ArgumentException("You should specify a browser.");
+                    }
+            }
+
+            return driverOptions;
         }
 
         private BrowserAttribute GetBrowserAttribute(MemberInfo memberInfo, Type testClassType)

@@ -1,94 +1,58 @@
 ﻿{
   // All Timeout Times are in seconds!
-  "timeoutSettings": {
-    "waitForAjaxTimeout": "30",
-    "sleepInterval": "1",
-    "elementToBeVisibleTimeout": "30",
-    "elementToExistTimeout": "30",
-    "elementToNotExistTimeout": "30",
-    "elementToBeClickableTimeout": "30",
-    "elementNotToBeVisibleTimeout": "30",
-    "elementToHaveContentTimeout": "15"
+  "troubleshootingSettings": {
+    "debugInformationEnabled": "true"
   },
   "webSettings": {
-    "shouldScrollToVisibleOnElementFound": "false",
-    "shouldWaitUntilReadyOnElementFound": "true",
-    "shouldWaitForAngular": "false",
-    "shouldHighlightElements": "false",
-    "fullPageScreenshotsEnabled": "false",
-    "chrome": {
+    "isParallelExecutionEnabled": "false",
+    "artificialDelayBeforeAction": "0",
+    "automaticallyScrollToVisible": "false",
+    "waitUntilReadyOnElementFound": "false",
+    "waitForAngular": "false",
+    "shouldHighlightElements": "true",
+    "shouldCaptureHttpTraffic": "false",
+    "pathToSslCertificate": "path",
+    "timeoutSettings": {
+      "elementWaitTimeout": "30",
       "pageLoadTimeout": "30",
       "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0"
+      "waitForAjaxTimeout": "30",
+      "sleepInterval": "1",
+      "waitUntilReadyTimeout": "30",
+      "waitForJavaScriptAnimationsTimeout": "30",
+      "waitForAngularTimeout": "30",
+      "waitForPartialUrl": "30",
+      "validationsTimeout": "30",
+      "elementToBeVisibleTimeout": "30",
+      "elementToExistTimeout": "30",
+      "elementToNotExistTimeout": "30",
+      "elementToBeClickableTimeout": "30",
+      "elementNotToBeVisibleTimeout": "30",
+      "elementToHaveContentTimeout": "15"
     },
-    "chromeHeadless": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0"
-    },
-    "fireFox": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0"
-    },
-    "firefoxHeadless": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0"
-    },
-    "edge": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0"
-    },
-    "internetExplorer": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0"
-    },
-    "opera": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0"
-    },
-    "safari": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0"
-    },
-    "remote": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0",
-      "gridUri": "http://127.0.0.1:4444/wd/hub"
-    },
-    "sauceLabs": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0",
-      "gridUri": "http://ondemand.saucelabs.com:80/wd/hub",
-      "user": "aangelov",
-      "key": "mySecretKey"
-    },
-    "browserStack": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0",
-      "gridUri": "http://hub-cloud.browserstack.com/wd/hub/",
-      "user": "soioa1",
-      "key": "pnFG3Ky2yLZ5muB1p46P"
-    },
-    "crossBrowserTesting": {
-      "pageLoadTimeout": "30",
-      "scriptTimeout": "1",
-      "artificialDelayBeforeAction": "0",
-      "gridUri": "http://hub.crossbrowsertesting.com:80/wd/hub",
-      "user": "aangelov",
-      "key": "mySecretKey"
+    "executionSettings": {
+      "executionType": "selenoid",
+      "defaultBrowser": "chrome",
+      "defaultLifeCycle": "restart every time",
+      "resolution": "",
+      "browserVersion": "86",
+      "url": "http://127.0.0.1:4444/wd/hub",
+      "arguments": [
+        {
+          "name": "{runName}",
+          "videoName": "{runName}.{timestamp}.mp4",
+          "logName": "{runName}.{timestamp}.log",
+          "enableVNC": "true",
+          "enableVideo": "true",
+          "enableLog": "true",
+          "screenResolution": "1920x1080x24"
+        }
+      ]
     }
   },
-  "webProxySettings": {
-    "isEnabled": "false"
+  "urlSettings": {
+    "shopUrl": "http://demos.bellatrix.solutions/cart/",
+    "accountUrl": "http://demos.bellatrix.solutions/account/"
   },
   "videoRecordingSettings": {
     "isEnabled": "false",
