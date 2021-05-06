@@ -103,10 +103,10 @@ namespace Bellatrix.Web
             return listOfElements;
         }
 
-        public ComponentsList<TComponent> GetCells<TComponent>(Func<TComponent, bool> selector)
+        public List<TComponent> GetCells<TComponent>(Func<TComponent, bool> selector)
             where TComponent : Component, new()
         {
-            return GetCells<TComponent>().Where(selector).ToElementList();
+            return GetCells<TComponent>().Where(selector).ToList();
         }
 
         public TComponent GetFirstOrDefaultCell<TComponent>(Func<TComponent, bool> selector)

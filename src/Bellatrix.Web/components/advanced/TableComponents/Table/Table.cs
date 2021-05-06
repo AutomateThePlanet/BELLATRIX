@@ -23,7 +23,7 @@ namespace Bellatrix.Web
     public class Table : Component
     {
         private HeaderNamesService _headerNamesService;
-        private ComponentsList<TableRow> _rows;
+        private List<TableRow> _rows;
         private TableService _tableService;
 
         public Table()
@@ -64,10 +64,10 @@ namespace Bellatrix.Web
         public override Type ComponentType => GetType();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual ComponentsList<Label> ColumnHeaders => this.CreateAllByTag<Label>("th", true);
+        public virtual List<Label> ColumnHeaders => this.CreateAllByTag<Label>("th", true).ToList();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual ComponentsList<TableHeaderRow> TableHeaderRows => this.CreateAllByXpath<TableHeaderRow>(".//tr[descendant::th]").ToElementList();
+        public virtual List<TableHeaderRow> TableHeaderRows => this.CreateAllByXpath<TableHeaderRow>(".//tr[descendant::th]").ToList();
 
         public IEnumerable<TableRow> GetRows()
         {
@@ -168,7 +168,7 @@ namespace Bellatrix.Web
             return cell;
         }
 
-        public ComponentsList<TableCell> GetCells(Func<TableCell, bool> selector)
+        public List<TableCell> GetCells(Func<TableCell, bool> selector)
         {
             var filteredCells = new List<TableCell>();
             foreach (var tableRow in GetRows())
@@ -177,7 +177,7 @@ namespace Bellatrix.Web
                 filteredCells.AddRange(currentFilteredCells);
             }
 
-            return filteredCells.ToElementList();
+            return filteredCells.ToList();
         }
 
         public TableCell GetFirstOrDefaultCell(Func<TableCell, bool> selector)
@@ -185,9 +185,9 @@ namespace Bellatrix.Web
             return GetCells(selector).FirstOrDefault();
         }
 
-        public ComponentsList<TableRow> GetRows(Func<TableCell, bool> selector)
+        public List<TableRow> GetRows(Func<TableCell, bool> selector)
         {
-            return GetRows().Where(r => r.GetCells(selector).Any()).ToElementList();
+            return GetRows().Where(r => r.GetCells(selector).Any()).ToList();
         }
 
         public TableRow GetFirstOrDefaultRow(Func<TableCell, bool> selector)
@@ -198,7 +198,7 @@ namespace Bellatrix.Web
         public void AssertTable<T>(List<T> expectedEntities)
             where T : new()
         {
-            AssertTable<T, TableRow>(GetRows().ToElementList(), expectedEntities);
+            AssertTable<T, TableRow>(GetRows().ToList(), expectedEntities);
         }
 
         public IList<string> GetHeaderNames()
@@ -209,10 +209,10 @@ namespace Bellatrix.Web
         public IList<T> GetItems<T>()
             where T : new()
         {
-            return GetItems<T, TableRow>(GetRows().ToElementList());
+            return GetItems<T, TableRow>(GetRows().ToList());
         }
 
-        protected void AssertTable<T, TRow>(ComponentsList<TRow> rows, List<T> expectedEntities)
+        protected void AssertTable<T, TRow>(List<TRow> rows, List<T> expectedEntities)
             where T : new()
             where TRow : TableRow
         {
@@ -228,7 +228,7 @@ namespace Bellatrix.Web
             }
         }
 
-        protected IList<T> GetItems<T, TRow>(ComponentsList<TRow> rows)
+        protected IList<T> GetItems<T, TRow>(List<TRow> rows)
             where T : new()
             where TRow : TableRow
         {
@@ -270,7 +270,7 @@ namespace Bellatrix.Web
         {
             if (_rows == null || !_rows.Any())
             {
-                _rows = this.CreateAllByXpath<TableRow>("./tr[descendant::td]|./tbody/tr[descendant::td]", true).ToElementList();
+                _rows = this.CreateAllByXpath<TableRow>("./tr[descendant::td]|./tbody/tr[descendant::td]", true).ToList();
 
                 int rowNumber = 0;
                 foreach (var gridRow in _rows)

@@ -26,9 +26,9 @@ namespace Bellatrix.Web
     {
         private Table _parentTable;
         private HeaderNamesService _headerNamesService;
-        private ComponentsList<TableCell> _tableCells;
+        private List<TableCell> _tableCells;
 
-        protected virtual ComponentsList<TableCell> TableCells => _tableCells ?? this.CreateAllByXpath<TableCell>("./td", true);
+        protected virtual List<TableCell> TableCells => _tableCells ?? this.CreateAllByXpath<TableCell>("./td", true).ToList();
 
         public int Index { get; set; }
 
@@ -87,9 +87,9 @@ namespace Bellatrix.Web
             }
         }
 
-        public ComponentsList<TableCell> GetCells(Func<TableCell, bool> selector)
+        public List<TableCell> GetCells(Func<TableCell, bool> selector)
         {
-            return GetCells().Where(selector).ToElementList();
+            return GetCells().Where(selector).ToList();
         }
 
         public TableCell GetFirstOrDefaultCell(Func<TableCell, bool> selector)

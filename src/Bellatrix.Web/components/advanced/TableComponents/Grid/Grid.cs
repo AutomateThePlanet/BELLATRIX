@@ -135,10 +135,10 @@ namespace Bellatrix.Web
             }
         }
 
-        public virtual ComponentsList<GridRow> GetRows<TComponent>(Func<TComponent, bool> selector)
+        public virtual List<GridRow> GetRows<TComponent>(Func<TComponent, bool> selector)
             where TComponent : Component, new()
         {
-            return GetRows().Where(r => r.GetCells<TComponent>(selector).Any()).ToElementList();
+            return GetRows().Where(r => r.GetCells<TComponent>(selector).Any()).ToList();
         }
 
         public GridRow GetFirstOrDefaultRow<TComponent>(Func<TComponent, bool> selector)
@@ -200,7 +200,7 @@ namespace Bellatrix.Web
             }
         }
 
-        public ComponentsList<TComponent> GetCells<TComponent>(Func<TComponent, bool> selector)
+        public List<TComponent> GetCells<TComponent>(Func<TComponent, bool> selector)
             where TComponent : Component, new()
         {
             var filteredCells = new List<TComponent>();
@@ -210,7 +210,7 @@ namespace Bellatrix.Web
                 filteredCells.AddRange(currentFilteredCells);
             }
 
-            return filteredCells.ToElementList();
+            return filteredCells.ToList();
         }
 
         public TComponent GetFirstOrDefaultCell<TComponent>(Func<TComponent, bool> selector)
