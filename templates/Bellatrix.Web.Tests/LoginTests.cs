@@ -27,6 +27,7 @@ namespace Bellatrix.Web.Tests
             passwordField.SetPassword("@purISQzt%%DYBnLCIhaoG6$");
             loginButton.Click();
 
+            Assert.Fail("Check Video");
             Div myAccountContentDiv = App.Components.CreateByClass<Div>("woocommerce-MyAccount-content");
             myAccountContentDiv.ValidateInnerTextContains("Hello info1");
 

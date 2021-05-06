@@ -1,7 +1,7 @@
 ﻿{
   // All Timeout Times are in seconds!
   "troubleshootingSettings": {
-    "debugInformationEnabled": "false"
+    "debugInformationEnabled": "true"
   },
   "webSettings": {
     "isParallelExecutionEnabled": "false",
@@ -94,7 +94,7 @@
       //    "browserstack.user": "yourUserName",
       //    "browserstack.key": "accessKey"
       //  }
-      ]
+      //]
     }
   },
   "urlSettings": {
@@ -102,7 +102,7 @@
     "accountUrl": "http://demos.bellatrix.solutions/account/"
   },
   "videoRecordingSettings": {
-    "isEnabled": "false",
+    "isEnabled": "true",
     "waitAfterFinishRecordingMilliseconds": "500",
     "filePath": "ApplicationData\\Troubleshooting\\Videos"
   },

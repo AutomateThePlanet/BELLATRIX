@@ -94,7 +94,7 @@
       //    "browserstack.user": "yourUserName",
       //    "browserstack.key": "accessKey"
       //  }
-      ]
+      //]
     }
   },
   "urlSettings": {

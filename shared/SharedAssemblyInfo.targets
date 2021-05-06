@@ -21,6 +21,8 @@
       - Add by default Azure, Jira bug plugins
       - Add by default Allure and Report Portal plugins
       - Add global troubleshooting settings and e.PrintStackTrace() method
+      - Add new utility class for downloading files
+      - Deprecate video recorder NuGet package, download it on demand 
       - Add new cognitive service support for validation text in PDFs and Images
       - Add new WebPage page objects base class, mark the old 4 base classes as Obsolete
       - Simplify web settings

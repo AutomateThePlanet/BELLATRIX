@@ -48,7 +48,7 @@
           "enableLog": "true",
           "screenResolution": "1920x1080x24"
         }
-      ],
+      ]
       // sample saucelabs args
       //"arguments": [
       //  {
@@ -94,7 +94,7 @@
       //    "browserstack.user": "yourUserName",
       //    "browserstack.key": "accessKey"
       //  }
-      ]
+      //]
     }
   },
   "urlSettings": {
@@ -102,7 +102,7 @@
     "accountUrl": "http://demos.bellatrix.solutions/account/"
   },
   "videoRecordingSettings": {
-    "isEnabled": "false",
+    "isEnabled": "true",
     "waitAfterFinishRecordingMilliseconds": "500",
     "filePath": "ApplicationData\\Troubleshooting\\Videos"
   },

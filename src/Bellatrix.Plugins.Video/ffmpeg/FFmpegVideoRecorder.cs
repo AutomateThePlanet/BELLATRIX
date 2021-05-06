@@ -17,6 +17,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Bellatrix.Core.Utilities;
 using Bellatrix.Plugins.Video;
 using Bellatrix.Plugins.Video.Contracts;
 using Bellatrix.Utilities;
@@ -81,8 +82,7 @@ namespace Bellatrix.VideoRecording.FFmpeg
                     er =>
                     {
                         var exception = new Exception(er);
-                        Debug.WriteLine(exception.ToString());
-                        Console.Error.WriteLine(exception);
+                        exception.PrintStackTrace();
                     });
                 _isRunning = true;
             }
@@ -90,21 +90,15 @@ namespace Bellatrix.VideoRecording.FFmpeg
             return videoFilePathWithExtension;
         }
 
-        public void Stop() => Dispose();
-
-        private string GetFFmpegPath()
+        public void Stop()
         {
-            string assemblyFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
-            string recorderFile = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "ffmpeg.exe" : "ffmpeg";
-            string recorderFinalPath = Path.Combine(assemblyFolder ?? throw new InvalidOperationException(), recorderFile);
-            return recorderFinalPath;
+            Dispose();
         }
 
         private ProcessStartInfo GetProcessStartInfoByOS(string videoFilePathWithExtension)
         {
             var startInfo = new ProcessStartInfo
             {
-                FileName = GetFFmpegPath(),
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -114,14 +108,17 @@ namespace Bellatrix.VideoRecording.FFmpeg
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 startInfo.Arguments = $"-f gdigrab -framerate 30 -i desktop {videoFilePathWithExtension}";
+                startInfo.FileName = FileDownloader.DownloadToAppData("https://github.com/AutomateThePlanet/BELLATRIX/releases/download/1.0/ffmpeg_windows.exe");
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 startInfo.Arguments = $"-f avfoundation -framerate 10 -i \"0:0\" {videoFilePathWithExtension}";
+                startInfo.FileName = FileDownloader.DownloadToAppData("https://github.com/AutomateThePlanet/BELLATRIX/releases/download/1.0/ffmpeg_osx");
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 startInfo.Arguments = $"-f x11grab -framerate 30 -i :0.0+100,200 {videoFilePathWithExtension}";
+                startInfo.FileName = FileDownloader.DownloadToAppData("https://github.com/AutomateThePlanet/BELLATRIX/releases/download/1.0/ffmpeg_linux");
             }
             else
             {

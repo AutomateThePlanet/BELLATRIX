@@ -3,7 +3,6 @@
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
   <ItemGroup>
-    <PackageReference Include="Bellatrix.FFmpeg.Recorder" Version="1.3.0" />
     <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.0.2" />
     
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
