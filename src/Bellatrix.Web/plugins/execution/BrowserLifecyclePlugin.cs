@@ -257,6 +257,11 @@ namespace Bellatrix.Web.Plugins.Browser
 
         private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
         {
+            if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments == null)
+            {
+                return;
+            }
+
             if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0].Count > 0)
             {
                 foreach (var item in ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0])
@@ -282,6 +287,14 @@ namespace Bellatrix.Web.Plugins.Browser
             else if (double.TryParse(option, out double resultRealNumber))
             {
                 return resultRealNumber;
+            }
+            else if (option.Equals("cloud.grid.user"))
+            {
+                return CloudProviderCredentialsResolver.GetCredentials().Item1;
+            }
+            else if (option.Equals("cloud.grid.key"))
+            {
+                return CloudProviderCredentialsResolver.GetCredentials().Item2;
             }
             else
             {

@@ -31,12 +31,13 @@
       "elementToHaveContentTimeout": "15"
     },
     "executionSettings": {
-      "executionType": "selenoid",
+      "executionType": "regular",
       "defaultBrowser": "chrome",
       "defaultLifeCycle": "restart every time",
       "resolution": "",
-      "browserVersion": "86",
+      "browserVersion": "",
       "url": "http://127.0.0.1:4444/wd/hub",
+       // sample selenoid args or you can set here custom default browser options for non-grid execution
       "arguments": [
         {
           "name": "{runName}",
@@ -47,6 +48,52 @@
           "enableLog": "true",
           "screenResolution": "1920x1080x24"
         }
+      ],
+      // sample saucelabs args
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "platform": "Windows",
+      //    "version": "86",
+      //    "recordVideo": "true",
+      //    "recordScreenshots": "true",
+      //    "screenResolution": "1920x1080x24",
+      //     // you case set them as environmental variables - cloud.grid.user and cloud.grid.key. Set them as value to the key to which they should be intialized.
+      //    "username": "yourUserName",
+      //    "accessKey": "accessKey"
+      //  }
+      //]
+      // sample cross browser testing args
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "platform": "Windows",
+      //    "browserName": "Chrome",
+      //    "version": "86",
+      //    "record_video": "true",
+      //    "record_network": "true",
+      //    "screen_resolution": "1920x1080x24",
+      //     // you case set them as environmental variables - cloud.grid.user and cloud.grid.key. Set them as value to the key to which they should be intialized.
+      //    "username": "yourUserName",
+      //    "password": "accessKey"
+      //  }
+      //]
+      // sample browserstack args
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "os": "Windows",
+      //    "os_version": "10",
+      //    "browser": "Chrome",
+      //    "browser_version": "86",
+      //    "browserstack.debug": "true",
+      //    "browserstack.video": "true",
+      //    "browserstack.networkLogs": "true",
+      //    "browserstack.console": "true",
+      //    // you case set them as environmental variables - cloud.grid.user and cloud.grid.key. Set them as value to the key to which they should be intialized.
+      //    "browserstack.user": "yourUserName",
+      //    "browserstack.key": "accessKey"
+      //  }
       ]
     }
   },

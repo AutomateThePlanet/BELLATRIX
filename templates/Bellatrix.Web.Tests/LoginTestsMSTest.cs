@@ -9,12 +9,8 @@ namespace Bellatrix.Web.Tests
     {
         public override void TestInit() => App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
 
-        [DataRow(BrowserType.Chrome, 86)]
-        [DataRow(BrowserType.Chrome, 87)]
-        [DataRow(BrowserType.Firefox, 82)]
-        [DataRow(BrowserType.Firefox, 83)]
-        [DataTestMethod]
-        public void SuccessfullyLoginToMyAccount(BrowserType browserType, int browserVersion)
+        [TestMethod]
+        public void SuccessfullyLoginToMyAccount()
         {
             TextField userNameField = App.Components.CreateById<TextField>("username");
             Password passwordField = App.Components.CreateById<Password>("password");
@@ -33,12 +29,8 @@ namespace Bellatrix.Web.Tests
             logoutLink.Click();
         }
 
-        [DataRow(BrowserType.Chrome, 86)]
-        [DataRow(BrowserType.Chrome, 87)]
-        [DataRow(BrowserType.Firefox, 82)]
-        [DataRow(BrowserType.Firefox, 83)]
-        [DataTestMethod]
-        public void SuccessfullyLoginToMyAccount1(BrowserType browserType, int browserVersion)
+        [TestMethod]
+        public void SuccessfullyLoginToMyAccount1()
         {
             TextField userNameField = App.Components.CreateById<TextField>("username");
             Password passwordField = App.Components.CreateById<Password>("password");

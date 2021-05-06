@@ -16,7 +16,7 @@
 		<PackageReleaseNotes>
       - Add default grid and browser settings without attribute for web
       - Add additional web timeout settings
-      - Add support for usage of TestCase attribute for running same test under multiple browsers
+      - Add support for usage of TestCase attribute for running same test under multiple browsers NUnit
       - Simplify web settings
       - Refactor Page Objects to have unified access to App instead of using services directly
       - Refactor App services' properties to have shorter names

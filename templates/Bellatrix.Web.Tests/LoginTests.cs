@@ -37,8 +37,10 @@ namespace Bellatrix.Web.Tests
         }
 
         ////[TestMethod]
-        [Test]
-        public void SuccessfullyLoginToMyAccount1()
+        [TestCase(BrowserType.Chrome)]
+        [TestCase(BrowserType.Edge)]
+        [TestCase(BrowserType.Firefox)]
+        public void SuccessfullyLoginToMyAccount1(BrowserType browserType)
         {
             TextField userNameField = App.Components.CreateById<TextField>("username");
             Password passwordField = App.Components.CreateById<Password>("password");
