@@ -19,12 +19,12 @@ using System.Linq;
 using System.Reflection;
 using Bellatrix;
 using Bellatrix.Assertions;
+using Bellatrix.CognitiveServices;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.PageObjects;
 using Bellatrix.Desktop.Services;
 using Bellatrix.DynamicTestCases;
-using Bellatrix.ImageRecognition.ComputerVision;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 

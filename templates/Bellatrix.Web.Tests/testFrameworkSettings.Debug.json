@@ -37,7 +37,7 @@
       "resolution": "",
       "browserVersion": "",
       "url": "http://127.0.0.1:4444/wd/hub",
-       // sample selenoid args or you can set here custom default browser options for non-grid execution
+      // sample selenoid args or you can set here custom default browser options for non-grid execution
       "arguments": [
         {
           "name": "{runName}",
@@ -48,7 +48,7 @@
           "enableLog": "true",
           "screenResolution": "1920x1080x24"
         }
-      ],
+      ]
       // sample saucelabs args
       //"arguments": [
       //  {
@@ -98,12 +98,11 @@
     }
   },
   "urlSettings": {
-    "baseUrl": "http://demos.bellatrix.solutions/",
     "shopUrl": "http://demos.bellatrix.solutions/cart/",
     "accountUrl": "http://demos.bellatrix.solutions/account/"
   },
   "videoRecordingSettings": {
-    "isEnabled": "true",
+    "isEnabled": "false",
     "waitAfterFinishRecordingMilliseconds": "500",
     "filePath": "ApplicationData\\Troubleshooting\\Videos"
   },
@@ -113,9 +112,7 @@
   },
   "imageRecognitionSettings": {
     "timeoutInSeconds": "5",
-    "defaultSimilarity": "0.7",
-    "computerVisionEndpoint": "",
-    "computerVisionSubscriptionKey": ""
+    "defaultSimilarity": "0.7"
   },
   "processCleanupSettings": {
     "isParallelExecutionEnabled": "false"
@@ -153,5 +150,11 @@
   },
   "allureReportingSettings": {
     "isEnabled": "false"
+  },
+  "cognitiveServicesSettings": {
+    "computerVisionEndpoint": "computerVisionEndpointUrl",
+    "computerVisionSubscriptionKey": "yourkey",
+    "formRecognizerEndpoint": "formRecognizerEndpointUrl",
+    "formRecognizerSubscriptionKey": "yourkey"
   }
 }

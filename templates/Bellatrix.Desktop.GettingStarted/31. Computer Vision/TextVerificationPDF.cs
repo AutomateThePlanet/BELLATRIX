@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bellatrix.ImageRecognition.ComputerVision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Desktop.GettingStarted

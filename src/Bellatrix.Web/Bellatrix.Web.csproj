@@ -29,6 +29,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
+		<ProjectReference Include="..\Bellatrix.CognitiveServices\Bellatrix.CognitiveServices.csproj" />
 		<ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
 		<ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
 		<ProjectReference Include="..\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />

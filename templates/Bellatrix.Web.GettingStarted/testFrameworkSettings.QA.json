@@ -112,9 +112,7 @@
   },
   "imageRecognitionSettings": {
     "timeoutInSeconds": "5",
-    "defaultSimilarity": "0.7",
-    "computerVisionEndpoint": "",
-    "computerVisionSubscriptionKey": ""
+    "defaultSimilarity": "0.7"
   },
   "processCleanupSettings": {
     "isParallelExecutionEnabled": "false"
@@ -152,5 +150,11 @@
   },
   "allureReportingSettings": {
     "isEnabled": "false"
+  },
+  "cognitiveServicesSettings": {
+    "computerVisionEndpoint": "computerVisionEndpointUrl",
+    "computerVisionSubscriptionKey": "yourkey",
+    "formRecognizerEndpoint": "formRecognizerEndpointUrl",
+    "formRecognizerSubscriptionKey": "yourkey"
   }
 }

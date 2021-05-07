@@ -112,9 +112,7 @@
   },
   "imageRecognitionSettings": {
     "timeoutInSeconds": "5",
-    "defaultSimilarity": "0.7",
-    "computerVisionEndpoint": "",
-    "computerVisionSubscriptionKey": ""
+    "defaultSimilarity": "0.7"
   },
   "processCleanupSettings": {
     "isParallelExecutionEnabled": "false"
@@ -217,5 +215,11 @@
     "tableWebPage": "http://fiddle.jshell.net/angelovstanton/8066fzws/4/show/",
     "tableLocalPage": "TestPages\\Table\\table.html",
     "layoutPricingPage": "TestPages\\Layout\\pricing.html"
+  },
+  "cognitiveServicesSettings": {
+    "computerVisionEndpoint": "computerVisionEndpointUrl",
+    "computerVisionSubscriptionKey": "yourkey",
+    "formRecognizerEndpoint": "formRecognizerEndpointUrl",
+    "formRecognizerSubscriptionKey": "yourkey"
   }
 }
