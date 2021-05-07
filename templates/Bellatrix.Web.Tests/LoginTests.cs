@@ -59,5 +59,13 @@ namespace Bellatrix.Web.Tests
             logoutLink.ValidateIsVisible();
             logoutLink.Click();
         }
+
+        [Test]
+        public void TestUrlDeterminer()
+        {
+            string cartUrl = UrlDeterminer.GetUrl<UrlSettings>(u => u.BaseUrl, "cart");
+
+            App.Assert.AreEqual("http://demos.bellatrix.solutions/cart", cartUrl);
+        }
     }
 }

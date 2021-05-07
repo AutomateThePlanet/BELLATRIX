@@ -98,6 +98,7 @@
     }
   },
   "urlSettings": {
+    "baseUrl": "http://demos.bellatrix.solutions/",
     "shopUrl": "http://demos.bellatrix.solutions/cart/",
     "accountUrl": "http://demos.bellatrix.solutions/account/"
   },
