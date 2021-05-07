@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Element Control")]
     [AllureTag("WPF")]
-    public class ElementControlTestsWpf : BellatrixBaseTest
+    public class ElementControlTestsWpf : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

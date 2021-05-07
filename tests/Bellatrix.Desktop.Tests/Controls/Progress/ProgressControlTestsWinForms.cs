@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Progress Control")]
     [AllureTag("WinForms")]
-    public class ProgressControlTestsWinForms : BellatrixBaseTest
+    public class ProgressControlTestsWinForms : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]

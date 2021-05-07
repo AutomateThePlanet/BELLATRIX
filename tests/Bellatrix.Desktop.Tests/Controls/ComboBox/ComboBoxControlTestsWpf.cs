@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("ComboBox Control")]
     [AllureTag("WPF")]
-    public class ComboBoxControlTestsWpf : BellatrixBaseTest
+    public class ComboBoxControlTestsWpf : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]

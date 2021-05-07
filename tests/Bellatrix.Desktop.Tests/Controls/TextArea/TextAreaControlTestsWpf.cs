@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("TextArea Control")]
     [AllureTag("WPF")]
-    public class TextAreaControlTestsWpf : BellatrixBaseTest
+    public class TextAreaControlTestsWpf : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]

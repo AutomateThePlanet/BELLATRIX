@@ -22,12 +22,12 @@ namespace Bellatrix.Desktop
 {
     public static partial class ValidateControlExtensions
     {
-        private static void WaitUntil(Func<bool> waitCondition, string exceptionMessage, int? timeoutInMilliseconds, int? sleepIntervalInMilliseconds)
+        private static void WaitUntil(Func<bool> waitCondition, string exceptionMessage, int? timeoutInSeconds, int? sleepIntervalInSeconds)
         {
-            var localTimeout = timeoutInMilliseconds ?? 5000;
-            var localSleepInterval = sleepIntervalInMilliseconds ?? 500;
+            var localTimeout = timeoutInSeconds ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ValidationsTimeout;
+            var localSleepInterval = sleepIntervalInSeconds ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.SleepInterval;
             var wrappedWebDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
-            var webDriverWait = new WebDriverWait(new SystemClock(), wrappedWebDriver, TimeSpan.FromMilliseconds(localTimeout), TimeSpan.FromMilliseconds(localSleepInterval));
+            var webDriverWait = new WebDriverWait(new SystemClock(), wrappedWebDriver, TimeSpan.FromSeconds(localTimeout), TimeSpan.FromSeconds(localSleepInterval));
             webDriverWait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException));
             bool LocalCondition(IWebDriver s)
             {

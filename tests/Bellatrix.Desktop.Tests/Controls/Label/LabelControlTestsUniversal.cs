@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Label Control")]
     [AllureTag("Universal")]
-    public class LabelControlTestsUniversal : BellatrixBaseTest
+    public class LabelControlTestsUniversal : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]

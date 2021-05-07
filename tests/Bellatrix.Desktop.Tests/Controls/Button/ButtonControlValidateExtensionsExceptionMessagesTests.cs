@@ -21,7 +21,7 @@ namespace Bellatrix.Desktop.Tests
     [AllureSuite("Button Control")]
     [AllureFeature("ValidateExtensionsExceptionMessages")]
     [AllureTag("WPF")]
-    public class ButtonControlValidateExtensionsExceptionMessagesTests : BellatrixBaseTest
+    public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

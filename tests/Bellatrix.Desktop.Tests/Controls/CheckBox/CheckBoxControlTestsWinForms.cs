@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("CheckBox Control")]
     [AllureTag("WinForms")]
-    public class CheckBoxControlTestsWinForms : BellatrixBaseTest
+    public class CheckBoxControlTestsWinForms : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]

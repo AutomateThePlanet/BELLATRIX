@@ -29,7 +29,7 @@ namespace Bellatrix.Desktop.Configuration
         {
         }
 
-        public AppInitializationInfo(string appPath, Lifecycle lifecycle, Size size, string classFullName, AppiumOptions appiumOptions = null)
+        public AppInitializationInfo(string appPath, Lifecycle lifecycle, Size size, string classFullName, DesiredCapabilities appiumOptions = null)
         {
             AppPath = appPath;
             Lifecycle = lifecycle;
@@ -46,7 +46,7 @@ namespace Bellatrix.Desktop.Configuration
 
         public string AppPath { get => NormalizeAppPath(); set => _appPath = value; }
 
-        public AppiumOptions AppiumOptioons { get; set; }
+        public DesiredCapabilities AppiumOptioons { get; set; }
 
         public bool Equals(AppInitializationInfo other)
         {

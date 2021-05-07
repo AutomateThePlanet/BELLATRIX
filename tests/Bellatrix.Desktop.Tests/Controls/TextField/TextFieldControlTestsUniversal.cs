@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("TextField Control")]
     [AllureTag("Universal")]
-    public class TextFieldControlTestsUniversal : BellatrixBaseTest
+    public class TextFieldControlTestsUniversal : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]

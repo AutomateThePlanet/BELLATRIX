@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Image Control")]
     [AllureTag("WinForms")]
-    public class ImageControlTestsWinForms : BellatrixBaseTest
+    public class ImageControlTestsWinForms : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

@@ -1,4 +1,4 @@
-﻿// <copyright file="DesktopSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ExecutionSettings.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,11 +11,18 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using System.Collections.Generic;
+
 namespace Bellatrix.Desktop
 {
-    public class DesktopSettings
+    public class ExecutionSettings
     {
-        public TimeoutSettings TimeoutSettings { get; set; }
-        public ExecutionSettings ExecutionSettings { get; set; }
+        public string ExecutionType { get; set; }
+        public string DefaultAppPath { get; set; }
+        public string DefaultLifeCycle { get; set; }
+        public string Resolution { get; set; }
+        public bool ShouldStartLocalService { get; set; } = true;
+        public string Url { get; set; }
+        public List<Dictionary<string, string>> Arguments { get; set; }
     }
 }

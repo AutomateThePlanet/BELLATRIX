@@ -21,7 +21,7 @@ namespace Bellatrix.Desktop.Tests
     [AllureSuite("Calendar Control")]
     [AllureFeature("ValidateExtensionsExceptionMessages")]
     [AllureTag("WPF")]
-    public class CalendarControlValidateExtensionsExceptionMessagesTests : BellatrixBaseTest
+    public class CalendarControlValidateExtensionsExceptionMessagesTests : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

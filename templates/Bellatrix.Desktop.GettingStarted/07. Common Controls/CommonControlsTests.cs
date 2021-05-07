@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+    ////[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class CommonControlsTests : DesktopTest
     {
         // 1. As mentioned before BELLATRIX exposes 18+ desktop controls. All of them implement Proxy design pattern which means that they are not located immediately when

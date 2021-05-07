@@ -21,7 +21,7 @@ namespace Bellatrix.Desktop.Tests
     [AllureSuite("Calendar Control")]
     [AllureFeature("Control Events")]
     [AllureTag("WPF")]
-    public class CalendarControlEventsTests : BellatrixBaseTest
+    public class CalendarControlEventsTests : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

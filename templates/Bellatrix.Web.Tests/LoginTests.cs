@@ -63,7 +63,7 @@ namespace Bellatrix.Web.Tests
         [Test]
         public void TestUrlDeterminer()
         {
-            string cartUrl = UrlDeterminer.GetUrl<UrlSettings>(u => u.BaseUrl, "cart");
+            string cartUrl = UrlDeterminer.GetUrl<UrlSettings>(u => u.ShopUrl, "cart");
 
             App.Assert.AreEqual("http://demos.bellatrix.solutions/cart", cartUrl);
         }

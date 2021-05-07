@@ -21,7 +21,7 @@ namespace Bellatrix.Desktop.Tests
     [AllureSuite("Button Control")]
     [AllureFeature("Control Events")]
     [AllureTag("WPF")]
-    public class ButtonControlEventsTests : BellatrixBaseTest
+    public class ButtonControlEventsTests : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]

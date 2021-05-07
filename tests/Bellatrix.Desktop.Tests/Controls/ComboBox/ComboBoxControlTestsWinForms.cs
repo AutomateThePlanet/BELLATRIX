@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("ComboBox Control")]
     [AllureTag("WinForms")]
-    public class ComboBoxControlTestsWinForms : BellatrixBaseTest
+    public class ComboBoxControlTestsWinForms : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]

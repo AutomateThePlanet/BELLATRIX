@@ -30,7 +30,7 @@ namespace Bellatrix.Desktop
             AppConfiguration.AppPath = appPath;
             AppConfiguration.Lifecycle = lifecycle;
             AppConfiguration.Size = default;
-            AppConfiguration.AppiumOptioons = new AppiumOptions();
+            AppConfiguration.AppiumOptioons = new DesiredCapabilities();
         }
 
         public AppAttribute(string appPath, int width, int height, Lifecycle behavior = Lifecycle.NotSet)

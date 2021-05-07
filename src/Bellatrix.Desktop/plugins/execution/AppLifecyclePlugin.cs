@@ -12,11 +12,15 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.Services;
 using Bellatrix.Plugins;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop.Plugins
 {
@@ -151,8 +155,27 @@ namespace Bellatrix.Desktop.Plugins
             }
             else
             {
-                container.RegisterInstance(default(AppInitializationInfo), "_currentAppConfiguration");
-                return null;
+                Lifecycle currentLifecycle = Parse<Lifecycle>(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.DefaultLifeCycle);
+                Size currentAppSize = default;
+                if (!string.IsNullOrEmpty(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Resolution))
+                {
+                    currentAppSize = WindowsSizeResolver.GetWindowSize(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Resolution);
+                }
+
+                var appConfiguration = new AppInitializationInfo
+                {
+                    AppPath = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.DefaultAppPath,
+                    Lifecycle = currentLifecycle,
+                    Size = currentAppSize,
+                    AppiumOptioons = new DesiredCapabilities(),
+                    ClassFullName = testClassType.FullName,
+                };
+
+                InitializeGridOptionsFromConfiguration(appConfiguration.AppiumOptioons, testClassType);
+                InitializeCustomCodeOptions(appConfiguration.AppiumOptioons, testClassType);
+
+                container.RegisterInstance(appConfiguration, "_currentAppConfiguration");
+                return appConfiguration;
             }
         }
 
@@ -170,6 +193,68 @@ namespace Bellatrix.Desktop.Plugins
 
             var classappAttribute = testClassType.GetCustomAttribute<AppAttribute>(true);
             return classappAttribute;
+        }
+
+        private TEnum Parse<TEnum>(string value)
+            where TEnum : struct
+        {
+            return (TEnum)Enum.Parse(typeof(TEnum), value.Replace(" ", string.Empty), true);
+        }
+
+        private void InitializeCustomCodeOptions(dynamic options, Type testClassType)
+        {
+            var customCodeOptions = ServicesCollection.Current.Resolve<Dictionary<string, string>>($"caps-{testClassType.FullName}");
+            if (customCodeOptions != null && customCodeOptions.Count > 0)
+            {
+                foreach (var item in customCodeOptions)
+                {
+                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    {
+                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                    }
+                }
+            }
+        }
+
+        private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
+        {
+            if (ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Arguments == null)
+            {
+                return;
+            }
+
+            if (ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Arguments[0].Count > 0)
+            {
+                foreach (var item in ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Arguments[0])
+                {
+                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    {
+                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                    }
+                }
+            }
+        }
+
+        private dynamic FormatGridOptions(string option, Type testClassType)
+        {
+            if (bool.TryParse(option, out bool result))
+            {
+                return result;
+            }
+            else if (int.TryParse(option, out int resultNumber))
+            {
+                return resultNumber;
+            }
+            else if (double.TryParse(option, out double resultRealNumber))
+            {
+                return resultRealNumber;
+            }
+            else
+            {
+                var runName = testClassType.Assembly.GetName().Name;
+                var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
+                return option.Replace("{runName}", timestamp).Replace("{runName}", runName);
+            }
         }
     }
 }

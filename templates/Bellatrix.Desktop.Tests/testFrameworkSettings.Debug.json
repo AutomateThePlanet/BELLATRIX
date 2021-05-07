@@ -1,20 +1,40 @@
 ﻿{
   "troubleshootingSettings": {
-    "debugInformationEnabled": "false"
+    "debugInformationEnabled": "true"
   },
   // All Timeout Times are in seconds!
   "desktopSettings": {
-    "sleepInterval": "1",
-    "elementToBeVisibleTimeout": "30",
-    "elementToExistTimeout": "30",
-    "elementToNotExistTimeout": "30",
-    "elementToBeClickableTimeout": "30",
-    "elementNotToBeVisibleTimeout": "30",
-    "elementToHaveContentTimeout": "15",
-    "shouldStartLocalService": "true",
-    "serviceUrl": "http://127.0.0.1:4722",
-    "ip": "127.0.0.1",
-    "port": "4722"
+    "timeoutSettings": {
+      "implicitWaitTimeout": "0",
+      "elementWaitTimeout": "30",
+      "sleepInterval": "1",
+      "validationsTimeout": "30",
+      "createSessionTimeout": "10",
+      "waitForAppLaunchTimeout": "10",
+      "elementToBeVisibleTimeout": "30",
+      "elementToExistTimeout": "30",
+      "elementToNotExistTimeout": "30",
+      "elementToBeClickableTimeout": "30",
+      "elementNotToBeVisibleTimeout": "30",
+      "elementToHaveContentTimeout": "15"
+    },
+    "executionSettings": {
+      "defaultLifeCycle": "restart every time",
+      "shouldStartLocalService": "false",
+      "resolution": "",
+      "defaultAppPath": "AssemblyFolder\\Demos\\Wpf\\WPFSampleApp.exe",
+      "url": "http://127.0.0.1:4722",
+      "arguments": [
+        {
+          //"name": "{runName}",
+          //"videoName": "{runName}.{timestamp}.mp4",
+          //"logName": "{runName}.{timestamp}.log",
+          //"enableVNC": "true",
+          //"enableVideo": "true",
+          //"enableLog": "true"
+        }
+      ]
+    }
   },
   "videoRecordingSettings": {
     "isEnabled": "false",
@@ -34,9 +54,6 @@
   "machineAutomationSettings": {
     "isEnabled": "true",
     "packagesToBeInstalled": [ "googlechrome", "firefox --version=65.0.2", "opera" ]
-  },
-  "processCleanupSettings": {
-    "isParallelExecutionEnabled": "false"
   },
   "azureDevOpsDynamicTestCasesSettings": {
     "isEnabled": "false",

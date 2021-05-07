@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Calendar Control")]
     [AllureTag("WPF")]
-    public class CalendarControlTestsWpf : BellatrixBaseTest
+    public class CalendarControlTestsWpf : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]

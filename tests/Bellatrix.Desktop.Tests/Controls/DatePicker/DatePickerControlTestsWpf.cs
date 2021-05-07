@@ -19,7 +19,7 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("DatePicker Control")]
     [AllureTag("WPF")]
-    public class DatePickerControlTestsWpf : BellatrixBaseTest
+    public class DatePickerControlTestsWpf : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]

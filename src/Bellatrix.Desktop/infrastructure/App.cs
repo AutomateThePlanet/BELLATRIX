@@ -15,7 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using Bellatrix;
 using Bellatrix.Assertions;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.EventHandlers;
@@ -33,14 +35,10 @@ namespace Bellatrix.Desktop
         // TODO: Change to be ThreadLocal.
         private static bool _shouldStartLocalService;
         private static Process _winAppDriverProcess;
-        private static string _ip;
-        private static int _port;
 
         public App()
         {
-            _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ShouldStartLocalService;
-            _ip = ConfigurationService.GetSection<DesktopSettings>().Ip;
-            _port = ConfigurationService.GetSection<DesktopSettings>().Port;
+            _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
         }
 
         public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
@@ -62,8 +60,10 @@ namespace Bellatrix.Desktop
         {
             if (_shouldStartLocalService)
             {
+                int port = int.Parse(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url.Split(':').Last());
+
                 // Anton(06.09.2018): maybe we can kill WinAppDriver every time
-                if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver") || ProcessProvider.IsPortBusy(_port))
+                if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver") || ProcessProvider.IsPortBusy(port))
                 {
                     return;
                 }
@@ -75,8 +75,8 @@ namespace Bellatrix.Desktop
                 }
 
                 string winAppDriverExePath = Path.Combine(winAppDriverPath, "WinAppDriver.exe");
-                _winAppDriverProcess = ProcessProvider.StartProcess(winAppDriverExePath, winAppDriverPath, $" {_ip} {_port}", true);
-                ProcessProvider.WaitPortToGetBusy(_port);
+                _winAppDriverProcess = ProcessProvider.StartProcess(winAppDriverExePath, winAppDriverPath, $"{ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url}", true);
+                ProcessProvider.WaitPortToGetBusy(port);
             }
         }
 

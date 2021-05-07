@@ -20,7 +20,7 @@ namespace Bellatrix.Desktop.Tests
     [AllureSuite("Button Control")]
     [AllureFeature("ValidateExtensions")]
     [AllureTag("WPF")]
-    public class ButtonControlValidateExtensionsTests : BellatrixBaseTest
+    public class ButtonControlValidateExtensionsTests : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]
