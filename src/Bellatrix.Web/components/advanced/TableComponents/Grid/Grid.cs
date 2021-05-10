@@ -294,6 +294,13 @@ namespace Bellatrix.Web
             return GetItems<TRowObject, GridRow>(GetRows().ToElementList());
         }
 
+        /// <summary>
+        /// Cast row values to Table Row Model.
+        /// </summary>
+        /// <typeparam name="TRowObject">Table Row Model.</typeparam>
+        /// <param name="rowIndex">Row index.</param>
+        /// <param name="propertiesToSkip">Header name.</param>
+        /// <returns>Model.</returns>
         public TRowObject CastRow<TRowObject>(int rowIndex, params string[] propertiesToSkip)
             where TRowObject : new()
         {
@@ -430,7 +437,7 @@ namespace Bellatrix.Web
             return elementValue;
         }
 
-        private string GetCurrentElementXPath()
+        protected string GetCurrentElementXPath()
         {
             string jsScriptText =
                 @"function createXPathFromElement(elm) {
