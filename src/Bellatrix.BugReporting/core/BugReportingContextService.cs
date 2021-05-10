@@ -71,6 +71,11 @@ namespace Bellatrix.BugReporting
         {
             if (Context.AdditionalProperties.ContainsKey(name))
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+
                 Context.AdditionalProperties[name] = value;
             }
             else

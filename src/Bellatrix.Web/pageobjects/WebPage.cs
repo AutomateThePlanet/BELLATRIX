@@ -14,16 +14,40 @@
 using System;
 using System.Web;
 using Bellatrix.Assertions;
+using Bellatrix.DynamicTestCases;
+using Bellatrix.ImageRecognition.ComputerVision;
+using Bellatrix.Web.Proxy;
 using OpenQA.Selenium.Support.UI;
 
 namespace Bellatrix.Web
 {
-    [Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
-    public abstract class AssertedNavigatablePage : NavigatablePage
+    public abstract class WebPage
     {
-        protected AssertedNavigatablePage() => Assert = ServicesCollection.Current.Resolve<IAssert>();
+        public BrowserService BrowserService => ServicesCollection.Current.Resolve<BrowserService>();
 
-        protected IAssert Assert { get; }
+        public NavigationService NavigationService => ServicesCollection.Current.Resolve<NavigationService>();
+
+        public DialogService DialogService => ServicesCollection.Current.Resolve<DialogService>();
+
+        public JavaScriptService JavaScriptService => ServicesCollection.Current.Resolve<JavaScriptService>();
+
+        public InteractionsService InteractionsService => ServicesCollection.Current.Resolve<InteractionsService>();
+
+        public CookiesService CookiesService => ServicesCollection.Current.Resolve<CookiesService>();
+
+        public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
+
+        public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+
+        public ProxyService ProxyService => ServicesCollection.Current.Resolve<ProxyService>();
+
+        public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
+
+        protected IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
+
+        public abstract string Url { get; }
+
+        public virtual void Open() => NavigationService.Navigate(new Uri(Url));
 
         public void AssertLandedOnPage(string partialUrl, bool shouldUrlEncode = false)
         {
@@ -32,9 +56,9 @@ namespace Bellatrix.Web
                 partialUrl = HttpUtility.UrlEncode(partialUrl);
             }
 
-            Browser.WaitUntilReady();
+            BrowserService.WaitUntilReady();
 
-            var currentBrowserUrl = Browser.Url.ToString();
+            var currentBrowserUrl = BrowserService.Url.ToString();
 
             Assert.IsTrue(currentBrowserUrl.Contains(partialUrl), $"The expected partialUrl: '{partialUrl}' was not found in the PageUrl: '{currentBrowserUrl}'");
         }
@@ -52,7 +76,7 @@ namespace Bellatrix.Web
 
         public void AssertUrl(string fullUrl)
         {
-            var currentBrowserUrl = Browser.Url.ToString();
+            var currentBrowserUrl = BrowserService.Url.ToString();
             Uri actualUri = new Uri(currentBrowserUrl);
             Uri expectedUri = new Uri(fullUrl);
 

@@ -231,7 +231,7 @@ namespace Bellatrix
         {
             var list = new List<string>();
             var currentTest = (ITest)TestExecutionContext.CurrentContext?.CurrentTest;
-            while (currentTest?.GetType() != typeof(TestSuite) && currentTest.ClassName != "NUnit.Framework.Internal.TestExecutionContext+AdhocContext")
+            while (currentTest != null && currentTest?.GetType() != typeof(TestSuite) && currentTest?.ClassName != "NUnit.Framework.Internal.TestExecutionContext+AdhocContext")
             {
                 if (currentTest.Properties.ContainsKey(name))
                 {

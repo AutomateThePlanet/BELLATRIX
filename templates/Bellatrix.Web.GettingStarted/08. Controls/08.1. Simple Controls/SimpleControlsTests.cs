@@ -67,7 +67,7 @@ namespace Bellatrix.Web.GettingStarted
             // <div class="woocommerce-message" role="alert">Coupon code applied successfully.</div>
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
 
-            // 12. Sometimes you need to verify the content of some element. However, since the asynchronous nature of websites,
+            // 12. Sometimes you need to verify the content of some ElementCreateService. However, since the asynchronous nature of websites,
             // the text or event may not happen immediately. This makes the simple Assert methods + vanilla WebDriver useless.
             // The commented code fails 1 from 5 times.
             ////Assert.AreEqual("Coupon code applied successfully.", messageAlert.InnerText);
@@ -148,12 +148,12 @@ namespace Bellatrix.Web.GettingStarted
 
             Phone billingPhone = App.ElementCreateService.CreateById<Phone>("billing_phone");
 
-            // 20. Create the special text field control Phone it contains some additional properties unique for this web element.
+            // 20. Create the special text field control Phone it contains some additional properties unique for this web ElementCreateService.
             billingPhone.SetPhone("+00359894646464");
 
             Email billingEmail = App.ElementCreateService.CreateById<Email>("billing_email");
 
-            // 21. Here we create the special text field control Email it contains some additional properties unique for this web element.
+            // 21. Here we create the special text field control Email it contains some additional properties unique for this web ElementCreateService.
             billingEmail.SetEmail("info@bellatrix.solutions");
 
             CheckBox createAccountCheckBox = App.ElementCreateService.CreateById<CheckBox>("createaccount");

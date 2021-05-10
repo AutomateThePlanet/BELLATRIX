@@ -24,7 +24,7 @@ namespace Bellatrix.Web.GettingStarted
             var blogLink = App.ElementCreateService.CreateByLinkText<Anchor>("Blog");
             blogLink.ToBeClickable().ToBeVisible().Click();
 
-            // 2. Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the element.
+            // 2. Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the ElementCreateService.
             // In the above example, statement waits for the button to be clickable and visible before the click. However, in some cases, you want some element to show up
             // but not act on it. This means the above syntax does not help you since the element is not searched in the DOM at all because of the lazy loading.
             // Using the WaitToBe method forces BELLATRIX to locate your element and wait for the condition without the need to do an action or assertion.

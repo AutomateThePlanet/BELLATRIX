@@ -30,13 +30,13 @@ namespace Bellatrix.Web
                 childContainer.RegisterInstance(((RemoteWebDriver)wrappedWebDriver).SessionId.ToString(), "SessionId");
                 childContainer.RegisterInstance(ConfigurationService.GetSection<WebSettings>().Remote.GridUri.AbsoluteUri, "GridUri");
 
-                childContainer.RegisterInstance(new BrowserService(wrappedWebDriver));
-                childContainer.RegisterInstance(new CookiesService(wrappedWebDriver));
-                childContainer.RegisterInstance(new DialogService(wrappedWebDriver));
-                childContainer.RegisterInstance(new JavaScriptService(wrappedWebDriver));
-                childContainer.RegisterInstance(new InteractionsService(wrappedWebDriver));
-                childContainer.RegisterInstance(new NavigationService(wrappedWebDriver));
-                childContainer.RegisterInstance(new ElementCreateService());
+                ////childContainer.RegisterInstance(new BrowserService(wrappedWebDriver));
+                ////childContainer.RegisterInstance(new CookiesService(wrappedWebDriver));
+                ////childContainer.RegisterInstance(new DialogService(wrappedWebDriver));
+                ////childContainer.RegisterInstance(new JavaScriptService(wrappedWebDriver));
+                ////childContainer.RegisterInstance(new InteractionsService(wrappedWebDriver));
+                ////childContainer.RegisterInstance(new NavigationService(wrappedWebDriver));
+                ////childContainer.RegisterInstance(new ElementCreateService());
                 childContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(wrappedWebDriver));
                 childContainer.RegisterNull<int?>();
                 childContainer.RegisterNull<IWebElement>();

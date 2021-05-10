@@ -69,7 +69,7 @@ namespace Bellatrix.Web.GettingStarted
             var frame = App.ElementCreateService.CreateById<Frame>("myFrameId");
             App.BrowserService.SwitchToFrame(frame);
 
-            // Search for the button inside the frame element. Of course, once you switched to frame, you can create the element through ElementCreateService too.
+            // Search for the button inside the frame ElementCreateService. Of course, once you switched to frame, you can create the element through ElementCreateService too.
             var myButton = frame.CreateById<Button>("purchaseBtnId");
 
             myButton.Click();

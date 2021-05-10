@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Reflection;
 
 using Bellatrix.DynamicTestCases;
+using Bellatrix.ImageRecognition.ComputerVision;
 using Bellatrix.Plugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
@@ -38,13 +39,15 @@ namespace Bellatrix.Web
 
         public InteractionsService InteractionsService => ServicesCollection.Current.Resolve<InteractionsService>();
 
-        public CookiesService CookieService => ServicesCollection.Current.Resolve<CookiesService>();
+        public CookiesService CookiesService => ServicesCollection.Current.Resolve<CookiesService>();
 
         public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
         public ProxyService ProxyService => ServicesCollection.Current.Resolve<ProxyService>();
+
+        public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
         public void AddWebDriverOptions<TDriverOptions>(TDriverOptions options)
             where TDriverOptions : DriverOptions
@@ -118,14 +121,14 @@ namespace Bellatrix.Web
         }
 
         public TPage Create<TPage>()
-            where TPage : Page
+            where TPage : WebPage
         {
             TPage page = ServicesCollection.Current.Resolve<TPage>();
             return page;
         }
 
         public TPage GoTo<TPage>()
-            where TPage : NavigatablePage
+            where TPage : WebPage
         {
             TPage page = ServicesCollection.Current.Resolve<TPage>();
             page.Open();

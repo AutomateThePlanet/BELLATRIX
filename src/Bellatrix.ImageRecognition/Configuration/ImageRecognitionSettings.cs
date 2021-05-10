@@ -17,5 +17,7 @@ namespace Bellatrix.ImageRecognition.Configuration
     {
         public int TimeoutInSeconds { get; set; } = 5;
         public double DefaultSimilarity { get; set; } = 0.7;
+        public string ComputerVisionEndpoint { get; set; }
+        public string ComputerVisionSubscriptionKey { get; set; }
     }
 }

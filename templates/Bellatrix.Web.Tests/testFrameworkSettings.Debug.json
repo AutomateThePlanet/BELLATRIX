@@ -15,6 +15,7 @@
     "shouldWaitUntilReadyOnElementFound": "true",
     "shouldWaitForAngular": "false",
     "shouldHighlightElements": "false",
+    "fullPageScreenshotsEnabled": "false",
     "chrome": {
       "pageLoadTimeout": "30",
       "scriptTimeout": "1",
@@ -100,7 +101,9 @@
   },
   "imageRecognitionSettings": {
     "timeoutInSeconds": "5",
-    "defaultSimilarity": "0.7"
+    "defaultSimilarity": "0.7",
+    "computerVisionEndpoint": "",
+    "computerVisionSubscriptionKey": ""
   },
   "processCleanupSettings": {
     "isParallelExecutionEnabled": "false"

@@ -45,7 +45,14 @@ namespace Bellatrix.Web.MSTest
             WebPluginsConfiguration.AddBugReporting();
             WebPluginsConfiguration.AddHighlightElements();
 
-            WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
+            if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
+            {
+                WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
+            }
+            else
+            {
+                WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
+            }
         }
     }
 }

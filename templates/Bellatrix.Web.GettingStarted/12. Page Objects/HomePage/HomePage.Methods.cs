@@ -1,6 +1,6 @@
 ﻿namespace Bellatrix.Web.GettingStarted._12._Page_Objects
 {
-    public partial class HomePage : NavigatablePage
+    public partial class HomePage : WebPage
     {
         // 1. Here the page does not have any assertions so we made it from type NavigatablePage meaning you can use the method Open to open the bellow Url.
         public override string Url => "http://demos.bellatrix.solutions/";
@@ -31,7 +31,7 @@
         // 3. Generic method for adding products to the cart by ID.
         public void AddProductById(int productId)
         {
-            var product = Element.CreateByAttributesContaining<Anchor>("data-product_id", productId.ToString()).ToBeClickable();
+            var product = ElementCreateService.CreateByAttributesContaining<Anchor>("data-product_id", productId.ToString()).ToBeClickable();
             product.Click();
             ViewCartButton.ValidateIsVisible();
         }

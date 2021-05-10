@@ -24,11 +24,17 @@ namespace Bellatrix
 {
     public static class AzureDevOpsDynamicTestCasesPlugin
     {
+        private static bool _isAdded = false;
+
         public static void Add()
         {
-            ServicesCollection.Current.RegisterInstance(new DynamicTestCasesService());
-            ServicesCollection.Current.RegisterType<ITestCaseManagementService, AzureDevOpsTestCaseManagementService>();
-            ServicesCollection.Current.RegisterType<Plugin, DynamicTestCasesPlugin>(Guid.NewGuid().ToString());
+            if (!_isAdded)
+            {
+                ServicesCollection.Current.RegisterInstance(new DynamicTestCasesService());
+                ServicesCollection.Current.RegisterType<ITestCaseManagementService, AzureDevOpsTestCaseManagementService>();
+                ServicesCollection.Current.RegisterType<Plugin, DynamicTestCasesPlugin>(Guid.NewGuid().ToString());
+                _isAdded = true;
+            }
         }
     }
 }

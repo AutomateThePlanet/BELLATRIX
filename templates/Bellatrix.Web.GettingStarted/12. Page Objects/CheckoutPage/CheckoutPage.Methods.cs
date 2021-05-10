@@ -1,6 +1,6 @@
 ﻿namespace Bellatrix.Web.GettingStarted._12._Page_Objects
 {
-    public partial class CheckoutPage : NavigatablePage
+    public partial class CheckoutPage : WebPage
     {
         // The previous tests did not have any assertions on this page. However, if we decide in future to add some, we can inherit from AssertedNavigatalbePage
         // and an .Assertions file which holds all of our assertion methods.

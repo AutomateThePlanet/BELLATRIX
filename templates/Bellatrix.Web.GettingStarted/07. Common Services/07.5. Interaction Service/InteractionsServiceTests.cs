@@ -36,6 +36,7 @@ namespace Bellatrix.Web.GettingStarted
             Anchor protonMAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-m/");
 
             App.InteractionsService.MoveToElement(protonRocketAnchor).KeyUp(Keys.LeftShift).ContextClick().Perform();
+            App.InteractionsService.DoubleClick(protonRocketAnchor).KeyUp(Keys.LeftShift).ContextClick().Perform();
         }
     }
 }

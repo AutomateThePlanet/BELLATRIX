@@ -51,7 +51,7 @@ namespace Bellatrix.Web
             clicking?.Invoke(this, new ElementActionEventArgs(this));
 
             this.ToExists().ToBeClickable().WaitToBe();
-            JavaScriptService.Execute("arguments[0].focus();arguments[0].click();", this);
+            WrappedElement.Click();
 
             clicked?.Invoke(this, new ElementActionEventArgs(this));
         }

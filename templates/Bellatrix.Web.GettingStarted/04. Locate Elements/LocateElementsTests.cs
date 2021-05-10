@@ -89,7 +89,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
 
-            // 5. Sometimes we need to find more than one element. For example, in this test we want to locate all Add to Cart buttons.
+            // 5. Sometimes we need to find more than one ElementCreateService. For example, in this test we want to locate all Add to Cart buttons.
             // To do it you can use the element create service CreateAll method.
             // Available create methods:
             //
@@ -146,7 +146,7 @@ namespace Bellatrix.Web.GettingStarted
             // To do it you can use the element's Create methods.
             var productsColumn = App.ElementCreateService.CreateByClassContaining<Option>("products columns-4");
 
-            // The first products row is located. Then search inside it for the first product image, inside it search for the Sale! Span element.
+            // The first products row is located. Then search inside it for the first product image, inside it search for the Sale! Span ElementCreateService.
             // Note: it is entirely legal to create a Button instead of Span. BELLATRIX library does not care about the real type of the HTML elements.
             // The proxy types are convenience wrappers so to say. Meaning they give you a better interface of predefined properties and methods to make your tests more readable.
             var saleButton = productsColumn.CreateByClassContaining<Anchor>("woocommerce-LoopProduct-link woocommerce-loop-product__link").CreateByInnerTextContaining<Button>("Sale!");
@@ -155,84 +155,84 @@ namespace Bellatrix.Web.GettingStarted
 
             // Available create methods on element level:
             //
-            // CreateByIdEndingWith  --> element.CreateByIdEndingWith<Anchor>("myIdSuffix");
+            // CreateByIdEndingWith  --> ElementCreateService.CreateByIdEndingWith<Anchor>("myIdSuffix");
             // Searches the element by ID ending with the locator.
             //
-            // CreateByTag   -->  element.CreateByTag<Anchor>("a");
+            // CreateByTag   -->  ElementCreateService.CreateByTag<Anchor>("a");
             // Searches the element by its tag.
             //
-            // CreateById   -->  element.CreateById<Button>("myId");
+            // CreateById   -->  ElementCreateService.CreateById<Button>("myId");
             // Searches the element by its ID.
             //
-            // CreateByIdContaining   -->  element.CreateByIdContaining<Button>("myIdMiddle");
+            // CreateByIdContaining   -->  ElementCreateService.CreateByIdContaining<Button>("myIdMiddle");
             // Searches the element by ID containing the specified text.
             //
-            // CreateByValueEndingWith   -->  element.CreateByIdContaining<Button>("pay");
+            // CreateByValueEndingWith   -->  ElementCreateService.CreateByIdContaining<Button>("pay");
             // Searches the element by value attribute containing the specified text.
             //
-            // CreateByXpath   -->  element.CreateByXpath<Button>("//*[@title='Add to cart']");
+            // CreateByXpath   -->  ElementCreateService.CreateByXpath<Button>("//*[@title='Add to cart']");
             // Searches the element by XPath locator.
             //
-            // CreateByLinkText   -->  element.CreateByLinkText<Anchor>("blog");
+            // CreateByLinkText   -->  ElementCreateService.CreateByLinkText<Anchor>("blog");
             // Searches the element by its link (href)
             //
-            // CreateByLinkTextContaining   -->  element.CreateByLinkTextContaining<Anchor>("account");
+            // CreateByLinkTextContaining   -->  ElementCreateService.CreateByLinkTextContaining<Anchor>("account");
             // Searches the element by its link (href) if it contains specified value.
             //
-            // CreateByClass   -->  element.CreateByClassContaining<Anchor>("ul.products");
+            // CreateByClass   -->  ElementCreateService.CreateByClassContaining<Anchor>("ul.products");
             // Searches the element by its CSS classes.
             //
-            // CreateByClassContaining   -->  element.CreateByClassContaining<Anchor>(".products");
+            // CreateByClassContaining   -->  ElementCreateService.CreateByClassContaining<Anchor>(".products");
             // Searches the element by its CSS classes containing the specified values.
             //
-            // CreateByInnerTextContaining   -->  element.CreateByInnerTextContaining<Div>("Showing all");
+            // CreateByInnerTextContaining   -->  ElementCreateService.CreateByInnerTextContaining<Div>("Showing all");
             // Searches the element by its inner text content, including all child HTML elements.
             //
-            // CreateByNameEndingWith   -->  element.CreateByNameEndingWith<Search>("a");
+            // CreateByNameEndingWith   -->  ElementCreateService.CreateByNameEndingWith<Search>("a");
             // Searches the element by its name containing the specified text.
             //
-            // CreateByAttributesContaining   -->  element.CreateByAttributesContaining<Anchor>("data-product_id", "31");
+            // CreateByAttributesContaining   -->  ElementCreateService.CreateByAttributesContaining<Anchor>("data-product_id", "31");
             // Searches the element by some of its attribute containing the specifed value.
             //
             // CreateAll Available methods:
             //
-            // CreateAllByIdEndingWith  --> element.CreateAllByIdEndingWith<Anchor>("myIdSuffix");
+            // CreateAllByIdEndingWith  --> ElementCreateService.CreateAllByIdEndingWith<Anchor>("myIdSuffix");
             // Searches the element by ID ending with the locator.
             //
-            // CreateAllByTag   -->  element.CreateAllByTag<Anchor>("a");
+            // CreateAllByTag   -->  ElementCreateService.CreateAllByTag<Anchor>("a");
             // Searches the element by its tag.
             //
-            // CreateAllById   -->  element.CreateAllById<Button>("myId");
+            // CreateAllById   -->  ElementCreateService.CreateAllById<Button>("myId");
             // Searches the element by its ID.
             //
-            // CreateAllByIdContaining   -->  element.CreateAllByIdContaining<Button>("myIdMiddle");
+            // CreateAllByIdContaining   -->  ElementCreateService.CreateAllByIdContaining<Button>("myIdMiddle");
             // Searches the element by ID containing the specified text.
             //
-            // CreateAllByValueEndingWith   -->  element.CreateAllByValueEndingWith<Button>("pay");
+            // CreateAllByValueEndingWith   -->  ElementCreateService.CreateAllByValueEndingWith<Button>("pay");
             // Searches the element by value attribute containing the specified text.
             //
-            // CreateAllByXpath   -->  element.CreateAllByXpath<Button>("//*[@title='Add to cart']");
+            // CreateAllByXpath   -->  ElementCreateService.CreateAllByXpath<Button>("//*[@title='Add to cart']");
             // Searches the element by XPath locator.
             //
-            // CreateAllByLinkText   -->  element.CreateAllByLinkText<Anchor>("blog");
+            // CreateAllByLinkText   -->  ElementCreateService.CreateAllByLinkText<Anchor>("blog");
             // Searches the element by its link (href)
             //
-            // CreateAllByLinkTextContaining   -->  element.CreateAllByLinkTextContaining<Anchor>("account");
+            // CreateAllByLinkTextContaining   -->  ElementCreateService.CreateAllByLinkTextContaining<Anchor>("account");
             // Searches the element by its link (href) if it contains specified value.
             //
-            // CreateAllByClass   -->  element.CreateAllByClass<Anchor>("ul.products");
+            // CreateAllByClass   -->  ElementCreateService.CreateAllByClass<Anchor>("ul.products");
             // Searches the element by its CSS classes.
             //
-            // CreateAllByClassContaining   -->  element.CreateAllByClassContaining<Anchor>(".products");
+            // CreateAllByClassContaining   -->  ElementCreateService.CreateAllByClassContaining<Anchor>(".products");
             // Searches the element by its CSS classes containing the specified values.
             //
-            // CreateAllByInnerTextContaining   -->  element.CreateAllByInnerTextContaining<Div>("Showing all");
+            // CreateAllByInnerTextContaining   -->  ElementCreateService.CreateAllByInnerTextContaining<Div>("Showing all");
             // Searches the element by its inner text content, including all child HTML elements.
             //
-            // CreateAllByNameEndingWith   -->  element.CreateAllByNameEndingWith<Search>("a");
+            // CreateAllByNameEndingWith   -->  ElementCreateService.CreateAllByNameEndingWith<Search>("a");
             // Searches the element by its name containing the specified text.
             //
-            // CreateAllByAttributesContaining   -->  element.CreateAllByAttributesContaining<Anchor>("data-product_id", "31");
+            // CreateAllByAttributesContaining   -->  ElementCreateService.CreateAllByAttributesContaining<Anchor>("data-product_id", "31");
             // Searches the element by some of its attribute containing the specifed value.
         }
     }

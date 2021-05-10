@@ -7,7 +7,7 @@ namespace Bellatrix.Web.Tests
     // uncomment to use MSTest
     ////[TestClass]
     [TestFixture]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     public class LoginTests : NUnit.WebTest
     {
         public override void TestInit() => App.NavigationService.Navigate("http://demos.bellatrix.solutions/my-account/");

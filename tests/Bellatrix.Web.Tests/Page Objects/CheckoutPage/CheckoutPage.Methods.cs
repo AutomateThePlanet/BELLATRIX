@@ -1,6 +1,6 @@
 ﻿namespace Bellatrix.Web.Tests
 {
-    public partial class CheckoutPage : NavigatablePage
+    public partial class CheckoutPage : WebPage
     {
         public override string Url => "http://demos.bellatrix.solutions/checkout/";
 

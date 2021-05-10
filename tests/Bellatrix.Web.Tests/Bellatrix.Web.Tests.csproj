@@ -3,11 +3,6 @@
 
     <ItemGroup>
         <PackageReference Include="Bellatrix.FFmpeg.Recorder" Version="1.3.0" />
-        <PackageReference Include="Bellatrix.Web.Chrome" Version="1.9.5.87" />
-        <PackageReference Include="Bellatrix.Web.Edge" Version="1.9.5.87" />
-        <PackageReference Include="Bellatrix.Web.Firefox" Version="1.9.5.270" />
-        <PackageReference Include="Bellatrix.Web.Opera" Version="1.9.5.85" />
-        <PackageReference Include="Bellatrix.Web.InternetExplorer" Version="1.3.0.3900" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
         <PackageReference Include="Moq" Version="4.15.2" />
         <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />

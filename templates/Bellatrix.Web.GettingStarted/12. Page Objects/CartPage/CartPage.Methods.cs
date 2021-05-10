@@ -8,7 +8,7 @@ namespace Bellatrix.Web.GettingStarted._12._Page_Objects
     //
     // You can always create BELLATRIX page objects yourself inherit one of the 3 classes- AssertedNavigatablePage, NavigatablePage, Page
     // We advise you to follow the convention with partial classes, but you are always free to put all pieces in a single file.
-    public partial class CartPage : AssertedNavigatablePage
+    public partial class CartPage : WebPage
     {
         private const string CouponSuccessfullyAdded = @"Coupon code applied successfully.";
 
@@ -39,10 +39,10 @@ namespace Bellatrix.Web.GettingStarted._12._Page_Objects
 
             // 5. CreateAll method returns a special BELLATRIX collection called ElementsList<TElementType> in this case ElementList<Number>
             // The collection has a couple of useful methods- Count, implements index which we use here.
-            Browser.WaitForAjax();
+            BrowserService.WaitForAjax();
             QuantityBoxes[productNumber - 1].SetNumber(newQuantity);
             UpdateCart.Click();
-            Browser.WaitForAjax();
+            BrowserService.WaitForAjax();
         }
 
         public void UpdateAllProductsQuantity(int newQuantity)
