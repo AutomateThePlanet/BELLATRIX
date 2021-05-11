@@ -143,7 +143,6 @@ namespace Bellatrix.Mobile.Plugins
 
         private AppConfiguration GetCurrentAppConfiguration(MemberInfo memberInfo, Type testClassType, ServicesCollection container)
         {
-            var currentAppConfiguration = default(AppConfiguration);
             var androidAttribute = GetAppAttribute<AndroidAttribute>(memberInfo, testClassType);
             var iosAttribute = GetAppAttribute<IOSAttribute>(memberInfo, testClassType);
             var androidWebAttribute = GetAppAttribute<AndroidWebAttribute>(memberInfo, testClassType);
@@ -156,6 +155,7 @@ namespace Bellatrix.Mobile.Plugins
             var iosCrossappTestingAttribute = GetAppAttribute<IOSCrossBrowserTestingAttribute>(memberInfo, testClassType);
             var iosappStackAttribute = GetAppAttribute<IOSBrowserStackAttribute>(memberInfo, testClassType);
 
+            AppConfiguration currentAppConfiguration;
             if (androidAttribute != null && iosAttribute != null)
             {
                 throw new ArgumentException("You need to specify only single platform attribute - Android or IOS.");

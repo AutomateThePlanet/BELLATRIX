@@ -219,7 +219,7 @@ namespace Bellatrix.Web.Plugins.Browser
 
                 if (arguments != null & arguments.Count >= 2)
                 {
-                    if (arguments[1] is int)
+                    if (arguments[0] is BrowserType && arguments[1] is int)
                     {
                         options.BrowserVersion = arguments[1].ToString();
                     }
