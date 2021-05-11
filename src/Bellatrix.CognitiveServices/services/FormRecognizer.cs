@@ -30,7 +30,7 @@ namespace Bellatrix.CognitiveServices
 {
     public class FormRecognizer
     {
-        // TODO: (Anton(11.05.2021): Add additional methods similar to Web.Table for selecting rows, columns and cells + their validation.)
+        // TODO: Anton(11.05.2021): Add additional methods similar to Web.Table for selecting rows, columns and cells + their validation.
         private readonly FormRecognizerClient _client;
 
         public FormRecognizer()
