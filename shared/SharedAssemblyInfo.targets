@@ -17,6 +17,8 @@
       - Add default grid and browser settings without attribute for web
       - Add additional web timeout settings
       - Add additional desktop timeout settings
+      - Add additional Android timeout settings
+      - Add additional iOS timeout settings
       - Add support for usage of TestCase attribute for running same test under multiple browsers NUnit
       - Add by default Azure, QTest dynamic test cases plugins
       - Add by default Azure, Jira bug plugins
@@ -29,10 +31,13 @@
       - Add new WebPage page objects base class, mark the old 4 base classes as Obsolete
       - Simplify web settings
       - Simplify desktop settings
+      - Simplify Android settings
+      - Simplify iOS settings
       - Refactor Page Objects to have unified access to App instead of using services directly
       - Refactor App services' properties to have shorter names
       - Refactor Page Objects naming convention
       - Fix known bugs in video recording and screenshots on failure
+      - Fix shutdown problem in mobile execution plugin
       - Fix known bugs in dynamic test cases for Azure
       - Fix proper initializations of plugins when running tests in parallel
       - Fix logging of messages when running tests in parallel
