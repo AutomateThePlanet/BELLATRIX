@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.Untils
         public WaitToBeClickableStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().ElementToBeClickableTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToBeClickableTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

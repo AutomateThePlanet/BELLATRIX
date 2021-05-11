@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.Untils
         public WaitNotExistStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().ElementToNotExistTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToNotExistTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

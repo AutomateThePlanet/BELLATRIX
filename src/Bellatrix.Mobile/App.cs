@@ -35,7 +35,7 @@ namespace Bellatrix.Mobile
 
         public App()
         {
-            _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
+            _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.ShouldStartLocalService;
         }
 
         [Obsolete("ComponentWaitService is deprecated use Wait property instead.")]

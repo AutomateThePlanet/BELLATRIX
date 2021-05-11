@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             : base(timeoutInterval, sleepInterval)
         {
             _elementContent = elementContent;
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().ElementToHaveContentTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToHaveContentTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

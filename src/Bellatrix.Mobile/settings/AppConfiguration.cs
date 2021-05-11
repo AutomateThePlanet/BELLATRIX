@@ -35,7 +35,7 @@ namespace Bellatrix.Mobile.Configuration
         public AppConfiguration(string appPath, Lifecycle lifecycle, string classFullName, AppiumOptions appiumOptions = null)
         {
             AppPath = appPath;
-            lifecycle = lifecycle;
+            Lifecycle = lifecycle;
             ClassFullName = classFullName;
             AppiumOptions = appiumOptions;
         }
@@ -67,14 +67,16 @@ namespace Bellatrix.Mobile.Configuration
         public AppiumOptions AppiumOptions { get; set; }
 
         public bool Equals(AppConfiguration other)
-            => AppPath == other.AppPath
-            && Lifecycle == other.Lifecycle
-            && DeviceName == other.DeviceName
-            && AppPackage == other.AppPackage
-            && PlatformName == other.PlatformName
-            && PlatformVersion == other.PlatformVersion
-            && AppActivity == other.AppActivity
-            && MobileOSType == other.MobileOSType;
+        {
+            return AppPath == other.AppPath
+                       && Lifecycle == other.Lifecycle
+                       && DeviceName == other.DeviceName
+                       && AppPackage == other.AppPackage
+                       && PlatformName == other.PlatformName
+                       && PlatformVersion == other.PlatformVersion
+                       && AppActivity == other.AppActivity
+                       && MobileOSType == other.MobileOSType;
+        }
 
         public override bool Equals(object obj) => Equals(obj as AppConfiguration);
 

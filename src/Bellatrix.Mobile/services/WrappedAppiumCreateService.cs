@@ -31,13 +31,13 @@ namespace Bellatrix.Mobile.Services
 
         static WrappedAppiumCreateService()
         {
-            _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
+            _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.ShouldStartLocalService;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 _shouldStartAppiumLocalService = false;
             }
 
-            _appiumServiceUrl = ConfigurationService.GetSection<MobileSettings>().AppiumServiceUrl;
+            _appiumServiceUrl = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Url;
         }
 
         public static AppiumLocalService AppiumLocalService { get; set; }
@@ -63,34 +63,33 @@ namespace Bellatrix.Mobile.Services
 
             var wrappedWebDriver = default(AndroidDriver<AndroidElement>);
 
-            if (appConfiguration.ExecutionType == Enums.ExecutionType.Regular)
+            if (_shouldStartAppiumLocalService)
             {
-                if (_shouldStartAppiumLocalService)
+                if (AppiumLocalService == null)
                 {
-                    if (AppiumLocalService == null)
-                    {
-                        throw new ArgumentException("The Appium local service is not started. You need to call App?.StartAppiumLocalService() in AssemblyInitialize method.");
-                    }
+                    throw new ArgumentException("The Appium local service is not started. You need to call App?.StartAppiumLocalService() in AssemblyInitialize method.");
+                }
 
-                    wrappedWebDriver = new AndroidDriver<AndroidElement>(AppiumLocalService, driverOptions);
-                }
-                else
-                {
-                    wrappedWebDriver = new AndroidDriver<AndroidElement>(new Uri(_appiumServiceUrl), driverOptions);
-                }
+                wrappedWebDriver = new AndroidDriver<AndroidElement>(AppiumLocalService, driverOptions);
             }
-            else if (appConfiguration.ExecutionType == Enums.ExecutionType.SauceLabs)
+            else
             {
-                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.GetSection<MobileSettings>().SauceLabs.GridUri, appConfiguration.AppiumOptions, TimeSpan.FromSeconds(240));
+                wrappedWebDriver = new AndroidDriver<AndroidElement>(new Uri(_appiumServiceUrl), driverOptions);
             }
-            else if (appConfiguration.ExecutionType == Enums.ExecutionType.BrowserStack)
-            {
-                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.GetSection<MobileSettings>().BrowserStack.GridUri, appConfiguration.AppiumOptions);
-            }
-            else if (appConfiguration.ExecutionType == Enums.ExecutionType.CrossBrowserTesting)
-            {
-                wrappedWebDriver = new AndroidDriver<AndroidElement>(ConfigurationService.GetSection<MobileSettings>().CrossBrowserTesting.GridUri, appConfiguration.AppiumOptions);
-            }
+
+            wrappedWebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ImplicitWaitTimeout);
+
+            childContainer.RegisterInstance<IWebDriver>(wrappedWebDriver);
+            childContainer.RegisterInstance(childContainer.Resolve<BrowserService>());
+            childContainer.RegisterInstance(childContainer.Resolve<CookiesService>());
+            childContainer.RegisterInstance(childContainer.Resolve<DialogService>());
+            childContainer.RegisterInstance(childContainer.Resolve<JavaScriptService>());
+            childContainer.RegisterInstance(childContainer.Resolve<NavigationService>());
+            childContainer.RegisterInstance(childContainer.Resolve<ComponentCreateService>());
+            var webDriver = childContainer.Resolve<IWebDriver>();
+            childContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(webDriver));
+            childContainer.RegisterNull<int?>();
+            childContainer.RegisterNull<IWebElement>();
 
             return wrappedWebDriver;
         }
@@ -119,7 +118,7 @@ namespace Bellatrix.Mobile.Services
                 wrappedWebDriver = new IOSDriver<IOSElement>(new Uri(_appiumServiceUrl), driverOptions);
             }
 
-            wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(180);
+            wrappedWebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ImplicitWaitTimeout);
 
             childContainer.RegisterInstance(wrappedWebDriver);
             childContainer.RegisterInstance<IWebDriver>(wrappedWebDriver);

@@ -4,29 +4,35 @@
   },
   // All Timeout Times are in seconds!
   "mobileSettings": {
-    "sleepInterval": "1",
-    "elementToBeVisibleTimeout": "60",
-    "elementToExistTimeout": "60",
-    "elementToNotExistTimeout": "60",
-    "elementToBeClickableTimeout": "60",
-    "elementNotToBeVisibleTimeout": "60",
-    "elementToHaveContentTimeout": "30",
-    "shouldStartAppiumLocalService": "false",
-    "appiumServiceUrl": "http://127.0.0.1:4444/wd/hub",
-    "sauceLabs": {
-      "gridUri": "http://ondemand.saucelabs.com:80/wd/hub",
-      "user": "testUser",
-      "key": "testSecret"
+    "timeoutSettings": {
+      "implicitWaitTimeout": "0",
+      "elementWaitTimeout": "30",
+      "sleepInterval": "1",
+      "validationsTimeout": "30",
+      "elementToBeVisibleTimeout": "30",
+      "elementToExistTimeout": "30",
+      "elementToNotExistTimeout": "30",
+      "elementToBeClickableTimeout": "30",
+      "elementNotToBeVisibleTimeout": "30",
+      "elementToHaveContentTimeout": "15"
     },
-    "browserStack": {
-      "gridUri": "http://hub-cloud.browserstack.com/wd/hub/",
-      "user": "testUser",
-      "key": "testSecret"
-    },
-    "crossBrowserTesting": {
-      "gridUri": "http://hub.crossbrowsertesting.com:80/wd/hub",
-      "user": "testUser",
-      "key": "testSecret"
+    "executionSettings": {
+      "defaultLifeCycle": "restart every time",
+      "shouldStartLocalService": "false",
+      "url": "http://127.0.0.1:4722/wd/hub",
+      "arguments": [
+        {
+          "platformName": "Android",
+          "deviceOrientation": "portrait",
+          "browserName": "",
+          "platformVersion": "7.1",
+          "deviceName": "android25test",
+          "app": "AssemblyFolder\\Demos\\ApiDemos.apk",
+          "appWaitActivity": "*",
+          "appPackage": "com.example.android.apis",
+          "appActivity": ".view.Controls1"
+        }
+      ]
     }
   },
   "videoRecordingSettings": {

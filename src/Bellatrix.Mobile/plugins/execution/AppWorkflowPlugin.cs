@@ -12,11 +12,14 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Bellatrix.Mobile.Configuration;
+using Bellatrix.Mobile.Services;
 using Bellatrix.Plugins;
+using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.Plugins
 {
@@ -120,18 +123,11 @@ namespace Bellatrix.Mobile.Plugins
 
         private void ShutdownApp(ServicesCollection container)
         {
+            DisposeDriverService.DisposeAndroid(container);
+            DisposeDriverService.DisposeIOS(container);
+
             var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
-
-            ShutdownApp(container);
-
-            // Register the ExecutionEngine that should be used for the current run. Will be used in the next test as PreviousEngineType.
-            var testExecutionEngine = new TestExecutionEngine();
-
-            // Register the app that should be used for the current run. Will be used in the next test as PreviousappType.
-            container.RegisterInstance(currentAppConfiguration);
-
-            // Start the current engine
-            testExecutionEngine.StartApp(currentAppConfiguration, container);
+            container.RegisterInstance(currentAppConfiguration, "_previousAppConfiguration");
         }
 
         private void ResolvePreviousAppConfiguration(ServicesCollection childContainer)
@@ -212,7 +208,22 @@ namespace Bellatrix.Mobile.Plugins
             }
             else
             {
-                throw new ArgumentException("To run BELLATRIX mobile tests you need to add Android or IOS attributes over your test class.");
+                // TODO: --> add Test Case attribute for Andoid and IOS? Extend the Test Case attribute?
+                Lifecycle currentLifecycle = Parse<Lifecycle>(ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.DefaultLifeCycle);
+
+                var appConfiguration = new AppConfiguration
+                {
+                    AppPath = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.DefaultAppPath,
+                    Lifecycle = currentLifecycle,
+                    AppiumOptions = new AppiumOptions(),
+                    ClassFullName = testClassType.FullName,
+                };
+
+                InitializeGridOptionsFromConfiguration(appConfiguration.AppiumOptions, testClassType);
+                InitializeCustomCodeOptions(appConfiguration.AppiumOptions, testClassType);
+
+                container.RegisterInstance(appConfiguration, "_currentAppConfiguration");
+                return appConfiguration;
             }
 
             container.RegisterInstance(currentAppConfiguration, "_currentAppConfiguration");
@@ -268,6 +279,68 @@ namespace Bellatrix.Mobile.Plugins
             }
 
             return result;
+        }
+
+        private TEnum Parse<TEnum>(string value)
+            where TEnum : struct
+        {
+            return (TEnum)Enum.Parse(typeof(TEnum), value.Replace(" ", string.Empty), true);
+        }
+
+        private void InitializeCustomCodeOptions(dynamic options, Type testClassType)
+        {
+            var customCodeOptions = ServicesCollection.Current.Resolve<Dictionary<string, string>>($"caps-{testClassType.FullName}");
+            if (customCodeOptions != null && customCodeOptions.Count > 0)
+            {
+                foreach (var item in customCodeOptions)
+                {
+                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    {
+                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                    }
+                }
+            }
+        }
+
+        private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
+        {
+            if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments == null)
+            {
+                return;
+            }
+
+            if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0].Count > 0)
+            {
+                foreach (var item in ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0])
+                {
+                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    {
+                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                    }
+                }
+            }
+        }
+
+        private dynamic FormatGridOptions(string option, Type testClassType)
+        {
+            if (bool.TryParse(option, out bool result))
+            {
+                return result;
+            }
+            else if (int.TryParse(option, out int resultNumber))
+            {
+                return resultNumber;
+            }
+            else if (double.TryParse(option, out double resultRealNumber))
+            {
+                return resultRealNumber;
+            }
+            else
+            {
+                var runName = testClassType.Assembly.GetName().Name;
+                var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
+                return option.Replace("{runName}", timestamp).Replace("{runName}", runName);
+            }
         }
     }
 }

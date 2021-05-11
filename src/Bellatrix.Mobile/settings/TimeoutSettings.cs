@@ -11,11 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop
+namespace Bellatrix.Mobile
 {
     public class TimeoutSettings
     {
         public int ImplicitWaitTimeout { get; set; }
+        public int ElementWaitTimeout { get; set; }
         public int ValidationsTimeout { get; set; }
         public int SleepInterval { get; set; }
         public int ElementToBeVisibleTimeout { get; set; }
@@ -24,7 +25,6 @@ namespace Bellatrix.Desktop
         public int ElementToBeClickableTimeout { get; set; }
         public int ElementNotToBeVisibleTimeout { get; set; }
         public int ElementToHaveContentTimeout { get; set; }
-        public int CreateSessionTimeout { get; set; }
         public int WaitForAppLaunchTimeout { get; set; }
     }
 }

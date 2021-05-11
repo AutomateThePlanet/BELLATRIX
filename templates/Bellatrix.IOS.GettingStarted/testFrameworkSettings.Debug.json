@@ -4,29 +4,31 @@
   },
   // All Timeout Times are in seconds!
   "mobileSettings": {
-    "sleepInterval": "1",
-    "elementToBeVisibleTimeout": "30",
-    "elementToExistTimeout": "30",
-    "elementToNotExistTimeout": "30",
-    "elementToBeClickableTimeout": "30",
-    "elementNotToBeVisibleTimeout": "30",
-    "elementToHaveContentTimeout": "15",
-    "shouldStartAppiumLocalService": "false",
-    "appiumServiceUrl": "http://127.0.0.1:4723/wd/hub",
-    "sauceLabs": {
-      "gridUri": "http://ondemand.saucelabs.com:80/wd/hub",
-      "user": "testUser",
-      "key": "testSecret"
+    "timeoutSettings": {
+      "implicitWaitTimeout": "0",
+      "elementWaitTimeout": "30",
+      "sleepInterval": "1",
+      "validationsTimeout": "30",
+      "elementToBeVisibleTimeout": "30",
+      "elementToExistTimeout": "30",
+      "elementToNotExistTimeout": "30",
+      "elementToBeClickableTimeout": "30",
+      "elementNotToBeVisibleTimeout": "30",
+      "elementToHaveContentTimeout": "15"
     },
-    "browserStack": {
-      "gridUri": "http://hub-cloud.browserstack.com/wd/hub/",
-      "user": "testUser",
-      "key": "testSecret"
-    },
-    "crossBrowserTesting": {
-      "gridUri": "http://hub.crossbrowsertesting.com:80/wd/hub",
-      "user": "testUser",
-      "key": "testSecret"
+    "executionSettings": {
+      "defaultLifeCycle": "restart every time",
+      "shouldStartLocalService": "false",
+      "url": "http://127.0.0.1:4722/wd/hub",
+      "arguments": [
+        {
+          "platformName": "iOS",
+          "browserName": "",
+          "platformVersion": "11.3",
+          "deviceName": "iPhone 6",
+          "app": "com.apple.mobilecal"
+        }
+      ]
     }
   },
   "videoRecordingSettings": {

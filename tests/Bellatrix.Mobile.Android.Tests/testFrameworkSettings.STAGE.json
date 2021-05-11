@@ -4,29 +4,35 @@
   },
   // All Timeout Times are in seconds!
   "mobileSettings": {
-    "sleepInterval": "1",
-    "elementToBeVisibleTimeout": "30",
-    "elementToExistTimeout": "30",
-    "elementToNotExistTimeout": "30",
-    "elementToBeClickableTimeout": "30",
-    "elementNotToBeVisibleTimeout": "30",
-    "elementToHaveContentTimeout": "15",
-    "shouldStartAppiumLocalService": "false",
-    "appiumServiceUrl": "http://127.0.0.1:4723/wd/hub",
-    "sauceLabs": {
-      "gridUri": "http://ondemand.saucelabs.com:80/wd/hub",
-      "user": "angelov.st.anton+sauce",
-      "key": "eaa32fdc-f200-4e53-b47f-b93553a8726e"
+    "timeoutSettings": {
+      "implicitWaitTimeout": "0",
+      "elementWaitTimeout": "30",
+      "sleepInterval": "1",
+      "validationsTimeout": "30",
+      "elementToBeVisibleTimeout": "30",
+      "elementToExistTimeout": "30",
+      "elementToNotExistTimeout": "30",
+      "elementToBeClickableTimeout": "30",
+      "elementNotToBeVisibleTimeout": "30",
+      "elementToHaveContentTimeout": "15"
     },
-    "browserStack": {
-      "gridUri": "http://hub-cloud.browserstack.com/wd/hub/",
-      "user": "anton1275",
-      "key": "d4qq6H9xYs7gvzW3NGDx"
-    },
-    "crossBrowserTesting": {
-      "gridUri": "http://hub.crossbrowsertesting.com:80/wd/hub",
-      "user": "anton1275",
-      "key": "d4qq6H9xYs7gvzW3NGDx"
+    "executionSettings": {
+      "defaultLifeCycle": "restart every time",
+      "shouldStartLocalService": "false",
+      "url": "http://127.0.0.1:4722/wd/hub",
+      "arguments": [
+        {
+          "platformName": "Android",
+          "deviceOrientation": "portrait",
+          "browserName": "",
+          "platformVersion": "7.1",
+          "deviceName": "android25test",
+          "app": "AssemblyFolder\\Demos\\ApiDemos.apk",
+          "appWaitActivity": "*",
+          "appPackage": "com.example.android.apis",
+          "appActivity": ".view.Controls1"
+        }
+      ]
     }
   },
   "videoRecordingSettings": {
@@ -37,6 +43,13 @@
   "screenshotsSettings": {
     "isEnabled": "true",
     "filePath": "ApplicationData\\Troubleshooting\\Screenshots"
+  },
+  "machineAutomationSettings": {
+    "isEnabled": "true",
+    "packagesToBeInstalled": [ "googlechrome", "firefox --version=65.0.2", "opera" ]
+  },
+  "processCleanupSettings": {
+    "isParallelExecutionEnabled": "false"
   },
   "azureDevOpsDynamicTestCasesSettings": {
     "isEnabled": "false",

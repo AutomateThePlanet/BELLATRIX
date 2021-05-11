@@ -167,12 +167,12 @@ namespace Bellatrix.Desktop.Plugins
                     AppPath = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.DefaultAppPath,
                     Lifecycle = currentLifecycle,
                     Size = currentAppSize,
-                    AppiumOptioons = new DesiredCapabilities(),
+                    AppiumOptions = new DesiredCapabilities(),
                     ClassFullName = testClassType.FullName,
                 };
 
-                InitializeGridOptionsFromConfiguration(appConfiguration.AppiumOptioons, testClassType);
-                InitializeCustomCodeOptions(appConfiguration.AppiumOptioons, testClassType);
+                InitializeGridOptionsFromConfiguration(appConfiguration.AppiumOptions, testClassType);
+                InitializeCustomCodeOptions(appConfiguration.AppiumOptions, testClassType);
 
                 container.RegisterInstance(appConfiguration, "_currentAppConfiguration");
                 return appConfiguration;

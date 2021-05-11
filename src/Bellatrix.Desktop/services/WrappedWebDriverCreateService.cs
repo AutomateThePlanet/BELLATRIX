@@ -32,7 +32,7 @@ namespace Bellatrix.Desktop.Services
 
         public static WindowsDriver<WindowsElement> Create(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
         {
-            var driverOptions = childContainer.Resolve<DesiredCapabilities>(appConfiguration.ClassFullName) ?? childContainer.Resolve<DesiredCapabilities>() ?? appConfiguration.AppiumOptioons;
+            var driverOptions = childContainer.Resolve<DesiredCapabilities>(appConfiguration.ClassFullName) ?? childContainer.Resolve<DesiredCapabilities>() ?? appConfiguration.AppiumOptions;
             driverOptions.SetCapability("app", appConfiguration.AppPath);
             driverOptions.SetCapability("deviceName", "WindowsPC");
             driverOptions.SetCapability("platformName", "Windows");
