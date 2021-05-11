@@ -1,4 +1,4 @@
-﻿// <copyright file="VisualService.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ComputerVision.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ namespace Bellatrix.CognitiveServices
 
             if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(subscriptionKey))
             {
-                throw new ArgumentException("To use the Computer Vision you need to set a valid endpoint and subscription key for Azure Computer Vision Cognitive Service in the testFrameworkSettings.json under imageRecognitionSettings section. Please check BELLATRIX docs for more info - https://docs.bellatrix.solutions/web-automation/image-recognition/");
+                throw new ArgumentException("To use the ComputerVision you need to set a valid endpoint and subscription key for Azure Computer Vision Cognitive Service in the testFrameworkSettings.json under cognitiveServicesSettings section. Please check BELLATRIX docs for more info - https://docs.bellatrix.solutions/web-automation/image-recognition/");
             }
 
             _client = Authenticate(endpoint, subscriptionKey);
