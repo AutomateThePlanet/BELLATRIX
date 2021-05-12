@@ -1,19 +1,19 @@
 ﻿using System;
 using Bellatrix.Mobile.Controls.IOS;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.ReuseIfStarted)]
     public class LocateElementsTests : MSTest.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ElementFound_When_CreateById_And_ElementIsOnScreen()
         {
             // 1. There are different ways to locate elements on the screen. To do it you use the element create service.
@@ -34,13 +34,13 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             Console.WriteLine(button.WrappedElement.TagName);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
         [IOS(Constants.AppleCalendarBundleId,
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
             Lifecycle.RestartEveryTime)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ElementFound_When_CreateById_And_ElementIsNotOnScreen()
         {
             var alertButton = App.Components.CreateByName<Button>("Sunday, November 11");
@@ -85,9 +85,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             // Searches the element by XPath locator.
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ElementFound_When_CreateAllById_And_ElementIsOnScreen()
         {
             // 5. Sometimes we need to find more than one element. For example, in this test we want to locate all Add to Cart buttons.
@@ -120,9 +120,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             // Searches the elements by XPath locator.
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ElementFound_When_CreateById_And_ElementIsOnScreen_NestedElement()
         {
             // 6. Sometimes it is easier to locate one element and then find the next one that you need, inside it.

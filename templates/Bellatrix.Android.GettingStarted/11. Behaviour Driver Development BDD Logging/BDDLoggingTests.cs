@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -19,8 +19,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         // Or it is doable only for simple tests.
         // This is why in BELLATRIX we built a feature that generates the test cases after the tests execution.
         // After each action or assertion, a new entry is logged.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void CommonAssertionsAndroidControls()
         {
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.

@@ -1,20 +1,20 @@
 ﻿// 1. To use the additional method you created, add a using statement to the extension methods' namespace.
 using Bellatrix.Mobile.IOS.GettingStarted.CommonServicesExtensions;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
     public class ExtendExistingCommonServicesTests : MSTest.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethod()
         {
             // 2. Use newly added login method which is not part of the original implementation of the common service.

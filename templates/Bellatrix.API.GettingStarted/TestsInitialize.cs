@@ -4,17 +4,17 @@ using System.Runtime.InteropServices;
 using Bellatrix.Api;
 using Bellatrix.API;
 using Bellatrix.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.GettingStarted
 {
-    [TestClass]
+    [SetUpFixture]
     public class TestsInitialize
     {
         private static Process _testApiProcess;
 
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
+        [OneTimeSetUp]
+        public void AssemblyInitialize()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -24,8 +24,8 @@ namespace Bellatrix.GettingStarted
             }
         }
 
-        [AssemblyCleanup]
-        public static void AssemblyCleanUp()
+        [OneTimeTearDown]
+        public void AssemblyCleanUp()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {

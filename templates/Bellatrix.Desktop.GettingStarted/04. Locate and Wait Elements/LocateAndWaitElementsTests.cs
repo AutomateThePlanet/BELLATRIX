@@ -1,14 +1,14 @@
 ﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class LocateAndWaiTComponentsTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
               // 1. Sometimes you need to perform an action against an element only when a specific condition is true.

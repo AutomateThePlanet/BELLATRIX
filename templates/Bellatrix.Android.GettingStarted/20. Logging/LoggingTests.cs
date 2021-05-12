@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -11,8 +11,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Lifecycle.ReuseIfStarted)]
     public class LoggingTests : MSTest.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
             // 1. Sometimes is useful to add information to the generated test log.

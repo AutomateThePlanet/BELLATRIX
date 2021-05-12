@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -16,8 +16,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         // Performing series of touch actions can be one of the most complicated jobs in automating mobile apps.
         // BELLATRIX touch APIs are simplified and made to be user-friendly as possible.
         // Their usage can eliminate lots of code duplication and boilerplate code.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ElementSwiped_When_CallSwipeByCoordinatesMethod()
         {
             App.AppService.StartActivity("com.example.android.apis", ".graphics.FingerPaint");
@@ -42,7 +42,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
                 2000);
         }
 
-        [TestMethod]
+        [Test]
         public void ElementTaped_When_CallTap()
         {
             var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
@@ -52,7 +52,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             App.TouchActions.Tap(elements[6]).Perform();
         }
 
-        [TestMethod]
+        [Test]
         public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinates()
         {
             var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
@@ -70,7 +70,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
         }
 
-        [TestMethod]
+        [Test]
         public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinatesMultiAction()
         {
             var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
@@ -88,8 +88,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void TwoTouchActionExecutedInOneMultiAction_When_CallPerformAllActions()
         {
             string originalActivity = App.AppService.CurrentActivity;

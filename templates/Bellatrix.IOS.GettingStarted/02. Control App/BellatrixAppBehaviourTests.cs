@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
     // 1. This is the main attribute that you need to mark each class that contains MSTest tests.
-    [TestClass]
+    [TestFixture]
 
     // 2. This is the attribute for automatic start/control of iOS apps by Bellatrix. If you have to do it manually properly, you will need thousands of lines of code.
     // 2.1. appPath- sets the path where your application is.
@@ -28,9 +28,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     public class BellatrixAppLifecycleTests : MSTest.IOSTest
     {
         // 2.3. All MSTest tests should be marked with the TestMethod attribute.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
             // Use the element creation service to create an instance of the button. There are much more details about this process in the next sections.
@@ -40,9 +40,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             button.Click();
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
 
         // 2.4. As mentioned above you can override the app lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse an instance of the app.
         // Only for this particular test, BELLATRIX opens the app and restarts it only on fail.

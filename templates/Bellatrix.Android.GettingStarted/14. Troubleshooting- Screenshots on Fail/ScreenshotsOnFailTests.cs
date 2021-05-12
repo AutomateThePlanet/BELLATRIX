@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
@@ -10,7 +10,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     //
     // You can turn off the making of screenshots for all tests and specify where the screenshots to be saved.
     // In the extensibility chapters read more about how you can create different screenshots engine or change the saving strategy.
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -19,8 +19,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Lifecycle.ReuseIfStarted)]
     public class ScreenshotsOnFailTests : MSTest.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
             var button = App.Components.CreateByIdContaining<Button>("button");

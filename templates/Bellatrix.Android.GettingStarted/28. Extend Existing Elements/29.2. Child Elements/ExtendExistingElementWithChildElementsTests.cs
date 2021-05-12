@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -11,8 +11,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Lifecycle.ReuseIfStarted)]
     public class ExtendExistingElementWithChildElementsTests : MSTest.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
             // 1. Instead of the regular button, we create the ExtendedButton, this way we can use its new methods.

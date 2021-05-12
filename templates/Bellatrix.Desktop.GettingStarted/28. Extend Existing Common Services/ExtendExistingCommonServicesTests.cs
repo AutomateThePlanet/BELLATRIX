@@ -1,16 +1,16 @@
 ﻿// 1. To use the additional method you created, add a using statement to the extension methods' namespace.
 using Bellatrix.Desktop.GettingStarted.AppService.Extensions;
 using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class ExtendExistingCommonServicesTests : DesktopTest
     {
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void CommonActionsWithDesktopControls_Wpf()
         {
             // 2. Use newly added login method which is not part of the original implementation of the common service.

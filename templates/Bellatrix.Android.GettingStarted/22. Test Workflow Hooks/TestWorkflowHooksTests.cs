@@ -1,9 +1,9 @@
 ﻿using Bellatrix.Layout;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -81,29 +81,29 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // Executes a logic after each test in the test class.
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox()
         {
             _button.AssertAboveOf(_checkBox);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox_GreaterThan100px()
         {
             _button.AssertAboveOfGreaterThan(_checkBox, 100);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox_GreaterThanOrEqual105px()
         {
             _button.AssertAboveOfGreaterThanOrEqual(_checkBox, 105);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonIsNearTopOfCheckBox_GreaterThan100px()
         {
             _button.AssertNearTopOfGreaterThan(_checkBox, 100);

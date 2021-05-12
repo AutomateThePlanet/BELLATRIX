@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -25,8 +25,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             App.AddAdditionalCapability("noReset", "false");
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethod()
         {
             var button = App.Components.CreateByIdContaining<Button>("button");
@@ -34,8 +34,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             button.Click();
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethodSecond()
         {
             var button = App.Components.CreateByIdContaining<Button>("button");

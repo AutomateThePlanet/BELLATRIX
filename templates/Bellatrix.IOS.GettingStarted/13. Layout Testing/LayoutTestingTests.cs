@@ -1,6 +1,6 @@
 ﻿using Bellatrix.Layout;
 using Bellatrix.Mobile.Controls.IOS;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
@@ -14,12 +14,12 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    [TestClass]
+    [TestFixture]
     public class LayoutTestingTests : MSTest.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void TestPageLayout()
         {
             var numberOneTextField = App.Components.CreateById<TextField>("IntegerA");

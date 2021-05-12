@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -11,8 +11,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Lifecycle.RestartEveryTime)]
     public class LocateAndWaiTComponentsTests : MSTest.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_ClickMethodCalled()
         {
             // 1. Sometimes you need to perform an action against an element only when a specific condition is true.

@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
     // Depending on the types of tests you want to write there are a couple of ways to navigate to а specific activity.
     // If you use the Android attribute the first time the app is started it navigates to the specified activity.
-    [TestClass]
+    [TestFixture]
     ////[Android(Constants.AndroidNativeAppPath,
     ////    Constants.AndroidDefaultAndroidVersion,
     ////    Constants.AndroidDefaultDeviceName,
@@ -22,8 +22,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         // 2. If you need each test to navigate each time to the same activity, you can use the TestInit method.
         public override void TestInit() => App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".view.Controls1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
             // 3. You can always navigate in each separate tests, but if all of them open the same activity, you can use the above techniques for code reuse.

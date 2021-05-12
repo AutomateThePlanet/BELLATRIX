@@ -1,18 +1,18 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [SetUpFixture]
     public class TestsInitialize
     {
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
+        [OneTimeSetUp]
+        public static void AssemblyInitialize()
         {
             ////App.StartWinAppDriver();
         }
 
-        [AssemblyCleanup]
-        public static void AssemblyCleanUp()
+        [OneTimeTearDown]
+        public void AssemblyCleanUp()
         {
             var app = ServicesCollection.Current.Resolve<App>();
             app?.Dispose();

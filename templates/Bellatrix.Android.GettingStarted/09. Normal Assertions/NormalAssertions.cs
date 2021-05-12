@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -11,8 +11,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Lifecycle.ReuseIfStarted)]
     public class NormalAssertions : MSTest.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void CommonAssertionsAndroidControls()
         {
             var button = App.Components.CreateByIdContaining<Button>("button");

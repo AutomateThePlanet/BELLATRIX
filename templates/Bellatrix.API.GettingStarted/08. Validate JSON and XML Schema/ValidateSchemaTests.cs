@@ -1,16 +1,16 @@
 ﻿using Bellatrix.Api;
 using Bellatrix.API.GettingStarted.Models;
 using Bellatrix.API.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using RestSharp;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     public class ValidateSchemaTests : APITest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void AssertJsonSchema()
         {
             var request = new RestRequest("api/Albums/10");

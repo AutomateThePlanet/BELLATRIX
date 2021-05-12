@@ -1,16 +1,16 @@
 ﻿using System;
 using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
 
     public class LocateElementsTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             // 1. There are different ways to locate elements in the app. To do it you use the element create service.
@@ -31,8 +31,8 @@ namespace Bellatrix.Desktop.GettingStarted
             Console.WriteLine(button.WrappedElement.Coordinates);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
@@ -89,8 +89,8 @@ namespace Bellatrix.Desktop.GettingStarted
             // Searches the elements by its automation ID.
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ReturnNestedElement_When_ElementContainsOneChildElement_Wpf()
         {
             // 6. Sometimes it is easier to locate one element and then find the next one that you need, inside it.

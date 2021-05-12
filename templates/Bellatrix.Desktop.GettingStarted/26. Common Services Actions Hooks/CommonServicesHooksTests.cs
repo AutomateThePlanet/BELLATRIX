@@ -1,9 +1,9 @@
 ﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class CommonServicesHooksTests : DesktopTest
     {
@@ -18,8 +18,8 @@ namespace Bellatrix.Desktop.GettingStarted
         // ReturningWrappedElement - called before searching for native WebDriver element
         //
         // To add custom logic to the element's methods you can create a class that derives from ElementEventHandlers. The override the methods you like.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void CommonActionsWithDesktopControls_Wpf()
         {
             var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");

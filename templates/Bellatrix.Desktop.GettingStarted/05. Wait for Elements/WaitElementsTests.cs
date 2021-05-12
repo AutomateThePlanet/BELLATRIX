@@ -1,14 +1,14 @@
 ﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class WaiTComponentsTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToExists_When_ElementIsNotVisibleInitially_Wpf()
         {
@@ -27,8 +27,8 @@ namespace Bellatrix.Desktop.GettingStarted
             Assert.IsTrue(button.IsVisible);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Wpf()
         {

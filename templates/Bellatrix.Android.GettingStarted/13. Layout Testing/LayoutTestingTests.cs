@@ -1,6 +1,6 @@
 ﻿using Bellatrix.Layout;
 using Bellatrix.Mobile.Controls.Android;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
@@ -16,11 +16,11 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    [TestClass]
+    [TestFixture]
     public class LayoutTestingTests : MSTest.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestPageLayout()
         {
             var button = App.Components.CreateByIdContaining<Button>("button");

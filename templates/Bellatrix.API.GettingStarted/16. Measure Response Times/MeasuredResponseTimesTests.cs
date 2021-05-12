@@ -2,13 +2,13 @@
 using Bellatrix.API.GettingStarted.Models;
 using Bellatrix.API.MSTest;
 using Bellatrix.Plugins.Common.ExecutionTime;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using RestSharp;
 using System.Collections.Generic;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. Sometimes it is useful to use your functional tests to measure performance. Or to just make sure that your app
     // is not slow. To do that BELLATRIX libraries offer the ExecutionTimeUnder attribute. You specify a timeout and if the
@@ -23,8 +23,8 @@ namespace Bellatrix.API.GettingStarted
             _apiClientService = App.GetApiClientService();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ContentPopulated_When_GetAlbums()
         {
             var request = new RestRequest("api/Albums");
@@ -40,8 +40,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertExecutionTimeUnder(2);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void DataPopulatedAsList_When_GetGenericAlbums()
         {
             var request = new RestRequest("api/Albums");
@@ -51,8 +51,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.AreEqual(347, response.Data.Count);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void DataPopulatedAsList_When_GetGenericAlbumsById()
         {
             var request = new RestRequest("api/Albums/10");
@@ -62,8 +62,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.AreEqual(10, response.Data.AlbumId);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ContentPopulated_When_GetGenericAlbumsById()
         {
             var request = new RestRequest("api/Albums/10");

@@ -1,14 +1,14 @@
 ﻿using Bellatrix.Api;
 using Bellatrix.API.GettingStarted.Models;
 using Bellatrix.API.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using RestSharp;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     public class ApiAssertionsTests : APITest
     {
         private ApiClientService _apiClientService;
@@ -21,8 +21,8 @@ namespace Bellatrix.API.GettingStarted
         // 0. BELLATRIX API library brings many convenient assertion methods on top of RestSharp.
         // Of course, you can write similar methods yourself using MSTest or NUnit.
         // All BELLATRIX assertions comes with full BDD logging and extensibility hooks.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void AssertSuccessStatusCode()
         {
             var request = new RestRequest("api/Albums");
@@ -33,8 +33,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertSuccessStatusCode();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void AssertStatusCodeOk()
         {
             var request = new RestRequest("api/Albums");
@@ -45,8 +45,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertStatusCode(HttpStatusCode.OK);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void AssertResponseHeaderServerIsEqualToKestrel()
         {
             var request = new RestRequest("api/Albums");
@@ -57,8 +57,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertResponseHeader("server", "Kestrel");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void AssertExecutionTimeUnderIsUnderOneSecond()
         {
             var request = new RestRequest("api/Albums");
@@ -69,8 +69,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertExecutionTimeUnder(1);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public async Task AssertContentTypeJson()
         {
             var request = new RestRequest("api/Albums/10");
@@ -81,8 +81,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertContentType("application/json; charset=utf-8");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public async Task AssertContentContainsAudioslave()
         {
             var request = new RestRequest("api/Albums/10");
@@ -93,8 +93,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertContentContains("Audioslave");
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public async Task AssertContentEncodingUtf8()
         {
             var request = new RestRequest("api/Albums/10");
@@ -105,8 +105,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertContentEncoding("gzip");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public async Task AssertContentEquals()
         {
             var request = new RestRequest("api/Albums/10");
@@ -117,8 +117,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertContentEquals("{\"albumId\":10,\"title\":\"Audioslave\",\"artistId\":8,\"artist\":null,\"tracks\":[]}");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public async Task AssertContentNotContainsRammstein()
         {
             var request = new RestRequest("api/Albums/10");
@@ -129,8 +129,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertContentNotContains("Rammstein");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public async Task AssertContentNotEqualsRammstein()
         {
             var request = new RestRequest("api/Albums/10");
@@ -141,8 +141,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertContentNotEquals("Rammstein");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public async Task AssertResultEquals()
         {
             var expectedAlbum = new Albums
@@ -157,8 +157,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertResultEquals(expectedAlbum);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public async Task AssertResultNotEquals()
         {
             var expectedAlbum = new Albums
@@ -172,8 +172,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertResultNotEquals(expectedAlbum);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public async Task AssertCookieExists()
         {
             var request = new RestRequest("api/Albums/10");
@@ -184,8 +184,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertCookieExists("whoIs");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public async Task AssertCookieWhoIsBella()
         {
             var request = new RestRequest("api/Albums/10");
@@ -196,7 +196,7 @@ namespace Bellatrix.API.GettingStarted
             response.AssertCookie("whoIs", "Bella");
         }
 
-        [TestMethod]
+        [Test]
         public async Task AssertMultiple()
         {
             var request = new RestRequest("api/Albums/10");

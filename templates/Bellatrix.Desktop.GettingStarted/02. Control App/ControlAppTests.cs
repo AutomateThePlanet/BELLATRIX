@@ -1,10 +1,10 @@
 ﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     // 1. This is the main attribute that you need to mark each class that contains MSTest tests.
-    [TestClass]
+    [TestFixture]
 
     // 2. This is the attribute for automatic start/control of WebDriver applications by Bellatrix. If you have to do it manually properly, you will need thousands of lines of code.
     // 2.1. appPath- sets the path where your application is.
@@ -25,8 +25,8 @@ namespace Bellatrix.Desktop.GettingStarted
     public class ControlAppTests : DesktopTest
     {
         // 2.3. All MSTest tests should be marked with the TestMethod attribute.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             // Use the element creation service to create an instance of the button. There are much more details about this process in the next sections.
@@ -38,8 +38,8 @@ namespace Bellatrix.Desktop.GettingStarted
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
 
         // 2.4. As mentioned above you can override the app lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse the app instance.
         // Only for this particular test, BELLATRIX opens it and restarts it only on fail.

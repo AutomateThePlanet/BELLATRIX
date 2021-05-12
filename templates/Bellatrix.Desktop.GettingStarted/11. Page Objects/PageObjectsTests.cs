@@ -1,9 +1,9 @@
 ﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class PageObjectsTests : DesktopTest
     {
@@ -20,8 +20,8 @@ namespace Bellatrix.Desktop.GettingStarted
         // The same is true about most of the things you can assert in your tests.
         //
         // This is the same test that doesn't use page objects.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ActionsWithoutPageObjects_Wpf()
         {
             var permanentTransfer = App.Components.CreateByName<CheckBox>("BellaCheckBox");
@@ -65,8 +65,8 @@ namespace Bellatrix.Desktop.GettingStarted
             App.Assert.IsTrue(label.IsPresent);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ActionsWithPageObjects_Wpf()
         {
             // 5. You can use the App Create method to get an instance of it.

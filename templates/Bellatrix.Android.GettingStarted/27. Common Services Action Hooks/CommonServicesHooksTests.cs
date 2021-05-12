@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -22,8 +22,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         // ReturningWrappedElement - called before searching for native WebDriver element
         //
         // To add custom logic to the element's methods you can create a class that derives from ElementEventHandlers. The override the methods you like.
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethod()
         {
             var button = App.Components.CreateByIdContaining<Button>("button");

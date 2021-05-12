@@ -1,9 +1,9 @@
 ﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.ReuseIfStarted)]
     public class TestWorkflowHooksTests : DesktopTest
     {
@@ -67,15 +67,15 @@ namespace Bellatrix.Desktop.GettingStarted
             _mainButton.Hover();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             Assert.AreEqual("ebuttonHovered", _resultsLabel.InnerText);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ResultsLabelVisible_When_ButtonClicked_Wpf()
         {
             _resultsLabel.ValidateIsVisible();

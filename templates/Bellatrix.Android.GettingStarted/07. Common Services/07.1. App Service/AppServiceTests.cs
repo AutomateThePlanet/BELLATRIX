@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using Bellatrix.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -15,24 +15,24 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the Android app through the AppService class.
         // We already saw one of them StartActivity for opening a particular initial activity.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestBackgroundApp()
         {
             // Backgrounds the app for the specified number of seconds.
             App.AppService.BackgroundApp(1);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestResetApp()
         {
             // Resets the app.
             App.AppService.ResetApp();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void InstallAppInstalledFalse_When_AppIsUninstalled()
         {
             // Uninstalls the app with the specified app package.

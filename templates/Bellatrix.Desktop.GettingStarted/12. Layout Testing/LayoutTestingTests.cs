@@ -1,10 +1,10 @@
 ﻿using Bellatrix.Desktop.MSTest;
 using Bellatrix.Layout;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. Layout testing is a module from BELLATRIX that allows you to test the responsiveness of your app.
     // You need to add a using statement to Bellatrix.Layout
@@ -21,7 +21,7 @@ namespace Bellatrix.Desktop.GettingStarted
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class LayoutTestingTests : DesktopTest
     {
-        [TestMethod]
+        [Test]
         public void CommonActionsWithDesktopControls_Wpf()
         {
             var button = App.Components.CreateByName<Button>("E Button");

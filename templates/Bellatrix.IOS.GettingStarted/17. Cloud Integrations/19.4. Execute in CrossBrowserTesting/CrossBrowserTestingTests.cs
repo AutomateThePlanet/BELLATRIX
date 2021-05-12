@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. To execute BELLATRIX tests in CrossBrowserTesting cloud, you should use the CrossBrowserTesting attribute instead of IOS.
     // CrossBrowserTesting has the same parameters as IOS but adds to additional ones-
@@ -26,9 +26,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         build: "CI Execution")]
     public class CrossBrowserTesting : MSTest.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethod()
         {
             var button = App.Components.CreateByName<Button>("ComputeSumButton");
@@ -37,9 +37,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         }
 
         // 2. As mentioned if you use the CrossBrowserTesting attribute on method level it overrides the class settings.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         [IOSCrossBrowserTesting("crossBrowser-storage:TestApp.app.zip",
             "11.3",
             "iPhone 6",

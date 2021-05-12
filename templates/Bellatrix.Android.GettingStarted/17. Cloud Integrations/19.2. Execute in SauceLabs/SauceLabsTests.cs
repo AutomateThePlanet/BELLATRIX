@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. To execute BELLATRIX tests in SauceLabs cloud you should use the AndroidSauceLabs attribute instead of Android.
     // SauceLabs has the same parameters as Android but adds to additional ones-
@@ -25,8 +25,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Lifecycle.RestartEveryTime)]
     public class SauceLabsTests : MSTest.AndroidTest
     {
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethod()
         {
             var button = App.Components.CreateByIdContaining<Button>("button");
@@ -35,14 +35,14 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         }
 
         // 2. As mentioned if you use the SauceLabs attribute on method level it overrides the class settings.
-        [TestMethod]
+        [Test]
         [AndroidSauceLabs("sauce-storage:ApiDemos.apk",
             "7.1",
             "Android GoogleAPI Emulator",
             Constants.AndroidNativeAppAppExamplePackage,
             ".view.ControlsMaterialDark",
             Lifecycle.ReuseIfStarted)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethodSecond()
         {
             var button = App.Components.CreateByIdContaining<Button>("button");

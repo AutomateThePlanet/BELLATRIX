@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -11,8 +11,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Lifecycle.RestartEveryTime)]
     public class WaiTComponentsTests : MSTest.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_ClickMethodCalled()
         {
             // 1. Besides the ToBe methods that you can use on element creation, you have a couple of other options if you need to wait for elements.

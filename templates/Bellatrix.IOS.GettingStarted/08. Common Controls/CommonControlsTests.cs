@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
@@ -12,9 +12,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // 1. As mentioned before BELLATRIX exposes 15+ iOS controls. All of them implement Proxy design pattern which means that they are not located immediately when
         // they are created. Another benefit is that each of them includes only the actions that you should be able to do with the specific control and nothing more.
         // For example, you cannot type into a button. Moreover, this way all of the actions has meaningful names- Type not SendKeys as in vanilla WebDriver.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void CommonActionsWithIOSControls()
         {
             // 2. Create methods accept a generic parameter the type of the iOS control. Then only the methods for this specific control are accessible.
@@ -50,13 +50,13 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             Assert.AreEqual("1", textField.GetText());
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
         [IOS(Constants.AppleCalendarBundleId,
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
             Lifecycle.RestartEveryTime)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
         {
             var addButton = App.Components.CreateById<Button>("Add");
@@ -75,13 +75,13 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             Assert.IsFalse(checkBox.IsChecked);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
         [IOS(Constants.AppleCalendarBundleId,
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
             Lifecycle.RestartEveryTime)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_ClickMethodCalled()
         {
             var addButton = App.Components.CreateById<Button>("Add");

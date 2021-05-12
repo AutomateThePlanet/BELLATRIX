@@ -1,9 +1,9 @@
 ﻿using Bellatrix.Layout;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
@@ -79,42 +79,42 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             // Executes a logic after each test in the test class.
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox()
         {
             _textField.AssertAboveOf(_button);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
 
         public void ButtonIsAboveOfCheckBox_20px()
         {
             _textField.AssertAboveOf(_button, 20);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox_GreaterThan20px()
         {
             _textField.AssertAboveOfGreaterThan(_button, 20);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox_GreaterThanOrEqual20px()
         {
             _textField.AssertAboveOfGreaterThanOrEqual(_button, 20);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonIsNearTopOfCheckBox_GreaterThan20px()
         {
             _textField.AssertNearTopOfGreaterThan(_button, 20);

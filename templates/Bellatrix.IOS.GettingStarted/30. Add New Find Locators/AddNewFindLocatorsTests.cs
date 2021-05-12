@@ -1,18 +1,18 @@
 ﻿// 1. You need to add a using statement to the namespace where the extension methods for new locator are situated.
 using Bellatrix.Mobile.IOS.GettingStarted.ExtensionMethodsLocators;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
     public class AddNewFindLocatorsTests : MSTest.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
         public void ButtonClicked_When_CallClickMethod()
         {

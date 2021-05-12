@@ -1,17 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
     public class ValidateAssertions : MSTest.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void CommonAssertionsIOSControls()
         {
             var button = App.Components.CreateByName<Button>("ComputeSumButton");
@@ -50,13 +50,13 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             ////Assert.AreEqual("1", textField.GetText());
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
         [IOS(Constants.AppleCalendarBundleId,
           Constants.IOSDefaultVersion,
           Constants.IOSDefaultDeviceName,
           Lifecycle.RestartEveryTime)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
         {
             var addButton = App.Components.CreateById<Button>("Add");
@@ -80,13 +80,13 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             Assert.IsFalse(checkBox.IsChecked);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
         [IOS(Constants.AppleCalendarBundleId,
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
             Lifecycle.RestartEveryTime)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_ClickMethodCalled()
         {
             var addButton = App.Components.CreateById<Button>("Add");

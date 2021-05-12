@@ -1,9 +1,9 @@
 ﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class AddCustomWebDriverCapabilitiesTests : DesktopTest
     {
@@ -18,9 +18,9 @@ namespace Bellatrix.Desktop.GettingStarted
             App.AddAdditionalCapability("appWorkingDir", @"C:\MyTestFolder\");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Ignore]
+        [Test]
+        [Category(Categories.CI)]
+        [Ignore("API example purposes only. No need to run.")]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             var button = App.Components.CreateByName<Button>("E Button");
@@ -31,10 +31,10 @@ namespace Bellatrix.Desktop.GettingStarted
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
             var button = App.Components.CreateByName<Button>("E Button");

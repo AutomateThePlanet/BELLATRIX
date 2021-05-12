@@ -1,9 +1,9 @@
 ﻿using Bellatrix.Plugins.Common.ExecutionTime;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. Sometimes it is useful to use your functional tests to measure performance. Or to just make sure that your app
     // is not slow. To do that BELLATRIX libraries offer the ExecutionTimeUnder attribute. You specify a timeout and if the
@@ -20,8 +20,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Lifecycle.ReuseIfStarted)]
     public class MeasureTestExecutionTimesTests : MSTest.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
             var button = App.Components.CreateByIdContaining<Button>("button");

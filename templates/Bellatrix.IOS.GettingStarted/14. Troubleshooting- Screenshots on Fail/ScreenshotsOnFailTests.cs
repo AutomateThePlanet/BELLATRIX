@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
@@ -10,16 +10,16 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     //
     // You can turn off the making of screenshots for all tests and specify where the screenshots to be saved.
     // In the extensibility chapters read more about how you can create different screenshots engine or change the saving strategy.
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
     public class ScreenshotsOnFailTests : MSTest.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
             var button = App.Components.CreateByName<Button>("ComputeSumButton");

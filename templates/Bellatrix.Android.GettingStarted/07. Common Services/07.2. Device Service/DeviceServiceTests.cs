@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Android;
 using System;
@@ -6,7 +6,7 @@ using BA = Bellatrix.Assertions;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -16,9 +16,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     public class DeviceServiceTests : MSTest.AndroidTest
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the device through the DeviceService class.
-        [TestMethod]
-        [Ignore]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
+        [Category(Categories.KnownIssue)]
         public void OrientationSetToLandscape_When_CallRotateWithLandscape()
         {
             // Rotates the device horizontally.
@@ -28,18 +28,18 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Assert.AreEqual(ScreenOrientation.Landscape, App.Device.Orientation);
         }
 
-        [TestMethod]
-        [Ignore]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
+        [Category(Categories.KnownIssue)]
         public void CorrectTimeReturned_When_CallDeviceTime()
         {
             // Gets current device time.
             BA.DateTimeAssert.AreEqual(DateTime.Now, App.Device.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
         }
 
-        [TestMethod]
-        [Ignore]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
+        [Category(Categories.KnownIssue)]
         public void DeviceIsLockedFalse_When_DeviceIsUnlocked()
         {
             // Unlocks the device.
@@ -49,9 +49,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Assert.IsTrue(App.Device.IsLocked);
         }
 
-        [TestMethod]
-        [Ignore]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
+        [Category(Categories.KnownIssue)]
         public void DeviceIsLockedTrue_When_CallLock()
         {
             // Locks the device.
@@ -60,8 +60,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Assert.IsTrue(App.Device.IsLocked);
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void ConnectionTypeAirplaneMode_When_SetConnectionTypeToAirplaneMode()
         {
             try
@@ -81,16 +81,16 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             }
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestTurnOnLocationService()
         {
             // Turns on the location service.
             App.Device.TurnOnLocationService();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestOpenNotifications()
         {
             // Opens notifications.

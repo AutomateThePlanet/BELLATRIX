@@ -8,6 +8,7 @@ namespace Bellatrix.Web.GettingStarted
     public class TextVerificationPDF : NUnit.WebTest
     {
         [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void MakeTextExtractionFromPDF()
         {
             var textSnippets = App.ComputerVision.ExtractOCRTextFromLocalFile("sampleinvoice.pdf");
@@ -26,6 +27,7 @@ namespace Bellatrix.Web.GettingStarted
         }
 
         [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void ExtractTextFromGraph()
         {
             var textSnippets = App.ComputerVision.ExtractOCRTextFromLocalFile("devPortalGraph1.PNG");

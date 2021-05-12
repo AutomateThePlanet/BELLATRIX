@@ -1,10 +1,10 @@
 ﻿using Bellatrix.Desktop.MSTest;
 using Bellatrix.Plugins.Common.ExecutionTime;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. Sometimes it is useful to use your functional tests to measure performance. Or to just make sure that your app
     // is not slow. To do that BELLATRIX libraries offer the ExecutionTimeUnder attribute. You specify a timeout and if the
@@ -16,8 +16,8 @@ namespace Bellatrix.Desktop.GettingStarted
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class MeasureTestExecutionTimesTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             var button = App.Components.CreateByName<Button>("E Button");

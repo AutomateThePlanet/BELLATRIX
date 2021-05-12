@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. To execute BELLATRIX tests in BrowserStack cloud, you should use the BrowserStack attribute instead of Android.
     // BrowserStack has the same parameters as Android but adds to additional ones-
@@ -30,8 +30,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         build: "CI Execution")]
     public class BrowserStackTests : MSTest.AndroidTest
     {
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethod()
         {
             var button = App.Components.CreateByIdContaining<Button>("button");
@@ -40,8 +40,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         }
 
         // 2. As mentioned if you use the BrowserStack attribute on method level it overrides the class settings.
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         [AndroidBrowserStack("pngG38y26LZ5muB1p46P",
             "7.1",
             "Android GoogleAPI Emulator",

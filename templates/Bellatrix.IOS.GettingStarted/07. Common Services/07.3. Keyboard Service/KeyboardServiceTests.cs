@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
@@ -10,9 +10,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     public class KeyboardServiceTests : MSTest.IOSTest
     {
         // 1. BELLATRIX gives you an interface for easier work with device's keyboard through KeyboardService class.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void TestHideKeyBoard()
         {
             var textField = App.Components.CreateById<TextField>("IntegerA");

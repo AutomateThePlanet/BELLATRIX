@@ -1,19 +1,19 @@
 ﻿using Bellatrix.API.GettingStarted.Models;
 using Bellatrix.API.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using RestSharp;
 
 namespace Bellatrix.API.GettingStarted
 {
     // 1. This is the main attribute that you need to mark each class that contains MSTest tests.
-    [TestClass]
+    [TestFixture]
 
     // 2.2. All API BELLATRIX test classes should inherit from the APItest base class. This way you can use all built-in BELLATRIX tools and functionality.
     public class CreateSimpleRequestTests : APITest
     {
         // 2.3. All MSTest tests should be marked with the TestMethod attribute.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void GetAlbumById()
         {
             // 2.4. The base URL of your application is set in testFrameworkSettings.json

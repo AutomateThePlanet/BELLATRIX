@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
@@ -17,9 +17,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // Or it is doable only for simple tests.
         // This is why in BELLATRIX we built a feature that generates the test cases after the tests execution.
         // After each action or assertion, a new entry is logged.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void CommonAssertionsIOSControls()
         {
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.

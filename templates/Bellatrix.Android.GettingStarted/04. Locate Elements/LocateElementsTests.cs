@@ -1,10 +1,10 @@
 ﻿using System;
 using Bellatrix.Mobile.Controls.Android;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -13,8 +13,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Lifecycle.RestartEveryTime)]
     public class LocateElementsTests : MSTest.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ElementFound_When_CreateByIdContaining_And_ElementIsOnScreen()
         {
             // 1. There are different ways to locate elements on the screen. To do it you use the element create service.
@@ -35,8 +35,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Console.WriteLine(button.WrappedElement.TagName);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ElementFound_When_CreateByIdContaining_And_ElementIsNotOnScreen()
         {
             // 4. Sometimes, the elements you need to perform operations on are not in the visible part of the screen.
@@ -79,8 +79,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // Searches the element by XPath locator.
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ElementFound_When_CreateAllByIdContaining_And_ElementIsOnScreen()
         {
             // 5. Sometimes we need to find more than one element. For example, in this test we want to locate all Add to Cart buttons.
@@ -119,8 +119,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // Searches the elements by XPath locator.
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ElementFound_When_CreateByIdContaining_And_ElementIsOnScreen_NestedElement()
         {
             // 6. Sometimes it is easier to locate one element and then find the next one that you need, inside it.

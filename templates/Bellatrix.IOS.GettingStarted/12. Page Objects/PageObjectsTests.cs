@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
@@ -31,9 +31,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // The same is true about most of the things you can assert in your tests.
         //
         // This is the same test that doesn't use page objects.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ActionsWithoutPageObjectsFirst()
         {
             var numberOne = App.Components.CreateById<TextField>("IntegerA");
@@ -48,9 +48,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             Assert.AreEqual("11", answer.GetText());
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ActionsWithoutPageObjectsSecond()
         {
             var numberOne = App.Components.CreateById<TextField>("IntegerA");
@@ -65,9 +65,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             Assert.AreEqual("50", answer.GetText());
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ActionsWithPageObjectsFirst()
         {
             // 5. You can use the App Create method to get an instance of it.
@@ -81,9 +81,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             mainPage.AssertAnswer(11);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ActionsWithPageObjectsSecond()
         {
             var mainPage = App.Create<CalculatorPage>();

@@ -1,15 +1,15 @@
 ﻿using Bellatrix.Desktop.GettingStarted.Elements.ChildElements;
 using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class ExtendExistingElementWithChildElementsTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
             // 1. Instead of the regular button, we create the ExtendedButton, this way we can use its new methods.

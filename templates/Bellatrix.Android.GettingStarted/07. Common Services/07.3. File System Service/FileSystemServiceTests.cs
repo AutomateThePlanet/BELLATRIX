@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -15,8 +15,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     public class FileSystemServiceTests : MSTest.AndroidTest
     {
         // 1. BELLATRIX gives you an interface for easier work with files using the FileSystemService.
-        [TestMethod]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Category(Categories.KnownIssue)]
         public void FileSavedToDevice_When_CallPushFile()
         {
             // Creates a new file on the device with the specified text.
@@ -30,8 +30,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Assert.AreEqual(data, returnedData);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void FileSavedToDevice_When_CallPushFileFromBytes()
         {
             string data = "The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra";
@@ -47,8 +47,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Assert.AreEqual(data, returnedData);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Category(Categories.KnownIssue)]
         public void FileSavedToDevice_When_CallPushFileFromFileInfo()
         {
             string filePath = Path.GetTempPath();
@@ -77,8 +77,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             }
         }
 
-        [TestMethod]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Category(Categories.KnownIssue)]
         public void AllFilesReturned_When_CallPullFolder()
         {
             string data = "The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra";

@@ -1,5 +1,5 @@
 ﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
@@ -13,12 +13,12 @@ namespace Bellatrix.Desktop.GettingStarted
     // You can turn off the making of videos for all tests and specify where the videos to be saved.
     // waitAfterFinishRecordingMilliseconds adds some time to the end of the test, making the video not going black immediately.
     // In the extensibility chapters read more about how you can create custom video recorder or change the saving strategy.
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class VideoRecordingTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             var button = App.Components.CreateByName<Button>("E Button");

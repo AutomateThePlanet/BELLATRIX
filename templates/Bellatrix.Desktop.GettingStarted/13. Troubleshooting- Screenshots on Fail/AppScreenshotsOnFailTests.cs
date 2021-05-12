@@ -1,5 +1,5 @@
 ﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
@@ -11,12 +11,12 @@ namespace Bellatrix.Desktop.GettingStarted
     //
     // You can turn off the making of screenshots for all tests and specify where the screenshots to be saved.
     // In the extensibility chapters read more about how you can create different screenshots engine or change the saving strategy.
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class AppScreenshotsOnFailTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             var button = App.Components.CreateByName<Button>("E Button");

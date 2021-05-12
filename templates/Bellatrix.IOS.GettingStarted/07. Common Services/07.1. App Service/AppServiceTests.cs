@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using Bellatrix.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
@@ -12,36 +12,36 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     public class AppServiceTests : MSTest.IOSTest
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the iOS app through the AppService class.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void TestBackgroundApp()
         {
             // Backgrounds the app for the specified number of seconds.
             App.AppService.BackgroundApp(1);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void TestResetApp()
         {
             // Resets the app.
             App.AppService.ResetApp();
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void InstallAppInstalledTrue_When_AppIsInstalled()
         {
             // Checks whether the app with the specified bundleId is installed.
             Assert.IsTrue(App.AppService.IsAppInstalled("com.apple.mobilecal"));
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void InstallAppInstalledFalse_When_AppIsUninstalled()
         {
             string appPath = Path.Combine(ProcessProvider.GetExecutingAssemblyFolder(), "Demos/TestApp.app.zip");

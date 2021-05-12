@@ -1,9 +1,9 @@
 ﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class CustomTestCaseExtensionTests : DesktopTest
     {
@@ -21,9 +21,9 @@ namespace Bellatrix.Desktop.GettingStarted
             // App.AddPlugin<AssociatedTestCaseExtension>();
         }
 
-        [TestMethod]
+        [Test]
         [ManualTestCase(1532)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             var button = App.Components.CreateByName<Button>("E Button");
@@ -34,9 +34,9 @@ namespace Bellatrix.Desktop.GettingStarted
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
 
-        [TestMethod]
+        [Test]
         [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
             var button = App.Components.CreateByName<Button>("E Button");

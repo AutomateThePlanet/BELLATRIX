@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -25,8 +25,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         // The same is true about most of the things you can assert in your tests.
         //
         // This is the same test that doesn't use page objects.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ActionsWithoutPageObjects()
         {
             var button = App.Components.CreateByIdContaining<Button>("button_disabled");
@@ -44,8 +44,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             radioButton.ValidateIsChecked(timeout: 30, sleepInterval: 2);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ActionsWithPageObjects()
         {
             // 5. You can use the App Create method to get an instance of it.

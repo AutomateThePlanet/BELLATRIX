@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
 using Bellatrix.Mobile.Controls.IOS;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
@@ -15,9 +15,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // Performing series of touch actions can be one of the most complicated jobs in automating mobile apps.
         // BELLATRIX touch APIs are simplified and made to be user-friendly as possible.
         // Their usage can eliminate lots of code duplication and boilerplate code.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ElementSwiped_When_CallSwipeByCoordinatesMethod()
         {
             var textField = App.Components.CreateById<TextField>("IntegerA");
@@ -40,9 +40,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
                 2000);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ElementTaped_When_CallTap()
         {
             var buttons = App.Components.CreateAllByClass<Button>("XCUIElementTypeButton");
@@ -51,9 +51,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             App.TouchActions.Tap(buttons[0], 10).Perform();
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinates()
         {
             var element = App.Components.CreateByName<IOSComponent>("AppElem");
@@ -65,9 +65,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             App.TouchActions.Press(moveTo, y, 0).Release().Perform();
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinatesMultiAction()
         {
             var element = App.Components.CreateByName<IOSComponent>("AppElem");
@@ -80,9 +80,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             App.TouchActions.Perform();
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void TwoTouchActionExecutedInOneMultiAction_When_CallPerformAllActions()
         {
             var buttons = App.Components.CreateAllByClass<Button>("XCUIElementTypeButton");
