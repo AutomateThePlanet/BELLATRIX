@@ -1,13 +1,12 @@
 ﻿using Bellatrix.Web.Angular;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    public class AngularTests : MSTest.WebTest
+    [TestFixture]
+    public class AngularTests : NUnit.WebTest
     {
-        [TestMethod]
+        [Test]
         public void ShouldGreetUsingBinding()
         {
             App.Navigation.Navigate("http://www.angularjs.org");
@@ -28,7 +27,7 @@ namespace Bellatrix.Web.GettingStarted
             heading.ValidateInnerTextIs("Hello Julie!");
         }
 
-        [TestMethod]
+        [Test]
         public void ShouldListTodos()
         {
             App.Navigation.Navigate("http://www.angularjs.org");
@@ -39,7 +38,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual("build an AngularJS app", labels[1].InnerText.Trim());
         }
 
-        [TestMethod]
+        [Test]
         public void Angular2Test()
         {
             App.Navigation.Navigate("https://material.angular.io/");

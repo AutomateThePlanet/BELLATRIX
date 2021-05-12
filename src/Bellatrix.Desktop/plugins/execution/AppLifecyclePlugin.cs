@@ -28,26 +28,23 @@ namespace Bellatrix.Desktop.Plugins
     {
         protected override void PostTestsArrange(object sender, PluginEventArgs e)
         {
-            if (e.TestClassType.GetCustomAttributes().Any(x => x.GetType().Equals(typeof(AppAttribute)) || x.GetType().IsSubclassOf(typeof(AppAttribute))))
+            var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+
+            if (appConfiguration != null)
             {
-                var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+                ResolvePreviousAppConfiguration(e.Container);
 
-                if (appConfiguration != null)
+                bool shouldRestartApp = ShouldRestartApp(e.Container);
+
+                if (shouldRestartApp)
                 {
-                    ResolvePreviousAppConfiguration(e.Container);
-
-                    bool shouldRestartApp = ShouldRestartApp(e.Container);
-
-                    if (shouldRestartApp)
-                    {
-                        RestartApp(e.Container);
-                        e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
-                    }
+                    RestartApp(e.Container);
+                    e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
                 }
-                else
-                {
-                    e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
-                }
+            }
+            else
+            {
+                e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
             }
 
             base.PostTestsArrange(sender, e);

@@ -1,17 +1,16 @@
 ﻿using System.Diagnostics;
 using Bellatrix.Web.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    public class BrowserServiceTests : MSTest.WebTest
+    [TestFixture]
+    public class BrowserServiceTests : NUnit.WebTest
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the started browser through the BrowserService class.
         // We already saw one of them WaitUntilReady waiting for all Ajax calls to complete.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void GetCurrentUri()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -20,8 +19,8 @@ namespace Bellatrix.Web.GettingStarted
             Debug.WriteLine(App.Browser.Url);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ControlBrowser()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -39,8 +38,8 @@ namespace Bellatrix.Web.GettingStarted
             App.Browser.Refresh();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void GetTabTitle()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -49,8 +48,8 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual("Bellatrix Demos – Bellatrix is a cross-platform, easily customizable and extendable .NET test automation framework that increases tests’ reliability.", App.Browser.Title);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PrintCurrentPageHtml()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -59,8 +58,8 @@ namespace Bellatrix.Web.GettingStarted
             Debug.WriteLine(App.Browser.HtmlSource);
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void SwitchToFrame()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

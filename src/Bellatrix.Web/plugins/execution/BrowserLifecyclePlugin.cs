@@ -34,28 +34,25 @@ namespace Bellatrix.Web.Plugins.Browser
     {
         protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
-            if (e.TestClassType.GetCustomAttributes().Any(x => x.GetType().Equals(typeof(BrowserAttribute)) || x.GetType().IsSubclassOf(typeof(BrowserAttribute))))
+            // Resolve required data for decision making
+            var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container, e.Arguments);
+
+            if (currentBrowserConfiguration != null)
             {
-                // Resolve required data for decision making
-                var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container, e.Arguments);
+                ResolvePreviousBrowserType(e.Container);
 
-                if (currentBrowserConfiguration != null)
+                // Decide whether the browser needs to be restarted
+                bool shouldRestartBrowser = ShouldRestartBrowser(e.Container);
+
+                if (shouldRestartBrowser)
                 {
-                    ResolvePreviousBrowserType(e.Container);
-
-                    // Decide whether the browser needs to be restarted
-                    bool shouldRestartBrowser = ShouldRestartBrowser(e.Container);
-
-                    if (shouldRestartBrowser)
-                    {
-                        RestartBrowser(e.Container);
-                        e.Container.RegisterInstance(true, "_isBrowserStartedDuringPreTestsArrange");
-                    }
+                    RestartBrowser(e.Container);
+                    e.Container.RegisterInstance(true, "_isBrowserStartedDuringPreTestsArrange");
                 }
-                else
-                {
-                    e.Container.RegisterInstance(false, "_isBrowserStartedDuringPreTestsArrange");
-                }
+            }
+            else
+            {
+                e.Container.RegisterInstance(false, "_isBrowserStartedDuringPreTestsArrange");
             }
 
             base.PreTestsArrange(sender, e);
@@ -179,7 +176,7 @@ namespace Bellatrix.Web.Plugins.Browser
                 Size currentBrowserSize = browserAttribute.Size;
                 ExecutionType executionType = browserAttribute.ExecutionType;
 
-                var options = (browserAttribute as IDriverOptionsAttribute)?.CreateOptions(memberInfo, testClassType);
+                var options = (browserAttribute as IDriverOptionsAttribute)?.CreateOptions(memberInfo, testClassType) ?? GetDriverOptionsBasedOnBrowser(currentBrowserType, testClassType);
                 InitializeCustomCodeOptions(options, testClassType);
 
                 var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible, options);

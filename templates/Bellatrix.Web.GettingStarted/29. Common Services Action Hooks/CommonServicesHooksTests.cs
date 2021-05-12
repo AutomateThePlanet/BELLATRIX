@@ -1,11 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class CommonServicesHooksTests : MSTest.WebTest
+    [TestFixture]
+    public class CommonServicesHooksTests : NUnit.WebTest
     {
         // 1. Another way to extend BELLATRIX is to use the common services hooks. This is how the failed tests analysis works.
         // Here is a list of all common services event you can subscribe to:
@@ -25,8 +23,8 @@ namespace Bellatrix.Web.GettingStarted
         // ReturningWrappedElement - called before searching for native WebDriver element
         //
         // To add custom logic to the element's methods you can create a class that derives from ElementEventHandlers. The override the methods you like.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PurchaseRocketWithGloballyOverridenMethods()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

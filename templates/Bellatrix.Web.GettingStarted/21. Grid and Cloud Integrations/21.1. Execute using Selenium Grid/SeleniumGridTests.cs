@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. To use BELLATRIX with Selenium Grid, you should use the Remote attribute instead of Browser.
     // Remote has the same parameters as Browser but adds to additional ones- browser version and platform type.
@@ -19,10 +19,10 @@ namespace Bellatrix.Web.GettingStarted
     //
     // There you can set the grid URL and set some additional timeouts.
     [Remote(BrowserType.Chrome, "62", PlatformType.Windows, Lifecycle.ReuseIfStarted)]
-    public class SeleniumGridTests : MSTest.WebTest
+    public class SeleniumGridTests : NUnit.WebTest
     {
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -34,8 +34,8 @@ namespace Bellatrix.Web.GettingStarted
 
         // 2. As mentioned if you use the Remote attribute on method level it overrides the class settings.
         // As you can see with the Remote attribute we can change the browser window size again.
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         [Remote(BrowserType.Chrome, "62", PlatformType.Windows, DesktopWindowSize._1280_1024, Lifecycle.ReuseIfStarted)]
 
         // [Remote(BrowserType.Chrome, "62", PlatformType.Windows, 1000, 500, Lifecycle.ReuseIfStarted)]

@@ -1,14 +1,13 @@
 ﻿using Bellatrix.Web.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    public class LocateAndWaiTComponentsTests : MSTest.WebTest
+    [TestFixture]
+    public class LocateAndWaiTComponentsTests : NUnit.WebTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

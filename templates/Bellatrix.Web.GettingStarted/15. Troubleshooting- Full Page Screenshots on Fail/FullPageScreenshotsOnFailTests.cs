@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
@@ -10,12 +10,11 @@ namespace Bellatrix.Web.GettingStarted
     //
     // You can turn off the making of screenshots for all tests and specify where the screenshots to be saved.
     // In the extensibility chapters read more about how you can create different screenshots engine or change the saving strategy.
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    public class FullPageScreenshotsOnFailTests : MSTest.WebTest
+    [TestFixture]
+    public class FullPageScreenshotsOnFailTests : NUnit.WebTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

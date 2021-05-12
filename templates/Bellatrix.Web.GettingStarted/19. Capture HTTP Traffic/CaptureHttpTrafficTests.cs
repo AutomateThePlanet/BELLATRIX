@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
@@ -13,14 +13,14 @@ namespace Bellatrix.Web.GettingStarted
     // You need to set the shouldCaptureHttpTraffic to true in the Browser attribute.
     // After that, each request and response made by the browser is captured, and you have
     // the option to modify it or make assertions against it.
-    [TestClass]
+    [TestFixture]
     [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: true)]
     [Browser(OS.OSX, BrowserType.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: false)]
-    public class CaptureHttpTrafficTests : MSTest.WebTest
+    public class CaptureHttpTrafficTests : NUnit.WebTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Windows)]
+        [Test]
+        [Category(Categories.CI)]
+        [Category(Categories.Windows)]
         public void CaptureTrafficTests()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -49,9 +49,9 @@ namespace Bellatrix.Web.GettingStarted
             App.ProxyService.AssertRequestMade("http://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Windows)]
+        [Test]
+        [Category(Categories.CI)]
+        [Category(Categories.Windows)]
         public void RedirectRequestsTest()
         {
             // 3. You can set various URLs to be redirected. This is useful if you do not have
@@ -72,9 +72,9 @@ namespace Bellatrix.Web.GettingStarted
             viewCartButton.Click();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Windows)]
+        [Test]
+        [Category(Categories.CI)]
+        [Category(Categories.Windows)]
         public void BlockRequestsTest()
         {
             // 4. To make web pages load faster, you can block some not required services- for example

@@ -1,13 +1,13 @@
 ﻿using Bellatrix.Web;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.GettingStarted
 {
-    [TestClass]
+    [SetUpFixture]
     public class TestsInitialize
     {
-        [AssemblyCleanup]
-        public static void AssemblyCleanUp()
+        [OneTimeTearDown]
+        public void AssemblyCleanUp()
         {
             var app = ServicesCollection.Current.Resolve<App>();
             app?.Dispose();

@@ -27,28 +27,25 @@ namespace Bellatrix.Mobile.Plugins
     {
         protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
-            if (e.TestClassType.GetCustomAttributes().Any(x => x.GetType().Equals(typeof(AppAttribute)) || x.GetType().IsSubclassOf(typeof(AppAttribute))))
+            // Resolve required data for decision making
+            var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+
+            if (appConfiguration != null)
             {
-                // Resolve required data for decision making
-                var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+                ResolvePreviousAppConfiguration(e.Container);
 
-                if (appConfiguration != null)
+                // Decide whether the app needs to be restarted
+                bool shouldRestartApp = ShouldRestartApp(e.Container);
+
+                if (shouldRestartApp)
                 {
-                    ResolvePreviousAppConfiguration(e.Container);
-
-                    // Decide whether the app needs to be restarted
-                    bool shouldRestartApp = ShouldRestartApp(e.Container);
-
-                    if (shouldRestartApp)
-                    {
-                        RestartApp(e.Container);
-                        e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
-                    }
-                }
-                else
-                {
+                    RestartApp(e.Container);
                     e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
                 }
+            }
+            else
+            {
+                e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
             }
 
             base.PreTestsArrange(sender, e);

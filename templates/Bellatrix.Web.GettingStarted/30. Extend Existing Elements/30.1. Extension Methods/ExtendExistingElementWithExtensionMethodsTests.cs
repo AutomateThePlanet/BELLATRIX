@@ -1,16 +1,14 @@
 ﻿// 1. To use the additional method you created, add a using statement to the extension methods' namespace.
 using Bellatrix.Web.GettingStarted.Advanced.Elements.Extension.Methods;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class ExtendExistingElementWithExtensionMethodsTests : MSTest.WebTest
+    [TestFixture]
+    public class ExtendExistingElementWithExtensionMethodsTests : NUnit.WebTest
     {
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void PurchaseRocket()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

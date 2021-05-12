@@ -1,5 +1,5 @@
 ﻿using Bellatrix.Layout;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
@@ -17,11 +17,11 @@ namespace Bellatrix.Web.GettingStarted
     // [Browser(BrowserType.FirefoxHeadless, width: 600, height: 900, behavior: Lifecycle.RestartEveryTime)]
     [Browser(BrowserType.Chrome, DesktopWindowSize._1280_1024,  Lifecycle.RestartEveryTime)]
     [Browser(OS.OSX, BrowserType.Chrome, DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
-    [TestClass]
-    public class LayoutTestingTests : MSTest.WebTest
+    [TestFixture]
+    public class LayoutTestingTests : NUnit.WebTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestPageLayout()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

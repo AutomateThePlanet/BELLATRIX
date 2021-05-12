@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bellatrix.Web.Assertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert = Bellatrix.Assertions.Assert;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    public class TableControlTests : MSTest.WebTest
+    [TestFixture]
+    public class TableControlTests : NUnit.WebTest
     {
         private List<User> _expectedUsers;
 
@@ -72,7 +71,7 @@ namespace Bellatrix.Web.GettingStarted
             };
         }
 
-        [TestMethod]
+        [Test]
         public void AssertMiscData()
         {
             // You can get all rows as instances of a specific class through the GetItems method.
@@ -85,7 +84,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual("Action", Table.GetHeaderNames().Last());
         }
 
-        [TestMethod]
+        [Test]
         [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
         public void AssertCells()
         {
@@ -110,7 +109,7 @@ namespace Bellatrix.Web.GettingStarted
             matchingCell.ValidateInnerTextIs("John");
         }
 
-        [TestMethod]
+        [Test]
         [Browser(BrowserType.FirefoxHeadless, Lifecycle.ReuseIfStarted)]
         public void AssertSpecificRow()
         {
@@ -156,7 +155,7 @@ namespace Bellatrix.Web.GettingStarted
             firstRow.AssertRow(_expectedUsers[0]);
         }
 
-        [TestMethod]
+        [Test]
         public void AssertHeaders()
         {
             // You can get all table header rows through the TableHeaderRows property.
@@ -170,7 +169,7 @@ namespace Bellatrix.Web.GettingStarted
             headerCells.ForEach(cell => cell.AssertFontSize("16px"));
         }
 
-        [TestMethod]
+        [Test]
         public void AssertSpecificCell()
         {
             var firstCell = Table.GetCell(0, 0);
@@ -190,7 +189,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual("Doe", thirdCell.InnerHtml);
         }
 
-        [TestMethod]
+        [Test]
         public void AssertColumns()
         {
             // You can get the cells of a particular column mentioning the column number.

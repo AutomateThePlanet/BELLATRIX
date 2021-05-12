@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. To execute BELLATRIX tests in Docker containers using Selenoid (https://github.com/aerokube/selenoid), you should use the Selenoid attribute instead of Browser.
     // Selenoid has the same parameters as Browser but adds to additional ones-
@@ -19,10 +19,10 @@ namespace Bellatrix.Web.GettingStarted
     //
     // There you can set the grid URL and set some additional timeouts.
     [Selenoid(BrowserType.Chrome, "77", Lifecycle.RestartEveryTime, recordVideo: true, enableVnc: true, saveSessionLogs: true)]
-    public class SelenoidTests : MSTest.WebTest
+    public class SelenoidTests : NUnit.WebTest
     {
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -34,8 +34,8 @@ namespace Bellatrix.Web.GettingStarted
 
         // 2. As mentioned if you use the CrossBrowserTesting attribute on method level it overrides the class settings.
         // As you can see with the CrossBrowserTesting attribute we can change the browser window size again.
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         [Selenoid(BrowserType.Chrome, "76", DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
 
         ////[Selenoid(BrowserType.Chrome, "76", 1000, 500, Lifecycle.RestartEveryTime)]

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    public class TextVerificationPDF : MSTest.WebTest
+    [TestFixture]
+    public class TextVerificationPDF : NUnit.WebTest
     {
-        [TestMethod]
+        [Test]
         public void MakeTextExtractionFromPDF()
         {
             var textSnippets = App.ComputerVision.ExtractOCRTextFromLocalFile("sampleinvoice.pdf");
@@ -25,7 +25,7 @@ namespace Bellatrix.Web.GettingStarted
             App.ComputerVision.ValidateText("sampleinvoice.pdf", "en", expectedTextSnippets);
         }
 
-        [TestMethod]
+        [Test]
         public void ExtractTextFromGraph()
         {
             var textSnippets = App.ComputerVision.ExtractOCRTextFromLocalFile("devPortalGraph1.PNG");

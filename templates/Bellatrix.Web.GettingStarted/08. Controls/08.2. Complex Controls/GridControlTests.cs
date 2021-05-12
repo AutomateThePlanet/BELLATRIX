@@ -2,7 +2,7 @@
 using System.Linq;
 using Bellatrix.Assertions;
 using Bellatrix.Web.Assertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert = Bellatrix.Assertions.Assert;
 
 namespace Bellatrix.Web.GettingStarted
@@ -12,9 +12,8 @@ namespace Bellatrix.Web.GettingStarted
     // other tables. Or you can filter, sort the columns, and have paging for the grid. Instead of getting specific cells or rows by custom locators-
     // we have created the Table and Grid controls, which ease the selection of cells/rows and assertion of the data.
     // Moreover, in many cases there isn't a unique item which you can use to select the row/cell.
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    public class GridControlTests : MSTest.WebTest
+    [TestFixture]
+    public class GridControlTests : NUnit.WebTest
     {
         private static GridTestPage _gridTestPage;
         private static List<Employee> _expectedItems;
@@ -66,7 +65,7 @@ namespace Bellatrix.Web.GettingStarted
             };
         }
 
-        [TestMethod]
+        [Test]
         public void AssertGridCells()
         {
             // Verify all cells using a function with Assert
@@ -98,7 +97,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreNotEqual(firstRowEmail, firstRowEmailAfterDelete);
         }
 
-        [TestMethod]
+        [Test]
         public void AssertObjectsData()
         {
             // You can get all rows as instances of a specific class through the GetItems method.
@@ -118,7 +117,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual("Email Personal", TestGrid.GetHeaderNames().FirstOrDefault(header => header.StartsWith("Email")));
         }
 
-        [TestMethod]
+        [Test]
         public void AssertHeaders()
         {
             // You can get all grid header rows through the TableHeaderRows property.
@@ -132,7 +131,7 @@ namespace Bellatrix.Web.GettingStarted
             headerCells.ForEach(cell => cell.AssertFontSize("14px"));
         }
 
-        [TestMethod]
+        [Test]
         public void AssertRows()
         {
             // You can get the grid rows (without the header ones) through the GetRows method.
@@ -153,7 +152,7 @@ namespace Bellatrix.Web.GettingStarted
             firstRow = TestGrid.GetFirstOrDefaultRow<TableCell>(cell => cell.InnerText.Contains("J"));
         }
 
-        [TestMethod]
+        [Test]
         public void AssertSpecificRow()
         {
             var firstRow = TestGrid.GetRow(0);
@@ -193,7 +192,7 @@ namespace Bellatrix.Web.GettingStarted
             firstRow.AssertRow(_expectedItems[0]);
         }
 
-        [TestMethod]
+        [Test]
         public void AssertSpecificCell()
         {
             var secondCell = TestGrid.GetCell(0, 1);
@@ -216,7 +215,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual("0", firstCell.As().Value);
         }
 
-        [TestMethod]
+        [Test]
         public void AssertColumns()
         {
             // You can get the cells of a particular column mentioning the column number.

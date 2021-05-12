@@ -1,17 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class SimpleControlsTests : MSTest.WebTest
+    [TestFixture]
+    public class SimpleControlsTests : NUnit.WebTest
     {
         // 1. As mentioned before BELLATRIX exposes 30+ web controls. All of them implement Proxy design pattern which means that they are not located immediately when
         // they are created. Another benefit is that each of them includes only the actions that you should be able to do with the specific control and nothing more.
         // For example, you cannot type into a button. Moreover, this way all of the actions has meaningful names- Type not SendKeys as in vanilla WebDriver.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PurchaseRocket()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

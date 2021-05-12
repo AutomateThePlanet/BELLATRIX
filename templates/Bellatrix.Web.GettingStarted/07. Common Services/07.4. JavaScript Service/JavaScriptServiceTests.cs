@@ -1,16 +1,15 @@
 ﻿using Bellatrix.Web.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    public class JavaScriptServiceTests : MSTest.WebTest
+    [TestFixture]
+    public class JavaScriptServiceTests : NUnit.WebTest
     {
         // 1. BELLATRIX gives you an interface for easier execution of JavaScript code using the JavaScriptService.
         // You need to make sure that you have navigated to the desired web page.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void FillUpAllFields()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
@@ -25,8 +24,8 @@ namespace Bellatrix.Web.GettingStarted
             App.JavaScript.Execute("arguments[0].click();", button);
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void GeTComponentStyle()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

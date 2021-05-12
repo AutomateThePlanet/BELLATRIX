@@ -1,15 +1,14 @@
 ﻿using System;
 using Bellatrix.Web.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    public class LocateElementsTests : MSTest.WebTest
+    [TestFixture]
+    public class LocateElementsTests : NUnit.WebTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -30,9 +29,8 @@ namespace Bellatrix.Web.GettingStarted
             Console.WriteLine(promotionsLink.By.Value);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Browser(BrowserType.Chrome, Lifecycle.RestartOnFail)]
+        [Test]
+        [Category(Categories.CI)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -83,8 +81,8 @@ namespace Bellatrix.Web.GettingStarted
             blogLink.Click();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void CheckAllAddToCartButtons()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -135,8 +133,8 @@ namespace Bellatrix.Web.GettingStarted
             ////var blogLink = App.Components.CreateAllByXpath<Anchor>("//*[@title='Add to cart']");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void OpenSalesPage_When_LocatedSaleButtonInsideProductImage()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

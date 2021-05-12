@@ -8,6 +8,7 @@ namespace Bellatrix.Desktop.GettingStarted
     public class TextVerificationPDF : MSTest.DesktopTest
     {
         [TestMethod]
+        [Ignore]
         public void MakeTextExtractionFromPDF()
         {
             var textSnippets = App.ComputerVision.ExtractOCRTextFromLocalFile("sampleinvoice.pdf");

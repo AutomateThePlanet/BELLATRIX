@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. To execute BELLATRIX tests in CrossBrowserTesting cloud, you should use the CrossBrowserTesting attribute instead of Browser.
     // CrossBrowserTesting has the same parameters as Browser but adds to additional ones-
@@ -27,10 +27,10 @@ namespace Bellatrix.Web.GettingStarted
         recordVideo: true,
         recordNetwork: true,
         build: "myUniqueBuildName")]
-    public class CrossBrowserTesting : MSTest.WebTest
+    public class CrossBrowserTesting : NUnit.WebTest
     {
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -42,8 +42,8 @@ namespace Bellatrix.Web.GettingStarted
 
         // 2. As mentioned if you use the CrossBrowserTesting attribute on method level it overrides the class settings.
         // As you can see with the CrossBrowserTesting attribute we can change the browser window size again.
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         [CrossBrowserTesting(BrowserType.Chrome, "62", "Windows 10", DesktopWindowSize._1280_1024, Lifecycle.ReuseIfStarted)]
 
         // [BrowserStack(BrowserType.Chrome, "62", "Windows 10", 1000, 500, Lifecycle.ReuseIfStarted)]

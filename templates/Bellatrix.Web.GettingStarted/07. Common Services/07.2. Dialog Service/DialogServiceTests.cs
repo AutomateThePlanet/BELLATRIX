@@ -1,15 +1,14 @@
 ﻿using Bellatrix.Web.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    public class DialogServiceTests : MSTest.WebTest
+    [TestFixture]
+    public class DialogServiceTests : NUnit.WebTest
     {
         // 1. BELLATRIX gives you some methods for handling dialogs.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void AcceptDialogAlert()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
@@ -21,8 +20,8 @@ namespace Bellatrix.Web.GettingStarted
             App.Dialogs.Handle();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void HappyBirthdayCouponDisplayed_When_ClickOnCouponButton()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
@@ -34,8 +33,8 @@ namespace Bellatrix.Web.GettingStarted
             ////App.Dialogs.Handle((a) => Assert.AreEqual("Try the coupon- happybirthday", a.Text));
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void DismissDialogAlert()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");

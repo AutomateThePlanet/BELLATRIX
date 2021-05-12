@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
     [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class CustomTestCaseExtensionTests : MSTest.WebTest
+    public class CustomTestCaseExtensionTests : NUnit.WebTest
     {
         // 1. Once we created the test workflow plugin, we need to add it to the existing test workflow.
         // It is done using the App service's method AddPlugin.
@@ -21,8 +21,8 @@ namespace Bellatrix.Web.GettingStarted
             // App.AddPlugin<AssociatedTestCaseExtension>();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         [ManualTestCase(1532)]
         public void PurchaseRocketWithGloballyOverridenMethods()
         {

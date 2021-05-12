@@ -1,17 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [SauceLabs(BrowserType.Firefox,
         "50",
         "Windows",
         Lifecycle.ReuseIfStarted,
         recordScreenshots: true,
         recordVideo: true)]
-    public class CustomWebDriverCapabilitiesTests : MSTest.WebTest
+    public class CustomWebDriverCapabilitiesTests : NUnit.WebTest
     {
         // 1. BELLATRIX hides the complexity of initialisation of WebDriver and all related services.
         // In some cases, you need to customise the set up of a browser with using WebDriver options, adding driver capabilities or using browser profile.
@@ -40,8 +40,8 @@ namespace Bellatrix.Web.GettingStarted
             App.AddWebDriverBrowserProfile(profile);
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -51,8 +51,8 @@ namespace Bellatrix.Web.GettingStarted
             promotionsLink.Click();
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

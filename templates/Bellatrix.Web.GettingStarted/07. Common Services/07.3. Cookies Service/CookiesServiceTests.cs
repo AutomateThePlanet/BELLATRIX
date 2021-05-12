@@ -1,17 +1,15 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class CookiesServiceTests : MSTest.WebTest
+    [TestFixture]
+    public class CookiesServiceTests : NUnit.WebTest
     {
         // 1. BELLATRIX gives you an interface for easier work with cookies using the CookiesService.
         // You need to make sure that you have navigated to the desired web page.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void GetAllCookies()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
@@ -26,8 +24,8 @@ namespace Bellatrix.Web.GettingStarted
             Assert.IsTrue(cookies.Count > 0);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void GetSpecificCookie()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
@@ -40,8 +38,8 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual("3", itemsInCartCookie);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void DeleteAllCookies()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
@@ -53,8 +51,8 @@ namespace Bellatrix.Web.GettingStarted
             App.Cookies.DeleteAllCookies();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void DeleteSpecificCookie()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
@@ -66,8 +64,8 @@ namespace Bellatrix.Web.GettingStarted
             App.Cookies.DeleteCookie("woocommerce_items_in_cart");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void AddNewCookie()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");

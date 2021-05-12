@@ -1,12 +1,10 @@
 ﻿using Bellatrix.Web.GettingStarted.Advanced._27._Element_Actions_Hooks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class ElementActionHooksTests : MSTest.WebTest
+    [TestFixture]
+    public class ElementActionHooksTests : NUnit.WebTest
     {
         // 1. Another way to extend BELLATRIX is to use the controls hooks. This is how the BDD logging and highlighting are implemented.
         // For each method of the control, there are two hooks- one that is called before the action and one after.
@@ -39,8 +37,8 @@ namespace Bellatrix.Web.GettingStarted
             // For example for the method ValidateIsChecked, ValidatedIsCheckedEvent event is called after the check is done.
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PurchaseRocketWithGloballyOverridenMethods()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

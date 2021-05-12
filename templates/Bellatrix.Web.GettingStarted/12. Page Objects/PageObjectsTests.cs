@@ -1,12 +1,10 @@
 ﻿using Bellatrix.Web.GettingStarted._12._Page_Objects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class PageObjectsTests : MSTest.WebTest
+    [TestFixture]
+    public class PageObjectsTests : NUnit.WebTest
     {
           // 1. As you most probably noticed this is like the 4th time we use almost the same elements and logic inside our tests.
         // Similar test writing approach leads to unreadable and hard to maintain tests.
@@ -25,8 +23,8 @@ namespace Bellatrix.Web.GettingStarted
         // after clicking some link or button. The same is valid if you work with single page applications.
         //
         // This is the same test that doesn't use page objects.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PurchaseRocketWithoutPageObjects()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -102,7 +100,7 @@ namespace Bellatrix.Web.GettingStarted
             checkPaymentsRadioButton.Click();
         }
 
-        [TestMethod]
+        [Test]
         public void PurchaseRocketWithPageObjects()
         {
             // 6. You can use the App GoTo method to navigate to the page and gets an instance of it.

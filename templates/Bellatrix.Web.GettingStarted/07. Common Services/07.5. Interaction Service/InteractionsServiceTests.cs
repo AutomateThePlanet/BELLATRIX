@@ -1,17 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    public class InteractionsServiceTests : MSTest.WebTest
+    [TestFixture]
+    public class InteractionsServiceTests : NUnit.WebTest
     {
         // 1. BELLATRIX gives you an interface for easier execution of complex UI interactions such as drag & drop, move to element, double click, etc.
         // BELLATRIX interaction APIs are simplified and made to be user-friendly as possible.
         // Their usage can eliminate lots of code duplication and boilerplate code.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         [Ignore("Currently not working in the latest version of WebDriver")]
         public void DragAndDrop()
         {
@@ -26,8 +25,8 @@ namespace Bellatrix.Web.GettingStarted
             App.Interactions.MoveToElement(protonRocketAnchor).DragAndDrop(protonRocketAnchor, protonMAnchor).Perform();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void KeyUp()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

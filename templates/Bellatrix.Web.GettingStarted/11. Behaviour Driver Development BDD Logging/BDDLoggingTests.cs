@@ -1,11 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class BDDLoggingTests : MSTest.WebTest
+    [TestFixture]
+    public class BDDLoggingTests : NUnit.WebTest
     {
         // 1. There cases when you need to show your colleagues or managers what tests do you have.
         // Sometimes you may have manual test cases, but their maintenance and up-to-date state are questionable.
@@ -15,8 +13,8 @@ namespace Bellatrix.Web.GettingStarted
         // Or it is doable only for simple tests.
         // This is why in BELLATRIX we built a feature that generates the test cases after the tests execution.
         // After each action or assertion, a new entry is logged.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PurchaseRocketWithLogs()
         {
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.
@@ -89,7 +87,6 @@ namespace Bellatrix.Web.GettingStarted
             Phone billingPhone = App.Components.CreateById<Phone>("billing_phone");
             Email billingEmail = App.Components.CreateById<Email>("billing_email");
             CheckBox createAccountCheckBox = App.Components.CreateById<CheckBox>("createaccount");
-            RadioButton checkPaymentsRadioButton = App.Components.CreateByAttributesContaining<RadioButton>("for", "payment_method_cheque");
 
             // Checkout page actions
             billingDetailsHeading.ToBeVisible().WaitToBe();
@@ -110,7 +107,6 @@ namespace Bellatrix.Web.GettingStarted
             billingPhone.SetPhone("+00359894646464");
             billingEmail.SetEmail("info@bellatrix.solutions");
             createAccountCheckBox.Check();
-            checkPaymentsRadioButton.Click();
 
             // 4. After the test is executed the following log is created:
             //

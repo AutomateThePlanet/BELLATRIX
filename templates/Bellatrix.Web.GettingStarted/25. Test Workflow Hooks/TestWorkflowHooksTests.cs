@@ -1,12 +1,10 @@
 ﻿using Bellatrix.Layout;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    public class TestWorkflowHooksTests : MSTest.WebTest
+    [TestFixture]
+    public class TestWorkflowHooksTests : NUnit.WebTest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.
         // It gives you the possibility to execute your logic in every part of the test workflow.
@@ -27,7 +25,7 @@ namespace Bellatrix.Web.GettingStarted
         // 2.7. All plug-ins PreTestsAct logic executes.
         // 2.8. Current class TestsAct method executes. By default it is empty, but you can override it in each class and execute your logic.
         // This is the place where you can execute the primary actions for your test case. This is useful if you want later include only assertions in the tests.
-        // Note: TestsArrange and TestsAct are similar to MSTest TestClassInitialize and OneTimeSetup in NUnit. We decided to split them into two methods
+        // Note: TestsArrange and TestsAct are similar to MSTest TestFixtureInitialize and OneTimeSetup in NUnit. We decided to split them into two methods
         // to make the code more readable and two allow customization of the workflow.
         //
         // The following methods are called once for each test in the class:
@@ -78,36 +76,36 @@ namespace Bellatrix.Web.GettingStarted
             // Executes a logic after each test in the test class.
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void SortDropDownIsAboveOfProtonRocketAnchor()
         {
             _sortDropDown.AssertAboveOf(_protonRocketAnchor);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void SortDropDownIsAboveOfProtonRocketAnchor_41px()
         {
             _sortDropDown.AssertAboveOf(_protonRocketAnchor, 41);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void SortDropDownIsAboveOfProtonRocketAnchor_GreaterThan40px()
         {
             _sortDropDown.AssertAboveOfGreaterThan(_protonRocketAnchor, 40);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void SortDropDownIsAboveOfProtonRocketAnchor_GreaterThanOrEqual41px()
         {
             _sortDropDown.AssertAboveOfGreaterThanOrEqual(_protonRocketAnchor, 41);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void SortDropDownIsNearTopOfProtonRocketAnchor_GreaterThan40px()
         {
             _sortDropDown.AssertNearTopOfGreaterThan(_protonRocketAnchor, 40);

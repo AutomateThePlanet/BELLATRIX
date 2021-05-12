@@ -1,15 +1,13 @@
 ﻿using Bellatrix.Web.GettingStarted.Advanced.Elements.ChildElements;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.FirefoxHeadless, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class ExtendExistingElementWithChildElementsTests : MSTest.WebTest
+    [TestFixture]
+    public class ExtendExistingElementWithChildElementsTests : NUnit.WebTest
     {
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void PurchaseRocket()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");

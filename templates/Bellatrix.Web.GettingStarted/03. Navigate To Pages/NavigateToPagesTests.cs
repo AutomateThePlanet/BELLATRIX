@@ -1,11 +1,10 @@
 ﻿using Bellatrix.Web.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    public class NavigateToPagesTests : MSTest.WebTest
+    [TestFixture]
+    public class NavigateToPagesTests : NUnit.WebTest
     {
         // Depending on the types of tests you want to write there are a couple of ways to navigate to specific pages.
         // In later chapters, there are more details about the different test workflow hooks. Find here two of them.
@@ -17,8 +16,8 @@ namespace Bellatrix.Web.GettingStarted
         // 2. If you need each test to navigate each time to the same page, you can use the TestInit method.
         public override void TestInit() => App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
             // 3. You can always navigate in each separate tests, but if all of them go to the same page, you can use the above techniques for code reuse.
@@ -35,8 +34,8 @@ namespace Bellatrix.Web.GettingStarted
             App.Browser.WaitUntilReady();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
@@ -51,8 +50,8 @@ namespace Bellatrix.Web.GettingStarted
             App.Navigation.WaitForPartialUrl("/blog/");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestFileOpened_When_NavigateToLocalPage()
         {
             // 6. Sometimes you may need to navigate to a local HTML file. We make it easier for you since it is complicated depending on the different browsers.
