@@ -6,12 +6,6 @@ using NUnit.Framework;
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
     [TestFixture]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".ApiDemos",
-        Lifecycle.ReuseIfStarted)]
     public class FileSystemServiceTests : NUnit.AndroidTest
     {
         // 1. BELLATRIX gives you an interface for easier work with files using the FileSystemService.

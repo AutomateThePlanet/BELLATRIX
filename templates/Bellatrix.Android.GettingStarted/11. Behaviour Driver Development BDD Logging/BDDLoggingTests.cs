@@ -3,12 +3,6 @@
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
     [TestFixture]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
     public class BDDLoggingTests : NUnit.AndroidTest
     {
         // 1. There cases when you need to show your colleagues or managers what tests do you have.

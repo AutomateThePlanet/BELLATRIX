@@ -3,12 +3,6 @@
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
     [TestFixture]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
     public class CommonServicesHooksTests : NUnit.AndroidTest
     {
         // 1. Another way to extend BELLATRIX is to use the common services hooks. This is how the failed tests analysis works.

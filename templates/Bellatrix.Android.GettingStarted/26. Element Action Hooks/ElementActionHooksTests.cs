@@ -3,12 +3,6 @@
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
     [TestFixture]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
     public class ElementActionHooksTests : NUnit.AndroidTest
     {
         // 1. Another way to extend BELLATRIX is to use the controls hooks. This is how the BDD logging is implemented.

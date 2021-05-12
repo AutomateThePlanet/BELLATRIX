@@ -13,12 +13,6 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     // waitAfterFinishRecordingMilliseconds adds some time to the end of the test, making the video not going black immediately.
     // In the extensibility chapters read more about how you can create custom video recorder or change the saving strategy.
     [TestFixture]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
     public class VideoRecordingTests : NUnit.AndroidTest
     {
         [Test]

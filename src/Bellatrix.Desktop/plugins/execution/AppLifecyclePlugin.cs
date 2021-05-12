@@ -93,7 +93,7 @@ namespace Bellatrix.Desktop.Plugins
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             var previousAppConfiguration = container.Resolve<AppInitializationInfo>("_previousAppConfiguration");
             var currentAppConfiguration = container.Resolve<AppInitializationInfo>("_currentAppConfiguration");
-            if (previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
+            if (currentAppConfiguration?.Lifecycle == Lifecycle.RestartEveryTime || previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
             {
                 shouldRestartApp = true;
             }

@@ -3,12 +3,6 @@
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
     [TestFixture]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.RestartEveryTime)]
     public class LocateAndWaiTComponentsTests : NUnit.AndroidTest
     {
         [Test]

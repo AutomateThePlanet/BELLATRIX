@@ -93,7 +93,7 @@ namespace Bellatrix.Mobile.Plugins
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             var previousAppConfiguration = container.Resolve<AppConfiguration>("_previousAppConfiguration");
             var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
-            if (previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
+            if (currentAppConfiguration?.Lifecycle == Lifecycle.RestartEveryTime || previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
             {
                 shouldRestartApp = true;
             }
@@ -230,17 +230,12 @@ namespace Bellatrix.Mobile.Plugins
         private TAppAttribute GetAppAttribute<TAppAttribute>(MemberInfo memberInfo, Type testClassType)
             where TAppAttribute : AppAttribute
         {
-            if (memberInfo == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             var currentPlatform = DetermineOS();
 
-            var methodappAttribute = memberInfo.GetCustomAttributes<TAppAttribute>(true).FirstOrDefault(x => x.AppConfiguration.OSPlatform.Equals(currentPlatform));
+            var methodappAttribute = memberInfo?.GetCustomAttributes<TAppAttribute>(true).FirstOrDefault(x => x.AppConfiguration.OSPlatform.Equals(currentPlatform));
             var classappAttribute = testClassType.GetCustomAttributes<TAppAttribute>(true).FirstOrDefault(x => x.AppConfiguration.OSPlatform.Equals(currentPlatform));
 
-            int appMethodsAttributesCount = memberInfo.GetCustomAttributes<TAppAttribute>(true).Count();
+            int appMethodsAttributesCount = memberInfo == null ? 0 : memberInfo.GetCustomAttributes<TAppAttribute>(true).Count();
             int appClassAttributesCount = testClassType.GetCustomAttributes<TAppAttribute>(true).Count();
 
             if (appMethodsAttributesCount == 1 && methodappAttribute != null)

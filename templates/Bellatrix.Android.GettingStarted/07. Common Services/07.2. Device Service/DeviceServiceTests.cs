@@ -7,12 +7,6 @@ using BA = Bellatrix.Assertions;
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
     [TestFixture]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.RestartEveryTime)]
     public class DeviceServiceTests : NUnit.AndroidTest
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the device through the DeviceService class.

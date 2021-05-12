@@ -17,7 +17,7 @@
       "elementToHaveContentTimeout": "15"
     },
     "executionSettings": {
-      "defaultLifeCycle": "restart every time",
+      "defaultLifeCycle": "reuse if started",
       "shouldStartLocalService": "false",
       "url": "http://127.0.0.1:4722/wd/hub",
       "arguments": [

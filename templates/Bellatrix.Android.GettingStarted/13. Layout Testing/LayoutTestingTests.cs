@@ -10,12 +10,6 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     // using Bellatrix.Layout;
     //
     // After that 100 assertion extensions methods are available to you to check the exact position of your Android elements.
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
     [TestFixture]
     public class LayoutTestingTests : NUnit.AndroidTest
     {

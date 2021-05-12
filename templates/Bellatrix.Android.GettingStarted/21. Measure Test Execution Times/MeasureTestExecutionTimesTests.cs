@@ -12,12 +12,6 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     // 1.1. You need to add the NuGet package- Bellatrix.TestExecutionExtensions.Common
     // 1.2. After that you need to add a using statement to Bellatrix.TestExecutionExtensions.Common.ExecutionTime
     [ExecutionTimeUnder(2000, TimeUnit.Milliseconds)]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
     public class MeasureTestExecutionTimesTests : NUnit.AndroidTest
     {
         [Test]
