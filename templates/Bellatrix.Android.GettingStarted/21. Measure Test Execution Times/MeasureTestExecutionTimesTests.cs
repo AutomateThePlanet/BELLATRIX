@@ -18,7 +18,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class MeasureTestExecutionTimesTests : MSTest.AndroidTest
+    public class MeasureTestExecutionTimesTests : NUnit.AndroidTest
     {
         [Test]
         [Category(Categories.CI)]

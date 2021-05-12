@@ -23,7 +23,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.ControlsMaterialDark",
         Lifecycle.RestartEveryTime)]
-    public class SauceLabsTests : MSTest.AndroidTest
+    public class SauceLabsTests : NUnit.AndroidTest
     {
         [Test]
         [Ignore("API example purposes only. No need to run.")]

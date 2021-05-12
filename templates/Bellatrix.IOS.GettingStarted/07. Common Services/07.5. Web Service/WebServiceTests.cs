@@ -8,7 +8,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.ReuseIfStarted)]
-    public class WebServiceTests : MSTest.IOSTest
+    public class WebServiceTests : NUnit.IOSTest
     {
         // 2. BELLATRIX gives you an interface for easier work with web apps. Using it, you can access most of the features
         // of BELLATRIX web APIs.

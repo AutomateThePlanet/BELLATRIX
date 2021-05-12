@@ -13,7 +13,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class AddNewFindLocatorsTests : MSTest.AndroidTest
+    public class AddNewFindLocatorsTests : NUnit.AndroidTest
     {
         [Test]
         [Category(Categories.CI)]

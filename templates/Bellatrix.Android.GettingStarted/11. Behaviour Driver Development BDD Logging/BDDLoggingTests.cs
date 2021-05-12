@@ -9,7 +9,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class BDDLoggingTests : MSTest.AndroidTest
+    public class BDDLoggingTests : NUnit.AndroidTest
     {
         // 1. There cases when you need to show your colleagues or managers what tests do you have.
         // Sometimes you may have manual test cases, but their maintenance and up-to-date state are questionable.

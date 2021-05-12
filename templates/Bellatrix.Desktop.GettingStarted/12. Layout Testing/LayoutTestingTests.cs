@@ -1,4 +1,4 @@
-﻿using Bellatrix.Desktop.MSTest;
+﻿using Bellatrix.Desktop.NUnit;
 using Bellatrix.Layout;
 using NUnit.Framework;
 
@@ -18,7 +18,6 @@ namespace Bellatrix.Desktop.GettingStarted
     // [App(Constants.WpfAppPath, MobileWindowSize._360_640,  Lifecycle.RestartEveryTime)]
     // [App(Constants.WpfAppPath, TabletWindowSize._600_1024,  Lifecycle.RestartEveryTime)]
     // [App(Constants.WpfAppPath, width: 600, height: 900, behavior: Lifecycle.RestartEveryTime)]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class LayoutTestingTests : DesktopTest
     {
         [Test]

@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         consoleLogType: BrowserStackConsoleLogType.Disable,
         debug: false,
         build: "CI Execution")]
-    public class BrowserStackTests : MSTest.AndroidTest
+    public class BrowserStackTests : NUnit.AndroidTest
     {
         [Test]
         [Ignore("API example purposes only. No need to run.")]

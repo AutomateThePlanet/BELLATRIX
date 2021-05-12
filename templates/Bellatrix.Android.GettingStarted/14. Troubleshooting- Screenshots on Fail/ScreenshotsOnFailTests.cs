@@ -17,7 +17,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class ScreenshotsOnFailTests : MSTest.AndroidTest
+    public class ScreenshotsOnFailTests : NUnit.AndroidTest
     {
         [Test]
         [Category(Categories.CI)]

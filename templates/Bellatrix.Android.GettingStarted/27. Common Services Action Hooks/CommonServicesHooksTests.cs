@@ -9,7 +9,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class CommonServicesHooksTests : MSTest.AndroidTest
+    public class CommonServicesHooksTests : NUnit.AndroidTest
     {
         // 1. Another way to extend BELLATRIX is to use the common services hooks. This is how the failed tests analysis works.
         // The base class for all Android elements- Element provides a few special events as well:

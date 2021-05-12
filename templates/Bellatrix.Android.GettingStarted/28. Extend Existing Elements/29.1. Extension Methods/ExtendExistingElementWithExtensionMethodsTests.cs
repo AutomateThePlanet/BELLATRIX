@@ -12,7 +12,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class ExtendExistingElementWithExtensionMethodsTests : MSTest.AndroidTest
+    public class ExtendExistingElementWithExtensionMethodsTests : NUnit.AndroidTest
     {
         [Test]
         [Ignore("API example purposes only. No need to run.")]

@@ -1,10 +1,9 @@
-﻿using Bellatrix.Desktop.MSTest;
+﻿using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestFixture]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class PageObjectsTests : DesktopTest
     {
         // 1. As you most probably noticed this is like the 4th time we use almost the same elements and logic inside our tests.

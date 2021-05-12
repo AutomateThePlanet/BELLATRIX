@@ -10,7 +10,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class DeviceServiceTests : MSTest.IOSTest
+    public class DeviceServiceTests : NUnit.IOSTest
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the device through the DeviceService class.
         [Test]

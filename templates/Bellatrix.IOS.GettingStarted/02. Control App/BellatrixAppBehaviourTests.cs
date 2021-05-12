@@ -25,7 +25,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
 
     // 2.2. All iOS BELLATRIX test classes should inherit from the IOSTest base class.
     // This way you can use all built-in BELLATRIX tools and functionalities.
-    public class BellatrixAppLifecycleTests : MSTest.IOSTest
+    public class BellatrixAppLifecycleTests : NUnit.IOSTest
     {
         // 2.3. All MSTest tests should be marked with the TestMethod attribute.
         [Test]

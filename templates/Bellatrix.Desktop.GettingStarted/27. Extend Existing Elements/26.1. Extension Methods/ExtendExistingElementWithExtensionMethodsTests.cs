@@ -1,12 +1,11 @@
 ﻿// 1. To use the additional method you created, add a using statement to the extension methods' namespace.
 using Bellatrix.Desktop.GettingStarted.Advanced.Elements.Extension.Methods;
-using Bellatrix.Desktop.MSTest;
+using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestFixture]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class ExtendExistingElementWithExtensionMethodsTests : DesktopTest
     {
         [Test]

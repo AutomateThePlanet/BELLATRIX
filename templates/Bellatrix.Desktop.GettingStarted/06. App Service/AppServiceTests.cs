@@ -1,4 +1,4 @@
-﻿using Bellatrix.Desktop.MSTest;
+﻿using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 using System.Diagnostics;
 

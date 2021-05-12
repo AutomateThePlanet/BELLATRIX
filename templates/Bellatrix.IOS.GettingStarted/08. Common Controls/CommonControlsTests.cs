@@ -7,7 +7,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class CommonControlsTests : MSTest.IOSTest
+    public class CommonControlsTests : NUnit.IOSTest
     {
         // 1. As mentioned before BELLATRIX exposes 15+ iOS controls. All of them implement Proxy design pattern which means that they are not located immediately when
         // they are created. Another benefit is that each of them includes only the actions that you should be able to do with the specific control and nothing more.

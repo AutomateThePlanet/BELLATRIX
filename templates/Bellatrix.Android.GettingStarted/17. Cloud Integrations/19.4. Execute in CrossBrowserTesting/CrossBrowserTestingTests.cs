@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         recordVideo: true,
         recordNetwork: true,
         build: "CI Execution")]
-    public class CrossBrowserTesting : MSTest.AndroidTest
+    public class CrossBrowserTesting : NUnit.AndroidTest
     {
         [Test]
         [Ignore("API example purposes only. No need to run.")]

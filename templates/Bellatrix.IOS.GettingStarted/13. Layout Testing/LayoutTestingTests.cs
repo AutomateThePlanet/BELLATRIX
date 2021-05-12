@@ -15,7 +15,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
     [TestFixture]
-    public class LayoutTestingTests : MSTest.IOSTest
+    public class LayoutTestingTests : NUnit.IOSTest
     {
         [Test]
         [Timeout(180000)]

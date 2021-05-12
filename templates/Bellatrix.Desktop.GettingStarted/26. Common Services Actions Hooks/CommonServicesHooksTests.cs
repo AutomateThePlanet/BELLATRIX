@@ -1,10 +1,9 @@
-﻿using Bellatrix.Desktop.MSTest;
+﻿using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestFixture]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class CommonServicesHooksTests : DesktopTest
     {
         // 1. Another way to extend BELLATRIX is to use the common services hooks. This is how the failed tests analysis works.

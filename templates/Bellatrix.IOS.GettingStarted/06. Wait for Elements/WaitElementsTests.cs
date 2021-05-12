@@ -7,7 +7,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class WaiTComponentsTests : MSTest.IOSTest
+    public class WaiTComponentsTests : NUnit.IOSTest
     {
         [Test]
         [Timeout(180000)]

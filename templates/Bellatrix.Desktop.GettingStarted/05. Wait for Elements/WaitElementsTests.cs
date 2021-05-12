@@ -1,15 +1,13 @@
-﻿using Bellatrix.Desktop.MSTest;
+﻿using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestFixture]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class WaiTComponentsTests : DesktopTest
     {
         [Test]
         [Category(Categories.CI)]
-        [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToExists_When_ElementIsNotVisibleInitially_Wpf()
         {
             // 1. Besides the ToBe methods that you can use on element creation, you have a couple of other options if you need to wait for elements.
@@ -29,7 +27,6 @@ namespace Bellatrix.Desktop.GettingStarted
 
         [Test]
         [Category(Categories.CI)]
-        [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Wpf()
         {
             var button = App.Components.CreateByName<Button>("asd");

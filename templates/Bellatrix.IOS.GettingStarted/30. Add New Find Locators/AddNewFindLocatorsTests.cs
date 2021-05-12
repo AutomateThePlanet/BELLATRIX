@@ -10,7 +10,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class AddNewFindLocatorsTests : MSTest.IOSTest
+    public class AddNewFindLocatorsTests : NUnit.IOSTest
     {
         [Test]
         [Timeout(180000)]

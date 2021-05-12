@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         consoleLogType: BrowserStackConsoleLogType.Disable,
         debug: false,
         build: "CI Execution")]
-    public class BrowserStackTests : MSTest.IOSTest
+    public class BrowserStackTests : NUnit.IOSTest
     {
         [Test]
         [Timeout(180000)]

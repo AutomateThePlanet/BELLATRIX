@@ -17,7 +17,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
     [TestFixture]
-    public class LayoutTestingTests : MSTest.AndroidTest
+    public class LayoutTestingTests : NUnit.AndroidTest
     {
         [Test]
         [Category(Categories.CI)]

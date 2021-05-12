@@ -1,10 +1,9 @@
-﻿using Bellatrix.Desktop.MSTest;
+﻿using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestFixture]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class CustomTestCaseExtensionTests : DesktopTest
     {
         // 1. Once we created the test workflow plugin, we need to add it to the existing test workflow.

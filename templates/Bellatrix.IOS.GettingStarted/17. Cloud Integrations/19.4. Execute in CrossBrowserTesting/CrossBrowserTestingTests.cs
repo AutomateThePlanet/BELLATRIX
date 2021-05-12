@@ -24,7 +24,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         recordVideo: true,
         recordNetwork: true,
         build: "CI Execution")]
-    public class CrossBrowserTesting : MSTest.IOSTest
+    public class CrossBrowserTesting : NUnit.IOSTest
     {
         [Test]
         [Timeout(180000)]

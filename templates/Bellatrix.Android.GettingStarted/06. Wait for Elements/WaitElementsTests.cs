@@ -9,7 +9,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.RestartEveryTime)]
-    public class WaiTComponentsTests : MSTest.AndroidTest
+    public class WaiTComponentsTests : NUnit.AndroidTest
     {
         [Test]
         [Category(Categories.CI)]

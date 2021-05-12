@@ -9,7 +9,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class ValidateAssertions : MSTest.AndroidTest
+    public class ValidateAssertions : NUnit.AndroidTest
     {
         [Test]
         [Category(Categories.CI)]

@@ -13,7 +13,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class AddNewElementWaitMethodsTests : MSTest.AndroidTest
+    public class AddNewElementWaitMethodsTests : NUnit.AndroidTest
     {
         [Test]
         [Category(Categories.CI)]

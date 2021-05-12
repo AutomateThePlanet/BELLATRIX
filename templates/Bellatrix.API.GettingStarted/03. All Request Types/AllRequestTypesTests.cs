@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using Bellatrix.Api;
 using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.MSTest;
+using Bellatrix.API.NUnit;
 using NUnit.Framework;
 using RestSharp;
 using System;

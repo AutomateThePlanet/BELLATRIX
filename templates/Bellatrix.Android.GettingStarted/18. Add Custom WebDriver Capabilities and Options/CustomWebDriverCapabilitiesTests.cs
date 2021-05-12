@@ -9,7 +9,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class CustomWebDriverCapabilitiesTests : MSTest.AndroidTest
+    public class CustomWebDriverCapabilitiesTests : NUnit.AndroidTest
     {
         // 1. BELLATRIX hides the complexity of initialization of WebDriver/Appium and all related services.
         // In some cases, you need to customise the set up of a Appium with using custom Appium options.

@@ -27,7 +27,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
 
     // 2.2. All Android BELLATRIX test classes should inherit from the AndroidTest base class.
     // This way you can use all built-in BELLATRIX tools and functionalities.
-    public class BellatrixAppLifecycleTests : MSTest.AndroidTest
+    public class BellatrixAppLifecycleTests : NUnit.AndroidTest
     {
         // 2.3. All MSTest tests should be marked with the TestMethod attribute.
         [Test]

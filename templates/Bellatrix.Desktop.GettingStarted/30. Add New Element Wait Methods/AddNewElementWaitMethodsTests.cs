@@ -1,12 +1,11 @@
 ﻿// 1. You need to add a using statement to the namespace where the new wait extension methods are situated.
 using Bellatrix.Desktop.GettingStarted.ExtensionMethodsWaitMethods;
-using Bellatrix.Desktop.MSTest;
+using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestFixture]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class AddNewElementWaitMethodsTests : DesktopTest
     {
         [Test]

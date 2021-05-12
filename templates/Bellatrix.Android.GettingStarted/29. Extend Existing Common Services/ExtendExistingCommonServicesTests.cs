@@ -12,7 +12,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class ExtendExistingCommonServicesTests : MSTest.AndroidTest
+    public class ExtendExistingCommonServicesTests : NUnit.AndroidTest
     {
         [Test]
         [Ignore("API example purposes only. No need to run.")]

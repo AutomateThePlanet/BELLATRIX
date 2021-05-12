@@ -11,7 +11,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.ControlsMaterialDark",
         Lifecycle.RestartEveryTime)]
-    public class LocateElementsTests : MSTest.AndroidTest
+    public class LocateElementsTests : NUnit.AndroidTest
     {
         [Test]
         [Category(Categories.CI)]

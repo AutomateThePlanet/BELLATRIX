@@ -9,7 +9,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class TouchActionsServiceTests : MSTest.IOSTest
+    public class TouchActionsServiceTests : NUnit.IOSTest
     {
         // 1. BELLATRIX gives you an interface for easier work with touch actions through TouchActionsService.
         // Performing series of touch actions can be one of the most complicated jobs in automating mobile apps.

@@ -1,10 +1,9 @@
-﻿using Bellatrix.Desktop.MSTest;
+﻿using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestFixture]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class AddCustomWebDriverCapabilitiesTests : DesktopTest
     {
         // 1. BELLATRIX hides the complexity of initialisation of WebDriver and all related services.

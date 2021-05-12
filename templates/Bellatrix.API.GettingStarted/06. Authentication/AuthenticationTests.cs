@@ -1,5 +1,5 @@
 ﻿using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.MSTest;
+using Bellatrix.API.NUnit;
 using Bellatrix.Plugins.Api;
 using NUnit.Framework;
 using RestSharp;

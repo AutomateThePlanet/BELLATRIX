@@ -1,6 +1,6 @@
 ﻿using Bellatrix.Api;
 using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.MSTest;
+using Bellatrix.API.NUnit;
 using Bellatrix.Plugins.Common.ExecutionTime;
 using NUnit.Framework;
 using RestSharp;

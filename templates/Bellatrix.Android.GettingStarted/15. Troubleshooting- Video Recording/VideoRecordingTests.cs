@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class VideoRecordingTests : MSTest.AndroidTest
+    public class VideoRecordingTests : NUnit.AndroidTest
     {
         [Test]
         [Category(Categories.CI)]

@@ -7,7 +7,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class CommonServicesHooksTests : MSTest.IOSTest
+    public class CommonServicesHooksTests : NUnit.IOSTest
     {
         // 1. Another way to extend BELLATRIX is to use the common services hooks. This is how the failed tests analysis works.
         // The base class for all iOS elements- Element provides a few special events as well:

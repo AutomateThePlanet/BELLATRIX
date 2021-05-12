@@ -1,12 +1,10 @@
 ﻿using System;
-using Bellatrix.Desktop.MSTest;
+using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestFixture]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-
     public class LocateElementsTests : DesktopTest
     {
         [Test]
@@ -33,7 +31,6 @@ namespace Bellatrix.Desktop.GettingStarted
 
         [Test]
         [Category(Categories.CI)]
-        [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
             // 4. BELLATRIX extends the vanilla WebDriver selectors and give you additional ones.

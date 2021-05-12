@@ -12,7 +12,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         Constants.AndroidNativeAppAppExamplePackage,
         ".ApiDemos",
         Lifecycle.ReuseIfStarted)]
-    public class FileSystemServiceTests : MSTest.AndroidTest
+    public class FileSystemServiceTests : NUnit.AndroidTest
     {
         // 1. BELLATRIX gives you an interface for easier work with files using the FileSystemService.
         [Test]

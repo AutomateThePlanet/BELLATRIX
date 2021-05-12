@@ -1,4 +1,4 @@
-﻿using Bellatrix.Desktop.MSTest;
+﻿using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
@@ -14,7 +14,6 @@ namespace Bellatrix.Desktop.GettingStarted
     // waitAfterFinishRecordingMilliseconds adds some time to the end of the test, making the video not going black immediately.
     // In the extensibility chapters read more about how you can create custom video recorder or change the saving strategy.
     [TestFixture]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class VideoRecordingTests : DesktopTest
     {
         [Test]
