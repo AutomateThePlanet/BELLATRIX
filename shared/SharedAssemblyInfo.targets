@@ -37,7 +37,7 @@
       - Refactor App services' properties to have shorter names
       - Refactor Page Objects naming convention
       - Fix known bugs in video recording and screenshots on failure
-      - Fix shutdown problem in mobile execution plugin
+      - Fix restart problem in mobile and desktop execution plugins
       - Fix known bugs in dynamic test cases for Azure
       - Fix proper initializations of plugins when running tests in parallel
       - Fix logging of messages when running tests in parallel
