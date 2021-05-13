@@ -1,67 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Bellatrix.KeyVault;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 
-namespace Bellatrix.AppInsights
+namespace Bellatrix
 {
     public static class TelemetryService
     {
         static TelemetryService()
         {
-            TelemetryDebugClient =
-                new TelemetryClient(new TelemetryConfiguration("asd"));
-            TelemetryNotDebugClient =
-                new TelemetryClient(new TelemetryConfiguration("asd"));
+            var config = new TelemetryConfiguration(SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AppInsightsSettings>().InstrumentationKey));
+            TelemetryClient = new TelemetryClient(config);
 
             // Enable filter by product version.
-            TelemetryDebugClient.Context.Component.Version = typeof(TelemetryService).Assembly.GetName().Version.ToString();
-            TelemetryDebugClient.Context.GlobalProperties.Add("Client OS", System.Runtime.InteropServices.RuntimeInformation.OSDescription);
-            TelemetryNotDebugClient.Context.Component.Version = typeof(TelemetryService).Assembly.GetName().Version.ToString();
-            TelemetryNotDebugClient.Context.Device.OperatingSystem = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+            TelemetryClient.Context.Component.Version = typeof(TelemetryService).Assembly.GetName().Version.ToString();
+            TelemetryClient.Context.GlobalProperties.Add("Client OS", System.Runtime.InteropServices.RuntimeInformation.OSDescription);
+            TelemetryClient.Context.Component.Version = typeof(TelemetryService).Assembly.GetName().Version.ToString();
+            TelemetryClient.Context.Device.OperatingSystem = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
         }
 
-        private static TelemetryClient TelemetryDebugClient { get; set; }
-        private static TelemetryClient TelemetryNotDebugClient { get; set; }
+        private static TelemetryClient TelemetryClient { get; set; }
 
-        public static TelemetryClient GetTelemetryClient(bool isDebug)
+        public static void TrackExceptionAndFlush(Exception ex)
         {
-            var client = isDebug ? TelemetryDebugClient : TelemetryNotDebugClient;
+            if (ConfigurationService.GetSection<AppInsightsSettings>().IsEnabled)
+            {
+                TelemetryClient.TrackException(ex);
+                TelemetryClient.Flush();
 
-            return client;
+                // Wait for the flush really to happen.
+                System.Threading.Thread.Sleep(5000);
+            }
         }
 
-        public static void TrackExceptionAndFlush(Exception ex, bool isDebug)
+        public static void Flush()
         {
-            var client = isDebug ? TelemetryDebugClient : TelemetryNotDebugClient;
-            client.TrackException(ex);
-            client.Flush();
+            if (ConfigurationService.GetSection<AppInsightsSettings>().IsEnabled)
+            {
+                TelemetryClient.Flush();
 
-            // Wait for the flush really to happen.
-            System.Threading.Thread.Sleep(5000);
+                // Wait for the flush really to happen.
+                System.Threading.Thread.Sleep(5000);
+            }
         }
 
-        public static void Flush(bool isDebug)
+        public static void TrackException(Exception ex)
         {
-            var client = isDebug ? TelemetryDebugClient : TelemetryNotDebugClient;
-            client.Flush();
-
-            // Wait for the flush really to happen.
-            System.Threading.Thread.Sleep(5000);
+            if (ConfigurationService.GetSection<AppInsightsSettings>().IsEnabled)
+            {
+                TelemetryClient.TrackException(ex);
+            }
         }
 
-        public static void TrackException(Exception ex, bool isDebug)
+        public static void TrackEvent(EventTelemetry eventTelemetry)
         {
-            var client = isDebug ? TelemetryDebugClient : TelemetryNotDebugClient;
-            client.TrackException(ex);
+            if (ConfigurationService.GetSection<AppInsightsSettings>().IsEnabled)
+            {
+                TelemetryClient.TrackEvent(eventTelemetry);
+            }
         }
 
-        public static void TrackEvent(EventTelemetry eventTelemetry, bool isDebug)
+        public static void TrackEvent(string name)
         {
-            var client = isDebug ? TelemetryDebugClient : TelemetryNotDebugClient;
-            client.TrackEvent(eventTelemetry);
+            if (ConfigurationService.GetSection<AppInsightsSettings>().IsEnabled)
+            {
+                var eventTelemetry = new EventTelemetry(name);
+                TelemetryClient.TrackEvent(eventTelemetry);
+            }
         }
     }
 }

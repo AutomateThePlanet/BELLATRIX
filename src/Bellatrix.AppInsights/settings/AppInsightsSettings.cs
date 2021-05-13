@@ -11,11 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.CognitiveServices
+namespace Bellatrix
 {
     public class AppInsightsSettings
     {
-        public string AppInsightsEndpoint { get; set; }
+        public string InstrumentationKey { get; set; }
         public bool IsEnabled { get; set; }
     }
 }
