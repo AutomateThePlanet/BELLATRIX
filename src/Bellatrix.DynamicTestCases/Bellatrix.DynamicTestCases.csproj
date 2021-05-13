@@ -2,6 +2,7 @@
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
+    <ProjectReference Include="..\Bellatrix.KeyVault\Bellatrix.KeyVault.csproj" />
   </ItemGroup>
 
   <ItemGroup>

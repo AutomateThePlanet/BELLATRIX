@@ -1,4 +1,4 @@
-﻿// <copyright file="QTestDynamicTestCasesSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="KeyVaultSettings.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,21 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
-using System.Collections.Generic;
-using System.Text;
-using QASymphony.QTest;
-
-namespace Bellatrix.DynamicTestCases.QTest
+namespace Bellatrix.KeyVault
 {
-    public class QTestDynamicTestCasesSettings
+    public class KeyVaultSettings
     {
+        public string KeyVaultEndpoint { get; set; }
         public bool IsEnabled { get; set; }
-        public string ServiceAddress { get; set; }
-        public string Token { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string ProjectId { get; set; }
-        public List<FieldValue> FieldValues { get; set; }
     }
 }

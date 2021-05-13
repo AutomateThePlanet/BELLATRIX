@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bellatrix.DynamicTestCases.Contracts;
+using Bellatrix.KeyVault;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using DTC = Bellatrix.DynamicTestCases;
@@ -37,8 +38,9 @@ namespace Bellatrix.DynamicTestCases.QTest
             // or we will get 401 error
             try
             {
-                LoginToService(_testDesignService = new QT.TestDesignService(ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ServiceAddress));
-                LoginToService(_projectService = new QT.ProjectService(ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ServiceAddress));
+                var serviceAddress = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ServiceAddress);
+                LoginToService(_testDesignService = new QT.TestDesignService(serviceAddress));
+                LoginToService(_projectService = new QT.ProjectService(serviceAddress));
             }
             catch (Exception ex)
             {
@@ -68,7 +70,7 @@ namespace Bellatrix.DynamicTestCases.QTest
                 testCasesContext.TestCaseDescription = $"{formattedAutomationId}-{testCasesContext.TestFullName} \r\n";
             }
 
-            long projectId = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ProjectId;
+            long projectId = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ProjectId).ToLong();
             if (!string.IsNullOrEmpty(testCasesContext.TestCaseId))
             {
                 // Check if a test case with this ID exists in qTest
@@ -171,7 +173,7 @@ namespace Bellatrix.DynamicTestCases.QTest
             QT.TestCase existingTestCase = new QT.TestCase();
             existingTestCase.Precondition = precondition;
             existingTestCase.Properties = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().FieldValues;
-            long projectId = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ProjectId;
+            long projectId = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().ProjectId).ToLong();
             result = _testDesignService.UpdateTestCase(projectId, (long)testCaseId, existingTestCase);
 
             return result;
@@ -179,14 +181,14 @@ namespace Bellatrix.DynamicTestCases.QTest
 
         private void LoginToService(QT.QTestService serviceToLogin)
         {
-            string token = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().Token;
+            string token = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().Token);
             if (!string.IsNullOrEmpty(token))
             {
                 serviceToLogin.SetAuthorizationToken(token);
             }
 
-            string userName = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().UserName;
-            string password = ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().Password;
+            string userName = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().UserName);
+            string password = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().Password);
 
             if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
             {

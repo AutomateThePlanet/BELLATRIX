@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bellatrix.KeyVault;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.Common;
@@ -28,8 +29,8 @@ namespace Bellatrix.DynamicTestCases.AzureDevOps
 
         static AzureQueryExecutor()
         {
-            _uri = ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Url;
-            _personalAccessToken = ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Token;
+            _uri = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Url);
+            _personalAccessToken = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Token);
         }
 
         public static List<WorkItem> GetWorkItems(string workItemId)

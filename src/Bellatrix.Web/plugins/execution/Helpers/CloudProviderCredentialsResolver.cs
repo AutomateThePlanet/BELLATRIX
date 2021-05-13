@@ -12,6 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using Bellatrix.KeyVault;
 
 namespace Bellatrix.Web.Plugins.Browser
 {
@@ -22,8 +23,8 @@ namespace Bellatrix.Web.Plugins.Browser
 
         public static Tuple<string, string> GetCredentials()
         {
-            var user = Environment.GetEnvironmentVariable(USER_ENVIRONMENTAL_VARIABLE);
-            var accessKey = Environment.GetEnvironmentVariable(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
+            var user = SecretsResolver.GetSecret(USER_ENVIRONMENTAL_VARIABLE);
+            var accessKey = SecretsResolver.GetSecret(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
 
             if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(accessKey))
             {
