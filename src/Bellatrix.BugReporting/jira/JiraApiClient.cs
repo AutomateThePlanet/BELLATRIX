@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Linq;
 using Bellatrix.BugReporting.Jira;
 using Bellatrix.BugReporting.Jira;
+using Bellatrix.KeyVault;
 using RestSharp;
 
 namespace Bellatrix.BugReporting.Jira
@@ -29,9 +30,9 @@ namespace Bellatrix.BugReporting.Jira
 
         static JiraApiClient()
         {
-            string baseUrl = ConfigurationService.GetSection<JiraBugReportingSettings>().Url;
-            _token = ConfigurationService.GetSection<JiraBugReportingSettings>().Token;
-            _projectName = ConfigurationService.GetSection<JiraBugReportingSettings>().ProjectName;
+            string baseUrl = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<JiraBugReportingSettings>().Url);
+            _token = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<JiraBugReportingSettings>().Token);
+            _projectName = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<JiraBugReportingSettings>().ProjectName);
             _restClient = new RestClient(baseUrl).UseSerializer<JsonNetSerializer>();
         }
 

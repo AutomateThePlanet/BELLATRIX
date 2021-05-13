@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Bellatrix.KeyVault;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.Common;
@@ -34,9 +35,9 @@ namespace Bellatrix.BugReporting.AzureDevOps
 
         static AzureQueryExecutor()
         {
-            _uri = ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().Url;
-            _personalAccessToken = ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().Token;
-            _project = ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().ProjectName;
+            _uri = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().Url);
+            _personalAccessToken = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().Token);
+            _project = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().ProjectName);
         }
 
         public static WorkItem CreateBug(string title, string stepsToReproduce, string description, List<string> filePathsToBeAttached = null)
