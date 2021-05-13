@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Bellatrix.KeyVault;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using Newtonsoft.Json;
@@ -30,9 +31,8 @@ namespace Bellatrix.CognitiveServices
 
         public ComputerVision()
         {
-            var cognitiveServicesSettings = ConfigurationService.GetSection<CognitiveServicesSettings>();
-            string endpoint = cognitiveServicesSettings.ComputerVisionEndpoint;
-            string subscriptionKey = cognitiveServicesSettings.ComputerVisionSubscriptionKey;
+            string endpoint = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<CognitiveServicesSettings>().ComputerVisionEndpoint);
+            string subscriptionKey = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<CognitiveServicesSettings>().ComputerVisionSubscriptionKey);
 
             if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(subscriptionKey))
             {

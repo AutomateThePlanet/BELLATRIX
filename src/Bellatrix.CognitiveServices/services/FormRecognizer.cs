@@ -20,6 +20,7 @@ using Azure;
 using Azure.AI.FormRecognizer;
 using Azure.AI.FormRecognizer.Models;
 using Bellatrix.Infrastructure;
+using Bellatrix.KeyVault;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 using Newtonsoft.Json;
@@ -35,9 +36,8 @@ namespace Bellatrix.CognitiveServices
 
         public FormRecognizer()
         {
-            var cognitiveServicesSettings = ConfigurationService.GetSection<CognitiveServicesSettings>();
-            string endpoint = cognitiveServicesSettings.FormRecognizerEndpoint;
-            string subscriptionKey = cognitiveServicesSettings.FormRecognizerSubscriptionKey;
+            string endpoint = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<CognitiveServicesSettings>().FormRecognizerEndpoint);
+            string subscriptionKey = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<CognitiveServicesSettings>().FormRecognizerSubscriptionKey);
 
             if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(subscriptionKey))
             {

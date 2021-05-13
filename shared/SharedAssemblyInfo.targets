@@ -19,6 +19,7 @@
       - Add additional desktop timeout settings
       - Add additional Android timeout settings
       - Add additional iOS timeout settings
+      - Add new Azure KeyVault integration of storing secrets
       - Add support for usage of TestCase attribute for running same test under multiple browsers NUnit
       - Add by default Azure, QTest dynamic test cases plugins
       - Add by default Azure, Jira bug plugins
