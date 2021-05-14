@@ -47,6 +47,6 @@ namespace Bellatrix.Plugins.Screenshots
             return outputDir;
         }
 
-        public virtual string GetUniqueFileName(string testName) => string.Concat(TimestampBuilder.BuildUniqueText(testName), ".png");
+        public virtual string GetUniqueFileName(string name) => string.Concat(TimestampBuilder.BuildUniqueText(name), ".png");
     }
 }

@@ -24,6 +24,7 @@
       - Add by default Azure, QTest dynamic test cases plugins
       - Add by default Azure, Jira bug plugins
       - Add by default Allure and Report Portal plugins
+      - Add new TakeScreenshot method to all components
       - Add global troubleshooting settings and e.PrintStackTrace() method
       - Add new utility class for downloading files
       - Add new web utility class for resolving URLs based on the environment UrlDeterminer

@@ -14,8 +14,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Threading;
+using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 using Bellatrix.Web.Untils;
@@ -103,6 +106,26 @@ namespace Bellatrix.Web
         public string GetDir() => string.IsNullOrEmpty(GetAttribute("dir")) ? null : GetAttribute("dir");
 
         public string GetLang() => string.IsNullOrEmpty(GetAttribute("lang")) ? null : GetAttribute("lang");
+
+        public string TakeScreenshot(string filePath = null)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                var screenshotOutputProvider = new ScreenshotOutputProvider();
+                var screenshotSaveDir = screenshotOutputProvider.GetOutputFolder();
+                var screenshotFileName = screenshotOutputProvider.GetUniqueFileName(ComponentName);
+                filePath = Path.Combine(screenshotSaveDir, screenshotFileName);
+            }
+
+            var screenshotDriver = WrappedDriver as ITakesScreenshot;
+            Screenshot screenshot = screenshotDriver.GetScreenshot();
+            var bmpScreen = new Bitmap(new MemoryStream(screenshot.AsByteArray));
+            var cropArea = new Rectangle(WrappedElement.Location, WrappedElement.Size);
+            var bitmap = bmpScreen.Clone(cropArea, bmpScreen.PixelFormat);
+            bitmap.Save(filePath);
+
+            return filePath;
+        }
 
         public dynamic Create<TBy>(TBy by, Type newElementType)
             where TBy : FindStrategy

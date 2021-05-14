@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Controls.Core;
@@ -22,6 +23,7 @@ using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.Locators;
 using Bellatrix.Mobile.Services;
 using Bellatrix.Mobile.Untils;
+using Bellatrix.Plugins.Screenshots;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 
@@ -73,6 +75,26 @@ namespace Bellatrix.Mobile.Core
         public virtual string GetAttribute(string name)
         {
             return WrappedElement.GetAttribute(name);
+        }
+
+        public string TakeScreenshot(string filePath = null)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                var screenshotOutputProvider = new ScreenshotOutputProvider();
+                var screenshotSaveDir = screenshotOutputProvider.GetOutputFolder();
+                var screenshotFileName = screenshotOutputProvider.GetUniqueFileName(ComponentName);
+                filePath = Path.Combine(screenshotSaveDir, screenshotFileName);
+            }
+
+            var screenshotDriver = WrappedDriver as ITakesScreenshot;
+            Screenshot screenshot = screenshotDriver.GetScreenshot();
+            var bmpScreen = new Bitmap(new MemoryStream(screenshot.AsByteArray));
+            var cropArea = new Rectangle(WrappedElement.Location, WrappedElement.Size);
+            var bitmap = bmpScreen.Clone(cropArea, bmpScreen.PixelFormat);
+            bitmap.Save(filePath);
+
+            return filePath;
         }
 
         public TComponent Create<TComponent, TBy>(TBy by)
