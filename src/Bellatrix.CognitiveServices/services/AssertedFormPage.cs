@@ -16,7 +16,10 @@ namespace Bellatrix.CognitiveServices.services
         public AssertedFormPage(FormPageCollection formPages, int pageNumber)
         {
             _formPage = formPages[pageNumber];
+            Lines = _formPage.Lines.Select(x => new AssertedTableFormLine(x)).ToList();
         }
+
+        public List<AssertedTableFormLine> Lines { get; set; }
 
         public AssertedFormTable GetTable(int index = 0)
         {

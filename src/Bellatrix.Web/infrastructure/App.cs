@@ -67,6 +67,8 @@ namespace Bellatrix.Web
 
         public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
+        public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
+
         public void AddWebDriverOptions<TDriverOptions>(TDriverOptions options)
             where TDriverOptions : DriverOptions
         {

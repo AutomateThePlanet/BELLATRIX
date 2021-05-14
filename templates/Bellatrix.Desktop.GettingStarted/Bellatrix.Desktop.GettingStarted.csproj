@@ -18,6 +18,9 @@
     <None Update="allureConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="sampleinvoice1.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="sampleinvoice.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

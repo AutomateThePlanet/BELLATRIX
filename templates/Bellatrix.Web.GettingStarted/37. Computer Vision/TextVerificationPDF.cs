@@ -41,5 +41,33 @@ namespace Bellatrix.Web.GettingStarted
 
             App.ComputerVision.ValidateText("devPortalGraph1.PNG", "en", expectedTextSnippets);
         }
+
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
+        public void AssertPdfLayoutBasedOnTemplate()
+        {
+            App.FormRecognizer.SaveAnalyzedFileToJson("sampleinvoice.pdf", "analizedFileOutput.json");
+
+            App.FormRecognizer.ValidateFormLayout("sampleinvoice.pdf", "sampleinvoice1.pdf");
+        }
+
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
+        public void AssertCellsText()
+        {
+            var analyzedPdf = App.FormRecognizer.Analyze("sampleinvoice.pdf");
+            analyzedPdf.AssertLinesCount(48);
+
+            analyzedPdf.GetTable().GetCell(0, 3).AssertTextEquals("OF355548 24/1/2014");
+            analyzedPdf.GetTable().GetCell(5, 1).AssertTextContains("45 Acker Driv");
+
+            analyzedPdf.GetTable().GetCell(c => c.Text.StartsWith("69 Trailsway")).AssertTextContains("0903");
+
+            analyzedPdf.Lines[46].AssertWordsCount(9);
+
+            analyzedPdf.Lines[40].AssertWordsEqual("TERMS", "AND", "CONDITIONS");
+
+            analyzedPdf.Lines[40].AssertWordsContain("TERMS", "CONDITIONS");
+        }
     }
 }

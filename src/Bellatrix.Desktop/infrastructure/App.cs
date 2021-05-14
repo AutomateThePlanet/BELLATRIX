@@ -53,6 +53,7 @@ namespace Bellatrix.Desktop
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
         public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
+        public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
 
         public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 

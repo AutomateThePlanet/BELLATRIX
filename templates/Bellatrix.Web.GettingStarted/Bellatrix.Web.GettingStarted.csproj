@@ -31,6 +31,9 @@
     <None Update="devPortalGraph2.PNG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="sampleinvoice2.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="sampleinvoice.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Bellatrix.Assertions;
+using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.Mobile.Configuration;
 using Bellatrix.Mobile.PageObjects;
@@ -49,6 +50,8 @@ namespace Bellatrix.Mobile
         public WebServicesFacade Web => ServicesCollection.Current.Resolve<WebServicesFacade>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+        public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
+        public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
         public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 

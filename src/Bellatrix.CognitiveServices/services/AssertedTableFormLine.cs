@@ -28,7 +28,7 @@ namespace Bellatrix.CognitiveServices.services
             Assert.AreEqual(expectedWordsCount, _formLine.Words.Count, $"Line words' count != {expectedWordsCount}");
         }
 
-        public void AssertWordsEqual(List<string> expectedWords)
+        public void AssertWordsEqual(params string[] expectedWords)
         {
             TableFormLineAsserted?.Invoke(this, $"Assert line words are {expectedWords}");
             CollectionAssert.AreEqual(expectedWords, Words, "Expected words are different than the actual ones present on the line.");
