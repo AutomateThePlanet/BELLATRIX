@@ -14,11 +14,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.AI.FormRecognizer;
 using Azure.AI.FormRecognizer.Models;
+using Bellatrix.CognitiveServices.services;
 using Bellatrix.Infrastructure;
 using Bellatrix.KeyVault;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
@@ -91,6 +93,11 @@ namespace Bellatrix.CognitiveServices
             }
 
             return actualAnalyzedFile;
+        }
+
+        public AssertedFormPage Analyze(string localFileToBeAnalyzed, int pageNumber = 0)
+        {
+            return new AssertedFormPage(AnalyzeFile(localFileToBeAnalyzed), pageNumber);
         }
 
         public FormPageCollection AnalyzeFile(string localFileToBeAnalyzed)
