@@ -46,5 +46,13 @@
     "token": "authenticationToken",
     "projectName": "projectName",
     "defaultPriority": "Medium"
+  },
+  "keyVaultSettings": {
+    "keyVaultEndpoint": "keyVaultEndpointUrl",
+    "isEnabled": "false"
+  },
+  "appInsightsSettings": {
+    "instrumentationKey": "yourKey",
+    "isEnabled": "false"
   }
 }

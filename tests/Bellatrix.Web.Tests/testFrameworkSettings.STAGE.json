@@ -151,6 +151,20 @@
   "allureReportingSettings": {
     "isEnabled": "false"
   },
+  "cognitiveServicesSettings": {
+    "computerVisionEndpoint": "computerVisionEndpointUrl",
+    "computerVisionSubscriptionKey": "yourkey",
+    "formRecognizerEndpoint": "formRecognizerEndpointUrl",
+    "formRecognizerSubscriptionKey": "yourkey"
+  },
+  "keyVaultSettings": {
+    "keyVaultEndpoint": "keyVaultEndpointUrl",
+    "isEnabled": "false"
+  },
+  "appInsightsSettings": {
+    "instrumentationKey": "yourKey",
+    "isEnabled": "false"
+  },
   "testPagesSettings": {
     "anchorWebPage": "http://fiddle.jshell.net/angelovstanton/7w0tx8t5/5/show/",
     "anchorLocalPage": "TestPages\\Anchor\\anchor.html",
@@ -215,11 +229,5 @@
     "tableWebPage": "http://fiddle.jshell.net/angelovstanton/8066fzws/4/show/",
     "tableLocalPage": "TestPages\\Table\\table.html",
     "layoutPricingPage": "TestPages\\Layout\\pricing.html"
-  },
-  "cognitiveServicesSettings": {
-    "computerVisionEndpoint": "computerVisionEndpointUrl",
-    "computerVisionSubscriptionKey": "yourkey",
-    "formRecognizerEndpoint": "formRecognizerEndpointUrl",
-    "formRecognizerSubscriptionKey": "yourkey"
   }
 }

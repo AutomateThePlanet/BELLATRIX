@@ -84,5 +84,13 @@
   },
   "allureReportingSettings": {
     "isEnabled": "false"
+  },
+  "keyVaultSettings": {
+    "keyVaultEndpoint": "keyVaultEndpointUrl",
+    "isEnabled": "false"
+  },
+  "appInsightsSettings": {
+    "instrumentationKey": "yourKey",
+    "isEnabled": "false"
   }
 }

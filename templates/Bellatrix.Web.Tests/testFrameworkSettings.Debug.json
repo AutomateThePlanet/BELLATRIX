@@ -156,5 +156,13 @@
     "computerVisionSubscriptionKey": "yourkey",
     "formRecognizerEndpoint": "formRecognizerEndpointUrl",
     "formRecognizerSubscriptionKey": "yourkey"
+  },
+  "keyVaultSettings": {
+    "keyVaultEndpoint": "keyVaultEndpointUrl",
+    "isEnabled": "false"
+  },
+  "appInsightsSettings": {
+    "instrumentationKey": "yourKey",
+    "isEnabled": "false"
   }
 }
