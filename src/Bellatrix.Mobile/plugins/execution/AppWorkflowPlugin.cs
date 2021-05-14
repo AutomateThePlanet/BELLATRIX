@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using Bellatrix.KeyVault;
 using Bellatrix.Mobile.Configuration;
 using Bellatrix.Mobile.Services;
 using Bellatrix.Plugins;
@@ -322,6 +323,10 @@ namespace Bellatrix.Mobile.Plugins
             else if (int.TryParse(option, out int resultNumber))
             {
                 return resultNumber;
+            }
+            else if (option.StartsWith("env_") || option.StartsWith("vault_"))
+            {
+                return SecretsResolver.GetSecret(() => option);
             }
             else if (double.TryParse(option, out double resultRealNumber))
             {

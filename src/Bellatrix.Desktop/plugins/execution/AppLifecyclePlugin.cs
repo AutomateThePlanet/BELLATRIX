@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.Services;
+using Bellatrix.KeyVault;
 using Bellatrix.Plugins;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Remote;
@@ -241,6 +242,10 @@ namespace Bellatrix.Desktop.Plugins
             else if (int.TryParse(option, out int resultNumber))
             {
                 return resultNumber;
+            }
+            else if (option.StartsWith("env_") || option.StartsWith("vault_"))
+            {
+                return SecretsResolver.GetSecret(() => option);
             }
             else if (double.TryParse(option, out double resultRealNumber))
             {

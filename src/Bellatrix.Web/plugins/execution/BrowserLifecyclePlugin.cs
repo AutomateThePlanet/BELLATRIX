@@ -17,6 +17,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using Bellatrix.KeyVault;
 using Bellatrix.Plugins;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Proxy;
@@ -285,13 +286,9 @@ namespace Bellatrix.Web.Plugins.Browser
             {
                 return resultRealNumber;
             }
-            else if (option.Equals("cloud.grid.user"))
+            else if (option.StartsWith("env_") || option.StartsWith("vault_"))
             {
-                return CloudProviderCredentialsResolver.GetCredentials().Item1;
-            }
-            else if (option.Equals("cloud.grid.key"))
-            {
-                return CloudProviderCredentialsResolver.GetCredentials().Item2;
+                return SecretsResolver.GetSecret(() => option);
             }
             else
             {
