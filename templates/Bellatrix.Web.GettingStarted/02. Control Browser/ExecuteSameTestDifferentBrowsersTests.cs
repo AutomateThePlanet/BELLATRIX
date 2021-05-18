@@ -4,19 +4,20 @@ using NUnit.Framework;
 
 namespace Bellatrix.Web.Tests
 {
-    // uncomment to use MSTest
-    ////[TestClass]
     [TestFixture]
-    ////[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    public class LoginTests : NUnit.WebTest
+    public class ExecuteSameTestDifferentBrowsersTests : NUnit.WebTest
     {
-        public override void TestInit() => App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
+        public override void TestInit()
+        {
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
+        }
 
+        // The browser versioning will work only if you execute the tests with Selenium grid - locally or in the cloud.
+        // This feature works only for NUnit.
         [TestCase(BrowserType.Chrome, 86)]
         [TestCase(BrowserType.Chrome, 87)]
         [TestCase(BrowserType.Firefox, 82)]
         [TestCase(BrowserType.Firefox, 83)]
-        ////[Test]
         public void SuccessfullyLoginToMyAccount(BrowserType browserType, int browserVersion)
         {
             TextField userNameField = App.Components.CreateById<TextField>("username");
@@ -37,7 +38,7 @@ namespace Bellatrix.Web.Tests
             logoutLink.Click();
         }
 
-        ////[TestMethod]
+        // You can use the feature for local execution using your browser versions.
         [TestCase(BrowserType.Chrome)]
         [TestCase(BrowserType.Edge)]
         [TestCase(BrowserType.Firefox)]
@@ -58,14 +59,6 @@ namespace Bellatrix.Web.Tests
 
             logoutLink.ValidateIsVisible();
             logoutLink.Click();
-        }
-
-        [Test]
-        public void TestUrlDeterminer()
-        {
-            string cartUrl = UrlDeterminer.GetUrl<UrlSettings>(u => u.ShopUrl, "cart");
-
-            App.Assert.AreEqual("http://demos.bellatrix.solutions/cart", cartUrl);
         }
     }
 }

@@ -105,7 +105,7 @@ namespace Bellatrix.Web.Tests
             Button updateCart = App.Components.CreateByValueContaining<Button>("Update cart")
                 .ToBeClickable();
             updateCart.Click();
-            App.Browser.WaitUntilReady();
+            App.Browser.WaitForAjax();
 
             Span totalSpan = App.Components.CreateByXpath<Span>("//*[@class='order-total']//span");
 

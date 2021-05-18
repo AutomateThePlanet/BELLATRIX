@@ -58,5 +58,16 @@ namespace Bellatrix.Web.GettingStarted
             // Make sure to copy the file to the folder with your tests files. To do it, include it in the project and mark it as Copy Always.
             App.Navigation.NavigateToLocalPage("testPage.html");
         }
+
+        [Test]
+        public void GetUrlsBasedOnTestEnvironment()
+        {
+            // 7. You can use UrlDeterminer class to specify different URLs based on the test environment.
+            // In each specific Environment config, you can change the URLs for the different apps under the urlSettings section.
+            // To be able, you need to create a simple C# class holding the URL names as public string properties. Similar to UrlSettings class.
+            string cartUrl = UrlDeterminer.GetUrl<UrlSettings>(u => u.ShopUrl, "cart");
+
+            App.Assert.AreEqual("http://demos.bellatrix.solutions/cart", cartUrl);
+        }
     }
 }
