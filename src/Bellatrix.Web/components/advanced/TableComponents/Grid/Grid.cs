@@ -159,7 +159,7 @@ namespace Bellatrix.Web
         public GridCell GetCell(int row, int column)
         {
             string innerXpath = TableService.GetCell(row, column).GetXPath();
-            string outerXpath = GetCurrenTComponentXPath();
+            string outerXpath = GetCurrentElementXPath();
             string fullXpath = outerXpath + innerXpath;
             GridCell cell = ComponentCreateService.CreateByXpath<GridCell>(fullXpath);
             SetCellMetaData(cell, row, column);
@@ -192,7 +192,7 @@ namespace Bellatrix.Web
 
         public void ForEachCell(Action<GridCell> action)
         {
-            string outerXPath = GetCurrenTComponentXPath();
+            string outerXPath = GetCurrentElementXPath();
             foreach (var gridCell in TableService.GetCells())
             {
                 string fullXPath = outerXPath + gridCell.GetXPath();

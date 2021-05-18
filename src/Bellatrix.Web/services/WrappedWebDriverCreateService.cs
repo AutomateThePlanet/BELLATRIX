@@ -163,16 +163,16 @@ namespace Bellatrix.Web
                     var chromeOptions = executionConfiguration.DriverOptions;
                     chromeOptions.AddArguments("--log-level=3");
 
-                    if (ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
-                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath.NormalizeAppPath();
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                        chromeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath);
+                        chromeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Chrome.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
-                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Chrome.UnpackedExtensionPath.NormalizeAppPath();
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         chromeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
@@ -193,16 +193,16 @@ namespace Bellatrix.Web
                     chromeHeadlessOptions.AddArguments("--headless");
                     chromeHeadlessOptions.AddArguments("--log-level=3");
 
-                    if (ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
-                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath.NormalizeAppPath();
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                        chromeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath);
+                        chromeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().ChromeHeadless.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
-                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.UnpackedExtensionPath.NormalizeAppPath();
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         chromeHeadlessOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
@@ -247,7 +247,7 @@ namespace Bellatrix.Web
                         ServicesCollection.Current.RegisterInstance(firefoxOptions.Profile, executionConfiguration.ClassFullName);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Firefox.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
                         Logger.LogError($"Packed Extension loading not supported in Firefox!");
 
@@ -257,7 +257,7 @@ namespace Bellatrix.Web
                         ////firefoxOptions.Profile.AddExtension(ConfigurationService.GetSection<WebSettings>().Firefox.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Firefox.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
                         Logger.LogError($"Unpacked Extension loading not supported in Firefox!");
                     }
@@ -274,14 +274,14 @@ namespace Bellatrix.Web
                         firefoxHeadlessOptions.Proxy = webDriverProxy;
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
-                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath.NormalizeAppPath();
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                        firefoxHeadlessOptions.Profile.AddExtension(ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath);
+                        firefoxHeadlessOptions.Profile.AddExtension(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
                         Logger.LogError($"Unpacked Extension loading not supported in Firefox!");
                     }
@@ -318,16 +318,16 @@ namespace Bellatrix.Web
                         edgeOptions.Proxy = webDriverProxy;
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
-                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath.NormalizeAppPath();
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                        edgeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath);
+                        edgeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
-                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath.NormalizeAppPath();
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         edgeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
@@ -348,16 +348,16 @@ namespace Bellatrix.Web
                         edgeHeadlessOptions.Proxy = webDriverProxy;
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
-                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath.NormalizeAppPath();
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                        edgeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath);
+                        edgeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
-                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath.NormalizeAppPath();
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         edgeHeadlessOptions.AddExtensionPath(unpackedExtensionPath);
                     }
