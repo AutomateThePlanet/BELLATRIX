@@ -262,6 +262,19 @@ namespace Bellatrix.Web
                 exceptionMessage: $"Ajax request with url contains '{requestPartialUrl}' was not found.");
         }
 
+        public void InjectNotificationToast(string message, int timeoutMillis = 1500)
+        {
+            string executionScript = @"	var elemDiv = document.createElement('div');
+            var dynamicId = Date.now;
+            elemDiv.id = dynamicId;
+            elemDiv.innerHTML = """ + message + @""";
+            elemDiv.style.cssText = 'position:fixed;z-index:9999;bottom: 0px;color: #00529B;background-color: #BDE5F8;border: 1px solid;margin: 10px 0px;padding: 15px 10px 15px 50px;background-repeat: no-repeat;background-position: 10px center;font-family: Arial, Helvetica, sans-serif;font-size: 13px;background-image: url(""https://i.imgur.com/Z8q7ww7.png"");';
+            document.body.appendChild(elemDiv);
+            setTimeout(() => { document.getElementById(dynamicId).remove(); }, " + timeoutMillis.ToString() + ")";
+
+            InvokeScript(executionScript);
+        }
+
         public void WaitForAjax()
         {
             int maxSeconds = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.WaitForAjaxTimeout;
@@ -291,7 +304,7 @@ namespace Bellatrix.Web
                 },
                 totalRunTimeoutMilliseconds: maxSeconds * 1000,
                 sleepTimeMilliseconds: 300,
-                onTimeout: () => { Logger.LogError($"Timed out waiting for open connections to be closed. Wait time: {maxSeconds} sec."); });
+                onTimeout: () => { Logger.LogWarning($"Timed out waiting for open connections to be closed. Wait time: {maxSeconds} sec."); });
         }
 
         private void MonkeyPatchXMLHttpRequest()

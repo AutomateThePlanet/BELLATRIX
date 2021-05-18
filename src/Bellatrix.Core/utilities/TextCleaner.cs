@@ -25,6 +25,7 @@ namespace Bellatrix.Utilities
         public static string TrimAndReplaceNewlineChars(this string text)
         {
             var result = text.Trim().Replace("\n", " ");
+            result.Replace("<br>", " ");
 
             return result;
         }

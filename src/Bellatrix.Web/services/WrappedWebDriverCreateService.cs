@@ -163,6 +163,20 @@ namespace Bellatrix.Web
                     var chromeOptions = executionConfiguration.DriverOptions;
                     chromeOptions.AddArguments("--log-level=3");
 
+                    if (ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath != null)
+                    {
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath.NormalizeAppPath();
+                        Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
+                        chromeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath);
+                    }
+
+                    if (ConfigurationService.GetSection<WebSettings>().Chrome.UnpackedExtensionPath != null)
+                    {
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Chrome.UnpackedExtensionPath.NormalizeAppPath();
+                        Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
+                        chromeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
+                    }
+
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         chromeOptions.Proxy = webDriverProxy;
@@ -178,6 +192,20 @@ namespace Bellatrix.Web
                     var chromeHeadlessOptions = executionConfiguration.DriverOptions;
                     chromeHeadlessOptions.AddArguments("--headless");
                     chromeHeadlessOptions.AddArguments("--log-level=3");
+
+                    if (ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath != null)
+                    {
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath.NormalizeAppPath();
+                        Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
+                        chromeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath);
+                    }
+
+                    if (ConfigurationService.GetSection<WebSettings>().ChromeHeadless.UnpackedExtensionPath != null)
+                    {
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.UnpackedExtensionPath.NormalizeAppPath();
+                        Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
+                        chromeHeadlessOptions.AddArguments($"load-extension={unpackedExtensionPath}");
+                    }
 
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
@@ -219,6 +247,21 @@ namespace Bellatrix.Web
                         ServicesCollection.Current.RegisterInstance(firefoxOptions.Profile, executionConfiguration.ClassFullName);
                     }
 
+                    if (ConfigurationService.GetSection<WebSettings>().Firefox.PackedExtensionPath != null)
+                    {
+                        Logger.LogError($"Packed Extension loading not supported in Firefox!");
+
+                        // 05-Nov-2020 navramov: Extension loading does not work
+                        ////string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Firefox.PackedExtensionPath.NormalizeAppPath();
+                        ////Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
+                        ////firefoxOptions.Profile.AddExtension(ConfigurationService.GetSection<WebSettings>().Firefox.PackedExtensionPath);
+                    }
+
+                    if (ConfigurationService.GetSection<WebSettings>().Firefox.UnpackedExtensionPath != null)
+                    {
+                        Logger.LogError($"Unpacked Extension loading not supported in Firefox!");
+                    }
+
                     var firefoxTimeout = TimeSpan.FromSeconds(180);
                     wrappedWebDriver = new FirefoxDriver(firefoxService, firefoxOptions, firefoxTimeout);
                     break;
@@ -229,6 +272,18 @@ namespace Bellatrix.Web
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         firefoxHeadlessOptions.Proxy = webDriverProxy;
+                    }
+
+                    if (ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath != null)
+                    {
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath.NormalizeAppPath();
+                        Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
+                        firefoxHeadlessOptions.Profile.AddExtension(ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath);
+                    }
+
+                    if (ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.UnpackedExtensionPath != null)
+                    {
+                        Logger.LogError($"Unpacked Extension loading not supported in Firefox!");
                     }
 
                     var service = FirefoxDriverService.CreateDefaultService();
@@ -263,6 +318,20 @@ namespace Bellatrix.Web
                         edgeOptions.Proxy = webDriverProxy;
                     }
 
+                    if (ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath != null)
+                    {
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath.NormalizeAppPath();
+                        Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
+                        edgeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath);
+                    }
+
+                    if (ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath != null)
+                    {
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath.NormalizeAppPath();
+                        Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
+                        edgeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
+                    }
+
                     wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeDriverService, edgeOptions);
                     break;
                 case BrowserType.EdgeHeadless:
@@ -277,6 +346,20 @@ namespace Bellatrix.Web
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         edgeHeadlessOptions.Proxy = webDriverProxy;
+                    }
+
+                    if (ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath != null)
+                    {
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath.NormalizeAppPath();
+                        Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
+                        edgeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath);
+                    }
+
+                    if (ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath != null)
+                    {
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath.NormalizeAppPath();
+                        Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
+                        edgeHeadlessOptions.AddExtensionPath(unpackedExtensionPath);
                     }
 
                     wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeHeadlessDriverService, edgeHeadlessOptions);

@@ -65,11 +65,6 @@ namespace Bellatrix.Web
                 return null;
             }
 
-            if (string.IsNullOrEmpty(header))
-            {
-                return null;
-            }
-
             var allMatchingHeaders = _headerNamesIndexes.Where(x => x.Value.EndsWith(header));
             if (allMatchingHeaders.Count() > 1)
             {

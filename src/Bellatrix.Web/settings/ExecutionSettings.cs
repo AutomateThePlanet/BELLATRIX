@@ -24,5 +24,7 @@ namespace Bellatrix.Web
         public string Resolution { get; set; }
         public string Url { get; set; }
         public List<Dictionary<string, string>> Arguments { get; set; }
+        public string PackedExtensionPath { get; set; }
+        public string UnpackedExtensionPath { get; set; }
     }
 }
