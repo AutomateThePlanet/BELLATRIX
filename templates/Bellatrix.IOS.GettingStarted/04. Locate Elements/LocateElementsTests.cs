@@ -4,11 +4,10 @@ using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
+    // Please notice that we don't use the IOS attribute. A default device/selenium grid can be specified in the testFrameworkSettings.json file
+    // under the executionSettings section. There you can specify default lifecycle, version, grid URL, and arguments.
+    // You can still use the IOS attribute on top of classes or tests to override the default behavior.
     [TestFixture]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.ReuseIfStarted)]
     public class LocateElementsTests : NUnit.IOSTest
     {
         [Test]

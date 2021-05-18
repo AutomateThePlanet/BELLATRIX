@@ -19,9 +19,6 @@ namespace Bellatrix.Web.GettingStarted
         // there is no need to hardcode the string in each test. Later if the title is changed, you can do it in a single place.
         // The same is true about most of the things you can assert in your tests.
         //
-        // 4. There are navigatable, and non-navigatable page objects since some pages are only part of a workflow, and you access them not via URL but
-        // after clicking some link or button. The same is valid if you work with single page applications.
-        //
         // This is the same test that doesn't use page objects.
         [Test]
         [Category(Categories.CI)]

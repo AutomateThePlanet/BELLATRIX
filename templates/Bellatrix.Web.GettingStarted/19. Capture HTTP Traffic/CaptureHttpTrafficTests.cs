@@ -4,10 +4,15 @@ namespace Bellatrix.Web.GettingStarted
 {
     // 1. Capture HTTP traffic is one of the most requested features for WebDriver.
     // However by design WebDriver does not include such feature. Happily, for you, we added it to Bellatrix.
-    // To turn it on you need to testFrameworkSettings.json file and set the isEnabled to true.
-    //  "webProxySettings": {
-    //     "isEnabled": "true"
-    // }
+    // To turn it on you need open the testFrameworkSettings.json file and set the shouldCaptureHttpTraffic to true.
+    // "webSettings": {
+    //    "isParallelExecutionEnabled": "false",
+    //    "artificialDelayBeforeAction": "0",
+    //    "automaticallyScrollToVisible": "false",
+    //    "waitUntilReadyOnElementFound": "false",
+    //    "waitForAngular": "false",
+    //    "shouldHighlightElements": "true",
+    //    "shouldCaptureHttpTraffic": "false",
     //
     // By default, the proxy is not used in your tests even if it is enabled.
     // You need to set the shouldCaptureHttpTraffic to true in the Browser attribute.

@@ -13,7 +13,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            // 1. There are different ways to locate elements on the page. To do it you use the element create service.
+            // 1. There are different ways to locate components on the page. To do it you use the component create service.
             // You need to know that BELLATRIX has a built-in complex mechanism for waiting for elements, so you do not need to worry about this anymore.
             // Keep in mind that when you use the Create methods, the element is not searched on the page. All elements use lazy loading.
             // Which means that they are searched once you perform an action or assertion on them. By default on each new action, the element is searched again and be refreshed.
@@ -23,7 +23,7 @@ namespace Bellatrix.Web.GettingStarted
             Console.WriteLine(promotionsLink.WrappedElement.TagName);
 
             // 3. Because of the proxy element mechanism (we have a separate type of element instead of single WebDriver IWebElement interface) we have several benefits.
-            // Each control (element type- ComboBox, TextField and so on) contains only the actions you can do with it, and the methods are named properly.
+            // Each component (component type- ComboBox, TextField and so on) contains only the actions you can do with it, and the methods are named properly.
             // In vanilla WebDriver to type the text you call SendKeys method.
             // Also, we have some additional properties in the proxy web control such as- By. Now you can get the locator with which you element was found.
             Console.WriteLine(promotionsLink.By.Value);
@@ -141,7 +141,7 @@ namespace Bellatrix.Web.GettingStarted
 
             // 6. Sometimes it is easier to locate one element and then find the next one that you need, inside it.
             // For example in this test we want to locate the Sale! button inside the product's description.
-            // To do it you can use the element's Create methods.
+            // To do it you can use the component's Create methods.
             var productsColumn = App.Components.CreateByClassContaining<Option>("products columns-4");
 
             // The first products row is located. Then search inside it for the first product image, inside it search for the Sale! Span ComponentCreateService.

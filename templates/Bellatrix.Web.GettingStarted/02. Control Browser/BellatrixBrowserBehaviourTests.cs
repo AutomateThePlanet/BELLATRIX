@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    // 1. This is the main attribute that you need to mark each class that contains MSTest tests.
+    // 1. This is the main attribute that you need to mark each class that contains NUnit tests.
     [TestFixture]
 
     // 2. This is the attribute for automatic start/control of WebDriver browsers by Bellatrix. If you have to do it manually properly, you will need thousands of lines of code.

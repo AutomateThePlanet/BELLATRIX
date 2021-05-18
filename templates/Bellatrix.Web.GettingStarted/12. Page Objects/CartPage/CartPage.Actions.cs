@@ -6,7 +6,6 @@ namespace Bellatrix.Web.GettingStarted._12._Page_Objects
     // 1. All BELLATRIX page objects are implemented as partial classes which means that you have separate files for different parts of it- actions, elements, assertions
     // but at the end, they are all built into a single type. This makes the maintainability and readability of these classes much better. Also, you can easier locate what you need.
     //
-    // You can always create BELLATRIX page objects yourself inherit one of the 3 classes- AssertedNavigatablePage, NavigatablePage, Page
     // We advise you to follow the convention with partial classes, but you are always free to put all pieces in a single file.
     public partial class CartPage : WebPage
     {
@@ -52,7 +51,7 @@ namespace Bellatrix.Web.GettingStarted._12._Page_Objects
                 throw new ArgumentException("There are no items to be updated.");
             }
 
-            // 6. Also, you can use ElementList<T> directly in foreach statements since it implements IEnumerator interface.
+            // 6. Also, you can use ComponentsList<T> directly in foreach statements since it implements IEnumerator interface.
             foreach (var currentQuantityBox in QuantityBoxes)
             {
                 currentQuantityBox.SetNumber(0);

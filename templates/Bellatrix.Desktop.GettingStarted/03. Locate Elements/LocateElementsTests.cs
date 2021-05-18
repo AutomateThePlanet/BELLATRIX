@@ -4,6 +4,9 @@ using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
+    // Please notice that we don't use the Desktop attribute. A default device/selenium grid can be specified in the testFrameworkSettings.json file
+    // under the executionSettings section. There you can specify default lifecycle, version, grid URL, and arguments.
+    // You can still use the Desktop attribute on top of classes or tests to override the default behavior.
     [TestFixture]
     public class LocateElementsTests : DesktopTest
     {

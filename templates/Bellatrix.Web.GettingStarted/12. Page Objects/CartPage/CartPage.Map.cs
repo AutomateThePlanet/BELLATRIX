@@ -10,7 +10,7 @@
         public Button ApplyCouponButton => App.Components.CreateByValueContaining<Button>("Apply coupon");
         public Div MessageAlert => App.Components.CreateByClassContaining<Div>("woocommerce-message");
 
-        // 2. If you want to find multiple elements, you can use the special BELLATRIX collection ElementsList<TComponentType>.
+        // 2. If you want to find multiple elements, you can use the special BELLATRIX collection ComponentsList<TComponentType>.
         // You can read more about it in the actions file.
         public ComponentsList<Number> QuantityBoxes => App.Components.CreateAllByClassContaining<Number>("input-text qty text");
         public Button UpdateCart => App.Components.CreateByValueContaining<Button>("Update cart").ToBeClickable();

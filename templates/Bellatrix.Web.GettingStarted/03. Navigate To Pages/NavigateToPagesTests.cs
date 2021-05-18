@@ -3,6 +3,9 @@ using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
+    // Please notice that we don't use the Browser attribute. A default browser/selenium grid can be specified in the testFrameworkSettings.json file
+    // under the executionSettings section. There you can specify default lifecycle, version, grid URL, default resolution, and arguments.
+    // You can still use the Browser attribute on top of classes or tests to override the default behavior.
     [TestFixture]
     public class NavigateToPagesTests : NUnit.WebTest
     {

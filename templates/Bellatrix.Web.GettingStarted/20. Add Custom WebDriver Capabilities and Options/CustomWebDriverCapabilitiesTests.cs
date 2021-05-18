@@ -18,6 +18,7 @@ namespace Bellatrix.Web.GettingStarted
         // Using the App service methods you can add all of these with ease. Make sure to call them in the TestsArrange which is called before the
         // execution of the tests placed in the test class. These options are used only for the tests in this particular class.
         // Note: You can use all of these methods no matter which attributes you use- Browser, Remote, SauceLabs, BrowserStack or CrossBrowserTesting.
+        // You can add default arguments under the executionSettings\arguments in the testFrameworkSettings.json confuguration file.
         public override void TestsArrange()
         {
             var firefoxOptions = new FirefoxOptions

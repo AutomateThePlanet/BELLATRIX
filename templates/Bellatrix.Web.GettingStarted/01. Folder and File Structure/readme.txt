@@ -4,21 +4,29 @@
 
 2. Contains the following NuGet dependencies:
 
-<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
-<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.0.0" />
-<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
-<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
-<PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
-<PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
-<PackageReference Include="System.Security.Permissions" Version="4.6.0" />
-<PackageReference Include="Unity" Version="5.8.6" />
-<PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004"/>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Unity" Version="5.11.10" />
+    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.0.2" />
+  </ItemGroup>
 
-Note: the version may vary if you install the template now.
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Bellatrix.Core\Bellatrix.Core.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Layout\Bellatrix.Layout.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Web\Bellatrix.Web.csproj" />
+  </ItemGroup>
 
 In short:
  - we reference Microsoft configuration packages so that we can work with configuration files where the different framework settings are placed.
- - Microsoft.NET.Test.Sdk, MSTest.TestAdapter, MSTest.TestFramework are prerequisites so that you can execute MSTest framework tests.
+ - Microsoft.NET.Test.Sdk, NUnit3TestAdapter, NUnit are prerequisites so that you can execute MSTest framework tests.
  - also, we use Unity inversion of control container inside BELLATRIX for many things. 
  You will not be able to use it directly, but there are a couple of ways that you will use it in your code for some more complex scenarios.
  - Lastly, we install StyleCop.Analyzers, we use it to enforce coding standards in the tests code.
