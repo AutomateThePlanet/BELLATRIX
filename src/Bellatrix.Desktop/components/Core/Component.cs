@@ -17,6 +17,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using Bellatrix.CognitiveServices;
+using Bellatrix.CognitiveServices.services;
 using Bellatrix.Desktop.Controls.Core;
 using Bellatrix.Desktop.Events;
 using Bellatrix.Desktop.Locators;
@@ -76,6 +78,14 @@ namespace Bellatrix.Desktop
         public virtual string GetAttribute(string name)
         {
             return WrappedElement.GetAttribute(name);
+        }
+
+        public AssertedFormPage AIAnalyze()
+        {
+            string currentComponentScreenshot = TakeScreenshot();
+            var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
+            var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
+            return analyzedComponent;
         }
 
         public string TakeScreenshot(string filePath = null)

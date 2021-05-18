@@ -18,6 +18,8 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading;
+using Bellatrix.CognitiveServices;
+using Bellatrix.CognitiveServices.services;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
@@ -106,6 +108,14 @@ namespace Bellatrix.Web
         public string GetDir() => string.IsNullOrEmpty(GetAttribute("dir")) ? null : GetAttribute("dir");
 
         public string GetLang() => string.IsNullOrEmpty(GetAttribute("lang")) ? null : GetAttribute("lang");
+
+        public AssertedFormPage AIAnalyze()
+        {
+            string currentComponentScreenshot = TakeScreenshot();
+            var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
+            var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
+            return analyzedComponent;
+        }
 
         public string TakeScreenshot(string filePath = null)
         {

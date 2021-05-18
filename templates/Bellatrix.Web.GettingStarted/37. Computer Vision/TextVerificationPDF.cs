@@ -69,5 +69,31 @@ namespace Bellatrix.Web.GettingStarted
 
             analyzedPdf.Lines[40].AssertWordsContain("TERMS", "CONDITIONS");
         }
+
+        [Test]
+        ////[Ignore("API example purposes only. No need to run.")]
+        public void AssertTableComponentCellsText()
+        {
+            App.Navigation.NavigateToLocalPage("TestPages\\Table\\table.html");
+
+            var table = App.Components.CreateById<Table>("table1")
+                                         .SetColumn("Last Name")
+                                         .SetColumn("First Name")
+                                         .SetColumn("Email")
+                                         .SetColumn("Due")
+                                         .SetColumn("Action");
+
+            var analyzedTable = table.AIAnalyze();
+            analyzedTable.AssertLinesCount(24);
+
+            ////analyzedTable.GetTable().GetCell(1, 3).AssertTextEquals("jsmith@gmail.com");
+            ////analyzedTable.GetTable().GetCell(4, 3).AssertTextContains("$50");
+
+            ////analyzedTable.GetTable().GetCell(c => c.Text.StartsWith("jdoe@")).AssertTextContains("hotmail.com");
+
+            analyzedTable.Lines[13].AssertWordsCount(2);
+
+            analyzedTable.Lines[23].AssertWordsContain("tconway", "delete", "edit");
+        }
     }
 }

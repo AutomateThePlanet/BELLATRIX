@@ -17,6 +17,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using Bellatrix.CognitiveServices;
+using Bellatrix.CognitiveServices.services;
 using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Controls.Core;
 using Bellatrix.Mobile.Events;
@@ -75,6 +77,14 @@ namespace Bellatrix.Mobile.Core
         public virtual string GetAttribute(string name)
         {
             return WrappedElement.GetAttribute(name);
+        }
+
+        public AssertedFormPage AIAnalyze()
+        {
+            string currentComponentScreenshot = TakeScreenshot();
+            var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
+            var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
+            return analyzedComponent;
         }
 
         public string TakeScreenshot(string filePath = null)
