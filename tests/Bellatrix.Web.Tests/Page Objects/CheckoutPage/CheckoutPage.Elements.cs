@@ -17,6 +17,6 @@
         public Phone BillingPhone => ComponentCreateService.CreateById<Phone>("billing_phone");
         public Email BillingEmail => ComponentCreateService.CreateById<Email>("billing_email");
         public CheckBox CreateAccountCheckBox => ComponentCreateService.CreateById<CheckBox>("createaccount");
-        public RadioButton CheckPaymentsRadioButton => ComponentCreateService.CreateByAttributesContaining<RadioButton>("for", "payment_method_cheque");
+        public RadioButton CheckPaymentsRadioButton => ComponentCreateService.CreateByAttributesContaining<RadioButton>("for", "payment_method_cheque").ToBeClickable();
     }
 }

@@ -1,12 +1,12 @@
 ﻿using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.NUnit;
+using Bellatrix.API.MSTest;
 using Bellatrix.Plugins.Api;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestFixture]
+    [TestClass]
 
     // 1. BELLATRIX provides an easy way to authenticate through the usage of few attributes.
     // 1.1. Bellow we use JwtToken authentication. The attribute accepts your text tocken. https://tools.ietf.org/html/draft-ietf-oauth-json-web-token
@@ -20,8 +20,8 @@ namespace Bellatrix.API.GettingStarted
     // SimpleAuthenticationStrategy - userKey, user, passwordKey, password
     public class AuthenticationTests : APITest
     {
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void GetAlbumById()
         {
             var request = new RestRequest("api/Albums/10");

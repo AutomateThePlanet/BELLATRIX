@@ -16,6 +16,9 @@
   "processCleanupSettings": {
     "isParallelExecutionEnabled": "false"
   },
+  "allureReportingSettings": {
+    "isEnabled": "false"
+  },
   "azureDevOpsDynamicTestCasesSettings": {
     "isEnabled": "false",
     "url": "https://dev.azure.com/yourCompany",

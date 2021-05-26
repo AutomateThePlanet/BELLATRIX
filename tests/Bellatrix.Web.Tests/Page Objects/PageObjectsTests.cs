@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
             messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
 
-            App.Browser.WaitUntilReady();
+            App.Browser.WaitForAjax();
             proceedToCheckout.Click();
 
             Heading billingDetailsHeading = App.Components.CreateByInnerTextContaining<Heading>("Billing details");

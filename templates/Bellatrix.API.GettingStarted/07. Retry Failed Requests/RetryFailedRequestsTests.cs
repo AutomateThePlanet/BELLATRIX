@@ -1,12 +1,12 @@
 ﻿using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.NUnit;
+using Bellatrix.API.MSTest;
 using Bellatrix.Plugins.Api;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestFixture]
+    [TestClass]
 
     // 1. BELLATRIX provides an easy way to retry failed request through the RetryFailedRequests.
     // If you place it over you class the rules will be applied to all tests in it.
@@ -14,8 +14,8 @@ namespace Bellatrix.API.GettingStarted
     [RetryFailedRequests(3, 200, TimeUnit.Milliseconds)]
     public class RetryFailedRequestsTests : APITest
     {
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void GetAlbumById()
         {
             var request = new RestRequest("api/Albums/10");

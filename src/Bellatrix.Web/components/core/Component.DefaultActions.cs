@@ -18,6 +18,7 @@ using System.Threading;
 using Bellatrix.Web.Events;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
 
 namespace Bellatrix.Web
 {
@@ -50,8 +51,38 @@ namespace Bellatrix.Web
         {
             clicking?.Invoke(this, new ComponentActionEventArgs(this));
 
-            this.ToExists().ToBeClickable().WaitToBe();
-            WrappedElement.Click();
+            var sleepInterval = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval;
+            var timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToBeClickableTimeout;
+            var timeoutTimeSpan = TimeSpan.FromSeconds(timeout);
+            var sleepIntervalTimeSpan = TimeSpan.FromSeconds(sleepInterval);
+            var wait = new WebDriverWait(new SystemClock(), WrappedDriver, timeoutTimeSpan, sleepIntervalTimeSpan);
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            try
+            {
+                wait.Until((s) =>
+                {
+                    try
+                    {
+                        this.ToExists().ToBeClickable().WaitToBe();
+                        WrappedElement.Click();
+                        return true;
+                    }
+                    catch (ElementNotInteractableException e)
+                    {
+                        return false;
+                    }
+                    catch (WebDriverException e)
+                    {
+                        return false;
+                    }
+                });
+            }
+            catch (TimeoutException e)
+            {
+                this.ToExists().ToBeClickable().WaitToBe();
+                WrappedElement.Click();
+            }
 
             clicked?.Invoke(this, new ComponentActionEventArgs(this));
         }

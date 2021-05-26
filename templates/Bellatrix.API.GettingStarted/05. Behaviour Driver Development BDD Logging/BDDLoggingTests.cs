@@ -1,15 +1,15 @@
 ﻿using AutoFixture;
 using Bellatrix.Api;
 using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.NUnit;
-using NUnit.Framework;
+using Bellatrix.API.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestFixture]
+    [TestClass]
     public class BDDLoggingTests : APITest
     {
         private ApiClientService _apiClientService;
@@ -29,8 +29,8 @@ namespace Bellatrix.API.GettingStarted
         // Or it is doable only for simple tests.
         // This is why in BELLATRIX we built a feature that generates the test cases after the tests execution.
         // After each action or assertion, a new entry is logged.
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ContentPopulated_When_GetAlbums()
         {
             // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.
@@ -158,8 +158,8 @@ namespace Bellatrix.API.GettingStarted
             // Assert response status code is equal to OK.
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void DataPopulatedAsList_When_GetGenericAlbums()
         {
             var request = new RestRequest("api/Albums");
@@ -169,8 +169,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.AreEqual(347, response.Data.Count);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ContentPopulated_When_NewAlbumInsertedViaPost()
         {
             var newAlbum = CreateUniqueGeneres();
@@ -183,8 +183,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.IsNotNull(response.Content);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ArtistsDeleted_When_PerformDeleteRequest()
         {
             var newArtist = CreateUniqueArtists();

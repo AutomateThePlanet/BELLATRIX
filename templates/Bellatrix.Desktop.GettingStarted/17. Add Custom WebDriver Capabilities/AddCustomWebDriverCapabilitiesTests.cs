@@ -14,10 +14,10 @@ namespace Bellatrix.Desktop.GettingStarted
         {
             // 2. Add custom WebDriver capability.
             App.AddAdditionalCapability("appArguments", @"MyTestFile.txt");
-            App.AddAdditionalCapability("appWorkingDir", @"C:\MyTestFolder\");
+            ////App.AddAdditionalCapability("appWorkingDir", @"C:\MyTestFolder\");
         }
 
-        [Test]
+        [Test, Explicit]
         [Category(Categories.CI)]
         [Ignore("API example purposes only. No need to run.")]
         public void MessageChanged_When_ButtonHovered_Wpf()
@@ -30,7 +30,7 @@ namespace Bellatrix.Desktop.GettingStarted
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
 
-        [Test]
+        [Test, Explicit]
         [Category(Categories.CI)]
         [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
         [Ignore("API example purposes only. No need to run.")]

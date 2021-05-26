@@ -1,11 +1,11 @@
 ﻿using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.NUnit;
-using NUnit.Framework;
+using Bellatrix.API.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestFixture]
+    [TestClass]
     public class CustomTestCaseExtensionTests : APITest
     {
         // 1. Once we created the test workflow plugin, we need to add it to the existing test workflow.
@@ -23,8 +23,8 @@ namespace Bellatrix.API.GettingStarted
             // App.AddPlugin<AssociatedTestCaseExtension>();
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         [ManualTestCase(1532)]
         public void GetAlbumById()
         {

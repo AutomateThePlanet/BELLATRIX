@@ -1,11 +1,11 @@
 ﻿using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.NUnit;
-using NUnit.Framework;
+using Bellatrix.API.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestFixture]
+    [TestClass]
     public class ApiClientHooksTests : APITest
     {
         // 1. Another way to execute BELLATRIX is to create an API client plugin.
@@ -23,8 +23,8 @@ namespace Bellatrix.API.GettingStarted
         // You can create plugins for logging the request failures, modifying the requests. The possibilities are limitless.
         public override void TestsArrange() => App.AddApiClientExecutionPlugin<LogRequestTimeApiClientExecutionPlugin>();
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void GetAlbumById()
         {
             var request = new RestRequest("api/Albums/10");
@@ -36,8 +36,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.AreEqual(10, response.Data.AlbumId);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void SecondGetAlbumById()
         {
             var request = new RestRequest("api/Albums/10");

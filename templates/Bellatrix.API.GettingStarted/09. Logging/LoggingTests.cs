@@ -1,15 +1,15 @@
 ﻿using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.NUnit;
-using NUnit.Framework;
+using Bellatrix.API.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestFixture]
+    [TestClass]
     public class LoggingTests : APITest
     {
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void GetAlbumById()
         {
             var request = new RestRequest("api/Albums/10");

@@ -1,16 +1,17 @@
 ﻿using AutoFixture;
 using Bellatrix.Api;
 using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.NUnit;
-using NUnit.Framework;
+using Bellatrix.API.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestFixture]
+    [TestClass]
     public class AllRequestTypesTests : APITest
     {
         private ApiClientService _apiClientService;
@@ -22,8 +23,8 @@ namespace Bellatrix.API.GettingStarted
             _apiClientService = App.GetApiClientService();
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ContentPopulated_When_GetAlbums()
         {
             var request = new RestRequest("api/Albums");
@@ -35,8 +36,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.IsNotNull(response.Content);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void DataPopulatedAsList_When_GetGenericAlbums()
         {
             var request = new RestRequest("api/Albums");
@@ -48,8 +49,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.AreEqual(347, response.Data.Count);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void DataPopulatedAsList_When_GetGenericAlbumsById()
         {
             var request = new RestRequest("api/Albums/10");
@@ -60,8 +61,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.AreEqual(10, response.Data.AlbumId);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ContentPopulated_When_GetGenericAlbumsById()
         {
             var request = new RestRequest("api/Albums/10");
@@ -73,8 +74,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.IsNotNull(response.Content);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void DataPopulatedAsGenres_When_PutModifiedContent()
         {
             // 5. First we create a new genre
@@ -104,8 +105,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.IsNotNull(getUpdatedResponse.Content);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ContentPopulated_When_PutModifiedContent()
         {
             var newGenres = CreateUniqueGenres();
@@ -130,8 +131,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.IsNotNull(getUpdatedResponse.Content);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ContentPopulated_When_NewAlbumInsertedViaPost()
         {
             // 7. Create a new album.
@@ -148,8 +149,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.IsNotNull(response.Content);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void DataPopulatedAsGenres_When_NewAlbumInsertedViaPost()
         {
             var newAlbum = CreateUniqueGenres();
@@ -163,8 +164,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.AreEqual(newAlbum.Name, response.Data.Name);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ArtistsDeleted_When_PerformDeleteRequest()
         {
             // 9. First create a new artist and post it.
@@ -180,8 +181,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.IsTrue(response.IsSuccessful);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ArtistsDeleted_When_PerformGenericDeleteRequest()
         {
             var newArtist = CreateUniqueArtists();
@@ -196,9 +197,9 @@ namespace Bellatrix.API.GettingStarted
             Assert.IsNotNull(response.Data);
         }
 
-        [Test]
-        [Category(Categories.CI)]
-        public async void ArtistsDeleted_When_PerformGenericDeleteRequestAsync()
+        [TestMethod]
+        [TestCategory(Categories.CI)]
+        public void ArtistsDeleted_When_PerformGenericDeleteRequestAsync()
         {
             // 11. All BELLATRIX client API methods have an async version.
             // Your test should be marked as async.
@@ -207,12 +208,12 @@ namespace Bellatrix.API.GettingStarted
             request.AddJsonBody(newArtist);
 
             // 11.1. Use the PostAsync. Should use the await operator.
-            await _apiClientService.PostAsync<Artists>(request);
+            _apiClientService.Post<Artists>(request);
 
             var deleteRequest = new RestRequest($"api/Artists/{newArtist.ArtistId}");
 
             // 11.2. Use the DeleteAsync. Should use the await operator.
-            var response = await _apiClientService.DeleteAsync<Artists>(deleteRequest);
+            var response = _apiClientService.Delete<Artists>(deleteRequest);
 
             Assert.IsNotNull(response.Data);
         }

@@ -1,212 +1,212 @@
-﻿using Bellatrix.Api;
-using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.NUnit;
-using NUnit.Framework;
-using RestSharp;
-using System.Net;
-using System.Threading.Tasks;
+﻿////using Bellatrix.Api;
+////using Bellatrix.API.GettingStarted.Models;
+////using Bellatrix.API.MSTest;
+////using Microsoft.VisualStudio.TestTools.UnitTesting;
+////using RestSharp;
+////using System.Net;
+////using System.Threading.Tasks;
 
-namespace Bellatrix.API.GettingStarted
-{
-    [TestFixture]
-    public class ApiAssertionsTests : APITest
-    {
-        private ApiClientService _apiClientService;
+////namespace Bellatrix.API.GettingStarted
+////{
+////    [TestClass]
+////    public class ApiAssertionsTests : APITest
+////    {
+////        private ApiClientService _apiClientService;
 
-        public override void TestInit()
-        {
-            _apiClientService = App.GetApiClientService();
-        }
+////        public override void TestInit()
+////        {
+////            _apiClientService = App.GetApiClientService();
+////        }
 
-        // 0. BELLATRIX API library brings many convenient assertion methods on top of RestSharp.
-        // Of course, you can write similar methods yourself using MSTest or NUnit.
-        // All BELLATRIX assertions comes with full BDD logging and extensibility hooks.
-        [Test]
-        [Category(Categories.CI)]
-        public void AssertSuccessStatusCode()
-        {
-            var request = new RestRequest("api/Albums");
+////        // 0. BELLATRIX API library brings many convenient assertion methods on top of RestSharp.
+////        // Of course, you can write similar methods yourself using MSTest or NUnit.
+////        // All BELLATRIX assertions comes with full BDD logging and extensibility hooks.
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public void AssertSuccessStatusCode()
+////        {
+////            var request = new RestRequest("api/Albums");
 
-            var response = _apiClientService.Get(request);
+////            var response = _apiClientService.Get(request);
 
-            // 1. Assert that the status code is successful.
-            response.AssertSuccessStatusCode();
-        }
+////            // 1. Assert that the status code is successful.
+////            response.AssertSuccessStatusCode();
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public void AssertStatusCodeOk()
-        {
-            var request = new RestRequest("api/Albums");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public void AssertStatusCodeOk()
+////        {
+////            var request = new RestRequest("api/Albums");
 
-            var response = _apiClientService.Get(request);
+////            var response = _apiClientService.Get(request);
 
-            // 2. Assert that the status code is OK.
-            response.AssertStatusCode(HttpStatusCode.OK);
-        }
+////            // 2. Assert that the status code is OK.
+////            response.AssertStatusCode(HttpStatusCode.OK);
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public void AssertResponseHeaderServerIsEqualToKestrel()
-        {
-            var request = new RestRequest("api/Albums");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public void AssertResponseHeaderServerIsEqualToKestrel()
+////        {
+////            var request = new RestRequest("api/Albums");
 
-            var response = _apiClientService.Get(request);
+////            var response = _apiClientService.Get(request);
 
-            // 3. Assert that the header named 'server' has the value 'Kestrel'.
-            response.AssertResponseHeader("server", "Kestrel");
-        }
+////            // 3. Assert that the header named 'server' has the value 'Kestrel'.
+////            response.AssertResponseHeader("server", "Kestrel");
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public void AssertExecutionTimeUnderIsUnderOneSecond()
-        {
-            var request = new RestRequest("api/Albums");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public void AssertExecutionTimeUnderIsUnderOneSecond()
+////        {
+////            var request = new RestRequest("api/Albums");
 
-            var response = _apiClientService.Get(request);
+////            var response = _apiClientService.Get(request);
 
-            // 4. Assert that the execution time of the GET request is under 1 second.
-            response.AssertExecutionTimeUnder(1);
-        }
+////            // 4. Assert that the execution time of the GET request is under 1 second.
+////            response.AssertExecutionTimeUnder(1);
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public async Task AssertContentTypeJson()
-        {
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public async Task AssertContentTypeJson()
+////        {
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            // 5. Assert that the content type is of the specified type.
-            response.AssertContentType("application/json; charset=utf-8");
-        }
+////            // 5. Assert that the content type is of the specified type.
+////            response.AssertContentType("application/json; charset=utf-8");
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public async Task AssertContentContainsAudioslave()
-        {
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public async Task AssertContentContainsAudioslave()
+////        {
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            // 6. Assert that the native text content (JSON or XML) contains the specified value.
-            response.AssertContentContains("Audioslave");
-        }
+////            // 6. Assert that the native text content (JSON or XML) contains the specified value.
+////            response.AssertContentContains("Audioslave");
+////        }
 
-        [Test]
-        [Ignore("API example purposes only. No need to run.")]
-        public async Task AssertContentEncodingUtf8()
-        {
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        [Ignore("API example purposes only. No need to run.")]
+////        public async Task AssertContentEncodingUtf8()
+////        {
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            // 7. Assert the response's content encoding.
-            response.AssertContentEncoding("gzip");
-        }
+////            // 7. Assert the response's content encoding.
+////            response.AssertContentEncoding("gzip");
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public async Task AssertContentEquals()
-        {
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public async Task AssertContentEquals()
+////        {
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            // 8. Assert the native text content.
-            response.AssertContentEquals("{\"albumId\":10,\"title\":\"Audioslave\",\"artistId\":8,\"artist\":null,\"tracks\":[]}");
-        }
+////            // 8. Assert the native text content.
+////            response.AssertContentEquals("{\"albumId\":10,\"title\":\"Audioslave\",\"artistId\":8,\"artist\":null,\"tracks\":[]}");
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public async Task AssertContentNotContainsRammstein()
-        {
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public async Task AssertContentNotContainsRammstein()
+////        {
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            // 9. Assert that the native text content doesn't contain specific text.
-            response.AssertContentNotContains("Rammstein");
-        }
+////            // 9. Assert that the native text content doesn't contain specific text.
+////            response.AssertContentNotContains("Rammstein");
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public async Task AssertContentNotEqualsRammstein()
-        {
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public async Task AssertContentNotEqualsRammstein()
+////        {
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            // 10. Assert that the native text content is not equal to a specific text.
-            response.AssertContentNotEquals("Rammstein");
-        }
+////            // 10. Assert that the native text content is not equal to a specific text.
+////            response.AssertContentNotEquals("Rammstein");
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public async Task AssertResultEquals()
-        {
-            var expectedAlbum = new Albums
-                                {
-                                    AlbumId = 10,
-                                };
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public async Task AssertResultEquals()
+////        {
+////            var expectedAlbum = new Albums
+////                                {
+////                                    AlbumId = 10,
+////                                };
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            // 11. Assert C# collections directly.
-            response.AssertResultEquals(expectedAlbum);
-        }
+////            // 11. Assert C# collections directly.
+////            response.AssertResultEquals(expectedAlbum);
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public async Task AssertResultNotEquals()
-        {
-            var expectedAlbum = new Albums
-                                {
-                                    AlbumId = 11,
-                                };
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public async Task AssertResultNotEquals()
+////        {
+////            var expectedAlbum = new Albums
+////                                {
+////                                    AlbumId = 11,
+////                                };
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            response.AssertResultNotEquals(expectedAlbum);
-        }
+////            response.AssertResultNotEquals(expectedAlbum);
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public async Task AssertCookieExists()
-        {
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public async Task AssertCookieExists()
+////        {
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            // 12. Assert that a specific cookie exists.
-            response.AssertCookieExists("whoIs");
-        }
+////            // 12. Assert that a specific cookie exists.
+////            response.AssertCookieExists("whoIs");
+////        }
 
-        [Test]
-        [Category(Categories.CI)]
-        public async Task AssertCookieWhoIsBella()
-        {
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        [TestCategory(Categories.CI)]
+////        public async Task AssertCookieWhoIsBella()
+////        {
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            // 13. Assert that a cookie's value is equal to a specific value.
-            response.AssertCookie("whoIs", "Bella");
-        }
+////            // 13. Assert that a cookie's value is equal to a specific value.
+////            response.AssertCookie("whoIs", "Bella");
+////        }
 
-        [Test]
-        public async Task AssertMultiple()
-        {
-            var request = new RestRequest("api/Albums/10");
+////        [TestMethod]
+////        public async Task AssertMultiple()
+////        {
+////            var request = new RestRequest("api/Albums/10");
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+////            var response = await _apiClientService.GetAsync<Albums>(request);
 
-            // 14. You can execute multiple assertions failing only once viewing all results.
-            Bellatrix.Assertions.Assert.Multiple(
-                () => response.AssertCookie("whoIs", "Bella"),
-                () => response.AssertCookieExists("whoIs"));
-        }
-    }
-}
+////            // 14. You can execute multiple assertions failing only once viewing all results.
+////            Bellatrix.Assertions.Assert.Multiple(
+////                () => response.AssertCookie("whoIs", "Bella"),
+////                () => response.AssertCookieExists("whoIs"));
+////        }
+////    }
+////}

@@ -1,13 +1,13 @@
 ﻿using Bellatrix.Api;
 using Bellatrix.Api.Contracts;
 using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.NUnit;
-using NUnit.Framework;
+using Bellatrix.API.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestFixture]
+    [TestClass]
     public class TestWorkflowHooksTests : APITest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.
@@ -83,29 +83,29 @@ namespace Bellatrix.API.GettingStarted
             // Executes a logic after each test in the test class.
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void UpdatedContentContainsUpdatedTitle()
         {
             _putResponse.AssertContentContains("Unique Title");
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void UpdatedRequestUnder2Seconds()
         {
             _putResponse.AssertExecutionTimeUnder(2);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void PutResponseNotNull()
         {
             Assert.IsNotNull(_putResponse.Content);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void PutResponseStatusCodeIsOk()
         {
             _putResponse.AssertStatusCode(System.Net.HttpStatusCode.OK);

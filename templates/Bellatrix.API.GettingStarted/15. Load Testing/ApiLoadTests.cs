@@ -1,11 +1,11 @@
 ﻿using Bellatrix.Api;
-using Bellatrix.API.NUnit;
-using NUnit.Framework;
+using Bellatrix.API.MSTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestFixture]
+    [TestClass]
     public class ApiLoadTests : APITest
     {
         private ApiClientService _apiClientService;
@@ -16,8 +16,8 @@ namespace Bellatrix.API.GettingStarted
             _apiClientService = App.GetApiClientService();
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void LoadTest_ExecuteForTime()
         {
             var request = new RestRequest("api/Albums");
@@ -39,8 +39,8 @@ namespace Bellatrix.API.GettingStarted
             });
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void LoadTest_ExecuteNumberOfTimes()
         {
             var request = new RestRequest("api/Albums");

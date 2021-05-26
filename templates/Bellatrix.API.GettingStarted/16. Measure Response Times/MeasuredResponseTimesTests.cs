@@ -1,14 +1,14 @@
 ﻿using Bellatrix.Api;
 using Bellatrix.API.GettingStarted.Models;
-using Bellatrix.API.NUnit;
+using Bellatrix.API.MSTest;
 using Bellatrix.Plugins.Common.ExecutionTime;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 using System.Collections.Generic;
 
 namespace Bellatrix.API.GettingStarted
 {
-    [TestFixture]
+    [TestClass]
 
     // 1. Sometimes it is useful to use your functional tests to measure performance. Or to just make sure that your app
     // is not slow. To do that BELLATRIX libraries offer the ExecutionTimeUnder attribute. You specify a timeout and if the
@@ -23,8 +23,8 @@ namespace Bellatrix.API.GettingStarted
             _apiClientService = App.GetApiClientService();
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ContentPopulated_When_GetAlbums()
         {
             var request = new RestRequest("api/Albums");
@@ -40,8 +40,8 @@ namespace Bellatrix.API.GettingStarted
             response.AssertExecutionTimeUnder(2);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void DataPopulatedAsList_When_GetGenericAlbums()
         {
             var request = new RestRequest("api/Albums");
@@ -51,8 +51,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.AreEqual(347, response.Data.Count);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void DataPopulatedAsList_When_GetGenericAlbumsById()
         {
             var request = new RestRequest("api/Albums/10");
@@ -62,8 +62,8 @@ namespace Bellatrix.API.GettingStarted
             Assert.AreEqual(10, response.Data.AlbumId);
         }
 
-        [Test]
-        [Category(Categories.CI)]
+        [TestMethod]
+        [TestCategory(Categories.CI)]
         public void ContentPopulated_When_GetGenericAlbumsById()
         {
             var request = new RestRequest("api/Albums/10");
