@@ -4,6 +4,7 @@ using NUnit.Framework;
 namespace Bellatrix.Web.GettingStarted
 {
     [TestFixture]
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     public class TestWorkflowHooksTests : NUnit.WebTest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.

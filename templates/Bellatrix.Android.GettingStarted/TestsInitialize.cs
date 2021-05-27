@@ -1,22 +1,21 @@
-﻿using NUnit.Framework;
+﻿using Bellatrix;
+using Bellatrix.Mobile;
+using NUnit.Framework;
 
-namespace Bellatrix.Mobile.Android.GettingStarted
+[SetUpFixture]
+public class TestsInitialize
 {
-    [SetUpFixture]
-    public class TestsInitialize
+    [OneTimeSetUp]
+    public void AssemblyInitialize()
     {
-        [OneTimeSetUp]
-        public void AssemblyInitialize()
-        {
-            AndroidApp.StartAppiumLocalService();
-        }
+        AndroidApp.StartAppiumLocalService();
+    }
 
-        [OneTimeTearDown]
-        public void AssemblyCleanUp()
-        {
-            var app = ServicesCollection.Current.Resolve<AndroidApp>();
-            app?.Dispose();
-            app?.StopAppiumLocalService();
-        }
+    [OneTimeTearDown]
+    public void AssemblyCleanUp()
+    {
+        var app = ServicesCollection.Current.Resolve<AndroidApp>();
+        app?.Dispose();
+        app?.StopAppiumLocalService();
     }
 }

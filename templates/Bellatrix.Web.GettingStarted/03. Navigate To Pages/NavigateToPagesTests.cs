@@ -68,7 +68,7 @@ namespace Bellatrix.Web.GettingStarted
             // 7. You can use UrlDeterminer class to specify different URLs based on the test environment.
             // In each specific Environment config, you can change the URLs for the different apps under the urlSettings section.
             // To be able, you need to create a simple C# class holding the URL names as public string properties. Similar to UrlSettings class.
-            string cartUrl = UrlDeterminer.GetUrl<UrlSettings>(u => u.ShopUrl, "cart");
+            string cartUrl = UrlDeterminer.GetUrl<UrlSettings>(u => u.ShopUrl);
 
             App.Assert.AreEqual("http://demos.bellatrix.solutions/cart", cartUrl);
         }

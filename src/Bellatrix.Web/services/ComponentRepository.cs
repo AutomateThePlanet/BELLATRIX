@@ -27,7 +27,7 @@ namespace Bellatrix.Web
             dynamic element = Activator.CreateInstance(newElementType);
             element.By = by;
             element.ParentWrappedElement = parenTComponent;
-            element.ElementName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+            element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
             element.PageName = pageName ?? string.Empty;
             element.ShouldCacheElement = shouldCacheElement;
 
@@ -58,7 +58,7 @@ namespace Bellatrix.Web
             dynamic element = Activator.CreateInstance(newElementType);
             element.By = by;
             element.WrappedElement = webElement;
-            element.ElementName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+            element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
             element.PageName = pageName ?? string.Empty;
             element.ShouldCacheElement = shouldCacheElement;
 

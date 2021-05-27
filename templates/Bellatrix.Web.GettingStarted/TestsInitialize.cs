@@ -1,16 +1,14 @@
-﻿using Bellatrix.Web;
+﻿using Bellatrix;
+using Bellatrix.Web;
 using NUnit.Framework;
 
-namespace Bellatrix.GettingStarted
+[SetUpFixture]
+public class TestsInitialize
 {
-    [SetUpFixture]
-    public class TestsInitialize
+    [OneTimeTearDown]
+    public void AssemblyCleanUp()
     {
-        [OneTimeTearDown]
-        public void AssemblyCleanUp()
-        {
-            var app = ServicesCollection.Current.Resolve<App>();
-            app?.Dispose();
-        }
+        var app = ServicesCollection.Current.Resolve<App>();
+        app?.Dispose();
     }
 }

@@ -1,22 +1,21 @@
-﻿using NUnit.Framework;
+﻿using Bellatrix;
+using Bellatrix.Desktop;
+using NUnit.Framework;
 
-namespace Bellatrix.Desktop.GettingStarted
+[SetUpFixture]
+public class TestsInitialize
 {
-    [SetUpFixture]
-    public class TestsInitialize
+    [OneTimeSetUp]
+    public static void AssemblyInitialize()
     {
-        [OneTimeSetUp]
-        public static void AssemblyInitialize()
-        {
-            ////App.StartWinAppDriver();
-        }
+        ////App.StartWinAppDriver();
+    }
 
-        [OneTimeTearDown]
-        public void AssemblyCleanUp()
-        {
-            var app = ServicesCollection.Current.Resolve<App>();
-            app?.Dispose();
-            ////App.StopWinAppDriver();
-        }
+    [OneTimeTearDown]
+    public void AssemblyCleanUp()
+    {
+        var app = ServicesCollection.Current.Resolve<App>();
+        app?.Dispose();
+        ////App.StopWinAppDriver();
     }
 }

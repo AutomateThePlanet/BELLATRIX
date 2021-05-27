@@ -18,6 +18,7 @@ namespace Bellatrix.Web.Tests
         [TestCase(BrowserType.Chrome, 87)]
         [TestCase(BrowserType.Firefox, 82)]
         [TestCase(BrowserType.Firefox, 83)]
+        [Ignore("no need to run")]
         public void SuccessfullyLoginToMyAccount(BrowserType browserType, int browserVersion)
         {
             TextField userNameField = App.Components.CreateById<TextField>("username");

@@ -54,7 +54,6 @@ namespace Bellatrix.Web.GettingStarted
             totalSpan.ValidateInnerTextIs("54.00€");
             proceedToCheckout.Click();
 
-            proceedToCheckout.Click();
             billingDetailsHeading.ToBeVisible().WaitToBe();
         }
     }

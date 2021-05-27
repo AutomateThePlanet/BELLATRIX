@@ -275,10 +275,12 @@ namespace Bellatrix.Web
                 int rowNumber = 0;
                 foreach (var gridRow in _rows)
                 {
-                    if (this.CreateAllByXpath<TableRow>("./tr[descendant::th]", true).ToElementList().Any())
-                    {
-                        gridRow.SetParentTable(this);
-                    }
+                    gridRow.SetParentTable(this);
+
+                    ////if (this.CreateAllByXpath<TableRow>("./tr[descendant::th]", true).ToElementList().Any())
+                    ////{
+                    ////    gridRow.SetParentTable(this);
+                    ////}
 
                     gridRow.Index = rowNumber++;
                 }

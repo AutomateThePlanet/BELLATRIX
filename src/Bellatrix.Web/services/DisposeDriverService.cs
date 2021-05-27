@@ -32,7 +32,7 @@ namespace Bellatrix.Web.Services
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex);
+                DebugInformation.PrintStackTrace(ex);
             }
 
             ProcessCleanupService.KillPreviousDriversAndBrowsersOsAgnostic(TestRunStartTime);
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Services
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex);
+                DebugInformation.PrintStackTrace(ex);
             }
 
             ProcessCleanupService.KillPreviousDriversAndBrowsersOsAgnostic(TestRunStartTime);
@@ -67,7 +67,7 @@ namespace Bellatrix.Web.Services
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine(ex);
+                    DebugInformation.PrintStackTrace(ex);
                 }
             }
         }
