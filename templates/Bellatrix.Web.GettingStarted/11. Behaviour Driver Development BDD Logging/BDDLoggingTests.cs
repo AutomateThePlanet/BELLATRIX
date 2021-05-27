@@ -5,7 +5,7 @@ namespace Bellatrix.Web.GettingStarted
     [TestFixture]
     public class BDDLoggingTests : NUnit.WebTest
     {
-        // 1. There cases when you need to show your colleagues or managers what tests do you have.
+        // There cases when you need to show your colleagues or managers what tests do you have.
         // Sometimes you may have manual test cases, but their maintenance and up-to-date state are questionable.
         // Also, many times you need additional work to associate the tests with the test cases.
         // Some frameworks give you a way to write human readable tests through the Gherkin language.
@@ -17,27 +17,9 @@ namespace Bellatrix.Web.GettingStarted
         [Category(Categories.CI)]
         public void PurchaseRocketWithLogs()
         {
-            // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.
-            //  "loggingSettings": {
-            //      "isEnabled": "true",
-            //      "isConsoleLoggingEnabled": "true",
-            //      "isDebugLoggingEnabled": "true",
-            //      "isEventLoggingEnabled": "false",
-            //      "isFileLoggingEnabled": "true",
-            //      "outputTemplate":  "{Message:lj}{NewLine}",
-            //      "addUrlToBddLogging": "false"
-            //  }
-            //
-            // You can disable the logs entirely. There are different places where the logs are populated.
-            // By default, you can see the logs in the output window of each test.
-            // Also, a file called logs.txt is generated in the folder with the DLLs of your tests.
-            // If you execute your tests in CI with some CLI test runner the logs are printed there as well.
-            // outputTemplate - controls how the message is formatted. You can add additional info such as timestamp and much more.
-            // for more info visit- https://github.com/serilog/serilog/wiki/Formatting-Output
-            // If addUrlToBddLogging is true, after each action the current page's URL will be added.
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            // 3. As mentioned before BELLATRIX searches for elements not immediately but after you perform an action or assert.
+            // As mentioned before BELLATRIX searches for elements not immediately but after you perform an action or assert.
             // This is why we can place all elements and later perform actions on them. It is possible at the moment of declaring them,
             // not to be yet present on the page.
             // Home page elements
