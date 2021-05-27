@@ -1,4 +1,4 @@
-﻿1. Create a new MSTest test class
+﻿1. Create a new NUnit test class
 2. Create a new test and save a file to the device with text 'Test Automation is Awesome'
 3. Verify that the file was created successfully with the correct text
 4. Delete the file from the device

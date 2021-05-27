@@ -1,3 +1,3 @@
-﻿1. Create a new MSTest test class
+﻿1. Create a new NUnit test class
 2. Use the AppService to install the 'WEBVIEW TEST 1.0.21.apk' located in the Demos folder
 3. Verify that the app is installed successfully.

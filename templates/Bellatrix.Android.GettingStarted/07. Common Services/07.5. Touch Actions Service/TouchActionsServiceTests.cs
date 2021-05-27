@@ -4,6 +4,12 @@ using NUnit.Framework;
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
     [TestFixture]
+    [Android(Constants.AndroidNativeAppPath,
+        Constants.AndroidDefaultAndroidVersion,
+        Constants.AndroidDefaultDeviceName,
+        Constants.AndroidNativeAppAppExamplePackage,
+        ".ApiDemos",
+        Lifecycle.RestartEveryTime)]
     public class TouchActionsServiceTests : NUnit.AndroidTest
     {
         // 1. BELLATRIX gives you an interface for easier work with touch actions through TouchActionsService.

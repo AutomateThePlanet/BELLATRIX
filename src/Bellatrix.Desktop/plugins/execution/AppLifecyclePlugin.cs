@@ -16,10 +16,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.Services;
 using Bellatrix.KeyVault;
 using Bellatrix.Plugins;
+using Bellatrix.Utilities;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Remote;
 
@@ -250,6 +252,18 @@ namespace Bellatrix.Desktop.Plugins
             else if (double.TryParse(option, out double resultRealNumber))
             {
                 return resultRealNumber;
+            }
+            else if (option.StartsWith("AssemblyFolder", StringComparison.Ordinal))
+            {
+                var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
+                option = option.Replace("AssemblyFolder", executionFolder);
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    option = option.Replace('\\', '/');
+                }
+
+                return option;
             }
             else
             {

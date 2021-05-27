@@ -46,19 +46,19 @@ namespace Bellatrix.Mobile.Services
         {
             var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? appConfiguration.AppiumOptions;
             driverOptions = driverOptions ?? new AppiumOptions();
-            driverOptions.AddAdditionalCapability(MobileCapabilityType.App, appConfiguration.AppPath);
-            driverOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, appConfiguration.DeviceName);
-            driverOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, appConfiguration.PlatformName);
-            driverOptions.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, appConfiguration.PlatformVersion);
+            AddAdditionalOptions(driverOptions, MobileCapabilityType.App, appConfiguration.AppPath);
+            AddAdditionalOptions(driverOptions, MobileCapabilityType.DeviceName, appConfiguration.DeviceName);
+            AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformName, appConfiguration.PlatformName);
+            AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformVersion, appConfiguration.PlatformVersion);
 
             if (string.IsNullOrEmpty(appConfiguration.BrowserName))
             {
-                driverOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppPackage, appConfiguration.AppPackage);
-                driverOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppActivity, appConfiguration.AppActivity);
+                AddAdditionalOptions(driverOptions, AndroidMobileCapabilityType.AppPackage, appConfiguration.AppPackage);
+                AddAdditionalOptions(driverOptions, AndroidMobileCapabilityType.AppActivity, appConfiguration.AppActivity);
             }
             else
             {
-                driverOptions.AddAdditionalCapability(MobileCapabilityType.BrowserName, appConfiguration.BrowserName);
+                AddAdditionalOptions(driverOptions, MobileCapabilityType.BrowserName, appConfiguration.BrowserName);
             }
 
             var wrappedWebDriver = default(AndroidDriver<AndroidElement>);
@@ -97,11 +97,11 @@ namespace Bellatrix.Mobile.Services
         public static IOSDriver<IOSElement> CreateIOSDriver(AppConfiguration appConfiguration, ServicesCollection childContainer)
         {
             var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? appConfiguration.AppiumOptions;
-            driverOptions.AddAdditionalCapability(MobileCapabilityType.App, appConfiguration.AppPath);
-            driverOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, appConfiguration.DeviceName);
-            driverOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, appConfiguration.PlatformName);
-            driverOptions.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, appConfiguration.PlatformVersion);
-            driverOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "XCUITest");
+            AddAdditionalOptions(driverOptions, MobileCapabilityType.App, appConfiguration.AppPath);
+            AddAdditionalOptions(driverOptions, MobileCapabilityType.DeviceName, appConfiguration.DeviceName);
+            AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformName, appConfiguration.PlatformName);
+            AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformVersion, appConfiguration.PlatformVersion);
+            AddAdditionalOptions(driverOptions, MobileCapabilityType.AutomationName, "XCUITest");
 
             IOSDriver<IOSElement> wrappedWebDriver;
             if (_shouldStartAppiumLocalService)
@@ -134,6 +134,16 @@ namespace Bellatrix.Mobile.Services
             childContainer.RegisterNull<IWebElement>();
 
             return wrappedWebDriver;
+        }
+
+        private static AppiumOptions AddAdditionalOptions(AppiumOptions options, string key, string value)
+        {
+            if (!options.ToDictionary().ContainsKey(key))
+            {
+                options.AddAdditionalCapability(key, value);
+            }
+
+            return options;
         }
     }
 }

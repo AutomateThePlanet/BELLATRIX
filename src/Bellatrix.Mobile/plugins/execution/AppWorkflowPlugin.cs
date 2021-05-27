@@ -20,6 +20,7 @@ using Bellatrix.KeyVault;
 using Bellatrix.Mobile.Configuration;
 using Bellatrix.Mobile.Services;
 using Bellatrix.Plugins;
+using Bellatrix.Utilities;
 using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.Plugins
@@ -320,17 +321,29 @@ namespace Bellatrix.Mobile.Plugins
             {
                 return result;
             }
-            else if (int.TryParse(option, out int resultNumber))
-            {
-                return resultNumber;
-            }
+            ////else if (int.TryParse(option, out int resultNumber))
+            ////{
+            ////    return resultNumber;
+            ////}
             else if (option.StartsWith("env_") || option.StartsWith("vault_"))
             {
                 return SecretsResolver.GetSecret(() => option);
             }
-            else if (double.TryParse(option, out double resultRealNumber))
+            ////else if (double.TryParse(option, out double resultRealNumber))
+            ////{
+            ////    return resultRealNumber;
+            ////}
+            else if (option.StartsWith("AssemblyFolder", StringComparison.Ordinal))
             {
-                return resultRealNumber;
+                var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
+                option = option.Replace("AssemblyFolder", executionFolder);
+
+                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+                {
+                    option = option.Replace('\\', '/');
+                }
+
+                return option;
             }
             else
             {

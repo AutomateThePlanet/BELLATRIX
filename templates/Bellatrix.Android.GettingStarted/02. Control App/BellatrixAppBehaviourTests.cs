@@ -2,7 +2,7 @@
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    // 1. This is the main attribute that you need to mark each class that contains MSTest tests.
+    // 1. This is the main attribute that you need to mark each class that contains NUnit tests.
     [TestFixture]
 
     // 2. This is the attribute for automatic start/control of Android apps by Bellatrix. If you have to do it manually properly, you will need thousands of lines of code.
@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     // This way you can use all built-in BELLATRIX tools and functionalities.
     public class BellatrixAppLifecycleTests : NUnit.AndroidTest
     {
-        // 2.3. All MSTest tests should be marked with the TestMethod attribute.
+        // 2.3. All NUnit tests should be marked with the TestMethod attribute.
         [Test]
         [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()

@@ -1,3 +1,3 @@
 ﻿1. Create a folder for your new tests project
 2. Open the folder and open CMD in it
-3. Create a new mobile Android mstest BELLATRIX empty project
+3. Create a new mobile Android NUnit BELLATRIX empty project

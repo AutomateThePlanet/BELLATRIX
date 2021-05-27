@@ -31,7 +31,7 @@ namespace Bellatrix.Mobile.Android
 
         public virtual string GetText()
         {
-            return GetText();
+            return base.GetText();
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]

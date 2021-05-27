@@ -3,7 +3,7 @@
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
     [TestFixture]
-    public class WaiTComponentsTests : NUnit.AndroidTest
+    public class WaitComponentsTests : NUnit.AndroidTest
     {
         [Test]
         [Category(Categories.CI)]
