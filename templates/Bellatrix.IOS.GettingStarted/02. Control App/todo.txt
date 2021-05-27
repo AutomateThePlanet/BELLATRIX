@@ -1,4 +1,4 @@
-﻿1. Create a new MSTest test class
+﻿1. Create a new NUnit test class
 2. Use the BELLATRIX App attribute so that you execute all tests against BELLATRIX iOS demo app and restart the app always
 3. Create one test that type something in the first text field
 4. Create a second test that clicks on the calculate sum button

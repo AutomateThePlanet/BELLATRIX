@@ -18,6 +18,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     // There are even more things you can do with this attribute, but we look into them in the next sections.
     //
     // If you place attribute over the class all tests inherit the lifecycle. It is possible to place it over each test and this way it overrides the class lifecycle only for this particular test.
+    //
+    // If you don't use the attribute, the default information from the configuration will be used placed under the executionSettings section.
+    // Also, you can add additional driver arguments under the arguments section array in the configuration file.
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,

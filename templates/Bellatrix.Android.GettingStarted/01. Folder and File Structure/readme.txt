@@ -6,8 +6,8 @@
 <PackageReference Include="Bellatrix.Mobile.NUnit" Version="1.1.0.16" />
 
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
-<PackageReference Include="NUnit.TestAdapter" Version="2.0.0" />
-<PackageReference Include="NUnit.TestFramework" Version="2.0.0" />
+<PackageReference Include="NUnit" Version="3.13.2" />
+<PackageReference Include="NUnit3TestAdapter" Version="3.17.0"/>
 <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004"/>
 
 Note: the version may vary if you install the template now.

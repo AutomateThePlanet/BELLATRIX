@@ -1,3 +1,3 @@
-﻿1. Create a new MSTest test class
+﻿1. Create a new NUnit test class
 2. Create a new test where you find all buttons and wait for them to be visible.
 3. Create a test that clicks on the expander button and waits for the expander label to be visible and has content

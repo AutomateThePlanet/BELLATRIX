@@ -1,2 +1,2 @@
-﻿1. Create a new MSTest test class
+﻿1. Create a new NUnit test class
 2. Create a new test and rotate the device twice

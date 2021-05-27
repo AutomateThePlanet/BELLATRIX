@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Bellatrix.Desktop.GettingStarted
 {
     [TestFixture]
-    public class TextVerificationPDF : MSTest.DesktopTest
+    public class TextVerificationPDF : NUnit.DesktopTest
     {
         [Test]
         [Ignore("API example purposes only. No need to run.")]

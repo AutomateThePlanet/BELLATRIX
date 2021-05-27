@@ -2,7 +2,7 @@
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    // 1. This is the main attribute that you need to mark each class that contains MSTest tests.
+    // 1. This is the main attribute that you need to mark each class that contains NUnit tests.
     [TestFixture]
 
     // 2. This is the attribute for automatic start/control of iOS apps by Bellatrix. If you have to do it manually properly, you will need thousands of lines of code.
@@ -18,6 +18,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     // There are even more things you can do with this attribute, but we look into them in the next sections.
     //
     // If you place attribute over the class all tests inherit the lifecycle. It is possible to place it over each test and this way it overrides the class lifecycle only for this particular test.
+    //
+    // If you don't use the attribute, the default information from the configuration will be used placed under the executionSettings section.
+    // Also, you can add additional driver arguments under the arguments section array in the configuration file.
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
@@ -27,7 +30,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
     // This way you can use all built-in BELLATRIX tools and functionalities.
     public class BellatrixAppLifecycleTests : NUnit.IOSTest
     {
-        // 2.3. All MSTest tests should be marked with the TestMethod attribute.
+        // 2.3. All NUnit tests should be marked with the TestMethod attribute.
         [Test]
         [Timeout(180000)]
         [Category(Categories.CI)]
