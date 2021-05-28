@@ -309,7 +309,7 @@ namespace Bellatrix.Web
             if (cells.Count != ControlColumnDataCollection.Count)
             {
                 // Compare headers to determine why the cells count is different
-                var actual = TableService.Headers.Select(c => c.InnerText.Trim(" 0".ToCharArray())).ToList();
+                var actual = HeaderNamesService.GetHeaderNames().ToList();
                 var expected = ControlColumnDataCollection.Select(c => c.HeaderName).ToList();
                 CollectionAssert.AreEqual(expected, actual, $"Expected: {expected.Stringify()}\r\nActual: {actual.Stringify()}");
             }

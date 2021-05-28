@@ -35,7 +35,7 @@ namespace Bellatrix.Web
 
         public CookiesService CookiesService => ServicesCollection.Current.Resolve<CookiesService>();
 
-        public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
+        public ElementCreateService ElementService => ServicesCollection.Current.Resolve<ElementCreateService>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
