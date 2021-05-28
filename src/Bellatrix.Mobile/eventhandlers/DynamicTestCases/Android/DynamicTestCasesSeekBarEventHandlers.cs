@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.DynamicTestCases.Android
 {
     public class DynamicTestCasesSeekBarEventHandlers : SeekBarEventHandlers
     {
-        protected override void SettingPercentageEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Set {arg.Element.ElementName} to '{arg.ActionValue}'% on {arg.Element.PageName}");
+        protected override void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Set {arg.Element.ComponentName} to '{arg.ActionValue}'% on {arg.Element.PageName}");
     }
 }

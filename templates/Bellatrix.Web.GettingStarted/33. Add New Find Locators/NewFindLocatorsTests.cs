@@ -1,23 +1,21 @@
 ﻿// 1. You need to add a using statement to the namespace where the extension methods for new locator are situated.
 using Bellatrix.Web.GettingStarted.ExtensionMethodsLocators;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class NewFindLocatorsTests : MSTest.WebTest
+    [TestFixture]
+    public class NewFindLocatorsTests : NUnit.WebTest
     {
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 2. After that, you can use the new locator as it was originally part of Bellatrix.
-            var promotionsLink = App.ElementCreateService.CreateByIdStartingWith<Anchor>("promo");
+            var promotionsLink = App.Components.CreateByIdStartingWith<Anchor>("promo");
 
             promotionsLink.Click();
         }

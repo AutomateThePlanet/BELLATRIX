@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.BugReporting.Android
 {
     public class BugReportingComboBoxEventHandlers : ComboBoxEventHandlers
     {
-        protected override void SelectingEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

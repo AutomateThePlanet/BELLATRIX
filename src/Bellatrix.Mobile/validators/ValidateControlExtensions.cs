@@ -27,8 +27,8 @@ namespace Bellatrix.Mobile
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
         {
-            var localTimeout = timeoutInMilliseconds ?? 5000;
-            var localSleepInterval = sleepIntervalInMilliseconds ?? 500;
+            var localTimeout = timeoutInMilliseconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ValidationsTimeout;
+            var localSleepInterval = sleepIntervalInMilliseconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.SleepInterval;
             var wrappedWebDriver = ServicesCollection.Current.Resolve<TDriver>();
             var webDriverWait = new AppiumDriverWait<TDriver, TDriverElement>(wrappedWebDriver, new SystemClock(), TimeSpan.FromMilliseconds(localTimeout), TimeSpan.FromMilliseconds(localSleepInterval));
             webDriverWait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException));
@@ -50,12 +50,12 @@ namespace Bellatrix.Mobile
             }
             catch (WebDriverTimeoutException)
             {
-                var elementPropertyValidateException = new ElementPropertyValidateException(exceptionMessage);
-                ValidatedExceptionThrowedEvent?.Invoke(waitCondition, new ElementNotFulfillingValidateConditionEventArgs(elementPropertyValidateException));
+                var elementPropertyValidateException = new ComponentPropertyValidateException(exceptionMessage);
+                ValidatedExceptionThrowedEvent?.Invoke(waitCondition, new ComponentNotFulfillingValidateConditionEventArgs(elementPropertyValidateException));
                 throw elementPropertyValidateException;
             }
         }
 
-        public static event EventHandler<ElementNotFulfillingValidateConditionEventArgs> ValidatedExceptionThrowedEvent;
+        public static event EventHandler<ComponentNotFulfillingValidateConditionEventArgs> ValidatedExceptionThrowedEvent;
     }
 }

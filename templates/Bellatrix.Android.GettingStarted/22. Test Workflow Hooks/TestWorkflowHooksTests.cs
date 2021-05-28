@@ -1,21 +1,21 @@
 ﻿using Bellatrix.Layout;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.ReuseIfStarted)]
-    public class TestWorkflowHooksTests : MSTest.AndroidTest
+    public class TestWorkflowHooksTests : NUnit.AndroidTest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.
         // It gives you the possibility to execute your logic in every part of the test workflow.
         // Also, as you can read in the next chapter write plug-ins that execute code in different places of the workflow every time.
-        // This is happening no matter what test framework you use- MSTest or NUnit. As you know, MSTest is not extension friendly.
+        // This is happening no matter what test framework you use- NUnit or NUnit. As you know, NUnit is not extension friendly.
         //
         // 2. BELLATRIX default Test Workflow.
         //
@@ -31,7 +31,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         // 2.7. All plug-ins PreTestsAct logic executes.
         // 2.8. Current class TestsAct method executes. By default it is empty, but you can override it in each class and execute your logic.
         // This is the place where you can execute the primary actions for your test case. This is useful if you want later include only assertions in the tests.
-        // Note: TestsArrange and TestsAct are similar to MSTest TestClassInitialize and OneTimeSetup in NUnit. We decided to split them into two methods
+        // Note: TestsArrange and TestsAct are similar to NUnit TestClassInitialize and OneTimeSetup in NUnit. We decided to split them into two methods
         // to make the code more readable and two allow customization of the workflow.
         //
         // The following methods are called once for each test in the class:
@@ -61,8 +61,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted
         // some of it through the usage of TestInit and TestCleanup methods.
         public override void TestsArrange()
         {
-            _button = App.ElementCreateService.CreateByIdContaining<Button>("button");
-            _checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check1");
+            _button = App.Components.CreateByIdContaining<Button>("button");
+            _checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
         }
 
         public override void TestsAct()
@@ -81,29 +81,29 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // Executes a logic after each test in the test class.
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox()
         {
             _button.AssertAboveOf(_checkBox);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox_GreaterThan100px()
         {
             _button.AssertAboveOfGreaterThan(_checkBox, 100);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox_GreaterThanOrEqual105px()
         {
             _button.AssertAboveOfGreaterThanOrEqual(_checkBox, 105);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonIsNearTopOfCheckBox_GreaterThan100px()
         {
             _button.AssertNearTopOfGreaterThan(_checkBox, 100);

@@ -1,10 +1,9 @@
-﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.NUnit;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+    [TestFixture]
     public class ElementActionHooksTests : DesktopTest
     {
         // 1. Another way to extend BELLATRIX is to use the controls hooks. This is how the BDD logging is implemented.
@@ -34,31 +33,31 @@ namespace Bellatrix.Desktop.GettingStarted
             // For example for the method ValidateIsChecked, ValidatedIsCheckedEvent event is called after the check is done.
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void CommonActionsWithDesktopControls_Wpf()
         {
-            var calendar = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
             Assert.AreEqual(false, calendar.IsDisabled);
 
-            var checkBox = App.ElementCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 
             checkBox.Check();
 
             Assert.IsTrue(checkBox.IsChecked);
 
-            var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("select");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("select");
 
             comboBox.SelectByText("Item2");
 
             Assert.AreEqual("Item2", comboBox.InnerText);
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
 
             Assert.IsTrue(label.IsPresent);
 
-            var radioButton = App.ElementCreateService.CreateByName<RadioButton>("RadioButton");
+            var radioButton = App.Components.CreateByName<RadioButton>("RadioButton");
 
             radioButton.Click();
 

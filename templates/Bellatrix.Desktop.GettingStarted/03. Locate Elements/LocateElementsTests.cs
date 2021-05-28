@@ -1,23 +1,24 @@
 ﻿using System;
-using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Bellatrix.Desktop.NUnit;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-
+    // Please notice that we don't use the Desktop attribute. A default device/selenium grid can be specified in the testFrameworkSettings.json file
+    // under the executionSettings section. There you can specify default lifecycle, version, grid URL, and arguments.
+    // You can still use the Desktop attribute on top of classes or tests to override the default behavior.
+    [TestFixture]
     public class LocateElementsTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             // 1. There are different ways to locate elements in the app. To do it you use the element create service.
             // You need to know that BELLATRIX has a built-in complex mechanism for waiting for elements, so you do not need to worry about this anymore.
             // Keep in mind that when you use the Create methods, the element is not searched. All elements use lazy loading.
             // Which means that they are searched once you perform an action or assertion on them. By default on each new action, the element is searched again and be refreshed.
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
@@ -31,35 +32,34 @@ namespace Bellatrix.Desktop.GettingStarted
             Console.WriteLine(button.WrappedElement.Coordinates);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
             // 4. BELLATRIX extends the vanilla WebDriver selectors and give you additional ones.
             // Available create methods:
             //
-            // CreateByTag   -->  App.ElementCreateService.CreateByTag<Button>("button");
+            // CreateByTag   -->  App.Components.CreateByTag<Button>("button");
             // Searches the element by its tag.
             //
-            // CreateById   -->  App.ElementCreateService.CreateById<Button>("myId");
+            // CreateById   -->  App.Components.CreateById<Button>("myId");
             // Searches the element by its ID.
             //
-            // CreateByXpath   -->  App.ElementCreateService.CreateByXpath<Button>("//*[@title='Add to cart']");
+            // CreateByXpath   -->  App.Components.CreateByXpath<Button>("//*[@title='Add to cart']");
             // Searches the element by XPath locator.
             //
-            // CreateByClass   -->  App.ElementCreateService.CreateByClassContaining<Button>("ul.products");
+            // CreateByClass   -->  App.Components.CreateByClassContaining<Button>("ul.products");
             // Searches the element by its CSS classes.
             //
-            // CreateByName   -->  App.ElementCreateService.CreateByName<Button>("products");
+            // CreateByName   -->  App.Components.CreateByName<Button>("products");
             // Searches the element by its name.
             //
-            // CreateByAccessibilityId   -->  App.ElementCreateService.CreateByAccessibilityId<Button>("myCustomButton");
+            // CreateByAccessibilityId   -->  App.Components.CreateByAccessibilityId<Button>("myCustomButton");
             // Searches the element by its accessibility ID.
             //
-            // CreateByAutomationId   -->  App.ElementCreateService.CreateByAutomationId<Search>("search");
+            // CreateByAutomationId   -->  App.Components.CreateByAutomationId<Search>("search");
             // Searches the element by its automation ID.
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 
@@ -67,35 +67,35 @@ namespace Bellatrix.Desktop.GettingStarted
             // To do it you can use the element create service CreateAll method.
             // Available create methods:
             //
-            // CreateAllByTag   -->  App.ElementCreateService.CreateAllByTag<Button>("button");
+            // CreateAllByTag   -->  App.Components.CreateAllByTag<Button>("button");
             // Searches the elements by its tag.
             //
-            // CreateAllById   -->  App.ElementCreateService.CreateAllById<Button>("myId");
+            // CreateAllById   -->  App.Components.CreateAllById<Button>("myId");
             // Searches the elements by its ID.
             //
-            // CreateAllByXpath   -->  App.ElementCreateService.CreateAllByXpath<Button>("//*[@title='Add to cart']");
+            // CreateAllByXpath   -->  App.Components.CreateAllByXpath<Button>("//*[@title='Add to cart']");
             // Searches the elements by XPath locator.
             //
-            // CreateAllByClass   -->  App.ElementCreateService.CreateAllByClassContaining<Button>("ul.products");
+            // CreateAllByClass   -->  App.Components.CreateAllByClassContaining<Button>("ul.products");
             // Searches the elements by its CSS classes.
             //
-            // CreateAllByName   -->  App.ElementCreateService.CreateAllByName<Button>("products");
+            // CreateAllByName   -->  App.Components.CreateAllByName<Button>("products");
             // Searches the elements by its name.
             //
-            // CreateAllByAccessibilityId   -->  App.ElementCreateService.CreateAllByAccessibilityId<Button>("myCustomButton");
+            // CreateAllByAccessibilityId   -->  App.Components.CreateAllByAccessibilityId<Button>("myCustomButton");
             // Searches the elements by its accessibility ID.
             //
-            // CreateAllByAutomationId   -->  App.ElementCreateService.CreateAllByAutomationId<Search>("search");
+            // CreateAllByAutomationId   -->  App.Components.CreateAllByAutomationId<Search>("search");
             // Searches the elements by its automation ID.
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ReturnNestedElement_When_ElementContainsOneChildElement_Wpf()
         {
             // 6. Sometimes it is easier to locate one element and then find the next one that you need, inside it.
             // For example in this test the list box is located and then the button inside it.
-            var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("listBoxEnabled");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("listBoxEnabled");
             var comboBoxItem = comboBox.CreateByAutomationId<Button>("lb2");
 
             comboBoxItem.Hover();

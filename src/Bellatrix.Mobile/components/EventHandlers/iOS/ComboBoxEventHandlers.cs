@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.EventHandlers.IOS
 {
-    public class ComboBoxEventHandlers : ElementEventHandlers
+    public class ComboBoxEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -33,11 +33,11 @@ namespace Bellatrix.Mobile.EventHandlers.IOS
             ComboBox.Selected -= SelectedEventHandler;
         }
 
-        protected virtual void SelectingEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void SelectedEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
     }

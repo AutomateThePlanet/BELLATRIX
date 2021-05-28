@@ -18,6 +18,6 @@ namespace Bellatrix.Desktop.BddLogging
 {
     public class BDDLoggingTextAreaEventHandlers : TextAreaEventHandlers
     {
-        protected override void SettingTextEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

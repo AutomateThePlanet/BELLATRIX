@@ -25,8 +25,8 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
@@ -34,11 +34,11 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateDateIs_DoesNotThrowException_When_Hover_Edge()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-            outputElement.Hover();
+            outputComponent.Hover();
 
-            outputElement.ValidateStyleIs("color: red;");
+            outputComponent.ValidateStyleIs("color: red;");
         }
 
         [TestMethod]
@@ -46,9 +46,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_When_InnerText_Edge()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-            outputElement.ValidateInnerTextIs("10");
+            outputComponent.ValidateInnerTextIs("10");
         }
 
         [TestMethod]
@@ -56,9 +56,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerHtmlIs_DoesNotThrowException_When_InnerHtmlSet_Edge()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput1");
+            var outputComponent = App.Components.CreateById<Output>("myOutput1");
 
-            outputElement.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
+            outputComponent.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
         }
 
         [TestMethod]
@@ -66,9 +66,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateForIsNull_DoesNotThrowException_When_ForNotSet_Edge()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput2");
+            var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
-            outputElement.ValidateForIsNull();
+            outputComponent.ValidateForIsNull();
         }
 
         [TestMethod]
@@ -76,9 +76,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateForIs_DoesNotThrowException_When_ForSet_Edge()
         {
-            var outputElement = App.ElementCreateService.CreateById<Output>("myOutput");
+            var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-            outputElement.ValidateForIs("myOutput");
+            outputComponent.ValidateForIs("myOutput");
         }
     }
 }

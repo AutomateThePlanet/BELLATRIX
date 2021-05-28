@@ -16,9 +16,9 @@ using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.Locators
 {
-    public abstract class FindStrategy<TDriver, TElement>
-        where TDriver : AppiumDriver<TElement>
-        where TElement : AppiumWebElement
+    public abstract class FindStrategy<TDriver, TComponent>
+        where TDriver : AppiumDriver<TComponent>
+        where TComponent : AppiumWebElement
     {
         public FindStrategy(string name)
         {
@@ -27,12 +27,12 @@ namespace Bellatrix.Mobile.Locators
 
         public string Value { get; }
 
-        public abstract TElement FindElement(TDriver driver);
+        public abstract TComponent FindElement(TDriver driver);
 
-        public abstract IEnumerable<TElement> FindAllElements(TDriver driver);
+        public abstract IEnumerable<TComponent> FindAllElements(TDriver driver);
 
-        public abstract AppiumWebElement FindElement(TElement element);
+        public abstract AppiumWebElement FindElement(TComponent element);
 
-        public abstract IEnumerable<AppiumWebElement> FindAllElements(TElement element);
+        public abstract IEnumerable<AppiumWebElement> FindAllElements(TComponent element);
     }
 }

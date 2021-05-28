@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
@@ -12,16 +12,15 @@ namespace Bellatrix.Web.GettingStarted
     // You can turn off the making of videos for all tests and specify where the videos to be saved.
     // waitAfterFinishRecordingMilliseconds adds some time to the end of the test, making the video not going black immediately.
     // In the extensibility chapters read more about how you can create custom video recorder or change the saving strategy.
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    public class VideoRecordingTests : MSTest.WebTest
+    [TestFixture]
+    public class VideoRecordingTests : NUnit.WebTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
-            var promotionsLink = App.ElementCreateService.CreateByLinkText<Anchor>("Promotions");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+            var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
             promotionsLink.Click();
         }
     }

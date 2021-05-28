@@ -20,12 +20,12 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateSearchIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementSearch, IElement
+            where T : IComponentSearch, IComponent
         {
             WaitUntil(() => control.GetSearch().Equals(value), $"The control's search should be '{value}' but was '{control.GetSearch()}'.", timeout, sleepInterval);
-            ValidatedSearchIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedSearchIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedSearchIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedSearchIsEvent;
     }
 }

@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class DivControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DivLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DivLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Div.Hovering += AssertStyleAttributeEmpty;
 
-            var divElement = App.ElementCreateService.CreateById<Div>("myDiv");
+            var divElement = App.Components.CreateById<Div>("myDiv");
 
             divElement.Hover();
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Div.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -52,15 +52,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Div.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var divElement = App.ElementCreateService.CreateById<Div>("myDiv");
+            var divElement = App.Components.CreateById<Div>("myDiv");
 
             divElement.Hover();
 
             Div.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Div>("myDiv").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Div>("myDiv").ValidateStyleIs("color: red;");
             }
         }
     }

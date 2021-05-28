@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class SelectEventHandlers : ElementEventHandlers
+    public class SelectEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Select.Hovered -= HoveredEventHandler;
         }
 
-        protected virtual void SelectingEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void SelectedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

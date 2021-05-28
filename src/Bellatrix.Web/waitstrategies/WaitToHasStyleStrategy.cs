@@ -24,7 +24,7 @@ namespace Bellatrix.Web.Untils
             : base(timeoutInterval, sleepInterval)
         {
             _elementStyle = elementStyle;
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<TimeoutSettings>().ElementToBeVisibleTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToBeVisibleTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)
@@ -32,7 +32,7 @@ namespace Bellatrix.Web.Untils
             WaitUntil(d => ElementHasStyle(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
         }
 
-        public override void WaitUntil<TBy>(TBy by, Element parent)
+        public override void WaitUntil<TBy>(TBy by, Component parent)
         {
             WaitUntil(d => ElementHasStyle(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
         }

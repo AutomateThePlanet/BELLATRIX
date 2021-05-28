@@ -20,6 +20,8 @@ namespace Bellatrix.Results.NUnit
 {
     public class NUnitResultsWorkflowPlugin : Plugin, IScreenshotPlugin
     {
+        private static readonly object _lockObject = new object();
+
         public NUnitResultsWorkflowPlugin()
         {
         }
@@ -38,9 +40,12 @@ namespace Bellatrix.Results.NUnit
 
         public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs args)
         {
-            if (!string.IsNullOrEmpty(args.ScreenshotPath))
+            lock (_lockObject)
             {
-                TestContext.AddTestAttachment(args.ScreenshotPath);
+                if (!string.IsNullOrEmpty(args.ScreenshotPath))
+                {
+                    TestContext.AddTestAttachment(args.ScreenshotPath);
+                }
             }
         }
     }

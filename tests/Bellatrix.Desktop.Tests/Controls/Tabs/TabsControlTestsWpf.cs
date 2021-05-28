@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Tabs Control")]
     [AllureTag("WPF")]
-    public class TabsControlTestsWpf : BellatrixBaseTest
+    public class TabsControlTestsWpf : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_TabsHovered_Wpf()
         {
-            var listBox = App.ElementCreateService.CreateByAutomationId<Tabs>("tabs");
+            var listBox = App.Components.CreateByAutomationId<Tabs>("tabs");
 
             listBox.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             label.ValidateInnerTextIs("tabsHovered");
         }
     }

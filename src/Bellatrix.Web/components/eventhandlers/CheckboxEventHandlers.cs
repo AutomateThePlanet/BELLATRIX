@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class CheckboxEventHandlers : ElementEventHandlers
+    public class CheckboxEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -39,19 +39,19 @@ namespace Bellatrix.Web.Controls.EventHandlers
             CheckBox.Hovered -= HoveredEventHandler;
         }
 
-        protected virtual void UncheckingEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void UncheckedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void CheckingEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void CheckedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

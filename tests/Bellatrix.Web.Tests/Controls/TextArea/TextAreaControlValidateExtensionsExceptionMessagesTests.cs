@@ -25,21 +25,21 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateRowsIsThrowsException()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             try
             {
                 textAreaElement.ValidateRowsIs(3, 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's rows should be '3' but was '2'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -50,13 +50,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateColsIsThrowsException()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             try
             {
                 textAreaElement.ValidateColsIs(19, 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's cols should be '19' but was '20'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -67,13 +67,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateWrapIsThrowsException()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea13");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea13");
 
             try
             {
                 textAreaElement.ValidateWrapIs("hard1", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's wrap should be 'hard1' but was 'hard'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -84,13 +84,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateWrapIsNullThrowsException()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea13");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea13");
 
             try
             {
                 textAreaElement.ValidateWrapIsNull(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's wrap should be null but was 'hard'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -101,13 +101,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSpellCheckIsThrowsException()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea12");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea12");
 
             try
             {
                 textAreaElement.ValidateSpellCheckIs("true1", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's spellcheck should be 'true1' but was 'true'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -118,13 +118,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateSpellCheckIsNullThrowsException()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea12");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea12");
 
             try
             {
                 textAreaElement.ValidateSpellCheckIsNull(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's spellcheck should be null but was 'true'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

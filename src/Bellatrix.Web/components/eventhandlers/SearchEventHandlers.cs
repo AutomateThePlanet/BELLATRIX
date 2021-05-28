@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class SearchEventHandlers : ElementEventHandlers
+    public class SearchEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Search.SearchSet -= SearchSetEventHandler;
         }
 
-        protected virtual void SettingSearchEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingSearchEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void SearchSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SearchSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

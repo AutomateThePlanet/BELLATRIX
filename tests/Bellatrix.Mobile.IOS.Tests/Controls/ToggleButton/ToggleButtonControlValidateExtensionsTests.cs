@@ -30,10 +30,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ValidateIsOn_DoesNotThrowException_When_ToggleButtonIsTurnedOn()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.Components.CreateById<Button>("Add");
             addButton.Click();
 
-            var toggleButton = App.ElementCreateService.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var toggleButton = App.Components.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
             toggleButton.TurnOn();
 
             toggleButton.ValidateIsOn();
@@ -45,10 +45,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ValidateIsOff_DoesNotThrowException_When_ToggleButtonIsTurnedOff()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.Components.CreateById<Button>("Add");
             addButton.Click();
 
-            var toggleButton = App.ElementCreateService.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var toggleButton = App.Components.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             toggleButton.ValidateIsOff();
         }
@@ -59,10 +59,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ValidateIsDisabled_DoesNotThrowException_When_ToggleButtonIsNotDisabled()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.Components.CreateById<Button>("Add");
             addButton.Click();
 
-            var toggleButton = App.ElementCreateService.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var toggleButton = App.Components.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             toggleButton.ValidateIsNotDisabled();
         }

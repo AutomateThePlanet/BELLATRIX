@@ -21,12 +21,12 @@ namespace Bellatrix.Mobile.Android
     public static partial class ValidateControlExtensions
     {
         public static void ValidateDateIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementDate, IElement<AndroidElement>
+            where T : IComponentDate, IComponent<AndroidElement>
         {
             ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.GetDate().Equals(value), $"The control's date should be '{value}' but was '{control.GetDate()}'.", timeout, sleepInterval);
-            ValidatedDateIsEvent?.Invoke(control, new ElementActionEventArgs<AndroidElement>(control, value));
+            ValidatedDateIsEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs<AndroidElement>> ValidatedDateIsEvent;
+        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedDateIsEvent;
     }
 }

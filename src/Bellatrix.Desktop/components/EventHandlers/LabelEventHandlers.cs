@@ -15,7 +15,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
-    public class LabelEventHandlers : ElementEventHandlers
+    public class LabelEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {

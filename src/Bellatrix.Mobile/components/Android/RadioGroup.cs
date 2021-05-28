@@ -19,9 +19,9 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class RadioGroup : Element
+    public class RadioGroup : AndroidComponent
     {
-        public void ClickByText(string text)
+        public virtual void ClickByText(string text)
         {
             var allRadioButton = GetAll();
             foreach (var radioButton in allRadioButton)
@@ -34,7 +34,7 @@ namespace Bellatrix.Mobile.Android
             }
         }
 
-        public void ClickByIndex(int index)
+        public virtual void ClickByIndex(int index)
         {
             var allRadioButton = GetAll();
             if (index > allRadioButton.Count() - 1)
@@ -55,13 +55,13 @@ namespace Bellatrix.Mobile.Android
             }
         }
 
-        public RadioButton GetChecked()
+        public virtual RadioButton GetChecked()
         {
             var clickedRadioButton = this.CreateByXPath<RadioButton>("//*[@checked='true']");
             return clickedRadioButton;
         }
 
-        public ElementsList<RadioButton, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll()
+        public virtual ComponentsList<RadioButton, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll()
         {
             var radioButtons = this.CreateAllByClass<RadioButton>("android.widget.RadioButton");
             return radioButtons;

@@ -18,16 +18,16 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-   public class CheckBox : Element, IElementDisabled, IElementChecked
+   public class CheckBox : Component, IComponentDisabled, IComponentChecked
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Checking;
-        public static event EventHandler<ElementActionEventArgs> Checked;
-        public static event EventHandler<ElementActionEventArgs> Unchecking;
-        public static event EventHandler<ElementActionEventArgs> Unchecked;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Checking;
+        public static event EventHandler<ComponentActionEventArgs> Checked;
+        public static event EventHandler<ComponentActionEventArgs> Unchecking;
+        public static event EventHandler<ComponentActionEventArgs> Unchecked;
 
-        public void Check(bool isChecked = true)
+        public virtual void Check(bool isChecked = true)
         {
             if (isChecked && !WrappedElement.Selected || !isChecked && WrappedElement.Selected)
             {
@@ -35,7 +35,7 @@ namespace Bellatrix.Desktop
             }
         }
 
-        public void Uncheck()
+        public virtual void Uncheck()
         {
             if (WrappedElement.Selected)
             {
@@ -43,15 +43,15 @@ namespace Bellatrix.Desktop
             }
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsChecked => WrappedElement.Selected;
+        public virtual bool IsChecked => WrappedElement.Selected;
     }
 }

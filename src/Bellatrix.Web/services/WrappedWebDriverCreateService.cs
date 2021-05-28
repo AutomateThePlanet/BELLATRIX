@@ -46,7 +46,6 @@ namespace Bellatrix.Web
         private static readonly string _driverExecutablePath = ExecutionDirectoryResolver.GetDriverExecutablePath();
 
         private static ProxyService _proxyService;
-        public static BrowserSettings BrowserSettings { get; set; }
         public static BrowserConfiguration BrowserConfiguration { get; set; }
 
         public static IWebDriver Create(BrowserConfiguration executionConfiguration)
@@ -70,72 +69,28 @@ namespace Bellatrix.Web
                     wrappedWebDriver = InitializeDriverRegularMode(executionConfiguration, webDriverProxy);
                     break;
                 case ExecutionType.Grid:
-                    var gridUri = ConfigurationService.GetSection<WebSettings>().Remote.GridUri;
-                    if (gridUri == null || !Uri.IsWellFormedUriString(gridUri.ToString(), UriKind.Absolute))
+                    var gridUrl = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url;
+                    if (gridUrl == null || !Uri.IsWellFormedUriString(gridUrl.ToString(), UriKind.Absolute))
                     {
                         throw new ArgumentException("To execute your tests in WebDriver Grid mode you need to set the gridUri in the browserSettings file.");
                     }
 
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                    wrappedWebDriver = new RemoteWebDriver(gridUri, executionConfiguration.DriverOptions);
-                    var gridPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Remote.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(gridPageLoadTimeout);
-                    var gridScriptTimeout = ConfigurationService.GetSection<WebSettings>().Remote.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(gridScriptTimeout);
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Remote;
-                    ChangeWindowSize(executionConfiguration.BrowserType, executionConfiguration.Size, wrappedWebDriver);
-                    break;
-                case ExecutionType.BrowserStack:
-                    var browserStackUri = ConfigurationService.GetSection<WebSettings>().BrowserStack.GridUri;
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().BrowserStack;
-                    if (browserStackUri == null || !Uri.IsWellFormedUriString(browserStackUri.ToString(), UriKind.Absolute))
-                    {
-                        throw new ArgumentException("To execute your tests in BrowserStack you need to set the gridUri in the browserSettings file.");
-                    }
-
-                    wrappedWebDriver = new RemoteWebDriver(browserStackUri, executionConfiguration.DriverOptions);
-                    var browserStackPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().BrowserStack.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(browserStackPageLoadTimeout);
-                    var browserStackScriptTimeout = ConfigurationService.GetSection<WebSettings>().BrowserStack.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(browserStackScriptTimeout);
-                    break;
-                case ExecutionType.CrossBrowserTesting:
-                    var crossBrowserTestingUri = ConfigurationService.GetSection<WebSettings>().CrossBrowserTesting.GridUri;
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().CrossBrowserTesting;
-                    if (crossBrowserTestingUri == null || !Uri.IsWellFormedUriString(crossBrowserTestingUri.ToString(), UriKind.Absolute))
-                    {
-                        throw new ArgumentException("To execute your tests in CrossBrowserTesting you need to set the gridUri in the browserSettings file.");
-                    }
-
-                    wrappedWebDriver = new RemoteWebDriver(crossBrowserTestingUri, executionConfiguration.DriverOptions);
-                    var crossBrowserTestingPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().CrossBrowserTesting.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(crossBrowserTestingPageLoadTimeout);
-                    var crossBrowserTestingScriptTimeout = ConfigurationService.GetSection<WebSettings>().CrossBrowserTesting.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(crossBrowserTestingScriptTimeout);
-                    break;
-                case ExecutionType.SauceLabs:
-                    var sauceLabsSettings = ConfigurationService.GetSection<WebSettings>().SauceLabs;
-                    var sauceLabsUri = sauceLabsSettings.GridUri;
-                    if (sauceLabsUri == null || !Uri.IsWellFormedUriString(sauceLabsUri.ToString(), UriKind.Absolute))
-                    {
-                        throw new ArgumentException("To execute your tests in SauceLabs you need to set the gridUri in the browserSettings file.");
-                    }
-
-                    wrappedWebDriver = new RemoteWebDriver(sauceLabsUri, executionConfiguration.DriverOptions);
-                    var sauceLabsPageLoadTimeout = sauceLabsSettings.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(sauceLabsPageLoadTimeout);
-                    var sauceLabsScriptTimeout = sauceLabsSettings.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(sauceLabsScriptTimeout);
-                    BrowserSettings = sauceLabsSettings;
+                    wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), executionConfiguration.DriverOptions);
                     break;
             }
+
+            var gridPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.PageLoadTimeout;
+            wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(gridPageLoadTimeout);
+            var gridScriptTimeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ScriptTimeout;
+            wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(gridScriptTimeout);
 
             if (executionConfiguration.BrowserType != BrowserType.Edge)
             {
                 FixDriverCommandExecutionDelay((RemoteWebDriver)wrappedWebDriver);
             }
 
-            ChangeWindowSize(executionConfiguration.BrowserType, executionConfiguration.Size, wrappedWebDriver);
+            ChangeWindowSize(executionConfiguration.Size, wrappedWebDriver);
 
             return wrappedWebDriver;
         }
@@ -175,9 +130,10 @@ namespace Bellatrix.Web
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 // Failed to apply fix of command execution delay.
+                e.PrintStackTrace();
             }
         }
 
@@ -204,19 +160,19 @@ namespace Bellatrix.Web
                     chromeDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeDriverService.EnableVerboseLogging = false;
                     chromeDriverService.Port = GetFreeTcpPort();
-                    var chromeOptions = GetChromeOptions(executionConfiguration.ClassFullName);
+                    var chromeOptions = executionConfiguration.DriverOptions;
                     chromeOptions.AddArguments("--log-level=3");
 
-                    if (ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
-                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath.NormalizeAppPath();
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                        chromeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Chrome.PackedExtensionPath);
+                        chromeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Chrome.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
-                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Chrome.UnpackedExtensionPath.NormalizeAppPath();
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         chromeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
@@ -227,31 +183,26 @@ namespace Bellatrix.Web
                     }
 
                     wrappedWebDriver = new ChromeDriver(chromeDriverService, chromeOptions);
-                    var chromePageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Chrome.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(chromePageLoadTimeout);
-                    var chromeScriptTimeout = ConfigurationService.GetSection<WebSettings>().Chrome.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(chromeScriptTimeout);
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Chrome;
                     break;
                 case BrowserType.ChromeHeadless:
                     new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
                     var chromeHeadlessDriverService = ChromeDriverService.CreateDefaultService();
                     chromeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeHeadlessDriverService.Port = GetFreeTcpPort();
-                    var chromeHeadlessOptions = GetChromeOptions(executionConfiguration.ClassFullName);
+                    var chromeHeadlessOptions = executionConfiguration.DriverOptions;
                     chromeHeadlessOptions.AddArguments("--headless");
                     chromeHeadlessOptions.AddArguments("--log-level=3");
 
-                    if (ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
-                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath.NormalizeAppPath();
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                        chromeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PackedExtensionPath);
+                        chromeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().ChromeHeadless.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
-                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.UnpackedExtensionPath.NormalizeAppPath();
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         chromeHeadlessOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
@@ -262,16 +213,11 @@ namespace Bellatrix.Web
                     }
 
                     wrappedWebDriver = new ChromeDriver(chromeHeadlessDriverService, chromeHeadlessOptions);
-                    var chromeHeadlessPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(chromeHeadlessPageLoadTimeout);
-                    var chromeHeadlessScriptTimeout = ConfigurationService.GetSection<WebSettings>().ChromeHeadless.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(chromeHeadlessScriptTimeout);
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().ChromeHeadless;
                     break;
                 case BrowserType.Firefox:
                     new DriverManager().SetUpDriver(new FirefoxConfig());
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                    var firefoxOptions = GetFirefoxOptions(executionConfiguration.ClassFullName);
+                    var firefoxOptions = executionConfiguration.DriverOptions;
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         firefoxOptions.Proxy = webDriverProxy;
@@ -301,7 +247,7 @@ namespace Bellatrix.Web
                         ServicesCollection.Current.RegisterInstance(firefoxOptions.Profile, executionConfiguration.ClassFullName);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Firefox.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
                         Logger.LogError($"Packed Extension loading not supported in Firefox!");
 
@@ -311,36 +257,31 @@ namespace Bellatrix.Web
                         ////firefoxOptions.Profile.AddExtension(ConfigurationService.GetSection<WebSettings>().Firefox.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Firefox.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
                         Logger.LogError($"Unpacked Extension loading not supported in Firefox!");
                     }
 
                     var firefoxTimeout = TimeSpan.FromSeconds(180);
                     wrappedWebDriver = new FirefoxDriver(firefoxService, firefoxOptions, firefoxTimeout);
-                    var firefoxPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Firefox.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(firefoxPageLoadTimeout);
-                    var firefoxScriptTimeout = ConfigurationService.GetSection<WebSettings>().Firefox.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(firefoxScriptTimeout);
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Firefox;
                     break;
                 case BrowserType.FirefoxHeadless:
                     new DriverManager().SetUpDriver(new FirefoxConfig());
-                    var firefoxHeadlessOptions = GetFirefoxOptions(executionConfiguration.ClassFullName);
+                    var firefoxHeadlessOptions = executionConfiguration.DriverOptions;
                     firefoxHeadlessOptions.AddArguments("--headless");
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         firefoxHeadlessOptions.Proxy = webDriverProxy;
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
-                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath.NormalizeAppPath();
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                        firefoxHeadlessOptions.Profile.AddExtension(ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PackedExtensionPath);
+                        firefoxHeadlessOptions.Profile.AddExtension(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
                         Logger.LogError($"Unpacked Extension loading not supported in Firefox!");
                     }
@@ -363,17 +304,12 @@ namespace Bellatrix.Web
 
                     service.Port = GetFreeTcpPort();
                     wrappedWebDriver = new FirefoxDriver(service, firefoxHeadlessOptions);
-                    var firefoxHeadlessPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(firefoxHeadlessPageLoadTimeout);
-                    var firefoxHeadlessScriptTimeout = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(firefoxHeadlessScriptTimeout);
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().FirefoxHeadless;
                     break;
                 case BrowserType.Edge:
                     new DriverManager().SetUpDriver(new EdgeConfig());
                     var edgeDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
                     edgeDriverService.SuppressInitialDiagnosticInformation = true;
-                    var edgeOptions = GetEdgeOptions(executionConfiguration.ClassFullName);
+                    var edgeOptions = executionConfiguration.DriverOptions;
                     edgeOptions.PageLoadStrategy = PageLoadStrategy.Normal;
                     edgeOptions.UseChromium = true;
                     edgeOptions.AddArguments("--log-level=3");
@@ -382,32 +318,27 @@ namespace Bellatrix.Web
                         edgeOptions.Proxy = webDriverProxy;
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
-                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath.NormalizeAppPath();
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                        edgeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath);
+                        edgeOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
-                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath.NormalizeAppPath();
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         edgeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
 
                     wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeDriverService, edgeOptions);
-                    var edgePageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Edge.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(edgePageLoadTimeout);
-                    var edgeScriptTimeout = ConfigurationService.GetSection<WebSettings>().Edge.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(edgeScriptTimeout);
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Edge;
                     break;
                 case BrowserType.EdgeHeadless:
                     new DriverManager().SetUpDriver(new EdgeConfig());
                     var edgeHeadlessDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
                     edgeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
-                    var edgeHeadlessOptions = GetEdgeOptions(executionConfiguration.ClassFullName);
+                    var edgeHeadlessOptions = executionConfiguration.DriverOptions;
                     edgeHeadlessOptions.AddArguments("--headless");
                     edgeHeadlessOptions.AddArguments("--log-level=3");
                     edgeHeadlessOptions.PageLoadStrategy = PageLoadStrategy.Normal;
@@ -417,33 +348,28 @@ namespace Bellatrix.Web
                         edgeHeadlessOptions.Proxy = webDriverProxy;
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
-                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath.NormalizeAppPath();
+                        string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                        edgeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().Edge.PackedExtensionPath);
+                        edgeHeadlessOptions.AddExtension(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
                     }
 
-                    if (ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath != null)
+                    if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
                     {
-                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().Edge.UnpackedExtensionPath.NormalizeAppPath();
+                        string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                         Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         edgeHeadlessOptions.AddExtensionPath(unpackedExtensionPath);
                     }
 
                     wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeHeadlessDriverService, edgeHeadlessOptions);
-                    var edgeHeadlessPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Edge.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(edgeHeadlessPageLoadTimeout);
-                    var edgeHeadlessScriptTimeout = ConfigurationService.GetSection<WebSettings>().Edge.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(edgeHeadlessScriptTimeout);
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Edge;
                     break;
                 case BrowserType.Opera:
                     new DriverManager().SetUpDriver(new OperaConfig());
 
                     // the driver will be different for different OS.
                     // Check for different releases- https://github.com/operasoftware/operachromiumdriver/releases
-                    var operaOptions = GetOperaOptions(executionConfiguration.ClassFullName);
+                    var operaOptions = executionConfiguration.DriverOptions;
 
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
@@ -463,11 +389,6 @@ namespace Bellatrix.Web
                         throw new Exception("This is a known issue in the latest versions of Opera driver. It is reported to the Opera team. As soon it is fixed we will update BELLATRIX.", ex);
                     }
 
-                    var operaPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Opera.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(operaPageLoadTimeout);
-                    var operaScriptTimeout = ConfigurationService.GetSection<WebSettings>().Opera.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(operaScriptTimeout);
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Opera;
                     break;
                 case BrowserType.InternetExplorer:
                     new DriverManager().SetUpDriver(new InternetExplorerConfig());
@@ -478,7 +399,7 @@ namespace Bellatrix.Web
                     // Scroll down until you see the Security options. Enable the checkbox "Allow active content to run in files on My Computer"
                     // Also, check https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration
                     // in case of OpenQA.Selenium.NoSuchWindowException: Unable to get browser --> Uncheck IE Options --> Security Tab -> Uncheck "Enable Protected Mode"
-                    var ieOptions = GetInternetExplorerOptions(executionConfiguration.ClassFullName);
+                    var ieOptions = executionConfiguration.DriverOptions;
                     ieOptions.IntroduceInstabilityByIgnoringProtectedModeSettings = true;
                     ieOptions.IgnoreZoomLevel = true;
                     ieOptions.EnableNativeEvents = false;
@@ -493,15 +414,9 @@ namespace Bellatrix.Web
                     }
 
                     wrappedWebDriver = new InternetExplorerDriver(_driverExecutablePath, ieOptions);
-
-                    var iePageLoadTimeout = ConfigurationService.GetSection<WebSettings>().InternetExplorer.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(iePageLoadTimeout);
-                    var ieScriptTimeout = ConfigurationService.GetSection<WebSettings>().InternetExplorer.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(ieScriptTimeout);
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().InternetExplorer;
                     break;
                 case BrowserType.Safari:
-                    var safariOptions = GetSafariOptions(executionConfiguration.ClassFullName);
+                    var safariOptions = executionConfiguration.DriverOptions;
 
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
@@ -509,12 +424,6 @@ namespace Bellatrix.Web
                     }
 
                     wrappedWebDriver = new SafariDriver(safariOptions);
-
-                    var safariPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().Safari.PageLoadTimeout;
-                    wrappedWebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(safariPageLoadTimeout);
-                    var safariScriptTimeout = ConfigurationService.GetSection<WebSettings>().Safari.ScriptTimeout;
-                    wrappedWebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(safariScriptTimeout);
-                    BrowserSettings = ConfigurationService.GetSection<WebSettings>().Safari;
                     break;
                 default:
                     throw new NotSupportedException($"Not supported browser {executionConfiguration.BrowserType}");
@@ -523,27 +432,15 @@ namespace Bellatrix.Web
             return wrappedWebDriver;
         }
 
-        private static void ChangeWindowSize(BrowserType browserType, Size windowSize, IWebDriver wrappedWebDriver)
+        private static void ChangeWindowSize(Size windowSize, IWebDriver wrappedWebDriver)
         {
-            try
+            if (windowSize != default)
             {
-                // HACK: (Anton: 09.12.2017) Temporary solution until they fix it in the official release.
-                // Maximize in Opera throws invalid exception
-                // System.InvalidOperationException: disconnected: unable to connect to renderer
-                //    (Session info: chrome with embedded Chromium 62.0.3202.89)
-                // (Driver info: OperaDriver = 2.32(cfa164127aab5f93e5e47d9dcf8407380eb42c50), platform = Windows NT 10.0.15063 x86_64)(102).
-                if (windowSize != default)
-                {
-                    wrappedWebDriver.Manage().Window.Size = windowSize;
-                }
-                else if (browserType != BrowserType.Opera)
-                {
-                    wrappedWebDriver.Manage().Window.Maximize();
-                }
+                wrappedWebDriver.Manage().Window.Size = windowSize;
             }
-            catch (Exception e)
+            else
             {
-                throw;
+                wrappedWebDriver.Manage().Window.Maximize();
             }
         }
 
@@ -555,48 +452,6 @@ namespace Bellatrix.Web
             int port = ((IPEndPoint)tcpListener.LocalEndpoint).Port;
             tcpListener.Stop();
             return port;
-        }
-
-        private static SafariOptions GetSafariOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<SafariOptions>(classFullName) ?? new SafariOptions();
-
-            return options;
-        }
-
-        private static InternetExplorerOptions GetInternetExplorerOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<InternetExplorerOptions>(classFullName) ?? new InternetExplorerOptions();
-
-            return options;
-        }
-
-        private static OperaOptions GetOperaOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<OperaOptions>(classFullName) ?? new OperaOptions();
-
-            return options;
-        }
-
-        private static Microsoft.Edge.SeleniumTools.EdgeOptions GetEdgeOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<Microsoft.Edge.SeleniumTools.EdgeOptions>(classFullName) ?? new Microsoft.Edge.SeleniumTools.EdgeOptions();
-
-            return options;
-        }
-
-        private static ChromeOptions GetChromeOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<ChromeOptions>(classFullName) ?? new ChromeOptions();
-
-            return options;
-        }
-
-        private static FirefoxOptions GetFirefoxOptions(string classFullName)
-        {
-            var options = ServicesCollection.Current.Resolve<FirefoxOptions>(classFullName) ?? new FirefoxOptions();
-
-            return options;
         }
     }
 }

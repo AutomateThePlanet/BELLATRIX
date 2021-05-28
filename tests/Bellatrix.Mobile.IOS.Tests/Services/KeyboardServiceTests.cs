@@ -30,10 +30,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void TestHideKeyBoard()
         {
-            var textField = App.ElementCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
             textField.SetText(string.Empty);
 
-            App.KeyboardService.HideKeyboard();
+            App.Keyboard.HideKeyboard();
         }
     }
 }

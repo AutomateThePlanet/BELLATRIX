@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("Edge Browser")]
     public class LabelControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.Components.CreateById<Label>("myLabel");
 
             labelElement.Hover();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnAutomateThePlanet_When_InnerText_Edge()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.Components.CreateById<Label>("myLabel");
 
             Assert.AreEqual("Hover", labelElement.InnerText);
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnNull_When_InnerTextNotSet_Edge()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel2");
+            var labelElement = App.Components.CreateById<Label>("myLabel2");
 
             Assert.IsNotNull(labelElement.InnerText);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnHover_When_InnerTextSet_Edge()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.Components.CreateById<Label>("myLabel");
 
             Assert.AreEqual("Hover", labelElement.InnerText);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnNull_When_InnerHtmlNotSet_Edge()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel2");
+            var labelElement = App.Components.CreateById<Label>("myLabel2");
 
             Assert.IsNotNull(labelElement.InnerHtml);
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnButtonHtml_When_InnerHtmlSet_Edge()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel1");
+            var labelElement = App.Components.CreateById<Label>("myLabel1");
 
             Assert.AreEqual("<button name=\"button\">Click me</button>", labelElement.InnerHtml);
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnNull_When_ForNotSet_Edge()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel2");
+            var labelElement = App.Components.CreateById<Label>("myLabel2");
 
             Assert.IsNull(labelElement.For);
         }
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnLabelFor_When_ForSet_Edge()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.Components.CreateById<Label>("myLabel");
 
             Assert.AreEqual("myLabel", labelElement.For);
         }

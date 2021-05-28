@@ -18,27 +18,27 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class Button : Element, IElementDisabled, IElementInnerText
+    public class Button : Component, IComponentDisabled, IComponentInnerText
     {
-        public static event EventHandler<ElementActionEventArgs> Clicking;
-        public static event EventHandler<ElementActionEventArgs> Clicked;
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Clicking;
+        public static event EventHandler<ComponentActionEventArgs> Clicked;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
 
-        public void Click()
+        public virtual void Click()
         {
             Click(Clicking, Clicked);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
+        public virtual string InnerText => GetInnerText();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

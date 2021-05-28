@@ -17,42 +17,42 @@ namespace Bellatrix.Web.Assertions
 {
     public static class StyleAssertions
     {
-        public static void AssertBackgroundColor(this Element element, string expectedBackgroundColor)
+        public static void AssertBackgroundColor(this Component element, string expectedBackgroundColor)
         {
             Assert.AreEqual(expectedBackgroundColor, element.GetCssValue("background-color"));
         }
 
-        public static void AssertBorderColor(this Element element, string expectedBorderColor)
+        public static void AssertBorderColor(this Component element, string expectedBorderColor)
         {
             Assert.AreEqual(expectedBorderColor, element.GetCssValue("border-color"));
         }
 
-        public static void AssertColor(this Element element, string expectedColor)
+        public static void AssertColor(this Component element, string expectedColor)
         {
             Assert.AreEqual(expectedColor, element.GetCssValue("color"));
         }
 
-        public static void AssertFontFamily(this Element element, string expectedFontFamily)
+        public static void AssertFontFamily(this Component element, string expectedFontFamily)
         {
             Assert.AreEqual(expectedFontFamily, element.GetCssValue("font-family"));
         }
 
-        public static void AssertFontWeight(this Element element, string expectedFontWeight)
+        public static void AssertFontWeight(this Component element, string expectedFontWeight)
         {
             Assert.AreEqual(expectedFontWeight, element.GetCssValue("font-weight"));
         }
 
-        public static void AssertFontSize(this Element element, string expectedFontSize)
+        public static void AssertFontSize(this Component element, string expectedFontSize)
         {
             Assert.AreEqual(expectedFontSize, element.GetCssValue("font-size"));
         }
 
-        public static void AssertTextAlign(this Element element, string expectedTextAlign)
+        public static void AssertTextAlign(this Component element, string expectedTextAlign)
         {
             Assert.AreEqual(expectedTextAlign, element.GetCssValue("text-align"));
         }
 
-        public static void AssertVerticalAlign(this Element element, string expectedVerticalAlign)
+        public static void AssertVerticalAlign(this Component element, string expectedVerticalAlign)
         {
             Assert.AreEqual(expectedVerticalAlign, element.GetCssValue("vertical-align"));
         }

@@ -1,15 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    public class CustomTestCaseExtensionTests : MSTest.AndroidTest
+    [TestFixture]
+    public class CustomTestCaseExtensionTests : NUnit.AndroidTest
     {
         // 1. Once we created the test workflow plugin, we need to add it to the existing test workflow.
         // It is done using the App service's method AddPlugin.
@@ -25,12 +19,12 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // App.AddPlugin<AssociatedTestCaseExtension>();
         }
 
-        [TestMethod]
+        [Test]
         [ManualTestCase(1532)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.Click();
         }

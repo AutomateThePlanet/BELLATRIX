@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Input Button Control")]
     public class InputButtonControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void SetTextToStop_When_UseClickMethod_InternetExplorer()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton");
+            var buttonElement = App.Components.CreateById<Button>("myButton");
 
             buttonElement.Click();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_InternetExplorer()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton1");
+            var buttonElement = App.Components.CreateById<Button>("myButton1");
 
             buttonElement.Hover();
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnBlue_When_Focus_InternetExplorer()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton2");
+            var buttonElement = App.Components.CreateById<Button>("myButton2");
 
             buttonElement.Focus();
 
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_InternetExplorer()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton");
+            var buttonElement = App.Components.CreateById<Button>("myButton");
 
             bool isDisabled = buttonElement.IsDisabled;
 
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_InternetExplorer()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton3");
+            var buttonElement = App.Components.CreateById<Button>("myButton3");
 
             bool isDisabled = buttonElement.IsDisabled;
 
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnStart_When_ValueAttributePresent_InternetExplorer()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton");
+            var buttonElement = App.Components.CreateById<Button>("myButton");
 
             var actualValue = buttonElement.Value;
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnEmpty_When_UseInnerText_InternetExplorer()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton");
+            var buttonElement = App.Components.CreateById<Button>("myButton");
 
             Assert.AreEqual(string.Empty, buttonElement.InnerText);
         }

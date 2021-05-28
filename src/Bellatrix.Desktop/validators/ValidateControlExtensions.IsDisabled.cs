@@ -20,20 +20,20 @@ namespace Bellatrix.Desktop
     public static partial class ValidateControlExtensions
     {
         public static void ValidateIsDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementDisabled, IElement
+            where T : IComponentDisabled, IComponent
         {
             WaitUntil(() => control.IsDisabled.Equals(true), "The control should be disabled but it was NOT.", timeout, sleepInterval);
-            ValidatedIsDisabledEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedIsDisabledEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateIsNotDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementDisabled, IElement
+            where T : IComponentDisabled, IComponent
         {
             WaitUntil(() => !control.IsDisabled.Equals(true), "The control should NOT be disabled but it was.", timeout, sleepInterval);
-            ValidatedIsNotDisabledEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedIsNotDisabledEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedIsDisabledEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedIsNotDisabledEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedIsDisabledEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotDisabledEvent;
     }
 }

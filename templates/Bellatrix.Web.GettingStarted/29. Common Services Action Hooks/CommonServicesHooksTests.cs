@@ -1,11 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class CommonServicesHooksTests : MSTest.WebTest
+    [TestFixture]
+    public class CommonServicesHooksTests : NUnit.WebTest
     {
         // 1. Another way to extend BELLATRIX is to use the common services hooks. This is how the failed tests analysis works.
         // Here is a list of all common services event you can subscribe to:
@@ -25,24 +23,24 @@ namespace Bellatrix.Web.GettingStarted
         // ReturningWrappedElement - called before searching for native WebDriver element
         //
         // To add custom logic to the element's methods you can create a class that derives from ElementEventHandlers. The override the methods you like.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PurchaseRocketWithGloballyOverridenMethods()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.ElementCreateService.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonMReadMoreButton = App.ElementCreateService.CreateByInnerTextContaining<Anchor>("Read more");
-            Anchor addToCartFalcon9 = App.ElementCreateService.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
-            Anchor viewCartButton = App.ElementCreateService.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
-            TextField couponCodeTextField = App.ElementCreateService.CreateById<TextField>("coupon_code");
-            Button applyCouponButton = App.ElementCreateService.CreateByValueContaining<Button>("Apply coupon");
-            Number quantityBox = App.ElementCreateService.CreateByClassContaining<Number>("input-text qty text");
-            Div messageAlert = App.ElementCreateService.CreateByClassContaining<Div>("woocommerce-message");
-            Button updateCart = App.ElementCreateService.CreateByValueContaining<Button>("Update cart").ToBeClickable();
-            Anchor proceedToCheckout = App.ElementCreateService.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
-            Heading billingDetailsHeading = App.ElementCreateService.CreateByInnerTextContaining<Heading>("Billing details");
-            Span totalSpan = App.ElementCreateService.CreateByXpath<Span>("//*[@class='order-total']//span");
+            Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
+            Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
+            Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
+            Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
+            TextField couponCodeTextField = App.Components.CreateById<TextField>("coupon_code");
+            Button applyCouponButton = App.Components.CreateByValueContaining<Button>("Apply coupon");
+            Number quantityBox = App.Components.CreateByClassContaining<Number>("input-text qty text");
+            Div messageAlert = App.Components.CreateByClassContaining<Div>("woocommerce-message");
+            Button updateCart = App.Components.CreateByValueContaining<Button>("Update cart").ToBeClickable();
+            Anchor proceedToCheckout = App.Components.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
+            Heading billingDetailsHeading = App.Components.CreateByInnerTextContaining<Heading>("Billing details");
+            Span totalSpan = App.Components.CreateByXpath<Span>("//*[@class='order-total']//span");
 
             sortDropDown.SelectByText("Sort by price: low to high");
             protonMReadMoreButton.Hover();
@@ -53,11 +51,10 @@ namespace Bellatrix.Web.GettingStarted
             applyCouponButton.Click();
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
             messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
-            App.BrowserService.WaitForAjax();
+            App.Browser.WaitForAjax();
             totalSpan.ValidateInnerTextIs("54.00€");
             proceedToCheckout.Click();
 
-            proceedToCheckout.Click();
             billingDetailsHeading.ToBeVisible().WaitToBe();
         }
     }

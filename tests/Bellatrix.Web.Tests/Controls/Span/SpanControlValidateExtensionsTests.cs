@@ -25,8 +25,8 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover_Edge()
         {
-            var spanElement = App.ElementCreateService.CreateById<Span>("mySpan");
+            var spanElement = App.Components.CreateById<Span>("mySpan");
 
             spanElement.Hover();
 
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerTextIs_DoesNotThrowException_When_InnerText_Edge()
         {
-            var spanElement = App.ElementCreateService.CreateById<Span>("mySpan1");
+            var spanElement = App.Components.CreateById<Span>("mySpan1");
 
             spanElement.ValidateInnerTextIs("Automate The Planet");
         }
@@ -56,7 +56,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateInnerHtmlIs_DoesNotThrowException_When_InnerHtmlSet_Edge()
         {
-            var spanElement = App.ElementCreateService.CreateById<Span>("mySpan2");
+            var spanElement = App.Components.CreateById<Span>("mySpan2");
 
             spanElement.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
         }

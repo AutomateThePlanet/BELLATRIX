@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void NineSet_When_CallSetTextMethod()
         {
-            var number = App.ElementCreateService.CreateByClass<Number>("android.widget.NumberPicker");
+            var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
 
             number.SetNumber(9);
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_NumberIsNotDisabled()
         {
-            var number = App.ElementCreateService.CreateByClass<Number>("android.widget.NumberPicker");
+            var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
 
             Assert.AreEqual(false, number.IsDisabled);
         }

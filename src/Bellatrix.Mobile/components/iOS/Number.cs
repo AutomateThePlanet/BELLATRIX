@@ -20,17 +20,17 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class Number : Element, IElementDisabled, IElementNumber
+    public class Number : IOSComponent, IComponentDisabled, IComponentNumber
     {
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> SettingNumber;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> NumberSet;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingNumber;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> NumberSet;
 
-        public void SetNumber(int value)
+        public virtual void SetNumber(int value)
         {
             SetValue(SettingNumber, NumberSet, value.ToString());
         }
 
-        public int GetNumber()
+        public virtual int GetNumber()
         {
             var resultText = GetValueAttribute();
             int.TryParse(resultText, out var result);
@@ -38,6 +38,6 @@ namespace Bellatrix.Mobile.IOS
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

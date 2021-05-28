@@ -107,7 +107,7 @@ namespace Bellatrix.Web
 
         public static void AddElementsBddLogging()
         {
-            var elementEventHandlers = new List<ElementEventHandlers>()
+            var elementEventHandlers = new List<ComponentEventHandlers>()
                                        {
                                            new BDDLoggingTextFieldEventHandlers(),
                                            new BDDLoggingDateEventHandlers(),
@@ -137,7 +137,7 @@ namespace Bellatrix.Web
 
         public static void AddDynamicTestCases()
         {
-            var elementEventHandlers = new List<ElementEventHandlers>()
+            var elementEventHandlers = new List<ComponentEventHandlers>()
                                        {
                                            new DynamicTestCasesTextFieldEventHandlers(),
                                            new DynamicTestCasesDateEventHandlers(),
@@ -167,7 +167,7 @@ namespace Bellatrix.Web
 
         public static void AddBugReporting()
         {
-            var elementEventHandlers = new List<ElementEventHandlers>()
+            var elementEventHandlers = new List<ComponentEventHandlers>()
                                        {
                                            new BugReportingTextFieldEventHandlers(),
                                            new BugReportingDateEventHandlers(),
@@ -194,7 +194,7 @@ namespace Bellatrix.Web
             }
         }
 
-        public static void AddHighlightElements()
+        public static void AddHighlightComponents()
         {
             if (ConfigurationService.GetSection<WebSettings>() == null)
             {
@@ -203,8 +203,8 @@ namespace Bellatrix.Web
 
             if (ConfigurationService.GetSection<WebSettings>().ShouldHighlightElements)
             {
-                var highlightElementEventHandler = new HighlightElementEventHandlers();
-                highlightElementEventHandler.SubscribeToAll();
+                var highlightComponentEventHandler = new HighlightComponentEventHandlers();
+                highlightComponentEventHandler.SubscribeToAll();
             }
         }
     }

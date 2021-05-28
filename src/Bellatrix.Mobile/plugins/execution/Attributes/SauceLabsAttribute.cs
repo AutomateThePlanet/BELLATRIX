@@ -54,8 +54,7 @@ namespace Bellatrix.Mobile
             appiumOptions.AddAdditionalCapability("recordScreenshots", RecordScreenshots);
             appiumOptions.AddAdditionalCapability("appiumVersion", "1.8.1");
 
-            var sauceLabsCredentialsResolver = new SauceLabsCredentialsResolver();
-            var credentials = sauceLabsCredentialsResolver.GetCredentials();
+            var credentials = CloudProviderCredentialsResolver.GetCredentials();
             appiumOptions.AddAdditionalCapability("username", credentials.Item1);
             appiumOptions.AddAdditionalCapability("accessKey", credentials.Item2);
             appiumOptions.AddAdditionalCapability("name", testClassType.FullName);

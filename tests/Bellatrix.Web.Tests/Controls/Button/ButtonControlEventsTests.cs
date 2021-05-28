@@ -22,14 +22,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class ButtonControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickingCalled_BeforeActuallyClick()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton");
+            var buttonElement = App.Components.CreateById<Button>("myButton");
             Button.Clicking += AssertIsCheckedFalse;
 
             buttonElement.Click();
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Button.Clicking -= AssertIsCheckedFalse;
 
-            void AssertIsCheckedFalse(object sender, ElementActionEventArgs args)
+            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("Start", buttonElement.Value);
             }
@@ -49,14 +49,14 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickedCalled_AfterClick()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton");
+            var buttonElement = App.Components.CreateById<Button>("myButton");
             Button.Clicked += AssertIsCheckedFalse;
 
             buttonElement.Click();
 
             Button.Clicked -= AssertIsCheckedFalse;
 
-            void AssertIsCheckedFalse(object sender, ElementActionEventArgs args)
+            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("Stop", buttonElement.Value);
             }
@@ -69,7 +69,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Button.Hovering += AssertStyleAttributeEmpty;
 
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton1");
+            var buttonElement = App.Components.CreateById<Button>("myButton1");
 
             buttonElement.Hover();
 
@@ -77,7 +77,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Button.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -90,15 +90,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Button.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton1");
+            var buttonElement = App.Components.CreateById<Button>("myButton1");
 
             buttonElement.Hover();
 
             Button.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Button>("myButton1").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Button>("myButton1").ValidateStyleIs("color: red;");
             }
         }
 
@@ -109,7 +109,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Button.Focusing += AssertStyleAttributeEmpty;
 
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton2");
+            var buttonElement = App.Components.CreateById<Button>("myButton2");
 
             buttonElement.Focus();
 
@@ -117,7 +117,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Button.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -130,13 +130,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Button.Focused += AssertStyleAttributeContainsNewValue;
 
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton2");
+            var buttonElement = App.Components.CreateById<Button>("myButton2");
 
             buttonElement.Focus();
 
             Button.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

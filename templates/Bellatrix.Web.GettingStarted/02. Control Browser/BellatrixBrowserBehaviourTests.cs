@@ -1,10 +1,10 @@
 ﻿using Bellatrix.Web.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    // 1. This is the main attribute that you need to mark each class that contains MSTest tests.
-    [TestClass]
+    // 1. This is the main attribute that you need to mark each class that contains NUnit tests.
+    [TestFixture]
 
     // 2. This is the attribute for automatic start/control of WebDriver browsers by Bellatrix. If you have to do it manually properly, you will need thousands of lines of code.
     // 2.1. BrowserType controls which browser is used. Available options are Chrome, Firefox, Edge, InternetExplorer, Opera, Chrome in headless mode, Firefox in headless mode.
@@ -20,37 +20,40 @@ namespace Bellatrix.Web.GettingStarted
     // There are even more things you can do with this attribute, but we look into them in the next sections.
     //
     // If you place attribute over the class all tests inherit the lifecycle. It is possible to place it over each test and this way it overrides the class lifecycle only for this particular test.
+    //
+    // If you don't use the attribute, the default information from the configuration will be used placed under the executionSettings section.
+    // Also, you can add additional driver arguments under the arguments section array in the configuration file.
     [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
 
     // 2.2. All web BELLATRIX test classes should inherit from the WebTest base class. This way you can use all built-in BELLATRIX tools and functionalities.
-    public class BellatrixBrowserLifecycleTests : MSTest.WebTest
+    public class BellatrixBrowserLifecycleTests : NUnit.WebTest
     {
-        // 2.3. All MSTest tests should be marked with the TestMethod attribute.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        // 2.3. All MSTest tests should be marked with the Test attribute.
+        [Test]
+        [Category(Categories.CI)]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
             // There is more about the App class in the next sections. However, it is the primary point where you access the BELLATRIX services.
             // It comes from the WebTest class as a property. Here we use the BELLATRIX navigation service to navigate to the demo page.
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // Use the element creation service to create an instance of the anchor. There are much more details about this process in the next sections.
-            var promotionsLink = App.ElementCreateService.CreateByLinkText<Anchor>("Promotions");
+            var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
 
             promotionsLink.Click();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
 
         // 2.4. As mentioned above you can override the browser lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse an instance of Edge browser.
         // Only for this particular test, BELLATRIX opens Chrome and restarts it only on fail.
         [Browser(BrowserType.Chrome, Lifecycle.RestartOnFail)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            var blogLink = App.ElementCreateService.CreateByLinkText<Anchor>("Blog");
+            var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
 
             blogLink.Click();
         }

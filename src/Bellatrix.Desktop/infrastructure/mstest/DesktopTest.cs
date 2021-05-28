@@ -16,26 +16,40 @@ namespace Bellatrix.Desktop.MSTest
 {
     public abstract class DesktopTest : MSTestBaseTest
     {
+        private static readonly object _lockObject = new object();
+        private static bool _arePluginsAlreadyInitialized;
+
         public App App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
 
         public override void Configure()
         {
-            MSTestPluginConfiguration.Add();
-            ExecutionTimePlugin.Add();
-            VideoRecorderPluginConfiguration.AddMSTest();
-            ScreenshotsPluginConfiguration.AddMSTest();
-            DesktopPluginsConfiguration.AddLifecycle();
-            DesktopPluginsConfiguration.AddLogExecutionLifecycle();
-            DesktopPluginsConfiguration.AddVanillaWebDriverScreenshotsOnFail();
-            DesktopPluginsConfiguration.AddElementsBddLogging();
-            DesktopPluginsConfiguration.AddDynamicTestCases();
-            DesktopPluginsConfiguration.AddBugReporting();
-            DesktopPluginsConfiguration.AddValidateExtensionsBddLogging();
-            DesktopPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-            DesktopPluginsConfiguration.AddValidateExtensionsBugReporting();
-            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-            DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+            lock (_lockObject)
+            {
+                if (!_arePluginsAlreadyInitialized)
+                {
+                    MSTestPluginConfiguration.Add();
+                    ExecutionTimePlugin.Add();
+                    VideoRecorderPluginConfiguration.AddMSTest();
+                    ScreenshotsPluginConfiguration.AddMSTest();
+                    DynamicTestCasesPlugin.Add();
+                    AllurePlugin.Add();
+                    BugReportingPlugin.Add();
+                    DesktopPluginsConfiguration.AddLifecycle();
+                    DesktopPluginsConfiguration.AddLogExecutionLifecycle();
+                    DesktopPluginsConfiguration.AddVanillaWebDriverScreenshotsOnFail();
+                    DesktopPluginsConfiguration.AddElementsBddLogging();
+                    DesktopPluginsConfiguration.AddDynamicTestCases();
+                    DesktopPluginsConfiguration.AddBugReporting();
+                    DesktopPluginsConfiguration.AddValidateExtensionsBddLogging();
+                    DesktopPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+                    DesktopPluginsConfiguration.AddValidateExtensionsBugReporting();
+                    DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+                    DesktopPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+                    DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+
+                    _arePluginsAlreadyInitialized = true;
+                }
+            }
         }
     }
 }

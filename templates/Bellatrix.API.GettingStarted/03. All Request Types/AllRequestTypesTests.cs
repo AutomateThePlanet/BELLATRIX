@@ -7,6 +7,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bellatrix.API.GettingStarted
 {
@@ -198,7 +199,7 @@ namespace Bellatrix.API.GettingStarted
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        public async void ArtistsDeleted_When_PerformGenericDeleteRequestAsync()
+        public void ArtistsDeleted_When_PerformGenericDeleteRequestAsync()
         {
             // 11. All BELLATRIX client API methods have an async version.
             // Your test should be marked as async.
@@ -207,12 +208,12 @@ namespace Bellatrix.API.GettingStarted
             request.AddJsonBody(newArtist);
 
             // 11.1. Use the PostAsync. Should use the await operator.
-            await _apiClientService.PostAsync<Artists>(request);
+            _apiClientService.Post<Artists>(request);
 
             var deleteRequest = new RestRequest($"api/Artists/{newArtist.ArtistId}");
 
             // 11.2. Use the DeleteAsync. Should use the await operator.
-            var response = await _apiClientService.DeleteAsync<Artists>(deleteRequest);
+            var response = _apiClientService.Delete<Artists>(deleteRequest);
 
             Assert.IsNotNull(response.Data);
         }

@@ -28,11 +28,11 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ReturnsCorrectText_When_GetText()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
 
-            var answerLabel = App.ElementCreateService.CreateByName<Label>("Answer");
+            var answerLabel = App.Components.CreateByName<Label>("Answer");
 
             Assert.AreEqual("0", answerLabel.GetText());
         }

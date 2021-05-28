@@ -23,51 +23,51 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Bellatrix.Web
 {
-    public class Select : Element, IElementDisabled, IElementRequired, IElementReadonly
+    public class Select : Component, IComponentDisabled, IComponentRequired, IComponentReadonly
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Selecting;
-        public static event EventHandler<ElementActionEventArgs> Selected;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Selecting;
+        public static event EventHandler<ComponentActionEventArgs> Selected;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
-        public Option GetSelected()
+        public virtual Option GetSelected()
         {
             return DefaultSelectedValue(this);
         }
 
-        public List<Option> GetAllOptions()
+        public virtual List<Option> GetAllOptions()
         {
             return DefaultGetAllOptions(this);
         }
 
-        public void SelectByText(string text)
+        public virtual void SelectByText(string text)
         {
             DefaultSelectByText(this, text);
         }
 
-        public void SelectByIndex(int index)
+        public virtual void SelectByIndex(int index)
         {
             DefaultSelectByIndex(this, index);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
-        public bool IsReadonly => GetReadonlyAttribute();
+        public virtual bool IsReadonly => GetReadonlyAttribute();
 
         protected virtual List<Option> DefaultGetAllOptions(Select select)
         {
-            var nativeSelect = new SelectElement(WrappedElement);
+            var nativeSelect = new selectComponent(WrappedElement);
             var options = new List<Option>();
             foreach (var option in nativeSelect.Options)
             {
@@ -76,7 +76,7 @@ namespace Bellatrix.Web
                     By = select.By,
                     WrappedElement = option,
                     ShouldCacheElement = false,
-                    ElementName = ElementName,
+                    ComponentName = ComponentName,
                     PageName = PageName,
                 };
 
@@ -88,7 +88,7 @@ namespace Bellatrix.Web
 
         protected virtual Option DefaultSelectedValue(Select select)
         {
-            var nativeSelect = new SelectElement(WrappedElement);
+            var nativeSelect = new selectComponent(WrappedElement);
             var optionNativeElement = new Option
             {
                 By = select.By,
@@ -100,38 +100,38 @@ namespace Bellatrix.Web
 
         protected virtual void DefaultSelectByText(Select select, string value)
         {
-            Selecting?.Invoke(this, new ElementActionEventArgs(select, value));
+            Selecting?.Invoke(this, new ComponentActionEventArgs(select, value));
 
-            var nativeSelect = new SelectElement(WrappedElement);
+            var nativeSelect = new selectComponent(WrappedElement);
             nativeSelect.SelectByText(value);
             WrappedElement = null;
             ShouldCacheElement = false;
-            Selected?.Invoke(this, new ElementActionEventArgs(select, value));
+            Selected?.Invoke(this, new ComponentActionEventArgs(select, value));
         }
 
         protected virtual void DefaultSelectByIndex(Select select, int index)
         {
-            Selecting?.Invoke(this, new ElementActionEventArgs(select, index.ToString()));
+            Selecting?.Invoke(this, new ComponentActionEventArgs(select, index.ToString()));
 
-            var nativeSelect = new SelectElement(WrappedElement);
+            var nativeSelect = new selectComponent(WrappedElement);
             nativeSelect.SelectByIndex(index);
             WrappedElement = null;
             ShouldCacheElement = false;
-            Selected?.Invoke(this, new ElementActionEventArgs(select, nativeSelect.SelectedOption.Text));
+            Selected?.Invoke(this, new ComponentActionEventArgs(select, nativeSelect.SelectedOption.Text));
         }
     }
 
-    public class SelectElement
+    public class selectComponent
     {
         private readonly IWebElement _element;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SelectElement"/> class.
+        /// Initializes a new instance of the <see cref="selectComponent"/> class.
         /// </summary>
         /// <param name="element">The _element to be wrapped.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <see cref="IWebElement"/> object is <see langword="null"/>.</exception>
         /// <exception cref="UnexpectedTagNameException">Thrown when the _element wrapped is not a &lt;select&gt; _element.</exception>
-        public SelectElement(IWebElement element)
+        public selectComponent(IWebElement element)
         {
             _element = element ?? throw new ArgumentNullException("_element", "_element cannot be null");
 

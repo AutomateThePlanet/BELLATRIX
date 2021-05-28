@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class WeekControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().WeekLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().WeekLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.SettingWeek += AssertValueAttributeEmpty;
 
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             weekElement.SetWeek(2017, 7);
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Week.SettingWeek -= AssertValueAttributeEmpty;
 
-            void AssertValueAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.WeekSet += AssertValueAttributeContainsNewValue;
 
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             weekElement.SetWeek(2017, 7);
 
             Week.WeekSet -= AssertValueAttributeContainsNewValue;
 
-            void AssertValueAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("2017-W07", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.Hovering += AssertStyleAttributeEmpty;
 
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek7");
+            var weekElement = App.Components.CreateById<Week>("myWeek7");
 
             weekElement.Hover();
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Week.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -92,15 +92,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek7");
+            var weekElement = App.Components.CreateById<Week>("myWeek7");
 
             weekElement.Hover();
 
             Week.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Week>("myWeek7").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Week>("myWeek7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.Focusing += AssertStyleAttributeEmpty;
 
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek8");
+            var weekElement = App.Components.CreateById<Week>("myWeek8");
 
             weekElement.Focus();
 
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Week.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -132,13 +132,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Week.Focused += AssertStyleAttributeContainsNewValue;
 
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek8");
+            var weekElement = App.Components.CreateById<Week>("myWeek8");
 
             weekElement.Focus();
 
             Week.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

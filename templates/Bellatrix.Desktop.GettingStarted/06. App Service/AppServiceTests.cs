@@ -1,10 +1,10 @@
-﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.NUnit;
+using NUnit.Framework;
 using System.Diagnostics;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. With the BELLATRIX desktop library, you can test various Windows applications written in different technologies such as- WPF, WinForms or UWP (Universal Windows Platform).
     // For the first two, you need to pass the path to your application's executable.
@@ -17,11 +17,11 @@ namespace Bellatrix.Desktop.GettingStarted
     // [App("369ede42-bebe-41ea-a02a-0da04991478e_q6s448gyj2xsw!App", Lifecycle.RestartEveryTime)]
     public class AppServiceTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 

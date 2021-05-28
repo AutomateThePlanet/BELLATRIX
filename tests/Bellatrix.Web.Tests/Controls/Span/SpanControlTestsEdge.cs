@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("Edge Browser")]
     public class SpanControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var spanElement = App.ElementCreateService.CreateById<Span>("mySpan");
+            var spanElement = App.Components.CreateById<Span>("mySpan");
 
             spanElement.Hover();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnAutomateThePlanet_When_InnerText_Edge()
         {
-            var spanElement = App.ElementCreateService.CreateById<Span>("mySpan1");
+            var spanElement = App.Components.CreateById<Span>("mySpan1");
 
             Assert.AreEqual("Automate The Planet", spanElement.InnerText);
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnNull_When_InnerTextNotSet_Edge()
         {
-            var spanElement = App.ElementCreateService.CreateById<Span>("mySpan3");
+            var spanElement = App.Components.CreateById<Span>("mySpan3");
 
             Assert.IsNotNull(spanElement.InnerText);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnNull_When_InnerHtmlNotSet_Edge()
         {
-            var spanElement = App.ElementCreateService.CreateById<Span>("mySpan3");
+            var spanElement = App.Components.CreateById<Span>("mySpan3");
 
             Assert.IsNotNull(spanElement.InnerHtml);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnButtonHtml_When_InnerHtmlSet_Edge()
         {
-            var spanElement = App.ElementCreateService.CreateById<Span>("mySpan2");
+            var spanElement = App.Components.CreateById<Span>("mySpan2");
 
             Assert.AreEqual("<button name=\"button\">Click me</button>", spanElement.InnerHtml);
         }

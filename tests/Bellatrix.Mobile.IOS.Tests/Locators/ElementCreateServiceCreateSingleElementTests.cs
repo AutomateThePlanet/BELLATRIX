@@ -1,4 +1,4 @@
-﻿// <copyright file="ElementCreateServiceCreateSingleElementTests.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ComponentCreateServiceCreateSingleElementTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2020 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -21,15 +21,15 @@ namespace Bellatrix.Mobile.IOS.Tests
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
     [AllureSuite("Services")]
-    [AllureFeature("ElementCreateService")]
-    public class ElementCreateServiceCreateSingleElementTests : MSTest.IOSTest
+    [AllureFeature("ComponentCreateService")]
+    public class ComponentCreateServiceCreateSingleElementTests : MSTest.IOSTest
     {
         [TestMethod]
         [Timeout(180000)]
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateById_And_ElementIsOnScreen()
         {
-            var textField = App.ElementCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
 
             textField.ValidateIsVisible();
         }
@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByClass()
         {
-            var textFields = App.ElementCreateService.CreateByClass<TextField>("XCUIElementTypeTextField");
+            var textFields = App.Components.CreateByClass<TextField>("XCUIElementTypeTextField");
 
             textFields.ValidateIsNotDisabled();
         }
@@ -49,7 +49,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByValueContaining_And_ElementIsOnScreen()
         {
-            var label = App.ElementCreateService.CreateByValueContaining<Label>("SumLabel");
+            var label = App.Components.CreateByValueContaining<Label>("SumLabel");
 
             label.ValidateIsVisible();
         }
@@ -59,7 +59,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByIOSNsPredicate_And_ElementIsOnScreen()
         {
-            var button = App.ElementCreateService.CreateByIOSNsPredicate<Button>("type == \"XCUIElementTypeButton\" AND name == \"ComputeSumButton\"");
+            var button = App.Components.CreateByIOSNsPredicate<Button>("type == \"XCUIElementTypeButton\" AND name == \"ComputeSumButton\"");
 
             button.ValidateIsVisible();
         }
@@ -69,7 +69,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByXPath_And_ElementIsOnScreen()
         {
-            var button = App.ElementCreateService.CreateByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");
+            var button = App.Components.CreateByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");
 
             button.ValidateIsVisible();
         }

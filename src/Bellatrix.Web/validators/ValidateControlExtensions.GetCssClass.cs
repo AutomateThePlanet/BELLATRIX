@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateCssClassIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementCssClass, IElement
+            where T : IComponentCssClass, IComponent
         {
             WaitUntil(() => control.CssClass == null, $"The control's CSS class should be null but was '{control.CssClass}'.", timeout, sleepInterval);
-            ValidatedCssClassIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedCssClassIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateCssClassIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementCssClass, IElement
+            where T : IComponentCssClass, IComponent
         {
             WaitUntil(() => control.CssClass.Equals(value), $"The control's CSS class should be '{value}' but was '{control.CssClass}'.", timeout, sleepInterval);
-            ValidatedCssClassIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedCssClassIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedCssClassIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedCssClassIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassIsEvent;
     }
 }

@@ -22,8 +22,8 @@ namespace Bellatrix.Web
     {
         private static void WaitUntil(Func<bool> waitCondition, string exceptionMessage, int? timeoutInMilliseconds, int? sleepIntervalInMilliseconds)
         {
-            var localTimeout = timeoutInMilliseconds ?? 5000;
-            var localSleepInterval = sleepIntervalInMilliseconds ?? 500;
+            var localTimeout = timeoutInMilliseconds ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ValidationsTimeout;
+            var localSleepInterval = sleepIntervalInMilliseconds ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval;
             var wrappedWebDriver = ServicesCollection.Current.Resolve<IWebDriver>();
             var webDriverWait = new WebDriverWait(new SystemClock(), wrappedWebDriver, TimeSpan.FromMilliseconds(localTimeout), TimeSpan.FromMilliseconds(localSleepInterval));
             webDriverWait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException));
@@ -45,7 +45,7 @@ namespace Bellatrix.Web
             }
             catch (WebDriverTimeoutException)
             {
-                var elementPropertyValidateException = new ElementPropertyValidateException(exceptionMessage, wrappedWebDriver.Url);
+                var elementPropertyValidateException = new ComponentPropertyValidateException(exceptionMessage, wrappedWebDriver.Url);
                 ValidatedExceptionThrowedEvent?.Invoke(waitCondition, new ElementNotFulfillingValidateConditionEventArgs(elementPropertyValidateException));
                 throw elementPropertyValidateException;
             }

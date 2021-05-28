@@ -4,14 +4,14 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted.ExtensionMethodsLocators
 {
-    // 1. To ease the usage of the locator, we need to create extension methods of ElementCreateService.
+    // 1. To ease the usage of the locator, we need to create extension methods of ComponentCreateService.
     // This is everything after that you can use your new locator as it was originally part of Bellatrix.
     public static class ElementRepositoryExtensions
     {
-        public static TElement CreateByNameStartingWith<TElement>(this ElementCreateService repo, string id)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => repo.Create<TElement, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement>(new FindNameStartingWithStrategy(id));
+        public static TComponent CreateByNameStartingWith<TComponent>(this ComponentCreateService repo, string id)
+            where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => repo.Create<TComponent, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement>(new FindNameStartingWithStrategy(id));
 
-        public static ElementsList<TElement, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByNameStartingWith<TElement>(this ElementCreateService repo, string id)
-            where TElement : Element<IOSDriver<IOSElement>, IOSElement> => new ElementsList<TElement, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement>(new FindNameStartingWithStrategy(id), null);
+        public static ComponentsList<TComponent, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByNameStartingWith<TComponent>(this ComponentCreateService repo, string id)
+            where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement>(new FindNameStartingWithStrategy(id), null);
     }
 }

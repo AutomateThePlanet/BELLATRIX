@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("Edge Browser")]
     public class TextFieldControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void TextSet_When_UseSetTextMethod_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             textFieldElement.SetText("aangelov@bellatrix.solutions");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             Assert.AreEqual(false, textFieldElement.IsAutoComplete);
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText5");
+            var textFieldElement = App.Components.CreateById<TextField>("myText5");
 
             Assert.AreEqual(false, textFieldElement.IsAutoComplete);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText4");
+            var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
             Assert.AreEqual(true, textFieldElement.IsAutoComplete);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText4");
+            var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
             Assert.AreEqual(false, textFieldElement.IsReadonly);
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText6");
+            var textFieldElement = App.Components.CreateById<TextField>("myText6");
 
             Assert.AreEqual(true, textFieldElement.IsReadonly);
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             var maxLength = textFieldElement.MaxLength;
 
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             Assert.IsNull(textFieldElement.MinLength);
         }
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(20, textFieldElement.Size);
@@ -123,7 +123,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText2");
+            var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
             Assert.AreEqual(80, textFieldElement.MaxLength);
         }
@@ -133,7 +133,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText2");
+            var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
             Assert.AreEqual(10, textFieldElement.MinLength);
         }
@@ -143,7 +143,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText2");
+            var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
             Assert.AreEqual(30, textFieldElement.Size);
         }
@@ -153,7 +153,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText4");
+            var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
             Assert.AreEqual(false, textFieldElement.IsRequired);
         }
@@ -163,7 +163,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText7");
+            var textFieldElement = App.Components.CreateById<TextField>("myText7");
 
             Assert.AreEqual(true, textFieldElement.IsRequired);
         }
@@ -173,7 +173,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText");
+            var textFieldElement = App.Components.CreateById<TextField>("myText");
 
             Assert.AreEqual("your Text term goes here", textFieldElement.Placeholder);
         }
@@ -183,7 +183,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText1");
+            var textFieldElement = App.Components.CreateById<TextField>("myText1");
 
             Assert.IsNull(textFieldElement.Placeholder);
         }
@@ -193,7 +193,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText8");
+            var textFieldElement = App.Components.CreateById<TextField>("myText8");
 
             textFieldElement.Hover();
 
@@ -205,7 +205,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnBlue_When_Focus_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText9");
+            var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
             textFieldElement.Focus();
 
@@ -217,7 +217,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText9");
+            var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
             bool isDisabled = textFieldElement.IsDisabled;
 
@@ -229,7 +229,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_Edge()
         {
-            var textFieldElement = App.ElementCreateService.CreateById<TextField>("myText10");
+            var textFieldElement = App.Components.CreateById<TextField>("myText10");
 
             bool isDisabled = textFieldElement.IsDisabled;
 

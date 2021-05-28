@@ -73,8 +73,7 @@ namespace Bellatrix.Mobile
             string consoleLogTypeText = Enum.GetName(typeof(BrowserStackConsoleLogType), ConsoleLogType)?.ToLower();
             appiumOptions.AddAdditionalCapability("browserstack.console", consoleLogTypeText);
 
-            var browserStackCredentialsResolver = new BrowserStackCredentialsResolver();
-            var credentials = browserStackCredentialsResolver.GetCredentials();
+            var credentials = CloudProviderCredentialsResolver.GetCredentials();
             appiumOptions.AddAdditionalCapability("browserstack.user", credentials.Item1);
             appiumOptions.AddAdditionalCapability("browserstack.key", credentials.Item2);
 

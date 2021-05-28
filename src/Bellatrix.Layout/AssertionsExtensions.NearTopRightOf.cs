@@ -17,49 +17,49 @@ namespace Bellatrix.Layout
 {
     public static partial class AssertionsExtensions
     {
-        public static void AssertNearTopRightOf(this ILayoutElement element, ILayoutElement secondElement)
+        public static void AssertNearTopRightOf(this ILayoutComponent element, ILayoutComponent secondElement)
         {
             AssertNearTopOf(element, secondElement);
             AssertNearRightOf(secondElement, element);
         }
 
-        public static void AssertNearTopRightOf(this ILayoutElement element, ILayoutElement secondElement, double top, double right)
+        public static void AssertNearTopRightOf(this ILayoutComponent element, ILayoutComponent secondElement, double top, double right)
         {
             AssertNearTopOf(element, secondElement, top);
             AssertNearRightOf(secondElement, element, right);
         }
 
-        public static void AssertNearTopRightOfBetween(this ILayoutElement element, ILayoutElement secondElement, double fromTop, double toTop, double fromRight, double toRight)
+        public static void AssertNearTopRightOfBetween(this ILayoutComponent element, ILayoutComponent secondElement, double fromTop, double toTop, double fromRight, double toRight)
         {
             AssertNearTopOfBetween(element, secondElement, fromTop, toTop);
             AssertNearRightOfBetween(secondElement, element, fromRight, toRight);
         }
 
-        public static void AssertNearTopRightOfGreaterThan(this ILayoutElement element, ILayoutElement secondElement, double top, double right)
+        public static void AssertNearTopRightOfGreaterThan(this ILayoutComponent element, ILayoutComponent secondElement, double top, double right)
         {
             AssertNearTopOfGreaterThan(element, secondElement, top);
             AssertNearRightOfGreaterThan(secondElement, element, right);
         }
 
-        public static void AssertNearTopRightOfGreaterThanOrEqual(this ILayoutElement element, ILayoutElement secondElement, double top, double right)
+        public static void AssertNearTopRightOfGreaterThanOrEqual(this ILayoutComponent element, ILayoutComponent secondElement, double top, double right)
         {
             AssertNearTopOfGreaterThanOrEqual(element, secondElement, top);
             AssertNearRightOfGreaterThanOrEqual(secondElement, element, right);
         }
 
-        public static void AssertNearTopRightOfLessThan(this ILayoutElement element, ILayoutElement secondElement, double top, double right)
+        public static void AssertNearTopRightOfLessThan(this ILayoutComponent element, ILayoutComponent secondElement, double top, double right)
         {
             AssertNearTopOfLessThan(element, secondElement, top);
             AssertNearRightOfLessThan(secondElement, element, right);
         }
 
-        public static void AssertNearTopRightOfLessThanOrEqual(this ILayoutElement element, ILayoutElement secondElement, double top, double right)
+        public static void AssertNearTopRightOfLessThanOrEqual(this ILayoutComponent element, ILayoutComponent secondElement, double top, double right)
         {
             AssertNearTopOfLessThanOrEqual(element, secondElement, top);
             AssertNearRightOfLessThanOrEqual(secondElement, element, right);
         }
 
-        public static void AssertNearTopRightOfApproximate(this ILayoutElement element, ILayoutElement secondElement, double top, double right, double percent)
+        public static void AssertNearTopRightOfApproximate(this ILayoutComponent element, ILayoutComponent secondElement, double top, double right, double percent)
         {
             AssertNearTopOfApproximate(element, secondElement, top, percent);
             AssertNearRightOfApproximate(secondElement, element, right, percent);

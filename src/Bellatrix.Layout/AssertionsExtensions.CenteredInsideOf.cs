@@ -17,7 +17,7 @@ namespace Bellatrix.Layout
 {
     public static partial class AssertionsExtensions
     {
-        public static void AssertCenteredInsideOf(this ILayoutElement innerElement, ILayoutElement outerElement)
+        public static void AssertCenteredInsideOf(this ILayoutComponent innerElement, ILayoutComponent outerElement)
         {
             AssertLeftInsideOf(innerElement, outerElement);
             AssertRightInsideOf(innerElement, outerElement);
@@ -25,7 +25,7 @@ namespace Bellatrix.Layout
             AssertBottomInsideOf(innerElement, outerElement);
         }
 
-        public static void AssertCenteredInsideOf(this ILayoutElement innerElement, ILayoutElement outerElement, double distance)
+        public static void AssertCenteredInsideOf(this ILayoutComponent innerElement, ILayoutComponent outerElement, double distance)
         {
             AssertLeftInsideOf(innerElement, outerElement, distance);
             AssertRightInsideOf(innerElement, outerElement, distance);
@@ -33,7 +33,7 @@ namespace Bellatrix.Layout
             AssertBottomInsideOf(innerElement, outerElement, distance);
         }
 
-        public static void AssertCenteredInsideOfBetween(this ILayoutElement innerElement, ILayoutElement outerElement, double from, double to)
+        public static void AssertCenteredInsideOfBetween(this ILayoutComponent innerElement, ILayoutComponent outerElement, double from, double to)
         {
             AssertLeftInsideOfBetween(innerElement, outerElement, from, to);
             AssertRightInsideOfBetween(innerElement, outerElement, from, to);
@@ -41,7 +41,7 @@ namespace Bellatrix.Layout
             AssertBottomInsideOfBetween(innerElement, outerElement, from, to);
         }
 
-        public static void AssertCenteredInsideOfGreaterThan(this ILayoutElement innerElement, ILayoutElement outerElement, double distance)
+        public static void AssertCenteredInsideOfGreaterThan(this ILayoutComponent innerElement, ILayoutComponent outerElement, double distance)
         {
             AssertLeftInsideOfGreaterThan(innerElement, outerElement, distance);
             AssertRightInsideOfGreaterThan(innerElement, outerElement, distance);
@@ -49,7 +49,7 @@ namespace Bellatrix.Layout
             AssertBottomInsideOfGreaterThan(innerElement, outerElement, distance);
         }
 
-        public static void AssertCenteredInsideOfGreaterThanOrEqual(this ILayoutElement innerElement, ILayoutElement outerElement, double distance)
+        public static void AssertCenteredInsideOfGreaterThanOrEqual(this ILayoutComponent innerElement, ILayoutComponent outerElement, double distance)
         {
             AssertLeftInsideOfGreaterThanOrEqual(innerElement, outerElement, distance);
             AssertRightInsideOfGreaterThanOrEqual(innerElement, outerElement, distance);
@@ -57,7 +57,7 @@ namespace Bellatrix.Layout
             AssertBottomInsideOfGreaterThanOrEqual(innerElement, outerElement, distance);
         }
 
-        public static void AssertCenteredInsideOfLessThan(this ILayoutElement innerElement, ILayoutElement outerElement, double distance)
+        public static void AssertCenteredInsideOfLessThan(this ILayoutComponent innerElement, ILayoutComponent outerElement, double distance)
         {
             AssertLeftInsideOfLessThan(innerElement, outerElement, distance);
             AssertRightInsideOfLessThan(innerElement, outerElement, distance);
@@ -65,7 +65,7 @@ namespace Bellatrix.Layout
             AssertBottomInsideOfLessThan(innerElement, outerElement, distance);
         }
 
-        public static void AssertCenteredInsideOfLessThanOrEqual(this ILayoutElement innerElement, ILayoutElement outerElement, double distance)
+        public static void AssertCenteredInsideOfLessThanOrEqual(this ILayoutComponent innerElement, ILayoutComponent outerElement, double distance)
         {
             AssertLeftInsideOfLessThanOrEqual(innerElement, outerElement, distance);
             AssertRightInsideOfLessThanOrEqual(innerElement, outerElement, distance);
@@ -73,7 +73,7 @@ namespace Bellatrix.Layout
             AssertBottomInsideOfLessThanOrEqual(innerElement, outerElement, distance);
         }
 
-        public static void AssertCenteredInsideOfApproximate(this ILayoutElement innerElement, ILayoutElement outerElement, double distance, double percent)
+        public static void AssertCenteredInsideOfApproximate(this ILayoutComponent innerElement, ILayoutComponent outerElement, double distance, double percent)
         {
             AssertLeftInsideOfApproximate(innerElement, outerElement, distance, percent);
             AssertRightInsideOfApproximate(innerElement, outerElement, distance, percent);

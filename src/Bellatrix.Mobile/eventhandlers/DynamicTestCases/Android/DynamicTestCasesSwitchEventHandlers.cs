@@ -19,8 +19,8 @@ namespace Bellatrix.Mobile.DynamicTestCases.Android
 {
     public class DynamicTestCasesSwitchEventHandlers : SwitchEventHandlers
     {
-        protected override void TurningOnEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Turn on {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void TurningOffEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Turn off {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

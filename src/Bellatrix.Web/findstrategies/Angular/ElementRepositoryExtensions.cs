@@ -16,28 +16,28 @@ namespace Bellatrix.Web.Angular
 {
     public static class ElementRepositoryExtensions
     {
-        public static TElement CreateByNgBinding<TElement>(this ElementCreateService repository, string binding, bool shouldCacheElement = false)
-            where TElement : Element => repository.Create<TElement, ByNgBinding>(new ByNgBinding(binding), shouldCacheElement);
+        public static TComponent CreateByNgBinding<TComponent>(this ComponentCreateService repository, string binding, bool shouldCacheElement = false)
+            where TComponent : Component => repository.Create<TComponent, ByNgBinding>(new ByNgBinding(binding), shouldCacheElement);
 
-        public static TElement CreateByNgModel<TElement>(this ElementCreateService repository, string model, bool shouldCacheElement = false)
-            where TElement : Element => repository.Create<TElement, ByNgModel>(new ByNgModel(model), shouldCacheElement);
+        public static TComponent CreateByNgModel<TComponent>(this ComponentCreateService repository, string model, bool shouldCacheElement = false)
+            where TComponent : Component => repository.Create<TComponent, ByNgModel>(new ByNgModel(model), shouldCacheElement);
 
-        public static TElement CreateByNgRepeater<TElement>(this ElementCreateService repository, string repeater, bool shouldCacheElement = false)
-            where TElement : Element => repository.Create<TElement, ByNgRepeater>(new ByNgRepeater(repeater), shouldCacheElement);
+        public static TComponent CreateByNgRepeater<TComponent>(this ComponentCreateService repository, string repeater, bool shouldCacheElement = false)
+            where TComponent : Component => repository.Create<TComponent, ByNgRepeater>(new ByNgRepeater(repeater), shouldCacheElement);
 
-        public static TElement CreateByNgSelectedOption<TElement>(this ElementCreateService repository, string selectedOption, bool shouldCacheElement = false)
-            where TElement : Element => repository.Create<TElement, ByNgSelectedOption>(new ByNgSelectedOption(selectedOption), shouldCacheElement);
+        public static TComponent CreateByNgSelectedOption<TComponent>(this ComponentCreateService repository, string selectedOption, bool shouldCacheElement = false)
+            where TComponent : Component => repository.Create<TComponent, ByNgSelectedOption>(new ByNgSelectedOption(selectedOption), shouldCacheElement);
 
-        public static ElementsList<TElement> CreateAllByNgBinding<TElement>(this ElementCreateService repository, string binding, bool shouldCacheElement = false)
-            where TElement : Element => new ElementsList<TElement>(new ByNgBinding(binding), null, shouldCacheElement);
+        public static ComponentsList<TComponent> CreateAllByNgBinding<TComponent>(this ComponentCreateService repository, string binding, bool shouldCacheElement = false)
+            where TComponent : Component => new ComponentsList<TComponent>(new ByNgBinding(binding), null, shouldCacheElement);
 
-        public static ElementsList<TElement> CreateAllByNgModel<TElement>(this ElementCreateService repository, string model, bool shouldCacheElement = false)
-            where TElement : Element => new ElementsList<TElement>(new ByNgModel(model), null, shouldCacheElement);
+        public static ComponentsList<TComponent> CreateAllByNgModel<TComponent>(this ComponentCreateService repository, string model, bool shouldCacheElement = false)
+            where TComponent : Component => new ComponentsList<TComponent>(new ByNgModel(model), null, shouldCacheElement);
 
-        public static ElementsList<TElement> CreateAllByNgRepeater<TElement>(this ElementCreateService repository, string repeater, bool shouldCacheElement = false)
-            where TElement : Element => new ElementsList<TElement>(new ByNgRepeater(repeater), null, shouldCacheElement);
+        public static ComponentsList<TComponent> CreateAllByNgRepeater<TComponent>(this ComponentCreateService repository, string repeater, bool shouldCacheElement = false)
+            where TComponent : Component => new ComponentsList<TComponent>(new ByNgRepeater(repeater), null, shouldCacheElement);
 
-        public static ElementsList<TElement> CreateAllByNgSelectedOption<TElement>(this ElementCreateService repository, string selectedOption, bool shouldCacheElement = false)
-            where TElement : Element => new ElementsList<TElement>(new ByNgSelectedOption(selectedOption), null, shouldCacheElement);
+        public static ComponentsList<TComponent> CreateAllByNgSelectedOption<TComponent>(this ComponentCreateService repository, string selectedOption, bool shouldCacheElement = false)
+            where TComponent : Component => new ComponentsList<TComponent>(new ByNgSelectedOption(selectedOption), null, shouldCacheElement);
     }
 }

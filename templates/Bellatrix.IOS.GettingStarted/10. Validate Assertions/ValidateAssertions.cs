@@ -1,20 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class ValidateAssertions : MSTest.IOSTest
+    public class ValidateAssertions : NUnit.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void CommonAssertionsIOSControls()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
 
@@ -31,17 +31,17 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             button.ValidateIsNotDisabled();
             ////Assert.AreEqual(false, button.IsDisabled);
 
-            var answerLabel = App.ElementCreateService.CreateByName<Label>("Answer");
+            var answerLabel = App.Components.CreateByName<Label>("Answer");
 
             // 4. See if the element is present or not using the IsPresent property.
             answerLabel.ValidateIsVisible();
             ////Assert.IsTrue(label.IsPresent);
 
-            var password = App.ElementCreateService.CreateById<Password>("IntegerB");
+            var password = App.Components.CreateById<Password>("IntegerB");
 
             password.SetPassword("9");
 
-            var textField = App.ElementCreateService.CreateById<TextField>("IntegerA");
+            var textField = App.Components.CreateById<TextField>("IntegerA");
 
             textField.SetText("1");
 
@@ -50,19 +50,19 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             ////Assert.AreEqual("1", textField.GetText());
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
         [IOS(Constants.AppleCalendarBundleId,
           Constants.IOSDefaultVersion,
           Constants.IOSDefaultDeviceName,
           Lifecycle.RestartEveryTime)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.Components.CreateById<Button>("Add");
             addButton.Click();
 
-            var checkBox = App.ElementCreateService.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var checkBox = App.Components.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             checkBox.Check();
 
@@ -80,19 +80,19 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             Assert.IsFalse(checkBox.IsChecked);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
         [IOS(Constants.AppleCalendarBundleId,
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
             Lifecycle.RestartEveryTime)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_ClickMethodCalled()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.Components.CreateById<Button>("Add");
             addButton.Click();
 
-            var radioButton = App.ElementCreateService.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var radioButton = App.Components.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             radioButton.Click();
 

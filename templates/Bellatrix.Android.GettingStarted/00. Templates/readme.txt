@@ -16,19 +16,19 @@ dotnet new Bellatrix.Mobile.Android.GettingStarted
 All available templates:
 
 Bellatrix.API.GettingStarted
-Bellatrix.API.MSTest.Tests
+Bellatrix.API.NUnit.Tests
 Bellatrix.API.NUnit.Tests
 Bellatrix.Desktop.GettingStarted
-Bellatrix.Desktop.MSTest.Tests
+Bellatrix.Desktop.NUnit.Tests
 Bellatrix.Desktop.NUnit.Tests
 Bellatrix.Web.GettingStarted
-Bellatrix.Web.MSTest.Tests
+Bellatrix.Web.NUnit.Tests
 Bellatrix.Web.NUnit.Tests
 Bellatrix.Mobile.Android.GettingStarted
-Bellatrix.Mobile.Android.MSTest.Tests
+Bellatrix.Mobile.Android.NUnit.Tests
 Bellatrix.Mobile.Android.NUnit.Tests
 Bellatrix.Mobile.IOS.GettingStarted
-Bellatrix.Mobile.IOS.MSTest.Tests
+Bellatrix.Mobile.IOS.NUnit.Tests
 Bellatrix.Mobile.IOS.NUnit.Tests
 
 2. Another option is to use the built-in Visual Studio templates.

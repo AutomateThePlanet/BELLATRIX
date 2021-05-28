@@ -23,7 +23,7 @@ namespace Bellatrix.Desktop.Untils
         public WaitToHaveContentStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().ElementToHaveContentTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ElementToHaveContentTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)

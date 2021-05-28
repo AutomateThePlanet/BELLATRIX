@@ -25,7 +25,7 @@ namespace Bellatrix.Desktop.Untils
         {
             WrappedWebDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
             TimeoutInterval = timeoutInterval;
-            SleepInterval = sleepInterval ?? ConfigurationService.GetSection<DesktopSettings>().SleepInterval;
+            SleepInterval = sleepInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.SleepInterval;
         }
 
         protected WindowsDriver<WindowsElement> WrappedWebDriver { get; }

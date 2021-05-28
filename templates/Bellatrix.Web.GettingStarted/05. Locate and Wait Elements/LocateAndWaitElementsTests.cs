@@ -1,17 +1,16 @@
 ﻿using Bellatrix.Web.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    public class LocateAndWaitElementsTests : MSTest.WebTest
+    [TestFixture]
+    public class LocateAndWaiTComponentsTests : NUnit.WebTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 1. Sometimes you need to perform an action against an element only when a specific condition is true.
             // As mentioned in previous part of the guide, BELLATRIX by default always waits for elements to exist.
@@ -23,57 +22,65 @@ namespace Bellatrix.Web.GettingStarted
             // As you can see in the example below you can chain multiple of this methods.
             //
             // Note: Since Bellatrix, elements creation logic is lazy loading as mentioned before,
-            // BELLATRIX waits for the conditions to be True on the first action you perform with the ElementCreateService.
+            // BELLATRIX waits for the conditions to be True on the first action you perform with the ComponentCreateService.
             //
-            // Note 2: Keep in mind that with this syntax these conditions are checked everytime you perform an action with the ElementCreateService.
+            // Note 2: Keep in mind that with this syntax these conditions are checked everytime you perform an action with the ComponentCreateService.
             // Which can lead tо small execution delays.
             //
             // The default timeouts that BELLATRIX use are placed inside the testFrameworkSettings file, mentioned in '01. Folder and File Structure' chapter.
             // Inside it, is the timeoutSettings section. All values are in seconds.
             // "timeoutSettings": {
-            //    "waitForAjaxTimeout": "30",
-            //    "sleepInterval": "1",
-            //    "elementToBeVisibleTimeout": "30",
-            //    "elementToExistTimeout": "30",
-            //    "elementToNotExistTimeout": "30",
-            //    "elementToBeClickableTimeout": "30",
-            //    "elementNotToBeVisibleTimeout": "30",
-            //    "elementToHaveContentTimeout": "15"
+            //     "elementWaitTimeout": "30",
+            //     "pageLoadTimeout": "30",
+            //     "scriptTimeout": "1",
+            //     "waitForAjaxTimeout": "30",
+            //     "sleepInterval": "1",
+            //     "waitUntilReadyTimeout": "30",
+            //     "waitForJavaScriptAnimationsTimeout": "30",
+            //     "waitForAngularTimeout": "30",
+            //     "waitForPartialUrl": "30",
+            //     "validationsTimeout": "30",
+            //     "elementToBeVisibleTimeout": "30",
+            //     "elementToExistTimeout": "30",
+            //     "elementToNotExistTimeout": "30",
+            //     "elementToBeClickableTimeout": "30",
+            //     "elementNotToBeVisibleTimeout": "30",
+            //     "elementToHaveContentTimeout": "15"
             // },
-            var blogLink = App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToBeClickable().ToBeVisible();
+            var blogLink = App.Components.CreateByLinkText<Anchor>("Blog").ToBeClickable().ToBeVisible();
 
             blogLink.Click();
 
             // 2. You can always override the timeout settings for each method.
             // The first value is the timeout in seconds and the second one controls how often the engine checks the condition.
-            var promotionsLink = App.ElementCreateService.CreateByLinkText<Anchor>("Promotions").ToHasContent(40, 1);
+            var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions").ToHasContent(40, 1);
 
             promotionsLink.Click();
 
             // 3. All available ToBe methods:
-            // ToExists  --> App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToExists();
+            // ToExists  --> App.Components.CreateByLinkText<Anchor>("Blog").ToExists();
             // Waits for the element to exist on the page. BELLATRIX always does it by default.
             // But if use another ToBe methods you need to add it again since you have to override the default lifecycle.
             //
-            // ToNotExists  --> App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToNotExists();
+            // ToNotExists  --> App.Components.CreateByLinkText<Anchor>("Blog").ToNotExists();
             // Waits for the element to disappear. Usually, we use in assertion methods.
             //
-            // ToBeVisible  --> App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToBeVisible();
+            // ToBeVisible  --> App.Components.CreateByLinkText<Anchor>("Blog").ToBeVisible();
             // Waits for the element to be visible.
             //
-            // ToNotBeVisible  --> App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToNotBeVisible();
+            // ToNotBeVisible  --> App.Components.CreateByLinkText<Anchor>("Blog").ToNotBeVisible();
             // Waits for the element to be invisible.
             //
-            // ToBeClickable  --> App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToBeClickable();
+            // ToBeClickable  --> App.Components.CreateByLinkText<Anchor>("Blog").ToBeClickable();
             // Waits for the element to be clickable (may be disabled at first).
             //
-            // ToHasContent  --> App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToHasContent();
+            // ToHasContent  --> App.Components.CreateByLinkText<Anchor>("Blog").ToHasContent();
             // Waits for the element to has some content in it. For example, some validation DIV or label.
             //
-            // ToHasStyle  --> App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToHasStyle("disabled");
+            // ToHasStyle  --> App.Components.CreateByLinkText<Anchor>("Blog").ToHasStyle("disabled");
             // Waits for the element to have some content in it. For example, some validation DIV or label.
             //
-            // ToBeDisabled  --> App.ElementCreateService.CreateByLinkText<Anchor>("Blog").ToBeDisabled();
+            // ToBeDisabled  --> App.Components.CreateByLinkText<Anchor>("Blog").ToBeDisabled();
             // Waits for the element to be disabled.
         }
     }

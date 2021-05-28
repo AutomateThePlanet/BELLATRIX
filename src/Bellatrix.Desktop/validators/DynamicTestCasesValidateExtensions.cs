@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Events;
 using Bellatrix.DynamicTestCases;
-using ElementNotFulfillingValidateConditionEventArgs = Bellatrix.Desktop.Validates.ElementNotFulfillingValidateConditionEventArgs;
+using ElementNotFulfillingValidateConditionEventArgs = Bellatrix.Desktop.Validates.ComponentNotFulfillingValidateConditionEventArgs;
 
 namespace Bellatrix.Desktop
 {
@@ -21,30 +21,30 @@ namespace Bellatrix.Desktop
     {
         protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
-        protected override void ValidatedIsVisibleEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is visible");
+        protected override void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is visible");
 
-        protected override void ValidatedIsNotVisibleEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is NOT visible");
+        protected override void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT visible");
 
-        protected override void ValidatedTimeIsEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} time ", "is '{arg.ActionValue}'");
+        protected override void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} time ", "is '{arg.ActionValue}'");
 
-        protected override void ValidatedTextIsNullEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} text ", "is NULL");
+        protected override void ValidatedTextIsNullEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} text ", "is NULL");
 
-        protected override void ValidatedTextIsEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} text ", $"is '{arg.ActionValue}'");
+        protected override void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} text ", $"is '{arg.ActionValue}'");
 
-        protected override void ValidatedIsSelectedEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is selected");
+        protected override void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is selected");
 
-        protected override void ValidatedIsNotSelectedEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is NOT selected");
+        protected override void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT selected");
 
-        protected override void ValidatedInnerTextIsEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} inner text ", $"is '{arg.ActionValue}'");
+        protected override void ValidatedInnerTextIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} inner text ", $"is '{arg.ActionValue}'");
 
-        protected override void ValidatedIsDisabledEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is disabled");
+        protected override void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is disabled");
 
-        protected override void ValidatedIsNotDisabledEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is NOT disabled");
+        protected override void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT disabled");
 
-        protected override void ValidatedDateIsEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} date ", $"is '{arg.ActionValue}'");
+        protected override void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} date ", $"is '{arg.ActionValue}'");
 
-        protected override void ValidatedIsCheckedEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is checked");
+        protected override void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is checked");
 
-        protected override void ValidatedIsNotCheckedEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is NOT checked");
+        protected override void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT checked");
     }
 }

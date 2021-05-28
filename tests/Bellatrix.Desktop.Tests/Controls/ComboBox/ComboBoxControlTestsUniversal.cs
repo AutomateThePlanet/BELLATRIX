@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("ComboBox Control")]
     [AllureTag("Universal")]
-    public class ComboBoxControlTestsUniversal : BellatrixBaseTest
+    public class ComboBoxControlTestsUniversal : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ComboBoxHovered_Universal()
         {
-            var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("enabledSelect");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("enabledSelect");
 
             comboBox.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultTextBlock");
+            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
             Assert.AreEqual("selectHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void Item2Selected_When_ComboBoxSecondOption_Universal()
         {
-            var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("enabledSelect");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("enabledSelect");
 
             comboBox.SelectByText("Item2");
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_ComboBoxIsNotDisabled_Universal()
         {
-            var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("enabledSelect");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("enabledSelect");
 
             Assert.AreEqual(false, comboBox.IsDisabled);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_ComboBoxIsDisabled_Universal()
         {
-            var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("disalbedSelect");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("disalbedSelect");
 
             Assert.AreEqual(true, comboBox.IsDisabled);
         }

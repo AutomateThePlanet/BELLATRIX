@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.BddLogging.Android
 {
     public class BDDLoggingComboBoxEventHandlers : ComboBoxEventHandlers
     {
-        protected override void SelectingEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Select '{arg.ActionValue}' from {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

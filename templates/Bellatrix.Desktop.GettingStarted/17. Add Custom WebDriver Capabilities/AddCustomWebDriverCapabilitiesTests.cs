@@ -1,10 +1,9 @@
-﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.NUnit;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+    [TestFixture]
     public class AddCustomWebDriverCapabilitiesTests : DesktopTest
     {
         // 1. BELLATRIX hides the complexity of initialisation of WebDriver and all related services.
@@ -15,33 +14,33 @@ namespace Bellatrix.Desktop.GettingStarted
         {
             // 2. Add custom WebDriver capability.
             App.AddAdditionalCapability("appArguments", @"MyTestFile.txt");
-            App.AddAdditionalCapability("appWorkingDir", @"C:\MyTestFolder\");
+            ////App.AddAdditionalCapability("appWorkingDir", @"C:\MyTestFolder\");
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Ignore]
+        [Test, Explicit]
+        [Category(Categories.CI)]
+        [Ignore("API example purposes only. No need to run.")]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test, Explicit]
+        [Category(Categories.CI)]
         [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonClicked", label.InnerText);
         }
     }

@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Untils
         public WaitNotToExistStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<TimeoutSettings>().ElementToNotExistTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToNotExistTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)
@@ -29,7 +29,7 @@ namespace Bellatrix.Web.Untils
             WaitUntil(d => ElementNotExists(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
         }
 
-        public override void WaitUntil<TBy>(TBy by, Element parent)
+        public override void WaitUntil<TBy>(TBy by, Component parent)
         {
             WaitUntil(d => ElementNotExists(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
         }

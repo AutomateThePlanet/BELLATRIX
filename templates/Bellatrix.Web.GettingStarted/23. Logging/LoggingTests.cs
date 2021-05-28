@@ -1,22 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class LoggingTests : MSTest.WebTest
+    [TestFixture]
+    public class LoggingTests : NUnit.WebTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void AddCustomMessagesToLog()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.ElementCreateService.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonMReadMoreButton = App.ElementCreateService.CreateByInnerTextContaining<Anchor>("Read more");
-            Anchor addToCartFalcon9 = App.ElementCreateService.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
-            Anchor viewCartButton = App.ElementCreateService.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
+            Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
+            Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
+            Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
+            Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
 
             sortDropDown.SelectByText("Sort by price: low to high");
             protonMReadMoreButton.Hover();
@@ -29,25 +27,7 @@ namespace Bellatrix.Web.GettingStarted
             addToCartFalcon9.Click();
             viewCartButton.Click();
 
-            // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the logs generation.
-            //  "loggingSettings": {
-            //      "isEnabled": "true",
-            //      "isConsoleLoggingEnabled": "true",
-            //      "isDebugLoggingEnabled": "true",
-            //      "isEventLoggingEnabled": "false",
-            //      "isFileLoggingEnabled": "true",
-            //      "outputTemplate":  "{Message:lj}{NewLine}",
-            //      "addUrlToBddLogging": "false"
-            //  }
-            //
-            // You can disable the logs entirely. There are different places where the logs are populated.
-            // By default, you can see the logs in the output window of each test.
-            // Also, a file called logs.txt is generated in the folder with the DLLs of your tests.
-            // If you execute your tests in CI with some CLI test runner the logs are printed there as well.
-            // outputTemplate - controls how the message is formatted. You can add additional info such as timestamp and much more.
-            // for more info visit- https://github.com/serilog/serilog/wiki/Formatting-Output
-            //
-            // 3. Generated Log, as you can see the above custom message is added to the log.
+            // Generated Log, as you can see the above custom message is added to the log.
             // #### Start Chrome on PORT = 53153
             // Start Test
             //     Class = LoggingTests Name = AddCustomMessagesToLog

@@ -15,14 +15,16 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
-
+using Bellatrix;
+using Bellatrix.Assertions;
+using Bellatrix.CognitiveServices;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.PageObjects;
 using Bellatrix.Desktop.Services;
 using Bellatrix.DynamicTestCases;
-using Bellatrix.ImageRecognition.ComputerVision;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 
@@ -33,30 +35,36 @@ namespace Bellatrix.Desktop
         // TODO: Change to be ThreadLocal.
         private static bool _shouldStartLocalService;
         private static Process _winAppDriverProcess;
-        private static string _ip;
-        private static int _port;
 
         public App()
         {
-            _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ShouldStartLocalService;
-            _ip = ConfigurationService.GetSection<DesktopSettings>().Ip;
-            _port = ConfigurationService.GetSection<DesktopSettings>().Port;
+            _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
         }
 
         public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
 
-        public ElementWaitService ElementWaitService => ServicesCollection.Current.Resolve<ElementWaitService>();
+        [Obsolete("ComponentWaitService is deprecated use Wait property instead.")]
+        public ComponentWaitService ComponentWaitService => ServicesCollection.Current.Resolve<ComponentWaitService>();
+        public ComponentWaitService Wait => ServicesCollection.Current.Resolve<ComponentWaitService>();
 
-        public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
+        [Obsolete("ComponentCreateService is deprecated use Components property instead.")]
+        public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
+        public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
+
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
         public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
+        public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
+
+        public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
         public static void StartWinAppDriver()
         {
             if (_shouldStartLocalService)
             {
+                int port = int.Parse(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url.Split(':').Last());
+
                 // Anton(06.09.2018): maybe we can kill WinAppDriver every time
-                if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver") || ProcessProvider.IsPortBusy(_port))
+                if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver") || ProcessProvider.IsPortBusy(port))
                 {
                     return;
                 }
@@ -68,8 +76,8 @@ namespace Bellatrix.Desktop
                 }
 
                 string winAppDriverExePath = Path.Combine(winAppDriverPath, "WinAppDriver.exe");
-                _winAppDriverProcess = ProcessProvider.StartProcess(winAppDriverExePath, winAppDriverPath, $" {_ip} {_port}", true);
-                ProcessProvider.WaitPortToGetBusy(_port);
+                _winAppDriverProcess = ProcessProvider.StartProcess(winAppDriverExePath, winAppDriverPath, $"{ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url}", true);
+                ProcessProvider.WaitPortToGetBusy(port);
             }
         }
 
@@ -92,17 +100,17 @@ namespace Bellatrix.Desktop
             ServicesCollection.Main.RegisterInstance(dictionary, $"caps-{fullClassName}");
         }
 
-        public void AddElementEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : ElementEventHandlers
+        public void AddElementEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : ComponentEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.SubscribeToAll();
         }
 
-        public void RemoveElementEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : ElementEventHandlers
+        public void RemoveElementEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : ComponentEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.UnsubscribeToAll();
         }
 
@@ -119,7 +127,7 @@ namespace Bellatrix.Desktop
         }
 
         public TPage Create<TPage>()
-            where TPage : Page
+            where TPage : DesktopPage
         {
             TPage page = ServicesCollection.Current.Resolve<TPage>();
             return page;

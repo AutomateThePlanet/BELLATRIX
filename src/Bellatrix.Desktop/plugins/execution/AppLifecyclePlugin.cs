@@ -12,11 +12,18 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.Services;
+using Bellatrix.KeyVault;
 using Bellatrix.Plugins;
+using Bellatrix.Utilities;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop.Plugins
 {
@@ -24,26 +31,23 @@ namespace Bellatrix.Desktop.Plugins
     {
         protected override void PostTestsArrange(object sender, PluginEventArgs e)
         {
-            if (e.TestClassType.GetCustomAttributes().Any(x => x.GetType().Equals(typeof(AppAttribute)) || x.GetType().IsSubclassOf(typeof(AppAttribute))))
+            var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+
+            if (appConfiguration != null)
             {
-                var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+                ResolvePreviousAppConfiguration(e.Container);
 
-                if (appConfiguration != null)
+                bool shouldRestartApp = ShouldRestartApp(e.Container);
+
+                if (shouldRestartApp)
                 {
-                    ResolvePreviousAppConfiguration(e.Container);
-
-                    bool shouldRestartApp = ShouldRestartApp(e.Container);
-
-                    if (shouldRestartApp)
-                    {
-                        RestartApp(e.Container);
-                        e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
-                    }
+                    RestartApp(e.Container);
+                    e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
                 }
-                else
-                {
-                    e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
-                }
+            }
+            else
+            {
+                e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
             }
 
             base.PostTestsArrange(sender, e);
@@ -92,7 +96,7 @@ namespace Bellatrix.Desktop.Plugins
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             var previousAppConfiguration = container.Resolve<AppInitializationInfo>("_previousAppConfiguration");
             var currentAppConfiguration = container.Resolve<AppInitializationInfo>("_currentAppConfiguration");
-            if (previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
+            if (currentAppConfiguration?.Lifecycle == Lifecycle.RestartEveryTime || previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
             {
                 shouldRestartApp = true;
             }
@@ -151,8 +155,27 @@ namespace Bellatrix.Desktop.Plugins
             }
             else
             {
-                container.RegisterInstance(default(AppInitializationInfo), "_currentAppConfiguration");
-                return null;
+                Lifecycle currentLifecycle = Parse<Lifecycle>(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.DefaultLifeCycle);
+                Size currentAppSize = default;
+                if (!string.IsNullOrEmpty(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Resolution))
+                {
+                    currentAppSize = WindowsSizeResolver.GetWindowSize(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Resolution);
+                }
+
+                var appConfiguration = new AppInitializationInfo
+                {
+                    AppPath = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.DefaultAppPath,
+                    Lifecycle = currentLifecycle,
+                    Size = currentAppSize,
+                    AppiumOptions = new DesiredCapabilities(),
+                    ClassFullName = testClassType.FullName,
+                };
+
+                InitializeGridOptionsFromConfiguration(appConfiguration.AppiumOptions, testClassType);
+                InitializeCustomCodeOptions(appConfiguration.AppiumOptions, testClassType);
+
+                container.RegisterInstance(appConfiguration, "_currentAppConfiguration");
+                return appConfiguration;
             }
         }
 
@@ -170,6 +193,84 @@ namespace Bellatrix.Desktop.Plugins
 
             var classappAttribute = testClassType.GetCustomAttribute<AppAttribute>(true);
             return classappAttribute;
+        }
+
+        private TEnum Parse<TEnum>(string value)
+            where TEnum : struct
+        {
+            return (TEnum)Enum.Parse(typeof(TEnum), value.Replace(" ", string.Empty), true);
+        }
+
+        private void InitializeCustomCodeOptions(dynamic options, Type testClassType)
+        {
+            var customCodeOptions = ServicesCollection.Current.Resolve<Dictionary<string, string>>($"caps-{testClassType.FullName}");
+            if (customCodeOptions != null && customCodeOptions.Count > 0)
+            {
+                foreach (var item in customCodeOptions)
+                {
+                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    {
+                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                    }
+                }
+            }
+        }
+
+        private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
+        {
+            if (ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Arguments == null)
+            {
+                return;
+            }
+
+            if (ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Arguments[0].Count > 0)
+            {
+                foreach (var item in ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Arguments[0])
+                {
+                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    {
+                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                    }
+                }
+            }
+        }
+
+        private dynamic FormatGridOptions(string option, Type testClassType)
+        {
+            if (bool.TryParse(option, out bool result))
+            {
+                return result;
+            }
+            else if (int.TryParse(option, out int resultNumber))
+            {
+                return resultNumber;
+            }
+            else if (option.StartsWith("env_") || option.StartsWith("vault_"))
+            {
+                return SecretsResolver.GetSecret(() => option);
+            }
+            else if (double.TryParse(option, out double resultRealNumber))
+            {
+                return resultRealNumber;
+            }
+            else if (option.StartsWith("AssemblyFolder", StringComparison.Ordinal))
+            {
+                var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
+                option = option.Replace("AssemblyFolder", executionFolder);
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    option = option.Replace('\\', '/');
+                }
+
+                return option;
+            }
+            else
+            {
+                var runName = testClassType.Assembly.GetName().Name;
+                var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
+                return option.Replace("{runName}", timestamp).Replace("{runName}", runName);
+            }
         }
     }
 }

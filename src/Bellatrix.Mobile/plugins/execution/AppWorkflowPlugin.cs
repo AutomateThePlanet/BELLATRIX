@@ -12,11 +12,16 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using Bellatrix.KeyVault;
 using Bellatrix.Mobile.Configuration;
+using Bellatrix.Mobile.Services;
 using Bellatrix.Plugins;
+using Bellatrix.Utilities;
+using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.Plugins
 {
@@ -24,28 +29,25 @@ namespace Bellatrix.Mobile.Plugins
     {
         protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
-            if (e.TestClassType.GetCustomAttributes().Any(x => x.GetType().Equals(typeof(AppAttribute)) || x.GetType().IsSubclassOf(typeof(AppAttribute))))
+            // Resolve required data for decision making
+            var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+
+            if (appConfiguration != null)
             {
-                // Resolve required data for decision making
-                var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+                ResolvePreviousAppConfiguration(e.Container);
 
-                if (appConfiguration != null)
+                // Decide whether the app needs to be restarted
+                bool shouldRestartApp = ShouldRestartApp(e.Container);
+
+                if (shouldRestartApp)
                 {
-                    ResolvePreviousAppConfiguration(e.Container);
-
-                    // Decide whether the app needs to be restarted
-                    bool shouldRestartApp = ShouldRestartApp(e.Container);
-
-                    if (shouldRestartApp)
-                    {
-                        RestartApp(e.Container);
-                        e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
-                    }
-                }
-                else
-                {
+                    RestartApp(e.Container);
                     e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
                 }
+            }
+            else
+            {
+                e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
             }
 
             base.PreTestsArrange(sender, e);
@@ -93,7 +95,7 @@ namespace Bellatrix.Mobile.Plugins
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             var previousAppConfiguration = container.Resolve<AppConfiguration>("_previousAppConfiguration");
             var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
-            if (previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
+            if (currentAppConfiguration?.Lifecycle == Lifecycle.RestartEveryTime || previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
             {
                 shouldRestartApp = true;
             }
@@ -120,18 +122,11 @@ namespace Bellatrix.Mobile.Plugins
 
         private void ShutdownApp(ServicesCollection container)
         {
+            DisposeDriverService.DisposeAndroid(container);
+            DisposeDriverService.DisposeIOS(container);
+
             var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
-
-            ShutdownApp(container);
-
-            // Register the ExecutionEngine that should be used for the current run. Will be used in the next test as PreviousEngineType.
-            var testExecutionEngine = new TestExecutionEngine();
-
-            // Register the app that should be used for the current run. Will be used in the next test as PreviousappType.
-            container.RegisterInstance(currentAppConfiguration);
-
-            // Start the current engine
-            testExecutionEngine.StartApp(currentAppConfiguration, container);
+            container.RegisterInstance(currentAppConfiguration, "_previousAppConfiguration");
         }
 
         private void ResolvePreviousAppConfiguration(ServicesCollection childContainer)
@@ -147,7 +142,6 @@ namespace Bellatrix.Mobile.Plugins
 
         private AppConfiguration GetCurrentAppConfiguration(MemberInfo memberInfo, Type testClassType, ServicesCollection container)
         {
-            var currentAppConfiguration = default(AppConfiguration);
             var androidAttribute = GetAppAttribute<AndroidAttribute>(memberInfo, testClassType);
             var iosAttribute = GetAppAttribute<IOSAttribute>(memberInfo, testClassType);
             var androidWebAttribute = GetAppAttribute<AndroidWebAttribute>(memberInfo, testClassType);
@@ -160,6 +154,7 @@ namespace Bellatrix.Mobile.Plugins
             var iosCrossappTestingAttribute = GetAppAttribute<IOSCrossBrowserTestingAttribute>(memberInfo, testClassType);
             var iosappStackAttribute = GetAppAttribute<IOSBrowserStackAttribute>(memberInfo, testClassType);
 
+            AppConfiguration currentAppConfiguration;
             if (androidAttribute != null && iosAttribute != null)
             {
                 throw new ArgumentException("You need to specify only single platform attribute - Android or IOS.");
@@ -212,7 +207,22 @@ namespace Bellatrix.Mobile.Plugins
             }
             else
             {
-                throw new ArgumentException("To run BELLATRIX mobile tests you need to add Android or IOS attributes over your test class.");
+                // TODO: --> add Test Case attribute for Andoid and IOS? Extend the Test Case attribute?
+                Lifecycle currentLifecycle = Parse<Lifecycle>(ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.DefaultLifeCycle);
+
+                var appConfiguration = new AppConfiguration
+                {
+                    AppPath = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.DefaultAppPath,
+                    Lifecycle = currentLifecycle,
+                    AppiumOptions = new AppiumOptions(),
+                    ClassFullName = testClassType.FullName,
+                };
+
+                InitializeGridOptionsFromConfiguration(appConfiguration.AppiumOptions, testClassType);
+                InitializeCustomCodeOptions(appConfiguration.AppiumOptions, testClassType);
+
+                container.RegisterInstance(appConfiguration, "_currentAppConfiguration");
+                return appConfiguration;
             }
 
             container.RegisterInstance(currentAppConfiguration, "_currentAppConfiguration");
@@ -222,17 +232,12 @@ namespace Bellatrix.Mobile.Plugins
         private TAppAttribute GetAppAttribute<TAppAttribute>(MemberInfo memberInfo, Type testClassType)
             where TAppAttribute : AppAttribute
         {
-            if (memberInfo == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             var currentPlatform = DetermineOS();
 
-            var methodappAttribute = memberInfo.GetCustomAttributes<TAppAttribute>(true).FirstOrDefault(x => x.AppConfiguration.OSPlatform.Equals(currentPlatform));
+            var methodappAttribute = memberInfo?.GetCustomAttributes<TAppAttribute>(true).FirstOrDefault(x => x.AppConfiguration.OSPlatform.Equals(currentPlatform));
             var classappAttribute = testClassType.GetCustomAttributes<TAppAttribute>(true).FirstOrDefault(x => x.AppConfiguration.OSPlatform.Equals(currentPlatform));
 
-            int appMethodsAttributesCount = memberInfo.GetCustomAttributes<TAppAttribute>(true).Count();
+            int appMethodsAttributesCount = memberInfo == null ? 0 : memberInfo.GetCustomAttributes<TAppAttribute>(true).Count();
             int appClassAttributesCount = testClassType.GetCustomAttributes<TAppAttribute>(true).Count();
 
             if (appMethodsAttributesCount == 1 && methodappAttribute != null)
@@ -268,6 +273,84 @@ namespace Bellatrix.Mobile.Plugins
             }
 
             return result;
+        }
+
+        private TEnum Parse<TEnum>(string value)
+            where TEnum : struct
+        {
+            return (TEnum)Enum.Parse(typeof(TEnum), value.Replace(" ", string.Empty), true);
+        }
+
+        private void InitializeCustomCodeOptions(dynamic options, Type testClassType)
+        {
+            var customCodeOptions = ServicesCollection.Current.Resolve<Dictionary<string, string>>($"caps-{testClassType.FullName}");
+            if (customCodeOptions != null && customCodeOptions.Count > 0)
+            {
+                foreach (var item in customCodeOptions)
+                {
+                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    {
+                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                    }
+                }
+            }
+        }
+
+        private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
+        {
+            if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments == null)
+            {
+                return;
+            }
+
+            if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0].Count > 0)
+            {
+                foreach (var item in ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0])
+                {
+                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    {
+                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                    }
+                }
+            }
+        }
+
+        private dynamic FormatGridOptions(string option, Type testClassType)
+        {
+            if (bool.TryParse(option, out bool result))
+            {
+                return result;
+            }
+            ////else if (int.TryParse(option, out int resultNumber))
+            ////{
+            ////    return resultNumber;
+            ////}
+            else if (option.StartsWith("env_") || option.StartsWith("vault_"))
+            {
+                return SecretsResolver.GetSecret(() => option);
+            }
+            ////else if (double.TryParse(option, out double resultRealNumber))
+            ////{
+            ////    return resultRealNumber;
+            ////}
+            else if (option.StartsWith("AssemblyFolder", StringComparison.Ordinal))
+            {
+                var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
+                option = option.Replace("AssemblyFolder", executionFolder);
+
+                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+                {
+                    option = option.Replace('\\', '/');
+                }
+
+                return option;
+            }
+            else
+            {
+                var runName = testClassType.Assembly.GetName().Name;
+                var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
+                return option.Replace("{runName}", timestamp).Replace("{runName}", runName);
+            }
         }
     }
 }

@@ -80,13 +80,13 @@ namespace Bellatrix
             try
             {
                 Initialize();
-                _currentTestExecutionProvider.PreTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.PreTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
                 TestInit();
-                _currentTestExecutionProvider.PostTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.PostTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.TestInitFailed(ex, TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.TestInitFailed(ex, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
                 throw;
             }
         }
@@ -106,13 +106,13 @@ namespace Bellatrix
 
             try
             {
-                _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
+                _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
                 TestCleanup();
-                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
+                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.TestCleanupFailed(ex, TestContext.TestName, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.TestCleanupFailed(ex, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
                 throw;
             }
         }
@@ -234,13 +234,13 @@ namespace Bellatrix
                     _currentTestExecutionProvider = new PluginProvider();
                     InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                     TypeForAlreadyExecutedClassInits.Add(TestContext.FullyQualifiedTestClassName);
-                    _currentTestExecutionProvider.PreTestsArrange(testClassType);
+                    _currentTestExecutionProvider.PreTestsArrange(testClassType, new List<object>());
                     Initialize();
                     TestsArrange();
                     _currentTestExecutionProvider.PostTestsArrange(testClassType);
-                    _currentTestExecutionProvider.PreTestsAct(testClassType);
+                    _currentTestExecutionProvider.PreTestsAct(testClassType, new List<object>());
                     TestsAct();
-                    _currentTestExecutionProvider.PostTestsAct(testClassType);
+                    _currentTestExecutionProvider.PostTestsAct(testClassType, new List<object>());
                 }
             }
             catch (Exception ex)

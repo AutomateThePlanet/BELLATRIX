@@ -15,9 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-
+using Bellatrix.Assertions;
+using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
-using Bellatrix.ImageRecognition.ComputerVision;
 using Bellatrix.Plugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
@@ -29,25 +29,45 @@ namespace Bellatrix.Web
 {
     public class App : IDisposable
     {
+        [Obsolete("BrowserService is deprecated use Browser property instead.")]
         public BrowserService BrowserService => ServicesCollection.Current.Resolve<BrowserService>();
+        public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
 
+        [Obsolete("NavigationService is deprecated use Navigation property instead.")]
         public NavigationService NavigationService => ServicesCollection.Current.Resolve<NavigationService>();
+        public NavigationService Navigation => ServicesCollection.Current.Resolve<NavigationService>();
 
+        [Obsolete("DialogService is deprecated use Dialogs property instead.")]
         public DialogService DialogService => ServicesCollection.Current.Resolve<DialogService>();
+        public DialogService Dialogs => ServicesCollection.Current.Resolve<DialogService>();
 
+        [Obsolete("JavaScriptService is deprecated use JavaScript property instead.")]
         public JavaScriptService JavaScriptService => ServicesCollection.Current.Resolve<JavaScriptService>();
+        public JavaScriptService JavaScript => ServicesCollection.Current.Resolve<JavaScriptService>();
 
+        [Obsolete("InteractionsService is deprecated use Interactions property instead.")]
         public InteractionsService InteractionsService => ServicesCollection.Current.Resolve<InteractionsService>();
+        public InteractionsService Interactions => ServicesCollection.Current.Resolve<InteractionsService>();
 
+        [Obsolete("CookiesService is deprecated use Cookies property instead.")]
         public CookiesService CookiesService => ServicesCollection.Current.Resolve<CookiesService>();
+        public CookiesService Cookies => ServicesCollection.Current.Resolve<CookiesService>();
 
-        public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
+        [Obsolete("ComponentCreateService is deprecated use Components property instead.")]
+        public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
+        public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
+        public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
+
+        [Obsolete("ProxyService is deprecated use Proxy property instead.")]
         public ProxyService ProxyService => ServicesCollection.Current.Resolve<ProxyService>();
+        public ProxyService Proxy => ServicesCollection.Current.Resolve<ProxyService>();
 
         public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
+
+        public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
 
         public void AddWebDriverOptions<TDriverOptions>(TDriverOptions options)
             where TDriverOptions : DriverOptions
@@ -71,31 +91,31 @@ namespace Bellatrix.Web
             ServicesCollection.Current.RegisterInstance(dictionary, $"caps-{fullClassName}");
         }
 
-        public void AddReadonlyControlDataHandler<TElement, TControlDataHandler>()
-           where TElement : Element
-           where TControlDataHandler : IReadonlyControlDataHandler<TElement>
+        public void AddReadonlyControlDataHandler<TComponent, TControlDataHandler>()
+           where TComponent : Component
+           where TControlDataHandler : IReadonlyControlDataHandler<TComponent>
         {
-            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<TElement>, TControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<TComponent>, TControlDataHandler>();
         }
 
-        public void AddEditableControlDataHandler<TElement, TControlDataHandler>()
-           where TElement : Element
-           where TControlDataHandler : IEditableControlDataHandler<TElement>
+        public void AddEditableControlDataHandler<TComponent, TControlDataHandler>()
+           where TComponent : Component
+           where TControlDataHandler : IEditableControlDataHandler<TComponent>
         {
-            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<TElement>, TControlDataHandler>();
+            ServicesCollection.Current.RegisterType<IEditableControlDataHandler<TComponent>, TControlDataHandler>();
         }
 
-        public void AddElementEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : ElementEventHandlers
+        public void AddElementEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : ComponentEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.SubscribeToAll();
         }
 
-        public void RemoveElementEventHandler<TElementsEventHandler>()
-            where TElementsEventHandler : ElementEventHandlers
+        public void RemoveElementEventHandler<TComponentsEventHandler>()
+            where TComponentsEventHandler : ComponentEventHandlers
         {
-            var elementEventHandler = (TElementsEventHandler)Activator.CreateInstance(typeof(TElementsEventHandler));
+            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
             elementEventHandler.UnsubscribeToAll();
         }
 

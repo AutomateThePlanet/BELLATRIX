@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("Edge Browser")]
     public class HeadingControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var headingElement = App.ElementCreateService.CreateById<Heading>("myHeading");
+            var headingElement = App.Components.CreateById<Heading>("myHeading");
 
             headingElement.Hover();
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnAutomateThePlanet_When_InnerText_Edge()
         {
-            var headingElement = App.ElementCreateService.CreateById<Heading>("myHeading2");
+            var headingElement = App.Components.CreateById<Heading>("myHeading2");
 
             Assert.AreEqual("Automate The Planet", headingElement.InnerText);
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnEmpty_When_InnerTextNotSet_Edge()
         {
-            var headingElement = App.ElementCreateService.CreateById<Heading>("myHeading4");
+            var headingElement = App.Components.CreateById<Heading>("myHeading4");
 
             Assert.AreEqual(string.Empty, headingElement.InnerText);
         }

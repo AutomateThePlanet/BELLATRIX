@@ -38,7 +38,7 @@ namespace Bellatrix.Mobile.IOS
 
         public static void AddElementsBddLogging()
         {
-            var elementEventHandlers = new List<ElementEventHandlers>
+            var elementEventHandlers = new List<ComponentEventHandlers>
                                        {
                                            new BDDLoggingButtonEventHandlers(),
                                            new BDDLoggingRadioButtonEventHandlers(),
@@ -59,7 +59,7 @@ namespace Bellatrix.Mobile.IOS
 
         public static void AddDynamicTestCases()
         {
-            var elementEventHandlers = new List<ElementEventHandlers>
+            var elementEventHandlers = new List<ComponentEventHandlers>
                                        {
                                            new DynamicTestCasesButtonEventHandlers(),
                                            new DynamicTestCasesRadioButtonEventHandlers(),
@@ -80,7 +80,7 @@ namespace Bellatrix.Mobile.IOS
 
         public static void AddBugReporting()
         {
-            var elementEventHandlers = new List<ElementEventHandlers>
+            var elementEventHandlers = new List<ComponentEventHandlers>
                                        {
                                            new BugReportingButtonEventHandlers(),
                                            new BugReportingRadioButtonEventHandlers(),

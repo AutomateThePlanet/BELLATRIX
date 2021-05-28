@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class RadioButtonEventHandlers : ElementEventHandlers
+    public class RadioButtonEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {

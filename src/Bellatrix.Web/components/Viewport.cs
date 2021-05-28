@@ -16,14 +16,14 @@ using Bellatrix.Layout;
 
 namespace Bellatrix.Web
 {
-    internal class Viewport : ILayoutElement
+    internal class Viewport : ILayoutComponent
     {
         internal Viewport()
         {
             var javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
             Location = new Point(0, 0);
-            var viewportWidth = int.Parse(javaScriptService.Execute("return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);").ToString());
-            var viewportHeight = int.Parse(javaScriptService.Execute("return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);").ToString());
+            var viewportWidth = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientWidth, window.innerWidth || 0);").ToString());
+            var viewportHeight = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientHeight, window.innerHeight || 0);").ToString());
             Size = new Size(viewportWidth, viewportHeight);
         }
 
@@ -31,6 +31,6 @@ namespace Bellatrix.Web
 
         public Size Size { get; }
 
-        public string ElementName => "Viewport";
+        public string ComponentName => "Viewport";
     }
 }

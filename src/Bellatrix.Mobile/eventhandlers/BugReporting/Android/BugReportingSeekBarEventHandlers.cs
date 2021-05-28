@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.BugReporting.Android
 {
     public class BugReportingSeekBarEventHandlers : SeekBarEventHandlers
     {
-        protected override void SettingPercentageEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Set {arg.Element.ElementName} to '{arg.ActionValue}'% on {arg.Element.PageName}");
+        protected override void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Set {arg.Element.ComponentName} to '{arg.ActionValue}'% on {arg.Element.PageName}");
     }
 }

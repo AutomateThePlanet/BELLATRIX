@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.BddLogging.Android
 {
     public class BDDLoggingPasswordEventHandlers : PasswordEventHandlers
     {
-        protected override void SettingPasswordEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

@@ -17,6 +17,14 @@ namespace Bellatrix.Web.Services
 {
     public static class WindowsSizeResolver
     {
+        public static Size GetWindowSize(string resolution)
+        {
+            var parts = resolution.Split('x');
+            Size result = new Size(int.Parse(parts[0]), int.Parse(parts[1]));
+
+            return result;
+        }
+
         public static Size GetWindowSize(DesktopWindowSize windowSize)
         {
             Size result = default;

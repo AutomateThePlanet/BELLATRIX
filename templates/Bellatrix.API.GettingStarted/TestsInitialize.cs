@@ -16,21 +16,15 @@ namespace Bellatrix.GettingStarted
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");
-                _testApiProcess = ProcessProvider.StartProcess("dotnet", workingDir, " run", true);
-                ProcessProvider.WaitPortToGetBusy(55215);
-            }
+            string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");
+            _testApiProcess = ProcessProvider.StartProcess("dotnet", workingDir, " run", true);
+            ProcessProvider.WaitPortToGetBusy(55215);
         }
 
         [AssemblyCleanup]
         public static void AssemblyCleanUp()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                ProcessProvider.CloseProcess(_testApiProcess);
-            }
+            ProcessProvider.CloseProcess(_testApiProcess);
         }
     }
 }

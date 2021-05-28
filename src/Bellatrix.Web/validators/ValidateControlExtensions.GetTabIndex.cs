@@ -19,20 +19,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateTabIndexIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : Element
+            where T : Component
         {
             WaitUntil(() => control.GetTabIndex() == null, $"The control's tabindex should be null but was '{control.GetTabIndex()}'.", timeout, sleepInterval);
-            ValidatedTabIndexIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedTabIndexIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateTabIndexIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : Element
+            where T : Component
         {
             WaitUntil(() => control.GetTabIndex().Equals(value), $"The control's tabindex should be '{value}' but was '{control.GetTabIndex()}'.", timeout, sleepInterval);
-            ValidatedTabIndexIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedTabIndexIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedTabIndexIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedTabIndexIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTabIndexIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedTabIndexIsEvent;
     }
 }

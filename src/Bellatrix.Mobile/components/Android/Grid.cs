@@ -20,12 +20,12 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class Grid<TElement> : Element
-            where TElement : Element<AndroidDriver<AndroidElement>, AndroidElement>
+    public class Grid<TComponent> : AndroidComponent
+            where TComponent : Component<AndroidDriver<AndroidElement>, AndroidElement>
     {
-        public ElementsList<TElement, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll(string searchClass)
+        public virtual ComponentsList<TComponent, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll(string searchClass)
         {
-            var elements = this.CreateAllByClass<TElement>(searchClass);
+            var elements = this.CreateAllByClass<TComponent>(searchClass);
             return elements;
         }
     }

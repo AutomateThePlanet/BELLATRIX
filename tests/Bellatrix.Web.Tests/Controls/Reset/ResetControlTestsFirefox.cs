@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Reset Control")]
     public class ResetControlTestsFirefox : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void SetTextToStop_When_UseClickMethod_Firefox()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             buttonElement.Click();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Firefox()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Reset>("myButton1");
+            var buttonElement = App.Components.CreateById<Reset>("myButton1");
 
             buttonElement.Hover();
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Firefox()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Reset>("myButton2");
+            var buttonElement = App.Components.CreateById<Reset>("myButton2");
 
             buttonElement.Focus();
 
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             bool isDisabled = buttonElement.IsDisabled;
 
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Firefox()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Reset>("myButton3");
+            var buttonElement = App.Components.CreateById<Reset>("myButton3");
 
             bool isDisabled = buttonElement.IsDisabled;
 
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnStart_When_ValueAttributePresent_Firefox()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             var actualValue = buttonElement.Value;
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnEmpty_When_UseInnerText_Firefox()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Reset>("myButton");
+            var buttonElement = App.Components.CreateById<Reset>("myButton");
 
             Assert.AreEqual(string.Empty, buttonElement.InnerText);
         }

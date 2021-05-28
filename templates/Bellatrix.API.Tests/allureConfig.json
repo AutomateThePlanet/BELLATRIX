@@ -1,0 +1,26 @@
+﻿{
+    "allure": {
+        "directory": "allure-results",
+        "links": [
+            "https://github.com/AutomateThePlanet/Meissa/issues/{issue}",
+            "https://github.com/AutomateThePlanet/Meissa/projects/2#card-{tms}",
+            "{link}"
+        ],
+        "brokenTestData":[
+            {
+                "name": "Ignored tests", 
+                "matchedStatuses": ["skipped"] 
+            },
+            {
+                "name": "Infrastructure problems",
+                "matchedStatuses": ["broken", "failed"],
+                "messageRegex": ".*failed man.*"
+            },
+            {
+                "name": "TESTING THE FRAMEWORK Tests",
+                "matchedStatuses": ["failed"],
+                "traceRegex": ".*AssertFailedException.*"
+            }
+        ]
+    }
+}

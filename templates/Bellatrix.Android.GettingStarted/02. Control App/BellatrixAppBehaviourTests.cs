@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    // 1. This is the main attribute that you need to mark each class that contains MSTest tests.
-    [TestClass]
+    // 1. This is the main attribute that you need to mark each class that contains NUnit tests.
+    [TestFixture]
 
     // 2. This is the attribute for automatic start/control of Android apps by Bellatrix. If you have to do it manually properly, you will need thousands of lines of code.
     // 2.1. appPath- sets the path where your application APK is.
@@ -18,6 +18,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     // There are even more things you can do with this attribute, but we look into them in the next sections.
     //
     // If you place attribute over the class all tests inherit the lifecycle. It is possible to place it over each test and this way it overrides the class lifecycle only for this particular test.
+    //
+    // If you don't use the attribute, the default information from the configuration will be used placed under the executionSettings section.
+    // Also, you can add additional driver arguments under the arguments section array in the configuration file.
     [Android(Constants.AndroidNativeAppPath,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
@@ -27,11 +30,11 @@ namespace Bellatrix.Mobile.Android.GettingStarted
 
     // 2.2. All Android BELLATRIX test classes should inherit from the AndroidTest base class.
     // This way you can use all built-in BELLATRIX tools and functionalities.
-    public class BellatrixAppLifecycleTests : MSTest.AndroidTest
+    public class BellatrixAppLifecycleTests : NUnit.AndroidTest
     {
-        // 2.3. All MSTest tests should be marked with the TestMethod attribute.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        // 2.3. All NUnit tests should be marked with the TestMethod attribute.
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
             // There is more about the App class in the next sections. However, it is the primary point where you access the BELLATRIX services.
@@ -39,12 +42,12 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".view.Controls1");
 
             // Use the element creation service to create an instance of the button. There are much more details about this process in the next sections.
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.Click();
         }
 
-        [TestMethod]
+        [Test]
 
         // 2.4. As mentioned above you can override the app lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse an instance of the app.
         // Only for this particular test, BELLATRIX opens the app and restarts it only on fail.
@@ -54,10 +57,10 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             Constants.AndroidNativeAppAppExamplePackage,
             ".view.Controls1",
             Lifecycle.RestartOnFail)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ReturnsSave_When_GetText()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             Assert.AreEqual("Save", button.GetText());
         }

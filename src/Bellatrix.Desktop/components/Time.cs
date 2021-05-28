@@ -18,29 +18,29 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class Time : Element, IElementDisabled, IElementTime
+    public class Time : Component, IComponentDisabled, IComponentTime
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingTime;
-        public static event EventHandler<ElementActionEventArgs> TimeSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingTime;
+        public static event EventHandler<ComponentActionEventArgs> TimeSet;
 
-        public string GetTime()
+        public virtual string GetTime()
         {
             return GetInnerText();
         }
 
-        public void SetTime(int hours, int minutes)
+        public virtual void SetTime(int hours, int minutes)
         {
             SetText(SettingTime, TimeSet, $"{hours}:{minutes}:00");
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

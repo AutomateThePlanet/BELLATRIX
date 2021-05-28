@@ -32,11 +32,11 @@ namespace Bellatrix.Mobile.IOS.Tests
         {
             try
             {
-                var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+                var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
                 button.ValidateTextIs("Compute");
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = "The control's text should be 'Compute'";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -50,11 +50,11 @@ namespace Bellatrix.Mobile.IOS.Tests
         {
             try
             {
-                var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+                var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
                 button.ValidateTextIsNotSet();
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = "The control's text should be null but was 'Compute Sum'";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -68,11 +68,11 @@ namespace Bellatrix.Mobile.IOS.Tests
         {
             try
             {
-                var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+                var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
                 button.ValidateIsDisabled();
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = "The control should be disabled but it was NOT.";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

@@ -1,57 +1,57 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
 using BA = Bellatrix.Assertions;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class DeviceServiceTests : MSTest.IOSTest
+    public class DeviceServiceTests : NUnit.IOSTest
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the device through the DeviceService class.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void OrientationSetToLandscape_When_CallRotateWithLandscape()
         {
             // Rotates the device horizontally.
-            App.DeviceService.Rotate(ScreenOrientation.Landscape);
+            App.Device.Rotate(ScreenOrientation.Landscape);
 
             // Gets the current device orientation.
-            Assert.AreEqual(ScreenOrientation.Landscape, App.DeviceService.Orientation);
+            Assert.AreEqual(ScreenOrientation.Landscape, App.Device.Orientation);
 
-            App.DeviceService.Rotate(ScreenOrientation.Portrait);
+            App.Device.Rotate(ScreenOrientation.Portrait);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void CorrectTimeReturned_When_CallDeviceTime()
         {
             // Gets current device time.
-            BA.DateTimeAssert.AreEqual(DateTime.Now, App.DeviceService.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
+            BA.DateTimeAssert.AreEqual(DateTime.Now, App.Device.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void DeviceIsLockedTrue_When_CallLock()
         {
             // Locks the device
-            App.DeviceService.Lock(1);
+            App.Device.Lock(1);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void TestShakeDevice()
         {
             // Shakes the device
-            App.DeviceService.ShakeDevice();
+            App.Device.ShakeDevice();
         }
     }
 }

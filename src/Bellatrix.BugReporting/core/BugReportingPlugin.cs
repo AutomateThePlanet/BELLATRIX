@@ -17,14 +17,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Bellatrix.BugReporting.Configuration;
+using Bellatrix.BugReporting.AzureDevOps;
 using Bellatrix.BugReporting.Contracts;
+using Bellatrix.BugReporting.Jira;
 using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Plugins.Video.Plugins;
 
-namespace Bellatrix.BugReporting
+namespace Bellatrix.BugReporting.Core
 {
     public class BugReportingPlugin : Plugin, IScreenshotPlugin, IVideoPlugin
     {
@@ -41,7 +42,7 @@ namespace Bellatrix.BugReporting
 
         protected override void PreTestInit(object sender, PluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<BugReportingSettings>().IsEnabled)
+            if (!IsBugReportingEnabled())
             {
                 return;
             }
@@ -52,7 +53,7 @@ namespace Bellatrix.BugReporting
 
         protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<BugReportingSettings>().IsEnabled)
+            if (!IsBugReportingEnabled())
             {
                 return;
             }
@@ -61,7 +62,7 @@ namespace Bellatrix.BugReporting
 
             if ((e.TestOutcome == TestOutcome.Failed || e.TestOutcome == TestOutcome.Error) && _bugReportingContextService?.Context != null)
             {
-                _bugReportingService.LogBug(_bugReportingContextService.Context, e.Exception.ToString(), _filesToBeAttached);
+                _bugReportingService.LogBug(_bugReportingContextService.Context.Value, e.Exception.ToString(), _filesToBeAttached);
             }
 
             _bugReportingContextService?.ResetContext();
@@ -105,10 +106,10 @@ namespace Bellatrix.BugReporting
             }
 
             _filesToBeAttached = new List<string>();
-            _bugReportingContextService.Context = new BugReportingContext();
-            _bugReportingContextService.Context.TestCaseName = TestNameToDesciption(args.TestName);
-            _bugReportingContextService.Context.TestFullName = $"{args.TestMethodMemberInfo.DeclaringType.Name}.{args.TestName}";
-            _bugReportingContextService.Context.TestProjectName = args.TestMethodMemberInfo.DeclaringType.FullName;
+            _bugReportingContextService.Context.Value = new BugReportingContext();
+            _bugReportingContextService.Context.Value.TestCaseName = TestNameToDesciption(args.TestName);
+            _bugReportingContextService.Context.Value.TestFullName = $"{args.TestMethodMemberInfo.DeclaringType.Name}.{args.TestName}";
+            _bugReportingContextService.Context.Value.TestProjectName = args.TestMethodMemberInfo.DeclaringType.FullName;
         }
 
         private string TestNameToDesciption(string name)
@@ -127,6 +128,12 @@ namespace Bellatrix.BugReporting
             returnStr = returnStr.Replace("_", string.Empty).Trim();
             returnStr = returnStr.First().ToString().ToUpper() + returnStr.Substring(1);
             return returnStr;
+        }
+
+        private bool IsBugReportingEnabled()
+        {
+            return ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().IsEnabled ||
+                ConfigurationService.GetSection<JiraBugReportingSettings>().IsEnabled;
         }
     }
 }

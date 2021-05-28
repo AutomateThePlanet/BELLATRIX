@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bellatrix.Web.Assertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Assert = Bellatrix.Assertions.Assert;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    public class TableControlTests : MSTest.WebTest
+    [TestFixture]
+    public class TableControlTests : NUnit.WebTest
     {
         private List<User> _expectedUsers;
 
@@ -21,7 +20,7 @@ namespace Bellatrix.Web.GettingStarted
         // BELLATRIX gives you API for easing the work with HTML tables.
         // Through the SetColumn you map the headers of the table if for some reason you don't want some column, just don't add it.
         // The method returns a list of all rows' data as C# data mapped to the map you provided.
-        private Table Table => App.ElementCreateService.CreateById<Table>("table1")
+        private Table Table => App.Components.CreateById<Table>("table1")
             .SetColumn("Last Name")
             .SetColumn("First Name")
             .SetColumn("Email")
@@ -31,7 +30,7 @@ namespace Bellatrix.Web.GettingStarted
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage("TestPages\\Table\\table.html");
+            App.Navigation.NavigateToLocalPage("TestPages\\Table\\table.html");
 
             // In order GetItems to be able to work you need to map the properties to headers through the HeaderName attribute
             // this is how we handle differences between the property name, spaces in the headers and such.
@@ -72,7 +71,7 @@ namespace Bellatrix.Web.GettingStarted
             };
         }
 
-        [TestMethod]
+        [Test]
         public void AssertMiscData()
         {
             // You can get all rows as instances of a specific class through the GetItems method.
@@ -85,7 +84,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual("Action", Table.GetHeaderNames().Last());
         }
 
-        [TestMethod]
+        [Test]
         [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
         public void AssertCells()
         {
@@ -102,7 +101,7 @@ namespace Bellatrix.Web.GettingStarted
             Table.GetCell<User>(cell => cell.Email, 1).ValidateInnerTextIs("fbach@yahoo.com");
 
             // You can get particular cells by a selector.
-            ElementsList<TableCell> cells = Table.GetCells(cell => cell.InnerText.ToLower().StartsWith('j'));
+            List<TableCell> cells = Table.GetCells(cell => cell.InnerText.ToLower().StartsWith('j'));
             Assert.AreEqual(4, cells.Count());
 
             // As a shortcut, you can get the first cell matching a given condition through the GetFirstOrDefaultCell method.
@@ -110,7 +109,7 @@ namespace Bellatrix.Web.GettingStarted
             matchingCell.ValidateInnerTextIs("John");
         }
 
-        [TestMethod]
+        [Test]
         [Browser(BrowserType.FirefoxHeadless, Lifecycle.ReuseIfStarted)]
         public void AssertSpecificRow()
         {
@@ -141,7 +140,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual(6, cells.Count());
 
             // You can get the cells matching a condition.
-            ElementsList<TableCell> matchingCells = firstRow.GetCells(cell => cell.InnerText.ToLower().Contains("smith"));
+            List<TableCell> matchingCells = firstRow.GetCells(cell => cell.InnerText.ToLower().Contains("smith"));
             Assert.AreEqual(3, matchingCells.Count());
 
             // You can get the first cell matching a condition through the GetFirstOrDefaultCell method.
@@ -156,7 +155,7 @@ namespace Bellatrix.Web.GettingStarted
             firstRow.AssertRow(_expectedUsers[0]);
         }
 
-        [TestMethod]
+        [Test]
         public void AssertHeaders()
         {
             // You can get all table header rows through the TableHeaderRows property.
@@ -166,11 +165,11 @@ namespace Bellatrix.Web.GettingStarted
             Table.ForEachHeader(row => row.AssertFontFamily("\"Times New Roman\""));
 
             // You can get all table header cells through the ColumnHeaders property.
-            ElementsList<Label> headerCells = Table.ColumnHeaders;
+            List<Label> headerCells = Table.ColumnHeaders;
             headerCells.ForEach(cell => cell.AssertFontSize("16px"));
         }
 
-        [TestMethod]
+        [Test]
         public void AssertSpecificCell()
         {
             var firstCell = Table.GetCell(0, 0);
@@ -190,7 +189,7 @@ namespace Bellatrix.Web.GettingStarted
             Assert.AreEqual("Doe", thirdCell.InnerHtml);
         }
 
-        [TestMethod]
+        [Test]
         public void AssertColumns()
         {
             // You can get the cells of a particular column mentioning the column number.

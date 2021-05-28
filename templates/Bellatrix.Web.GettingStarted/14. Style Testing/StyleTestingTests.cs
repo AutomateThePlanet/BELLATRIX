@@ -1,5 +1,5 @@
 ﻿using Bellatrix.Web.Assertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
@@ -7,18 +7,18 @@ namespace Bellatrix.Web.GettingStarted
     // background, border and other colors, font size, size, weight and many others.
     [Browser(BrowserType.Chrome, DesktopWindowSize._1280_1024,  Lifecycle.RestartEveryTime)]
     [Browser(OS.OSX, BrowserType.Chrome, DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
-    [TestClass]
-    public class StyleTestingTests : MSTest.WebTest
+    [TestFixture]
+    public class StyleTestingTests : NUnit.WebTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestStyles()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.ElementCreateService.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonRocketAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
-            Anchor saturnVAnchor = App.ElementCreateService.CreateByAttributesContaining<Anchor>("href", "/saturn-v/");
+            Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
+            Anchor protonRocketAnchor = App.Components.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
+            Anchor saturnVAnchor = App.Components.CreateByAttributesContaining<Anchor>("href", "/saturn-v/");
 
             sortDropDown.AssertFontSize("14px");
             sortDropDown.AssertFontWeight("400");

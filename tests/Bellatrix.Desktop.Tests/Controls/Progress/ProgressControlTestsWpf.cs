@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Progress Control")]
     [AllureTag("WPF")]
-    public class ProgressControlTestsWpf : BellatrixBaseTest
+    public class ProgressControlTestsWpf : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ProgressHovered_Wpf()
         {
-            var progress = App.ElementCreateService.CreateByAutomationId<Progress>("progress");
+            var progress = App.Components.CreateByAutomationId<Progress>("progress");
 
             progress.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("progressHovered", label.InnerText);
         }
     }

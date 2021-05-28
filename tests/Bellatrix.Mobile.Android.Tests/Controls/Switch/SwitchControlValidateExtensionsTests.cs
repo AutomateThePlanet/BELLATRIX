@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsOn_DoesNotThrowException_When_SwitchIsTurnedOn()
         {
-            var switchControl = App.ElementCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
+            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
 
             switchControl.TurnOn();
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsOff_DoesNotThrowException_When_SwitchIsTurnedoff()
         {
-            var switchControl = App.ElementCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
+            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
 
             switchControl.TurnOff();
 
@@ -52,7 +52,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateTextIs_DoesNotThrowException_When_CorrectTextIsSet()
         {
-            var switchControl = App.ElementCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
+            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
 
             switchControl.TurnOn();
 
@@ -63,7 +63,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsDisabled_DoesNotThrowException_When_SwitchIsNotDisabled()
         {
-            var switchControl = App.ElementCreateService.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
+            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
 
             switchControl.ValidateIsNotDisabled();
         }

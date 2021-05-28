@@ -6,15 +6,20 @@ namespace Bellatrix
 {
     public static class Logger
     {
+        private static readonly object _lockObject = new object();
+
         public static void LogInformation(string message, params object[] args)
         {
-            try
+            lock (_lockObject)
             {
-                Console.WriteLine(message, args);
-            }
-            catch
-            {
-                // ignore
+                try
+                {
+                    Console.WriteLine(message, args);
+                }
+                catch
+                {
+                    // ignore
+                }
             }
         }
 
@@ -34,13 +39,16 @@ namespace Bellatrix
 
         public static void LogError(string message, params object[] args)
         {
-            try
+            lock (_lockObject)
             {
-                Console.Error.WriteLine(message, args);
-            }
-            catch
-            {
-                // ignore
+                try
+                {
+                    Console.Error.WriteLine(message, args);
+                }
+                catch
+                {
+                    // ignore
+                }
             }
         }
     }

@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class ColorEventHandlers : ElementEventHandlers
+    public class ColorEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Color.ColorSet -= ColorSetEventHandler;
         }
 
-        protected virtual void SettingColorEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingColorEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ColorSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ColorSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

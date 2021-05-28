@@ -20,21 +20,21 @@ namespace Bellatrix.Mobile.Android
 {
     public static partial class ValidateControlExtensions
     {
-        public static void ValidateTextIsNotSet<TElement>(this TElement control, int? timeout = null, int? sleepInterval = null)
-            where TElement : IElementText, IElement<AndroidElement>
+        public static void ValidateTextIsNotSet<TComponent>(this TComponent control, int? timeout = null, int? sleepInterval = null)
+            where TComponent : IComponentText, IComponent<AndroidElement>
         {
             ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => string.IsNullOrEmpty(control.GetText()), $"The control's text should be null but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextIsNotSetEvent?.Invoke(control, new ElementActionEventArgs<AndroidElement>(control));
+            ValidatedTextIsNotSetEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
         }
 
-        public static void ValidateTextIs<TElement>(this TElement control, string value, int? timeout = null, int? sleepInterval = null)
-             where TElement : IElementText, IElement<AndroidElement>
+        public static void ValidateTextIs<TComponent>(this TComponent control, string value, int? timeout = null, int? sleepInterval = null)
+             where TComponent : IComponentText, IComponent<AndroidElement>
         {
             ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.GetText().Equals(value), $"The control's text should be '{value}' but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextIsEvent?.Invoke(control, new ElementActionEventArgs<AndroidElement>(control, value));
+            ValidatedTextIsEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs<AndroidElement>> ValidatedTextIsNotSetEvent;
-        public static event EventHandler<ElementActionEventArgs<AndroidElement>> ValidatedTextIsEvent;
+        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedTextIsNotSetEvent;
+        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedTextIsEvent;
     }
 }

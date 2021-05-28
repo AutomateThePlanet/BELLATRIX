@@ -21,11 +21,11 @@ namespace Bellatrix.Web
     {
         protected Page()
         {
-            Element = ServicesCollection.Current.Resolve<ElementCreateService>();
+            Element = ServicesCollection.Current.Resolve<ComponentCreateService>();
             Browser = ServicesCollection.Current.Resolve<BrowserService>();
         }
 
-        protected ElementCreateService Element { get; }
+        protected ComponentCreateService Element { get; }
         protected BrowserService Browser { get; }
         protected DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
     }

@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateIsRequired<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementRequired, IElement
+            where T : IComponentRequired, IComponent
         {
             WaitUntil(() => control.IsRequired.Equals(true), "The control should be required but was NOT.", timeout, sleepInterval);
-            ValidatedIsRequiredEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedIsRequiredEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateIsNotRequired<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementRequired, IElement
+            where T : IComponentRequired, IComponent
         {
             WaitUntil(() => !control.IsRequired.Equals(true), "The control should be NOT required but it was.", timeout, sleepInterval);
-            ValidatedIsNotRequiredEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedIsNotRequiredEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedIsRequiredEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedIsNotRequiredEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedIsRequiredEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotRequiredEvent;
     }
 }

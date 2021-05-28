@@ -1,4 +1,4 @@
-﻿1. Create a new MSTest test class
+﻿1. Create a new NUnit test class
 2. Use the BELLATRIX App attribute so that to reuse the app.
 4. Use the built-in calendar ios app (use the following bundleId for app path= com.apple.mobilecal)
 5. Create a new event in the calendar

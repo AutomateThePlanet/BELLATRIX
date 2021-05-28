@@ -16,9 +16,9 @@ using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.Services
 {
-    public class MobileService<TDriver, TElement>
-        where TDriver : AppiumDriver<TElement>
-        where TElement : AppiumWebElement
+    public class MobileService<TDriver, TComponent>
+        where TDriver : AppiumDriver<TComponent>
+        where TComponent : AppiumWebElement
     {
         public MobileService(TDriver wrappedDriver)
         {

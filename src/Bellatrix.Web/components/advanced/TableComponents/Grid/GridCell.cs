@@ -19,12 +19,12 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class GridCell : Element, IElementInnerText, IElementInnerHtml
+    public class GridCell : Component, IComponentInnerText, IComponentInnerHtml
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Clicking;
-        public static event EventHandler<ElementActionEventArgs> Clicked;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Clicking;
+        public static event EventHandler<ComponentActionEventArgs> Clicked;
 
         public void Hover()
         {
@@ -36,7 +36,7 @@ namespace Bellatrix.Web
             Click(Clicking, Clicked);
         }
 
-        public Type CellControlElementType { get; set; }
+        public Type CellControlComponentType { get; set; }
 
         public dynamic CellControlBy { get; set; }
 
@@ -50,78 +50,78 @@ namespace Bellatrix.Web
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string InnerHtml => GetInnerHtmlAttribute();
 
-        public TElement As<TElement>()
-            where TElement : Element, new()
+        public TComponent As<TComponent>()
+            where TComponent : Component, new()
         {
-            CellControlElementType = typeof(TElement);
+            CellControlComponentType = typeof(TComponent);
             if (CellControlBy == null)
             {
-                object instance = Activator.CreateInstance(CellControlElementType);
-                var byProperty = CellControlElementType.GetProperty("By");
+                object instance = Activator.CreateInstance(CellControlComponentType);
+                var byProperty = CellControlComponentType.GetProperty("By");
                 byProperty?.SetValue(instance, By, null);
 
-                var wrappedElementProperty = CellControlElementType.GetProperty("WrappedElement");
-                var wrappedElementParent = CellControlElementType.GetProperty("ParentWrappedElement");
-                var wrappedElementIndex = CellControlElementType.GetProperty("ElementIndex");
+                var wrappedElementProperty = CellControlComponentType.GetProperty("WrappedElement");
+                var wrappedElementParent = CellControlComponentType.GetProperty("ParentWrappedElement");
+                var wrappedElementIndex = CellControlComponentType.GetProperty("ElementIndex");
 
                 wrappedElementProperty?.SetValue(instance, WrappedElement, null);
                 wrappedElementParent?.SetValue(instance, ParentWrappedElement, null);
                 wrappedElementIndex?.SetValue(instance, ElementIndex, null);
 
-                var isRefreshableElementProperty = CellControlElementType.GetProperty("ShouldCacheElement");
+                var isRefreshableElementProperty = CellControlComponentType.GetProperty("ShouldCacheElement");
                 isRefreshableElementProperty?.SetValue(instance, true, null);
-                return instance as TElement;
+                return instance as TComponent;
             }
             else
             {
-                return Create(CellControlBy, typeof(TElement));
+                return Create(CellControlBy, typeof(TComponent));
             }
         }
 
         public dynamic As()
         {
-            if (CellControlElementType == null)
+            if (CellControlComponentType == null)
             {
-                CellControlElementType = typeof(Label);
+                CellControlComponentType = typeof(Label);
             }
 
             if (CellControlBy == null)
             {
-                object instance = Activator.CreateInstance(CellControlElementType);
-                var byProperty = CellControlElementType.GetProperty("By");
+                object instance = Activator.CreateInstance(CellControlComponentType);
+                var byProperty = CellControlComponentType.GetProperty("By");
                 byProperty?.SetValue(instance, By, null);
 
-                var wrappedElementProperty = CellControlElementType.GetProperty("WrappedElement");
-                var wrappedElementParent = CellControlElementType.GetProperty("ParentWrappedElement");
-                var wrappedElementIndex = CellControlElementType.GetProperty("ElementIndex");
+                var wrappedElementProperty = CellControlComponentType.GetProperty("WrappedElement");
+                var wrappedElementParent = CellControlComponentType.GetProperty("ParentWrappedElement");
+                var wrappedElementIndex = CellControlComponentType.GetProperty("ElementIndex");
 
                 wrappedElementProperty?.SetValue(instance, WrappedElement, null);
                 wrappedElementParent?.SetValue(instance, ParentWrappedElement, null);
                 wrappedElementIndex?.SetValue(instance, ElementIndex, null);
 
-                var isRefreshableElementProperty = CellControlElementType.GetProperty("ShouldCacheElement");
+                var isRefreshableElementProperty = CellControlComponentType.GetProperty("ShouldCacheElement");
                 isRefreshableElementProperty?.SetValue(instance, true, null);
 
                 return instance;
             }
             else
             {
-                return Create(CellControlBy, CellControlElementType);
+                return Create(CellControlBy, CellControlComponentType);
             }
         }
 
-        internal void DefaultClick<TElement>(
-           TElement element,
-           EventHandler<ElementActionEventArgs> clicking,
-           EventHandler<ElementActionEventArgs> clicked)
-           where TElement : Element
+        internal void DefaultClick<TComponent>(
+           TComponent element,
+           EventHandler<ComponentActionEventArgs> clicking,
+           EventHandler<ComponentActionEventArgs> clicked)
+           where TComponent : Component
         {
-            clicking?.Invoke(this, new ElementActionEventArgs(element));
+            clicking?.Invoke(this, new ComponentActionEventArgs(element));
 
             element.ToExists().ToBeClickable().WaitToBe();
             element.WrappedElement.Click();
 
-            clicked?.Invoke(this, new ElementActionEventArgs(element));
+            clicked?.Invoke(this, new ComponentActionEventArgs(element));
         }
     }
 }

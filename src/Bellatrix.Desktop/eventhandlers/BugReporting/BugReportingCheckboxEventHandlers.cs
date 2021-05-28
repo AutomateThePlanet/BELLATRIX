@@ -18,8 +18,8 @@ namespace Bellatrix.Desktop.BugReporting
 {
     public class BugReportingCheckboxEventHandlers : CheckboxEventHandlers
     {
-        protected override void CheckingEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Check {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void UncheckingEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

@@ -2,8 +2,8 @@
     <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.13" />
-        <PackageReference Include="Polly" Version="7.2.1" />
+        <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
+        <PackageReference Include="Polly" Version="7.2.2" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
       <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
       <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
       <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />

@@ -18,6 +18,6 @@ namespace Bellatrix.Desktop.BddLogging
 {
     public class BugReportingTextAreaEventHandlers : TextAreaEventHandlers
     {
-        protected override void SettingTextEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

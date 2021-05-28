@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.EventHandlers.Android
 {
-    public class ButtonEventHandlers : ElementEventHandlers
+    public class ButtonEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -33,11 +33,11 @@ namespace Bellatrix.Mobile.EventHandlers.Android
             Button.Clicked -= ClickedEventHandler;
         }
 
-        protected virtual void ClickingEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ClickedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
     }

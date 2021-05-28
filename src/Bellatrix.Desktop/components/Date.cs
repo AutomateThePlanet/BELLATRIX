@@ -18,19 +18,19 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class Date : Element, IElementDisabled, IElementDate
+    public class Date : Component, IComponentDisabled, IComponentDate
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingDate;
-        public static event EventHandler<ElementActionEventArgs> DateSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingDate;
+        public static event EventHandler<ComponentActionEventArgs> DateSet;
 
-        public string GetDate()
+        public virtual string GetDate()
         {
             return WrappedElement.Text;
         }
 
-        public void SetDate(int year, int month, int day)
+        public virtual void SetDate(int year, int month, int day)
         {
             if (year <= 0)
             {
@@ -52,12 +52,12 @@ namespace Bellatrix.Desktop
             SetText(SettingDate, DateSet, valueToBeSet);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

@@ -22,13 +22,13 @@ using Bellatrix.Web.Contracts;
 
 namespace Bellatrix.Web
 {
-    public class TableRow : Element, IElementInnerHtml
+    public class TableRow : Component, IComponentInnerHtml
     {
         private Table _parentTable;
         private HeaderNamesService _headerNamesService;
-        private ElementsList<TableCell> _tableCells;
+        private List<TableCell> _tableCells;
 
-        protected virtual ElementsList<TableCell> TableCells => _tableCells ?? this.CreateAllByXpath<TableCell>("./td", true);
+        protected virtual List<TableCell> TableCells => _tableCells ?? this.CreateAllByXpath<TableCell>("./td", true).ToList();
 
         public int Index { get; set; }
 
@@ -87,9 +87,9 @@ namespace Bellatrix.Web
             }
         }
 
-        public ElementsList<TableCell> GetCells(Func<TableCell, bool> selector)
+        public List<TableCell> GetCells(Func<TableCell, bool> selector)
         {
-            return GetCells().Where(selector).ToElementList();
+            return GetCells().Where(selector).ToList();
         }
 
         public TableCell GetFirstOrDefaultCell(Func<TableCell, bool> selector)

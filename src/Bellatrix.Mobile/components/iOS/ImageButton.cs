@@ -20,22 +20,22 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class ImageButton : Element, IElementDisabled, IElementText
+    public class ImageButton : IOSComponent, IComponentDisabled, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Clicking;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Clicked;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicking;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicked;
 
-        public void Click()
+        public virtual void Click()
         {
             Click(Clicking, Clicked);
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             return GetText();
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

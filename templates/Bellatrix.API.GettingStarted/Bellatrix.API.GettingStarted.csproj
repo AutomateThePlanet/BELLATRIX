@@ -2,29 +2,31 @@
 
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
+  <PropertyGroup>
+    <RootNamespace>Bellatrix.API.GettingStarted</RootNamespace>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Bellatrix.FFmpeg.Recorder" Version="1.3.0" />
-		<PackageReference Include="Bellatrix.API.DemoApps" Version="1.3.0" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
-		<PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
-		<PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.1.0" />
+    <PackageReference Include="Bellatrix.API.DemoApps" Version="1.3.0" />
 
-		<PackageReference Include="Moq" Version="4.15.2" />
-		<PackageReference Include="NJsonSchema" Version="10.3.1" />
-		<PackageReference Include="System.Security.Permissions" Version="5.0.0" />
-		<PackageReference Include="Unity" Version="5.11.9" />
-		<PackageReference Include="RestSharp" Version="106.11.7" />
-		<PackageReference Include="AutoFixture" Version="4.14.0" />
-	</ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.17.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.4" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.4" />
+    <PackageReference Include="Unity" Version="5.11.10" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\src\Bellatrix.Api\Bellatrix.API.csproj" />
-		<ProjectReference Include="..\..\src\Bellatrix.Core\Bellatrix.Core.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Bellatrix.Api\Bellatrix.API.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Core\Bellatrix.Core.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<None Update="testFrameworkSettings.$(Configuration).json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
+  <ItemGroup>
+    <None Update="allureConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="testFrameworkSettings.$(Configuration).json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

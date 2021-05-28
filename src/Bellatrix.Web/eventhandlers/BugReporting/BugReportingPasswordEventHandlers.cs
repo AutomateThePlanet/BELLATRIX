@@ -18,6 +18,6 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BugReportingPasswordEventHandlers : PasswordEventHandlers
     {
-        protected override void SettingPasswordEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+        protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
     }
 }

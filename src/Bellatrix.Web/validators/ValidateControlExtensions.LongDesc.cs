@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateLongDescIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementLongDesc, IElement
+            where T : IComponentLongDesc, IComponent
         {
             WaitUntil(() => control.LongDesc == null, $"The control's longdesc should be null but was '{control.LongDesc}'.", timeout, sleepInterval);
-            ValidatedLongDescIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedLongDescIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateLongDescIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementLongDesc, IElement
+            where T : IComponentLongDesc, IComponent
         {
             WaitUntil(() => control.LongDesc.Equals(value), $"The control's longdesc should be '{value}' but was '{control.LongDesc}'.", timeout, sleepInterval);
-            ValidatedLongDescIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedLongDescIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedLongDescIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedLongDescIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedLongDescIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedLongDescIsEvent;
     }
 }

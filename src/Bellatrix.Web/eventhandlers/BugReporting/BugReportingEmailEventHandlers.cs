@@ -18,6 +18,6 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BugReportingEmailEventHandlers : EmailEventHandlers
     {
-        protected override void SettingEmailEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+        protected override void SettingEmailEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="ElementCreateServiceCreateSingleElementTests.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ComponentCreateServiceCreateSingleElementTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2020 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -23,14 +23,14 @@ namespace Bellatrix.Mobile.Android.Tests
         ".view.ControlsMaterialDark",
         Lifecycle.RestartEveryTime)]
     [AllureSuite("Services")]
-    [AllureFeature("ElementCreateService")]
-    public class ElementCreateServiceCreateSingleElementTests : MSTest.AndroidTest
+    [AllureFeature("ComponentCreateService")]
+    public class ComponentCreateServiceCreateSingleElementTests : MSTest.AndroidTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByIdContaining_And_ElementIsOnScreen()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.ValidateIsVisible();
         }
@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByIdContaining_And_ElementIsNotOnScreen()
         {
-            var textField = App.ElementCreateService.CreateByIdContaining<TextField>("edit");
+            var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
             textField.ValidateIsVisible();
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateById_And_ElementIsOnScreen()
         {
-            var button = App.ElementCreateService.CreateById<Button>("com.example.android.apis:id/button");
+            var button = App.Components.CreateById<Button>("com.example.android.apis:id/button");
 
             button.ValidateIsVisible();
         }
@@ -57,7 +57,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateById_And_ElementIsNotOnScreen()
         {
-            var textField = App.ElementCreateService.CreateById<TextField>("com.example.android.apis:id/edit");
+            var textField = App.Components.CreateById<TextField>("com.example.android.apis:id/edit");
 
             textField.ValidateIsVisible();
         }
@@ -66,7 +66,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByClass()
         {
-            var checkBox = App.ElementCreateService.CreateByClass<CheckBox>("android.widget.CheckBox");
+            var checkBox = App.Components.CreateByClass<CheckBox>("android.widget.CheckBox");
 
             checkBox.ValidateIsNotDisabled();
         }
@@ -75,7 +75,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByText_And_ElementIsOnScreen()
         {
-            var button = App.ElementCreateService.CreateByText<Button>("BUTTON");
+            var button = App.Components.CreateByText<Button>("BUTTON");
 
             button.ValidateIsVisible();
         }
@@ -84,7 +84,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByText_And_ElementIsNotOnScreen()
         {
-            var textField = App.ElementCreateService.CreateByText<TextField>("Text appearances");
+            var textField = App.Components.CreateByText<TextField>("Text appearances");
 
             textField.ValidateIsVisible();
         }
@@ -93,7 +93,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByTextContaining_And_ElementIsOnScreen()
         {
-            var button = App.ElementCreateService.CreateByTextContaining<Button>("BUTTO");
+            var button = App.Components.CreateByTextContaining<Button>("BUTTO");
 
             button.ValidateIsVisible();
         }
@@ -102,7 +102,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByTextContaining_And_ElementIsNotOnScreen()
         {
-            var textField = App.ElementCreateService.CreateByTextContaining<TextField>("Text appearanc");
+            var textField = App.Components.CreateByTextContaining<TextField>("Text appearanc");
 
             textField.ValidateIsVisible();
         }
@@ -111,7 +111,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByAndroidUIAutomator_And_ElementIsOnScreen()
         {
-            var button = App.ElementCreateService.CreateByAndroidUIAutomator<Button>("new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().resourceId(\"com.example.android.apis:id/button\"));");
+            var button = App.Components.CreateByAndroidUIAutomator<Button>("new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().resourceId(\"com.example.android.apis:id/button\"));");
 
             button.ValidateIsVisible();
         }
@@ -120,7 +120,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByAndroidUIAutomator_And_ElementIsNotOnScreen()
         {
-            var textField = App.ElementCreateService.CreateByAndroidUIAutomator<TextField>("new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().resourceId(\"com.example.android.apis:id/edit\"));");
+            var textField = App.Components.CreateByAndroidUIAutomator<TextField>("new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().resourceId(\"com.example.android.apis:id/edit\"));");
 
             textField.ValidateIsVisible();
         }
@@ -129,7 +129,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ElementFound_When_CreateByXPath_And_ElementIsOnScreen()
         {
-            var button = App.ElementCreateService.CreateByXPath<Button>("//*[@resource-id='com.example.android.apis:id/button']");
+            var button = App.Components.CreateByXPath<Button>("//*[@resource-id='com.example.android.apis:id/button']");
 
             button.ValidateIsVisible();
         }

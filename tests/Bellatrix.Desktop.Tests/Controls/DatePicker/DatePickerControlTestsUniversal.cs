@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("DatePicker Control")]
     [AllureTag("Universal")]
-    public class DatePickerControlTestsUniversal : BellatrixBaseTest
+    public class DatePickerControlTestsUniversal : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_DateHovered_Universal()
         {
-            var datePicker = App.ElementCreateService.CreateByAutomationId<Date>("datePicker");
+            var datePicker = App.Components.CreateByAutomationId<Date>("datePicker");
 
             datePicker.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultTextBlock");
+            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
             Assert.AreEqual("edatepickerHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_DatePickerIsNotDisabled_Universal()
         {
-            var datePicker = App.ElementCreateService.CreateByAutomationId<Date>("datePicker");
+            var datePicker = App.Components.CreateByAutomationId<Date>("datePicker");
 
             Assert.AreEqual(false, datePicker.IsDisabled);
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_DatePickerIsDisabled_Universal()
         {
-            var datePicker = App.ElementCreateService.CreateByAutomationId<Date>("disabledDatePicker");
+            var datePicker = App.Components.CreateByAutomationId<Date>("disabledDatePicker");
 
             Assert.AreEqual(true, datePicker.IsDisabled);
         }

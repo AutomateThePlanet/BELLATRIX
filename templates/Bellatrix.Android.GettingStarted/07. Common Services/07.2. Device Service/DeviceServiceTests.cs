@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Android;
 using System;
@@ -6,95 +6,89 @@ using BA = Bellatrix.Assertions;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.RestartEveryTime)]
-    public class DeviceServiceTests : MSTest.AndroidTest
+    [TestFixture]
+    public class DeviceServiceTests : NUnit.AndroidTest
     {
         // 1. BELLATRIX gives you an interface to most common operations for controlling the device through the DeviceService class.
-        [TestMethod]
-        [Ignore]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
+        [Category(Categories.KnownIssue)]
         public void OrientationSetToLandscape_When_CallRotateWithLandscape()
         {
             // Rotates the device horizontally.
-            App.DeviceService.Rotate(ScreenOrientation.Landscape);
+            App.Device.Rotate(ScreenOrientation.Landscape);
 
             // Gets the current device orientation.
-            Assert.AreEqual(ScreenOrientation.Landscape, App.DeviceService.Orientation);
+            Assert.AreEqual(ScreenOrientation.Landscape, App.Device.Orientation);
         }
 
-        [TestMethod]
-        [Ignore]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
+        [Category(Categories.KnownIssue)]
         public void CorrectTimeReturned_When_CallDeviceTime()
         {
             // Gets current device time.
-            BA.DateTimeAssert.AreEqual(DateTime.Now, App.DeviceService.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
+            BA.DateTimeAssert.AreEqual(DateTime.Now, App.Device.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
         }
 
-        [TestMethod]
-        [Ignore]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
+        [Category(Categories.KnownIssue)]
         public void DeviceIsLockedFalse_When_DeviceIsUnlocked()
         {
             // Unlocks the device.
-            App.DeviceService.Unlock();
+            App.Device.Unlock();
 
             // Checks if the device is locked or not.
-            Assert.IsTrue(App.DeviceService.IsLocked);
+            Assert.IsTrue(App.Device.IsLocked);
         }
 
-        [TestMethod]
-        [Ignore]
-        [TestCategory(Categories.KnownIssue)]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
+        [Category(Categories.KnownIssue)]
         public void DeviceIsLockedTrue_When_CallLock()
         {
             // Locks the device.
-            App.DeviceService.Lock();
+            App.Device.Lock();
 
-            Assert.IsTrue(App.DeviceService.IsLocked);
+            Assert.IsTrue(App.Device.IsLocked);
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void ConnectionTypeAirplaneMode_When_SetConnectionTypeToAirplaneMode()
         {
             try
             {
                 // Changes the connection to Airplane mode.
-                App.DeviceService.ConnectionType = ConnectionType.AirplaneMode;
+                App.Device.ConnectionType = ConnectionType.AirplaneMode;
 
                 // Checks whether the current connection type is airplane mode.
-                Assert.AreEqual(ConnectionType.AirplaneMode, App.DeviceService.ConnectionType);
+                Assert.AreEqual(ConnectionType.AirplaneMode, App.Device.ConnectionType);
 
-                App.DeviceService.ConnectionType = ConnectionType.AllNetworkOn;
-                Assert.AreEqual(ConnectionType.AllNetworkOn, App.DeviceService.ConnectionType);
+                App.Device.ConnectionType = ConnectionType.AllNetworkOn;
+                Assert.AreEqual(ConnectionType.AllNetworkOn, App.Device.ConnectionType);
             }
             finally
             {
-                App.DeviceService.ConnectionType = ConnectionType.AllNetworkOn;
+                App.Device.ConnectionType = ConnectionType.AllNetworkOn;
             }
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestTurnOnLocationService()
         {
             // Turns on the location service.
-            App.DeviceService.TurnOnLocationService();
+            App.Device.TurnOnLocationService();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestOpenNotifications()
         {
             // Opens notifications.
-            App.DeviceService.OpenNotifications();
+            App.Device.OpenNotifications();
         }
     }
 }

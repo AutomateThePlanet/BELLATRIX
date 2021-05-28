@@ -21,20 +21,20 @@ namespace Bellatrix.Mobile.IOS
     public static partial class ValidateControlExtensions
     {
         public static void ValidateIsOn<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementOn, IElement<IOSElement>
+            where T : IComponentOn, IComponent<IOSElement>
         {
             ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsOn.Equals(true), "The control should be ON but was OFF.", timeout, sleepInterval);
-            ValidatedIsOnEvent?.Invoke(control, new ElementActionEventArgs<IOSElement>(control));
+            ValidatedIsOnEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
         }
 
         public static void ValidateIsOff<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementOn, IElement<IOSElement>
+            where T : IComponentOn, IComponent<IOSElement>
         {
             ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsOn.Equals(false), "The control should be OFF but it was ON.", timeout, sleepInterval);
-            ValidatedIsOffEvent?.Invoke(control, new ElementActionEventArgs<IOSElement>(control));
+            ValidatedIsOffEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
         }
 
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> ValidatedIsOnEvent;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> ValidatedIsOffEvent;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsOnEvent;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsOffEvent;
     }
 }

@@ -15,7 +15,7 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop.EventHandlers
 {
-    public class CalendarEventHandlers : ElementEventHandlers
+    public class CalendarEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {

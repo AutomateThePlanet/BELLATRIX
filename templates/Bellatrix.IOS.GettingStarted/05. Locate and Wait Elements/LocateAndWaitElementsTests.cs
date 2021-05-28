@@ -1,17 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class LocateAndWaitElementsTests : MSTest.IOSTest
+    public class LocateAndWaiTComponentsTests : NUnit.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_ClickMethodCalled()
         {
             // 1. Sometimes you need to perform an action against an element only when a specific condition is true.
@@ -39,37 +39,37 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             //    "elementToBeClickableTimeout": "30",
             //    "elementNotToBeVisibleTimeout": "30",
             //    "elementToHaveContentTimeout": "15",
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton").ToBeClickable().ToBeVisible();
+            var button = App.Components.CreateByName<Button>("ComputeSumButton").ToBeClickable().ToBeVisible();
 
             button.Click();
 
             // 2. You can always override the timeout settings for each method.
             // The first value is the timeout in seconds and the second one controls how often the engine checks the condition.
-            var radioButton = App.ElementCreateService.CreateByName<RadioButton>("ComputeSumButton").ToHasContent(40, 1);
+            var radioButton = App.Components.CreateByName<RadioButton>("ComputeSumButton").ToHasContent(40, 1);
 
             radioButton.Click();
 
             // 3. All available ToBe methods:
-            // ToExists  --> App.ElementCreateService.CreateByName<Button>("ComputeSumButton").ToExists();
+            // ToExists  --> App.Components.CreateByName<Button>("ComputeSumButton").ToExists();
             // Waits for the element to exist on the page. BELLATRIX always does it by default.
             // But if use another ToBe methods you need to add it again since you have to override the default lifecycle.
             //
-            // ToNotExists  --> App.ElementCreateService.CreateByName<Button>("ComputeSumButton").ToNotExists();
+            // ToNotExists  --> App.Components.CreateByName<Button>("ComputeSumButton").ToNotExists();
             // Waits for the element to disappear. Usually, we use in assertion methods.
             //
-            // ToBeVisible  --> App.ElementCreateService.CreateByName<Button>("ComputeSumButton").ToBeVisible();
+            // ToBeVisible  --> App.Components.CreateByName<Button>("ComputeSumButton").ToBeVisible();
             // Waits for the element to be visible.
             //
-            // ToNotBeVisible  --> App.ElementCreateService.CreateByName<Button>("ComputeSumButton").ToNotBeVisible();
+            // ToNotBeVisible  --> App.Components.CreateByName<Button>("ComputeSumButton").ToNotBeVisible();
             // Waits for the element to be invisible.
             //
-            // ToBeClickable  --> App.ElementCreateService.CreateByName<Button>("ComputeSumButton").ToBeClickable();
+            // ToBeClickable  --> App.Components.CreateByName<Button>("ComputeSumButton").ToBeClickable();
             // Waits for the element to be clickable (may be disabled at first).
             //
-            // ToHasContent  --> App.ElementCreateService.CreateByName<Button>("ComputeSumButton").ToHasContent();
+            // ToHasContent  --> App.Components.CreateByName<Button>("ComputeSumButton").ToHasContent();
             // Waits for the element to has some content in it. For example, some validation container or label.
             //
-            // ToBeDisabled  --> App.ElementCreateService.CreateByName<Button>("ComputeSumButton").ToBeDisabled();
+            // ToBeDisabled  --> App.Components.CreateByName<Button>("ComputeSumButton").ToBeDisabled();
             // Waits for the element to be disabled.
         }
     }

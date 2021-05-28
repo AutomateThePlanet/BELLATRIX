@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Radio Control")]
     public class RadioButtonControlTestsInternetExplorer : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void Checked_When_UseClickMethod_InternetExplorer()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
             radioElement.Click();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_InternetExplorer()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio1");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
 
             radioElement.Hover();
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_InternetExplorer()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
             bool isDisabled = radioElement.IsDisabled;
 
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnTrue_When_DisabledAttributePresent_InternetExplorer()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio3");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio3");
 
             bool isDisabled = radioElement.IsDisabled;
 
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnOn_When_ValueAttributeNotPresent_InternetExplorer()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio1");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
 
             var actualValue = radioElement.Value;
 
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.InternetExplorer), TestCategory(Categories.Windows)]
         public void ReturnNewsletter_When_ValueAttributePresent_InternetExplorer()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio2");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio2");
 
             var actualValue = radioElement.Value;
 

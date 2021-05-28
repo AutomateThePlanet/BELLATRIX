@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Button Control")]
     [AllureTag("Universal")]
-    public class ButtonControlTestsUniversal : BellatrixBaseTest
+    public class ButtonControlTestsUniversal : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ButtonHovered_Universal()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Button>("resultTextBlock");
+            var label = App.Components.CreateByAutomationId<Button>("resultTextBlock");
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
 
@@ -38,11 +38,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ButtonClicked_Universal()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Button>("resultTextBlock");
+            var label = App.Components.CreateByAutomationId<Button>("resultTextBlock");
             Assert.AreEqual("ebuttonClicked", label.InnerText);
         }
 
@@ -51,7 +51,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void EButtonContent_When_ButtonLocated_Universal()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             Assert.AreEqual("E Button", button.InnerText);
         }
@@ -61,7 +61,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled_Universal()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             Assert.AreEqual(false, button.IsDisabled);
         }
@@ -71,7 +71,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_ButtonIsDisabled_Universal()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("D Button");
+            var button = App.Components.CreateByName<Button>("D Button");
 
             Assert.AreEqual(true, button.IsDisabled);
         }

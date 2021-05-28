@@ -12,7 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Events;
-using ElementNotFulfillingValidateConditionEventArgs = Bellatrix.Desktop.Validates.ElementNotFulfillingValidateConditionEventArgs;
+using ComponentNotFulfillingValidateConditionEventArgs = Bellatrix.Desktop.Validates.ComponentNotFulfillingValidateConditionEventArgs;
 
 namespace Bellatrix.Desktop
 {
@@ -36,59 +36,59 @@ namespace Bellatrix.Desktop
             ValidateControlExtensions.ValidatedExceptionThrowedEvent += ValidatedExceptionThrowedEventHandler;
         }
 
-        protected virtual void ValidatedExceptionThrowedEventHandler(object sender, ElementNotFulfillingValidateConditionEventArgs arg)
+        protected virtual void ValidatedExceptionThrowedEventHandler(object sender, ComponentNotFulfillingValidateConditionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsVisibleEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTimeIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTextIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTextIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTextIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsSelectedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedInnerTextIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedInnerTextIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsDisabledEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedDateIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsCheckedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

@@ -20,35 +20,14 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-   public class CheckBox : Element, IElementDisabled, IElementChecked, IElementText
+   public class CheckBox : IOSComponent, IComponentDisabled, IComponentChecked, IComponentText
     {
-        public static Func<CheckBox, bool> OverrideIsDisabledGlobally;
-        public static Func<CheckBox, bool> OverrideIsCheckedGlobally;
-        public static Action<CheckBox, bool> OverrideCheckGlobally;
-        public static Action<CheckBox> OverrideUncheckGlobally;
-        public static Func<CheckBox, string> OverrideGetTextGlobally;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Checking;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Checked;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Unchecking;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Unchecked;
 
-        public static Func<CheckBox, bool> OverrideIsDisabledLocally;
-        public static Func<CheckBox, bool> OverrideIsCheckedLocally;
-        public static Action<CheckBox, bool> OverrideCheckLocally;
-        public static Action<CheckBox> OverrideUncheckLocally;
-        public static Func<CheckBox, string> OverrideGetTextLocally;
-
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Checking;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Checked;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Unchecking;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Unchecked;
-
-        public static new void ClearLocalOverrides()
-        {
-            OverrideIsDisabledLocally = null;
-            OverrideIsCheckedLocally = null;
-            OverrideCheckLocally = null;
-            OverrideUncheckLocally = null;
-            OverrideGetTextLocally = null;
-        }
-
-        public void Check(bool isChecked = true)
+        public virtual void Check(bool isChecked = true)
         {
             bool isElementChecked = GetIsChecked();
             if (isChecked && !isElementChecked || !isChecked && isElementChecked)
@@ -57,7 +36,7 @@ namespace Bellatrix.Mobile.IOS
             }
         }
 
-        public void Uncheck()
+        public virtual void Uncheck()
         {
             bool isChecked = GetIsChecked();
             if (isChecked)
@@ -66,15 +45,15 @@ namespace Bellatrix.Mobile.IOS
             }
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             return GetText();
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsChecked => GetIsChecked();
+        public virtual bool IsChecked => GetIsChecked();
     }
 }

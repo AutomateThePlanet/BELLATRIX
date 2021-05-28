@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Week Control")]
     public class WeekControlTestsSafari : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().WeekLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().WeekLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void WeekSet_When_UseSetWeekMethod_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             weekElement.SetWeek(2017, 7);
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetWeekReturnsCorrectWeek_When_DefaultWeekIsSet_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek2");
+            var weekElement = App.Components.CreateById<Week>("myWeek2");
 
             Assert.AreEqual("2017-W07", weekElement.GetWeek());
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             Assert.IsFalse(weekElement.IsAutoComplete);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek4");
+            var weekElement = App.Components.CreateById<Week>("myWeek4");
 
             Assert.IsFalse(weekElement.IsAutoComplete);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek3");
+            var weekElement = App.Components.CreateById<Week>("myWeek3");
 
             Assert.IsTrue(weekElement.IsAutoComplete);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek4");
+            var weekElement = App.Components.CreateById<Week>("myWeek4");
 
             Assert.AreEqual(false, weekElement.IsReadonly);
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek5");
+            var weekElement = App.Components.CreateById<Week>("myWeek5");
 
             Assert.AreEqual(true, weekElement.IsReadonly);
         }
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             var max = weekElement.Max;
 
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             Assert.IsNull(weekElement.Min);
         }
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             Assert.IsNull(weekElement.Step);
         }
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetMaxReturns52Week_When_MaxAttributeIsPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek1");
+            var weekElement = App.Components.CreateById<Week>("myWeek1");
 
             Assert.AreEqual("2017-W52", weekElement.Max);
         }
@@ -129,7 +129,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetMinReturnsFirstWeek_When_MinAttributeIsPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek1");
+            var weekElement = App.Components.CreateById<Week>("myWeek1");
 
             Assert.AreEqual("2017-W01", weekElement.Min);
         }
@@ -138,7 +138,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetStepReturns10_When_StepAttributeIsNotPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek1");
+            var weekElement = App.Components.CreateById<Week>("myWeek1");
 
             Assert.AreEqual(10, weekElement.Step);
         }
@@ -147,7 +147,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek4");
+            var weekElement = App.Components.CreateById<Week>("myWeek4");
 
             Assert.AreEqual(false, weekElement.IsRequired);
         }
@@ -156,7 +156,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek6");
+            var weekElement = App.Components.CreateById<Week>("myWeek6");
 
             Assert.IsTrue(weekElement.IsRequired);
         }
@@ -165,7 +165,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek7");
+            var weekElement = App.Components.CreateById<Week>("myWeek7");
 
             weekElement.Hover();
 
@@ -176,7 +176,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek8");
+            var weekElement = App.Components.CreateById<Week>("myWeek8");
 
             weekElement.Focus();
 
@@ -187,7 +187,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek");
+            var weekElement = App.Components.CreateById<Week>("myWeek");
 
             bool isDisabled = weekElement.IsDisabled;
 
@@ -198,7 +198,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Safari()
         {
-            var weekElement = App.ElementCreateService.CreateById<Week>("myWeek9");
+            var weekElement = App.Components.CreateById<Week>("myWeek9");
 
             bool isDisabled = weekElement.IsDisabled;
 

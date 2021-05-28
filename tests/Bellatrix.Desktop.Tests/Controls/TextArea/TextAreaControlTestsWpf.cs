@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("TextArea Control")]
     [AllureTag("WPF")]
-    public class TextAreaControlTestsWpf : BellatrixBaseTest
+    public class TextAreaControlTestsWpf : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_TextAreaHovered_Wpf()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<TextArea>("textArea");
+            var button = App.Components.CreateByAutomationId<TextArea>("textArea");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("textAreaHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_NewTextSet_Wpf()
         {
-            var textArea = App.ElementCreateService.CreateByAutomationId<TextArea>("textArea");
+            var textArea = App.Components.CreateByAutomationId<TextArea>("textArea");
 
             textArea.SetText("Meissa Is Beautiful!");
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void GetContent_When_TextAreaLocated_Wpf()
         {
-            var textArea = App.ElementCreateService.CreateByAutomationId<TextArea>("disabledTextArea");
+            var textArea = App.Components.CreateByAutomationId<TextArea>("disabledTextArea");
 
             Assert.AreEqual("Bellatrix Is Awesome!", textArea.InnerText);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_TextAreaIsNotDisabled_Wpf()
         {
-            var textArea = App.ElementCreateService.CreateByAutomationId<TextArea>("textArea");
+            var textArea = App.Components.CreateByAutomationId<TextArea>("textArea");
 
             Assert.AreEqual(false, textArea.IsDisabled);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_TextAreaIsDisabled_Wpf()
         {
-            var textArea = App.ElementCreateService.CreateByAutomationId<TextArea>("disabledTextArea");
+            var textArea = App.Components.CreateByAutomationId<TextArea>("disabledTextArea");
 
             Assert.AreEqual(true, textArea.IsDisabled);
         }

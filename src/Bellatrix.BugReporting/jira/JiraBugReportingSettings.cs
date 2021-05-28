@@ -1,4 +1,4 @@
-﻿// <copyright file="AzureDevOpsBugReportingSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="JiraBugReportingSettings.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -17,8 +17,9 @@ using System.Text;
 
 namespace Bellatrix.BugReporting.Jira
 {
-    public class JiraBugReportingSettings : BugReportingSettings
+    public class JiraBugReportingSettings
     {
+        public bool IsEnabled { get; set; }
         public string Url { get; set; }
         public string Token { get; set; }
         public string ProjectName { get; set; }

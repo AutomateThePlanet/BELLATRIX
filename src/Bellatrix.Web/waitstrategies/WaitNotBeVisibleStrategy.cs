@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Untils
         public WaitNotBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<TimeoutSettings>().ElementNotToBeVisibleTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementNotToBeVisibleTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)
@@ -29,7 +29,7 @@ namespace Bellatrix.Web.Untils
             WaitUntil(d => ElementIsInvisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
         }
 
-        public override void WaitUntil<TBy>(TBy by, Element parent)
+        public override void WaitUntil<TBy>(TBy by, Component parent)
         {
             WaitUntil(d => ElementIsInvisible(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
         }

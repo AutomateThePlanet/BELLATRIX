@@ -18,25 +18,25 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Label : Element, IElementInnerText, IElementInnerHtml, IElementFor
+    public class Label : Component, IComponentInnerText, IComponentInnerHtml, IComponentFor
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
+        public virtual string InnerText => GetInnerText();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
+        public virtual string InnerHtml => GetInnerHtmlAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string For => GetForAttribute();
+        public virtual string For => GetForAttribute();
     }
 }

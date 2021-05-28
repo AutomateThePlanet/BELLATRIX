@@ -28,7 +28,7 @@
 
         public void AddProductById(int productId)
         {
-            var product = ElementCreateService.CreateByAttributesContaining<Anchor>("data-product_id", productId.ToString()).ToBeClickable();
+            var product = ComponentCreateService.CreateByAttributesContaining<Anchor>("data-product_id", productId.ToString()).ToBeClickable();
             product.Click();
             ViewCartButton.ValidateIsVisible();
         }

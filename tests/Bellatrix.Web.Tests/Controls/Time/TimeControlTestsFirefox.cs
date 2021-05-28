@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Time Control")]
     public class TimeControlTestsFirefox : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TimeLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TimeLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void DecimalTimeSet_When_UseSetTimeMethod_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.Components.CreateById<Time>("myTime");
 
             timeElement.SetTime(11, 11);
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void IntegerTimeSet_When_UseSetTimeMethod_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.Components.CreateById<Time>("myTime");
 
             timeElement.SetTime(12, 12);
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetTimeReturnsCorrectTime_When_DefaultTimeIsSet_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime2");
+            var timeElement = App.Components.CreateById<Time>("myTime2");
 
             Assert.AreEqual("12:11", timeElement.GetTime());
         }
@@ -57,7 +57,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.Components.CreateById<Time>("myTime");
 
             Assert.IsFalse(timeElement.IsAutoComplete);
         }
@@ -66,7 +66,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime4");
+            var timeElement = App.Components.CreateById<Time>("myTime4");
 
             Assert.IsFalse(timeElement.IsAutoComplete);
         }
@@ -75,7 +75,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime3");
+            var timeElement = App.Components.CreateById<Time>("myTime3");
 
             Assert.IsTrue(timeElement.IsAutoComplete);
         }
@@ -84,7 +84,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime4");
+            var timeElement = App.Components.CreateById<Time>("myTime4");
 
             Assert.AreEqual(false, timeElement.IsReadonly);
         }
@@ -93,7 +93,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime5");
+            var timeElement = App.Components.CreateById<Time>("myTime5");
 
             Assert.AreEqual(true, timeElement.IsReadonly);
         }
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnsNull_When_MaxAttributeIsNotPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.Components.CreateById<Time>("myTime");
 
             var max = timeElement.Max;
 
@@ -113,7 +113,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnsNull_When_MinAttributeIsNotPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.Components.CreateById<Time>("myTime");
 
             Assert.IsNull(timeElement.Min);
         }
@@ -122,7 +122,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.Components.CreateById<Time>("myTime");
 
             Assert.IsNull(timeElement.Step);
         }
@@ -131,7 +131,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMaxReturns80_When_MaxAttributeIsPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime1");
+            var timeElement = App.Components.CreateById<Time>("myTime1");
 
             Assert.AreEqual("11:11", timeElement.Max);
         }
@@ -140,7 +140,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMinReturns10_When_MinAttributeIsPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime1");
+            var timeElement = App.Components.CreateById<Time>("myTime1");
 
             Assert.AreEqual("00:01", timeElement.Min);
         }
@@ -149,7 +149,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetStepReturns10_When_StepAttributeIsNotPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime1");
+            var timeElement = App.Components.CreateById<Time>("myTime1");
 
             Assert.AreEqual(10, timeElement.Step);
         }
@@ -158,7 +158,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime4");
+            var timeElement = App.Components.CreateById<Time>("myTime4");
 
             Assert.AreEqual(false, timeElement.IsRequired);
         }
@@ -167,7 +167,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime6");
+            var timeElement = App.Components.CreateById<Time>("myTime6");
 
             Assert.IsTrue(timeElement.IsRequired);
         }
@@ -176,7 +176,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime7");
+            var timeElement = App.Components.CreateById<Time>("myTime7");
 
             timeElement.Hover();
 
@@ -187,7 +187,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime8");
+            var timeElement = App.Components.CreateById<Time>("myTime8");
 
             timeElement.Focus();
 
@@ -198,7 +198,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime");
+            var timeElement = App.Components.CreateById<Time>("myTime");
 
             bool isDisabled = timeElement.IsDisabled;
 
@@ -209,7 +209,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Firefox()
         {
-            var timeElement = App.ElementCreateService.CreateById<Time>("myTime9");
+            var timeElement = App.Components.CreateById<Time>("myTime9");
 
             bool isDisabled = timeElement.IsDisabled;
 

@@ -11,34 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop.Configuration
+namespace Bellatrix.Desktop
 {
     public class DesktopSettings
     {
-        public bool ShouldStartLocalService { get; set; } = true;
-
-        public string ServiceUrl { get; set; }
-
-        public string Ip { get; set; }
-
-        public int Port { get; set; }
-
-        public int SleepInterval { get; set; }
-
-        public int ElementToBeVisibleTimeout { get; set; }
-
-        public int ElementToExistTimeout { get; set; }
-
-        public int ElementToNotExistTimeout { get; set; }
-
-        public int ElementToBeClickableTimeout { get; set; }
-
-        public int ElementNotToBeVisibleTimeout { get; set; }
-
-        public int ElementToHaveContentTimeout { get; set; }
-
-        public int CreateSessionTimeout { get; set; }
-
-        public int WaitForAppLaunchTimeout { get; set; }
+        public TimeoutSettings TimeoutSettings { get; set; }
+        public ExecutionSettings ExecutionSettings { get; set; }
     }
 }

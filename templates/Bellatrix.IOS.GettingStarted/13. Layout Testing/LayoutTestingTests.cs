@@ -1,6 +1,6 @@
 ﻿using Bellatrix.Layout;
 using Bellatrix.Mobile.Controls.IOS;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
@@ -14,18 +14,18 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    [TestClass]
-    public class LayoutTestingTests : MSTest.IOSTest
+    [TestFixture]
+    public class LayoutTestingTests : NUnit.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void TestPageLayout()
         {
-            var numberOneTextField = App.ElementCreateService.CreateById<TextField>("IntegerA");
-            var computeButton = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
-            ////var answerLabel = App.ElementCreateService.CreateByName<Label>("Answer");
-            var mainElement = App.ElementCreateService.CreateByIOSNsPredicate<Element>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+            var numberOneTextField = App.Components.CreateById<TextField>("IntegerA");
+            var computeButton = App.Components.CreateByName<Button>("ComputeSumButton");
+            ////var answerLabel = App.Components.CreateByName<Label>("Answer");
+            var mainElement = App.Components.CreateByIOSNsPredicate<IOSComponent>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
 
             // 2. Depending on what you want to check, BELLATRIX gives lots of options. You can test px perfect or just that some element is below another.
             // Check that the text field is above the button.

@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidatePhoneIsThrowsException()
         {
-            var phoneElement = App.ElementCreateService.CreateById<Phone>("myPhone");
+            var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
             phoneElement.SetPhone("123-4567-8901");
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 phoneElement.ValidatePhoneIs("123-4567-8902", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's phone should be '123-4567-8902' but was '123-4567-8901'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

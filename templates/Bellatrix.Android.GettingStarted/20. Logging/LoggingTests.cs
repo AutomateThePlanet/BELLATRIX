@@ -1,24 +1,18 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    public class LoggingTests : MSTest.AndroidTest
+    [TestFixture]
+    public class LoggingTests : NUnit.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
             // 1. Sometimes is useful to add information to the generated test log.
             // To do it you can use the BELLATRIX built-in logger through accessing it via App service.
             Logger.LogInformation("$$$ Before clicking the button $$$");
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.Click();
 

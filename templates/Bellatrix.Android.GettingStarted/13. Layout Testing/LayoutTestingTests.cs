@@ -1,6 +1,6 @@
 ﻿using Bellatrix.Layout;
 using Bellatrix.Mobile.Controls.Android;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
@@ -10,24 +10,18 @@ namespace Bellatrix.Mobile.Android.GettingStarted
     // using Bellatrix.Layout;
     //
     // After that 100 assertion extensions methods are available to you to check the exact position of your Android elements.
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [TestClass]
-    public class LayoutTestingTests : MSTest.AndroidTest
+    [TestFixture]
+    public class LayoutTestingTests : NUnit.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void TestPageLayout()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
-            var secondButton = App.ElementCreateService.CreateByIdContaining<Button>("button_disabled");
-            var checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check1");
-            var secondCheckBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check2");
-            var mainElement = App.ElementCreateService.CreateById<Element>("android:id/content");
+            var button = App.Components.CreateByIdContaining<Button>("button");
+            var secondButton = App.Components.CreateByIdContaining<Button>("button_disabled");
+            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
+            var secondCheckBox = App.Components.CreateByIdContaining<CheckBox>("check2");
+            var mainElement = App.Components.CreateById<AndroidComponent>("android:id/content");
 
             // 2. Depending on what you want to check, BELLATRIX gives lots of options. You can test px perfect or just that some element is below another.
             // Check that the button is above the checkbox.

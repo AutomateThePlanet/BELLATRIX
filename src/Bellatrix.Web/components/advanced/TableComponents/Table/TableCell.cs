@@ -18,10 +18,10 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class TableCell : Element, IElementInnerText, IElementInnerHtml
+    public class TableCell : Component, IComponentInnerText, IComponentInnerHtml
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
 
         public void Hover()
         {

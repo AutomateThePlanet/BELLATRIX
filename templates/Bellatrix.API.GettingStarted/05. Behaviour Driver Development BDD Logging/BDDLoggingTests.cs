@@ -21,7 +21,7 @@ namespace Bellatrix.API.GettingStarted
             _apiClientService = App.GetApiClientService();
         }
 
-        // 1. There cases when you need to show your colleagues or managers what tests do you have.
+        // There cases when you need to show your colleagues or managers what tests do you have.
         // Sometimes you may have manual test cases, but their maintenance and up-to-date state are questionable.
         // Also, many times you need additional work to associate the tests with the test cases.
         // Some frameworks give you a way to write human readable tests through the Gherkin language.
@@ -33,30 +33,13 @@ namespace Bellatrix.API.GettingStarted
         [TestCategory(Categories.CI)]
         public void ContentPopulated_When_GetAlbums()
         {
-            // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.
-            //  "loggingSettings": {
-            //      "isEnabled": "true",
-            //      "isConsoleLoggingEnabled": "true",
-            //      "isDebugLoggingEnabled": "true",
-            //      "isEventLoggingEnabled": "false",
-            //      "isFileLoggingEnabled": "true",
-            //      "outputTemplate":  "{Message:lj}{NewLine}",
-            //      "addUrlToBddLogging": "false"
-            //  }
-            //
-            // You can disable the logs entirely. There are different places where the logs are populated.
-            // By default, you can see the logs in the output window of each test.
-            // Also, a file called logs.txt is generated in the folder with the DLLs of your tests.
-            // If you execute your tests in CI with some CLI test runner the logs are printed there as well.
-            // outputTemplate - controls how the message is formatted. You can add additional info such as timestamp and much more.
-            // for more info visit- https://github.com/serilog/serilog/wiki/Formatting-Output
             var request = new RestRequest("api/Albums");
 
             var response = _apiClientService.Get(request);
 
             Assert.IsNotNull(response.Content);
 
-            // 3. After the tests are executed the following log is created:
+            // After the tests are executed the following log is created:
             // Start Test
             // Class = BDDLoggingTests Name = ContentPopulated_When_GetAlbums
             // Making GET request against resource api/Albums

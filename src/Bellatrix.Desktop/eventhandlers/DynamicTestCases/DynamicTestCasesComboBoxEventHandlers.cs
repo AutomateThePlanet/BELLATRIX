@@ -18,6 +18,6 @@ namespace Bellatrix.Desktop.DynamicTestCases
 {
     public class DynamicTestCasesComboBoxEventHandlers : ComboBoxEventHandlers
     {
-        protected override void SelectingEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
  }
 }

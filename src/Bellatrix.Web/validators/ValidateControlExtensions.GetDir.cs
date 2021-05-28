@@ -19,20 +19,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateDirIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : Element
+            where T : Component
         {
             WaitUntil(() => control.GetDir() == null, $"The control's dir should be null but was '{control.GetDir()}'.", timeout, sleepInterval);
-            ValidatedDirIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedDirIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateDirIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : Element
+            where T : Component
         {
             WaitUntil(() => control.GetDir().Equals(value), $"The control's dir should be '{value}' but was '{control.GetDir()}'.", timeout, sleepInterval);
-            ValidatedDirIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedDirIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedDirIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedDirIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedDirIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedDirIsEvent;
     }
 }

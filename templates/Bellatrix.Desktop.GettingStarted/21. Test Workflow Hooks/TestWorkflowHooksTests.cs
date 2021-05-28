@@ -1,16 +1,15 @@
-﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.NUnit;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.ReuseIfStarted)]
+    [TestFixture]
     public class TestWorkflowHooksTests : DesktopTest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.
         // It gives you the possibility to execute your logic in every part of the test workflow.
         // Also, as you can read in the next chapter write plug-ins that execute code in different places of the workflow every time.
-        // This is happening no matter what test framework you use- MSTest or NUnit. As you know, MSTest is not extension friendly.
+        // This is happening no matter what test framework you use- NUnit or NUnit. As you know, NUnit is not extension friendly.
         //
         // 2. BELLATRIX default Test Workflow.
         //
@@ -26,7 +25,7 @@ namespace Bellatrix.Desktop.GettingStarted
         // 2.7. All plug-ins PreTestsAct logic executes.
         // 2.8. Current class TestsAct method executes. By default it is empty, but you can override it in each class and execute your logic.
         // This is the place where you can execute the primary actions for your test case. This is useful if you want later include only assertions in the tests.
-        // Note: TestsArrange and TestsAct are similar to MSTest TestClassInitialize and OneTimeSetup in NUnit. We decided to split them into two methods
+        // Note: TestsArrange and TestsAct are similar to NUnit TestClassInitialize and OneTimeSetup in NUnit. We decided to split them into two methods
         // to make the code more readable and two allow customization of the workflow.
         //
         // The following methods are called once for each test in the class:
@@ -56,26 +55,26 @@ namespace Bellatrix.Desktop.GettingStarted
         // some of it through the usage of TestInit and TestCleanup methods.
         public override void TestsArrange()
         {
-            ////_mainButton = App.ElementCreateService.CreateByName<Button>("E Button");
-            ////_resultsLabel = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            ////_mainButton = App.Components.CreateByName<Button>("E Button");
+            ////_resultsLabel = App.Components.CreateByAutomationId<Label>("ResultLabelId");
         }
 
         public override void TestsAct()
         {
-            _mainButton = App.ElementCreateService.CreateByName<Button>("E Button");
-            _resultsLabel = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            _mainButton = App.Components.CreateByName<Button>("E Button");
+            _resultsLabel = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             _mainButton.Hover();
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
             Assert.AreEqual("ebuttonHovered", _resultsLabel.InnerText);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ResultsLabelVisible_When_ButtonClicked_Wpf()
         {
             _resultsLabel.ValidateIsVisible();

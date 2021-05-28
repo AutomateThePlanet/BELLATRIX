@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("TimePicker Control")]
     [AllureTag("Universal")]
-    public class TimePickerControlTestsUniversal : BellatrixBaseTest
+    public class TimePickerControlTestsUniversal : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_TimeHovered_Universal()
         {
-            var timePicker = App.ElementCreateService.CreateByAutomationId<Time>("enabledTime");
+            var timePicker = App.Components.CreateByAutomationId<Time>("enabledTime");
 
             timePicker.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultTextBlock");
+            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
             Assert.AreEqual("timeHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_TimePickerIsNotDisabled_Universal()
         {
-            var timePicker = App.ElementCreateService.CreateByAutomationId<Time>("enabledTime");
+            var timePicker = App.Components.CreateByAutomationId<Time>("enabledTime");
 
             Assert.AreEqual(false, timePicker.IsDisabled);
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_TimePickerIsDisabled_Universal()
         {
-            var timePicker = App.ElementCreateService.CreateByAutomationId<Time>("disabledTime");
+            var timePicker = App.Components.CreateByAutomationId<Time>("disabledTime");
 
             Assert.AreEqual(true, timePicker.IsDisabled);
         }

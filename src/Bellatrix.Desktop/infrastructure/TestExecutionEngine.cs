@@ -26,9 +26,9 @@ namespace Bellatrix.Desktop
             try
             {
                 var wrappedWebDriver = WrappedWebDriverCreateService.Create(appConfiguration, childContainer);
-                childContainer.RegisterInstance(wrappedWebDriver);
-                childContainer.RegisterInstance(new AppService(wrappedWebDriver));
-                childContainer.RegisterInstance(new ElementCreateService());
+                childContainer.RegisterInstance<WindowsDriver<WindowsElement>>(wrappedWebDriver);
+                ////childContainer.RegisterInstance(new AppService(wrappedWebDriver));
+                ////childContainer.RegisterInstance(new ComponentCreateService());
                 childContainer.RegisterNull<int?>();
                 childContainer.RegisterNull<IWebElement>();
                 childContainer.RegisterNull<WindowsElement>();
@@ -36,7 +36,7 @@ namespace Bellatrix.Desktop
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                e.PrintStackTrace();
                 IsAppStartedCorrectly = false;
                 throw;
             }

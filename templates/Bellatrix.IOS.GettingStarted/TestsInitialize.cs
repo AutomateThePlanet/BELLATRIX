@@ -1,22 +1,21 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix;
+using Bellatrix.Mobile;
+using NUnit.Framework;
 
-namespace Bellatrix.Mobile.IOS.GettingStarted
+[SetUpFixture]
+public class TestsInitialize
 {
-    [TestClass]
-    public class TestsInitialize
+    [OneTimeSetUp]
+    public static void AssemblyInitialize()
     {
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
-        {
-            IOSApp.StartAppiumLocalService();
-        }
+        IOSApp.StartAppiumLocalService();
+    }
 
-        [AssemblyCleanup]
-        public static void AssemblyCleanUp()
-        {
-            var app = ServicesCollection.Current.Resolve<IOSApp>();
-            app?.Dispose();
-            app?.StopAppiumLocalService();
-        }
+    [OneTimeTearDown]
+    public void AssemblyCleanUp()
+    {
+        var app = ServicesCollection.Current.Resolve<IOSApp>();
+        app?.Dispose();
+        app?.StopAppiumLocalService();
     }
 }

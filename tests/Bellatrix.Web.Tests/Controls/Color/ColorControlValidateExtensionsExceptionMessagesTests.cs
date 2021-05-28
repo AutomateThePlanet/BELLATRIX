@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateColorIsThrowsException()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.Components.CreateById<Color>("myColor");
 
             colorElement.SetColor("#f00030");
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 colorElement.ValidateColorIs("#f00031", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's color should be '#f00031' but was '#f00030'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateAutoCompleteOffThrowsException()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor3");
+            var colorElement = App.Components.CreateById<Color>("myColor3");
 
             try
             {
                 colorElement.ValidateAutoCompleteOff(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control autocomplete should be OFF but was not. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -69,13 +69,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateAutoCompleteOnThrowsException()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.Components.CreateById<Color>("myColor");
 
             try
             {
                 colorElement.ValidateAutoCompleteOn(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control autocomplete should be ON but was not. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -86,13 +86,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateNotRequiredThrowsException()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor6");
+            var colorElement = App.Components.CreateById<Color>("myColor6");
 
             try
             {
                 colorElement.ValidateIsNotRequired(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control should be NOT required but was NOT. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -103,13 +103,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateRequiredThrowsException()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor4");
+            var colorElement = App.Components.CreateById<Color>("myColor4");
 
             try
             {
                 colorElement.ValidateIsRequired(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control should be required but was NOT. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -120,13 +120,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateListIsNullThrowsException()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor10");
+            var colorElement = App.Components.CreateById<Color>("myColor10");
 
             try
             {
                 colorElement.ValidateListIsNull(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's list should be null but was 'tickmarks'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -137,13 +137,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateListIsThrowsException()
         {
-            var colorElement = App.ElementCreateService.CreateById<Color>("myColor");
+            var colorElement = App.Components.CreateById<Color>("myColor");
 
             try
             {
                 colorElement.ValidateListIs("tickmarks", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's list should be 'tickmarks' but was ''. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

@@ -21,7 +21,7 @@ namespace Bellatrix.Desktop.Tests
     [AllureSuite("Button Control")]
     [AllureFeature("Control Events")]
     [AllureTag("WPF")]
-    public class ButtonControlEventsTests : BellatrixBaseTest
+    public class ButtonControlEventsTests : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -30,20 +30,20 @@ namespace Bellatrix.Desktop.Tests
         {
             Button.Hovering += AssertTextResultLabel;
 
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonHovered", label.InnerText);
 
             Button.Hovering -= AssertTextResultLabel;
 
             label.Hover();
 
-            void AssertTextResultLabel(object sender, ElementActionEventArgs args)
+            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
             {
-                var label1 = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+                var label1 = App.Components.CreateByAutomationId<Label>("ResultLabelId");
                 Assert.AreEqual("Result Label", label1.InnerText);
             }
         }
@@ -55,15 +55,15 @@ namespace Bellatrix.Desktop.Tests
         {
             Button.Hovered += AssertTextResultLabel;
 
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
             Button.Hovered -= AssertTextResultLabel;
 
-            void AssertTextResultLabel(object sender, ElementActionEventArgs args)
+            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
             {
-                var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+                var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
                 Assert.AreEqual("ebuttonHovered", label.InnerText);
 
                 label.Hover();
@@ -77,20 +77,20 @@ namespace Bellatrix.Desktop.Tests
         {
             Button.Clicking += AssertTextResultLabel;
 
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonClicked", label.InnerText);
 
             Button.Clicking -= AssertTextResultLabel;
 
             label.Hover();
 
-            void AssertTextResultLabel(object sender, ElementActionEventArgs args)
+            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
             {
-                var label1 = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+                var label1 = App.Components.CreateByAutomationId<Label>("ResultLabelId");
                 Assert.AreEqual("Result Label", label1.InnerText);
             }
         }
@@ -102,15 +102,15 @@ namespace Bellatrix.Desktop.Tests
         {
             Button.Clicked += AssertTextResultLabel;
 
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 
             Button.Clicked -= AssertTextResultLabel;
 
-            void AssertTextResultLabel(object sender, ElementActionEventArgs args)
+            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
             {
-                var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+                var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
                 Assert.AreEqual("ebuttonClicked", label.InnerText);
 
                 label.Hover();

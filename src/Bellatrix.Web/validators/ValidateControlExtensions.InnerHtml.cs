@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateInnerHtmlIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementInnerHtml, IElement
+            where T : IComponentInnerHtml, IComponent
         {
             WaitUntil(() => control.InnerHtml.Trim().Equals(value), $"The control's inner HTML should be '{value}' but was '{control.InnerHtml}'.", timeout, sleepInterval);
-            ValidatedInnerHtmlIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedInnerHtmlIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
         public static void ValidateInnerHtmlContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-           where T : IElementInnerHtml, IElement
+           where T : IComponentInnerHtml, IComponent
         {
             WaitUntil(() => control.InnerHtml.Trim().Contains(value), $"The control's inner HTML should contain '{value}' but was '{control.InnerHtml}'.", timeout, sleepInterval);
-            ValidatedInnerHtmlContainsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedInnerHtmlContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedInnerHtmlIsEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedInnerHtmlContainsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedInnerHtmlIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedInnerHtmlContainsEvent;
     }
 }

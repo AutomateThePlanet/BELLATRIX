@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls.Element
     [AllureFeature("ValidateExtensions")]
     public class ElementControlValidateExtensionsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsVisible_DoesNotThrowException_When_ElementIsPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             urlElement.ValidateIsVisible();
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotVisible_DoesNotThrowException_When_ElementIsHidden()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL11");
+            var urlElement = App.Components.CreateById<Url>("myURL11");
 
             urlElement.ValidateIsNotVisible();
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateCssClassIs_DoesNotThrowException_When_SetAttributeChangesAttributeValue()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             urlElement.SetAttribute("class", "myTestClass1");
 
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateCssClassIsNull_DoesNotThrowException_When_ClassAttributeIsNotPresent()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL1");
+            var urlElement = App.Components.CreateById<Url>("myURL1");
 
             urlElement.ValidateCssClassIsNull();
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_InsideAnotherElementAndIsPresent()
         {
-            var wrapperDiv = App.ElementCreateService.CreateById<Div>("myURL10Wrapper");
+            var wrapperDiv = App.Components.CreateById<Div>("myURL10Wrapper");
 
             var urlElement = wrapperDiv.CreateById<Url>("myURL10");
 
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateTitleIs_DoesNotThrowException_When_TitleAttributeIsPresent()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL13");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
 
             element.ValidateTitleIs("bellatrix.solutions");
         }
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateTitleIsNotNull_DoesNotThrowException_When_TitleAttributeIsPresent()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL13");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
 
             element.ValidateTitleIsNotNull();
         }
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateTitleIsNull_DoesNotThrowException_When_TitleAttributeIsNotPresent()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
             element.ValidateTitleIsNull();
         }
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateTabIndexIs_DoesNotThrowException_When_TabIndexAttributeIsPresent()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL14");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL14");
 
             element.ValidateTabIndexIs("1");
         }
@@ -122,7 +122,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateTabIndexIs_DoesNotThrowException_When_StyleAttributeIsPresent()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL16");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL16");
 
             element.ValidateStyleIs("color: green;");
         }
@@ -132,7 +132,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIsNull_DoesNotThrowException_When_StyleAttributeIsNotPresent()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
             element.ValidateStyleIsNull();
         }
@@ -142,7 +142,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateDirIs_DoesNotThrowException_When_DirAttributeIsPresent()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL19");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL19");
 
             element.ValidateDirIs("rtl");
         }
@@ -152,7 +152,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateDirIsNull_DoesNotThrowException_When_DirAttributeIsNotPresent()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
             element.ValidateDirIsNull();
         }
@@ -162,7 +162,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateDirIsNull_DoesNotThrowException_When_LangAttributeIsPresent()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL20");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL20");
 
             element.ValidateLangIs("en");
         }
@@ -172,7 +172,7 @@ namespace Bellatrix.Web.Tests.Controls.Element
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateLangIsNull_DoesNotThrowException_When_LangAttributeIsNotPresent()
         {
-            var element = App.ElementCreateService.CreateById<Bellatrix.Web.Element>("myURL12");
+            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
             element.ValidateLangIsNull();
         }

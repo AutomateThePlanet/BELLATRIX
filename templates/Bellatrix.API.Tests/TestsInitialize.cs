@@ -5,33 +5,30 @@ using Bellatrix.Utilities;
 ////using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 
-namespace Bellatrix.API.MSTest.Tests
+[SetUpFixture]
+public class TestsInitialize
 {
-    [SetUpFixture]
-    public class TestsInitialize
+    private static Process _testApiProcess;
+
+    [OneTimeSetUp]
+    public void AssemblyInitialize()
     {
-        private static Process _testApiProcess;
-
-        [OneTimeSetUp]
-        public void AssemblyInitialize()
-        {
-            // TODO: Remove this code once you use your own web service! It is needed only to run the sample tests.
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");
-                _testApiProcess = ProcessProvider.StartProcess("dotnet", workingDir, " run", true);
-                ProcessProvider.WaitPortToGetBusy(55215);
-            }
-        }
-
         // TODO: Remove this code once you use your own web service! It is needed only to run the sample tests.
-        [OneTimeTearDown]
-        public void AssemblyCleanUp()
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                ProcessProvider.CloseProcess(_testApiProcess);
-            }
+            string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");
+            _testApiProcess = ProcessProvider.StartProcess("dotnet", workingDir, " run", true);
+            ProcessProvider.WaitPortToGetBusy(55215);
+        }
+    }
+
+    // TODO: Remove this code once you use your own web service! It is needed only to run the sample tests.
+    [OneTimeTearDown]
+    public void AssemblyCleanUp()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            ProcessProvider.CloseProcess(_testApiProcess);
         }
     }
 

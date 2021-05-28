@@ -17,49 +17,49 @@ namespace Bellatrix.Layout
 {
     public static partial class AssertionsExtensions
     {
-        public static void AssertTopRightInsideOf(this ILayoutElement innerElement, ILayoutElement outerElement)
+        public static void AssertTopRightInsideOf(this ILayoutComponent innerElement, ILayoutComponent outerElement)
         {
             AssertRightInsideOf(innerElement, outerElement);
             AssertTopInsideOf(innerElement, outerElement);
         }
 
-        public static void AssertTopRightInsideOf(this ILayoutElement innerElement, ILayoutElement outerElement, double top, double right)
+        public static void AssertTopRightInsideOf(this ILayoutComponent innerElement, ILayoutComponent outerElement, double top, double right)
         {
             AssertRightInsideOf(innerElement, outerElement, right);
             AssertTopInsideOf(innerElement, outerElement, top);
         }
 
-        public static void AssertTopRightInsideOfBetween(this ILayoutElement innerElement, ILayoutElement outerElement, double topFrom, double topTo, double rightFrom, double rightTo)
+        public static void AssertTopRightInsideOfBetween(this ILayoutComponent innerElement, ILayoutComponent outerElement, double topFrom, double topTo, double rightFrom, double rightTo)
         {
             AssertRightInsideOfBetween(innerElement, outerElement, rightFrom, rightTo);
             AssertTopInsideOfBetween(innerElement, outerElement, topFrom, topTo);
         }
 
-        public static void AssertTopRightInsideOfGreaterThan(this ILayoutElement innerElement, ILayoutElement outerElement, double top, double right)
+        public static void AssertTopRightInsideOfGreaterThan(this ILayoutComponent innerElement, ILayoutComponent outerElement, double top, double right)
         {
             AssertRightInsideOfGreaterThan(innerElement, outerElement, right);
             AssertTopInsideOfGreaterThan(innerElement, outerElement, top);
         }
 
-        public static void AssertTopRightInsideOfGreaterThanOrEqual(this ILayoutElement innerElement, ILayoutElement outerElement, double top, double right)
+        public static void AssertTopRightInsideOfGreaterThanOrEqual(this ILayoutComponent innerElement, ILayoutComponent outerElement, double top, double right)
         {
             AssertRightInsideOfGreaterThanOrEqual(innerElement, outerElement, right);
             AssertTopInsideOfGreaterThanOrEqual(innerElement, outerElement, top);
         }
 
-        public static void AssertTopRightInsideOfLessThan(this ILayoutElement innerElement, ILayoutElement outerElement, double top, double right)
+        public static void AssertTopRightInsideOfLessThan(this ILayoutComponent innerElement, ILayoutComponent outerElement, double top, double right)
         {
             AssertRightInsideOfLessThan(innerElement, outerElement, right);
             AssertTopInsideOfLessThan(innerElement, outerElement, top);
         }
 
-        public static void AssertTopRightInsideOfLessThanOrEqual(this ILayoutElement innerElement, ILayoutElement outerElement, double top, double right)
+        public static void AssertTopRightInsideOfLessThanOrEqual(this ILayoutComponent innerElement, ILayoutComponent outerElement, double top, double right)
         {
             AssertRightInsideOfLessThanOrEqual(innerElement, outerElement, right);
             AssertTopInsideOfLessThanOrEqual(innerElement, outerElement, top);
         }
 
-        public static void AssertTopRightInsideOfApproximate(this ILayoutElement innerElement, ILayoutElement outerElement, double top, double right, double percent)
+        public static void AssertTopRightInsideOfApproximate(this ILayoutComponent innerElement, ILayoutComponent outerElement, double top, double right, double percent)
         {
             AssertRightInsideOfApproximate(innerElement, outerElement, right, percent);
             AssertTopInsideOfApproximate(innerElement, outerElement, top, percent);

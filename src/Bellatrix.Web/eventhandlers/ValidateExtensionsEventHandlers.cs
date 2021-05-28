@@ -132,423 +132,423 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
         {
         }
 
-        protected virtual void ValidatedAltIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedAltIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedAltIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedAltIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedWrapIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedWrapIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedWrapIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedWrapIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedWidthIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedWidthIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedWidthIsNotNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedWidthIsNotNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedWeekIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedWeekIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsVisibleEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedValueIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedValueIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedValueIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedValueIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedUrlIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedUrlIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTitleIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTitleIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTitleIsNotNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTitleIsNotNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTitleIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTitleIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTimeIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTextIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTextIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTextIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTextContainsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTextContainsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTextNotContainsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTextNotContainsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTargetIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTargetIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTargetIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTargetIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTabIndexIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTabIndexIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedTabIndexIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedTabIndexIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedStyleIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedStyleIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedStyleIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedStyleIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedStyleContainsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedStyleContainsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedStyleNotContainsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedStyleNotContainsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedStepIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedStepIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedStepIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedStepIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSrcSetIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSrcSetIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSrcSetIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSrcSetIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSrcIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSrcIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSrcIsNotNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSrcIsNotNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSrcIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSrcIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSpellCheckIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSpellCheckIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSpellCheckIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSpellCheckIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSizesIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSizesIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSizesIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSizesIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSizeIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSizeIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSizeIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSizeIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsSelectedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedSearchIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedSearchIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedColsIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedColsIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsRequiredEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsRequiredEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotRequiredEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotRequiredEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedRelIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedRelIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedRelIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedRelIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsReadonlyEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsReadonlyEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotReadonlyEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotReadonlyEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedRangeIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedRangeIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedPlaceholderIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedPlaceholderIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedPlaceholderIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedPlaceholderIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedPhoneIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedPhoneIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedPasswordIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedPasswordIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedNumberIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsMultipleEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsMultipleEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotMultipleEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotMultipleEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMonthIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMonthIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMinTextIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMinTextIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMinTextIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMinTextIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMinLengthIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMinLengthIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMinLengthIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMinLengthIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMinIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMinIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMinIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMinIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMaxTextIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMaxTextIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMaxTextIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMaxTextIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMaxLengthIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMaxLengthIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMaxLengthIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMaxLengthIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMaxIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMaxIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedMaxIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedMaxIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedLongDescIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedLongDescIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedLongDescIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedLongDescIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedListIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedListIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedListIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedListIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedLangIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedLangIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedLangIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedLangIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedInnerTextIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedInnerTextIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedInnerHtmlIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedInnerHtmlIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedInnerHtmlContainsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedInnerHtmlContainsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedHrefIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedHrefIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedHrefIsSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedHrefIsSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedHeightIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedHeightIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedHeightIsNotNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedHeightIsNotNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedForIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedForIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedForIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedForIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedEmailIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedEmailIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsDisabledEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedDirIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedDirIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedDirIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedDirIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedDateIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedCssClassIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedCssClassIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedCssClassIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedCssClassIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedRowsIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedRowsIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedColorIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedColorIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsCheckedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedAutoCompleteOnEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedAutoCompleteOnEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedAutoCompleteOffEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedAutoCompleteOffEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedAccessKeyIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedAccessKeyIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedAccessKeyIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedAccessKeyIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedAcceptIsNullEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedAcceptIsNullEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ValidatedValidateAcceptIsEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void ValidatedValidateAcceptIsEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

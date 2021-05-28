@@ -18,6 +18,6 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class DynamicTestCasesSelectEventHandlers : SelectEventHandlers
     {
-        protected override void SelectingEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
     }
 }

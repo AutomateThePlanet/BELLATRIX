@@ -17,8 +17,8 @@ namespace Bellatrix.Web
 {
     public static class SpecialElements
     {
-        public static ILayoutElement Viewport => new Viewport();
+        public static ILayoutComponent Viewport => new Viewport();
 
-        public static ILayoutElement Screen => new Screen();
+        public static ILayoutComponent Screen => new Screen();
     }
 }

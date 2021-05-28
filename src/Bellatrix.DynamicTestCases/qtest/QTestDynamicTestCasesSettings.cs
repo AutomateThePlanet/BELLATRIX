@@ -18,13 +18,14 @@ using QASymphony.QTest;
 
 namespace Bellatrix.DynamicTestCases.QTest
 {
-    public class QTestDynamicTestCasesSettings : DynamicTestCasesSettings
+    public class QTestDynamicTestCasesSettings
     {
+        public bool IsEnabled { get; set; }
         public string ServiceAddress { get; set; }
         public string Token { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public long ProjectId { get; set; }
+        public string ProjectId { get; set; }
         public List<FieldValue> FieldValues { get; set; }
     }
 }

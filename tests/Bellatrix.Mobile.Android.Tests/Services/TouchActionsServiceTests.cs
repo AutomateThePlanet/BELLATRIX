@@ -33,18 +33,18 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".graphics.FingerPaint");
 
-            var textField = App.ElementCreateService.CreateByIdContaining<TextField>("content");
+            var textField = App.Components.CreateByIdContaining<TextField>("content");
             Point point = textField.Location;
             Size size = textField.Size;
 
-            App.TouchActionsService.Swipe(
+            App.TouchActions.Swipe(
                 point.X + 5,
                 point.Y + 5,
                 point.X + size.Width - 5,
                 point.Y + size.Height - 5,
                 200);
 
-            App.TouchActionsService.Swipe(
+            App.TouchActions.Swipe(
                 point.X + size.Width - 5,
                 point.Y + 5,
                 point.X + 5,
@@ -55,15 +55,15 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestMethod]
         public void ElementTaped_When_CallTap()
         {
-            var elements = App.ElementCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
             int initialCount = elements.Count();
 
-            App.TouchActionsService.Tap(elements[6]).Perform();
+            App.TouchActions.Tap(elements[6]).Perform();
 
-            var consumerTextView = App.ElementCreateService.CreateByText<TextField>("Consumer IR");
+            var consumerTextView = App.Components.CreateByText<TextField>("Consumer IR");
             consumerTextView.ToBeVisible().WaitToBe();
 
-            elements = App.ElementCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
             Assert.AreNotEqual(initialCount, elements.Count());
             Assert.AreEqual(2, elements.Count());
@@ -72,16 +72,16 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestMethod]
         public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinates()
         {
-            var elements = App.ElementCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
             var locationOne = elements[7].Location;
             var locationTwo = elements[1].Location;
 
-            App.TouchActionsService.Press(locationOne.X, locationOne.Y, 100).
+            App.TouchActions.Press(locationOne.X, locationOne.Y, 100).
                 MoveTo(locationTwo.X, locationTwo.Y).
                 Release().
                 Perform();
 
-            elements = App.ElementCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
             Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
         }
@@ -89,16 +89,16 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestMethod]
         public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinatesMultiAction()
         {
-            var elements = App.ElementCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
             var locationOne = elements[7].Location;
             var locationTwo = elements[1].Location;
 
-            var swipe = App.TouchActionsService.Press(locationOne.X, locationOne.Y, 100).
+            var swipe = App.TouchActions.Press(locationOne.X, locationOne.Y, 100).
                 MoveTo(locationTwo.X, locationTwo.Y).
                 Release();
-            App.TouchActionsService.Perform();
+            App.TouchActions.Perform();
 
-            elements = App.ElementCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
             Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
         }
@@ -111,16 +111,16 @@ namespace Bellatrix.Mobile.Android.Tests
         {
             string originalActivity = App.AppService.CurrentActivity;
 
-            var elements = App.ElementCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
-            App.TouchActionsService.Press(elements[5], 1500).Release();
-            App.TouchActionsService.Press(elements[5], 1500).Release();
-            App.TouchActionsService.Perform();
-            elements = App.ElementCreateService.CreateAllByClass<TextField>("android.widget.TextView");
+            App.TouchActions.Press(elements[5], 1500).Release();
+            App.TouchActions.Press(elements[5], 1500).Release();
+            App.TouchActions.Perform();
+            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
-            App.TouchActionsService.Press(elements[1], 1500).Release();
-            App.TouchActionsService.Press(elements[1], 1500).Release();
-            App.TouchActionsService.Perform();
+            App.TouchActions.Press(elements[1], 1500).Release();
+            App.TouchActions.Press(elements[1], 1500).Release();
+            App.TouchActions.Perform();
 
             Assert.AreNotEqual(originalActivity, App.AppService.CurrentActivity);
         }

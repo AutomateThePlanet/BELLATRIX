@@ -20,14 +20,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Number Control")]
     public class NumberControlValidateExtensionTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().NumberLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().NumberLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateNumberIs_DoesNotThrowException_When_UseSetNumberMethod()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.SetNumber(12.1);
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.ValidateAutoCompleteOff();
         }
@@ -49,7 +49,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber3");
+            var numberElement = App.Components.CreateById<Number>("myNumber3");
 
             numberElement.ValidateAutoCompleteOn();
         }
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber4");
+            var numberElement = App.Components.CreateById<Number>("myNumber4");
 
             numberElement.ValidateIsNotReadonly();
         }
@@ -69,7 +69,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber5");
+            var numberElement = App.Components.CreateById<Number>("myNumber5");
 
             numberElement.ValidateIsReadonly();
         }
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.ValidateMaxIsNull();
         }
@@ -89,7 +89,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.ValidateMinIsNull();
         }
@@ -99,7 +99,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.ValidateStepIsNull();
         }
@@ -109,7 +109,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxIs_DoesNotThrowException_When_MaxAttributeIsPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             numberElement.ValidateMaxIs(20);
         }
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinIs_DoesNotThrowException_When_MinAttributeIsPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             numberElement.ValidateMinIs(10);
         }
@@ -129,7 +129,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             numberElement.ValidateStepIs(2);
         }
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber4");
+            var numberElement = App.Components.CreateById<Number>("myNumber4");
 
             numberElement.ValidateIsNotRequired();
         }
@@ -149,7 +149,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber6");
+            var numberElement = App.Components.CreateById<Number>("myNumber6");
 
             numberElement.ValidateIsRequired();
         }
@@ -159,7 +159,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.ValidatePlaceholderIs("Multiple of 10");
         }
@@ -169,7 +169,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             numberElement.ValidatePlaceholderIsNull();
         }
@@ -179,7 +179,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber7");
+            var numberElement = App.Components.CreateById<Number>("myNumber7");
 
             numberElement.Hover();
 
@@ -191,7 +191,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.ValidateIsNotDisabled();
         }
@@ -201,7 +201,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber9");
+            var numberElement = App.Components.CreateById<Number>("myNumber9");
 
             numberElement.ValidateIsDisabled();
         }

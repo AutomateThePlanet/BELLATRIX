@@ -19,38 +19,38 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Anchor : Element, IElementHref, IElementInnerText, IElementInnerHtml, IElementRel, IElementTarget
+    public class Anchor : Component, IComponentHref, IComponentInnerText, IComponentInnerHtml, IComponentRel, IComponentTarget
     {
-        public static event EventHandler<ElementActionEventArgs> Clicking;
-        public static event EventHandler<ElementActionEventArgs> Clicked;
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Clicking;
+        public static event EventHandler<ComponentActionEventArgs> Clicked;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
-        public void Click()
+        public virtual void Click()
         {
             Click(Clicking, Clicked);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Href => HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("href")));
+        public virtual string Href => HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("href")));
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
+        public virtual string InnerText => GetInnerText();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
+        public virtual string InnerHtml => GetInnerHtmlAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Target => WrappedElement.GetAttribute("target");
+        public virtual string Target => WrappedElement.GetAttribute("target");
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Rel => WrappedElement.GetAttribute("rel");
+        public virtual string Rel => WrappedElement.GetAttribute("rel");
     }
 }

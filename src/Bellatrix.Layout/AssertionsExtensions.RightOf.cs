@@ -18,70 +18,70 @@ namespace Bellatrix.Layout
 {
     public static partial class AssertionsExtensions
     {
-        public static event EventHandler<LayoutTwoElementsNoExpectedActionEventArgs> AssertedRightOfNoExpectedValueEvent;
-        public static event EventHandler<LayoutTwoElementsActionEventArgs> AssertedRightOfEvent;
-        public static event EventHandler<LayoutTwoElementsActionTwoValuesEventArgs> AssertedRightOfBetweenEvent;
-        public static event EventHandler<LayoutTwoElementsActionEventArgs> AssertedRightOfGreaterThanEvent;
-        public static event EventHandler<LayoutTwoElementsActionEventArgs> AssertedRightOfGreaterOrEqualThanEvent;
-        public static event EventHandler<LayoutTwoElementsActionEventArgs> AssertedRightOfLessThanEvent;
-        public static event EventHandler<LayoutTwoElementsActionEventArgs> AssertedRightOfLessOrEqualThanEvent;
-        public static event EventHandler<LayoutTwoElementsActionTwoValuesEventArgs> AssertedRightOfApproximateEvent;
+        public static event EventHandler<LayoutTwoComponentsNoExpectedActionEventArgs> AssertedRightOfNoExpectedValueEvent;
+        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightOfEvent;
+        public static event EventHandler<LayoutTwoComponentsActionTwoValuesEventArgs> AssertedRightOfBetweenEvent;
+        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightOfGreaterThanEvent;
+        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightOfGreaterOrEqualThanEvent;
+        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightOfLessThanEvent;
+        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightOfLessOrEqualThanEvent;
+        public static event EventHandler<LayoutTwoComponentsActionTwoValuesEventArgs> AssertedRightOfApproximateEvent;
 
-        public static void AssertRightOf(this ILayoutElement element, ILayoutElement secondElement)
+        public static void AssertRightOf(this ILayoutComponent element, ILayoutComponent secondElement)
         {
             var actualDistance = CalculateRightOfDistance(element, secondElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance > 0, $"{element.ElementName} should be right from {secondElement.ElementName} but was {actualDistance} px.");
-            AssertedRightOfNoExpectedValueEvent?.Invoke(element, new LayoutTwoElementsNoExpectedActionEventArgs(element, secondElement));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance > 0, $"{element.ComponentName} should be right from {secondElement.ComponentName} but was {actualDistance} px.");
+            AssertedRightOfNoExpectedValueEvent?.Invoke(element, new LayoutTwoComponentsNoExpectedActionEventArgs(element, secondElement));
         }
 
-        public static void AssertRightOf(this ILayoutElement element, ILayoutElement secondElement, double expected)
+        public static void AssertRightOf(this ILayoutComponent element, ILayoutComponent secondElement, double expected)
         {
             var actualDistance = CalculateRightOfDistance(element, secondElement);
-            BA.Assert.AreEqual<LayoutAssertFailedException, double>(expected, actualDistance, $"{element.ElementName} should be {expected} px right from {secondElement.ElementName} but was {actualDistance} px.");
-            AssertedRightOfEvent?.Invoke(element, new LayoutTwoElementsActionEventArgs(element, secondElement, expected));
+            BA.Assert.AreEqual<LayoutAssertFailedException, double>(expected, actualDistance, $"{element.ComponentName} should be {expected} px right from {secondElement.ComponentName} but was {actualDistance} px.");
+            AssertedRightOfEvent?.Invoke(element, new LayoutTwoComponentsActionEventArgs(element, secondElement, expected));
         }
 
-        public static void AssertRightOfBetween(this ILayoutElement element, ILayoutElement secondElement, double from, double to)
+        public static void AssertRightOfBetween(this ILayoutComponent element, ILayoutComponent secondElement, double from, double to)
         {
             var actualDistance = CalculateRightOfDistance(element, secondElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance >= from && actualDistance <= to, $"{element.ElementName} should be between {from}-{to} px right from {secondElement.ElementName}, but was {actualDistance} px.");
-            AssertedRightOfBetweenEvent?.Invoke(element, new LayoutTwoElementsActionTwoValuesEventArgs(element, secondElement, from, to));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance >= from && actualDistance <= to, $"{element.ComponentName} should be between {from}-{to} px right from {secondElement.ComponentName}, but was {actualDistance} px.");
+            AssertedRightOfBetweenEvent?.Invoke(element, new LayoutTwoComponentsActionTwoValuesEventArgs(element, secondElement, from, to));
         }
 
-        public static void AssertRightOfGreaterThan(this ILayoutElement element, ILayoutElement secondElement, double expected)
+        public static void AssertRightOfGreaterThan(this ILayoutComponent element, ILayoutComponent secondElement, double expected)
         {
             var actualDistance = CalculateRightOfDistance(element, secondElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance > expected, $"{element.ElementName} should be > {expected} px right from {secondElement.ElementName} but was {actualDistance} px.");
-            AssertedRightOfGreaterThanEvent?.Invoke(element, new LayoutTwoElementsActionEventArgs(element, secondElement, expected));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance > expected, $"{element.ComponentName} should be > {expected} px right from {secondElement.ComponentName} but was {actualDistance} px.");
+            AssertedRightOfGreaterThanEvent?.Invoke(element, new LayoutTwoComponentsActionEventArgs(element, secondElement, expected));
         }
 
-        public static void AssertRightOfGreaterThanOrEqual(this ILayoutElement element, ILayoutElement secondElement, double expected)
+        public static void AssertRightOfGreaterThanOrEqual(this ILayoutComponent element, ILayoutComponent secondElement, double expected)
         {
             var actualDistance = CalculateRightOfDistance(element, secondElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance >= expected, $"{element.ElementName} should be >= {expected} px right from {secondElement.ElementName} but was {actualDistance} px.");
-            AssertedRightOfGreaterOrEqualThanEvent?.Invoke(element, new LayoutTwoElementsActionEventArgs(element, secondElement, expected));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance >= expected, $"{element.ComponentName} should be >= {expected} px right from {secondElement.ComponentName} but was {actualDistance} px.");
+            AssertedRightOfGreaterOrEqualThanEvent?.Invoke(element, new LayoutTwoComponentsActionEventArgs(element, secondElement, expected));
         }
 
-        public static void AssertRightOfLessThan(this ILayoutElement element, ILayoutElement secondElement, double expected)
+        public static void AssertRightOfLessThan(this ILayoutComponent element, ILayoutComponent secondElement, double expected)
         {
             var actualDistance = CalculateRightOfDistance(element, secondElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance < expected, $"{element.ElementName} should be < {expected} px right from {secondElement.ElementName} but was {actualDistance} px.");
-            AssertedRightOfLessThanEvent?.Invoke(element, new LayoutTwoElementsActionEventArgs(element, secondElement, expected));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance < expected, $"{element.ComponentName} should be < {expected} px right from {secondElement.ComponentName} but was {actualDistance} px.");
+            AssertedRightOfLessThanEvent?.Invoke(element, new LayoutTwoComponentsActionEventArgs(element, secondElement, expected));
         }
 
-        public static void AssertRightOfLessThanOrEqual(this ILayoutElement element, ILayoutElement secondElement, double expected)
+        public static void AssertRightOfLessThanOrEqual(this ILayoutComponent element, ILayoutComponent secondElement, double expected)
         {
             var actualDistance = CalculateRightOfDistance(element, secondElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance <= expected, $"{element.ElementName} should be <= {expected} px right from {secondElement.ElementName} but was {actualDistance} px.");
-            AssertedRightOfLessOrEqualThanEvent?.Invoke(element, new LayoutTwoElementsActionEventArgs(element, secondElement, expected));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(actualDistance <= expected, $"{element.ComponentName} should be <= {expected} px right from {secondElement.ComponentName} but was {actualDistance} px.");
+            AssertedRightOfLessOrEqualThanEvent?.Invoke(element, new LayoutTwoComponentsActionEventArgs(element, secondElement, expected));
         }
 
-        public static void AssertRightOfApproximate(this ILayoutElement element, ILayoutElement secondElement, double expected, double percent)
+        public static void AssertRightOfApproximate(this ILayoutComponent element, ILayoutComponent secondElement, double expected, double percent)
         {
             var actualDistance = CalculateRightOfDistance(element, secondElement);
             var actualPercentDifference = CalculatePercentDifference(expected, actualDistance);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualPercentDifference <= percent, $"{element.ElementName} should be <= {percent}% of {expected} px right from {secondElement.ElementName} but was {actualDistance} px.");
-            AssertedRightOfApproximateEvent?.Invoke(element, new LayoutTwoElementsActionTwoValuesEventArgs(element, secondElement, expected, percent));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(actualPercentDifference <= percent, $"{element.ComponentName} should be <= {percent}% of {expected} px right from {secondElement.ComponentName} but was {actualDistance} px.");
+            AssertedRightOfApproximateEvent?.Invoke(element, new LayoutTwoComponentsActionTwoValuesEventArgs(element, secondElement, expected, percent));
         }
     }
 }

@@ -18,12 +18,12 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BDDLoggingElementEventHandlers : AnchorEventHandlers
     {
-        protected override void ScrollingToVisibleEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Scroll to visible {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+        protected override void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Scroll to visible {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 
-        protected override void ClickingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Click {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Click {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 
-        protected override void HoveringEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+        protected override void HoveringEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 
-        protected override void FocusingEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Focus {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+        protected override void FocusingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Focus {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
     }
 }

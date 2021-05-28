@@ -1,13 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.RestartEveryTime)]
-    public class BDDLoggingTests : MSTest.WebTest
+    [TestFixture]
+    public class BDDLoggingTests : NUnit.WebTest
     {
-        // 1. There cases when you need to show your colleagues or managers what tests do you have.
+        // There cases when you need to show your colleagues or managers what tests do you have.
         // Sometimes you may have manual test cases, but their maintenance and up-to-date state are questionable.
         // Also, many times you need additional work to associate the tests with the test cases.
         // Some frameworks give you a way to write human readable tests through the Gherkin language.
@@ -15,38 +13,20 @@ namespace Bellatrix.Web.GettingStarted
         // Or it is doable only for simple tests.
         // This is why in BELLATRIX we built a feature that generates the test cases after the tests execution.
         // After each action or assertion, a new entry is logged.
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void PurchaseRocketWithLogs()
         {
-            // 2. In the testFrameworkSettings.json file find a section called logging, responsible for controlling the BDD logs generation.
-            //  "loggingSettings": {
-            //      "isEnabled": "true",
-            //      "isConsoleLoggingEnabled": "true",
-            //      "isDebugLoggingEnabled": "true",
-            //      "isEventLoggingEnabled": "false",
-            //      "isFileLoggingEnabled": "true",
-            //      "outputTemplate":  "{Message:lj}{NewLine}",
-            //      "addUrlToBddLogging": "false"
-            //  }
-            //
-            // You can disable the logs entirely. There are different places where the logs are populated.
-            // By default, you can see the logs in the output window of each test.
-            // Also, a file called logs.txt is generated in the folder with the DLLs of your tests.
-            // If you execute your tests in CI with some CLI test runner the logs are printed there as well.
-            // outputTemplate - controls how the message is formatted. You can add additional info such as timestamp and much more.
-            // for more info visit- https://github.com/serilog/serilog/wiki/Formatting-Output
-            // If addUrlToBddLogging is true, after each action the current page's URL will be added.
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            // 3. As mentioned before BELLATRIX searches for elements not immediately but after you perform an action or assert.
+            // As mentioned before BELLATRIX searches for elements not immediately but after you perform an action or assert.
             // This is why we can place all elements and later perform actions on them. It is possible at the moment of declaring them,
             // not to be yet present on the page.
             // Home page elements
-            Select sortDropDown = App.ElementCreateService.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonMReadMoreButton = App.ElementCreateService.CreateByInnerTextContaining<Anchor>("Read more");
-            Anchor addToCartFalcon9 = App.ElementCreateService.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
-            Anchor viewCartButton = App.ElementCreateService.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
+            Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
+            Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
+            Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
+            Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
 
             // Home Page actions
             sortDropDown.SelectByText("Sort by price: low to high");
@@ -56,40 +36,39 @@ namespace Bellatrix.Web.GettingStarted
             viewCartButton.Click();
 
             // Cart page elements
-            TextField couponCodeTextField = App.ElementCreateService.CreateById<TextField>("coupon_code");
-            Button applyCouponButton = App.ElementCreateService.CreateByValueContaining<Button>("Apply coupon");
-            Div messageAlert = App.ElementCreateService.CreateByClassContaining<Div>("woocommerce-message");
-            Number quantityBox = App.ElementCreateService.CreateByClassContaining<Number>("input-text qty text");
-            Button updateCart = App.ElementCreateService.CreateByValueContaining<Button>("Update cart").ToBeClickable();
-            Span totalSpan = App.ElementCreateService.CreateByXpath<Span>("//*[@class='order-total']//span");
-            Anchor proceedToCheckout = App.ElementCreateService.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
+            TextField couponCodeTextField = App.Components.CreateById<TextField>("coupon_code");
+            Button applyCouponButton = App.Components.CreateByValueContaining<Button>("Apply coupon");
+            Div messageAlert = App.Components.CreateByClassContaining<Div>("woocommerce-message");
+            Number quantityBox = App.Components.CreateByClassContaining<Number>("input-text qty text");
+            Button updateCart = App.Components.CreateByValueContaining<Button>("Update cart").ToBeClickable();
+            Span totalSpan = App.Components.CreateByXpath<Span>("//*[@class='order-total']//span");
+            Anchor proceedToCheckout = App.Components.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
 
             // Cart page actions
             couponCodeTextField.SetText("happybirthday");
             applyCouponButton.Click();
             messageAlert.ToHasContent().ToBeVisible().WaitToBe();
             messageAlert.ValidateInnerTextIs("Coupon code applied successfully.");
-            App.BrowserService.WaitForAjax();
+            App.Browser.WaitForAjax();
             totalSpan.ValidateInnerTextIs("54.00€");
             proceedToCheckout.Click();
 
             // Checkout page elements
-            Heading billingDetailsHeading = App.ElementCreateService.CreateByInnerTextContaining<Heading>("Billing details");
-            Anchor showLogin = App.ElementCreateService.CreateByInnerTextContaining<Anchor>("Click here to login");
-            TextArea orderCommentsTextArea = App.ElementCreateService.CreateById<TextArea>("order_comments");
-            TextField billingFirstName = App.ElementCreateService.CreateById<TextField>("billing_first_name");
-            TextField billingLastName = App.ElementCreateService.CreateById<TextField>("billing_last_name");
-            TextField billingCompany = App.ElementCreateService.CreateById<TextField>("billing_company");
-            Select billingCountry = App.ElementCreateService.CreateById<Select>("billing_country");
-            TextField billingAddress1 = App.ElementCreateService.CreateById<TextField>("billing_address_1");
-            TextField billingAddress2 = App.ElementCreateService.CreateById<TextField>("billing_address_2");
-            TextField billingCity = App.ElementCreateService.CreateById<TextField>("billing_city");
-            Select billingState = App.ElementCreateService.CreateById<Select>("billing_state").ToBeVisible().ToBeClickable();
-            TextField billingZip = App.ElementCreateService.CreateById<TextField>("billing_postcode");
-            Phone billingPhone = App.ElementCreateService.CreateById<Phone>("billing_phone");
-            Email billingEmail = App.ElementCreateService.CreateById<Email>("billing_email");
-            CheckBox createAccountCheckBox = App.ElementCreateService.CreateById<CheckBox>("createaccount");
-            RadioButton checkPaymentsRadioButton = App.ElementCreateService.CreateByAttributesContaining<RadioButton>("for", "payment_method_cheque");
+            Heading billingDetailsHeading = App.Components.CreateByInnerTextContaining<Heading>("Billing details");
+            Anchor showLogin = App.Components.CreateByInnerTextContaining<Anchor>("Click here to login");
+            TextArea orderCommentsTextArea = App.Components.CreateById<TextArea>("order_comments");
+            TextField billingFirstName = App.Components.CreateById<TextField>("billing_first_name");
+            TextField billingLastName = App.Components.CreateById<TextField>("billing_last_name");
+            TextField billingCompany = App.Components.CreateById<TextField>("billing_company");
+            Select billingCountry = App.Components.CreateById<Select>("billing_country");
+            TextField billingAddress1 = App.Components.CreateById<TextField>("billing_address_1");
+            TextField billingAddress2 = App.Components.CreateById<TextField>("billing_address_2");
+            TextField billingCity = App.Components.CreateById<TextField>("billing_city");
+            Select billingState = App.Components.CreateById<Select>("billing_state").ToBeVisible().ToBeClickable();
+            TextField billingZip = App.Components.CreateById<TextField>("billing_postcode");
+            Phone billingPhone = App.Components.CreateById<Phone>("billing_phone");
+            Email billingEmail = App.Components.CreateById<Email>("billing_email");
+            CheckBox createAccountCheckBox = App.Components.CreateById<CheckBox>("createaccount");
 
             // Checkout page actions
             billingDetailsHeading.ToBeVisible().WaitToBe();
@@ -110,7 +89,6 @@ namespace Bellatrix.Web.GettingStarted
             billingPhone.SetPhone("+00359894646464");
             billingEmail.SetEmail("info@bellatrix.solutions");
             createAccountCheckBox.Check();
-            checkPaymentsRadioButton.Click();
 
             // 4. After the test is executed the following log is created:
             //

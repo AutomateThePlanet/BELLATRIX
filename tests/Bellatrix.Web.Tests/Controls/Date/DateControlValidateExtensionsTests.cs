@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class DateControlValidateExtensionsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateDateIs_DoesNotThrowException_When_UseSetDateMethodWithDateLessThan10()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.Components.CreateById<Date>("myDate");
 
             dateElement.SetDate(2017, 7, 6);
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.Components.CreateById<Date>("myDate");
 
             dateElement.ValidateAutoCompleteOff();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             dateElement.ValidateAutoCompleteOn();
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate4");
+            var dateElement = App.Components.CreateById<Date>("myDate4");
 
             dateElement.ValidateIsNotReadonly();
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate5");
+            var dateElement = App.Components.CreateById<Date>("myDate5");
 
             dateElement.ValidateIsReadonly();
         }
@@ -80,7 +80,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxTextIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.Components.CreateById<Date>("myDate");
 
             dateElement.ValidateMaxTextIsNull();
         }
@@ -90,7 +90,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinTextIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.Components.CreateById<Date>("myDate");
 
             dateElement.ValidateMinTextIsNull();
         }
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.Components.CreateById<Date>("myDate");
 
             dateElement.ValidateStepIsNull();
         }
@@ -110,7 +110,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxTextIs_DoesNotThrowException_When_MaxAttributeIsPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate1");
+            var dateElement = App.Components.CreateById<Date>("myDate1");
 
             dateElement.ValidateMaxTextIs("2032-12-01");
         }
@@ -120,7 +120,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinTextIs_DoesNotThrowException_MinAttributeIsPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate1");
+            var dateElement = App.Components.CreateById<Date>("myDate1");
 
             dateElement.ValidateMinTextIs("1900-01-01");
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate1");
+            var dateElement = App.Components.CreateById<Date>("myDate1");
 
             dateElement.ValidateStepIs(2);
         }
@@ -140,7 +140,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate4");
+            var dateElement = App.Components.CreateById<Date>("myDate4");
 
             dateElement.ValidateIsNotRequired();
         }
@@ -150,7 +150,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent_Edge()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate6");
+            var dateElement = App.Components.CreateById<Date>("myDate6");
 
             dateElement.ValidateIsRequired();
         }
@@ -160,7 +160,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate7");
+            var dateElement = App.Components.CreateById<Date>("myDate7");
 
             dateElement.Hover();
 
@@ -172,7 +172,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.Components.CreateById<Date>("myDate");
 
             dateElement.ValidateIsNotDisabled();
         }
@@ -182,7 +182,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate9");
+            var dateElement = App.Components.CreateById<Date>("myDate9");
 
             dateElement.ValidateIsDisabled();
         }

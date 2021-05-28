@@ -22,14 +22,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class RadioButtonControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickingCalled_BeforeActuallyClick()
         {
-            var radioButtonElement = App.ElementCreateService.CreateById<RadioButton>("myRadio");
+            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio");
             RadioButton.Clicking += AssertIsCheckedFalse;
 
             radioButtonElement.Click();
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             RadioButton.Clicking -= AssertIsCheckedFalse;
 
-            void AssertIsCheckedFalse(object sender, ElementActionEventArgs args)
+            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
             {
                 Assert.IsFalse(radioButtonElement.IsChecked);
             }
@@ -49,14 +49,14 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickedCalled_AfterClick()
         {
-            var radioButtonElement = App.ElementCreateService.CreateById<RadioButton>("myRadio");
+            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio");
             RadioButton.Clicked += AssertIsCheckedFalse;
 
             radioButtonElement.Click();
 
             RadioButton.Clicked -= AssertIsCheckedFalse;
 
-            void AssertIsCheckedFalse(object sender, ElementActionEventArgs args)
+            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
             {
                 Assert.IsTrue(radioButtonElement.IsChecked);
             }
@@ -69,7 +69,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             RadioButton.Hovering += AssertStyleAttributeEmpty;
 
-            var radioButtonElement = App.ElementCreateService.CreateById<RadioButton>("myRadio1");
+            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio1");
 
             radioButtonElement.Hover();
 
@@ -77,7 +77,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             RadioButton.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -90,15 +90,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             RadioButton.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var radioButtonElement = App.ElementCreateService.CreateById<RadioButton>("myRadio1");
+            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio1");
 
             radioButtonElement.Hover();
 
             RadioButton.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<RadioButton>("myRadio1").ValidateStyleIs("color: red;");
+                App.Components.CreateById<RadioButton>("myRadio1").ValidateStyleIs("color: red;");
             }
         }
     }

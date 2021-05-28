@@ -1,18 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.RestartEveryTime)]
-    public class WaitElementsTests : MSTest.AndroidTest
+    [TestFixture]
+    public class WaitComponentsTests : NUnit.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_ClickMethodCalled()
         {
             // 1. Besides the ToBe methods that you can use on element creation, you have a couple of other options if you need to wait for elements.
@@ -23,7 +17,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // and wait for the condition to be satisfied.
 
             // This is also valid syntax the conditions are performed once the Click method is called. It is the same as placing ToBe methods after CreateByIdContaining.
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
             button.ToBeClickable().ToBeVisible().Click();
 
             // 2. Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the element.

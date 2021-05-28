@@ -18,34 +18,34 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class InputFile : Element, IElementRequired, IElementMultiple, IElementAccept
+    public class InputFile : Component, IComponentRequired, IComponentMultiple, IComponentAccept
     {
-        public static event EventHandler<ElementActionEventArgs> Uploading;
-        public static event EventHandler<ElementActionEventArgs> Uploaded;
+        public static event EventHandler<ComponentActionEventArgs> Uploading;
+        public static event EventHandler<ComponentActionEventArgs> Uploaded;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
-        public void Upload(string file)
+        public virtual void Upload(string file)
         {
             DefaultUpload(file);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsMultiple => !string.IsNullOrEmpty(GetAttribute("multiple"));
+        public virtual bool IsMultiple => !string.IsNullOrEmpty(GetAttribute("multiple"));
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Accept => string.IsNullOrEmpty(GetAttribute("accept")) ? null : GetAttribute("accept");
+        public virtual string Accept => string.IsNullOrEmpty(GetAttribute("accept")) ? null : GetAttribute("accept");
 
         protected virtual void DefaultUpload(string filePath)
         {
-            Uploading?.Invoke(this, new ElementActionEventArgs(this));
+            Uploading?.Invoke(this, new ComponentActionEventArgs(this));
 
             WrappedElement.SendKeys(filePath);
 
-            Uploaded?.Invoke(this, new ElementActionEventArgs(this));
+            Uploaded?.Invoke(this, new ComponentActionEventArgs(this));
         }
     }
 }

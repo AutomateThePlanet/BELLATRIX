@@ -18,53 +18,53 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Month : Element, IElementDisabled, IElementValue, IElementMonth, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxText, IElementMinText, IElementStep
+    public class Month : Component, IComponentDisabled, IComponentValue, IComponentMonth, IComponentAutoComplete, IComponentReadonly, IComponentRequired, IComponentMaxText, IComponentMinText, IComponentStep
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingMonth;
-        public static event EventHandler<ElementActionEventArgs> MonthSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingMonth;
+        public static event EventHandler<ComponentActionEventArgs> MonthSet;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
-        public string GetMonth()
+        public virtual string GetMonth()
         {
             return DefaultGetValue();
         }
 
-        public void SetMonth(int year, int monthNumber)
+        public virtual void SetMonth(int year, int monthNumber)
         {
             DefaultSetMonth(year, monthNumber);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Value => DefaultGetValue();
+        public virtual string Value => DefaultGetValue();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsAutoComplete => GetAutoCompleteAttribute();
+        public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsReadonly => GetReadonlyAttribute();
+        public virtual bool IsReadonly => GetReadonlyAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Max => GetMaxAttributeAsString();
+        public virtual string Max => GetMaxAttributeAsString();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Min => GetMinAttributeAsString();
+        public virtual string Min => GetMinAttributeAsString();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Step => GetStepAttribute();
+        public virtual int? Step => GetStepAttribute();
 
         protected virtual void DefaultSetMonth(int year, int monthNumber)
         {

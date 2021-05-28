@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class ElementActionHooksTests : MSTest.IOSTest
+    public class ElementActionHooksTests : NUnit.IOSTest
     {
         // 1. Another way to extend BELLATRIX is to use the controls hooks. This is how the BDD logging is implemented.
         // For each method of the control, there are two hooks- one that is called before the action and one after.
@@ -24,22 +24,22 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // Note: Usually, we add element event handlers in the AssemblyInitialize method which is called once for a test run.
         public override void TestsArrange()
         {
-            App.AddElementEventHandler<DebugLoggingButtonEventHandlers>();
+            App.AddComponentEventHandler<DebugLoggingButtonEventHandlers>();
 
             // If you need to remove it during the run you can use the method bellow.
-            App.RemoveElementEventHandler<DebugLoggingButtonEventHandlers>();
+            App.RemoveComponentEventHandler<DebugLoggingButtonEventHandlers>();
 
             // 5. Each BELLATRIX Validate method gives you a hook too.
             // To implement them you can derive the ValidateExtensionsEventHandlers base class and override the event handler methods you need.
             // For example for the method ValidateIsChecked, ValidatedIsCheckedEvent event is called after the check is done.
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }

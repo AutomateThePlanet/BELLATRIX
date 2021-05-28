@@ -1,17 +1,16 @@
 ﻿using Bellatrix.Web.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
-    public class WaitElementsTests : MSTest.WebTest
+    [TestFixture]
+    public class WaitElementsTests : NUnit.WebTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
             // 1. Besides the ToBe methods that you can use on element creation, you have a couple of other options if you need to wait for elements.
             // For example, if you want to reuse your element in multiple tests or if you use it through page objects (more about that in later chapters),
@@ -21,10 +20,10 @@ namespace Bellatrix.Web.GettingStarted
             // and wait for the condition to be satisfied.
 
             // This is also valid syntax the conditions are performed once the Click method is called. It is the same as placing ToBe methods after CreateByLinkText.
-            var blogLink = App.ElementCreateService.CreateByLinkText<Anchor>("Blog");
+            var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
             blogLink.ToBeClickable().ToBeVisible().Click();
 
-            // 2. Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the ElementCreateService.
+            // 2. Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the ComponentCreateService.
             // In the above example, statement waits for the button to be clickable and visible before the click. However, in some cases, you want some element to show up
             // but not act on it. This means the above syntax does not help you since the element is not searched in the DOM at all because of the lazy loading.
             // Using the WaitToBe method forces BELLATRIX to locate your element and wait for the condition without the need to do an action or assertion.

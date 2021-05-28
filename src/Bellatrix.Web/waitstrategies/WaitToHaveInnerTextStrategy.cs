@@ -24,7 +24,7 @@ namespace Bellatrix.Web.Untils
             : base(timeoutInterval, sleepInterval)
         {
             _elementText = elementText;
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<TimeoutSettings>().ElementToHaveContentTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToHaveContentTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)
@@ -32,7 +32,7 @@ namespace Bellatrix.Web.Untils
             WaitUntil(d => ElementHasInnerText(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
         }
 
-        public override void WaitUntil<TBy>(TBy by, Element parent)
+        public override void WaitUntil<TBy>(TBy by, Component parent)
         {
             WaitUntil(d => ElementHasInnerText(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
         }

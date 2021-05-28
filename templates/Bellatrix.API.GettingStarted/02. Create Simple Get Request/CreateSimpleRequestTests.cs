@@ -5,13 +5,13 @@ using RestSharp;
 
 namespace Bellatrix.API.GettingStarted
 {
-    // 1. This is the main attribute that you need to mark each class that contains MSTest tests.
+    // 1. This is the main attribute that you need to mark each class that contains NUnit tests.
     [TestClass]
 
     // 2.2. All API BELLATRIX test classes should inherit from the APItest base class. This way you can use all built-in BELLATRIX tools and functionality.
     public class CreateSimpleRequestTests : APITest
     {
-        // 2.3. All MSTest tests should be marked with the TestMethod attribute.
+        // 2.3. All NUnit tests should be marked with the Test attribute.
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void GetAlbumById()

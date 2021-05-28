@@ -1,18 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.RestartEveryTime)]
-    public class LocateAndWaitElementsTests : MSTest.AndroidTest
+    [TestFixture]
+    public class LocateAndWaiTComponentsTests : NUnit.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_ClickMethodCalled()
         {
             // 1. Sometimes you need to perform an action against an element only when a specific condition is true.
@@ -40,37 +34,37 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             //    "elementToBeClickableTimeout": "30",
             //    "elementNotToBeVisibleTimeout": "30",
             //    "elementToHaveContentTimeout": "15",
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button").ToBeClickable().ToBeVisible();
+            var button = App.Components.CreateByIdContaining<Button>("button").ToBeClickable().ToBeVisible();
 
             button.Click();
 
             // 2. You can always override the timeout settings for each method.
             // The first value is the timeout in seconds and the second one controls how often the engine checks the condition.
-            var radioButton = App.ElementCreateService.CreateByIdContaining<RadioButton>("radio2").ToHasContent(40, 1);
+            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2").ToHasContent(40, 1);
 
             radioButton.Click();
 
             // 3. All available ToBe methods:
-            // ToExists  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToExists();
+            // ToExists  --> App.Components.CreateByIdContaining<Button>("button").ToExists();
             // Waits for the element to exist on the page. BELLATRIX always does it by default.
             // But if use another ToBe methods you need to add it again since you have to override the default lifecycle.
             //
-            // ToNotExists  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToNotExists();
+            // ToNotExists  --> App.Components.CreateByIdContaining<Button>("button").ToNotExists();
             // Waits for the element to disappear. Usually, we use in assertion methods.
             //
-            // ToBeVisible  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToBeVisible();
+            // ToBeVisible  --> App.Components.CreateByIdContaining<Button>("button").ToBeVisible();
             // Waits for the element to be visible.
             //
-            // ToNotBeVisible  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToNotBeVisible();
+            // ToNotBeVisible  --> App.Components.CreateByIdContaining<Button>("button").ToNotBeVisible();
             // Waits for the element to be invisible.
             //
-            // ToBeClickable  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToBeClickable();
+            // ToBeClickable  --> App.Components.CreateByIdContaining<Button>("button").ToBeClickable();
             // Waits for the element to be clickable (may be disabled at first).
             //
-            // ToHasContent  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToHasContent();
+            // ToHasContent  --> App.Components.CreateByIdContaining<Button>("button").ToHasContent();
             // Waits for the element to has some content in it. For example, some validation DIV or label.
             //
-            // ToBeDisabled  --> App.ElementCreateService.CreateByIdContaining<Button>("button").ToBeDisabled();
+            // ToBeDisabled  --> App.Components.CreateByIdContaining<Button>("button").ToBeDisabled();
             // Waits for the element to be disabled.
         }
     }

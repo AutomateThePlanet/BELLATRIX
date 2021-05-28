@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Ignore]
         public void ValidateTextIs_DoesNotThrowException_When_ComboBoxTextIsAsExpected()
         {
-            var comboBox = App.ElementCreateService.CreateById<ComboBox>("spinner1");
+            var comboBox = App.Components.CreateById<ComboBox>("spinner1");
 
             comboBox.SelectByText("Jupiter");
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Ignore]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_ComboBoxIsNotDisabled()
         {
-            var comboBox = App.ElementCreateService.CreateById<ComboBox>("spinner1");
+            var comboBox = App.Components.CreateById<ComboBox>("spinner1");
 
             Assert.AreEqual(false, comboBox.IsDisabled);
         }

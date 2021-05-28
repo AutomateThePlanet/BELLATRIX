@@ -19,8 +19,8 @@ namespace Bellatrix.Mobile.BddLogging.Android
 {
     public class BDDLoggingToggleButtonEventHandlers : ToggleButtonEventHandlers
     {
-        protected override void TurningOnEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn on {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void TurningOffEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn off {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

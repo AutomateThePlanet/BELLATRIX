@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.EventHandlers.Android
 {
-    public class TextFieldEventHandlers : ElementEventHandlers
+    public class TextFieldEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -33,11 +33,11 @@ namespace Bellatrix.Mobile.EventHandlers.Android
             TextField.TextSet -= TextSetEventHandler;
         }
 
-        protected virtual void SettingTextEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void SettingTextEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void TextSetEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void TextSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
     }

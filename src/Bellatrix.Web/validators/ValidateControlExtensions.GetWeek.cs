@@ -20,12 +20,12 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateWeekIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementWeek, IElement
+            where T : IComponentWeek, IComponent
         {
             WaitUntil(() => control.GetWeek().Equals(value), $"The control's week should be '{value}' but was '{control.GetWeek()}'.", timeout, sleepInterval);
-            ValidatedWeekIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedWeekIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedWeekIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedWeekIsEvent;
     }
 }

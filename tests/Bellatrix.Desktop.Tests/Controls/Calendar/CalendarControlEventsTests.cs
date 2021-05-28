@@ -21,7 +21,7 @@ namespace Bellatrix.Desktop.Tests
     [AllureSuite("Calendar Control")]
     [AllureFeature("Control Events")]
     [AllureTag("WPF")]
-    public class CalendarControlEventsTests : BellatrixBaseTest
+    public class CalendarControlEventsTests : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -30,18 +30,18 @@ namespace Bellatrix.Desktop.Tests
         {
             Calendar.Hovering += AssertTextResultLabel;
 
-            var calendar = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
             calendar.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.IsTrue(label.IsVisible);
 
             Calendar.Hovering -= AssertTextResultLabel;
 
-            void AssertTextResultLabel(object sender, ElementActionEventArgs args)
+            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
             {
-                var label1 = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+                var label1 = App.Components.CreateByAutomationId<Label>("ResultLabelId");
                 Assert.IsTrue(label1.IsVisible);
             }
         }
@@ -53,15 +53,15 @@ namespace Bellatrix.Desktop.Tests
         {
             Calendar.Hovered += AssertTextResultLabel;
 
-            var calendar = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
             calendar.Hover();
 
             Calendar.Hovered -= AssertTextResultLabel;
 
-            void AssertTextResultLabel(object sender, ElementActionEventArgs args)
+            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
             {
-                var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+                var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
                 Assert.IsTrue(label.IsVisible);
             }
         }

@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class UrlEventHandlers : ElementEventHandlers
+    public class UrlEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Url.UrlSet -= UrlSetEventHandler;
         }
 
-        protected virtual void SettingUrlEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingUrlEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void UrlSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void UrlSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

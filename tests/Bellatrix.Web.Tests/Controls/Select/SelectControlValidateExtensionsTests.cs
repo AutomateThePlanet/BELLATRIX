@@ -25,8 +25,8 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
@@ -34,11 +34,11 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateValueIs_DoesNotThrowException_When_UseSelectByTextMethod_Edge()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-            selectElement.SelectByText("Awesome");
+            selectComponent.SelectByText("Awesome");
 
-            selectElement.GetSelected().ValidateValueIs("bella2");
+            selectComponent.GetSelected().ValidateValueIs("bella2");
         }
 
         [TestMethod]
@@ -46,11 +46,11 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateValueIs_DoesNotThrowException_When_Hover_Edge()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect1");
+            var selectComponent = App.Components.CreateById<Select>("mySelect1");
 
-            selectElement.Hover();
+            selectComponent.Hover();
 
-            selectElement.ValidateStyleIs("color: red;");
+            selectComponent.ValidateStyleIs("color: red;");
         }
 
         [TestMethod]
@@ -58,9 +58,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent_Edge()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-            selectElement.ValidateIsNotDisabled();
+            selectComponent.ValidateIsNotDisabled();
         }
 
         [TestMethod]
@@ -68,9 +68,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent_Edge()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect3");
+            var selectComponent = App.Components.CreateById<Select>("mySelect3");
 
-            selectElement.ValidateIsDisabled();
+            selectComponent.ValidateIsDisabled();
         }
 
         [TestMethod]
@@ -78,9 +78,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributePresent_Edge()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect4");
+            var selectComponent = App.Components.CreateById<Select>("mySelect4");
 
-            selectElement.ValidateIsRequired();
+            selectComponent.ValidateIsRequired();
         }
 
         [TestMethod]
@@ -88,9 +88,9 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeNotPresent_Edge()
         {
-            var selectElement = App.ElementCreateService.CreateById<Select>("mySelect");
+            var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-            selectElement.ValidateIsNotRequired();
+            selectComponent.ValidateIsNotRequired();
         }
     }
 }

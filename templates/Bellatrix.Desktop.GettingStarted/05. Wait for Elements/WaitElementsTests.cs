@@ -1,15 +1,13 @@
-﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.NUnit;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    public class WaitElementsTests : DesktopTest
+    [TestFixture]
+    public class WaiTComponentsTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+        [Test]
+        [Category(Categories.CI)]
         public void WaitForElementToExists_When_ElementIsNotVisibleInitially_Wpf()
         {
             // 1. Besides the ToBe methods that you can use on element creation, you have a couple of other options if you need to wait for elements.
@@ -20,19 +18,18 @@ namespace Bellatrix.Desktop.GettingStarted
             // and wait for the condition to be satisfied.
 
             // This is also valid syntax the conditions are performed once the Click method is called. It is the same as placing ToBe methods after CreateByName.
-            var button = App.ElementCreateService.CreateByName<Button>("ShowAfterButton").ToExists();
+            var button = App.Components.CreateByName<Button>("ShowAfterButton").ToExists();
 
             button.Click();
 
             Assert.IsTrue(button.IsVisible);
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+        [Test]
+        [Category(Categories.CI)]
         public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("asd");
+            var button = App.Components.CreateByName<Button>("asd");
 
             // 2. Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the element.
             // In the above example, statement waits for the button to be clickable and visible before the click. However, in some cases, you want some element to show up

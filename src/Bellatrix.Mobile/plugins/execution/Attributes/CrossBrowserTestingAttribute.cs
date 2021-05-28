@@ -60,8 +60,7 @@ namespace Bellatrix.Mobile
             appiumOptions.AddAdditionalCapability("record_video", RecordVideo);
             appiumOptions.AddAdditionalCapability("record_network", RecordNetwork);
 
-            var crossBrowserTestingCredentialsResolver = new CrossBrowserTestingCredentialsResolver();
-            var credentials = crossBrowserTestingCredentialsResolver.GetCredentials();
+            var credentials = CloudProviderCredentialsResolver.GetCredentials();
             appiumOptions.AddAdditionalCapability("username", credentials.Item1);
             appiumOptions.AddAdditionalCapability("password", credentials.Item2);
 

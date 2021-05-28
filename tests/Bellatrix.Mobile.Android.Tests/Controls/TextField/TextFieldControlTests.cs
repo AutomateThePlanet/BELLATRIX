@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void BellatrixTextSet_When_CallSetTextMethod()
         {
-            var textField = App.ElementCreateService.CreateByIdContaining<TextField>("edit");
+            var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
             textField.SetText("Bellatrix");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ReturnsEmpty_When_CallGetTextMethodAndNoTextSet()
         {
-            var textField = App.ElementCreateService.CreateByIdContaining<TextField>("edit");
+            var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
             textField.SetText(string.Empty);
 
@@ -51,7 +51,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_TextFieldIsNotDisabled()
         {
-            var textField = App.ElementCreateService.CreateByIdContaining<TextField>("edit");
+            var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
             Assert.AreEqual(false, textField.IsDisabled);
         }

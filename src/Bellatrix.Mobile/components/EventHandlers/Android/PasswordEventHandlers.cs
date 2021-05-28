@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.EventHandlers.Android
 {
-    public class PasswordEventHandlers : ElementEventHandlers
+    public class PasswordEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -33,11 +33,11 @@ namespace Bellatrix.Mobile.EventHandlers.Android
             Password.PasswordSet -= PasswordSetEventHandler;
         }
 
-        protected virtual void SettingPasswordEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void PasswordSetEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
     }

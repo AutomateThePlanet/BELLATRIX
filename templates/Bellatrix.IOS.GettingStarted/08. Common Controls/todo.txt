@@ -1,4 +1,4 @@
-﻿1. Create a new MSTest test class
+﻿1. Create a new NUnit test class
 2. Use the BELLATRIX App attribute so that to reuse the app.
 3. Create a new test where you fill text field 1 and 2 and set proper numbers, click the computeSum button
 4. Verify that the correct answer is displayed

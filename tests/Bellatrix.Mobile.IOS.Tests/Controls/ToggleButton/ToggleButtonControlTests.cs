@@ -29,10 +29,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void IsOnTrue_When_ToggleButtonTurnedOffAndTurnOn()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.Components.CreateById<Button>("Add");
             addButton.Click();
 
-            var toggleButton = App.ElementCreateService.CreateByXPath<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var toggleButton = App.Components.CreateByXPath<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             Assert.IsFalse(toggleButton.IsOn);
 
@@ -47,10 +47,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void IsOnFalse_When_ToggleButtonTurnedOnAndTurnOff()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.Components.CreateById<Button>("Add");
             addButton.Click();
 
-            var toggleButton = App.ElementCreateService.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var toggleButton = App.Components.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             toggleButton.TurnOn();
             toggleButton.TurnOff();
@@ -64,10 +64,10 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void IsDisabledReturnsFalse_When_ToggleButtonIsNotDisabled()
         {
-            var addButton = App.ElementCreateService.CreateById<Button>("Add");
+            var addButton = App.Components.CreateById<Button>("Add");
             addButton.Click();
 
-            var toggleButton = App.ElementCreateService.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+            var toggleButton = App.Components.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
             Assert.AreEqual(false, toggleButton.IsDisabled);
         }

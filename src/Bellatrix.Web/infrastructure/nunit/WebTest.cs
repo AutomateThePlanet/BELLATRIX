@@ -11,41 +11,58 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using System;
 using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.NUnit
 {
     public abstract class WebTest : NUnitBaseTest
     {
+        private static readonly object _lockObject = new object();
+
+        private static bool _arePluginsAlreadyInitialized;
+
         public App App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<App>();
 
         public override void Configure()
         {
-            NUnitPluginConfiguration.Add();
-            ExecutionTimePlugin.Add();
-            VideoRecorderPluginConfiguration.AddNUnit();
-            ScreenshotsPluginConfiguration.AddNUnit();
-            WebPluginsConfiguration.AddBrowserLifecycle();
-            WebPluginsConfiguration.AddLogExecutionLifecycle();
-            WebPluginsConfiguration.AddControlDataHandlers();
-            WebPluginsConfiguration.AddValidateExtensionsBddLogging();
-            WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-            WebPluginsConfiguration.AddValidateExtensionsBugReporting();
-            WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-            WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-            WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
-            WebPluginsConfiguration.AddElementsBddLogging();
-            WebPluginsConfiguration.AddDynamicTestCases();
-            WebPluginsConfiguration.AddBugReporting();
-            WebPluginsConfiguration.AddHighlightElements();
+            lock (_lockObject)
+            {
+                if (!_arePluginsAlreadyInitialized)
+                {
+                    NUnitPluginConfiguration.Add();
+                    ExecutionTimePlugin.Add();
+                    VideoRecorderPluginConfiguration.AddNUnit();
+                    ScreenshotsPluginConfiguration.AddNUnit();
+                    DynamicTestCasesPlugin.Add();
+                    AllurePlugin.Add();
+                    BugReportingPlugin.Add();
 
-            if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
-            {
-                WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
-            }
-            else
-            {
-                WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
+                    WebPluginsConfiguration.AddBrowserLifecycle();
+                    WebPluginsConfiguration.AddLogExecutionLifecycle();
+                    WebPluginsConfiguration.AddControlDataHandlers();
+                    WebPluginsConfiguration.AddValidateExtensionsBddLogging();
+                    WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+                    WebPluginsConfiguration.AddValidateExtensionsBugReporting();
+                    WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+                    WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+                    WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+                    WebPluginsConfiguration.AddElementsBddLogging();
+                    WebPluginsConfiguration.AddDynamicTestCases();
+                    WebPluginsConfiguration.AddBugReporting();
+                    WebPluginsConfiguration.AddHighlightComponents();
+
+                    if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
+                    {
+                        WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
+                    }
+                    else
+                    {
+                        WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
+                    }
+
+                    _arePluginsAlreadyInitialized = true;
+                }
             }
         }
     }

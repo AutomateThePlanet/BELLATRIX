@@ -1,21 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    public class ValidateAssertions : MSTest.AndroidTest
+    [TestFixture]
+    public class ValidateAssertions : NUnit.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void CommonAssertionsAndroidControls()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             // 1. We can assert whether the control is disabled
             // The different BELLATRIX Android elements classes contain lots of these properties which are a representation
@@ -30,7 +24,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             button.ValidateIsNotDisabled();
             ////Assert.AreEqual(false, button.IsDisabled);
 
-            var checkBox = App.ElementCreateService.CreateByIdContaining<CheckBox>("check1");
+            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
 
             checkBox.Check();
 
@@ -43,7 +37,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // "The control should be checked but was NOT."
             checkBox.ValidateIsChecked();
 
-            var comboBox = App.ElementCreateService.CreateByIdContaining<ComboBox>("spinner1");
+            var comboBox = App.Components.CreateByIdContaining<ComboBox>("spinner1");
 
             comboBox.SelectByText("Jupiter");
 
@@ -51,13 +45,13 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             comboBox.ValidateTextIs("Jupiter");
             ////Assert.AreEqual("Jupiter", comboBox.GetText());
 
-            var label = App.ElementCreateService.CreateByText<Label>("textColorPrimary");
+            var label = App.Components.CreateByText<Label>("textColorPrimary");
 
             // 4. See if the element is present or not using the IsPresent property.
             label.ValidateIsVisible();
             ////Assert.IsTrue(label.IsPresent);
 
-            var radioButton = App.ElementCreateService.CreateByIdContaining<RadioButton>("radio2");
+            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
 
             radioButton.Click();
 

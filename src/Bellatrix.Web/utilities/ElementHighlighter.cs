@@ -1,4 +1,4 @@
-﻿// <copyright file="ElementHighlighter.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="Elementhighlighter.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ using OpenQA.Selenium;
 
 namespace Bellatrix.Web.Extensions.Controls
 {
-    public static class ElementHighlighter
+    public static class Elementhighlighter
     {
         public static void Highlight(this IWebElement nativeElement, int waitBeforeUnhighlightMilliseconds = 100, string color = "yellow")
         {

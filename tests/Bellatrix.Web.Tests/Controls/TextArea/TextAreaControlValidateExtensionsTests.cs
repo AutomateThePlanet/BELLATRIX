@@ -21,14 +21,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class TextAreaControlValidateExtensionsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextAreaLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextAreaLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             textAreaElement.ValidateAutoCompleteOff();
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea4");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
 
             textAreaElement.ValidateAutoCompleteOn();
         }
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea4");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
 
             textAreaElement.ValidateIsNotReadonly();
         }
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea6");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea6");
 
             textAreaElement.ValidateIsReadonly();
         }
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             textAreaElement.ValidateMaxLengthIsNull();
         }
@@ -78,7 +78,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             textAreaElement.ValidateMinLengthIsNull();
         }
@@ -88,7 +88,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIsNull_DoesNotThrowException_When_RowsAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             textAreaElement.ValidateRowsIs(2);
         }
@@ -98,7 +98,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateColsIs_DoesNotThrowException_When_ColsAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             textAreaElement.ValidateColsIs(20);
         }
@@ -108,7 +108,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea2");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea2");
 
             textAreaElement.ValidateMaxLengthIs(80);
         }
@@ -118,7 +118,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea2");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea2");
 
             textAreaElement.ValidateMinLengthIs(10);
         }
@@ -128,7 +128,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateRowsIs_DoesNotThrowException_When_RowsAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea11");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea11");
 
             textAreaElement.ValidateRowsIs(5);
         }
@@ -138,7 +138,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea4");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
 
             textAreaElement.ValidateIsNotRequired();
         }
@@ -148,7 +148,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea7");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea7");
 
             textAreaElement.ValidateIsRequired();
         }
@@ -158,7 +158,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
             textAreaElement.ValidatePlaceholderIs("your Text term goes here");
         }
@@ -168,7 +168,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea1");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea1");
 
             textAreaElement.ValidatePlaceholderIsNull();
         }
@@ -178,7 +178,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea8");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea8");
 
             textAreaElement.Hover();
 
@@ -190,7 +190,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea9");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea9");
 
             textAreaElement.ValidateIsNotDisabled();
         }
@@ -200,7 +200,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea10");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea10");
 
             textAreaElement.ValidateIsDisabled();
         }
@@ -210,7 +210,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateWrapIs_DoesNotThrowException_When_WrapAttributeIsSet_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea13");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea13");
 
             textAreaElement.ValidateWrapIs("hard");
         }
@@ -220,7 +220,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateSpellCheckIs_DoesNotThrowException_When_SpellCheckAttributeIsSet_Edge()
         {
-            var textAreaElement = App.ElementCreateService.CreateById<TextArea>("myTextArea12");
+            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea12");
 
             textAreaElement.ValidateSpellCheckIs("true");
         }

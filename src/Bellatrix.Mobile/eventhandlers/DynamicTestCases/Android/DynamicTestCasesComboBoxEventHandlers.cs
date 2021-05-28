@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.DynamicTestCases.Android
 {
     public class DynamicTestCasesComboBoxEventHandlers : ComboBoxEventHandlers
     {
-        protected override void SelectingEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

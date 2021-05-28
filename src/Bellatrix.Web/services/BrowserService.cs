@@ -16,7 +16,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Bellatrix.Utilities;
-using Bellatrix.Web.Configuration;
 using Microsoft.Edge.SeleniumTools;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -29,8 +28,6 @@ namespace Bellatrix.Web
 {
     public class BrowserService : WebService
     {
-        private const string NotSupportedOperationClearCacheMessage = "It is exceedingly hard to implement, especially in all major browsers. Some browsers _may_ offer that ability- Chrome, ChromeHeadless, Edge and EdgeHeadless. To clear the cache for other browsers you will need to restart them.";
-
         public BrowserService(IWebDriver wrappedDriver)
             : base(wrappedDriver)
         {
@@ -68,7 +65,7 @@ namespace Bellatrix.Web
 
         public void WaitUntilReady()
         {
-            int maxSeconds = ConfigurationService.GetSection<TimeoutSettings>().ElementToExistTimeout * 1000;
+            int maxSeconds = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.WaitUntilReadyTimeout * 1000;
 
             Bellatrix.Utilities.Wait.Until(
                     () =>
@@ -207,10 +204,11 @@ namespace Bellatrix.Web
 
         public void WaitForAngular()
         {
-            string isAngular5 = InvokeScript("return getAllAngularRootElements()[0].attributes['ng-version']");
+            int waitForAngularTimeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.WaitForAngularTimeout * 1000;
+            string isAngular5 = InvokeScript("return getAllAngularRooTComponents()[0].attributes['ng-version']");
             if (!string.IsNullOrEmpty(isAngular5))
             {
-                Bellatrix.Utilities.Wait.Until(() => bool.Parse(InvokeScript("return window.getAllAngularTestabilities().findIndex(x=>!x.isStable()) === -1")));
+                Bellatrix.Utilities.Wait.Until(() => bool.Parse(InvokeScript("return window.getAllAngularTestabilities().findIndex(x=>!x.isStable()) === -1")), waitForAngularTimeout);
             }
             else
             {
@@ -220,7 +218,7 @@ namespace Bellatrix.Web
                     bool isAngularInjectorUnDefined = bool.Parse(InvokeScript("return angular.element(document).injector() === undefined").ToString());
                     if (!isAngularInjectorUnDefined)
                     {
-                        Bellatrix.Utilities.Wait.Until(() => bool.Parse(InvokeScript("return angular.element(document).injector().get('$http').pendingRequests.length === 0")));
+                        Bellatrix.Utilities.Wait.Until(() => bool.Parse(InvokeScript("return angular.element(document).injector().get('$http').pendingRequests.length === 0")), waitForAngularTimeout);
                     }
                 }
             }
@@ -241,8 +239,8 @@ namespace Bellatrix.Web
                         return false;
                     }
                 },
-                timeoutInSeconds: ConfigurationService.GetSection<TimeoutSettings>().WaitForAjaxTimeout,
-                retryRateDelay: ConfigurationService.GetSection<TimeoutSettings>().SleepInterval * 1000);
+                timeoutInSeconds: ConfigurationService.GetSection<WebSettings>().TimeoutSettings.WaitForJavaScriptAnimationsTimeout,
+                retryRateDelay: ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval * 1000);
         }
 
         public void WaitForAjaxRequest(string requestPartialUrl, int additionalTimeoutInSeconds = 0)
@@ -259,8 +257,8 @@ namespace Bellatrix.Web
                     return false;
                 },
 
-                timeoutInSeconds: ConfigurationService.GetSection<TimeoutSettings>().WaitForAjaxTimeout + additionalTimeoutInSeconds,
-                retryRateDelay: ConfigurationService.GetSection<TimeoutSettings>().SleepInterval * 1000,
+                timeoutInSeconds: ConfigurationService.GetSection<WebSettings>().TimeoutSettings.WaitForAjaxTimeout + additionalTimeoutInSeconds,
+                retryRateDelay: ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval * 1000,
                 exceptionMessage: $"Ajax request with url contains '{requestPartialUrl}' was not found.");
         }
 
@@ -279,7 +277,7 @@ namespace Bellatrix.Web
 
         public void WaitForAjax()
         {
-            int maxSeconds = ConfigurationService.GetSection<TimeoutSettings>().WaitForAjaxTimeout;
+            int maxSeconds = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.WaitForAjaxTimeout;
 
             string numberOfAjaxConnections = string.Empty;
 

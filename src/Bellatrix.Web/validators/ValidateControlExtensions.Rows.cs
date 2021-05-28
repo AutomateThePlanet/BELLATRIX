@@ -20,12 +20,12 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateRowsIs<T>(this T control, int value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementRows, IElement
+            where T : IComponentRows, IComponent
         {
             WaitUntil(() => control.Rows.Equals(value), $"The control's rows should be '{value}' but was '{control.Rows}'.", timeout, sleepInterval);
-            ValidatedRowsIsEvent?.Invoke(control, new ElementActionEventArgs(control, value.ToString()));
+            ValidatedRowsIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value.ToString()));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedRowsIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedRowsIsEvent;
     }
 }

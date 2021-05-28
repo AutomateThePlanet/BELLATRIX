@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureTag("Edge Browser")]
     public class AnchorControlTestsEdge : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
 
         [TestMethod]
         [AllureSeverity(SeverityLevel.critical)]
@@ -31,13 +31,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickOpensAutomateThePlanetUrl_When_DefaultClickIsSet_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
             anchorElement.Click();
 
-            App.NavigationService.WaitForPartialUrl("automatetheplanet");
+            App.Navigation.WaitForPartialUrl("automatetheplanet");
 
-            Assert.IsTrue(App.BrowserService.Url.ToString().Contains("automatetheplanet.com"));
+            Assert.IsTrue(App.Browser.Url.ToString().Contains("automatetheplanet.com"));
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnRed_When_Hover_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
             anchorElement.Hover();
 
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnBlue_When_Focus_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor2");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor2");
 
             anchorElement.Focus();
 
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnAutomateThePlanet_When_InnerText_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
             Assert.AreEqual("Automate The Planet", anchorElement.InnerText);
         }
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnButtonHtml_When_InnerHtml_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor4");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor4");
 
             Assert.IsTrue(anchorElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
         }
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnEmpty_When_InnerTextNotSet_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor6");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
 
             Assert.AreEqual(string.Empty, anchorElement.InnerText);
         }
@@ -101,7 +101,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnEmpty_When_InnerHtmlNotSet_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor6");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
 
             string actualInnerHtml = anchorElement.InnerHtml;
 
@@ -113,7 +113,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnEmpty_When_RelNotSet_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
             string actualRel = anchorElement.Rel;
 
@@ -125,7 +125,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnCanonical_When_RelRel_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor5");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
 
             Assert.AreEqual("canonical", anchorElement.Rel);
         }
@@ -135,7 +135,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnEmpty_When_TargetNotSet_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor1");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
             Assert.AreEqual(string.Empty, anchorElement.Target);
         }
@@ -145,7 +145,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnSelf_When_RelRel_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
             Assert.AreEqual("_self", anchorElement.Target);
         }
@@ -155,7 +155,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnNull_When_HrefNotSet_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor5");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
 
             Assert.IsNull(anchorElement.Href);
         }
@@ -165,7 +165,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ReturnAutomateThePlanetUrl_When_Href_Edge()
         {
-            var anchorElement = App.ElementCreateService.CreateById<Anchor>("myAnchor");
+            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
             Assert.AreEqual("https://automatetheplanet.com/", anchorElement.Href);
         }

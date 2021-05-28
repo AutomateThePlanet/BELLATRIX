@@ -12,15 +12,19 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using Bellatrix.KeyVault;
 
 namespace Bellatrix.Mobile.Plugins
 {
-    public abstract class CloudProviderCredentialsResolver
+    public static class CloudProviderCredentialsResolver
     {
-        public Tuple<string, string> GetCredentials()
+        private const string USER_ENVIRONMENTAL_VARIABLE = "cloud.grid.user";
+        private const string ACCESS_KEY_ENVIRONMENTAL_VARIABLE = "cloud.grid.key";
+
+        public static Tuple<string, string> GetCredentials()
         {
-            var user = Environment.GetEnvironmentVariable(UserEnvironmentVariable);
-            var accessKey = Environment.GetEnvironmentVariable(AccessKeyEnvironmentVariable);
+            var user = SecretsResolver.GetSecret(USER_ENVIRONMENTAL_VARIABLE);
+            var accessKey = SecretsResolver.GetSecret(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
 
             if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(accessKey))
             {
@@ -30,8 +34,18 @@ namespace Bellatrix.Mobile.Plugins
             return GetCredentialsFromConfig();
         }
 
-        protected abstract string UserEnvironmentVariable { get; }
-        protected abstract string AccessKeyEnvironmentVariable { get; }
-        protected abstract Tuple<string, string> GetCredentialsFromConfig();
+        private static Tuple<string, string> GetCredentialsFromConfig()
+        {
+            if (!ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0].ContainsKey(USER_ENVIRONMENTAL_VARIABLE) ||
+                !ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0].ContainsKey(ACCESS_KEY_ENVIRONMENTAL_VARIABLE))
+            {
+                throw new ArgumentException($"To use grid execution you need to set environment variables called ({USER_ENVIRONMENTAL_VARIABLE} and {ACCESS_KEY_ENVIRONMENTAL_VARIABLE}) or set them in browser settings file.");
+            }
+
+            string user = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0][USER_ENVIRONMENTAL_VARIABLE];
+            string accessKey = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0][ACCESS_KEY_ENVIRONMENTAL_VARIABLE];
+
+            return Tuple.Create(user, accessKey);
+        }
     }
 }

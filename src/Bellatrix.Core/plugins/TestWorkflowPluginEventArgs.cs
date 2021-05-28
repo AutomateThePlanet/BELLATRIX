@@ -27,6 +27,7 @@ namespace Bellatrix.Plugins
             string testName,
             MemberInfo testMethodMemberInfo,
             Type testClassType,
+            List<object> arguments,
             string consoleOutputMessage,
             string consoleOutputStackTrace,
             Exception exception,
@@ -35,11 +36,13 @@ namespace Bellatrix.Plugins
             List<string> descriptions)
             : this(testOutcome,
                 testClassType,
+                arguments,
                 consoleOutputMessage,
                 consoleOutputStackTrace)
         {
             TestMethodMemberInfo = testMethodMemberInfo;
             TestName = testName;
+            TestFullName = $"{TestClassName}.{TestName}";
             Exception = exception;
             Categories = categories;
             Authors = authors;
@@ -49,13 +52,14 @@ namespace Bellatrix.Plugins
         public PluginEventArgs(
             TestOutcome testOutcome,
             Type testClassType,
+            List<object> arguments,
             string consoleOutputMessage = null,
             string consoleOutputStackTrace = null)
         {
             TestOutcome = testOutcome;
             TestClassType = testClassType;
+            Arguments = arguments;
             TestClassName = testClassType.FullName;
-            TestFullName = $"{TestClassName}.{TestName}";
             ConsoleOutputMessage = consoleOutputMessage;
             ConsoleOutputStackTrace = consoleOutputStackTrace;
             Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
@@ -68,6 +72,7 @@ namespace Bellatrix.Plugins
         public MemberInfo TestMethodMemberInfo { get; }
 
         public Type TestClassType { get; }
+        public List<object> Arguments { get; }
 
         public TestOutcome TestOutcome { get; }
 

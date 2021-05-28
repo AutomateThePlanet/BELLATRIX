@@ -21,17 +21,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Expander Control")]
     [AllureTag("WPF")]
-    public class ExpanderControlTestsWpf : BellatrixBaseTest
+    public class ExpanderControlTestsWpf : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ExpanderHovered_Wpf()
         {
-            var expander = App.ElementCreateService.CreateByAutomationId<Expander>("HeaderSite");
+            var expander = App.Components.CreateByAutomationId<Expander>("HeaderSite");
 
             expander.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("expanderHovered", label.InnerText);
         }
 
@@ -40,11 +40,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void LabelVisible_When_ExpanderClicked_Wpf()
         {
-            var expander = App.ElementCreateService.CreateByAutomationId<Expander>("HeaderSite");
+            var expander = App.Components.CreateByAutomationId<Expander>("HeaderSite");
 
             expander.Click();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.IsTrue(label.IsVisible);
         }
 
@@ -53,7 +53,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_ExpanderIsNotDisabled_Wpf()
         {
-            var expander = App.ElementCreateService.CreateByAutomationId<Expander>("HeaderSite");
+            var expander = App.Components.CreateByAutomationId<Expander>("HeaderSite");
 
             Assert.AreEqual(false, expander.IsDisabled);
         }
@@ -63,7 +63,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_ExpanderIsDisabled_Wpf()
         {
-            var expander = App.ElementCreateService.CreateAll<Expander, FindAutomationIdStrategy>(Find.By.AutomationId("HeaderSite")).Last();
+            var expander = App.Components.CreateAll<Expander, FindAutomationIdStrategy>(Find.By.AutomationId("HeaderSite")).Last();
 
             Assert.AreEqual(true, expander.IsDisabled);
         }

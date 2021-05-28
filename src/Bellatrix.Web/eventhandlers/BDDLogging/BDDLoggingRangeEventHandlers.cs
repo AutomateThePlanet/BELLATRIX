@@ -18,6 +18,6 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BDDLoggingRangeEventHandlers : RangeEventHandlers
     {
-        protected override void SettingRangeEventHandler(object sender, ElementActionEventArgs arg) => Logger.LogInformation($"Set '{arg.ActionValue}' into {arg.Element.ElementName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+        protected override void SettingRangeEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Set '{arg.ActionValue}' into {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
     }
 }

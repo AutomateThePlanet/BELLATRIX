@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Button Control")]
     [AllureTag("WPF")]
-    public class ButtonControlTestsWpf : BellatrixBaseTest
+    public class ButtonControlTestsWpf : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
 
@@ -38,11 +38,11 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonClicked", label.InnerText);
         }
 
@@ -51,7 +51,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void EButtonContent_When_ButtonLocated_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             Assert.AreEqual("E Button", button.InnerText);
         }
@@ -61,7 +61,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             Assert.AreEqual(false, button.IsDisabled);
         }
@@ -71,7 +71,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_ButtonIsDisabled_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("D Button");
+            var button = App.Components.CreateByName<Button>("D Button");
 
             Assert.AreEqual(true, button.IsDisabled);
         }

@@ -6,9 +6,9 @@ namespace Bellatrix.Desktop.GettingStarted.ExtensionMethodsLocators
     // This is everything after that you can use your new locator as it was originally part of Bellatrix.
     public static class ElementCreateExtensions
     {
-        // public static TElement CreateByNameStartingWith<TElement>(this Element element, string idPart)
-        // where TElement : Element => element.Create<TElement, ByIdStartingWith>(new ByIdStartingWith(idPart));
-        public static ElementsList<TElement> CreateAllByNameStartingWith<TElement>(this Element element, string tag)
-            where TElement : Element => new ElementsList<TElement>(new FindNameStartingWithStrategy(tag), element.WrappedElement);
+        // public static TComponent CreateByNameStartingWith<TComponent>(this Element element, string idPart)
+        // where TComponent : Element => element.Create<TComponent, ByIdStartingWith>(new ByIdStartingWith(idPart));
+        public static ComponentsList<TComponent> CreateAllByNameStartingWith<TComponent>(this Component element, string tag)
+            where TComponent : Component => new ComponentsList<TComponent>(new FindNameStartingWithStrategy(tag), element.WrappedElement);
     }
 }

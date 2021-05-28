@@ -17,9 +17,9 @@ using Bellatrix.Mobile.Controls.Android;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class Label : Element, IElementText
+    public class Label : AndroidComponent, IComponentText
     {
-        public string GetText()
+        public virtual string GetText()
         {
             return GetText();
         }

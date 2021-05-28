@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.Click();
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void ReturnsSave_When_GetText()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             Assert.AreEqual("Save", button.GetText());
         }
@@ -47,7 +47,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             Assert.AreEqual(false, button.IsDisabled);
         }
@@ -56,7 +56,7 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsTrue_When_ButtonIsDisabled()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button_disabled");
+            var button = App.Components.CreateByIdContaining<Button>("button_disabled");
 
             Assert.AreEqual(true, button.IsDisabled);
         }

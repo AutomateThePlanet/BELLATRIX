@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class EmailEventHandlers : ElementEventHandlers
+    public class EmailEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             Email.EmailSet -= EmailSetEventHandler;
         }
 
-        protected virtual void SettingEmailEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingEmailEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void EmailSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void EmailSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class HeadingControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Heading.Hovering += AssertStyleAttributeEmpty;
 
-            var headingElement = App.ElementCreateService.CreateById<Heading>("myHeading");
+            var headingElement = App.Components.CreateById<Heading>("myHeading");
 
             headingElement.Hover();
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Heading.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -52,15 +52,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Heading.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var headingElement = App.ElementCreateService.CreateById<Heading>("myHeading");
+            var headingElement = App.Components.CreateById<Heading>("myHeading");
 
             headingElement.Hover();
 
             Heading.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Heading>("myHeading").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Heading>("myHeading").ValidateStyleIs("color: red;");
             }
         }
     }

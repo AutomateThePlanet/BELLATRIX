@@ -20,27 +20,27 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class ComboBox : Element, IElementDisabled, IElementText
+    public class ComboBox : IOSComponent, IComponentDisabled, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Selecting;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> Selected;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Selecting;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Selected;
 
-        public void SelectByText(string value)
+        public virtual void SelectByText(string value)
         {
-            Selecting?.Invoke(this, new ElementActionEventArgs<IOSElement>(this, value));
+            Selecting?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
 
             if (WrappedElement.Text != value)
             {
                 WrappedElement.Click();
-                var elementCreateService = ServicesCollection.Current.Resolve<ElementCreateService>();
+                var elementCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
                 var innerElementToClick = elementCreateService.CreateByValueContaining<RadioButton>(value);
                 innerElementToClick.Click();
             }
 
-            Selected?.Invoke(this, new ElementActionEventArgs<IOSElement>(this, value));
+            Selected?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             var result = GetText();
             if (string.IsNullOrEmpty(result))
@@ -53,6 +53,6 @@ namespace Bellatrix.Mobile.IOS
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

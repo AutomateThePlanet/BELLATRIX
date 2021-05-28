@@ -1,17 +1,16 @@
-﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.NUnit;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+    [TestFixture]
     public class NormalAssertionsTests : DesktopTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void CommonActionsWithDesktopControls_Wpf()
         {
-            var calendar = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
             // 1. We can assert whether the control is disabled
             // The different BELLATRIX desktop elements classes contain lots of these properties which are a representation
@@ -24,7 +23,7 @@ namespace Bellatrix.Desktop.GettingStarted
             // You can guess what happened, but you do not have information which element failed and on which page.
             Assert.AreEqual(false, calendar.IsDisabled);
 
-            var checkBox = App.ElementCreateService.CreateByName<CheckBox>("BellaCheckBox");
+            var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 
             checkBox.Check();
 
@@ -33,19 +32,19 @@ namespace Bellatrix.Desktop.GettingStarted
             // Cannot learn much about what happened.
             Assert.IsTrue(checkBox.IsChecked);
 
-            var comboBox = App.ElementCreateService.CreateByAutomationId<ComboBox>("select");
+            var comboBox = App.Components.CreateByAutomationId<ComboBox>("select");
 
             comboBox.SelectByText("Item2");
 
             // 3. Assert that the proper item is selected from the combobox items.
             Assert.AreEqual("Item2", comboBox.InnerText);
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
 
             // 4. See if the element is present or not using the IsPresent property.
             Assert.IsTrue(label.IsPresent);
 
-            var radioButton = App.ElementCreateService.CreateByName<RadioButton>("RadioButton");
+            var radioButton = App.Components.CreateByName<RadioButton>("RadioButton");
 
             radioButton.Click();
 

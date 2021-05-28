@@ -1,10 +1,10 @@
-﻿using Bellatrix.Desktop.MSTest;
+﻿using Bellatrix.Desktop.NUnit;
 using Bellatrix.Layout;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. Layout testing is a module from BELLATRIX that allows you to test the responsiveness of your app.
     // You need to add a using statement to Bellatrix.Layout
@@ -18,16 +18,15 @@ namespace Bellatrix.Desktop.GettingStarted
     // [App(Constants.WpfAppPath, MobileWindowSize._360_640,  Lifecycle.RestartEveryTime)]
     // [App(Constants.WpfAppPath, TabletWindowSize._600_1024,  Lifecycle.RestartEveryTime)]
     // [App(Constants.WpfAppPath, width: 600, height: 900, behavior: Lifecycle.RestartEveryTime)]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
     public class LayoutTestingTests : DesktopTest
     {
-        [TestMethod]
+        [Test]
         public void CommonActionsWithDesktopControls_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
-            var calendar = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
-            var radioButton = App.ElementCreateService.CreateByName<RadioButton>("RadioButton");
-            var selectedRadioButton = App.ElementCreateService.CreateByName<RadioButton>("SelectedRadioButton");
+            var button = App.Components.CreateByName<Button>("E Button");
+            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
+            var radioButton = App.Components.CreateByName<RadioButton>("RadioButton");
+            var selectedRadioButton = App.Components.CreateByName<RadioButton>("SelectedRadioButton");
 
             // 2. Depending on what you want to check, BELLATRIX gives lots of options. You can test px perfect or just that some element is below another.
             // Check that the button is above the calendar.

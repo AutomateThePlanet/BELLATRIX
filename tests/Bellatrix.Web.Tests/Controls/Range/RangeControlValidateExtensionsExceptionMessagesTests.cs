@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_WhenValidateRangeIsThrowsException()
         {
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             rangeElement.SetRange(4);
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 rangeElement.ValidateRangeIs(5, 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's range should be '5' but was '4'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

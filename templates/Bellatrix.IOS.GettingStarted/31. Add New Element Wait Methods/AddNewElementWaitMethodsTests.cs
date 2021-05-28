@@ -2,24 +2,24 @@
 
 using Bellatrix.Mobile.IOS.GettingStarted.ExtensionMethodsWaitMethods;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class AddNewElementWaitMethodsTests : MSTest.IOSTest
+    public class AddNewElementWaitMethodsTests : NUnit.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ClickButton_When_WaitForSpecificContent()
         {
             // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton").ToHaveSpecificContent("button");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton").ToHaveSpecificContent("button");
 
             button.Click();
         }

@@ -22,14 +22,14 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ValidateExtensions")]
     public class DateTimeLocalControlValidateExtensionsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateTimeIs_DoesNotThrowException_When_UseSetDateTimeLocalMethod()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             timeElement.SetTime(new DateTime(1989, 10, 28, 23, 23, 0));
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             timeElement.ValidateAutoCompleteOff();
         }
@@ -51,7 +51,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime4");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
             Assert.IsFalse(timeElement.IsAutoComplete);
         }
@@ -61,7 +61,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime3");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime3");
 
             timeElement.ValidateAutoCompleteOn();
         }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime4");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
             timeElement.ValidateIsNotReadonly();
         }
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime5");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime5");
 
             timeElement.ValidateIsReadonly();
         }
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxTextIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             timeElement.ValidateMaxTextIsNull();
         }
@@ -101,7 +101,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinTextIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             timeElement.ValidateMinTextIsNull();
         }
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             timeElement.ValidateStepIsNull();
         }
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMaxTextIs_DoesNotThrowException_MaxAttributeIsPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime1");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
             timeElement.ValidateMaxTextIs("2017-06-30T16:30");
         }
@@ -131,7 +131,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateMinTextIs_DoesNotThrowException_When_MinAttributeIsPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime1");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
             timeElement.ValidateMinTextIs("2017-06-01T08:30");
         }
@@ -141,7 +141,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime1");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
             timeElement.ValidateStepIs(10);
         }
@@ -151,7 +151,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime4");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
             timeElement.ValidateIsNotRequired();
         }
@@ -161,7 +161,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime6");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime6");
 
             timeElement.ValidateIsRequired();
         }
@@ -171,7 +171,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateStyleIs_DoesNotThrowException_When_Hover()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime7");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime7");
 
             timeElement.Hover();
 
@@ -183,7 +183,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsNotDisabled_DoesNotThrowException__When_DisabledAttributeNotPresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             timeElement.ValidateIsNotDisabled();
         }
@@ -193,7 +193,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime9");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime9");
 
             timeElement.ValidateIsDisabled();
         }

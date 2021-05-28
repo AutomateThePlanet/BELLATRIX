@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateAltIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementAlt, IElement
+            where T : IComponentAlt, IComponent
         {
             WaitUntil(() => control.Alt == null, $"The control's alt should be null but was '{control.Alt}'.", timeout, sleepInterval);
-            ValidatedAltIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedAltIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateAltIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementAlt, IElement
+            where T : IComponentAlt, IComponent
         {
             WaitUntil(() => control.Alt.Equals(value), $"The control's alt should be '{value}' but was '{control.Alt}'.", timeout, sleepInterval);
-            ValidatedAltIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedAltIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedAltIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedAltIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedAltIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedAltIsEvent;
     }
 }

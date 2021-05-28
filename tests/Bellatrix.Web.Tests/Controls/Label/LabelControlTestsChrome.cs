@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Label Control")]
     public class LabelControlTestsChrome : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Chrome()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.Components.CreateById<Label>("myLabel");
 
             labelElement.Hover();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnAutomateThePlanet_When_InnerText_Chrome()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.Components.CreateById<Label>("myLabel");
 
             Assert.AreEqual("Hover", labelElement.InnerText);
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnNull_When_InnerTextNotSet_Chrome()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel2");
+            var labelElement = App.Components.CreateById<Label>("myLabel2");
 
             Assert.IsNotNull(labelElement.InnerText);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnHover_When_InnerTextSet_Chrome()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.Components.CreateById<Label>("myLabel");
 
             Assert.AreEqual("Hover", labelElement.InnerText);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnNull_When_InnerHtmlNotSet_Chrome()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel2");
+            var labelElement = App.Components.CreateById<Label>("myLabel2");
 
             Assert.IsNotNull(labelElement.InnerHtml);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnButtonHtml_When_InnerHtmlSet_Chrome()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel1");
+            var labelElement = App.Components.CreateById<Label>("myLabel1");
 
             Assert.IsTrue(labelElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnNull_When_ForNotSet_Chrome()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel2");
+            var labelElement = App.Components.CreateById<Label>("myLabel2");
 
             Assert.IsNull(labelElement.For);
         }
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnLabelFor_When_ForSet_Chrome()
         {
-            var labelElement = App.ElementCreateService.CreateById<Label>("myLabel");
+            var labelElement = App.Components.CreateById<Label>("myLabel");
 
             Assert.AreEqual("myLabel", labelElement.For);
         }

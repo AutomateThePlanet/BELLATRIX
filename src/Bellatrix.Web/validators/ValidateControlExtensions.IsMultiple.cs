@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateIsMultiple<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementMultiple, IElement
+            where T : IComponentMultiple, IComponent
         {
             WaitUntil(() => control.IsMultiple.Equals(true), "The control should be multiple but was not.", timeout, sleepInterval);
-            ValidatedIsMultipleEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedIsMultipleEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateIsNotMultiple<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementMultiple, IElement
+            where T : IComponentMultiple, IComponent
         {
             WaitUntil(() => !control.IsMultiple.Equals(true), "The control should be NOT multiple but was not.", timeout, sleepInterval);
-            ValidatedIsNotMultipleEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedIsNotMultipleEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedIsMultipleEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedIsNotMultipleEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedIsMultipleEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotMultipleEvent;
     }
 }

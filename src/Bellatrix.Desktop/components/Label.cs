@@ -18,17 +18,17 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-   public class Label : Element, IElementInnerText
+   public class Label : Component, IComponentInnerText
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
+        public virtual string InnerText => GetInnerText();
     }
 }

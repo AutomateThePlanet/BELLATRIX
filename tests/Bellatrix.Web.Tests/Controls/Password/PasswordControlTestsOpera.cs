@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Password Control")]
     public class PasswordControlTestsOpera : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PasswordLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PasswordLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Opera)]
         public void PasswordSet_When_UseSetPasswordMethod_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword");
+            var passwordElement = App.Components.CreateById<Password>("myPassword");
 
             passwordElement.SetPassword("bellatrix");
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetPasswordReturnsCorrectPassword_When_DefaultPasswordIsSet_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword3");
+            var passwordElement = App.Components.CreateById<Password>("myPassword3");
 
             Assert.AreEqual("password for stars", passwordElement.GetPassword());
         }
@@ -46,7 +46,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword");
+            var passwordElement = App.Components.CreateById<Password>("myPassword");
 
             Assert.AreEqual(false, passwordElement.IsAutoComplete);
         }
@@ -55,7 +55,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword5");
+            var passwordElement = App.Components.CreateById<Password>("myPassword5");
 
             Assert.AreEqual(false, passwordElement.IsAutoComplete);
         }
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword4");
+            var passwordElement = App.Components.CreateById<Password>("myPassword4");
 
             Assert.AreEqual(true, passwordElement.IsAutoComplete);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword4");
+            var passwordElement = App.Components.CreateById<Password>("myPassword4");
 
             Assert.AreEqual(false, passwordElement.IsReadonly);
         }
@@ -82,7 +82,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword6");
+            var passwordElement = App.Components.CreateById<Password>("myPassword6");
 
             Assert.AreEqual(true, passwordElement.IsReadonly);
         }
@@ -91,7 +91,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword");
+            var passwordElement = App.Components.CreateById<Password>("myPassword");
 
             var maxLength = passwordElement.MaxLength;
 
@@ -102,7 +102,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword");
+            var passwordElement = App.Components.CreateById<Password>("myPassword");
 
             Assert.IsNull(passwordElement.MinLength);
         }
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword");
+            var passwordElement = App.Components.CreateById<Password>("myPassword");
 
             // Specifies the width of an <input> element, in characters. Default value is 20
             Assert.AreEqual(20, passwordElement.Size);
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword2");
+            var passwordElement = App.Components.CreateById<Password>("myPassword2");
 
             Assert.AreEqual(80, passwordElement.MaxLength);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword2");
+            var passwordElement = App.Components.CreateById<Password>("myPassword2");
 
             Assert.AreEqual(10, passwordElement.MinLength);
         }
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword2");
+            var passwordElement = App.Components.CreateById<Password>("myPassword2");
 
             Assert.AreEqual(30, passwordElement.Size);
         }
@@ -148,7 +148,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword4");
+            var passwordElement = App.Components.CreateById<Password>("myPassword4");
 
             Assert.AreEqual(false, passwordElement.IsRequired);
         }
@@ -157,7 +157,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword7");
+            var passwordElement = App.Components.CreateById<Password>("myPassword7");
 
             Assert.AreEqual(true, passwordElement.IsRequired);
         }
@@ -166,7 +166,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetPlaceholder_When_PlaceholderAttributeIsSet_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword");
+            var passwordElement = App.Components.CreateById<Password>("myPassword");
 
             Assert.AreEqual("your password term goes here", passwordElement.Placeholder);
         }
@@ -175,7 +175,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword1");
+            var passwordElement = App.Components.CreateById<Password>("myPassword1");
 
             Assert.IsNull(passwordElement.Placeholder);
         }
@@ -184,7 +184,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnRed_When_Hover_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword8");
+            var passwordElement = App.Components.CreateById<Password>("myPassword8");
 
             passwordElement.Hover();
 
@@ -195,7 +195,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnBlue_When_Focus_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword9");
+            var passwordElement = App.Components.CreateById<Password>("myPassword9");
 
             passwordElement.Focus();
 
@@ -206,7 +206,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword9");
+            var passwordElement = App.Components.CreateById<Password>("myPassword9");
 
             bool isDisabled = passwordElement.IsDisabled;
 
@@ -217,7 +217,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Opera)]
         public void ReturnTrue_When_DisabledAttributePresent_Opera()
         {
-            var passwordElement = App.ElementCreateService.CreateById<Password>("myPassword10");
+            var passwordElement = App.Components.CreateById<Password>("myPassword10");
 
             bool isDisabled = passwordElement.IsDisabled;
 

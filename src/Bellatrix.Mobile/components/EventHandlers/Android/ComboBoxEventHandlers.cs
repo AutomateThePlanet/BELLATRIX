@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.EventHandlers.Android
 {
-    public class ComboBoxEventHandlers : ElementEventHandlers
+    public class ComboBoxEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -33,11 +33,11 @@ namespace Bellatrix.Mobile.EventHandlers.Android
             ComboBox.Selected -= SelectedEventHandler;
         }
 
-        protected virtual void SelectingEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void SelectedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
     }

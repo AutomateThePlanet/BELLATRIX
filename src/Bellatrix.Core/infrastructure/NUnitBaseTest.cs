@@ -30,6 +30,7 @@ namespace Bellatrix
         public ServicesCollection Container;
         protected static ThreadLocal<Exception> ThrownException;
         private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
+
         private PluginProvider _currentTestExecutionProvider;
 
         public NUnitBaseTest()
@@ -75,12 +76,12 @@ namespace Bellatrix
                 _currentTestExecutionProvider = new PluginProvider();
                 Initialize();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
-                _currentTestExecutionProvider.PreTestsArrange(testClassType);
+                _currentTestExecutionProvider.PreTestsArrange(testClassType, TestContext.CurrentContext.Test.Arguments.ToList());
                 TestsArrange();
                 _currentTestExecutionProvider.PostTestsArrange(testClassType);
-                _currentTestExecutionProvider.PreTestsAct(testClassType);
+                _currentTestExecutionProvider.PreTestsAct(testClassType, TestContext.CurrentContext.Test.Arguments.ToList());
                 TestsAct();
-                _currentTestExecutionProvider.PostTestsAct(testClassType);
+                _currentTestExecutionProvider.PostTestsAct(testClassType, TestContext.CurrentContext.Test.Arguments.ToList());
             }
             catch (Exception ex)
             {
@@ -134,13 +135,13 @@ namespace Bellatrix
             InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
             try
             {
-                _currentTestExecutionProvider.PreTestInit(TestContext.Test.Name, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.PreTestInit(TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions);
                 TestInit();
-                _currentTestExecutionProvider.PostTestInit(TestContext.Test.Name, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.PostTestInit(TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions);
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.TestInitFailed(ex, TestContext.Test.Name, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.TestInitFailed(ex, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions);
                 throw;
             }
         }
@@ -159,13 +160,13 @@ namespace Bellatrix
             {
                 _currentTestExecutionProvider = new PluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
-                _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.Name, testMethodMemberInfo, testClassType, categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, ThrownException?.Value);
+                _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, ThrownException?.Value);
                 TestCleanup();
-                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.FullName, testMethodMemberInfo, testClassType, categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, ThrownException?.Value);
+                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.FullName, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, ThrownException?.Value);
             }
             catch (Exception ex)
             {
-                _currentTestExecutionProvider.TestCleanupFailed(ex, TestContext.Test.Name, testMethodMemberInfo, testClassType, categories, authors, descriptions);
+                _currentTestExecutionProvider.TestCleanupFailed(ex, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions);
                 throw;
             }
         }

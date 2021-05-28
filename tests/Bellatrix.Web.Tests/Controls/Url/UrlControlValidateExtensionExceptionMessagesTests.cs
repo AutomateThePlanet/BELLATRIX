@@ -24,15 +24,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateUrlIsThrowsException()
         {
-            var urlElement = App.ElementCreateService.CreateById<Url>("myURL");
+            var urlElement = App.Components.CreateById<Url>("myURL");
 
             urlElement.SetUrl("bellatrix.solutions");
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 urlElement.ValidateUrlIs("bellatrix.solutions1", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's URL should be 'bellatrix.solutions1' but was 'bellatrix.solutions'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

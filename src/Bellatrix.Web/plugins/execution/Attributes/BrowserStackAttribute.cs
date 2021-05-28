@@ -164,8 +164,7 @@ namespace Bellatrix.Web
             string consoleLogTypeText = Enum.GetName(typeof(BrowserStackConsoleLogType), ConsoleLogType).ToLower();
             driverOptions.AddAdditionalCapability("browserstack.console", consoleLogTypeText);
 
-            var browserStackCredentialsResolver = new BrowserStackCredentialsResolver();
-            var credentials = browserStackCredentialsResolver.GetCredentials();
+            var credentials = CloudProviderCredentialsResolver.GetCredentials();
             driverOptions.AddAdditionalCapability("browserstack.user", credentials.Item1);
             driverOptions.AddAdditionalCapability("browserstack.key", credentials.Item2);
 

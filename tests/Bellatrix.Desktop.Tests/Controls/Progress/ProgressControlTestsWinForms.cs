@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Progress Control")]
     [AllureTag("WinForms")]
-    public class ProgressControlTestsWinForms : BellatrixBaseTest
+    public class ProgressControlTestsWinForms : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ProgressHovered_WinForms()
         {
-            var progress = App.ElementCreateService.CreateByAutomationId<Calendar>("progress");
+            var progress = App.Components.CreateByAutomationId<Calendar>("progress");
 
             progress.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
             Assert.IsTrue(label.IsVisible);
         }
     }

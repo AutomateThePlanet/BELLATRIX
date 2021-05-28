@@ -133,8 +133,7 @@ namespace Bellatrix.Web
             driverOptions.AddAdditionalCapability("record_video", RecordVideo);
             driverOptions.AddAdditionalCapability("record_network", RecordNetwork);
 
-            var crossBrowserTestingCredentialsResolver = new CrossBrowserTestingCredentialsResolver();
-            var credentials = crossBrowserTestingCredentialsResolver.GetCredentials();
+            var credentials = CloudProviderCredentialsResolver.GetCredentials();
             driverOptions.AddAdditionalCapability("username", credentials.Item1);
             driverOptions.AddAdditionalCapability("password", credentials.Item2);
 

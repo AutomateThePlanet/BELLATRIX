@@ -29,12 +29,12 @@ namespace Bellatrix.Mobile.Android.Tests
         [TestCategory(Categories.CI)]
         public void GetAllTabs_When_CallGetAllWithButtonControl()
         {
-            var tabs = App.ElementCreateService.CreateByIdContaining<Tabs<Button>>("tabs");
+            var tabs = App.Components.CreateByIdContaining<Tabs<Button>>("tabs");
 
             var tabButtons = tabs.GetAll("android.widget.TextView");
             tabButtons[1].Click();
 
-            var resultLabel = App.ElementCreateService.CreateByIdContaining<Label>("view2");
+            var resultLabel = App.Components.CreateByIdContaining<Label>("view2");
 
             resultLabel.ValidateTextIs("tab2");
         }

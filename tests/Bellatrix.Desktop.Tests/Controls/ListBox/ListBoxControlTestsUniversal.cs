@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("ListBox Control")]
     [AllureTag("Universal")]
-    public class ListBoxControlTestsUniversal : BellatrixBaseTest
+    public class ListBoxControlTestsUniversal : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_ListBoxHovered_Universal()
         {
-            var listBox = App.ElementCreateService.CreateByAutomationId<ListBox>("listBoxEnabled");
+            var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
 
             listBox.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultTextBlock");
+            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
             Assert.AreEqual("listBoxHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_ListBoxIsNotDisabled_Universal()
         {
-            var listBox = App.ElementCreateService.CreateByAutomationId<ListBox>("listBoxEnabled");
+            var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
 
             Assert.AreEqual(false, listBox.IsDisabled);
         }

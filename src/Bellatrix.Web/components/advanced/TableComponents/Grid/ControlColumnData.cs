@@ -27,11 +27,11 @@ namespace Bellatrix.Web
             : this(headerName)
         {
             By = by;
-            ElementType = elementType;
+            ComponentType = elementType;
         }
 
         public string HeaderName { get; set; }
         public dynamic By { get; set; }
-        public Type ElementType { get; set; }
+        public Type ComponentType { get; set; }
     }
 }

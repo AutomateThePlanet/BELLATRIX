@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.BugReporting.Android
 {
     public class BugReportingPasswordEventHandlers : PasswordEventHandlers
     {
-        protected override void SettingPasswordEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

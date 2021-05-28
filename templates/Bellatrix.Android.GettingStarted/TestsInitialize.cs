@@ -1,22 +1,21 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix;
+using Bellatrix.Mobile;
+using NUnit.Framework;
 
-namespace Bellatrix.Mobile.Android.GettingStarted
+[SetUpFixture]
+public class TestsInitialize
 {
-    [TestClass]
-    public class TestsInitialize
+    [OneTimeSetUp]
+    public void AssemblyInitialize()
     {
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
-        {
-            AndroidApp.StartAppiumLocalService();
-        }
+        AndroidApp.StartAppiumLocalService();
+    }
 
-        [AssemblyCleanup]
-        public static void AssemblyCleanUp()
-        {
-            var app = ServicesCollection.Current.Resolve<AndroidApp>();
-            app?.Dispose();
-            app?.StopAppiumLocalService();
-        }
+    [OneTimeTearDown]
+    public void AssemblyCleanUp()
+    {
+        var app = ServicesCollection.Current.Resolve<AndroidApp>();
+        app?.Dispose();
+        app?.StopAppiumLocalService();
     }
 }

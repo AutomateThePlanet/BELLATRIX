@@ -2,25 +2,19 @@
 // ReSharper disable once RedundantUsingDirective
 using Bellatrix.Mobile.Android.GettingStarted.ExtensionMethodsLocators;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    public class AddNewFindLocatorsTests : MSTest.AndroidTest
+    [TestFixture]
+    public class AddNewFindLocatorsTests : NUnit.AndroidTest
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
             // 2. After that, you can use the new locator as it was originally part of Bellatrix.
-            var button = App.ElementCreateService.CreateByIdStartingWith<Button>("button");
+            var button = App.Components.CreateByIdStartingWith<Button>("button");
 
             button.Click();
         }

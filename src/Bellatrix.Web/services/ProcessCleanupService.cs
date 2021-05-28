@@ -16,13 +16,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Bellatrix.Web.Configuration;
+using Bellatrix.Web;
 
 namespace Bellatrix.Utilities
 {
     public static class ProcessCleanupService
     {
-        private static readonly ProcessCleanupSettings ProcessCleanupSettings = ConfigurationService.GetSection<ProcessCleanupSettings>();
+        private static readonly WebSettings ProcessCleanupSettings = ConfigurationService.GetSection<WebSettings>();
         private static readonly bool IsParallelExecutionEnabled = ProcessCleanupSettings?.IsParallelExecutionEnabled ?? false;
 
         public static void KillPreviousDriversAndBrowsersOsAgnostic(DateTime? executionStartDate)
@@ -102,7 +102,7 @@ namespace Bellatrix.Utilities
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine(e);
+                    e.PrintStackTrace();
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace Bellatrix.Utilities
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine(e);
+                    e.PrintStackTrace();
                 }
             }
         }

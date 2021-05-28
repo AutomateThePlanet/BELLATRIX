@@ -16,7 +16,7 @@ using Bellatrix.Layout;
 
 namespace Bellatrix.Web
 {
-    internal class Screen : ILayoutElement
+    internal class Screen : ILayoutComponent
     {
         internal Screen()
         {
@@ -29,6 +29,6 @@ namespace Bellatrix.Web
 
         public Size Size { get; }
 
-        public string ElementName => "Screen";
+        public string ComponentName => "Screen";
     }
 }

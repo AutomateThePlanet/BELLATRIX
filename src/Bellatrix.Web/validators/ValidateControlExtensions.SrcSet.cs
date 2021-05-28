@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateSrcSetIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementSrcSet, IElement
+            where T : IComponentSrcSet, IComponent
         {
             WaitUntil(() => control.SrcSet == null, $"The control's srcset should be null but was '{control.SrcSet}'.", timeout, sleepInterval);
-            ValidatedSrcSetIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedSrcSetIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateSrcSetIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementSrcSet, IElement
+            where T : IComponentSrcSet, IComponent
         {
             WaitUntil(() => control.SrcSet.Equals(value), $"The control's srcset should be '{value}' but was '{control.SrcSet}'.", timeout, sleepInterval);
-            ValidatedSrcSetIsEvent?.Invoke(control, new ElementActionEventArgs(control, value));
+            ValidatedSrcSetIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedSrcSetIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedSrcSetIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedSrcSetIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedSrcSetIsEvent;
     }
 }

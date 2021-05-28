@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class SpanControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Span.Hovering += AssertStyleAttributeEmpty;
 
-            var spanElement = App.ElementCreateService.CreateById<Span>("mySpan");
+            var spanElement = App.Components.CreateById<Span>("mySpan");
 
             spanElement.Hover();
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Span.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -52,15 +52,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Span.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var spanElement = App.ElementCreateService.CreateById<Span>("mySpan");
+            var spanElement = App.Components.CreateById<Span>("mySpan");
 
             spanElement.Hover();
 
             Span.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Span>("mySpan").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Span>("mySpan").ValidateStyleIs("color: red;");
             }
         }
     }

@@ -37,63 +37,63 @@ namespace Bellatrix.Mobile.Android
             ValidateControlExtensions.ValidatedNumberIsEvent += ValidatedNumberIsEventHandler;
         }
 
-        protected virtual void ValidatedIsVisibleEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedTimeIsEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedTextIsNotSetEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedTextIsEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsSelectedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsDisabledEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedDateIsEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsCheckedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsOnEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsOffEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
 
-        protected virtual void ValidatedNumberIsEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg)
+        protected virtual void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
         {
         }
     }

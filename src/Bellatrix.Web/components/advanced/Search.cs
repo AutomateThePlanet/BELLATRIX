@@ -18,55 +18,55 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Search : Element, IElementDisabled, IElementValue, IElementSearch, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxLength, IElementMinLength, IElementSize, IElementPlaceholder
+    public class Search : Component, IComponentDisabled, IComponentValue, IComponentSearch, IComponentAutoComplete, IComponentReadonly, IComponentRequired, IComponentMaxLength, IComponentMinLength, IComponentSize, IComponentPlaceholder
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingSearch;
-        public static event EventHandler<ElementActionEventArgs> SearchSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingSearch;
+        public static event EventHandler<ComponentActionEventArgs> SearchSet;
 
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
-        public string GetSearch()
+        public virtual string GetSearch()
         {
             return DefaultGetValue();
         }
 
-        public void SetSearch(string search)
+        public virtual void SetSearch(string search)
         {
             SetValue(SettingSearch, SearchSet, search);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Value => DefaultGetValue();
+        public virtual string Value => DefaultGetValue();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsAutoComplete => GetAutoCompleteAttribute();
+        public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsReadonly => GetReadonlyAttribute();
+        public virtual bool IsReadonly => GetReadonlyAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Placeholder => GetPlaceholderAttribute();
+        public virtual string Placeholder => GetPlaceholderAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? MaxLength => DefaultGetMaxLength();
+        public virtual int? MaxLength => DefaultGetMaxLength();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? MinLength => DefaultGetMinLength();
+        public virtual int? MinLength => DefaultGetMinLength();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public new int? Size => GetSizeAttribute();
+        public virtual int? Size => GetSizeAttribute();
     }
 }

@@ -15,7 +15,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-
+using Bellatrix.Assertions;
+using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.Mobile.Configuration;
 using Bellatrix.Mobile.PageObjects;
@@ -35,16 +36,24 @@ namespace Bellatrix.Mobile
 
         public App()
         {
-            _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ShouldStartAppiumLocalService;
+            _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.ShouldStartLocalService;
         }
 
-        public ElementWaitService<TDriver, TDriverElement> ElementWaitService => ServicesCollection.Current.Resolve<ElementWaitService<TDriver, TDriverElement>>();
+        [Obsolete("ComponentWaitService is deprecated use Wait property instead.")]
+        public ComponentWaitService<TDriver, TDriverElement> ComponentWaitService => ServicesCollection.Current.Resolve<ComponentWaitService<TDriver, TDriverElement>>();
+        public ComponentWaitService<TDriver, TDriverElement> Wait => ServicesCollection.Current.Resolve<ComponentWaitService<TDriver, TDriverElement>>();
 
-        public ElementCreateService ElementCreateService => ServicesCollection.Current.Resolve<ElementCreateService>();
+        [Obsolete("ComponentCreateService is deprecated use Components property instead.")]
+        public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
+        public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
 
         public WebServicesFacade Web => ServicesCollection.Current.Resolve<WebServicesFacade>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+        public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
+        public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
+
+        public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
         public static void StartAppiumLocalService()
         {
@@ -81,7 +90,7 @@ namespace Bellatrix.Mobile
         public abstract void Dispose();
 
         public TPage Create<TPage>()
-            where TPage : Page
+            where TPage : MobilePage
         {
             TPage page = ServicesCollection.Current.Resolve<TPage>();
             return page;

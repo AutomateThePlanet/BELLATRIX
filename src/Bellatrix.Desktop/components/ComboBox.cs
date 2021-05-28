@@ -18,34 +18,34 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class ComboBox : Element, IElementDisabled, IElementInnerText
+    public class ComboBox : Component, IComponentDisabled, IComponentInnerText
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> Selecting;
-        public static event EventHandler<ElementActionEventArgs> Selected;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Selecting;
+        public static event EventHandler<ComponentActionEventArgs> Selected;
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
-        public void SelectByText(string value)
+        public virtual void SelectByText(string value)
         {
-            Selecting?.Invoke(this, new ElementActionEventArgs(this, value));
+            Selecting?.Invoke(this, new ComponentActionEventArgs(this, value));
 
             if (WrappedElement.Text != value)
             {
                 WrappedElement.SendKeys(value);
             }
 
-            Selected?.Invoke(this, new ElementActionEventArgs(this, value));
+            Selected?.Invoke(this, new ComponentActionEventArgs(this, value));
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
+        public virtual string InnerText => GetInnerText();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

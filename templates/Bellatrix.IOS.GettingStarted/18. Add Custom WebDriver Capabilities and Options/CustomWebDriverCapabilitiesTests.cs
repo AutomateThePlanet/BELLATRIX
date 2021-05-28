@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class CustomWebDriverCapabilitiesTests : MSTest.IOSTest
+    public class CustomWebDriverCapabilitiesTests : NUnit.IOSTest
     {
         // 1. BELLATRIX hides the complexity of initialisation of WebDriver/Appium and all related services.
         // In some cases, you need to customise the set up of a Appium with using custom Appium options.
@@ -22,12 +22,12 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             App.AddAdditionalCapability("remoteDebugProxy", "12000");
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }

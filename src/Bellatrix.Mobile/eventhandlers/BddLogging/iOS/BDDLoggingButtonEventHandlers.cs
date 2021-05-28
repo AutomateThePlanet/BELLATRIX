@@ -19,6 +19,6 @@ namespace Bellatrix.Mobile.BddLogging.IOS
 {
     public class BDDLoggingButtonEventHandlers : ButtonEventHandlers
     {
-        protected override void ClickingEventHandler(object sender, ElementActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Click {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
     }
 }

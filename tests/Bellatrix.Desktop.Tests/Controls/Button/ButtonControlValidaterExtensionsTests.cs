@@ -20,18 +20,18 @@ namespace Bellatrix.Desktop.Tests
     [AllureSuite("Button Control")]
     [AllureFeature("ValidateExtensions")]
     [AllureTag("WPF")]
-    public class ButtonControlValidateExtensionsTests : BellatrixBaseTest
+    public class ButtonControlValidateExtensionsTests : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.CI)]
         [TestCategory(Categories.Desktop)]
         public void ValidateInnerTextIs_DoesNotThrowException_Button_When_InnerTextIsAsExpected()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             label.ValidateInnerTextIs("ebuttonHovered");
         }
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ValidateIsNotDisabled_DoesNotThrowException_Button_When_DisabledAttributeNotPresent()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.ValidateIsNotDisabled();
         }
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void ValidateIsDisabled_DoesNotThrowException_When_ButtonIsNotDisabled()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("D Button");
+            var button = App.Components.CreateByName<Button>("D Button");
 
             button.ValidateIsDisabled();
         }

@@ -15,7 +15,7 @@ using Bellatrix.Mobile.Controls.IOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class Image : Element
+    public class Image : IOSComponent
     {
     }
 }

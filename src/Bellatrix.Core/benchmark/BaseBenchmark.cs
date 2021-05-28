@@ -64,13 +64,13 @@ namespace Bellatrix.Benchmark
             var descriptions = _descriptions;
             try
             {
-                _currentBenchmarkExecutionProvider.PreTestInit(benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, categories, authors, descriptions);
+                _currentBenchmarkExecutionProvider.PreTestInit(benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, new List<object>(), categories, authors, descriptions);
                 IterationInitialize();
-                _currentBenchmarkExecutionProvider.PostTestInit(benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, categories, authors, descriptions);
+                _currentBenchmarkExecutionProvider.PostTestInit(benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, new List<object>(), categories, authors, descriptions);
             }
             catch (Exception ex)
             {
-                _currentBenchmarkExecutionProvider.TestInitFailed(ex, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, categories, authors, descriptions);
+                _currentBenchmarkExecutionProvider.TestInitFailed(ex, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, new List<object>(), categories, authors, descriptions);
                 throw;
             }
         }
@@ -84,13 +84,13 @@ namespace Bellatrix.Benchmark
 
             try
             {
-                _currentBenchmarkExecutionProvider.PreTestCleanup(TestOutcome.Passed, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, _categories, _authors, _descriptions, string.Empty, exceptionStackTrace, _thrownException?.Value);
+                _currentBenchmarkExecutionProvider.PreTestCleanup(TestOutcome.Passed, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, new List<object>(), _categories, _authors, _descriptions, string.Empty, exceptionStackTrace, _thrownException?.Value);
                 IterationCleanup();
-                _currentBenchmarkExecutionProvider.PostTestCleanup(TestOutcome.Passed, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, _categories, _authors, _descriptions, string.Empty, exceptionStackTrace, _thrownException?.Value);
+                _currentBenchmarkExecutionProvider.PostTestCleanup(TestOutcome.Passed, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, new List<object>(), _categories, _authors, _descriptions, string.Empty, exceptionStackTrace, _thrownException?.Value);
             }
             catch (Exception ex)
             {
-                _currentBenchmarkExecutionProvider.TestCleanupFailed(ex, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, _categories, _authors, _descriptions);
+                _currentBenchmarkExecutionProvider.TestCleanupFailed(ex, benchmarkMethodMemberInfo?.Name, benchmarkMethodMemberInfo, benchmarkClassType, new List<object>(), _categories, _authors, _descriptions);
                 throw;
             }
         }
@@ -106,12 +106,12 @@ namespace Bellatrix.Benchmark
                 if (!TypeForAlreadyExecutedBenchmarkInits.Contains(benchmarkClassType?.FullName))
                 {
                     TypeForAlreadyExecutedBenchmarkInits.Add(benchmarkClassType?.FullName);
-                    _currentBenchmarkExecutionProvider.PreTestsArrange(benchmarkClassType);
+                    _currentBenchmarkExecutionProvider.PreTestsArrange(benchmarkClassType, new List<object>());
                     BenchmarkArrange();
                     _currentBenchmarkExecutionProvider.PostTestsArrange(benchmarkClassType);
-                    _currentBenchmarkExecutionProvider.PreTestsAct(benchmarkClassType);
+                    _currentBenchmarkExecutionProvider.PreTestsAct(benchmarkClassType, new List<object>());
                     BenchmarkAct();
-                    _currentBenchmarkExecutionProvider.PostTestsAct(benchmarkClassType);
+                    _currentBenchmarkExecutionProvider.PostTestsAct(benchmarkClassType, new List<object>());
                 }
             }
             catch (Exception ex)

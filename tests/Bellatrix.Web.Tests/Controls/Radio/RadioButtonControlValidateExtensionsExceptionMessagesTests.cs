@@ -25,21 +25,21 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateIsCheckedThrowsException()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
             try
             {
                 radioElement.ValidateIsChecked(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control should be checked but was NOT. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateIsNotCheckedThrowsException()
         {
-            var radioElement = App.ElementCreateService.CreateById<RadioButton>("myRadio");
+            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
             radioElement.Click();
 
@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 radioElement.ValidateIsNotChecked(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control should be not checked but it WAS. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

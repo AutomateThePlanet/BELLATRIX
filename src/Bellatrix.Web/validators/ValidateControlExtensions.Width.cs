@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateWidthIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementWidth, IElement
+            where T : IComponentWidth, IComponent
         {
             WaitUntil(() => control.Width == null, $"The control's width should be null but was '{control.Width}'.", timeout, sleepInterval);
-            ValidatedWidthIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedWidthIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateWidthIsNotNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementWidth, IElement
+            where T : IComponentWidth, IComponent
         {
             WaitUntil(() => control.Width != null, "The control's width should be NOT be null but it was.", timeout, sleepInterval);
-            ValidatedWidthIsNotNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedWidthIsNotNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedWidthIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedWidthIsNotNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedWidthIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedWidthIsNotNullEvent;
     }
 }

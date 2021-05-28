@@ -18,54 +18,54 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class Week : Element, IElementDisabled, IElementValue, IElementWeek, IElementAutoComplete, IElementReadonly, IElementRequired, IElementMaxText, IElementMinText, IElementStep
+    public class Week : Component, IComponentDisabled, IComponentValue, IComponentWeek, IComponentAutoComplete, IComponentReadonly, IComponentRequired, IComponentMaxText, IComponentMinText, IComponentStep
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingWeek;
-        public static event EventHandler<ElementActionEventArgs> WeekSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingWeek;
+        public static event EventHandler<ComponentActionEventArgs> WeekSet;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public override Type ElementType => GetType();
+        public override Type ComponentType => GetType();
 
-        public string GetWeek()
+        public virtual string GetWeek()
         {
             return DefaultGetValue();
         }
 
-        public void SetWeek(int year, int weekNumber)
+        public virtual void SetWeek(int year, int weekNumber)
         {
             DefaultSetWeek(year, weekNumber);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsRequired => GetRequiredAttribute();
+        public virtual bool IsRequired => GetRequiredAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string Value => DefaultGetValue();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsAutoComplete => GetAutoCompleteAttribute();
+        public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsReadonly => GetReadonlyAttribute();
+        public virtual bool IsReadonly => GetReadonlyAttribute();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Max => GetMaxAttributeAsString();
+        public virtual string Max => GetMaxAttributeAsString();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Min => GetMinAttributeAsString();
+        public virtual string Min => GetMinAttributeAsString();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int? Step => GetStepAttribute();
+        public virtual int? Step => GetStepAttribute();
 
         protected virtual void DefaultSetWeek(int year, int weekNumber)
         {

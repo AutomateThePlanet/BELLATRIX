@@ -25,15 +25,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateDateIsThrowsException()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate");
+            var dateElement = App.Components.CreateById<Date>("myDate");
 
             dateElement.SetDate(2017, 7, 6);
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 dateElement.ValidateDateIs("2017-07-05", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's date should be '2017-07-05' but was '2017-07-06'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateNotReadonlyThrowsException()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate5");
+            var dateElement = App.Components.CreateById<Date>("myDate5");
 
             try
             {
                 dateElement.ValidateIsNotReadonly(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control should be NOT readonly but was NOT. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -69,13 +69,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateReadonlyThrowsException()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate4");
+            var dateElement = App.Components.CreateById<Date>("myDate4");
 
             try
             {
                 dateElement.ValidateIsReadonly(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control should be readonly but was NOT. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -86,13 +86,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMaxTextIsNullThrowsException()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
                 dateElement.ValidateMaxTextIsNull(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's max should be null but was '2032-12-01'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -103,13 +103,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMinTextIsNullThrowsException()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
                 dateElement.ValidateMinTextIsNull(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's min should be null but was '1900-01-01'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -120,13 +120,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateStepIsNullThrowsException()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
                 dateElement.ValidateStepIsNull(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's step should be null but was '2'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -137,13 +137,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMaxTextIsThrowsException()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
                 dateElement.ValidateMaxTextIs("2032-12-02", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's max should be '2032-12-02' but was '2032-12-01'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -154,13 +154,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMinTextIsThrowsException()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
                 dateElement.ValidateMinTextIs("1900-01-02", 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's min should be '1900-01-02' but was '1900-01-01'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -171,13 +171,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateStepIsThrowsException()
         {
-            var dateElement = App.ElementCreateService.CreateById<Date>("myDate3");
+            var dateElement = App.Components.CreateById<Date>("myDate3");
 
             try
             {
                 dateElement.ValidateStepIs(3, 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's step should be '3' but was '2'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

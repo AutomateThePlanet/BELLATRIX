@@ -1,15 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    public class CustomWebDriverCapabilitiesTests : MSTest.AndroidTest
+    [TestFixture]
+    public class CustomWebDriverCapabilitiesTests : NUnit.AndroidTest
     {
         // 1. BELLATRIX hides the complexity of initialization of WebDriver/Appium and all related services.
         // In some cases, you need to customise the set up of a Appium with using custom Appium options.
@@ -25,20 +19,20 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             App.AddAdditionalCapability("noReset", "false");
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.Click();
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethodSecond()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.Click();
         }

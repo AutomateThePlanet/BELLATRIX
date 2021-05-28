@@ -1,19 +1,19 @@
 ﻿using Bellatrix.Layout;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.ReuseIfStarted)]
-    public class TestWorkflowHooksTests : MSTest.IOSTest
+    public class TestWorkflowHooksTests : NUnit.IOSTest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.
         // It gives you the possibility to execute your logic in every part of the test workflow.
         // Also, as you can read in the next chapter write plug-ins that execute code in different places of the workflow every time.
-        // This is happening no matter what test framework you use- MSTest or NUnit. As you know, MSTest is not extension friendly.
+        // This is happening no matter what test framework you use- NUnit or MSTest. As you know, MSTest is not extension friendly.
         //
         // 2. BELLATRIX default Test Workflow.
         //
@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // 2.7. All plug-ins PreTestsAct logic executes.
         // 2.8. Current class TestsAct method executes. By default it is empty, but you can override it in each class and execute your logic.
         // This is the place where you can execute the primary actions for your test case. This is useful if you want later include only assertions in the tests.
-        // Note: TestsArrange and TestsAct are similar to MSTest TestClassInitialize and OneTimeSetup in NUnit. We decided to split them into two methods
+        // Note: TestsArrange and TestsAct are similar to NUnit TestClassInitialize and OneTimeSetup in NUnit. We decided to split them into two methods
         // to make the code more readable and two allow customization of the workflow.
         //
         // The following methods are called once for each test in the class:
@@ -59,8 +59,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // some of it through the usage of TestInit and TestCleanup methods.
         public override void TestsArrange()
         {
-            _textField = App.ElementCreateService.CreateById<TextField>("IntegerA");
-            _button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            _textField = App.Components.CreateById<TextField>("IntegerA");
+            _button = App.Components.CreateByName<Button>("ComputeSumButton");
         }
 
         public override void TestsAct()
@@ -79,42 +79,42 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
             // Executes a logic after each test in the test class.
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox()
         {
             _textField.AssertAboveOf(_button);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
 
         public void ButtonIsAboveOfCheckBox_20px()
         {
             _textField.AssertAboveOf(_button, 20);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox_GreaterThan20px()
         {
             _textField.AssertAboveOfGreaterThan(_button, 20);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonIsAboveOfCheckBox_GreaterThanOrEqual20px()
         {
             _textField.AssertAboveOfGreaterThanOrEqual(_button, 20);
         }
 
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void ButtonIsNearTopOfCheckBox_GreaterThan20px()
         {
             _textField.AssertNearTopOfGreaterThan(_button, 20);

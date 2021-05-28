@@ -19,22 +19,22 @@ using Bellatrix.Mobile.Events;
 
 namespace Bellatrix.Mobile.Android
 {
-    public class ImageButton : Element, IElementDisabled, IElementText
+    public class ImageButton : AndroidComponent, IComponentDisabled, IComponentText
     {
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicking;
-        public static event EventHandler<ElementActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicked;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicking;
+        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicked;
 
-        public void Click()
+        public virtual void Click()
         {
             Click(Clicking, Clicked);
         }
 
-        public string GetText()
+        public virtual string GetText()
         {
             return GetText();
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Input Button Control")]
     public class InputButtonControlTestsSafari : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void SetTextToStop_When_UseClickMethod_Safari()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton");
+            var buttonElement = App.Components.CreateById<Button>("myButton");
 
             buttonElement.Click();
 
@@ -37,7 +37,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Safari()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton1");
+            var buttonElement = App.Components.CreateById<Button>("myButton1");
 
             buttonElement.Hover();
 
@@ -48,7 +48,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Safari()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton2");
+            var buttonElement = App.Components.CreateById<Button>("myButton2");
 
             buttonElement.Focus();
 
@@ -59,7 +59,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton");
+            var buttonElement = App.Components.CreateById<Button>("myButton");
 
             bool isDisabled = buttonElement.IsDisabled;
 
@@ -70,7 +70,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Safari()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton3");
+            var buttonElement = App.Components.CreateById<Button>("myButton3");
 
             bool isDisabled = buttonElement.IsDisabled;
 
@@ -81,7 +81,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnStart_When_ValueAttributePresent_Safari()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton");
+            var buttonElement = App.Components.CreateById<Button>("myButton");
 
             var actualValue = buttonElement.Value;
 
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnEmpty_When_UseInnerText_Safari()
         {
-            var buttonElement = App.ElementCreateService.CreateById<Button>("myButton");
+            var buttonElement = App.Components.CreateById<Button>("myButton");
 
             Assert.AreEqual(string.Empty, buttonElement.InnerText);
         }

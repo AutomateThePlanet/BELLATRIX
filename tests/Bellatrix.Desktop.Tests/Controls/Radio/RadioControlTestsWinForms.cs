@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Radio Control")]
     [AllureTag("WinForms")]
-    public class RadioControlTestsWinForms : BellatrixBaseTest
+    public class RadioControlTestsWinForms : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_RadioHovered_WinForms()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<RadioButton>("enabledRadioButton");
+            var button = App.Components.CreateByAutomationId<RadioButton>("enabledRadioButton");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
             Assert.AreEqual("radioHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void RadioChecked_When_RadioClicked_WinForms()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<RadioButton>("enabledRadioButton");
+            var button = App.Components.CreateByAutomationId<RadioButton>("enabledRadioButton");
 
             button.Click();
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsCheckedReturnsTrue_When_RadioChecked_WinForms()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<RadioButton>("radioButton2");
+            var button = App.Components.CreateByAutomationId<RadioButton>("radioButton2");
 
             Assert.IsTrue(button.IsChecked);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_RadioIsNotDisabled_WinForms()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<RadioButton>("enabledRadioButton");
+            var button = App.Components.CreateByAutomationId<RadioButton>("enabledRadioButton");
 
             Assert.AreEqual(false, button.IsDisabled);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_RadioIsDisabled_WinForms()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<RadioButton>("radioButton2");
+            var button = App.Components.CreateByAutomationId<RadioButton>("radioButton2");
 
             Assert.AreEqual(true, button.IsDisabled);
         }

@@ -20,20 +20,20 @@ namespace Bellatrix.Web
     public static partial class ValidateControlExtensions
     {
         public static void ValidateMinLengthIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementMinLength, IElement
+            where T : IComponentMinLength, IComponent
         {
             WaitUntil(() => control.MinLength == null, $"The control's minlength should be null but was '{control.MinLength}'.", timeout, sleepInterval);
-            ValidatedMinLengthIsNullEvent?.Invoke(control, new ElementActionEventArgs(control));
+            ValidatedMinLengthIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
         public static void ValidateMinLengthIs<T>(this T control, int value, int? timeout = null, int? sleepInterval = null)
-            where T : IElementMinLength, IElement
+            where T : IComponentMinLength, IComponent
         {
             WaitUntil(() => control.MinLength.Equals(value), $"The control's minlength should be '{value}' but was '{control.MinLength}'.", timeout, sleepInterval);
-            ValidatedMinLengthIsEvent?.Invoke(control, new ElementActionEventArgs(control, value.ToString()));
+            ValidatedMinLengthIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value.ToString()));
         }
 
-        public static event EventHandler<ElementActionEventArgs> ValidatedMinLengthIsNullEvent;
-        public static event EventHandler<ElementActionEventArgs> ValidatedMinLengthIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedMinLengthIsNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedMinLengthIsEvent;
     }
 }

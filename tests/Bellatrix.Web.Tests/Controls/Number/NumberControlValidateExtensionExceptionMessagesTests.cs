@@ -24,15 +24,15 @@ namespace Bellatrix.Web.Tests.Controls
 
         public override void TestInit()
         {
-            App.NavigationService.NavigateToLocalPage(_url);
-            ////_url = App.BrowserService.Url.ToString();
+            App.Navigation.NavigateToLocalPage(_url);
+            ////_url = App.Browser.Url.ToString();
         }
 
         [TestMethod]
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateNumberIsThrowsException()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber");
+            var numberElement = App.Components.CreateById<Number>("myNumber");
 
             numberElement.SetNumber(12.1);
 
@@ -40,7 +40,7 @@ namespace Bellatrix.Web.Tests.Controls
             {
                 numberElement.ValidateNumberIs(12.2, 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's number should be '12.2' but was '12.1'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -51,13 +51,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_When_ValidateMaxIsNullThrowsException()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             try
             {
                 numberElement.ValidateMaxIsNull(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's max should be null but was '20'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -68,13 +68,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_WhenValidateMinIsNullThrowsException()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             try
             {
                 numberElement.ValidateMinIsNull(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's min should be null but was '10'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -85,13 +85,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_WhenValidateStepIsNullThrowsException()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             try
             {
                 numberElement.ValidateStepIsNull(200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's step should be null but was '2'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -102,13 +102,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_WhenValidateMaxIsThrowsException()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             try
             {
                 numberElement.ValidateMaxIs(19, 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's max should be '19' but was '20'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
@@ -119,13 +119,13 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void CorrectExceptionMessageSet_WhenValidateMinIsThrowsException()
         {
-            var numberElement = App.ElementCreateService.CreateById<Number>("myNumber1");
+            var numberElement = App.Components.CreateById<Number>("myNumber1");
 
             try
             {
                 numberElement.ValidateMinIs(9, 200, 50);
             }
-            catch (ElementPropertyValidateException e)
+            catch (ComponentPropertyValidateException e)
             {
                 string expectedExceptionMessage = $"The control's min should be '9' but was '10'. The test failed on URL:";
                 Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");

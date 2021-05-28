@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using Bellatrix.Desktop.Configuration;
-using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Remote;
 
@@ -28,28 +27,29 @@ namespace Bellatrix.Desktop.Services
 
         static WrappedWebDriverCreateService()
         {
-            _serviceUrl = ConfigurationService.GetSection<DesktopSettings>().ServiceUrl;
+            _serviceUrl = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url;
         }
 
         public static WindowsDriver<WindowsElement> Create(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
         {
-            var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? childContainer.Resolve<AppiumOptions>() ?? appConfiguration.AppiumOptioons;
-            driverOptions.AddAdditionalCapability("app", appConfiguration.AppPath);
-            driverOptions.AddAdditionalCapability("deviceName", "WindowsPC");
-            driverOptions.AddAdditionalCapability("platformName", "Windows");
+            var driverOptions = childContainer.Resolve<DesiredCapabilities>(appConfiguration.ClassFullName) ?? childContainer.Resolve<DesiredCapabilities>() ?? appConfiguration.AppiumOptions;
+            driverOptions.SetCapability("app", appConfiguration.AppPath);
+            driverOptions.SetCapability("deviceName", "WindowsPC");
+            driverOptions.SetCapability("platformName", "Windows");
             string workingDir = Path.GetDirectoryName(appConfiguration.AppPath);
-            driverOptions.AddAdditionalCapability("appWorkingDir", workingDir);
-            ////driverOptions.AddAdditionalCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().CreateSessionTimeout);
-            ////driverOptions.AddAdditionalCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().WaitForAppLaunchTimeout);
+            driverOptions.SetCapability("appWorkingDir", workingDir);
+            driverOptions.SetCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.CreateSessionTimeout);
+            driverOptions.SetCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.WaitForAppLaunchTimeout);
 
             var additionalCapabilities = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{appConfiguration.ClassFullName}") ?? new Dictionary<string, object>();
             foreach (var additionalCapability in additionalCapabilities)
             {
-                driverOptions.AddAdditionalCapability(additionalCapability.Key, additionalCapability.Value);
+                driverOptions.SetCapability(additionalCapability.Key, additionalCapability.Value);
             }
 
             var wrappedWebDriver = new WindowsDriver<WindowsElement>(new Uri(_serviceUrl), driverOptions);
-            wrappedWebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+
+            wrappedWebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ImplicitWaitTimeout);
 
             ChangeWindowSize(appConfiguration.Size, wrappedWebDriver);
             wrappedWebDriver.SwitchTo().Window(wrappedWebDriver.CurrentWindowHandle);
@@ -58,9 +58,9 @@ namespace Bellatrix.Desktop.Services
                 var closeButton = wrappedWebDriver.FindElementByAccessibilityId("Close");
                 wrappedWebDriver.Mouse.MouseMove(closeButton.Coordinates);
             }
-            catch
+            catch (Exception e)
             {
-                // ignore
+                e.PrintStackTrace();
             }
 
             return wrappedWebDriver;
@@ -81,6 +81,7 @@ namespace Bellatrix.Desktop.Services
             }
             catch (Exception e)
             {
+                e.PrintStackTrace();
                 throw;
             }
         }

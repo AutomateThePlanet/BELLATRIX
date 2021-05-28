@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Untils
         public WaitToBeClickableStrategy(int? timeoutInterval = null, int? sleepInterval = null)
             : base(timeoutInterval, sleepInterval)
         {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<TimeoutSettings>().ElementToBeClickableTimeout;
+            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToBeClickableTimeout;
         }
 
         public override void WaitUntil<TBy>(TBy by)
@@ -29,7 +29,7 @@ namespace Bellatrix.Web.Untils
             WaitUntil(x => ElementIsClickable(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
         }
 
-        public override void WaitUntil<TBy>(TBy by, Element parent)
+        public override void WaitUntil<TBy>(TBy by, Component parent)
         {
             WaitUntil(x => ElementIsClickable(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
         }

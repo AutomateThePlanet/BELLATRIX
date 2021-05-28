@@ -14,10 +14,10 @@
 
 namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
 {
-    public interface IReadonlyControlDataHandler<TElement> : IControlDataHandler<TElement>
-    where TElement : Element
+    public interface IReadonlyControlDataHandler<TComponent> : IControlDataHandler<TComponent>
+    where TComponent : Component
     {
-        dynamic GetData(TElement element);
-        void ValidateValueIs(TElement element, string expectedValue);
+        dynamic GetData(TComponent element);
+        void ValidateValueIs(TComponent element, string expectedValue);
     }
 }

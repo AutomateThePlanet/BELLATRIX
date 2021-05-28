@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class RangeControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.SettingRange += AssertValueAttributeEmpty;
 
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             rangeElement.SetRange(9);
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Range.SettingRange -= AssertValueAttributeEmpty;
 
-            void AssertValueAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("50", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.RangeSet += AssertValueAttributeContainsNewValue;
 
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange");
+            var rangeElement = App.Components.CreateById<Range>("myRange");
 
             rangeElement.SetRange(9);
 
             Range.RangeSet -= AssertValueAttributeContainsNewValue;
 
-            void AssertValueAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("9", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.Hovering += AssertStyleAttributeEmpty;
 
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange7");
+            var rangeElement = App.Components.CreateById<Range>("myRange7");
 
             rangeElement.Hover();
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Range.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -92,15 +92,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange7");
+            var rangeElement = App.Components.CreateById<Range>("myRange7");
 
             rangeElement.Hover();
 
             Range.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Range>("myRange7").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Range>("myRange7").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.Focusing += AssertStyleAttributeEmpty;
 
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange8");
+            var rangeElement = App.Components.CreateById<Range>("myRange8");
 
             rangeElement.Focus();
 
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Range.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -132,13 +132,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Range.Focused += AssertStyleAttributeContainsNewValue;
 
-            var rangeElement = App.ElementCreateService.CreateById<Range>("myRange8");
+            var rangeElement = App.Components.CreateById<Range>("myRange8");
 
             rangeElement.Focus();
 
             Range.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

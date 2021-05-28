@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Web.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. To execute BELLATRIX tests in SauceLabs cloud you should use the SauceLabs attribute instead of Browser.
     // SauceLabs has the same parameters as Browser but adds to additional ones-
@@ -26,33 +26,33 @@ namespace Bellatrix.Web.GettingStarted
         Lifecycle.ReuseIfStarted,
         recordScreenshots: true,
         recordVideo: true)]
-    public class SauceLabsTests : MSTest.WebTest
+    public class SauceLabsTests : NUnit.WebTest
     {
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("no need to run")]
         public void PromotionsPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            var promotionsLink = App.ElementCreateService.CreateByLinkText<Anchor>("Promotions");
+            var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
 
             promotionsLink.Click();
         }
 
         // 2. As mentioned if you use the SauceLabs attribute on method level it overrides the class settings.
         // As you can see with the SauceLabs attribute we can change the browser window size again.
-        [TestMethod]
+        [Test]
         [SauceLabs(BrowserType.Chrome, "62", "Windows", DesktopWindowSize._1280_1024, Lifecycle.ReuseIfStarted)]
-        [Ignore]
+        [Ignore("no need to run")]
 
         // [SauceLabs(BrowserType.Chrome, "62", "Windows", 1000, 500, Lifecycle.ReuseIfStarted)]
         // [SauceLabs(BrowserType.Chrome, "62", "Windows", MobileWindowSize._320_568, Lifecycle.ReuseIfStarted)]
         // [SauceLabs(BrowserType.Chrome, "62", "Windows", TabletWindowSize._600_1024, Lifecycle.ReuseIfStarted)]
         public void BlogPageOpened_When_PromotionsButtonClicked()
         {
-            App.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            var blogLink = App.ElementCreateService.CreateByLinkText<Anchor>("Blog");
+            var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
 
             blogLink.Click();
         }

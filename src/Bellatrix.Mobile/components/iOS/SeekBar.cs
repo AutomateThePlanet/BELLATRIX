@@ -21,23 +21,23 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class SeekBar : Element, IElementDisabled
+    public class SeekBar : IOSComponent, IComponentDisabled
     {
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> SettingPercentage;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> PercentageSet;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingPercentage;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> PercentageSet;
 
-        public void Set(double value)
+        public virtual void Set(double value)
         {
-            SettingPercentage?.Invoke(this, new ElementActionEventArgs<IOSElement>(this, value.ToString()));
+            SettingPercentage?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value.ToString()));
             int end = WrappedElement.Size.Width;
             int y = WrappedElement.Location.Y;
             var touchActionsService = ServicesCollection.Current.Resolve<TouchActionsService<IOSDriver<IOSElement>, IOSElement>>();
             int moveTo = (int)((value / 100) * end);
             touchActionsService.Press(moveTo, y, 0).Release().Perform();
-            PercentageSet?.Invoke(this, new ElementActionEventArgs<IOSElement>(this, value.ToString()));
+            PercentageSet?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value.ToString()));
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

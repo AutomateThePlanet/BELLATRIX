@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ValidateTextIs_DoesNotThrowException_When_ButtonTextIsAsExpected()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.ValidateTextIs("Compute Sum");
         }
@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [Timeout(180000)]
         public void ValidateIsNotDisabled_DoesNotThrowException_When_ButtonIsNotDisabled()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.ValidateIsNotDisabled();
         }

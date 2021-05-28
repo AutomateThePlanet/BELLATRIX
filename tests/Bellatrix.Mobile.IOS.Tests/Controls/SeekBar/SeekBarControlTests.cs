@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void NinePercentageSet_When_CallSeekBarSetMethod()
         {
-            var seekBar = App.ElementCreateService.CreateByName<SeekBar>("AppElem");
+            var seekBar = App.Components.CreateByName<SeekBar>("AppElem");
 
             seekBar.Set(9);
         }
@@ -38,7 +38,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void IsDisabledReturnsFalse_When_SeekbarIsNotDisabled()
         {
-            var seekBar = App.ElementCreateService.CreateByName<SeekBar>("AppElem");
+            var seekBar = App.Components.CreateByName<SeekBar>("AppElem");
 
             Assert.AreEqual(false, seekBar.IsDisabled);
         }

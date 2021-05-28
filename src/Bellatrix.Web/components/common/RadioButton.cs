@@ -18,30 +18,30 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web
 {
-    public class RadioButton : Element, IElementDisabled, IElementValue, IElementChecked
+    public class RadioButton : Component, IComponentDisabled, IComponentValue, IComponentChecked
     {
-        public static event EventHandler<ElementActionEventArgs> Clicking;
-        public static event EventHandler<ElementActionEventArgs> Clicked;
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Clicking;
+        public static event EventHandler<ComponentActionEventArgs> Clicked;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
 
-        public override Type ElementType => GetType();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string Value => DefaultGetValue();
+        public override Type ComponentType => GetType();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetDisabledAttribute();
+        public virtual string Value => DefaultGetValue();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsChecked => WrappedElement.Selected;
+        public virtual bool IsDisabled => GetDisabledAttribute();
 
-        public void Hover()
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public virtual bool IsChecked => WrappedElement.Selected;
+
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
-        public void Click()
+        public virtual void Click()
         {
             Click(Clicking, Clicked);
         }

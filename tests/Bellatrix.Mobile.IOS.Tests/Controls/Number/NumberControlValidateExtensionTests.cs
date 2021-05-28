@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ValidateNumberIs_DoesNotThrowException_When_NumberIsSet()
         {
-            var number = App.ElementCreateService.CreateById<Number>("IntegerA");
+            var number = App.Components.CreateById<Number>("IntegerA");
 
             number.SetNumber(9);
 
@@ -41,7 +41,7 @@ namespace Bellatrix.Mobile.IOS.Tests
         [TestCategory(Categories.CI)]
         public void ValidateIsDisabled_DoesNotThrowException_When_NumberIsNotDisabled()
         {
-            var number = App.ElementCreateService.CreateById<Number>("IntegerA");
+            var number = App.Components.CreateById<Number>("IntegerA");
 
             number.ValidateIsNotDisabled();
         }

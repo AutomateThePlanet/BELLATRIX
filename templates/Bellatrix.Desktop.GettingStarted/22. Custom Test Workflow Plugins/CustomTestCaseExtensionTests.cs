@@ -1,10 +1,9 @@
-﻿using Bellatrix.Desktop.MSTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Bellatrix.Desktop.NUnit;
+using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+    [TestFixture]
     public class CustomTestCaseExtensionTests : DesktopTest
     {
         // 1. Once we created the test workflow plugin, we need to add it to the existing test workflow.
@@ -21,29 +20,29 @@ namespace Bellatrix.Desktop.GettingStarted
             // App.AddPlugin<AssociatedTestCaseExtension>();
         }
 
-        [TestMethod]
+        [Test]
         [ManualTestCase(1532)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonHovered_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonHovered", label.InnerText);
         }
 
-        [TestMethod]
+        [Test]
         [App(Constants.WpfAppPath, Lifecycle.RestartOnFail)]
-        [TestCategory(Categories.CI)]
+        [Category(Categories.CI)]
         public void MessageChanged_When_ButtonClicked_Wpf()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("E Button");
+            var button = App.Components.CreateByName<Button>("E Button");
 
             button.Click();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("ResultLabelId");
+            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonClicked", label.InnerText);
         }
     }

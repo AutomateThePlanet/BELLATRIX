@@ -18,6 +18,6 @@ namespace Bellatrix.Desktop.DynamicTestCases
 {
     public class DynamicTestCasesPasswordEventHandlers : PasswordEventHandlers
     {
-        protected override void SettingPasswordEventHandler(object sender, ElementActionEventArgs arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ElementName} on {arg.Element.PageName}");
+        protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }
 }

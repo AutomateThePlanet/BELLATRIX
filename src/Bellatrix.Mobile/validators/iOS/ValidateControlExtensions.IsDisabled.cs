@@ -21,20 +21,20 @@ namespace Bellatrix.Mobile.IOS
     public static partial class ValidateControlExtensions
     {
         public static void ValidateIsDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementDisabled, IElement<IOSElement>
+            where T : IComponentDisabled, IComponent<IOSElement>
         {
             ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsDisabled.Equals(true), "The control should be disabled but it was NOT.", timeout, sleepInterval);
-            ValidatedIsDisabledEvent?.Invoke(control, new ElementActionEventArgs<IOSElement>(control));
+            ValidatedIsDisabledEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
         }
 
         public static void ValidateIsNotDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IElementDisabled, IElement<IOSElement>
+            where T : IComponentDisabled, IComponent<IOSElement>
         {
             ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => !control.IsDisabled.Equals(true), "The control should NOT be disabled but it was.", timeout, sleepInterval);
-            ValidatedIsNotDisabledEvent?.Invoke(control, new ElementActionEventArgs<IOSElement>(control));
+            ValidatedIsNotDisabledEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
         }
 
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> ValidatedIsDisabledEvent;
-        public static event EventHandler<ElementActionEventArgs<IOSElement>> ValidatedIsNotDisabledEvent;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsDisabledEvent;
+        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsNotDisabledEvent;
     }
 }

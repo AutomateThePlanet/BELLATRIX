@@ -21,34 +21,34 @@ namespace Bellatrix.Mobile.Android
     {
         protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
-        protected override void ValidatedIsVisibleEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is visible");
+        protected override void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is visible");
 
-        protected override void ValidatedIsNotVisibleEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is NOT visible");
+        protected override void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT visible");
 
-        protected override void ValidatedTimeIsEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} time ", $"is '{arg.ActionValue}'");
+        protected override void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} time ", $"is '{arg.ActionValue}'");
 
-        protected override void ValidatedTextIsNotSetEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} text ", "is NULL");
+        protected override void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} text ", "is NULL");
 
-        protected override void ValidatedTextIsEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} text ", $"is '{arg.ActionValue}'");
+        protected override void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} text ", $"is '{arg.ActionValue}'");
 
-        protected override void ValidatedIsSelectedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is selected");
+        protected override void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is selected");
 
-        protected override void ValidatedIsNotSelectedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is NOT selected");
+        protected override void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT selected");
 
-        protected override void ValidatedIsDisabledEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is disabled");
+        protected override void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is disabled");
 
-        protected override void ValidatedIsNotDisabledEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is NOT disabled");
+        protected override void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT disabled");
 
-        protected override void ValidatedDateIsEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} date ", "is '{arg.ActionValue}'");
+        protected override void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} date ", "is '{arg.ActionValue}'");
 
-        protected override void ValidatedIsCheckedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is checked");
+        protected override void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is checked");
 
-        protected override void ValidatedIsNotCheckedEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is NOT checked");
+        protected override void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT checked");
 
-        protected override void ValidatedIsOnEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is ON");
+        protected override void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is ON");
 
-        protected override void ValidatedIsOffEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} ", "is OFF");
+        protected override void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is OFF");
 
-        protected override void ValidatedNumberIsEventHandler(object sender, ElementActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ElementName} number ", "is '{arg.ActionValue}'");
+        protected override void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} number ", "is '{arg.ActionValue}'");
     }
 }

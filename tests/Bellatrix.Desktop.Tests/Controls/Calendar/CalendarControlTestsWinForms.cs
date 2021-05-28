@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("Calendar Control")]
     [AllureTag("WinForms")]
-    public class CalendarControlTestsWinForms : BellatrixBaseTest
+    public class CalendarControlTestsWinForms : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_CalendarHovered_WinForms()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var button = App.Components.CreateByAutomationId<Calendar>("calendar");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultLabel");
+            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
             Assert.AreEqual("calendarHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_CalendarIsNotDisabled_WinForms()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<Calendar>("calendar");
+            var button = App.Components.CreateByAutomationId<Calendar>("calendar");
 
             Assert.AreEqual(false, button.IsDisabled);
         }

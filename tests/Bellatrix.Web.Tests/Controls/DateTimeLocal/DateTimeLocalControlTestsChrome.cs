@@ -21,13 +21,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("DateTimeLocal Control")]
     public class DateDateTimeLocalLocalControlTestsChrome : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void DateTimeLocalSet_When_UseSetDateTimeLocalMethod_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             timeElement.SetTime(new DateTime(1989, 10, 28, 23, 23, 0));
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetTimeReturnsCorrectDateTimeLocal_When_DefaultDateTimeLocalIsSet_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime2");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime2");
 
             Assert.AreEqual("2017-06-01T08:30", timeElement.GetTime());
         }
@@ -47,7 +47,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             Assert.IsFalse(timeElement.IsAutoComplete);
         }
@@ -56,7 +56,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime4");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
             Assert.IsFalse(timeElement.IsAutoComplete);
         }
@@ -65,7 +65,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime3");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime3");
 
             Assert.IsTrue(timeElement.IsAutoComplete);
         }
@@ -74,7 +74,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime4");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
             Assert.AreEqual(false, timeElement.IsReadonly);
         }
@@ -83,7 +83,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime5");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime5");
 
             Assert.AreEqual(true, timeElement.IsReadonly);
         }
@@ -92,7 +92,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             var max = timeElement.Max;
 
@@ -103,7 +103,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             Assert.IsNull(timeElement.Min);
         }
@@ -112,7 +112,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             Assert.IsNull(timeElement.Step);
         }
@@ -121,7 +121,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMaxReturns80_When_MaxAttributeIsPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime1");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
             Assert.AreEqual("2017-06-30T16:30", timeElement.Max);
         }
@@ -130,7 +130,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetMinReturns10_When_MinAttributeIsPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime1");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
             Assert.AreEqual("2017-06-01T08:30", timeElement.Min);
         }
@@ -139,7 +139,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetStepReturns10_When_StepAttributeIsNotPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime1");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
             Assert.AreEqual(10, timeElement.Step);
         }
@@ -148,7 +148,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime4");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
             Assert.AreEqual(false, timeElement.IsRequired);
         }
@@ -157,7 +157,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime6");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime6");
 
             Assert.IsTrue(timeElement.IsRequired);
         }
@@ -166,7 +166,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnRed_When_Hover_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime7");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime7");
 
             timeElement.Hover();
 
@@ -177,7 +177,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnBlue_When_Focus_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime8");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime8");
 
             timeElement.Focus();
 
@@ -188,7 +188,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnFalse_When_DisabledAttributeNotPresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
             bool isDisabled = timeElement.IsDisabled;
 
@@ -199,7 +199,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
         public void ReturnTrue_When_DisabledAttributePresent_Chrome()
         {
-            var timeElement = App.ElementCreateService.CreateById<DateTimeLocal>("myTime9");
+            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime9");
 
             bool isDisabled = timeElement.IsDisabled;
 

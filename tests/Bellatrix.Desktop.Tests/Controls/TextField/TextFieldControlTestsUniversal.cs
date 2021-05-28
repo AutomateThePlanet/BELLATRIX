@@ -19,17 +19,17 @@ namespace Bellatrix.Desktop.Tests
     [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
     [AllureSuite("TextField Control")]
     [AllureTag("Universal")]
-    public class TextFieldControlTestsUniversal : BellatrixBaseTest
+    public class TextFieldControlTestsUniversal : MSTest.DesktopTest
     {
         [TestMethod]
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_TextFieldHovered_Universal()
         {
-            var button = App.ElementCreateService.CreateByAutomationId<TextField>("textBox");
+            var button = App.Components.CreateByAutomationId<TextField>("textBox");
 
             button.Hover();
 
-            var label = App.ElementCreateService.CreateByAutomationId<Label>("resultTextBlock");
+            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
             Assert.AreEqual("textFieldHovered", label.InnerText);
         }
 
@@ -38,7 +38,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void MessageChanged_When_NewTextSet_Universal()
         {
-            var textField = App.ElementCreateService.CreateByAutomationId<TextField>("textBox");
+            var textField = App.Components.CreateByAutomationId<TextField>("textBox");
 
             textField.SetText("Meissa Is Beautiful!");
 
@@ -50,7 +50,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void GetContent_When_TextFieldLocated_Universal()
         {
-            var textField = App.ElementCreateService.CreateByAutomationId<TextField>("disabledTextBox");
+            var textField = App.Components.CreateByAutomationId<TextField>("disabledTextBox");
 
             Assert.AreEqual("Bellatrix Is Awesome!", textField.InnerText);
         }
@@ -60,7 +60,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsFalse_When_TextFieldIsNotDisabled_Universal()
         {
-            var textField = App.ElementCreateService.CreateByAutomationId<TextField>("textBox");
+            var textField = App.Components.CreateByAutomationId<TextField>("textBox");
 
             Assert.AreEqual(false, textField.IsDisabled);
         }
@@ -70,7 +70,7 @@ namespace Bellatrix.Desktop.Tests
         [TestCategory(Categories.Desktop)]
         public void IsDisabledReturnsTrue_When_TextFieldIsDisabled_Universal()
         {
-            var textField = App.ElementCreateService.CreateByAutomationId<TextField>("disabledTextBox");
+            var textField = App.Components.CreateByAutomationId<TextField>("disabledTextBox");
 
             Assert.AreEqual(true, textField.IsDisabled);
         }

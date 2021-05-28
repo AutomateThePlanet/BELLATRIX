@@ -17,10 +17,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Bellatrix.DynamicTestCases.AzureDevOps;
 using Bellatrix.DynamicTestCases.Contracts;
+using Bellatrix.DynamicTestCases.QTest;
 using Bellatrix.Plugins;
 
-namespace Bellatrix.DynamicTestCases
+namespace Bellatrix.DynamicTestCases.Core
 {
     public class DynamicTestCasesPlugin : Plugin
     {
@@ -35,7 +37,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled || e.TestMethodMemberInfo == null)
+            if (!AreDynamicTestCasesEnabled() || e.TestMethodMemberInfo == null)
             {
                 return;
             }
@@ -47,7 +49,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PreTestInit(object sender, PluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled)
+            if (!AreDynamicTestCasesEnabled())
             {
                 return;
             }
@@ -58,7 +60,7 @@ namespace Bellatrix.DynamicTestCases
 
         protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
-            if (!ConfigurationService.GetSection<DynamicTestCasesSettings>().IsEnabled)
+            if (!AreDynamicTestCasesEnabled())
             {
                 return;
             }
@@ -70,7 +72,7 @@ namespace Bellatrix.DynamicTestCases
                 // Update the test case only upon test pass. In case of failure, only the basic test case - name, description, etc will remain - without the test steps
                 if (e.TestOutcome == TestOutcome.Passed && _dynamicTestCasesService?.Context != null)
                 {
-                    _dynamicTestCasesService.Context.TestCase = _testCaseManagementService.InitTestCase(_dynamicTestCasesService.Context);
+                    _dynamicTestCasesService.Context.Value.TestCase = _testCaseManagementService.InitTestCase(_dynamicTestCasesService.Context.Value);
                 }
             }
             catch (Exception ex)
@@ -103,13 +105,13 @@ namespace Bellatrix.DynamicTestCases
                 testCaseName = TestNameToDesciption(args.TestName);
             }
 
-            _dynamicTestCasesService.Context.SuiteId = suiteId;
-            _dynamicTestCasesService.Context.TestCaseName = testCaseName;
-            _dynamicTestCasesService.Context.TestCaseDescription = testCaseDescription;
-            _dynamicTestCasesService.Context.TestCaseId = testCaseId;
-            _dynamicTestCasesService.Context.RequirementId = requirementId;
-            _dynamicTestCasesService.Context.TestFullName = $"{args.TestClassName}.{args.TestName}";
-            _dynamicTestCasesService.Context.TestProjectName = args.TestClassType.Assembly.GetName().Name;
+            _dynamicTestCasesService.Context.Value.SuiteId = suiteId;
+            _dynamicTestCasesService.Context.Value.TestCaseName = testCaseName;
+            _dynamicTestCasesService.Context.Value.TestCaseDescription = testCaseDescription;
+            _dynamicTestCasesService.Context.Value.TestCaseId = testCaseId;
+            _dynamicTestCasesService.Context.Value.RequirementId = requirementId;
+            _dynamicTestCasesService.Context.Value.TestFullName = $"{args.TestClassName}.{args.TestName}";
+            _dynamicTestCasesService.Context.Value.TestProjectName = args.TestClassType.Assembly.GetName().Name;
         }
 
         private string TestNameToDesciption(string name)
@@ -117,6 +119,12 @@ namespace Bellatrix.DynamicTestCases
             var noUnderScoreName = Regex.Replace(name, "_", string.Empty);
             var properName = Regex.Replace(noUnderScoreName, "([a-z])([A-Z])", "$1 $2");
             return properName;
+        }
+
+        private bool AreDynamicTestCasesEnabled()
+        {
+            return ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().IsEnabled ||
+                ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().IsEnabled;
         }
     }
 }

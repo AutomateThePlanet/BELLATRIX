@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
     [IOS(Constants.IOSNativeAppPath,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class CommonServicesHooksTests : MSTest.IOSTest
+    public class CommonServicesHooksTests : NUnit.IOSTest
     {
         // 1. Another way to extend BELLATRIX is to use the common services hooks. This is how the failed tests analysis works.
         // The base class for all iOS elements- Element provides a few special events as well:
@@ -20,12 +20,12 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         // ReturningWrappedElement - called before searching for native WebDriver element
         //
         // To add custom logic to the element's methods you can create a class that derives from ElementEventHandlers. The override the methods you like.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }

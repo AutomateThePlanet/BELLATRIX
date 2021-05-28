@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureFeature("ControlEvents")]
     public class EmailControlEventsTests : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage);
 
         [TestMethod]
         [TestCategory(Categories.CI)]
@@ -31,7 +31,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Email.SettingEmail += AssertValueAttributeEmpty;
 
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             emailElement.SetEmail("bellatrix@solutions.com");
 
@@ -39,7 +39,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Email.SettingEmail -= AssertValueAttributeEmpty;
 
-            void AssertValueAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -52,13 +52,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Email.EmailSet += AssertValueAttributeContainsNewValue;
 
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail");
+            var emailElement = App.Components.CreateById<Email>("myEmail");
 
             emailElement.SetEmail("bellatrix@solutions.com");
 
             Email.EmailSet -= AssertValueAttributeContainsNewValue;
 
-            void AssertValueAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("bellatrix@solutions.com", args.Element.WrappedElement.GetAttribute("value"));
             }
@@ -71,7 +71,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Email.Hovering += AssertStyleAttributeEmpty;
 
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail8");
+            var emailElement = App.Components.CreateById<Email>("myEmail8");
 
             emailElement.Hover();
 
@@ -79,7 +79,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Email.Hovering -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -92,15 +92,15 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Email.Hovered += AssertStyleAttributeContainsNewValue;
 
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail8");
+            var emailElement = App.Components.CreateById<Email>("myEmail8");
 
             emailElement.Hover();
 
             Email.Hovered -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
-                App.ElementCreateService.CreateById<Email>("myEmail8").ValidateStyleIs("color: red;");
+                App.Components.CreateById<Email>("myEmail8").ValidateStyleIs("color: red;");
             }
         }
 
@@ -111,7 +111,7 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Email.Focusing += AssertStyleAttributeEmpty;
 
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail9");
+            var emailElement = App.Components.CreateById<Email>("myEmail9");
 
             emailElement.Focus();
 
@@ -119,7 +119,7 @@ namespace Bellatrix.Web.Tests.Controls
 
             Email.Focusing -= AssertStyleAttributeEmpty;
 
-            void AssertStyleAttributeEmpty(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
             }
@@ -132,13 +132,13 @@ namespace Bellatrix.Web.Tests.Controls
         {
             Email.Focused += AssertStyleAttributeContainsNewValue;
 
-            var emailElement = App.ElementCreateService.CreateById<Email>("myEmail9");
+            var emailElement = App.Components.CreateById<Email>("myEmail9");
 
             emailElement.Focus();
 
             Email.Focused -= AssertStyleAttributeContainsNewValue;
 
-            void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
             {
                 Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
             }

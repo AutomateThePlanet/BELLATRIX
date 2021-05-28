@@ -37,63 +37,63 @@ namespace Bellatrix.Mobile.IOS
             ValidateControlExtensions.ValidatedNumberIsEvent += ValidatedNumberIsEventHandler;
         }
 
-        protected virtual void ValidatedIsVisibleEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedTimeIsEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedTextIsNotSetEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedTextIsEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsSelectedEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsDisabledEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedDateIsEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsCheckedEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsOnEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedIsOffEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
 
-        protected virtual void ValidatedNumberIsEventHandler(object sender, ElementActionEventArgs<IOSElement> arg)
+        protected virtual void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
         {
         }
     }

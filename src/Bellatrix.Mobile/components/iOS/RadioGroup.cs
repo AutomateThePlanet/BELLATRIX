@@ -19,9 +19,9 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS
 {
-    public class RadioGroup : Element
+    public class RadioGroup : IOSComponent
     {
-        public void ClickByText(string text)
+        public virtual void ClickByText(string text)
         {
             var allRadioButton = GetAll();
             foreach (var radioButton in allRadioButton)
@@ -34,7 +34,7 @@ namespace Bellatrix.Mobile.IOS
             }
         }
 
-        public void ClickByIndex(int index)
+        public virtual void ClickByIndex(int index)
         {
             var allRadioButton = GetAll();
             if (index > allRadioButton.Count() - 1)
@@ -55,13 +55,13 @@ namespace Bellatrix.Mobile.IOS
             }
         }
 
-        public RadioButton GetChecked()
+        public virtual RadioButton GetChecked()
         {
             var clickedRadioButton = this.CreateByXPath<RadioButton>("//*[@value='1']");
             return clickedRadioButton;
         }
 
-        public ElementsList<RadioButton, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll()
+        public virtual ComponentsList<RadioButton, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll()
         {
             var radioButtons = this.CreateAllByClass<RadioButton>("XCUIElementTypeSwitch");
             return radioButtons;

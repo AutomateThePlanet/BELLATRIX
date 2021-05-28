@@ -18,29 +18,29 @@ using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop
 {
-    public class Password : Element, IElementDisabled
+    public class Password : Component, IComponentDisabled
     {
-        public static event EventHandler<ElementActionEventArgs> Hovering;
-        public static event EventHandler<ElementActionEventArgs> Hovered;
-        public static event EventHandler<ElementActionEventArgs> SettingPassword;
-        public static event EventHandler<ElementActionEventArgs> PasswordSet;
+        public static event EventHandler<ComponentActionEventArgs> Hovering;
+        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> SettingPassword;
+        public static event EventHandler<ComponentActionEventArgs> PasswordSet;
 
-        public string GetPassword()
+        public virtual string GetPassword()
         {
             return GetInnerText();
         }
 
-        public void SetPassword(string password)
+        public virtual void SetPassword(string password)
         {
             SetText(SettingPassword, PasswordSet, password);
         }
 
-        public void Hover()
+        public virtual void Hover()
         {
             Hover(Hovering, Hovered);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsDisabled => GetIsDisabled();
+        public virtual bool IsDisabled => GetIsDisabled();
     }
 }

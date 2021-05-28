@@ -3,25 +3,25 @@
 1. Each new BELLATRIX tests project targets .NET Core 5.0
 
 2. Contains the following NuGet dependencies:
-        <PackageReference Include="Bellatrix.Desktop.MSTest" Version="1.1.0.15" />
+        <PackageReference Include="Bellatrix.Desktop.NUnit" Version="1.1.0.15" />
 
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.0.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
-        <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
-        <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+        <PackageReference Include="NUnit.TestAdapter" Version="2.0.0" />
+        <PackageReference Include="NUnit.TestFramework" Version="2.0.0" />
         <PackageReference Include="System.Security.Permissions" Version="4.6.0" />
         <PackageReference Include="Unity" Version="5.8.6" />
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004" />
 
     Note: the version may vary if you install the template now.
 
-As you can see the most important package that you need is Bellatrix.Desktop.MSTest, it depends on all below packages. This is the bare minimum. 
+As you can see the most important package that you need is Bellatrix.Desktop.NUnit, it depends on all below packages. This is the bare minimum. 
 
 In short:
  - we reference Microsoft configuration packages so that we can work with configuration files where the different framework settings are placed.
- - Microsoft.NET.Test.Sdk, MSTest.TestAdapter, MSTest.TestFramework are prerequisites so that you can execute MSTest framework tests.
+ - Microsoft.NET.Test.Sdk, NUnit.TestAdapter, NUnit.TestFramework are prerequisites so that you can execute NUnit framework tests.
  - also, we use Unity inversion of control container inside BELLATRIX for many things. 
  You will not be able to use it directly, but there are a couple of ways that you will use it in your code for some more complex scenarios.
  - Lastly, we install StyleCop.Analyzers, we use it to enforce coding standards in the tests code.

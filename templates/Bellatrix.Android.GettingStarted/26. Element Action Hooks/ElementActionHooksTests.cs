@@ -1,15 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    public class ElementActionHooksTests : MSTest.AndroidTest
+    [TestFixture]
+    public class ElementActionHooksTests : NUnit.AndroidTest
     {
         // 1. Another way to extend BELLATRIX is to use the controls hooks. This is how the BDD logging is implemented.
         // For each method of the control, there are two hooks- one that is called before the action and one after.
@@ -36,11 +30,11 @@ namespace Bellatrix.Mobile.Android.GettingStarted
             // For example for the method ValidateIsChecked, ValidatedIsCheckedEvent event is called after the check is done.
         }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
+        [Test]
+        [Category(Categories.CI)]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
             button.Click();
         }

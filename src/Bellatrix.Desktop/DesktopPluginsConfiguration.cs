@@ -48,12 +48,12 @@ namespace Bellatrix
 
         public static void AddElementsBddLogging()
         {
-            var elementEventHandlers = new List<ElementEventHandlers>()
+            var elementEventHandlers = new List<ComponentEventHandlers>()
                                        {
                                            new BDDLoggingCheckboxEventHandlers(),
                                            new BDDLoggingComboBoxEventHandlers(),
                                            new BDDLoggingDateEventHandlers(),
-                                           new BDDLoggingElementEventHandlers(),
+                                           new BDDLoggingComponentEventHandlers(),
                                            new BDDLoggingPasswordEventHandlers(),
                                            new BDDLoggingTextAreaEventHandlers(),
                                            new BDDLoggingTextFieldEventHandlers(),
@@ -67,12 +67,12 @@ namespace Bellatrix
 
         public static void AddDynamicTestCases()
         {
-            var elementEventHandlers = new List<ElementEventHandlers>()
+            var elementEventHandlers = new List<ComponentEventHandlers>()
                                        {
                                            new DynamicTestCasesCheckboxEventHandlers(),
                                            new DynamicTestCasesComboBoxEventHandlers(),
                                            new DynamicTestCasesDateEventHandlers(),
-                                           new DynamicTestCasesElementEventHandlers(),
+                                           new DynamicTestCasesComponentEventHandlers(),
                                            new DynamicTestCasesPasswordEventHandlers(),
                                            new DynamicTestCasesTextAreaEventHandlers(),
                                            new DynamicTestCasesTextFieldEventHandlers(),
@@ -86,12 +86,12 @@ namespace Bellatrix
 
         public static void AddBugReporting()
         {
-            var elementEventHandlers = new List<ElementEventHandlers>()
+            var elementEventHandlers = new List<ComponentEventHandlers>()
                                        {
                                            new BugReportingCheckboxEventHandlers(),
                                            new BugReportingComboBoxEventHandlers(),
                                            new BugReportingDateEventHandlers(),
-                                           new BugReportingElementEventHandlers(),
+                                           new BugReportingComponentEventHandlers(),
                                            new BugReportingPasswordEventHandlers(),
                                            new BugReportingTextAreaEventHandlers(),
                                            new BugReportingTextFieldEventHandlers(),

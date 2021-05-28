@@ -15,20 +15,20 @@ namespace Bellatrix.Web
 {
     public static class FindStrategyCreateExtensions
     {
-        public static TElement Create<TElement, TBy>(this TBy by, bool shouldCacheElement = false)
+        public static TComponent Create<TComponent, TBy>(this TBy by, bool shouldCacheElement = false)
             where TBy : FindStrategy
-            where TElement : Element
+            where TComponent : Component
         {
-            var elementRepository = ServicesCollection.Current.Resolve<ElementCreateService>();
-            return elementRepository.Create<TElement, TBy>(by, shouldCacheElement);
+            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+            return elementRepository.Create<TComponent, TBy>(by, shouldCacheElement);
         }
 
-        public static ElementsList<TElement> CreateAll<TElement, TBy>(this TBy by, bool shouldCacheElement = false)
+        public static ComponentsList<TComponent> CreateAll<TComponent, TBy>(this TBy by, bool shouldCacheElement = false)
             where TBy : FindStrategy
-            where TElement : Element
+            where TComponent : Component
         {
-            var elementRepository = ServicesCollection.Current.Resolve<ElementCreateService>();
-            return elementRepository.CreateAll<TElement, TBy>(by, shouldCacheElement);
+            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+            return elementRepository.CreateAll<TComponent, TBy>(by, shouldCacheElement);
         }
     }
 }

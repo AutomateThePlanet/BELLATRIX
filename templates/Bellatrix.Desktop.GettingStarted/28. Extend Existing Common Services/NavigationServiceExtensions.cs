@@ -11,7 +11,7 @@
         // Later to use the method in your tests, add a using statement containing this class's namespace.
         public static void LoginToApp(this Services.AppService appService, string userName, string password)
         {
-            var elementCreateService = new ElementCreateService();
+            var elementCreateService = new ComponentCreateService();
             var userNameField = elementCreateService.CreateByAutomationId<TextField>("textBox");
             var passwordField = elementCreateService.CreateByAutomationId<Password>("passwordBox");
             var loginButton = elementCreateService.CreateByName<Button>("E Button");

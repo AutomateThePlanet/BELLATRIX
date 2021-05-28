@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class DateTimeLocalEventHandlers : ElementEventHandlers
+    public class DateTimeLocalEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -35,11 +35,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             DateTimeLocal.TimeSet -= TimeSetEventHandler;
         }
 
-        protected virtual void SettingTimeEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void TimeSetEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void TimeSetEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

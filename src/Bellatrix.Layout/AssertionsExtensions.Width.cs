@@ -18,55 +18,55 @@ namespace Bellatrix.Layout
 {
     public static partial class AssertionsExtensions
     {
-        public static event EventHandler<LayoutElementActionEventArgs> AssertedWidthEvent;
-        public static event EventHandler<LayoutElementTwoValuesActionEventArgs> AssertedWidthBetweenEvent;
-        public static event EventHandler<LayoutElementActionEventArgs> AssertedWidthLessThanEvent;
-        public static event EventHandler<LayoutElementActionEventArgs> AssertedWidthLessThanOrEqualEvent;
-        public static event EventHandler<LayoutElementActionEventArgs> AssertedWidthGreaterThanEvent;
-        public static event EventHandler<LayoutElementActionEventArgs> AssertedWidthGreaterThanOrEqualEvent;
-        public static event EventHandler<LayoutTwoElementsActionEventArgs> AssertedWidthApproximateSecondElementEvent;
+        public static event EventHandler<LayoutComponentActionEventArgs> AssertedWidthEvent;
+        public static event EventHandler<LayoutComponentTwoValuesActionEventArgs> AssertedWidthBetweenEvent;
+        public static event EventHandler<LayoutComponentActionEventArgs> AssertedWidthLessThanEvent;
+        public static event EventHandler<LayoutComponentActionEventArgs> AssertedWidthLessThanOrEqualEvent;
+        public static event EventHandler<LayoutComponentActionEventArgs> AssertedWidthGreaterThanEvent;
+        public static event EventHandler<LayoutComponentActionEventArgs> AssertedWidthGreaterThanOrEqualEvent;
+        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedWidthApproximateSecondElementEvent;
 
-        public static void AssertWidth(this ILayoutElement layoutElement, double expected)
+        public static void AssertWidth(this ILayoutComponent layoutComponent, double expected)
         {
-            BA.Assert.AreEqual<LayoutAssertFailedException, double>(layoutElement.Size.Width, expected, $"The width of {layoutElement.ElementName} was not {expected} px, but {layoutElement.Size.Width} px.");
-            AssertedWidthEvent?.Invoke(layoutElement, new LayoutElementActionEventArgs(layoutElement, expected.ToString()));
+            BA.Assert.AreEqual<LayoutAssertFailedException, double>(layoutComponent.Size.Width, expected, $"The width of {layoutComponent.ComponentName} was not {expected} px, but {layoutComponent.Size.Width} px.");
+            AssertedWidthEvent?.Invoke(layoutComponent, new LayoutComponentActionEventArgs(layoutComponent, expected.ToString()));
         }
 
-        public static void AssertWidthBetween(this ILayoutElement layoutElement, double from, double to)
+        public static void AssertWidthBetween(this ILayoutComponent layoutComponent, double from, double to)
         {
-            BA.Assert.IsTrue<LayoutAssertFailedException>(layoutElement.Size.Width >= from && layoutElement.Size.Width <= to, $"The width of {layoutElement.ElementName} was not between {from} and {to} px, but {layoutElement.Size.Width} px.");
-            AssertedWidthBetweenEvent?.Invoke(layoutElement, new LayoutElementTwoValuesActionEventArgs(layoutElement, from.ToString(), to.ToString()));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(layoutComponent.Size.Width >= from && layoutComponent.Size.Width <= to, $"The width of {layoutComponent.ComponentName} was not between {from} and {to} px, but {layoutComponent.Size.Width} px.");
+            AssertedWidthBetweenEvent?.Invoke(layoutComponent, new LayoutComponentTwoValuesActionEventArgs(layoutComponent, from.ToString(), to.ToString()));
         }
 
-        public static void AssertWidthGreaterThan(this ILayoutElement layoutElement, double expected)
+        public static void AssertWidthGreaterThan(this ILayoutComponent layoutComponent, double expected)
         {
-            BA.Assert.IsTrue<LayoutAssertFailedException>(layoutElement.Size.Width > expected, $"The width of {layoutElement.ElementName} was not > {expected} px, but {layoutElement.Size.Width} px.");
-            AssertedWidthGreaterThanEvent?.Invoke(layoutElement, new LayoutElementActionEventArgs(layoutElement, expected.ToString()));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(layoutComponent.Size.Width > expected, $"The width of {layoutComponent.ComponentName} was not > {expected} px, but {layoutComponent.Size.Width} px.");
+            AssertedWidthGreaterThanEvent?.Invoke(layoutComponent, new LayoutComponentActionEventArgs(layoutComponent, expected.ToString()));
         }
 
-        public static void AssertWidthGreaterThanOrEqual(this ILayoutElement layoutElement, double expected)
+        public static void AssertWidthGreaterThanOrEqual(this ILayoutComponent layoutComponent, double expected)
         {
-            BA.Assert.IsTrue<LayoutAssertFailedException>(layoutElement.Size.Width >= expected, $"The width of {layoutElement.ElementName} was not >= {expected} px, but {layoutElement.Size.Width} px.");
-            AssertedWidthGreaterThanOrEqualEvent?.Invoke(layoutElement, new LayoutElementActionEventArgs(layoutElement, expected.ToString()));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(layoutComponent.Size.Width >= expected, $"The width of {layoutComponent.ComponentName} was not >= {expected} px, but {layoutComponent.Size.Width} px.");
+            AssertedWidthGreaterThanOrEqualEvent?.Invoke(layoutComponent, new LayoutComponentActionEventArgs(layoutComponent, expected.ToString()));
         }
 
-        public static void AssertWidthLessThan(this ILayoutElement layoutElement, double expected)
+        public static void AssertWidthLessThan(this ILayoutComponent layoutComponent, double expected)
         {
-            BA.Assert.IsTrue<LayoutAssertFailedException>(layoutElement.Size.Width < expected, $"The width of {layoutElement.ElementName} was not < {expected} px, but {layoutElement.Size.Width} px.");
-            AssertedWidthLessThanEvent?.Invoke(layoutElement, new LayoutElementActionEventArgs(layoutElement, expected.ToString()));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(layoutComponent.Size.Width < expected, $"The width of {layoutComponent.ComponentName} was not < {expected} px, but {layoutComponent.Size.Width} px.");
+            AssertedWidthLessThanEvent?.Invoke(layoutComponent, new LayoutComponentActionEventArgs(layoutComponent, expected.ToString()));
         }
 
-        public static void AssertWidthLessThanOrEqual(this ILayoutElement layoutElement, double expected)
+        public static void AssertWidthLessThanOrEqual(this ILayoutComponent layoutComponent, double expected)
         {
-            BA.Assert.IsTrue<LayoutAssertFailedException>(layoutElement.Size.Width <= expected, $"The width of {layoutElement.ElementName} was not <= {expected} px, but {layoutElement.Size.Width} px.");
-            AssertedWidthLessThanOrEqualEvent?.Invoke(layoutElement, new LayoutElementActionEventArgs(layoutElement, expected.ToString()));
+            BA.Assert.IsTrue<LayoutAssertFailedException>(layoutComponent.Size.Width <= expected, $"The width of {layoutComponent.ComponentName} was not <= {expected} px, but {layoutComponent.Size.Width} px.");
+            AssertedWidthLessThanOrEqualEvent?.Invoke(layoutComponent, new LayoutComponentActionEventArgs(layoutComponent, expected.ToString()));
         }
 
-        public static void AssertWidthApproximate(this ILayoutElement layoutElement, ILayoutElement secondElement, double expectedPercentDifference)
+        public static void AssertWidthApproximate(this ILayoutComponent layoutComponent, ILayoutComponent secondElement, double expectedPercentDifference)
         {
-            var actualPercentDifference = CalculatePercentDifference(layoutElement.Size.Width, secondElement.Size.Width);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualPercentDifference <= expectedPercentDifference, $"The width % difference between {layoutElement.ElementName} and {secondElement.ElementName} was greater than {expectedPercentDifference}%, it was {actualPercentDifference} px.");
-            AssertedWidthApproximateSecondElementEvent?.Invoke(layoutElement, new LayoutTwoElementsActionEventArgs(layoutElement, secondElement, expectedPercentDifference.ToString()));
+            var actualPercentDifference = CalculatePercentDifference(layoutComponent.Size.Width, secondElement.Size.Width);
+            BA.Assert.IsTrue<LayoutAssertFailedException>(actualPercentDifference <= expectedPercentDifference, $"The width % difference between {layoutComponent.ComponentName} and {secondElement.ComponentName} was greater than {expectedPercentDifference}%, it was {actualPercentDifference} px.");
+            AssertedWidthApproximateSecondElementEvent?.Invoke(layoutComponent, new LayoutTwoComponentsActionEventArgs(layoutComponent, secondElement, expectedPercentDifference.ToString()));
         }
     }
 }

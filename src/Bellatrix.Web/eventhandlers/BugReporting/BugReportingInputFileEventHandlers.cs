@@ -18,6 +18,6 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
 {
     public class BugReportingInputFileEventHandlers : InputFileEventHandlers
     {
-        protected override void UploadingEventHandler(object sender, ElementActionEventArgs arg) => BugReportingContextService.AddStep($"I upload '{arg.ActionValue}' for {arg.Element.ElementName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+        protected override void UploadingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"I upload '{arg.ActionValue}' for {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
     }
 }

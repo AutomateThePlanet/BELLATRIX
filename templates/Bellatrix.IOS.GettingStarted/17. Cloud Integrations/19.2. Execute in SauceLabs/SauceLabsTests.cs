@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted
 {
-    [TestClass]
+    [TestFixture]
 
     // 1. To execute BELLATRIX tests in SauceLabs cloud you should use the IOSSauceLabs attribute instead of IOS.
     // SauceLabs has the same parameters as IOS but adds to additional ones-
@@ -21,29 +21,29 @@ namespace Bellatrix.Mobile.IOS.GettingStarted
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
-    public class SauceLabsTests : MSTest.IOSTest
+    public class SauceLabsTests : NUnit.IOSTest
     {
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethod()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }
 
         // 2. As mentioned if you use the SauceLabs attribute on method level it overrides the class settings.
-        [TestMethod]
+        [Test]
         [Timeout(180000)]
         [IOSSauceLabs("sauce-storage:TestApp.app.zip",
             Constants.IOSDefaultVersion,
             Constants.IOSDefaultDeviceName,
             Lifecycle.ReuseIfStarted)]
-        [Ignore]
+        [Ignore("API example purposes only. No need to run.")]
         public void ButtonClicked_When_CallClickMethodSecond()
         {
-            var button = App.ElementCreateService.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
             button.Click();
         }

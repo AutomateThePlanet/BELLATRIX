@@ -15,7 +15,7 @@ using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Controls.EventHandlers
 {
-    public class InputFileEventHandlers : ElementEventHandlers
+    public class InputFileEventHandlers : ComponentEventHandlers
     {
         public override void SubscribeToAll()
         {
@@ -31,11 +31,11 @@ namespace Bellatrix.Web.Controls.EventHandlers
             InputFile.Uploaded -= UploadedEventHandler;
         }
 
-        protected virtual void UploadingEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void UploadingEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void UploadedEventHandler(object sender, ElementActionEventArgs arg)
+        protected virtual void UploadedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

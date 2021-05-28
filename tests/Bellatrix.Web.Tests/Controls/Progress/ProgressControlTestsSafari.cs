@@ -20,13 +20,13 @@ namespace Bellatrix.Web.Tests.Controls
     [AllureSuite("Progress Control")]
     public class ProgressControlTestsSafari : MSTest.WebTest
     {
-        public override void TestInit() => App.NavigationService.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ProgressLocalPage);
+        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ProgressLocalPage);
 
         [TestMethod]
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void Return70_When_UseGetValueMethod_Safari()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress");
+            var progressElement = App.Components.CreateById<Progress>("myProgress");
 
             Assert.AreEqual("70", progressElement.Value);
         }
@@ -35,7 +35,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnNull_When_NoValueAttributeAttributePresent_Safari()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress2");
+            var progressElement = App.Components.CreateById<Progress>("myProgress2");
 
             Assert.IsNotNull(progressElement.Value);
         }
@@ -44,7 +44,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void Return100_When_UseGetMaxMethod_Safari()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress");
+            var progressElement = App.Components.CreateById<Progress>("myProgress");
 
             Assert.AreEqual("100", progressElement.Max);
         }
@@ -53,7 +53,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void Return1_When_NoMaxAttributePresent_Safari()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress1");
+            var progressElement = App.Components.CreateById<Progress>("myProgress1");
 
             var actualMax = progressElement.Max;
 
@@ -64,7 +64,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void Return70_When_UseGetInnerTextMethod_Safari()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress");
+            var progressElement = App.Components.CreateById<Progress>("myProgress");
 
             Assert.AreEqual("70 %", progressElement.InnerText);
         }
@@ -73,7 +73,7 @@ namespace Bellatrix.Web.Tests.Controls
         [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
         public void ReturnEmpty_When_NoInnerTextPresent_Safari()
         {
-            var progressElement = App.ElementCreateService.CreateById<Progress>("myProgress3");
+            var progressElement = App.Components.CreateById<Progress>("myProgress3");
 
             var actualInnerText = progressElement.InnerText;
 
