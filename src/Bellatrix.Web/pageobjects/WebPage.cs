@@ -69,11 +69,11 @@ namespace Bellatrix.Web
                 partialUrl = HttpUtility.UrlEncode(partialUrl);
             }
 
-            BrowserService.WaitUntilReady();
+            App.Browser.WaitUntilReady();
 
-            var currentBrowserUrl = BrowserService.Url.ToString();
+            var currentBrowserUrl = App.Browser.Url.ToString();
 
-            Assert.IsTrue(currentBrowserUrl.Contains(partialUrl), $"The expected partialUrl: '{partialUrl}' was not found in the PageUrl: '{currentBrowserUrl}'");
+            App.Assert.IsTrue(currentBrowserUrl.Contains(partialUrl), $"The expected partialUrl: '{partialUrl}' was not found in the PageUrl: '{currentBrowserUrl}'");
         }
 
         public void AssertNotLandedOnPage(string partialUrl, bool shouldUrlEncode = false)
@@ -84,16 +84,16 @@ namespace Bellatrix.Web
             }
 
             var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
-            Assert.IsFalse(currentBrowserUrl.Contains(partialUrl), $"The expected partialUrl: '{partialUrl}' was found in the PageUrl: '{currentBrowserUrl}'");
+            App.Assert.IsFalse(currentBrowserUrl.Contains(partialUrl), $"The expected partialUrl: '{partialUrl}' was found in the PageUrl: '{currentBrowserUrl}'");
         }
 
         public void AssertUrl(string fullUrl)
         {
-            var currentBrowserUrl = BrowserService.Url.ToString();
+            var currentBrowserUrl = App.Browser.Url.ToString();
             Uri actualUri = new Uri(currentBrowserUrl);
             Uri expectedUri = new Uri(fullUrl);
 
-            Assert.AreEqual(expectedUri.AbsoluteUri, actualUri.AbsoluteUri, $"Expected URL is different than the Actual one.");
+            App.Assert.AreEqual(expectedUri.AbsoluteUri, actualUri.AbsoluteUri, $"Expected URL is different than the Actual one.");
         }
 
         public void AssertUrlPath(string urlPath)
@@ -101,7 +101,7 @@ namespace Bellatrix.Web
             var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
             Uri actualUri = new Uri(currentBrowserUrl);
 
-            Assert.AreEqual(urlPath, actualUri.AbsolutePath, $"Expected URL path is different than the Actual one.");
+            App.Assert.AreEqual(urlPath, actualUri.AbsolutePath, $"Expected URL path is different than the Actual one.");
         }
 
         public void AssertUrlPathAndQuery(string pathAndQuery)
@@ -109,7 +109,7 @@ namespace Bellatrix.Web
             var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
             Uri actualUri = new Uri(currentBrowserUrl);
 
-            Assert.AreEqual(pathAndQuery, actualUri.PathAndQuery, $"Expected URL is different than the Actual one.");
+            App.Assert.AreEqual(pathAndQuery, actualUri.PathAndQuery, $"Expected URL is different than the Actual one.");
         }
     }
 }

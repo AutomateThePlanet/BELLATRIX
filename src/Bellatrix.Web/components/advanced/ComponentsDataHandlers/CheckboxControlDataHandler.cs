@@ -18,7 +18,17 @@ namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
 {
     public class CheckBoxControlDataHandler : IEditableControlDataHandler<CheckBox>
     {
-        public dynamic GetData(CheckBox element) => element.IsChecked;
+        public dynamic GetData(CheckBox element)
+        {
+            try
+            {
+                return element.IsChecked;
+            }
+            catch (TimeoutException)
+            {
+                return null;
+            }
+        }
 
         public void SetData(CheckBox element, string data)
         {

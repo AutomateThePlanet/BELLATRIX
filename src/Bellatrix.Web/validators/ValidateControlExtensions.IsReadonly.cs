@@ -29,7 +29,7 @@ namespace Bellatrix.Web
         public static void ValidateIsNotReadonly<T>(this T control, int? timeout = null, int? sleepInterval = null)
             where T : IComponentReadonly, IComponent
         {
-            WaitUntil(() => !control.IsReadonly.Equals(true), $"The control {control.ComponentName} should be NOT readonly but was NOT.", timeout, sleepInterval);
+            WaitUntil(() => !control.IsReadonly.Equals(true), $"The control {control.ComponentName} should be NOT readonly but it was.", timeout, sleepInterval);
             ValidatedIsNotReadonlyEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 

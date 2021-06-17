@@ -50,7 +50,7 @@ namespace Bellatrix.Web.Untils
             {
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

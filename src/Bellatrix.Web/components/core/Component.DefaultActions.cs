@@ -72,16 +72,19 @@ namespace Bellatrix.Web
                     {
                         return false;
                     }
-                    catch (WebDriverException e)
+                    catch (WebDriverTimeoutException e)
+                    {
+                        return false;
+                    }
+                    catch (Exception e)
                     {
                         return false;
                     }
                 });
             }
-            catch (TimeoutException e)
+            catch (Exception e)
             {
-                this.ToExists().ToBeClickable().WaitToBe();
-                WrappedElement.Click();
+                JavaScriptService.Execute("arguments[0].focus();arguments[0].click();", this);
             }
 
             clicked?.Invoke(this, new ComponentActionEventArgs(this));

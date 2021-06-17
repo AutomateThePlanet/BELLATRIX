@@ -12,6 +12,8 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -83,6 +85,14 @@ namespace Bellatrix.Web
             Uri uri = new Uri(currentBrowserUrl);
 
             return HttpUtility.ParseQueryString(uri.Query).Get(parameterName);
+        }
+
+        public string SetQueryParameter(string url, string parameterName, string parameterValue)
+        {
+            Uri uri = new Uri(url);
+            NameValueCollection query = HttpUtility.ParseQueryString(uri.Query);
+            query.Add(new NameValueCollection() { { parameterName, parameterValue } });
+            return uri.GetLeftPart(UriPartial.Path) + "?" + query.ToString();
         }
     }
 }

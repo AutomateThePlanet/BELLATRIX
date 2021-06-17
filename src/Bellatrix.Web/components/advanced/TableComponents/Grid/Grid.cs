@@ -160,8 +160,8 @@ namespace Bellatrix.Web
         {
             string innerXpath = TableService.GetCell(row, column).GetXPath();
             string outerXpath = GetCurrentElementXPath();
-            string fullXpath = outerXpath + innerXpath;
-            GridCell cell = ComponentCreateService.CreateByXpath<GridCell>(fullXpath);
+            string fullXpath = "." + outerXpath + innerXpath;
+            GridCell cell = this.CreateByXpath<GridCell>(fullXpath);
             SetCellMetaData(cell, row, column);
             return cell;
         }
@@ -200,17 +200,17 @@ namespace Bellatrix.Web
             }
         }
 
-        public List<TComponent> GetCells<TComponent>(Func<TComponent, bool> selector)
+        public ComponentsList<TComponent> GetCells<TComponent>(Func<TComponent, bool> selector)
             where TComponent : Component, new()
         {
-            var filteredCells = new List<TComponent>();
+            var filteredCells = new ComponentsList<TComponent>();
             foreach (var gridRow in GetRows())
             {
                 var currentFilteredCells = gridRow.GetCells<TComponent>(selector);
-                filteredCells.AddRange(currentFilteredCells);
+                filteredCells.ToList().AddRange(currentFilteredCells);
             }
 
-            return filteredCells.ToList();
+            return filteredCells;
         }
 
         public TComponent GetFirstOrDefaultCell<TComponent>(Func<TComponent, bool> selector)
@@ -383,7 +383,7 @@ namespace Bellatrix.Web
             cell.Row = row;
             cell.Column = column;
             var headerName = ControlColumnDataCollection[column].HeaderName;
-            var controlData = ControlColumnDataCollection.GetControlColumnDataByHeaderName(headerName.Trim());
+            var controlData = ControlColumnDataCollection.GetControlColumnDataByHeaderName(headerName);
             cell.CellControlBy = controlData.By;
             cell.CellControlComponentType = controlData.ComponentType;
         }

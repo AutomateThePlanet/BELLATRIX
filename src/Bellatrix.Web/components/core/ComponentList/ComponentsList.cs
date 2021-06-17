@@ -64,7 +64,20 @@ namespace Bellatrix.Web
 
         public IWebDriver WrappedDriver { get; }
 
-        public TComponent this[int i] => GetAndWaitWebDriverElements().ElementAt(i);
+        public TComponent this[int i]
+        {
+            get
+            {
+                try
+                {
+                    return GetAndWaitWebDriverElements().ElementAt(i);
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    throw new Exception($"Component at position {i} was not found.", ex);
+                }
+            }
+        }
 
         public IEnumerator<TComponent> GetEnumerator() => GetAndWaitWebDriverElements().GetEnumerator();
 

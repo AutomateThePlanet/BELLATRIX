@@ -82,7 +82,7 @@ namespace Bellatrix.Web
         public IEnumerable<TComponent> GetCells<TComponent>()
             where TComponent : Component, new()
         {
-            var listOfElements = new List<TComponent>();
+            var listOfElements = new ComponentsList<TComponent>();
             var cells = GetCells().ToList();
             for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
             {
