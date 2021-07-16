@@ -22,8 +22,14 @@ namespace Bellatrix.GoogleLighthouse
             Metric = metricName;
         }
 
+        public LighthouseReportEventArgs(string message)
+        {
+            Message = message;
+        }
+
         public dynamic ExpectedValue { get; }
         public dynamic ActualValue { get; }
         public string Metric { get; }
+        public string Message { get; }
     }
 }

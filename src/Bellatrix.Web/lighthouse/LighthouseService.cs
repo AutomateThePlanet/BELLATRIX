@@ -25,6 +25,7 @@ using Bellatrix.GoogleLighthouse;
 using Bellatrix.Layout;
 using Bellatrix.Utilities;
 using Bellatrix.Web;
+using Bellatrix.Web.lighthouse;
 using Newtonsoft.Json;
 
 namespace Bellatrix
@@ -158,14 +159,13 @@ namespace Bellatrix
             AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Categories.Performance.Score.ToString(), PerformanceReport.Value.Categories.Performance.Title));
         }
 
-        public void AssertCustom(Expression<Func<Root, object>> expression, double expected)
+        public MetricPreciseValidationBuilder AssertMetric(Expression<Func<Root, object>> expression)
         {
-            string metricName = TypePropertiesNameResolver.GetMemberName<Root>(expression);
+            string metricName = TypePropertiesNameResolver.GetMemberName(expression);
             Func<Root, object> compiledExpression = expression.Compile();
             dynamic actualValue = compiledExpression(PerformanceReport.Value);
 
-            Assert.IsTrue<LighthouseAssertFailedException>(actualValue > expected, $"{PerformanceReport.Value.Audits.FirstMeaningfulPaint.Title} should be > {expected} but was {actualValue}");
-            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected, PerformanceReport.Value.Audits.FirstMeaningfulPaint.Score, metricName));
+            return new MetricPreciseValidationBuilder(actualValue);
         }
 
         private string GetDefaultLighthouseArgs()
