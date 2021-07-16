@@ -121,6 +121,41 @@ namespace Bellatrix
             AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Audits.BootupTime.Score.ToString(), PerformanceReport.Value.Audits.BootupTime.Title));
         }
 
+        public void AsserSEOScoreAboveThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Categories.Seo.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue > expected, $"{PerformanceReport.Value.Categories.Seo.Title} should be > {expected} but was {PerformanceReport.Value.Categories.Seo.Score}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Categories.Seo.Score.ToString(), PerformanceReport.Value.Categories.Seo.Title));
+        }
+
+        public void AsserBestPracticesScoreAboveThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Categories.BestPractices.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue > expected, $"{PerformanceReport.Value.Categories.BestPractices.Title} should be > {expected} but was {PerformanceReport.Value.Categories.BestPractices.Score}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Categories.BestPractices.Score.ToString(), PerformanceReport.Value.Categories.BestPractices.Title));
+        }
+
+        public void AssertPWAScoreAboveThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Categories.Pwa.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue > expected, $"{PerformanceReport.Value.Categories.Pwa.Title} should be > {expected} but was {PerformanceReport.Value.Categories.Pwa.Score}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Categories.Pwa.Score.ToString(), PerformanceReport.Value.Categories.Pwa.Title));
+        }
+
+        public void AssertAccessibilityScoreAboveThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Categories.Accessibility.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue > expected, $"{PerformanceReport.Value.Categories.Accessibility.Title} should be > {expected} but was {PerformanceReport.Value.Categories.Accessibility.Score}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Categories.Accessibility.Score.ToString(), PerformanceReport.Value.Categories.Accessibility.Title));
+        }
+
+        public void AssertPerformanceScoreAboveThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Categories.Performance.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue > expected, $"{PerformanceReport.Value.Categories.Performance.Title} should be > {expected} but was {PerformanceReport.Value.Categories.Performance.Score}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Categories.Performance.Score.ToString(), PerformanceReport.Value.Categories.Performance.Title));
+        }
+
         private string GetDefaultLighthouseArgs()
         {
             var settings = ConfigurationService.GetSection<LighthouseSettings>();
