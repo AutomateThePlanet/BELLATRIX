@@ -1,0 +1,6 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+	<ItemGroup>
+	  <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
+	</ItemGroup>
+</Project>
