@@ -58,6 +58,7 @@ namespace Bellatrix.Web
         public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+        public LighthouseService Lighthouse => ServicesCollection.Current.Resolve<LighthouseService>();
 
         public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 

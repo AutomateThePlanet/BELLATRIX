@@ -47,6 +47,7 @@ namespace Bellatrix.Web
 
         private static ProxyService _proxyService;
         public static BrowserConfiguration BrowserConfiguration { get; set; }
+        public static int Port { get; set; }
 
         public static IWebDriver Create(BrowserConfiguration executionConfiguration)
         {
@@ -159,9 +160,19 @@ namespace Bellatrix.Web
                     var chromeDriverService = ChromeDriverService.CreateDefaultService();
                     chromeDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeDriverService.EnableVerboseLogging = false;
-                    chromeDriverService.Port = GetFreeTcpPort();
                     var chromeOptions = executionConfiguration.DriverOptions;
                     chromeOptions.AddArguments("--log-level=3");
+                    GetFreeTcpPort();
+
+                    if (executionConfiguration.IsLighthouseEnabled)
+                    {
+                        ProcessProvider.StartCLIProcess($"chrome-debug --port={Port}");
+                        chromeOptions.DebuggerAddress = $"127.0.0.1:{Port}";
+                    }
+                    else
+                    {
+                        chromeDriverService.Port = Port;
+                    }
 
                     if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
@@ -177,7 +188,7 @@ namespace Bellatrix.Web
                         chromeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
 
-                    if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
+                    if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled && !executionConfiguration.IsLighthouseEnabled)
                     {
                         chromeOptions.Proxy = webDriverProxy;
                     }
@@ -451,6 +462,7 @@ namespace Bellatrix.Web
             tcpListener.Start();
             int port = ((IPEndPoint)tcpListener.LocalEndpoint).Port;
             tcpListener.Stop();
+            Port = port;
             return port;
         }
     }

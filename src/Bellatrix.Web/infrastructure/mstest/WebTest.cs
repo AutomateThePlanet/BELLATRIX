@@ -55,6 +55,7 @@ namespace Bellatrix.Web.MSTest
                     WebPluginsConfiguration.AddDynamicTestCases();
                     WebPluginsConfiguration.AddBugReporting();
                     WebPluginsConfiguration.AddHighlightComponents();
+                    WebPluginsConfiguration.AddMSTestGoogleLighthouse();
 
                     if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
                     {

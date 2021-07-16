@@ -51,6 +51,7 @@ namespace Bellatrix.Web.NUnit
                     WebPluginsConfiguration.AddDynamicTestCases();
                     WebPluginsConfiguration.AddBugReporting();
                     WebPluginsConfiguration.AddHighlightComponents();
+                    WebPluginsConfiguration.AddNUnitGoogleLighthouse();
 
                     if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
                     {

@@ -1,0 +1,150 @@
+﻿// <copyright file="LighthouseService.cs" company="Automate The Planet Ltd.">
+// Copyright 2021 Automate The Planet Ltd.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+// <author>Anton Angelov</author>
+// <site>https://bellatrix.solutions/</site>
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using Bellatrix.Assertions;
+using Bellatrix.GoogleLighthouse;
+using Bellatrix.Layout;
+using Bellatrix.Utilities;
+using Bellatrix.Web;
+using Newtonsoft.Json;
+
+namespace Bellatrix
+{
+    public class LighthouseService
+    {
+        public static event EventHandler<LighthouseReportEventArgs> AssertedLighthouseReportEventArgs;
+
+        public static ThreadLocal<Root> PerformanceReport { get; set; }
+
+        static LighthouseService()
+        {
+            PerformanceReport = new ThreadLocal<Root>();
+        }
+
+        public void PerformLighthouseAnalysis(string customArgs = "", bool shouldOverrideDefaultArgs = false)
+        {
+            var driverExecutablePath = ExecutionDirectoryResolver.GetDriverExecutablePath();
+            var browserService = ServicesCollection.Current.Resolve<BrowserService>();
+            string arguments;
+            if (shouldOverrideDefaultArgs)
+            {
+                arguments = $"lighthouse {browserService.Url} --output=json,html,csv --port={WrappedWebDriverCreateService.Port} {customArgs}";
+            }
+            else
+            {
+                var defaultArgs = GetDefaultLighthouseArgs();
+                arguments = $"lighthouse {browserService.Url} --output=json,html,csv --port={WrappedWebDriverCreateService.Port} {defaultArgs} {customArgs}";
+            }
+
+            ProcessProvider.StartCLIProcessAndWaitToFinish(driverExecutablePath, arguments, false, 60, o => Console.WriteLine(o), e => Console.WriteLine(e));
+
+            ReadPerformanceReport();
+        }
+
+        public void AssertFirstMeaningfulPaintScoreMoreThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Audits.FirstMeaningfulPaint.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue > expected, $"{PerformanceReport.Value.Audits.FirstMeaningfulPaint.Title} should be > {expected} but was {actualValue}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Audits.FirstMeaningfulPaint.Score.ToString(), PerformanceReport.Value.Audits.FirstMeaningfulPaint.Title));
+        }
+
+        public void AssertFirstContentfulPaintScoreLessThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Audits.FirstContentfulPaint.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue < expected, $"{PerformanceReport.Value.Audits.FirstContentfulPaint.Title} should be < {expected} but was {actualValue}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Audits.FirstContentfulPaint.Score.ToString(), PerformanceReport.Value.Audits.FirstContentfulPaint.Title));
+        }
+
+        public void AssertSpeedIndexScoreLessThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Audits.SpeedIndex.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue < expected, $"{PerformanceReport.Value.Audits.SpeedIndex.Title} should be < {expected} but was {actualValue}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Audits.SpeedIndex.Score.ToString(), PerformanceReport.Value.Audits.SpeedIndex.Title));
+        }
+
+        public void AssertLargestContentfulPaintScoreLessThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Audits.LargestContentfulPaint.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue < expected, $"{PerformanceReport.Value.Audits.LargestContentfulPaint.Title} should be < {expected} but was {actualValue}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Audits.LargestContentfulPaint.Score.ToString(), PerformanceReport.Value.Audits.LargestContentfulPaint.Title));
+        }
+
+        public void AssertInteractiveScoreLessThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Audits.Interactive.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue < expected, $"{PerformanceReport.Value.Audits.Interactive.Title} should be < {expected} but was {actualValue}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Audits.Interactive.Score.ToString(), PerformanceReport.Value.Audits.Interactive.Title));
+        }
+
+        public void AssertTotalBlockingTimeLessThan(double expected)
+        {
+            double actualValue = double.Parse(PerformanceReport.Value.Audits.TotalBlockingTime.DisplayValue);
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue < expected, $"{PerformanceReport.Value.Audits.TotalBlockingTime.Title} should be < {expected} but was {actualValue}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Audits.TotalBlockingTime.DisplayValue, PerformanceReport.Value.Audits.TotalBlockingTime.Title));
+        }
+
+        public void AssertCumulativeLayoutShiftScoreLessThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Audits.CumulativeLayoutShift.Score;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue < expected, $"{PerformanceReport.Value.Audits.CumulativeLayoutShift.Title} should be < {expected} but was {actualValue}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Audits.CumulativeLayoutShift.Score.ToString(), PerformanceReport.Value.Audits.CumulativeLayoutShift.Title));
+        }
+
+        public void AssertRedirectScoreAboveThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Audits.Redirects.NumericValue;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue < expected, $"{PerformanceReport.Value.Audits.Redirects.Title} should be > {expected} but was {PerformanceReport.Value.Audits.Redirects.NumericValue}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Audits.Redirects.Score.ToString(), PerformanceReport.Value.Audits.Redirects.Title));
+        }
+
+        public void AsserJavaExecutionTimeScoreAboveThan(double expected)
+        {
+            double actualValue = PerformanceReport.Value.Audits.BootupTime.NumericValue;
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue < expected, $"{PerformanceReport.Value.Audits.BootupTime.Title} should be > {expected} but was {PerformanceReport.Value.Audits.BootupTime.NumericValue}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Audits.BootupTime.Score.ToString(), PerformanceReport.Value.Audits.BootupTime.Title));
+        }
+
+        private string GetDefaultLighthouseArgs()
+        {
+            var settings = ConfigurationService.GetSection<LighthouseSettings>();
+            var defaultArgs = new StringBuilder();
+            foreach (var item in settings.Arguments[0])
+            {
+                defaultArgs.Append($" --{item.Key}");
+                if (!string.IsNullOrEmpty(item.Value))
+                {
+                    defaultArgs.Append($"={item.Value}");
+                }
+            }
+
+            return defaultArgs.ToString();
+        }
+
+        private void ReadPerformanceReport()
+        {
+            var driverExecutablePath = ExecutionDirectoryResolver.GetDriverExecutablePath();
+            var directoryInfo = new DirectoryInfo(driverExecutablePath);
+            string pattern = "*.report.json";
+            var file = directoryInfo.GetFiles(pattern, SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
+            string fileContent = File.ReadAllText(file.FullName);
+            PerformanceReport.Value = JsonConvert.DeserializeObject<Root>(fileContent);
+        }
+    }
+}

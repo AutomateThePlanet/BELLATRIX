@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace Bellatrix.Utilities
@@ -29,7 +30,40 @@ namespace Bellatrix.Utilities
             return process.StartTime;
         }
 
-        public static void Start(string fileName, string arguments) => Process.Start(fileName, arguments);
+        public static void Start(string fileName, string arguments)
+        {
+            Process.Start(fileName, arguments);
+        }
+
+        public static void StartCLIProcess(string arguments)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start("cmd.exe", $"/c {arguments}");
+            }
+            else
+            {
+                Process.Start("/bin/bash", $"-c {arguments}");
+            }
+        }
+
+        public static int StartCLIProcessAndWaitToFinish(
+           string workingDir,
+           string arguments,
+           bool useShellExecute,
+           int timeoutMinutes,
+           Action<string> standardOutputCallback = null,
+           Action<string> errorOutputCallback = null)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return StartProcessAndWaitToFinish("cmd.exe", workingDir, $"/c {arguments}", useShellExecute, timeoutMinutes, standardOutputCallback, errorOutputCallback);
+            }
+            else
+            {
+                return StartProcessAndWaitToFinish("/bin/bash", workingDir, $"-c {arguments}", useShellExecute, timeoutMinutes, standardOutputCallback, errorOutputCallback);
+            }
+        }
 
         public static void CloseProcess(Process process)
         {

@@ -181,6 +181,7 @@ namespace Bellatrix.Web.Plugins.Browser
                 InitializeCustomCodeOptions(options, testClassType);
 
                 var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible, options);
+                browserConfiguration.IsLighthouseEnabled = browserAttribute.IsLighthouseEnabled;
                 container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
 
                 return browserConfiguration;
@@ -342,6 +343,12 @@ namespace Bellatrix.Web.Plugins.Browser
 
             var methodBrowserAttribute = memberInfo?.GetCustomAttributes<BrowserAttribute>(true).FirstOrDefault(x => x.OS.Equals(currentPlatform));
             var classBrowserAttribute = testClassType.GetCustomAttributes<BrowserAttribute>(true).FirstOrDefault(x => x.OS.Equals(currentPlatform));
+            ////var lighthouseAttribute = testClassType.GetCustomAttributes<LighthouseAnalysisRunAttribute>(true).FirstOrDefault();
+
+            ////if (lighthouseAttribute != null)
+            ////{
+            ////    return lighthouseAttribute;
+            ////}
 
             int? appMethodsAttributesCount = memberInfo?.GetCustomAttributes<BrowserAttribute>(true).Count();
             int appClassAttributesCount = testClassType.GetCustomAttributes<BrowserAttribute>(true).Count();

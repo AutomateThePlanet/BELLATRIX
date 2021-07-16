@@ -1,4 +1,4 @@
-﻿// <copyright file="LighthouseSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="LighthouseReportEventArgs.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,11 +11,19 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix
+namespace Bellatrix.GoogleLighthouse
 {
-    public class LighthouseSettings
+    public class LighthouseReportEventArgs
     {
-        public string InstrumentationKey { get; set; }
-        public bool IsEnabled { get; set; }
+        public LighthouseReportEventArgs(string expectedValue, string actualValue, string metric)
+        {
+            ExpectedValue = expectedValue;
+            ActualValue = actualValue;
+            Metric = metric;
+        }
+
+        public string ExpectedValue { get; }
+        public string ActualValue { get; }
+        public string Metric { get; }
     }
 }

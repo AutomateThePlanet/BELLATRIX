@@ -26,6 +26,7 @@ namespace Bellatrix.Web.Services
             try
             {
                 var driver = ServicesCollection.Current.Resolve<IWebDriver>();
+                driver?.Close();
                 driver?.Quit();
                 driver?.Dispose();
                 ServicesCollection.Current?.UnregisterSingleInstance<IWebDriver>();
@@ -42,6 +43,7 @@ namespace Bellatrix.Web.Services
         {
             try
             {
+                webDriver?.Close();
                 webDriver?.Quit();
                 webDriver?.Dispose();
                 container?.UnregisterSingleInstance<IWebDriver>();
@@ -61,6 +63,7 @@ namespace Bellatrix.Web.Services
                 try
                 {
                     var driver = childContainer.Resolve<IWebDriver>();
+                    driver?.Close();
                     driver?.Quit();
                     driver?.Dispose();
                     childContainer?.UnregisterSingleInstance<IWebDriver>();
