@@ -73,7 +73,7 @@ namespace Bellatrix.Web
 
             var currentBrowserUrl = App.Browser.Url.ToString();
 
-            App.Assert.IsTrue(currentBrowserUrl.Contains(partialUrl), $"The expected partialUrl: '{partialUrl}' was not found in the PageUrl: '{currentBrowserUrl}'");
+            App.Assert.IsTrue(currentBrowserUrl.ToLower().Contains(partialUrl.ToLower()), $"The expected partialUrl: '{partialUrl}' was not found in the PageUrl: '{currentBrowserUrl}'");
         }
 
         public void AssertNotLandedOnPage(string partialUrl, bool shouldUrlEncode = false)

@@ -18,6 +18,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Web;
 using Bellatrix.Utilities;
 using HtmlAgilityPack;
 
@@ -158,7 +159,7 @@ namespace Bellatrix.Web
                     }
                     else
                     {
-                        headerName = currentHeader.SelectSingleNode(_xpathToNameElement).InnerText;
+                        headerName = HttpUtility.HtmlDecode(currentHeader.SelectSingleNode(_xpathToNameElement).InnerText);
                     }
 
                     int colSpan = GetColSpan(currentHeader);

@@ -12,11 +12,23 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
+using System;
+
 namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
 {
     public class AnchorControlDataHandler : IReadonlyControlDataHandler<Anchor>
     {
-        public dynamic GetData(Anchor element) => element.InnerText.Trim();
+        public dynamic GetData(Anchor element)
+        {
+            try
+            {
+                return element.InnerText.Trim();
+            }
+            catch (TimeoutException)
+            {
+                return null;
+            }
+        }
 
         public void ValidateValueIs(Anchor element, string expectedValue) => element.ValidateInnerTextIs(expectedValue);
     }

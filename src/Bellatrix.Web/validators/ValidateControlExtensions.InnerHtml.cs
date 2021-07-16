@@ -33,6 +33,13 @@ namespace Bellatrix.Web
             ValidatedInnerHtmlContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
+        public static void ValidateInnerHtmlNotContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+          where T : IComponentInnerHtml, IComponent
+        {
+            WaitUntil(() => !control.InnerHtml.Trim().Contains(value), $"The control's inner HTML should not contain '{value}' but was '{control.InnerHtml}'.", timeout, sleepInterval);
+            ValidatedInnerHtmlContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+        }
+
         public static event EventHandler<ComponentActionEventArgs> ValidatedInnerHtmlIsEvent;
         public static event EventHandler<ComponentActionEventArgs> ValidatedInnerHtmlContainsEvent;
     }
