@@ -17,7 +17,7 @@ public class Environment
     public string HostUserAgent { get; set; }
 
     [JsonProperty("benchmarkIndex")]
-    public int BenchmarkIndex { get; set; }
+    public double BenchmarkIndex { get; set; }
 
     [JsonProperty("credits")]
     public Credits Credits { get; set; }
@@ -41,7 +41,7 @@ public class Heading
     public string Label { get; set; }
 
     [JsonProperty("granularity")]
-    public int? Granularity { get; set; }
+    public double? Granularity { get; set; }
 
     [JsonProperty("subItemsHeading")]
     public SubItemsHeading SubItemsHeading { get; set; }
@@ -92,34 +92,34 @@ public class Item
     public double Duration { get; set; }
 
     [JsonProperty("numRequests")]
-    public int NumRequests { get; set; }
+    public double NumRequests { get; set; }
 
     [JsonProperty("numScripts")]
-    public int NumScripts { get; set; }
+    public double NumScripts { get; set; }
 
     [JsonProperty("numStylesheets")]
-    public int NumStylesheets { get; set; }
+    public double NumStylesheets { get; set; }
 
     [JsonProperty("numFonts")]
-    public int NumFonts { get; set; }
+    public double NumFonts { get; set; }
 
     [JsonProperty("numTasks")]
-    public int NumTasks { get; set; }
+    public double NumTasks { get; set; }
 
     [JsonProperty("numTasksOver10ms")]
-    public int NumTasksOver10ms { get; set; }
+    public double NumTasksOver10ms { get; set; }
 
     [JsonProperty("numTasksOver25ms")]
-    public int NumTasksOver25ms { get; set; }
+    public double NumTasksOver25ms { get; set; }
 
     [JsonProperty("numTasksOver50ms")]
-    public int NumTasksOver50ms { get; set; }
+    public double NumTasksOver50ms { get; set; }
 
     [JsonProperty("numTasksOver100ms")]
-    public int NumTasksOver100ms { get; set; }
+    public double NumTasksOver100ms { get; set; }
 
     [JsonProperty("numTasksOver500ms")]
-    public int NumTasksOver500ms { get; set; }
+    public double NumTasksOver500ms { get; set; }
 
     [JsonProperty("rtt")]
     public double Rtt { get; set; }
@@ -134,13 +134,13 @@ public class Item
     public double MaxServerLatency { get; set; }
 
     [JsonProperty("totalByteWeight")]
-    public int TotalByteWeight { get; set; }
+    public double TotalByteWeight { get; set; }
 
     [JsonProperty("totalTaskTime")]
     public double TotalTaskTime { get; set; }
 
     [JsonProperty("mainDocumentTransferSize")]
-    public int MainDocumentTransferSize { get; set; }
+    public double MainDocumentTransferSize { get; set; }
 
     [JsonProperty("resourceType")]
     public string ResourceType { get; set; }
@@ -149,10 +149,10 @@ public class Item
     public string Label { get; set; }
 
     [JsonProperty("requestCount")]
-    public int RequestCount { get; set; }
+    public double RequestCount { get; set; }
 
     [JsonProperty("transferSize")]
-    public int TransferSize { get; set; }
+    public double TransferSize { get; set; }
 
     [JsonProperty("severity")]
     public string Severity { get; set; }
@@ -161,10 +161,10 @@ public class Item
     public string Description { get; set; }
 
     [JsonProperty("totalBytes")]
-    public int TotalBytes { get; set; }
+    public double TotalBytes { get; set; }
 
     [JsonProperty("wastedBytes")]
-    public int WastedBytes { get; set; }
+    public double WastedBytes { get; set; }
 
     [JsonProperty("wastedPercent")]
     public double WastedPercent { get; set; }
@@ -215,7 +215,7 @@ public class Details
     public Summary Summary { get; set; }
 
     [JsonProperty("overallSavingsBytes")]
-    public int OverallSavingsBytes { get; set; }
+    public double OverallSavingsBytes { get; set; }
 }
 
 public class IsOnHttps
@@ -230,7 +230,7 @@ public class IsOnHttps
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -254,7 +254,7 @@ public class RedirectsHttp
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -272,7 +272,7 @@ public class ServiceWorker
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -290,7 +290,7 @@ public class Viewport
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -419,7 +419,7 @@ public class TotalBlockingTime
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -452,7 +452,7 @@ public class MaxPotentialFid
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -473,7 +473,7 @@ public class CumulativeLayoutShift
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -503,7 +503,7 @@ public class ErrorsInConsole
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -524,7 +524,7 @@ public class ServerResponseTime
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -575,10 +575,10 @@ public class LongestChain
     public double Duration { get; set; }
 
     [JsonProperty("length")]
-    public int Length { get; set; }
+    public double Length { get; set; }
 
     [JsonProperty("transferSize")]
-    public int TransferSize { get; set; }
+    public double TransferSize { get; set; }
 }
 
 public class CriticalRequestChains
@@ -617,13 +617,13 @@ public class Redirects
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -665,13 +665,13 @@ public class InstallableManifest
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -698,7 +698,7 @@ public class AppleTouchIcon
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -719,7 +719,7 @@ public class SplashScreen
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -743,7 +743,7 @@ public class ThemedOmnibox
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -767,7 +767,7 @@ public class MaskableIcon
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -788,7 +788,7 @@ public class ContentWidth
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -806,7 +806,7 @@ public class ImageAspectRatio
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -827,7 +827,7 @@ public class ImageSizeResponsive
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -869,7 +869,7 @@ public class Deprecations
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -914,7 +914,7 @@ public class Summary
     public double WastedMs { get; set; }
 
     [JsonProperty("wastedBytes")]
-    public int WastedBytes { get; set; }
+    public double WastedBytes { get; set; }
 }
 
 public class BootupTime
@@ -959,13 +959,13 @@ public class UsesRelPreload
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -989,13 +989,13 @@ public class UsesRelPreconnect
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -1022,7 +1022,7 @@ public class FontDisplay
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1220,7 +1220,7 @@ public class ThirdPartySummary
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1331,7 +1331,7 @@ public class NoUnloadListeners
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1373,7 +1373,7 @@ public class UnsizedImages
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1394,7 +1394,7 @@ public class ValidSourceMaps
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1415,13 +1415,13 @@ public class PreloadLcpImage
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -1538,7 +1538,7 @@ public class AriaAllowedAttr
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1577,7 +1577,7 @@ public class AriaHiddenBody
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1670,7 +1670,7 @@ public class AriaRequiredAttr
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1727,7 +1727,7 @@ public class AriaRoles
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1802,7 +1802,7 @@ public class AriaValidAttrValue
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1823,7 +1823,7 @@ public class AriaValidAttr
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1844,7 +1844,7 @@ public class ButtonName
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1865,7 +1865,7 @@ public class Bypass
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1886,7 +1886,7 @@ public class ColorContrast
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1943,7 +1943,7 @@ public class DocumentTitle
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1964,7 +1964,7 @@ public class DuplicateIdActive
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -1985,7 +1985,7 @@ public class DuplicateIdAria
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2042,7 +2042,7 @@ public class HeadingOrder
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2063,7 +2063,7 @@ public class HtmlHasLang
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2084,7 +2084,7 @@ public class HtmlLangValid
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2105,7 +2105,7 @@ public class ImageAlt
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2144,7 +2144,7 @@ public class Label
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2165,7 +2165,7 @@ public class LinkName
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2186,7 +2186,7 @@ public class List
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2207,7 +2207,7 @@ public class Listitem
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2246,7 +2246,7 @@ public class MetaViewport
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2285,7 +2285,7 @@ public class Tabindex
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -2588,13 +2588,13 @@ public class TotalByteWeight
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2618,13 +2618,13 @@ public class OffscreenImages
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2657,7 +2657,7 @@ public class RenderBlockingResources
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2681,13 +2681,13 @@ public class UnminifiedCss
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2711,13 +2711,13 @@ public class UnminifiedJavascript
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2750,7 +2750,7 @@ public class UnusedCssRules
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2774,13 +2774,13 @@ public class UnusedJavascript
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2804,13 +2804,13 @@ public class ModernImageFormats
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2837,13 +2837,13 @@ public class UsesOptimizedImages
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2870,13 +2870,13 @@ public class UsesTextCompression
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2900,13 +2900,13 @@ public class UsesResponsiveImages
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2930,13 +2930,13 @@ public class EfficientAnimatedContent
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2960,13 +2960,13 @@ public class DuplicatedJavascript
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -2990,13 +2990,13 @@ public class LegacyJavascript
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -3020,7 +3020,7 @@ public class AppcacheManifest
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3038,7 +3038,7 @@ public class Doctype
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3056,7 +3056,7 @@ public class Charset
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3074,13 +3074,13 @@ public class DomSize
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -3104,7 +3104,7 @@ public class ExternalAnchorsUseRelNoopener
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3128,7 +3128,7 @@ public class GeolocationOnStart
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3149,7 +3149,7 @@ public class InspectorIssues
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3170,7 +3170,7 @@ public class NoDocumentWrite
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3191,7 +3191,7 @@ public class NoVulnerableLibraries
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3224,7 +3224,7 @@ public class JsLibraries
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3245,7 +3245,7 @@ public class NotificationOnStart
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3266,7 +3266,7 @@ public class PasswordInputsCanBePastedInto
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3293,7 +3293,7 @@ public class UsesHttp2
     public string ScoreDisplayMode { get; set; }
 
     [JsonProperty("numericValue")]
-    public int NumericValue { get; set; }
+    public double NumericValue { get; set; }
 
     [JsonProperty("numericUnit")]
     public string NumericUnit { get; set; }
@@ -3317,7 +3317,7 @@ public class UsesPassiveEventListeners
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3338,7 +3338,7 @@ public class MetaDescription
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3356,7 +3356,7 @@ public class HttpStatusCode
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3383,7 +3383,7 @@ public class FontSize
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3407,7 +3407,7 @@ public class LinkText
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3428,7 +3428,7 @@ public class CrawlableAnchors
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3449,7 +3449,7 @@ public class IsCrawlable
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3470,7 +3470,7 @@ public class RobotsTxt
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3491,7 +3491,7 @@ public class TapTargets
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3515,7 +3515,7 @@ public class Hreflang
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3536,7 +3536,7 @@ public class Plugins
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }
@@ -3557,7 +3557,7 @@ public class Canonical
     public string Description { get; set; }
 
     [JsonProperty("score")]
-    public int Score { get; set; }
+    public double Score { get; set; }
 
     [JsonProperty("scoreDisplayMode")]
     public string ScoreDisplayMode { get; set; }

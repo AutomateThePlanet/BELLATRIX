@@ -15,15 +15,15 @@ namespace Bellatrix.GoogleLighthouse
 {
     public class LighthouseReportEventArgs
     {
-        public LighthouseReportEventArgs(string expectedValue, string actualValue, string metric)
+        public LighthouseReportEventArgs(dynamic expectedValue, dynamic actualValue, string metricName)
         {
             ExpectedValue = expectedValue;
             ActualValue = actualValue;
-            Metric = metric;
+            Metric = metricName;
         }
 
-        public string ExpectedValue { get; }
-        public string ActualValue { get; }
+        public dynamic ExpectedValue { get; }
+        public dynamic ActualValue { get; }
         public string Metric { get; }
     }
 }

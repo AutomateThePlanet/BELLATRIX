@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using Bellatrix.Assertions;
@@ -154,6 +156,16 @@ namespace Bellatrix
             double actualValue = PerformanceReport.Value.Categories.Performance.Score;
             Assert.IsTrue<LighthouseAssertFailedException>(actualValue > expected, $"{PerformanceReport.Value.Categories.Performance.Title} should be > {expected} but was {PerformanceReport.Value.Categories.Performance.Score}");
             AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Categories.Performance.Score.ToString(), PerformanceReport.Value.Categories.Performance.Title));
+        }
+
+        public void AssertCustom(Expression<Func<Root, object>> expression, double expected)
+        {
+            string metricName = TypePropertiesNameResolver.GetMemberName<Root>(expression);
+            Func<Root, object> compiledExpression = expression.Compile();
+            dynamic actualValue = compiledExpression(PerformanceReport.Value);
+
+            Assert.IsTrue<LighthouseAssertFailedException>(actualValue > expected, $"{PerformanceReport.Value.Audits.FirstMeaningfulPaint.Title} should be > {expected} but was {actualValue}");
+            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(expected, PerformanceReport.Value.Audits.FirstMeaningfulPaint.Score, metricName));
         }
 
         private string GetDefaultLighthouseArgs()

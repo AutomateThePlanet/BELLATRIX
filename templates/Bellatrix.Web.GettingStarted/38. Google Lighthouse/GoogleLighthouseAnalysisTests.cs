@@ -28,6 +28,7 @@ namespace Bellatrix.Web.GettingStarted
 
             App.Lighthouse.PerformLighthouseAnalysis();
 
+            App.Lighthouse.AssertCustom(r => r.Categories.Performance.Score, 0.5);
             App.Lighthouse.AssertFirstMeaningfulPaintScoreMoreThan(0.5);
 
             Anchor logoutLink = App.Components.CreateByInnerTextContaining<Anchor>("Log out");
