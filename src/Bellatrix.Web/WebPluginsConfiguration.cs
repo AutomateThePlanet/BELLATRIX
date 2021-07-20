@@ -13,7 +13,8 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Collections.Generic;
-
+using Bellatrix.GoogleLighthouse.MSTest;
+using Bellatrix.GoogleLighthouse.NUnit;
 using Bellatrix.Layout;
 using Bellatrix.Plugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
@@ -67,6 +68,16 @@ namespace Bellatrix.Web
             ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Reset>, ResetControlDataHandler>();
             ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Span>, SpanControlDataHandler>();
             ServicesCollection.Current.RegisterType<IReadonlyControlDataHandler<Color>, ColorControlDataHandler>();
+        }
+
+        public static void AddMSTestGoogleLighthouse()
+        {
+            ServicesCollection.Current.RegisterType<Plugin, MSTestLighthouseReportsWorkflowPlugin>(Guid.NewGuid().ToString());
+        }
+
+        public static void AddNUnitGoogleLighthouse()
+        {
+            ServicesCollection.Current.RegisterType<Plugin, NUnitLighthouseReportsWorkflowPlugin>(Guid.NewGuid().ToString());
         }
 
         public static void AddValidateExtensionsBddLogging()

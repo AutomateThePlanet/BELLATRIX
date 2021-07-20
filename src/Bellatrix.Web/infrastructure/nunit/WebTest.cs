@@ -51,6 +51,14 @@ namespace Bellatrix.Web.NUnit
                     WebPluginsConfiguration.AddDynamicTestCases();
                     WebPluginsConfiguration.AddBugReporting();
                     WebPluginsConfiguration.AddHighlightComponents();
+                    WebPluginsConfiguration.AddNUnitGoogleLighthouse();
+
+                    APIPluginsConfiguration.AddAssertExtensionsBddLogging();
+                    APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
+                    APIPluginsConfiguration.AddAssertExtensionsBugReporting();
+                    APIPluginsConfiguration.AddApiAuthenticationStrategies();
+                    APIPluginsConfiguration.AddRetryFailedRequests();
+                    APIPluginsConfiguration.AddLogExecution();
 
                     if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
                     {

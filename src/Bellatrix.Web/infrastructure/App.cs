@@ -15,10 +15,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using Bellatrix.Api;
+using Bellatrix.Api.Configuration;
 using Bellatrix.Assertions;
 using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.Plugins;
+using Bellatrix.Utilities;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Proxy;
@@ -29,6 +32,8 @@ namespace Bellatrix.Web
 {
     public class App : IDisposable
     {
+        private readonly ApiClientService _apiClientService;
+
         [Obsolete("BrowserService is deprecated use Browser property instead.")]
         public BrowserService BrowserService => ServicesCollection.Current.Resolve<BrowserService>();
         public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
@@ -58,6 +63,7 @@ namespace Bellatrix.Web
         public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
 
         public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+        public LighthouseService Lighthouse => ServicesCollection.Current.Resolve<LighthouseService>();
 
         public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
@@ -68,6 +74,43 @@ namespace Bellatrix.Web
         public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
         public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
+
+        public ApiClientService ApiClient { get => _apiClientService; init => _apiClientService = GetNewApiClientService(); }
+
+        public ApiClientService GetNewApiClientService(string url = null, bool sharedCookies = true, int maxRetryAttempts = 1, int pauseBetweenFailures = 1, TimeUnit timeUnit = TimeUnit.Seconds)
+        {
+            ServicesCollection.Current.UnregisterSingleInstance<ApiClientService>();
+
+            bool isClientRegistered = ServicesCollection.Current.IsRegistered<ApiClientService>();
+            var client = ServicesCollection.Current.Resolve<ApiClientService>();
+
+            if (!isClientRegistered || client == null)
+            {
+                client = new ApiClientService();
+                if (string.IsNullOrEmpty(url))
+                {
+                    var apiSettingsConfig = ConfigurationService.GetSection<ApiSettings>();
+
+                    client.WrappedClient.BaseUrl = new Uri(apiSettingsConfig.BaseUrl);
+                }
+                else
+                {
+                    client.WrappedClient.BaseUrl = new Uri(url);
+                }
+
+                if (sharedCookies)
+                {
+                    client.WrappedClient.CookieContainer = new System.Net.CookieContainer();
+                }
+
+                client.PauseBetweenFailures = TimeSpanConverter.Convert(pauseBetweenFailures, timeUnit);
+                client.MaxRetryAttempts = maxRetryAttempts;
+
+                ServicesCollection.Current.RegisterInstance(client);
+            }
+
+            return client;
+        }
 
         public void AddWebDriverOptions<TDriverOptions>(TDriverOptions options)
             where TDriverOptions : DriverOptions
