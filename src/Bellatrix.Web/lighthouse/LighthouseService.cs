@@ -23,6 +23,7 @@ using System.Threading;
 using Bellatrix.Assertions;
 using Bellatrix.GoogleLighthouse;
 using Bellatrix.Layout;
+using Bellatrix.Lighthouse;
 using Bellatrix.Utilities;
 using Bellatrix.Web;
 using Bellatrix.Web.lighthouse;

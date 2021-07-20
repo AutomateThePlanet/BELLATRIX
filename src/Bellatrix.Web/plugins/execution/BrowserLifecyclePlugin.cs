@@ -31,9 +31,9 @@ using OpenQA.Selenium.Opera;
 
 namespace Bellatrix.Web.Plugins.Browser
 {
-    public class BrowserLifecyclePlugin : Plugin
+    public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
     {
-        protected override void PreTestsArrange(object sender, PluginEventArgs e)
+        protected override void PreTestsArrange(object sender, Bellatrix.Plugins.PluginEventArgs e)
         {
             // Resolve required data for decision making
             var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container, e.Arguments);
@@ -84,7 +84,7 @@ namespace Bellatrix.Web.Plugins.Browser
             base.PreTestInit(sender, e);
         }
 
-        protected override void PostTestCleanup(object sender, PluginEventArgs e)
+        protected override void PostTestCleanup(object sender, Bellatrix.Plugins.PluginEventArgs e)
         {
             var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container, e.Arguments);
             if (currentBrowserConfiguration != null)
@@ -181,7 +181,6 @@ namespace Bellatrix.Web.Plugins.Browser
                 InitializeCustomCodeOptions(options, testClassType);
 
                 var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible, options);
-                browserConfiguration.IsLighthouseEnabled = browserAttribute.IsLighthouseEnabled;
                 container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
 
                 return browserConfiguration;
@@ -343,12 +342,6 @@ namespace Bellatrix.Web.Plugins.Browser
 
             var methodBrowserAttribute = memberInfo?.GetCustomAttributes<BrowserAttribute>(true).FirstOrDefault(x => x.OS.Equals(currentPlatform));
             var classBrowserAttribute = testClassType.GetCustomAttributes<BrowserAttribute>(true).FirstOrDefault(x => x.OS.Equals(currentPlatform));
-            ////var lighthouseAttribute = testClassType.GetCustomAttributes<LighthouseAnalysisRunAttribute>(true).FirstOrDefault();
-
-            ////if (lighthouseAttribute != null)
-            ////{
-            ////    return lighthouseAttribute;
-            ////}
 
             int? appMethodsAttributesCount = memberInfo?.GetCustomAttributes<BrowserAttribute>(true).Count();
             int appClassAttributesCount = testClassType.GetCustomAttributes<BrowserAttribute>(true).Count();

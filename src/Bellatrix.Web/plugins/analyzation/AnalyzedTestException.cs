@@ -32,6 +32,6 @@ namespace Bellatrix.ExceptionAnalysation
         {
         }
 
-        private static string FormatExceptionMessage(string exceptionMessage) => $"{Environment.NewLine}{Environment.NewLine}{new string('#', 40)}{Environment.NewLine}{Environment.NewLine}{exceptionMessage}{Environment.NewLine}{Environment.NewLine}{new string('#', 40)}{Environment.NewLine}";
+        private static string FormatExceptionMessage(string exceptionMessage) => $"{System.Environment.NewLine}{System.Environment.NewLine}{new string('#', 40)}{System.Environment.NewLine}{System.Environment.NewLine}{exceptionMessage}{System.Environment.NewLine}{System.Environment.NewLine}{new string('#', 40)}{System.Environment.NewLine}";
     }
 }
