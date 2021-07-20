@@ -48,6 +48,7 @@ namespace Bellatrix.Web
         private static ProxyService _proxyService;
         public static BrowserConfiguration BrowserConfiguration { get; set; }
         public static int Port { get; set; }
+        public static int DebuggerPort { get; set; }
 
         public static IWebDriver Create(BrowserConfiguration executionConfiguration)
         {
@@ -74,6 +75,14 @@ namespace Bellatrix.Web
                     if (gridUrl == null || !Uri.IsWellFormedUriString(gridUrl.ToString(), UriKind.Absolute))
                     {
                         throw new ArgumentException("To execute your tests in WebDriver Grid mode you need to set the gridUri in the browserSettings file.");
+                    }
+
+                    DebuggerPort = GetFreeTcpPort();
+
+                    if (executionConfiguration.IsLighthouseEnabled && (executionConfiguration.BrowserType.Equals(BrowserType.Chrome) || executionConfiguration.BrowserType.Equals(BrowserType.ChromeHeadless)))
+                    {
+                        executionConfiguration.DriverOptions.AddArgument("--remote-debugging-address=0.0.0.0");
+                        executionConfiguration.DriverOptions.AddArgument($"--remote-debugging-port={DebuggerPort}");
                     }
 
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -162,16 +171,16 @@ namespace Bellatrix.Web
                     chromeDriverService.EnableVerboseLogging = false;
                     var chromeOptions = executionConfiguration.DriverOptions;
                     chromeOptions.AddArguments("--log-level=3");
-                    GetFreeTcpPort();
+                    Port = GetFreeTcpPort();
+                    chromeDriverService.Port = Port;
+                    DebuggerPort = GetFreeTcpPort();
 
                     if (executionConfiguration.IsLighthouseEnabled)
                     {
-                        ProcessProvider.StartCLIProcess($"chrome-debug --port={Port}");
-                        chromeOptions.DebuggerAddress = $"127.0.0.1:{Port}";
-                    }
-                    else
-                    {
-                        chromeDriverService.Port = Port;
+                        chromeOptions.AddArgument("--remote-debugging-address=0.0.0.0");
+                        chromeOptions.AddArgument($"--remote-debugging-port={DebuggerPort}");
+                        ////ProcessProvider.StartCLIProcess($"chrome-debug --port={Port}");
+                        ////chromeOptions.DebuggerAddress = $"127.0.0.1:{Port}";
                     }
 
                     if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
@@ -199,10 +208,20 @@ namespace Bellatrix.Web
                     new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
                     var chromeHeadlessDriverService = ChromeDriverService.CreateDefaultService();
                     chromeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
-                    chromeHeadlessDriverService.Port = GetFreeTcpPort();
+                    Port = GetFreeTcpPort();
+                    chromeHeadlessDriverService.Port = Port;
                     var chromeHeadlessOptions = executionConfiguration.DriverOptions;
                     chromeHeadlessOptions.AddArguments("--headless");
                     chromeHeadlessOptions.AddArguments("--log-level=3");
+                    Port = GetFreeTcpPort();
+                    chromeHeadlessOptions.Port = Port;
+                    DebuggerPort = GetFreeTcpPort();
+
+                    if (executionConfiguration.IsLighthouseEnabled)
+                    {
+                        chromeHeadlessOptions.AddArgument("--remote-debugging-address=0.0.0.0");
+                        chromeHeadlessOptions.AddArgument($"--remote-debugging-port={DebuggerPort}");
+                    }
 
                     if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                     {
@@ -462,7 +481,6 @@ namespace Bellatrix.Web
             tcpListener.Start();
             int port = ((IPEndPoint)tcpListener.LocalEndpoint).Port;
             tcpListener.Stop();
-            Port = port;
             return port;
         }
     }

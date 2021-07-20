@@ -37,18 +37,23 @@
       "resolution": "",
       "browserVersion": "",
       "url": "http://127.0.0.1:4444/wd/hub",
-      // sample selenoid args or you can set here custom default browser options for non-grid execution
       "arguments": [
         {
-          "name": "{runName}",
-          "videoName": "{runName}.{timestamp}.mp4",
-          "logName": "{runName}.{timestamp}.log",
-          "enableVNC": "true",
-          "enableVideo": "true",
-          "enableLog": "true",
-          "screenResolution": "1920x1080x24"
+          "acceptInsecureCerts": "true"
         }
       ]
+      // sample selenoid args or you can set here custom default browser options for non-grid execution
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "videoName": "{runName}.{timestamp}.mp4",
+      //    "logName": "{runName}.{timestamp}.log",
+      //    "enableVNC": "true",
+      //    "enableVideo": "true",
+      //    "enableLog": "true",
+      //    "screenResolution": "1920x1080x24"
+      //  }
+      //]
       // sample saucelabs args
       //"arguments": [
       //  {
@@ -96,6 +101,22 @@
       //  }
       //]
     }
+  },
+  "apiSettings": {
+    "baseUrl": "http://127.0.0.1:55215",
+    "clientTimeoutSeconds": "30",
+    "maxRetryAttempts": "3",
+    "pauseBetweenFailures": "1",
+    "timeUnit": "1"
+  },
+  "lighthouseSettings": {
+    "isEnabled": "true",
+    "timeout": "60",
+    "arguments": [
+      {
+        "screenEmulation.disabled": ""
+      }
+    ]
   },
   "urlSettings": {
     "shopUrl": "http://demos.bellatrix.solutions/cart/",

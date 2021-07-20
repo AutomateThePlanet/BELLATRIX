@@ -5,49 +5,19 @@
     <Configurations>DEBUG;STAGE;QA;</Configurations>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>3.0.0.0</Version>
+    <Version>3.1.0.0</Version>
     <Authors>Automate The Planet Ltd.</Authors>
     <Company>Automate The Planet Ltd.</Company>
     <Product>Bellatrix Test Framework</Product>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
+    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <FileVersion>3.1.0.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <Copyright>Automate The Planet Ltd. 2021</Copyright>
     <PackageReleaseNotes>
-      - Add default grid and browser settings without attribute for web
-      - Add additional web timeout settings
-      - Add additional desktop timeout settings
-      - Add additional Android timeout settings
-      - Add additional iOS timeout settings
-      - Add new Azure KeyVault integration of storing secrets
-      - Add support for usage of TestCase attribute for running same test under multiple browsers NUnit
-      - Add by default Azure, QTest dynamic test cases plugins
-      - Add by default Azure, Jira bug plugins
-      - Add by default Allure and Report Portal plugins
-      - Add new TakeScreenshot method to all components
-      - Add new method for AI analyzetion of component
-      - Add global troubleshooting settings and e.PrintStackTrace() method
-      - Add new utility class for downloading files
-      - Add new web utility class for resolving URLs based on the environment UrlDeterminer
-      - Deprecate video recorder NuGet package, download it on demand
-      - Add new cognitive service support for validation text in PDFs and Images
-      - Add new WebPage page objects base class, mark the old 4 base classes as Obsolete
-      - Simplify web settings
-      - Simplify desktop settings
-      - Simplify Android settings
-      - Simplify iOS settings
-      - Refactor Page Objects to have unified access to App instead of using services directly
-      - Refactor App services' properties to have shorter names
-      - Refactor Page Objects naming convention
-      - Fix known bugs in video recording and screenshots on failure
-      - Fix restart problem in mobile and desktop execution plugins
-      - Fix known bugs in dynamic test cases for Azure
-      - Fix proper initializations of plugins when running tests in parallel
-      - Fix logging of messages when running tests in parallel
-      - Fix WebDriverManager initialziation of browsers
-      - Update WinAppDriver to latest stable 1.0.1
-      - Update Appium to latest stable 4.3.1
-      - Update all 3rd-party NuGets
+      - Add new Lighthouse validation library
+      - Add new ApiClient support to BELLATRIX.web
+      - Add new Process utilities
+      - upgrade all 3rd-party NuGet packages
     </PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <!--<PackageIcon>bellatrix_icon.png</PackageIcon>-->

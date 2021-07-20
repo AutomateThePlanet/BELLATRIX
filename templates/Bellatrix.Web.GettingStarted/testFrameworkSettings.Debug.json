@@ -102,7 +102,16 @@
       //]
     }
   },
+  "apiSettings": {
+    "baseUrl": "http://127.0.0.1:55215",
+    "clientTimeoutSeconds": "30",
+    "maxRetryAttempts": "3",
+    "pauseBetweenFailures": "1",
+    "timeUnit": "1"
+  },
   "lighthouseSettings": {
+    "isEnabled": "true",
+    "timeout": "60",
     "arguments": [
       {
         "screenEmulation.disabled": ""

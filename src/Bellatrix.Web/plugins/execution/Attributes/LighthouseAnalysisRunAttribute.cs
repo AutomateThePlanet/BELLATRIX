@@ -8,8 +8,8 @@ namespace Bellatrix.Web
 {
     public class LighthouseAnalysisRunAttribute : BrowserAttribute
     {
-        public LighthouseAnalysisRunAttribute()
-            : base(BrowserType.Chrome, Lifecycle.RestartEveryTime)
+        public LighthouseAnalysisRunAttribute(bool useHeadless = false)
+            : base(useHeadless ? BrowserType.ChromeHeadless : BrowserType.Chrome, Lifecycle.RestartEveryTime)
         {
             IsLighthouseEnabled = true;
         }

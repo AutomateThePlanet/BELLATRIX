@@ -17,6 +17,7 @@ using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Utilities;
+using Bellatrix.Web;
 using NUnit.Framework;
 
 namespace Bellatrix.GoogleLighthouse.NUnit
@@ -33,25 +34,29 @@ namespace Bellatrix.GoogleLighthouse.NUnit
 
         protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
-            lock (_lockObject)
+            var settings = ConfigurationService.GetSection<LighthouseSettings>();
+            if (settings.IsEnabled && WrappedWebDriverCreateService.BrowserConfiguration.ExecutionType == Web.Enums.ExecutionType.Regular)
             {
-                var driverExecutablePath = new DirectoryInfo(ExecutionDirectoryResolver.GetDriverExecutablePath());
-                var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
-                if (file != null && file.Exists)
+                lock (_lockObject)
                 {
-                    TestContext.AddTestAttachment(file.FullName);
-                }
+                    var driverExecutablePath = new DirectoryInfo(ExecutionDirectoryResolver.GetDriverExecutablePath());
+                    var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+                    if (file != null && file.Exists)
+                    {
+                        TestContext.AddTestAttachment(file.FullName);
+                    }
 
-                file = driverExecutablePath.GetFiles("*.report.html", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
-                if (file != null && file.Exists)
-                {
-                    TestContext.AddTestAttachment(file.FullName);
-                }
+                    file = driverExecutablePath.GetFiles("*.report.html", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+                    if (file != null && file.Exists)
+                    {
+                        TestContext.AddTestAttachment(file.FullName);
+                    }
 
-                file = driverExecutablePath.GetFiles("*.report.csv", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
-                if (file != null && file.Exists)
-                {
-                    TestContext.AddTestAttachment(file.FullName);
+                    file = driverExecutablePath.GetFiles("*.report.csv", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+                    if (file != null && file.Exists)
+                    {
+                        TestContext.AddTestAttachment(file.FullName);
+                    }
                 }
             }
         }

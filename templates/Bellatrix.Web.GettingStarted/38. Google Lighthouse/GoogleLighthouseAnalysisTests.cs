@@ -28,9 +28,12 @@ namespace Bellatrix.Web.GettingStarted
 
             App.Lighthouse.PerformLighthouseAnalysis();
 
+            App.Lighthouse.AssertFirstMeaningfulPaintScoreMoreThan(0.5);
+
+            // specify what to be printed as title
+            App.Lighthouse.AssertMetric(r => r.Categories.Pwa.Score).LessThan(2.3).Perform();
             App.Lighthouse.AssertMetric(r => r.Categories.Performance.Score).GreaterThan(0.5).Perform();
             App.Lighthouse.AssertMetric(r => r.Categories.Performance.Score).GreaterThanOrEqual(0.5).Perform();
-            ////App.Lighthouse.AssertFirstMeaningfulPaintScoreMoreThan(0.5);
 
             Anchor logoutLink = App.Components.CreateByInnerTextContaining<Anchor>("Log out");
 

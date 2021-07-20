@@ -57,6 +57,13 @@ namespace Bellatrix.Web.MSTest
                     WebPluginsConfiguration.AddHighlightComponents();
                     WebPluginsConfiguration.AddMSTestGoogleLighthouse();
 
+                    APIPluginsConfiguration.AddAssertExtensionsBddLogging();
+                    APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
+                    APIPluginsConfiguration.AddAssertExtensionsBugReporting();
+                    APIPluginsConfiguration.AddApiAuthenticationStrategies();
+                    APIPluginsConfiguration.AddRetryFailedRequests();
+                    APIPluginsConfiguration.AddLogExecution();
+
                     if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
                     {
                         WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
