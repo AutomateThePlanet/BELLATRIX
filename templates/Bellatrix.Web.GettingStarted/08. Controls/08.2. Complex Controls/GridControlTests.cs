@@ -81,7 +81,7 @@ namespace Bellatrix.Web.GettingStarted
             TestGrid.GetCell<Employee>(cell => cell.PersonalEmail, 1).ValidateInnerTextIs("mary@hotmail.com");
 
             // Get all cells that satisfy a condition using a function
-            List<TableCell> matchingCells = TestGrid.GetCells<TableCell>(cell => cell.InnerText.StartsWith('J'));
+            List<TableCell> matchingCells = TestGrid.GetCells<TableCell>(cell => cell.InnerText.StartsWith('J')).ToList();
             Assert.AreEqual(2, matchingCells.Count());
 
             // Get cell with multiple-row headers
