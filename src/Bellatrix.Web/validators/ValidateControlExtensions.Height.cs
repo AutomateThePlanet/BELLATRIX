@@ -33,7 +33,55 @@ namespace Bellatrix.Web
             ValidatedHeightIsNotNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
+        /// <summary>
+        /// This method validate if the control's height is large than the height from before (obtained as a parameter th this method).
+        /// </summary>
+        /// <typeparam name="T">Generic template for control.</typeparam>
+        /// <param name="control">The control to be used. </param>
+        /// <param name="minHeight">The minimum height needed. </param>
+        /// <param name="timeout">Timeout for sleep time. </param>
+        /// <param name="sleepInterval">Polling interval. </param>
+        public static void ValidatedHeightIsLargeThanMinHeight<T>(this T control, int minHeight = 0, int? timeout = null, int? sleepInterval = null)
+            where T : IComponentHeight, IComponent
+        {
+            WaitUntil(() => control.Height > minHeight, $"The control's height should be largerthan '{minHeight}' but was '{control.Height}'.", timeout, sleepInterval);
+            ValidatedHeightIsLargeThanMinHeightEvent?.Invoke(control, new ComponentActionEventArgs(control));
+        }
+
+        /// <summary>
+        /// This method validate if the control's height is small than the height from before (obtained as a parameter th this method).
+        /// </summary>
+        /// <typeparam name="T">Generic template for control.</typeparam>
+        /// <param name="control">The control to be used. </param>
+        /// <param name="maxHeight">The maximum height needed. </param>
+        /// <param name="timeout">Timeout for sleep time. </param>
+        /// <param name="sleepInterval">Polling interval. </param>
+        public static void ValidatedHeightIsSmallThanMaxHeight<T>(this T control, int maxHeight = int.MaxValue, int? timeout = null, int? sleepInterval = null)
+            where T : IComponentHeight, IComponent
+        {
+            WaitUntil(() => control.Height < maxHeight, $"The control's height should be smaller than '{maxHeight}' but was '{control.Height}'.", timeout, sleepInterval);
+            ValidatedHeightIsSmallThanMaxHeightEvent?.Invoke(control, new ComponentActionEventArgs(control));
+        }
+
+        /// <summary>
+        /// This method validate if the control's height is equal to the height from before (obtained as a parameter th this method).
+        /// </summary>
+        /// <typeparam name="T">Generic template for control.</typeparam>
+        /// <param name="control">The control to be used. </param>
+        /// <param name="height">The height needed. </param>
+        /// <param name="timeout">Timeout for sleep time. </param>
+        /// <param name="sleepInterval">Polling interval. </param>
+        public static void ValidatedHeightIsEqualToHeight<T>(this T control, int height = 0, int? timeout = null, int? sleepInterval = null)
+            where T : IComponentHeight, IComponent
+        {
+            WaitUntil(() => control.Height == height, $"The control's height should be equal to '{height}' but was '{control.Height}'.", timeout, sleepInterval);
+            ValidatedHeightIsEqualToHeightEvent?.Invoke(control, new ComponentActionEventArgs(control));
+        }
+
         public static event EventHandler<ComponentActionEventArgs> ValidatedHeightIsNullEvent;
         public static event EventHandler<ComponentActionEventArgs> ValidatedHeightIsNotNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedHeightIsLargeThanMinHeightEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedHeightIsSmallThanMaxHeightEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedHeightIsEqualToHeightEvent;
     }
 }

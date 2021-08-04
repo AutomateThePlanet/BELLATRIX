@@ -33,7 +33,55 @@ namespace Bellatrix.Web
             ValidatedWidthIsNotNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
         }
 
+        /// <summary>
+        /// This method validate if the control's width is large than the width from before (obtained as a parameter th this method).
+        /// </summary>
+        /// <typeparam name="T">Generic template for control.</typeparam>
+        /// <param name="control">The control to be used. </param>
+        /// <param name="minWidth">The minimum width needed. </param>
+        /// <param name="timeout">Timeout for sleep time. </param>
+        /// <param name="sleepInterval">Polling interval. </param>
+        public static void ValidatedWidthIsLargeThanMinWidth<T>(this T control, int minWidth = 0, int? timeout = null, int? sleepInterval = null)
+    where T : IComponentWidth, IComponent
+        {
+            WaitUntil(() => control.Width > minWidth, $"The control's width should be larger than '{minWidth}', but was '{control.Width}'.", timeout, sleepInterval);
+            ValidatedWidthIsLargeThanMinWidthEvent?.Invoke(control, new ComponentActionEventArgs(control));
+        }
+
+        /// <summary>
+        /// This method validate if the control's width is small than the width from before (obtained as a parameter th this method).
+        /// </summary>
+        /// <typeparam name="T">Generic template for control.</typeparam>
+        /// <param name="control">The control to be used. </param>
+        /// <param name="maxWidth">The maximum width needed. </param>
+        /// <param name="timeout">Timeout for sleep time. </param>
+        /// <param name="sleepInterval">Polling interval. </param>
+        public static void ValidatedWidthIsSmallThanMaxWidth<T>(this T control, int maxWidth = int.MaxValue, int? timeout = null, int? sleepInterval = null)
+            where T : IComponentWidth, IComponent
+        {
+            WaitUntil(() => control.Width < maxWidth, $"The control's width should be smaller than '{maxWidth}', but was '{control.Width}'.", timeout, sleepInterval);
+            ValidatedWidthIsSmallThanMaxWidthEvent?.Invoke(control, new ComponentActionEventArgs(control));
+        }
+
+        /// <summary>
+        /// This method validate if the control's width is equal to the width from before (obtained as a parameter th this method).
+        /// </summary>
+        /// <typeparam name="T">Generic template for control.</typeparam>
+        /// <param name="control">The control to be used. </param>
+        /// <param name="width">The width needed. </param>
+        /// <param name="timeout">Timeout for sleep time. </param>
+        /// <param name="sleepInterval">Polling interval. </param>
+        public static void ValidatedWidthIsEqualToMaxWidth<T>(this T control, int width = 0, int? timeout = null, int? sleepInterval = null)
+            where T : IComponentWidth, IComponent
+        {
+            WaitUntil(() => control.Width == width, $"The control's width should be equal to '{width}', but was '{control.Width}'.", timeout, sleepInterval);
+            ValidatedWidthIsEqualToWidthEvent?.Invoke(control, new ComponentActionEventArgs(control));
+        }
+
         public static event EventHandler<ComponentActionEventArgs> ValidatedWidthIsNullEvent;
         public static event EventHandler<ComponentActionEventArgs> ValidatedWidthIsNotNullEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedWidthIsLargeThanMinWidthEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedWidthIsSmallThanMaxWidthEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedWidthIsEqualToWidthEvent;
     }
 }
