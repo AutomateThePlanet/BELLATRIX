@@ -9,6 +9,5 @@
         public Button UpdateCart => ComponentCreateService.CreateByValueContaining<Button>("Update cart").ToBeClickable();
         public Span TotalSpan => ComponentCreateService.CreateByXpath<Span>("//*[@class='order-total']//span");
         public Anchor ProceedToCheckout => ComponentCreateService.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
-        public Div TotalCartTable => ComponentCreateService.CreateByClassContaining<Div>("cart_totals");
     }
 }

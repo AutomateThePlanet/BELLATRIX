@@ -54,5 +54,45 @@ namespace Bellatrix.Web.Tests.Controls
 
             divElement.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
         }
+
+        [TestMethod]
+        [TestCategory(Categories.CI)]
+        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+        public void validateDivSize_growsAfterExpansion()
+        {
+            App.Components.CreateByInnerTextContaining<Anchor>("Trainings").Click();
+            Div traning2 = App.Components.CreateById<Div>("level-tow");
+            int height = traning2.WrappedElement.Size.Height;
+            App.Components.CreateByInnerTextContaining<Anchor>("C# Test Automation Advanced").Click();
+            traning2.ValidatedHeightIsLargeThanMinHeight(height);
+        }
+
+        [TestMethod]
+        [TestCategory(Categories.CI)]
+        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+        public void validateDivSize_growsSmallAfterReduction()
+        {
+            App.Components.CreateByInnerTextContaining<Anchor>("Trainings").Click();
+            Div traning2 = App.Components.CreateById<Div>("level-tow");
+            int height = traning2.WrappedElement.Size.Height;
+            App.Components.CreateByInnerTextContaining<Anchor>("C# Test Automation Advanced").Click();
+            App.Components.CreateByInnerTextContaining<Anchor>("C# Test Automation Advanced").Click();
+            traning2.ValidatedHeightIsSmallThanMaxHeight(height);
+        }
+
+        [TestMethod]
+        [TestCategory(Categories.CI)]
+        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+        public void validateDivSize_equalToBeforeAfterReload()
+        {
+            App.Components.CreateByInnerTextContaining<Anchor>("Trainings").Click();
+            Div traning2 = App.Components.CreateById<Div>("level-tow");
+            int height = traning2.WrappedElement.Size.Height;
+            App.Components.CreateByInnerTextContaining<Anchor>("C# Test Automation Advanced").Click();
+            App.Browser.Refresh();
+            traning2 = App.Components.CreateById<Div>("level-tow");
+            traning2.ValidatedHeightIsEqualToHeight(height);
+            traning2.ValidatedHeightIsEqualToHeight(height, 2);
+        }
     }
 }

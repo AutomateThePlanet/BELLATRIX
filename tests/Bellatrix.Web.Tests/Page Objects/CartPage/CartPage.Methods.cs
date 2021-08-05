@@ -11,10 +11,8 @@ namespace Bellatrix.Web.Tests
 
         public void ApplyCoupon(string coupon)
         {
-            int height = TotalCartTable.Size.Height;
             CouponCode.SetText(coupon);
             ApplyCouponButton.Click();
-            ValidateControlExtensions.ValidatedHeightIsLargeThanMinHeight(TotalCartTable, height);
             MessageAlert.ToHasContent().ToBeVisible().WaitToBe();
 
             MessageAlert.ValidateInnerTextIs(CouponSuccessfullyAdded);
