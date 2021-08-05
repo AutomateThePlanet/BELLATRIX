@@ -42,6 +42,9 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
             ValidateControlExtensions.ValidatedForIsEvent += ValidatedForIsEventHandler;
             ValidateControlExtensions.ValidatedHeightIsNullEvent += ValidatedHeightIsNullEventHandler;
             ValidateControlExtensions.ValidatedHeightIsNotNullEvent += ValidatedHeightIsNotNullEventHandler;
+            ValidateControlExtensions.ValidatedHeightIsLargeThanMinHeightEvent += ValidateHeightIsLargeThanMinHeightEventHandler;
+            ValidateControlExtensions.ValidatedHeightIsSmallThanMaxHeightEvent += ValidateHeightIsSmallThanMaxHeightEventHandler;
+            ValidateControlExtensions.ValidatedHeightIsEqualToHeightEvent += ValidateHeightIsEqualToHeightEventHandler;
             ValidateControlExtensions.ValidatedHrefIsEvent += ValidatedHrefIsEventHandler;
             ValidateControlExtensions.ValidatedHrefIsSetEvent += ValidatedHrefIsSetEventHandler;
             ValidateControlExtensions.ValidatedInnerHtmlIsEvent += ValidatedInnerHtmlIsEventHandler;
@@ -119,6 +122,9 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
             ValidateControlExtensions.ValidatedWeekIsEvent += ValidatedWeekIsEventHandler;
             ValidateControlExtensions.ValidatedWidthIsNullEvent += ValidatedWidthIsNullEventHandler;
             ValidateControlExtensions.ValidatedWidthIsNotNullEvent += ValidatedWidthIsNotNullEventHandler;
+            ValidateControlExtensions.ValidatedWidthIsLargeThanMinWidthEvent += ValidatedWidthIsLargeThanMinWidthEventHandler;
+            ValidateControlExtensions.ValidatedWidthIsSmallThanMaxWidthEvent += ValidatedWidthIsSmallThanMaxWidthEventHandler;
+            ValidateControlExtensions.ValidatedWidthIsEqualToWidthEvent += ValidatedWidthIsEqualToWidthEventHandler;
             ValidateControlExtensions.ValidatedWrapIsNullEvent += ValidatedWrapIsNullEventHandler;
             ValidateControlExtensions.ValidatedWrapIsEvent += ValidatedWrapIsEventHandler;
             ValidateControlExtensions.ValidatedExceptionThrowedEvent += ValidatedExceptionThrownEventHandler;
@@ -153,6 +159,18 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
         }
 
         protected virtual void ValidatedWidthIsNotNullEventHandler(object sender, ComponentActionEventArgs arg)
+        {
+        }
+
+        protected virtual void ValidatedWidthIsLargeThanMinWidthEventHandler(object sender, ComponentActionEventArgs arg)
+        {
+        }
+
+        protected virtual void ValidatedWidthIsSmallThanMaxWidthEventHandler(object sender, ComponentActionEventArgs arg)
+        {
+        }
+
+        protected virtual void ValidatedWidthIsEqualToWidthEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
@@ -469,6 +487,18 @@ namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
         }
 
         protected virtual void ValidatedHeightIsNotNullEventHandler(object sender, ComponentActionEventArgs arg)
+        {
+        }
+
+        protected virtual void ValidateHeightIsLargeThanMinHeightEventHandler(object sender, ComponentActionEventArgs arg)
+        {
+        }
+
+        protected virtual void ValidateHeightIsSmallThanMaxHeightEventHandler(object sender, ComponentActionEventArgs arg)
+        {
+        }
+
+        protected virtual void ValidateHeightIsEqualToHeightEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 

@@ -31,7 +31,7 @@ using OpenQA.Selenium.Remote;
 namespace Bellatrix.Web
 {
     [DebuggerDisplay("BELLATRIX Element")]
-    public partial class Component : IComponentVisible, IComponentCssClass, IComponent, IWebLayoutComponent
+    public partial class Component : IComponentVisible, IComponentCssClass, IComponent, IWebLayoutComponent, IComponentHeight, IComponentWidth
     {
         public static event EventHandler<ComponentActionEventArgs> Focusing;
         public static event EventHandler<ComponentActionEventArgs> Focused;
@@ -270,6 +270,12 @@ namespace Bellatrix.Web
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string LocatorValue => By.Value;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public virtual int? Height => GetHeightAttribute();
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public virtual int? Width => GetWidthAttribute();
 
         public void EnsureState(WaitStrategy until)
         {
