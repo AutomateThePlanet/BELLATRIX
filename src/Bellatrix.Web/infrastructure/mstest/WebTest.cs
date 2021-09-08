@@ -56,6 +56,7 @@ namespace Bellatrix.Web.MSTest
                     WebPluginsConfiguration.AddBugReporting();
                     WebPluginsConfiguration.AddHighlightComponents();
                     WebPluginsConfiguration.AddMSTestGoogleLighthouse();
+                    WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
 
                     APIPluginsConfiguration.AddAssertExtensionsBddLogging();
                     APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();

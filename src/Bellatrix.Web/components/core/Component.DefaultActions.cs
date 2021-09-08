@@ -101,7 +101,7 @@ namespace Bellatrix.Web
 
         internal string GetInnerText()
         {
-            return WrappedElement.Text.Replace("\r\n", string.Empty);
+            return WrappedElement.Text.Trim().Replace("\r\n", string.Empty);
         }
 
         internal void SetValue(EventHandler<ComponentActionEventArgs> gettingValue, EventHandler<ComponentActionEventArgs> gotValue, string value)

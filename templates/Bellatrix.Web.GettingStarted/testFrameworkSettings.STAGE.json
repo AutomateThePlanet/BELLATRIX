@@ -12,6 +12,7 @@
     "shouldHighlightElements": "true",
     "shouldCaptureHttpTraffic": "false",
     "pathToSslCertificate": "path",
+    "shouldCheckForJavaScriptErrors": "false",
     "timeoutSettings": {
       "elementWaitTimeout": "30",
       "pageLoadTimeout": "30",

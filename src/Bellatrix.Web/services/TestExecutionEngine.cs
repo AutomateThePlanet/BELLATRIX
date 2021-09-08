@@ -27,7 +27,7 @@ namespace Bellatrix.Web
                 var wrappedWebDriver = WrappedWebDriverCreateService.Create(browserConfiguration);
 
                 childContainer.RegisterInstance<IWebDriver>(wrappedWebDriver);
-                childContainer.RegisterInstance(((RemoteWebDriver)wrappedWebDriver).SessionId.ToString(), "SessionId");
+                childContainer.RegisterInstance(((WebDriver)wrappedWebDriver).SessionId.ToString(), "SessionId");
                 childContainer.RegisterInstance(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url, "GridUri");
 
                 ////childContainer.RegisterInstance(new BrowserService(wrappedWebDriver));

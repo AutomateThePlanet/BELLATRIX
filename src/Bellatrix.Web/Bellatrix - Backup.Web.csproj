@@ -2,6 +2,15 @@
 	<PropertyGroup>
 	  <Configurations>Debug;Release;Test</Configurations>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DEBUG|AnyCPU'">
+	  <CodeAnalysisRuleSet />
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='STAGE|AnyCPU'">
+	  <CodeAnalysisRuleSet />
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='QA|AnyCPU'">
+	  <CodeAnalysisRuleSet />
+	</PropertyGroup>
 	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 	<ItemGroup>
 	  <None Remove="plugins\screenshots\html2canvas.js" />

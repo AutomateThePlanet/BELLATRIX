@@ -1,4 +1,4 @@
-﻿// <copyright file="ConfigurationExtensions.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="SettingsExtensions.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.

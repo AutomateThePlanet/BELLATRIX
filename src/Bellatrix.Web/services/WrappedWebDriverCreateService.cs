@@ -97,7 +97,7 @@ namespace Bellatrix.Web
 
             if (executionConfiguration.BrowserType != BrowserType.Edge)
             {
-                FixDriverCommandExecutionDelay((RemoteWebDriver)wrappedWebDriver);
+                FixDriverCommandExecutionDelay((WebDriver)wrappedWebDriver);
             }
 
             ChangeWindowSize(executionConfiguration.Size, wrappedWebDriver);
@@ -105,11 +105,11 @@ namespace Bellatrix.Web
             return wrappedWebDriver;
         }
 
-        private static void FixDriverCommandExecutionDelay(RemoteWebDriver driver)
+        private static void FixDriverCommandExecutionDelay(WebDriver driver)
         {
             try
             {
-                PropertyInfo commandExecutorProperty = GetPropertyWithThrowOnError(typeof(RemoteWebDriver), "CommandExecutor", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetProperty);
+                PropertyInfo commandExecutorProperty = GetPropertyWithThrowOnError(typeof(WebDriver), "CommandExecutor", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetProperty);
                 ICommandExecutor commandExecutor = (ICommandExecutor)commandExecutorProperty.GetValue(driver);
 
                 FieldInfo GetRemoteServerUriField(ICommandExecutor executor)
@@ -202,6 +202,8 @@ namespace Bellatrix.Web
                         chromeOptions.Proxy = webDriverProxy;
                     }
 
+                    chromeOptions.SetLoggingPreference(LogType.Browser, LogLevel.All);
+
                     wrappedWebDriver = new ChromeDriver(chromeDriverService, chromeOptions);
                     break;
                 case BrowserType.ChromeHeadless:
@@ -241,6 +243,8 @@ namespace Bellatrix.Web
                     {
                         chromeHeadlessOptions.Proxy = webDriverProxy;
                     }
+
+                    chromeHeadlessOptions.SetLoggingPreference(LogType.Browser, LogLevel.All);
 
                     wrappedWebDriver = new ChromeDriver(chromeHeadlessDriverService, chromeHeadlessOptions);
                     break;

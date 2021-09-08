@@ -52,6 +52,7 @@ namespace Bellatrix.Web.NUnit
                     WebPluginsConfiguration.AddBugReporting();
                     WebPluginsConfiguration.AddHighlightComponents();
                     WebPluginsConfiguration.AddNUnitGoogleLighthouse();
+                    WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
 
                     APIPluginsConfiguration.AddAssertExtensionsBddLogging();
                     APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();

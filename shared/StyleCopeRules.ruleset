@@ -782,7 +782,7 @@
     <Rule Id="CA1416" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
-    <Rule Id="SA1101" Action="None" />
+    <Rule Id="SA1101" Action="Hidden" />
     <Rule Id="SA1108" Action="None" />
     <Rule Id="SA1115" Action="None" />
     <Rule Id="SA1116" Action="None" />
@@ -805,7 +805,7 @@
     <Rule Id="SA1407" Action="None" />
     <Rule Id="SA1408" Action="None" />
     <Rule Id="SA1516" Action="None" />
-    <Rule Id="SA1600" Action="None" />
+    <Rule Id="SA1600" Action="Hidden" />
     <Rule Id="SA1601" Action="None" />
     <Rule Id="SA1602" Action="None" />
     <Rule Id="SA1604" Action="None" />
@@ -814,9 +814,10 @@
     <Rule Id="SA1615" Action="None" />
     <Rule Id="SA1623" Action="None" />
     <Rule Id="SA1633" Action="None" />
+    <Rule Id="SA1636" Action="Hidden" />
     <Rule Id="SA1649" Action="None" />
     <Rule Id="SA1652" Action="None" />
-    <Rule Id="SX1101" Action="Warning" />
+    <Rule Id="SX1101" Action="Hidden" />
     <Rule Id="SX1309" Action="Warning" />
   </Rules>
 </RuleSet>

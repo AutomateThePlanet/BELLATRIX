@@ -37,6 +37,11 @@ namespace Bellatrix.Web
             ServicesCollection.Current.RegisterType<Plugin, LogLifecyclePlugin>(Guid.NewGuid().ToString());
         }
 
+        public static void AddJavaScriptErrorsPlugin()
+        {
+            ServicesCollection.Current.RegisterType<Plugin, JavaScriptErrorsPlugin>(Guid.NewGuid().ToString());
+        }
+
         public static void AddControlDataHandlers()
         {
             // Editable Control DataHandlers - need to be registered both as readonly and editable

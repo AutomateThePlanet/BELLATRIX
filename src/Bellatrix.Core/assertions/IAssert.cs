@@ -66,5 +66,7 @@ namespace Bellatrix.Assertions
         void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds);
 
         void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds, string message);
+
+        void Multiple(params Action[] assertions) => Assert.Multiple(assertions);
     }
 }

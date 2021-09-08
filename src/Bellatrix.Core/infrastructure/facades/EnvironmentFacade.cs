@@ -19,9 +19,13 @@ namespace Bellatrix.Infrastructure
     public class EnvironmentFacade
     {
         public string MachineName => Environment.MachineName;
+
         public string GetEnvironmentVariable(string variable) => Environment.GetEnvironmentVariable(variable, EnvironmentVariableTarget.User);
+
         public string GetFolderPath(Environment.SpecialFolder folder) => Environment.GetFolderPath(folder);
+
         public void SetEnvironmentVariable(string variable, string value) => Environment.SetEnvironmentVariable(variable, value, EnvironmentVariableTarget.User);
+
         public void Sleep(int seconds) => Thread.Sleep(seconds * 1000);
     }
 }

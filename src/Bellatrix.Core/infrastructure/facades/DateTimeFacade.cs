@@ -18,6 +18,7 @@ namespace Bellatrix.Infrastructure
     public class DateTimeFacade
     {
         public DateTime GetCurrentTime() => DateTime.Now;
+
         public DateTime GetCurrentTimeUtc() => DateTime.UtcNow;
     }
 }
