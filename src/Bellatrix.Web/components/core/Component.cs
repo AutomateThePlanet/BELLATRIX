@@ -260,6 +260,11 @@ namespace Bellatrix.Web
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string LocatorValue => By.Value;
 
+        public void Hide()
+        {
+            SetAttribute("style", "display:none");
+        }
+
         public void EnsureState(WaitStrategy until)
         {
             _untils.Add(until);

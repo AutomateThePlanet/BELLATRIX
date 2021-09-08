@@ -216,7 +216,7 @@ namespace Bellatrix.Web
                     chromeHeadlessOptions.AddArguments("--headless");
                     chromeHeadlessOptions.AddArguments("--log-level=3");
                     Port = GetFreeTcpPort();
-                    chromeHeadlessOptions.Port = Port;
+                    chromeHeadlessDriverService.Port = Port;
                     DebuggerPort = GetFreeTcpPort();
 
                     if (executionConfiguration.IsLighthouseEnabled)
@@ -249,7 +249,7 @@ namespace Bellatrix.Web
                     wrappedWebDriver = new ChromeDriver(chromeHeadlessDriverService, chromeHeadlessOptions);
                     break;
                 case BrowserType.Firefox:
-                    new DriverManager().SetUpDriver(new FirefoxConfig());
+                    new DriverManager().SetUpDriver(new FirefoxConfig(), VersionResolveStrategy.Latest);
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     var firefoxOptions = executionConfiguration.DriverOptions;
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
