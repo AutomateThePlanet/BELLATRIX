@@ -84,6 +84,22 @@
       //    "password": "accessKey"
       //  }
       //]
+      // sample lambda test args
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "platformName": "Windows",
+      //    "browserName": "Chrome",
+      //    "browserVersion": "93.0",
+      //    "video": "true",
+      //    "visual": "true",
+      //    "resolution": "1920x1080x24",
+      //    "geoLocation": "BE",
+      //     // you case set them as environmental variables - cloud.grid.user and cloud.grid.key. Set them as value to the key to which they should be intialized.
+      //    "user": "yourUserName",
+      //    "accessKey": "accessKey"
+      //  }
+      //]
       // sample browserstack args
       //"arguments": [
       //  {
