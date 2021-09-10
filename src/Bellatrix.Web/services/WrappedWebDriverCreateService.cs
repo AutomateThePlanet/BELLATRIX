@@ -202,7 +202,9 @@ namespace Bellatrix.Web
                         chromeOptions.Proxy = webDriverProxy;
                     }
 
+                    chromeOptions.AddArgument("hide-scrollbars");
                     chromeOptions.SetLoggingPreference(LogType.Browser, LogLevel.All);
+                    chromeOptions.SetLoggingPreference("performance", LogLevel.All);
 
                     wrappedWebDriver = new ChromeDriver(chromeDriverService, chromeOptions);
                     break;
@@ -215,6 +217,18 @@ namespace Bellatrix.Web
                     var chromeHeadlessOptions = executionConfiguration.DriverOptions;
                     chromeHeadlessOptions.AddArguments("--headless");
                     chromeHeadlessOptions.AddArguments("--log-level=3");
+
+                    chromeHeadlessOptions.AddArguments("--test-type");
+                    chromeHeadlessOptions.AddArguments("--disable-infobars");
+                    chromeHeadlessOptions.AddArguments("--allow-no-sandbox-job");
+                    chromeHeadlessOptions.AddArguments("--ignore-certificate-errors");
+                    chromeHeadlessOptions.AddArguments("--disable-gpu");
+                    chromeHeadlessOptions.AddArguments("--no-sandbox");
+                    chromeHeadlessOptions.AddUserProfilePreference("credentials_enable_service", false);
+                    chromeHeadlessOptions.AddUserProfilePreference("profile.password_manager_enabled", false);
+                    chromeHeadlessOptions.AddArgument("hide-scrollbars");
+                    chromeHeadlessOptions.UnhandledPromptBehavior = UnhandledPromptBehavior.Dismiss;
+
                     Port = GetFreeTcpPort();
                     chromeHeadlessDriverService.Port = Port;
                     DebuggerPort = GetFreeTcpPort();
@@ -245,6 +259,7 @@ namespace Bellatrix.Web
                     }
 
                     chromeHeadlessOptions.SetLoggingPreference(LogType.Browser, LogLevel.All);
+                    chromeHeadlessOptions.SetLoggingPreference("performance", LogLevel.All);
 
                     wrappedWebDriver = new ChromeDriver(chromeHeadlessDriverService, chromeHeadlessOptions);
                     break;
@@ -252,6 +267,7 @@ namespace Bellatrix.Web
                     new DriverManager().SetUpDriver(new FirefoxConfig(), VersionResolveStrategy.Latest);
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     var firefoxOptions = executionConfiguration.DriverOptions;
+                    firefoxOptions.AddAdditionalOption("acceptInsecureCerts", true);
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         firefoxOptions.Proxy = webDriverProxy;
@@ -303,6 +319,7 @@ namespace Bellatrix.Web
                     new DriverManager().SetUpDriver(new FirefoxConfig());
                     var firefoxHeadlessOptions = executionConfiguration.DriverOptions;
                     firefoxHeadlessOptions.AddArguments("--headless");
+                    firefoxHeadlessOptions.AddAdditionalOption("acceptInsecureCerts", true);
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         firefoxHeadlessOptions.Proxy = webDriverProxy;
@@ -366,6 +383,10 @@ namespace Bellatrix.Web
                         edgeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                     }
 
+                    edgeOptions.SetLoggingPreference(LogType.Browser, LogLevel.Severe);
+                    edgeOptions.SetLoggingPreference("performance", LogLevel.All);
+
+
                     wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeDriverService, edgeOptions);
                     break;
                 case BrowserType.EdgeHeadless:
@@ -375,6 +396,18 @@ namespace Bellatrix.Web
                     var edgeHeadlessOptions = executionConfiguration.DriverOptions;
                     edgeHeadlessOptions.AddArguments("--headless");
                     edgeHeadlessOptions.AddArguments("--log-level=3");
+
+                    edgeHeadlessOptions.AddArguments("--test-type");
+                    edgeHeadlessOptions.AddArguments("--disable-infobars");
+                    edgeHeadlessOptions.AddArguments("--allow-no-sandbox-job");
+                    edgeHeadlessOptions.AddArguments("--ignore-certificate-errors");
+                    edgeHeadlessOptions.AddArguments("--disable-gpu");
+                    edgeHeadlessOptions.AddArguments("--no-sandbox");
+                    edgeHeadlessOptions.AddUserProfilePreference("credentials_enable_service", false);
+                    edgeHeadlessOptions.AddUserProfilePreference("profile.password_manager_enabled", false);
+                    edgeHeadlessOptions.AddArgument("hide-scrollbars");
+                    edgeHeadlessOptions.UnhandledPromptBehavior = UnhandledPromptBehavior.Dismiss;
+
                     edgeHeadlessOptions.PageLoadStrategy = PageLoadStrategy.Normal;
                     edgeHeadlessOptions.UseChromium = true;
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
@@ -395,6 +428,9 @@ namespace Bellatrix.Web
                         Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                         edgeHeadlessOptions.AddExtensionPath(unpackedExtensionPath);
                     }
+
+                    edgeHeadlessOptions.SetLoggingPreference(LogType.Browser, LogLevel.Severe);
+                    edgeHeadlessOptions.SetLoggingPreference("performance", LogLevel.All);
 
                     wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeHeadlessDriverService, edgeHeadlessOptions);
                     break;
