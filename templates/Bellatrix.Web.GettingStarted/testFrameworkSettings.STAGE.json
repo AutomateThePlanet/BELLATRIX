@@ -202,5 +202,8 @@
   "appInsightsSettings": {
     "instrumentationKey": "yourKey",
     "isEnabled": "false"
+  },
+  "blobStorageSettings": {
+    "connectionString": "yourKey"
   }
 }
