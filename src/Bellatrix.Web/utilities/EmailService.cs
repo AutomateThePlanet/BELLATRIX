@@ -29,6 +29,7 @@ namespace Bellatrix.Web.Utilities
             _blobStorageService = new BlobStorageService();
         }
 
+        public static Email ReadEmail(string name = "", string cookieName = "set_emails")
         {
             if (string.IsNullOrEmpty(name))
             {
