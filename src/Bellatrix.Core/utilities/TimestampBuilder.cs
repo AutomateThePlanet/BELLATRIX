@@ -30,6 +30,11 @@ namespace Bellatrix.Utilities
             return newTimestamp;
         }
 
+        public static string GenerateUniqueUrl()
+        {
+            var newTimestamp = "https://demos.bellatrix.solutions/" + DateTime.Now.ToString("MMMMddyyyyhhmmss");
+            return newTimestamp;
+        }
         public static string GenerateUniqueTextMonthNameOneWord()
         {
             var newTimestamp = DateTime.Now.ToString("MMMMddyyyyhhmmss");

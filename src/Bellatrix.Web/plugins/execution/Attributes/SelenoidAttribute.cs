@@ -126,7 +126,6 @@ namespace Bellatrix.Web
                 case BrowserType.Firefox:
                 case BrowserType.InternetExplorer:
                 case BrowserType.Opera:
-                    driverOptions.AddAdditionalCapability("name", runName, true);
                     driverOptions.AddAdditionalCapability("videoName", $"{runName}.{timestamp}.mp4", true);
                     driverOptions.AddAdditionalCapability("logName", $"{runName}.{timestamp}.log", true);
                     driverOptions.AddAdditionalCapability("enableVNC", EnableVnc, true);
@@ -138,13 +137,11 @@ namespace Bellatrix.Web
                 // Headless sessions are much simpler and do not support video or vnc
                 case BrowserType.ChromeHeadless:
                 case BrowserType.FirefoxHeadless:
-                    driverOptions.AddAdditionalCapability("name", runName, true);
                     driverOptions.AddAdditionalCapability("logName", $"{runName}.{timestamp}.log", true);
                     driverOptions.AddAdditionalCapability("enableLog", SaveSessionLogs, true);
                     driverOptions.AddAdditionalCapability("screenResolution", ScreenResolution, true);
                     break;
                 default:
-                    driverOptions.AddAdditionalCapability("name", runName);
                     driverOptions.AddAdditionalCapability("videoName", $"{runName}.{timestamp}.mp4");
                     driverOptions.AddAdditionalCapability("enableVNC", EnableVnc);
                     driverOptions.AddAdditionalCapability("enableVideo", RecordVideo);
@@ -152,6 +149,9 @@ namespace Bellatrix.Web
                     driverOptions.AddAdditionalCapability("screenResolution", ScreenResolution);
                     break;
             }
+
+            var testName = GetTestFullName(memberInfo, testClassType);
+            driverOptions.AddAdditionalCapability("name", testName);
 
             return driverOptions;
         }

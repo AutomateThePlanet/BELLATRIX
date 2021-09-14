@@ -37,7 +37,7 @@ namespace Bellatrix.Web
             Platform = platform;
             RecordVideo = recordVideo;
             RecordScreenshots = recordScreenshots;
-            ExecutionType = ExecutionType.SauceLabs;
+            ExecutionType = ExecutionType.Grid;
         }
 
         public SauceLabsAttribute(
@@ -56,7 +56,7 @@ namespace Bellatrix.Web
             Platform = platform;
             RecordVideo = recordVideo;
             RecordScreenshots = recordScreenshots;
-            ExecutionType = ExecutionType.SauceLabs;
+            ExecutionType = ExecutionType.Grid;
             ScreenResolution = new Size(width, height).ConvertToString();
         }
 
@@ -121,7 +121,9 @@ namespace Bellatrix.Web
             var credentials = CloudProviderCredentialsResolver.GetCredentials();
             driverOptions.AddAdditionalCapability("username", credentials.Item1);
             driverOptions.AddAdditionalCapability("accessKey", credentials.Item2);
-            driverOptions.AddAdditionalCapability("name", testClassType.FullName);
+
+            var testName = GetTestFullName(memberInfo, testClassType);
+            driverOptions.AddAdditionalCapability("name", testName);
 
             return driverOptions;
         }

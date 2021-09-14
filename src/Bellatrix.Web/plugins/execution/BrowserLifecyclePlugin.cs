@@ -19,6 +19,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Bellatrix.KeyVault;
 using Bellatrix.Plugins;
+using Bellatrix.Utilities;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Proxy;
 using Bellatrix.Web.Services;
@@ -35,8 +36,14 @@ namespace Bellatrix.Web.Plugins.Browser
     {
         protected override void PreTestsArrange(object sender, Bellatrix.Plugins.PluginEventArgs e)
         {
+            if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.IsCloudRun)
+            {
+                e.Container.RegisterInstance(false, "_isBrowserStartedDuringPreTestsArrange");
+                return;
+            }
+
             // Resolve required data for decision making
-            var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container, e.Arguments);
+            var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e);
 
             if (currentBrowserConfiguration != null)
             {
@@ -65,7 +72,7 @@ namespace Bellatrix.Web.Plugins.Browser
             if (!isBrowserStartedDuringPreTestsArrange)
             {
                 // Resolve required data for decision making
-                var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container, e.Arguments);
+                var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e);
                 if (currentBrowserConfiguration != null)
                 {
                     ResolvePreviousBrowserType(e.Container);
@@ -86,7 +93,7 @@ namespace Bellatrix.Web.Plugins.Browser
 
         protected override void PostTestCleanup(object sender, Bellatrix.Plugins.PluginEventArgs e)
         {
-            var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container, e.Arguments);
+            var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e);
             if (currentBrowserConfiguration != null)
             {
                 if (currentBrowserConfiguration.ShouldCaptureHttpTraffic)
@@ -109,6 +116,11 @@ namespace Bellatrix.Web.Plugins.Browser
 
         private bool ShouldRestartBrowser(ServicesCollection container)
         {
+            if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.IsCloudRun)
+            {
+                return true;
+            }
+
             bool shouldRestartBrowser = false;
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             var previousBrowserConfiguration = container.Resolve<BrowserConfiguration>("_previousBrowserConfiguration");
@@ -162,10 +174,10 @@ namespace Bellatrix.Web.Plugins.Browser
             container.RegisterInstance(browserConfiguration, "_previousBrowserConfiguration");
         }
 
-        private BrowserConfiguration GetCurrentBrowserConfiguration(MemberInfo memberInfo, Type testClassType, ServicesCollection container, List<object> arguments)
+        private BrowserConfiguration GetCurrentBrowserConfiguration(Bellatrix.Plugins.PluginEventArgs e)
         {
-            var browserAttribute = GetBrowserAttribute(memberInfo, testClassType);
-            string fullClassName = testClassType.FullName;
+            var browserAttribute = GetBrowserAttribute(e.TestMethodMemberInfo, e.TestClassType);
+            string fullClassName = e.TestClassType.FullName;
 
             if (browserAttribute != null)
             {
@@ -177,11 +189,11 @@ namespace Bellatrix.Web.Plugins.Browser
                 Size currentBrowserSize = browserAttribute.Size;
                 ExecutionType executionType = browserAttribute.ExecutionType;
 
-                var options = (browserAttribute as IDriverOptionsAttribute)?.CreateOptions(memberInfo, testClassType) ?? GetDriverOptionsBasedOnBrowser(currentBrowserType, testClassType);
-                InitializeCustomCodeOptions(options, testClassType);
+                var options = (browserAttribute as IDriverOptionsAttribute)?.CreateOptions(e.TestMethodMemberInfo, e.TestClassType) ?? GetDriverOptionsBasedOnBrowser(currentBrowserType, e.TestClassType);
+                InitializeCustomCodeOptions(options, e.TestClassType);
 
                 var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible, options);
-                container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
+                e.Container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
 
                 return browserConfiguration;
             }
@@ -189,11 +201,11 @@ namespace Bellatrix.Web.Plugins.Browser
             {
                 BrowserType currentBrowserType = Parse<BrowserType>(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.DefaultBrowser);
 
-                if (arguments != null & arguments.Any())
+                if (e.Arguments != null & e.Arguments.Any())
                 {
-                    if (arguments[0] is BrowserType)
+                    if (e.Arguments[0] is BrowserType)
                     {
-                        currentBrowserType = (BrowserType)arguments[0];
+                        currentBrowserType = (BrowserType)e.Arguments[0];
                     }
                 }
 
@@ -208,25 +220,26 @@ namespace Bellatrix.Web.Plugins.Browser
                 ExecutionType executionType = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.ExecutionType.ToLower() == "regular" ? ExecutionType.Regular : ExecutionType.Grid;
                 bool shouldCaptureHttpTraffic = ConfigurationService.GetSection<WebSettings>().ShouldCaptureHttpTraffic;
                 bool shouldAutomaticallyScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
-                var options = GetDriverOptionsBasedOnBrowser(currentBrowserType, testClassType);
+                var options = GetDriverOptionsBasedOnBrowser(currentBrowserType, e.TestClassType);
 
                 if (!string.IsNullOrEmpty(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.BrowserVersion))
                 {
                     options.BrowserVersion = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.BrowserVersion;
                 }
 
-                if (arguments != null & arguments.Count >= 2)
+                if (e.Arguments != null & e.Arguments.Count >= 2)
                 {
-                    if (arguments[0] is BrowserType && arguments[1] is int)
+                    if (e.Arguments[0] is BrowserType && e.Arguments[1] is int)
                     {
-                        options.BrowserVersion = arguments[1].ToString();
+                        options.BrowserVersion = e.Arguments[1].ToString();
                     }
                 }
 
-                InitializeGridOptionsFromConfiguration(options, testClassType);
-                InitializeCustomCodeOptions(options, testClassType);
+                string testName = e.TestFullName != null ? e.TestFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty) : e.TestClassType.FullName;
+                InitializeGridOptionsFromConfiguration(options, e.TestClassType, testName);
+                InitializeCustomCodeOptions(options, e.TestClassType);
                 var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible, options);
-                container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
+                e.Container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
 
                 return browserConfiguration;
             }
@@ -253,7 +266,7 @@ namespace Bellatrix.Web.Plugins.Browser
             }
         }
 
-        private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
+        private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType, string testName)
         {
             if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments == null)
             {
@@ -262,12 +275,40 @@ namespace Bellatrix.Web.Plugins.Browser
 
             if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0].Count > 0)
             {
-                foreach (var item in ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0])
+                if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.ExecutionType.ToLower().Contains("lambda"))
                 {
-                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                    var ltOptions = new Dictionary<string, object>();
+                    foreach (var item in ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0])
                     {
-                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType), true);
+                        if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                        {
+                            ltOptions.Add(item.Key, FormatGridOptions(item.Value, testClassType));
+                        }
                     }
+
+                    ltOptions.Add("build", TimestampBuilder.GenerateUniqueTextMonthNameOneWord());
+                    ltOptions.Add("name", testName);
+                    options.AddAdditionalOption("LT:Options", ltOptions);
+                }
+                else
+                {
+                    foreach (var item in ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0])
+                    {
+                        if (item.Key.ToLower().Equals("browserversion"))
+                        {
+                            options.BrowserVersion = item.Value;
+                        }
+                        else if (item.Key.ToLower().Equals("platformname"))
+                        {
+                            options.PlatformName = item.Value;
+                        }
+                        else if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                        {
+                            options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType), true);
+                        }
+                    }
+
+                    options.AddAdditionalCapability("name", testName);
                 }
             }
         }

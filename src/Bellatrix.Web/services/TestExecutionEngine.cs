@@ -29,21 +29,14 @@ namespace Bellatrix.Web
                 childContainer.RegisterInstance<IWebDriver>(wrappedWebDriver);
                 childContainer.RegisterInstance(((WebDriver)wrappedWebDriver).SessionId.ToString(), "SessionId");
                 childContainer.RegisterInstance(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url, "GridUri");
-
-                ////childContainer.RegisterInstance(new BrowserService(wrappedWebDriver));
-                ////childContainer.RegisterInstance(new CookiesService(wrappedWebDriver));
-                ////childContainer.RegisterInstance(new DialogService(wrappedWebDriver));
-                ////childContainer.RegisterInstance(new JavaScriptService(wrappedWebDriver));
-                ////childContainer.RegisterInstance(new InteractionsService(wrappedWebDriver));
-                ////childContainer.RegisterInstance(new NavigationService(wrappedWebDriver));
-                ////childContainer.RegisterInstance(new ComponentCreateService());
                 childContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(wrappedWebDriver));
                 childContainer.RegisterNull<int?>();
                 childContainer.RegisterNull<IWebElement>();
                 IsBrowserStartedCorrectly = true;
             }
-            catch
+            catch (Exception ex)
             {
+                DebugInformation.PrintStackTrace(ex);
                 IsBrowserStartedCorrectly = false;
                 throw;
             }

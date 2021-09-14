@@ -1,4 +1,4 @@
-﻿// <copyright file="ExecutionType.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="Email.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,16 +11,25 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Enums
+using System.Text.Json.Serialization;
+
+namespace Bellatrix.Web.Utilities
 {
-    public enum ExecutionType
+    public class Email
     {
-        Regular,
-        Grid,
-        SauceLabs,
-        BrowserStack,
-        CrossBrowserTesting,
-        LambdaTest,
-        Selenoid,
+        [JsonPropertyName("tpl")]
+        public string Tpl { get; set; }
+
+        [JsonPropertyName("to")]
+        public string To { get; set; }
+
+        [JsonPropertyName("subject")]
+        public string Subject { get; set; }
+
+        [JsonPropertyName("bcc")]
+        public string Bcc { get; set; }
+
+        [JsonPropertyName("html")]
+        public string Html { get; set; }
     }
 }

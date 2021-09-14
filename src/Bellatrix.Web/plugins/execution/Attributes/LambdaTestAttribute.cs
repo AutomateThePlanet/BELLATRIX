@@ -12,6 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using Bellatrix.Web.Enums;
@@ -37,7 +38,7 @@ namespace Bellatrix.Web
             Platform = platform;
             RecordVideo = recordVideo;
             RecordScreenshots = recordScreenshots;
-            ExecutionType = ExecutionType.SauceLabs;
+            ExecutionType = ExecutionType.Grid;
         }
 
         public LambdaTestAttribute(
@@ -56,7 +57,7 @@ namespace Bellatrix.Web
             Platform = platform;
             RecordVideo = recordVideo;
             RecordScreenshots = recordScreenshots;
-            ExecutionType = ExecutionType.SauceLabs;
+            ExecutionType = ExecutionType.Grid;
             ScreenResolution = new Size(width, height).ConvertToString();
         }
 
@@ -101,13 +102,9 @@ namespace Bellatrix.Web
         }
 
         public string BrowserVersion { get; }
-
         public string Platform { get; }
-
         public bool RecordVideo { get; }
-
         public bool RecordScreenshots { get; }
-
         public string ScreenResolution { get; set; }
         public string GeoLocation { get; set; }
         public string TimeZone { get; set; }
@@ -118,17 +115,20 @@ namespace Bellatrix.Web
             AddAdditionalCapabilities(testClassType, driverOptions);
 
             string browserName = Enum.GetName(typeof(BrowserType), Browser);
-            driverOptions.AddAdditionalCapability("platformName", Platform);
-            driverOptions.AddAdditionalCapability("browserName", browserName);
-            driverOptions.AddAdditionalCapability("browserVersion", BrowserVersion);
-            driverOptions.AddAdditionalCapability("resolution", ScreenResolution);
-            driverOptions.AddAdditionalCapability("video", RecordVideo);
-            driverOptions.AddAdditionalCapability("visual", RecordScreenshots);
+            var ltOptions = new Dictionary<string, object>();
+            ltOptions.Add("browserName", browserName);
+            ltOptions.Add("browserVersion", BrowserVersion);
+            ltOptions.Add("resolution", ScreenResolution);
+            ltOptions.Add("video", RecordVideo);
+            ltOptions.Add("visual", RecordScreenshots);
 
             var credentials = CloudProviderCredentialsResolver.GetCredentials();
-            driverOptions.AddAdditionalCapability("user", credentials.Item1);
-            driverOptions.AddAdditionalCapability("accessKey", credentials.Item2);
-            driverOptions.AddAdditionalCapability("name", testClassType.FullName);
+            ltOptions.Add("user", credentials.Item1);
+            ltOptions.Add("accessKey", credentials.Item2);
+
+            var testName = GetTestFullName(memberInfo, testClassType);
+            ltOptions.Add("name", testName);
+            driverOptions.AddAdditionalOption("LT:Options", ltOptions);
 
             return driverOptions;
         }

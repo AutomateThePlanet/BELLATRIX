@@ -1,4 +1,4 @@
-﻿// <copyright file="ExecutionType.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="BlobStorageSettings.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,16 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Enums
+
+namespace Bellatrix.Core.Infrastructure
 {
-    public enum ExecutionType
+    public class BlobStorageSettings
     {
-        Regular,
-        Grid,
-        SauceLabs,
-        BrowserStack,
-        CrossBrowserTesting,
-        LambdaTest,
-        Selenoid,
+        public string ConnectionString { get; set; }
     }
 }

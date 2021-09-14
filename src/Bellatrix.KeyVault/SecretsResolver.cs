@@ -25,7 +25,7 @@ namespace Bellatrix.KeyVault
         {
             if (getConfigValue().StartsWith("env_"))
             {
-                string environmentalVariable = Environment.GetEnvironmentVariable(getConfigValue().Replace("env_", string.Empty));
+                string environmentalVariable = Environment.GetEnvironmentVariable(getConfigValue().Replace("env_", string.Empty), EnvironmentVariableTarget.Machine);
                 return environmentalVariable;
             }
             else if (getConfigValue().StartsWith("vault_"))
@@ -41,7 +41,7 @@ namespace Bellatrix.KeyVault
 
         public static string GetSecret(string name)
         {
-            string environmentalVariable = Environment.GetEnvironmentVariable(name);
+            string environmentalVariable = Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Machine);
             if (!string.IsNullOrEmpty(environmentalVariable))
             {
                 return environmentalVariable;
