@@ -24,5 +24,6 @@ namespace Bellatrix.Mobile
         public bool ShouldStartLocalService { get; set; } = true;
         public string Url { get; set; }
         public List<Dictionary<string, string>> Arguments { get; set; }
+        public bool IsCloudRun { get; set; }
     }
 }

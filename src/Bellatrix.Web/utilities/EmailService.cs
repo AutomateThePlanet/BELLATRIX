@@ -29,11 +29,10 @@ namespace Bellatrix.Web.Utilities
             _blobStorageService = new BlobStorageService();
         }
 
-        public static Email ReadEmail(string name = "")
         {
             if (string.IsNullOrEmpty(name))
             {
-                name = ServicesCollection.Current.Resolve<CookiesService>().GetCookie("set_azure_emails");
+                name = ServicesCollection.Current.Resolve<CookiesService>().GetCookie(cookieName);
             }
 
             string tempFilePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.json");

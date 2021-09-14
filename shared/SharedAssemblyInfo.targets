@@ -5,17 +5,19 @@
     <Configurations>DEBUG;STAGE;QA;</Configurations>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>3.2.0.0</Version>
+    <Version>3.3.0.0</Version>
     <Authors>Automate The Planet Ltd.</Authors>
     <Company>Automate The Planet Ltd.</Company>
     <Product>Bellatrix Test Framework</Product>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
-    <FileVersion>3.2.0.0</FileVersion>
+    <AssemblyVersion>3.3.0.0</AssemblyVersion>
+    <FileVersion>3.3.0.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <Copyright>Automate The Planet Ltd. 2021</Copyright>
     <PackageReleaseNotes>
       - add Lambda Test cloud integration
       - add new JavaScript errors verification plugin
+      - add new Azure blob storage integration
+      - add email verification service
       - upgrade WebDriver to new 4 version RC1
       - upgrade all 3rd-party NuGet packages
     </PackageReleaseNotes>

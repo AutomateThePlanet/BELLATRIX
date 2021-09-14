@@ -23,14 +23,14 @@ namespace Bellatrix.Mobile
 {
     internal static class ValidateControlWaitService
     {
-        internal static void WaitUntil<TDriver, TDriverElement>(Func<bool> waitCondition, string exceptionMessage, int? timeoutInMilliseconds, int? sleepIntervalInMilliseconds)
+        internal static void WaitUntil<TDriver, TDriverElement>(Func<bool> waitCondition, string exceptionMessage, int? timeoutInSeconds, int? sleepIntervalInSeconds)
             where TDriver : AppiumDriver<TDriverElement>
             where TDriverElement : AppiumWebElement
         {
-            var localTimeout = timeoutInMilliseconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ValidationsTimeout;
-            var localSleepInterval = sleepIntervalInMilliseconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.SleepInterval;
+            var localTimeout = timeoutInSeconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ValidationsTimeout;
+            var localSleepInterval = sleepIntervalInSeconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.SleepInterval;
             var wrappedWebDriver = ServicesCollection.Current.Resolve<TDriver>();
-            var webDriverWait = new AppiumDriverWait<TDriver, TDriverElement>(wrappedWebDriver, new SystemClock(), TimeSpan.FromMilliseconds(localTimeout), TimeSpan.FromMilliseconds(localSleepInterval));
+            var webDriverWait = new AppiumDriverWait<TDriver, TDriverElement>(wrappedWebDriver, new SystemClock(), TimeSpan.FromSeconds(localTimeout), TimeSpan.FromSeconds(localSleepInterval));
             webDriverWait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException));
             bool LocalCondition(IWebDriver s)
             {
