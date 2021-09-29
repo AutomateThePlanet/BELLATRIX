@@ -1,13 +1,6 @@
 name: Tests on Windows
 
-on:
-  workflow_dispatch:
-  push:
-    branches: [master]
-    paths-ignore:
-      - '**.md'
-  pull_request:
-    branches: [master]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -25,4 +18,4 @@ jobs:
       - name: Build
         run: dotnet build --configuration Debug --no-restore
       - name: Test
-        run: dotnet test --no-build --no-restore --verbosity normal --filter ContentPopulated_When_GetAlbums
+        run: dotnet test --no-build --no-restore --verbosity normal --filter FullyQualifiedName=Bellatrix.API.Tests.ApiClientServiceNotAsyncRequestTests.ContentPopulated_When_GetAlbums
