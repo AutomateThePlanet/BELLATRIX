@@ -1,0 +1,21 @@
+name: Tests on Windows
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: '5.0.x'
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Debug --no-restore
+      - name: Test
+        run: dotnet test --no-build --no-restore --verbosity normal --filter FullyQualifiedName=Bellatrix.API.Tests.ApiClientServiceNotAsyncRequestTests.ContentPopulated_When_GetAlbums
