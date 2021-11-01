@@ -58,37 +58,37 @@ namespace Bellatrix.Web
             var wait = new WebDriverWait(new SystemClock(), WrappedDriver, timeoutTimeSpan, sleepIntervalTimeSpan);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
-            try
+            wait.Until((s) =>
             {
-                wait.Until((s) =>
+                try
                 {
-                    try
-                    {
-                        this.ToExists().ToBeClickable().WaitToBe();
-                        WrappedElement.Click();
-                        return true;
-                    }
-                    catch (ElementNotInteractableException e)
-                    {
-                        return false;
-                    }
-                    catch (WebDriverTimeoutException e)
-                    {
-                        return false;
-                    }
-                    catch (Exception e)
-                    {
-                        return false;
-                    }
-                });
-            }
-            catch (Exception e)
-            {
-                JavaScriptService.Execute("arguments[0].focus();arguments[0].click();", this);
-            }
+                    this.ToExists().ToBeClickable().WaitToBe();
+                    WrappedElement.Click();
+                    return true;
+                }
+                catch (ElementClickInterceptedException e)
+                {
+                    PerformJsClick();
+                    return true;
+                }
+                catch (ElementNotInteractableException e)
+                {
+                    return false;
+                }
+                catch (WebDriverTimeoutException e)
+                {
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+            });
 
             clicked?.Invoke(this, new ComponentActionEventArgs(this));
         }
+
+        private void PerformJsClick() => JavaScriptService.Execute("arguments[0].focus();arguments[0].click();", this);
 
         internal void Hover(EventHandler<ComponentActionEventArgs> hovering, EventHandler<ComponentActionEventArgs> hovered)
         {
