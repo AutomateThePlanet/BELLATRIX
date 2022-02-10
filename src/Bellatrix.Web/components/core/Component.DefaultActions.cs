@@ -51,44 +51,12 @@ namespace Bellatrix.Web
         {
             clicking?.Invoke(this, new ComponentActionEventArgs(this));
 
-            var sleepInterval = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval;
-            var timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToBeClickableTimeout;
-            var timeoutTimeSpan = TimeSpan.FromSeconds(timeout);
-            var sleepIntervalTimeSpan = TimeSpan.FromSeconds(sleepInterval);
-            var wait = new WebDriverWait(new SystemClock(), WrappedDriver, timeoutTimeSpan, sleepIntervalTimeSpan);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-
-            try
-            {
-                wait.Until((s) =>
-                {
-                    try
-                    {
-                        this.ToExists().ToBeClickable().WaitToBe();
-                        WrappedElement.Click();
-                        return true;
-                    }
-                    catch (ElementNotInteractableException e)
-                    {
-                        return false;
-                    }
-                    catch (WebDriverTimeoutException e)
-                    {
-                        return false;
-                    }
-                    catch (Exception e)
-                    {
-                        return false;
-                    }
-                });
-            }
-            catch (Exception e)
-            {
-                JavaScriptService.Execute("arguments[0].focus();arguments[0].click();", this);
-            }
+            PerformJsClick();
 
             clicked?.Invoke(this, new ComponentActionEventArgs(this));
         }
+
+        private void PerformJsClick() => JavaScriptService.Execute("arguments[0].focus();arguments[0].click();", this);
 
         internal void Hover(EventHandler<ComponentActionEventArgs> hovering, EventHandler<ComponentActionEventArgs> hovered)
         {

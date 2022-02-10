@@ -58,6 +58,8 @@ namespace Bellatrix.Web
 
         public virtual HeaderNamesService HeaderNamesService => new HeaderNamesService(TableService.HeaderRows);
 
+        public virtual FooterService FooterService => new FooterService(TableService.Footer);
+
         public List<IHeaderInfo> ControlColumnDataCollection { get; set; }
 
         public virtual ComponentsList<Button> ColumnHeaders
@@ -156,11 +158,11 @@ namespace Bellatrix.Web
             }
         }
 
-        public GridCell GetCell(int row, int column)
+        public virtual GridCell GetCell(int row, int column)
         {
             string innerXpath = TableService.GetCell(row, column).GetXPath();
             string outerXpath = GetCurrentElementXPath();
-            string fullXpath = "." + outerXpath + innerXpath;
+            string fullXpath = outerXpath + innerXpath;
             GridCell cell = this.CreateByXpath<GridCell>(fullXpath);
             SetCellMetaData(cell, row, column);
             return cell;
@@ -207,10 +209,67 @@ namespace Bellatrix.Web
             foreach (var gridRow in GetRows())
             {
                 var currentFilteredCells = gridRow.GetCells<TComponent>(selector);
-                filteredCells.ToList().AddRange(currentFilteredCells);
+                filteredCells.AddRange(currentFilteredCells);
             }
 
             return filteredCells;
+        }
+
+        public int FooterRowsCount => FooterService.Rows.Count;
+
+        public GridRow GetFooterByName(string footerName)
+        {
+            int currentRowIndex = 0;
+            foreach (var footerRow in FooterService.Rows)
+            {
+                if (footerRow.SelectSingleNode(".//td").InnerText == footerName)
+                {
+                    return GetFooterByPosition(currentRowIndex);
+                }
+
+                currentRowIndex++;
+            }
+
+            throw new ArgumentException($"Footer row {footerName} was not found.");
+        }
+
+        public GridRow GetFooterByPosition(int position)
+        {
+            string xpath = $".{FooterService.Rows[position].GetXPath()}";
+            GridRow row = this.CreateByXpath<GridRow>(xpath);
+            row.SetParentGrid(this);
+            row.Index = position;
+            return row;
+        }
+
+        public virtual IEnumerable<GridRow> GetFooterRows()
+        {
+            for (int rowIndex = 0; rowIndex < FooterService.Rows.Count; rowIndex++)
+            {
+                GridRow row = GetFooterByPosition(rowIndex);
+                yield return row;
+            }
+        }
+
+        public virtual List<GridRow> GetFooterRows<TComponent>(Func<TComponent, bool> selector)
+            where TComponent : Component, new()
+        {
+            return GetFooterRows().Where(r => r.GetCells<TComponent>(selector).Any()).ToList();
+        }
+
+        public GridRow GetFirstOrDefaultFooterRow<TComponent>(Func<TComponent, bool> selector)
+            where TComponent : Component, new()
+        {
+            return GetFooterRows(selector).FirstOrDefault();
+        }
+
+        public void ForEachFooterRow(Action<GridRow> action)
+        {
+            foreach (var gridRow in FooterService.Rows)
+            {
+                string xpath = gridRow.GetXPath();
+                action(this.CreateByXpath<GridRow>(xpath));
+            }
         }
 
         public TComponent GetFirstOrDefaultCell<TComponent>(Func<TComponent, bool> selector)
@@ -245,9 +304,9 @@ namespace Bellatrix.Web
             return list;
         }
 
-        public IList<GridCell> GetColumn(string header)
+        public IList<GridCell> GetColumn(string header, int? order = null)
         {
-            int? position = HeaderNamesService.GetHeaderPosition(header, ControlColumnDataCollection.AsEnumerable<IHeaderInfo>().ToList());
+            int? position = HeaderNamesService.GetHeaderPosition(header, ControlColumnDataCollection.AsEnumerable<IHeaderInfo>().ToList(), order);
             if (position == null)
             {
                 return new List<GridCell>();
@@ -318,14 +377,14 @@ namespace Bellatrix.Web
             var properties = dto.GetType().GetProperties().ToList();
             foreach (var propertyInfo in properties)
             {
-                string headerName = HeaderNamesService.GetHeaderNameByProperty(propertyInfo);
+                IHeaderInfo headerInfo = HeaderNamesService.GetHeaderInfoByProperty(propertyInfo);
 
-                if (propertiesToSkip.Contains(headerName))
+                if (propertiesToSkip.Contains(headerInfo.HeaderName))
                 {
                     continue;
                 }
 
-                int? headerPosition = HeaderNamesService.GetHeaderPosition(headerName, ControlColumnDataCollection.AsEnumerable<IHeaderInfo>().ToList());
+                int? headerPosition = HeaderNamesService.GetHeaderPosition(headerInfo.HeaderName, ControlColumnDataCollection.AsEnumerable<IHeaderInfo>().ToList(), headerInfo.Order);
                 if (headerPosition == null)
                 {
                     continue;
@@ -441,7 +500,7 @@ namespace Bellatrix.Web
         {
             string jsScriptText =
                 @"function createXPathFromElement(elm) {
-                    var allNodes = document.geTComponentsByTagName('*');
+                    var allNodes = document.getElementsByTagName('*');
                     for (var segs = []; elm && elm.nodeType === 1; elm = elm.parentNode) {
                         if (elm.hasAttribute('id')) {
                             var uniqueIdCount = 0;

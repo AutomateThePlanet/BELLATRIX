@@ -61,8 +61,13 @@ namespace Bellatrix.Plugins.Video
         {
             if (_isEnabled)
             {
-                bool hasTestPassed = e.TestOutcome.Equals(TestOutcome.Passed);
+                ////bool hasTestPassed = e.TestOutcome.Equals(TestOutcome.Passed);
+                bool hasTestPassed = false;
                 bool isFileDeleted = false;
+
+                _videoRecorder = e.Container.Resolve<IVideoRecorder>("_videoRecorder");
+                _videoRecorder?.Dispose();
+
                 try
                 {
                     string videoRecordingPath = e.Container.Resolve<string>("_videoRecordingPath");
@@ -70,8 +75,6 @@ namespace Bellatrix.Plugins.Video
                 }
                 finally
                 {
-                    _videoRecorder = e.Container.Resolve<IVideoRecorder>("_videoRecorder");
-                    _videoRecorder?.Dispose();
                     if (!isFileDeleted)
                     {
                         string videoRecordingPath = e.Container.Resolve<string>("_videoRecordingPath");

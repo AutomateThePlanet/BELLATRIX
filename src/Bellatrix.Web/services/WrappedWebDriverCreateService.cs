@@ -69,6 +69,7 @@ namespace Bellatrix.Web
                     wrappedWebDriver = InitializeDriverRegularMode(executionConfiguration, webDriverProxy);
                     break;
                 case ExecutionType.Grid:
+                case ExecutionType.SauceLabs:
                     var gridUrl = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url;
                     if (gridUrl == null || !Uri.IsWellFormedUriString(gridUrl.ToString(), UriKind.Absolute))
                     {
@@ -76,7 +77,16 @@ namespace Bellatrix.Web
                     }
 
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                    wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), executionConfiguration.DriverOptions);
+                    var options = executionConfiguration.DriverOptions;
+                    options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
+                    wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), options.ToCapabilities(), TimeSpan.FromSeconds(180));
+
+                    IAllowsFileDetection allowsDetection = wrappedWebDriver as IAllowsFileDetection;
+                    if (allowsDetection != null)
+                    {
+                        allowsDetection.FileDetector = new LocalFileDetector();
+                    }
+
                     break;
             }
 
@@ -88,6 +98,9 @@ namespace Bellatrix.Web
             if (executionConfiguration.BrowserType != BrowserType.Edge)
             {
                 FixDriverCommandExecutionDelay((RemoteWebDriver)wrappedWebDriver);
+
+                DriverCommandExecutionService commandExecutionService = new DriverCommandExecutionService((RemoteWebDriver)wrappedWebDriver);
+                commandExecutionService.InitializeSendCommand((RemoteWebDriver)wrappedWebDriver);
             }
 
             ChangeWindowSize(executionConfiguration.Size, wrappedWebDriver);
@@ -113,6 +126,9 @@ namespace Bellatrix.Web
                 {
                     FieldInfo internalExecutorField = commandExecutor.GetType().GetField("internalExecutor", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField);
                     commandExecutor = (ICommandExecutor)internalExecutorField.GetValue(commandExecutor);
+
+                    ServicesCollection.Current.RegisterInstance(commandExecutor);
+
                     remoteServerUriField = GetRemoteServerUriField(commandExecutor);
                 }
 
@@ -157,6 +173,9 @@ namespace Bellatrix.Web
                 case BrowserType.Chrome:
                     new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
                     var chromeDriverService = ChromeDriverService.CreateDefaultService();
+
+                    ServicesCollection.Current.RegisterInstance<ChromeDriverService>(chromeDriverService);
+
                     chromeDriverService.SuppressInitialDiagnosticInformation = true;
                     chromeDriverService.EnableVerboseLogging = false;
                     chromeDriverService.Port = GetFreeTcpPort();
@@ -452,6 +471,24 @@ namespace Bellatrix.Web
             int port = ((IPEndPoint)tcpListener.LocalEndpoint).Port;
             tcpListener.Stop();
             return port;
+        }
+
+        // TODO  Dushka (01.10.2021) Read all experimental options from config file
+        private static string[] GetExperimentalOptions()
+        {
+            var downloadDirectory = Path.Combine("home", Environment.UserName, "Downloads");
+            var values = new string[]
+            {
+                "profile.default_content_settings.popups@2",
+                $"download.default_directory@/{downloadDirectory}",
+                "download.prompt_for_download@2",
+                "download.directory_upgrade@1",
+                "safebrowsing.enabled@2",
+                "plugins.always_open_pdf_externally@1",
+                "plugins.plugins_disabled@newList<string>{'Chrome PDF Viewer'}",
+            };
+
+            return values;
         }
     }
 }

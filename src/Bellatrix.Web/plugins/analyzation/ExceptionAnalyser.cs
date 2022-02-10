@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using Bellatrix.ExceptionAnalysation.Contracts;
+using Bellatrix.Web;
 
 namespace Bellatrix.ExceptionAnalysation
 {
@@ -39,7 +40,16 @@ namespace Bellatrix.ExceptionAnalysation
             {
                 if (exceptionHandler.IsApplicable(ex, container, context))
                 {
-                    throw new AnalyzedTestException(exceptionHandler.DetailedIssueExplanation, ex);
+                    BrowserService browserService = container?.Resolve<BrowserService>();
+                    if (browserService != null)
+                    {
+                        string url = browserService.Url.ToString();
+                        throw new AnalyzedTestException(exceptionHandler.DetailedIssueExplanation, url, ex);
+                    }
+                    else
+                    {
+                        throw new AnalyzedTestException(exceptionHandler.DetailedIssueExplanation);
+                    }
                 }
             }
         }
