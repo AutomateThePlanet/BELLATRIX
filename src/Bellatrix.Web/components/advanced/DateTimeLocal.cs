@@ -34,7 +34,7 @@ namespace Bellatrix.Web
 
         public virtual void SetTime(DateTime time)
         {
-            SetValue(SettingTime, TimeSet, $"{time.Year}-{time.Month}-{time.Day}T{time.Hour}:{time.Minute}");
+            SetValue(SettingTime, TimeSet, $"{time.Year}-{time.Month.ToString("00")}-{time.Day.ToString("00")}T{time.Hour.ToString("00")}:{time.Minute.ToString("00")}");
         }
 
         public virtual void Hover()
