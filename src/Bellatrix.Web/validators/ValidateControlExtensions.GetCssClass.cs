@@ -34,7 +34,7 @@ namespace Bellatrix.Web
         }
 
         public static void ValidateCssClassContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-    where T : IComponentCssClass, IComponent
+            where T : IComponentCssClass, IComponent
         {
             WaitUntil(() => control.CssClass.Contains(value), $"The control's CSS class should contain '{value}' but was '{control.CssClass}'.", timeout, sleepInterval);
             ValidatedCssClassContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
