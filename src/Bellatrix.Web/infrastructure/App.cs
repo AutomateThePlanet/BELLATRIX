@@ -34,6 +34,11 @@ namespace Bellatrix.Web
     {
         private readonly ApiClientService _apiClientService;
 
+        public App()
+        {
+            _apiClientService = GetNewApiClientService();
+        }
+
         [Obsolete("BrowserService is deprecated use Browser property instead.")]
         public BrowserService BrowserService => ServicesCollection.Current.Resolve<BrowserService>();
         public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
@@ -75,7 +80,14 @@ namespace Bellatrix.Web
 
         public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
 
-        public ApiClientService ApiClient { get => _apiClientService; init => _apiClientService = GetNewApiClientService(); }
+        public ApiClientService ApiClient
+        {
+            get => _apiClientService;
+            init
+            {
+                _apiClientService = GetNewApiClientService();
+            }
+        }
 
         public ApiClientService GetNewApiClientService(string url = null, bool sharedCookies = true, int maxRetryAttempts = 1, int pauseBetweenFailures = 1, TimeUnit timeUnit = TimeUnit.Seconds)
         {
