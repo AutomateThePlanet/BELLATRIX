@@ -12,6 +12,8 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using MU = Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Assertions.MSTest
@@ -92,5 +94,7 @@ namespace Bellatrix.Assertions.MSTest
         public void IsTrue(bool condition, string message) => MU.Assert.IsTrue(condition, message);
 
         public void IsTrue(bool condition, string message, params object[] parameters) => MU.Assert.IsTrue(condition, message, parameters);
+
+        public void Multiple(params Action[] assertions) => Assert.Multiple(assertions);
     }
 }

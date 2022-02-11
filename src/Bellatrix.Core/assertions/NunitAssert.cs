@@ -12,6 +12,8 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using NU = NUnit.Framework;
 
 namespace Bellatrix.Assertions.NUnit
@@ -67,5 +69,7 @@ namespace Bellatrix.Assertions.NUnit
         public void IsTrue(bool condition, string message) => NU.Assert.That(condition, NU.Is.True, message);
 
         public void IsTrue(bool condition, string message, params object[] parameters) => NU.Assert.That(condition, NU.Is.True, string.Format(message, parameters));
+
+        public void Multiple(params Action[] assertions) => Assert.Multiple(assertions);
     }
 }

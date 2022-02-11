@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+	  <Configurations>Debug;Release;Test</Configurations>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DEBUG|AnyCPU'">
+	  <CodeAnalysisRuleSet />
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='STAGE|AnyCPU'">
+	  <CodeAnalysisRuleSet />
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='QA|AnyCPU'">
+	  <CodeAnalysisRuleSet />
+	</PropertyGroup>
+	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+	<ItemGroup>
+	  <None Remove="plugins\screenshots\html2canvas.js" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="plugins\screenshots\html2canvas.js">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="..\..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.36" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="Microsoft.Edge.SeleniumTools" Version="3.141.2" />
+		<PackageReference Include="Selenium.WebDriver" Version="4.0.0-rc1" />
+		<PackageReference Include="System.Composition" Version="5.0.1" />
+		<PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+    <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1397" />
+    <PackageReference Include="WebDriverManager" Version="2.11.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
+		<ProjectReference Include="..\Bellatrix.Api\Bellatrix.API.csproj" />
+		<ProjectReference Include="..\Bellatrix.CognitiveServices\Bellatrix.CognitiveServices.csproj" />
+		<ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
+		<ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
+		<ProjectReference Include="..\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
+		<ProjectReference Include="..\Bellatrix.KeyVault\Bellatrix.KeyVault.csproj" />
+		<ProjectReference Include="..\Bellatrix.Layout\Bellatrix.Layout.csproj" />
+		<ProjectReference Include="..\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
+		<ProjectReference Include="..\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
+	</ItemGroup>
+</Project>

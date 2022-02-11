@@ -1,4 +1,4 @@
-﻿// <copyright file="BaseTest.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="NUnitBaseTest.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -27,15 +27,15 @@ namespace Bellatrix
 {
     public class NUnitBaseTest
     {
-        public ServicesCollection Container;
-        protected static ThreadLocal<Exception> ThrownException;
         private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
+        private static ThreadLocal<Exception> _thrownException;
+        private ServicesCollection _container;
 
         private PluginProvider _currentTestExecutionProvider;
 
         public NUnitBaseTest()
         {
-            Container = ServicesCollection.Current;
+            _container = ServicesCollection.Current;
             if (!_isConfigurationExecuted.Value)
             {
                 Configure();
@@ -46,13 +46,13 @@ namespace Bellatrix
             {
                 if (eventArgs.Exception.Source != "System.Private.CoreLib")
                 {
-                    if (ThrownException == null)
+                    if (_thrownException == null)
                     {
-                        ThrownException = new ThreadLocal<Exception>(() => eventArgs.Exception);
+                        _thrownException = new ThreadLocal<Exception>(() => eventArgs.Exception);
                     }
                     else
                     {
-                        ThrownException.Value = eventArgs.Exception;
+                        _thrownException.Value = eventArgs.Exception;
                     }
                 }
             };
@@ -71,8 +71,8 @@ namespace Bellatrix
             {
                 var testClassType = GetCurrentExecutionTestClassType();
 
-                Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
-                Container.RegisterInstance(Container);
+                _container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
+                _container.RegisterInstance(_container);
                 _currentTestExecutionProvider = new PluginProvider();
                 Initialize();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
@@ -87,7 +87,7 @@ namespace Bellatrix
             {
                 _currentTestExecutionProvider.TestsArrangeFailed(ex);
 
-                throw ex;
+                throw;
             }
         }
 
@@ -98,8 +98,8 @@ namespace Bellatrix
             {
                 var testClassType = GetCurrentExecutionTestClassType();
 
-                Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
-                Container.RegisterInstance(Container);
+                _container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
+                _container.RegisterInstance(_container);
                 _currentTestExecutionProvider = new PluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
@@ -117,14 +117,14 @@ namespace Bellatrix
         [SetUp]
         public void CoreTestInit()
         {
-            if (ThrownException?.Value != null)
+            if (_thrownException?.Value != null)
             {
-                ThrownException.Value = null;
+                _thrownException.Value = null;
             }
 
             var testClassType = GetCurrentExecutionTestClassType();
 
-            Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+            _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
 
             var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
             var categories = GetAllTestCategories();
@@ -150,7 +150,7 @@ namespace Bellatrix
         public void CoreTestCleanup()
         {
             var testClassType = GetCurrentExecutionTestClassType();
-            Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+            _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
             var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
             var categories = GetAllTestCategories();
             var authors = GetAllAuthors();
@@ -160,9 +160,9 @@ namespace Bellatrix
             {
                 _currentTestExecutionProvider = new PluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
-                _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, ThrownException?.Value);
+                _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
                 TestCleanup();
-                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.FullName, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, ThrownException?.Value);
+                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.FullName, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
             }
             catch (Exception ex)
             {

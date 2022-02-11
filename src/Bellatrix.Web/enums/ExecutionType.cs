@@ -20,5 +20,7 @@ namespace Bellatrix.Web.Enums
         SauceLabs,
         BrowserStack,
         CrossBrowserTesting,
+        LambdaTest,
+        Selenoid,
     }
 }

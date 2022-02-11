@@ -1,4 +1,4 @@
-﻿// <copyright file="BaseTest.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="MSTestBaseTest.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -25,7 +25,9 @@ namespace Bellatrix
     [TestClass]
     public class MSTestBaseTest
     {
+#pragma warning disable SA1401 // Fields should be private
         public ServicesCollection Container;
+#pragma warning restore SA1401 // Fields should be private
         private static readonly List<string> TypeForAlreadyExecutedClassInits = new List<string>();
         private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
         private static ThreadLocal<Exception> _thrownException;
@@ -57,11 +59,11 @@ namespace Bellatrix
             };
         }
 
+        public TestContext TestContext { get; set; }
+
         public virtual void Configure()
         {
         }
-
-        public TestContext TestContext { get; set; }
 
         [TestInitialize]
         public void CoreTestInit()

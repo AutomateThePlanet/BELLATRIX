@@ -99,7 +99,7 @@ namespace Bellatrix
             {
                 result = _container.Resolve<T>(parameterOverrides);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (shouldThrowResolveException)
                 {
@@ -120,7 +120,7 @@ namespace Bellatrix
                     result = _container.Resolve<T>();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (shouldThrowResolveException)
                 {
@@ -146,7 +146,7 @@ namespace Bellatrix
                     result = _container.Resolve<T>(name);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (shouldThrowResolveException)
                 {
@@ -293,7 +293,7 @@ namespace Bellatrix
         {
             lock (_lockObject)
             {
-                _container.RegisterType<TFrom>(new InjectionFactory(c => null));
+                _container.RegisterFactory<TFrom>(c => null);
             }
         }
 

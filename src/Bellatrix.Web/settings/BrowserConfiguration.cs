@@ -63,11 +63,13 @@ namespace Bellatrix.Web
         public ExecutionType ExecutionType { get; set; } = ExecutionType.Regular;
 
         public bool ShouldAutomaticallyScrollToVisible { get; set; }
+        public bool IsLighthouseEnabled { get; set; }
 
         public bool Equals(BrowserConfiguration other) => ExecutionType.Equals(other?.ExecutionType) &&
                                                           BrowserType.Equals(other?.BrowserType) &&
                                                           ShouldCaptureHttpTraffic.Equals(other?.ShouldCaptureHttpTraffic) &&
                                                           Size.Equals(other?.Size) &&
+                                                          IsLighthouseEnabled.Equals(other?.IsLighthouseEnabled) &&
                                                           ShouldAutomaticallyScrollToVisible.Equals(other?.ShouldAutomaticallyScrollToVisible);
 
         public override bool Equals(object obj)
@@ -78,6 +80,7 @@ namespace Bellatrix.Web
             ShouldCaptureHttpTraffic.Equals(browserConfiguration?.ShouldCaptureHttpTraffic) &&
             Size.Equals(browserConfiguration?.Size) &&
             ShouldAutomaticallyScrollToVisible.Equals(browserConfiguration?.ShouldAutomaticallyScrollToVisible);
+            IsLighthouseEnabled.Equals(browserConfiguration?.IsLighthouseEnabled);
         }
     }
 }

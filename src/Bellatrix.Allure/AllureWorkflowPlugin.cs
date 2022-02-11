@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using Allure.Commons;
 using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots;
@@ -27,10 +28,23 @@ namespace Bellatrix.Results.Allure
 {
     public class AllureWorkflowPlugin : Plugin, IScreenshotPlugin, IVideoPlugin
     {
-        private static AllureLifecycle _allureLifecycle => AllureLifecycle.Instance;
-        private string _testContainerId;
-        private string _testResultId;
-        private bool _hasStarted;
+        private static ThreadLocal<AllureLifecycle> _allureLifecycle;
+        private static ThreadLocal<string> _testContainerId;
+        private static ThreadLocal<string> _testResultId;
+        private static ThreadLocal<bool> _hasStarted;
+
+        public AllureWorkflowPlugin()
+        {
+            if (_allureLifecycle == null)
+            {
+                _allureLifecycle = new ThreadLocal<AllureLifecycle>();
+                _testContainerId = new ThreadLocal<string>();
+                _testResultId = new ThreadLocal<string>();
+                _hasStarted = new ThreadLocal<bool>();
+            }
+
+            _allureLifecycle.Value = AllureLifecycle.Instance;
+        }
 
         public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
         {
@@ -46,7 +60,7 @@ namespace Bellatrix.Results.Allure
         {
             if (File.Exists(e.ScreenshotPath))
             {
-                _allureLifecycle.AddAttachment("image on fail", "image/png", e.ScreenshotPath);
+                _allureLifecycle.Value.AddAttachment("image on fail", "image/png", e.ScreenshotPath);
             }
         }
 
@@ -64,7 +78,7 @@ namespace Bellatrix.Results.Allure
         {
             if (File.Exists(e.VideoPath))
             {
-                _allureLifecycle.AddAttachment("video on fail", "video/mpg", e.VideoPath);
+                _allureLifecycle.Value.AddAttachment("video on fail", "video/mpg", e.VideoPath);
             }
         }
 
@@ -80,44 +94,44 @@ namespace Bellatrix.Results.Allure
 
         protected override void PreTestInit(object sender, PluginEventArgs e)
         {
-            _hasStarted = false;
+            _hasStarted.Value = false;
             StartTestContainer(e.TestFullName);
             StartTestCase(e.TestName, e.TestClassName, e.TestFullName);
-            _hasStarted = true;
+            _hasStarted.Value = true;
             base.PreTestInit(sender, e);
         }
 
         protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
-            if (_hasStarted)
+            if (_hasStarted.Value)
             {
                 StopTestCase(e.Categories, e.Authors, e.Descriptions, e.TestMethodMemberInfo, e.TestOutcome, e.ConsoleOutputMessage, e.ConsoleOutputStackTrace);
                 StopTestContainer();
             }
 
-            _hasStarted = false;
+            _hasStarted.Value = false;
 
             base.PostTestCleanup(sender, e);
         }
 
         private void StartTestContainer(string fullTestName)
         {
-            _testContainerId = Guid.NewGuid().ToString();
+            _testContainerId.Value = Guid.NewGuid().ToString();
             var container = new TestResultContainer
                             {
-                                uuid = _testContainerId,
+                                uuid = _testContainerId.Value,
                                 name = fullTestName,
                             };
 
-            _allureLifecycle.StartTestContainer(container);
+            _allureLifecycle.Value.StartTestContainer(container);
         }
 
         private void StartTestCase(string testName, string className, string testFullName)
         {
-            _testResultId = Guid.NewGuid().ToString();
+            _testResultId.Value = Guid.NewGuid().ToString();
             var testResult = new TestResult
                              {
-                                 uuid = _testResultId,
+                                 uuid = _testResultId.Value,
                                  name = testName,
                                  historyId = testFullName,
                                  fullName = testFullName,
@@ -130,7 +144,7 @@ namespace Bellatrix.Results.Allure
                                               Label.Package(className),
                                           },
                              };
-            _allureLifecycle.StartTestCase(_testContainerId, testResult);
+            _allureLifecycle.Value.StartTestCase(_testContainerId.Value, testResult);
         }
 
         private void StopTestCase(List<string> categories, List<string> authors, List<string> descriptions, MemberInfo memberInfo, TestOutcome testOutcome, string consoleMessage, string stackTrace)
@@ -151,8 +165,8 @@ namespace Bellatrix.Results.Allure
             ApplyAllureEpicAttributes(memberInfo);
             UpdateAllureTestResults(consoleMessage, stackTrace);
 
-            _allureLifecycle.StopTestCase(testCase => testCase.status = GetAllureTestResultOutput(testOutcome, consoleMessage));
-            _allureLifecycle.WriteTestCase(_testResultId);
+            _allureLifecycle.Value.StopTestCase(testCase => testCase.status = GetAllureTestResultOutput(testOutcome, consoleMessage));
+            _allureLifecycle.Value.WriteTestCase(_testResultId.Value);
         }
 
         private void UpdateAllureTestResults(string consoleMessage, string stackTrace)
@@ -164,7 +178,7 @@ namespace Bellatrix.Results.Allure
             }
 
             Debug.WriteLine($"Allure test results message: {Environment.NewLine}{message}");
-            _allureLifecycle.UpdateTestCase(
+            _allureLifecycle.Value.UpdateTestCase(
                 x => x.statusDetails = new StatusDetails
                                        {
                                            message = message,
@@ -176,7 +190,7 @@ namespace Bellatrix.Results.Allure
         {
             foreach (var category in categories)
             {
-                _allureLifecycle.UpdateTestCase(x => x.labels.Add(Label.Tag(category)));
+                _allureLifecycle.Value.UpdateTestCase(x => x.labels.Add(Label.Tag(category)));
             }
         }
 
@@ -184,7 +198,7 @@ namespace Bellatrix.Results.Allure
         {
             foreach (var author in authors)
             {
-                _allureLifecycle.UpdateTestCase(x => x.labels.Add(Label.Owner(author)));
+                _allureLifecycle.Value.UpdateTestCase(x => x.labels.Add(Label.Owner(author)));
             }
         }
 
@@ -192,7 +206,7 @@ namespace Bellatrix.Results.Allure
         {
             foreach (var description in descriptions)
             {
-                _allureLifecycle.UpdateTestCase(x => x.description += $"{description}\n");
+                _allureLifecycle.Value.UpdateTestCase(x => x.description += $"{description}\n");
             }
         }
 
@@ -201,7 +215,7 @@ namespace Bellatrix.Results.Allure
             var allEpicAttributes = GetAllAttributes<AllureEpicAttribute>(memberInfo);
             foreach (var epicAttribute in allEpicAttributes)
             {
-                _allureLifecycle.UpdateTestCase(x => x.labels.Add(Label.Epic(epicAttribute.Epic)));
+                _allureLifecycle.Value.UpdateTestCase(x => x.labels.Add(Label.Epic(epicAttribute.Epic)));
             }
         }
 
@@ -210,7 +224,7 @@ namespace Bellatrix.Results.Allure
             var allParentSuiteAttributes = GetAllAttributes<AllureParentSuiteAttribute>(memberInfo);
             foreach (var parentSuiteAttribute in allParentSuiteAttributes)
             {
-                _allureLifecycle.UpdateTestCase(x => x.labels.Add(Label.ParentSuite(parentSuiteAttribute.ParentSuite)));
+                _allureLifecycle.Value.UpdateTestCase(x => x.labels.Add(Label.ParentSuite(parentSuiteAttribute.ParentSuite)));
             }
         }
 
@@ -219,7 +233,7 @@ namespace Bellatrix.Results.Allure
             var allSubSuiteAttributes = GetAllAttributes<AllureSubSuiteAttribute>(memberInfo);
             foreach (var subSuiteAttribute in allSubSuiteAttributes)
             {
-                _allureLifecycle.UpdateTestCase(x => x.labels.Add(Label.SubSuite(subSuiteAttribute.SubSuite)));
+                _allureLifecycle.Value.UpdateTestCase(x => x.labels.Add(Label.SubSuite(subSuiteAttribute.SubSuite)));
             }
         }
 
@@ -228,7 +242,7 @@ namespace Bellatrix.Results.Allure
             var allSuiteAttributes = GetAllAttributes<AllureSuiteAttribute>(memberInfo);
             foreach (var suiteAttribute in allSuiteAttributes)
             {
-                _allureLifecycle.UpdateTestCase(x => x.labels.Add(Label.Suite(suiteAttribute.Suite)));
+                _allureLifecycle.Value.UpdateTestCase(x => x.labels.Add(Label.Suite(suiteAttribute.Suite)));
             }
         }
 
@@ -237,7 +251,7 @@ namespace Bellatrix.Results.Allure
             var allLinkAttributes = GetAllAttributes<AllureLinkAttribute>(memberInfo);
             foreach (var linkAttribute in allLinkAttributes)
             {
-                _allureLifecycle.UpdateTestCase(x => x.links.Add(linkAttribute.Link));
+                _allureLifecycle.Value.UpdateTestCase(x => x.links.Add(linkAttribute.Link));
             }
         }
 
@@ -246,7 +260,7 @@ namespace Bellatrix.Results.Allure
             var allTmsAttributes = GetAllAttributes<AllureTmsAttribute>(memberInfo);
             foreach (var tmsAttribute in allTmsAttributes)
             {
-                _allureLifecycle.UpdateTestCase(x => x.links.Add(tmsAttribute.TmsLink));
+                _allureLifecycle.Value.UpdateTestCase(x => x.links.Add(tmsAttribute.TmsLink));
             }
         }
 
@@ -257,7 +271,7 @@ namespace Bellatrix.Results.Allure
             {
                 foreach (var tag in tagAttribute.Tags)
                 {
-                    _allureLifecycle.UpdateTestCase(x => x.labels.Add(Label.Tag(tag)));
+                    _allureLifecycle.Value.UpdateTestCase(x => x.labels.Add(Label.Tag(tag)));
                 }
             }
         }
@@ -269,7 +283,7 @@ namespace Bellatrix.Results.Allure
             {
                 foreach (var story in storyAttribute.Stories)
                 {
-                    _allureLifecycle.UpdateTestCase(x => x.labels.Add(Label.Story(story)));
+                    _allureLifecycle.Value.UpdateTestCase(x => x.labels.Add(Label.Story(story)));
                 }
             }
         }
@@ -279,7 +293,7 @@ namespace Bellatrix.Results.Allure
             var allIssueAttributes = GetAllAttributes<AllureIssueAttribute>(memberInfo);
             foreach (var issueAttribute in allIssueAttributes)
             {
-                _allureLifecycle.UpdateTestCase(x => x.links.Add(issueAttribute.IssueLink));
+                _allureLifecycle.Value.UpdateTestCase(x => x.links.Add(issueAttribute.IssueLink));
             }
         }
 
@@ -290,7 +304,7 @@ namespace Bellatrix.Results.Allure
             {
                 foreach (var feature in featureAttribute.Features)
                 {
-                    _allureLifecycle.UpdateTestCase(x => x.labels.Add(Label.Feature(feature)));
+                    _allureLifecycle.Value.UpdateTestCase(x => x.labels.Add(Label.Feature(feature)));
                 }
             }
         }
@@ -300,25 +314,25 @@ namespace Bellatrix.Results.Allure
             var allSeverityAttribute = GetOverridenAttribute<AllureSeverityAttribute>(memberInfo);
             if (allSeverityAttribute != null)
             {
-                _allureLifecycle.UpdateTestCase(x => x.labels.Add(Label.Severity(allSeverityAttribute.Severity)));
+                _allureLifecycle.Value.UpdateTestCase(x => x.labels.Add(Label.Severity(allSeverityAttribute.Severity)));
             }
         }
 
         private void StopTestContainer()
         {
-            _allureLifecycle.UpdateTestContainer(_testContainerId,
+            _allureLifecycle.Value.UpdateTestContainer(_testContainerId.Value,
                 cont =>
                 {
                 });
-            _allureLifecycle.StopTestContainer(_testContainerId);
-            _allureLifecycle.WriteTestContainer(_testContainerId);
+            _allureLifecycle.Value.StopTestContainer(_testContainerId.Value);
+            _allureLifecycle.Value.WriteTestContainer(_testContainerId.Value);
         }
 
         private Status GetAllureTestResultOutput(TestOutcome testOutcome, string consoleMessage)
         {
             if (testOutcome != TestOutcome.Passed)
             {
-                var allureConfiguration = JObject.Parse(_allureLifecycle.JsonConfiguration);
+                var allureConfiguration = JObject.Parse(_allureLifecycle.Value.JsonConfiguration);
                 var allureSection = allureConfiguration["allure"];
                 try
                 {

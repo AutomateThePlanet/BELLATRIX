@@ -242,19 +242,8 @@ namespace Bellatrix.Web
         {
             Focusing?.Invoke(this, new ComponentActionEventArgs(this));
 
-            var remoteElement = (RemoteWebElement)this.ToBeClickable().WrappedElement;
-
-            // ReSharper disable once UnusedVariable
-            if (WrappedWebDriverCreateService.BrowserConfiguration.BrowserType != BrowserType.Opera)
-            {
-                JavaScriptService.Execute("window.focus();");
-                JavaScriptService.Execute("arguments[0].focus();", WrappedElement);
-            }
-            else
-            {
-                var hack = remoteElement.LocationOnScreenOnceScrolledIntoView;
-                remoteElement.SendKeys(Keys.Space);
-            }
+            JavaScriptService.Execute("window.focus();");
+            JavaScriptService.Execute("arguments[0].focus();", WrappedElement);
 
             Focused?.Invoke(this, new ComponentActionEventArgs(this));
         }
@@ -270,6 +259,11 @@ namespace Bellatrix.Web
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public string LocatorValue => By.Value;
+
+        public void Hide()
+        {
+            SetAttribute("style", "display:none");
+        }
 
         public void EnsureState(WaitStrategy until)
         {

@@ -9,18 +9,6 @@ namespace Bellatrix.Web.GettingStarted
     // BrowserStack has the same parameters as Browser but adds to additional ones-
     // browser version, platform type, platform version, captureNetworkLogs, consoleLogType, build and debug. The last five are optional and have default values.
     // As with the Browser attribute you can override the class lifecycle on Test level.
-    //
-    // 2. You can find a dedicated section about SauceLabs in testFrameworkSettings file under the webSettings section.
-    //     "browserStack": {
-    //     "pageLoadTimeout": "30",
-    //     "scriptTimeout": "1",
-    //     "artificialDelayBeforeAction": "0",
-    //     "gridUri":  "http://hub-cloud.browserstack.com/wd/hub/",
-    //     "user": "soioa1",
-    //     "key":  "pnFG3Ky2yLZ5muB1p46P"
-    // }
-    //
-    // There you can set the grid URL, credentials and set some additional timeouts.
     [BrowserStack(BrowserType.Chrome,
         "62",
         "Windows",

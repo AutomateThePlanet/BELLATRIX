@@ -45,7 +45,7 @@ namespace Bellatrix.Web
             CaptureVideo = captureVideo;
             CaptureNetworkLogs = captureNetworkLogs;
             ConsoleLogType = consoleLogType;
-            ExecutionType = ExecutionType.BrowserStack;
+            ExecutionType = ExecutionType.Grid;
         }
 
         public BrowserStackAttribute(
@@ -72,7 +72,7 @@ namespace Bellatrix.Web
             CaptureVideo = captureVideo;
             CaptureNetworkLogs = captureNetworkLogs;
             ConsoleLogType = consoleLogType;
-            ExecutionType = ExecutionType.BrowserStack;
+            ExecutionType = ExecutionType.Grid;
             ScreenResolution = new Size(width, height).ConvertToString();
         }
 
@@ -168,7 +168,10 @@ namespace Bellatrix.Web
             driverOptions.AddAdditionalCapability("browserstack.user", credentials.Item1);
             driverOptions.AddAdditionalCapability("browserstack.key", credentials.Item2);
 
+            var testName = GetTestFullName(memberInfo, testClassType);
+            driverOptions.AddAdditionalCapability("name", testName);
+
             return driverOptions;
-        }
+        }      
     }
 }

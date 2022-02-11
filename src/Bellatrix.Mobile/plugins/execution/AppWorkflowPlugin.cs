@@ -29,6 +29,12 @@ namespace Bellatrix.Mobile.Plugins
     {
         protected override void PreTestsArrange(object sender, PluginEventArgs e)
         {
+            if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.IsCloudRun)
+            {
+                e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
+                return;
+            }
+
             // Resolve required data for decision making
             var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
 
@@ -91,6 +97,11 @@ namespace Bellatrix.Mobile.Plugins
 
         private bool ShouldRestartApp(ServicesCollection container)
         {
+            if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.IsCloudRun)
+            {
+                return true;
+            }
+
             bool shouldRestartApp = false;
             var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
             var previousAppConfiguration = container.Resolve<AppConfiguration>("_previousAppConfiguration");
@@ -321,18 +332,10 @@ namespace Bellatrix.Mobile.Plugins
             {
                 return result;
             }
-            ////else if (int.TryParse(option, out int resultNumber))
-            ////{
-            ////    return resultNumber;
-            ////}
             else if (option.StartsWith("env_") || option.StartsWith("vault_"))
             {
                 return SecretsResolver.GetSecret(() => option);
             }
-            ////else if (double.TryParse(option, out double resultRealNumber))
-            ////{
-            ////    return resultRealNumber;
-            ////}
             else if (option.StartsWith("AssemblyFolder", StringComparison.Ordinal))
             {
                 var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();

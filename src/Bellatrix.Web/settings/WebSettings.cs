@@ -24,6 +24,7 @@ namespace Bellatrix.Web
         public bool ShouldCaptureHttpTraffic { get; set; }
         public string PathToSslCertificate { get; set; }
         public bool IsParallelExecutionEnabled { get; set; }
+        public bool ShouldCheckForJavaScriptErrors { get; set; }
         public TimeoutSettings TimeoutSettings { get; set; }
         public ExecutionSettings ExecutionSettings { get; set; }
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bellatrix.Core.logging
+namespace Bellatrix.Core.Logging
 {
     public class TroubleshootingSettings
     {

@@ -12,6 +12,7 @@
     "shouldHighlightElements": "true",
     "shouldCaptureHttpTraffic": "false",
     "pathToSslCertificate": "path",
+    "shouldCheckForJavaScriptErrors": "false",
     "timeoutSettings": {
       "elementWaitTimeout": "30",
       "pageLoadTimeout": "30",
@@ -36,19 +37,25 @@
       "defaultLifeCycle": "restart every time",
       "resolution": "",
       "browserVersion": "",
+      "isCloudRun": "false",
       "url": "http://127.0.0.1:4444/wd/hub",
-      // sample selenoid args or you can set here custom default browser options for non-grid execution
       "arguments": [
         {
-          "name": "{runName}",
-          "videoName": "{runName}.{timestamp}.mp4",
-          "logName": "{runName}.{timestamp}.log",
-          "enableVNC": "true",
-          "enableVideo": "true",
-          "enableLog": "true",
-          "screenResolution": "1920x1080x24"
+          "acceptInsecureCerts": "true"
         }
       ]
+      // sample selenoid args or you can set here custom default browser options for non-grid execution
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "videoName": "{runName}.{timestamp}.mp4",
+      //    "logName": "{runName}.{timestamp}.log",
+      //    "enableVNC": "true",
+      //    "enableVideo": "true",
+      //    "enableLog": "true",
+      //    "screenResolution": "1920x1080x24"
+      //  }
+      //]
       // sample saucelabs args
       //"arguments": [
       //  {
@@ -78,6 +85,22 @@
       //    "password": "accessKey"
       //  }
       //]
+      // sample lambda test args
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "platformName": "Windows",
+      //    "browserName": "Chrome",
+      //    "browserVersion": "93.0",
+      //    "video": "true",
+      //    "visual": "true",
+      //    "resolution": "1920x1080x24",
+      //    "geoLocation": "BE",
+      //     // you case set them as environmental variables - cloud.grid.user and cloud.grid.key. Set them as value to the key to which they should be intialized.
+      //    "user": "yourUserName",
+      //    "accessKey": "accessKey"
+      //  }
+      //]
       // sample browserstack args
       //"arguments": [
       //  {
@@ -96,6 +119,22 @@
       //  }
       //]
     }
+  },
+  "apiSettings": {
+    "baseUrl": "http://127.0.0.1:55215",
+    "clientTimeoutSeconds": "30",
+    "maxRetryAttempts": "3",
+    "pauseBetweenFailures": "1",
+    "timeUnit": "1"
+  },
+  "lighthouseSettings": {
+    "isEnabled": "true",
+    "timeout": "60",
+    "arguments": [
+      {
+        "screenEmulation.disabled": ""
+      }
+    ]
   },
   "urlSettings": {
     "shopUrl": "http://demos.bellatrix.solutions/cart/",
@@ -164,5 +203,8 @@
   "appInsightsSettings": {
     "instrumentationKey": "yourKey",
     "isEnabled": "false"
+  },
+  "blobStorageSettings": {
+    "connectionString": "yourKey"
   }
 }

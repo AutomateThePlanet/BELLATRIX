@@ -41,7 +41,7 @@ namespace Bellatrix.Web
             ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
             Size = default;
             ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldCaptureHttpTraffic && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
+            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
         }
 
         public BrowserAttribute(BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
@@ -114,6 +114,14 @@ namespace Bellatrix.Web
         public OS OS { get; internal set; }
 
         public bool ShouldAutomaticallyScrollToVisible { get; }
+        public bool IsLighthouseEnabled { get; protected set; }
+
+        protected string GetTestFullName(MemberInfo memberInfo, Type testClassType)
+        {
+            string testFullName = $"{testClassType.FullName}.{memberInfo.Name}";
+            string testName = testFullName != null ? testFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty) : testClassType.FullName;
+            return testName;
+        }
 
         // We allow users to set custom capabilities and profiles from the web App class. We register the type by the unique name of the class.
         protected TDriverOptions AddAdditionalCapabilities<TDriverOptions>(Type type, TDriverOptions driverOptions)

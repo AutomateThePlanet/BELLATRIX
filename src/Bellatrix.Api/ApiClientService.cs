@@ -76,6 +76,11 @@ namespace Bellatrix.Api
         }
 
         public int MaxRetryAttempts { get; set; }
+        public string BaseUrl
+        {
+            get => WrappedClient.BaseUrl.AbsoluteUri;
+            set => WrappedClient.BaseUrl = new Uri(value);
+        }
 
         public TimeSpan PauseBetweenFailures { get; set; }
 

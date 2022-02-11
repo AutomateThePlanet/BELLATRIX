@@ -9,15 +9,20 @@ namespace Bellatrix.Web.GettingStarted
     // Remote has the same parameters as Browser but adds to additional ones- browser version and platform type.
     // As with the Browser attribute you can override the class behavior on Test level.
     //
-    // 2. You can find a dedicated section about Selenium grid in testFrameworkSettings file under the webSettings section.
-    // "remote": {
-    //         "pageLoadTimeout": "30",
-    //         "scriptTimeout": "1",
-    //         "artificialDelayBeforeAction": "0",
-    //         "gridUri":  "http://127.0.0.1:4444/wd/hub"
-    //     }
-    //
-    // There you can set the grid URL and set some additional timeouts.
+    // 2. You can find a dedicated section about Selenium grid in testFrameworkSettings file under the executionSettings/arguments section.
+    // "executionSettings": {
+    //      "executionType": "regular",
+    //      "defaultBrowser": "chrome",
+    //      "defaultLifeCycle": "restart every time",
+    //      "resolution": "",
+    //      "browserVersion": "",
+    //      "url": "http://127.0.0.1:4444/wd/hub",
+    //      "arguments": [
+    //        {
+    //          "acceptInsecureCerts": "true"
+    //        }
+    //      ]
+    //}
     [Remote(BrowserType.Chrome, "62", PlatformType.Windows, Lifecycle.ReuseIfStarted)]
     public class SeleniumGridTests : NUnit.WebTest
     {

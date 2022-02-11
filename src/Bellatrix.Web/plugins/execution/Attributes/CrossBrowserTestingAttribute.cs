@@ -39,7 +39,7 @@ namespace Bellatrix.Web
             Build = build;
             RecordVideo = recordVideo;
             RecordNetwork = recordNetwork;
-            ExecutionType = ExecutionType.BrowserStack;
+            ExecutionType = ExecutionType.Grid;
         }
 
         public CrossBrowserTestingAttribute(
@@ -60,7 +60,7 @@ namespace Bellatrix.Web
             Build = build;
             RecordVideo = recordVideo;
             RecordNetwork = recordNetwork;
-            ExecutionType = ExecutionType.BrowserStack;
+            ExecutionType = ExecutionType.Grid;
             ScreenResolution = new Size(width, height).ConvertToString();
         }
 
@@ -137,7 +137,8 @@ namespace Bellatrix.Web
             driverOptions.AddAdditionalCapability("username", credentials.Item1);
             driverOptions.AddAdditionalCapability("password", credentials.Item2);
 
-            driverOptions.AddAdditionalCapability("name", memberInfo.Name);
+            var testName = GetTestFullName(memberInfo, testClassType);
+            driverOptions.AddAdditionalCapability("name", testName);
 
             return driverOptions;
         }

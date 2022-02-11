@@ -8,16 +8,6 @@ namespace Bellatrix.Web.GettingStarted
     // Selenoid has the same parameters as Browser but adds to additional ones-
     // browser version, recordVideo, saveSessionLogs and enableVnc.
     // As with the Browser attribute you can override the class lifecycle on Test level.
-    //
-     // 2. You can find a dedicated section about Selenium grid in testFrameworkSettings file under the webSettings section.
-    // "remote": {
-    //         "pageLoadTimeout": "30",
-    //         "scriptTimeout": "1",
-    //         "artificialDelayBeforeAction": "0",
-    //         "gridUri":  "http://127.0.0.1:4444/wd/hub"
-    //     }
-    //
-    // There you can set the grid URL and set some additional timeouts.
     [Selenoid(BrowserType.Chrome, "77", Lifecycle.RestartEveryTime, recordVideo: true, enableVnc: true, saveSessionLogs: true)]
     public class SelenoidTests : NUnit.WebTest
     {

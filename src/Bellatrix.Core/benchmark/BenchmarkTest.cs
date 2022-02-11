@@ -23,7 +23,9 @@ namespace Bellatrix.Benchmark
 {
     public abstract class BenchmarkTest
     {
+#pragma warning disable SA1306 // Field names should begin with lower-case letter
         protected static ThreadLocal<Exception> ThrownException;
+#pragma warning restore SA1306 // Field names should begin with lower-case letter
         private PluginProvider _currentTestExecutionProvider;
         private List<string> _authors = new List<string>();
         private List<string> _categories = new List<string>();
@@ -124,7 +126,6 @@ namespace Bellatrix.Benchmark
                 Container.RegisterInstance(Container);
                 _currentTestExecutionProvider = new PluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
-                MethodInfo testMethodMemberInfo = null;
                 _currentTestExecutionProvider.PreTestsArrange(testClassType, new List<object>());
                 TestsArrange();
                 _currentTestExecutionProvider.PostTestsArrange(testClassType);

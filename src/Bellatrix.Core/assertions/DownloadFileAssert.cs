@@ -1,4 +1,4 @@
-﻿// <copyright file="DateTimeDeltaType.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="DownloadFileAssert.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -59,6 +59,13 @@ namespace Bellatrix.Assertions
             }
         }
 
+        public static void Dispose()
+        {
+            _fileSystemWatcher?.Dispose();
+            _isCreated = false;
+            _fileNameToBeDownloaded.Value = string.Empty;
+        }
+
         private static void InitializeDownloadFileWatcher()
         {
             _fileSystemWatcher = new ThreadLocal<FileSystemWatcher>(() => new FileSystemWatcher(GetSystemDownloadsPath()));
@@ -105,13 +112,6 @@ namespace Bellatrix.Assertions
             }
 
             return path;
-        }
-
-        public static void Dispose()
-        {
-            _fileSystemWatcher?.Dispose();
-            _isCreated = false;
-            _fileNameToBeDownloaded.Value = string.Empty;
         }
     }
 }
