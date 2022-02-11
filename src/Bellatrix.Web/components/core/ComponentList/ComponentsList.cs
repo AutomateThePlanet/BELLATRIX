@@ -192,5 +192,10 @@ namespace Bellatrix.Web
 
             return elementFinder.FindAll(_by);
         }
+
+        public void AddRange(List<TComponent> currentFilteredCells)
+        {
+            _foundElements.AddRange(currentFilteredCells);
+        }
     }
 }

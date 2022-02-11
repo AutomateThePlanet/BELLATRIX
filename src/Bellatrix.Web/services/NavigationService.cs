@@ -36,7 +36,30 @@ namespace Bellatrix.Web
 
         public void Navigate(Uri uri) => WrappedDriver.Navigate().GoToUrl(uri);
 
-        public void Navigate(string url) => WrappedDriver.Navigate().GoToUrl(url);
+        public void Navigate(string url)
+        {
+            bool tryAgain = false;
+            try
+            {
+                WrappedDriver.Navigate().GoToUrl(url);
+            }
+            catch (Exception)
+            {
+                tryAgain = true;
+            }
+
+            if (tryAgain)
+            {
+                try
+                {
+                    WrappedDriver.Navigate().GoToUrl(url);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Navigation to page {url} has failed after two attempts. Error was: {ex.Message}");
+                }
+            }
+        }
 
         public void NavigateToLocalPage(string filePath)
         {

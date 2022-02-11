@@ -23,6 +23,7 @@ namespace Bellatrix.Web
     public class Table : Component
     {
         private HeaderNamesService _headerNamesService;
+        private FooterService _footerService;
         private List<TableRow> _rows;
         private TableService _tableService;
 
@@ -56,6 +57,21 @@ namespace Bellatrix.Web
                 return _headerNamesService;
             }
         }
+
+        protected FooterService FooterService
+        {
+            get
+            {
+                if (_footerService == null)
+                {
+                    _footerService = new FooterService(TableService.Footer);
+                }
+
+                return _footerService;
+            }
+        }
+
+        public TableFooter Footer => this.CreateByXpath<TableFooter>(TableService.Footer.GetXPath());
 
         public int RowsCount => GetRows().ToElementList().Count();
 

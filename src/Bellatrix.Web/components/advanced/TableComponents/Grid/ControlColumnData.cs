@@ -18,19 +18,22 @@ namespace Bellatrix.Web
 {
     public class ControlColumnData : IHeaderInfo
     {
-        public ControlColumnData(string headerName)
+        public ControlColumnData(string headerName, int order = 0)
         {
             HeaderName = headerName;
+            Order = order;
         }
 
-        public ControlColumnData(string headerName, dynamic by, Type elementType)
+        public ControlColumnData(string headerName, dynamic by, Type elementType, int order = 0)
             : this(headerName)
         {
             By = by;
             ComponentType = elementType;
+            Order = order;
         }
 
         public string HeaderName { get; set; }
+        public int Order { get; set; }
         public dynamic By { get; set; }
         public Type ComponentType { get; set; }
     }

@@ -25,6 +25,10 @@ namespace Bellatrix.Infrastructure
 
         public void CreateDirectory(string path) => Directory.CreateDirectory(path);
 
+        public string GetCurrentDirectory() => Directory.GetCurrentDirectory();
+
         public bool Exists(string path) => Directory.Exists(path);
+
+        public DirectoryInfo GetParent(string path) => Directory.GetParent(path);
     }
 }
