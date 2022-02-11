@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android
             SetText(SettingText, TextSet, value);
         }
 
-        public virtual string GetText()
+        public new virtual string GetText()
         {
             return base.GetText();
         }

@@ -40,3 +40,6 @@ dotnet_diagnostic.CS0659.severity = none
 
 # CS0618: Type or member is obsolete
 dotnet_diagnostic.CS0618.severity = warning
+
+# CS0649: Field 'TableRow._tableCells' is never assigned to, and will always have its default value null
+dotnet_diagnostic.CS0649.severity = none

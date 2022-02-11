@@ -29,7 +29,7 @@ namespace Bellatrix.Mobile.Android
             Click(Clicking, Clicked);
         }
 
-        public virtual string GetText()
+        public new virtual string GetText()
         {
             return GetText();
         }

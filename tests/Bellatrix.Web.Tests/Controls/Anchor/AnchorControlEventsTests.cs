@@ -29,7 +29,7 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickingCalled_BeforeActuallyClick()
         {
-            var browserService = App.BrowserService;
+            var browserService = App.Browser;
 
             Anchor.Clicking += AssertUrlNotAutomateThePlanet;
 

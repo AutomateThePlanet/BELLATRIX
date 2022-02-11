@@ -23,7 +23,9 @@ namespace Bellatrix.Api.Extensions
     {
         public static dynamic AsDynamicContent(this IMeasuredResponse response)
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             if (response.Request.RequestFormat == DataFormat.Xml)
+#pragma warning restore CS0618 // Type or member is obsolete
             {
                 var doc = XDocument.Parse(response.Content);
                 var contentToBeConverted = JsonConvert.SerializeXNode(doc);

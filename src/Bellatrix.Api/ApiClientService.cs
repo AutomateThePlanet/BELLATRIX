@@ -208,7 +208,7 @@ namespace Bellatrix.Api
 
                 _executionProvider.OnMakingRequest(request, request.Resource);
 
-                var response = await WrappedClient.ExecuteTaskAsync<TReturnType>(request, cancellationTokenSource.Token).ConfigureAwait(false);
+                var response = await WrappedClient.ExecuteAsync<TReturnType>(request, cancellationTokenSource.Token).ConfigureAwait(false);
 
                 _executionProvider.OnRequestMade(response, request.Resource);
 
@@ -245,7 +245,7 @@ namespace Bellatrix.Api
 
                 _executionProvider.OnMakingRequest(request, request.Resource);
 
-                var response = await WrappedClient.ExecuteTaskAsync(request, cancellationTokenSource.Token).ConfigureAwait(false);
+                var response = await WrappedClient.ExecuteAsync(request, cancellationTokenSource.Token).ConfigureAwait(false);
 
                 _executionProvider.OnRequestMade(response, request.Resource);
 
@@ -335,7 +335,6 @@ namespace Bellatrix.Api
 
         private void SetJsonContent(IRestRequest request, object obj = null)
         {
-            request.RequestFormat = DataFormat.Json;
             request.JsonSerializer = NewtonsoftJsonSerializer.Default;
             if (obj != null)
             {

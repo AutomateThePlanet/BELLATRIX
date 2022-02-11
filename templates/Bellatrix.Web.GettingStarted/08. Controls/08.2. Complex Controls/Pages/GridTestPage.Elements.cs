@@ -4,7 +4,7 @@ namespace Bellatrix.Web.GettingStarted
 {
     public partial class GridTestPage
     {
-        public Grid SampleGrid => ComponentCreateService.CreateById<Grid>("sampleGrid")
+        public Grid SampleGrid => App.Components.CreateById<Grid>("sampleGrid")
             .SetColumn("Order", typeof(TextField), Find.By.Tag("input"))
             .SetColumn("Firstname")
             .SetColumn("Lastname")

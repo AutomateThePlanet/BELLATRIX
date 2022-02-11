@@ -25,42 +25,9 @@ namespace Bellatrix.Web
     {
         public App App => ServicesCollection.Current.Resolve<App>();
 
-        [Obsolete("BrowserService is deprecated use App.Browser instead.")]
-        public BrowserService BrowserService => ServicesCollection.Current.Resolve<BrowserService>();
-
-        [Obsolete("NavigationService is deprecated use App.Navigation instead.")]
-        public NavigationService NavigationService => ServicesCollection.Current.Resolve<NavigationService>();
-
-        [Obsolete("DialogService is deprecated use App.Dialogs instead.")]
-        public DialogService DialogService => ServicesCollection.Current.Resolve<DialogService>();
-
-        [Obsolete("JavaScriptService is deprecated use App.JavaScript instead.")]
-        public JavaScriptService JavaScriptService => ServicesCollection.Current.Resolve<JavaScriptService>();
-
-        [Obsolete("InteractionsService is deprecated use App.Interactions instead.")]
-        public InteractionsService InteractionsService => ServicesCollection.Current.Resolve<InteractionsService>();
-
-        [Obsolete("CookiesService is deprecated use App.Cookies instead.")]
-        public CookiesService CookiesService => ServicesCollection.Current.Resolve<CookiesService>();
-
-        [Obsolete("ComponentCreateService is deprecated use App.Components instead.")]
-        public ComponentCreateService ComponentCreateService => ServicesCollection.Current.Resolve<ComponentCreateService>();
-
-        [Obsolete("TestCases is deprecated use App.TestCases instead.")]
-        public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-
-        [Obsolete("ProxyService is deprecated use App.Proxy instead.")]
-        public ProxyService ProxyService => ServicesCollection.Current.Resolve<ProxyService>();
-
-        [Obsolete("ComputerVision is deprecated use App.ComputerVision instead.")]
-        public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
-
-        [Obsolete("Assert is deprecated use App.Assert instead.")]
-        protected IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
-
         public abstract string Url { get; }
 
-        public virtual void Open() => NavigationService.Navigate(new Uri(Url));
+        public virtual void Open() => App.Navigation.Navigate(new Uri(Url));
 
         public void AssertLandedOnPage(string partialUrl, bool shouldUrlEncode = false)
         {
@@ -83,7 +50,7 @@ namespace Bellatrix.Web
                 partialUrl = HttpUtility.UrlEncode(partialUrl);
             }
 
-            var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
+            var currentBrowserUrl = App.Navigation.WrappedDriver.Url.ToString();
             App.Assert.IsFalse(currentBrowserUrl.Contains(partialUrl), $"The expected partialUrl: '{partialUrl}' was found in the PageUrl: '{currentBrowserUrl}'");
         }
 
@@ -98,7 +65,7 @@ namespace Bellatrix.Web
 
         public void AssertUrlPath(string urlPath)
         {
-            var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
+            var currentBrowserUrl = App.Navigation.WrappedDriver.Url.ToString();
             Uri actualUri = new Uri(currentBrowserUrl);
 
             App.Assert.AreEqual(urlPath, actualUri.AbsolutePath, $"Expected URL path is different than the Actual one.");
@@ -106,7 +73,7 @@ namespace Bellatrix.Web
 
         public void AssertUrlPathAndQuery(string pathAndQuery)
         {
-            var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
+            var currentBrowserUrl = App.Navigation.WrappedDriver.Url.ToString();
             Uri actualUri = new Uri(currentBrowserUrl);
 
             App.Assert.AreEqual(pathAndQuery, actualUri.PathAndQuery, $"Expected URL is different than the Actual one.");

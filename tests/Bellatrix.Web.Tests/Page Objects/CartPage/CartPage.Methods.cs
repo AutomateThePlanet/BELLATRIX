@@ -25,10 +25,10 @@ namespace Bellatrix.Web.Tests
                 throw new ArgumentException("There are less added items in the cart. Please specify smaller product number.");
             }
 
-            BrowserService.WaitUntilReady();
+            App.Browser.WaitUntilReady();
             QuantityBoxes[productNumber - 1].SetNumber(newQuantity);
             UpdateCart.Click();
-            BrowserService.WaitUntilReady();
+            App.Browser.WaitUntilReady();
         }
 
         public void UpdateAllProductsQuantity(int newQuantity)

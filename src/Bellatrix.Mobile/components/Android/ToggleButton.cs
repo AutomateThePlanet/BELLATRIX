@@ -44,7 +44,7 @@ namespace Bellatrix.Mobile.Android
             }
         }
 
-        public virtual string GetText()
+        public new virtual string GetText()
         {
             return GetText();
         }
