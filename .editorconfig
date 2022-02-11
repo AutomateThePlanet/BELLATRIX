@@ -31,3 +31,12 @@ dotnet_analyzer_diagnostic.severity = none
 dotnet_diagnostic.CS0252.severity = none
 
 dotnet_diagnostic.SA0001.severity = none
+
+# CS0114: Member hides inherited member; missing override keyword
+dotnet_diagnostic.CS0114.severity = none
+
+# CS0659: Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+dotnet_diagnostic.CS0659.severity = none
+
+# CS0618: Type or member is obsolete
+dotnet_diagnostic.CS0618.severity = warning

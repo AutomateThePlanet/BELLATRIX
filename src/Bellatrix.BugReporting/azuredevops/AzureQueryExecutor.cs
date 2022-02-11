@@ -99,8 +99,6 @@ namespace Bellatrix.BugReporting.AzureDevOps
             {
                 return null;
             }
-
-            return null;
         }
 
         private static void AddAttachmentRelationships(JsonPatchDocument patchDocument, List<AttachmentReference> attachments)

@@ -51,8 +51,6 @@ namespace Bellatrix.DynamicTestCases.AzureDevOps
             {
                 return new List<WorkItem>();
             }
-
-            return new List<WorkItem>();
         }
     }
 }

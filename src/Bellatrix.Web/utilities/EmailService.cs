@@ -62,4 +62,3 @@ namespace Bellatrix.Web.Utilities
         }
     }
 }
-}

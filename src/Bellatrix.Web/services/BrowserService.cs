@@ -102,79 +102,79 @@ namespace Bellatrix.Web
 
         public void Maximize() => WrappedDriver.Manage().Window.Maximize();
 
-        public void ClearSessionStorage()
-        {
-            var browserConfig = ServicesCollection.Current.Resolve<BrowserConfiguration>();
-            switch (browserConfig.BrowserType)
-            {
-                case BrowserType.NotSet:
-                    break;
-                case BrowserType.Chrome:
-                case BrowserType.ChromeHeadless:
-                    var chromeDriver = (ChromeDriver)WrappedDriver;
-                    chromeDriver.WebStorage.SessionStorage.Clear();
-                    break;
-                case BrowserType.Firefox:
-                case BrowserType.FirefoxHeadless:
-                    var firefoxDriver = (FirefoxDriver)WrappedDriver;
-                    firefoxDriver.WebStorage.SessionStorage.Clear();
-                    break;
-                case BrowserType.InternetExplorer:
-                    var ieDriver = (InternetExplorerDriver)WrappedDriver;
-                    ieDriver.WebStorage.SessionStorage.Clear();
-                    break;
-                case BrowserType.Edge:
-                case BrowserType.EdgeHeadless:
-                    var edgeDriver = (EdgeDriver)WrappedDriver;
-                    edgeDriver.WebStorage.SessionStorage.Clear();
-                    break;
-                case BrowserType.Opera:
-                    var operaDriver = (OperaDriver)WrappedDriver;
-                    operaDriver.WebStorage.SessionStorage.Clear();
-                    break;
-                case BrowserType.Safari:
-                    var safariDriver = (SafariDriver)WrappedDriver;
-                    safariDriver.WebStorage.SessionStorage.Clear();
-                    break;
-            }
-        }
+        ////public void ClearSessionStorage()
+        ////{
+        ////    var browserConfig = ServicesCollection.Current.Resolve<BrowserConfiguration>();
+        ////    switch (browserConfig.BrowserType)
+        ////    {
+        ////        case BrowserType.NotSet:
+        ////            break;
+        ////        case BrowserType.Chrome:
+        ////        case BrowserType.ChromeHeadless:
+        ////            var chromeDriver = (ChromeDriver)WrappedDriver;
+        ////            chromeDriver.WebStorage.SessionStorage.Clear();
+        ////            break;
+        ////        case BrowserType.Firefox:
+        ////        case BrowserType.FirefoxHeadless:
+        ////            var firefoxDriver = (FirefoxDriver)WrappedDriver;
+        ////            firefoxDriver.WebStorage.SessionStorage.Clear();
+        ////            break;
+        ////        case BrowserType.InternetExplorer:
+        ////            var ieDriver = (InternetExplorerDriver)WrappedDriver;
+        ////            ieDriver.WebStorage.SessionStorage.Clear();
+        ////            break;
+        ////        case BrowserType.Edge:
+        ////        case BrowserType.EdgeHeadless:
+        ////            var edgeDriver = (EdgeDriver)WrappedDriver;
+        ////            edgeDriver.WebStorage.SessionStorage.Clear();
+        ////            break;
+        ////        case BrowserType.Opera:
+        ////            var operaDriver = (OperaDriver)WrappedDriver;
+        ////            operaDriver.WebStorage.SessionStorage.Clear();
+        ////            break;
+        ////        case BrowserType.Safari:
+        ////            var safariDriver = (SafariDriver)WrappedDriver;
+        ////            safariDriver.WebStorage.SessionStorage.Clear();
+        ////            break;
+        ////    }
+        ////}
 
-        public void ClearLocalStorage()
-        {
-            var browserConfig = ServicesCollection.Current.Resolve<BrowserConfiguration>();
-            switch (browserConfig.BrowserType)
-            {
-                case BrowserType.NotSet:
-                    break;
-                case BrowserType.Chrome:
-                case BrowserType.ChromeHeadless:
-                    var chromeDriver = (ChromeDriver)WrappedDriver;
-                    chromeDriver.WebStorage.LocalStorage.Clear();
-                    break;
-                case BrowserType.Firefox:
-                case BrowserType.FirefoxHeadless:
-                    var firefoxDriver = (FirefoxDriver)WrappedDriver;
-                    firefoxDriver.WebStorage.LocalStorage.Clear();
-                    break;
-                case BrowserType.InternetExplorer:
-                    var ieDriver = (InternetExplorerDriver)WrappedDriver;
-                    ieDriver.WebStorage.LocalStorage.Clear();
-                    break;
-                case BrowserType.Edge:
-                case BrowserType.EdgeHeadless:
-                    var edgeDriver = (EdgeDriver)WrappedDriver;
-                    edgeDriver.WebStorage.LocalStorage.Clear();
-                    break;
-                case BrowserType.Opera:
-                    var operaDriver = (OperaDriver)WrappedDriver;
-                    operaDriver.WebStorage.LocalStorage.Clear();
-                    break;
-                case BrowserType.Safari:
-                    var safariDriver = (SafariDriver)WrappedDriver;
-                    safariDriver.WebStorage.LocalStorage.Clear();
-                    break;
-            }
-        }
+        ////public void ClearLocalStorage()
+        ////{
+        ////    var browserConfig = ServicesCollection.Current.Resolve<BrowserConfiguration>();
+        ////    switch (browserConfig.BrowserType)
+        ////    {
+        ////        case BrowserType.NotSet:
+        ////            break;
+        ////        case BrowserType.Chrome:
+        ////        case BrowserType.ChromeHeadless:
+        ////            var chromeDriver = (ChromeDriver)WrappedDriver;
+        ////            chromeDriver.WebStorage.LocalStorage.Clear();
+        ////            break;
+        ////        case BrowserType.Firefox:
+        ////        case BrowserType.FirefoxHeadless:
+        ////            var firefoxDriver = (FirefoxDriver)WrappedDriver;
+        ////            firefoxDriver.WebStorage.LocalStorage.Clear();
+        ////            break;
+        ////        case BrowserType.InternetExplorer:
+        ////            var ieDriver = (InternetExplorerDriver)WrappedDriver;
+        ////            ieDriver.WebStorage.LocalStorage.Clear();
+        ////            break;
+        ////        case BrowserType.Edge:
+        ////        case BrowserType.EdgeHeadless:
+        ////            var edgeDriver = (EdgeDriver)WrappedDriver;
+        ////            edgeDriver.WebStorage.LocalStorage.Clear();
+        ////            break;
+        ////        case BrowserType.Opera:
+        ////            var operaDriver = (OperaDriver)WrappedDriver;
+        ////            operaDriver.WebStorage.LocalStorage.Clear();
+        ////            break;
+        ////        case BrowserType.Safari:
+        ////            var safariDriver = (SafariDriver)WrappedDriver;
+        ////            safariDriver.WebStorage.LocalStorage.Clear();
+        ////            break;
+        ////    }
+        ////}
 
         ///// <summary>
         ///// It is exceedingly hard to implement, especially in all major browsers.

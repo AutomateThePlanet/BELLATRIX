@@ -72,8 +72,6 @@ namespace Bellatrix.Web
 
         public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
-        [Obsolete("ProxyService is deprecated use Proxy property instead.")]
-        public ProxyService ProxyService => ServicesCollection.Current.Resolve<ProxyService>();
         public ProxyService Proxy => ServicesCollection.Current.Resolve<ProxyService>();
 
         public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
@@ -189,7 +187,7 @@ namespace Bellatrix.Web
 
         public void Dispose()
         {
-            ProxyService?.Dispose();
+            Proxy?.Dispose();
             DisposeDriverService.DisposeAll();
             DisposeDriverService.Dispose();
             GC.SuppressFinalize(this);
