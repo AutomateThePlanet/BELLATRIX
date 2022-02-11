@@ -17,8 +17,13 @@ namespace Bellatrix.Web
 {
     public class HeaderNameAttribute : Attribute
     {
-        public HeaderNameAttribute(string name) => Name = name;
+        public HeaderNameAttribute(string name, int order = 0)
+        {
+            Name = name;
+            Order = order;
+        }
 
         public string Name { get; set; }
+        public int Order { get; set; }
     }
 }

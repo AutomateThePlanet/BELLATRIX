@@ -40,7 +40,9 @@ namespace Bellatrix.Web
 
         public void Click()
         {
-            Click(Clicking, Clicked);
+            Clicking?.Invoke(this, new ComponentActionEventArgs(this));
+            WrappedElement.Click();
+            Clicked?.Invoke(this, new ComponentActionEventArgs(this));
         }
 
         public void SetParentGrid(Grid grid)

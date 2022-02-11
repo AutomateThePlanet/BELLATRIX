@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Bellatrix.Utilities;
@@ -36,9 +37,17 @@ namespace Bellatrix.Assertions
             downloadFile();
         }
 
-        public static void WaitForFileToBeDownloaded()
+        public static void WaitForFileToBeDownloaded(int timeoutInSeconds = 30)
         {
-            Wait.Until(() => _isCreated, timeoutInSeconds: 30, "The downloaded file took too long to be downloaded or wasn't downloaded at all.");
+            Wait.Until(() => _isCreated, timeoutInSeconds: timeoutInSeconds, "The downloaded file took too long to be downloaded or wasn't downloaded at all.");
+        }
+
+        public static FileInfo WaitForFileToBeDownloaded(string fileNameToBeDownloaded, int timeoutInSeconds = 30)
+        {
+            DownloadedFileFullPath = Path.Combine(GetSystemDownloadsPath(), fileNameToBeDownloaded);
+            Wait.Until(() => File.Exists(DownloadedFileFullPath), timeoutInSeconds: timeoutInSeconds, "The downloaded file took too long to be downloaded or wasn't downloaded at all.");
+
+            return new FileInfo(DownloadedFileFullPath);
         }
 
         public static void DeleteDownloadedFile()
@@ -60,6 +69,7 @@ namespace Bellatrix.Assertions
         private static void InitializeDownloadFileWatcher()
         {
             _fileSystemWatcher = new ThreadLocal<FileSystemWatcher>(() => new FileSystemWatcher(GetSystemDownloadsPath()));
+
             _fileSystemWatcher.Value.Changed += FilesChanged;
             _fileSystemWatcher.Value.EnableRaisingEvents = true;
         }

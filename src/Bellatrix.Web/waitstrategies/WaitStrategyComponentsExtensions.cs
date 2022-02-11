@@ -37,7 +37,7 @@ namespace Bellatrix.Web
           where TComponentType : Component
         {
             var until = new WaitToBeVisibleStrategy(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
+            element?.EnsureState(until);
             return element;
         }
 

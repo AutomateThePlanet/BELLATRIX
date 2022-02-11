@@ -27,11 +27,13 @@ namespace Bellatrix.ExceptionAnalysation
         {
         }
 
-        public AnalyzedTestException(string message, Exception inner)
-            : base(FormatExceptionMessage(message), inner)
+        public AnalyzedTestException(string message, string url, Exception inner)
+            : base(FormatExceptionMessage(message, url), inner)
         {
         }
 
-        private static string FormatExceptionMessage(string exceptionMessage) => $"{System.Environment.NewLine}{System.Environment.NewLine}{new string('#', 40)}{System.Environment.NewLine}{System.Environment.NewLine}{exceptionMessage}{System.Environment.NewLine}{System.Environment.NewLine}{new string('#', 40)}{System.Environment.NewLine}";
+        private static string FormatExceptionMessage(string exceptionMessage) => $"{Environment.NewLine}{Environment.NewLine}{new string('#', 40)}{Environment.NewLine}{Environment.NewLine}{exceptionMessage}{Environment.NewLine}{Environment.NewLine}{new string('#', 40)}{Environment.NewLine}";
+
+        private static string FormatExceptionMessage(string exceptionMessage, string url) => $"{Environment.NewLine}{Environment.NewLine}{new string('#', 40)}{Environment.NewLine}{Environment.NewLine}{exceptionMessage}{Environment.NewLine}{Environment.NewLine}{new string('#', 40)}{Environment.NewLine} URL: {url}";
     }
 }

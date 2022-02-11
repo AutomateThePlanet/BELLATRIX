@@ -23,8 +23,15 @@ namespace Bellatrix.Web
     {
         public static event EventHandler<ComponentActionEventArgs> Hovering;
         public static event EventHandler<ComponentActionEventArgs> Hovered;
+        public static event EventHandler<ComponentActionEventArgs> Clicking;
+        public static event EventHandler<ComponentActionEventArgs> Clicked;
 
         public override Type ComponentType => GetType();
+
+        public virtual void Click()
+        {
+            Click(Clicking, Clicked);
+        }
 
         public virtual void Hover()
         {
