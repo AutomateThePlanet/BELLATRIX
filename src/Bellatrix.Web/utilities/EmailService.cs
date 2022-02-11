@@ -43,14 +43,23 @@ namespace Bellatrix.Web.Utilities
             return email;
         }
 
+
         public static string LoadEmailBody(string htmlBody)
         {
             htmlBody = htmlBody.Replace("\n", string.Empty).Replace("\\/", "/").Replace("\\\"", "\"");
-            string tempFilePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.html");
+            string fileName = $"{Guid.NewGuid()}.html";
+            string tempFilePath = Path.Combine(Path.GetTempPath(), fileName);
             File.WriteAllText(tempFilePath, htmlBody);
             var navigationService = ServicesCollection.Current.Resolve<NavigationService>();
+
+            #if DEBUG
             navigationService.NavigateToLocalPage(tempFilePath);
+            #elif QA
+            navigationService.Navigate($"http://local-folder.lambdatest.com/{fileName}");
+            #endif
+
             return htmlBody;
         }
     }
+}
 }

@@ -33,7 +33,15 @@ namespace Bellatrix.Web
             ValidatedCssClassIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
+        public static void ValidateCssClassContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+            where T : IComponentCssClass, IComponent
+        {
+            WaitUntil(() => control.CssClass.Contains(value), $"The control's CSS class should contain '{value}' but was '{control.CssClass}'.", timeout, sleepInterval);
+            ValidatedCssClassContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+        }
+
         public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassIsNullEvent;
         public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassContainsEvent;
     }
 }

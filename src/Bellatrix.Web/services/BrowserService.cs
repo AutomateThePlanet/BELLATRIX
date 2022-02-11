@@ -280,7 +280,7 @@ namespace Bellatrix.Web
             Bellatrix.Utilities.Wait.ForConditionUntilTimeout(
                 () =>
                 {
-                    numberOfAjaxConnections = InvokeScript("return window.openHTTPs");
+                    numberOfAjaxConnections = InvokeScript("return !isNaN(window.openHTTPs) ? window.openHTTPs : null");
 
                     if (int.TryParse(numberOfAjaxConnections, out int ajaxConnections))
                     {
@@ -334,7 +334,7 @@ namespace Bellatrix.Web
 
         private void MonkeyPatchXMLHttpRequest()
         {
-            var numberOfAjaxConnections = InvokeScript("return window.openHTTPs ? window.openHTTPs.length : null");
+            var numberOfAjaxConnections = InvokeScript("return !isNaN(window.openHTTPs) ? window.openHTTPs : null");
 
             if (int.TryParse(numberOfAjaxConnections, out int ajaxConnections))
             {

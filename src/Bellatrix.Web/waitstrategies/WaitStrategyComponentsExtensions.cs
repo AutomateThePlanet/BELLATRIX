@@ -73,6 +73,14 @@ namespace Bellatrix.Web
             return element;
         }
 
+        public static TComponentType ToHasNotInnerText<TComponentType>(this TComponentType element, string elementText, int? timeoutInterval = null, int? sleepInterval = null)
+        where TComponentType : Component
+        {
+            var until = new WaitToNotHaveInnerTextStrategy(elementText, timeoutInterval, sleepInterval);
+            element.EnsureState(until);
+            return element;
+        }
+
         public static TComponentType ToHasStyle<TComponentType>(this TComponentType element, string style, int? timeoutInterval = null, int? sleepInterval = null)
             where TComponentType : Component
         {

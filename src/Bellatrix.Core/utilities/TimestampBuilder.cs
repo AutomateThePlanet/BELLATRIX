@@ -12,6 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Linq;
 
 namespace Bellatrix.Utilities
 {

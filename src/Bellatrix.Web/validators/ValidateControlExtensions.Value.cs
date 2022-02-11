@@ -33,7 +33,15 @@ namespace Bellatrix.Web
             ValidatedValueIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
         }
 
+        public static void ValidateValueContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+         where T : IComponentValue, IComponent
+        {
+            WaitUntil(() => control.Value.Contains(value), $"The control's value should contain '{value}' but was '{control.Value}'.", timeout, sleepInterval);
+            ValidatedValueContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+        }
+
         public static event EventHandler<ComponentActionEventArgs> ValidatedValueIsNullEvent;
         public static event EventHandler<ComponentActionEventArgs> ValidatedValueIsEvent;
+        public static event EventHandler<ComponentActionEventArgs> ValidatedValueContainsEvent;
     }
 }

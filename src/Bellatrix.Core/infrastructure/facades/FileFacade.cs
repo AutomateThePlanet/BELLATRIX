@@ -47,5 +47,14 @@ namespace Bellatrix.Infrastructure
             var fileInfo = new FileInfo(filePath);
             return fileInfo.Extension.Equals(extension);
         }
+
+        public string CreateTempFile(string extension)
+        {
+            string fileName = Path.GetRandomFileName();
+            fileName = Path.ChangeExtension(fileName, extension);
+            fileName = Path.Combine(Path.GetTempPath(), fileName);
+            File.Create(fileName);
+            return fileName;
+        }
     }
 }
