@@ -107,10 +107,10 @@ namespace Bellatrix.Web
 
             if (executionConfiguration.BrowserType != BrowserType.Edge)
             {
-                FixDriverCommandExecutionDelay((RemoteWebDriver)wrappedWebDriver);
+                FixDriverCommandExecutionDelay(wrappedWebDriver);
 
-                DriverCommandExecutionService commandExecutionService = new DriverCommandExecutionService((RemoteWebDriver)wrappedWebDriver);
-                commandExecutionService.InitializeSendCommand((RemoteWebDriver)wrappedWebDriver);
+                ////DriverCommandExecutionService commandExecutionService = new DriverCommandExecutionService((RemoteWebDriver)wrappedWebDriver);
+                ////commandExecutionService.InitializeSendCommand((RemoteWebDriver)wrappedWebDriver);
             }
 
             ChangeWindowSize(executionConfiguration.Size, wrappedWebDriver);
@@ -118,7 +118,7 @@ namespace Bellatrix.Web
             return wrappedWebDriver;
         }
 
-        private static void FixDriverCommandExecutionDelay(WebDriver driver)
+        private static void FixDriverCommandExecutionDelay(IWebDriver driver)
         {
             try
             {

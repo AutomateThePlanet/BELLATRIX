@@ -29,13 +29,13 @@ namespace Bellatrix.Web
 
         public void InitializeSendCommand(IWebDriver driver)
         {
-            var remoteDriver = driver as RemoteWebDriver;
-            var commandInfo = new CommandInfo(
-                CommandInfo.PostCommand,
-                $"/session/{remoteDriver.SessionId}/chromium/send_command_and_get_result");
-            WebDriverCommandExecutor.TryAddCommand(remoteDriver, "sendCommand", commandInfo);
+            ////var remoteDriver = driver as RemoteWebDriver;
+            ////var commandInfo = new CommandInfo(
+            ////    CommandInfo.PostCommand,
+            ////    $"/session/{remoteDriver.SessionId}/chromium/send_command_and_get_result");
+            ////WebDriverCommandExecutor.TryAddCommand(remoteDriver, "sendCommand", commandInfo);
 
-            ServicesCollection.Current.RegisterInstance(this);
+            ////ServicesCollection.Current.RegisterInstance(this);
         }
 
         public void SendCommandForFileDownload(string downloadPath)
@@ -97,7 +97,7 @@ namespace Bellatrix.Web
                     throw new WebDriverException("Webdriver doesn't contain 'CommandExecutor' property.");
                 }
 
-                return commandExecutor.CommandInfoRepository.TryAddCommand(commandName, commandInfo);
+                return commandExecutor.TryAddCommand(commandName, commandInfo);
             }
 
             public static Response Execute(RemoteWebDriver driver, string driverCommandToExecute, Dictionary<string, object> parameters)
