@@ -58,8 +58,6 @@ namespace Bellatrix.Web
 
         private void PerformJsClick() => JavaScriptService.Execute("arguments[0].focus();arguments[0].click();", this);
 
-        private void PerformJsClick() => JavaScriptService.Execute("arguments[0].focus();arguments[0].click();", this);
-
         internal void Hover(EventHandler<ComponentActionEventArgs> hovering, EventHandler<ComponentActionEventArgs> hovered)
         {
             hovering?.Invoke(this, new ComponentActionEventArgs(this));
