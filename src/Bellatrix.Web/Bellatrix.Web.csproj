@@ -11,14 +11,10 @@
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>
-	<ItemGroup>
-	  <None Include="..\..\.editorconfig" Link=".editorconfig" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.36" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="Microsoft.Edge.SeleniumTools" Version="3.141.2" />
 		<PackageReference Include="Selenium.WebDriver" Version="4.0.0-rc1" />
 		<PackageReference Include="System.Composition" Version="5.0.1" />
 		<PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
