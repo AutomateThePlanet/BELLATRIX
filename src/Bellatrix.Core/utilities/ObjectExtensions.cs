@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Bellatrix
 {
@@ -28,7 +29,7 @@ namespace Bellatrix
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true,
-                    IgnoreNullValues = true,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.Never,
                 };
                 stringifiedObject = JsonSerializer.Serialize(obj, options);
             }
@@ -37,7 +38,7 @@ namespace Bellatrix
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true,
-                    IgnoreNullValues = false,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.Never,
                 };
                 stringifiedObject = JsonSerializer.Serialize(obj, options);
             }

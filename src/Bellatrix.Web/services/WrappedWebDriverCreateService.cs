@@ -358,7 +358,7 @@ namespace Bellatrix.Web
                     break;
                 case BrowserType.Edge:
                     new DriverManager().SetUpDriver(new EdgeConfig());
-                    var edgeDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
+                    var edgeDriverService =EdgeDriverService.CreateDefaultService();
                     edgeDriverService.SuppressInitialDiagnosticInformation = true;
                     var edgeOptions = executionConfiguration.DriverOptions;
                     edgeOptions.PageLoadStrategy = PageLoadStrategy.Normal;
@@ -387,11 +387,11 @@ namespace Bellatrix.Web
                     edgeOptions.SetLoggingPreference("performance", LogLevel.All);
 
 
-                    wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeDriverService, edgeOptions);
+                    wrappedWebDriver = new EdgeDriver(edgeDriverService, edgeOptions);
                     break;
                 case BrowserType.EdgeHeadless:
                     new DriverManager().SetUpDriver(new EdgeConfig());
-                    var edgeHeadlessDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
+                    var edgeHeadlessDriverService = EdgeDriverService.CreateDefaultService();
                     edgeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
                     var edgeHeadlessOptions = executionConfiguration.DriverOptions;
                     edgeHeadlessOptions.AddArguments("--headless");
@@ -432,7 +432,7 @@ namespace Bellatrix.Web
                     edgeHeadlessOptions.SetLoggingPreference(LogType.Browser, LogLevel.Severe);
                     edgeHeadlessOptions.SetLoggingPreference("performance", LogLevel.All);
 
-                    wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeHeadlessDriverService, edgeHeadlessOptions);
+                    wrappedWebDriver = new EdgeDriver(edgeHeadlessDriverService, edgeHeadlessOptions);
                     break;
                 case BrowserType.Opera:
                     new DriverManager().SetUpDriver(new OperaConfig());

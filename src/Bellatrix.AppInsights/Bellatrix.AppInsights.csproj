@@ -1,10 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.ApplicationInsights" Version="2.18.0" />
+	  <PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0" />
 	</ItemGroup>  
 	<ItemGroup>
 	  <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
 	  <ProjectReference Include="..\Bellatrix.KeyVault\Bellatrix.KeyVault.csproj" />
+	</ItemGroup>  
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	</ItemGroup>
 </Project>

@@ -16,12 +16,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Bellatrix.Utilities;
-using Microsoft.Edge.SeleniumTools;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Opera;
+using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Safari;
 
 namespace Bellatrix.Web

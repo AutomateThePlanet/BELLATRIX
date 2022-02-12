@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Bellatrix.Infrastructure
 {
@@ -23,7 +24,7 @@ namespace Bellatrix.Infrastructure
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true,
-                IgnoreNullValues = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.Never,
             };
 
             return System.Text.Json.JsonSerializer.Serialize(entityToBeSerialized, options);
@@ -34,7 +35,7 @@ namespace Bellatrix.Infrastructure
             var options = new JsonSerializerOptions
             {
                 AllowTrailingCommas = true,
-                IgnoreNullValues = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.Never,
             };
 
             return System.Text.Json.JsonSerializer.Deserialize<TEntity>(content, options);
