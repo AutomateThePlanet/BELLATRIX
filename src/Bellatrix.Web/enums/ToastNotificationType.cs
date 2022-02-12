@@ -1,4 +1,4 @@
-﻿// <copyright file="HtmlAgilityPackExtensions.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ToastNotificationType.cs" company="Automate The Planet Ltd.">
 // Copyright 2021 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,16 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-
-using HtmlAgilityPack;
-
 namespace Bellatrix.Web
 {
-    public static class HtmlAgilityPackExtensions
+    public enum ToastNotificationType
     {
-        public static string GetXPath(this HtmlNode node)
-        {
-            return "/" + node.XPath;
-        }
+        Information,
+        Success,
+        Warning,
+        Error,
     }
 }

@@ -126,7 +126,7 @@ namespace Bellatrix.Assertions
 
             if (assertionExceptions.Any())
             {
-                throw assertionExceptions.LastOrDefault();
+                throw new MultipleAssertException(assertionExceptions);
             }
         }
     }

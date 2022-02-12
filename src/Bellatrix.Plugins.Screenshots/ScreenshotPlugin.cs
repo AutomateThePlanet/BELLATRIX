@@ -45,19 +45,20 @@ namespace Bellatrix.Plugins.Screenshots
         {
             try
             {
-                if (_isEnabled && (e.TestOutcome == TestOutcome.Failed || e.TestOutcome == TestOutcome.Error))
+                if (_isEnabled && e.TestOutcome != TestOutcome.Passed)
                 {
                     var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
-                    string cleanTestName = e.TestFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty);
-                    var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(cleanTestName);
+                    var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestName);
                     string image = _screenshotEngine.TakeScreenshot(e.Container);
                     string imagePath = Path.Combine(screenshotSaveDir, screenshotFileName);
                     File.WriteAllBytes(imagePath, Convert.FromBase64String(image));
                     _screenshotPluginProvider.ScreenshotGenerated(e, imagePath);
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.LogWarning("Failed to take screenshot due to error: " + ex.Message);
+
                 // Ignore since it is failing often because of bugs in Remote driver for Chrome
             }
 

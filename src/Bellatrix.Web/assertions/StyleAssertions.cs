@@ -19,7 +19,8 @@ namespace Bellatrix.Web.Assertions
     {
         public static void AssertBackgroundColor(this Component element, string expectedBackgroundColor)
         {
-            Assert.AreEqual(expectedBackgroundColor, element.GetCssValue("background-color"));
+            var actualColor = element.GetCssValue("background-color");
+            Assert.AreEqual(expectedBackgroundColor, actualColor);
         }
 
         public static void AssertBorderColor(this Component element, string expectedBorderColor)

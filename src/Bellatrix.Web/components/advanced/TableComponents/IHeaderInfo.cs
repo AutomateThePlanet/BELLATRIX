@@ -16,5 +16,7 @@ namespace Bellatrix.Web
     public interface IHeaderInfo
     {
         string HeaderName { get; set; }
+
+        int Order { get; set; }
     }
 }

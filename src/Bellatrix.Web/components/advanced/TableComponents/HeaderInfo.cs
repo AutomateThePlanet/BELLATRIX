@@ -16,11 +16,13 @@ namespace Bellatrix.Web
 {
     public class HeaderInfo : IHeaderInfo
     {
-        public HeaderInfo(string headerName)
+        public HeaderInfo(string headerName, int order = 0)
         {
             HeaderName = headerName;
+            Order = order;
         }
 
         public string HeaderName { get; set; }
+        public int Order { get; set; }
     }
 }

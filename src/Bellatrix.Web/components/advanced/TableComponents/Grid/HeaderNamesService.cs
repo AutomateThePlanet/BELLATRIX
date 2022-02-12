@@ -52,7 +52,7 @@ namespace Bellatrix.Web
             return _headerNamesIndexes[position];
         }
 
-        public int? GetHeaderPosition(string header, List<IHeaderInfo> headerInfos)
+        public int? GetHeaderPosition(string header, List<IHeaderInfo> headerInfos, int? order = null)
         {
             SetEmptyHeadersName(headerInfos);
 
@@ -73,8 +73,15 @@ namespace Bellatrix.Web
 
                 if (exactMatchHeaders.Count() != 1)
                 {
-                    Logger.LogError($"More than one Header with name ending with '{header}' was found. Returning the first one.");
-                    return allMatchingHeaders.FirstOrDefault().Key;
+                    if (order == null)
+                    {
+                        Logger.LogWarning($"More than one Header with name ending with '{header}' was found. Returning the first one.");
+                        return allMatchingHeaders.FirstOrDefault().Key;
+                    }
+                    else
+                    {
+                        return allMatchingHeaders.ElementAtOrDefault((int)order).Key;
+                    }
                 }
 
                 return exactMatchHeaders.FirstOrDefault().Key;
@@ -104,6 +111,22 @@ namespace Bellatrix.Web
             return headerName;
         }
 
+        public IHeaderInfo GetHeaderInfoByProperty(PropertyInfo property)
+        {
+            var headerNameAttribute = property.GetCustomAttributes(typeof(HeaderNameAttribute)).FirstOrDefault();
+            var headerName = headerNameAttribute == null ? property.Name : ((HeaderNameAttribute)headerNameAttribute).Name;
+            int? headerOrder = headerNameAttribute != null ? ((HeaderNameAttribute)headerNameAttribute).Order : null;
+
+            if (headerOrder != null)
+            {
+                return new HeaderInfo(headerName, (int)headerOrder);
+            }
+            else
+            {
+                return new HeaderInfo(headerName);
+            }
+        }
+
         private void SetEmptyHeadersName(List<IHeaderInfo> headerInfos)
         {
             var headerNameCollection = GetHeaderNames();
@@ -114,7 +137,7 @@ namespace Bellatrix.Web
                 var headerName = headerInfos[i].HeaderName;
                 var collectionName = headerNameCollection[i];
 
-                if (!collectionName.Equals(headerName) && string.IsNullOrWhiteSpace(collectionName))
+                if (collectionName != headerName && string.IsNullOrWhiteSpace(collectionName))
                 {
                     SetHeaderNamesByIndex(i, headerName);
                 }
@@ -195,7 +218,9 @@ namespace Bellatrix.Web
             }
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         private void AddHeaderNameIndex(int operationalIndex, ref int columnIndex, string headerName)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             if (_headerNamesIndexes.ContainsKey(operationalIndex) && _headerNamesIndexes[operationalIndex] == headerName)
             {

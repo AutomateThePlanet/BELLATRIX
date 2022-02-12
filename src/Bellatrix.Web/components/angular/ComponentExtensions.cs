@@ -16,14 +16,17 @@ namespace Bellatrix.Web.Services.Angular
 {
     public static class ComponentExtensions
     {
+        private static JavaScriptService _javaScriptService;
+        private static BrowserService _browserService;
+
         public static object Evaluate<TComponent>(this TComponent element, string expression)
             where TComponent : Component
         {
-            var javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
-            var browserService = ServicesCollection.Current.Resolve<BrowserService>();
-            browserService.WaitForAngular();
+            _javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
+            _browserService = ServicesCollection.Current.Resolve<BrowserService>();
+            _browserService.WaitForAngular();
 
-            return javaScriptService.Execute(AngularClientSideScripts.Evaluate, element, expression);
+            return _javaScriptService.Execute(AngularClientSideScripts.Evaluate, element, expression);
         }
     }
 }

@@ -51,39 +51,7 @@ namespace Bellatrix.Web
         {
             clicking?.Invoke(this, new ComponentActionEventArgs(this));
 
-            var sleepInterval = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval;
-            var timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToBeClickableTimeout;
-            var timeoutTimeSpan = TimeSpan.FromSeconds(timeout);
-            var sleepIntervalTimeSpan = TimeSpan.FromSeconds(sleepInterval);
-            var wait = new WebDriverWait(new SystemClock(), WrappedDriver, timeoutTimeSpan, sleepIntervalTimeSpan);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-
-            wait.Until((s) =>
-            {
-                try
-                {
-                    this.ToExists().ToBeClickable().WaitToBe();
-                    WrappedElement.Click();
-                    return true;
-                }
-                catch (ElementClickInterceptedException e)
-                {
-                    PerformJsClick();
-                    return true;
-                }
-                catch (ElementNotInteractableException e)
-                {
-                    return false;
-                }
-                catch (WebDriverTimeoutException e)
-                {
-                    return false;
-                }
-                catch (Exception e)
-                {
-                    return false;
-                }
-            });
+            PerformJsClick();
 
             clicked?.Invoke(this, new ComponentActionEventArgs(this));
         }

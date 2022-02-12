@@ -26,11 +26,13 @@ namespace Bellatrix.Web
 
         public TableService(string html)
         {
-            _htmlDoc = new HtmlDocument();
-            _htmlDoc.OptionFixNestedTags = true;
-            _htmlDoc.OptionOutputAsXml = true;
-            _htmlDoc.BackwardCompatibility = false;
-            _htmlDoc.OptionWriteEmptyNodes = false;
+            _htmlDoc = new HtmlDocument
+            {
+                OptionFixNestedTags = true,
+                OptionOutputAsXml = true,
+                BackwardCompatibility = false,
+                OptionWriteEmptyNodes = false,
+            };
             _htmlDoc.LoadHtml(html);
         }
 
@@ -57,11 +59,13 @@ namespace Bellatrix.Web
         public virtual List<HtmlNode> Headers => Table.SelectNodes("//th").ToList();
 
         public virtual List<HtmlNode> HeaderRows => Table
-                                            .SelectNodes("//tr[descendant::th]")
+                                            .SelectNodes("//tr[descendant::th]")?
                                             .Where(a => a.GetAttributeValue("style", null) != "display:none")
                                             .ToList();
 
         public virtual List<HtmlNode> Rows => Table.SelectNodes(RowsXPathLocator).ToList();
+
+        public virtual HtmlNode Footer => Table.SelectSingleNode("//tfoot");
 
         public HtmlNode GetRow(int row)
         {
