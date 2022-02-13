@@ -97,7 +97,7 @@ namespace Bellatrix.Web
                         frameMethodInfo.ReturnType.IsSubclassOf(typeof(Component)))
                     {
                         elementName = frame.GetMethod().Name.Replace("get_", string.Empty);
-                        if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(Page)))
+                        if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(WebPage)))
                         {
                             pageName = frameMethodInfo.ReflectedType.Name;
                         }

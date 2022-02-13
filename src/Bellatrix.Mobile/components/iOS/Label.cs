@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.IOS
 {
    public class Label : IOSComponent, IComponentText
     {
-        public virtual string GetText()
+        public new virtual string GetText()
         {
             return GetText();
         }

@@ -19,9 +19,9 @@ namespace Bellatrix.Web.Controls
 {
     public class Container : Component
     {
-        public Action Hover { get; set; }
+        public new Action Hover { get; set; }
 
-        public Action Focus { get; set; }
+        public new Action Focus { get; set; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public Func<string> InnerText { get; set; }

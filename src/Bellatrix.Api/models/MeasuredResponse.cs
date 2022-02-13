@@ -30,9 +30,13 @@ namespace Bellatrix.Api
         }
 
         public TimeSpan ExecutionTime { get; set; }
+#pragma warning disable CS0618 // Type or member is obsolete
         public IList<RestResponseCookie> Cookies => _restResponse.Cookies;
+#pragma warning restore CS0618 // Type or member is obsolete
         public bool IsSuccessful => _restResponse.IsSuccessful;
+#pragma warning disable CS0618 // Type or member is obsolete
         public IList<Parameter> Headers => _restResponse.Headers;
+#pragma warning restore CS0618 // Type or member is obsolete
         public IRestRequest Request { get => _restResponse.Request; set => _restResponse.Request = value; }
         public string ContentType { get => _restResponse.ContentType; set => _restResponse.ContentType = value; }
         public long ContentLength { get => _restResponse.ContentLength; set => _restResponse.ContentLength = value; }

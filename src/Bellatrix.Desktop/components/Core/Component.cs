@@ -174,8 +174,6 @@ namespace Bellatrix.Desktop
                 {
                     return false;
                 }
-
-                return false;
             }
         }
 

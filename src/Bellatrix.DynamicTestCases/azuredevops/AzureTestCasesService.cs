@@ -452,8 +452,6 @@ namespace Bellatrix.DynamicTestCases.AzureDevOps
             {
                 return new List<AzureTestCase>();
             }
-
-            return new List<AzureTestCase>();
         }
 
         private AzureTestCase ConvertWorkItemToAzureTestCase(WorkItem workItem)

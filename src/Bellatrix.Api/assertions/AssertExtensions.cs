@@ -178,7 +178,9 @@ namespace Bellatrix.Api
         public static void AssertSchema(this IMeasuredResponse response, string schemaContent)
         {
             AssertSchemaEvent?.Invoke(response, new ApiAssertEventArgs(response, string.Empty));
+#pragma warning disable CS0618 // Type or member is obsolete
             if (response.Request.RequestFormat == DataFormat.Json)
+#pragma warning restore CS0618 // Type or member is obsolete
             {
                 AssertJsonSchema(response, schemaContent);
             }
@@ -191,7 +193,9 @@ namespace Bellatrix.Api
         public static void AssertSchema(this IMeasuredResponse response, Uri schemaUri)
         {
             AssertSchemaEvent?.Invoke(response, new ApiAssertEventArgs(response, string.Empty));
+#pragma warning disable CS0618 // Type or member is obsolete
             if (response.Request.RequestFormat == DataFormat.Json)
+#pragma warning restore CS0618 // Type or member is obsolete
             {
                 AssertJsonSchema(response, schemaUri);
             }

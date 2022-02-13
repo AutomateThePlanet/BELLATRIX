@@ -34,13 +34,6 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
   <Target Name="CopyCategoriesToAllureFolder">
     <Copy SourceFiles="@(Categories)" DestinationFolder="$(OutputPath)\allure-results" />
   </Target>

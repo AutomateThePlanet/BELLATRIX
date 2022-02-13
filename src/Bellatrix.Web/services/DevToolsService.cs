@@ -137,12 +137,14 @@ namespace Bellatrix.Web.services
         {
             IJavaScriptEngine monitor = new JavaScriptEngine(WrappedDriver);
             monitor.JavaScriptConsoleApiCalled += javaScriptConsoleApiCalled;
+            await monitor.StartEventMonitoring();
         }
 
         public async Task ListenJavaScriptExceptionsThrown(EventHandler<JavaScriptExceptionThrownEventArgs> javaScriptExceptionThrown)
         {
             IJavaScriptEngine monitor = new JavaScriptEngine(WrappedDriver);
             monitor.JavaScriptExceptionThrown += javaScriptExceptionThrown;
+            await monitor.StartEventMonitoring();
         }
 
         public async Task AddInitializationScript(string name, string script)

@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.IOS
             SetValue(SettingText, TextSet, value);
         }
 
-        public virtual string GetText()
+        public new virtual string GetText()
         {
             string textValue = GetValueAttribute();
             return textValue ?? string.Empty;

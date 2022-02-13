@@ -27,7 +27,7 @@ namespace Bellatrix.Web
 
         public override Type ComponentType => GetType();
 
-        public virtual string GetText()
+        public new virtual string GetText()
         {
             var text = base.GetText();
 

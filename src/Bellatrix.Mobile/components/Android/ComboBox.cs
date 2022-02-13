@@ -39,7 +39,7 @@ namespace Bellatrix.Mobile.Android
             Selected?.Invoke(this, new ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>(this, value));
         }
 
-        public virtual string GetText()
+        public new virtual string GetText()
         {
             var result = base.GetText();
             if (string.IsNullOrEmpty(result))

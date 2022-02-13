@@ -113,5 +113,17 @@ namespace Bellatrix.Mobile.Configuration
 
             return _appPath;
         }
+
+        public override int GetHashCode()
+        {
+            return AppPath.GetHashCode() +
+                   Lifecycle.GetHashCode() +
+                   DeviceName.GetHashCode() +
+                   AppPackage.GetHashCode() +
+                   PlatformName.GetHashCode() +
+                   PlatformVersion.GetHashCode() +
+                   AppActivity.GetHashCode() +
+                   MobileOSType.GetHashCode();
+        }
     }
 }

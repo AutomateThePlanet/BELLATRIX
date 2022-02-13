@@ -34,7 +34,7 @@ namespace Bellatrix.Web
 
                 return result;
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                 throw;
             }
@@ -96,7 +96,7 @@ namespace Bellatrix.Web
 
                 return result?.ToString();
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                 throw;
             }
@@ -116,7 +116,7 @@ namespace Bellatrix.Web
 
                 return result?.ToString();
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                 throw;
             }
