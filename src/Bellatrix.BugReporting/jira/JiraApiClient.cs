@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Bellatrix.BugReporting.Jira;
-using Bellatrix.BugReporting.Jira;
 using Bellatrix.KeyVault;
 using RestSharp;
 

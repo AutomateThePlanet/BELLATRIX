@@ -9,7 +9,9 @@ namespace Bellatrix.BugReporting.Jira
         public string Serialize(object obj) => JsonConvert.SerializeObject(obj);
 
         public T Deserialize<T>(IRestResponse response) => JsonConvert.DeserializeObject<T>(response.Content);
+#pragma warning disable CS0618 // Type or member is obsolete
         public string Serialize(Parameter parameter) => JsonConvert.SerializeObject(parameter.Value);
+#pragma warning restore CS0618 // Type or member is obsolete
 
         public string[] SupportedContentTypes { get; } =
         {

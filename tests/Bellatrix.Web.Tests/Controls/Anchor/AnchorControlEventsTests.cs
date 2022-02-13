@@ -17,7 +17,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Anchor Control")]
     [AllureFeature("ControlEvents")]
     public class AnchorControlEventsTests : MSTest.WebTest
@@ -26,11 +26,8 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickingCalled_BeforeActuallyClick()
         {
-            var browserService = App.BrowserService;
-
             Anchor.Clicking += AssertUrlNotAutomateThePlanet;
 
             var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
@@ -39,19 +36,18 @@ namespace Bellatrix.Web.Tests.Controls
 
             App.Navigation.WaitForPartialUrl("automatetheplanet");
 
-            Assert.AreEqual("https://www.automatetheplanet.com/", browserService.Url.ToString());
+            Assert.AreEqual("https://www.automatetheplanet.com/", App.Browser.Url.ToString());
 
             Anchor.Clicking -= AssertUrlNotAutomateThePlanet;
 
             void AssertUrlNotAutomateThePlanet(object sender, ComponentActionEventArgs args)
             {
-                Assert.AreNotEqual("https://automatetheplanet.com/", browserService.Url.ToString());
+                Assert.AreNotEqual("https://automatetheplanet.com/", App.Browser.Url.ToString());
             }
         }
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickedCalled_AfterClick()
         {
             Anchor.Clicked += AssertUrlAutomateThePlanet;
@@ -71,7 +67,6 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void HoveringCalled_BeforeActuallyHover()
         {
             Anchor.Hovering += AssertStyleAttributeEmpty;
@@ -92,7 +87,6 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void HoveredCalled_AfterHover()
         {
             Anchor.Hovered += AssertStyleAttributeContainsNewValue;
@@ -111,7 +105,6 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void FocusingCalled_BeforeActuallyFocus()
         {
             Anchor.Focusing += AssertStyleAttributeEmpty;
@@ -130,7 +123,6 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void FocusedCalled_AfterFocus()
         {
             Anchor.Focused += AssertStyleAttributeContainsNewValue;

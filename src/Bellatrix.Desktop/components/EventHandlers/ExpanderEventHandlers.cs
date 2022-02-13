@@ -35,19 +35,19 @@ namespace Bellatrix.Desktop.EventHandlers
             Expander.Hovered -= HoveredEventHandler;
         }
 
-        protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs arg)
+        protected new virtual void ClickingEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs arg)
+        protected new virtual void ClickedEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void HoveringEventHandler(object sender, ComponentActionEventArgs arg)
+        protected new virtual void HoveringEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
 
-        protected virtual void HoveredEventHandler(object sender, ComponentActionEventArgs arg)
+        protected new virtual void HoveredEventHandler(object sender, ComponentActionEventArgs arg)
         {
         }
     }

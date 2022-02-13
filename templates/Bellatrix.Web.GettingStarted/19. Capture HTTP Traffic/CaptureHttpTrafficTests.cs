@@ -45,13 +45,13 @@ namespace Bellatrix.Web.GettingStarted
             // The proxy service includes several useful assert methods.
             // The first one asserts that no error codes are present in the requests.
             // This way we can catch problems with not loaded images or CSS files.
-            App.ProxyService.AssertNoErrorCodes();
+            App.Proxy.AssertNoErrorCodes();
 
             // Make sure that our images size is optimised.
-            App.ProxyService.AssertNoLargeImagesRequested();
+            App.Proxy.AssertNoLargeImagesRequested();
 
             // Check if some specific request is made.
-            App.ProxyService.AssertRequestMade("http://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
+            App.Proxy.AssertRequestMade("http://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             // 3. You can set various URLs to be redirected. This is useful if you do not have
             // access to production code and want to use a mock service instead.
-            App.ProxyService.SetUrlToBeRedirectedTo("http://demos.bellatrix.solutions/favicon.ico", "https://www.automatetheplanet.com/wp-content/uploads/2016/12/logo.svg");
+            App.Proxy.SetUrlToBeRedirectedTo("http://demos.bellatrix.sokilmlutions/favicon.ico", "https://www.automatetheplanet.com/wp-content/uploads/2016/12/logo.svg");
 
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
@@ -84,7 +84,7 @@ namespace Bellatrix.Web.GettingStarted
         {
             // 4. To make web pages load faster, you can block some not required services- for example
             // analytics scripts, you do not need them in test environments.
-            App.ProxyService.SetUrlToBeBlocked("http://demos.bellatrix.solutions/favicon.ico");
+            App.Proxy.SetUrlToBeBlocked("http://demos.bellatrix.solutions/favicon.ico");
 
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
@@ -100,7 +100,7 @@ namespace Bellatrix.Web.GettingStarted
             viewCartButton.Click();
 
             // Check that no request is made to specific URL.
-            App.ProxyService.AssertRequestNotMade("http://demos.bellatrix.solutions/welcome");
+            App.Proxy.AssertRequestNotMade("http://demos.bellatrix.solutions/welcome");
         }
     }
 }

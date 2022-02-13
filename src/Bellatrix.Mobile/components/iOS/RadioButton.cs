@@ -31,7 +31,7 @@ namespace Bellatrix.Mobile.IOS
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public virtual bool IsChecked => GetIsCheckedValue();
 
-        public string GetText()
+        public new string GetText()
         {
             return GetText();
         }

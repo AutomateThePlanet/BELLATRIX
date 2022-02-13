@@ -6,13 +6,13 @@
     <RootNamespace>Bellatrix.API.GettingStarted</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.1.0" />
+    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.2.0" />
     <PackageReference Include="Bellatrix.API.DemoApps" Version="1.3.0" />
 
     <PackageReference Include="AutoFixture" Version="4.17.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
     <PackageReference Include="Unity" Version="5.11.10" />
   </ItemGroup>
 

@@ -40,7 +40,7 @@ namespace Bellatrix.Mobile.IOS
             Selected?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
         }
 
-        public virtual string GetText()
+        public new virtual string GetText()
         {
             var result = GetText();
             if (string.IsNullOrEmpty(result))

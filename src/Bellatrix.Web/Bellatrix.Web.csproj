@@ -11,21 +11,17 @@
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>
-	<ItemGroup>
-	  <None Include="..\..\.editorconfig" Link=".editorconfig" />
-	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.36" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="Microsoft.Edge.SeleniumTools" Version="3.141.2" />
 		<PackageReference Include="Selenium.WebDriver" Version="4.1.0" />
-		<PackageReference Include="System.Composition" Version="5.0.1" />
+		<PackageReference Include="System.Composition" Version="6.0.0" />
 		<PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
-		<PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
-		<PackageReference Include="TextCopy" Version="4.3.1" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+		<PackageReference Include="TextCopy" Version="6.1.0" />
     <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1397" />
-    <PackageReference Include="WebDriverManager" Version="2.11.3" />
+    <PackageReference Include="WebDriverManager" Version="2.12.3" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -39,5 +35,12 @@
 		<ProjectReference Include="..\Bellatrix.Layout\Bellatrix.Layout.csproj" />
 		<ProjectReference Include="..\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
 		<ProjectReference Include="..\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	</ItemGroup>
 </Project>

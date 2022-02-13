@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.452
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1DF0F472-E4CA-4EFD-9459-F5B90E2E8E67}"
 EndProject
@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{49ABB9
 		LICENSE = LICENSE
 		shared\LICENSE.txt = shared\LICENSE.txt
 		shared\SharedAssemblyInfo.targets = shared\SharedAssemblyInfo.targets
-		shared\stylecop.json = shared\stylecop.json
-		shared\StyleCopeRules.ruleset = shared\StyleCopeRules.ruleset
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frameworktests", "frameworktests", "{A48D5A62-96E5-4D44-818C-18748101CCC5}"

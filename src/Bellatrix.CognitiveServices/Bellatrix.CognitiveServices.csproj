@@ -2,10 +2,16 @@
 	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 	<ItemGroup>
 	  <PackageReference Include="Azure.AI.FormRecognizer" Version="3.1.1" />
-	  <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="7.0.0" />
+	  <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="7.0.1" />
 	</ItemGroup>  
 	<ItemGroup>
 	  <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
 	  <ProjectReference Include="..\Bellatrix.KeyVault\Bellatrix.KeyVault.csproj" />
+	</ItemGroup>  
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	</ItemGroup>
 </Project>

@@ -133,7 +133,7 @@ namespace Bellatrix.Web
             {
                 foreach (var key in additionalCaps.Keys)
                 {
-                    driverOptions.AddAdditionalCapability(key, additionalCaps[key]);
+                    driverOptions.AddAdditionalOption(key, additionalCaps[key]);
                 }
             }
 

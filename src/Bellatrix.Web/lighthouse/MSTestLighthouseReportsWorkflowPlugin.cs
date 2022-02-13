@@ -34,7 +34,6 @@ namespace Bellatrix.GoogleLighthouse.MSTest
             {
                 lock (_lockObject)
                 {
-                    string pattern = "*.report.json";
                     var driverExecutablePath = new DirectoryInfo(ExecutionDirectoryResolver.GetDriverExecutablePath());
                     var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
                     if (file != null && file.Exists)

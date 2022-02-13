@@ -68,6 +68,6 @@ namespace Bellatrix.Web
         public virtual int? MinLength => DefaultGetMinLength();
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual int? Size => GetSizeAttribute();
+        public new virtual int? Size => GetSizeAttribute();
     }
 }

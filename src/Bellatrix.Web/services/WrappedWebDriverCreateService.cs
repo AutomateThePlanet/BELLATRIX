@@ -376,12 +376,9 @@ namespace Bellatrix.Web
                     wrappedWebDriver = new FirefoxDriver(service, firefoxHeadlessOptions);
                     break;
                 case BrowserType.Edge:
-                    new DriverManager().SetUpDriver(new EdgeConfig());
-                    var edgeDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
-                    edgeDriverService.SuppressInitialDiagnosticInformation = true;
+                    ////new DriverManager().SetUpDriver(new EdgeConfig());
                     var edgeOptions = executionConfiguration.DriverOptions;
                     edgeOptions.PageLoadStrategy = PageLoadStrategy.Normal;
-                    edgeOptions.UseChromium = true;
                     edgeOptions.AddArguments("--log-level=3");
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
@@ -406,12 +403,10 @@ namespace Bellatrix.Web
                     edgeOptions.SetLoggingPreference("performance", LogLevel.All);
 
 
-                    wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeDriverService, edgeOptions);
+                    wrappedWebDriver = new EdgeDriver(edgeOptions);
                     break;
                 case BrowserType.EdgeHeadless:
-                    new DriverManager().SetUpDriver(new EdgeConfig());
-                    var edgeHeadlessDriverService = Microsoft.Edge.SeleniumTools.EdgeDriverService.CreateChromiumService();
-                    edgeHeadlessDriverService.SuppressInitialDiagnosticInformation = true;
+                    ////new DriverManager().SetUpDriver(new EdgeConfig());
                     var edgeHeadlessOptions = executionConfiguration.DriverOptions;
                     edgeHeadlessOptions.AddArguments("--headless");
                     edgeHeadlessOptions.AddArguments("--log-level=3");
@@ -428,7 +423,6 @@ namespace Bellatrix.Web
                     edgeHeadlessOptions.UnhandledPromptBehavior = UnhandledPromptBehavior.Dismiss;
 
                     edgeHeadlessOptions.PageLoadStrategy = PageLoadStrategy.Normal;
-                    edgeHeadlessOptions.UseChromium = true;
                     if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                     {
                         edgeHeadlessOptions.Proxy = webDriverProxy;
@@ -451,7 +445,7 @@ namespace Bellatrix.Web
                     edgeHeadlessOptions.SetLoggingPreference(LogType.Browser, LogLevel.Severe);
                     edgeHeadlessOptions.SetLoggingPreference("performance", LogLevel.All);
 
-                    wrappedWebDriver = new Microsoft.Edge.SeleniumTools.EdgeDriver(edgeHeadlessDriverService, edgeHeadlessOptions);
+                    wrappedWebDriver = new EdgeDriver(edgeHeadlessOptions);
                     break;
                 case BrowserType.Opera:
                     new DriverManager().SetUpDriver(new OperaConfig());

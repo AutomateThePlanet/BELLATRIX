@@ -23,9 +23,9 @@ using Bellatrix.Utilities;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Proxy;
 using Bellatrix.Web.Services;
-using Microsoft.Edge.SeleniumTools;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Opera;
@@ -273,7 +273,8 @@ namespace Bellatrix.Web.Plugins.Browser
                 return;
             }
 
-            if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0].Count > 0)
+            var args = ConfigurationService.GetSection<WebSettings>().ExecutionSettings?.Arguments;
+            if (args.Any())
             {
                 if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.ExecutionType.ToLower().Contains("lambda"))
                 {

@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public virtual bool IsChecked => GetIsChecked();
 
-        public virtual string GetText()
+        public new virtual string GetText()
         {
             return GetText();
         }

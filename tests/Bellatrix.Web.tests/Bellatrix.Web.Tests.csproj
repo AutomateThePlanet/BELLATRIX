@@ -2,14 +2,15 @@
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
   <ItemGroup>
-    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.1.0" />
+    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.2.0" />
 
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Moq" Version="4.16.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
-    <PackageReference Include="System.Security.Permissions" Version="5.0.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
+    <PackageReference Include="System.Security.Permissions" Version="6.0.0" />
     <PackageReference Include="Unity" Version="5.11.10" />
+    <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="97.0.1072.55" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,9 +29,6 @@
 
   <ItemGroup>
     <None Update="allureConfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="StyleCopeRules.ruleset">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="testFrameworkSettings.$(Configuration).json">

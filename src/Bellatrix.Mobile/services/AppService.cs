@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile.Services
 
         public string Context { get => WrappedAppiumDriver.Context; set => WrappedAppiumDriver.Context = value; }
 
-        public void BackgroundApp(int seconds) => WrappedAppiumDriver.BackgroundApp(seconds);
+        public void BackgroundApp(int seconds) => WrappedAppiumDriver.BackgroundApp(TimeSpan.FromSeconds(seconds));
 
         public void CloseApp() => WrappedAppiumDriver.CloseApp();
 

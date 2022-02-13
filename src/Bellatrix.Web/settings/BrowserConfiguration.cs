@@ -79,8 +79,18 @@ namespace Bellatrix.Web
             BrowserType.Equals(browserConfiguration?.BrowserType) &&
             ShouldCaptureHttpTraffic.Equals(browserConfiguration?.ShouldCaptureHttpTraffic) &&
             Size.Equals(browserConfiguration?.Size) &&
-            ShouldAutomaticallyScrollToVisible.Equals(browserConfiguration?.ShouldAutomaticallyScrollToVisible);
+            ShouldAutomaticallyScrollToVisible.Equals(browserConfiguration?.ShouldAutomaticallyScrollToVisible) &&
             IsLighthouseEnabled.Equals(browserConfiguration?.IsLighthouseEnabled);
+        }
+
+        public override int GetHashCode()
+        {
+            return ExecutionType.GetHashCode() +
+                    BrowserType.GetHashCode() +
+                    ShouldCaptureHttpTraffic.GetHashCode() +
+                    Size.GetHashCode() +
+                    IsLighthouseEnabled.GetHashCode() +
+                    ShouldAutomaticallyScrollToVisible.GetHashCode();
         }
     }
 }

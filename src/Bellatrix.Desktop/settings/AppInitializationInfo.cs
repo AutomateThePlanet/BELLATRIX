@@ -72,5 +72,10 @@ namespace Bellatrix.Desktop.Configuration
 
             return _appPath;
         }
+
+        public override int GetHashCode()
+        {
+            return AppPath.GetHashCode() + Lifecycle.GetHashCode() + Size.GetHashCode();
+        }
     }
 }
