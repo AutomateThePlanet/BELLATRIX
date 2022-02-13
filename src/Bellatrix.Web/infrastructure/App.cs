@@ -25,6 +25,7 @@ using Bellatrix.Utilities;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Proxy;
+using Bellatrix.Web.services;
 using Bellatrix.Web.Services;
 using OpenQA.Selenium;
 
@@ -46,6 +47,7 @@ namespace Bellatrix.Web
         [Obsolete("NavigationService is deprecated use Navigation property instead.")]
         public NavigationService NavigationService => ServicesCollection.Current.Resolve<NavigationService>();
         public NavigationService Navigation => ServicesCollection.Current.Resolve<NavigationService>();
+        public DevToolsService DevTools => ServicesCollection.Current.Resolve<DevToolsService>();
 
         [Obsolete("DialogService is deprecated use Dialogs property instead.")]
         public DialogService DialogService => ServicesCollection.Current.Resolve<DialogService>();
@@ -189,6 +191,7 @@ namespace Bellatrix.Web
 
         public void Dispose()
         {
+            DevTools?.Dispose();
             ProxyService?.Dispose();
             DisposeDriverService.DisposeAll();
             DisposeDriverService.Dispose();
