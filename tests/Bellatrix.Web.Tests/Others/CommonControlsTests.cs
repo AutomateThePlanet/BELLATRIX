@@ -56,14 +56,14 @@ namespace Bellatrix.Web.Tests
 
             // 6. Locate elements by custom attribute. Also, bellow BELLATRIX waits till the anchor is clickable before doing any actions.
             // <a href="/?add-to-cart=28" data-product_id="28">Add to cart</a>
-            Anchor addToCartFalcon9 = App.ComponentCreateService
+            Anchor addToCartFalcon9 = App.Components
                 .CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
             addToCartFalcon9.Focus();
             addToCartFalcon9.Click();
 
             // 7. Find the anchor by class 'added_to_cart wc-forward' and wait for the element again to be clickable.
             // <a href="http://demos.bellatrix.solutions/cart/" class="added_to_cart wc-forward" title="View cart">View cart</a>
-            Anchor viewCartButton = App.ComponentCreateService
+            Anchor viewCartButton = App.Components
                 .CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
             viewCartButton.Click();
 

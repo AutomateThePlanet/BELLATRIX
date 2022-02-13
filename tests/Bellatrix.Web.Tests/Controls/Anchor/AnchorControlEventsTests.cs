@@ -28,8 +28,6 @@ namespace Bellatrix.Web.Tests.Controls
         [TestCategory(Categories.CI)]
         public void ClickingCalled_BeforeActuallyClick()
         {
-            var browserService = App.BrowserService;
-
             Anchor.Clicking += AssertUrlNotAutomateThePlanet;
 
             var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
@@ -38,13 +36,13 @@ namespace Bellatrix.Web.Tests.Controls
 
             App.Navigation.WaitForPartialUrl("automatetheplanet");
 
-            Assert.AreEqual("https://www.automatetheplanet.com/", browserService.Url.ToString());
+            Assert.AreEqual("https://www.automatetheplanet.com/", App.Browser.Url.ToString());
 
             Anchor.Clicking -= AssertUrlNotAutomateThePlanet;
 
             void AssertUrlNotAutomateThePlanet(object sender, ComponentActionEventArgs args)
             {
-                Assert.AreNotEqual("https://automatetheplanet.com/", browserService.Url.ToString());
+                Assert.AreNotEqual("https://automatetheplanet.com/", App.Browser.Url.ToString());
             }
         }
 

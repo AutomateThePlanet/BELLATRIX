@@ -37,18 +37,18 @@ namespace Bellatrix.Web.Tests
             addToCartFalcon9.Click();
             viewCartButton.Click();
 
-            App.ProxyService.AssertNoErrorCodes();
+            App.Proxy.AssertNoErrorCodes();
 
-            App.ProxyService.AssertNoLargeImagesRequested();
+            App.Proxy.AssertNoLargeImagesRequested();
 
-            App.ProxyService.AssertRequestMade("http://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
+            App.Proxy.AssertRequestMade("http://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
         }
 
         [TestMethod]
         [TestCategory(Categories.CI)]
         public void RedirectRequestsTest()
         {
-            App.ProxyService.SetUrlToBeRedirectedTo("http://demos.bellatrix.solutions/favicon.ico", "https://www.automatetheplanet.com/wp-content/uploads/2016/12/logo.svg");
+            App.Proxy.SetUrlToBeRedirectedTo("http://demos.bellatrix.solutions/favicon.ico", "https://www.automatetheplanet.com/wp-content/uploads/2016/12/logo.svg");
 
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
@@ -68,7 +68,7 @@ namespace Bellatrix.Web.Tests
         [TestCategory(Categories.CI)]
         public void BlockRequestsTest()
         {
-            App.ProxyService.SetUrlToBeBlocked("http://demos.bellatrix.solutions/favicon.ico");
+            App.Proxy.SetUrlToBeBlocked("http://demos.bellatrix.solutions/favicon.ico");
 
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
@@ -83,7 +83,7 @@ namespace Bellatrix.Web.Tests
             addToCartFalcon9.Click();
             viewCartButton.Click();
 
-            App.ProxyService.AssertRequestNotMade("http://demos.bellatrix.solutions/welcome");
+            App.Proxy.AssertRequestNotMade("http://demos.bellatrix.solutions/welcome");
         }
     }
 }
