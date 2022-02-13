@@ -273,7 +273,8 @@ namespace Bellatrix.Web.Plugins.Browser
                 return;
             }
 
-            if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0].Count > 0)
+            var args = ConfigurationService.GetSection<WebSettings>().ExecutionSettings?.Arguments;
+            if (args.Any())
             {
                 if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.ExecutionType.ToLower().Contains("lambda"))
                 {

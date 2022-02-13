@@ -17,7 +17,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Web.Tests.Controls
 {
     [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
     [AllureSuite("Anchor Control")]
     [AllureFeature("ControlEvents")]
     public class AnchorControlEventsTests : MSTest.WebTest
@@ -26,7 +26,6 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickingCalled_BeforeActuallyClick()
         {
             var browserService = App.BrowserService;
@@ -51,7 +50,6 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void ClickedCalled_AfterClick()
         {
             Anchor.Clicked += AssertUrlAutomateThePlanet;
@@ -71,7 +69,6 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void HoveringCalled_BeforeActuallyHover()
         {
             Anchor.Hovering += AssertStyleAttributeEmpty;
@@ -92,7 +89,6 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void HoveredCalled_AfterHover()
         {
             Anchor.Hovered += AssertStyleAttributeContainsNewValue;
@@ -111,7 +107,6 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void FocusingCalled_BeforeActuallyFocus()
         {
             Anchor.Focusing += AssertStyleAttributeEmpty;
@@ -130,7 +125,6 @@ namespace Bellatrix.Web.Tests.Controls
 
         [TestMethod]
         [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
         public void FocusedCalled_AfterFocus()
         {
             Anchor.Focused += AssertStyleAttributeContainsNewValue;

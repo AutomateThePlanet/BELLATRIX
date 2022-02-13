@@ -23,7 +23,7 @@
       "shouldStartLocalService": "false",
       "resolution": "",
       "defaultAppPath": "AssemblyFolder\\Demos\\Wpf\\WPFSampleApp.exe",
-      "url": "http://127.0.0.1:4722",
+      "url": "http://127.0.0.1:4723",
       "arguments": [
         {
           //"name": "{runName}",
