@@ -25,7 +25,6 @@ namespace Bellatrix.Web.GettingStarted
         public void PurchaseRocketWithoutPageObjects()
         {
             App.Navigation.Navigate("http://demos.bellatrix.solutions/");
-
             // Home page elements
             Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
             Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
