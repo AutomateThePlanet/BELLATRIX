@@ -27,7 +27,7 @@ namespace Bellatrix.Web
         private Table _parentTable;
         private HeaderNamesService _headerNamesService;
 
-        protected virtual List<TableCell> TableCells => new List<TableCell>() ?? this.CreateAllByXpath<TableCell>("./td", true).ToList();
+        protected virtual List<TableCell> TableCells => this.CreateAllByXpath<TableCell>("./td", true).ToList();
 
         public int Index { get; set; }
 
