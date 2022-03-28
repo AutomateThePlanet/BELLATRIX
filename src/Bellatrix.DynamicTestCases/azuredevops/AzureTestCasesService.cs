@@ -123,7 +123,7 @@ namespace Bellatrix.DynamicTestCases.AzureDevOps
             {
                 Operation = Operation.Add,
                 Path = "/fields/Microsoft.VSTS.TCM.AutomatedTestStorage",
-                Value = testCase.AutomatedTestStorage,
+                Value = testCase.AutomatedTestStorage + ".dll",
             });
 
             if (!string.IsNullOrEmpty(testCase.RequirementUrl))
