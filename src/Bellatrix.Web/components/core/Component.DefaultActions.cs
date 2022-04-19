@@ -211,8 +211,14 @@ namespace Bellatrix.Web
             }
 
             Thread.Sleep(50);
-
-            wrappedElement.SendKeys(value);
+            try
+            {
+                wrappedElement.SendKeys(value);
+            }
+            catch (StaleElementReferenceException)
+            {
+                WrappedElement.SendKeys(value);
+            }
 
             valueSet?.Invoke(this, new ComponentActionEventArgs(this, value));
         }

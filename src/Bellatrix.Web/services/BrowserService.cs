@@ -70,6 +70,17 @@ namespace Bellatrix.Web
             }
         }
 
+        /// <summary>
+        /// Static wait that calls Thread.Sleep().
+        /// USE IN EXTREAM CONDITIONS WHEN NO OTHER WAIT WORKS.
+        /// </summary>
+        /// <param name="timeoutMilliseconds">Timeout milliseconds. Default 1000 ms = 1 second.</param>
+        public void WaitForUserInteraction(int timeoutMilliseconds = 1000)
+        {
+            InjectNotificationToast($"Waiting for User Timeout: {timeoutMilliseconds / 1000} s.");
+            Thread.Sleep(timeoutMilliseconds);
+        }
+
         public void WaitUntilReady()
         {
             int maxSeconds = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.WaitUntilReadyTimeout;

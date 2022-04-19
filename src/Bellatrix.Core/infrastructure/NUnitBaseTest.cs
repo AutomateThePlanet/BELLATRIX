@@ -71,7 +71,7 @@ namespace Bellatrix
             {
                 var testClassType = GetCurrentExecutionTestClassType();
 
-                _container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
+                _container = ServicesCollection.Main.CreateChildServicesCollection(testClassType.FullName);
                 _container.RegisterInstance(_container);
                 _currentTestExecutionProvider = new PluginProvider();
                 Initialize();
@@ -98,10 +98,10 @@ namespace Bellatrix
             {
                 var testClassType = GetCurrentExecutionTestClassType();
 
-                _container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
-                _container.RegisterInstance(_container);
-                _currentTestExecutionProvider = new PluginProvider();
-                InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+                ////_container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+                ////_container.RegisterInstance(_container);
+                ////_currentTestExecutionProvider = new PluginProvider();
+                ////InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
                 _currentTestExecutionProvider.PreClassCleanup(testClassType);
                 TestsCleanup();
@@ -124,7 +124,7 @@ namespace Bellatrix
 
             var testClassType = GetCurrentExecutionTestClassType();
 
-            _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+            _container = ServicesCollection.Main.FindCollection(testClassType.FullName);
 
             var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
             var categories = GetAllTestCategories();
@@ -150,7 +150,7 @@ namespace Bellatrix
         public void CoreTestCleanup()
         {
             var testClassType = GetCurrentExecutionTestClassType();
-            _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+            _container = ServicesCollection.Main.FindCollection(testClassType.FullName);
             var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
             var categories = GetAllTestCategories();
             var authors = GetAllAuthors();

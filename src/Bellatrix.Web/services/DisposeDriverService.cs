@@ -58,7 +58,7 @@ namespace Bellatrix.Web.Services
 
         public static void DisposeAll()
         {
-            foreach (var childContainer in ServicesCollection.Current.GetChildServicesCollections())
+            foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
             {
                 try
                 {

@@ -35,7 +35,7 @@ namespace Bellatrix.GoogleLighthouse.NUnit
         protected override void PostTestCleanup(object sender, PluginEventArgs e)
         {
             var settings = ConfigurationService.GetSection<LighthouseSettings>();
-            if (settings.IsEnabled && WrappedWebDriverCreateService.BrowserConfiguration.ExecutionType == Web.Enums.ExecutionType.Regular)
+            if (settings != null && settings.IsEnabled && WrappedWebDriverCreateService.BrowserConfiguration.ExecutionType == Web.Enums.ExecutionType.Regular)
             {
                 lock (_lockObject)
                 {
