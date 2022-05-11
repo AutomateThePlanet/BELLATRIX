@@ -86,7 +86,7 @@ namespace Bellatrix.Web
         {
             int maxSeconds = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.WaitUntilReadyTimeout;
 
-            Bellatrix.Utilities.Wait.Until(
+            Bellatrix.Utilities.Wait.ForConditionUntilTimeout(
                     () =>
                     {
                         try
@@ -106,8 +106,7 @@ namespace Bellatrix.Web
                         return false;
                     },
                     maxSeconds,
-                    "Timed out waiting for complete page load",
-                    retryRateDelay: 100);
+                    sleepTimeMilliseconds: 100);
         }
 
         public void Maximize() => WrappedDriver.Manage().Window.Maximize();

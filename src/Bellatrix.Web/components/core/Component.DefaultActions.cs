@@ -229,7 +229,7 @@ namespace Bellatrix.Web
             try
             {
                 var wrappedElement = _wrappedElement ?? WrappedElement;
-                JavaScriptService.Execute("arguments[0].scrollIntoView(true);", wrappedElement);
+                JavaScriptService.Execute("arguments[0].scrollIntoView({block:'center'});", wrappedElement);
                 if (shouldWait)
                 {
                     Thread.Sleep(500);
