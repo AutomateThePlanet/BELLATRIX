@@ -21,11 +21,4 @@
 		<ProjectReference Include="..\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
 		<ProjectReference Include="..\Bellatrix.Web\Bellatrix.Web.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
-	</ItemGroup>
 </Project>
