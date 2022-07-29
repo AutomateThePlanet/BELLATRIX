@@ -71,7 +71,13 @@ namespace Bellatrix.Web
 
         public List<string> GetFooterRowDataByName(string footerName)
         {
-            return GetFooterRowsData().FirstOrDefault(row => row[0] == footerName);
+            var footerRow = GetFooterRowsData().FirstOrDefault(row => row[0] == footerName);
+            if (footerRow == null)
+            {
+                footerRow = GetFooterRowsData().FirstOrDefault(row => row[0].StartsWith(footerName));
+            }
+
+            return footerRow;
         }
 
         public List<string> GetFooterRowDataByPosition(int position)

@@ -32,7 +32,7 @@ namespace Bellatrix.Utilities
                 var totalSeconds = (now - start).TotalSeconds;
                 if (totalSeconds >= timeoutInSeconds)
                 {
-                    throw new TimeoutException(exceptionMessage);
+                    throw new TimeoutException(exceptionMessage + $" Elapsed time: {totalSeconds} s.");
                 }
 
                 Thread.Sleep(retryRateDelay);

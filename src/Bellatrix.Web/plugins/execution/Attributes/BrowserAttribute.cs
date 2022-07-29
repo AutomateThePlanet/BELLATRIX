@@ -115,11 +115,12 @@ namespace Bellatrix.Web
         public OS OS { get; internal set; }
 
         public bool ShouldAutomaticallyScrollToVisible { get; }
+
         public bool IsLighthouseEnabled { get; protected set; }
 
         protected string GetTestFullName(MemberInfo memberInfo, Type testClassType)
         {
-            string testFullName = $"{testClassType.FullName}.{memberInfo.Name}";
+            string testFullName = $"{testClassType.FullName}.{memberInfo?.Name}".Trim('.');
             string testName = testFullName != null ? testFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty) : testClassType.FullName;
             return testName;
         }

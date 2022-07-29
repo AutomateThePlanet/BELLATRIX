@@ -211,8 +211,14 @@ namespace Bellatrix.Web
             }
 
             Thread.Sleep(50);
-
-            wrappedElement.SendKeys(value);
+            try
+            {
+                wrappedElement.SendKeys(value);
+            }
+            catch (StaleElementReferenceException)
+            {
+                WrappedElement.SendKeys(value);
+            }
 
             valueSet?.Invoke(this, new ComponentActionEventArgs(this, value));
         }
@@ -223,7 +229,7 @@ namespace Bellatrix.Web
             try
             {
                 var wrappedElement = _wrappedElement ?? WrappedElement;
-                JavaScriptService.Execute("arguments[0].scrollIntoView(true);", wrappedElement);
+                JavaScriptService.Execute("arguments[0].scrollIntoView({block:'center'});", wrappedElement);
                 if (shouldWait)
                 {
                     Thread.Sleep(500);

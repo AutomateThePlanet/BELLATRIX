@@ -71,7 +71,7 @@ namespace Bellatrix.Web
             App.Assert.AreEqual(urlPath, actualUri.AbsolutePath, $"Expected URL path is different than the Actual one.");
         }
 
-        public void AssertUrlPathAndQuery(string pathAndQuery)
+        public virtual void AssertUrlPathAndQuery(string pathAndQuery)
         {
             var currentBrowserUrl = App.Navigation.WrappedDriver.Url.ToString();
             Uri actualUri = new Uri(currentBrowserUrl);

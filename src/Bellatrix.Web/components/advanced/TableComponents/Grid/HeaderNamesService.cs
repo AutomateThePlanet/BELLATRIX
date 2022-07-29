@@ -52,13 +52,20 @@ namespace Bellatrix.Web
             return _headerNamesIndexes[position];
         }
 
-        public int? GetHeaderPosition(string header, List<IHeaderInfo> headerInfos, int? order = null)
+        public int? GetHeaderPosition(string header, List<IHeaderInfo> headerInfos, int? order = null, bool throwException = true)
         {
             SetEmptyHeadersName(headerInfos);
 
             if (!_headerNamesIndexes.Any(x => x.Value.EndsWith(header)))
             {
-                throw new ArgumentException($"Header {header} was not found.");
+                if (throwException)
+                {
+                    throw new ArgumentException($"Header {header} was not found.");
+                }
+                else
+                {
+                    return null;
+                }
             }
 
             if (ColumnHeaderNames != null && ColumnHeaderNames.All(x => !x.EndsWith(header)))

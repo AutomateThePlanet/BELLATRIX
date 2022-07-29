@@ -34,6 +34,8 @@ namespace Bellatrix.ExceptionAnalysation
 
         public void Analyse(Exception ex = null, ServicesCollection container = null, params object[] context)
         {
+            container ??= ServicesCollection.Current;
+
             IEnumerable<IExceptionAnalysationHandler> handlers = ServicesCollection.Current.ResolveAll<IExceptionAnalysationHandler>();
             _exceptionAnalysationHandlers.AddRange(handlers);
             foreach (IExceptionAnalysationHandler exceptionHandler in _exceptionAnalysationHandlers)
@@ -44,6 +46,7 @@ namespace Bellatrix.ExceptionAnalysation
                     if (browserService != null)
                     {
                         string url = browserService.Url.ToString();
+                        browserService.PrintConsoleOutput();
                         throw new AnalyzedTestException(exceptionHandler.DetailedIssueExplanation, url, ex);
                     }
                     else

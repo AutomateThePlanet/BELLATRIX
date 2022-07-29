@@ -39,7 +39,7 @@ namespace Bellatrix.Web
             Platform = platform;
             RecordVideo = recordVideo;
             RecordScreenshots = recordScreenshots;
-            ExecutionType = ExecutionType.Grid;
+            ExecutionType = ExecutionType.SauceLabs;
         }
 
         public SauceLabsAttribute(
@@ -58,7 +58,7 @@ namespace Bellatrix.Web
             Platform = platform;
             RecordVideo = recordVideo;
             RecordScreenshots = recordScreenshots;
-            ExecutionType = ExecutionType.Grid;
+            ExecutionType = ExecutionType.SauceLabs;
             ScreenResolution = new Size(width, height).ConvertToString();
         }
 
@@ -167,10 +167,50 @@ namespace Bellatrix.Web
             sauceOptions.Add("build", buildName);
             sauceOptions.Add("name", testClassType.FullName);
 
-            var credentials = CloudProviderCredentialsResolver.GetCredentials();
-            driverOptions.AddAdditionalCapability("username", credentials.Item1);
-            driverOptions.AddAdditionalCapability("accessKey", credentials.Item2);
-            driverOptions.AddAdditionalCapability("name", testClassType.FullName);
+            try
+            {
+                var credentials = CloudProviderCredentialsResolver.GetCredentials();
+                sauceOptions.Add("username", credentials.Item1);
+                sauceOptions.Add("accessKey", credentials.Item2);
+            }
+            catch (ArgumentException)
+            {
+                // Need to be able to support retrieving credentials from testFrameworkSettings using the values
+                // present in the template testFrameworkSettings files, especially where environment variable names
+                // containing a "." character are not supported
+                var username = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0]["username"];
+                var accessKey = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0]["accessKey"];
+                sauceOptions.Add("username", username);
+                sauceOptions.Add("accessKey", accessKey);
+            }
+
+            if (UseTunnel)
+            {
+                sauceOptions.Add("tunnelIdentifier", TunnelId);
+                sauceOptions.Add("parentTunnel", ParentTunnel);
+            }
+
+            driverOptions.PlatformName = Platform;
+            driverOptions.BrowserVersion = BrowserVersion;
+
+            switch (Browser)
+            {
+                // By default, all capabilities added to the browser specific implementation
+                // of these DriverOptions is added as a subcapability of that browser's options.
+                // Sauce Labs requires sauce:options configuration be at the top level of the capabilities
+                case BrowserType.Chrome:
+                case BrowserType.ChromeHeadless:
+                case BrowserType.Firefox:
+                case BrowserType.FirefoxHeadless:
+                case BrowserType.InternetExplorer:
+                case BrowserType.Opera:
+                    driverOptions.AddAdditionalCapability("sauce:options", sauceOptions, true);
+                    break;
+
+                default:
+                    driverOptions.AddAdditionalCapability("sauce:options", sauceOptions);
+                    break;
+            }
 
             return driverOptions;
         }

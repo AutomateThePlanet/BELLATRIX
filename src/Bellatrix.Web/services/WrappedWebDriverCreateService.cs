@@ -89,6 +89,9 @@ namespace Bellatrix.Web
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                     var options = executionConfiguration.DriverOptions;
                     options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
+                    options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+                    options.SetLoggingPreference("performance", LogLevel.All);
+
                     wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), options.ToCapabilities(), TimeSpan.FromSeconds(180));
 
                     IAllowsFileDetection allowsDetection = wrappedWebDriver as IAllowsFileDetection;

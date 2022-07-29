@@ -71,7 +71,7 @@ namespace Bellatrix
             {
                 var testClassType = GetCurrentExecutionTestClassType();
 
-                _container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
+                _container = ServicesCollection.Main.CreateChildServicesCollection(testClassType.FullName);
                 _container.RegisterInstance(_container);
                 _currentTestExecutionProvider = new PluginProvider();
                 Initialize();
@@ -98,10 +98,10 @@ namespace Bellatrix
             {
                 var testClassType = GetCurrentExecutionTestClassType();
 
-                _container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
-                _container.RegisterInstance(_container);
-                _currentTestExecutionProvider = new PluginProvider();
-                InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+                ////_container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+                ////_container.RegisterInstance(_container);
+                ////_currentTestExecutionProvider = new PluginProvider();
+                ////InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
                 _currentTestExecutionProvider.PreClassCleanup(testClassType);
                 TestsCleanup();
@@ -124,7 +124,7 @@ namespace Bellatrix
 
             var testClassType = GetCurrentExecutionTestClassType();
 
-            _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+            _container = ServicesCollection.Main.FindCollection(testClassType.FullName);
 
             var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
             var categories = GetAllTestCategories();
@@ -150,24 +150,47 @@ namespace Bellatrix
         public void CoreTestCleanup()
         {
             var testClassType = GetCurrentExecutionTestClassType();
-            _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+            _container = ServicesCollection.Main.FindCollection(testClassType.FullName);
             var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
             var categories = GetAllTestCategories();
             var authors = GetAllAuthors();
             var descriptions = GetAllDescriptions();
 
+            _currentTestExecutionProvider = new PluginProvider();
+            var cleanupExceptions = new List<Exception>();
+            InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+            
             try
             {
-                _currentTestExecutionProvider = new PluginProvider();
-                InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                 _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
+            }
+            catch (Exception preTestCleanupException)
+            {
+                cleanupExceptions.Add(preTestCleanupException);
+            }
+
+            try
+            {
                 TestCleanup();
-                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.FullName, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
             }
             catch (Exception ex)
             {
+                cleanupExceptions.Add(ex);
                 _currentTestExecutionProvider.TestCleanupFailed(ex, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions);
-                throw;
+            }
+
+            try
+            {
+                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.FullName, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
+            }
+            catch (Exception postCleanupException)
+            {
+                cleanupExceptions.Add(postCleanupException);
+            }
+
+            if (cleanupExceptions.Any())
+            {
+                throw new AggregateException("Test Cleanup failed with one or more errors:", cleanupExceptions);
             }
         }
 

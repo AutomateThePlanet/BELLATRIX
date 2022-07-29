@@ -34,7 +34,13 @@ namespace Bellatrix.Web
 
         public static event EventHandler<UrlNotNavigatedEventArgs> UrlNotNavigatedEvent;
 
-        public void Navigate(Uri uri) => WrappedDriver.Navigate().GoToUrl(uri);
+        public static event EventHandler<UrlNavigatedEventArgs> UrlNavigatedEvent;
+
+        public void Navigate(Uri uri)
+        {
+            WrappedDriver.Navigate().GoToUrl(uri);
+            UrlNavigatedEvent?.Invoke(this, new UrlNavigatedEventArgs(uri.ToString()));
+        }
 
         public void Navigate(string url)
         {
@@ -42,6 +48,7 @@ namespace Bellatrix.Web
             try
             {
                 WrappedDriver.Navigate().GoToUrl(url);
+                UrlNavigatedEvent?.Invoke(this, new UrlNavigatedEventArgs(url));
             }
             catch (Exception)
             {
@@ -53,9 +60,11 @@ namespace Bellatrix.Web
                 try
                 {
                     WrappedDriver.Navigate().GoToUrl(url);
+                    UrlNavigatedEvent?.Invoke(this, new UrlNavigatedEventArgs(url));
                 }
                 catch (Exception ex)
                 {
+                    UrlNotNavigatedEvent?.Invoke(this, new UrlNotNavigatedEventArgs(ex));
                     throw new Exception($"Navigation to page {url} has failed after two attempts. Error was: {ex.Message}");
                 }
             }
