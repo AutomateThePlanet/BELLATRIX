@@ -13,46 +13,45 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class CheckboxEventHandlers : ComponentEventHandlers
 {
-    public class CheckboxEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            CheckBox.Checking += CheckingEventHandler;
-            CheckBox.Checked += CheckedEventHandler;
-            CheckBox.Unchecking += UncheckingEventHandler;
-            CheckBox.Unchecked += UncheckedEventHandler;
-            CheckBox.Hovering += HoveringEventHandler;
-            CheckBox.Hovered += HoveredEventHandler;
-        }
+        base.SubscribeToAll();
+        CheckBox.Checking += CheckingEventHandler;
+        CheckBox.Checked += CheckedEventHandler;
+        CheckBox.Unchecking += UncheckingEventHandler;
+        CheckBox.Unchecked += UncheckedEventHandler;
+        CheckBox.Hovering += HoveringEventHandler;
+        CheckBox.Hovered += HoveredEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            CheckBox.Checking -= CheckingEventHandler;
-            CheckBox.Checked -= CheckedEventHandler;
-            CheckBox.Unchecking -= UncheckingEventHandler;
-            CheckBox.Unchecked -= UncheckedEventHandler;
-            CheckBox.Hovering -= HoveringEventHandler;
-            CheckBox.Hovered -= HoveredEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        CheckBox.Checking -= CheckingEventHandler;
+        CheckBox.Checked -= CheckedEventHandler;
+        CheckBox.Unchecking -= UncheckingEventHandler;
+        CheckBox.Unchecked -= UncheckedEventHandler;
+        CheckBox.Hovering -= HoveringEventHandler;
+        CheckBox.Hovered -= HoveredEventHandler;
+    }
 
-        protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Plugins.Screenshots
+namespace Bellatrix.Plugins.Screenshots;
+
+public class ScreenshotsSettings
 {
-    public class ScreenshotsSettings
-    {
-        public string FilePath { get; set; }
-        public bool IsEnabled { get; set; }
-    }
+    public string FilePath { get; set; }
+    public bool IsEnabled { get; set; }
 }

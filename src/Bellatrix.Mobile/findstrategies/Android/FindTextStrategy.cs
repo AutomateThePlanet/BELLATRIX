@@ -15,41 +15,40 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Locators.Android
+namespace Bellatrix.Mobile.Locators.Android;
+
+public class FindTextStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
 {
-    public class FindTextStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+    private readonly string _locatorValue;
+
+    public FindTextStrategy(string name)
+        : base(name)
     {
-        private readonly string _locatorValue;
+        _locatorValue = $"new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().text(\"{Value}\"));";
+    }
 
-        public FindTextStrategy(string name)
-            : base(name)
-        {
-            _locatorValue = $"new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().text(\"{Value}\"));";
-        }
+    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    {
+        return searchContext.FindElementByAndroidUIAutomator(_locatorValue);
+    }
 
-        public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
-        {
-            return searchContext.FindElementByAndroidUIAutomator(_locatorValue);
-        }
+    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
+    {
+        return searchContext.FindElementsByAndroidUIAutomator(_locatorValue);
+    }
 
-        public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
-        {
-            return searchContext.FindElementsByAndroidUIAutomator(_locatorValue);
-        }
+    public override AppiumWebElement FindElement(AndroidElement element)
+    {
+        return element.FindElementByAndroidUIAutomator(_locatorValue);
+    }
 
-        public override AppiumWebElement FindElement(AndroidElement element)
-        {
-            return element.FindElementByAndroidUIAutomator(_locatorValue);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    {
+        return element.FindElementsByAndroidUIAutomator(_locatorValue);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
-        {
-            return element.FindElementsByAndroidUIAutomator(_locatorValue);
-        }
-
-        public override string ToString()
-        {
-            return $"Text = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"Text = {Value}";
     }
 }

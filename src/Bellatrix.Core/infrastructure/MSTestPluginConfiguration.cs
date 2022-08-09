@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using Bellatrix.Assertions;
 using Bellatrix.Assertions.MSTest;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class MSTestPluginConfiguration
 {
-    public static class MSTestPluginConfiguration
+    public static void Add()
     {
-        public static void Add()
-        {
-            ServicesCollection.Current.RegisterType<IAssert, MsTestAssert>();
-            ServicesCollection.Current.RegisterType<ICollectionAssert, MsTestCollectionAssert>();
-        }
+        ServicesCollection.Current.RegisterType<IAssert, MsTestAssert>();
+        ServicesCollection.Current.RegisterType<ICollectionAssert, MsTestCollectionAssert>();
     }
 }

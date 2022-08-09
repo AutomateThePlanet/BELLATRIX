@@ -14,69 +14,68 @@
 using Bellatrix.Mobile.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Button Control")]
+[AllureFeature("ValidateExtensions")]
+public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Button Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.IOSTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ValidateInnerTextIs_ThrowException_Button_When_InnerTextIsAsExpected()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ValidateInnerTextIs_ThrowException_Button_When_InnerTextIsAsExpected()
+        try
         {
-            try
-            {
-                var button = App.Components.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
-                button.ValidateTextIs("Compute");
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = "The control's text should be 'Compute'";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            button.ValidateTextIs("Compute");
         }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ValidateInnerTextIsNull_ThrowException_Button_When_InnerTextIsNotNull()
+        catch (ComponentPropertyValidateException e)
         {
-            try
-            {
-                var button = App.Components.CreateByName<Button>("ComputeSumButton");
-
-                button.ValidateTextIsNotSet();
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = "The control's text should be null but was 'Compute Sum'";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = "The control's text should be 'Compute'";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ValidateIsNotDisabled_ThrowException_When_ButtonNotDisabled()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ValidateInnerTextIsNull_ThrowException_Button_When_InnerTextIsNotNull()
+    {
+        try
         {
-            try
-            {
-                var button = App.Components.CreateByName<Button>("ComputeSumButton");
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
-                button.ValidateIsDisabled();
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = "The control should be disabled but it was NOT.";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            button.ValidateTextIsNotSet();
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = "The control's text should be null but was 'Compute Sum'";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ValidateIsNotDisabled_ThrowException_When_ButtonNotDisabled()
+    {
+        try
+        {
+            var button = App.Components.CreateByName<Button>("ComputeSumButton");
+
+            button.ValidateIsDisabled();
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = "The control should be disabled but it was NOT.";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

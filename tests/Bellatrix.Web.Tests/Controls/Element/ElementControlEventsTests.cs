@@ -14,128 +14,127 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls.Element
+namespace Bellatrix.Web.Tests.Controls.Element;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Element Control")]
+[AllureFeature("ControlEvents")]
+public class ElementControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Element Control")]
-    [AllureFeature("ControlEvents")]
-    public class ElementControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingAttributeCalled_BeforeActuallySetAttribute()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+        Bellatrix.Web.Component.SettingAttribute += AssertClassAttributeEmpty;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingAttributeCalled_BeforeActuallySetAttribute()
+        var urlElement = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
+
+        urlElement.SetAttribute("class", "myTestClass1");
+        var cssClass = urlElement.GetAttribute("class");
+
+        Assert.AreEqual("myTestClass1", cssClass);
+
+        Bellatrix.Web.Component.SettingAttribute -= AssertClassAttributeEmpty;
+
+        void AssertClassAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Bellatrix.Web.Component.SettingAttribute += AssertClassAttributeEmpty;
-
-            var urlElement = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
-
-            urlElement.SetAttribute("class", "myTestClass1");
-            var cssClass = urlElement.GetAttribute("class");
-
-            Assert.AreEqual("myTestClass1", cssClass);
-
-            Bellatrix.Web.Component.SettingAttribute -= AssertClassAttributeEmpty;
-
-            void AssertClassAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("myTestClass", args.Element.WrappedElement.GetAttribute("class"));
-            }
+            Assert.AreEqual("myTestClass", args.Element.WrappedElement.GetAttribute("class"));
         }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AttributeSetCalled_AfterSetAttribute()
-        {
-            Bellatrix.Web.Component.AttributeSet += AssertClassAttributeContainsNewValue;
-
-            var urlElement = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
-
-            urlElement.SetAttribute("class", "myTestClass1");
-            var cssClass = urlElement.GetAttribute("class");
-
-            Assert.AreEqual("myTestClass1", cssClass);
-
-            Bellatrix.Web.Component.SettingAttribute -= AssertClassAttributeContainsNewValue;
-
-            Bellatrix.Web.Component.AttributeSet -= AssertClassAttributeContainsNewValue;
-
-            void AssertClassAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("myTestClass1", args.Element.WrappedElement.GetAttribute("class"));
-            }
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturningWrappedElementCalled_AfterElementCreated()
-        {
-            Bellatrix.Web.Component.ReturningWrappedElement += AssertNativeElementNotNullAfterCallingAction;
-
-            var urlElement = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
-
-            var cssClass = urlElement.GetAttribute("class");
-
-            Assert.AreEqual("myTestClass", cssClass);
-
-            Bellatrix.Web.Component.ReturningWrappedElement -= AssertNativeElementNotNullAfterCallingAction;
-
-            void AssertNativeElementNotNullAfterCallingAction(object sender, NativeElementActionEventArgs args)
-            {
-                Assert.IsNotNull(args.Element);
-            }
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ScrollingToVisibleCalled_BeforeActuallyScrollingToVisible()
-        {
-            Bellatrix.Web.Component.ScrollingToVisible += AssertStyleAttributeEmpty;
-
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
-
-            element.ScrollToVisible();
-
-            Assert.AreEqual("color: red;", element.ToHasStyle("color: red;").GetStyle());
-
-            Bellatrix.Web.Component.ScrollingToVisible -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
-        }
-
-        ////[TestMethod]
-        ////[TestCategory(Categories.CI)]
-        ////[TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        ////public void ScrollingToVisible_BeforeActuallyScrollingToVisible()
-        ////{
-        ////    Bellatrix.Web.Element.ScrolledToVisible += AssertStyleAttributeContainsNewValue;
-
-        ////    var element = App.Components.CreateById<Bellatrix.Web.Element>("myURL12");
-
-        ////    Assert.IsNull(element.GetStyle());
-
-        ////    element.ScrollToVisible();
-
-        ////    Assert.AreEqual("color: red;", element.ToHasStyle("color: red;").GetStyle());
-
-        ////    Bellatrix.Web.Element.ScrolledToVisible -= AssertStyleAttributeContainsNewValue;
-
-        ////    void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
-        ////    {
-        ////        Assert.AreEqual("color: red;", args.Element.ToHasStyle("color: red;").WrappedElement.GetAttribute("style"));
-        ////    }
-        ////}
-
-        // TODO: add tests for CreatingElement, CreatedElement, CreatingElements, CreatedElements when have way to mock some of the internal services.
-        // TODO: add tests for WaitForExists, WaitForNotExists when have way to mock _elementWaiter
     }
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AttributeSetCalled_AfterSetAttribute()
+    {
+        Bellatrix.Web.Component.AttributeSet += AssertClassAttributeContainsNewValue;
+
+        var urlElement = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
+
+        urlElement.SetAttribute("class", "myTestClass1");
+        var cssClass = urlElement.GetAttribute("class");
+
+        Assert.AreEqual("myTestClass1", cssClass);
+
+        Bellatrix.Web.Component.SettingAttribute -= AssertClassAttributeContainsNewValue;
+
+        Bellatrix.Web.Component.AttributeSet -= AssertClassAttributeContainsNewValue;
+
+        void AssertClassAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
+        {
+            Assert.AreEqual("myTestClass1", args.Element.WrappedElement.GetAttribute("class"));
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturningWrappedElementCalled_AfterElementCreated()
+    {
+        Bellatrix.Web.Component.ReturningWrappedElement += AssertNativeElementNotNullAfterCallingAction;
+
+        var urlElement = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
+
+        var cssClass = urlElement.GetAttribute("class");
+
+        Assert.AreEqual("myTestClass", cssClass);
+
+        Bellatrix.Web.Component.ReturningWrappedElement -= AssertNativeElementNotNullAfterCallingAction;
+
+        void AssertNativeElementNotNullAfterCallingAction(object sender, NativeElementActionEventArgs args)
+        {
+            Assert.IsNotNull(args.Element);
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ScrollingToVisibleCalled_BeforeActuallyScrollingToVisible()
+    {
+        Bellatrix.Web.Component.ScrollingToVisible += AssertStyleAttributeEmpty;
+
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
+
+        element.ScrollToVisible();
+
+        Assert.AreEqual("color: red;", element.ToHasStyle("color: red;").GetStyle());
+
+        Bellatrix.Web.Component.ScrollingToVisible -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
+        {
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
+        }
+    }
+
+    ////[TestMethod]
+    ////[TestCategory(Categories.CI)]
+    ////[TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    ////public void ScrollingToVisible_BeforeActuallyScrollingToVisible()
+    ////{
+    ////    Bellatrix.Web.Element.ScrolledToVisible += AssertStyleAttributeContainsNewValue;
+
+    ////    var element = App.Components.CreateById<Bellatrix.Web.Element>("myURL12");
+
+    ////    Assert.IsNull(element.GetStyle());
+
+    ////    element.ScrollToVisible();
+
+    ////    Assert.AreEqual("color: red;", element.ToHasStyle("color: red;").GetStyle());
+
+    ////    Bellatrix.Web.Element.ScrolledToVisible -= AssertStyleAttributeContainsNewValue;
+
+    ////    void AssertStyleAttributeContainsNewValue(object sender, ElementActionEventArgs args)
+    ////    {
+    ////        Assert.AreEqual("color: red;", args.Element.ToHasStyle("color: red;").WrappedElement.GetAttribute("style"));
+    ////    }
+    ////}
+
+    // TODO: add tests for CreatingElement, CreatedElement, CreatingElements, CreatedElements when have way to mock some of the internal services.
+    // TODO: add tests for WaitForExists, WaitForNotExists when have way to mock _elementWaiter
 }

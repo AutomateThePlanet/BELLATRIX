@@ -19,58 +19,57 @@ using Bellatrix.Desktop.Services;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Remote;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public class AppAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class AppAttribute : Attribute
+    public AppAttribute(string appPath, Lifecycle lifecycle = Lifecycle.NotSet)
     {
-        public AppAttribute(string appPath, Lifecycle lifecycle = Lifecycle.NotSet)
-        {
-            AppConfiguration = new AppInitializationInfo();
-            AppConfiguration.AppPath = appPath;
-            AppConfiguration.Lifecycle = lifecycle;
-            AppConfiguration.Size = default;
-            AppConfiguration.AppiumOptions = new DesiredCapabilities();
-        }
-
-        public AppAttribute(string appPath, int width, int height, Lifecycle behavior = Lifecycle.NotSet)
-            : this(appPath, behavior)
-        {
-            AppConfiguration.Size = new Size(width, height);
-        }
-
-        public AppAttribute(string appPath, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet)
-        : this(appPath, behavior)
-        {
-            AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
-        }
-
-        public AppAttribute(string appPath, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet)
-        : this(appPath, behavior)
-        {
-            AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
-        }
-
-        public AppAttribute(string appPath, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet)
-        : this(appPath, behavior)
-        {
-            AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
-        }
-
-        public AppInitializationInfo AppConfiguration { get; }
-
-        ////protected DesiredCapabilities AddAdditionalCapability(Type type, DesiredCapabilities desiredCapabilities)
-        ////{
-        ////    var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
-        ////    if (additionalCaps != null)
-        ////    {
-        ////        foreach (var key in additionalCaps.Keys)
-        ////        {
-        ////            desiredCapabilities.SetCapability(key, additionalCaps[key]);
-        ////        }
-        ////    }
-
-        ////    return desiredCapabilities;
-        ////}
+        AppConfiguration = new AppInitializationInfo();
+        AppConfiguration.AppPath = appPath;
+        AppConfiguration.Lifecycle = lifecycle;
+        AppConfiguration.Size = default;
+        AppConfiguration.AppiumOptions = new DesiredCapabilities();
     }
+
+    public AppAttribute(string appPath, int width, int height, Lifecycle behavior = Lifecycle.NotSet)
+        : this(appPath, behavior)
+    {
+        AppConfiguration.Size = new Size(width, height);
+    }
+
+    public AppAttribute(string appPath, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet)
+    : this(appPath, behavior)
+    {
+        AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
+    }
+
+    public AppAttribute(string appPath, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet)
+    : this(appPath, behavior)
+    {
+        AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
+    }
+
+    public AppAttribute(string appPath, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet)
+    : this(appPath, behavior)
+    {
+        AppConfiguration.Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
+    }
+
+    public AppInitializationInfo AppConfiguration { get; }
+
+    ////protected DesiredCapabilities AddAdditionalCapability(Type type, DesiredCapabilities desiredCapabilities)
+    ////{
+    ////    var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
+    ////    if (additionalCaps != null)
+    ////    {
+    ////        foreach (var key in additionalCaps.Keys)
+    ////        {
+    ////            desiredCapabilities.SetCapability(key, additionalCaps[key]);
+    ////        }
+    ////    }
+
+    ////    return desiredCapabilities;
+    ////}
 }

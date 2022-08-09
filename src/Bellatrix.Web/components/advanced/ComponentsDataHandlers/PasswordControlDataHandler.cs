@@ -15,17 +15,16 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class PasswordControlDataHandler : IEditableControlDataHandler<Password>
 {
-    public class PasswordControlDataHandler : IEditableControlDataHandler<Password>
+    public dynamic GetData(Password element) => element.GetPassword();
+
+    public void SetData(Password element, string data)
     {
-        public dynamic GetData(Password element) => element.GetPassword();
-
-        public void SetData(Password element, string data)
-        {
-            element.SetPassword(data);
-        }
-
-        public void ValidateValueIs(Password element, string expectedValue) => element.ValidatePasswordIs(expectedValue);
+        element.SetPassword(data);
     }
+
+    public void ValidateValueIs(Password element, string expectedValue) => element.ValidatePasswordIs(expectedValue);
 }

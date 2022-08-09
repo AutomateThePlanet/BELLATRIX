@@ -16,31 +16,30 @@ using System.Diagnostics;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class Time : Component, IComponentDisabled, IComponentTime
 {
-    public class Time : Component, IComponentDisabled, IComponentTime
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> SettingTime;
+    public static event EventHandler<ComponentActionEventArgs> TimeSet;
+
+    public virtual string GetTime()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> SettingTime;
-        public static event EventHandler<ComponentActionEventArgs> TimeSet;
-
-        public virtual string GetTime()
-        {
-            return GetInnerText();
-        }
-
-        public virtual void SetTime(int hours, int minutes)
-        {
-            SetText(SettingTime, TimeSet, $"{hours}:{minutes}:00");
-        }
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        return GetInnerText();
     }
+
+    public virtual void SetTime(int hours, int minutes)
+    {
+        SetText(SettingTime, TimeSet, $"{hours}:{minutes}:00");
+    }
+
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

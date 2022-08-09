@@ -13,10 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Services.Android;
 
-namespace Bellatrix.Mobile.PageObjects
+namespace Bellatrix.Mobile.PageObjects;
+
+public abstract class IOSPage : MobilePage
 {
-    public abstract class IOSPage : MobilePage
-    {
-        public IOSApp App => ServicesCollection.Current.Resolve<IOSApp>();
-    }
+    public IOSApp App => ServicesCollection.Current.Resolve<IOSApp>();
 }

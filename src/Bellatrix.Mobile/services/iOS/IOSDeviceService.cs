@@ -13,16 +13,15 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.Services.IOS
-{
-    public class IOSDeviceService : DeviceService<IOSDriver<IOSElement>, IOSElement>
-    {
-        public IOSDeviceService(IOSDriver<IOSElement> wrappedDriver)
-            : base(wrappedDriver)
-        {
-        }
+namespace Bellatrix.Mobile.Services.IOS;
 
-        public void Lock(int seconds) => WrappedAppiumDriver.Lock(seconds);
-        public void ShakeDevice() => WrappedAppiumDriver.ShakeDevice();
+public class IOSDeviceService : DeviceService<IOSDriver<IOSElement>, IOSElement>
+{
+    public IOSDeviceService(IOSDriver<IOSElement> wrappedDriver)
+        : base(wrappedDriver)
+    {
     }
+
+    public void Lock(int seconds) => WrappedAppiumDriver.Lock(seconds);
+    public void ShakeDevice() => WrappedAppiumDriver.ShakeDevice();
 }

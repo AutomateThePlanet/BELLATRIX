@@ -11,13 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public enum ScrollDirection : byte
 {
-    public enum ScrollDirection : byte
-    {
-        Up,
-        Down,
-        Right,
-        Left,
-    }
+    Up,
+    Down,
+    Right,
+    Left,
 }

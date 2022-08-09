@@ -17,54 +17,53 @@ using Bellatrix.Mobile.Controls.IOS;
 using Bellatrix.Mobile.Locators.IOS;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class RadioGroup : IOSComponent
 {
-    public class RadioGroup : IOSComponent
+    public virtual void ClickByText(string text)
     {
-        public virtual void ClickByText(string text)
+        var allRadioButton = GetAll();
+        foreach (var radioButton in allRadioButton)
         {
-            var allRadioButton = GetAll();
-            foreach (var radioButton in allRadioButton)
+            if (radioButton.GetText().Equals(text))
             {
-                if (radioButton.GetText().Equals(text))
-                {
-                    radioButton.Click();
-                    break;
-                }
+                radioButton.Click();
+                break;
             }
         }
+    }
 
-        public virtual void ClickByIndex(int index)
+    public virtual void ClickByIndex(int index)
+    {
+        var allRadioButton = GetAll();
+        if (index > allRadioButton.Count() - 1)
         {
-            var allRadioButton = GetAll();
-            if (index > allRadioButton.Count() - 1)
+            throw new ArgumentException($"Only {allRadioButton.Count()} radio buttons were present which is less than the specified index = {index}.");
+        }
+
+        int currentIndex = 0;
+        foreach (var radioButton in allRadioButton)
+        {
+            if (currentIndex == index)
             {
-                throw new ArgumentException($"Only {allRadioButton.Count()} radio buttons were present which is less than the specified index = {index}.");
+                radioButton.Click();
+                break;
             }
 
-            int currentIndex = 0;
-            foreach (var radioButton in allRadioButton)
-            {
-                if (currentIndex == index)
-                {
-                    radioButton.Click();
-                    break;
-                }
-
-                currentIndex++;
-            }
+            currentIndex++;
         }
+    }
 
-        public virtual RadioButton GetChecked()
-        {
-            var clickedRadioButton = this.CreateByXPath<RadioButton>("//*[@value='1']");
-            return clickedRadioButton;
-        }
+    public virtual RadioButton GetChecked()
+    {
+        var clickedRadioButton = this.CreateByXPath<RadioButton>("//*[@value='1']");
+        return clickedRadioButton;
+    }
 
-        public virtual ComponentsList<RadioButton, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll()
-        {
-            var radioButtons = this.CreateAllByClass<RadioButton>("XCUIElementTypeSwitch");
-            return radioButtons;
-        }
+    public virtual ComponentsList<RadioButton, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll()
+    {
+        var radioButtons = this.CreateAllByClass<RadioButton>("XCUIElementTypeSwitch");
+        return radioButtons;
     }
 }

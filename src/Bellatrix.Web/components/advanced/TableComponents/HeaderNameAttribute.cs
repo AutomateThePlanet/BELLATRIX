@@ -13,17 +13,16 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Web
-{
-    public class HeaderNameAttribute : Attribute
-    {
-        public HeaderNameAttribute(string name, int order = 0)
-        {
-            Name = name;
-            Order = order;
-        }
+namespace Bellatrix.Web;
 
-        public string Name { get; set; }
-        public int Order { get; set; }
+public class HeaderNameAttribute : Attribute
+{
+    public HeaderNameAttribute(string name, int order = 0)
+    {
+        Name = name;
+        Order = order;
     }
+
+    public string Name { get; set; }
+    public int Order { get; set; }
 }

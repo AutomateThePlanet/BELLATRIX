@@ -13,10 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Drawing;
 
-namespace Bellatrix.Plugins.Screenshots.Contracts
+namespace Bellatrix.Plugins.Screenshots.Contracts;
+
+public interface IScreenshotEngine
 {
-    public interface IScreenshotEngine
-    {
-        string TakeScreenshot(ServicesCollection serviceContainer);
-    }
+    string TakeScreenshot(ServicesCollection serviceContainer);
 }

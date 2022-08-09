@@ -13,55 +13,54 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("ToggleButton Control")]
+[AllureFeature("ValidateExtensions")]
+public class ToggleButtonControlValidateExtensionsTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("ToggleButton Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ToggleButtonControlValidateExtensionsTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsOn_DoesNotThrowException_When_ToggleButtonIsTurnedOn()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsOn_DoesNotThrowException_When_ToggleButtonIsTurnedOn()
-        {
-            var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle1");
+        var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle1");
 
-            toggleButton.TurnOn();
+        toggleButton.TurnOn();
 
-            toggleButton.ValidateIsOn();
-        }
+        toggleButton.ValidateIsOn();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsOff_DoesNotThrowException_When_ToggleButtonIsTurnedoff()
-        {
-            var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsOff_DoesNotThrowException_When_ToggleButtonIsTurnedoff()
+    {
+        var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle2");
 
-            toggleButton.ValidateIsOff();
-        }
+        toggleButton.ValidateIsOff();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIs_DoesNotThrowException_When_CorrectTextSet()
-        {
-            var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle1");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIs_DoesNotThrowException_When_CorrectTextSet()
+    {
+        var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle1");
 
-            toggleButton.ValidateTextIs("OFF");
-        }
+        toggleButton.ValidateTextIs("OFF");
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_ToggleButtonIsNotDisabled()
-        {
-            var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_ToggleButtonIsNotDisabled()
+    {
+        var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle2");
 
-            toggleButton.ValidateIsNotDisabled();
-        }
+        toggleButton.ValidateIsNotDisabled();
     }
 }

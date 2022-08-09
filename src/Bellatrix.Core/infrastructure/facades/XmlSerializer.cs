@@ -17,45 +17,44 @@ using System.Xml;
 using System.Xml.Linq;
 using Xml = System.Xml.Serialization;
 
-namespace Bellatrix.Infrastructure
+namespace Bellatrix.Infrastructure;
+
+public class XmlSerializer
 {
-    public class XmlSerializer
+    public string Serialize<TEntity>(TEntity entityToBeSerialized)
     {
-        public string Serialize<TEntity>(TEntity entityToBeSerialized)
+        var settings = new XmlWriterSettings
         {
-            var settings = new XmlWriterSettings
-            {
-                Encoding = new UnicodeEncoding(false, false),
-                Indent = false,
-                OmitXmlDeclaration = false,
-            };
-            var xmlSerializer = new Xml.XmlSerializer(typeof(TEntity));
-            string result;
+            Encoding = new UnicodeEncoding(false, false),
+            Indent = false,
+            OmitXmlDeclaration = false,
+        };
+        var xmlSerializer = new Xml.XmlSerializer(typeof(TEntity));
+        string result;
 
-            using (var stringWriter = new StringWriter())
-            {
-                using var writer = XmlWriter.Create(stringWriter, settings);
-                xmlSerializer.Serialize(writer, entityToBeSerialized);
-                result = stringWriter.ToString();
-            }
-
-            result = result.Replace("xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty);
-            result = result.Replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty);
-            var doc = XDocument.Parse(result);
-
-            return doc.ToString();
+        using (var stringWriter = new StringWriter())
+        {
+            using var writer = XmlWriter.Create(stringWriter, settings);
+            xmlSerializer.Serialize(writer, entityToBeSerialized);
+            result = stringWriter.ToString();
         }
 
-        public TEntity Deserialize<TEntity>(string content)
-        {
-            var serializer = new Xml.XmlSerializer(typeof(TEntity));
-            var reader = new StringReader(content);
+        result = result.Replace("xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", string.Empty);
+        result = result.Replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", string.Empty);
+        var doc = XDocument.Parse(result);
+
+        return doc.ToString();
+    }
+
+    public TEntity Deserialize<TEntity>(string content)
+    {
+        var serializer = new Xml.XmlSerializer(typeof(TEntity));
+        var reader = new StringReader(content);
 #pragma warning disable CA5369 // Use XmlReader For Deserialize
-            var testRun = (TEntity)serializer.Deserialize(reader);
+        var testRun = (TEntity)serializer.Deserialize(reader);
 #pragma warning restore CA5369 // Use XmlReader For Deserialize
-            reader.Close();
+        reader.Close();
 
-            return testRun;
-        }
+        return testRun;
     }
 }

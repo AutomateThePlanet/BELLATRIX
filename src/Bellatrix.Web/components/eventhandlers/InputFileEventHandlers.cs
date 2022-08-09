@@ -13,30 +13,29 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class InputFileEventHandlers : ComponentEventHandlers
 {
-    public class InputFileEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            InputFile.Uploading += UploadingEventHandler;
-            InputFile.Uploaded += UploadedEventHandler;
-        }
+        base.SubscribeToAll();
+        InputFile.Uploading += UploadingEventHandler;
+        InputFile.Uploaded += UploadedEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            InputFile.Uploading -= UploadingEventHandler;
-            InputFile.Uploaded -= UploadedEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        InputFile.Uploading -= UploadingEventHandler;
+        InputFile.Uploaded -= UploadedEventHandler;
+    }
 
-        protected virtual void UploadingEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void UploadingEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void UploadedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void UploadedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

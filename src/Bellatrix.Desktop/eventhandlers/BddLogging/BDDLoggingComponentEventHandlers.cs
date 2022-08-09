@@ -14,16 +14,15 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.BddLogging
+namespace Bellatrix.Desktop.BddLogging;
+
+public class BDDLoggingComponentEventHandlers : ComponentEventHandlers
 {
-    public class BDDLoggingComponentEventHandlers : ComponentEventHandlers
-    {
-        protected override void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Scroll to visible {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Scroll to visible {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void HoveringEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void HoveringEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Hover {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void FocusingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Focus {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void FocusingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Focus {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

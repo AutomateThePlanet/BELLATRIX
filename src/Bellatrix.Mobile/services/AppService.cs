@@ -15,49 +15,48 @@ using System;
 using System.Runtime.InteropServices;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Services
+namespace Bellatrix.Mobile.Services;
+
+public class AppService<TDriver, TComponent> : MobileService<TDriver, TComponent>
+    where TDriver : AppiumDriver<TComponent>
+    where TComponent : AppiumWebElement
 {
-    public class AppService<TDriver, TComponent> : MobileService<TDriver, TComponent>
-        where TDriver : AppiumDriver<TComponent>
-        where TComponent : AppiumWebElement
+    public AppService(TDriver wrappedDriver)
+        : base(wrappedDriver)
     {
-        public AppService(TDriver wrappedDriver)
-            : base(wrappedDriver)
+    }
+
+    public string Context { get => WrappedAppiumDriver.Context; set => WrappedAppiumDriver.Context = value; }
+
+    public void BackgroundApp(int seconds) => WrappedAppiumDriver.BackgroundApp(TimeSpan.FromSeconds(seconds));
+
+    public void CloseApp() => WrappedAppiumDriver.CloseApp();
+
+    public void LaunchApp() => WrappedAppiumDriver.LaunchApp();
+
+    public void ResetApp() => WrappedAppiumDriver.ResetApp();
+
+    public void InstallApp(string appPath)
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
+            appPath = appPath.Replace('\\', '/');
         }
 
-        public string Context { get => WrappedAppiumDriver.Context; set => WrappedAppiumDriver.Context = value; }
+        WrappedAppiumDriver.InstallApp(appPath);
+    }
 
-        public void BackgroundApp(int seconds) => WrappedAppiumDriver.BackgroundApp(TimeSpan.FromSeconds(seconds));
+    public void RemoveApp(string appId) => WrappedAppiumDriver.RemoveApp(appId);
 
-        public void CloseApp() => WrappedAppiumDriver.CloseApp();
-
-        public void LaunchApp() => WrappedAppiumDriver.LaunchApp();
-
-        public void ResetApp() => WrappedAppiumDriver.ResetApp();
-
-        public void InstallApp(string appPath)
+    public bool IsAppInstalled(string bundleId)
+    {
+        try
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                appPath = appPath.Replace('\\', '/');
-            }
-
-            WrappedAppiumDriver.InstallApp(appPath);
+            return WrappedAppiumDriver.IsAppInstalled(bundleId);
         }
-
-        public void RemoveApp(string appId) => WrappedAppiumDriver.RemoveApp(appId);
-
-        public bool IsAppInstalled(string bundleId)
+        catch (FormatException)
         {
-            try
-            {
-                return WrappedAppiumDriver.IsAppInstalled(bundleId);
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

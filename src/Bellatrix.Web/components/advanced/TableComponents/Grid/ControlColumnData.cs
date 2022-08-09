@@ -14,27 +14,26 @@
 
 using System;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class ControlColumnData : IHeaderInfo
 {
-    public class ControlColumnData : IHeaderInfo
+    public ControlColumnData(string headerName, int order = 0)
     {
-        public ControlColumnData(string headerName, int order = 0)
-        {
-            HeaderName = headerName;
-            Order = order;
-        }
-
-        public ControlColumnData(string headerName, dynamic by, Type elementType, int order = 0)
-            : this(headerName)
-        {
-            By = by;
-            ComponentType = elementType;
-            Order = order;
-        }
-
-        public string HeaderName { get; set; }
-        public int Order { get; set; }
-        public dynamic By { get; set; }
-        public Type ComponentType { get; set; }
+        HeaderName = headerName;
+        Order = order;
     }
+
+    public ControlColumnData(string headerName, dynamic by, Type elementType, int order = 0)
+        : this(headerName)
+    {
+        By = by;
+        ComponentType = elementType;
+        Order = order;
+    }
+
+    public string HeaderName { get; set; }
+    public int Order { get; set; }
+    public dynamic By { get; set; }
+    public Type ComponentType { get; set; }
 }

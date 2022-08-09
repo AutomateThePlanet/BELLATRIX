@@ -15,24 +15,23 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class UrlControlDataHandler : IEditableControlDataHandler<Url>
 {
-    public class UrlControlDataHandler : IEditableControlDataHandler<Url>
+    public dynamic GetData(Url element) => element.GetUrl();
+
+    public void SetData(Url element, string data)
     {
-        public dynamic GetData(Url element) => element.GetUrl();
-
-        public void SetData(Url element, string data)
+        try
         {
-            try
-            {
-                element.SetUrl(data);
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException($"Exception occured while trying to set Url value: {data}", e);
-            }
+            element.SetUrl(data);
         }
-
-        public void ValidateValueIs(Url element, string expectedValue) => element.ValidateUrlIs(expectedValue);
+        catch (Exception e)
+        {
+            throw new ArgumentException($"Exception occured while trying to set Url value: {data}", e);
+        }
     }
+
+    public void ValidateValueIs(Url element, string expectedValue) => element.ValidateUrlIs(expectedValue);
 }

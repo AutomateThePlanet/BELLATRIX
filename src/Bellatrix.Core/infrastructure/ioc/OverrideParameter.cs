@@ -5,18 +5,17 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix
+namespace Bellatrix;
+
+public class OverrideParameter
 {
-    public class OverrideParameter
+    public OverrideParameter(string parameterName, object parameterValue)
     {
-        public OverrideParameter(string parameterName, object parameterValue)
-        {
-            ParameterName = parameterName;
-            ParameterValue = parameterValue;
-        }
-
-        public string ParameterName { get; set; }
-
-        public object ParameterValue { get; set; }
+        ParameterName = parameterName;
+        ParameterValue = parameterValue;
     }
+
+    public string ParameterName { get; set; }
+
+    public object ParameterValue { get; set; }
 }

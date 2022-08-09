@@ -20,94 +20,93 @@ using System.Linq.Expressions;
 using Bellatrix.Assertions;
 using Bellatrix.Web.Contracts;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class TableRow : Component, IComponentInnerHtml
 {
-    public class TableRow : Component, IComponentInnerHtml
+    private Table _parentTable;
+    private HeaderNamesService _headerNamesService;
+
+    protected virtual List<TableCell> TableCells => this.CreateAllByXpath<TableCell>("./td", true).ToList();
+
+    public int Index { get; set; }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public string InnerHtml => GetInnerHtmlAttribute();
+
+    public TableCell this[int i] => GetCells().ToList().ElementAt(i);
+
+    public void SetParentTable(Table table)
     {
-        private Table _parentTable;
-        private HeaderNamesService _headerNamesService;
+        _parentTable = table;
+        _headerNamesService = new HeaderNamesService(_parentTable.TableService.HeaderRows);
+    }
 
-        protected virtual List<TableCell> TableCells => this.CreateAllByXpath<TableCell>("./td", true).ToList();
-
-        public int Index { get; set; }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
-
-        public TableCell this[int i] => GetCells().ToList().ElementAt(i);
-
-        public void SetParentTable(Table table)
+    public TableCell GetCell(int column)
+    {
+        if (TableCells.Count() <= column)
         {
-            _parentTable = table;
-            _headerNamesService = new HeaderNamesService(_parentTable.TableService.HeaderRows);
+            return null;
         }
 
-        public TableCell GetCell(int column)
-        {
-            if (TableCells.Count() <= column)
-            {
-                return null;
-            }
+        TableCell tableCell = TableCells[column];
+        tableCell.Column = column;
+        tableCell.Row = Index;
 
-            TableCell tableCell = TableCells[column];
-            tableCell.Column = column;
+        return tableCell;
+    }
+
+    public TableCell GetCell(string headerName)
+    {
+        int? position = _headerNamesService.GetHeaderPosition(headerName, _parentTable.ColumnHeaderNames.AsEnumerable<IHeaderInfo>().ToList());
+        if (position == null)
+        {
+            return null;
+        }
+
+        return GetCell((int)position);
+    }
+
+    public TableCell GetCell<TDto>(Expression<Func<TDto, object>> expression)
+        where TDto : class
+    {
+        string headerName = _headerNamesService.GetHeaderNameByExpression(expression);
+        return GetCell(headerName);
+    }
+
+    public IEnumerable<TableCell> GetCells()
+    {
+        int columnNumber = 0;
+        foreach (var tableCell in TableCells)
+        {
             tableCell.Row = Index;
+            tableCell.Column = columnNumber++;
 
-            return tableCell;
+            yield return tableCell;
         }
+    }
 
-        public TableCell GetCell(string headerName)
-        {
-            int? position = _headerNamesService.GetHeaderPosition(headerName, _parentTable.ColumnHeaderNames.AsEnumerable<IHeaderInfo>().ToList());
-            if (position == null)
-            {
-                return null;
-            }
+    public List<TableCell> GetCells(Func<TableCell, bool> selector)
+    {
+        return GetCells().Where(selector).ToList();
+    }
 
-            return GetCell((int)position);
-        }
+    public TableCell GetFirstOrDefaultCell(Func<TableCell, bool> selector)
+    {
+        return GetCells(selector).FirstOrDefault();
+    }
 
-        public TableCell GetCell<TDto>(Expression<Func<TDto, object>> expression)
-            where TDto : class
-        {
-            string headerName = _headerNamesService.GetHeaderNameByExpression(expression);
-            return GetCell(headerName);
-        }
+    public T GetItem<T>()
+        where T : new()
+    {
+        return _parentTable.CastRow<T>(this);
+    }
 
-        public IEnumerable<TableCell> GetCells()
-        {
-            int columnNumber = 0;
-            foreach (var tableCell in TableCells)
-            {
-                tableCell.Row = Index;
-                tableCell.Column = columnNumber++;
+    public void AssertRow<T>(T expectedItem)
+        where T : new()
+    {
+        var actualItem = GetItem<T>();
 
-                yield return tableCell;
-            }
-        }
-
-        public List<TableCell> GetCells(Func<TableCell, bool> selector)
-        {
-            return GetCells().Where(selector).ToList();
-        }
-
-        public TableCell GetFirstOrDefaultCell(Func<TableCell, bool> selector)
-        {
-            return GetCells(selector).FirstOrDefault();
-        }
-
-        public T GetItem<T>()
-            where T : new()
-        {
-            return _parentTable.CastRow<T>(this);
-        }
-
-        public void AssertRow<T>(T expectedItem)
-            where T : new()
-        {
-            var actualItem = GetItem<T>();
-
-            EntitiesAsserter.AreEqual(expectedItem, actualItem);
-        }
+        EntitiesAsserter.AreEqual(expectedItem, actualItem);
     }
 }

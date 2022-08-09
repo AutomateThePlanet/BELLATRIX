@@ -16,34 +16,33 @@ using Bellatrix.Desktop.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Untils
+namespace Bellatrix.Desktop.Untils;
+
+public class WaitToBeClickable : WaitStrategy
 {
-    public class WaitToBeClickable : WaitStrategy
+    public WaitToBeClickable(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitToBeClickable(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ElementToBeClickableTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ElementToBeClickableTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-        {
-            WaitUntil(d => ElementIsClickable(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementIsClickable(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
 
-        private bool ElementIsClickable<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
-            where TBy : Locators.FindStrategy
+    private bool ElementIsClickable<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
+        where TBy : Locators.FindStrategy
+    {
+        var element = by.FindElement(searchContext);
+        element = element.Displayed ? element : null;
+        try
         {
-            var element = by.FindElement(searchContext);
-            element = element.Displayed ? element : null;
-            try
-            {
-                return element != null && element.Enabled;
-            }
-            catch (StaleElementReferenceException)
-            {
-                return false;
-            }
+            return element != null && element.Enabled;
+        }
+        catch (StaleElementReferenceException)
+        {
+            return false;
         }
     }
 }

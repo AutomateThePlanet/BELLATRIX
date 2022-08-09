@@ -14,63 +14,62 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Week Control")]
+public class WeekControlValidationTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Week Control")]
-    public class WeekControlValidationTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().WeekLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void WeekSetThrowsArgumentException_When_Year0_Edge()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().WeekLocalPage);
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void WeekSetThrowsArgumentException_When_Year0_Edge()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
+        Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(0, 7));
+    }
 
-            Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(0, 7));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void WeekSetThrowsArgumentException_When_YearMinus1_Edge()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void WeekSetThrowsArgumentException_When_YearMinus1_Edge()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
+        Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(-1, 7));
+    }
 
-            Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(-1, 7));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void WeekSetThrowsArgumentException_When_WeekMinus1_Edge()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void WeekSetThrowsArgumentException_When_WeekMinus1_Edge()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
+        Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, -1));
+    }
 
-            Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, -1));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void WeekSetThrowsArgumentException_When_Week0_Edge()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void WeekSetThrowsArgumentException_When_Week0_Edge()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
+        Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, 0));
+    }
 
-            Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, 0));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void WeekSetThrowsArgumentException_When_Week53_Edge()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void WeekSetThrowsArgumentException_When_Week53_Edge()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
-
-            Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, 53));
-        }
+        Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, 53));
     }
 }

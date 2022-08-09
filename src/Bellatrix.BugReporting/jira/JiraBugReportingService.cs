@@ -18,33 +18,32 @@ using System.Text;
 using Bellatrix.BugReporting;
 using Bellatrix.BugReporting.Contracts;
 
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix.BugReporting.Jira;
+
+public class JiraBugReportingService : IBugReportingService
 {
-    public class JiraBugReportingService : IBugReportingService
+    public void LogBug(BugReportingContext testCasesContext, string exceptionMessage, List<string> filePathsToBeAttached = null)
     {
-        public void LogBug(BugReportingContext testCasesContext, string exceptionMessage, List<string> filePathsToBeAttached = null)
-        {
-            List<string> summaryLines = GenerateSummary(exceptionMessage, testCasesContext.TestSteps);
-            JiraApiClient.CreateBug($"TEST FAILED: {testCasesContext.TestFullName}", summaryLines, filePathsToBeAttached);
-        }
+        List<string> summaryLines = GenerateSummary(exceptionMessage, testCasesContext.TestSteps);
+        JiraApiClient.CreateBug($"TEST FAILED: {testCasesContext.TestFullName}", summaryLines, filePathsToBeAttached);
+    }
 
-        private List<string> GenerateSummary(string exceptionMessage, List<TestStep> testSteps)
+    private List<string> GenerateSummary(string exceptionMessage, List<TestStep> testSteps)
+    {
+        var summaryLines = new List<string>();
+        summaryLines.Add("Exception Message:");
+        summaryLines.Add(exceptionMessage);
+        summaryLines.Add(Environment.NewLine);
+        summaryLines.Add("Steps to Reproduce:");
+        foreach (var step in testSteps)
         {
-            var summaryLines = new List<string>();
-            summaryLines.Add("Exception Message:");
-            summaryLines.Add(exceptionMessage);
-            summaryLines.Add(Environment.NewLine);
-            summaryLines.Add("Steps to Reproduce:");
-            foreach (var step in testSteps)
+            summaryLines.Add($"{step.Description}");
+            if (!string.IsNullOrEmpty(step.Expected))
             {
-                summaryLines.Add($"{step.Description}");
-                if (!string.IsNullOrEmpty(step.Expected))
-                {
-                    summaryLines.Add($" {step.Expected}");
-                }
+                summaryLines.Add($" {step.Expected}");
             }
-
-            return summaryLines;
         }
+
+        return summaryLines;
     }
 }

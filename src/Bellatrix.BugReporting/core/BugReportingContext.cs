@@ -15,33 +15,32 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting
+namespace Bellatrix.BugReporting;
+
+public sealed class BugReportingContext
 {
-    public sealed class BugReportingContext
+    public BugReportingContext()
     {
-        public BugReportingContext()
+        AdditionalProperties = new Dictionary<string, string>();
+        TestSteps = new List<TestStep>();
+    }
+
+    public string TestCaseName { get; set; }
+    public string Precondition { get; set; }
+    public string TestFullName { get; set; }
+    public string TestProjectName { get; set; }
+    public List<TestStep> TestSteps { get; set; }
+    public Dictionary<string, string> AdditionalProperties { get; set; }
+
+    public string GetAdditionalPropertyByKey(string key)
+    {
+        if (AdditionalProperties.ContainsKey(key))
         {
-            AdditionalProperties = new Dictionary<string, string>();
-            TestSteps = new List<TestStep>();
+            return AdditionalProperties[key];
         }
-
-        public string TestCaseName { get; set; }
-        public string Precondition { get; set; }
-        public string TestFullName { get; set; }
-        public string TestProjectName { get; set; }
-        public List<TestStep> TestSteps { get; set; }
-        public Dictionary<string, string> AdditionalProperties { get; set; }
-
-        public string GetAdditionalPropertyByKey(string key)
+        else
         {
-            if (AdditionalProperties.ContainsKey(key))
-            {
-                return AdditionalProperties[key];
-            }
-            else
-            {
-                return null;
-            }
+            return null;
         }
     }
 }

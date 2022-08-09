@@ -16,19 +16,18 @@ using System.Diagnostics;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class Calendar : Component, IComponentDisabled
 {
-    public class Calendar : Component, IComponentDisabled
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
+
+    public virtual void Hover()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
+        Hover(Hovering, Hovered);
     }
 }

@@ -13,56 +13,55 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("ComboBox Control")]
+[AllureTag("WinForms")]
+public class ComboBoxControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("ComboBox Control")]
-    [AllureTag("WinForms")]
-    public class ComboBoxControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_ComboBoxHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_ComboBoxHovered_WinForms()
-        {
-            var comboBox = App.Components.CreateByAutomationId<ComboBox>("comboBox");
+        var comboBox = App.Components.CreateByAutomationId<ComboBox>("comboBox");
 
-            comboBox.Hover();
+        comboBox.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.AreEqual("comboBoxHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.AreEqual("comboBoxHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void Item2Selected_When_ComboBoxSecondOption_WinForms()
-        {
-            var comboBox = App.Components.CreateByAutomationId<ComboBox>("comboBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void Item2Selected_When_ComboBoxSecondOption_WinForms()
+    {
+        var comboBox = App.Components.CreateByAutomationId<ComboBox>("comboBox");
 
-            comboBox.SelectByText("Item2");
+        comboBox.SelectByText("Item2");
 
-            Assert.AreEqual("Item2", comboBox.InnerText);
-        }
+        Assert.AreEqual("Item2", comboBox.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_ComboBoxIsNotDisabled_WinForms()
-        {
-            var comboBox = App.Components.CreateByAutomationId<ComboBox>("comboBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_ComboBoxIsNotDisabled_WinForms()
+    {
+        var comboBox = App.Components.CreateByAutomationId<ComboBox>("comboBox");
 
-            Assert.AreEqual(false, comboBox.IsDisabled);
-        }
+        Assert.AreEqual(false, comboBox.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_ComboBoxIsDisabled_WinForms()
-        {
-            var comboBox = App.Components.CreateByAutomationId<ComboBox>("disabledComboBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_ComboBoxIsDisabled_WinForms()
+    {
+        var comboBox = App.Components.CreateByAutomationId<ComboBox>("disabledComboBox");
 
-            Assert.AreEqual(true, comboBox.IsDisabled);
-        }
+        Assert.AreEqual(true, comboBox.IsDisabled);
     }
 }

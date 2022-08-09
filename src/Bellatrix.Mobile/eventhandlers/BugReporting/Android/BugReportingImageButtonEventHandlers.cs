@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.BugReporting.Android
+namespace Bellatrix.Mobile.BugReporting.Android;
+
+public class BugReportingImageButtonEventHandlers : ImageButtonEventHandlers
 {
-    public class BugReportingImageButtonEventHandlers : ImageButtonEventHandlers
-    {
-        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

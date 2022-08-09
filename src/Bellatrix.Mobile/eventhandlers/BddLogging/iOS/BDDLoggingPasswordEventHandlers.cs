@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.BddLogging.IOS
+namespace Bellatrix.Mobile.BddLogging.IOS;
+
+public class BDDLoggingPasswordEventHandlers : PasswordEventHandlers
 {
-    public class BDDLoggingPasswordEventHandlers : PasswordEventHandlers
-    {
-        protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

@@ -16,16 +16,15 @@ using System.Collections.Generic;
 using System.Text;
 using QASymphony.QTest;
 
-namespace Bellatrix.DynamicTestCases.QTest
+namespace Bellatrix.DynamicTestCases.QTest;
+
+public class QTestDynamicTestCasesSettings
 {
-    public class QTestDynamicTestCasesSettings
-    {
-        public bool IsEnabled { get; set; }
-        public string ServiceAddress { get; set; }
-        public string Token { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string ProjectId { get; set; }
-        public List<FieldValue> FieldValues { get; set; }
-    }
+    public bool IsEnabled { get; set; }
+    public string ServiceAddress { get; set; }
+    public string Token { get; set; }
+    public string UserName { get; set; }
+    public string Password { get; set; }
+    public string ProjectId { get; set; }
+    public List<FieldValue> FieldValues { get; set; }
 }

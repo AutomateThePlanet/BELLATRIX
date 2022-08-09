@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsReadonly<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentReadonly, IComponent
     {
-        public static void ValidateIsReadonly<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentReadonly, IComponent
-        {
-            WaitUntil(() => control.IsReadonly.Equals(true), $"The control {control.ComponentName} should be readonly but was NOT.", timeout, sleepInterval);
-            ValidatedIsReadonlyEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateIsNotReadonly<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentReadonly, IComponent
-        {
-            WaitUntil(() => !control.IsReadonly.Equals(true), $"The control {control.ComponentName} should be NOT readonly but it was.", timeout, sleepInterval);
-            ValidatedIsNotReadonlyEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsReadonlyEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotReadonlyEvent;
+        WaitUntil(() => control.IsReadonly.Equals(true), $"The control {control.ComponentName} should be readonly but was NOT.", timeout, sleepInterval);
+        ValidatedIsReadonlyEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateIsNotReadonly<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentReadonly, IComponent
+    {
+        WaitUntil(() => !control.IsReadonly.Equals(true), $"The control {control.ComponentName} should be NOT readonly but it was.", timeout, sleepInterval);
+        ValidatedIsNotReadonlyEvent?.Invoke(control, new ComponentActionEventArgs(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsReadonlyEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotReadonlyEvent;
 }

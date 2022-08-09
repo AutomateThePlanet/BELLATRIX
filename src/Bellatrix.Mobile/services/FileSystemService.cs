@@ -15,45 +15,44 @@ using System;
 using Bellatrix.Mobile.Exceptions;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Services
+namespace Bellatrix.Mobile.Services;
+
+public class FileSystemService<TDriver, TComponent> : MobileService<TDriver, TComponent>
+    where TDriver : AppiumDriver<TComponent>
+    where TComponent : AppiumWebElement
 {
-    public class FileSystemService<TDriver, TComponent> : MobileService<TDriver, TComponent>
-        where TDriver : AppiumDriver<TComponent>
-        where TComponent : AppiumWebElement
+    public FileSystemService(TDriver wrappedDriver)
+        : base(wrappedDriver)
     {
-        public FileSystemService(TDriver wrappedDriver)
-            : base(wrappedDriver)
+    }
+
+    public byte[] PullFile(string pathOnDevice)
+    {
+        byte[] result;
+        try
         {
+            result = WrappedAppiumDriver.PullFile(pathOnDevice);
+        }
+        catch (FormatException ex) when (ex.Message.Contains("The input is not a valid Base-64 string"))
+        {
+            throw new AppiumEngineException(ex);
         }
 
-        public byte[] PullFile(string pathOnDevice)
-        {
-            byte[] result;
-            try
-            {
-                result = WrappedAppiumDriver.PullFile(pathOnDevice);
-            }
-            catch (FormatException ex) when (ex.Message.Contains("The input is not a valid Base-64 string"))
-            {
-                throw new AppiumEngineException(ex);
-            }
+        return result;
+    }
 
-            return result;
+    public byte[] PullFolder(string remotePath)
+    {
+        byte[] result;
+        try
+        {
+            result = WrappedAppiumDriver.PullFolder(remotePath);
+        }
+        catch (FormatException ex) when (ex.Message.Contains("The input is not a valid Base-64 string"))
+        {
+            throw new AppiumEngineException(ex);
         }
 
-        public byte[] PullFolder(string remotePath)
-        {
-            byte[] result;
-            try
-            {
-                result = WrappedAppiumDriver.PullFolder(remotePath);
-            }
-            catch (FormatException ex) when (ex.Message.Contains("The input is not a valid Base-64 string"))
-            {
-                throw new AppiumEngineException(ex);
-            }
-
-            return result;
-        }
+        return result;
     }
 }

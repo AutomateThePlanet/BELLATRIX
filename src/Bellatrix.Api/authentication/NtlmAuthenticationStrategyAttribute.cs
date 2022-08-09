@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp.Authenticators;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+/// <summary>
+///     Tries to Authenticate with the credentials of the currently logged in user, or impersonate a user.
+/// </summary>
+public class NtlmAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
 {
-    /// <summary>
-    ///     Tries to Authenticate with the credentials of the currently logged in user, or impersonate a user.
-    /// </summary>
-    public class NtlmAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
-    {
-        public override IAuthenticator GetAuthenticator() => new NtlmAuthenticator();
-    }
+    public override IAuthenticator GetAuthenticator() => new NtlmAuthenticator();
 }

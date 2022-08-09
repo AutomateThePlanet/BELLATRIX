@@ -14,14 +14,13 @@
 using System;
 using Bellatrix.Api.Events;
 
-namespace Bellatrix.Api.Extensions
+namespace Bellatrix.Api.Extensions;
+
+public interface IExecutionProvider
 {
-    public interface IExecutionProvider
-    {
-        event EventHandler<ClientEventArgs> OnClientInitializedEvent;
-        event EventHandler<ClientEventArgs> OnRequestTimeoutEvent;
-        event EventHandler<RequestEventArgs> OnMakingRequestEvent;
-        event EventHandler<ResponseEventArgs> OnRequestMadeEvent;
-        event EventHandler<ResponseEventArgs> OnRequestFailedEvent;
-    }
+    event EventHandler<ClientEventArgs> OnClientInitializedEvent;
+    event EventHandler<ClientEventArgs> OnRequestTimeoutEvent;
+    event EventHandler<RequestEventArgs> OnMakingRequestEvent;
+    event EventHandler<ResponseEventArgs> OnRequestMadeEvent;
+    event EventHandler<ResponseEventArgs> OnRequestFailedEvent;
 }

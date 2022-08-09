@@ -16,54 +16,53 @@ using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class Range : Component, IComponentDisabled, IComponentValue, IComponentRange, IComponentList, IComponentAutoComplete, IComponentRequired, IComponentMax, IComponentMin, IComponentStep
 {
-    public class Range : Component, IComponentDisabled, IComponentValue, IComponentRange, IComponentList, IComponentAutoComplete, IComponentRequired, IComponentMax, IComponentMin, IComponentStep
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> SettingRange;
+    public static event EventHandler<ComponentActionEventArgs> RangeSet;
+
+    public override Type ComponentType => GetType();
+
+    public virtual int GetRange()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> SettingRange;
-        public static event EventHandler<ComponentActionEventArgs> RangeSet;
-
-        public override Type ComponentType => GetType();
-
-        public virtual int GetRange()
-        {
-            return DefaultGetValue().ToInt();
-        }
-
-        public virtual void SetRange(int value)
-        {
-            SetValue(SettingRange, RangeSet, value.ToString());
-        }
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetDisabledAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Value => DefaultGetValue();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string List => GetList();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsRequired => GetRequiredAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual int? Max => GetMaxAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual int? Min => GetMinAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual int? Step => GetStepAttribute();
+        return DefaultGetValue().ToInt();
     }
+
+    public virtual void SetRange(int value)
+    {
+        SetValue(SettingRange, RangeSet, value.ToString());
+    }
+
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetDisabledAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Value => DefaultGetValue();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string List => GetList();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsRequired => GetRequiredAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual int? Max => GetMaxAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual int? Min => GetMinAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual int? Step => GetStepAttribute();
 }

@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public enum MobileOSType
 {
-    public enum MobileOSType
-    {
-        Android,
-        IOS,
-    }
+    Android,
+    IOS,
 }

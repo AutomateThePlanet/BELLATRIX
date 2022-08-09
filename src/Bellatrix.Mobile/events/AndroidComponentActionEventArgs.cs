@@ -13,18 +13,17 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Contracts;
 
-namespace Bellatrix.Mobile.Events
-{
-    public class AndroidComponentActionEventArgs : ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>
-    {
-        public AndroidComponentActionEventArgs(IAndroidComponent element)
-            : base(element)
-        {
-        }
+namespace Bellatrix.Mobile.Events;
 
-        public AndroidComponentActionEventArgs(IAndroidComponent element, string actionValue)
-            : base(element, actionValue)
-        {
-        }
+public class AndroidComponentActionEventArgs : ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>
+{
+    public AndroidComponentActionEventArgs(IAndroidComponent element)
+        : base(element)
+    {
+    }
+
+    public AndroidComponentActionEventArgs(IAndroidComponent element, string actionValue)
+        : base(element, actionValue)
+    {
     }
 }

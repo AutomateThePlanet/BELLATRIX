@@ -15,56 +15,55 @@ using Bellatrix.Mobile.Controls.Android;
 using Bellatrix.Mobile.Untils;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+ public static class WaitStrategyComponentsExtensions
 {
-     public static class WaitStrategyComponentsExtensions
+    public static TComponentType ToExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+        where TComponentType : AndroidComponent
     {
-        public static TComponentType ToExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-            where TComponentType : AndroidComponent
-        {
-            var until = new WaitToExistStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+        var until = new WaitToExistStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToNotExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-           where TComponentType : AndroidComponent
-        {
-            var until = new WaitNotExistStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToNotExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+       where TComponentType : AndroidComponent
+    {
+        var until = new WaitNotExistStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-          where TComponentType : AndroidComponent
-        {
-            var until = new WaitToBeVisibleStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+      where TComponentType : AndroidComponent
+    {
+        var until = new WaitToBeVisibleStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToNotBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TComponentType : AndroidComponent
-        {
-            var until = new WaitNotBeVisibleStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToNotBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+     where TComponentType : AndroidComponent
+    {
+        var until = new WaitNotBeVisibleStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToBeClickable<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TComponentType : AndroidComponent
-        {
-            var until = new WaitToBeClickableStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToBeClickable<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+     where TComponentType : AndroidComponent
+    {
+        var until = new WaitToBeClickableStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToHasContent<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TComponentType : AndroidComponent
-        {
-            var until = new WaitToHaveContentStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToHasContent<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+     where TComponentType : AndroidComponent
+    {
+        var until = new WaitToHaveContentStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
     }
 }

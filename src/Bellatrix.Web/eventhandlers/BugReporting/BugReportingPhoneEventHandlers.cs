@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class BugReportingPhoneEventHandlers : PhoneEventHandlers
 {
-    public class BugReportingPhoneEventHandlers : PhoneEventHandlers
-    {
-        protected override void SettingPhoneEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
-    }
+    protected override void SettingPhoneEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 }

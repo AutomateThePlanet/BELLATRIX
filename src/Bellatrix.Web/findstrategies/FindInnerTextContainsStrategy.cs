@@ -11,23 +11,22 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class FindInnerTextContainsStrategy : FindStrategy
 {
-    public class FindInnerTextContainsStrategy : FindStrategy
+    public FindInnerTextContainsStrategy(string value)
+        : base(value)
     {
-        public FindInnerTextContainsStrategy(string value)
-            : base(value)
-        {
-        }
+    }
 
-        public override OpenQA.Selenium.By Convert()
-        {
-            return OpenQA.Selenium.By.XPath($"//*[contains(text(), '{Value}')]");
-        }
+    public override OpenQA.Selenium.By Convert()
+    {
+        return OpenQA.Selenium.By.XPath($"//*[contains(text(), '{Value}')]");
+    }
 
-        public override string ToString()
-        {
-            return $"InnerText containing {Value}";
-        }
+    public override string ToString()
+    {
+        return $"InnerText containing {Value}";
     }
 }

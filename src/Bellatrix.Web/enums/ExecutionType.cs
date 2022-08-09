@@ -11,16 +11,15 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Enums
+namespace Bellatrix.Web.Enums;
+
+public enum ExecutionType
 {
-    public enum ExecutionType
-    {
-        Regular,
-        Grid,
-        SauceLabs,
-        BrowserStack,
-        CrossBrowserTesting,
-        LambdaTest,
-        Selenoid,
-    }
+    Regular,
+    Grid,
+    SauceLabs,
+    BrowserStack,
+    CrossBrowserTesting,
+    LambdaTest,
+    Selenoid,
 }

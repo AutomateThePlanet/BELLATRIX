@@ -11,15 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop.Configuration
+namespace Bellatrix.Desktop.Configuration;
+
+public enum MobileWindowSize
 {
-    public enum MobileWindowSize
-    {
-        _360_640 = 101,
-        _375_667 = 102,
-        _720_1280 = 103,
-        _320_568 = 104,
-        _414_736 = 105,
-        _320_534 = 106,
-    }
+    _360_640 = 101,
+    _375_667 = 102,
+    _720_1280 = 103,
+    _320_568 = 104,
+    _414_736 = 105,
+    _320_534 = 106,
 }

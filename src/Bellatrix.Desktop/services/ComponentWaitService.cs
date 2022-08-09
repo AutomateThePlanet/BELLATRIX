@@ -17,29 +17,28 @@ using Bellatrix.Desktop.Events;
 using Bellatrix.Desktop.Locators;
 using Bellatrix.Desktop.Untils;
 
-namespace Bellatrix.Desktop.Services
+namespace Bellatrix.Desktop.Services;
+
+public class ComponentWaitService : IComponentWaitService
 {
-    public class ComponentWaitService : IComponentWaitService
+    public static event EventHandler<ComponentNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
+
+    public void Wait<TUntil, TComponent>(TComponent element, TUntil until)
+        where TUntil : WaitStrategy
+        where TComponent : Component
     {
-        public static event EventHandler<ComponentNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
-
-        public void Wait<TUntil, TComponent>(TComponent element, TUntil until)
-            where TUntil : WaitStrategy
-            where TComponent : Component
+        try
         {
-            try
-            {
-                WaitInternal(element.By, until);
-            }
-            catch (Exception ex)
-            {
-                OnElementNotFulfillingWaitConditionEvent?.Invoke(this, new ComponentNotFulfillingWaitConditionEventArgs(ex));
-                throw;
-            }
+            WaitInternal(element.By, until);
         }
-
-        public void WaitInternal<TUntil, TBy>(TBy by, TUntil until)
-            where TUntil : WaitStrategy
-            where TBy : FindStrategy => until?.WaitUntil(@by);
+        catch (Exception ex)
+        {
+            OnElementNotFulfillingWaitConditionEvent?.Invoke(this, new ComponentNotFulfillingWaitConditionEventArgs(ex));
+            throw;
+        }
     }
+
+    public void WaitInternal<TUntil, TBy>(TBy by, TUntil until)
+        where TUntil : WaitStrategy
+        where TBy : FindStrategy => until?.WaitUntil(@by);
 }

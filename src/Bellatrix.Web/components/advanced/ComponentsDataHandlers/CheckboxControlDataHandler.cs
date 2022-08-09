@@ -14,64 +14,63 @@
 
 using System;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class CheckBoxControlDataHandler : IEditableControlDataHandler<CheckBox>
 {
-    public class CheckBoxControlDataHandler : IEditableControlDataHandler<CheckBox>
+    public dynamic GetData(CheckBox element)
     {
-        public dynamic GetData(CheckBox element)
+        try
         {
-            try
-            {
-                return element.IsChecked;
-            }
-            catch (TimeoutException)
-            {
-                return null;
-            }
+            return element.IsChecked;
         }
-
-        public void SetData(CheckBox element, string data)
+        catch (TimeoutException)
         {
-            if (bool.TryParse(data, out bool valueToSet))
+            return null;
+        }
+    }
+
+    public void SetData(CheckBox element, string data)
+    {
+        if (bool.TryParse(data, out bool valueToSet))
+        {
+            if (valueToSet)
             {
-                if (valueToSet)
+                if (!element.IsChecked)
                 {
-                    if (!element.IsChecked)
-                    {
-                        element.Check();
-                    }
-                }
-                else
-                {
-                    if (element.IsChecked)
-                    {
-                        element.Uncheck();
-                    }
+                    element.Check();
                 }
             }
             else
             {
-                throw new ArgumentException($"The input string '{data}' was not recognized as valid boolean.");
+                if (element.IsChecked)
+                {
+                    element.Uncheck();
+                }
             }
         }
-
-        public void ValidateValueIs(CheckBox element, string expectedValue)
+        else
         {
-            if (bool.TryParse(expectedValue, out bool expectedBool))
+            throw new ArgumentException($"The input string '{data}' was not recognized as valid boolean.");
+        }
+    }
+
+    public void ValidateValueIs(CheckBox element, string expectedValue)
+    {
+        if (bool.TryParse(expectedValue, out bool expectedBool))
+        {
+            if (expectedBool)
             {
-                if (expectedBool)
-                {
-                    element.ValidateIsChecked();
-                }
-                else
-                {
-                    element.ValidateIsNotChecked();
-                }
+                element.ValidateIsChecked();
             }
             else
             {
-                throw new ArgumentException($"The input string '{expectedValue}' was not recognized as valid boolean.");
+                element.ValidateIsNotChecked();
             }
+        }
+        else
+        {
+            throw new ArgumentException($"The input string '{expectedValue}' was not recognized as valid boolean.");
         }
     }
 }

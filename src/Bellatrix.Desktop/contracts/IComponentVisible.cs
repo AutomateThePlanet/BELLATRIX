@@ -11,10 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop.Contracts
+namespace Bellatrix.Desktop.Contracts;
+
+public interface IComponentVisible
 {
-    public interface IComponentVisible
-    {
-        bool IsVisible { get; }
-    }
+    bool IsVisible { get; }
 }

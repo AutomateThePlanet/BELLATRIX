@@ -13,92 +13,91 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Button Control")]
+[AllureFeature("ValidateExtensions")]
+public class ButtonControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Button Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ButtonControlValidateExtensionsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateInnerTextIs_DoesNotThrowException_Button_When_InnerTextIsAsExpected()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateInnerTextIs_DoesNotThrowException_Button_When_InnerTextIsAsExpected()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
+        buttonElement.Click();
 
-            buttonElement.Click();
+        buttonElement.ValidateInnerTextIs("Stop");
+    }
 
-            buttonElement.ValidateInnerTextIs("Stop");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_Button_When_Hovered()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_Button_When_Hovered()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton9");
+        buttonElement.Hover();
 
-            buttonElement.Hover();
+        buttonElement.ValidateStyleIs("color: red;");
+    }
 
-            buttonElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleContains_DoesNotThrowException_Button_When_Hovered()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleContains_DoesNotThrowException_Button_When_Hovered()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton9");
+        buttonElement.Hover();
 
-            buttonElement.Hover();
+        buttonElement.ValidateStyleContains("color: red;");
+    }
 
-            buttonElement.ValidateStyleContains("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleNotContains_DoesNotThrowException_Button_When_Hovered()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleNotContains_DoesNotThrowException_Button_When_Hovered()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton9");
+        buttonElement.Hover();
 
-            buttonElement.Hover();
+        buttonElement.ValidateStyleNotContains("color: blue;");
+    }
 
-            buttonElement.ValidateStyleNotContains("color: blue;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_Button_When_DisabledAttributeNotPresent()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_Button_When_DisabledAttributeNotPresent()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
+        buttonElement.ValidateIsNotDisabled();
+    }
 
-            buttonElement.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsDisabled_DoesNotThrowException_Button_When_DisabledAttributePresent()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton11");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsDisabled_DoesNotThrowException_Button_When_DisabledAttributePresent()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton11");
+        buttonElement.ValidateIsDisabled();
+    }
 
-            buttonElement.ValidateIsDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateValueIs_DoesNotThrowException_Button_When_ValueAttributePresent()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateValueIs_DoesNotThrowException_Button_When_ValueAttributePresent()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
-
-            buttonElement.ValidateValueIs("Start");
-        }
+        buttonElement.ValidateValueIs("Start");
     }
 }

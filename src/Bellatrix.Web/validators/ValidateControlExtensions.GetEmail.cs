@@ -15,17 +15,16 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
-{
-    public static partial class ValidateControlExtensions
-    {
-        public static void ValidateEmailIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentEmail, IComponent
-        {
-            WaitUntil(() => control.GetEmail().Equals(value), $"The control's email should be '{value}' but was '{control.GetEmail()}'.", timeout, sleepInterval);
-            ValidatedEmailIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
+namespace Bellatrix.Web;
 
-        public static event EventHandler<ComponentActionEventArgs> ValidatedEmailIsEvent;
+public static partial class ValidateControlExtensions
+{
+    public static void ValidateEmailIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentEmail, IComponent
+    {
+        WaitUntil(() => control.GetEmail().Equals(value), $"The control's email should be '{value}' but was '{control.GetEmail()}'.", timeout, sleepInterval);
+        ValidatedEmailIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
     }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedEmailIsEvent;
 }

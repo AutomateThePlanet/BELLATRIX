@@ -15,12 +15,11 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.DynamicTestCases.IOS
-{
-    public class DynamicTestCasesToggleButtonEventHandlers : ToggleButtonEventHandlers
-    {
-        protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+namespace Bellatrix.Mobile.DynamicTestCases.IOS;
 
-        protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+public class DynamicTestCasesToggleButtonEventHandlers : ToggleButtonEventHandlers
+{
+    protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+
+    protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

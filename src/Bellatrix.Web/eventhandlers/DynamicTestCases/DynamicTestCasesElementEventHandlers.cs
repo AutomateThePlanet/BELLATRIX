@@ -14,16 +14,15 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class DynamicTestCasesElementEventHandlers : AnchorEventHandlers
 {
-    public class DynamicTestCasesElementEventHandlers : AnchorEventHandlers
-    {
-        protected override void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Scroll to visible {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+    protected override void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Scroll to visible {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 
-        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 
-        protected override void HoveringEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Hover {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+    protected override void HoveringEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Hover {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 
-        protected override void FocusingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Focus {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
-    }
+    protected override void FocusingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Focus {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 }

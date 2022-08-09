@@ -18,42 +18,41 @@ using Bellatrix.Mobile.Controls.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class CheckBox : IOSComponent, IComponentDisabled, IComponentChecked, IComponentText
 {
-   public class CheckBox : IOSComponent, IComponentDisabled, IComponentChecked, IComponentText
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Checking;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Checked;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Unchecking;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Unchecked;
+
+    public virtual void Check(bool isChecked = true)
     {
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Checking;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Checked;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Unchecking;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Unchecked;
-
-        public virtual void Check(bool isChecked = true)
+        bool isElementChecked = GetIsChecked();
+        if (isChecked && !isElementChecked || !isChecked && isElementChecked)
         {
-            bool isElementChecked = GetIsChecked();
-            if (isChecked && !isElementChecked || !isChecked && isElementChecked)
-            {
-                Click(Checking, Checked);
-            }
+            Click(Checking, Checked);
         }
-
-        public virtual void Uncheck()
-        {
-            bool isChecked = GetIsChecked();
-            if (isChecked)
-            {
-                Click(Unchecking, Unchecked);
-            }
-        }
-
-        public new virtual string GetText()
-        {
-            return GetText();
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsChecked => GetIsChecked();
     }
+
+    public virtual void Uncheck()
+    {
+        bool isChecked = GetIsChecked();
+        if (isChecked)
+        {
+            Click(Unchecking, Unchecked);
+        }
+    }
+
+    public new virtual string GetText()
+    {
+        return GetText();
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsChecked => GetIsChecked();
 }

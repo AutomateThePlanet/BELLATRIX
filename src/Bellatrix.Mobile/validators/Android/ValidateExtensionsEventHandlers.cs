@@ -14,87 +14,86 @@
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public abstract class ValidateExtensionsEventHandlers
 {
-    public abstract class ValidateExtensionsEventHandlers
+    public virtual void SubscribeToAll()
     {
-        public virtual void SubscribeToAll()
-        {
-            ValidateControlExtensions.ValidatedIsCheckedEvent += ValidatedIsCheckedEventHandler;
-            ValidateControlExtensions.ValidatedIsNotCheckedEvent += ValidatedIsNotCheckedEventHandler;
-            ValidateControlExtensions.ValidatedDateIsEvent += ValidatedDateIsEventHandler;
-            ValidateControlExtensions.ValidatedIsDisabledEvent += ValidatedIsDisabledEventHandler;
-            ValidateControlExtensions.ValidatedIsNotDisabledEvent += ValidatedIsNotDisabledEventHandler;
-            ValidateControlExtensions.ValidatedIsSelectedEvent += ValidatedIsSelectedEventHandler;
-            ValidateControlExtensions.ValidatedIsNotSelectedEvent += ValidatedIsNotSelectedEventHandler;
-            ValidateControlExtensions.ValidatedTextIsNotSetEvent += ValidatedTextIsNotSetEventHandler;
-            ValidateControlExtensions.ValidatedTextIsEvent += ValidatedTextIsEventHandler;
-            ValidateControlExtensions.ValidatedTimeIsEvent += ValidatedTimeIsEventHandler;
-            ValidateControlExtensions.ValidatedIsVisibleEvent += ValidatedIsVisibleEventHandler;
-            ValidateControlExtensions.ValidatedIsNotVisibleEvent += ValidatedIsNotVisibleEventHandler;
-            ValidateControlExtensions.ValidatedIsOnEvent += ValidatedIsOnEventHandler;
-            ValidateControlExtensions.ValidatedIsOffEvent += ValidatedIsOffEventHandler;
-            ValidateControlExtensions.ValidatedNumberIsEvent += ValidatedNumberIsEventHandler;
-        }
+        ValidateControlExtensions.ValidatedIsCheckedEvent += ValidatedIsCheckedEventHandler;
+        ValidateControlExtensions.ValidatedIsNotCheckedEvent += ValidatedIsNotCheckedEventHandler;
+        ValidateControlExtensions.ValidatedDateIsEvent += ValidatedDateIsEventHandler;
+        ValidateControlExtensions.ValidatedIsDisabledEvent += ValidatedIsDisabledEventHandler;
+        ValidateControlExtensions.ValidatedIsNotDisabledEvent += ValidatedIsNotDisabledEventHandler;
+        ValidateControlExtensions.ValidatedIsSelectedEvent += ValidatedIsSelectedEventHandler;
+        ValidateControlExtensions.ValidatedIsNotSelectedEvent += ValidatedIsNotSelectedEventHandler;
+        ValidateControlExtensions.ValidatedTextIsNotSetEvent += ValidatedTextIsNotSetEventHandler;
+        ValidateControlExtensions.ValidatedTextIsEvent += ValidatedTextIsEventHandler;
+        ValidateControlExtensions.ValidatedTimeIsEvent += ValidatedTimeIsEventHandler;
+        ValidateControlExtensions.ValidatedIsVisibleEvent += ValidatedIsVisibleEventHandler;
+        ValidateControlExtensions.ValidatedIsNotVisibleEvent += ValidatedIsNotVisibleEventHandler;
+        ValidateControlExtensions.ValidatedIsOnEvent += ValidatedIsOnEventHandler;
+        ValidateControlExtensions.ValidatedIsOffEvent += ValidatedIsOffEventHandler;
+        ValidateControlExtensions.ValidatedNumberIsEvent += ValidatedNumberIsEventHandler;
+    }
 
-        protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
     }
 }

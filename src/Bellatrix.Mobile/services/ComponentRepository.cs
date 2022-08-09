@@ -19,68 +19,67 @@ using Bellatrix.Mobile.Locators;
 using Bellatrix.Mobile.PageObjects;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Services
+namespace Bellatrix.Mobile.Services;
+
+internal class ComponentRepository
 {
-    internal class ComponentRepository
+    public TComponent CreateComponentWithParent<TComponent, TBy, TDriver, TDriverElement>(TBy by, TDriverElement webElement)
+        where TComponent : Component<TDriver, TDriverElement>
+        where TBy : FindStrategy<TDriver, TDriverElement>
+        where TDriver : AppiumDriver<TDriverElement>
+        where TDriverElement : AppiumWebElement
     {
-        public TComponent CreateComponentWithParent<TComponent, TBy, TDriver, TDriverElement>(TBy by, TDriverElement webElement)
-            where TComponent : Component<TDriver, TDriverElement>
-            where TBy : FindStrategy<TDriver, TDriverElement>
-            where TDriver : AppiumDriver<TDriverElement>
-            where TDriverElement : AppiumWebElement
+        DetermineComponentAttributes<TDriver, TDriverElement>(out var elementName, out var pageName);
+
+        var element = Activator.CreateInstance<TComponent>();
+        element.By = by;
+        element.ParentWrappedElement = webElement;
+        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        element.PageName = string.IsNullOrEmpty(pageName) ? string.Empty : pageName;
+
+        return element;
+    }
+
+    public TComponent CreateComponentThatIsFound<TComponent, TBy, TDriver, TDriverElement>(TBy by, TDriverElement webElement)
+        where TComponent : Component<TDriver, TDriverElement>
+        where TBy : FindStrategy<TDriver, TDriverElement>
+        where TDriver : AppiumDriver<TDriverElement>
+        where TDriverElement : AppiumWebElement
+    {
+        DetermineComponentAttributes<TDriver, TDriverElement>(out var elementName, out var pageName);
+
+        var element = Activator.CreateInstance<TComponent>();
+        element.By = by;
+        element.FoundWrappedElement = webElement;
+        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        element.PageName = string.IsNullOrEmpty(pageName) ? string.Empty : pageName;
+
+        return element;
+    }
+
+    private void DetermineComponentAttributes<TDriver, TDriverElement>(out string elementName, out string pageName)
+        where TDriver : AppiumDriver<TDriverElement>
+        where TDriverElement : AppiumWebElement
+    {
+        elementName = string.Empty;
+        pageName = string.Empty;
+        var callStackTrace = new StackTrace();
+        var currentAssembly = GetType().Assembly;
+
+        foreach (var frame in callStackTrace.GetFrames())
         {
-            DetermineComponentAttributes<TDriver, TDriverElement>(out var elementName, out var pageName);
-
-            var element = Activator.CreateInstance<TComponent>();
-            element.By = by;
-            element.ParentWrappedElement = webElement;
-            element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
-            element.PageName = string.IsNullOrEmpty(pageName) ? string.Empty : pageName;
-
-            return element;
-        }
-
-        public TComponent CreateComponentThatIsFound<TComponent, TBy, TDriver, TDriverElement>(TBy by, TDriverElement webElement)
-            where TComponent : Component<TDriver, TDriverElement>
-            where TBy : FindStrategy<TDriver, TDriverElement>
-            where TDriver : AppiumDriver<TDriverElement>
-            where TDriverElement : AppiumWebElement
-        {
-            DetermineComponentAttributes<TDriver, TDriverElement>(out var elementName, out var pageName);
-
-            var element = Activator.CreateInstance<TComponent>();
-            element.By = by;
-            element.FoundWrappedElement = webElement;
-            element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
-            element.PageName = string.IsNullOrEmpty(pageName) ? string.Empty : pageName;
-
-            return element;
-        }
-
-        private void DetermineComponentAttributes<TDriver, TDriverElement>(out string elementName, out string pageName)
-            where TDriver : AppiumDriver<TDriverElement>
-            where TDriverElement : AppiumWebElement
-        {
-            elementName = string.Empty;
-            pageName = string.Empty;
-            var callStackTrace = new StackTrace();
-            var currentAssembly = GetType().Assembly;
-
-            foreach (var frame in callStackTrace.GetFrames())
+            var frameMethodInfo = frame.GetMethod() as MethodInfo;
+            if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
+                !frameMethodInfo.IsStatic &&
+                frameMethodInfo.ReturnType.IsSubclassOf(typeof(Component<TDriver, TDriverElement>)))
             {
-                var frameMethodInfo = frame.GetMethod() as MethodInfo;
-                if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
-                    !frameMethodInfo.IsStatic &&
-                    frameMethodInfo.ReturnType.IsSubclassOf(typeof(Component<TDriver, TDriverElement>)))
+                elementName = frame.GetMethod().Name.Replace("get_", string.Empty);
+                if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(MobilePage)))
                 {
-                    elementName = frame.GetMethod().Name.Replace("get_", string.Empty);
-                    if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(MobilePage)))
-                    {
-                        pageName = frameMethodInfo.ReflectedType.Name;
-                    }
-
-                    break;
+                    pageName = frameMethodInfo.ReflectedType.Name;
                 }
+
+                break;
             }
         }
     }

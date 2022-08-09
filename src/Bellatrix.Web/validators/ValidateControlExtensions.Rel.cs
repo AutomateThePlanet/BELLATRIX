@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateRelIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentRel, IComponent
     {
-        public static void ValidateRelIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentRel, IComponent
-        {
-            WaitUntil(() => control.Rel == null, $"The control's rel should be null but was '{control.Rel}'.", timeout, sleepInterval);
-            ValidatedRelIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateRelIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentRel, IComponent
-        {
-            WaitUntil(() => control.Rel.Equals(value), $"The control's rel should be '{value}' but was '{control.Rel}'.", timeout, sleepInterval);
-            ValidatedRelIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedRelIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedRelIsEvent;
+        WaitUntil(() => control.Rel == null, $"The control's rel should be null but was '{control.Rel}'.", timeout, sleepInterval);
+        ValidatedRelIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateRelIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentRel, IComponent
+    {
+        WaitUntil(() => control.Rel.Equals(value), $"The control's rel should be '{value}' but was '{control.Rel}'.", timeout, sleepInterval);
+        ValidatedRelIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedRelIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedRelIsEvent;
 }

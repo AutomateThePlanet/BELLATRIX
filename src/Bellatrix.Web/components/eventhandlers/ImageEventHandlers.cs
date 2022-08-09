@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
-{
-    public class ImageEventHandlers : ComponentEventHandlers
-    {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Image.Hovering += HoveringEventHandler;
-            Image.Hovered += HoveredEventHandler;
-        }
+namespace Bellatrix.Web.Controls.EventHandlers;
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Image.Hovering -= HoveringEventHandler;
-            Image.Hovered -= HoveredEventHandler;
-        }
+public class ImageEventHandlers : ComponentEventHandlers
+{
+    public override void SubscribeToAll()
+    {
+        base.SubscribeToAll();
+        Image.Hovering += HoveringEventHandler;
+        Image.Hovered += HoveredEventHandler;
+    }
+
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Image.Hovering -= HoveringEventHandler;
+        Image.Hovered -= HoveredEventHandler;
     }
 }

@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public class MobileSettings
 {
-    public class MobileSettings
-    {
-        public TimeoutSettings TimeoutSettings { get; set; }
-        public ExecutionSettings ExecutionSettings { get; set; }
-    }
+    public TimeoutSettings TimeoutSettings { get; set; }
+    public ExecutionSettings ExecutionSettings { get; set; }
 }

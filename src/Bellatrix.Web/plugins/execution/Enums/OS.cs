@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public enum OS
 {
-    public enum OS
-    {
-        Windows,
-        OSX,
-        Linux,
-    }
+    Windows,
+    OSX,
+    Linux,
 }

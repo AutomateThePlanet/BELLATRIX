@@ -15,34 +15,33 @@ using Bellatrix.Plugins;
 using Bellatrix.Plugins.Video.Plugins;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Results.MSTest
+namespace Bellatrix.Results.MSTest;
+
+public class MSTestResultsWorkflowPlugin : Plugin, IVideoPlugin
 {
-    public class MSTestResultsWorkflowPlugin : Plugin, IVideoPlugin
+    public static TestContext TestContext { get; set; }
+
+    public void SubscribeVideoPlugin(IVideoPluginProvider provider)
     {
-        public static TestContext TestContext { get; set; }
+        provider.VideoGeneratedEvent += VideoGenerated;
+    }
 
-        public void SubscribeVideoPlugin(IVideoPluginProvider provider)
-        {
-            provider.VideoGeneratedEvent += VideoGenerated;
-        }
+    public void UnsubscribeVideoPlugin(IVideoPluginProvider provider)
+    {
+        provider.VideoGeneratedEvent -= VideoGenerated;
+    }
 
-        public void UnsubscribeVideoPlugin(IVideoPluginProvider provider)
+    public void VideoGenerated(object sender, VideoPluginEventArgs args)
+    {
+        if (!string.IsNullOrEmpty(args.VideoPath))
         {
-            provider.VideoGeneratedEvent -= VideoGenerated;
-        }
-
-        public void VideoGenerated(object sender, VideoPluginEventArgs args)
-        {
-            if (!string.IsNullOrEmpty(args.VideoPath))
+            try
             {
-                try
-                {
-                    TestContext?.AddResultFile(args.VideoPath);
-                }
-                catch
-                {
-                    // ignore
-                }
+                TestContext?.AddResultFile(args.VideoPath);
+            }
+            catch
+            {
+                // ignore
             }
         }
     }

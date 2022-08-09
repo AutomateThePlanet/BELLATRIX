@@ -18,20 +18,19 @@ using Bellatrix.BugReporting.AzureDevOps;
 using Bellatrix.BugReporting.Jira;
 using Bellatrix.Plugins;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class BugReportingPlugin
 {
-    public static class BugReportingPlugin
+    public static void Add()
     {
-        public static void Add()
+        if (ConfigurationService.GetSection<JiraBugReportingSettings>().IsEnabled)
         {
-            if (ConfigurationService.GetSection<JiraBugReportingSettings>().IsEnabled)
-            {
-                JiraBugReportingPlugin.Add();
-            }
-            else if (ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().IsEnabled)
-            {
-                AzureDevOpsBugReportingPlugin.Add();
-            }
+            JiraBugReportingPlugin.Add();
+        }
+        else if (ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().IsEnabled)
+        {
+            AzureDevOpsBugReportingPlugin.Add();
         }
     }
 }

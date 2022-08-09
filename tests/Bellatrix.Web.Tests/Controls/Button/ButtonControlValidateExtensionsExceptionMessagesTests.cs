@@ -13,88 +13,87 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Button Control")]
+[AllureFeature("ValidateExtensions")]
+public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Button Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateIsNotDisabledThrowsException()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton11");
+
+        try
         {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
+            buttonElement.ValidateIsNotDisabled(200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateIsNotDisabledThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var buttonElement = App.Components.CreateById<Button>("myButton11");
-
-            try
-            {
-                buttonElement.ValidateIsNotDisabled(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control should NOT be disabled but it was. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control should NOT be disabled but it was. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateIsDisabledThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateIsDisabledThrowsException()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
+
+        try
         {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
-
-            try
-            {
-                buttonElement.ValidateIsDisabled(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control should be disabled but it was NOT. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            buttonElement.ValidateIsDisabled(200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateValueIsThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
-
-            try
-            {
-                buttonElement.ValidateValueIs("Start", 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's value should be 'Start' but was 'Stop'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control should be disabled but it was NOT. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateValueIsNullThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateValueIsThrowsException()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
+
+        try
         {
-            var buttonElement = App.Components.CreateById<Button>("myButton11");
+            buttonElement.ValidateValueIs("Start", 200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's value should be 'Start' but was 'Stop'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
 
-            try
-            {
-                buttonElement.ValidateValueIsNull(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's value should be null but was 'Start'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateValueIsNullThrowsException()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton11");
+
+        try
+        {
+            buttonElement.ValidateValueIsNull(200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's value should be null but was 'Start'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

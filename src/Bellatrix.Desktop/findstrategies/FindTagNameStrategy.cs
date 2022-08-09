@@ -15,38 +15,37 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Locators
+namespace Bellatrix.Desktop.Locators;
+
+public class FindTagNameStrategy : FindStrategy
 {
-    public class FindTagNameStrategy : FindStrategy
+    public FindTagNameStrategy(string name)
+        : base(name)
     {
-        public FindTagNameStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
-        {
-            return searchContext.FindElementByTagName(Value);
-        }
+    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    {
+        return searchContext.FindElementByTagName(Value);
+    }
 
-        public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
-        {
-            return searchContext.FindElementsByTagName(Value);
-        }
+    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    {
+        return searchContext.FindElementsByTagName(Value);
+    }
 
-        public override AppiumWebElement FindElement(WindowsElement element)
-        {
-            return element.FindElementByTagName(Value);
-        }
+    public override AppiumWebElement FindElement(WindowsElement element)
+    {
+        return element.FindElementByTagName(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
-        {
-            return element.FindElementsByTagName(Value);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
+    {
+        return element.FindElementsByTagName(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"TagName = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"TagName = {Value}";
     }
 }

@@ -15,30 +15,29 @@ using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.EventHandlers.Android
+namespace Bellatrix.Mobile.EventHandlers.Android;
+
+public class PasswordEventHandlers : ComponentEventHandlers
 {
-    public class PasswordEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Password.SettingPassword += SettingPasswordEventHandler;
-            Password.PasswordSet += PasswordSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Password.SettingPassword += SettingPasswordEventHandler;
+        Password.PasswordSet += PasswordSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Password.SettingPassword -= SettingPasswordEventHandler;
-            Password.PasswordSet -= PasswordSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Password.SettingPassword -= SettingPasswordEventHandler;
+        Password.PasswordSet -= PasswordSetEventHandler;
+    }
 
-        protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
     }
 }

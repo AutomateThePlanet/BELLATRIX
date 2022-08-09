@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateSpellCheckIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentSpellCheck, IComponent
     {
-        public static void ValidateSpellCheckIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentSpellCheck, IComponent
-        {
-            WaitUntil(() => control.SpellCheck == null, $"The control's spellcheck should be null but was '{control.SpellCheck}'.", timeout, sleepInterval);
-            ValidatedSpellCheckIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateSpellCheckIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentSpellCheck, IComponent
-        {
-            WaitUntil(() => control.SpellCheck.Equals(value), $"The control's spellcheck should be '{value}' but was '{control.SpellCheck}'.", timeout, sleepInterval);
-            ValidatedSpellCheckIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedSpellCheckIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedSpellCheckIsEvent;
+        WaitUntil(() => control.SpellCheck == null, $"The control's spellcheck should be null but was '{control.SpellCheck}'.", timeout, sleepInterval);
+        ValidatedSpellCheckIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateSpellCheckIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentSpellCheck, IComponent
+    {
+        WaitUntil(() => control.SpellCheck.Equals(value), $"The control's spellcheck should be '{value}' but was '{control.SpellCheck}'.", timeout, sleepInterval);
+        ValidatedSpellCheckIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedSpellCheckIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedSpellCheckIsEvent;
 }

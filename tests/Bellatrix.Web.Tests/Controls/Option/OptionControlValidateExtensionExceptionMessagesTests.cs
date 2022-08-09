@@ -13,53 +13,52 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Option Control")]
+public class OptionControlValidateExtensionExceptionMessagesTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Option Control")]
-    public class OptionControlValidateExtensionExceptionMessagesTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().OptionLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().OptionLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateIsSelectedThrowsException()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
+
+        try
         {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
+            selectComponent.GetAllOptions()[1].ValidateIsSelected(200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateIsSelectedThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
-
-            try
-            {
-                selectComponent.GetAllOptions()[1].ValidateIsSelected(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control should be selected but was NOT. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control should be selected but was NOT. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateIsNotSelectedThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateIsNotSelectedThrowsException()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
+
+        try
         {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
-
-            try
-            {
-                selectComponent.GetAllOptions()[0].ValidateIsNotSelected(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control should be not selected but it WAS. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            selectComponent.GetAllOptions()[0].ValidateIsNotSelected(200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control should be not selected but it WAS. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

@@ -11,14 +11,13 @@
 // </copyright>
 // <author>Ventsislav Ivanov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.ImageRecognition.Utilities
+namespace Bellatrix.ImageRecognition.Utilities;
+
+internal static class Constants
 {
-    internal static class Constants
-    {
-        public const string ResultPrefix = "SIKULI#: ";
-        public const string InteractiveConsoleReadyMarker = "... use ctrl-d to end the session";
-        public const string ErrorMarker = "[error]";
-        public const string ExitCommand = "exit()";
-        public const int SikuliReadyTimeoutSeconds = 30;
-    }
+    public const string ResultPrefix = "SIKULI#: ";
+    public const string InteractiveConsoleReadyMarker = "... use ctrl-d to end the session";
+    public const string ErrorMarker = "[error]";
+    public const string ExitCommand = "exit()";
+    public const int SikuliReadyTimeoutSeconds = 30;
 }

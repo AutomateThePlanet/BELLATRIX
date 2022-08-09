@@ -13,19 +13,18 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.ExceptionAnalysation.Contracts
+namespace Bellatrix.ExceptionAnalysation.Contracts;
+
+public interface IExceptionAnalyser
 {
-    public interface IExceptionAnalyser
-    {
-        void Analyse(Exception ex = null, ServicesCollection container = null, params object[] context);
+    void Analyse(Exception ex = null, ServicesCollection container = null, params object[] context);
 
-        void AddExceptionAnalysationHandler<TExceptionAnalysationHandler>(
-            IExceptionAnalysationHandler exceptionAnalysationHandler)
-            where TExceptionAnalysationHandler : IExceptionAnalysationHandler;
+    void AddExceptionAnalysationHandler<TExceptionAnalysationHandler>(
+        IExceptionAnalysationHandler exceptionAnalysationHandler)
+        where TExceptionAnalysationHandler : IExceptionAnalysationHandler;
 
-        void AddExceptionAnalysationHandler<TExceptionAnalysationHandler>()
-            where TExceptionAnalysationHandler : IExceptionAnalysationHandler, new();
+    void AddExceptionAnalysationHandler<TExceptionAnalysationHandler>()
+        where TExceptionAnalysationHandler : IExceptionAnalysationHandler, new();
 
-        void RemoveFirstExceptionAnalysationHandler();
-    }
+    void RemoveFirstExceptionAnalysationHandler();
 }

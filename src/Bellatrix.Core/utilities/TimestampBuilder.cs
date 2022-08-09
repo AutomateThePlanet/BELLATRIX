@@ -14,32 +14,31 @@
 using System;
 using System.Linq;
 
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+public class TimestampBuilder
 {
-    public class TimestampBuilder
+    public static string BuildUniqueText(string text)
     {
-        public static string BuildUniqueText(string text)
-        {
-            var newTimestamp = GenerateUniqueText();
-            var result = string.Concat(text, newTimestamp);
-            return result;
-        }
+        var newTimestamp = GenerateUniqueText();
+        var result = string.Concat(text, newTimestamp);
+        return result;
+    }
 
-        public static string GenerateUniqueText()
-        {
-            var newTimestamp = DateTime.Now.ToString("MM-dd-yyyy-hh-mm-ss-ffff");
-            return newTimestamp;
-        }
+    public static string GenerateUniqueText()
+    {
+        var newTimestamp = DateTime.Now.ToString("MM-dd-yyyy-hh-mm-ss-ffff");
+        return newTimestamp;
+    }
 
-        public static string GenerateUniqueUrl()
-        {
-            var newTimestamp = "https://demos.bellatrix.solutions/" + DateTime.Now.ToString("MMMMddyyyyhhmmss");
-            return newTimestamp;
-        }
-        public static string GenerateUniqueTextMonthNameOneWord()
-        {
-            var newTimestamp = DateTime.Now.ToString("MMMMddyyyyhhmmss");
-            return newTimestamp;
-        }
+    public static string GenerateUniqueUrl()
+    {
+        var newTimestamp = "https://demos.bellatrix.solutions/" + DateTime.Now.ToString("MMMMddyyyyhhmmss");
+        return newTimestamp;
+    }
+    public static string GenerateUniqueTextMonthNameOneWord()
+    {
+        var newTimestamp = DateTime.Now.ToString("MMMMddyyyyhhmmss");
+        return newTimestamp;
     }
 }

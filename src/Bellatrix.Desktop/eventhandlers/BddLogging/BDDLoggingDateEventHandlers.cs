@@ -14,10 +14,9 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.BddLogging
+namespace Bellatrix.Desktop.BddLogging;
+
+public class BDDLoggingDateEventHandlers : DateEventHandlers
 {
-    public class BDDLoggingDateEventHandlers : DateEventHandlers
-    {
-        protected override void SettingDateEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Set '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SettingDateEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Set '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

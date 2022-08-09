@@ -14,10 +14,9 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.DynamicTestCases
+namespace Bellatrix.Desktop.DynamicTestCases;
+
+public class DynamicTestCasesComboBoxEventHandlers : ComboBoxEventHandlers
 {
-    public class DynamicTestCasesComboBoxEventHandlers : ComboBoxEventHandlers
-    {
-        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
- }
+    protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

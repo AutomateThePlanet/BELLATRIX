@@ -16,36 +16,35 @@ using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using NUnit.Framework;
 
-namespace Bellatrix.Results.NUnit
+namespace Bellatrix.Results.NUnit;
+
+public class NUnitResultsWorkflowPlugin : Plugin, IScreenshotPlugin
 {
-    public class NUnitResultsWorkflowPlugin : Plugin, IScreenshotPlugin
+    private static readonly object _lockObject = new object();
+
+    public NUnitResultsWorkflowPlugin()
     {
-        private static readonly object _lockObject = new object();
+    }
 
-        public NUnitResultsWorkflowPlugin()
+    public TestContext TestContext { get; set; }
+
+    public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
+    {
+        provider.ScreenshotGeneratedEvent += ScreenshotGenerated;
+    }
+
+    public void UnsubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
+    {
+        provider.ScreenshotGeneratedEvent -= ScreenshotGenerated;
+    }
+
+    public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs args)
+    {
+        lock (_lockObject)
         {
-        }
-
-        public TestContext TestContext { get; set; }
-
-        public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
-        {
-            provider.ScreenshotGeneratedEvent += ScreenshotGenerated;
-        }
-
-        public void UnsubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
-        {
-            provider.ScreenshotGeneratedEvent -= ScreenshotGenerated;
-        }
-
-        public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs args)
-        {
-            lock (_lockObject)
+            if (!string.IsNullOrEmpty(args.ScreenshotPath))
             {
-                if (!string.IsNullOrEmpty(args.ScreenshotPath))
-                {
-                    TestContext.AddTestAttachment(args.ScreenshotPath);
-                }
+                TestContext.AddTestAttachment(args.ScreenshotPath);
             }
         }
     }

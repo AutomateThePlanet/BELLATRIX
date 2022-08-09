@@ -15,11 +15,10 @@ using System;
 using System.Diagnostics;
 using Bellatrix.Mobile.Controls.Android;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class Progress : AndroidComponent
 {
-    public class Progress : AndroidComponent
-    {
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
-    }
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

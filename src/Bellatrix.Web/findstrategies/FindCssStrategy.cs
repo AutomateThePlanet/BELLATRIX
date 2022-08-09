@@ -11,23 +11,22 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Locators
+namespace Bellatrix.Web.Locators;
+
+public class FindCssStrategy : FindStrategy
 {
-    public class FindCssStrategy : FindStrategy
+    public FindCssStrategy(string value)
+        : base(value)
     {
-        public FindCssStrategy(string value)
-            : base(value)
-        {
-        }
+    }
 
-        public override OpenQA.Selenium.By Convert()
-        {
-            return OpenQA.Selenium.By.CssSelector(Value);
-        }
+    public override OpenQA.Selenium.By Convert()
+    {
+        return OpenQA.Selenium.By.CssSelector(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"CSS = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"CSS = {Value}";
     }
 }

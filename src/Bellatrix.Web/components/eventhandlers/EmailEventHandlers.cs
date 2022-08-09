@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class EmailEventHandlers : ComponentEventHandlers
 {
-    public class EmailEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Email.Hovering += HoveringEventHandler;
-            Email.Hovered += HoveredEventHandler;
-            Email.SettingEmail += SettingEmailEventHandler;
-            Email.EmailSet += EmailSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Email.Hovering += HoveringEventHandler;
+        Email.Hovered += HoveredEventHandler;
+        Email.SettingEmail += SettingEmailEventHandler;
+        Email.EmailSet += EmailSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Email.Hovering -= HoveringEventHandler;
-            Email.Hovered -= HoveredEventHandler;
-            Email.SettingEmail -= SettingEmailEventHandler;
-            Email.EmailSet -= EmailSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Email.Hovering -= HoveringEventHandler;
+        Email.Hovered -= HoveredEventHandler;
+        Email.SettingEmail -= SettingEmailEventHandler;
+        Email.EmailSet -= EmailSetEventHandler;
+    }
 
-        protected virtual void SettingEmailEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingEmailEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void EmailSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void EmailSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

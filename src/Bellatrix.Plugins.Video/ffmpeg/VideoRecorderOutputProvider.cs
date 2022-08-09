@@ -17,35 +17,34 @@ using System.Linq;
 using Bellatrix.Plugins.Video;
 using Bellatrix.Plugins.Video.Contracts;
 
-namespace Bellatrix.VideoRecording.FFmpeg
+namespace Bellatrix.VideoRecording.FFmpeg;
+
+public class VideoRecorderOutputProvider : IVideoRecorderOutputProvider
 {
-    public class VideoRecorderOutputProvider : IVideoRecorderOutputProvider
+    public string GetOutputFolder()
     {
-        public string GetOutputFolder()
+        var outputDir = ConfigurationService.GetSection<VideoRecordingSettings>().FilePath;
+        if (outputDir.StartsWith("ApplicationData", StringComparison.Ordinal))
         {
-            var outputDir = ConfigurationService.GetSection<VideoRecordingSettings>().FilePath;
-            if (outputDir.StartsWith("ApplicationData", StringComparison.Ordinal))
+            var folders = outputDir.Split('\\').ToList();
+            folders.RemoveAt(0);
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string newFolderToBeCreated = Path.GetDirectoryName(appData);
+            foreach (var currentFolder in folders)
             {
-                var folders = outputDir.Split('\\').ToList();
-                folders.RemoveAt(0);
-                var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string newFolderToBeCreated = Path.GetDirectoryName(appData);
-                foreach (var currentFolder in folders)
-                {
-                    newFolderToBeCreated = Path.Combine(newFolderToBeCreated ?? throw new InvalidOperationException(), currentFolder);
-                }
-
-                outputDir = newFolderToBeCreated;
+                newFolderToBeCreated = Path.Combine(newFolderToBeCreated ?? throw new InvalidOperationException(), currentFolder);
             }
 
-            if (!Directory.Exists(outputDir))
-            {
-                Directory.CreateDirectory(outputDir ?? throw new InvalidOperationException());
-            }
-
-            return outputDir;
+            outputDir = newFolderToBeCreated;
         }
 
-        public string GetUniqueFileName(string testName) => string.Concat(testName, Guid.NewGuid().ToString());
+        if (!Directory.Exists(outputDir))
+        {
+            Directory.CreateDirectory(outputDir ?? throw new InvalidOperationException());
+        }
+
+        return outputDir;
     }
+
+    public string GetUniqueFileName(string testName) => string.Concat(testName, Guid.NewGuid().ToString());
 }

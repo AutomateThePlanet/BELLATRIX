@@ -13,96 +13,95 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Image Control")]
+public class ImageControlTestsFirefox : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Image Control")]
-    public class ImageControlTestsFirefox : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetSrc_When_SrcAttributeIsSet_Firefox()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
+        var imageElement = App.Components.CreateById<Image>("myImage");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetSrc_When_SrcAttributeIsSet_Firefox()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage");
+        Assert.AreEqual("https://bellatrix.solutions/assets/uploads/2017/09/logo.png", imageElement.Src);
+    }
 
-            Assert.AreEqual("https://bellatrix.solutions/assets/uploads/2017/09/logo.png", imageElement.Src);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetHeight_When_HeightAttributeIsSet_Firefox()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage3");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetHeight_When_HeightAttributeIsSet_Firefox()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage3");
+        Assert.IsNotNull(imageElement.Height);
+    }
 
-            Assert.IsNotNull(imageElement.Height);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetWidth_When_WidthAttributeIsSet_Firefox()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage3");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetWidth_When_WidthAttributeIsSet_Firefox()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage3");
+        Assert.IsNotNull(imageElement.Width);
+    }
 
-            Assert.IsNotNull(imageElement.Width);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetHeight_When_HeightAttributeIsNotPresent_Firefox()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetHeight_When_HeightAttributeIsNotPresent_Firefox()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage");
+        Assert.IsNotNull(imageElement.Height);
+    }
 
-            Assert.IsNotNull(imageElement.Height);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetWidth_When_WidthAttributeIsNotPresent_Firefox()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetWidth_When_WidthAttributeIsNotPresent_Firefox()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage");
+        Assert.IsNotNull(imageElement.Width);
+    }
 
-            Assert.IsNotNull(imageElement.Width);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetAlt_When_AltAttributePresent_Firefox()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetAlt_When_AltAttributePresent_Firefox()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage");
+        Assert.AreEqual("MDN", imageElement.Alt);
+    }
 
-            Assert.AreEqual("MDN", imageElement.Alt);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetSrcSet_When_SrcSetAttributePresent_Firefox()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetSrcSet_When_SrcSetAttributePresent_Firefox()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage1");
+        Assert.AreEqual("mdn-logo-HD.png 2x", imageElement.SrcSet);
+    }
 
-            Assert.AreEqual("mdn-logo-HD.png 2x", imageElement.SrcSet);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetSizes_When_SizesAttributePresent_Firefox()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetSizes_When_SizesAttributePresent_Firefox()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage2");
+        Assert.AreEqual("(min-width: 600px) 200px, 50vw", imageElement.Sizes);
+    }
 
-            Assert.AreEqual("(min-width: 600px) 200px, 50vw", imageElement.Sizes);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void SetClassToHovered_When_Hover_Firefox()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void SetClassToHovered_When_Hover_Firefox()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage4");
+        imageElement.Hover();
 
-            imageElement.Hover();
-
-            Assert.AreEqual("hovered", imageElement.CssClass);
-        }
+        Assert.AreEqual("hovered", imageElement.CssClass);
     }
 }

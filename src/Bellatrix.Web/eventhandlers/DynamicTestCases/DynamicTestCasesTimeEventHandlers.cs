@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class DynamicTestCasesTimeEventHandlers : TimeEventHandlers
 {
-    public class DynamicTestCasesTimeEventHandlers : TimeEventHandlers
-    {
-        protected override void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Set '{arg.ActionValue}' into {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
-    }
+    protected override void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Set '{arg.ActionValue}' into {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 }

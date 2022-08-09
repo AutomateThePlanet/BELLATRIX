@@ -1,12 +1,11 @@
 ﻿using System.Diagnostics;
 
-namespace Bellatrix.Mobile.Android.GettingStarted.CommonServices
+namespace Bellatrix.Mobile.Android.GettingStarted.CommonServices;
+
+public static class DebugLogger
 {
-    public static class DebugLogger
+    public static void LogInfo(string message)
     {
-        public static void LogInfo(string message)
-        {
-            Debug.WriteLine(message);
-        }
+        Debug.WriteLine(message);
     }
 }

@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.EventHandlers
-{
-    public class CalendarEventHandlers : ComponentEventHandlers
-    {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Calendar.Hovering += HoveringEventHandler;
-            Calendar.Hovered += HoveredEventHandler;
-        }
+namespace Bellatrix.Desktop.EventHandlers;
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Calendar.Hovering -= HoveringEventHandler;
-            Calendar.Hovered -= HoveredEventHandler;
-        }
+public class CalendarEventHandlers : ComponentEventHandlers
+{
+    public override void SubscribeToAll()
+    {
+        base.SubscribeToAll();
+        Calendar.Hovering += HoveringEventHandler;
+        Calendar.Hovered += HoveredEventHandler;
+    }
+
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Calendar.Hovering -= HoveringEventHandler;
+        Calendar.Hovered -= HoveredEventHandler;
     }
 }

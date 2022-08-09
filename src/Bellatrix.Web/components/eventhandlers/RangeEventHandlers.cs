@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class RangeEventHandlers : ComponentEventHandlers
 {
-    public class RangeEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Range.Hovering += HoveringEventHandler;
-            Range.Hovered += HoveredEventHandler;
-            Range.SettingRange += SettingRangeEventHandler;
-            Range.RangeSet += RangeSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Range.Hovering += HoveringEventHandler;
+        Range.Hovered += HoveredEventHandler;
+        Range.SettingRange += SettingRangeEventHandler;
+        Range.RangeSet += RangeSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Range.Hovering -= HoveringEventHandler;
-            Range.Hovered -= HoveredEventHandler;
-            Range.SettingRange -= SettingRangeEventHandler;
-            Range.RangeSet -= RangeSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Range.Hovering -= HoveringEventHandler;
+        Range.Hovered -= HoveredEventHandler;
+        Range.SettingRange -= SettingRangeEventHandler;
+        Range.RangeSet -= RangeSetEventHandler;
+    }
 
-        protected virtual void SettingRangeEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingRangeEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void RangeSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void RangeSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

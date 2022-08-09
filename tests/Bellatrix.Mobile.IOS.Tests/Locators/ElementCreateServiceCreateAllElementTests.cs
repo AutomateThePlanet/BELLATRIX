@@ -13,65 +13,64 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Services")]
+[AllureFeature("ComponentCreateService")]
+public class ComponentCreateServiceCreateAllElementTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Services")]
-    [AllureFeature("ComponentCreateService")]
-    public class ComponentCreateServiceCreateAllElementTests : MSTest.IOSTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ElementFound_When_CreateAllById_And_ElementIsOnScreen()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ElementFound_When_CreateAllById_And_ElementIsOnScreen()
-        {
-            var textFields = App.Components.CreateAllById<TextField>("IntegerA");
+        var textFields = App.Components.CreateAllById<TextField>("IntegerA");
 
-            textFields[0].ValidateIsVisible();
-        }
+        textFields[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ElementFound_When_CreateAllByClass()
-        {
-            var textFields = App.Components.CreateAllByClass<CheckBox>("XCUIElementTypeTextField");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ElementFound_When_CreateAllByClass()
+    {
+        var textFields = App.Components.CreateAllByClass<CheckBox>("XCUIElementTypeTextField");
 
-            textFields[0].ValidateIsNotDisabled();
-        }
+        textFields[0].ValidateIsNotDisabled();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ElementFound_When_CreateAllByvalueContaining_And_ElementIsOnScreen()
-        {
-            var labels = App.Components.CreateAllByValueContaining<Label>("SumLabel");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ElementFound_When_CreateAllByvalueContaining_And_ElementIsOnScreen()
+    {
+        var labels = App.Components.CreateAllByValueContaining<Label>("SumLabel");
 
-            labels[0].ValidateIsVisible();
-        }
+        labels[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ElementFound_When_CreateAllByIOSNsPredicate_And_ElementIsOnScreen()
-        {
-            var buttons = App.Components.CreateAllByIOSNsPredicate<Button>("type == \"XCUIElementTypeButton\" AND name == \"ComputeSumButton\"");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ElementFound_When_CreateAllByIOSNsPredicate_And_ElementIsOnScreen()
+    {
+        var buttons = App.Components.CreateAllByIOSNsPredicate<Button>("type == \"XCUIElementTypeButton\" AND name == \"ComputeSumButton\"");
 
-            buttons[0].ValidateIsVisible();
-        }
+        buttons[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ElementFound_When_CreateAllByXPath_And_ElementIsOnScreen()
-        {
-            var buttons = App.Components.CreateAllByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ElementFound_When_CreateAllByXPath_And_ElementIsOnScreen()
+    {
+        var buttons = App.Components.CreateAllByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");
 
-            buttons[0].ValidateIsVisible();
-        }
+        buttons[0].ValidateIsVisible();
     }
 }

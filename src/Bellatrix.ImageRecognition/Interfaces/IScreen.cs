@@ -14,22 +14,21 @@
 using System;
 using System.Drawing;
 
-namespace Bellatrix.ImageRecognition.Interfaces
+namespace Bellatrix.ImageRecognition.Interfaces;
+
+public interface IScreen : IDisposable
 {
-    public interface IScreen : IDisposable
-    {
-        void Click(string imagePath, double? similarity, double? timeoutInSeconds);
-        void Click(string imagePath, Point offset, double? similarity, double? timeoutInSeconds);
-        void DoubleClick(string imagePath, double? similarity, double? timeoutInSeconds);
-        void DoubleClick(string imagePath, Point offset, double? similarity, double? timeoutInSeconds);
-        void RightClick(string imagePath, double? similarity, double? timeoutInSeconds);
-        void RightClick(string imagePath, Point offset, double? similarity, double? timeoutInSeconds);
-        void SetText(string imagePath, string text, double? similarity, double? timeoutInSeconds);
-        void Hover(string imagePath, double? similarity, double? timeoutInSeconds);
-        void Hover(string imagePath, Point offset, double? similarity, double? timeoutInSeconds);
-        void DragDrop(string fromImagePath, string toImagePath, double? similarity, double? timeoutInSeconds);
-        bool Exists(string imagePath, double? similarity, double? timeoutInSeconds);
-        void ValidateIsVisible(string imagePath, double? similarity, double? timeoutInSeconds);
-        void ValidateIsNotVisible(string imagePath, double? similarity, double? timeoutInSeconds);
-    }
+    void Click(string imagePath, double? similarity, double? timeoutInSeconds);
+    void Click(string imagePath, Point offset, double? similarity, double? timeoutInSeconds);
+    void DoubleClick(string imagePath, double? similarity, double? timeoutInSeconds);
+    void DoubleClick(string imagePath, Point offset, double? similarity, double? timeoutInSeconds);
+    void RightClick(string imagePath, double? similarity, double? timeoutInSeconds);
+    void RightClick(string imagePath, Point offset, double? similarity, double? timeoutInSeconds);
+    void SetText(string imagePath, string text, double? similarity, double? timeoutInSeconds);
+    void Hover(string imagePath, double? similarity, double? timeoutInSeconds);
+    void Hover(string imagePath, Point offset, double? similarity, double? timeoutInSeconds);
+    void DragDrop(string fromImagePath, string toImagePath, double? similarity, double? timeoutInSeconds);
+    bool Exists(string imagePath, double? similarity, double? timeoutInSeconds);
+    void ValidateIsVisible(string imagePath, double? similarity, double? timeoutInSeconds);
+    void ValidateIsNotVisible(string imagePath, double? similarity, double? timeoutInSeconds);
 }

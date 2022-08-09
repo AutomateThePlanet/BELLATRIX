@@ -13,36 +13,35 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.NumberPickerActivity",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Number Control")]
+public class NumberControlTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.NumberPickerActivity",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Number Control")]
-    public class NumberControlTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void NineSet_When_CallSetTextMethod()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void NineSet_When_CallSetTextMethod()
-        {
-            var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
+        var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
 
-            number.SetNumber(9);
+        number.SetNumber(9);
 
-            Assert.AreEqual(9, number.GetNumber());
-        }
+        Assert.AreEqual(9, number.GetNumber());
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_NumberIsNotDisabled()
-        {
-            var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_NumberIsNotDisabled()
+    {
+        var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
 
-            Assert.AreEqual(false, number.IsDisabled);
-        }
+        Assert.AreEqual(false, number.IsDisabled);
     }
 }

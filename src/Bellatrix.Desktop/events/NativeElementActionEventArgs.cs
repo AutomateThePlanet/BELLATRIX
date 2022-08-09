@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Events
-{
-    public class NativeElementActionEventArgs
-    {
-        public NativeElementActionEventArgs(WindowsElement element) => Element = element;
+namespace Bellatrix.Desktop.Events;
 
-        public WindowsElement Element { get; }
-    }
+public class NativeElementActionEventArgs
+{
+    public NativeElementActionEventArgs(WindowsElement element) => Element = element;
+
+    public WindowsElement Element { get; }
 }

@@ -15,16 +15,15 @@ using System.Collections.Generic;
 using Allure.Commons.Configuration;
 using Newtonsoft.Json;
 
-namespace Bellatrix.Results.Allure
-{
-    public class AllureExtendedConfiguration : AllureConfiguration
-    {
-        public HashSet<string> BrokenTestData { get; set; } = new HashSet<string>();
+namespace Bellatrix.Results.Allure;
 
-        [JsonConstructor]
-        protected AllureExtendedConfiguration(string title, string directory, HashSet<string> links)
-            : base(title, directory, links)
-        {
-        }
+public class AllureExtendedConfiguration : AllureConfiguration
+{
+    public HashSet<string> BrokenTestData { get; set; } = new HashSet<string>();
+
+    [JsonConstructor]
+    protected AllureExtendedConfiguration(string title, string directory, HashSet<string> links)
+        : base(title, directory, links)
+    {
     }
 }

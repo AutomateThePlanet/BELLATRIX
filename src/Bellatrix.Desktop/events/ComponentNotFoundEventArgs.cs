@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Desktop.Events
-{
-    public class ComponentNotFoundEventArgs
-    {
-        public ComponentNotFoundEventArgs(Exception exp) => Exception = exp;
+namespace Bellatrix.Desktop.Events;
 
-        public Exception Exception { get; }
-    }
+public class ComponentNotFoundEventArgs
+{
+    public ComponentNotFoundEventArgs(Exception exp) => Exception = exp;
+
+    public Exception Exception { get; }
 }

@@ -3,24 +3,23 @@ using Bellatrix.Mobile.IOS.GettingStarted.Custom;
 
 using NUnit.Framework;
 
-namespace Bellatrix.Mobile.IOS.GettingStarted
-{
-    [TestFixture]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    public class ExtendExistingElementWithExtensionMethodsTests : NUnit.IOSTest
-    {
-        [Test]
-        [Timeout(180000)]
-        [Category(Categories.CI)]
-        public void ButtonClicked_When_CallClickMethod()
-        {
-            var button = App.Components.CreateByName<Button>("ComputeSumButton");
+namespace Bellatrix.Mobile.IOS.GettingStarted;
 
-            // 2. Use the custom added submit button  with scroll-to-visible lifecycle.
-            button.SubmitButtonWithScroll();
-        }
+[TestFixture]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+public class ExtendExistingElementWithExtensionMethodsTests : NUnit.IOSTest
+{
+    [Test]
+    [Timeout(180000)]
+    [Category(Categories.CI)]
+    public void ButtonClicked_When_CallClickMethod()
+    {
+        var button = App.Components.CreateByName<Button>("ComputeSumButton");
+
+        // 2. Use the custom added submit button  with scroll-to-visible lifecycle.
+        button.SubmitButtonWithScroll();
     }
 }

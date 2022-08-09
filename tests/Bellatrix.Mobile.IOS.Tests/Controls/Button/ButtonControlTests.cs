@@ -13,47 +13,46 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Button Control")]
+public class ButtonControlTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Button Control")]
-    public class ButtonControlTests : MSTest.IOSTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ZeroReturnForButtonText_When_CallClickMethod()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ZeroReturnForButtonText_When_CallClickMethod()
-        {
-            var button = App.Components.CreateByName<Button>("ComputeSumButton");
+        var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
-            button.Click();
+        button.Click();
 
-            var answerLabel = App.Components.CreateByName<Label>("Answer");
+        var answerLabel = App.Components.CreateByName<Label>("Answer");
 
-            answerLabel.ValidateTextIs("0");
-        }
+        answerLabel.ValidateTextIs("0");
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ReturnsComputeSum_When_GetText()
-        {
-            var button = App.Components.CreateByName<Button>("ComputeSumButton");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ReturnsComputeSum_When_GetText()
+    {
+        var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
-            Assert.AreEqual("Compute Sum", button.GetText());
-        }
+        Assert.AreEqual("Compute Sum", button.GetText());
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled()
-        {
-            var button = App.Components.CreateByName<Button>("ComputeSumButton");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled()
+    {
+        var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
-            Assert.AreEqual(false, button.IsDisabled);
-        }
+        Assert.AreEqual(false, button.IsDisabled);
     }
 }

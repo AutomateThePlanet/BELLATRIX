@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.BddLogging.IOS
+namespace Bellatrix.Mobile.BddLogging.IOS;
+
+public class BDDLoggingButtonEventHandlers : ButtonEventHandlers
 {
-    public class BDDLoggingButtonEventHandlers : ButtonEventHandlers
-    {
-        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

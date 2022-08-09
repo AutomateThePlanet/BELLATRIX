@@ -14,24 +14,23 @@
 
 using System;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class DateControlDataHandler : IEditableControlDataHandler<Date>
 {
-    public class DateControlDataHandler : IEditableControlDataHandler<Date>
+    public dynamic GetData(Date element) => element.GetDate();
+
+    public void SetData(Date element, string data)
     {
-        public dynamic GetData(Date element) => element.GetDate();
-
-        public void SetData(Date element, string data)
+        if (DateTime.TryParse(data, out DateTime valueToSet))
         {
-            if (DateTime.TryParse(data, out DateTime valueToSet))
-            {
-                element.SetDate(valueToSet.Year, valueToSet.Month, valueToSet.Day);
-            }
-            else
-            {
-                throw new ArgumentException($"The input string '{data}' was not recognized as valid date.");
-            }
+            element.SetDate(valueToSet.Year, valueToSet.Month, valueToSet.Day);
         }
-
-        public void ValidateValueIs(Date element, string expectedValue) => element.ValidateDateIs(expectedValue);
+        else
+        {
+            throw new ArgumentException($"The input string '{data}' was not recognized as valid date.");
+        }
     }
+
+    public void ValidateValueIs(Date element, string expectedValue) => element.ValidateDateIs(expectedValue);
 }

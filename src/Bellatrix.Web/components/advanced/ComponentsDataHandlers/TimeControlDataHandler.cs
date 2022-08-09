@@ -15,24 +15,23 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class TimeControlDataHandler : IEditableControlDataHandler<Time>
 {
-    public class TimeControlDataHandler : IEditableControlDataHandler<Time>
+    public dynamic GetData(Time element) => element.GetTime();
+
+    public void SetData(Time element, string data)
     {
-        public dynamic GetData(Time element) => element.GetTime();
-
-        public void SetData(Time element, string data)
+        if (DateTime.TryParse(data, out DateTime valueToSet))
         {
-            if (DateTime.TryParse(data, out DateTime valueToSet))
-            {
-                element.SetTime(valueToSet.Hour, valueToSet.Minute);
-            }
-            else
-            {
-                throw new ArgumentException($"The input string {data} was not recognized as valid date.");
-            }
+            element.SetTime(valueToSet.Hour, valueToSet.Minute);
         }
-
-        public void ValidateValueIs(Time element, string expectedValue) => element.ValidateTimeIs(expectedValue);
+        else
+        {
+            throw new ArgumentException($"The input string {data} was not recognized as valid date.");
+        }
     }
+
+    public void ValidateValueIs(Time element, string expectedValue) => element.ValidateTimeIs(expectedValue);
 }

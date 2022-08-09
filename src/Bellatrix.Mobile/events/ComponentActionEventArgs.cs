@@ -14,17 +14,16 @@
 using Bellatrix.Mobile.Contracts;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Events
+namespace Bellatrix.Mobile.Events;
+
+public class ComponentActionEventArgs<TDriverElement>
+    where TDriverElement : AppiumWebElement
 {
-    public class ComponentActionEventArgs<TDriverElement>
-        where TDriverElement : AppiumWebElement
-    {
-        public ComponentActionEventArgs(IComponent<TDriverElement> element) => Element = element;
+    public ComponentActionEventArgs(IComponent<TDriverElement> element) => Element = element;
 
-        public ComponentActionEventArgs(IComponent<TDriverElement> element, string actionValue)
-            : this(element) => ActionValue = actionValue;
+    public ComponentActionEventArgs(IComponent<TDriverElement> element, string actionValue)
+        : this(element) => ActionValue = actionValue;
 
-        public IComponent<TDriverElement> Element { get; }
-        public string ActionValue { get; }
-    }
+    public IComponent<TDriverElement> Element { get; }
+    public string ActionValue { get; }
 }

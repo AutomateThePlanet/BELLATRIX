@@ -15,17 +15,16 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
-{
-    public static partial class ValidateControlExtensions
-    {
-        public static void ValidateMonthIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentMonth, IComponent
-        {
-            WaitUntil(() => control.GetMonth().Equals(value), $"The control's month should be '{value}' but was '{control.GetMonth()}'.", timeout, sleepInterval);
-            ValidatedMonthIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
+namespace Bellatrix.Web;
 
-        public static event EventHandler<ComponentActionEventArgs> ValidatedMonthIsEvent;
+public static partial class ValidateControlExtensions
+{
+    public static void ValidateMonthIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentMonth, IComponent
+    {
+        WaitUntil(() => control.GetMonth().Equals(value), $"The control's month should be '{value}' but was '{control.GetMonth()}'.", timeout, sleepInterval);
+        ValidatedMonthIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
     }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedMonthIsEvent;
 }

@@ -15,14 +15,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix.BugReporting.Jira;
+
+public class JiraBugReportingSettings
 {
-    public class JiraBugReportingSettings
-    {
-        public bool IsEnabled { get; set; }
-        public string Url { get; set; }
-        public string Token { get; set; }
-        public string ProjectName { get; set; }
-        public string DefaultPriority { get; set; }
-    }
+    public bool IsEnabled { get; set; }
+    public string Url { get; set; }
+    public string Token { get; set; }
+    public string ProjectName { get; set; }
+    public string DefaultPriority { get; set; }
 }

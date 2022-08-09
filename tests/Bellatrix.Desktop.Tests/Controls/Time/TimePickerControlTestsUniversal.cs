@@ -13,44 +13,43 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("TimePicker Control")]
+[AllureTag("Universal")]
+public class TimePickerControlTestsUniversal : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("TimePicker Control")]
-    [AllureTag("Universal")]
-    public class TimePickerControlTestsUniversal : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_TimeHovered_Universal()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_TimeHovered_Universal()
-        {
-            var timePicker = App.Components.CreateByAutomationId<Time>("enabledTime");
+        var timePicker = App.Components.CreateByAutomationId<Time>("enabledTime");
 
-            timePicker.Hover();
+        timePicker.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
-            Assert.AreEqual("timeHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
+        Assert.AreEqual("timeHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_TimePickerIsNotDisabled_Universal()
-        {
-            var timePicker = App.Components.CreateByAutomationId<Time>("enabledTime");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_TimePickerIsNotDisabled_Universal()
+    {
+        var timePicker = App.Components.CreateByAutomationId<Time>("enabledTime");
 
-            Assert.AreEqual(false, timePicker.IsDisabled);
-        }
+        Assert.AreEqual(false, timePicker.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_TimePickerIsDisabled_Universal()
-        {
-            var timePicker = App.Components.CreateByAutomationId<Time>("disabledTime");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_TimePickerIsDisabled_Universal()
+    {
+        var timePicker = App.Components.CreateByAutomationId<Time>("disabledTime");
 
-            Assert.AreEqual(true, timePicker.IsDisabled);
-        }
+        Assert.AreEqual(true, timePicker.IsDisabled);
     }
 }

@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix
+namespace Bellatrix;
+
+public enum TimeUnit : byte
 {
-    public enum TimeUnit : byte
-    {
-        Milliseconds = 0,
-        Seconds = 1,
-        Minutes = 2,
-    }
+    Milliseconds = 0,
+    Seconds = 1,
+    Minutes = 2,
 }

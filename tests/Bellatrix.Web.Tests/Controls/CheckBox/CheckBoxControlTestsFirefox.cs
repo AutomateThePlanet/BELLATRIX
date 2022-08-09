@@ -13,102 +13,101 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
+[AllureSuite("CheckBox Control")]
+public class CheckBoxControlTestsFirefox : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("CheckBox Control")]
-    public class CheckBoxControlTestsFirefox : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void Unchecked_When_UseCheckMethod_Firefox()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage);
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void Unchecked_When_UseCheckMethod_Firefox()
-        {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
+        checkBoxElement.Check(false);
 
-            checkBoxElement.Check(false);
+        Assert.AreEqual(false, checkBoxElement.IsChecked);
+    }
 
-            Assert.AreEqual(false, checkBoxElement.IsChecked);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void Unchecked_When_UseUncheckMethod_Firefox()
+    {
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void Unchecked_When_UseUncheckMethod_Firefox()
-        {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
+        checkBoxElement.Uncheck();
 
-            checkBoxElement.Uncheck();
+        Assert.AreEqual(false, checkBoxElement.IsChecked);
+    }
 
-            Assert.AreEqual(false, checkBoxElement.IsChecked);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Firefox()
+    {
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Firefox()
-        {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
+        checkBoxElement.Hover();
 
-            checkBoxElement.Hover();
+        checkBoxElement.ValidateStyleIs("color: red;");
+    }
 
-            checkBoxElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Firefox()
+    {
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Firefox()
-        {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
+        checkBoxElement.Focus();
 
-            checkBoxElement.Focus();
+        checkBoxElement.ValidateStyleIs("color: blue;");
+    }
 
-            checkBoxElement.ValidateStyleIs("color: blue;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
+    {
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
-        {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
+        bool isDisabled = checkBoxElement.IsDisabled;
 
-            bool isDisabled = checkBoxElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    [TestCategory(Categories.KnownIssueMacOS)]
+    public void ReturnTrue_When_DisabledAttributePresent_Firefox()
+    {
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox3");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        [TestCategory(Categories.KnownIssueMacOS)]
-        public void ReturnTrue_When_DisabledAttributePresent_Firefox()
-        {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox3");
+        bool isDisabled = checkBoxElement.IsDisabled;
 
-            bool isDisabled = checkBoxElement.IsDisabled;
+        Assert.IsTrue(isDisabled);
+    }
 
-            Assert.IsTrue(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnOn_When_ValueAttributeNotPresent_Firefox()
+    {
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnOn_When_ValueAttributeNotPresent_Firefox()
-        {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
+        var actualValue = checkBoxElement.Value;
 
-            var actualValue = checkBoxElement.Value;
+        Assert.AreEqual("on", actualValue);
+    }
 
-            Assert.AreEqual("on", actualValue);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNewsletter_When_ValueAttributePresent_Firefox()
+    {
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNewsletter_When_ValueAttributePresent_Firefox()
-        {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
+        var actualValue = checkBoxElement.Value;
 
-            var actualValue = checkBoxElement.Value;
-
-            Assert.AreEqual("newsletter", actualValue);
-        }
+        Assert.AreEqual("newsletter", actualValue);
     }
 }

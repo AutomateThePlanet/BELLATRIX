@@ -14,10 +14,9 @@
 using System;
 using RestSharp;
 
-namespace Bellatrix.Api.Contracts
+namespace Bellatrix.Api.Contracts;
+
+public interface IMeasuredResponse : IRestResponse
 {
-    public interface IMeasuredResponse : IRestResponse
-    {
-        TimeSpan ExecutionTime { get; set; }
-    }
+    TimeSpan ExecutionTime { get; set; }
 }

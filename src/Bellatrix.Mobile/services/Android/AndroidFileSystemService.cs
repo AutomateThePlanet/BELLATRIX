@@ -14,17 +14,16 @@
 using System.IO;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Services.Android
-{
-    public class AndroidFileSystemService : FileSystemService<AndroidDriver<AndroidElement>, AndroidElement>
-    {
-        public AndroidFileSystemService(AndroidDriver<AndroidElement> wrappedDriver)
-            : base(wrappedDriver)
-        {
-        }
+namespace Bellatrix.Mobile.Services.Android;
 
-        public void PushFile(string pathOnDevice, string stringData) => WrappedAppiumDriver.PushFile(pathOnDevice, stringData);
-        public void PushFile(string pathOnDevice, FileInfo file) => WrappedAppiumDriver.PushFile(pathOnDevice, file);
-        public void PushFile(string pathOnDevice, byte[] base64Data) => WrappedAppiumDriver.PushFile(pathOnDevice, base64Data);
+public class AndroidFileSystemService : FileSystemService<AndroidDriver<AndroidElement>, AndroidElement>
+{
+    public AndroidFileSystemService(AndroidDriver<AndroidElement> wrappedDriver)
+        : base(wrappedDriver)
+    {
     }
+
+    public void PushFile(string pathOnDevice, string stringData) => WrappedAppiumDriver.PushFile(pathOnDevice, stringData);
+    public void PushFile(string pathOnDevice, FileInfo file) => WrappedAppiumDriver.PushFile(pathOnDevice, file);
+    public void PushFile(string pathOnDevice, byte[] base64Data) => WrappedAppiumDriver.PushFile(pathOnDevice, base64Data);
 }

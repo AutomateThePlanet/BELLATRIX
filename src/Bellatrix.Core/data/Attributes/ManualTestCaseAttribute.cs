@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Data.Attributes
-{
-    [AttributeUsage(AttributeTargets.Method)]
-    public class ManualTestCaseAttribute : Attribute
-    {
-        public ManualTestCaseAttribute(int testCaseId) => TestCaseId = testCaseId;
+namespace Bellatrix.Data.Attributes;
 
-        public int TestCaseId { get; set; }
-    }
+[AttributeUsage(AttributeTargets.Method)]
+public class ManualTestCaseAttribute : Attribute
+{
+    public ManualTestCaseAttribute(int testCaseId) => TestCaseId = testCaseId;
+
+    public int TestCaseId { get; set; }
 }

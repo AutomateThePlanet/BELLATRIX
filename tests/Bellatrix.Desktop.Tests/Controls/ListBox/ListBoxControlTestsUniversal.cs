@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("ListBox Control")]
+[AllureTag("Universal")]
+public class ListBoxControlTestsUniversal : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("ListBox Control")]
-    [AllureTag("Universal")]
-    public class ListBoxControlTestsUniversal : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_ListBoxHovered_Universal()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_ListBoxHovered_Universal()
-        {
-            var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
+        var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
 
-            listBox.Hover();
+        listBox.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
-            Assert.AreEqual("listBoxHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
+        Assert.AreEqual("listBoxHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_ListBoxIsNotDisabled_Universal()
-        {
-            var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_ListBoxIsNotDisabled_Universal()
+    {
+        var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
 
-            Assert.AreEqual(false, listBox.IsDisabled);
-        }
+        Assert.AreEqual(false, listBox.IsDisabled);
     }
 }

@@ -13,37 +13,36 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("RadioGroup Control")]
+public class RadioGroupControlTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("RadioGroup Control")]
-    public class RadioGroupControlTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    public void Return1RadioButtons_When_CallGetAllMethod()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        public void Return1RadioButtons_When_CallGetAllMethod()
-        {
-            var radioGroup = App.Components.CreateByIOSNsPredicate<RadioGroup>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+        var radioGroup = App.Components.CreateByIOSNsPredicate<RadioGroup>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
 
-            var radioButtons = radioGroup.GetAll();
+        var radioButtons = radioGroup.GetAll();
 
-            Assert.AreEqual(1, radioButtons.Count());
-        }
+        Assert.AreEqual(1, radioButtons.Count());
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        public void ClickFirstRadioButton_When_CallClickByIndex()
-        {
-            var radioGroup = App.Components.CreateByIOSNsPredicate<RadioGroup>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+    [TestMethod]
+    [Timeout(180000)]
+    public void ClickFirstRadioButton_When_CallClickByIndex()
+    {
+        var radioGroup = App.Components.CreateByIOSNsPredicate<RadioGroup>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
 
-            radioGroup.ClickByIndex(0);
-            var clickedRadioButton = radioGroup.GetChecked();
+        radioGroup.ClickByIndex(0);
+        var clickedRadioButton = radioGroup.GetChecked();
 
-            clickedRadioButton.ValidateIsChecked();
-        }
+        clickedRadioButton.ValidateIsChecked();
     }
 }

@@ -14,43 +14,42 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public class AndroidAttribute : AppAttribute
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class AndroidAttribute : AppAttribute
+    public AndroidAttribute(string appPath, string platformVersion, string deviceName, string appPackage, string appActivity, Lifecycle behavior = Lifecycle.NotSet)
+        : base(appPath, platformVersion, deviceName, behavior)
     {
-        public AndroidAttribute(string appPath, string platformVersion, string deviceName, string appPackage, string appActivity, Lifecycle behavior = Lifecycle.NotSet)
-            : base(appPath, platformVersion, deviceName, behavior)
+        AppConfiguration.OSPlatform = DetermineOS();
+        AppConfiguration.MobileOSType = MobileOSType.Android;
+        AppConfiguration.PlatformName = "Android";
+        AppConfiguration.AppPackage = appPackage;
+        AppConfiguration.AppActivity = appActivity;
+    }
+
+    public AndroidAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, string appPackage, string appActivity, Lifecycle behavior = Lifecycle.NotSet)
+        : base(osPlatform, appPath, platformVersion, deviceName, behavior)
+    {
+        AppConfiguration.MobileOSType = MobileOSType.Android;
+        AppConfiguration.PlatformName = "Android";
+        AppConfiguration.AppPackage = appPackage;
+        AppConfiguration.AppActivity = appActivity;
+    }
+
+    private OS DetermineOS()
+    {
+        var result = OS.Windows;
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            AppConfiguration.OSPlatform = DetermineOS();
-            AppConfiguration.MobileOSType = MobileOSType.Android;
-            AppConfiguration.PlatformName = "Android";
-            AppConfiguration.AppPackage = appPackage;
-            AppConfiguration.AppActivity = appActivity;
+            result = OS.OSX;
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            result = OS.Linux;
         }
 
-        public AndroidAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, string appPackage, string appActivity, Lifecycle behavior = Lifecycle.NotSet)
-            : base(osPlatform, appPath, platformVersion, deviceName, behavior)
-        {
-            AppConfiguration.MobileOSType = MobileOSType.Android;
-            AppConfiguration.PlatformName = "Android";
-            AppConfiguration.AppPackage = appPackage;
-            AppConfiguration.AppActivity = appActivity;
-        }
-
-        private OS DetermineOS()
-        {
-            var result = OS.Windows;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                result = OS.OSX;
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                result = OS.Linux;
-            }
-
-            return result;
-        }
+        return result;
     }
 }

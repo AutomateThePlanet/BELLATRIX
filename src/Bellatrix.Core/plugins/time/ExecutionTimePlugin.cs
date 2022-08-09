@@ -15,13 +15,12 @@ using System;
 using Bellatrix.Plugins;
 using Bellatrix.Plugins.Common;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class ExecutionTimePlugin
 {
-    public static class ExecutionTimePlugin
+    public static void Add()
     {
-        public static void Add()
-        {
-            ServicesCollection.Current.RegisterType<Plugin, ExecutionTimeUnderPlugin>(Guid.NewGuid().ToString());
-        }
+        ServicesCollection.Current.RegisterType<Plugin, ExecutionTimeUnderPlugin>(Guid.NewGuid().ToString());
     }
 }

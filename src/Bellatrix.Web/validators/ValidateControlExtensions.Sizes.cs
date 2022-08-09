@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateSizesIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentSizes, IComponent
     {
-        public static void ValidateSizesIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentSizes, IComponent
-        {
-            WaitUntil(() => control.Sizes == null, $"The control's sizes should be null but was '{control.Sizes}'.", timeout, sleepInterval);
-            ValidatedSizesIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateSizesIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentSizes, IComponent
-        {
-            WaitUntil(() => control.Sizes.Equals(value), $"The control's sizes should be '{value}' but was '{control.Sizes}'.", timeout, sleepInterval);
-            ValidatedSizesIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedSizesIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedSizesIsEvent;
+        WaitUntil(() => control.Sizes == null, $"The control's sizes should be null but was '{control.Sizes}'.", timeout, sleepInterval);
+        ValidatedSizesIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateSizesIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentSizes, IComponent
+    {
+        WaitUntil(() => control.Sizes.Equals(value), $"The control's sizes should be '{value}' but was '{control.Sizes}'.", timeout, sleepInterval);
+        ValidatedSizesIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedSizesIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedSizesIsEvent;
 }

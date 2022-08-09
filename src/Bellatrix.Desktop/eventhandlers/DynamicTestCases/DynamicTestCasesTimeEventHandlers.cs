@@ -14,10 +14,9 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.DynamicTestCases
+namespace Bellatrix.Desktop.DynamicTestCases;
+
+public class DynamicTestCasesTimeEventHandlers : TimeEventHandlers
 {
-    public class DynamicTestCasesTimeEventHandlers : TimeEventHandlers
-    {
-        protected override void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Set '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-}
+    protected override void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Set '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

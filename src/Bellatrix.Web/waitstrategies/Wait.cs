@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    internal class Wait
-    {
-        static Wait() => To = new WaitStrategyFactory();
+namespace Bellatrix.Web;
 
-        public static WaitStrategyFactory To { get; }
-    }
+internal class Wait
+{
+    static Wait() => To = new WaitStrategyFactory();
+
+    public static WaitStrategyFactory To { get; }
 }

@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Drawing;
 
-namespace Bellatrix.Layout
+namespace Bellatrix.Layout;
+
+public interface ILayoutComponent
 {
-    public interface ILayoutComponent
-    {
-        Point Location { get; }
-        Size Size { get; }
-        string ComponentName { get; }
-    }
+    Point Location { get; }
+    Size Size { get; }
+    string ComponentName { get; }
 }

@@ -12,11 +12,10 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public interface IEditableControlDataHandler<TComponent> : IReadonlyControlDataHandler<TComponent>
+    where TComponent : Component
 {
-    public interface IEditableControlDataHandler<TComponent> : IReadonlyControlDataHandler<TComponent>
-        where TComponent : Component
-    {
-        void SetData(TComponent element, string data);
-    }
+    void SetData(TComponent element, string data);
 }

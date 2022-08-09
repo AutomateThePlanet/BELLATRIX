@@ -23,21 +23,49 @@ using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Plugins
-{
-    public class AppWorkflowPlugin : Plugin
-    {
-        protected override void PreTestsArrange(object sender, PluginEventArgs e)
-        {
-            if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.IsCloudRun)
-            {
-                e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
-                return;
-            }
+namespace Bellatrix.Mobile.Plugins;
 
+public class AppWorkflowPlugin : Plugin
+{
+    protected override void PreTestsArrange(object sender, PluginEventArgs e)
+    {
+        if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.IsCloudRun)
+        {
+            e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
+            return;
+        }
+
+        // Resolve required data for decision making
+        var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+
+        if (appConfiguration != null)
+        {
+            ResolvePreviousAppConfiguration(e.Container);
+
+            // Decide whether the app needs to be restarted
+            bool shouldRestartApp = ShouldRestartApp(e.Container);
+
+            if (shouldRestartApp)
+            {
+                RestartApp(e.Container);
+                e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
+            }
+        }
+        else
+        {
+            e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
+        }
+
+        base.PreTestsArrange(sender, e);
+    }
+
+    protected override void PreTestInit(object sender, PluginEventArgs e)
+    {
+        bool isAppStartedDuringPreTestsArrange = e.Container.Resolve<bool>("_isAppStartedDuringPreTestsArrange");
+        if (!isAppStartedDuringPreTestsArrange)
+        {
             // Resolve required data for decision making
             var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
-
             if (appConfiguration != null)
             {
                 ResolvePreviousAppConfiguration(e.Container);
@@ -48,312 +76,283 @@ namespace Bellatrix.Mobile.Plugins
                 if (shouldRestartApp)
                 {
                     RestartApp(e.Container);
-                    e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
                 }
             }
-            else
-            {
-                e.Container.RegisterInstance(true, "_isAppStartedDuringPreTestsArrange");
-            }
-
-            base.PreTestsArrange(sender, e);
         }
 
-        protected override void PreTestInit(object sender, PluginEventArgs e)
+        e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
+        base.PreTestInit(sender, e);
+    }
+
+    protected override void PostTestCleanup(object sender, PluginEventArgs e)
+    {
+        var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
+
+        if (appConfiguration?.Lifecycle == Lifecycle.RestartEveryTime || (appConfiguration?.Lifecycle == Lifecycle.RestartOnFail && !e.TestOutcome.Equals(TestOutcome.Passed)))
         {
-            bool isAppStartedDuringPreTestsArrange = e.Container.Resolve<bool>("_isAppStartedDuringPreTestsArrange");
-            if (!isAppStartedDuringPreTestsArrange)
-            {
-                // Resolve required data for decision making
-                var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
-                if (appConfiguration != null)
-                {
-                    ResolvePreviousAppConfiguration(e.Container);
-
-                    // Decide whether the app needs to be restarted
-                    bool shouldRestartApp = ShouldRestartApp(e.Container);
-
-                    if (shouldRestartApp)
-                    {
-                        RestartApp(e.Container);
-                    }
-                }
-            }
-
+            ShutdownApp(e.Container);
             e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
-            base.PreTestInit(sender, e);
+        }
+    }
+
+    private bool ShouldRestartApp(ServicesCollection container)
+    {
+        if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.IsCloudRun)
+        {
+            return true;
         }
 
-        protected override void PostTestCleanup(object sender, PluginEventArgs e)
+        bool shouldRestartApp = false;
+        var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
+        var previousAppConfiguration = container.Resolve<AppConfiguration>("_previousAppConfiguration");
+        var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
+        if (currentAppConfiguration?.Lifecycle == Lifecycle.RestartEveryTime || previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
         {
-            var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
-
-            if (appConfiguration?.Lifecycle == Lifecycle.RestartEveryTime || (appConfiguration?.Lifecycle == Lifecycle.RestartOnFail && !e.TestOutcome.Equals(TestOutcome.Passed)))
-            {
-                ShutdownApp(e.Container);
-                e.Container.RegisterInstance(false, "_isAppStartedDuringPreTestsArrange");
-            }
+            shouldRestartApp = true;
         }
 
-        private bool ShouldRestartApp(ServicesCollection container)
+        return shouldRestartApp;
+    }
+
+    private void RestartApp(ServicesCollection container)
+    {
+        var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
+
+        ShutdownApp(container);
+
+        // Register the ExecutionEngine that should be used for the current run. Will be used in the next test as PreviousEngineType.
+        var testExecutionEngine = new TestExecutionEngine();
+        container.RegisterInstance(testExecutionEngine);
+
+        // Register the app that should be used for the current run. Will be used in the next test as PreviousappType.
+        container.RegisterInstance(currentAppConfiguration);
+
+        // Start the current engine
+        testExecutionEngine.StartApp(currentAppConfiguration, container);
+    }
+
+    private void ShutdownApp(ServicesCollection container)
+    {
+        DisposeDriverService.DisposeAndroid(container);
+        DisposeDriverService.DisposeIOS(container);
+
+        var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
+        container.RegisterInstance(currentAppConfiguration, "_previousAppConfiguration");
+    }
+
+    private void ResolvePreviousAppConfiguration(ServicesCollection childContainer)
+    {
+        var appConfiguration = new AppConfiguration();
+        if (childContainer.IsRegistered<AppConfiguration>())
         {
-            if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.IsCloudRun)
-            {
-                return true;
-            }
-
-            bool shouldRestartApp = false;
-            var previousTestExecutionEngine = container.Resolve<TestExecutionEngine>();
-            var previousAppConfiguration = container.Resolve<AppConfiguration>("_previousAppConfiguration");
-            var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
-            if (currentAppConfiguration?.Lifecycle == Lifecycle.RestartEveryTime || previousTestExecutionEngine == null || !previousTestExecutionEngine.IsAppStartedCorrectly || !currentAppConfiguration.Equals(previousAppConfiguration))
-            {
-                shouldRestartApp = true;
-            }
-
-            return shouldRestartApp;
+            appConfiguration = childContainer.Resolve<AppConfiguration>();
         }
 
-        private void RestartApp(ServicesCollection container)
+        childContainer.RegisterInstance(appConfiguration, "_previousAppConfiguration");
+    }
+
+    private AppConfiguration GetCurrentAppConfiguration(MemberInfo memberInfo, Type testClassType, ServicesCollection container)
+    {
+        var androidAttribute = GetAppAttribute<AndroidAttribute>(memberInfo, testClassType);
+        var iosAttribute = GetAppAttribute<IOSAttribute>(memberInfo, testClassType);
+        var androidWebAttribute = GetAppAttribute<AndroidWebAttribute>(memberInfo, testClassType);
+        var androidSauceLabsAttribute = GetAppAttribute<AndroidSauceLabsAttribute>(memberInfo, testClassType);
+        var androidCrossappTestingAttribute = GetAppAttribute<AndroidCrossBrowserTestingAttribute>(memberInfo, testClassType);
+        var androidappStackAttribute = GetAppAttribute<AndroidBrowserStackAttribute>(memberInfo, testClassType);
+
+        var iosWebAttribute = GetAppAttribute<IOSWebAttribute>(memberInfo, testClassType);
+        var iosSauceLabsAttribute = GetAppAttribute<IOSSauceLabsAttribute>(memberInfo, testClassType);
+        var iosCrossappTestingAttribute = GetAppAttribute<IOSCrossBrowserTestingAttribute>(memberInfo, testClassType);
+        var iosappStackAttribute = GetAppAttribute<IOSBrowserStackAttribute>(memberInfo, testClassType);
+
+        AppConfiguration currentAppConfiguration;
+        if (androidAttribute != null && iosAttribute != null)
         {
-            var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
+            throw new ArgumentException("You need to specify only single platform attribute - Android or IOS.");
+        }
+        else if (androidAttribute != null)
+        {
+            currentAppConfiguration = androidAttribute.AppConfiguration;
+        }
+        else if (androidWebAttribute != null)
+        {
+            currentAppConfiguration = androidWebAttribute.AppConfiguration;
+        }
+        else if (androidSauceLabsAttribute != null)
+        {
+            currentAppConfiguration = androidSauceLabsAttribute.AppConfiguration;
+            currentAppConfiguration.AppiumOptions = androidSauceLabsAttribute.CreateAppiumOptions(memberInfo, testClassType);
+        }
+        else if (androidCrossappTestingAttribute != null)
+        {
+            currentAppConfiguration = androidCrossappTestingAttribute.AppConfiguration;
+            currentAppConfiguration.AppiumOptions = androidCrossappTestingAttribute.CreateAppiumOptions(memberInfo, testClassType);
+        }
+        else if (androidappStackAttribute != null)
+        {
+            currentAppConfiguration = androidappStackAttribute.AppConfiguration;
+            currentAppConfiguration.AppiumOptions = androidappStackAttribute.CreateAppiumOptions(memberInfo, testClassType);
+        }
+        else if (iosAttribute != null)
+        {
+            currentAppConfiguration = iosAttribute.AppConfiguration;
+        }
+        else if (iosWebAttribute != null)
+        {
+            currentAppConfiguration = iosWebAttribute.AppConfiguration;
+        }
+        else if (iosSauceLabsAttribute != null)
+        {
+            currentAppConfiguration = iosSauceLabsAttribute.AppConfiguration;
+            currentAppConfiguration.AppiumOptions = iosSauceLabsAttribute.CreateAppiumOptions(memberInfo, testClassType);
+        }
+        else if (iosCrossappTestingAttribute != null)
+        {
+            currentAppConfiguration = iosCrossappTestingAttribute.AppConfiguration;
+            currentAppConfiguration.AppiumOptions = iosCrossappTestingAttribute.CreateAppiumOptions(memberInfo, testClassType);
+        }
+        else if (iosappStackAttribute != null)
+        {
+            currentAppConfiguration = iosappStackAttribute.AppConfiguration;
+            currentAppConfiguration.AppiumOptions = iosappStackAttribute.CreateAppiumOptions(memberInfo, testClassType);
+        }
+        else
+        {
+            // TODO: --> add Test Case attribute for Andoid and IOS? Extend the Test Case attribute?
+            Lifecycle currentLifecycle = Parse<Lifecycle>(ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.DefaultLifeCycle);
 
-            ShutdownApp(container);
+            var appConfiguration = new AppConfiguration
+            {
+                AppPath = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.DefaultAppPath,
+                Lifecycle = currentLifecycle,
+                AppiumOptions = new AppiumOptions(),
+                ClassFullName = testClassType.FullName,
+            };
 
-            // Register the ExecutionEngine that should be used for the current run. Will be used in the next test as PreviousEngineType.
-            var testExecutionEngine = new TestExecutionEngine();
-            container.RegisterInstance(testExecutionEngine);
+            InitializeGridOptionsFromConfiguration(appConfiguration.AppiumOptions, testClassType);
+            InitializeCustomCodeOptions(appConfiguration.AppiumOptions, testClassType);
 
-            // Register the app that should be used for the current run. Will be used in the next test as PreviousappType.
-            container.RegisterInstance(currentAppConfiguration);
-
-            // Start the current engine
-            testExecutionEngine.StartApp(currentAppConfiguration, container);
+            container.RegisterInstance(appConfiguration, "_currentAppConfiguration");
+            return appConfiguration;
         }
 
-        private void ShutdownApp(ServicesCollection container)
-        {
-            DisposeDriverService.DisposeAndroid(container);
-            DisposeDriverService.DisposeIOS(container);
+        container.RegisterInstance(currentAppConfiguration, "_currentAppConfiguration");
+        return currentAppConfiguration;
+    }
 
-            var currentAppConfiguration = container.Resolve<AppConfiguration>("_currentAppConfiguration");
-            container.RegisterInstance(currentAppConfiguration, "_previousAppConfiguration");
+    private TAppAttribute GetAppAttribute<TAppAttribute>(MemberInfo memberInfo, Type testClassType)
+        where TAppAttribute : AppAttribute
+    {
+        var currentPlatform = DetermineOS();
+
+        var methodappAttribute = memberInfo?.GetCustomAttributes<TAppAttribute>(true).FirstOrDefault(x => x.AppConfiguration.OSPlatform.Equals(currentPlatform));
+        var classappAttribute = testClassType.GetCustomAttributes<TAppAttribute>(true).FirstOrDefault(x => x.AppConfiguration.OSPlatform.Equals(currentPlatform));
+
+        int appMethodsAttributesCount = memberInfo == null ? 0 : memberInfo.GetCustomAttributes<TAppAttribute>(true).Count();
+        int appClassAttributesCount = testClassType.GetCustomAttributes<TAppAttribute>(true).Count();
+
+        if (appMethodsAttributesCount == 1 && methodappAttribute != null)
+        {
+            methodappAttribute.AppConfiguration.OSPlatform = currentPlatform;
         }
 
-        private void ResolvePreviousAppConfiguration(ServicesCollection childContainer)
+        if (appClassAttributesCount == 1 && classappAttribute != null)
         {
-            var appConfiguration = new AppConfiguration();
-            if (childContainer.IsRegistered<AppConfiguration>())
-            {
-                appConfiguration = childContainer.Resolve<AppConfiguration>();
-            }
-
-            childContainer.RegisterInstance(appConfiguration, "_previousAppConfiguration");
+            classappAttribute.AppConfiguration.OSPlatform = currentPlatform;
         }
 
-        private AppConfiguration GetCurrentAppConfiguration(MemberInfo memberInfo, Type testClassType, ServicesCollection container)
+        if (methodappAttribute != null)
         {
-            var androidAttribute = GetAppAttribute<AndroidAttribute>(memberInfo, testClassType);
-            var iosAttribute = GetAppAttribute<IOSAttribute>(memberInfo, testClassType);
-            var androidWebAttribute = GetAppAttribute<AndroidWebAttribute>(memberInfo, testClassType);
-            var androidSauceLabsAttribute = GetAppAttribute<AndroidSauceLabsAttribute>(memberInfo, testClassType);
-            var androidCrossappTestingAttribute = GetAppAttribute<AndroidCrossBrowserTestingAttribute>(memberInfo, testClassType);
-            var androidappStackAttribute = GetAppAttribute<AndroidBrowserStackAttribute>(memberInfo, testClassType);
+            return methodappAttribute;
+        }
+        else
+        {
+            return classappAttribute;
+        }
+    }
 
-            var iosWebAttribute = GetAppAttribute<IOSWebAttribute>(memberInfo, testClassType);
-            var iosSauceLabsAttribute = GetAppAttribute<IOSSauceLabsAttribute>(memberInfo, testClassType);
-            var iosCrossappTestingAttribute = GetAppAttribute<IOSCrossBrowserTestingAttribute>(memberInfo, testClassType);
-            var iosappStackAttribute = GetAppAttribute<IOSBrowserStackAttribute>(memberInfo, testClassType);
+    private OS DetermineOS()
+    {
+        var result = OS.Windows;
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            result = OS.OSX;
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            result = OS.Linux;
+        }
 
-            AppConfiguration currentAppConfiguration;
-            if (androidAttribute != null && iosAttribute != null)
-            {
-                throw new ArgumentException("You need to specify only single platform attribute - Android or IOS.");
-            }
-            else if (androidAttribute != null)
-            {
-                currentAppConfiguration = androidAttribute.AppConfiguration;
-            }
-            else if (androidWebAttribute != null)
-            {
-                currentAppConfiguration = androidWebAttribute.AppConfiguration;
-            }
-            else if (androidSauceLabsAttribute != null)
-            {
-                currentAppConfiguration = androidSauceLabsAttribute.AppConfiguration;
-                currentAppConfiguration.AppiumOptions = androidSauceLabsAttribute.CreateAppiumOptions(memberInfo, testClassType);
-            }
-            else if (androidCrossappTestingAttribute != null)
-            {
-                currentAppConfiguration = androidCrossappTestingAttribute.AppConfiguration;
-                currentAppConfiguration.AppiumOptions = androidCrossappTestingAttribute.CreateAppiumOptions(memberInfo, testClassType);
-            }
-            else if (androidappStackAttribute != null)
-            {
-                currentAppConfiguration = androidappStackAttribute.AppConfiguration;
-                currentAppConfiguration.AppiumOptions = androidappStackAttribute.CreateAppiumOptions(memberInfo, testClassType);
-            }
-            else if (iosAttribute != null)
-            {
-                currentAppConfiguration = iosAttribute.AppConfiguration;
-            }
-            else if (iosWebAttribute != null)
-            {
-                currentAppConfiguration = iosWebAttribute.AppConfiguration;
-            }
-            else if (iosSauceLabsAttribute != null)
-            {
-                currentAppConfiguration = iosSauceLabsAttribute.AppConfiguration;
-                currentAppConfiguration.AppiumOptions = iosSauceLabsAttribute.CreateAppiumOptions(memberInfo, testClassType);
-            }
-            else if (iosCrossappTestingAttribute != null)
-            {
-                currentAppConfiguration = iosCrossappTestingAttribute.AppConfiguration;
-                currentAppConfiguration.AppiumOptions = iosCrossappTestingAttribute.CreateAppiumOptions(memberInfo, testClassType);
-            }
-            else if (iosappStackAttribute != null)
-            {
-                currentAppConfiguration = iosappStackAttribute.AppConfiguration;
-                currentAppConfiguration.AppiumOptions = iosappStackAttribute.CreateAppiumOptions(memberInfo, testClassType);
-            }
-            else
-            {
-                // TODO: --> add Test Case attribute for Andoid and IOS? Extend the Test Case attribute?
-                Lifecycle currentLifecycle = Parse<Lifecycle>(ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.DefaultLifeCycle);
+        return result;
+    }
 
-                var appConfiguration = new AppConfiguration
+    private TEnum Parse<TEnum>(string value)
+        where TEnum : struct
+    {
+        return (TEnum)Enum.Parse(typeof(TEnum), value.Replace(" ", string.Empty), true);
+    }
+
+    private void InitializeCustomCodeOptions(dynamic options, Type testClassType)
+    {
+        var customCodeOptions = ServicesCollection.Current.Resolve<Dictionary<string, string>>($"caps-{testClassType.FullName}");
+        if (customCodeOptions != null && customCodeOptions.Count > 0)
+        {
+            foreach (var item in customCodeOptions)
+            {
+                if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
                 {
-                    AppPath = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.DefaultAppPath,
-                    Lifecycle = currentLifecycle,
-                    AppiumOptions = new AppiumOptions(),
-                    ClassFullName = testClassType.FullName,
-                };
-
-                InitializeGridOptionsFromConfiguration(appConfiguration.AppiumOptions, testClassType);
-                InitializeCustomCodeOptions(appConfiguration.AppiumOptions, testClassType);
-
-                container.RegisterInstance(appConfiguration, "_currentAppConfiguration");
-                return appConfiguration;
-            }
-
-            container.RegisterInstance(currentAppConfiguration, "_currentAppConfiguration");
-            return currentAppConfiguration;
-        }
-
-        private TAppAttribute GetAppAttribute<TAppAttribute>(MemberInfo memberInfo, Type testClassType)
-            where TAppAttribute : AppAttribute
-        {
-            var currentPlatform = DetermineOS();
-
-            var methodappAttribute = memberInfo?.GetCustomAttributes<TAppAttribute>(true).FirstOrDefault(x => x.AppConfiguration.OSPlatform.Equals(currentPlatform));
-            var classappAttribute = testClassType.GetCustomAttributes<TAppAttribute>(true).FirstOrDefault(x => x.AppConfiguration.OSPlatform.Equals(currentPlatform));
-
-            int appMethodsAttributesCount = memberInfo == null ? 0 : memberInfo.GetCustomAttributes<TAppAttribute>(true).Count();
-            int appClassAttributesCount = testClassType.GetCustomAttributes<TAppAttribute>(true).Count();
-
-            if (appMethodsAttributesCount == 1 && methodappAttribute != null)
-            {
-                methodappAttribute.AppConfiguration.OSPlatform = currentPlatform;
-            }
-
-            if (appClassAttributesCount == 1 && classappAttribute != null)
-            {
-                classappAttribute.AppConfiguration.OSPlatform = currentPlatform;
-            }
-
-            if (methodappAttribute != null)
-            {
-                return methodappAttribute;
-            }
-            else
-            {
-                return classappAttribute;
+                    options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                }
             }
         }
+    }
 
-        private OS DetermineOS()
+    private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
+    {
+        if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments == null)
         {
-            var result = OS.Windows;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                result = OS.OSX;
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                result = OS.Linux;
-            }
+            return;
+        }
 
+        if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0].Count > 0)
+        {
+            foreach (var item in ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0])
+            {
+                if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
+                {
+                    options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                }
+            }
+        }
+    }
+
+    private dynamic FormatGridOptions(string option, Type testClassType)
+    {
+        if (bool.TryParse(option, out bool result))
+        {
             return result;
         }
-
-        private TEnum Parse<TEnum>(string value)
-            where TEnum : struct
+        else if (option.StartsWith("env_") || option.StartsWith("vault_"))
         {
-            return (TEnum)Enum.Parse(typeof(TEnum), value.Replace(" ", string.Empty), true);
+            return SecretsResolver.GetSecret(() => option);
         }
-
-        private void InitializeCustomCodeOptions(dynamic options, Type testClassType)
+        else if (option.StartsWith("AssemblyFolder", StringComparison.Ordinal))
         {
-            var customCodeOptions = ServicesCollection.Current.Resolve<Dictionary<string, string>>($"caps-{testClassType.FullName}");
-            if (customCodeOptions != null && customCodeOptions.Count > 0)
+            var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
+            option = option.Replace("AssemblyFolder", executionFolder);
+
+            if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
             {
-                foreach (var item in customCodeOptions)
-                {
-                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
-                    {
-                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
-                    }
-                }
+                option = option.Replace('\\', '/');
             }
+
+            return option;
         }
-
-        private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
+        else
         {
-            if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments == null)
-            {
-                return;
-            }
-
-            if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0].Count > 0)
-            {
-                foreach (var item in ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0])
-                {
-                    if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
-                    {
-                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
-                    }
-                }
-            }
-        }
-
-        private dynamic FormatGridOptions(string option, Type testClassType)
-        {
-            if (bool.TryParse(option, out bool result))
-            {
-                return result;
-            }
-            else if (option.StartsWith("env_") || option.StartsWith("vault_"))
-            {
-                return SecretsResolver.GetSecret(() => option);
-            }
-            else if (option.StartsWith("AssemblyFolder", StringComparison.Ordinal))
-            {
-                var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
-                option = option.Replace("AssemblyFolder", executionFolder);
-
-                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
-                {
-                    option = option.Replace('\\', '/');
-                }
-
-                return option;
-            }
-            else
-            {
-                var runName = testClassType.Assembly.GetName().Name;
-                var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
-                return option.Replace("{runName}", timestamp).Replace("{runName}", runName);
-            }
+            var runName = testClassType.Assembly.GetName().Name;
+            var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
+            return option.Replace("{runName}", timestamp).Replace("{runName}", runName);
         }
     }
 }

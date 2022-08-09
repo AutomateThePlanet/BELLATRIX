@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.BugReporting.Android
+namespace Bellatrix.Mobile.BugReporting.Android;
+
+public class BugReportingTextFieldEventHandlers : TextFieldEventHandlers
 {
-    public class BugReportingTextFieldEventHandlers : TextFieldEventHandlers
-    {
-        protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

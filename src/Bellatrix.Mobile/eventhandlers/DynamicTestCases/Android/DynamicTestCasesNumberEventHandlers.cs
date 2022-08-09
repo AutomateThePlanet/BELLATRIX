@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.DynamicTestCases.Android
+namespace Bellatrix.Mobile.DynamicTestCases.Android;
+
+public class DynamicTestCasesNumberEventHandlers : NumberEventHandlers
 {
-    public class DynamicTestCasesNumberEventHandlers : NumberEventHandlers
-    {
-        protected override void SettingNumberEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SettingNumberEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

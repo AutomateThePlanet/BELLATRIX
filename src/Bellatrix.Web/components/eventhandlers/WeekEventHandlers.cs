@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class WeekEventHandlers : ComponentEventHandlers
 {
-    public class WeekEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Week.Hovering += HoveringEventHandler;
-            Week.Hovered += HoveredEventHandler;
-            Week.SettingWeek += SettingWeekEventHandler;
-            Week.WeekSet += WeekSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Week.Hovering += HoveringEventHandler;
+        Week.Hovered += HoveredEventHandler;
+        Week.SettingWeek += SettingWeekEventHandler;
+        Week.WeekSet += WeekSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Week.Hovering -= HoveringEventHandler;
-            Week.Hovered -= HoveredEventHandler;
-            Week.SettingWeek -= SettingWeekEventHandler;
-            Week.WeekSet -= WeekSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Week.Hovering -= HoveringEventHandler;
+        Week.Hovered -= HoveredEventHandler;
+        Week.SettingWeek -= SettingWeekEventHandler;
+        Week.WeekSet -= WeekSetEventHandler;
+    }
 
-        protected virtual void SettingWeekEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingWeekEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void WeekSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void WeekSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

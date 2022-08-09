@@ -15,10 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting.Contracts
+namespace Bellatrix.BugReporting.Contracts;
+
+public interface IBugReportingService
 {
-    public interface IBugReportingService
-    {
-        void LogBug(BugReportingContext testCasesContext, string exceptionMessage, List<string> filePathsToBeAttached = null);
-    }
+    void LogBug(BugReportingContext testCasesContext, string exceptionMessage, List<string> filePathsToBeAttached = null);
 }

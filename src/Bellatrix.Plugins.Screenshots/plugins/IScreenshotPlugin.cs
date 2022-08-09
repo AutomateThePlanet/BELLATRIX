@@ -11,14 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Plugins.Screenshots.Plugins
+namespace Bellatrix.Plugins.Screenshots.Plugins;
+
+public interface IScreenshotPlugin
 {
-    public interface IScreenshotPlugin
-    {
-        void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider);
+    void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider);
 
-        void UnsubscribeScreenshotPlugin(IScreenshotPluginProvider provider);
+    void UnsubscribeScreenshotPlugin(IScreenshotPluginProvider provider);
 
-        void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs e);
-    }
+    void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs e);
 }

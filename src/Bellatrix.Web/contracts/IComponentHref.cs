@@ -11,10 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Contracts
+namespace Bellatrix.Web.Contracts;
+
+public interface IComponentHref
 {
-    public interface IComponentHref
-    {
-        string Href { get; }
-    }
+    string Href { get; }
 }

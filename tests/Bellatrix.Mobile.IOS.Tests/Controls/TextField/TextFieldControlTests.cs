@@ -13,47 +13,46 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("TextField Control")]
+public class TextFieldControlTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("TextField Control")]
-    public class TextFieldControlTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void OneTextSet_When_CallSetTextMethod()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void OneTextSet_When_CallSetTextMethod()
-        {
-            var textField = App.Components.CreateById<TextField>("IntegerA");
+        var textField = App.Components.CreateById<TextField>("IntegerA");
 
-            textField.SetText("1");
+        textField.SetText("1");
 
-            Assert.AreEqual("1", textField.GetText());
-        }
+        Assert.AreEqual("1", textField.GetText());
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ReturnsEmpty_When_CallGetTextMethodAndNoTextSet()
-        {
-            var textField = App.Components.CreateById<TextField>("IntegerA");
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ReturnsEmpty_When_CallGetTextMethodAndNoTextSet()
+    {
+        var textField = App.Components.CreateById<TextField>("IntegerA");
 
-            textField.SetText(string.Empty);
+        textField.SetText(string.Empty);
 
-            Assert.AreEqual(string.Empty, textField.GetText());
-        }
+        Assert.AreEqual(string.Empty, textField.GetText());
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_TextFieldIsNotDisabled()
-        {
-            var textField = App.Components.CreateById<TextField>("IntegerA");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_TextFieldIsNotDisabled()
+    {
+        var textField = App.Components.CreateById<TextField>("IntegerA");
 
-            Assert.AreEqual(false, textField.IsDisabled);
-        }
+        Assert.AreEqual(false, textField.IsDisabled);
     }
 }

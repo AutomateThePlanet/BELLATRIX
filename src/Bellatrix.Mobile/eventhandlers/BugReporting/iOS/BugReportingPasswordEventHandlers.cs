@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.BugReporting.IOS
+namespace Bellatrix.Mobile.BugReporting.IOS;
+
+public class BugReportingPasswordEventHandlers : PasswordEventHandlers
 {
-    public class BugReportingPasswordEventHandlers : PasswordEventHandlers
-    {
-        protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

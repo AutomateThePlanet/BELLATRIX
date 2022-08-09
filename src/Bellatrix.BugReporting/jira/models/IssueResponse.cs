@@ -13,15 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.BugReporting.Jira.Model;
 
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix.BugReporting.Jira;
+
+public class IssueResponse
 {
-    public class IssueResponse
-    {
-        public string expand { get; set; }
-        public string id { get; set; }
-        public string self { get; set; }
-        public string key { get; set; }
-        public Fields fields { get; set; }
-        public Changelog changelog { get; set; }
-    }
+    public string expand { get; set; }
+    public string id { get; set; }
+    public string self { get; set; }
+    public string key { get; set; }
+    public Fields fields { get; set; }
+    public Changelog changelog { get; set; }
 }

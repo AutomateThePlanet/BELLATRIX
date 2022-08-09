@@ -13,25 +13,24 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Label Control")]
+[AllureTag("WPF")]
+public class LabelControlTestsWpf : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Label Control")]
-    [AllureTag("WPF")]
-    public class LabelControlTestsWpf : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_LabelHovered_Wpf()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_LabelHovered_Wpf()
-        {
-            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
 
-            label.Hover();
+        label.Hover();
 
-            var changedLabel = App.Components.CreateByName<Label>("labelHovered");
+        var changedLabel = App.Components.CreateByName<Label>("labelHovered");
 
-            Assert.IsTrue(changedLabel.IsPresent);
-        }
+        Assert.IsTrue(changedLabel.IsPresent);
     }
 }

@@ -14,54 +14,53 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Image Control")]
+[AllureFeature("ControlEvents")]
+public class ImageControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Image Control")]
-    [AllureFeature("ControlEvents")]
-    public class ImageControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
+        Image.Hovering += AssertStyleAttributeEmpty;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+        var imageElement = App.Components.CreateById<Image>("myImage4");
+
+        imageElement.Hover();
+
+        Assert.AreEqual("hovered", imageElement.CssClass);
+
+        Image.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Image.Hovering += AssertStyleAttributeEmpty;
-
-            var imageElement = App.Components.CreateById<Image>("myImage4");
-
-            imageElement.Hover();
-
-            Assert.AreEqual("hovered", imageElement.CssClass);
-
-            Image.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Image>("myImage4").ValidateCssClassIsNull();
-            }
+            App.Components.CreateById<Image>("myImage4").ValidateCssClassIsNull();
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        Image.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var imageElement = App.Components.CreateById<Image>("myImage4");
+
+        imageElement.Hover();
+
+        Image.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Image.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var imageElement = App.Components.CreateById<Image>("myImage4");
-
-            imageElement.Hover();
-
-            Image.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Image>("myImage4").ValidateCssClassIs("hovered");
-            }
+            App.Components.CreateById<Image>("myImage4").ValidateCssClassIs("hovered");
         }
     }
 }

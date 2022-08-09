@@ -14,134 +14,133 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Time Control")]
+[AllureFeature("ControlEvents")]
+public class TimeControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Time Control")]
-    [AllureFeature("ControlEvents")]
-    public class TimeControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TimeLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingTimeCalled_BeforeActuallySetTime()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TimeLocalPage);
+        Time.SettingTime += AssertValueAttributeEmpty;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingTimeCalled_BeforeActuallySetTime()
+        var timeElement = App.Components.CreateById<Time>("myTime");
+
+        timeElement.SetTime(13, 13);
+
+        Assert.AreEqual("13:13:00", timeElement.GetTime());
+
+        Time.SettingTime -= AssertValueAttributeEmpty;
+
+        void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Time.SettingTime += AssertValueAttributeEmpty;
-
-            var timeElement = App.Components.CreateById<Time>("myTime");
-
-            timeElement.SetTime(13, 13);
-
-            Assert.AreEqual("13:13:00", timeElement.GetTime());
-
-            Time.SettingTime -= AssertValueAttributeEmpty;
-
-            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingTimeCalled_AfterSetTime()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingTimeCalled_AfterSetTime()
+    {
+        Time.TimeSet += AssertValueAttributeContainsNewValue;
+
+        var timeElement = App.Components.CreateById<Time>("myTime");
+
+        timeElement.SetTime(13, 13);
+
+        Time.TimeSet -= AssertValueAttributeContainsNewValue;
+
+        void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Time.TimeSet += AssertValueAttributeContainsNewValue;
-
-            var timeElement = App.Components.CreateById<Time>("myTime");
-
-            timeElement.SetTime(13, 13);
-
-            Time.TimeSet -= AssertValueAttributeContainsNewValue;
-
-            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("13:13:00", args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual("13:13:00", args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+        Time.Hovering += AssertStyleAttributeEmpty;
+
+        var timeElement = App.Components.CreateById<Time>("myTime7");
+
+        timeElement.Hover();
+
+        Assert.AreEqual("color: red;", timeElement.GetStyle());
+
+        Time.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Time.Hovering += AssertStyleAttributeEmpty;
-
-            var timeElement = App.Components.CreateById<Time>("myTime7");
-
-            timeElement.Hover();
-
-            Assert.AreEqual("color: red;", timeElement.GetStyle());
-
-            Time.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        Time.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var timeElement = App.Components.CreateById<Time>("myTime7");
+
+        timeElement.Hover();
+
+        Time.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Time.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var timeElement = App.Components.CreateById<Time>("myTime7");
-
-            timeElement.Hover();
-
-            Time.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Time>("myTime7").ValidateStyleIs("color: red;");
-            }
+            App.Components.CreateById<Time>("myTime7").ValidateStyleIs("color: red;");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusingCalled_BeforeActuallyFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusingCalled_BeforeActuallyFocus()
+    {
+        Time.Focusing += AssertStyleAttributeEmpty;
+
+        var timeElement = App.Components.CreateById<Time>("myTime8");
+
+        timeElement.Focus();
+
+        Assert.AreEqual("color: blue;", timeElement.GetStyle());
+
+        Time.Focusing -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Time.Focusing += AssertStyleAttributeEmpty;
-
-            var timeElement = App.Components.CreateById<Time>("myTime8");
-
-            timeElement.Focus();
-
-            Assert.AreEqual("color: blue;", timeElement.GetStyle());
-
-            Time.Focusing -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusedCalled_AfterFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusedCalled_AfterFocus()
+    {
+        Time.Focused += AssertStyleAttributeContainsNewValue;
+
+        var timeElement = App.Components.CreateById<Time>("myTime8");
+
+        timeElement.Focus();
+
+        Time.Focused -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Time.Focused += AssertStyleAttributeContainsNewValue;
-
-            var timeElement = App.Components.CreateById<Time>("myTime8");
-
-            timeElement.Focus();
-
-            Time.Focused -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
         }
     }
 }

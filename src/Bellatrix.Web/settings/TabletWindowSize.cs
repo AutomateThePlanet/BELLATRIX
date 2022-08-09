@@ -11,15 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public enum TabletWindowSize
 {
-    public enum TabletWindowSize
-    {
-        _768_1024 = 201,
-        _1280_800 = 202,
-        _600_1024 = 203,
-        _601_962 = 204,
-        _800_1280 = 205,
-        _1024_600 = 206,
-    }
+    _768_1024 = 201,
+    _1280_800 = 202,
+    _600_1024 = 203,
+    _601_962 = 204,
+    _800_1280 = 205,
+    _1024_600 = 206,
 }

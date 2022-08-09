@@ -14,29 +14,28 @@
 using System;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
-{
-    public class DialogService : WebService
-    {
-        public DialogService(IWebDriver wrappedDriver)
-            : base(wrappedDriver)
-        {
-        }
+namespace Bellatrix.Web;
 
-        public void Handle(Action<IAlert> action = null, DialogButton dialogButton = DialogButton.Ok)
+public class DialogService : WebService
+{
+    public DialogService(IWebDriver wrappedDriver)
+        : base(wrappedDriver)
+    {
+    }
+
+    public void Handle(Action<IAlert> action = null, DialogButton dialogButton = DialogButton.Ok)
+    {
+        var alert = WrappedDriver.SwitchTo().Alert();
+        action?.Invoke(alert);
+        if (dialogButton == DialogButton.Ok)
         {
-            var alert = WrappedDriver.SwitchTo().Alert();
-            action?.Invoke(alert);
-            if (dialogButton == DialogButton.Ok)
-            {
-                alert.Accept();
-                WrappedDriver.SwitchTo().DefaultContent();
-            }
-            else
-            {
-                alert.Dismiss();
-                WrappedDriver.SwitchTo().DefaultContent();
-            }
+            alert.Accept();
+            WrappedDriver.SwitchTo().DefaultContent();
+        }
+        else
+        {
+            alert.Dismiss();
+            WrappedDriver.SwitchTo().DefaultContent();
         }
     }
 }

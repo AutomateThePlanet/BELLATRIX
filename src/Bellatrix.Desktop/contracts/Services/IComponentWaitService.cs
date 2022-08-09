@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Untils;
 
-namespace Bellatrix.Desktop.Contracts.Services
+namespace Bellatrix.Desktop.Contracts.Services;
+
+public interface IComponentWaitService
 {
-    public interface IComponentWaitService
-    {
-        void Wait<TUntil, TComponent>(TComponent element, TUntil until)
-            where TUntil : WaitStrategy
-            where TComponent : Component;
-    }
+    void Wait<TUntil, TComponent>(TComponent element, TUntil until)
+        where TUntil : WaitStrategy
+        where TComponent : Component;
 }

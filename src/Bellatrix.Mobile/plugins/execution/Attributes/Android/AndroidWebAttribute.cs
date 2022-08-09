@@ -13,25 +13,24 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Mobile
-{
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class AndroidWebAttribute : AppAttribute
-    {
-        public AndroidWebAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
-            : base(appPath, platformVersion, deviceName, behavior)
-        {
-            AppConfiguration.MobileOSType = MobileOSType.Android;
-            AppConfiguration.PlatformName = "Android";
-            AppConfiguration.BrowserName = "Chrome";
-        }
+namespace Bellatrix.Mobile;
 
-        public AndroidWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
-            : base(osPlatform, appPath, platformVersion, deviceName, behavior)
-        {
-            AppConfiguration.MobileOSType = MobileOSType.Android;
-            AppConfiguration.PlatformName = "Android";
-            AppConfiguration.BrowserName = "Chrome";
-        }
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public class AndroidWebAttribute : AppAttribute
+{
+    public AndroidWebAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+        : base(appPath, platformVersion, deviceName, behavior)
+    {
+        AppConfiguration.MobileOSType = MobileOSType.Android;
+        AppConfiguration.PlatformName = "Android";
+        AppConfiguration.BrowserName = "Chrome";
+    }
+
+    public AndroidWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+        : base(osPlatform, appPath, platformVersion, deviceName, behavior)
+    {
+        AppConfiguration.MobileOSType = MobileOSType.Android;
+        AppConfiguration.PlatformName = "Android";
+        AppConfiguration.BrowserName = "Chrome";
     }
 }

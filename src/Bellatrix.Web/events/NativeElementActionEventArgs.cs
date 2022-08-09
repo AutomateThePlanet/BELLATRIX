@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web.Events
-{
-    public class NativeElementActionEventArgs
-    {
-        public NativeElementActionEventArgs(IWebElement element) => Element = element;
+namespace Bellatrix.Web.Events;
 
-        public IWebElement Element { get; }
-    }
+public class NativeElementActionEventArgs
+{
+    public NativeElementActionEventArgs(IWebElement element) => Element = element;
+
+    public IWebElement Element { get; }
 }

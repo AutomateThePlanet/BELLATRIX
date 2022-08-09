@@ -14,114 +14,113 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Element Control")]
+[AllureTag("Universal")]
+public class ElementControlTestsUniversal : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Element Control")]
-    [AllureTag("Universal")]
-    public class ElementControlTestsUniversal : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsVisibleReturnsTrue_When_ElementIsVisible_Universal()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsVisibleReturnsTrue_When_ElementIsVisible_Universal()
-        {
-            var button = App.Components.CreateByName<Button>("E Button");
+        var button = App.Components.CreateByName<Button>("E Button");
 
-            Assert.IsTrue(button.IsVisible);
-        }
+        Assert.IsTrue(button.IsVisible);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsPresentReturnsTrue_When_ElementIsPresent_Universal()
-        {
-            var button = App.Components.CreateByName<Button>("E Button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsPresentReturnsTrue_When_ElementIsPresent_Universal()
+    {
+        var button = App.Components.CreateByName<Button>("E Button");
 
-            Assert.IsTrue(button.IsPresent);
-        }
+        Assert.IsTrue(button.IsPresent);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsPresentReturnsFalse_When_ElementIsNotPresent_Universal()
-        {
-            var button = App.Components.CreateByName<Button>("E1 Button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsPresentReturnsFalse_When_ElementIsNotPresent_Universal()
+    {
+        var button = App.Components.CreateByName<Button>("E1 Button");
 
-            Assert.IsFalse(button.IsPresent);
-        }
+        Assert.IsFalse(button.IsPresent);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsVisibleReturnsFalse_When_ElementIsNotVisible_Universal()
-        {
-            var button = App.Components.CreateByAutomationId<Button>("ShowAfterButton");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsVisibleReturnsFalse_When_ElementIsNotVisible_Universal()
+    {
+        var button = App.Components.CreateByAutomationId<Button>("ShowAfterButton");
 
-            Assert.IsFalse(button.IsVisible);
-        }
+        Assert.IsFalse(button.IsVisible);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void GetAttributeReturnsName_When_NameAttributeIsSet_Universal()
-        {
-            var button = App.Components.CreateByAutomationId<Button>("EnabledButton");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void GetAttributeReturnsName_When_NameAttributeIsSet_Universal()
+    {
+        var button = App.Components.CreateByAutomationId<Button>("EnabledButton");
 
-            var nameValue = button.GetAttribute("Name");
+        var nameValue = button.GetAttribute("Name");
 
-            Assert.AreEqual("E Button", nameValue);
-        }
+        Assert.AreEqual("E Button", nameValue);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void ReturnNestedElement_When_ElementContainsOneChildElement_Universal()
-        {
-            var comboBox = App.Components.CreateByClass<Button>("CalendarView");
-            var comboBoxItem = comboBox.CreateByName<Button>("25");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void ReturnNestedElement_When_ElementContainsOneChildElement_Universal()
+    {
+        var comboBox = App.Components.CreateByClass<Button>("CalendarView");
+        var comboBoxItem = comboBox.CreateByName<Button>("25");
 
-            Assert.AreEqual("25", comboBoxItem.InnerText);
-        }
+        Assert.AreEqual("25", comboBoxItem.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void ReturnNestedElements_When_ElementContainsMoreThanOneChildElement_Universal()
-        {
-            var comboBox = App.Components.CreateByClass<Button>("CalendarView");
-            var comboBoxItems = comboBox.CreateAllByName<Button>("2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void ReturnNestedElements_When_ElementContainsMoreThanOneChildElement_Universal()
+    {
+        var comboBox = App.Components.CreateByClass<Button>("CalendarView");
+        var comboBoxItems = comboBox.CreateAllByName<Button>("2");
 
-            Assert.AreEqual(2, comboBoxItems.ToList().Count);
-        }
+        Assert.AreEqual(2, comboBoxItems.ToList().Count);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
-        public void WaitForElementToExists_When_ElementIsNotVisibleInitially_Universal()
-        {
-            var disappearButton = App.Components.CreateByAutomationId<Button>("DisappearAfter");
-            disappearButton.Click();
-            var button = App.Components.CreateByAutomationId<Button>("ShowAfterButton");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
+    public void WaitForElementToExists_When_ElementIsNotVisibleInitially_Universal()
+    {
+        var disappearButton = App.Components.CreateByAutomationId<Button>("DisappearAfter");
+        disappearButton.Click();
+        var button = App.Components.CreateByAutomationId<Button>("ShowAfterButton");
 
-            button.ToExists().WaitToBe();
+        button.ToExists().WaitToBe();
 
-            Assert.IsTrue(button.IsVisible);
-        }
+        Assert.IsTrue(button.IsVisible);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
-        public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Universal()
-        {
-            var button = App.Components.CreateByAutomationId<Button>("DisappearAfter");
-            button.Click();
-            button.ToNotExists().WaitToBe();
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
+    public void WaitForElementToNotExists_When_ElementIsVisibleInitially_Universal()
+    {
+        var button = App.Components.CreateByAutomationId<Button>("DisappearAfter");
+        button.Click();
+        button.ToNotExists().WaitToBe();
 
-            Assert.IsFalse(button.IsPresent);
-        }
+        Assert.IsFalse(button.IsPresent);
     }
 }

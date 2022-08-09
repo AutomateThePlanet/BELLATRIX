@@ -20,76 +20,75 @@ using System.Linq.Expressions;
 using Bellatrix.Assertions;
 using Bellatrix.Web.Contracts;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class TableFooter : Component, IComponentInnerHtml
 {
-    public class TableFooter : Component, IComponentInnerHtml
+    private Table _parentTable;
+    private HeaderNamesService _headerNamesService;
+    private FooterService _footerService;
+
+    public int Index { get; set; }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public string InnerHtml => GetInnerHtmlAttribute();
+
+    public void SetParentTable(Table table)
     {
-        private Table _parentTable;
-        private HeaderNamesService _headerNamesService;
-        private FooterService _footerService;
+        _parentTable = table;
+        _headerNamesService = new HeaderNamesService(_parentTable.TableService.HeaderRows);
+        _footerService = new FooterService(_parentTable.TableService.Footer);
+    }
 
-        public int Index { get; set; }
+    public TableRow GetRowByPosition(int position)
+    {
+        var footerRow = this.CreateByXpath<TableRow>(_footerService.GetFooterRowByPosition(position).GetXPath());
+        footerRow.SetParentTable(_parentTable);
+        footerRow.Index = position;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
+        return footerRow;
+    }
 
-        public void SetParentTable(Table table)
+    public TableRow GetRowByName(string footerName)
+    {
+        var node = _footerService.GetFooterRowByName(footerName);
+        int position = _footerService.Rows.IndexOf(node);
+        var footerRow = this.CreateByXpath<TableRow>(node.GetXPath());
+        footerRow.SetParentTable(_parentTable);
+        footerRow.Index = position;
+
+        return footerRow;
+    }
+
+    public TableCell GetCell(string footerName, string headerName)
+    {
+        int? headerPosition = _headerNamesService.GetHeaderPosition(headerName, _parentTable.ColumnHeaderNames.AsEnumerable<IHeaderInfo>().ToList());
+        if (headerPosition == null)
         {
-            _parentTable = table;
-            _headerNamesService = new HeaderNamesService(_parentTable.TableService.HeaderRows);
-            _footerService = new FooterService(_parentTable.TableService.Footer);
+            return null;
         }
 
-        public TableRow GetRowByPosition(int position)
-        {
-            var footerRow = this.CreateByXpath<TableRow>(_footerService.GetFooterRowByPosition(position).GetXPath());
-            footerRow.SetParentTable(_parentTable);
-            footerRow.Index = position;
+        var node = _footerService.GetFooterRowCellByName(footerName, (int)headerPosition);
+        var footerCell = this.CreateByXpath<TableCell>(node.GetXPath());
+        footerCell.Row = _footerService.Rows.IndexOf(node);
+        footerCell.Column = (int)headerPosition;
 
-            return footerRow;
+        return footerCell;
+    }
+
+    public TableCell GetCell(int position, string headerName)
+    {
+        int? headerPosition = _headerNamesService.GetHeaderPosition(headerName, _parentTable.ColumnHeaderNames.AsEnumerable<IHeaderInfo>().ToList());
+        if (headerPosition == null)
+        {
+            return null;
         }
 
-        public TableRow GetRowByName(string footerName)
-        {
-            var node = _footerService.GetFooterRowByName(footerName);
-            int position = _footerService.Rows.IndexOf(node);
-            var footerRow = this.CreateByXpath<TableRow>(node.GetXPath());
-            footerRow.SetParentTable(_parentTable);
-            footerRow.Index = position;
+        var node = _footerService.GetFooterRowCellByPosition(position, (int)headerPosition);
+        var footerCell = this.CreateByXpath<TableCell>(node.GetXPath());
+        footerCell.Row = position;
+        footerCell.Column = (int)headerPosition;
 
-            return footerRow;
-        }
-
-        public TableCell GetCell(string footerName, string headerName)
-        {
-            int? headerPosition = _headerNamesService.GetHeaderPosition(headerName, _parentTable.ColumnHeaderNames.AsEnumerable<IHeaderInfo>().ToList());
-            if (headerPosition == null)
-            {
-                return null;
-            }
-
-            var node = _footerService.GetFooterRowCellByName(footerName, (int)headerPosition);
-            var footerCell = this.CreateByXpath<TableCell>(node.GetXPath());
-            footerCell.Row = _footerService.Rows.IndexOf(node);
-            footerCell.Column = (int)headerPosition;
-
-            return footerCell;
-        }
-
-        public TableCell GetCell(int position, string headerName)
-        {
-            int? headerPosition = _headerNamesService.GetHeaderPosition(headerName, _parentTable.ColumnHeaderNames.AsEnumerable<IHeaderInfo>().ToList());
-            if (headerPosition == null)
-            {
-                return null;
-            }
-
-            var node = _footerService.GetFooterRowCellByPosition(position, (int)headerPosition);
-            var footerCell = this.CreateByXpath<TableCell>(node.GetXPath());
-            footerCell.Row = position;
-            footerCell.Column = (int)headerPosition;
-
-            return footerCell;
-        }
+        return footerCell;
     }
 }

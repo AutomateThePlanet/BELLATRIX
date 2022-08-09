@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix
-{
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
-    public class AllureOwnerAttribute : Attribute
-    {
-        public AllureOwnerAttribute(string owner) => Owner = owner;
+namespace Bellatrix;
 
-        internal string Owner { get; }
-    }
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
+public class AllureOwnerAttribute : Attribute
+{
+    public AllureOwnerAttribute(string owner) => Owner = owner;
+
+    internal string Owner { get; }
 }

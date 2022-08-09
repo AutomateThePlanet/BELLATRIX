@@ -11,13 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.CognitiveServices
+namespace Bellatrix.CognitiveServices;
+
+public class CognitiveServicesSettings
 {
-    public class CognitiveServicesSettings
-    {
-        public string ComputerVisionEndpoint { get; set; }
-        public string ComputerVisionSubscriptionKey { get; set; }
-        public string FormRecognizerEndpoint { get; set; }
-        public string FormRecognizerSubscriptionKey { get; set; }
-    }
+    public string ComputerVisionEndpoint { get; set; }
+    public string ComputerVisionSubscriptionKey { get; set; }
+    public string FormRecognizerEndpoint { get; set; }
+    public string FormRecognizerSubscriptionKey { get; set; }
 }

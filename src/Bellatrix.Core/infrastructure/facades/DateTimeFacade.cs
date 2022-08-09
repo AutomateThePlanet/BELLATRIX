@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Infrastructure
-{
-    public class DateTimeFacade
-    {
-        public DateTime GetCurrentTime() => DateTime.Now;
+namespace Bellatrix.Infrastructure;
 
-        public DateTime GetCurrentTimeUtc() => DateTime.UtcNow;
-    }
+public class DateTimeFacade
+{
+    public DateTime GetCurrentTime() => DateTime.Now;
+
+    public DateTime GetCurrentTimeUtc() => DateTime.UtcNow;
 }

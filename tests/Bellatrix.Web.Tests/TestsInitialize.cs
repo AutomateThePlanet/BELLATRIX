@@ -16,22 +16,21 @@ using System;
 using Bellatrix.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests
-{
-    [TestClass]
-    public class TestsInitialize : MSTest.WebTest
-    {
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
-        {
-            AllurePlugin.Add();
-        }
+namespace Bellatrix.Web.Tests;
 
-        [AssemblyCleanup]
-        public static void AssemblyCleanup()
-        {
-            var app = ServicesCollection.Current.Resolve<App>();
-            app?.Dispose();
-        }
+[TestClass]
+public class TestsInitialize : MSTest.WebTest
+{
+    [AssemblyInitialize]
+    public static void AssemblyInitialize(TestContext testContext)
+    {
+        AllurePlugin.Add();
+    }
+
+    [AssemblyCleanup]
+    public static void AssemblyCleanup()
+    {
+        var app = ServicesCollection.Current.Resolve<App>();
+        app?.Dispose();
     }
 }

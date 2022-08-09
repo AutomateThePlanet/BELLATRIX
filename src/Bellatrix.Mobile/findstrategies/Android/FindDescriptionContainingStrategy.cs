@@ -15,41 +15,40 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Locators.Android
+namespace Bellatrix.Mobile.Locators.Android;
+
+public class FindDescriptionContainingStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
 {
-    public class FindDescriptionContainingStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+    private readonly string _locatorValue;
+
+    public FindDescriptionContainingStrategy(string name)
+        : base(name)
     {
-        private readonly string _locatorValue;
+        _locatorValue = $"new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().descriptionContains(\"{Value}\"));";
+    }
 
-        public FindDescriptionContainingStrategy(string name)
-            : base(name)
-        {
-            _locatorValue = $"new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().descriptionContains(\"{Value}\"));";
-        }
+    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    {
+        return searchContext.FindElementByAndroidUIAutomator(_locatorValue);
+    }
 
-        public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
-        {
-            return searchContext.FindElementByAndroidUIAutomator(_locatorValue);
-        }
+    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
+    {
+        return searchContext.FindElementsByAndroidUIAutomator(_locatorValue);
+    }
 
-        public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
-        {
-            return searchContext.FindElementsByAndroidUIAutomator(_locatorValue);
-        }
+    public override AppiumWebElement FindElement(AndroidElement element)
+    {
+        return element.FindElementByAndroidUIAutomator(_locatorValue);
+    }
 
-        public override AppiumWebElement FindElement(AndroidElement element)
-        {
-            return element.FindElementByAndroidUIAutomator(_locatorValue);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    {
+        return element.FindElementsByAndroidUIAutomator(_locatorValue);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
-        {
-            return element.FindElementsByAndroidUIAutomator(_locatorValue);
-        }
-
-        public override string ToString()
-        {
-            return $"Description contains {Value}";
-        }
+    public override string ToString()
+    {
+        return $"Description contains {Value}";
     }
 }

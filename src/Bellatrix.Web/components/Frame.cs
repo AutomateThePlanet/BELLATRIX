@@ -11,10 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class Frame : Component
 {
-    public class Frame : Component
-    {
-        public string Name => GetAttribute("name");
-    }
+    public string Name => GetAttribute("name");
 }

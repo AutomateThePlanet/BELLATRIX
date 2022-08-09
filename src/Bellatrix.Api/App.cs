@@ -19,82 +19,81 @@ using Bellatrix.Plugins;
 using Bellatrix.Settings;
 using Bellatrix.Utilities;
 
-namespace Bellatrix.Api
+namespace Bellatrix.Api;
+
+public class App
 {
-    public class App
+    public bool ShouldReuseRestClient { get; set; } = true;
+
+    public LoadTestService LoadTestService => new LoadTestService();
+
+    public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+
+    public void AddApiClientExecutionPlugin<TExecutionExtension>()
+        where TExecutionExtension : ApiClientExecutionPlugin
     {
-        public bool ShouldReuseRestClient { get; set; } = true;
+        ServicesCollection.Current.RegisterType<ApiClientExecutionPlugin, TExecutionExtension>(Guid.NewGuid().ToString());
+    }
 
-        public LoadTestService LoadTestService => new LoadTestService();
+    public void AddPlugin<TExecutionExtension>()
+        where TExecutionExtension : Plugin
+    {
+        ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
+    }
 
-        public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+    public void AddAssertionsEventHandler<TComponentsEventHandler>()
+        where TComponentsEventHandler : AssertExtensionsEventHandlers
+    {
+        var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
+        elementEventHandler.SubscribeToAll();
+    }
 
-        public void AddApiClientExecutionPlugin<TExecutionExtension>()
-            where TExecutionExtension : ApiClientExecutionPlugin
+    public void RemoveAssertionsEventHandler<TComponentsEventHandler>()
+        where TComponentsEventHandler : AssertExtensionsEventHandlers
+    {
+        var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
+        elementEventHandler.UnsubscribeToAll();
+    }
+
+    public ApiClientService GetApiClientService(string url = null, bool sharedCookies = true, int maxRetryAttempts = 1, int pauseBetweenFailures = 1, TimeUnit timeUnit = TimeUnit.Seconds)
+    {
+        if (!ShouldReuseRestClient)
         {
-            ServicesCollection.Current.RegisterType<ApiClientExecutionPlugin, TExecutionExtension>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.UnregisterSingleInstance<ApiClientService>();
         }
 
-        public void AddPlugin<TExecutionExtension>()
-            where TExecutionExtension : Plugin
-        {
-            ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
-        }
+        bool isClientRegistered = ServicesCollection.Current.IsRegistered<ApiClientService>();
+        var client = ServicesCollection.Current.Resolve<ApiClientService>();
 
-        public void AddAssertionsEventHandler<TComponentsEventHandler>()
-            where TComponentsEventHandler : AssertExtensionsEventHandlers
+        if (!isClientRegistered || client == null)
         {
-            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
-            elementEventHandler.SubscribeToAll();
-        }
-
-        public void RemoveAssertionsEventHandler<TComponentsEventHandler>()
-            where TComponentsEventHandler : AssertExtensionsEventHandlers
-        {
-            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
-            elementEventHandler.UnsubscribeToAll();
-        }
-
-        public ApiClientService GetApiClientService(string url = null, bool sharedCookies = true, int maxRetryAttempts = 1, int pauseBetweenFailures = 1, TimeUnit timeUnit = TimeUnit.Seconds)
-        {
-            if (!ShouldReuseRestClient)
+            client = new ApiClientService();
+            if (string.IsNullOrEmpty(url))
             {
-                ServicesCollection.Current.UnregisterSingleInstance<ApiClientService>();
+                var apiSettingsConfig = ConfigurationService.GetSection<ApiSettings>();
+                if (apiSettingsConfig == null)
+                {
+                    throw new SettingsNotFoundException("apiSettings");
+                }
+
+                client.WrappedClient.BaseUrl = new Uri(apiSettingsConfig.BaseUrl);
+            }
+            else
+            {
+                client.WrappedClient.BaseUrl = new Uri(url);
             }
 
-            bool isClientRegistered = ServicesCollection.Current.IsRegistered<ApiClientService>();
-            var client = ServicesCollection.Current.Resolve<ApiClientService>();
-
-            if (!isClientRegistered || client == null)
+            if (sharedCookies)
             {
-                client = new ApiClientService();
-                if (string.IsNullOrEmpty(url))
-                {
-                    var apiSettingsConfig = ConfigurationService.GetSection<ApiSettings>();
-                    if (apiSettingsConfig == null)
-                    {
-                        throw new SettingsNotFoundException("apiSettings");
-                    }
-
-                    client.WrappedClient.BaseUrl = new Uri(apiSettingsConfig.BaseUrl);
-                }
-                else
-                {
-                    client.WrappedClient.BaseUrl = new Uri(url);
-                }
-
-                if (sharedCookies)
-                {
-                    client.WrappedClient.CookieContainer = new System.Net.CookieContainer();
-                }
-
-                client.PauseBetweenFailures = TimeSpanConverter.Convert(pauseBetweenFailures, timeUnit);
-                client.MaxRetryAttempts = maxRetryAttempts;
-
-                ServicesCollection.Current.RegisterInstance(client);
+                client.WrappedClient.CookieContainer = new System.Net.CookieContainer();
             }
 
-            return client;
+            client.PauseBetweenFailures = TimeSpanConverter.Convert(pauseBetweenFailures, timeUnit);
+            client.MaxRetryAttempts = maxRetryAttempts;
+
+            ServicesCollection.Current.RegisterInstance(client);
         }
+
+        return client;
     }
 }

@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Locators;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class FindStrategyFactory
 {
-    public class FindStrategyFactory
-    {
-        public FindIdStrategy Id(string id) => new FindIdStrategy(id);
+    public FindIdStrategy Id(string id) => new FindIdStrategy(id);
 
-        public FindXpathStrategy Xpath(string xpath) => new FindXpathStrategy(xpath);
+    public FindXpathStrategy Xpath(string xpath) => new FindXpathStrategy(xpath);
 
-        public FindCssStrategy CssClass(string css) => new FindCssStrategy(css);
+    public FindCssStrategy CssClass(string css) => new FindCssStrategy(css);
 
-        public FindLinkTextStrategy LinkText(string linkText) => new FindLinkTextStrategy(linkText);
+    public FindLinkTextStrategy LinkText(string linkText) => new FindLinkTextStrategy(linkText);
 
-        public FindNameStrategy Name(string name) => new FindNameStrategy(name);
+    public FindNameStrategy Name(string name) => new FindNameStrategy(name);
 
-        public FindTagStrategy Tag(string tag) => new FindTagStrategy(tag);
+    public FindTagStrategy Tag(string tag) => new FindTagStrategy(tag);
 
-        public FindStrategy CssClassContaining(string cssClass) => new FindClassContainingStrategy(cssClass);
+    public FindStrategy CssClassContaining(string cssClass) => new FindClassContainingStrategy(cssClass);
 
-        public FindIdContainingStrategy IdContaining(string id) => new FindIdContainingStrategy(id);
+    public FindIdContainingStrategy IdContaining(string id) => new FindIdContainingStrategy(id);
 
-        public FindIdEndingWithStrategy IdEndingWith(string id) => new FindIdEndingWithStrategy(id);
+    public FindIdEndingWithStrategy IdEndingWith(string id) => new FindIdEndingWithStrategy(id);
 
-        public FindInnerTextContainsStrategy InnerTextContains(string text) => new FindInnerTextContainsStrategy(text);
+    public FindInnerTextContainsStrategy InnerTextContains(string text) => new FindInnerTextContainsStrategy(text);
 
-        public FindLinkTextContainsStrategy LinkTextContains(string text) => new FindLinkTextContainsStrategy(text);
+    public FindLinkTextContainsStrategy LinkTextContains(string text) => new FindLinkTextContainsStrategy(text);
 
-        public FindValueContainingStrategy ValueEndingWith(string value) => new FindValueContainingStrategy(value);
+    public FindValueContainingStrategy ValueEndingWith(string value) => new FindValueContainingStrategy(value);
 
-        public FindAttributeContainingStrategy AttributeContaining(string attributeName, string value) => new FindAttributeContainingStrategy(attributeName, value);
-    }
+    public FindAttributeContainingStrategy AttributeContaining(string attributeName, string value) => new FindAttributeContainingStrategy(attributeName, value);
 }

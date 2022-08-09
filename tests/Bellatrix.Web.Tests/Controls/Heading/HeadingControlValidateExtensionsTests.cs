@@ -13,42 +13,41 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Heading Control")]
+[AllureFeature("ValidateExtensions")]
+public class HeadingControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Heading Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class HeadingControlValidateExtensionsTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
-        {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover()
+    {
+        var headingElement = App.Components.CreateById<Heading>("myHeading");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading");
+        headingElement.Hover();
 
-            headingElement.Hover();
+        headingElement.ValidateStyleIs("color: red;");
+    }
 
-            headingElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateInnerTextIs_DoesNotThrowException_When_InnerText()
+    {
+        var headingElement = App.Components.CreateById<Heading>("myHeading2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateInnerTextIs_DoesNotThrowException_When_InnerText()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading2");
-
-            headingElement.ValidateInnerTextIs("Automate The Planet");
-        }
+        headingElement.ValidateInnerTextIs("Automate The Planet");
     }
 }

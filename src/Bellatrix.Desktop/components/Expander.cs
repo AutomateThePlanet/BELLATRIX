@@ -16,26 +16,25 @@ using System.Diagnostics;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class Expander : Component, IComponentDisabled
 {
-    public class Expander : Component, IComponentDisabled
+    public static event EventHandler<ComponentActionEventArgs> Clicking;
+    public static event EventHandler<ComponentActionEventArgs> Clicked;
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+
+    public virtual void Click()
     {
-        public static event EventHandler<ComponentActionEventArgs> Clicking;
-        public static event EventHandler<ComponentActionEventArgs> Clicked;
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-
-        public virtual void Click()
-        {
-            Click(Clicking, Clicked);
-        }
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        Click(Clicking, Clicked);
     }
+
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

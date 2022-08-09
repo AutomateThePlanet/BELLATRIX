@@ -14,82 +14,81 @@
 using Bellatrix.Desktop.Events;
 using ComponentNotFulfillingValidateConditionEventArgs = Bellatrix.Desktop.Validates.ComponentNotFulfillingValidateConditionEventArgs;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public abstract class ValidateExtensionsEventHandlers
 {
-    public abstract class ValidateExtensionsEventHandlers
+    public virtual void SubscribeToAll()
     {
-        public virtual void SubscribeToAll()
-        {
-            ValidateControlExtensions.ValidatedIsCheckedEvent += ValidatedIsCheckedEventHandler;
-            ValidateControlExtensions.ValidatedIsNotCheckedEvent += ValidatedIsNotCheckedEventHandler;
-            ValidateControlExtensions.ValidatedDateIsEvent += ValidatedDateIsEventHandler;
-            ValidateControlExtensions.ValidatedIsDisabledEvent += ValidatedIsDisabledEventHandler;
-            ValidateControlExtensions.ValidatedIsNotDisabledEvent += ValidatedIsNotDisabledEventHandler;
-            ValidateControlExtensions.ValidatedInnerTextIsEvent += ValidatedInnerTextIsEventHandler;
-            ValidateControlExtensions.ValidatedIsSelectedEvent += ValidatedIsSelectedEventHandler;
-            ValidateControlExtensions.ValidatedIsNotSelectedEvent += ValidatedIsNotSelectedEventHandler;
-            ValidateControlExtensions.ValidatedTextIsNullEvent += ValidatedTextIsNullEventHandler;
-            ValidateControlExtensions.ValidatedTextIsEvent += ValidatedTextIsEventHandler;
-            ValidateControlExtensions.ValidatedTimeIsEvent += ValidatedTimeIsEventHandler;
-            ValidateControlExtensions.ValidatedIsVisibleEvent += ValidatedIsVisibleEventHandler;
-            ValidateControlExtensions.ValidatedIsNotVisibleEvent += ValidatedIsNotVisibleEventHandler;
-            ValidateControlExtensions.ValidatedExceptionThrowedEvent += ValidatedExceptionThrowedEventHandler;
-        }
+        ValidateControlExtensions.ValidatedIsCheckedEvent += ValidatedIsCheckedEventHandler;
+        ValidateControlExtensions.ValidatedIsNotCheckedEvent += ValidatedIsNotCheckedEventHandler;
+        ValidateControlExtensions.ValidatedDateIsEvent += ValidatedDateIsEventHandler;
+        ValidateControlExtensions.ValidatedIsDisabledEvent += ValidatedIsDisabledEventHandler;
+        ValidateControlExtensions.ValidatedIsNotDisabledEvent += ValidatedIsNotDisabledEventHandler;
+        ValidateControlExtensions.ValidatedInnerTextIsEvent += ValidatedInnerTextIsEventHandler;
+        ValidateControlExtensions.ValidatedIsSelectedEvent += ValidatedIsSelectedEventHandler;
+        ValidateControlExtensions.ValidatedIsNotSelectedEvent += ValidatedIsNotSelectedEventHandler;
+        ValidateControlExtensions.ValidatedTextIsNullEvent += ValidatedTextIsNullEventHandler;
+        ValidateControlExtensions.ValidatedTextIsEvent += ValidatedTextIsEventHandler;
+        ValidateControlExtensions.ValidatedTimeIsEvent += ValidatedTimeIsEventHandler;
+        ValidateControlExtensions.ValidatedIsVisibleEvent += ValidatedIsVisibleEventHandler;
+        ValidateControlExtensions.ValidatedIsNotVisibleEvent += ValidatedIsNotVisibleEventHandler;
+        ValidateControlExtensions.ValidatedExceptionThrowedEvent += ValidatedExceptionThrowedEventHandler;
+    }
 
-        protected virtual void ValidatedExceptionThrowedEventHandler(object sender, ComponentNotFulfillingValidateConditionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedExceptionThrowedEventHandler(object sender, ComponentNotFulfillingValidateConditionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedTextIsNullEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedTextIsNullEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedInnerTextIsEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedInnerTextIsEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

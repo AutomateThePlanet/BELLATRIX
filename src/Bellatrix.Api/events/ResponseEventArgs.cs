@@ -13,17 +13,16 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp;
 
-namespace Bellatrix.Api.Events
-{
-    public class ResponseEventArgs
-    {
-        public ResponseEventArgs(IRestResponse response, string requestUri)
-        {
-            Response = response;
-            RequestUri = requestUri;
-        }
+namespace Bellatrix.Api.Events;
 
-        public IRestResponse Response { get; }
-        public string RequestUri { get; }
+public class ResponseEventArgs
+{
+    public ResponseEventArgs(IRestResponse response, string requestUri)
+    {
+        Response = response;
+        RequestUri = requestUri;
     }
+
+    public IRestResponse Response { get; }
+    public string RequestUri { get; }
 }

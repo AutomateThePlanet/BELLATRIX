@@ -18,31 +18,30 @@ using Bellatrix.Mobile.Locators;
 using Bellatrix.Mobile.Untils;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Services
+namespace Bellatrix.Mobile.Services;
+
+public class ComponentWaitService<TDriver, TDriverElement>
+    where TDriver : AppiumDriver<TDriverElement>
+    where TDriverElement : AppiumWebElement
 {
-    public class ComponentWaitService<TDriver, TDriverElement>
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+    public static event EventHandler<ComponentNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
+
+    internal void Wait<TUntil, TComponent>(TComponent element, TUntil until)
+        where TUntil : WaitStrategy<TDriver, TDriverElement>
+        where TComponent : Component<TDriver, TDriverElement>
     {
-        public static event EventHandler<ComponentNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
-
-        internal void Wait<TUntil, TComponent>(TComponent element, TUntil until)
-            where TUntil : WaitStrategy<TDriver, TDriverElement>
-            where TComponent : Component<TDriver, TDriverElement>
+        try
         {
-            try
-            {
-                WaitInternal(element.By, until);
-            }
-            catch (Exception ex)
-            {
-                OnElementNotFulfillingWaitConditionEvent?.Invoke(this, new ComponentNotFulfillingWaitConditionEventArgs(ex));
-                throw;
-            }
+            WaitInternal(element.By, until);
         }
-
-        internal void WaitInternal<TBy, TUntil>(TBy by, TUntil until)
-            where TBy : FindStrategy<TDriver, TDriverElement>
-            where TUntil : WaitStrategy<TDriver, TDriverElement> => until?.WaitUntil(by);
+        catch (Exception ex)
+        {
+            OnElementNotFulfillingWaitConditionEvent?.Invoke(this, new ComponentNotFulfillingWaitConditionEventArgs(ex));
+            throw;
+        }
     }
+
+    internal void WaitInternal<TBy, TUntil>(TBy by, TUntil until)
+        where TBy : FindStrategy<TDriver, TDriverElement>
+        where TUntil : WaitStrategy<TDriver, TDriverElement> => until?.WaitUntil(by);
 }

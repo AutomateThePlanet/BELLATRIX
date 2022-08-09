@@ -15,38 +15,37 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.Locators.IOS
+namespace Bellatrix.Mobile.Locators.IOS;
+
+public class FindNameStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
 {
-    public class FindNameStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+    public FindNameStrategy(string name)
+        : base(name)
     {
-        public FindNameStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
-        {
-            return searchContext.FindElementByName(Value);
-        }
+    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    {
+        return searchContext.FindElementByName(Value);
+    }
 
-        public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
-        {
-            return searchContext.FindElementsByName(Value);
-        }
+    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    {
+        return searchContext.FindElementsByName(Value);
+    }
 
-        public override AppiumWebElement FindElement(IOSElement element)
-        {
-            return element.FindElementByName(Value);
-        }
+    public override AppiumWebElement FindElement(IOSElement element)
+    {
+        return element.FindElementByName(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
-        {
-            return element.FindElementsByName(Value);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    {
+        return element.FindElementsByName(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"Name = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"Name = {Value}";
     }
 }

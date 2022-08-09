@@ -13,44 +13,43 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("DatePicker Control")]
+[AllureTag("WinForms")]
+public class DatePickerControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("DatePicker Control")]
-    [AllureTag("WinForms")]
-    public class DatePickerControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_DateHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_DateHovered_WinForms()
-        {
-            var datePicker = App.Components.CreateByAutomationId<Date>("dateTimePicker1");
+        var datePicker = App.Components.CreateByAutomationId<Date>("dateTimePicker1");
 
-            datePicker.Hover();
+        datePicker.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.AreEqual("edataPickerHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.AreEqual("edataPickerHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_DatePickerIsNotDisabled_WinForms()
-        {
-            var datePicker = App.Components.CreateByAutomationId<Date>("dateTimePicker1");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_DatePickerIsNotDisabled_WinForms()
+    {
+        var datePicker = App.Components.CreateByAutomationId<Date>("dateTimePicker1");
 
-            Assert.AreEqual(false, datePicker.IsDisabled);
-        }
+        Assert.AreEqual(false, datePicker.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_DatePickerIsDisabled_WinForms()
-        {
-            var datePicker = App.Components.CreateByAutomationId<Date>("dateTimePickerDisabled");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_DatePickerIsDisabled_WinForms()
+    {
+        var datePicker = App.Components.CreateByAutomationId<Date>("dateTimePickerDisabled");
 
-            Assert.AreEqual(true, datePicker.IsDisabled);
-        }
+        Assert.AreEqual(true, datePicker.IsDisabled);
     }
 }

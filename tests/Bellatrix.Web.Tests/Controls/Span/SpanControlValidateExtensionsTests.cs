@@ -13,52 +13,51 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Span Control")]
+[AllureFeature("ValidateExtensions")]
+public class SpanControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Span Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class SpanControlValidateExtensionsTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
-        {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover_Edge()
+    {
+        var spanElement = App.Components.CreateById<Span>("mySpan");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover_Edge()
-        {
-            var spanElement = App.Components.CreateById<Span>("mySpan");
+        spanElement.Hover();
 
-            spanElement.Hover();
+        spanElement.ValidateStyleIs("color: red;");
+    }
 
-            spanElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateInnerTextIs_DoesNotThrowException_When_InnerText_Edge()
+    {
+        var spanElement = App.Components.CreateById<Span>("mySpan1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateInnerTextIs_DoesNotThrowException_When_InnerText_Edge()
-        {
-            var spanElement = App.Components.CreateById<Span>("mySpan1");
+        spanElement.ValidateInnerTextIs("Automate The Planet");
+    }
 
-            spanElement.ValidateInnerTextIs("Automate The Planet");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateInnerHtmlIs_DoesNotThrowException_When_InnerHtmlSet_Edge()
+    {
+        var spanElement = App.Components.CreateById<Span>("mySpan2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateInnerHtmlIs_DoesNotThrowException_When_InnerHtmlSet_Edge()
-        {
-            var spanElement = App.Components.CreateById<Span>("mySpan2");
-
-            spanElement.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
-        }
+        spanElement.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
     }
 }

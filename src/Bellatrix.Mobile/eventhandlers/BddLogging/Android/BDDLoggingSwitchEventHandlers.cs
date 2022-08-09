@@ -15,12 +15,11 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.BddLogging.Android
-{
-    public class BDDLoggingSwitchEventHandlers : SwitchEventHandlers
-    {
-        protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+namespace Bellatrix.Mobile.BddLogging.Android;
 
-        protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+public class BDDLoggingSwitchEventHandlers : SwitchEventHandlers
+{
+    protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+
+    protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

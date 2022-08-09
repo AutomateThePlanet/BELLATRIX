@@ -15,33 +15,32 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateSrcIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentSrc, IComponent
     {
-        public static void ValidateSrcIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentSrc, IComponent
-        {
-            WaitUntil(() => control.Src == null, $"The control's src should be null but was '{control.Src}'.", timeout, sleepInterval);
-            ValidatedSrcIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateSrcIsNotNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-           where T : IComponentSrc, IComponent
-        {
-            WaitUntil(() => control.Src != null, $"The control's src shouldn't be null but was.", timeout, sleepInterval);
-            ValidatedSrcIsNotNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateSrcIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentSrc, IComponent
-        {
-            WaitUntil(() => control.Src.Equals(value), $"The control's src should be '{value}' but was '{control.Src}'.", timeout, sleepInterval);
-            ValidatedSrcIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedSrcIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedSrcIsNotNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedSrcIsEvent;
+        WaitUntil(() => control.Src == null, $"The control's src should be null but was '{control.Src}'.", timeout, sleepInterval);
+        ValidatedSrcIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateSrcIsNotNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+       where T : IComponentSrc, IComponent
+    {
+        WaitUntil(() => control.Src != null, $"The control's src shouldn't be null but was.", timeout, sleepInterval);
+        ValidatedSrcIsNotNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
+    }
+
+    public static void ValidateSrcIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentSrc, IComponent
+    {
+        WaitUntil(() => control.Src.Equals(value), $"The control's src should be '{value}' but was '{control.Src}'.", timeout, sleepInterval);
+        ValidatedSrcIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedSrcIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedSrcIsNotNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedSrcIsEvent;
 }

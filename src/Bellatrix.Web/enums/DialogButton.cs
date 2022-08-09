@@ -11,18 +11,17 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public enum DialogButton
 {
-    public enum DialogButton
-    {
-        Ok = 0,
-        Cancel = 1,
-        Open = 2,
-        Yes = 3,
-        No = 4,
-        Close = 5,
-        Run = 6,
-        Save = 7,
-        Notset = 8,
-    }
+    Ok = 0,
+    Cancel = 1,
+    Open = 2,
+    Yes = 3,
+    No = 4,
+    Close = 5,
+    Run = 6,
+    Save = 7,
+    Notset = 8,
 }

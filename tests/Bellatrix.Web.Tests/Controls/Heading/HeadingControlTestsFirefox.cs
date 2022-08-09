@@ -13,42 +13,41 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Heading Control")]
+public class HeadingControlTestsFirefox : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Heading Control")]
-    public class HeadingControlTestsFirefox : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Firefox()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+        var headingElement = App.Components.CreateById<Heading>("myHeading");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Firefox()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading");
+        headingElement.Hover();
 
-            headingElement.Hover();
+        Assert.AreEqual("color: red;", headingElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", headingElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnAutomateThePlanet_When_InnerText_Firefox()
+    {
+        var headingElement = App.Components.CreateById<Heading>("myHeading2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnAutomateThePlanet_When_InnerText_Firefox()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading2");
+        Assert.AreEqual("Automate The Planet", headingElement.InnerText);
+    }
 
-            Assert.AreEqual("Automate The Planet", headingElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnEmpty_When_InnerTextNotSet_Firefox()
+    {
+        var headingElement = App.Components.CreateById<Heading>("myHeading4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnEmpty_When_InnerTextNotSet_Firefox()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading4");
-
-            Assert.AreEqual(string.Empty, headingElement.InnerText);
-        }
+        Assert.AreEqual(string.Empty, headingElement.InnerText);
     }
 }

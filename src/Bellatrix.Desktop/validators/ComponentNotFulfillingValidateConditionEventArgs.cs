@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Desktop.Validates
-{
-    public class ComponentNotFulfillingValidateConditionEventArgs
-    {
-        public ComponentNotFulfillingValidateConditionEventArgs(Exception exp) => Exception = exp;
+namespace Bellatrix.Desktop.Validates;
 
-        public Exception Exception { get; }
-    }
+public class ComponentNotFulfillingValidateConditionEventArgs
+{
+    public ComponentNotFulfillingValidateConditionEventArgs(Exception exp) => Exception = exp;
+
+    public Exception Exception { get; }
 }

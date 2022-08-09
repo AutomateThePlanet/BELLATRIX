@@ -14,13 +14,12 @@
 
 using HtmlAgilityPack;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static class HtmlAgilityPackExtensions
 {
-    public static class HtmlAgilityPackExtensions
+    public static string GetXPath(this HtmlNode node)
     {
-        public static string GetXPath(this HtmlNode node)
-        {
-            return "/" + node.XPath;
-        }
+        return "/" + node.XPath;
     }
 }

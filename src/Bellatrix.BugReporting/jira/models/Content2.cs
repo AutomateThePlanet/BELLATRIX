@@ -15,11 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting.Jira.Model
+namespace Bellatrix.BugReporting.Jira.Model;
+
+public class Content2
 {
-    public class Content2
-    {
-        public string type { get; set; }
-        public string text { get; set; }
-    }
+    public string type { get; set; }
+    public string text { get; set; }
 }

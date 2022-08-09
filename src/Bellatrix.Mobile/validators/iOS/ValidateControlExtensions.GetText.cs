@@ -16,25 +16,24 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateTextIsNotSet<TComponent>(this TComponent control, int? timeout = null, int? sleepInterval = null)
+        where TComponent : IComponentText, IComponent<IOSElement>
     {
-        public static void ValidateTextIsNotSet<TComponent>(this TComponent control, int? timeout = null, int? sleepInterval = null)
-            where TComponent : IComponentText, IComponent<IOSElement>
-        {
-            ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => string.IsNullOrEmpty(control.GetText()), $"The control's text should be null but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextIsNotSetEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
-        }
-
-        public static void ValidateTextIs<TComponent>(this TComponent control, string value, int? timeout = null, int? sleepInterval = null)
-             where TComponent : IComponentText, IComponent<IOSElement>
-        {
-            ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.GetText().Equals(value), $"The control's text should be '{value}' but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextIsEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedTextIsNotSetEvent;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedTextIsEvent;
+        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => string.IsNullOrEmpty(control.GetText()), $"The control's text should be null but was '{control.GetText()}'.", timeout, sleepInterval);
+        ValidatedTextIsNotSetEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
     }
+
+    public static void ValidateTextIs<TComponent>(this TComponent control, string value, int? timeout = null, int? sleepInterval = null)
+         where TComponent : IComponentText, IComponent<IOSElement>
+    {
+        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.GetText().Equals(value), $"The control's text should be '{value}' but was '{control.GetText()}'.", timeout, sleepInterval);
+        ValidatedTextIsEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedTextIsNotSetEvent;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedTextIsEvent;
 }

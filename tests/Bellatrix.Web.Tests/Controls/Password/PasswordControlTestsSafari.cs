@@ -13,215 +13,214 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Password Control")]
+public class PasswordControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Password Control")]
-    public class PasswordControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PasswordLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void PasswordSet_When_UseSetPasswordMethod_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PasswordLocalPage);
+        var passwordElement = App.Components.CreateById<Password>("myPassword");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void PasswordSet_When_UseSetPasswordMethod_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword");
+        passwordElement.SetPassword("bellatrix");
 
-            passwordElement.SetPassword("bellatrix");
+        Assert.AreEqual("bellatrix", passwordElement.GetPassword());
+    }
 
-            Assert.AreEqual("bellatrix", passwordElement.GetPassword());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetPasswordReturnsCorrectPassword_When_DefaultPasswordIsSet_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword3");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetPasswordReturnsCorrectPassword_When_DefaultPasswordIsSet_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword3");
+        Assert.AreEqual("password for stars", passwordElement.GetPassword());
+    }
 
-            Assert.AreEqual("password for stars", passwordElement.GetPassword());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword");
+        Assert.AreEqual(false, passwordElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, passwordElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword5");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword5");
+        Assert.AreEqual(false, passwordElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, passwordElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword4");
+        Assert.AreEqual(true, passwordElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(true, passwordElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword4");
+        Assert.AreEqual(false, passwordElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, passwordElement.IsReadonly);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword6");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword6");
+        Assert.AreEqual(true, passwordElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, passwordElement.IsReadonly);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword");
+        var maxLength = passwordElement.MaxLength;
 
-            var maxLength = passwordElement.MaxLength;
+        Assert.IsNull(maxLength);
+    }
 
-            Assert.IsNull(maxLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword");
+        Assert.IsNull(passwordElement.MinLength);
+    }
 
-            Assert.IsNull(passwordElement.MinLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword");
+        // Specifies the width of an <input> element, in characters. Default value is 20
+        Assert.AreEqual(20, passwordElement.Size);
+    }
 
-            // Specifies the width of an <input> element, in characters. Default value is 20
-            Assert.AreEqual(20, passwordElement.Size);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword2");
+        Assert.AreEqual(80, passwordElement.MaxLength);
+    }
 
-            Assert.AreEqual(80, passwordElement.MaxLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword2");
+        Assert.AreEqual(10, passwordElement.MinLength);
+    }
 
-            Assert.AreEqual(10, passwordElement.MinLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword2");
+        Assert.AreEqual(30, passwordElement.Size);
+    }
 
-            Assert.AreEqual(30, passwordElement.Size);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword4");
+        Assert.AreEqual(false, passwordElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, passwordElement.IsRequired);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword7");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword7");
+        Assert.AreEqual(true, passwordElement.IsRequired);
+    }
 
-            Assert.AreEqual(true, passwordElement.IsRequired);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetPlaceholder_When_PlaceholderAttributeIsSet_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetPlaceholder_When_PlaceholderAttributeIsSet_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword");
+        Assert.AreEqual("your password term goes here", passwordElement.Placeholder);
+    }
 
-            Assert.AreEqual("your password term goes here", passwordElement.Placeholder);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword1");
+        Assert.IsNull(passwordElement.Placeholder);
+    }
 
-            Assert.IsNull(passwordElement.Placeholder);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword8");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword8");
+        passwordElement.Hover();
 
-            passwordElement.Hover();
+        Assert.AreEqual("color: red;", passwordElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", passwordElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword9");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword9");
+        passwordElement.Focus();
 
-            passwordElement.Focus();
+        Assert.AreEqual("color: blue;", passwordElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", passwordElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword9");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword9");
+        bool isDisabled = passwordElement.IsDisabled;
 
-            bool isDisabled = passwordElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Safari()
+    {
+        var passwordElement = App.Components.CreateById<Password>("myPassword10");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Safari()
-        {
-            var passwordElement = App.Components.CreateById<Password>("myPassword10");
+        bool isDisabled = passwordElement.IsDisabled;
 
-            bool isDisabled = passwordElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

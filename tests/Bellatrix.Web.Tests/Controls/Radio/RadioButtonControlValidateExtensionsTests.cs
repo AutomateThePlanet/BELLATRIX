@@ -13,68 +13,67 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Radio Control")]
+[AllureFeature("ValidateExtensions")]
+public class RadioButtonControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Radio Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class RadioButtonControlValidateExtensionsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsChecked_DoesNotThrowException_When_UseClickMethod()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsChecked_DoesNotThrowException_When_UseClickMethod()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
+        radioElement.Click();
 
-            radioElement.Click();
+        radioElement.ValidateIsChecked();
+    }
 
-            radioElement.ValidateIsChecked();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover()
+    {
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
+        radioElement.Hover();
 
-            radioElement.Hover();
+        radioElement.ValidateStyleIs("color: red;");
+    }
 
-            radioElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
+    {
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
+        radioElement.ValidateIsNotDisabled();
+    }
 
-            radioElement.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
+    {
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio3");
+        radioElement.ValidateIsDisabled();
+    }
 
-            radioElement.ValidateIsDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateValueIs_DoesNotThrowException_When_ValueAttributeNotPresent()
+    {
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateValueIs_DoesNotThrowException_When_ValueAttributeNotPresent()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
-
-            radioElement.ValidateValueIs("on");
-        }
+        radioElement.ValidateValueIs("on");
     }
 }

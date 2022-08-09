@@ -14,216 +14,215 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("DateTimeLocal Control")]
+[AllureFeature("Edge Browser")]
+public class DateDateTimeLocalLocalControlTestsEdge : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("DateTimeLocal Control")]
-    [AllureFeature("Edge Browser")]
-    public class DateDateTimeLocalLocalControlTestsEdge : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void DateTimeLocalSet_When_UseSetDateTimeLocalMethod_Edge()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void DateTimeLocalSet_When_UseSetDateTimeLocalMethod_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        timeElement.SetTime(new DateTime(1989, 10, 28, 23, 23, 0));
 
-            timeElement.SetTime(new DateTime(1989, 10, 28, 23, 23, 0));
+        Assert.AreEqual("1989-10-28T23:23", timeElement.GetTime());
+    }
 
-            Assert.AreEqual("1989-10-28T23:23", timeElement.GetTime());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetTimeReturnsCorrectDateTimeLocal_When_DefaultDateTimeLocalIsSet_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetTimeReturnsCorrectDateTimeLocal_When_DefaultDateTimeLocalIsSet_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime2");
+        Assert.AreEqual("2017-06-01T08:30", timeElement.GetTime());
+    }
 
-            Assert.AreEqual("2017-06-01T08:30", timeElement.GetTime());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        Assert.IsFalse(timeElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(timeElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
+        Assert.IsFalse(timeElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(timeElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime3");
+        Assert.IsTrue(timeElement.IsAutoComplete);
+    }
 
-            Assert.IsTrue(timeElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
+        Assert.AreEqual(false, timeElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, timeElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime5");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime5");
+        Assert.AreEqual(true, timeElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, timeElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        var max = timeElement.Max;
 
-            var max = timeElement.Max;
+        Assert.IsNull(max);
+    }
 
-            Assert.IsNull(max);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        Assert.IsNull(timeElement.Min);
+    }
 
-            Assert.IsNull(timeElement.Min);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        Assert.IsNull(timeElement.Step);
+    }
 
-            Assert.IsNull(timeElement.Step);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMaxReturns80_When_MaxAttributeIsPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMaxReturns80_When_MaxAttributeIsPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
+        Assert.AreEqual("2017-06-30T16:30", timeElement.Max);
+    }
 
-            Assert.AreEqual("2017-06-30T16:30", timeElement.Max);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMinReturns10_When_MinAttributeIsPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMinReturns10_When_MinAttributeIsPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
+        Assert.AreEqual("2017-06-01T08:30", timeElement.Min);
+    }
 
-            Assert.AreEqual("2017-06-01T08:30", timeElement.Min);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetStepReturns10_When_StepAttributeIsNotPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetStepReturns10_When_StepAttributeIsNotPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
+        Assert.AreEqual(10, timeElement.Step);
+    }
 
-            Assert.AreEqual(10, timeElement.Step);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
+        Assert.AreEqual(false, timeElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, timeElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime6");
+        Assert.IsTrue(timeElement.IsRequired);
+    }
 
-            Assert.IsTrue(timeElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnRed_When_Hover_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnRed_When_Hover_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime7");
+        timeElement.Hover();
 
-            timeElement.Hover();
+        Assert.AreEqual("color: red;", timeElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", timeElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnBlue_When_Focus_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnBlue_When_Focus_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime8");
+        timeElement.Focus();
 
-            timeElement.Focus();
+        Assert.AreEqual("color: blue;", timeElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", timeElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        bool isDisabled = timeElement.IsDisabled;
 
-            bool isDisabled = timeElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnTrue_When_DisabledAttributePresent_Edge()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnTrue_When_DisabledAttributePresent_Edge()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime9");
+        bool isDisabled = timeElement.IsDisabled;
 
-            bool isDisabled = timeElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

@@ -11,13 +11,12 @@
 // </copyright>
 // <author>Ventsislav Ivanov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.ImageRecognition.Exceptions
+namespace Bellatrix.ImageRecognition.Exceptions;
+
+public class ImageRecognitionFindFailedException : ImageRecognitionException
 {
-    public class ImageRecognitionFindFailedException : ImageRecognitionException
+    public ImageRecognitionFindFailedException(string message)
+        : base(message)
     {
-        public ImageRecognitionFindFailedException(string message)
-            : base(message)
-        {
-        }
     }
 }

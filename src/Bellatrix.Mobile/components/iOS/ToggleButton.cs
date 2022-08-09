@@ -18,42 +18,41 @@ using Bellatrix.Mobile.Controls.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class ToggleButton : IOSComponent, IComponentDisabled, IComponentOn, IComponentText
 {
-    public class ToggleButton : IOSComponent, IComponentDisabled, IComponentOn, IComponentText
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurningOn;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurnedOn;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurningOff;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurnedOff;
+
+    public virtual void TurnOn()
     {
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurningOn;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurnedOn;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurningOff;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurnedOff;
-
-        public virtual void TurnOn()
+        bool isElementChecked = GetIsChecked();
+        if (!isElementChecked)
         {
-            bool isElementChecked = GetIsChecked();
-            if (!isElementChecked)
-            {
-                Click(TurningOn, TurnedOn);
-            }
+            Click(TurningOn, TurnedOn);
         }
-
-        public virtual void TurnOff()
-        {
-            bool isChecked = GetIsChecked();
-            if (isChecked)
-            {
-                Click(TurningOff, TurnedOff);
-            }
-        }
-
-        public new virtual string GetText()
-        {
-            return GetText();
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsOn => GetIsChecked();
     }
+
+    public virtual void TurnOff()
+    {
+        bool isChecked = GetIsChecked();
+        if (isChecked)
+        {
+            Click(TurningOff, TurnedOff);
+        }
+    }
+
+    public new virtual string GetText()
+    {
+        return GetText();
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsOn => GetIsChecked();
 }

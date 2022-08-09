@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.BddLogging.Android
+namespace Bellatrix.Mobile.BddLogging.Android;
+
+public class BDDLoggingComboBoxEventHandlers : ComboBoxEventHandlers
 {
-    public class BDDLoggingComboBoxEventHandlers : ComboBoxEventHandlers
-    {
-        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SelectingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

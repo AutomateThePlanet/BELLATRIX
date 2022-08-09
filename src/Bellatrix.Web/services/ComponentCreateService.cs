@@ -13,20 +13,19 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Web
-{
-    public class ComponentCreateService
-    {
-        public TComponent Create<TComponent, TBy>(TBy by, bool shouldCacheElement)
-            where TBy : FindStrategy
-            where TComponent : Component
-        {
-            var elementRepository = new ComponentRepository();
-            return elementRepository.CreateComponentThatIsFound<TComponent>(by, null, shouldCacheElement);
-        }
+namespace Bellatrix.Web;
 
-        public ComponentsList<TComponent> CreateAll<TComponent, TBy>(TBy by, bool shouldCacheElements)
-            where TBy : FindStrategy
-            where TComponent : Component => new ComponentsList<TComponent>(by, null, shouldCacheElements);
+public class ComponentCreateService
+{
+    public TComponent Create<TComponent, TBy>(TBy by, bool shouldCacheElement)
+        where TBy : FindStrategy
+        where TComponent : Component
+    {
+        var elementRepository = new ComponentRepository();
+        return elementRepository.CreateComponentThatIsFound<TComponent>(by, null, shouldCacheElement);
     }
+
+    public ComponentsList<TComponent> CreateAll<TComponent, TBy>(TBy by, bool shouldCacheElements)
+        where TBy : FindStrategy
+        where TComponent : Component => new ComponentsList<TComponent>(by, null, shouldCacheElements);
 }

@@ -14,25 +14,24 @@
 using System;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateAccessKeyIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : Component
     {
-        public static void ValidateAccessKeyIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : Component
-        {
-            WaitUntil(() => control.GetAccessKey() == null, $"The control's accesskey should be null but was '{control.GetAccessKey()}'.", timeout, sleepInterval);
-            ValidatedAccessKeyIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateAccessKeyIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : Component
-        {
-            WaitUntil(() => control.GetAccessKey().Equals(value), $"The control's accesskey should be '{value}' but was '{control.GetAccessKey()}'.", timeout, sleepInterval);
-            ValidatedAccessKeyIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedAccessKeyIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedAccessKeyIsEvent;
+        WaitUntil(() => control.GetAccessKey() == null, $"The control's accesskey should be null but was '{control.GetAccessKey()}'.", timeout, sleepInterval);
+        ValidatedAccessKeyIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateAccessKeyIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : Component
+    {
+        WaitUntil(() => control.GetAccessKey().Equals(value), $"The control's accesskey should be '{value}' but was '{control.GetAccessKey()}'.", timeout, sleepInterval);
+        ValidatedAccessKeyIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedAccessKeyIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedAccessKeyIsEvent;
 }

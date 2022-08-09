@@ -20,21 +20,20 @@ using Bellatrix.DynamicTestCases.Contracts;
 using Bellatrix.DynamicTestCases.QTest;
 using Bellatrix.Plugins;
 
-namespace Bellatrix
-{
-    public static class QTestDynamicTestCasesPlugin
-    {
-        private static bool _isAdded = false;
+namespace Bellatrix;
 
-        public static void Add()
+public static class QTestDynamicTestCasesPlugin
+{
+    private static bool _isAdded = false;
+
+    public static void Add()
+    {
+        if (!_isAdded)
         {
-            if (!_isAdded)
-            {
-                ServicesCollection.Current.RegisterInstance(new DynamicTestCasesService());
-                ServicesCollection.Current.RegisterType<ITestCaseManagementService, QTestTestCaseManagementService>();
-                ServicesCollection.Current.RegisterType<Plugin, Bellatrix.DynamicTestCases.Core.DynamicTestCasesPlugin>(Guid.NewGuid().ToString());
-                _isAdded = true;
-            }
+            ServicesCollection.Current.RegisterInstance(new DynamicTestCasesService());
+            ServicesCollection.Current.RegisterType<ITestCaseManagementService, QTestTestCaseManagementService>();
+            ServicesCollection.Current.RegisterType<Plugin, Bellatrix.DynamicTestCases.Core.DynamicTestCasesPlugin>(Guid.NewGuid().ToString());
+            _isAdded = true;
         }
     }
 }

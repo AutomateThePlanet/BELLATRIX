@@ -20,107 +20,106 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bellatrix.ImageRecognition.Interfaces;
 
-namespace Bellatrix.ImageRecognition
+namespace Bellatrix.ImageRecognition;
+
+internal class AsyncStreamsHandler : IAsyncStreamsHandler
 {
-    internal class AsyncStreamsHandler : IAsyncStreamsHandler
+    private readonly TextReader _stdout;
+    private readonly TextReader _stderr;
+    private readonly TextWriter _stdin;
+    private readonly Task _readStderrTask;
+    private readonly Task _readStdoutTask;
+    private readonly BlockingCollection<string> _pendingOutputLines = new BlockingCollection<string>();
+
+    public AsyncStreamsHandler(TextReader stdout, TextReader stderr, TextWriter stdin)
     {
-        private readonly TextReader _stdout;
-        private readonly TextReader _stderr;
-        private readonly TextWriter _stdin;
-        private readonly Task _readStderrTask;
-        private readonly Task _readStdoutTask;
-        private readonly BlockingCollection<string> _pendingOutputLines = new BlockingCollection<string>();
+        _stdout = stdout;
+        _stderr = stderr;
+        _stdin = stdin;
 
-        public AsyncStreamsHandler(TextReader stdout, TextReader stderr, TextWriter stdin)
-        {
-            _stdout = stdout;
-            _stderr = stderr;
-            _stdin = stdin;
+        _readStdoutTask = Task.Factory.StartNew(ReadStdout, TaskCreationOptions.LongRunning);
+        _readStderrTask = Task.Factory.StartNew(ReadStderr, TaskCreationOptions.LongRunning);
+    }
 
-            _readStdoutTask = Task.Factory.StartNew(ReadStdout, TaskCreationOptions.LongRunning);
-            _readStderrTask = Task.Factory.StartNew(ReadStderr, TaskCreationOptions.LongRunning);
-        }
-
-        public virtual string ReadUntil(double timeoutInSeconds, params string[] expectedStrings)
-        {
-            while (true)
-            {
-                string line;
-                if (timeoutInSeconds > 0)
-                {
-                    var timeout = TimeSpan.FromSeconds(timeoutInSeconds);
-                    if (!_pendingOutputLines.TryTake(out line, timeout))
-                    {
-                        throw new TimeoutException($"No result in allowed time: {timeout}");
-                    }
-                }
-                else
-                {
-                    line = _pendingOutputLines.Take();
-                }
-
-                if (expectedStrings.Any(s => line.IndexOf(s, StringComparison.Ordinal) > -1))
-                {
-                    return line;
-                }
-            }
-        }
-
-        public IEnumerable<string> ReadUpToNow(double timeoutInSeconds)
-        {
-            while (true)
-            {
-                if (_pendingOutputLines.TryTake(out var line, TimeSpan.FromSeconds(timeoutInSeconds)))
-                {
-                    yield return line;
-                }
-                else
-                {
-                    yield break;
-                }
-            }
-        }
-
-        public void WriteLine(string command)
-        {
-            _stdin.WriteLine(command);
-        }
-
-        public void WaitForExit()
-        {
-            _readStdoutTask.Wait();
-            _readStderrTask.Wait();
-        }
-
-        public void Dispose()
-        {
-            _readStdoutTask?.Dispose();
-            _readStderrTask?.Dispose();
-        }
-
-        private void ReadStdout()
-        {
-            ReadStd(_stdout);
-        }
-
-        private void ReadStderr()
-        {
-            ReadStd(_stderr, "[error] ");
-        }
-
-        private void ReadStd(TextReader output, string prefix = null)
+    public virtual string ReadUntil(double timeoutInSeconds, params string[] expectedStrings)
+    {
+        while (true)
         {
             string line;
-            while ((line = output.ReadLine()) != null)
+            if (timeoutInSeconds > 0)
             {
-                if (prefix != null)
+                var timeout = TimeSpan.FromSeconds(timeoutInSeconds);
+                if (!_pendingOutputLines.TryTake(out line, timeout))
                 {
-                    line = prefix + line;
+                    throw new TimeoutException($"No result in allowed time: {timeout}");
                 }
-
-                Debug.WriteLine(line);
-                _pendingOutputLines.Add(line);
             }
+            else
+            {
+                line = _pendingOutputLines.Take();
+            }
+
+            if (expectedStrings.Any(s => line.IndexOf(s, StringComparison.Ordinal) > -1))
+            {
+                return line;
+            }
+        }
+    }
+
+    public IEnumerable<string> ReadUpToNow(double timeoutInSeconds)
+    {
+        while (true)
+        {
+            if (_pendingOutputLines.TryTake(out var line, TimeSpan.FromSeconds(timeoutInSeconds)))
+            {
+                yield return line;
+            }
+            else
+            {
+                yield break;
+            }
+        }
+    }
+
+    public void WriteLine(string command)
+    {
+        _stdin.WriteLine(command);
+    }
+
+    public void WaitForExit()
+    {
+        _readStdoutTask.Wait();
+        _readStderrTask.Wait();
+    }
+
+    public void Dispose()
+    {
+        _readStdoutTask?.Dispose();
+        _readStderrTask?.Dispose();
+    }
+
+    private void ReadStdout()
+    {
+        ReadStd(_stdout);
+    }
+
+    private void ReadStderr()
+    {
+        ReadStd(_stderr, "[error] ");
+    }
+
+    private void ReadStd(TextReader output, string prefix = null)
+    {
+        string line;
+        while ((line = output.ReadLine()) != null)
+        {
+            if (prefix != null)
+            {
+                line = prefix + line;
+            }
+
+            Debug.WriteLine(line);
+            _pendingOutputLines.Add(line);
         }
     }
 }

@@ -15,40 +15,39 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Locators
+namespace Bellatrix.Desktop.Locators;
+
+public class FindIdEndingWithStrategy : FindStrategy
 {
-    public class FindIdEndingWithStrategy : FindStrategy
+    private const string XpathEndingWithExpression = "//*[ends-with(@id, '{0}')]";
+
+    public FindIdEndingWithStrategy(string value)
+        : base(value)
     {
-        private const string XpathEndingWithExpression = "//*[ends-with(@id, '{0}')]";
+    }
 
-        public FindIdEndingWithStrategy(string value)
-            : base(value)
-        {
-        }
+    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    {
+        return searchContext.FindElementByXPath(string.Format(XpathEndingWithExpression, Value));
+    }
 
-        public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
-        {
-            return searchContext.FindElementByXPath(string.Format(XpathEndingWithExpression, Value));
-        }
+    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    {
+        return searchContext.FindElementsByXPath(string.Format(XpathEndingWithExpression, Value));
+    }
 
-        public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
-        {
-            return searchContext.FindElementsByXPath(string.Format(XpathEndingWithExpression, Value));
-        }
+    public override AppiumWebElement FindElement(WindowsElement element)
+    {
+        return element.FindElementByXPath(string.Format(XpathEndingWithExpression, Value));
+    }
 
-        public override AppiumWebElement FindElement(WindowsElement element)
-        {
-            return element.FindElementByXPath(string.Format(XpathEndingWithExpression, Value));
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
+    {
+        return element.FindElementsByXPath(string.Format(XpathEndingWithExpression, Value));
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
-        {
-            return element.FindElementsByXPath(string.Format(XpathEndingWithExpression, Value));
-        }
-
-        public override string ToString()
-        {
-            return $"By ID ending with = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"By ID ending with = {Value}";
     }
 }

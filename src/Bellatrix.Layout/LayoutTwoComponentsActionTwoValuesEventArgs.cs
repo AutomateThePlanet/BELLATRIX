@@ -11,33 +11,32 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Layout
+namespace Bellatrix.Layout;
+
+public class LayoutTwoComponentsActionTwoValuesEventArgs
 {
-    public class LayoutTwoComponentsActionTwoValuesEventArgs
+    public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement)
     {
-        public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement)
-        {
-            Element = element;
-            SecondElement = secondElement;
-        }
-
-        public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement, string actionValue, string secondActionValue)
-            : this(element, secondElement)
-        {
-            ActionValue = actionValue;
-            SecondActionValue = secondActionValue;
-        }
-
-        public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement, double actionValue, double secondActionValue)
-            : this(element, secondElement)
-        {
-            ActionValue = actionValue.ToString();
-            SecondActionValue = secondActionValue.ToString();
-        }
-
-        public ILayoutComponent Element { get; }
-        public ILayoutComponent SecondElement { get; }
-        public string ActionValue { get; }
-        public string SecondActionValue { get; }
+        Element = element;
+        SecondElement = secondElement;
     }
+
+    public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement, string actionValue, string secondActionValue)
+        : this(element, secondElement)
+    {
+        ActionValue = actionValue;
+        SecondActionValue = secondActionValue;
+    }
+
+    public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement, double actionValue, double secondActionValue)
+        : this(element, secondElement)
+    {
+        ActionValue = actionValue.ToString();
+        SecondActionValue = secondActionValue.ToString();
+    }
+
+    public ILayoutComponent Element { get; }
+    public ILayoutComponent SecondElement { get; }
+    public string ActionValue { get; }
+    public string SecondActionValue { get; }
 }

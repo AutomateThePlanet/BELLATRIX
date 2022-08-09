@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+public class Categories
 {
-    public class Categories
-    {
-        public const string CI = "CI";
-        public const string Layout = "Layout";
-        public const string KnownIssue = "KnownIssue";
-    }
+    public const string CI = "CI";
+    public const string Layout = "Layout";
+    public const string KnownIssue = "KnownIssue";
 }

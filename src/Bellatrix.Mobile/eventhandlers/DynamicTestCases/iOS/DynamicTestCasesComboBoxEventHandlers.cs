@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.DynamicTestCases.IOS
+namespace Bellatrix.Mobile.DynamicTestCases.IOS;
+
+public class DynamicTestCasesComboBoxEventHandlers : ComboBoxEventHandlers
 {
-    public class DynamicTestCasesComboBoxEventHandlers : ComboBoxEventHandlers
-    {
-        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SelectingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

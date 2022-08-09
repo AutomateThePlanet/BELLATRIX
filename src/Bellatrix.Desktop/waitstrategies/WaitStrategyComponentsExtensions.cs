@@ -13,56 +13,55 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Untils;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public static class WaitStrategyComponentsExtensions
 {
-    public static class WaitStrategyComponentsExtensions
+    public static TComponentType ToExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+        where TComponentType : Component
     {
-        public static TComponentType ToExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-            where TComponentType : Component
-        {
-            var until = new WaitToExistStrategy(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+        var until = new WaitToExistStrategy(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToNotExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-           where TComponentType : Component
-        {
-            var until = new WaitNotExistStrategy(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToNotExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+       where TComponentType : Component
+    {
+        var until = new WaitNotExistStrategy(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-          where TComponentType : Component
-        {
-            var until = new WaitToBeVisibleStrategy(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+      where TComponentType : Component
+    {
+        var until = new WaitToBeVisibleStrategy(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToNotBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TComponentType : Component
-        {
-            var until = new WaitNotBeVisibleStrategy(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToNotBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+     where TComponentType : Component
+    {
+        var until = new WaitNotBeVisibleStrategy(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToBeClickable<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TComponentType : Component
-        {
-            var until = new WaitToBeClickable(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToBeClickable<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+     where TComponentType : Component
+    {
+        var until = new WaitToBeClickable(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToHasContent<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TComponentType : Component
-        {
-            var until = new WaitToHaveContentStrategy(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToHasContent<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+     where TComponentType : Component
+    {
+        var until = new WaitToHaveContentStrategy(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
     }
 }

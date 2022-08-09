@@ -14,132 +14,131 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Reset Control")]
+[AllureFeature("ControlEvents")]
+public class ResetControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Reset Control")]
-    [AllureFeature("ControlEvents")]
-    public class ResetControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ClickingCalled_BeforeActuallyClick()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage);
+        var buttonElement = App.Components.CreateById<Reset>("myButton");
+        Reset.Clicking += AssertIsCheckedFalse;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ClickingCalled_BeforeActuallyClick()
+        buttonElement.Click();
+
+        Assert.AreEqual("Stop", buttonElement.Value);
+
+        Reset.Clicking -= AssertIsCheckedFalse;
+
+        void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
         {
-            var buttonElement = App.Components.CreateById<Reset>("myButton");
-            Reset.Clicking += AssertIsCheckedFalse;
+            Assert.AreEqual("Start", buttonElement.Value);
+        }
+    }
 
-            buttonElement.Click();
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ClickedCalled_AfterClick()
+    {
+        var buttonElement = App.Components.CreateById<Reset>("myButton");
+        Reset.Clicked += AssertIsCheckedFalse;
 
+        buttonElement.Click();
+
+        Reset.Clicked -= AssertIsCheckedFalse;
+
+        void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
+        {
             Assert.AreEqual("Stop", buttonElement.Value);
-
-            Reset.Clicking -= AssertIsCheckedFalse;
-
-            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("Start", buttonElement.Value);
-            }
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ClickedCalled_AfterClick()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+       Reset.Hovering += AssertStyleAttributeEmpty;
+
+       var buttonElement = App.Components.CreateById<Reset>("myButton1");
+
+       buttonElement.Hover();
+
+       Assert.AreEqual("color: red;", buttonElement.GetStyle());
+
+       Reset.Hovering -= AssertStyleAttributeEmpty;
+
+       void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            var buttonElement = App.Components.CreateById<Reset>("myButton");
-            Reset.Clicked += AssertIsCheckedFalse;
-
-            buttonElement.Click();
-
-            Reset.Clicked -= AssertIsCheckedFalse;
-
-            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("Stop", buttonElement.Value);
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+       Reset.Hovered += AssertStyleAttributeContainsNewValue;
+
+       var buttonElement = App.Components.CreateById<Reset>("myButton1");
+
+       buttonElement.Hover();
+
+       Reset.Hovered -= AssertStyleAttributeContainsNewValue;
+
+       void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-           Reset.Hovering += AssertStyleAttributeEmpty;
-
-           var buttonElement = App.Components.CreateById<Reset>("myButton1");
-
-           buttonElement.Hover();
-
-           Assert.AreEqual("color: red;", buttonElement.GetStyle());
-
-           Reset.Hovering -= AssertStyleAttributeEmpty;
-
-           void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            App.Components.CreateById<Reset>("myButton1").ValidateStyleIs("color: red;");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusingCalled_BeforeActuallyHover()
+    {
+       Reset.Focusing += AssertStyleAttributeEmpty;
+
+       var buttonElement = App.Components.CreateById<Reset>("myButton2");
+
+       buttonElement.Focus();
+
+       Assert.AreEqual("color: blue;", buttonElement.GetStyle());
+
+       Reset.Focusing -= AssertStyleAttributeEmpty;
+
+       void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-           Reset.Hovered += AssertStyleAttributeContainsNewValue;
-
-           var buttonElement = App.Components.CreateById<Reset>("myButton1");
-
-           buttonElement.Hover();
-
-           Reset.Hovered -= AssertStyleAttributeContainsNewValue;
-
-           void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Reset>("myButton1").ValidateStyleIs("color: red;");
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusingCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusedCalled_AfterHover()
+    {
+       Reset.Focused += AssertStyleAttributeContainsNewValue;
+
+       var buttonElement = App.Components.CreateById<Reset>("myButton2");
+
+       buttonElement.Focus();
+
+       Reset.Focused -= AssertStyleAttributeContainsNewValue;
+
+       void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-           Reset.Focusing += AssertStyleAttributeEmpty;
-
-           var buttonElement = App.Components.CreateById<Reset>("myButton2");
-
-           buttonElement.Focus();
-
-           Assert.AreEqual("color: blue;", buttonElement.GetStyle());
-
-           Reset.Focusing -= AssertStyleAttributeEmpty;
-
-           void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusedCalled_AfterHover()
-        {
-           Reset.Focused += AssertStyleAttributeContainsNewValue;
-
-           var buttonElement = App.Components.CreateById<Reset>("myButton2");
-
-           buttonElement.Focus();
-
-           Reset.Focused -= AssertStyleAttributeContainsNewValue;
-
-           void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
         }
     }
 }

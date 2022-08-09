@@ -15,41 +15,40 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.Locators.IOS
+namespace Bellatrix.Mobile.Locators.IOS;
+
+public class FindValueContainingStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
 {
-    public class FindValueContainingStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+    private readonly string _locatorValue;
+
+    public FindValueContainingStrategy(string name)
+        : base(name)
     {
-        private readonly string _locatorValue;
+        _locatorValue = $"//*[contains(@value, '{Value}')]";
+    }
 
-        public FindValueContainingStrategy(string name)
-            : base(name)
-        {
-            _locatorValue = $"//*[contains(@value, '{Value}')]";
-        }
+    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    {
+        return searchContext.FindElementByXPath(_locatorValue);
+    }
 
-        public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
-        {
-            return searchContext.FindElementByXPath(_locatorValue);
-        }
+    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    {
+        return searchContext.FindElementsByXPath(_locatorValue);
+    }
 
-        public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
-        {
-            return searchContext.FindElementsByXPath(_locatorValue);
-        }
+    public override AppiumWebElement FindElement(IOSElement element)
+    {
+        return element.FindElementByXPath(_locatorValue);
+    }
 
-        public override AppiumWebElement FindElement(IOSElement element)
-        {
-            return element.FindElementByXPath(_locatorValue);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    {
+        return element.FindElementsByXPath(_locatorValue);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
-        {
-            return element.FindElementsByXPath(_locatorValue);
-        }
-
-        public override string ToString()
-        {
-            return $"Value contains {Value}";
-        }
+    public override string ToString()
+    {
+        return $"Value contains {Value}";
     }
 }

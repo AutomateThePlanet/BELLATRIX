@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    public interface IHeaderInfo
-    {
-        string HeaderName { get; set; }
+namespace Bellatrix.Web;
 
-        int Order { get; set; }
-    }
+public interface IHeaderInfo
+{
+    string HeaderName { get; set; }
+
+    int Order { get; set; }
 }

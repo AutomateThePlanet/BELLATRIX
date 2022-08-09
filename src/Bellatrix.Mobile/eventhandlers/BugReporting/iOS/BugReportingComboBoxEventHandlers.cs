@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.BugReporting.IOS
+namespace Bellatrix.Mobile.BugReporting.IOS;
+
+public class BugReportingComboBoxEventHandlers : ComboBoxEventHandlers
 {
-    public class BugReportingComboBoxEventHandlers : ComboBoxEventHandlers
-    {
-        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SelectingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Plugins.Video.Contracts
+namespace Bellatrix.Plugins.Video.Contracts;
+
+public interface IVideoRecorderOutputProvider
 {
-    public interface IVideoRecorderOutputProvider
-    {
-        string GetOutputFolder();
-        string GetUniqueFileName(string testName);
-    }
+    string GetOutputFolder();
+    string GetUniqueFileName(string testName);
 }

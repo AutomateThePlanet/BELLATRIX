@@ -11,21 +11,20 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public sealed class WebSettings
 {
-    public sealed class WebSettings
-    {
-        public bool AddUrlToBddLogging { get; set; }
-        public bool ShouldAutomaticallyScrollToVisible { get; set; }
-        public bool ShouldWaitUntilReadyOnElementFound { get; set; }
-        public bool ShouldWaitForAngular { get; set; }
-        public bool ShouldHighlightElements { get; set; }
-        public bool FullPageScreenshotsEnabled { get; set; }
-        public bool ShouldCaptureHttpTraffic { get; set; }
-        public string PathToSslCertificate { get; set; }
-        public bool IsParallelExecutionEnabled { get; set; }
-        public bool ShouldCheckForJavaScriptErrors { get; set; }
-        public TimeoutSettings TimeoutSettings { get; set; }
-        public ExecutionSettings ExecutionSettings { get; set; }
-    }
+    public bool AddUrlToBddLogging { get; set; }
+    public bool ShouldAutomaticallyScrollToVisible { get; set; }
+    public bool ShouldWaitUntilReadyOnElementFound { get; set; }
+    public bool ShouldWaitForAngular { get; set; }
+    public bool ShouldHighlightElements { get; set; }
+    public bool FullPageScreenshotsEnabled { get; set; }
+    public bool ShouldCaptureHttpTraffic { get; set; }
+    public string PathToSslCertificate { get; set; }
+    public bool IsParallelExecutionEnabled { get; set; }
+    public bool ShouldCheckForJavaScriptErrors { get; set; }
+    public TimeoutSettings TimeoutSettings { get; set; }
+    public ExecutionSettings ExecutionSettings { get; set; }
 }

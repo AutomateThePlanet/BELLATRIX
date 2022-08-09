@@ -13,17 +13,16 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+[Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
+public abstract class NavigatablePage : Page
 {
-    [Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
-    public abstract class NavigatablePage : Page
-    {
-        protected NavigatablePage() => NavigationService = ServicesCollection.Current.Resolve<NavigationService>();
+    protected NavigatablePage() => NavigationService = ServicesCollection.Current.Resolve<NavigationService>();
 
-        protected NavigationService NavigationService { get; set; }
+    protected NavigationService NavigationService { get; set; }
 
-        public abstract string Url { get; }
+    public abstract string Url { get; }
 
-        public virtual void Open() => NavigationService.Navigate(new Uri(Url));
-    }
+    public virtual void Open() => NavigationService.Navigate(new Uri(Url));
 }

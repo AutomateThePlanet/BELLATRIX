@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix
-{
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
-    public class AllureTagAttribute : Attribute
-    {
-        public AllureTagAttribute(params string[] tags) => Tags = tags;
+namespace Bellatrix;
 
-        internal string[] Tags { get; }
-    }
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
+public class AllureTagAttribute : Attribute
+{
+    public AllureTagAttribute(params string[] tags) => Tags = tags;
+
+    internal string[] Tags { get; }
 }

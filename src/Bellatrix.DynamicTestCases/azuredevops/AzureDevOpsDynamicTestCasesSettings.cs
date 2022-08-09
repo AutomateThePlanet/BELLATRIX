@@ -15,14 +15,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.DynamicTestCases.AzureDevOps
+namespace Bellatrix.DynamicTestCases.AzureDevOps;
+
+public class AzureDevOpsDynamicTestCasesSettings
 {
-    public class AzureDevOpsDynamicTestCasesSettings
-    {
-        public bool IsEnabled { get; set; }
-        public string Url { get; set; }
-        public string Token { get; set; }
-        public string OrganizationName { get; set; }
-        public string ProjectName { get; set; }
-    }
+    public bool IsEnabled { get; set; }
+    public string Url { get; set; }
+    public string Token { get; set; }
+    public string OrganizationName { get; set; }
+    public string ProjectName { get; set; }
 }

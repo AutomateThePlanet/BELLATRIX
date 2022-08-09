@@ -13,15 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Locators;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class JavaScriptBy : FindStrategy
 {
-    public class JavaScriptBy : FindStrategy
-    {
-        private readonly object[] _args;
+    private readonly object[] _args;
 
-        public JavaScriptBy(string value, params object[] args)
-            : base(value) => _args = args;
+    public JavaScriptBy(string value, params object[] args)
+        : base(value) => _args = args;
 
-        public override OpenQA.Selenium.By Convert() => new SeleniumJavaScriptBy(Value, _args);
-    }
+    public override OpenQA.Selenium.By Convert() => new SeleniumJavaScriptBy(Value, _args);
 }

@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp;
 
-namespace Bellatrix.Api.Events
-{
-    public class ClientEventArgs
-    {
-        public ClientEventArgs(IRestClient client) => Client = client;
+namespace Bellatrix.Api.Events;
 
-        public IRestClient Client { get; }
-    }
+public class ClientEventArgs
+{
+    public ClientEventArgs(IRestClient client) => Client = client;
+
+    public IRestClient Client { get; }
 }

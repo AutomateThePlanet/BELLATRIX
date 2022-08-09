@@ -13,84 +13,83 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Image Control")]
+[AllureFeature("ValidateExtensions")]
+public class ImageControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Image Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ImageControlValidateExtensionsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateSrcIs_DoesNotThrowException_When_DefaultSrcIsSet()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage);
+        var imageElement = App.Components.CreateById<Image>("myImage");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateSrcIs_DoesNotThrowException_When_DefaultSrcIsSet()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage");
+        imageElement.ValidateSrcIs("https://bellatrix.solutions/assets/uploads/2017/09/logo.png");
+    }
 
-            imageElement.ValidateSrcIs("https://bellatrix.solutions/assets/uploads/2017/09/logo.png");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateSrcIsNotNull_DoesNotThrowException_When_DefaultSrcIsSet()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateSrcIsNotNull_DoesNotThrowException_When_DefaultSrcIsSet()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage");
+        imageElement.ValidateSrcIsNotNull();
+    }
 
-            imageElement.ValidateSrcIsNotNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateHeightIsNotNull_DoesNotThrowException_When_HeightAttributeIsNotPresent()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateHeightIsNotNull_DoesNotThrowException_When_HeightAttributeIsNotPresent()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage");
+        imageElement.ValidateHeightIsNotNull();
+    }
 
-            imageElement.ValidateHeightIsNotNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateWidthIsNotNull_DoesNotThrowException_When_WidthAttributeIsNotPresent()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateWidthIsNotNull_DoesNotThrowException_When_WidthAttributeIsNotPresent()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage");
+        imageElement.ValidateWidthIsNotNull();
+    }
 
-            imageElement.ValidateWidthIsNotNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAltIs_DoesNotThrowException_When_AltAttributePresent()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAltIs_DoesNotThrowException_When_AltAttributePresent()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage");
+        imageElement.ValidateAltIs("MDN");
+    }
 
-            imageElement.ValidateAltIs("MDN");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateSrcSetIs_DoesNotThrowException_When_SrcSetAttributePresent()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateSrcSetIs_DoesNotThrowException_When_SrcSetAttributePresent()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage1");
+        imageElement.ValidateSrcSetIs("mdn-logo-HD.png 2x");
+    }
 
-            imageElement.ValidateSrcSetIs("mdn-logo-HD.png 2x");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateSizesIs_DoesNotThrowException_When_SizesAttributePresent()
+    {
+        var imageElement = App.Components.CreateById<Image>("myImage2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateSizesIs_DoesNotThrowException_When_SizesAttributePresent()
-        {
-            var imageElement = App.Components.CreateById<Image>("myImage2");
-
-            imageElement.ValidateSizesIs("(min-width: 600px) 200px, 50vw");
-        }
+        imageElement.ValidateSizesIs("(min-width: 600px) 200px, 50vw");
     }
 }

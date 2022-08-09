@@ -13,42 +13,41 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Heading Control")]
+public class HeadingControlTestsChrome : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Heading Control")]
-    public class HeadingControlTestsChrome : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Chrome()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+        var headingElement = App.Components.CreateById<Heading>("myHeading");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Chrome()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading");
+        headingElement.Hover();
 
-            headingElement.Hover();
+        Assert.AreEqual("color: red;", headingElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", headingElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnAutomateThePlanet_When_InnerText_Chrome()
+    {
+        var headingElement = App.Components.CreateById<Heading>("myHeading2");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnAutomateThePlanet_When_InnerText_Chrome()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading2");
+        Assert.AreEqual("Automate The Planet", headingElement.InnerText);
+    }
 
-            Assert.AreEqual("Automate The Planet", headingElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnEmpty_When_InnerTextNotSet_Chrome()
+    {
+        var headingElement = App.Components.CreateById<Heading>("myHeading4");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnEmpty_When_InnerTextNotSet_Chrome()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading4");
-
-            Assert.AreEqual(string.Empty, headingElement.InnerText);
-        }
+        Assert.AreEqual(string.Empty, headingElement.InnerText);
     }
 }

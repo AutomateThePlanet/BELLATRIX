@@ -15,30 +15,29 @@ using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.EventHandlers.Android
+namespace Bellatrix.Mobile.EventHandlers.Android;
+
+public class ButtonEventHandlers : ComponentEventHandlers
 {
-    public class ButtonEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Button.Clicking += ClickingEventHandler;
-            Button.Clicked += ClickedEventHandler;
-        }
+        base.SubscribeToAll();
+        Button.Clicking += ClickingEventHandler;
+        Button.Clicked += ClickedEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Button.Clicking -= ClickingEventHandler;
-            Button.Clicked -= ClickedEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Button.Clicking -= ClickingEventHandler;
+        Button.Clicked -= ClickedEventHandler;
+    }
 
-        protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
     }
 }

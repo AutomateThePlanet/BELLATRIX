@@ -13,16 +13,15 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Services.Android
-{
-    public class AndroidKeyboardService : KeyboardService<AndroidDriver<AndroidElement>, AndroidElement>
-    {
-        public AndroidKeyboardService(AndroidDriver<AndroidElement> wrappedDriver)
-            : base(wrappedDriver)
-        {
-        }
+namespace Bellatrix.Mobile.Services.Android;
 
-        public void LongPressKeyCode(int keyCode, int metastate = -1) => WrappedAppiumDriver.LongPressKeyCode(keyCode, metastate);
-        public void PressKeyCode(int keyCode, int metastate = -1) => WrappedAppiumDriver.PressKeyCode(keyCode, metastate);
+public class AndroidKeyboardService : KeyboardService<AndroidDriver<AndroidElement>, AndroidElement>
+{
+    public AndroidKeyboardService(AndroidDriver<AndroidElement> wrappedDriver)
+        : base(wrappedDriver)
+    {
     }
+
+    public void LongPressKeyCode(int keyCode, int metastate = -1) => WrappedAppiumDriver.LongPressKeyCode(keyCode, metastate);
+    public void PressKeyCode(int keyCode, int metastate = -1) => WrappedAppiumDriver.PressKeyCode(keyCode, metastate);
 }

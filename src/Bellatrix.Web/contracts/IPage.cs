@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    public interface IPage
-    {
-        string Url { get; }
+namespace Bellatrix.Web;
 
-        string RelativeUrl { get; }
-    }
+public interface IPage
+{
+    string Url { get; }
+
+    string RelativeUrl { get; }
 }

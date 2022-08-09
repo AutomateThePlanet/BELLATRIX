@@ -14,10 +14,9 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.DynamicTestCases
+namespace Bellatrix.Desktop.DynamicTestCases;
+
+public class DynamicTestCasesTextAreaEventHandlers : TextAreaEventHandlers
 {
-    public class DynamicTestCasesTextAreaEventHandlers : TextAreaEventHandlers
-    {
-        protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

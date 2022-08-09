@@ -19,43 +19,42 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 using System;
 
-namespace Bellatrix.Mobile
-{
-    internal static class ValidateControlWaitService
-    {
-        internal static void WaitUntil<TDriver, TDriverElement>(Func<bool> waitCondition, string exceptionMessage, int? timeoutInSeconds, int? sleepIntervalInSeconds)
-            where TDriver : AppiumDriver<TDriverElement>
-            where TDriverElement : AppiumWebElement
-        {
-            var localTimeout = timeoutInSeconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ValidationsTimeout;
-            var localSleepInterval = sleepIntervalInSeconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.SleepInterval;
-            var wrappedWebDriver = ServicesCollection.Current.Resolve<TDriver>();
-            var webDriverWait = new AppiumDriverWait<TDriver, TDriverElement>(wrappedWebDriver, new SystemClock(), TimeSpan.FromSeconds(localTimeout), TimeSpan.FromSeconds(localSleepInterval));
-            webDriverWait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException));
-            bool LocalCondition(IWebDriver s)
-            {
-                try
-                {
-                    return waitCondition();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
+namespace Bellatrix.Mobile;
 
+internal static class ValidateControlWaitService
+{
+    internal static void WaitUntil<TDriver, TDriverElement>(Func<bool> waitCondition, string exceptionMessage, int? timeoutInSeconds, int? sleepIntervalInSeconds)
+        where TDriver : AppiumDriver<TDriverElement>
+        where TDriverElement : AppiumWebElement
+    {
+        var localTimeout = timeoutInSeconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ValidationsTimeout;
+        var localSleepInterval = sleepIntervalInSeconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.SleepInterval;
+        var wrappedWebDriver = ServicesCollection.Current.Resolve<TDriver>();
+        var webDriverWait = new AppiumDriverWait<TDriver, TDriverElement>(wrappedWebDriver, new SystemClock(), TimeSpan.FromSeconds(localTimeout), TimeSpan.FromSeconds(localSleepInterval));
+        webDriverWait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException));
+        bool LocalCondition(IWebDriver s)
+        {
             try
             {
-                webDriverWait.Until(LocalCondition);
+                return waitCondition();
             }
-            catch (WebDriverTimeoutException)
+            catch (Exception)
             {
-                var elementPropertyValidateException = new ComponentPropertyValidateException(exceptionMessage);
-                ValidatedExceptionThrowedEvent?.Invoke(waitCondition, new ComponentNotFulfillingValidateConditionEventArgs(elementPropertyValidateException));
-                throw elementPropertyValidateException;
+                return false;
             }
         }
 
-        public static event EventHandler<ComponentNotFulfillingValidateConditionEventArgs> ValidatedExceptionThrowedEvent;
+        try
+        {
+            webDriverWait.Until(LocalCondition);
+        }
+        catch (WebDriverTimeoutException)
+        {
+            var elementPropertyValidateException = new ComponentPropertyValidateException(exceptionMessage);
+            ValidatedExceptionThrowedEvent?.Invoke(waitCondition, new ComponentNotFulfillingValidateConditionEventArgs(elementPropertyValidateException));
+            throw elementPropertyValidateException;
+        }
     }
+
+    public static event EventHandler<ComponentNotFulfillingValidateConditionEventArgs> ValidatedExceptionThrowedEvent;
 }

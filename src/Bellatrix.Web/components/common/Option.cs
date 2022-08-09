@@ -15,22 +15,21 @@ using System;
 using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class Option : Component, IComponentInnerText, IComponentValue, IComponentDisabled, IComponentSelected
 {
-    public class Option : Component, IComponentInnerText, IComponentValue, IComponentDisabled, IComponentSelected
-    {
-        public override Type ComponentType => GetType();
+    public override Type ComponentType => GetType();
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string InnerText => GetInnerText();
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string InnerText => GetInnerText();
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetDisabledAttribute();
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetDisabledAttribute();
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Value => DefaultGetValue();
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Value => DefaultGetValue();
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsSelected => WrappedElement.Selected;
-    }
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsSelected => WrappedElement.Selected;
 }

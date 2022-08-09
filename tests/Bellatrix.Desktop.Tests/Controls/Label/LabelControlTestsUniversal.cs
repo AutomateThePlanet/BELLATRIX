@@ -13,23 +13,22 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Label Control")]
+[AllureTag("Universal")]
+public class LabelControlTestsUniversal : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Label Control")]
-    [AllureTag("Universal")]
-    public class LabelControlTestsUniversal : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_LabelHovered_Universal()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_LabelHovered_Universal()
-        {
-            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
+        var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
 
-            label.Hover();
+        label.Hover();
 
-            Assert.AreEqual("labelHovered", label.InnerText);
-        }
+        Assert.AreEqual("labelHovered", label.InnerText);
     }
 }

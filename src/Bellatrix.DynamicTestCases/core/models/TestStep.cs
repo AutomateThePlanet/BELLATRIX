@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.DynamicTestCases
+namespace Bellatrix.DynamicTestCases;
+
+public class TestStep
 {
-    public class TestStep
+    public TestStep(string description, string expected)
     {
-        public TestStep(string description, string expected)
-        {
-            Description = description;
-            Expected = expected;
-        }
-
-        public TestStep(string description)
-        {
-            Description = description;
-        }
-
-        public string Description { get; set; }
-        public string Expected { get; set; }
+        Description = description;
+        Expected = expected;
     }
+
+    public TestStep(string description)
+    {
+        Description = description;
+    }
+
+    public string Description { get; set; }
+    public string Expected { get; set; }
 }

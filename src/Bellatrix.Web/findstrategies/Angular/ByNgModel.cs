@@ -11,15 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    public class ByNgModel : JavaScriptBy
-    {
-        public ByNgModel(string value)
-            : base(AngularClientSideScripts.FindModel, value)
-        {
-        }
+namespace Bellatrix.Web;
 
-        public override string ToString() => $"Angular Model = {Value}";
+public class ByNgModel : JavaScriptBy
+{
+    public ByNgModel(string value)
+        : base(AngularClientSideScripts.FindModel, value)
+    {
     }
+
+    public override string ToString() => $"Angular Model = {Value}";
 }

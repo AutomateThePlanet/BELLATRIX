@@ -11,21 +11,20 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    internal class HeaderRowIndex
-    {
-        public HeaderRowIndex(string headerName, int rowspan, int colspan, int rowIndex)
-        {
-            HeaderName = headerName;
-            Rowspan = rowspan;
-            Colspan = colspan;
-            RowIndex = rowIndex;
-        }
+namespace Bellatrix.Web;
 
-        public string HeaderName { get; set; }
-        public int Rowspan { get; set; }
-        public int Colspan { get; set; }
-        public int RowIndex { get; set; }
+internal class HeaderRowIndex
+{
+    public HeaderRowIndex(string headerName, int rowspan, int colspan, int rowIndex)
+    {
+        HeaderName = headerName;
+        Rowspan = rowspan;
+        Colspan = colspan;
+        RowIndex = rowIndex;
     }
+
+    public string HeaderName { get; set; }
+    public int Rowspan { get; set; }
+    public int Colspan { get; set; }
+    public int RowIndex { get; set; }
 }

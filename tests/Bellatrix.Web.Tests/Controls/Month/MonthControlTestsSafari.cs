@@ -13,207 +13,206 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Month Control")]
+public class MonthControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Month Control")]
-    public class MonthControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void MonthSet_When_UseSetMonthMethodWithMonthLessThan10_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage);
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void MonthSet_When_UseSetMonthMethodWithMonthLessThan10_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        monthElement.SetMonth(2017, 7);
 
-            monthElement.SetMonth(2017, 7);
+        Assert.AreEqual("2017-07", monthElement.GetMonth());
+    }
 
-            Assert.AreEqual("2017-07", monthElement.GetMonth());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void MonthSet_When_UseSetMonthMethodWithMonthBiggerThan9_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void MonthSet_When_UseSetMonthMethodWithMonthBiggerThan9_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        monthElement.SetMonth(2017, 11);
 
-            monthElement.SetMonth(2017, 11);
+        Assert.AreEqual("2017-11", monthElement.GetMonth());
+    }
 
-            Assert.AreEqual("2017-11", monthElement.GetMonth());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMonthReturnsCorrectMonth_When_DefaultMonthIsSet_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMonthReturnsCorrectMonth_When_DefaultMonthIsSet_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth2");
+        Assert.AreEqual("2017-08", monthElement.GetMonth());
+    }
 
-            Assert.AreEqual("2017-08", monthElement.GetMonth());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        Assert.IsFalse(monthElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(monthElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth4");
+        Assert.IsFalse(monthElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(monthElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth3");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth3");
+        Assert.IsTrue(monthElement.IsAutoComplete);
+    }
 
-            Assert.IsTrue(monthElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth4");
+        Assert.AreEqual(false, monthElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, monthElement.IsReadonly);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth5");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth5");
+        Assert.AreEqual(true, monthElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, monthElement.IsReadonly);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        var max = monthElement.Max;
 
-            var max = monthElement.Max;
+        Assert.IsNull(max);
+    }
 
-            Assert.IsNull(max);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        Assert.IsNull(monthElement.Min);
+    }
 
-            Assert.IsNull(monthElement.Min);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        Assert.IsNull(monthElement.Step);
+    }
 
-            Assert.IsNull(monthElement.Step);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMaxReturns52Month_When_MaxAttributeIsPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMaxReturns52Month_When_MaxAttributeIsPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth1");
+        Assert.AreEqual("2032-12", monthElement.Max);
+    }
 
-            Assert.AreEqual("2032-12", monthElement.Max);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMinReturnsFirstMonth_When_MinAttributeIsPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMinReturnsFirstMonth_When_MinAttributeIsPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth1");
+        Assert.AreEqual("1900-01", monthElement.Min);
+    }
 
-            Assert.AreEqual("1900-01", monthElement.Min);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetStepReturns10_When_StepAttributeIsNotPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetStepReturns10_When_StepAttributeIsNotPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth1");
+        Assert.AreEqual(2, monthElement.Step);
+    }
 
-            Assert.AreEqual(2, monthElement.Step);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth4");
+        Assert.AreEqual(false, monthElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, monthElement.IsRequired);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth6");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth6");
+        Assert.IsTrue(monthElement.IsRequired);
+    }
 
-            Assert.IsTrue(monthElement.IsRequired);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth7");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth7");
+        monthElement.Hover();
 
-            monthElement.Hover();
+        Assert.AreEqual("color: red;", monthElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", monthElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth8");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth8");
+        monthElement.Focus();
 
-            monthElement.Focus();
+        Assert.AreEqual("color: blue;", monthElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", monthElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        bool isDisabled = monthElement.IsDisabled;
 
-            bool isDisabled = monthElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Safari()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth9");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Safari()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth9");
+        bool isDisabled = monthElement.IsDisabled;
 
-            bool isDisabled = monthElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

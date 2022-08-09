@@ -13,25 +13,24 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class FindAttributeContainingStrategy : FindStrategy
 {
-    public class FindAttributeContainingStrategy : FindStrategy
+    private readonly string _attributeName;
+    public FindAttributeContainingStrategy(string attributeName, string value)
+        : base(value)
     {
-        private readonly string _attributeName;
-        public FindAttributeContainingStrategy(string attributeName, string value)
-            : base(value)
-        {
-            _attributeName = attributeName;
-        }
+        _attributeName = attributeName;
+    }
 
-        public override By Convert()
-        {
-            return By.CssSelector($"[{_attributeName}*='{Value}']");
-        }
+    public override By Convert()
+    {
+        return By.CssSelector($"[{_attributeName}*='{Value}']");
+    }
 
-        public override string ToString()
-        {
-            return $"{_attributeName} = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"{_attributeName} = {Value}";
     }
 }

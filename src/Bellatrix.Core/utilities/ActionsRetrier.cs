@@ -18,26 +18,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Bellatrix.Utilities;
 
-namespace Bellatrix.Core.Utilities
+namespace Bellatrix.Core.Utilities;
+
+public static class ActionsRetrier
 {
-    public static class ActionsRetrier
+    public static void Perform(Action mainAction, Action onRetry, int numbersToRetry = 3)
     {
-        public static void Perform(Action mainAction, Action onRetry, int numbersToRetry = 3)
+        do
         {
-            do
+            try
             {
-                try
-                {
-                    mainAction();
-                    break;
-                }
-                catch
-                {
-                    onRetry();
-                    numbersToRetry--;
-                }
+                mainAction();
+                break;
             }
-            while (numbersToRetry != 0);
+            catch
+            {
+                onRetry();
+                numbersToRetry--;
+            }
         }
+        while (numbersToRetry != 0);
     }
 }

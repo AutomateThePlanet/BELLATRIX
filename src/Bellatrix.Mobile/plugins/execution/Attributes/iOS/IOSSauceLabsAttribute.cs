@@ -17,32 +17,31 @@ using Bellatrix.Mobile.Plugins.Attributes;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public class IOSSauceLabsAttribute : SauceLabsAttribute, IAppiumOptionsFactory
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class IOSSauceLabsAttribute : SauceLabsAttribute, IAppiumOptionsFactory
+    public IOSSauceLabsAttribute(
+        string appPath,
+        string platformVersion,
+        string deviceName,
+        Lifecycle behavior = Lifecycle.NotSet,
+        bool recordVideo = false,
+        bool recordScreenshots = false)
+        : base(appPath, platformVersion, deviceName, behavior, recordVideo, recordScreenshots)
     {
-        public IOSSauceLabsAttribute(
-            string appPath,
-            string platformVersion,
-            string deviceName,
-            Lifecycle behavior = Lifecycle.NotSet,
-            bool recordVideo = false,
-            bool recordScreenshots = false)
-            : base(appPath, platformVersion, deviceName, behavior, recordVideo, recordScreenshots)
-        {
-            AppConfiguration.MobileOSType = MobileOSType.IOS;
-            AppConfiguration.PlatformName = "iOS";
-        }
+        AppConfiguration.MobileOSType = MobileOSType.IOS;
+        AppConfiguration.PlatformName = "iOS";
+    }
 
-        public new AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
-        {
-            var appiumOptions = base.CreateAppiumOptions(memberInfo, testClassType);
-            appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
-            appiumOptions.AddAdditionalCapability("deviceOrientation", "portrait");
-            appiumOptions.AddAdditionalCapability("browserName", string.Empty);
+    public new AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
+    {
+        var appiumOptions = base.CreateAppiumOptions(memberInfo, testClassType);
+        appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
+        appiumOptions.AddAdditionalCapability("deviceOrientation", "portrait");
+        appiumOptions.AddAdditionalCapability("browserName", string.Empty);
 
-            return appiumOptions;
-        }
+        return appiumOptions;
     }
 }

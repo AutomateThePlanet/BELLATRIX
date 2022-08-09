@@ -13,10 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Diagnostics;
 
-namespace Bellatrix.ImageRecognition.Interfaces
+namespace Bellatrix.ImageRecognition.Interfaces;
+
+public interface IImageRecognitionService
 {
-    public interface IImageRecognitionService
-    {
-        Process Start(string args);
-    }
+    Process Start(string args);
 }

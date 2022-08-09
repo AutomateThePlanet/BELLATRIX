@@ -15,24 +15,23 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class RangeControlDataHandler : IEditableControlDataHandler<Range>
 {
-    public class RangeControlDataHandler : IEditableControlDataHandler<Range>
+    public dynamic GetData(Range element) => element.GetRange();
+
+    public void SetData(Range element, string data)
     {
-        public dynamic GetData(Range element) => element.GetRange();
-
-        public void SetData(Range element, string data)
+        if (int.TryParse(data, out int valueToSet))
         {
-            if (int.TryParse(data, out int valueToSet))
-            {
-                element.SetRange(valueToSet);
-            }
-            else
-            {
-                throw new ArgumentException($"The input string {data} was not recognized as valid integer.");
-            }
+            element.SetRange(valueToSet);
         }
-
-        public void ValidateValueIs(Range element, string expectedValue) => element.ValidateRangeIs(int.Parse(expectedValue));
+        else
+        {
+            throw new ArgumentException($"The input string {data} was not recognized as valid integer.");
+        }
     }
+
+    public void ValidateValueIs(Range element, string expectedValue) => element.ValidateRangeIs(int.Parse(expectedValue));
 }

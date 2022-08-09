@@ -12,21 +12,20 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Web.Services.Angular
+namespace Bellatrix.Web.Services.Angular;
+
+public static class ComponentExtensions
 {
-    public static class ComponentExtensions
+    private static JavaScriptService _javaScriptService;
+    private static BrowserService _browserService;
+
+    public static object Evaluate<TComponent>(this TComponent element, string expression)
+        where TComponent : Component
     {
-        private static JavaScriptService _javaScriptService;
-        private static BrowserService _browserService;
+        _javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
+        _browserService = ServicesCollection.Current.Resolve<BrowserService>();
+        _browserService.WaitForAngular();
 
-        public static object Evaluate<TComponent>(this TComponent element, string expression)
-            where TComponent : Component
-        {
-            _javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
-            _browserService = ServicesCollection.Current.Resolve<BrowserService>();
-            _browserService.WaitForAngular();
-
-            return _javaScriptService.Execute(AngularClientSideScripts.Evaluate, element, expression);
-        }
+        return _javaScriptService.Execute(AngularClientSideScripts.Evaluate, element, expression);
     }
 }

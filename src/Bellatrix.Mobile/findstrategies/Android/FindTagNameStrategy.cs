@@ -15,38 +15,37 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Locators.Android
+namespace Bellatrix.Mobile.Locators.Android;
+
+public class FindTagNameStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
 {
-    public class FindTagNameStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+    public FindTagNameStrategy(string name)
+        : base(name)
     {
-        public FindTagNameStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
-        {
-            return searchContext.FindElementByTagName(Value);
-        }
+    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    {
+        return searchContext.FindElementByTagName(Value);
+    }
 
-        public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
-        {
-            return searchContext.FindElementsByTagName(Value);
-        }
+    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
+    {
+        return searchContext.FindElementsByTagName(Value);
+    }
 
-        public override AppiumWebElement FindElement(AndroidElement element)
-        {
-            return element.FindElementByTagName(Value);
-        }
+    public override AppiumWebElement FindElement(AndroidElement element)
+    {
+        return element.FindElementByTagName(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
-        {
-            return element.FindElementsByTagName(Value);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    {
+        return element.FindElementsByTagName(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"TagName = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"TagName = {Value}";
     }
 }

@@ -17,24 +17,23 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Controls.Android;
 using Bellatrix.Mobile.Events;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public class TextField : AndroidComponent, IComponentDisabled, IComponentText
 {
-    public class TextField : AndroidComponent, IComponentDisabled, IComponentText
+    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingText;
+    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TextSet;
+
+    public virtual void SetText(string value)
     {
-        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingText;
-        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TextSet;
-
-        public virtual void SetText(string value)
-        {
-            SetText(SettingText, TextSet, value);
-        }
-
-        public new virtual string GetText()
-        {
-            return base.GetText();
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        SetText(SettingText, TextSet, value);
     }
+
+    public new virtual string GetText()
+    {
+        return base.GetText();
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

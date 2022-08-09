@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Locators.IOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class FindStrategyFactory
 {
-    public class FindStrategyFactory
-    {
-        public FindStrategyId Id(string id) => new FindStrategyId(id);
+    public FindStrategyId Id(string id) => new FindStrategyId(id);
 
-        public FindAccessibilityIdStrategy AccessibilityId(string css) => new FindAccessibilityIdStrategy(css);
+    public FindAccessibilityIdStrategy AccessibilityId(string css) => new FindAccessibilityIdStrategy(css);
 
-        public FindClassNameStrategy ClassName(string linkText) => new FindClassNameStrategy(linkText);
+    public FindClassNameStrategy ClassName(string linkText) => new FindClassNameStrategy(linkText);
 
-        public FindNameStrategy Name(string name) => new FindNameStrategy(name);
+    public FindNameStrategy Name(string name) => new FindNameStrategy(name);
 
-        public FindTagNameStrategy TagName(string tag) => new FindTagNameStrategy(tag);
+    public FindTagNameStrategy TagName(string tag) => new FindTagNameStrategy(tag);
 
-        public FindXPathStrategy XPath(string name) => new FindXPathStrategy(name);
+    public FindXPathStrategy XPath(string name) => new FindXPathStrategy(name);
 
-        public FindIOSUIAutomationStrategy IOSUIAutomation(string name) => new FindIOSUIAutomationStrategy(name);
+    public FindIOSUIAutomationStrategy IOSUIAutomation(string name) => new FindIOSUIAutomationStrategy(name);
 
-        public FindValueContainingStrategy ValueContaining(string name) => new FindValueContainingStrategy(name);
-    }
+    public FindValueContainingStrategy ValueContaining(string name) => new FindValueContainingStrategy(name);
 }

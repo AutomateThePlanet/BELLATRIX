@@ -15,16 +15,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting.AzureDevOps
+namespace Bellatrix.BugReporting.AzureDevOps;
+
+public class AzureDevOpsBugReportingSettings
 {
-    public class AzureDevOpsBugReportingSettings
-    {
-        public bool IsEnabled { get; set; }
-        public string Url { get; set; }
-        public string Token { get; set; }
-        public string OrganizationName { get; set; }
-        public string ProjectName { get; set; }
-        public string DefaultPriority { get; set; }
-        public string DefaultSeverity { get; set; }
-    }
+    public bool IsEnabled { get; set; }
+    public string Url { get; set; }
+    public string Token { get; set; }
+    public string OrganizationName { get; set; }
+    public string ProjectName { get; set; }
+    public string DefaultPriority { get; set; }
+    public string DefaultSeverity { get; set; }
 }

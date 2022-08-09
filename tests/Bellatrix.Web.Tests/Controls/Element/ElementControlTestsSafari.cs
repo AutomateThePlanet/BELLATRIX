@@ -13,219 +13,218 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls.Element
+namespace Bellatrix.Web.Tests.Controls.Element;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Element Control")]
+public class ElementControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Element Control")]
-    public class ElementControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void IsVisibleReturnsTrue_When_ElementIsPresent_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+        var urlElement = App.Components.CreateById<Url>("myURL");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void IsVisibleReturnsTrue_When_ElementIsPresent_Safari()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL");
+        Assert.IsTrue(urlElement.IsVisible);
+    }
 
-            Assert.IsTrue(urlElement.IsVisible);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void IsVisibleReturnsFalse_When_ElementIsHidden_Safari()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL11");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void IsVisibleReturnsFalse_When_ElementIsHidden_Safari()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL11");
+        Assert.IsFalse(urlElement.IsVisible);
+    }
 
-            Assert.IsFalse(urlElement.IsVisible);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void SetAttributeChangesAttributeValue_Safari()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void SetAttributeChangesAttributeValue_Safari()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL");
+        urlElement.SetAttribute("class", "myTestClass1");
+        var cssClass = urlElement.GetAttribute("class");
 
-            urlElement.SetAttribute("class", "myTestClass1");
-            var cssClass = urlElement.GetAttribute("class");
+        Assert.AreEqual("myTestClass1", cssClass);
+    }
 
-            Assert.AreEqual("myTestClass1", cssClass);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetAttributeReturnsName_When_NameAttributeIsSet_Safari()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetAttributeReturnsName_When_NameAttributeIsSet_Safari()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL");
+        var nameValue = urlElement.GetAttribute("name");
 
-            var nameValue = urlElement.GetAttribute("name");
+        Assert.AreEqual("myURL", nameValue);
+    }
 
-            Assert.AreEqual("myURL", nameValue);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetAttributeReturnsEmpty_When_NameAttributeIsNotPresent_Safari()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetAttributeReturnsEmpty_When_NameAttributeIsNotPresent_Safari()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL");
+        var nameValue = urlElement.GetAttribute("style");
 
-            var nameValue = urlElement.GetAttribute("style");
+        Assert.AreEqual(string.Empty, nameValue);
+    }
 
-            Assert.AreEqual(string.Empty, nameValue);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void CssClassReturnsMyTestClass_When_ClassAttributeIsSet_Safari()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void CssClassReturnsMyTestClass_When_ClassAttributeIsSet_Safari()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL");
+        var cssClass = urlElement.CssClass;
 
-            var cssClass = urlElement.CssClass;
+        Assert.AreEqual("myTestClass", cssClass);
+    }
 
-            Assert.AreEqual("myTestClass", cssClass);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void CssClassReturnsNull_When_ClassAttributeIsNotPresent_Safari()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void CssClassReturnsNull_When_ClassAttributeIsNotPresent_Safari()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL1");
+        var cssClass = urlElement.CssClass;
 
-            var cssClass = urlElement.CssClass;
+        Assert.IsNull(cssClass);
+    }
 
-            Assert.IsNull(cssClass);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ElementVisible_AfterCallingScrollToVisible_Safari()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL12");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ElementVisible_AfterCallingScrollToVisible_Safari()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL12");
+        urlElement.ScrollToVisible();
 
-            urlElement.ScrollToVisible();
+        Assert.AreEqual("color: red;", urlElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", urlElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void CreateElement_When_InsideAnotherElementAndIsPresent_Safari()
+    {
+        var wrapperDiv = App.Components.CreateById<Div>("myURL10Wrapper");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void CreateElement_When_InsideAnotherElementAndIsPresent_Safari()
-        {
-            var wrapperDiv = App.Components.CreateById<Div>("myURL10Wrapper");
+        var urlElement = wrapperDiv.CreateById<Url>("myURL10");
 
-            var urlElement = wrapperDiv.CreateById<Url>("myURL10");
+        Assert.IsTrue(urlElement.IsDisabled);
+    }
 
-            Assert.IsTrue(urlElement.IsDisabled);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetTitle_When_TitleAttributeIsPresent_Safari()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetTitle_When_TitleAttributeIsPresent_Safari()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
+        string title = element.GetTitle();
 
-            string title = element.GetTitle();
+        Assert.AreEqual("bellatrix.solutions", title);
+    }
 
-            Assert.AreEqual("bellatrix.solutions", title);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetNull_When_TitleAttributeIsNotPresent_Safari()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetNull_When_TitleAttributeIsNotPresent_Safari()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
+        string title = element.GetTitle();
 
-            string title = element.GetTitle();
+        Assert.IsNull(title);
+    }
 
-            Assert.IsNull(title);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetTabIndexOne_When_TabIndexAttributeIsPresent_Safari()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL14");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetTabIndexOne_When_TabIndexAttributeIsPresent_Safari()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL14");
+        string tabIndex = element.GetTabIndex();
 
-            string tabIndex = element.GetTabIndex();
+        Assert.AreEqual("1", tabIndex);
+    }
 
-            Assert.AreEqual("1", tabIndex);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnsNull_When_TabIndexAttributeIsNotPresent_Safari()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnsNull_When_TabIndexAttributeIsNotPresent_Safari()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
+        string tabIndex = element.GetTabIndex();
 
-            string tabIndex = element.GetTabIndex();
+        Assert.IsNull(tabIndex);
+    }
 
-            Assert.IsNull(tabIndex);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetStyle_When_StyleAttributeIsPresent_Safari()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL16");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetStyle_When_StyleAttributeIsPresent_Safari()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL16");
+        var style = element.GetStyle();
 
-            var style = element.GetStyle();
+        Assert.AreEqual("color: green;", style);
+    }
 
-            Assert.AreEqual("color: green;", style);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnsNull_When_StyleAttributeIsNotPresent_Safari()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnsNull_When_StyleAttributeIsNotPresent_Safari()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
+        string style = element.GetStyle();
 
-            string style = element.GetStyle();
+        Assert.AreEqual(null, style);
+    }
 
-            Assert.AreEqual(null, style);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetDir_When_DirAttributeIsPresent_Safari()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL19");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetDir_When_DirAttributeIsPresent_Safari()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL19");
+        var dir = element.GetDir();
 
-            var dir = element.GetDir();
+        Assert.AreEqual("rtl", dir);
+    }
 
-            Assert.AreEqual("rtl", dir);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnsNull_When_DirAttributeIsNotPresent_Safari()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnsNull_When_DirAttributeIsNotPresent_Safari()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
+        string dir = element.GetDir();
 
-            string dir = element.GetDir();
+        Assert.IsNull(dir);
+    }
 
-            Assert.IsNull(dir);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetLang_When_LangAttributeIsPresent_Safari()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL20");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetLang_When_LangAttributeIsPresent_Safari()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL20");
+        var lang = element.GetLang();
 
-            var lang = element.GetLang();
+        Assert.AreEqual("en", lang);
+    }
 
-            Assert.AreEqual("en", lang);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnsNull_When_LangAttributeIsNotPresent_Safari()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnsNull_When_LangAttributeIsNotPresent_Safari()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
+        string lang = element.GetLang();
 
-            string lang = element.GetLang();
-
-            Assert.IsNull(lang);
-        }
+        Assert.IsNull(lang);
     }
 }

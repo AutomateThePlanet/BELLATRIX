@@ -16,26 +16,25 @@ using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class TableCell : Component, IComponentInnerText, IComponentInnerHtml
 {
-    public class TableCell : Component, IComponentInnerText, IComponentInnerHtml
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+
+    public void Hover()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-
-        public void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        public int Column { get; set; }
-
-        public int Row { get; set; }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
+        Hover(Hovering, Hovered);
     }
+
+    public int Column { get; set; }
+
+    public int Row { get; set; }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public string InnerText => GetInnerText();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public string InnerHtml => GetInnerHtmlAttribute();
 }

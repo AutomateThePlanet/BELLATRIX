@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.EventHandlers
-{
-    public class ListBoxEventHandlers : ComponentEventHandlers
-    {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            ListBox.Hovering += HoveringEventHandler;
-            ListBox.Hovered += HoveredEventHandler;
-        }
+namespace Bellatrix.Desktop.EventHandlers;
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            ListBox.Hovering -= HoveringEventHandler;
-            ListBox.Hovered -= HoveredEventHandler;
-        }
+public class ListBoxEventHandlers : ComponentEventHandlers
+{
+    public override void SubscribeToAll()
+    {
+        base.SubscribeToAll();
+        ListBox.Hovering += HoveringEventHandler;
+        ListBox.Hovered += HoveredEventHandler;
+    }
+
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        ListBox.Hovering -= HoveringEventHandler;
+        ListBox.Hovered -= HoveredEventHandler;
     }
 }

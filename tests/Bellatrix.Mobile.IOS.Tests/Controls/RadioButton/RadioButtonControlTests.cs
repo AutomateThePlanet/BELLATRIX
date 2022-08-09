@@ -13,46 +13,45 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.AppleCalendarBundleId,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("RadioButton Control")]
+public class RadioButtonControlTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.AppleCalendarBundleId,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("RadioButton Control")]
-    public class RadioButtonControlTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.KnownIssue)]
+    public void ButtonClicked_When_ClickMethodCalled()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.KnownIssue)]
-        public void ButtonClicked_When_ClickMethodCalled()
-        {
-            var addButton = App.Components.CreateById<Button>("Add");
-            addButton.Click();
+        var addButton = App.Components.CreateById<Button>("Add");
+        addButton.Click();
 
-            var radioButton = App.Components.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+        var radioButton = App.Components.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
-            Assert.IsFalse(radioButton.IsChecked);
+        Assert.IsFalse(radioButton.IsChecked);
 
-            radioButton.Click();
+        radioButton.Click();
 
-            Assert.IsTrue(radioButton.IsChecked);
-        }
+        Assert.IsTrue(radioButton.IsChecked);
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.KnownIssue)]
-        public void IsDisabledReturnsFalse_When_RadioButtonIsNotDisabled()
-        {
-            var addButton = App.Components.CreateById<Button>("Add");
-            addButton.Click();
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.KnownIssue)]
+    public void IsDisabledReturnsFalse_When_RadioButtonIsNotDisabled()
+    {
+        var addButton = App.Components.CreateById<Button>("Add");
+        addButton.Click();
 
-            var radioButton = App.Components.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+        var radioButton = App.Components.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
-            Assert.IsFalse(radioButton.IsDisabled);
-        }
+        Assert.IsFalse(radioButton.IsDisabled);
     }
 }

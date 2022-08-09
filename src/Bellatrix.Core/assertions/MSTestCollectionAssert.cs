@@ -15,60 +15,59 @@ using System;
 using System.Collections;
 using MU = Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Assertions.MSTest
+namespace Bellatrix.Assertions.MSTest;
+
+public class MsTestCollectionAssert : ICollectionAssert
 {
-    public class MsTestCollectionAssert : ICollectionAssert
-    {
-        public void AllItemsAreInstancesOfType(ICollection collection, Type expectedType) => MU.CollectionAssert.AllItemsAreInstancesOfType(collection, expectedType);
+    public void AllItemsAreInstancesOfType(ICollection collection, Type expectedType) => MU.CollectionAssert.AllItemsAreInstancesOfType(collection, expectedType);
 
-        public void AllItemsAreInstancesOfType(ICollection collection, Type expectedType, string message) => MU.CollectionAssert.AllItemsAreInstancesOfType(collection, expectedType, message);
+    public void AllItemsAreInstancesOfType(ICollection collection, Type expectedType, string message) => MU.CollectionAssert.AllItemsAreInstancesOfType(collection, expectedType, message);
 
-        public void AllItemsAreNotNull(ICollection collection) => MU.CollectionAssert.AllItemsAreNotNull(collection);
+    public void AllItemsAreNotNull(ICollection collection) => MU.CollectionAssert.AllItemsAreNotNull(collection);
 
-        public void AllItemsAreNotNull(ICollection collection, string message) => MU.CollectionAssert.AllItemsAreNotNull(collection, message);
+    public void AllItemsAreNotNull(ICollection collection, string message) => MU.CollectionAssert.AllItemsAreNotNull(collection, message);
 
-        public void AllItemsAreUnique(ICollection collection) => MU.CollectionAssert.AllItemsAreUnique(collection);
+    public void AllItemsAreUnique(ICollection collection) => MU.CollectionAssert.AllItemsAreUnique(collection);
 
-        public void AllItemsAreUnique(ICollection collection, string message) => MU.CollectionAssert.AllItemsAreUnique(collection, message);
+    public void AllItemsAreUnique(ICollection collection, string message) => MU.CollectionAssert.AllItemsAreUnique(collection, message);
 
-        public void AreEqual(ICollection expected, ICollection actual) => MU.CollectionAssert.AreEqual(expected, actual);
+    public void AreEqual(ICollection expected, ICollection actual) => MU.CollectionAssert.AreEqual(expected, actual);
 
-        public void AreEqual(ICollection expected, ICollection actual, IComparer comparer) => MU.CollectionAssert.AreEqual(expected, actual, comparer);
+    public void AreEqual(ICollection expected, ICollection actual, IComparer comparer) => MU.CollectionAssert.AreEqual(expected, actual, comparer);
 
-        public void AreEqual(ICollection expected, ICollection actual, string message) => MU.CollectionAssert.AreEqual(expected, actual, message);
+    public void AreEqual(ICollection expected, ICollection actual, string message) => MU.CollectionAssert.AreEqual(expected, actual, message);
 
-        public void AreEqual(ICollection expected, ICollection actual, IComparer comparer, string message) => MU.CollectionAssert.AreEqual(expected, actual, comparer, message);
+    public void AreEqual(ICollection expected, ICollection actual, IComparer comparer, string message) => MU.CollectionAssert.AreEqual(expected, actual, comparer, message);
 
-        public void AreEquivalent(ICollection expected, ICollection actual) => MU.CollectionAssert.AreEquivalent(expected, actual);
+    public void AreEquivalent(ICollection expected, ICollection actual) => MU.CollectionAssert.AreEquivalent(expected, actual);
 
-        public void AreEquivalent(ICollection expected, ICollection actual, string message) => MU.CollectionAssert.AreEquivalent(expected, actual, message);
+    public void AreEquivalent(ICollection expected, ICollection actual, string message) => MU.CollectionAssert.AreEquivalent(expected, actual, message);
 
-        public void AreNotEqual(ICollection notExpected, ICollection actual) => MU.CollectionAssert.AreNotEqual(notExpected, actual);
+    public void AreNotEqual(ICollection notExpected, ICollection actual) => MU.CollectionAssert.AreNotEqual(notExpected, actual);
 
-        public void AreNotEqual(ICollection notExpected, ICollection actual, IComparer comparer) => MU.CollectionAssert.AreNotEqual(notExpected, actual, comparer);
+    public void AreNotEqual(ICollection notExpected, ICollection actual, IComparer comparer) => MU.CollectionAssert.AreNotEqual(notExpected, actual, comparer);
 
-        public void AreNotEqual(ICollection notExpected, ICollection actual, string message) => MU.CollectionAssert.AreNotEqual(notExpected, actual, message);
+    public void AreNotEqual(ICollection notExpected, ICollection actual, string message) => MU.CollectionAssert.AreNotEqual(notExpected, actual, message);
 
-        public void AreNotEqual(ICollection notExpected, ICollection actual, IComparer comparer, string message) => MU.CollectionAssert.AreNotEqual(notExpected, actual, comparer, message);
+    public void AreNotEqual(ICollection notExpected, ICollection actual, IComparer comparer, string message) => MU.CollectionAssert.AreNotEqual(notExpected, actual, comparer, message);
 
-        public void AreNotEquivalent(ICollection expected, ICollection actual) => MU.CollectionAssert.AreNotEquivalent(expected, actual);
+    public void AreNotEquivalent(ICollection expected, ICollection actual) => MU.CollectionAssert.AreNotEquivalent(expected, actual);
 
-        public void AreNotEquivalent(ICollection expected, ICollection actual, string message) => MU.CollectionAssert.AreNotEquivalent(expected, actual, message);
+    public void AreNotEquivalent(ICollection expected, ICollection actual, string message) => MU.CollectionAssert.AreNotEquivalent(expected, actual, message);
 
-        public void Contains(ICollection collection, object element) => MU.CollectionAssert.Contains(collection, element);
+    public void Contains(ICollection collection, object element) => MU.CollectionAssert.Contains(collection, element);
 
-        public void Contains(ICollection collection, object element, string message) => MU.CollectionAssert.Contains(collection, element, message);
+    public void Contains(ICollection collection, object element, string message) => MU.CollectionAssert.Contains(collection, element, message);
 
-        public void DoesNotContain(ICollection collection, object element) => MU.CollectionAssert.DoesNotContain(collection, element);
+    public void DoesNotContain(ICollection collection, object element) => MU.CollectionAssert.DoesNotContain(collection, element);
 
-        public void DoesNotContain(ICollection collection, object element, string message) => MU.CollectionAssert.DoesNotContain(collection, element, message);
+    public void DoesNotContain(ICollection collection, object element, string message) => MU.CollectionAssert.DoesNotContain(collection, element, message);
 
-        public void IsNotSubsetOf(ICollection subset, ICollection superset) => MU.CollectionAssert.IsNotSubsetOf(subset, superset);
+    public void IsNotSubsetOf(ICollection subset, ICollection superset) => MU.CollectionAssert.IsNotSubsetOf(subset, superset);
 
-        public void IsNotSubsetOf(ICollection subset, ICollection superset, string message) => MU.CollectionAssert.IsNotSubsetOf(subset, superset, message);
+    public void IsNotSubsetOf(ICollection subset, ICollection superset, string message) => MU.CollectionAssert.IsNotSubsetOf(subset, superset, message);
 
-        public void IsSubsetOf(ICollection subset, ICollection superset) => MU.CollectionAssert.IsSubsetOf(subset, superset);
+    public void IsSubsetOf(ICollection subset, ICollection superset) => MU.CollectionAssert.IsSubsetOf(subset, superset);
 
-        public void IsSubsetOf(ICollection subset, ICollection superset, string message) => MU.CollectionAssert.IsSubsetOf(subset, superset, message);
-    }
+    public void IsSubsetOf(ICollection subset, ICollection superset, string message) => MU.CollectionAssert.IsSubsetOf(subset, superset, message);
 }

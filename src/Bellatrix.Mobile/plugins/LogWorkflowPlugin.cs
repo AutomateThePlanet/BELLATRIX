@@ -14,13 +14,12 @@
 using Bellatrix.Plugins;
 using Serilog;
 
-namespace Bellatrix.Mobile.Plugins
+namespace Bellatrix.Mobile.Plugins;
+
+public class LogWorkflowPlugin : Plugin
 {
-    public class LogWorkflowPlugin : Plugin
+    protected override void PreTestInit(object sender, PluginEventArgs e)
     {
-        protected override void PreTestInit(object sender, PluginEventArgs e)
-        {
-            Logger.LogInformation($"Start Test {e.TestClassType.Name}.{e.TestMethodMemberInfo.Name}");
-        }
+        Logger.LogInformation($"Start Test {e.TestClassType.Name}.{e.TestMethodMemberInfo.Name}");
     }
 }

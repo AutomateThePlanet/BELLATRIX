@@ -15,18 +15,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+internal static class LinqExtensions
 {
-    internal static class LinqExtensions
+    public static int IndexOf<T>(this IEnumerable<T> list, Predicate<T> condition)
     {
-        public static int IndexOf<T>(this IEnumerable<T> list, Predicate<T> condition)
+        int i = -1;
+        return list.Any(x =>
         {
-            int i = -1;
-            return list.Any(x =>
-            {
-                i++;
-                return condition(x);
-            }) ? i : -1;
-        }
+            i++;
+            return condition(x);
+        }) ? i : -1;
     }
 }

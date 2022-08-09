@@ -16,36 +16,35 @@ using System.Diagnostics;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class ComboBox : Component, IComponentDisabled, IComponentInnerText
 {
-    public class ComboBox : Component, IComponentDisabled, IComponentInnerText
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> Selecting;
+    public static event EventHandler<ComponentActionEventArgs> Selected;
+
+    public virtual void Hover()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> Selecting;
-        public static event EventHandler<ComponentActionEventArgs> Selected;
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        public virtual void SelectByText(string value)
-        {
-            Selecting?.Invoke(this, new ComponentActionEventArgs(this, value));
-
-            if (WrappedElement.Text != value)
-            {
-                WrappedElement.SendKeys(value);
-            }
-
-            Selected?.Invoke(this, new ComponentActionEventArgs(this, value));
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string InnerText => GetInnerText();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        Hover(Hovering, Hovered);
     }
+
+    public virtual void SelectByText(string value)
+    {
+        Selecting?.Invoke(this, new ComponentActionEventArgs(this, value));
+
+        if (WrappedElement.Text != value)
+        {
+            WrappedElement.SendKeys(value);
+        }
+
+        Selected?.Invoke(this, new ComponentActionEventArgs(this, value));
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string InnerText => GetInnerText();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

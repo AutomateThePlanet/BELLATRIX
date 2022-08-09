@@ -18,27 +18,26 @@ using Bellatrix.Mobile.Controls.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class RadioButton : IOSComponent, IComponentDisabled, IComponentChecked, IComponentText
 {
-    public class RadioButton : IOSComponent, IComponentDisabled, IComponentChecked, IComponentText
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicking;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicked;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsChecked => GetIsCheckedValue();
+
+    public new string GetText()
     {
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicking;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicked;
+        return GetText();
+    }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsChecked => GetIsCheckedValue();
-
-        public new string GetText()
-        {
-            return GetText();
-        }
-
-        public virtual void Click()
-        {
-            Click(Clicking, Clicked);
-        }
+    public virtual void Click()
+    {
+        Click(Clicking, Clicked);
     }
 }

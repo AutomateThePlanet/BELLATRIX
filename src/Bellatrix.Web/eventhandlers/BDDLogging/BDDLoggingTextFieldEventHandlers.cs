@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class BDDLoggingTextFieldEventHandlers : TextFieldEventHandlers
 {
-    public class BDDLoggingTextFieldEventHandlers : TextFieldEventHandlers
-    {
-        protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
-    }
+    protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 }

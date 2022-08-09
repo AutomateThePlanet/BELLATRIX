@@ -14,47 +14,46 @@
 using Bellatrix.Layout;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Chrome, MobileWindowSize._414_736, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Layout")]
+public class LayoutVerticallyAlignedTestsChrome : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, MobileWindowSize._414_736, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Layout")]
-    public class LayoutVerticallyAlignedTestsChrome : MSTest.WebTest
+    private Heading _free;
+    private Heading _pro;
+    private Heading _enterprise;
+
+    public override void TestInit()
     {
-        private Heading _free;
-        private Heading _pro;
-        private Heading _enterprise;
-
-        public override void TestInit()
-        {
-            App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
-            _free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
-            _pro = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
-            _enterprise = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[3]/div[1]/h4");
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void AlignedVerticallyAll_WhenDesktopWindowsSize_414_736_Chrome()
-            => LayoutAssert.AssertAlignedVerticallyAll(_free, _pro, _enterprise);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void AlignedVerticallyLeft_WhenDesktopWindowsSize_414_736_Chrome()
-            => LayoutAssert.AssertAlignedVerticallyLeft(_free, _pro, _enterprise);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void AlignedVerticallyRight_WhenDesktopWindowsSize_414_736_Chrome()
-            => LayoutAssert.AssertAlignedVerticallyRight(_free, _pro, _enterprise);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void AlignedVerticallyCentered_WhenDesktopWindowsSize_414_736_Chrome()
-            => LayoutAssert.AssertAlignedVerticallyCentered(_free, _pro, _enterprise);
+        App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+        _free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+        _pro = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
+        _enterprise = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[3]/div[1]/h4");
     }
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void AlignedVerticallyAll_WhenDesktopWindowsSize_414_736_Chrome()
+        => LayoutAssert.AssertAlignedVerticallyAll(_free, _pro, _enterprise);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void AlignedVerticallyLeft_WhenDesktopWindowsSize_414_736_Chrome()
+        => LayoutAssert.AssertAlignedVerticallyLeft(_free, _pro, _enterprise);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void AlignedVerticallyRight_WhenDesktopWindowsSize_414_736_Chrome()
+        => LayoutAssert.AssertAlignedVerticallyRight(_free, _pro, _enterprise);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void AlignedVerticallyCentered_WhenDesktopWindowsSize_414_736_Chrome()
+        => LayoutAssert.AssertAlignedVerticallyCentered(_free, _pro, _enterprise);
 }

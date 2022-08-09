@@ -15,29 +15,28 @@ using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace Bellatrix.Web.Utilities
-{
-    internal static class ConditionsWaitService
-    {
-        internal static void WaitUntil(Func<bool> waitCondition, int? timeoutInMilliseconds = null, int? sleepIntervalInMilliseconds = null)
-        {
-            var localTimeout = timeoutInMilliseconds ?? 5000;
-            var localSleepInterval = sleepIntervalInMilliseconds ?? 500;
-            var wrappedWebDriver = ServicesCollection.Current.Resolve<IWebDriver>();
-            var webDriverWait = new WebDriverWait(new SystemClock(), wrappedWebDriver, TimeSpan.FromMilliseconds(localTimeout), TimeSpan.FromMilliseconds(localSleepInterval));
-            bool LocalCondition(IWebDriver s)
-            {
-                try
-                {
-                    return waitCondition();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
+namespace Bellatrix.Web.Utilities;
 
-            webDriverWait.Until(LocalCondition);
+internal static class ConditionsWaitService
+{
+    internal static void WaitUntil(Func<bool> waitCondition, int? timeoutInMilliseconds = null, int? sleepIntervalInMilliseconds = null)
+    {
+        var localTimeout = timeoutInMilliseconds ?? 5000;
+        var localSleepInterval = sleepIntervalInMilliseconds ?? 500;
+        var wrappedWebDriver = ServicesCollection.Current.Resolve<IWebDriver>();
+        var webDriverWait = new WebDriverWait(new SystemClock(), wrappedWebDriver, TimeSpan.FromMilliseconds(localTimeout), TimeSpan.FromMilliseconds(localSleepInterval));
+        bool LocalCondition(IWebDriver s)
+        {
+            try
+            {
+                return waitCondition();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
+
+        webDriverWait.Until(LocalCondition);
     }
 }

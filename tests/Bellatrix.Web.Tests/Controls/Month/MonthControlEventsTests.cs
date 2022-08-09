@@ -14,134 +14,133 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Month Control")]
+[AllureFeature("ControlEvents")]
+public class MonthControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Month Control")]
-    [AllureFeature("ControlEvents")]
-    public class MonthControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingMonthCalled_BeforeActuallySetMonth()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage);
+        Month.SettingMonth += AssertValueAttributeEmpty;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingMonthCalled_BeforeActuallySetMonth()
+        var monthElement = App.Components.CreateById<Month>("myMonth");
+
+        monthElement.SetMonth(2017, 7);
+
+        Assert.AreEqual("2017-07", monthElement.GetMonth());
+
+        Month.SettingMonth -= AssertValueAttributeEmpty;
+
+        void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Month.SettingMonth += AssertValueAttributeEmpty;
-
-            var monthElement = App.Components.CreateById<Month>("myMonth");
-
-            monthElement.SetMonth(2017, 7);
-
-            Assert.AreEqual("2017-07", monthElement.GetMonth());
-
-            Month.SettingMonth -= AssertValueAttributeEmpty;
-
-            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingMonthCalled_AfterSetMonth()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingMonthCalled_AfterSetMonth()
+    {
+        Month.MonthSet += AssertValueAttributeContainsNewValue;
+
+        var monthElement = App.Components.CreateById<Month>("myMonth");
+
+        monthElement.SetMonth(2017, 7);
+
+        Month.MonthSet -= AssertValueAttributeContainsNewValue;
+
+        void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Month.MonthSet += AssertValueAttributeContainsNewValue;
-
-            var monthElement = App.Components.CreateById<Month>("myMonth");
-
-            monthElement.SetMonth(2017, 7);
-
-            Month.MonthSet -= AssertValueAttributeContainsNewValue;
-
-            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("2017-07", args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual("2017-07", args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+        Month.Hovering += AssertStyleAttributeEmpty;
+
+        var monthElement = App.Components.CreateById<Month>("myMonth7");
+
+        monthElement.Hover();
+
+        Assert.AreEqual("color: red;", monthElement.GetStyle());
+
+        Month.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Month.Hovering += AssertStyleAttributeEmpty;
-
-            var monthElement = App.Components.CreateById<Month>("myMonth7");
-
-            monthElement.Hover();
-
-            Assert.AreEqual("color: red;", monthElement.GetStyle());
-
-            Month.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        Month.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var monthElement = App.Components.CreateById<Month>("myMonth7");
+
+        monthElement.Hover();
+
+        Month.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Month.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var monthElement = App.Components.CreateById<Month>("myMonth7");
-
-            monthElement.Hover();
-
-            Month.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Month>("myMonth7").ValidateStyleIs("color: red;");
-            }
+            App.Components.CreateById<Month>("myMonth7").ValidateStyleIs("color: red;");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusingCalled_BeforeActuallyFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusingCalled_BeforeActuallyFocus()
+    {
+        Month.Focusing += AssertStyleAttributeEmpty;
+
+        var monthElement = App.Components.CreateById<Month>("myMonth8");
+
+        monthElement.Focus();
+
+        Assert.AreEqual("color: blue;", monthElement.GetStyle());
+
+        Month.Focusing -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Month.Focusing += AssertStyleAttributeEmpty;
-
-            var monthElement = App.Components.CreateById<Month>("myMonth8");
-
-            monthElement.Focus();
-
-            Assert.AreEqual("color: blue;", monthElement.GetStyle());
-
-            Month.Focusing -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusedCalled_AfterFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusedCalled_AfterFocus()
+    {
+        Month.Focused += AssertStyleAttributeContainsNewValue;
+
+        var monthElement = App.Components.CreateById<Month>("myMonth8");
+
+        monthElement.Focus();
+
+        Month.Focused -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Month.Focused += AssertStyleAttributeContainsNewValue;
-
-            var monthElement = App.Components.CreateById<Month>("myMonth8");
-
-            monthElement.Focus();
-
-            Month.Focused -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
         }
     }
 }

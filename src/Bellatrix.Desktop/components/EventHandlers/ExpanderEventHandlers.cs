@@ -13,42 +13,41 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.EventHandlers
+namespace Bellatrix.Desktop.EventHandlers;
+
+public class ExpanderEventHandlers : ComponentEventHandlers
 {
-    public class ExpanderEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Expander.Clicking += ClickingEventHandler;
-            Expander.Clicked += ClickedEventHandler;
-            Expander.Hovering += HoveringEventHandler;
-            Expander.Hovered += HoveredEventHandler;
-        }
+        base.SubscribeToAll();
+        Expander.Clicking += ClickingEventHandler;
+        Expander.Clicked += ClickedEventHandler;
+        Expander.Hovering += HoveringEventHandler;
+        Expander.Hovered += HoveredEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Expander.Clicking -= ClickingEventHandler;
-            Expander.Clicked -= ClickedEventHandler;
-            Expander.Hovering -= HoveringEventHandler;
-            Expander.Hovered -= HoveredEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Expander.Clicking -= ClickingEventHandler;
+        Expander.Clicked -= ClickedEventHandler;
+        Expander.Hovering -= HoveringEventHandler;
+        Expander.Hovered -= HoveredEventHandler;
+    }
 
-        protected new virtual void ClickingEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected new virtual void ClickingEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected new virtual void ClickedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected new virtual void ClickedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected new virtual void HoveringEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected new virtual void HoveringEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected new virtual void HoveredEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected new virtual void HoveredEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

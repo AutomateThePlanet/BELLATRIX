@@ -14,16 +14,15 @@
 using System;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
-{
-    public class Tabs : Component
-    {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
+namespace Bellatrix.Desktop;
 
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
+public class Tabs : Component
+{
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
     }
 }

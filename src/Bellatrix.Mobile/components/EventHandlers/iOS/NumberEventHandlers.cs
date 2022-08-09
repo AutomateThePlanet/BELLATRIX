@@ -15,30 +15,29 @@ using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.IOS;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.EventHandlers.IOS
+namespace Bellatrix.Mobile.EventHandlers.IOS;
+
+public class NumberEventHandlers : ComponentEventHandlers
 {
-    public class NumberEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Number.SettingNumber += SettingNumberEventHandler;
-            Number.NumberSet += NumberSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Number.SettingNumber += SettingNumberEventHandler;
+        Number.NumberSet += NumberSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Number.SettingNumber -= SettingNumberEventHandler;
-            Number.NumberSet -= NumberSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Number.SettingNumber -= SettingNumberEventHandler;
+        Number.NumberSet -= NumberSetEventHandler;
+    }
 
-        protected virtual void SettingNumberEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void SettingNumberEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void NumberSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void NumberSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
     }
 }

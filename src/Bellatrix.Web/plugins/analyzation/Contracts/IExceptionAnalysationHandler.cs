@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.ExceptionAnalysation.Contracts
-{
-    public interface IExceptionAnalysationHandler
-    {
-        string DetailedIssueExplanation { get; }
+namespace Bellatrix.ExceptionAnalysation.Contracts;
 
-        bool IsApplicable(Exception ex = null, ServicesCollection container = null, params object[] context);
-    }
+public interface IExceptionAnalysationHandler
+{
+    string DetailedIssueExplanation { get; }
+
+    bool IsApplicable(Exception ex = null, ServicesCollection container = null, params object[] context);
 }

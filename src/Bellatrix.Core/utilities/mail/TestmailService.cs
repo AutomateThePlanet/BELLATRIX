@@ -1,18 +1,15 @@
-﻿using Bellatrix.Core.utilities.mail.model;
-using RestSharp;
+﻿using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bellatrix.Utilities;
 
 public class TestmailService
 {
     private const string EMAIL_SERVICE_URL = "https://api.testmail.app/";
-    private string apiKey;
-    private string emailNamespace;
+    private readonly string apiKey;
+    private readonly string emailNamespace;
 
     public TestmailService(string apiKey, string emailNamespace)
     {
@@ -20,23 +17,25 @@ public class TestmailService
         this.emailNamespace = emailNamespace;
     }
 
-    public Email getLastSentEmail(String inboxName)
+    public Email GetLastSentEmail(String inboxName)
     {
-        var allEmails = getAllEmails();
+        var allEmails = GetAllEmails();
         return allEmails.emails.Where(e => e.envelope_to.Contains(inboxName)).Last();
     }
 
-    public List<Email> getAllEmails(String inboxName)
+    public List<Email> GetAllEmails(String inboxName)
     {
-        var allEmails = getAllEmails();
+        var allEmails = GetAllEmails();
 
         return allEmails.emails.Where(e => e.envelope_to.Contains(inboxName)).ToList();
     }
 
-    private Root getAllEmails()
+    private Root GetAllEmails()
     {
-        var client = new RestClient();
-        client.BaseHost = EMAIL_SERVICE_URL;
+        var client = new RestClient
+        {
+            BaseHost = EMAIL_SERVICE_URL
+        };
         var request = new RestRequest("/api/json/");
         request.AddQueryParameter("apikey", apiKey);
         request.AddQueryParameter("namespace", emailNamespace);

@@ -13,66 +13,65 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Label Control")]
+[AllureFeature("ValidateExtensions")]
+public class LabelControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Label Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class LabelControlValidateExtensionsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
+        var labelElement = App.Components.CreateById<Label>("myLabel");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel");
+        labelElement.Hover();
 
-            labelElement.Hover();
+        labelElement.ValidateStyleIs("color: red;");
+    }
 
-            labelElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateInnerTextIs_DoesNotThrowException_When_InnerTextSet()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateInnerTextIs_DoesNotThrowException_When_InnerTextSet()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel");
+        labelElement.ValidateInnerTextIs("Hover");
+    }
 
-            labelElement.ValidateInnerTextIs("Hover");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateInnerHtmlIs_DoesNotThrowException_When_InnerHtmlSet()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateInnerHtmlIs_DoesNotThrowException_When_InnerHtmlSet()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel1");
+        labelElement.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
+    }
 
-            labelElement.ValidateInnerHtmlIs("<button name=\"button\">Click me</button>");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateForIsNull_DoesNotThrowException_When_ForNotSet()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateForIsNull_DoesNotThrowException_When_ForNotSet()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel2");
+        labelElement.ValidateForIsNull();
+    }
 
-            labelElement.ValidateForIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateForIs_DoesNotThrowException_When_ForSet()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateForIs_DoesNotThrowException_When_ForSet()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel");
-
-            labelElement.ValidateForIs("myLabel");
-        }
+        labelElement.ValidateForIs("myLabel");
     }
 }

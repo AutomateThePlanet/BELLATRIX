@@ -14,56 +14,55 @@
 using Bellatrix.Desktop.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Calendar Control")]
+[AllureFeature("Control Events")]
+[AllureTag("WPF")]
+public class CalendarControlEventsTests : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Calendar Control")]
-    [AllureFeature("Control Events")]
-    [AllureTag("WPF")]
-    public class CalendarControlEventsTests : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void HoveringCalled_BeforeActuallyHover()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void HoveringCalled_BeforeActuallyHover()
+        Calendar.Hovering += AssertTextResultLabel;
+
+        var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
+
+        calendar.Hover();
+
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        Assert.IsTrue(label.IsVisible);
+
+        Calendar.Hovering -= AssertTextResultLabel;
+
+        void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
         {
-            Calendar.Hovering += AssertTextResultLabel;
+            var label1 = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+            Assert.IsTrue(label1.IsVisible);
+        }
+    }
 
-            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void HoveredCalled_AfterHover()
+    {
+        Calendar.Hovered += AssertTextResultLabel;
 
-            calendar.Hover();
+        var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
+        calendar.Hover();
+
+        Calendar.Hovered -= AssertTextResultLabel;
+
+        void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
+        {
             var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.IsTrue(label.IsVisible);
-
-            Calendar.Hovering -= AssertTextResultLabel;
-
-            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
-            {
-                var label1 = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-                Assert.IsTrue(label1.IsVisible);
-            }
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void HoveredCalled_AfterHover()
-        {
-            Calendar.Hovered += AssertTextResultLabel;
-
-            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
-
-            calendar.Hover();
-
-            Calendar.Hovered -= AssertTextResultLabel;
-
-            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
-            {
-                var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-                Assert.IsTrue(label.IsVisible);
-            }
         }
     }
 }

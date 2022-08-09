@@ -15,10 +15,9 @@ using System;
 using System.Reflection;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Plugins.Attributes
+namespace Bellatrix.Mobile.Plugins.Attributes;
+
+public interface IAppiumOptionsFactory
 {
-    public interface IAppiumOptionsFactory
-    {
-        AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType);
-    }
+    AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType);
 }

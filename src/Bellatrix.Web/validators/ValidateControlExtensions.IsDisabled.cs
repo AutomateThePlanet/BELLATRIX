@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentDisabled, IComponent
     {
-        public static void ValidateIsDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentDisabled, IComponent
-        {
-            WaitUntil(() => control.IsDisabled.Equals(true), $"The control {control.ComponentName} should be disabled but it was NOT.", timeout, sleepInterval);
-            ValidatedIsDisabledEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateIsNotDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentDisabled, IComponent
-        {
-            WaitUntil(() => !control.IsDisabled.Equals(true), $"The control {control.ComponentName} should NOT be disabled but it was.", timeout, sleepInterval);
-            ValidatedIsNotDisabledEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsDisabledEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotDisabledEvent;
+        WaitUntil(() => control.IsDisabled.Equals(true), $"The control {control.ComponentName} should be disabled but it was NOT.", timeout, sleepInterval);
+        ValidatedIsDisabledEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateIsNotDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentDisabled, IComponent
+    {
+        WaitUntil(() => !control.IsDisabled.Equals(true), $"The control {control.ComponentName} should NOT be disabled but it was.", timeout, sleepInterval);
+        ValidatedIsNotDisabledEvent?.Invoke(control, new ComponentActionEventArgs(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsDisabledEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotDisabledEvent;
 }

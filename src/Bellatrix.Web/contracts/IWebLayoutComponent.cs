@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Layout;
 
-namespace Bellatrix.Web.Contracts
+namespace Bellatrix.Web.Contracts;
+
+public interface IWebLayoutComponent : ILayoutComponent
 {
-    public interface IWebLayoutComponent : ILayoutComponent
-    {
-        string GetCssValue(string propertyName);
-        string GetAttribute(string attributeName);
-        string PageName { get; }
-    }
+    string GetCssValue(string propertyName);
+    string GetAttribute(string attributeName);
+    string PageName { get; }
 }

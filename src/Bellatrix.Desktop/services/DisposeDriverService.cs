@@ -13,44 +13,43 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Services
+namespace Bellatrix.Desktop.Services;
+
+public static class DisposeDriverService
 {
-    public static class DisposeDriverService
+    public static void Dispose(WindowsDriver<WindowsElement> driver, ServicesCollection childContainer)
     {
-        public static void Dispose(WindowsDriver<WindowsElement> driver, ServicesCollection childContainer)
-        {
-            driver?.Quit();
-            driver?.Dispose();
-            childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-        }
+        driver?.Quit();
+        driver?.Dispose();
+        childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+    }
 
-        public static void Dispose(ServicesCollection childContainer)
-        {
-            var webDriver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
-            webDriver?.Quit();
-            webDriver?.Dispose();
-            childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-            ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-        }
+    public static void Dispose(ServicesCollection childContainer)
+    {
+        var webDriver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
+        webDriver?.Quit();
+        webDriver?.Dispose();
+        childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+        ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+    }
 
-        public static void DisposeAll()
+    public static void DisposeAll()
+    {
+        foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
         {
-            foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
+            try
             {
-                try
-                {
-                    var driver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
-                    driver?.Quit();
-                    driver?.Dispose();
-                    childContainer?.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-                }
-                catch (System.Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex);
-                }
+                var driver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
+                driver?.Quit();
+                driver?.Dispose();
+                childContainer?.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
             }
-
-            ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
+
+        ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
     }
 }

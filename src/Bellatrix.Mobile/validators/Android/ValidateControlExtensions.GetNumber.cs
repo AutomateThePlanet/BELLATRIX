@@ -16,17 +16,16 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
-{
-    public static partial class ValidateControlExtensions
-    {
-        public static void ValidateNumberIs<T>(this T control, int value, int? timeout = null, int? sleepInterval = null)
-                where T : IComponentNumber, IComponent<AndroidElement>
-        {
-            ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.GetNumber().Equals(value), $"The control's number should be '{value}' but was '{control.GetNumber()}'.", timeout, sleepInterval);
-            ValidatedNumberIsEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control, value.ToString()));
-        }
+namespace Bellatrix.Mobile.Android;
 
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedNumberIsEvent;
+public static partial class ValidateControlExtensions
+{
+    public static void ValidateNumberIs<T>(this T control, int value, int? timeout = null, int? sleepInterval = null)
+            where T : IComponentNumber, IComponent<AndroidElement>
+    {
+        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.GetNumber().Equals(value), $"The control's number should be '{value}' but was '{control.GetNumber()}'.", timeout, sleepInterval);
+        ValidatedNumberIsEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control, value.ToString()));
     }
+
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedNumberIsEvent;
 }

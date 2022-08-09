@@ -13,10 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp;
 
-namespace Bellatrix.Api.Contracts
+namespace Bellatrix.Api.Contracts;
+
+public interface IMeasuredResponse<TReturnType> : IRestResponse<TReturnType>, IMeasuredResponse
+    where TReturnType : new()
 {
-    public interface IMeasuredResponse<TReturnType> : IRestResponse<TReturnType>, IMeasuredResponse
-        where TReturnType : new()
-    {
-    }
 }

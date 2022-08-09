@@ -13,119 +13,118 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Color Control")]
+[AllureFeature("ValidateExtensions")]
+public class ColorControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Color Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ColorControlValidateExtensionsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ColorLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateColorIs_DoesNotThrowException_When_ColorIsAsSpecified()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ColorLocalPage);
+        var colorElement = App.Components.CreateById<Color>("myColor");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateColorIs_DoesNotThrowException_When_ColorIsAsSpecified()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor");
+        colorElement.SetColor("#f00030");
 
-            colorElement.SetColor("#f00030");
+        colorElement.ValidateColorIs("#f00030");
+    }
 
-            colorElement.ValidateColorIs("#f00030");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOff_DoesNotThrowException_When_AutoCompleteIsOff()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOff_DoesNotThrowException_When_AutoCompleteIsOff()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor");
+        colorElement.ValidateAutoCompleteOff();
+    }
 
-            colorElement.ValidateAutoCompleteOff();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor3");
+        colorElement.ValidateAutoCompleteOn();
+    }
 
-            colorElement.ValidateAutoCompleteOn();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor4");
+        colorElement.ValidateIsNotRequired();
+    }
 
-            colorElement.ValidateIsNotRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor6");
+        colorElement.ValidateIsRequired();
+    }
 
-            colorElement.ValidateIsRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor7");
+        colorElement.Hover();
 
-            colorElement.Hover();
+        colorElement.ValidateStyleIs("color: red;");
+    }
 
-            colorElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor");
+        colorElement.ValidateIsNotDisabled();
+    }
 
-            colorElement.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor9");
+        colorElement.ValidateIsDisabled();
+    }
 
-            colorElement.ValidateIsDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateListIsNull_DoesNotThrowException_When_ListAttributeIsNotPresent()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateListIsNull_DoesNotThrowException_When_ListAttributeIsNotPresent()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor");
+        colorElement.ValidateListIsNull();
+    }
 
-            colorElement.ValidateListIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateListIs_DoesNotThrowException_When_MaxAttributeIsPresent()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateListIs_DoesNotThrowException_When_MaxAttributeIsPresent()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor10");
-
-            Assert.AreEqual("tickmarks", colorElement.List);
-            colorElement.ValidateListIs("tickmarks");
-        }
+        Assert.AreEqual("tickmarks", colorElement.List);
+        colorElement.ValidateListIs("tickmarks");
     }
 }

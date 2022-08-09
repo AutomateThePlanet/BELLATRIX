@@ -11,23 +11,22 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class FindIdEndingWithStrategy : FindStrategy
 {
-    public class FindIdEndingWithStrategy : FindStrategy
+    public FindIdEndingWithStrategy(string value)
+        : base(value)
     {
-        public FindIdEndingWithStrategy(string value)
-            : base(value)
-        {
-        }
+    }
 
-        public override OpenQA.Selenium.By Convert()
-        {
-            return OpenQA.Selenium.By.CssSelector($"[id$='{Value}']");
-        }
+    public override OpenQA.Selenium.By Convert()
+    {
+        return OpenQA.Selenium.By.CssSelector($"[id$='{Value}']");
+    }
 
-        public override string ToString()
-        {
-            return $"ID ending with {Value}";
-        }
+    public override string ToString()
+    {
+        return $"ID ending with {Value}";
     }
 }

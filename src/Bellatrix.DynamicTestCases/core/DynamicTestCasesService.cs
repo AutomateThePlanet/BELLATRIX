@@ -20,94 +20,93 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace Bellatrix.DynamicTestCases
+namespace Bellatrix.DynamicTestCases;
+
+/// <summary>
+/// A class used for modification of the test case steps. This class should be used in the test methods and Page Object members.
+/// </summary>
+public class DynamicTestCasesService
 {
-    /// <summary>
-    /// A class used for modification of the test case steps. This class should be used in the test methods and Page Object members.
-    /// </summary>
-    public class DynamicTestCasesService
+    public DynamicTestCasesService()
     {
-        public DynamicTestCasesService()
-        {
-            Context = new ThreadLocal<TestCasesContext>(() => new TestCasesContext());
-        }
-
-        public ThreadLocal<TestCasesContext> Context { get; internal set; }
-
-        public void ResetContext()
-        {
-            Context = new ThreadLocal<TestCasesContext>(() => new TestCasesContext());
-        }
-
-        // Appends precondition to the test case.
-        public void AddPrecondition(string precondition)
-        {
-            Context.Value.Precondition += precondition;
-        }
-
-        // Adds a regular test step
-        public void AddStep(string description)
-        {
-            Context.Value.TestSteps.Add(new TestStep(description));
-        }
-
-        // Adds a test step, using description generated from the method name, from which it was invoked.
-        public void AddMethodAsStep(params string[] parameters)
-        {
-            var stackTrace = new StackTrace();
-            var methodInfo = stackTrace.GetFrame(1).GetMethod() as MethodInfo;
-            string description = MethodToSentence(methodInfo.Name);
-            if (parameters.Any())
-            {
-                description += " using data: " + parameters.Stringify();
-            }
-
-            Context.Value.TestSteps.Add(new TestStep(description));
-        }
-
-        // Adds test case using the description and expected result columns.
-        public void AddAssertStep(string assertDescription, string expectedResult)
-        {
-            Context.Value.TestSteps.Add(new TestStep(assertDescription, expectedResult));
-        }
-
-        public void AddAdditionalProperty(string name, string value)
-        {
-            if (Context.Value.AdditionalProperties.ContainsKey(name))
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    return;
-                }
-
-                Context.Value.AdditionalProperties[name] = value;
-            }
-            else
-            {
-                Context.Value.AdditionalProperties.Add(name, value);
-            }
-        }
-
-        // Converts a method name to a human-readable sentence
-        private string MethodToSentence(string name)
-        {
-            string returnStr = name;
-            for (int i = 1; i < name.Length; i++)
-            {
-                string letter = name.Substring(i, 1);
-
-                if (letter.GetHashCode() != letter.ToLower().GetHashCode())
-                {
-                    returnStr = returnStr.Replace(letter, $" {letter.ToLower()}");
-                }
-            }
-
-            returnStr = RemoveSpecialCharacters(returnStr);
-            returnStr = returnStr.First().ToString().ToUpper() + returnStr.Substring(1);
-
-            return returnStr;
-        }
-
-        private string RemoveSpecialCharacters(string nameValue) => new Regex(@"[^a-zA-Z0-9]|[0]").Replace(nameValue, string.Empty);
+        Context = new ThreadLocal<TestCasesContext>(() => new TestCasesContext());
     }
+
+    public ThreadLocal<TestCasesContext> Context { get; internal set; }
+
+    public void ResetContext()
+    {
+        Context = new ThreadLocal<TestCasesContext>(() => new TestCasesContext());
+    }
+
+    // Appends precondition to the test case.
+    public void AddPrecondition(string precondition)
+    {
+        Context.Value.Precondition += precondition;
+    }
+
+    // Adds a regular test step
+    public void AddStep(string description)
+    {
+        Context.Value.TestSteps.Add(new TestStep(description));
+    }
+
+    // Adds a test step, using description generated from the method name, from which it was invoked.
+    public void AddMethodAsStep(params string[] parameters)
+    {
+        var stackTrace = new StackTrace();
+        var methodInfo = stackTrace.GetFrame(1).GetMethod() as MethodInfo;
+        string description = MethodToSentence(methodInfo.Name);
+        if (parameters.Any())
+        {
+            description += " using data: " + parameters.Stringify();
+        }
+
+        Context.Value.TestSteps.Add(new TestStep(description));
+    }
+
+    // Adds test case using the description and expected result columns.
+    public void AddAssertStep(string assertDescription, string expectedResult)
+    {
+        Context.Value.TestSteps.Add(new TestStep(assertDescription, expectedResult));
+    }
+
+    public void AddAdditionalProperty(string name, string value)
+    {
+        if (Context.Value.AdditionalProperties.ContainsKey(name))
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return;
+            }
+
+            Context.Value.AdditionalProperties[name] = value;
+        }
+        else
+        {
+            Context.Value.AdditionalProperties.Add(name, value);
+        }
+    }
+
+    // Converts a method name to a human-readable sentence
+    private string MethodToSentence(string name)
+    {
+        string returnStr = name;
+        for (int i = 1; i < name.Length; i++)
+        {
+            string letter = name.Substring(i, 1);
+
+            if (letter.GetHashCode() != letter.ToLower().GetHashCode())
+            {
+                returnStr = returnStr.Replace(letter, $" {letter.ToLower()}");
+            }
+        }
+
+        returnStr = RemoveSpecialCharacters(returnStr);
+        returnStr = returnStr.First().ToString().ToUpper() + returnStr.Substring(1);
+
+        return returnStr;
+    }
+
+    private string RemoveSpecialCharacters(string nameValue) => new Regex(@"[^a-zA-Z0-9]|[0]").Replace(nameValue, string.Empty);
 }

@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class BDDLoggingSelectEventHandlers : SelectEventHandlers
 {
-    public class BDDLoggingSelectEventHandlers : SelectEventHandlers
-    {
-        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Select '{arg.ActionValue}' from {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
-    }
+    protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Select '{arg.ActionValue}' from {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 }

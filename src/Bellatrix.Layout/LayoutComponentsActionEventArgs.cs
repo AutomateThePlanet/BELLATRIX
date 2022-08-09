@@ -11,16 +11,15 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Layout
+namespace Bellatrix.Layout;
+
+public class LayoutComponentsActionEventArgs
 {
-    public class LayoutComponentsActionEventArgs
-    {
-        public LayoutComponentsActionEventArgs(ILayoutComponent[] elements) => Elements = elements;
+    public LayoutComponentsActionEventArgs(ILayoutComponent[] elements) => Elements = elements;
 
-        public LayoutComponentsActionEventArgs(ILayoutComponent[] elements, string actionValue)
-            : this(elements) => ActionValue = actionValue;
+    public LayoutComponentsActionEventArgs(ILayoutComponent[] elements, string actionValue)
+        : this(elements) => ActionValue = actionValue;
 
-        public ILayoutComponent[] Elements { get; }
-        public string ActionValue { get; }
-    }
+    public ILayoutComponent[] Elements { get; }
+    public string ActionValue { get; }
 }

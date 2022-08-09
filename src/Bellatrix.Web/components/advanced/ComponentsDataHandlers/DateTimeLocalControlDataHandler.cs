@@ -14,24 +14,23 @@
 
 using System;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class DateTimeLocalControlDataHandler : IEditableControlDataHandler<DateTimeLocal>
 {
-    public class DateTimeLocalControlDataHandler : IEditableControlDataHandler<DateTimeLocal>
+    public dynamic GetData(DateTimeLocal element) => element.GetTime();
+
+    public void SetData(DateTimeLocal element, string data)
     {
-        public dynamic GetData(DateTimeLocal element) => element.GetTime();
-
-        public void SetData(DateTimeLocal element, string data)
+        if (DateTime.TryParse(data, out DateTime valueToSet))
         {
-            if (DateTime.TryParse(data, out DateTime valueToSet))
-            {
-                element.SetTime(valueToSet);
-            }
-            else
-            {
-                throw new ArgumentException($"The input string '{data}' was not recognized as valid DateTime.");
-            }
+            element.SetTime(valueToSet);
         }
-
-        public void ValidateValueIs(DateTimeLocal element, string expectedValue) => element.ValidateTimeIs(expectedValue);
+        else
+        {
+            throw new ArgumentException($"The input string '{data}' was not recognized as valid DateTime.");
+        }
     }
+
+    public void ValidateValueIs(DateTimeLocal element, string expectedValue) => element.ValidateTimeIs(expectedValue);
 }

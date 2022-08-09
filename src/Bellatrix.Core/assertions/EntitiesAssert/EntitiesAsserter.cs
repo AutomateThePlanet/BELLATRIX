@@ -15,59 +15,60 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bellatrix.Assertions
+namespace Bellatrix.Assertions;
+
+public static class EntitiesAsserter
 {
-    public static class EntitiesAsserter
+    public static void AreEqual<TEntity>(TEntity expectedObject, TEntity realObject, params string[] propertiesNotToCompare)
+        where TEntity : new()
     {
-        public static void AreEqual<TEntity>(TEntity expectedObject, TEntity realObject, params string[] propertiesNotToCompare)
-            where TEntity : new()
+        List<Exception> failedAssertions = new();
+
+        var properties = realObject.GetType().GetProperties();
+        foreach (var currentRealProperty in properties)
         {
-            List<Exception> failedAssertions = new List<Exception>();
-
-            var properties = realObject.GetType().GetProperties();
-            foreach (var currentRealProperty in properties)
+            if (!propertiesNotToCompare.Contains(currentRealProperty.Name))
             {
-                if (!propertiesNotToCompare.Contains(currentRealProperty.Name))
-                {
-                    var currentExpectedProperty = expectedObject.GetType().GetProperty(currentRealProperty.Name);
-                    var exceptionMessage = $"The property {currentRealProperty.Name} of class {currentRealProperty.DeclaringType.Name} was not as expected.";
+                var currentExpectedProperty = expectedObject.GetType().GetProperty(currentRealProperty.Name);
+                var exceptionMessage = $"The property {currentRealProperty.Name} of class {currentRealProperty.DeclaringType.Name} was not as expected.";
 
-                    try
+                try
+                {
+#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
+                    if (currentRealProperty.PropertyType == typeof(DateTime) ||
+                    currentRealProperty.PropertyType == typeof(DateTime?) ||
+                    currentRealProperty.PropertyType == typeof(DateTimeOffset))
                     {
-                        if (currentRealProperty.PropertyType == typeof(DateTime) ||
-                        currentRealProperty.PropertyType == typeof(DateTime?) ||
-                        currentRealProperty.PropertyType == typeof(DateTimeOffset))
-                        {
-                            Assert.AreDateTimesEqual(
-                                currentExpectedProperty?.GetValue(expectedObject, null) as DateTime?,
-                                currentRealProperty.GetValue(realObject, null) as DateTime?,
-                                300,
-                                exceptionMessage);
-                        }
-                        else if (currentExpectedProperty?.GetValue(expectedObject, null) == string.Empty)
-                        {
-                            Assert.IsTrue(string.IsNullOrEmpty((string)currentRealProperty.GetValue(realObject, null)), exceptionMessage);
-                        }
-                        else
-                        {
-                            Assert.AreEqual(
-                                currentExpectedProperty?.GetValue(expectedObject, null),
-                                currentRealProperty.GetValue(realObject, null),
-                                exceptionMessage);
-                        }
+                        Assert.AreDateTimesEqual(
+                            currentExpectedProperty?.GetValue(expectedObject, null) as DateTime?,
+                            currentRealProperty.GetValue(realObject, null) as DateTime?,
+                            300,
+                            exceptionMessage);
                     }
-                    catch (Exception ex)
+                    else if (currentExpectedProperty?.GetValue(expectedObject, null) == string.Empty)
                     {
-                        failedAssertions.Add(ex);
+                        Assert.IsTrue(string.IsNullOrEmpty((string)currentRealProperty.GetValue(realObject, null)), exceptionMessage);
                     }
+                    else
+                    {
+                        Assert.AreEqual(
+                            currentExpectedProperty?.GetValue(expectedObject, null),
+                            currentRealProperty.GetValue(realObject, null),
+                            exceptionMessage);
+                    }
+#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
+                }
+                catch (Exception ex)
+                {
+                    failedAssertions.Add(ex);
                 }
             }
+        }
 
-            if (failedAssertions.Count > 1)
-            {
-                // All errors have been added already, so we need only to fail the assert
-                Assert.Fail(string.Empty);
-            }
+        if (failedAssertions.Count > 1)
+        {
+            // All errors have been added already, so we need only to fail the assert
+            Assert.Fail(string.Empty);
         }
     }
 }

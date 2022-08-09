@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateWrapIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentWrap, IComponent
     {
-        public static void ValidateWrapIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentWrap, IComponent
-        {
-            WaitUntil(() => control.Wrap == null, $"The control's wrap should be null but was '{control.Wrap}'.", timeout, sleepInterval);
-            ValidatedWrapIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateWrapIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentWrap, IComponent
-        {
-            WaitUntil(() => control.Wrap.Equals(value), $"The control's wrap should be '{value}' but was '{control.Wrap}'.", timeout, sleepInterval);
-            ValidatedWrapIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedWrapIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedWrapIsEvent;
+        WaitUntil(() => control.Wrap == null, $"The control's wrap should be null but was '{control.Wrap}'.", timeout, sleepInterval);
+        ValidatedWrapIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateWrapIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentWrap, IComponent
+    {
+        WaitUntil(() => control.Wrap.Equals(value), $"The control's wrap should be '{value}' but was '{control.Wrap}'.", timeout, sleepInterval);
+        ValidatedWrapIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedWrapIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedWrapIsEvent;
 }

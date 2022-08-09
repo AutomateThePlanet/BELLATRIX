@@ -15,19 +15,18 @@ using System;
 using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class Progress : Component, IComponentMaxText, IComponentValue, IComponentInnerText
 {
-    public class Progress : Component, IComponentMaxText, IComponentValue, IComponentInnerText
-    {
-        public override Type ComponentType => GetType();
+    public override Type ComponentType => GetType();
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Max => GetMaxAttributeAsString();
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Max => GetMaxAttributeAsString();
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Value => DefaultGetValue();
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Value => DefaultGetValue();
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string InnerText => GetInnerText();
-    }
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string InnerText => GetInnerText();
 }

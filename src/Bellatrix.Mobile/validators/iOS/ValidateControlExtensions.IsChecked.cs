@@ -16,25 +16,24 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentChecked, IComponent<IOSElement>
     {
-        public static void ValidateIsChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentChecked, IComponent<IOSElement>
-        {
-            ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
-            ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
-        }
-
-        public static void ValidateIsNotChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentChecked, IComponent<IOSElement>
-        {
-            ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
-            ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsCheckedEvent;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsNotCheckedEvent;
+        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
+        ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
     }
+
+    public static void ValidateIsNotChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentChecked, IComponent<IOSElement>
+    {
+        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
+        ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsCheckedEvent;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsNotCheckedEvent;
 }

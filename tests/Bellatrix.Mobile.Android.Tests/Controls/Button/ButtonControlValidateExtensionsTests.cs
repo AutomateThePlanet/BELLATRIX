@@ -13,44 +13,43 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Button Control")]
+[AllureFeature("ValidateExtensions")]
+public class ButtonControlValidateExtensionsTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Button Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ButtonControlValidateExtensionsTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIs_DoesNotThrowException_When_ButtonTextIsAsExpected()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIs_DoesNotThrowException_When_ButtonTextIsAsExpected()
-        {
-            var button = App.Components.CreateByIdContaining<Button>("button");
+        var button = App.Components.CreateByIdContaining<Button>("button");
 
-            button.ValidateTextIs("Save");
-        }
+        button.ValidateTextIs("Save");
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_ButtonIsNotDisabled()
-        {
-            var button = App.Components.CreateByIdContaining<Button>("button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_ButtonIsNotDisabled()
+    {
+        var button = App.Components.CreateByIdContaining<Button>("button");
 
-            button.ValidateIsNotDisabled();
-        }
+        button.ValidateIsNotDisabled();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_ButtonIsDisabled()
-        {
-            var button = App.Components.CreateByIdContaining<Button>("button_disabled");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_ButtonIsDisabled()
+    {
+        var button = App.Components.CreateByIdContaining<Button>("button_disabled");
 
-            button.ValidateIsDisabled();
-        }
+        button.ValidateIsDisabled();
     }
 }

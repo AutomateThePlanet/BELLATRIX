@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.DynamicTestCases.IOS
+namespace Bellatrix.Mobile.DynamicTestCases.IOS;
+
+public class DynamicTestCasesSeekBarEventHandlers : SeekBarEventHandlers
 {
-    public class DynamicTestCasesSeekBarEventHandlers : SeekBarEventHandlers
-    {
-        protected override void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Set {arg.Element.ComponentName} to '{arg.ActionValue}'% on {arg.Element.PageName}");
-    }
+    protected override void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Set {arg.Element.ComponentName} to '{arg.ActionValue}'% on {arg.Element.PageName}");
 }

@@ -13,178 +13,177 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Range Control")]
+[AllureFeature("ValidateExtensions")]
+public class RangeControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Range Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class RangeControlValidateExtensionsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateRangeIs_DoesNotThrowException_When_UseSetRangeMethod()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateRangeIs_DoesNotThrowException_When_UseSetRangeMethod()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        rangeElement.SetRange(4);
 
-            rangeElement.SetRange(4);
+        rangeElement.ValidateRangeIs(4);
+    }
 
-            rangeElement.ValidateRangeIs(4);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        rangeElement.ValidateAutoCompleteOff();
+    }
 
-            rangeElement.ValidateAutoCompleteOff();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange3");
+        rangeElement.ValidateAutoCompleteOn();
+    }
 
-            rangeElement.ValidateAutoCompleteOn();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        rangeElement.ValidateMaxIsNull();
+    }
 
-            rangeElement.ValidateMaxIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        rangeElement.ValidateMinIsNull();
+    }
 
-            rangeElement.ValidateMinIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        rangeElement.ValidateStepIsNull();
+    }
 
-            rangeElement.ValidateStepIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxIs_DoesNotThrowException_When_MaxAttributeIsPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxIs_DoesNotThrowException_When_MaxAttributeIsPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange1");
+        rangeElement.ValidateMaxIs(10);
+    }
 
-            rangeElement.ValidateMaxIs(10);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinIs_DoesNotThrowException_When_MinAttributeIsPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinIs_DoesNotThrowException_When_MinAttributeIsPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange1");
+        rangeElement.ValidateMinIs(2);
+    }
 
-            rangeElement.ValidateMinIs(2);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange1");
+        rangeElement.ValidateStepIs(2);
+    }
 
-            rangeElement.ValidateStepIs(2);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange4");
+        rangeElement.ValidateIsNotRequired();
+    }
 
-            rangeElement.ValidateIsNotRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange6");
+        rangeElement.ValidateIsRequired();
+    }
 
-            rangeElement.ValidateIsRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange7");
+        rangeElement.Hover();
 
-            rangeElement.Hover();
+        rangeElement.ValidateStyleIs("color: red;");
+    }
 
-            rangeElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        rangeElement.ValidateIsNotDisabled();
+    }
 
-            rangeElement.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange9");
+        rangeElement.ValidateIsDisabled();
+    }
 
-            rangeElement.ValidateIsDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateListIsNull_DoesNotThrowException_When_ListAttributeIsNotPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateListIsNull_DoesNotThrowException_When_ListAttributeIsNotPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        rangeElement.ValidateListIsNull();
+    }
 
-            rangeElement.ValidateListIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateListIs_DoesNotThrowException_When_MaxAttributeIsPresent()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateListIs_DoesNotThrowException_When_MaxAttributeIsPresent()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange10");
-
-            rangeElement.ValidateListIs("tickmarks");
-        }
+        rangeElement.ValidateListIs("tickmarks");
     }
 }

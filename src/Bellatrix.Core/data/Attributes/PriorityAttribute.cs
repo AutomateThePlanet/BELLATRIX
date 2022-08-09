@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Data.Attributes
-{
-    [AttributeUsage(AttributeTargets.Method)]
-    public class PriorityAttribute : Attribute
-    {
-        public PriorityAttribute(int priority) => Priority = priority;
+namespace Bellatrix.Data.Attributes;
 
-        public int Priority { get; set; }
-    }
+[AttributeUsage(AttributeTargets.Method)]
+public class PriorityAttribute : Attribute
+{
+    public PriorityAttribute(int priority) => Priority = priority;
+
+    public int Priority { get; set; }
 }

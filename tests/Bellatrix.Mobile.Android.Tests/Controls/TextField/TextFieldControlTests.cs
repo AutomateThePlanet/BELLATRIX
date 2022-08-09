@@ -13,47 +13,46 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("TextField Control")]
+public class TextFieldControlTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("TextField Control")]
-    public class TextFieldControlTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void BellatrixTextSet_When_CallSetTextMethod()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void BellatrixTextSet_When_CallSetTextMethod()
-        {
-            var textField = App.Components.CreateByIdContaining<TextField>("edit");
+        var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
-            textField.SetText("Bellatrix");
+        textField.SetText("Bellatrix");
 
-            Assert.AreEqual("Bellatrix", textField.GetText());
-        }
+        Assert.AreEqual("Bellatrix", textField.GetText());
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ReturnsEmpty_When_CallGetTextMethodAndNoTextSet()
-        {
-            var textField = App.Components.CreateByIdContaining<TextField>("edit");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ReturnsEmpty_When_CallGetTextMethodAndNoTextSet()
+    {
+        var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
-            textField.SetText(string.Empty);
+        textField.SetText(string.Empty);
 
-            Assert.AreEqual(string.Empty, textField.GetText());
-        }
+        Assert.AreEqual(string.Empty, textField.GetText());
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_TextFieldIsNotDisabled()
-        {
-            var textField = App.Components.CreateByIdContaining<TextField>("edit");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_TextFieldIsNotDisabled()
+    {
+        var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
-            Assert.AreEqual(false, textField.IsDisabled);
-        }
+        Assert.AreEqual(false, textField.IsDisabled);
     }
 }

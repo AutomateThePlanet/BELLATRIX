@@ -14,170 +14,169 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Select Control")]
+[AllureFeature("ControlEvents")]
+public class SelectControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Select Control")]
-    [AllureFeature("ControlEvents")]
-    public class SelectControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SelectingCalled_BeforeActuallySelectByText()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
+        Select.Selecting += AssertIsCheckedFalse;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SelectingCalled_BeforeActuallySelectByText()
+        selectComponent.SelectByText("Awesome");
+
+        Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
+
+        Select.Selecting -= AssertIsCheckedFalse;
+
+        void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
         {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
-            Select.Selecting += AssertIsCheckedFalse;
+            Assert.AreEqual("bella", selectComponent.GetSelected().Value);
+        }
+    }
 
-            selectComponent.SelectByText("Awesome");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SelectingCalled_BeforeActuallySelectByIndex()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
+        Select.Selecting += AssertIsCheckedFalse;
 
+        selectComponent.SelectByIndex(2);
+
+        Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
+
+        Select.Selecting -= AssertIsCheckedFalse;
+
+        void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
+        {
+            Assert.AreEqual("bella", selectComponent.GetSelected().Value);
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SelectedCalled_AfterSelectByText()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
+        Select.Selected += AssertIsCheckedFalse;
+
+        selectComponent.SelectByText("Awesome");
+
+        Select.Selected -= AssertIsCheckedFalse;
+
+        void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
+        {
             Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
-
-            Select.Selecting -= AssertIsCheckedFalse;
-
-            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("bella", selectComponent.GetSelected().Value);
-            }
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SelectingCalled_BeforeActuallySelectByIndex()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SelectedCalled_AfterSelectByIndex()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
+        Select.Selected += AssertIsCheckedFalse;
+
+        selectComponent.SelectByIndex(2);
+
+        Select.Selected -= AssertIsCheckedFalse;
+
+        void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
         {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
-            Select.Selecting += AssertIsCheckedFalse;
-
-            selectComponent.SelectByIndex(2);
-
             Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
-
-            Select.Selecting -= AssertIsCheckedFalse;
-
-            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("bella", selectComponent.GetSelected().Value);
-            }
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SelectedCalled_AfterSelectByText()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+        Select.Hovering += AssertStyleAttributeEmpty;
+
+        var selectComponent = App.Components.CreateById<Select>("mySelect1");
+
+        selectComponent.Hover();
+
+        Assert.AreEqual("color: red;", selectComponent.GetStyle());
+
+        Select.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
-            Select.Selected += AssertIsCheckedFalse;
-
-            selectComponent.SelectByText("Awesome");
-
-            Select.Selected -= AssertIsCheckedFalse;
-
-            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SelectedCalled_AfterSelectByIndex()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        Select.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var selectComponent = App.Components.CreateById<Select>("mySelect1");
+
+        selectComponent.Hover();
+
+        Select.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
-            Select.Selected += AssertIsCheckedFalse;
-
-            selectComponent.SelectByIndex(2);
-
-            Select.Selected -= AssertIsCheckedFalse;
-
-            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
-            }
+            App.Components.CreateById<Select>("mySelect1").ValidateStyleIs("color: red;");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusingCalled_BeforeActuallyHover()
+    {
+        Select.Focusing += AssertStyleAttributeEmpty;
+
+        var selectComponent = App.Components.CreateById<Select>("mySelect2");
+
+        selectComponent.Focus();
+
+        Assert.AreEqual("color: blue;", selectComponent.GetStyle());
+
+        Select.Focusing -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Select.Hovering += AssertStyleAttributeEmpty;
-
-            var selectComponent = App.Components.CreateById<Select>("mySelect1");
-
-            selectComponent.Hover();
-
-            Assert.AreEqual("color: red;", selectComponent.GetStyle());
-
-            Select.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusedCalled_AfterHover()
+    {
+        Select.Focused += AssertStyleAttributeContainsNewValue;
+
+        var selectComponent = App.Components.CreateById<Select>("mySelect2");
+
+        selectComponent.Focus();
+
+        Select.Focused -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Select.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var selectComponent = App.Components.CreateById<Select>("mySelect1");
-
-            selectComponent.Hover();
-
-            Select.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Select>("mySelect1").ValidateStyleIs("color: red;");
-            }
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusingCalled_BeforeActuallyHover()
-        {
-            Select.Focusing += AssertStyleAttributeEmpty;
-
-            var selectComponent = App.Components.CreateById<Select>("mySelect2");
-
-            selectComponent.Focus();
-
-            Assert.AreEqual("color: blue;", selectComponent.GetStyle());
-
-            Select.Focusing -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusedCalled_AfterHover()
-        {
-            Select.Focused += AssertStyleAttributeContainsNewValue;
-
-            var selectComponent = App.Components.CreateById<Select>("mySelect2");
-
-            selectComponent.Focus();
-
-            Select.Focused -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
         }
     }
 }

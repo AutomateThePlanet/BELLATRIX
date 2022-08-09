@@ -13,15 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Services
-{
-    public abstract class DesktopService
-    {
-        protected DesktopService(WindowsDriver<WindowsElement> wrappedDriver)
-        {
-            WrappedDriver = wrappedDriver;
-        }
+namespace Bellatrix.Desktop.Services;
 
-        public WindowsDriver<WindowsElement> WrappedDriver { get; set; }
+public abstract class DesktopService
+{
+    protected DesktopService(WindowsDriver<WindowsElement> wrappedDriver)
+    {
+        WrappedDriver = wrappedDriver;
     }
+
+    public WindowsDriver<WindowsElement> WrappedDriver { get; set; }
 }

@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public class CloudRemoteSettings : RemoteSettings
 {
-    public class CloudRemoteSettings : RemoteSettings
-    {
-        public string User { get; set; }
-        public string Key { get; set; }
-    }
+    public string User { get; set; }
+    public string Key { get; set; }
 }

@@ -17,24 +17,23 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
-namespace Bellatrix.Api.Extensions
+namespace Bellatrix.Api.Extensions;
+
+public static class MeasuredResponseExtensions
 {
-    public static class MeasuredResponseExtensions
+    public static dynamic AsDynamicContent(this IMeasuredResponse response)
     {
-        public static dynamic AsDynamicContent(this IMeasuredResponse response)
-        {
 #pragma warning disable CS0618 // Type or member is obsolete
-            if (response.Request.RequestFormat == DataFormat.Xml)
+        if (response.Request.RequestFormat == DataFormat.Xml)
 #pragma warning restore CS0618 // Type or member is obsolete
-            {
-                var doc = XDocument.Parse(response.Content);
-                var contentToBeConverted = JsonConvert.SerializeXNode(doc);
+        {
+            var doc = XDocument.Parse(response.Content);
+            var contentToBeConverted = JsonConvert.SerializeXNode(doc);
 
-                return contentToBeConverted;
-            }
-
-            dynamic contentAsDynamic = JObject.Parse(response.Content);
-            return contentAsDynamic;
+            return contentToBeConverted;
         }
+
+        dynamic contentAsDynamic = JObject.Parse(response.Content);
+        return contentAsDynamic;
     }
 }

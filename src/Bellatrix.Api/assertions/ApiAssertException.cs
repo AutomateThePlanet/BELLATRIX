@@ -13,29 +13,28 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Api
+namespace Bellatrix.Api;
+
+public class ApiAssertException : Exception
 {
-    public class ApiAssertException : Exception
+    public ApiAssertException()
     {
-        public ApiAssertException()
-        {
-        }
-
-        public ApiAssertException(string message)
-            : base(message)
-        {
-        }
-
-        public ApiAssertException(string message, string url)
-            : base(FormatExceptionMessage(message, url))
-        {
-        }
-
-        public ApiAssertException(string message, string url, Exception inner)
-            : base(FormatExceptionMessage(message, url), inner)
-        {
-        }
-
-        private static string FormatExceptionMessage(string exceptionMessage, string url) => $"\n\n{new string('#', 40)}\n\n{exceptionMessage} Request against URL- {url}\n\n{new string('#', 40)}\n";
     }
+
+    public ApiAssertException(string message)
+        : base(message)
+    {
+    }
+
+    public ApiAssertException(string message, string url)
+        : base(FormatExceptionMessage(message, url))
+    {
+    }
+
+    public ApiAssertException(string message, string url, Exception inner)
+        : base(FormatExceptionMessage(message, url), inner)
+    {
+    }
+
+    private static string FormatExceptionMessage(string exceptionMessage, string url) => $"\n\n{new string('#', 40)}\n\n{exceptionMessage} Request against URL- {url}\n\n{new string('#', 40)}\n";
 }

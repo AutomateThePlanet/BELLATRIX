@@ -13,30 +13,29 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Tabs1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Tabs Control")]
+public class TabsControlTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Tabs1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Tabs Control")]
-    public class TabsControlTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void GetAllTabs_When_CallGetAllWithButtonControl()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void GetAllTabs_When_CallGetAllWithButtonControl()
-        {
-            var tabs = App.Components.CreateByIdContaining<Tabs<Button>>("tabs");
+        var tabs = App.Components.CreateByIdContaining<Tabs<Button>>("tabs");
 
-            var tabButtons = tabs.GetAll("android.widget.TextView");
-            tabButtons[1].Click();
+        var tabButtons = tabs.GetAll("android.widget.TextView");
+        tabButtons[1].Click();
 
-            var resultLabel = App.Components.CreateByIdContaining<Label>("view2");
+        var resultLabel = App.Components.CreateByIdContaining<Label>("view2");
 
-            resultLabel.ValidateTextIs("tab2");
-        }
+        resultLabel.ValidateTextIs("tab2");
     }
 }

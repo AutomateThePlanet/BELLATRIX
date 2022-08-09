@@ -14,34 +14,33 @@
 
 using System.Collections.Generic;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static class TableExtensions
 {
-    public static class TableExtensions
+    public static TTable SetColumn<TTable>(this TTable table, string headerName, TTable x = null)
+        where TTable : Table
     {
-        public static TTable SetColumn<TTable>(this TTable table, string headerName, TTable x = null)
-            where TTable : Table
+        if (table.ColumnHeaderNames == null)
         {
-            if (table.ColumnHeaderNames == null)
-            {
-                table.ColumnHeaderNames = new List<HeaderInfo>();
-            }
-
-            table.ColumnHeaderNames.Add(new HeaderInfo(headerName));
-
-            return table;
+            table.ColumnHeaderNames = new List<HeaderInfo>();
         }
 
-        public static TTable SetColumns<TTable>(this TTable table, List<HeaderInfo> headerNames, TTable x = null)
-            where TTable : Table
+        table.ColumnHeaderNames.Add(new HeaderInfo(headerName));
+
+        return table;
+    }
+
+    public static TTable SetColumns<TTable>(this TTable table, List<HeaderInfo> headerNames, TTable x = null)
+        where TTable : Table
+    {
+        if (table.ColumnHeaderNames == null)
         {
-            if (table.ColumnHeaderNames == null)
-            {
-                table.ColumnHeaderNames = new List<HeaderInfo>();
-            }
-
-            table.ColumnHeaderNames.AddRange(headerNames);
-
-            return table;
+            table.ColumnHeaderNames = new List<HeaderInfo>();
         }
+
+        table.ColumnHeaderNames.AddRange(headerNames);
+
+        return table;
     }
 }

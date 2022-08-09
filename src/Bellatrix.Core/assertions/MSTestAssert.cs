@@ -16,85 +16,84 @@ using System.Collections.Generic;
 using System.Linq;
 using MU = Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Assertions.MSTest
+namespace Bellatrix.Assertions.MSTest;
+
+public class MsTestAssert : IAssert
 {
-    public class MsTestAssert : IAssert
+    public void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds) => AreDateTimesEqual(expectedDate, actualDate, deltaSeconds, string.Empty);
+
+    public void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds, string message)
     {
-        public void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds) => AreDateTimesEqual(expectedDate, actualDate, deltaSeconds, string.Empty);
-
-        public void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds, string message)
+        if (expectedDate == null &&
+            actualDate == null)
         {
-            if (expectedDate == null &&
-                actualDate == null)
-            {
-                return;
-            }
-
-            if (expectedDate == null)
-            {
-                throw new NullReferenceException("The expected date was null");
-            }
-
-            if (actualDate == null)
-            {
-                throw new NullReferenceException("The actual date was null");
-            }
-
-            var expectedDelta = new TimeSpan(0, 0, deltaSeconds);
-            var totalSecondsDifference = Math.Abs(((DateTime)actualDate - (DateTime)expectedDate).TotalSeconds);
-
-            if (totalSecondsDifference > expectedDelta.TotalSeconds)
-            {
-                MU.Assert.Fail($"The expected datetime is different than the actual one. Expected was: {expectedDate}, actual was: {actualDate}. The delta was {deltaSeconds} seconds. {message}");
-            }
+            return;
         }
 
-        public void AreEqual(double expected, double actual, double delta) => MU.Assert.AreEqual(expected, actual, delta);
+        if (expectedDate == null)
+        {
+            throw new NullReferenceException("The expected date was null");
+        }
 
-        public void AreEqual(double expected, double actual, double delta, string message) => MU.Assert.AreEqual(expected, actual, delta, message);
+        if (actualDate == null)
+        {
+            throw new NullReferenceException("The actual date was null");
+        }
 
-        public void AreEqual(object expected, object actual) => MU.Assert.AreEqual(expected, actual);
+        var expectedDelta = new TimeSpan(0, 0, deltaSeconds);
+        var totalSecondsDifference = Math.Abs(((DateTime)actualDate - (DateTime)expectedDate).TotalSeconds);
 
-        public void AreEqual(object expected, object actual, string message) => MU.Assert.AreEqual(expected, actual, message);
-
-        public void AreEqual<T>(T expected, T actual) => MU.Assert.AreEqual(expected, actual);
-
-        public void AreEqual<T>(T expected, T actual, string message) => MU.Assert.AreEqual(expected, actual, message);
-
-        public void AreNotEqual(object expected, object actual) => MU.Assert.AreNotEqual(expected, actual);
-
-        public void AreNotEqual(object expected, object actual, string message) => MU.Assert.AreNotEqual(expected, actual, message);
-
-        public void AreNotEqual<T>(T expected, T actual) => MU.Assert.AreNotEqual(expected, actual);
-
-        public void AreNotEqual<T>(T expected, T actual, string message) => MU.Assert.AreNotEqual(expected, actual, message);
-
-        public void Fail(string message) => MU.Assert.Fail(message);
-
-        public void Fail(string message, params object[] parameters) => MU.Assert.Fail(message, parameters);
-
-        public void IsFalse(bool condition) => MU.Assert.IsFalse(condition);
-
-        public void IsFalse(bool condition, string message) => MU.Assert.IsFalse(condition, message);
-
-        public void IsInstanceOfType(object value, Type expectedType) => MU.Assert.IsInstanceOfType(value, expectedType);
-
-        public void IsInstanceOfType(object value, Type expectedType, string message) => MU.Assert.IsInstanceOfType(value, expectedType, message);
-
-        public void IsNotNull(object value) => MU.Assert.IsNotNull(value);
-
-        public void IsNotNull(object value, string message) => MU.Assert.IsNotNull(value, message);
-
-        public void IsNull(object value) => MU.Assert.IsNull(value);
-
-        public void IsNull(object value, string message) => MU.Assert.IsNull(value, message);
-
-        public void IsTrue(bool condition) => MU.Assert.IsTrue(condition);
-
-        public void IsTrue(bool condition, string message) => MU.Assert.IsTrue(condition, message);
-
-        public void IsTrue(bool condition, string message, params object[] parameters) => MU.Assert.IsTrue(condition, message, parameters);
-
-        public void Multiple(params Action[] assertions) => Assert.Multiple(assertions);
+        if (totalSecondsDifference > expectedDelta.TotalSeconds)
+        {
+            MU.Assert.Fail($"The expected datetime is different than the actual one. Expected was: {expectedDate}, actual was: {actualDate}. The delta was {deltaSeconds} seconds. {message}");
+        }
     }
+
+    public void AreEqual(double expected, double actual, double delta) => MU.Assert.AreEqual(expected, actual, delta);
+
+    public void AreEqual(double expected, double actual, double delta, string message) => MU.Assert.AreEqual(expected, actual, delta, message);
+
+    public void AreEqual(object expected, object actual) => MU.Assert.AreEqual(expected, actual);
+
+    public void AreEqual(object expected, object actual, string message) => MU.Assert.AreEqual(expected, actual, message);
+
+    public void AreEqual<T>(T expected, T actual) => MU.Assert.AreEqual(expected, actual);
+
+    public void AreEqual<T>(T expected, T actual, string message) => MU.Assert.AreEqual(expected, actual, message);
+
+    public void AreNotEqual(object expected, object actual) => MU.Assert.AreNotEqual(expected, actual);
+
+    public void AreNotEqual(object expected, object actual, string message) => MU.Assert.AreNotEqual(expected, actual, message);
+
+    public void AreNotEqual<T>(T expected, T actual) => MU.Assert.AreNotEqual(expected, actual);
+
+    public void AreNotEqual<T>(T expected, T actual, string message) => MU.Assert.AreNotEqual(expected, actual, message);
+
+    public void Fail(string message) => MU.Assert.Fail(message);
+
+    public void Fail(string message, params object[] parameters) => MU.Assert.Fail(message, parameters);
+
+    public void IsFalse(bool condition) => MU.Assert.IsFalse(condition);
+
+    public void IsFalse(bool condition, string message) => MU.Assert.IsFalse(condition, message);
+
+    public void IsInstanceOfType(object value, Type expectedType) => MU.Assert.IsInstanceOfType(value, expectedType);
+
+    public void IsInstanceOfType(object value, Type expectedType, string message) => MU.Assert.IsInstanceOfType(value, expectedType, message);
+
+    public void IsNotNull(object value) => MU.Assert.IsNotNull(value);
+
+    public void IsNotNull(object value, string message) => MU.Assert.IsNotNull(value, message);
+
+    public void IsNull(object value) => MU.Assert.IsNull(value);
+
+    public void IsNull(object value, string message) => MU.Assert.IsNull(value, message);
+
+    public void IsTrue(bool condition) => MU.Assert.IsTrue(condition);
+
+    public void IsTrue(bool condition, string message) => MU.Assert.IsTrue(condition, message);
+
+    public void IsTrue(bool condition, string message, params object[] parameters) => MU.Assert.IsTrue(condition, message, parameters);
+
+    public void Multiple(params Action[] assertions) => Assert.Multiple(assertions);
 }

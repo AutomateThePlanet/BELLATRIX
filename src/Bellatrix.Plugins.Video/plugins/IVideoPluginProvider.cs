@@ -14,12 +14,11 @@
 using System;
 using Bellatrix.Plugins;
 
-namespace Bellatrix.Plugins.Video.Plugins
-{
-    public interface IVideoPluginProvider
-    {
-        event EventHandler<VideoPluginEventArgs> VideoGeneratedEvent;
+namespace Bellatrix.Plugins.Video.Plugins;
 
-        void VideoGenerated(PluginEventArgs e, string screenshotPath);
-    }
+public interface IVideoPluginProvider
+{
+    event EventHandler<VideoPluginEventArgs> VideoGeneratedEvent;
+
+    void VideoGenerated(PluginEventArgs e, string screenshotPath);
 }

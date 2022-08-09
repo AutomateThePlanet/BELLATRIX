@@ -14,16 +14,15 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.DynamicTestCases
+namespace Bellatrix.Desktop.DynamicTestCases;
+
+public class DynamicTestCasesComponentEventHandlers : ComponentEventHandlers
 {
-    public class DynamicTestCasesComponentEventHandlers : ComponentEventHandlers
-    {
-        protected override void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Scroll to visible {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Scroll to visible {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void HoveringEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Hover {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void HoveringEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Hover {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void FocusingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Focus {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void FocusingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Focus {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

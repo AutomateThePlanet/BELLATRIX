@@ -17,45 +17,44 @@ using Bellatrix.Desktop.Locators;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Untils
+namespace Bellatrix.Desktop.Untils;
+
+public class WaitNotExistStrategy : WaitStrategy
 {
-    public class WaitNotExistStrategy : WaitStrategy
+    public WaitNotExistStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitNotExistStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ElementToNotExistTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ElementToNotExistTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-        {
-            WaitUntil(d => ElementNotExists(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementNotExists(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
 
-        private bool ElementNotExists<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
-            where TBy : FindStrategy
+    private bool ElementNotExists<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
+        where TBy : FindStrategy
+    {
+        try
         {
-            try
-            {
-                var element = by.FindElement(searchContext);
-                return element == null;
-            }
-            catch (InvalidOperationException)
-            {
-                return true;
-            }
-            catch (TimeoutException)
-            {
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return true;
-            }
-            catch (WebDriverException)
-            {
-                return true;
-            }
+            var element = by.FindElement(searchContext);
+            return element == null;
+        }
+        catch (InvalidOperationException)
+        {
+            return true;
+        }
+        catch (TimeoutException)
+        {
+            return true;
+        }
+        catch (NoSuchElementException)
+        {
+            return true;
+        }
+        catch (WebDriverException)
+        {
+            return true;
         }
     }
 }

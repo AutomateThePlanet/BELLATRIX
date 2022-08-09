@@ -14,21 +14,20 @@
 using System.Drawing;
 using Bellatrix.Layout;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+internal class Screen : ILayoutComponent
 {
-    internal class Screen : ILayoutComponent
+    internal Screen()
     {
-        internal Screen()
-        {
-            var browserService = ServicesCollection.Current.Resolve<BrowserService>();
-            Location = new Point(0, 0);
-            Size = browserService.WrappedDriver.Manage().Window.Size;
-        }
-
-        public Point Location { get; }
-
-        public Size Size { get; }
-
-        public string ComponentName => "Screen";
+        var browserService = ServicesCollection.Current.Resolve<BrowserService>();
+        Location = new Point(0, 0);
+        Size = browserService.WrappedDriver.Manage().Window.Size;
     }
+
+    public Point Location { get; }
+
+    public Size Size { get; }
+
+    public string ComponentName => "Screen";
 }

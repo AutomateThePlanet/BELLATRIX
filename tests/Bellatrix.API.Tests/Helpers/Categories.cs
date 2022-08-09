@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.API.Tests
+namespace Bellatrix.API.Tests;
+
+public class Categories
 {
-    public class Categories
-    {
-        public const string CI = "CI";
-        public const string Debug = "Debug";
-        public const string API = "API";
-    }
+    public const string CI = "CI";
+    public const string Debug = "Debug";
+    public const string API = "API";
 }

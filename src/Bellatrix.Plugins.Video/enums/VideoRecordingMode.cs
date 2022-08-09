@@ -11,14 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix
+namespace Bellatrix;
+
+public enum VideoRecordingMode
 {
-    public enum VideoRecordingMode
-    {
-        Always,
-        DoNotRecord,
-        Ignore,
-        OnlyPass,
-        OnlyFail,
-    }
+    Always,
+    DoNotRecord,
+    Ignore,
+    OnlyPass,
+    OnlyFail,
 }

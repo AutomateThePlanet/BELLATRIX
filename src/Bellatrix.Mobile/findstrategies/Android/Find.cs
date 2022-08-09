@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile.Android
-{
-    public sealed class Find
-    {
-        static Find() => By = new FindStrategyFactory();
+namespace Bellatrix.Mobile.Android;
 
-        public static FindStrategyFactory By { get; }
-    }
+public sealed class Find
+{
+    static Find() => By = new FindStrategyFactory();
+
+    public static FindStrategyFactory By { get; }
 }

@@ -15,50 +15,49 @@ using Bellatrix.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
-namespace Bellatrix.API.Tests
+namespace Bellatrix.API.Tests;
+
+[TestClass]
+[JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
+[AllureFeature("Load Testing")]
+[AllureSuite("Load Testing")]
+public class ApiLoadTests : MSTest.APITest
 {
-    [TestClass]
-    [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
-    [AllureFeature("Load Testing")]
-    [AllureSuite("Load Testing")]
-    public class ApiLoadTests : MSTest.APITest
+    private ApiClientService _apiClientService;
+
+    public override void TestInit()
     {
-        private ApiClientService _apiClientService;
+        FixtureFactory.Create();
+        _apiClientService = App.GetApiClientService();
+    }
 
-        public override void TestInit()
+    [TestMethod]
+    [TestCategory(Categories.API)]
+    public void LoadTest_ExecuteForTime()
+    {
+        var request = new RestRequest("api/Albums");
+
+        App.LoadTestService.ExecuteForTime(10, 1, 30, () =>
         {
-            FixtureFactory.Create();
-            _apiClientService = App.GetApiClientService();
-        }
+            var response = _apiClientService.Get(request);
 
-        [TestMethod]
-        [TestCategory(Categories.API)]
-        public void LoadTest_ExecuteForTime()
+            response.AssertSuccessStatusCode();
+            response.AssertExecutionTimeUnder(1);
+        });
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.API)]
+    public void LoadTest_ExecuteNumberOfTimes()
+    {
+        var request = new RestRequest("api/Albums");
+
+        App.LoadTestService.ExecuteNumberOfTimes(5, 1, 5, () =>
         {
-            var request = new RestRequest("api/Albums");
+            var response = _apiClientService.Get(request);
 
-            App.LoadTestService.ExecuteForTime(10, 1, 30, () =>
-            {
-                var response = _apiClientService.Get(request);
-
-                response.AssertSuccessStatusCode();
-                response.AssertExecutionTimeUnder(1);
-            });
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.API)]
-        public void LoadTest_ExecuteNumberOfTimes()
-        {
-            var request = new RestRequest("api/Albums");
-
-            App.LoadTestService.ExecuteNumberOfTimes(5, 1, 5, () =>
-            {
-                var response = _apiClientService.Get(request);
-
-                response.AssertSuccessStatusCode();
-                response.AssertExecutionTimeUnder(1);
-            });
-        }
+            response.AssertSuccessStatusCode();
+            response.AssertExecutionTimeUnder(1);
+        });
     }
 }

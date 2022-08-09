@@ -14,14 +14,13 @@
 using System.Collections.Generic;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
-{
-    public interface IWebDriverElementFinderService
-    {
-        IWebElement Find<TBy>(TBy by)
-            where TBy : FindStrategy;
+namespace Bellatrix.Web;
 
-        IEnumerable<IWebElement> FindAll<TBy>(TBy by)
-            where TBy : FindStrategy;
-    }
+public interface IWebDriverElementFinderService
+{
+    IWebElement Find<TBy>(TBy by)
+        where TBy : FindStrategy;
+
+    IEnumerable<IWebElement> FindAll<TBy>(TBy by)
+        where TBy : FindStrategy;
 }

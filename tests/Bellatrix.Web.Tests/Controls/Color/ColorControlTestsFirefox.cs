@@ -13,142 +13,141 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Color Control")]
+public class ColorControlTestsFirefox : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Color Control")]
-    public class ColorControlTestsFirefox : MSTest.WebTest
+    public override void TestsArrange() => base.TestsArrange();
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ColorLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ColorSet_When_UseSetColorMethod_Firefox()
     {
-        public override void TestsArrange() => base.TestsArrange();
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ColorLocalPage);
+        var colorElement = App.Components.CreateById<Color>("myColor");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ColorSet_When_UseSetColorMethod_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor");
+        colorElement.SetColor("#f00030");
 
-            colorElement.SetColor("#f00030");
+        Assert.AreEqual("#f00030", colorElement.GetColor());
+    }
 
-            Assert.AreEqual("#f00030", colorElement.GetColor());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetColorReturnsCorrectColor_When_DefaultColorIsSet_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetColorReturnsCorrectColor_When_DefaultColorIsSet_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor2");
+        // TODO: Investigate why WebDriver returns 8 instead of 7.
+        Assert.AreEqual("#f00030", colorElement.GetColor());
+    }
 
-            // TODO: Investigate why WebDriver returns 8 instead of 7.
-            Assert.AreEqual("#f00030", colorElement.GetColor());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor");
+        Assert.IsFalse(colorElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(colorElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor4");
+        Assert.IsFalse(colorElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(colorElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor3");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor3");
+        Assert.IsTrue(colorElement.IsAutoComplete);
+    }
 
-            Assert.IsTrue(colorElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor4");
+        Assert.AreEqual(false, colorElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, colorElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor6");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor6");
+        Assert.IsTrue(colorElement.IsRequired);
+    }
 
-            Assert.IsTrue(colorElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor7");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor7");
+        colorElement.Hover();
 
-            colorElement.Hover();
+        colorElement.ValidateStyleIs("color: red;");
+    }
 
-            colorElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor8");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor8");
+        colorElement.Focus();
 
-            colorElement.Focus();
+        colorElement.ValidateStyleIs("color: blue;");
+    }
 
-            colorElement.ValidateStyleIs("color: blue;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor");
+        bool isDisabled = colorElement.IsDisabled;
 
-            bool isDisabled = colorElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor9");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor9");
+        bool isDisabled = colorElement.IsDisabled;
 
-            bool isDisabled = colorElement.IsDisabled;
+        Assert.IsTrue(isDisabled);
+    }
 
-            Assert.IsTrue(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetListReturnsNull_When_ListAttributeIsNotPresent_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetListReturnsNull_When_ListAttributeIsNotPresent_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor");
+        Assert.IsNull(colorElement.List);
+    }
 
-            Assert.IsNull(colorElement.List);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetListReturnsTickmarks_When_MaxAttributeIsPresent_Firefox()
+    {
+        var colorElement = App.Components.CreateById<Color>("myColor10");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetListReturnsTickmarks_When_MaxAttributeIsPresent_Firefox()
-        {
-            var colorElement = App.Components.CreateById<Color>("myColor10");
-
-            Assert.AreEqual("tickmarks", colorElement.List);
-        }
+        Assert.AreEqual("tickmarks", colorElement.List);
     }
 }

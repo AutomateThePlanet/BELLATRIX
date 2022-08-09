@@ -20,38 +20,37 @@ using Bellatrix.Utilities;
 using Bellatrix.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.GoogleLighthouse.MSTest
+namespace Bellatrix.GoogleLighthouse.MSTest;
+
+public class MSTestLighthouseReportsWorkflowPlugin : Plugin
 {
-    public class MSTestLighthouseReportsWorkflowPlugin : Plugin
+    private static readonly object _lockObject = new object();
+    public static TestContext TestContext { get; set; }
+
+    protected override void PostTestCleanup(object sender, PluginEventArgs e)
     {
-        private static readonly object _lockObject = new object();
-        public static TestContext TestContext { get; set; }
-
-        protected override void PostTestCleanup(object sender, PluginEventArgs e)
+        var settings = ConfigurationService.GetSection<LighthouseSettings>();
+        if (settings.IsEnabled && WrappedWebDriverCreateService.BrowserConfiguration.ExecutionType == Web.Enums.ExecutionType.Regular)
         {
-            var settings = ConfigurationService.GetSection<LighthouseSettings>();
-            if (settings.IsEnabled && WrappedWebDriverCreateService.BrowserConfiguration.ExecutionType == Web.Enums.ExecutionType.Regular)
+            lock (_lockObject)
             {
-                lock (_lockObject)
+                var driverExecutablePath = new DirectoryInfo(ExecutionDirectoryResolver.GetDriverExecutablePath());
+                var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
+                if (file != null && file.Exists)
                 {
-                    var driverExecutablePath = new DirectoryInfo(ExecutionDirectoryResolver.GetDriverExecutablePath());
-                    var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
-                    if (file != null && file.Exists)
-                    {
-                        TestContext?.AddResultFile(file.FullName);
-                    }
+                    TestContext?.AddResultFile(file.FullName);
+                }
 
-                    file = driverExecutablePath.GetFiles("*.report.html", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
-                    if (file != null && file.Exists)
-                    {
-                        TestContext?.AddResultFile(file.FullName);
-                    }
+                file = driverExecutablePath.GetFiles("*.report.html", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
+                if (file != null && file.Exists)
+                {
+                    TestContext?.AddResultFile(file.FullName);
+                }
 
-                    file = driverExecutablePath.GetFiles("*.report.csv", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
-                    if (file != null && file.Exists)
-                    {
-                        TestContext?.AddResultFile(file.FullName);
-                    }
+                file = driverExecutablePath.GetFiles("*.report.csv", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
+                if (file != null && file.Exists)
+                {
+                    TestContext?.AddResultFile(file.FullName);
                 }
             }
         }

@@ -16,13 +16,12 @@ using System;
 using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 
-namespace Bellatrix.Web
-{
-    public class TableHeaderRow : Component, IComponentInnerHtml
-    {
-        public ComponentsList<TableCell> HeaderCells => this.CreateAllByTag<TableCell>("th", true);
+namespace Bellatrix.Web;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
-    }
+public class TableHeaderRow : Component, IComponentInnerHtml
+{
+    public ComponentsList<TableCell> HeaderCells => this.CreateAllByTag<TableCell>("th", true);
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public string InnerHtml => GetInnerHtmlAttribute();
 }

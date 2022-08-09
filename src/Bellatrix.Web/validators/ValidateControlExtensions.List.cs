@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateListIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentList, IComponent
     {
-        public static void ValidateListIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentList, IComponent
-        {
-            WaitUntil(() => control.List == null, $"The control's list should be null but was '{control.List}'.", timeout, sleepInterval);
-            ValidatedListIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateListIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentList, IComponent
-        {
-            WaitUntil(() => control.List.Equals(value), $"The control's list should be '{value}' but was '{control.List}'.", timeout, sleepInterval);
-            ValidatedListIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedListIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedListIsEvent;
+        WaitUntil(() => control.List == null, $"The control's list should be null but was '{control.List}'.", timeout, sleepInterval);
+        ValidatedListIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateListIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentList, IComponent
+    {
+        WaitUntil(() => control.List.Equals(value), $"The control's list should be '{value}' but was '{control.List}'.", timeout, sleepInterval);
+        ValidatedListIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedListIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedListIsEvent;
 }

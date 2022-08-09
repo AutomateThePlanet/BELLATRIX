@@ -13,16 +13,15 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Plugins;
 
-namespace Bellatrix.Web.Plugins.Browser
-{
-    public class ChildContainerExtension : Plugin
-    {
-        protected override void PreTestsArrange(object sender, PluginEventArgs e)
-        {
-        }
+namespace Bellatrix.Web.Plugins.Browser;
 
-        protected override void PostTestCleanup(object sender, PluginEventArgs e)
-        {
-        }
+public class ChildContainerExtension : Plugin
+{
+    protected override void PreTestsArrange(object sender, PluginEventArgs e)
+    {
+    }
+
+    protected override void PostTestCleanup(object sender, PluginEventArgs e)
+    {
     }
 }

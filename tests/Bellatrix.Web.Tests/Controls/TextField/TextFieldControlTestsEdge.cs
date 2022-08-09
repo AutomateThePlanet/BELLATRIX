@@ -13,227 +13,226 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("TextField Control")]
+[AllureFeature("Edge Browser")]
+public class TextFieldControlTestsEdge : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("TextField Control")]
-    [AllureFeature("Edge Browser")]
-    public class TextFieldControlTestsEdge : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void TextSet_When_UseSetTextMethod_Edge()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage);
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void TextSet_When_UseSetTextMethod_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        textFieldElement.SetText("aangelov@bellatrix.solutions");
 
-            textFieldElement.SetText("aangelov@bellatrix.solutions");
+        Assert.AreEqual("aangelov@bellatrix.solutions", textFieldElement.Value);
+    }
 
-            Assert.AreEqual("aangelov@bellatrix.solutions", textFieldElement.Value);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        Assert.AreEqual(false, textFieldElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText5");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText5");
+        Assert.AreEqual(false, textFieldElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        Assert.AreEqual(true, textFieldElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(true, textFieldElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        Assert.AreEqual(false, textFieldElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText6");
+        Assert.AreEqual(true, textFieldElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, textFieldElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        var maxLength = textFieldElement.MaxLength;
 
-            var maxLength = textFieldElement.MaxLength;
+        Assert.IsNull(maxLength);
+    }
 
-            Assert.IsNull(maxLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        Assert.IsNull(textFieldElement.MinLength);
+    }
 
-            Assert.IsNull(textFieldElement.MinLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        // Specifies the width of an <input> element, in characters. Default value is 20
+        Assert.AreEqual(20, textFieldElement.Size);
+    }
 
-            // Specifies the width of an <input> element, in characters. Default value is 20
-            Assert.AreEqual(20, textFieldElement.Size);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        Assert.AreEqual(80, textFieldElement.MaxLength);
+    }
 
-            Assert.AreEqual(80, textFieldElement.MaxLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        Assert.AreEqual(10, textFieldElement.MinLength);
+    }
 
-            Assert.AreEqual(10, textFieldElement.MinLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        Assert.AreEqual(30, textFieldElement.Size);
+    }
 
-            Assert.AreEqual(30, textFieldElement.Size);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        Assert.AreEqual(false, textFieldElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText7");
+        Assert.AreEqual(true, textFieldElement.IsRequired);
+    }
 
-            Assert.AreEqual(true, textFieldElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetPlaceholder_When_PlaceholderAttributeIsSet_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetPlaceholder_When_PlaceholderAttributeIsSet_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        Assert.AreEqual("your Text term goes here", textFieldElement.Placeholder);
+    }
 
-            Assert.AreEqual("your Text term goes here", textFieldElement.Placeholder);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText1");
+        Assert.IsNull(textFieldElement.Placeholder);
+    }
 
-            Assert.IsNull(textFieldElement.Placeholder);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnRed_When_Hover_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnRed_When_Hover_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText8");
+        textFieldElement.Hover();
 
-            textFieldElement.Hover();
+        Assert.AreEqual("color: red;", textFieldElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", textFieldElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnBlue_When_Focus_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnBlue_When_Focus_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText9");
+        textFieldElement.Focus();
 
-            textFieldElement.Focus();
+        Assert.AreEqual("color: blue;", textFieldElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", textFieldElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText9");
+        bool isDisabled = textFieldElement.IsDisabled;
 
-            bool isDisabled = textFieldElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnTrue_When_DisabledAttributePresent_Edge()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnTrue_When_DisabledAttributePresent_Edge()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText10");
+        bool isDisabled = textFieldElement.IsDisabled;
 
-            bool isDisabled = textFieldElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

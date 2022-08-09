@@ -13,79 +13,78 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Radio Control")]
+public class RadioButtonControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Radio Control")]
-    public class RadioButtonControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void Checked_When_UseClickMethod_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void Checked_When_UseClickMethod_Safari()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
+        radioElement.Click();
 
-            radioElement.Click();
+        Assert.AreEqual(true, radioElement.IsChecked);
+    }
 
-            Assert.AreEqual(true, radioElement.IsChecked);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Safari()
+    {
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Safari()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
+        radioElement.Hover();
 
-            radioElement.Hover();
+        Assert.AreEqual("color: red;", radioElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", radioElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
+    {
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio");
+        bool isDisabled = radioElement.IsDisabled;
 
-            bool isDisabled = radioElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Safari()
+    {
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio3");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Safari()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio3");
+        bool isDisabled = radioElement.IsDisabled;
 
-            bool isDisabled = radioElement.IsDisabled;
+        Assert.IsTrue(isDisabled);
+    }
 
-            Assert.IsTrue(isDisabled);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnOn_When_ValueAttributeNotPresent_Safari()
+    {
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnOn_When_ValueAttributeNotPresent_Safari()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio1");
+        var actualValue = radioElement.Value;
 
-            var actualValue = radioElement.Value;
+        Assert.AreEqual("on", actualValue);
+    }
 
-            Assert.AreEqual("on", actualValue);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnNewsletter_When_ValueAttributePresent_Safari()
+    {
+        var radioElement = App.Components.CreateById<RadioButton>("myRadio2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnNewsletter_When_ValueAttributePresent_Safari()
-        {
-            var radioElement = App.Components.CreateById<RadioButton>("myRadio2");
+        var actualValue = radioElement.Value;
 
-            var actualValue = radioElement.Value;
-
-            Assert.AreEqual("newsletter", actualValue);
-        }
+        Assert.AreEqual("newsletter", actualValue);
     }
 }

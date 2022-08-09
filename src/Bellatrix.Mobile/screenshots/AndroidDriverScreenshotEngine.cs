@@ -18,17 +18,16 @@ using Bellatrix.Plugins.Screenshots.Contracts;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Screenshots
-{
-    public sealed class AndroidDriverScreenshotEngine : IScreenshotEngine
-    {
-        public string TakeScreenshot(ServicesCollection container) => TakeScreenshotAndroidDriver(container);
+namespace Bellatrix.Mobile.Screenshots;
 
-        public string TakeScreenshotAndroidDriver(ServicesCollection container)
-        {
-            var driver = container.Resolve<AndroidDriver<AndroidElement>>();
-            Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-            return screenshot.AsBase64EncodedString;
-        }
+public sealed class AndroidDriverScreenshotEngine : IScreenshotEngine
+{
+    public string TakeScreenshot(ServicesCollection container) => TakeScreenshotAndroidDriver(container);
+
+    public string TakeScreenshotAndroidDriver(ServicesCollection container)
+    {
+        var driver = container.Resolve<AndroidDriver<AndroidElement>>();
+        Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+        return screenshot.AsBase64EncodedString;
     }
 }

@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    public sealed class Find
-    {
-        static Find() => By = new FindStrategyFactory();
+namespace Bellatrix.Web;
 
-        public static FindStrategyFactory By { get; }
-    }
+public sealed class Find
+{
+    static Find() => By = new FindStrategyFactory();
+
+    public static FindStrategyFactory By { get; }
 }

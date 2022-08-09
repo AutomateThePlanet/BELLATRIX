@@ -6,25 +6,24 @@ using Bellatrix.API;
 using Bellatrix.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.GettingStarted
+namespace Bellatrix.GettingStarted;
+
+[TestClass]
+public class TestsInitialize
 {
-    [TestClass]
-    public class TestsInitialize
+    private static Process _testApiProcess;
+
+    [AssemblyInitialize]
+    public static void AssemblyInitialize(TestContext testContext)
     {
-        private static Process _testApiProcess;
+        string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");
+        _testApiProcess = ProcessProvider.StartProcess("dotnet", workingDir, " run", true);
+        ProcessProvider.WaitPortToGetBusy(55215);
+    }
 
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
-        {
-            string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");
-            _testApiProcess = ProcessProvider.StartProcess("dotnet", workingDir, " run", true);
-            ProcessProvider.WaitPortToGetBusy(55215);
-        }
-
-        [AssemblyCleanup]
-        public static void AssemblyCleanUp()
-        {
-            ProcessProvider.CloseProcess(_testApiProcess);
-        }
+    [AssemblyCleanup]
+    public static void AssemblyCleanUp()
+    {
+        ProcessProvider.CloseProcess(_testApiProcess);
     }
 }

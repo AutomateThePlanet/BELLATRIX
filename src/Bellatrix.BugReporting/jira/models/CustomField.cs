@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.BugReporting.Jira.Model
+namespace Bellatrix.BugReporting.Jira.Model;
+
+public class CustomField
 {
-    public class CustomField
-    {
-        public string self { get; set; }
-        public string value { get; set; }
-        public string id { get; set; }
-    }
+    public string self { get; set; }
+    public string value { get; set; }
+    public string id { get; set; }
 }

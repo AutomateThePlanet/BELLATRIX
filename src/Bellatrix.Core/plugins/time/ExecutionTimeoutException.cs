@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Plugins.Common.ExecutionTime
+namespace Bellatrix.Plugins.Common.ExecutionTime;
+
+public class ExecutionTimeoutException : Exception
 {
-    public class ExecutionTimeoutException : Exception
+    public ExecutionTimeoutException()
     {
-        public ExecutionTimeoutException()
-        {
-        }
+    }
 
-        public ExecutionTimeoutException(string message)
-            : base(message)
-        {
-        }
+    public ExecutionTimeoutException(string message)
+        : base(message)
+    {
+    }
 
-        public ExecutionTimeoutException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
+    public ExecutionTimeoutException(string message, Exception inner)
+        : base(message, inner)
+    {
     }
 }

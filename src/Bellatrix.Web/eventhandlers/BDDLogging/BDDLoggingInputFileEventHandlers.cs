@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class BDDLoggingInputFileEventHandlers : InputFileEventHandlers
 {
-    public class BDDLoggingInputFileEventHandlers : InputFileEventHandlers
-    {
-        protected override void UploadingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"I upload '{arg.ActionValue}' for {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
-    }
+    protected override void UploadingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"I upload '{arg.ActionValue}' for {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 }

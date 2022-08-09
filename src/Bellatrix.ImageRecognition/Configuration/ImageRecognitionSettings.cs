@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.ImageRecognition.Configuration
+namespace Bellatrix.ImageRecognition.Configuration;
+
+public class ImageRecognitionSettings
 {
-    public class ImageRecognitionSettings
-    {
-        public int TimeoutInSeconds { get; set; } = 5;
-        public double DefaultSimilarity { get; set; } = 0.7;
-    }
+    public int TimeoutInSeconds { get; set; } = 5;
+    public double DefaultSimilarity { get; set; } = 0.7;
 }

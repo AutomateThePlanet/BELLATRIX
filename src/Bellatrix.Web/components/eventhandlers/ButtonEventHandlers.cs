@@ -13,26 +13,25 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
-{
-    public class ButtonEventHandlers : ComponentEventHandlers
-    {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Button.Clicking += ClickingEventHandler;
-            Button.Clicked += ClickedEventHandler;
-            Button.Hovering += HoveringEventHandler;
-            Button.Hovered += HoveredEventHandler;
-        }
+namespace Bellatrix.Web.Controls.EventHandlers;
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Button.Clicking -= ClickingEventHandler;
-            Button.Clicked -= ClickedEventHandler;
-            Button.Hovering -= HoveringEventHandler;
-            Button.Hovered -= HoveredEventHandler;
-        }
+public class ButtonEventHandlers : ComponentEventHandlers
+{
+    public override void SubscribeToAll()
+    {
+        base.SubscribeToAll();
+        Button.Clicking += ClickingEventHandler;
+        Button.Clicked += ClickedEventHandler;
+        Button.Hovering += HoveringEventHandler;
+        Button.Hovered += HoveredEventHandler;
+    }
+
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Button.Clicking -= ClickingEventHandler;
+        Button.Clicked -= ClickedEventHandler;
+        Button.Hovering -= HoveringEventHandler;
+        Button.Hovered -= HoveredEventHandler;
     }
 }

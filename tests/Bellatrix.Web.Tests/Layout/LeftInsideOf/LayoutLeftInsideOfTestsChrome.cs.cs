@@ -14,69 +14,68 @@
 using Bellatrix.Layout;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Layout")]
+public class LayoutLeftInsideOfTestsChrome : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Layout")]
-    public class LayoutLeftInsideOfTestsChrome : MSTest.WebTest
+    private Div _navigationDiv;
+    private Anchor _features;
+
+    public override void TestInit()
     {
-        private Div _navigationDiv;
-        private Anchor _features;
-
-        public override void TestInit()
-        {
-            App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
-            _navigationDiv = App.Components.CreateByXpath<Div>("/html/body/div[1]");
-            _features = App.Components.CreateByXpath<Anchor>("/html/body/div[1]/nav/a[1]");
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FeaturesLeftInsideOfNavigation_WhenDesktopWindowsSize_1280_600_Chrome()
-            => _features.AssertLeftInsideOf(_navigationDiv);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FeaturesLeftInsideOfNavigation818_WhenDesktopWindowsSize_1280_600_Chrome()
-            => _features.AssertLeftInsideOf(_navigationDiv, 818);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FeaturesLeftInsideOfNavigationBetween810To820_WhenDesktopWindowsSize_1280_600_Chrome()
-            => _features.AssertLeftInsideOfBetween(_navigationDiv, 810, 820);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FeaturesLeftInsideOfNavigationGreaterThan814_WhenDesktopWindowsSize_1280_600_Chrome()
-            => _features.AssertLeftInsideOfGreaterThan(_navigationDiv, 814);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FeaturesLeftInsideOfNavigationGreaterThanOrEqual815_WhenDesktopWindowsSize_1280_600_Chrome()
-            => _features.AssertLeftInsideOfGreaterThanOrEqual(_navigationDiv, 815);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FeaturesLeftInsideOfNavigationLessThan819_WhenDesktopWindowsSize_1280_600_Chrome()
-            => _features.AssertLeftInsideOfLessThan(_navigationDiv, 819);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FeaturesLeftInsideOfNavigationLessThanOrEqual818_WhenDesktopWindowsSize_1280_600_Chrome()
-            => _features.AssertLeftInsideOfLessThanOrEqual(_navigationDiv, 818);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FeaturesLeftInsideOfNavigationApproximate815_WhenDesktopWindowsSize_1280_600_Chrome()
-            => _features.AssertLeftInsideOfApproximate(_navigationDiv, 815, 5);
+        App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+        _navigationDiv = App.Components.CreateByXpath<Div>("/html/body/div[1]");
+        _features = App.Components.CreateByXpath<Anchor>("/html/body/div[1]/nav/a[1]");
     }
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FeaturesLeftInsideOfNavigation_WhenDesktopWindowsSize_1280_600_Chrome()
+        => _features.AssertLeftInsideOf(_navigationDiv);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FeaturesLeftInsideOfNavigation818_WhenDesktopWindowsSize_1280_600_Chrome()
+        => _features.AssertLeftInsideOf(_navigationDiv, 818);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FeaturesLeftInsideOfNavigationBetween810To820_WhenDesktopWindowsSize_1280_600_Chrome()
+        => _features.AssertLeftInsideOfBetween(_navigationDiv, 810, 820);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FeaturesLeftInsideOfNavigationGreaterThan814_WhenDesktopWindowsSize_1280_600_Chrome()
+        => _features.AssertLeftInsideOfGreaterThan(_navigationDiv, 814);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FeaturesLeftInsideOfNavigationGreaterThanOrEqual815_WhenDesktopWindowsSize_1280_600_Chrome()
+        => _features.AssertLeftInsideOfGreaterThanOrEqual(_navigationDiv, 815);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FeaturesLeftInsideOfNavigationLessThan819_WhenDesktopWindowsSize_1280_600_Chrome()
+        => _features.AssertLeftInsideOfLessThan(_navigationDiv, 819);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FeaturesLeftInsideOfNavigationLessThanOrEqual818_WhenDesktopWindowsSize_1280_600_Chrome()
+        => _features.AssertLeftInsideOfLessThanOrEqual(_navigationDiv, 818);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FeaturesLeftInsideOfNavigationApproximate815_WhenDesktopWindowsSize_1280_600_Chrome()
+        => _features.AssertLeftInsideOfApproximate(_navigationDiv, 815, 5);
 }

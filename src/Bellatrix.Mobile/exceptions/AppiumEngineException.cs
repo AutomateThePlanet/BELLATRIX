@@ -13,27 +13,26 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Mobile.Exceptions
+namespace Bellatrix.Mobile.Exceptions;
+
+public class AppiumEngineException : Exception
 {
-    public class AppiumEngineException : Exception
+    public AppiumEngineException()
     {
-        public AppiumEngineException()
-        {
-        }
+    }
 
-        public AppiumEngineException(string message)
-            : base(message)
-        {
-        }
+    public AppiumEngineException(string message)
+        : base(message)
+    {
+    }
 
-        public AppiumEngineException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
+    public AppiumEngineException(string message, Exception inner)
+        : base(message, inner)
+    {
+    }
 
-        public AppiumEngineException(Exception inner)
-            : base("This is a known issue in the latest version of Appium. It is reported to the Appium team. As soon it is fixed we will update BELLATRIX.", inner)
-        {
-        }
+    public AppiumEngineException(Exception inner)
+        : base("This is a known issue in the latest version of Appium. It is reported to the Appium team. As soon it is fixed we will update BELLATRIX.", inner)
+    {
     }
 }

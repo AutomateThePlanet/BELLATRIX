@@ -18,15 +18,14 @@ using Bellatrix.Mobile.Core;
 using Bellatrix.Mobile.Locators.Android;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public class Tabs<TComponent> : AndroidComponent
+        where TComponent : Component<AndroidDriver<AndroidElement>, AndroidElement>
 {
-    public class Tabs<TComponent> : AndroidComponent
-            where TComponent : Component<AndroidDriver<AndroidElement>, AndroidElement>
+    public virtual ComponentsList<TComponent, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll(string searchClass)
     {
-        public virtual ComponentsList<TComponent, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll(string searchClass)
-        {
-            var elements = this.CreateAllByClass<TComponent>(searchClass);
-            return elements;
-        }
+        var elements = this.CreateAllByClass<TComponent>(searchClass);
+        return elements;
     }
 }

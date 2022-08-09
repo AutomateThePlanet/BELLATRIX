@@ -14,28 +14,27 @@
 using System.Collections.Generic;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class NativeElementFinderService : IWebDriverElementFinderService
 {
-    public class NativeElementFinderService : IWebDriverElementFinderService
+    private readonly ISearchContext _searchContext;
+
+    public NativeElementFinderService(ISearchContext searchContext) => _searchContext = searchContext;
+
+    public IWebElement Find<TBy>(TBy by)
+        where TBy : FindStrategy
     {
-        private readonly ISearchContext _searchContext;
+        var element = _searchContext.FindElement(by.Convert());
 
-        public NativeElementFinderService(ISearchContext searchContext) => _searchContext = searchContext;
+        return element;
+    }
 
-        public IWebElement Find<TBy>(TBy by)
-            where TBy : FindStrategy
-        {
-            var element = _searchContext.FindElement(by.Convert());
+    public IEnumerable<IWebElement> FindAll<TBy>(TBy by)
+        where TBy : FindStrategy
+    {
+        IEnumerable<IWebElement> result = _searchContext.FindElements(@by.Convert());
 
-            return element;
-        }
-
-        public IEnumerable<IWebElement> FindAll<TBy>(TBy by)
-            where TBy : FindStrategy
-        {
-            IEnumerable<IWebElement> result = _searchContext.FindElements(@by.Convert());
-
-            return result;
-        }
+        return result;
     }
 }

@@ -13,196 +13,195 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Week Control")]
+public class WeekControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Week Control")]
-    public class WeekControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().WeekLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void WeekSet_When_UseSetWeekMethod_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().WeekLocalPage);
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void WeekSet_When_UseSetWeekMethod_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
+        weekElement.SetWeek(2017, 7);
 
-            weekElement.SetWeek(2017, 7);
+        Assert.AreEqual("2017-W07", weekElement.GetWeek());
+    }
 
-            Assert.AreEqual("2017-W07", weekElement.GetWeek());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetWeekReturnsCorrectWeek_When_DefaultWeekIsSet_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetWeekReturnsCorrectWeek_When_DefaultWeekIsSet_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek2");
+        Assert.AreEqual("2017-W07", weekElement.GetWeek());
+    }
 
-            Assert.AreEqual("2017-W07", weekElement.GetWeek());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
+        Assert.IsFalse(weekElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(weekElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek4");
+        Assert.IsFalse(weekElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(weekElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek3");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek3");
+        Assert.IsTrue(weekElement.IsAutoComplete);
+    }
 
-            Assert.IsTrue(weekElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek4");
+        Assert.AreEqual(false, weekElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, weekElement.IsReadonly);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek5");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek5");
+        Assert.AreEqual(true, weekElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, weekElement.IsReadonly);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
+        var max = weekElement.Max;
 
-            var max = weekElement.Max;
+        Assert.IsNull(max);
+    }
 
-            Assert.IsNull(max);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
+        Assert.IsNull(weekElement.Min);
+    }
 
-            Assert.IsNull(weekElement.Min);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
+        Assert.IsNull(weekElement.Step);
+    }
 
-            Assert.IsNull(weekElement.Step);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMaxReturns52Week_When_MaxAttributeIsPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMaxReturns52Week_When_MaxAttributeIsPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek1");
+        Assert.AreEqual("2017-W52", weekElement.Max);
+    }
 
-            Assert.AreEqual("2017-W52", weekElement.Max);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMinReturnsFirstWeek_When_MinAttributeIsPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMinReturnsFirstWeek_When_MinAttributeIsPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek1");
+        Assert.AreEqual("2017-W01", weekElement.Min);
+    }
 
-            Assert.AreEqual("2017-W01", weekElement.Min);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetStepReturns10_When_StepAttributeIsNotPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetStepReturns10_When_StepAttributeIsNotPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek1");
+        Assert.AreEqual(10, weekElement.Step);
+    }
 
-            Assert.AreEqual(10, weekElement.Step);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek4");
+        Assert.AreEqual(false, weekElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, weekElement.IsRequired);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek6");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek6");
+        Assert.IsTrue(weekElement.IsRequired);
+    }
 
-            Assert.IsTrue(weekElement.IsRequired);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek7");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek7");
+        weekElement.Hover();
 
-            weekElement.Hover();
+        Assert.AreEqual("color: red;", weekElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", weekElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek8");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek8");
+        weekElement.Focus();
 
-            weekElement.Focus();
+        Assert.AreEqual("color: blue;", weekElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", weekElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek");
+        bool isDisabled = weekElement.IsDisabled;
 
-            bool isDisabled = weekElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Safari()
+    {
+        var weekElement = App.Components.CreateById<Week>("myWeek9");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Safari()
-        {
-            var weekElement = App.Components.CreateById<Week>("myWeek9");
+        bool isDisabled = weekElement.IsDisabled;
 
-            bool isDisabled = weekElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

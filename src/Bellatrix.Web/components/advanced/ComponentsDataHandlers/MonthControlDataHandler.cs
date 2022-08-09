@@ -15,24 +15,23 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class MonthControlDataHandler : IEditableControlDataHandler<Month>
 {
-    public class MonthControlDataHandler : IEditableControlDataHandler<Month>
+    public dynamic GetData(Month element) => element.GetMonth();
+
+    public void SetData(Month element, string data)
     {
-        public dynamic GetData(Month element) => element.GetMonth();
-
-        public void SetData(Month element, string data)
+        if (DateTime.TryParse(data, out DateTime valueToSet))
         {
-            if (DateTime.TryParse(data, out DateTime valueToSet))
-            {
-                element.SetMonth(valueToSet.Year, valueToSet.Month);
-            }
-            else
-            {
-                throw new ArgumentException($"The input string {data} was not recognized as valid datetime.");
-            }
+            element.SetMonth(valueToSet.Year, valueToSet.Month);
         }
-
-        public void ValidateValueIs(Month element, string expectedValue) => element.ValidateMonthIs(expectedValue);
+        else
+        {
+            throw new ArgumentException($"The input string {data} was not recognized as valid datetime.");
+        }
     }
+
+    public void ValidateValueIs(Month element, string expectedValue) => element.ValidateMonthIs(expectedValue);
 }

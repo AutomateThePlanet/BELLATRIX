@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateMaxLengthIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentMaxLength, IComponent
     {
-        public static void ValidateMaxLengthIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentMaxLength, IComponent
-        {
-            WaitUntil(() => control.MaxLength == null, $"The control's maxlength should be null but was '{control.MaxLength}'.", timeout, sleepInterval);
-            ValidatedMaxLengthIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateMaxLengthIs<T>(this T control, int value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentMaxLength, IComponent
-        {
-            WaitUntil(() => control.MaxLength.Equals(value), $"The control's maxlength should be '{value}' but was '{control.MaxLength}'.", timeout, sleepInterval);
-            ValidatedMaxLengthIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value.ToString()));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedMaxLengthIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedMaxLengthIsEvent;
+        WaitUntil(() => control.MaxLength == null, $"The control's maxlength should be null but was '{control.MaxLength}'.", timeout, sleepInterval);
+        ValidatedMaxLengthIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateMaxLengthIs<T>(this T control, int value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentMaxLength, IComponent
+    {
+        WaitUntil(() => control.MaxLength.Equals(value), $"The control's maxlength should be '{value}' but was '{control.MaxLength}'.", timeout, sleepInterval);
+        ValidatedMaxLengthIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value.ToString()));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedMaxLengthIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedMaxLengthIsEvent;
 }

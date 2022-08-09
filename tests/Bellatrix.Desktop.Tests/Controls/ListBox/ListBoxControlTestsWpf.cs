@@ -13,44 +13,43 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("ListBox Control")]
+[AllureTag("WPF")]
+public class ListBoxControlTestsWpf : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("ListBox Control")]
-    [AllureTag("WPF")]
-    public class ListBoxControlTestsWpf : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_ListBoxHovered_Wpf()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_ListBoxHovered_Wpf()
-        {
-            var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
+        var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
 
-            listBox.Hover();
+        listBox.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-            Assert.AreEqual("listBoxHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        Assert.AreEqual("listBoxHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_ListBoxIsNotDisabled_Wpf()
-        {
-            var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_ListBoxIsNotDisabled_Wpf()
+    {
+        var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
 
-            Assert.AreEqual(false, listBox.IsDisabled);
-        }
+        Assert.AreEqual(false, listBox.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_ListBoxIsDisabled_Wpf()
-        {
-            var listBox = App.Components.CreateByAutomationId<ListBox>("ListBoxDisabled");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_ListBoxIsDisabled_Wpf()
+    {
+        var listBox = App.Components.CreateByAutomationId<ListBox>("ListBoxDisabled");
 
-            Assert.AreEqual(true, listBox.IsDisabled);
-        }
+        Assert.AreEqual(true, listBox.IsDisabled);
     }
 }

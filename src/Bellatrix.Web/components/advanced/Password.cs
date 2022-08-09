@@ -16,57 +16,56 @@ using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class Password : Component, IComponentDisabled, IComponentValue, IComponentPassword, IComponentAutoComplete, IComponentReadonly, IComponentRequired, IComponentMaxLength, IComponentMinLength, IComponentSize, IComponentPlaceholder
 {
-    public class Password : Component, IComponentDisabled, IComponentValue, IComponentPassword, IComponentAutoComplete, IComponentReadonly, IComponentRequired, IComponentMaxLength, IComponentMinLength, IComponentSize, IComponentPlaceholder
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> SettingPassword;
+    public static event EventHandler<ComponentActionEventArgs> PasswordSet;
+
+    public override Type ComponentType => GetType();
+
+    public virtual string GetPassword()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> SettingPassword;
-        public static event EventHandler<ComponentActionEventArgs> PasswordSet;
-
-        public override Type ComponentType => GetType();
-
-        public virtual string GetPassword()
-        {
-            return DefaultGetValue();
-        }
-
-        public virtual void SetPassword(string password)
-        {
-            DefaultSetText(SettingPassword, PasswordSet, password);
-        }
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetDisabledAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Value => DefaultGetValue();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsReadonly => GetReadonlyAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsRequired => GetRequiredAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Placeholder => GetPlaceholderAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual int? MaxLength => DefaultGetMaxLength();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual int? MinLength => DefaultGetMinLength();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual new int? Size => GetSizeAttribute();
+        return DefaultGetValue();
     }
+
+    public virtual void SetPassword(string password)
+    {
+        DefaultSetText(SettingPassword, PasswordSet, password);
+    }
+
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetDisabledAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Value => DefaultGetValue();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsReadonly => GetReadonlyAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsRequired => GetRequiredAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Placeholder => GetPlaceholderAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual int? MaxLength => DefaultGetMaxLength();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual int? MinLength => DefaultGetMinLength();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual new int? Size => GetSizeAttribute();
 }

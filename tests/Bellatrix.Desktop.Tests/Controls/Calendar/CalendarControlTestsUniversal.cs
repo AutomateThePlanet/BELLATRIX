@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Calendar Control")]
+[AllureTag("Universal")]
+public class CalendarControlTestsUniversal : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Calendar Control")]
-    [AllureTag("Universal")]
-    public class CalendarControlTestsUniversal : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_CalendarHovered_Universal()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_CalendarHovered_Universal()
-        {
-            var button = App.Components.CreateByAutomationId<Calendar>("calendar");
+        var button = App.Components.CreateByAutomationId<Calendar>("calendar");
 
-            button.Hover();
+        button.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
-            Assert.AreEqual("calendarHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
+        Assert.AreEqual("calendarHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_CalendarIsNotDisabled_Universal()
-        {
-            var button = App.Components.CreateByAutomationId<Calendar>("calendar");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_CalendarIsNotDisabled_Universal()
+    {
+        var button = App.Components.CreateByAutomationId<Calendar>("calendar");
 
-            Assert.AreEqual(false, button.IsDisabled);
-        }
+        Assert.AreEqual(false, button.IsDisabled);
     }
 }

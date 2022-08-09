@@ -13,9 +13,8 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.Contracts
+namespace Bellatrix.Mobile.Contracts;
+
+public interface IIOSComponent : IComponent<IOSElement>
 {
-    public interface IIOSComponent : IComponent<IOSElement>
-    {
-    }
 }

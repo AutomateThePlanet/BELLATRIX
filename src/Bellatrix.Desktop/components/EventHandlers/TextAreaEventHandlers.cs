@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.EventHandlers
+namespace Bellatrix.Desktop.EventHandlers;
+
+public class TextAreaEventHandlers : ComponentEventHandlers
 {
-    public class TextAreaEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            TextArea.SettingText += SettingTextEventHandler;
-            TextArea.TextSet += TextSetEventHandler;
-            TextArea.Hovering += HoveringEventHandler;
-            TextArea.Hovered += HoveredEventHandler;
-        }
+        base.SubscribeToAll();
+        TextArea.SettingText += SettingTextEventHandler;
+        TextArea.TextSet += TextSetEventHandler;
+        TextArea.Hovering += HoveringEventHandler;
+        TextArea.Hovered += HoveredEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            TextArea.SettingText -= SettingTextEventHandler;
-            TextArea.TextSet -= TextSetEventHandler;
-            TextArea.Hovering -= HoveringEventHandler;
-            TextArea.Hovered -= HoveredEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        TextArea.SettingText -= SettingTextEventHandler;
+        TextArea.TextSet -= TextSetEventHandler;
+        TextArea.Hovering -= HoveringEventHandler;
+        TextArea.Hovered -= HoveredEventHandler;
+    }
 
-        protected virtual void SettingTextEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingTextEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void TextSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void TextSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

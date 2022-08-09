@@ -13,23 +13,22 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class FindNameEndingWithStrategy : FindStrategy
 {
-    public class FindNameEndingWithStrategy : FindStrategy
+    public FindNameEndingWithStrategy(string value)
+        : base(value)
     {
-        public FindNameEndingWithStrategy(string value)
-            : base(value)
-        {
-        }
+    }
 
-        public override By Convert()
-        {
-            return By.CssSelector($"[name$='{Value}']");
-        }
+    public override By Convert()
+    {
+        return By.CssSelector($"[name$='{Value}']");
+    }
 
-        public override string ToString()
-        {
-            return $"Name ending with {Value}";
-        }
+    public override string ToString()
+    {
+        return $"Name ending with {Value}";
     }
 }

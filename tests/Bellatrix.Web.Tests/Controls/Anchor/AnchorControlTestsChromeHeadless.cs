@@ -13,142 +13,141 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.ChromeHeadless, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Anchor Control")]
+public class AnchorControlTestsChromeHeadless : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.ChromeHeadless, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Anchor Control")]
-    public class AnchorControlTestsChromeHeadless : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ClickOpensAutomateThePlanetUrl_When_DefaultClickIsSet_ChromeHeadless()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ClickOpensAutomateThePlanetUrl_When_DefaultClickIsSet_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
+        anchorElement.Click();
 
-            anchorElement.Click();
+        App.Navigation.WaitForPartialUrl("automatetheplanet");
 
-            App.Navigation.WaitForPartialUrl("automatetheplanet");
+        Assert.IsTrue(App.Browser.Url.ToString().Contains("automatetheplanet.com"));
+    }
 
-            Assert.IsTrue(App.Browser.Url.ToString().Contains("automatetheplanet.com"));
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnRed_When_Hover_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnRed_When_Hover_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
+        anchorElement.Hover();
 
-            anchorElement.Hover();
+        Assert.AreEqual("color: red;", anchorElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", anchorElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnBlue_When_Focus_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor2");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnBlue_When_Focus_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor2");
+        anchorElement.Focus();
 
-            anchorElement.Focus();
+        Assert.AreEqual("color: blue;", anchorElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", anchorElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnAutomateThePlanet_When_InnerText_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnAutomateThePlanet_When_InnerText_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
+        Assert.AreEqual("Automate The Planet", anchorElement.InnerText);
+    }
 
-            Assert.AreEqual("Automate The Planet", anchorElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnButtonHtml_When_InnerHtml_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor4");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnButtonHtml_When_InnerHtml_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor4");
+        Assert.IsTrue(anchorElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
+    }
 
-            Assert.IsTrue(anchorElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnEmpty_When_InnerTextNotSet_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnEmpty_When_InnerTextNotSet_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
+        Assert.AreEqual(string.Empty, anchorElement.InnerText);
+    }
 
-            Assert.AreEqual(string.Empty, anchorElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnEmpty_When_InnerHtmlNotSet_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnEmpty_When_InnerHtmlNotSet_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
+        string actualInnerHtml = anchorElement.InnerHtml;
 
-            string actualInnerHtml = anchorElement.InnerHtml;
+        Assert.AreEqual(string.Empty, actualInnerHtml);
+    }
 
-            Assert.AreEqual(string.Empty, actualInnerHtml);
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnEmpty_When_RelNotSet_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnEmpty_When_RelNotSet_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
+        string actualRel = anchorElement.Rel;
 
-            string actualRel = anchorElement.Rel;
+        Assert.AreEqual(string.Empty, actualRel);
+    }
 
-            Assert.AreEqual(string.Empty, actualRel);
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnCanonical_When_RelRel_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnCanonical_When_RelRel_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
+        Assert.AreEqual("canonical", anchorElement.Rel);
+    }
 
-            Assert.AreEqual("canonical", anchorElement.Rel);
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnEmpty_When_TargetNotSet_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnEmpty_When_TargetNotSet_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
+        Assert.AreEqual(string.Empty, anchorElement.Target);
+    }
 
-            Assert.AreEqual(string.Empty, anchorElement.Target);
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnSelf_When_RelRel_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnSelf_When_RelRel_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
+        Assert.AreEqual("_self", anchorElement.Target);
+    }
 
-            Assert.AreEqual("_self", anchorElement.Target);
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnNull_When_HrefNotSet_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnNull_When_HrefNotSet_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
+        Assert.IsNull(anchorElement.Href);
+    }
 
-            Assert.IsNull(anchorElement.Href);
-        }
+    [TestMethod]
+    [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
+    public void ReturnAutomateThePlanetUrl_When_Href_ChromeHeadless()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
-        [TestMethod]
-        [TestCategory(Categories.ChromeHeadless), TestCategory(Categories.Windows)]
-        public void ReturnAutomateThePlanetUrl_When_Href_ChromeHeadless()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
-
-            Assert.AreEqual("https://automatetheplanet.com/", anchorElement.Href);
-        }
+        Assert.AreEqual("https://automatetheplanet.com/", anchorElement.Href);
     }
 }

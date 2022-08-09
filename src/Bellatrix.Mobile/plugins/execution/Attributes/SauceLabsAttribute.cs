@@ -18,48 +18,47 @@ using Bellatrix.Mobile.Plugins;
 using Bellatrix.Mobile.Plugins.Attributes;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public abstract class SauceLabsAttribute : AppAttribute, IAppiumOptionsFactory
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public abstract class SauceLabsAttribute : AppAttribute, IAppiumOptionsFactory
+    protected SauceLabsAttribute(
+        string appPath,
+        string platformVersion,
+        string deviceName,
+        Lifecycle behavior = Lifecycle.NotSet,
+        bool recordVideo = false,
+        bool recordScreenshots = false)
+        : base(appPath, platformVersion, deviceName, behavior)
     {
-        protected SauceLabsAttribute(
-            string appPath,
-            string platformVersion,
-            string deviceName,
-            Lifecycle behavior = Lifecycle.NotSet,
-            bool recordVideo = false,
-            bool recordScreenshots = false)
-            : base(appPath, platformVersion, deviceName, behavior)
-        {
-            RecordVideo = recordVideo;
-            RecordScreenshots = recordScreenshots;
-            AppConfiguration.ExecutionType = ExecutionType.SauceLabs;
-        }
+        RecordVideo = recordVideo;
+        RecordScreenshots = recordScreenshots;
+        AppConfiguration.ExecutionType = ExecutionType.SauceLabs;
+    }
 
-        public bool RecordVideo { get; }
+    public bool RecordVideo { get; }
 
-        public bool RecordScreenshots { get; }
+    public bool RecordScreenshots { get; }
 
-        public AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
-        {
-            var appiumOptions = new AppiumOptions();
-            AddAdditionalCapabilities(testClassType, appiumOptions);
+    public AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
+    {
+        var appiumOptions = new AppiumOptions();
+        AddAdditionalCapabilities(testClassType, appiumOptions);
 
-            appiumOptions.AddAdditionalCapability("browserName", string.Empty);
-            appiumOptions.AddAdditionalCapability("deviceName", AppConfiguration.DeviceName);
-            appiumOptions.AddAdditionalCapability("app", AppConfiguration.AppPath);
-            appiumOptions.AddAdditionalCapability("platformVersion", AppConfiguration.PlatformVersion);
-            appiumOptions.AddAdditionalCapability("recordVideo", RecordVideo);
-            appiumOptions.AddAdditionalCapability("recordScreenshots", RecordScreenshots);
-            appiumOptions.AddAdditionalCapability("appiumVersion", "1.8.1");
+        appiumOptions.AddAdditionalCapability("browserName", string.Empty);
+        appiumOptions.AddAdditionalCapability("deviceName", AppConfiguration.DeviceName);
+        appiumOptions.AddAdditionalCapability("app", AppConfiguration.AppPath);
+        appiumOptions.AddAdditionalCapability("platformVersion", AppConfiguration.PlatformVersion);
+        appiumOptions.AddAdditionalCapability("recordVideo", RecordVideo);
+        appiumOptions.AddAdditionalCapability("recordScreenshots", RecordScreenshots);
+        appiumOptions.AddAdditionalCapability("appiumVersion", "1.8.1");
 
-            var credentials = CloudProviderCredentialsResolver.GetCredentials();
-            appiumOptions.AddAdditionalCapability("username", credentials.Item1);
-            appiumOptions.AddAdditionalCapability("accessKey", credentials.Item2);
-            appiumOptions.AddAdditionalCapability("name", testClassType.FullName);
+        var credentials = CloudProviderCredentialsResolver.GetCredentials();
+        appiumOptions.AddAdditionalCapability("username", credentials.Item1);
+        appiumOptions.AddAdditionalCapability("accessKey", credentials.Item2);
+        appiumOptions.AddAdditionalCapability("name", testClassType.FullName);
 
-            return appiumOptions;
-        }
+        return appiumOptions;
     }
 }

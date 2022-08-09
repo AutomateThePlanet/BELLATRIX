@@ -14,46 +14,45 @@
 using System;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web.Untils
+namespace Bellatrix.Web.Untils;
+
+public class WaitNotBeVisibleStrategy : WaitStrategy
 {
-    public class WaitNotBeVisibleStrategy : WaitStrategy
+    public WaitNotBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitNotBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementNotToBeVisibleTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementNotToBeVisibleTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-        {
-            WaitUntil(d => ElementIsInvisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementIsInvisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
 
-        public override void WaitUntil<TBy>(TBy by, Component parent)
-        {
-            WaitUntil(d => ElementIsInvisible(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by, Component parent)
+    {
+        WaitUntil(d => ElementIsInvisible(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
+    }
 
-        private bool ElementIsInvisible<TBy>(ISearchContext searchContext, TBy by)
-            where TBy : FindStrategy
+    private bool ElementIsInvisible<TBy>(ISearchContext searchContext, TBy by)
+        where TBy : FindStrategy
+    {
+        try
         {
-            try
-            {
-                var element = searchContext.FindElement(by.Convert());
-                return element != null && !element.Displayed;
-            }
-            catch (NoSuchElementException)
-            {
-                // Returns true because the element is not present in DOM. The
-                // try block checks if the element is present but is invisible.
-                return true;
-            }
-            catch (StaleElementReferenceException)
-            {
-                // Returns true because stale element reference implies that element
-                // is no longer visible.
-                return true;
-            }
+            var element = searchContext.FindElement(by.Convert());
+            return element != null && !element.Displayed;
+        }
+        catch (NoSuchElementException)
+        {
+            // Returns true because the element is not present in DOM. The
+            // try block checks if the element is present but is invisible.
+            return true;
+        }
+        catch (StaleElementReferenceException)
+        {
+            // Returns true because stale element reference implies that element
+            // is no longer visible.
+            return true;
         }
     }
 }

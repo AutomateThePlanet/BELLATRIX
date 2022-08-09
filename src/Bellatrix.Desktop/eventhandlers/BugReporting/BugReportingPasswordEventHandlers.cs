@@ -14,10 +14,9 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.BddLogging
+namespace Bellatrix.Desktop.BddLogging;
+
+public class BugReportingPasswordEventHandlers : PasswordEventHandlers
 {
-    public class BugReportingPasswordEventHandlers : PasswordEventHandlers
-    {
-        protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-}
+    protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

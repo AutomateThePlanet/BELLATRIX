@@ -14,24 +14,23 @@
 using Bellatrix.Desktop.Controls.Core;
 using Bellatrix.Desktop.Locators;
 
-namespace Bellatrix.Desktop.SytaxSugar
-{
-    public static class FindStrategyCreateExtensions
-    {
-        public static TComponent Create<TComponent, TBy>(this TBy by)
-            where TBy : FindStrategy
-            where TComponent : Component
-        {
-            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
-            return elementRepository.Create<TComponent, TBy>(by);
-        }
+namespace Bellatrix.Desktop.SytaxSugar;
 
-        public static ComponentsList<TComponent> CreateAll<TComponent, TBy>(this TBy by)
-            where TBy : FindStrategy
-            where TComponent : Component
-        {
-            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
-            return elementRepository.CreateAll<TComponent, TBy>(by);
-        }
+public static class FindStrategyCreateExtensions
+{
+    public static TComponent Create<TComponent, TBy>(this TBy by)
+        where TBy : FindStrategy
+        where TComponent : Component
+    {
+        var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        return elementRepository.Create<TComponent, TBy>(by);
+    }
+
+    public static ComponentsList<TComponent> CreateAll<TComponent, TBy>(this TBy by)
+        where TBy : FindStrategy
+        where TComponent : Component
+    {
+        var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        return elementRepository.CreateAll<TComponent, TBy>(by);
     }
 }

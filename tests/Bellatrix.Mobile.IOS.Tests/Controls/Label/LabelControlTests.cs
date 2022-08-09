@@ -13,28 +13,27 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Label Control")]
+public class LabelControlTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Label Control")]
-    public class LabelControlTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ReturnsCorrectText_When_GetText()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ReturnsCorrectText_When_GetText()
-        {
-            var button = App.Components.CreateByName<Button>("ComputeSumButton");
+        var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
-            button.Click();
+        button.Click();
 
-            var answerLabel = App.Components.CreateByName<Label>("Answer");
+        var answerLabel = App.Components.CreateByName<Label>("Answer");
 
-            Assert.AreEqual("0", answerLabel.GetText());
-        }
+        Assert.AreEqual("0", answerLabel.GetText());
     }
 }

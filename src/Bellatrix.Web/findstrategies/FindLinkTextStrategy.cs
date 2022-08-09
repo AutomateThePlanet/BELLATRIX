@@ -11,23 +11,22 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class FindLinkTextStrategy : FindStrategy
 {
-    public class FindLinkTextStrategy : FindStrategy
+    public FindLinkTextStrategy(string value)
+        : base(value)
     {
-        public FindLinkTextStrategy(string value)
-            : base(value)
-        {
-        }
+    }
 
-        public override OpenQA.Selenium.By Convert()
-        {
-            return OpenQA.Selenium.By.LinkText(Value);
-        }
+    public override OpenQA.Selenium.By Convert()
+    {
+        return OpenQA.Selenium.By.LinkText(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"LinkText = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"LinkText = {Value}";
     }
 }

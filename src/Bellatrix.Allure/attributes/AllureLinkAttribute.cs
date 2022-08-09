@@ -14,27 +14,26 @@
 using System;
 using Allure.Commons;
 
-namespace Bellatrix
-{
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
-    public class AllureLinkAttribute : Attribute
-    {
-        public AllureLinkAttribute(string name, string url)
-            => Link = new Link
-            {
-                name = name,
-                type = "link",
-                url = url,
-            };
+namespace Bellatrix;
 
-        public AllureLinkAttribute(string url)
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
+public class AllureLinkAttribute : Attribute
+{
+    public AllureLinkAttribute(string name, string url)
         => Link = new Link
         {
-            name = url,
+            name = name,
             type = "link",
             url = url,
         };
 
-        internal Link Link { get; }
-    }
+    public AllureLinkAttribute(string url)
+    => Link = new Link
+    {
+        name = url,
+        type = "link",
+        url = url,
+    };
+
+    internal Link Link { get; }
 }

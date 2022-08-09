@@ -14,62 +14,61 @@
 using Bellatrix.Mobile.Controls.IOS;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Services")]
+[AllureFeature("ComponentCreateService")]
+public class ElementCreateAllElementTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Services")]
-    [AllureFeature("ComponentCreateService")]
-    public class ElementCreateAllElementTests : MSTest.IOSTest
+    private IOSComponent _mainElement;
+
+    public override void TestInit()
     {
-        private IOSComponent _mainElement;
+        _mainElement = App.Components.CreateByIOSNsPredicate<IOSComponent>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+    }
 
-        public override void TestInit()
-        {
-            _mainElement = App.Components.CreateByIOSNsPredicate<IOSComponent>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ElementFound_When_CreateAllById_And_ElementIsOnScreen()
+    {
+        var textFields = _mainElement.CreateAllById<TextField>("IntegerA");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ElementFound_When_CreateAllById_And_ElementIsOnScreen()
-        {
-            var textFields = _mainElement.CreateAllById<TextField>("IntegerA");
+        textFields[0].ValidateIsVisible();
+    }
 
-            textFields[0].ValidateIsVisible();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ElementFound_When_CreateAllByClass()
+    {
+        var textFields = _mainElement.CreateAllByClass<TextField>("XCUIElementTypeTextField");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ElementFound_When_CreateAllByClass()
-        {
-            var textFields = _mainElement.CreateAllByClass<TextField>("XCUIElementTypeTextField");
+        textFields[0].ValidateIsNotDisabled();
+    }
 
-            textFields[0].ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ElementFound_When_CreateAllByValueContaining_And_ElementIsOnScreen()
+    {
+        var labels = _mainElement.CreateAllByValueContaining<Label>("SumLabel");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ElementFound_When_CreateAllByValueContaining_And_ElementIsOnScreen()
-        {
-            var labels = _mainElement.CreateAllByValueContaining<Label>("SumLabel");
+        labels[0].ValidateIsVisible();
+    }
 
-            labels[0].ValidateIsVisible();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Timeout(180000)]
+    public void ElementFound_When_CreateAllByXPath_And_ElementIsOnScreen()
+    {
+        var buttons = _mainElement.CreateAllByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Timeout(180000)]
-        public void ElementFound_When_CreateAllByXPath_And_ElementIsOnScreen()
-        {
-            var buttons = _mainElement.CreateAllByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");
-
-            buttons[0].ValidateIsVisible();
-        }
+        buttons[0].ValidateIsVisible();
     }
 }

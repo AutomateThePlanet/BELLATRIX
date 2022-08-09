@@ -15,57 +15,56 @@ using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class TouchService : WebService
 {
-    public class TouchService : WebService
+    public TouchService(IWebDriver wrappedDriver)
+        : base(wrappedDriver)
     {
-        public TouchService(IWebDriver wrappedDriver)
-            : base(wrappedDriver)
-        {
-            WrappedTouchActions = new TouchActions(wrappedDriver);
-        }
+        WrappedTouchActions = new TouchActions(wrappedDriver);
+    }
 
-        public TouchActions WrappedTouchActions { get; }
+    public TouchActions WrappedTouchActions { get; }
 
-        public TouchService Swipe(Component element)
-        {
-            WrappedTouchActions.Flick(element.WrappedElement, -200, 0, 10);
-            return this;
-        }
+    public TouchService Swipe(Component element)
+    {
+        WrappedTouchActions.Flick(element.WrappedElement, -200, 0, 10);
+        return this;
+    }
 
-        public TouchService Tap(Component element)
-        {
-            IAction builtAction = WrappedTouchActions.SingleTap(element.WrappedElement);
-            return this;
-        }
+    public TouchService Tap(Component element)
+    {
+        IAction builtAction = WrappedTouchActions.SingleTap(element.WrappedElement);
+        return this;
+    }
 
-        public TouchService DoubleTap(Component element)
-        {
-            IAction builtAction = WrappedTouchActions.DoubleTap(element.WrappedElement);
-            return this;
-        }
+    public TouchService DoubleTap(Component element)
+    {
+        IAction builtAction = WrappedTouchActions.DoubleTap(element.WrappedElement);
+        return this;
+    }
 
-        private TouchService Scroll(Component element, int xOffset, int yOffset)
-        {
-            IAction builtAction = WrappedTouchActions.Scroll(element.WrappedElement, xOffset, yOffset);
-            return this;
-        }
+    private TouchService Scroll(Component element, int xOffset, int yOffset)
+    {
+        IAction builtAction = WrappedTouchActions.Scroll(element.WrappedElement, xOffset, yOffset);
+        return this;
+    }
 
-        private TouchService Scroll(int xOffset, int yOffset)
-        {
-            IAction builtAction = WrappedTouchActions.Scroll(xOffset, yOffset);
-            return this;
-        }
+    private TouchService Scroll(int xOffset, int yOffset)
+    {
+        IAction builtAction = WrappedTouchActions.Scroll(xOffset, yOffset);
+        return this;
+    }
 
-        public TouchService ScrollPage(Component fromElement, Component toElement)
-        {
-            Scroll(fromElement, 0, toElement.Location.Y - fromElement.Location.Y);
-            return this;
-        }
+    public TouchService ScrollPage(Component fromElement, Component toElement)
+    {
+        Scroll(fromElement, 0, toElement.Location.Y - fromElement.Location.Y);
+        return this;
+    }
 
-        public void Perform()
-        {
-            WrappedTouchActions.Build().Perform();
-        }
+    public void Perform()
+    {
+        WrappedTouchActions.Build().Perform();
     }
 }

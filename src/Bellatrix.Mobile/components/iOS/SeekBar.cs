@@ -19,25 +19,24 @@ using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.Services;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class SeekBar : IOSComponent, IComponentDisabled
 {
-    public class SeekBar : IOSComponent, IComponentDisabled
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingPercentage;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> PercentageSet;
+
+    public virtual void Set(double value)
     {
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingPercentage;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> PercentageSet;
-
-        public virtual void Set(double value)
-        {
-            SettingPercentage?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value.ToString()));
-            int end = WrappedElement.Size.Width;
-            int y = WrappedElement.Location.Y;
-            var touchActionsService = ServicesCollection.Current.Resolve<TouchActionsService<IOSDriver<IOSElement>, IOSElement>>();
-            int moveTo = (int)((value / 100) * end);
-            touchActionsService.Press(moveTo, y, 0).Release().Perform();
-            PercentageSet?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value.ToString()));
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        SettingPercentage?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value.ToString()));
+        int end = WrappedElement.Size.Width;
+        int y = WrappedElement.Location.Y;
+        var touchActionsService = ServicesCollection.Current.Resolve<TouchActionsService<IOSDriver<IOSElement>, IOSElement>>();
+        int moveTo = (int)((value / 100) * end);
+        touchActionsService.Press(moveTo, y, 0).Release().Perform();
+        PercentageSet?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value.ToString()));
     }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

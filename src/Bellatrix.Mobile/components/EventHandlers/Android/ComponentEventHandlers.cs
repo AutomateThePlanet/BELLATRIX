@@ -17,62 +17,61 @@ using Bellatrix.Mobile.Controls.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.EventHandlers.Android
+namespace Bellatrix.Mobile.EventHandlers.Android;
+
+public class ComponentEventHandlers : IControlEventHandlers
 {
-    public class ComponentEventHandlers : IControlEventHandlers
+    // These three properties were added to reduce code duplication in child classes and improve readability. However, we realize that the SOLID principles are not followed thoroughly.
+    protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
+    protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+
+    public virtual void SubscribeToAll()
     {
-        // These three properties were added to reduce code duplication in child classes and improve readability. However, we realize that the SOLID principles are not followed thoroughly.
-        protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
-        protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+        AndroidComponent.ScrollingToVisible += ScrollingToVisibleEventHandler;
+        AndroidComponent.ScrolledToVisible += ScrolledToVisibleEventHandler;
+        AndroidComponent.CreatingComponent += CreatingComponentEventHandler;
+        AndroidComponent.CreatedComponent += CreatedComponentEventHandler;
+        AndroidComponent.CreatingComponents += CreatingComponentsEventHandler;
+        AndroidComponent.CreatedComponents += CreatedComponentsEventHandler;
+        AndroidComponent.ReturningWrappedElement += ReturningWrappedElementEventHandler;
+    }
 
-        public virtual void SubscribeToAll()
-        {
-            AndroidComponent.ScrollingToVisible += ScrollingToVisibleEventHandler;
-            AndroidComponent.ScrolledToVisible += ScrolledToVisibleEventHandler;
-            AndroidComponent.CreatingComponent += CreatingComponentEventHandler;
-            AndroidComponent.CreatedComponent += CreatedComponentEventHandler;
-            AndroidComponent.CreatingComponents += CreatingComponentsEventHandler;
-            AndroidComponent.CreatedComponents += CreatedComponentsEventHandler;
-            AndroidComponent.ReturningWrappedElement += ReturningWrappedElementEventHandler;
-        }
+    public virtual void UnsubscribeToAll()
+    {
+        AndroidComponent.ScrollingToVisible -= ScrollingToVisibleEventHandler;
+        AndroidComponent.ScrolledToVisible -= ScrolledToVisibleEventHandler;
+        AndroidComponent.CreatingComponent -= CreatingComponentEventHandler;
+        AndroidComponent.CreatedComponent -= CreatedComponentEventHandler;
+        AndroidComponent.CreatingComponents -= CreatingComponentsEventHandler;
+        AndroidComponent.CreatedComponents -= CreatedComponentsEventHandler;
+        AndroidComponent.ReturningWrappedElement -= ReturningWrappedElementEventHandler;
+    }
 
-        public virtual void UnsubscribeToAll()
-        {
-            AndroidComponent.ScrollingToVisible -= ScrollingToVisibleEventHandler;
-            AndroidComponent.ScrolledToVisible -= ScrolledToVisibleEventHandler;
-            AndroidComponent.CreatingComponent -= CreatingComponentEventHandler;
-            AndroidComponent.CreatedComponent -= CreatedComponentEventHandler;
-            AndroidComponent.CreatingComponents -= CreatingComponentsEventHandler;
-            AndroidComponent.CreatedComponents -= CreatedComponentsEventHandler;
-            AndroidComponent.ReturningWrappedElement -= ReturningWrappedElementEventHandler;
-        }
+    protected virtual void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ScrolledToVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void ScrolledToVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void CreatingComponentEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void CreatingComponentEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void CreatedComponentEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void CreatedComponentEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void CreatingComponentsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void CreatingComponentsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void CreatedComponentsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void CreatedComponentsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
-
-        protected virtual void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs<AndroidElement> arg)
+    {
     }
 }

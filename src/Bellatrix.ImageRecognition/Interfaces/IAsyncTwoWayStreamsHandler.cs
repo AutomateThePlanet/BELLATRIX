@@ -14,13 +14,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Bellatrix.ImageRecognition.Interfaces
+namespace Bellatrix.ImageRecognition.Interfaces;
+
+public interface IAsyncStreamsHandler : IDisposable
 {
-    public interface IAsyncStreamsHandler : IDisposable
-    {
-        string ReadUntil(double timeoutInSeconds, params string[] expectedStrings);
-        IEnumerable<string> ReadUpToNow(double timeoutInSeconds);
-        void WriteLine(string command);
-        void WaitForExit();
-    }
+    string ReadUntil(double timeoutInSeconds, params string[] expectedStrings);
+    IEnumerable<string> ReadUpToNow(double timeoutInSeconds);
+    void WriteLine(string command);
+    void WaitForExit();
 }

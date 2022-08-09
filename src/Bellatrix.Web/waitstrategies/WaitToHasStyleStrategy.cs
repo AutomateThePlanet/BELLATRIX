@@ -14,41 +14,40 @@
 using System;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web.Untils
+namespace Bellatrix.Web.Untils;
+
+public class WaitToHasStyleStrategy : WaitStrategy
 {
-    public class WaitToHasStyleStrategy : WaitStrategy
+    private readonly string _elementStyle;
+
+    public WaitToHasStyleStrategy(string elementStyle, int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        private readonly string _elementStyle;
+        _elementStyle = elementStyle;
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToBeVisibleTimeout;
+    }
 
-        public WaitToHasStyleStrategy(string elementStyle, int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementHasStyle(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
+
+    public override void WaitUntil<TBy>(TBy by, Component parent)
+    {
+        WaitUntil(d => ElementHasStyle(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
+    }
+
+    private bool ElementHasStyle<TBy>(ISearchContext searchContext, TBy by)
+        where TBy : FindStrategy
+    {
+        try
         {
-            _elementStyle = elementStyle;
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToBeVisibleTimeout;
+            var element = searchContext.FindElement(by.Convert());
+            return element != null && element.GetAttribute("style").Equals(_elementStyle);
         }
-
-        public override void WaitUntil<TBy>(TBy by)
+        catch (StaleElementReferenceException)
         {
-            WaitUntil(d => ElementHasStyle(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
-        }
-
-        public override void WaitUntil<TBy>(TBy by, Component parent)
-        {
-            WaitUntil(d => ElementHasStyle(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
-        }
-
-        private bool ElementHasStyle<TBy>(ISearchContext searchContext, TBy by)
-            where TBy : FindStrategy
-        {
-            try
-            {
-                var element = searchContext.FindElement(by.Convert());
-                return element != null && element.GetAttribute("style").Equals(_elementStyle);
-            }
-            catch (StaleElementReferenceException)
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

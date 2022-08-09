@@ -20,34 +20,33 @@ using Bellatrix.Plugins;
 using OpenQA.Selenium;
 using Serilog;
 
-namespace Bellatrix.Web.Plugins.Browser
-{
-    public class JavaScriptErrorsPlugin : Plugin
-    {
-        protected override void PreTestCleanup(object sender, PluginEventArgs e)
-        {
-            var driver = e.Container.Resolve<IWebDriver>();
-            bool shouldCheckForJsErrors = ConfigurationService.GetSection<WebSettings>().ShouldCheckForJavaScriptErrors;
-            if (driver == null || !shouldCheckForJsErrors)
-            {
-                return;
-            }
+namespace Bellatrix.Web.Plugins.Browser;
 
-            var errorStrings = new List<string>
-             {
-                 "SyntaxError",
-                 "EvalError",
-                 "ReferenceError",
-                 "RangeError",
-                 "TypeError",
-                 "URIError",
-             };
-            ReadOnlyCollection<LogEntry> browserLogs = driver?.Manage()?.Logs?.GetLog(LogType.Browser);
-            var jsErrors = browserLogs?.Where(x => errorStrings.Any(e => !string.IsNullOrEmpty(x.Message) && x.Message.Contains(e)));
-            if (jsErrors != null && jsErrors.Any())
-            {
-                Assert.Fail($"JavaScript error(s): {Environment.NewLine} {jsErrors.Aggregate(string.Empty, (s, entry) => s + entry.Message)}{Environment.NewLine}");
-            }
+public class JavaScriptErrorsPlugin : Plugin
+{
+    protected override void PreTestCleanup(object sender, PluginEventArgs e)
+    {
+        var driver = e.Container.Resolve<IWebDriver>();
+        bool shouldCheckForJsErrors = ConfigurationService.GetSection<WebSettings>().ShouldCheckForJavaScriptErrors;
+        if (driver == null || !shouldCheckForJsErrors)
+        {
+            return;
+        }
+
+        var errorStrings = new List<string>
+         {
+             "SyntaxError",
+             "EvalError",
+             "ReferenceError",
+             "RangeError",
+             "TypeError",
+             "URIError",
+         };
+        ReadOnlyCollection<LogEntry> browserLogs = driver?.Manage()?.Logs?.GetLog(LogType.Browser);
+        var jsErrors = browserLogs?.Where(x => errorStrings.Any(e => !string.IsNullOrEmpty(x.Message) && x.Message.Contains(e)));
+        if (jsErrors != null && jsErrors.Any())
+        {
+            Assert.Fail($"JavaScript error(s): {Environment.NewLine} {jsErrors.Aggregate(string.Empty, (s, entry) => s + entry.Message)}{Environment.NewLine}");
         }
     }
 }

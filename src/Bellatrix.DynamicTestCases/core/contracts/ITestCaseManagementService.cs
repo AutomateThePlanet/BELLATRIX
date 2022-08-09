@@ -15,10 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.DynamicTestCases.Contracts
+namespace Bellatrix.DynamicTestCases.Contracts;
+
+public interface ITestCaseManagementService
 {
-    public interface ITestCaseManagementService
-    {
-        TestCase InitTestCase(TestCasesContext testCasesContext);
-    }
+    TestCase InitTestCase(TestCasesContext testCasesContext);
 }

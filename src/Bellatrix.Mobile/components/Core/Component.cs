@@ -29,262 +29,261 @@ using Bellatrix.Plugins.Screenshots;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Core
+namespace Bellatrix.Mobile.Core;
+
+[DebuggerDisplay("BELLATRIX Element")]
+public partial class Component<TDriver, TDriverElement> : IComponent<TDriverElement>
+    where TDriver : AppiumDriver<TDriverElement>
+    where TDriverElement : AppiumWebElement
 {
-    [DebuggerDisplay("BELLATRIX Element")]
-    public partial class Component<TDriver, TDriverElement> : IComponent<TDriverElement>
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+    private readonly ComponentWaitService<TDriver, TDriverElement> _elementWait;
+    private readonly List<WaitStrategy<TDriver, TDriverElement>> _untils;
+    private TDriverElement _wrappedElement;
+
+    public Component()
     {
-        private readonly ComponentWaitService<TDriver, TDriverElement> _elementWait;
-        private readonly List<WaitStrategy<TDriver, TDriverElement>> _untils;
-        private TDriverElement _wrappedElement;
+        _elementWait = new ComponentWaitService<TDriver, TDriverElement>();
+        WrappedDriver = ServicesCollection.Current.Resolve<TDriver>();
+        _untils = new List<WaitStrategy<TDriver, TDriverElement>>();
+    }
 
-        public Component()
+    public static event EventHandler<ComponentActionEventArgs<TDriverElement>> ScrollingToVisible;
+    public static event EventHandler<ComponentActionEventArgs<TDriverElement>> ScrolledToVisible;
+    public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatingComponent;
+    public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatedComponent;
+    public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatingComponents;
+    public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatedComponents;
+    public static event EventHandler<NativeElementActionEventArgs<TDriverElement>> ReturningWrappedElement;
+
+    public TDriver WrappedDriver { get; }
+
+    public TDriverElement WrappedElement
+    {
+        get
         {
-            _elementWait = new ComponentWaitService<TDriver, TDriverElement>();
-            WrappedDriver = ServicesCollection.Current.Resolve<TDriver>();
-            _untils = new List<WaitStrategy<TDriver, TDriverElement>>();
+            ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs<TDriverElement>(GetAndWaitWebDriverElement()));
+            return GetAndWaitWebDriverElement(true);
+        }
+        internal set => _wrappedElement = value;
+    }
+
+    public TDriverElement ParentWrappedElement { get; set; }
+
+    public TDriverElement FoundWrappedElement { get; set; }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public dynamic By { get; internal set; }
+
+    public virtual string GetAttribute(string name)
+    {
+        return WrappedElement.GetAttribute(name);
+    }
+
+    public AssertedFormPage AIAnalyze()
+    {
+        string currentComponentScreenshot = TakeScreenshot();
+        var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
+        var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
+        return analyzedComponent;
+    }
+
+    public string TakeScreenshot(string filePath = null)
+    {
+        if (string.IsNullOrEmpty(filePath))
+        {
+            var screenshotOutputProvider = new ScreenshotOutputProvider();
+            var screenshotSaveDir = screenshotOutputProvider.GetOutputFolder();
+            var screenshotFileName = screenshotOutputProvider.GetUniqueFileName(ComponentName);
+            filePath = Path.Combine(screenshotSaveDir, screenshotFileName);
         }
 
-        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> ScrollingToVisible;
-        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> ScrolledToVisible;
-        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatingComponent;
-        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatedComponent;
-        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatingComponents;
-        public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatedComponents;
-        public static event EventHandler<NativeElementActionEventArgs<TDriverElement>> ReturningWrappedElement;
+        var screenshotDriver = WrappedDriver as ITakesScreenshot;
+        Screenshot screenshot = screenshotDriver.GetScreenshot();
+        var bmpScreen = new Bitmap(new MemoryStream(screenshot.AsByteArray));
+        var cropArea = new Rectangle(WrappedElement.Location, WrappedElement.Size);
+        var bitmap = bmpScreen.Clone(cropArea, bmpScreen.PixelFormat);
+        bitmap.Save(filePath);
 
-        public TDriver WrappedDriver { get; }
+        return filePath;
+    }
 
-        public TDriverElement WrappedElement
+    public TComponent Create<TComponent, TBy>(TBy by)
+        where TBy : FindStrategy<TDriver, TDriverElement>
+        where TComponent : Component<TDriver, TDriverElement>
+    {
+        CreatingComponent?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
+
+        var nativeElement = GetAndWaitWebDriverElement();
+        var elementRepository = new ComponentRepository();
+        var element = elementRepository.CreateComponentWithParent<TComponent, TBy, TDriver, TDriverElement>(by, nativeElement);
+
+        CreatedComponent?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
+
+        return element;
+    }
+
+    public ComponentsList<TComponent, TBy, TDriver, TDriverElement> CreateAll<TComponent, TBy>(TBy by)
+        where TBy : FindStrategy<TDriver, TDriverElement>
+        where TComponent : Component<TDriver, TDriverElement>
+    {
+        CreatingComponents?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
+        TDriverElement nativeElement = null;
+        try
         {
-            get
-            {
-                ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs<TDriverElement>(GetAndWaitWebDriverElement()));
-                return GetAndWaitWebDriverElement(true);
-            }
-            internal set => _wrappedElement = value;
+            nativeElement = GetWebDriverElement();
+        }
+        catch (InvalidOperationException)
+        {
+            // Ignore
         }
 
-        public TDriverElement ParentWrappedElement { get; set; }
+        var elementsCollection = new ComponentsList<TComponent, TBy, TDriver, TDriverElement>(by, nativeElement);
 
-        public TDriverElement FoundWrappedElement { get; set; }
+        CreatedComponents?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public dynamic By { get; internal set; }
+        return elementsCollection;
+    }
 
-        public virtual string GetAttribute(string name)
+    public void WaitToBe() => GetAndWaitWebDriverElement(true);
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsPresent
+    {
+        get
         {
-            return WrappedElement.GetAttribute(name);
-        }
-
-        public AssertedFormPage AIAnalyze()
-        {
-            string currentComponentScreenshot = TakeScreenshot();
-            var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
-            var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
-            return analyzedComponent;
-        }
-
-        public string TakeScreenshot(string filePath = null)
-        {
-            if (string.IsNullOrEmpty(filePath))
-            {
-                var screenshotOutputProvider = new ScreenshotOutputProvider();
-                var screenshotSaveDir = screenshotOutputProvider.GetOutputFolder();
-                var screenshotFileName = screenshotOutputProvider.GetUniqueFileName(ComponentName);
-                filePath = Path.Combine(screenshotSaveDir, screenshotFileName);
-            }
-
-            var screenshotDriver = WrappedDriver as ITakesScreenshot;
-            Screenshot screenshot = screenshotDriver.GetScreenshot();
-            var bmpScreen = new Bitmap(new MemoryStream(screenshot.AsByteArray));
-            var cropArea = new Rectangle(WrappedElement.Location, WrappedElement.Size);
-            var bitmap = bmpScreen.Clone(cropArea, bmpScreen.PixelFormat);
-            bitmap.Save(filePath);
-
-            return filePath;
-        }
-
-        public TComponent Create<TComponent, TBy>(TBy by)
-            where TBy : FindStrategy<TDriver, TDriverElement>
-            where TComponent : Component<TDriver, TDriverElement>
-        {
-            CreatingComponent?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
-
-            var nativeElement = GetAndWaitWebDriverElement();
-            var elementRepository = new ComponentRepository();
-            var element = elementRepository.CreateComponentWithParent<TComponent, TBy, TDriver, TDriverElement>(by, nativeElement);
-
-            CreatedComponent?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
-
-            return element;
-        }
-
-        public ComponentsList<TComponent, TBy, TDriver, TDriverElement> CreateAll<TComponent, TBy>(TBy by)
-            where TBy : FindStrategy<TDriver, TDriverElement>
-            where TComponent : Component<TDriver, TDriverElement>
-        {
-            CreatingComponents?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
-            TDriverElement nativeElement = null;
             try
             {
-                nativeElement = GetWebDriverElement();
+                var nativeElement = GetWebDriverElement(true);
+                if (nativeElement != null)
+                {
+                    return true;
+                }
             }
             catch (InvalidOperationException)
             {
-                // Ignore
-            }
-
-            var elementsCollection = new ComponentsList<TComponent, TBy, TDriver, TDriverElement>(by, nativeElement);
-
-            CreatedComponents?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
-
-            return elementsCollection;
-        }
-
-        public void WaitToBe() => GetAndWaitWebDriverElement(true);
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsPresent
-        {
-            get
-            {
-                try
-                {
-                    var nativeElement = GetWebDriverElement(true);
-                    if (nativeElement != null)
-                    {
-                        return true;
-                    }
-                }
-                catch (InvalidOperationException)
-                {
-                    return false;
-                }
-
                 return false;
             }
+
+            return false;
         }
+    }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsVisible
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsVisible
+    {
+        get
         {
-            get
+            try
             {
-                try
+                var nativeElement = GetWebDriverElement(true);
+                if (nativeElement != null)
                 {
-                    var nativeElement = GetWebDriverElement(true);
-                    if (nativeElement != null)
-                    {
-                        return GetWebDriverElement(true).Displayed;
-                    }
+                    return GetWebDriverElement(true).Displayed;
                 }
-                catch (InvalidOperationException)
-                {
-                    return false;
-                }
-
+            }
+            catch (InvalidOperationException)
+            {
                 return false;
             }
+
+            return false;
+        }
+    }
+
+    public virtual void ScrollToVisible(ScrollDirection direction)
+    {
+        ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
+        int timeOut = 10000;
+
+        while (!IsVisible && timeOut > 0)
+        {
+            MobileScroll(direction);
+            timeOut -= 30;
         }
 
-        public virtual void ScrollToVisible(ScrollDirection direction)
-        {
-            ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
-            int timeOut = 10000;
+        ScrolledToVisible?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
+    }
 
-            while (!IsVisible && timeOut > 0)
+    public string ComponentName { get; internal set; }
+
+    public string PageName { get; internal set; }
+
+    public virtual Point Location => WrappedElement.Location;
+
+    public virtual Size Size => WrappedElement.Size;
+
+    public void EnsureState(WaitStrategy<TDriver, TDriverElement> until) => _untils.Add(until);
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine($"{ComponentName}");
+        sb.AppendLine($"X = {Location.X}");
+        sb.AppendLine($"Y = {Location.Y}");
+        sb.AppendLine($"Height = {Size.Height}");
+        sb.AppendLine($"Width = {Size.Width}");
+        return sb.ToString();
+    }
+
+    protected TDriverElement GetAndWaitWebDriverElement(bool shouldRefresh = false)
+    {
+        if (_wrappedElement == null || shouldRefresh)
+        {
+            if (_untils.Count == 0 || _untils[0] == null)
             {
-                MobileScroll(direction);
-                timeOut -= 30;
+                EnsureState(new WaitToExistStrategy<TDriver, TDriverElement>());
             }
 
-            ScrolledToVisible?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
-        }
-
-        public string ComponentName { get; internal set; }
-
-        public string PageName { get; internal set; }
-
-        public virtual Point Location => WrappedElement.Location;
-
-        public virtual Size Size => WrappedElement.Size;
-
-        public void EnsureState(WaitStrategy<TDriver, TDriverElement> until) => _untils.Add(until);
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine($"{ComponentName}");
-            sb.AppendLine($"X = {Location.X}");
-            sb.AppendLine($"Y = {Location.Y}");
-            sb.AppendLine($"Height = {Size.Height}");
-            sb.AppendLine($"Width = {Size.Width}");
-            return sb.ToString();
-        }
-
-        protected TDriverElement GetAndWaitWebDriverElement(bool shouldRefresh = false)
-        {
-            if (_wrappedElement == null || shouldRefresh)
+            try
             {
-                if (_untils.Count == 0 || _untils[0] == null)
+                foreach (var until in _untils)
                 {
-                    EnsureState(new WaitToExistStrategy<TDriver, TDriverElement>());
-                }
-
-                try
-                {
-                    foreach (var until in _untils)
+                    if (until != null)
                     {
-                        if (until != null)
-                        {
-                            _elementWait.Wait(this, until);
-                        }
-
-                        if (until.GetType().Equals(typeof(WaitNotExistStrategy<TDriver, TDriverElement>)))
-                        {
-                            return _wrappedElement;
-                        }
+                        _elementWait.Wait(this, until);
                     }
 
-                    _wrappedElement = GetWebDriverElement(shouldRefresh);
+                    if (until.GetType().Equals(typeof(WaitNotExistStrategy<TDriver, TDriverElement>)))
+                    {
+                        return _wrappedElement;
+                    }
                 }
-                catch (WebDriverTimeoutException ex)
-                {
-                    throw new TimeoutException($"The element with Name = {ComponentName} Locator {By.Value} was not found on the page or didn't fulfill the specified conditions.", ex);
-                }
+
+                _wrappedElement = GetWebDriverElement(shouldRefresh);
             }
+            catch (WebDriverTimeoutException ex)
+            {
+                throw new TimeoutException($"The element with Name = {ComponentName} Locator {By.Value} was not found on the page or didn't fulfill the specified conditions.", ex);
+            }
+        }
 
-            _untils.Clear();
+        _untils.Clear();
 
+        return _wrappedElement;
+    }
+
+    private TDriverElement GetWebDriverElement(bool shouldRefresh = false)
+    {
+        if (!shouldRefresh && _wrappedElement != null)
+        {
             return _wrappedElement;
         }
 
-        private TDriverElement GetWebDriverElement(bool shouldRefresh = false)
+        if (ParentWrappedElement == null && FoundWrappedElement == null)
         {
-            if (!shouldRefresh && _wrappedElement != null)
-            {
-                return _wrappedElement;
-            }
-
-            if (ParentWrappedElement == null && FoundWrappedElement == null)
-            {
-                return By.FindElement(WrappedDriver);
-            }
-
-            if (ParentWrappedElement != null)
-            {
-                return By.FindElement(ParentWrappedElement);
-            }
-
-            if (FoundWrappedElement != null)
-            {
-                return FoundWrappedElement;
-            }
-
-            return _wrappedElement;
+            return By.FindElement(WrappedDriver);
         }
+
+        if (ParentWrappedElement != null)
+        {
+            return By.FindElement(ParentWrappedElement);
+        }
+
+        if (FoundWrappedElement != null)
+        {
+            return FoundWrappedElement;
+        }
+
+        return _wrappedElement;
     }
 }

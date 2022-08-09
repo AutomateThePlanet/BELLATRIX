@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
-{
-    [TestClass]
-    public class TestsInitialize
-    {
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
-        {
-            AllurePlugin.Add();
-            AndroidApp.StartAppiumLocalService();
-        }
+namespace Bellatrix.Mobile.Android.Tests;
 
-        [AssemblyCleanup]
-        public static void AssemblyCleanUp()
-        {
-            var app = ServicesCollection.Current.Resolve<AndroidApp>();
-            app?.Dispose();
-            app?.StopAppiumLocalService();
-        }
+[TestClass]
+public class TestsInitialize
+{
+    [AssemblyInitialize]
+    public static void AssemblyInitialize(TestContext testContext)
+    {
+        AllurePlugin.Add();
+        AndroidApp.StartAppiumLocalService();
+    }
+
+    [AssemblyCleanup]
+    public static void AssemblyCleanUp()
+    {
+        var app = ServicesCollection.Current.Resolve<AndroidApp>();
+        app?.Dispose();
+        app?.StopAppiumLocalService();
     }
 }

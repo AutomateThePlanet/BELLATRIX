@@ -20,110 +20,109 @@ using Bellatrix.Mobile.Enums;
 using Bellatrix.Utilities;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Configuration
+namespace Bellatrix.Mobile.Configuration;
+
+public class AppConfiguration : IEquatable<AppConfiguration>
 {
-    public class AppConfiguration : IEquatable<AppConfiguration>
+    private string _appPath;
+
+    public AppConfiguration()
     {
-        private string _appPath;
+    }
 
-        public AppConfiguration()
+    public AppConfiguration(OS os) => OSPlatform = os;
+
+    public AppConfiguration(string appPath, Lifecycle lifecycle, string classFullName, AppiumOptions appiumOptions = null)
+    {
+        AppPath = appPath;
+        Lifecycle = lifecycle;
+        ClassFullName = classFullName;
+        AppiumOptions = appiumOptions;
+    }
+
+    public Lifecycle Lifecycle { get; set; } = Lifecycle.RestartEveryTime;
+
+    public OS OSPlatform { get; set; }
+
+    public string ClassFullName { get; set; }
+
+    public string DeviceName { get; set; }
+
+    public string AppPackage { get; set; }
+
+    public string PlatformName { get; set; }
+
+    public string PlatformVersion { get; set; }
+
+    public string AppActivity { get; set; }
+
+    public string BrowserName { get; set; }
+
+    public MobileOSType MobileOSType { get; set; }
+
+    public ExecutionType ExecutionType { get; set; }
+
+    public string AppPath { get => NormalizeAppPath(); set => _appPath = value; }
+
+    public AppiumOptions AppiumOptions { get; set; }
+
+    public bool Equals(AppConfiguration other)
+    {
+        return AppPath == other.AppPath
+                   && Lifecycle == other.Lifecycle
+                   && DeviceName == other.DeviceName
+                   && AppPackage == other.AppPackage
+                   && PlatformName == other.PlatformName
+                   && PlatformVersion == other.PlatformVersion
+                   && AppActivity == other.AppActivity
+                   && MobileOSType == other.MobileOSType;
+    }
+
+    public override bool Equals(object obj) => Equals(obj as AppConfiguration);
+
+    protected AppiumOptions AddAdditionalCapability(string classFullName, AppiumOptions appiumOptions)
+    {
+        var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{classFullName}");
+        if (additionalCaps != null)
         {
-        }
-
-        public AppConfiguration(OS os) => OSPlatform = os;
-
-        public AppConfiguration(string appPath, Lifecycle lifecycle, string classFullName, AppiumOptions appiumOptions = null)
-        {
-            AppPath = appPath;
-            Lifecycle = lifecycle;
-            ClassFullName = classFullName;
-            AppiumOptions = appiumOptions;
-        }
-
-        public Lifecycle Lifecycle { get; set; } = Lifecycle.RestartEveryTime;
-
-        public OS OSPlatform { get; set; }
-
-        public string ClassFullName { get; set; }
-
-        public string DeviceName { get; set; }
-
-        public string AppPackage { get; set; }
-
-        public string PlatformName { get; set; }
-
-        public string PlatformVersion { get; set; }
-
-        public string AppActivity { get; set; }
-
-        public string BrowserName { get; set; }
-
-        public MobileOSType MobileOSType { get; set; }
-
-        public ExecutionType ExecutionType { get; set; }
-
-        public string AppPath { get => NormalizeAppPath(); set => _appPath = value; }
-
-        public AppiumOptions AppiumOptions { get; set; }
-
-        public bool Equals(AppConfiguration other)
-        {
-            return AppPath == other.AppPath
-                       && Lifecycle == other.Lifecycle
-                       && DeviceName == other.DeviceName
-                       && AppPackage == other.AppPackage
-                       && PlatformName == other.PlatformName
-                       && PlatformVersion == other.PlatformVersion
-                       && AppActivity == other.AppActivity
-                       && MobileOSType == other.MobileOSType;
-        }
-
-        public override bool Equals(object obj) => Equals(obj as AppConfiguration);
-
-        protected AppiumOptions AddAdditionalCapability(string classFullName, AppiumOptions appiumOptions)
-        {
-            var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{classFullName}");
-            if (additionalCaps != null)
+            foreach (var key in additionalCaps.Keys)
             {
-                foreach (var key in additionalCaps.Keys)
-                {
-                    appiumOptions.AddAdditionalCapability(key, additionalCaps[key]);
-                }
+                appiumOptions.AddAdditionalCapability(key, additionalCaps[key]);
             }
-
-            return appiumOptions;
         }
 
-        private string NormalizeAppPath()
+        return appiumOptions;
+    }
+
+    private string NormalizeAppPath()
+    {
+        if (string.IsNullOrEmpty(_appPath))
         {
-            if (string.IsNullOrEmpty(_appPath))
-            {
-                return _appPath;
-            }
-            else if (_appPath.StartsWith("AssemblyFolder", StringComparison.Ordinal))
-            {
-                var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
-                _appPath = _appPath.Replace("AssemblyFolder", executionFolder);
-
-                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
-                {
-                    _appPath = _appPath.Replace('\\', '/');
-                }
-            }
-
             return _appPath;
         }
-
-        public override int GetHashCode()
+        else if (_appPath.StartsWith("AssemblyFolder", StringComparison.Ordinal))
         {
-            return AppPath.GetHashCode() +
-                   Lifecycle.GetHashCode() +
-                   DeviceName.GetHashCode() +
-                   AppPackage.GetHashCode() +
-                   PlatformName.GetHashCode() +
-                   PlatformVersion.GetHashCode() +
-                   AppActivity.GetHashCode() +
-                   MobileOSType.GetHashCode();
+            var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
+            _appPath = _appPath.Replace("AssemblyFolder", executionFolder);
+
+            if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+            {
+                _appPath = _appPath.Replace('\\', '/');
+            }
         }
+
+        return _appPath;
+    }
+
+    public override int GetHashCode()
+    {
+        return AppPath.GetHashCode() +
+               Lifecycle.GetHashCode() +
+               DeviceName.GetHashCode() +
+               AppPackage.GetHashCode() +
+               PlatformName.GetHashCode() +
+               PlatformVersion.GetHashCode() +
+               AppActivity.GetHashCode() +
+               MobileOSType.GetHashCode();
     }
 }

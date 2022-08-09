@@ -13,15 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Contracts
+namespace Bellatrix.Mobile.Contracts;
+
+public interface IComponent<TDriverElement>
+    where TDriverElement : AppiumWebElement
 {
-    public interface IComponent<TDriverElement>
-        where TDriverElement : AppiumWebElement
-    {
-        string ComponentName { get; }
+    string ComponentName { get; }
 
-        string PageName { get; }
+    string PageName { get; }
 
-        TDriverElement WrappedElement { get; }
-    }
+    TDriverElement WrappedElement { get; }
 }

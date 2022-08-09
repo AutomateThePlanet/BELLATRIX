@@ -13,48 +13,47 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("RadioButton Control")]
+[AllureFeature("ValidateExtensions")]
+public class RadioButtonControlValidateExtensionsTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("RadioButton Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class RadioButtonControlValidateExtensionsTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsChecked_DoesNotThrowException_When_RadioButtonIsChecked()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsChecked_DoesNotThrowException_When_RadioButtonIsChecked()
-        {
-            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
+        var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
 
-            radioButton.ValidateIsNotChecked();
+        radioButton.ValidateIsNotChecked();
 
-            radioButton.Click();
+        radioButton.Click();
 
-            radioButton.ValidateIsChecked();
-        }
+        radioButton.ValidateIsChecked();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIs_DoesNotThrowException_When_RadioButtonCorrectTextSet()
-        {
-            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio1");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIs_DoesNotThrowException_When_RadioButtonCorrectTextSet()
+    {
+        var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio1");
 
-            radioButton.ValidateTextIs("RadioButton 1");
-        }
+        radioButton.ValidateTextIs("RadioButton 1");
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_RadioButtonIsNotDisabled()
-        {
-            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_RadioButtonIsNotDisabled()
+    {
+        var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
 
-            radioButton.ValidateIsNotDisabled();
-        }
+        radioButton.ValidateIsNotDisabled();
     }
 }

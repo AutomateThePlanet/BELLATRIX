@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Plugins.Screenshots.Contracts
+namespace Bellatrix.Plugins.Screenshots.Contracts;
+
+public interface IScreenshotOutputProvider
 {
-    public interface IScreenshotOutputProvider
-    {
-        string GetOutputFolder();
-        string GetUniqueFileName(string testName);
-    }
+    string GetOutputFolder();
+    string GetUniqueFileName(string testName);
 }

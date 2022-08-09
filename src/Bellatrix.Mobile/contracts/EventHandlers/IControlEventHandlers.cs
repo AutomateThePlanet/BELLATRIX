@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile.EventHandlers
+namespace Bellatrix.Mobile.EventHandlers;
+
+public interface IControlEventHandlers
 {
-    public interface IControlEventHandlers
-    {
-        void SubscribeToAll();
-        void UnsubscribeToAll();
-    }
+    void SubscribeToAll();
+    void UnsubscribeToAll();
 }

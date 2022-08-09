@@ -14,22 +14,21 @@
 using System.IO;
 using System.Linq;
 
-namespace Bellatrix.Infrastructure
+namespace Bellatrix.Infrastructure;
+
+public class PathFacade
 {
-    public class PathFacade
-    {
-        public string GetFileName(string file) => Path.GetFileName(file);
+    public string GetFileName(string file) => Path.GetFileName(file);
 
-        public string Combine(string path1, string path2) => Path.Combine(path1, path2);
+    public string Combine(string path1, string path2) => Path.Combine(path1, path2);
 
-        public string Combine(string path1, string path2, string path3) => Path.Combine(path1, path2, path3);
+    public string Combine(string path1, string path2, string path3) => Path.Combine(path1, path2, path3);
 
-        public string GetTempFileName() => Path.GetTempFileName();
+    public string GetTempFileName() => Path.GetTempFileName();
 
-        public string GetTempFolderPath() => Path.GetTempPath();
+    public string GetTempFolderPath() => Path.GetTempPath();
 
-        public string GetDirectoryName(string filename) => Path.GetDirectoryName(filename);
+    public string GetDirectoryName(string filename) => Path.GetDirectoryName(filename);
 
-        public bool IsFilePathValid(string fileName) => Path.GetInvalidPathChars().ToList().Any();
-    }
+    public bool IsFilePathValid(string fileName) => Path.GetInvalidPathChars().ToList().Any();
 }

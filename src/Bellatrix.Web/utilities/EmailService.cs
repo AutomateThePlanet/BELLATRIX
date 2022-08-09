@@ -18,47 +18,46 @@ using Bellatrix.Core.Infrastructure;
 using Bellatrix.Infrastructure;
 using Bellatrix.Web;
 
-namespace Bellatrix.Web.Utilities
+namespace Bellatrix.Web.Utilities;
+
+public static class EmailService
 {
-    public static class EmailService
+    private static BlobStorageService _blobStorageService;
+
+    static EmailService()
     {
-        private static BlobStorageService _blobStorageService;
+        _blobStorageService = new BlobStorageService();
+    }
 
-        static EmailService()
+    public static Email ReadEmail(string name = "", string cookieName = "set_emails")
+    {
+        if (string.IsNullOrEmpty(name))
         {
-            _blobStorageService = new BlobStorageService();
+            name = ServicesCollection.Current.Resolve<CookiesService>().GetCookie(cookieName);
         }
 
-        public static Email ReadEmail(string name = "", string cookieName = "set_emails")
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                name = ServicesCollection.Current.Resolve<CookiesService>().GetCookie(cookieName);
-            }
-
-            string tempFilePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.json");
-            _blobStorageService.DownloadFile(name, tempFilePath, "emails");
-            string fileContent = new FileFacade().ReadAllText(tempFilePath);
-            var email = new JsonSerializer().Deserialize<Email>(fileContent);
-            return email;
-        }
+        string tempFilePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.json");
+        _blobStorageService.DownloadFile(name, tempFilePath, "emails");
+        string fileContent = new FileFacade().ReadAllText(tempFilePath);
+        var email = new JsonSerializer().Deserialize<Email>(fileContent);
+        return email;
+    }
 
 
-        public static string LoadEmailBody(string htmlBody)
-        {
-            htmlBody = htmlBody.Replace("\n", string.Empty).Replace("\\/", "/").Replace("\\\"", "\"");
-            string fileName = $"{Guid.NewGuid()}.html";
-            string tempFilePath = Path.Combine(Path.GetTempPath(), fileName);
-            File.WriteAllText(tempFilePath, htmlBody);
-            var navigationService = ServicesCollection.Current.Resolve<NavigationService>();
+    public static string LoadEmailBody(string htmlBody)
+    {
+        htmlBody = htmlBody.Replace("\n", string.Empty).Replace("\\/", "/").Replace("\\\"", "\"");
+        string fileName = $"{Guid.NewGuid()}.html";
+        string tempFilePath = Path.Combine(Path.GetTempPath(), fileName);
+        File.WriteAllText(tempFilePath, htmlBody);
+        var navigationService = ServicesCollection.Current.Resolve<NavigationService>();
 
-            #if DEBUG
-            navigationService.NavigateToLocalPage(tempFilePath);
-            #elif QA
-            navigationService.Navigate($"http://local-folder.lambdatest.com/{fileName}");
-            #endif
+        #if DEBUG
+        navigationService.NavigateToLocalPage(tempFilePath);
+        #elif QA
+        navigationService.Navigate($"http://local-folder.lambdatest.com/{fileName}");
+        #endif
 
-            return htmlBody;
-        }
+        return htmlBody;
     }
 }

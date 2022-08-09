@@ -1,25 +1,24 @@
-﻿namespace Bellatrix.Mobile.Android.GettingStarted
+﻿namespace Bellatrix.Mobile.Android.GettingStarted;
+
+public partial class MainAndroidPage
 {
-    public partial class MainAndroidPage
+    public void AssertPermanentTransferIsChecked()
     {
-        public void AssertPermanentTransferIsChecked()
-        {
-            App.Assert.IsTrue(PermanentTransfer.IsChecked);
-        }
+        App.Assert.IsTrue(PermanentTransfer.IsChecked);
+    }
 
-        public void AssertRightItemSelected(string itemName)
-        {
-            App.Assert.AreEqual(itemName, Items.GetText());
-        }
+    public void AssertRightItemSelected(string itemName)
+    {
+        App.Assert.AreEqual(itemName, Items.GetText());
+    }
 
-        public void AssertRightUserNameSet(string userName)
-        {
-            App.Assert.AreEqual(userName, UserName.GetText());
-        }
+    public void AssertRightUserNameSet(string userName)
+    {
+        App.Assert.AreEqual(userName, UserName.GetText());
+    }
 
-        public void AssertKeepMeLoggedChecked()
-        {
-            App.Assert.IsTrue(KeepMeLogged.IsChecked);
-        }
+    public void AssertKeepMeLoggedChecked()
+    {
+        App.Assert.IsTrue(KeepMeLogged.IsChecked);
     }
 }

@@ -17,38 +17,37 @@ using Bellatrix.Mobile.Plugins.Attributes;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public class AndroidCrossBrowserTestingAttribute : CrossBrowserTestingAttribute, IAppiumOptionsFactory
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class AndroidCrossBrowserTestingAttribute : CrossBrowserTestingAttribute, IAppiumOptionsFactory
+    public AndroidCrossBrowserTestingAttribute(
+        string appPath,
+        string platformVersion,
+        string deviceName,
+        string appPackage,
+        string appActivity,
+        Lifecycle behavior = Lifecycle.NotSet,
+        bool recordVideo = false,
+        bool recordNetwork = false,
+        string build = null)
+        : base(appPath, platformVersion, deviceName, behavior, recordVideo, recordNetwork, build)
     {
-        public AndroidCrossBrowserTestingAttribute(
-            string appPath,
-            string platformVersion,
-            string deviceName,
-            string appPackage,
-            string appActivity,
-            Lifecycle behavior = Lifecycle.NotSet,
-            bool recordVideo = false,
-            bool recordNetwork = false,
-            string build = null)
-            : base(appPath, platformVersion, deviceName, behavior, recordVideo, recordNetwork, build)
-        {
-            AppConfiguration.MobileOSType = MobileOSType.Android;
-            AppConfiguration.PlatformName = "Android";
-            AppConfiguration.AppPackage = appPackage;
-            AppConfiguration.AppActivity = appActivity;
-        }
+        AppConfiguration.MobileOSType = MobileOSType.Android;
+        AppConfiguration.PlatformName = "Android";
+        AppConfiguration.AppPackage = appPackage;
+        AppConfiguration.AppActivity = appActivity;
+    }
 
-        public new AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
-        {
-            var appiumOptions = base.CreateAppiumOptions(memberInfo, testClassType);
-            appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppActivity, AppConfiguration.AppActivity);
-            appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppWaitActivity, "*");
-            appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
-            appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppPackage, AppConfiguration.AppPackage);
+    public new AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
+    {
+        var appiumOptions = base.CreateAppiumOptions(memberInfo, testClassType);
+        appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppActivity, AppConfiguration.AppActivity);
+        appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppWaitActivity, "*");
+        appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
+        appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppPackage, AppConfiguration.AppPackage);
 
-            return appiumOptions;
-        }
+        return appiumOptions;
     }
 }

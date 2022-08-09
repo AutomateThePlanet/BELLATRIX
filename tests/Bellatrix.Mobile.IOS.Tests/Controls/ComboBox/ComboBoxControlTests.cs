@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("ComboBox Control")]
+public class ComboBoxControlTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("ComboBox Control")]
-    public class ComboBoxControlTests : MSTest.IOSTest
+    [TestMethod]
+    [Ignore]
+    public void JupiterOptionSelected_When_CallSelectByTextMethod()
     {
-        [TestMethod]
-        [Ignore]
-        public void JupiterOptionSelected_When_CallSelectByTextMethod()
-        {
-            var comboBox = App.Components.CreateById<ComboBox>("spinner1");
+        var comboBox = App.Components.CreateById<ComboBox>("spinner1");
 
-            comboBox.SelectByText("Jupiter");
+        comboBox.SelectByText("Jupiter");
 
-            Assert.AreEqual("Jupiter", comboBox.GetText());
-        }
+        Assert.AreEqual("Jupiter", comboBox.GetText());
+    }
 
-        [TestMethod]
-        [Ignore]
-        public void IsDisabledReturnsFalse_When_ComboBoxIsNotDisabled()
-        {
-            var comboBox = App.Components.CreateById<ComboBox>("spinner1");
+    [TestMethod]
+    [Ignore]
+    public void IsDisabledReturnsFalse_When_ComboBoxIsNotDisabled()
+    {
+        var comboBox = App.Components.CreateById<ComboBox>("spinner1");
 
-            Assert.AreEqual(false, comboBox.IsDisabled);
-        }
+        Assert.AreEqual(false, comboBox.IsDisabled);
     }
 }

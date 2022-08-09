@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
 
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix.BugReporting.Jira;
+
+public class Changelog
 {
-    public class Changelog
-    {
-        public int startAt { get; set; }
-        public int maxResults { get; set; }
-        public int total { get; set; }
-        public List<History> histories { get; set; }
-    }
+    public int startAt { get; set; }
+    public int maxResults { get; set; }
+    public int total { get; set; }
+    public List<History> histories { get; set; }
 }

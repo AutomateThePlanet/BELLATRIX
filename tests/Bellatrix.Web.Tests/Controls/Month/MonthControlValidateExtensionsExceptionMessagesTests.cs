@@ -13,39 +13,38 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Month Control")]
+[AllureFeature("ValidateExtensions")]
+public class MonthControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Month Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class MonthControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateMonthIsThrowsException()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
+
+        monthElement.SetMonth(2017, 7);
+
+        try
         {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
+            monthElement.ValidateMonthIs("2017-08", 200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateMonthIsThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
-
-            monthElement.SetMonth(2017, 7);
-
-            try
-            {
-                monthElement.ValidateMonthIs("2017-08", 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's month should be '2017-08' but was '2017-07'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control's month should be '2017-08' but was '2017-07'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

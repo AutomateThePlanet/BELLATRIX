@@ -14,87 +14,86 @@
 using System;
 using System.Globalization;
 
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+public static class CustomDelimiterFormatter
 {
-    public static class CustomDelimiterFormatter
+    private static readonly CultureInfo _usCultureInfo = CultureInfo.CreateSpecificCulture("en-US");
+
+    /// <summary>
+    ///     It is used to format double digits to specific US culture string. You can control the formatting options through
+    ///     DigitsFormattingSettings enum.
+    ///     You can set multiple values: ToStringUsDigitsFormatting.PrefixDollar | PrefixDollar.PrefixMinus | SufixDollar in
+    ///     single method call.
+    ///     Also, you can control the precision of your number through the precision parameter. By default it is set to 2.
+    /// </summary>
+    /// <param name="digitsFormattingSettings">The digits formatting settings.</param>
+    /// <param name="number">The number.</param>
+    /// <param name="precision">The precision.</param>
+    /// <returns>The formatted number's string.</returns>
+    public static string ToStringUsDigitsFormatting(
+        this double number,
+        DigitsFormatting digitsFormattingSettings = DigitsFormatting.None,
+        int precision = 2)
     {
-        private static readonly CultureInfo _usCultureInfo = CultureInfo.CreateSpecificCulture("en-US");
+        var result = ToStringUsDigitsFormattingInternal(number, digitsFormattingSettings, precision);
 
-        /// <summary>
-        ///     It is used to format double digits to specific US culture string. You can control the formatting options through
-        ///     DigitsFormattingSettings enum.
-        ///     You can set multiple values: ToStringUsDigitsFormatting.PrefixDollar | PrefixDollar.PrefixMinus | SufixDollar in
-        ///     single method call.
-        ///     Also, you can control the precision of your number through the precision parameter. By default it is set to 2.
-        /// </summary>
-        /// <param name="digitsFormattingSettings">The digits formatting settings.</param>
-        /// <param name="number">The number.</param>
-        /// <param name="precision">The precision.</param>
-        /// <returns>The formatted number's string.</returns>
-        public static string ToStringUsDigitsFormatting(
-            this double number,
-            DigitsFormatting digitsFormattingSettings = DigitsFormatting.None,
-            int precision = 2)
+        return result;
+    }
+
+    /// <summary>
+    ///     It is used to format decimal digits to specific US culture string. You can control the formatting options through
+    ///     DigitsFormattingSettings enum.
+    ///     You can set multiple values: ToStringUsDigitsFormatting.PrefixDollar | PrefixDollar.PrefixMinus | SuffixDollar in
+    ///     single method call.
+    ///     Also, you can control the precision of your number through the precision parameter. By default it is set to 2.
+    /// </summary>
+    /// <param name="digitsFormattingSettings">The digits formatting settings.</param>
+    /// <param name="number">The number.</param>
+    /// <param name="precision">The precision.</param>
+    /// <returns>The formatted number's string.</returns>
+    public static string ToStringUsDigitsFormatting(
+        this decimal number,
+        DigitsFormatting digitsFormattingSettings = DigitsFormatting.None,
+        int precision = 2)
+    {
+        var result = ToStringUsDigitsFormattingInternal(number, digitsFormattingSettings, precision);
+
+        return result;
+    }
+
+    private static string ToStringUsDigitsFormattingInternal<T>(
+        T number,
+        DigitsFormatting digitsFormattingSettings = DigitsFormatting.None,
+        int precision = 2)
+        where T : struct,
+        IComparable,
+        IComparable<T>,
+        IConvertible,
+        IEquatable<T>,
+        IFormattable
+    {
+        var currentNoCommaFormatSpecifier = string.Concat("0.", new string('0', precision));
+        var currentComaFormatSpecifier = string.Concat("##,0.", new string('0', precision));
+        var formattedDigits = digitsFormattingSettings.HasFlag(
+            DigitsFormatting.NoComma)
+            ? number.ToString(currentNoCommaFormatSpecifier, _usCultureInfo)
+            : number.ToString(currentComaFormatSpecifier, _usCultureInfo);
+        if (digitsFormattingSettings.HasFlag(DigitsFormatting.PrefixDollar))
         {
-            var result = ToStringUsDigitsFormattingInternal(number, digitsFormattingSettings, precision);
-
-            return result;
+            formattedDigits = string.Concat("$", formattedDigits);
         }
 
-        /// <summary>
-        ///     It is used to format decimal digits to specific US culture string. You can control the formatting options through
-        ///     DigitsFormattingSettings enum.
-        ///     You can set multiple values: ToStringUsDigitsFormatting.PrefixDollar | PrefixDollar.PrefixMinus | SuffixDollar in
-        ///     single method call.
-        ///     Also, you can control the precision of your number through the precision parameter. By default it is set to 2.
-        /// </summary>
-        /// <param name="digitsFormattingSettings">The digits formatting settings.</param>
-        /// <param name="number">The number.</param>
-        /// <param name="precision">The precision.</param>
-        /// <returns>The formatted number's string.</returns>
-        public static string ToStringUsDigitsFormatting(
-            this decimal number,
-            DigitsFormatting digitsFormattingSettings = DigitsFormatting.None,
-            int precision = 2)
+        if (digitsFormattingSettings.HasFlag(DigitsFormatting.PrefixMinus))
         {
-            var result = ToStringUsDigitsFormattingInternal(number, digitsFormattingSettings, precision);
-
-            return result;
+            formattedDigits = string.Concat("-", formattedDigits);
         }
 
-        private static string ToStringUsDigitsFormattingInternal<T>(
-            T number,
-            DigitsFormatting digitsFormattingSettings = DigitsFormatting.None,
-            int precision = 2)
-            where T : struct,
-            IComparable,
-            IComparable<T>,
-            IConvertible,
-            IEquatable<T>,
-            IFormattable
+        if (digitsFormattingSettings.HasFlag(DigitsFormatting.SufixDollar))
         {
-            var currentNoCommaFormatSpecifier = string.Concat("0.", new string('0', precision));
-            var currentComaFormatSpecifier = string.Concat("##,0.", new string('0', precision));
-            var formattedDigits = digitsFormattingSettings.HasFlag(
-                DigitsFormatting.NoComma)
-                ? number.ToString(currentNoCommaFormatSpecifier, _usCultureInfo)
-                : number.ToString(currentComaFormatSpecifier, _usCultureInfo);
-            if (digitsFormattingSettings.HasFlag(DigitsFormatting.PrefixDollar))
-            {
-                formattedDigits = string.Concat("$", formattedDigits);
-            }
-
-            if (digitsFormattingSettings.HasFlag(DigitsFormatting.PrefixMinus))
-            {
-                formattedDigits = string.Concat("-", formattedDigits);
-            }
-
-            if (digitsFormattingSettings.HasFlag(DigitsFormatting.SufixDollar))
-            {
-                formattedDigits = string.Concat(formattedDigits, "$");
-            }
-
-            return formattedDigits;
+            formattedDigits = string.Concat(formattedDigits, "$");
         }
+
+        return formattedDigits;
     }
 }

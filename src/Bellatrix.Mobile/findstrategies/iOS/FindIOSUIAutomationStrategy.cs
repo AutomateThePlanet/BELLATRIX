@@ -15,38 +15,37 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.Locators.IOS
+namespace Bellatrix.Mobile.Locators.IOS;
+
+public class FindIOSUIAutomationStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
 {
-    public class FindIOSUIAutomationStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+    public FindIOSUIAutomationStrategy(string name)
+        : base(name)
     {
-        public FindIOSUIAutomationStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
-        {
-            return searchContext.FindElementByIosUIAutomation(Value);
-        }
+    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    {
+        return searchContext.FindElementByIosUIAutomation(Value);
+    }
 
-        public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
-        {
-            return searchContext.FindElementsByIosUIAutomation(Value);
-        }
+    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    {
+        return searchContext.FindElementsByIosUIAutomation(Value);
+    }
 
-        public override AppiumWebElement FindElement(IOSElement element)
-        {
-            return element.FindElementByIosUIAutomation(Value);
-        }
+    public override AppiumWebElement FindElement(IOSElement element)
+    {
+        return element.FindElementByIosUIAutomation(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
-        {
-            return element.FindElementsByIosUIAutomation(Value);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    {
+        return element.FindElementsByIosUIAutomation(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"IOSUIAutomation = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"IOSUIAutomation = {Value}";
     }
 }

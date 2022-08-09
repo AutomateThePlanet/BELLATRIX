@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix
-{
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
-    public class AllureEpicAttribute : Attribute
-    {
-        public AllureEpicAttribute(string epic) => Epic = epic;
+namespace Bellatrix;
 
-        public string Epic { get; }
-    }
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
+public class AllureEpicAttribute : Attribute
+{
+    public AllureEpicAttribute(string epic) => Epic = epic;
+
+    public string Epic { get; }
 }

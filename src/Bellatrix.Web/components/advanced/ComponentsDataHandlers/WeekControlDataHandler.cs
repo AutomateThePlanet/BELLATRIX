@@ -16,18 +16,17 @@ using System;
 using System.Globalization;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class WeekControlDataHandler : IEditableControlDataHandler<Week>
 {
-    public class WeekControlDataHandler : IEditableControlDataHandler<Week>
+    public dynamic GetData(Week element) => element.GetWeek();
+
+    public void SetData(Week element, string data)
     {
-        public dynamic GetData(Week element) => element.GetWeek();
-
-        public void SetData(Week element, string data)
-        {
-            DateTime valueToSet = DateTime.Parse(data);
-            element.SetWeek(valueToSet.Year, CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(valueToSet, CalendarWeekRule.FirstDay, DayOfWeek.Monday));
-        }
-
-        public void ValidateValueIs(Week element, string expectedValue) => element.ValidateWeekIs(expectedValue);
+        DateTime valueToSet = DateTime.Parse(data);
+        element.SetWeek(valueToSet.Year, CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(valueToSet, CalendarWeekRule.FirstDay, DayOfWeek.Monday));
     }
+
+    public void ValidateValueIs(Week element, string expectedValue) => element.ValidateWeekIs(expectedValue);
 }

@@ -14,41 +14,40 @@
 using System;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateStyleIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : Component
     {
-        public static void ValidateStyleIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : Component
-        {
-            WaitUntil(() => control.GetStyle() == null, $"The control's style should be null but was '{control.GetStyle()}'.", timeout, sleepInterval);
-            ValidatedStyleIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateStyleIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : Component
-        {
-            WaitUntil(() => control.GetStyle().Equals(value), $"The control's style should be '{value}' but was '{control.GetStyle()}'.", timeout, sleepInterval);
-            ValidatedStyleIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static void ValidateStyleContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-           where T : Component
-        {
-            WaitUntil(() => control.GetStyle().Contains(value), $"The control's style should contains '{value}' but it is '{control.GetStyle()}'.", timeout, sleepInterval);
-            ValidatedStyleContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static void ValidateStyleNotContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-          where T : Component
-        {
-            WaitUntil(() => !control.GetStyle().Contains(value), $"The control's style should not contains '{value}' but it was '{control.GetStyle()}'.", timeout, sleepInterval);
-            ValidatedStyleNotContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedStyleIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedStyleIsEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedStyleContainsEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedStyleNotContainsEvent;
+        WaitUntil(() => control.GetStyle() == null, $"The control's style should be null but was '{control.GetStyle()}'.", timeout, sleepInterval);
+        ValidatedStyleIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateStyleIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : Component
+    {
+        WaitUntil(() => control.GetStyle().Equals(value), $"The control's style should be '{value}' but was '{control.GetStyle()}'.", timeout, sleepInterval);
+        ValidatedStyleIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static void ValidateStyleContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+       where T : Component
+    {
+        WaitUntil(() => control.GetStyle().Contains(value), $"The control's style should contains '{value}' but it is '{control.GetStyle()}'.", timeout, sleepInterval);
+        ValidatedStyleContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static void ValidateStyleNotContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+      where T : Component
+    {
+        WaitUntil(() => !control.GetStyle().Contains(value), $"The control's style should not contains '{value}' but it was '{control.GetStyle()}'.", timeout, sleepInterval);
+        ValidatedStyleNotContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedStyleIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedStyleIsEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedStyleContainsEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedStyleNotContainsEvent;
 }

@@ -14,27 +14,26 @@
 using System;
 using Allure.Commons;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
+public class AllureTmsAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
-    public class AllureTmsAttribute : Attribute
-    {
-        public AllureTmsAttribute(string name, string url)
-            => TmsLink = new Link
-            {
-                name = name,
-                type = "tms",
-                url = url,
-            };
+    public AllureTmsAttribute(string name, string url)
+        => TmsLink = new Link
+        {
+            name = name,
+            type = "tms",
+            url = url,
+        };
 
-        public AllureTmsAttribute(string name)
-            => TmsLink = new Link
-            {
-                name = name,
-                type = "tms",
-                url = name,
-            };
+    public AllureTmsAttribute(string name)
+        => TmsLink = new Link
+        {
+            name = name,
+            type = "tms",
+            url = name,
+        };
 
-        internal Link TmsLink { get; }
-    }
+    internal Link TmsLink { get; }
 }

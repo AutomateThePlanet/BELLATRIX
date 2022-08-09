@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class DynamicTestCasesInputFileEventHandlers : InputFileEventHandlers
 {
-    public class DynamicTestCasesInputFileEventHandlers : InputFileEventHandlers
-    {
-        protected override void UploadingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"I upload '{arg.ActionValue}' for {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
-    }
+    protected override void UploadingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"I upload '{arg.ActionValue}' for {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 }

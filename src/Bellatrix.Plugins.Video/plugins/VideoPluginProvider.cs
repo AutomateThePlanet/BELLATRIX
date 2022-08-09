@@ -14,15 +14,14 @@
 using System;
 using Bellatrix.Plugins;
 
-namespace Bellatrix.Plugins.Video.Plugins
+namespace Bellatrix.Plugins.Video.Plugins;
+
+public class VideoPluginProvider : IVideoPluginProvider
 {
-    public class VideoPluginProvider : IVideoPluginProvider
-    {
-        public event EventHandler<VideoPluginEventArgs> VideoGeneratedEvent;
+    public event EventHandler<VideoPluginEventArgs> VideoGeneratedEvent;
 
-        public void VideoGenerated(PluginEventArgs e, string videoPath) => RaiseTestEvent(VideoGeneratedEvent, e, videoPath);
+    public void VideoGenerated(PluginEventArgs e, string videoPath) => RaiseTestEvent(VideoGeneratedEvent, e, videoPath);
 
-        private void RaiseTestEvent(EventHandler<VideoPluginEventArgs> eventHandler, PluginEventArgs e, string videoPath) =>
-            eventHandler?.Invoke(this, new VideoPluginEventArgs(e, videoPath));
-    }
+    private void RaiseTestEvent(EventHandler<VideoPluginEventArgs> eventHandler, PluginEventArgs e, string videoPath) =>
+        eventHandler?.Invoke(this, new VideoPluginEventArgs(e, videoPath));
 }

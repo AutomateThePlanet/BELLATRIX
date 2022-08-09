@@ -14,10 +14,9 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.BugReporting
+namespace Bellatrix.Desktop.BugReporting;
+
+public class BugReportingComboBoxEventHandlers : ComboBoxEventHandlers
 {
-    public class BugReportingComboBoxEventHandlers : ComboBoxEventHandlers
-    {
-        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

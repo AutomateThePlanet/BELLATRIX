@@ -16,33 +16,32 @@ using Bellatrix.Desktop.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Untils
+namespace Bellatrix.Desktop.Untils;
+
+public class WaitToBeVisibleStrategy : WaitStrategy
 {
-    public class WaitToBeVisibleStrategy : WaitStrategy
+    public WaitToBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitToBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ElementToBeVisibleTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ElementToBeVisibleTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-        {
-            WaitUntil(d => ElementIsVisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementIsVisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
 
-        private bool ElementIsVisible<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
-            where TBy : Locators.FindStrategy
+    private bool ElementIsVisible<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
+        where TBy : Locators.FindStrategy
+    {
+        try
         {
-            try
-            {
-                var element = by.FindElement(searchContext);
-                return element.Displayed;
-            }
-            catch (StaleElementReferenceException)
-            {
-                return false;
-            }
+            var element = by.FindElement(searchContext);
+            return element.Displayed;
+        }
+        catch (StaleElementReferenceException)
+        {
+            return false;
         }
     }
 }

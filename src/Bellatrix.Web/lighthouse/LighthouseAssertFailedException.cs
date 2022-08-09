@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.GoogleLighthouse
+namespace Bellatrix.GoogleLighthouse;
+
+public class LighthouseAssertFailedException : Exception
 {
-    public class LighthouseAssertFailedException : Exception
+    public LighthouseAssertFailedException()
     {
-        public LighthouseAssertFailedException()
-        {
-        }
-
-        public LighthouseAssertFailedException(string message)
-            : base(FormatExceptionMessage(message))
-        {
-        }
-
-        public LighthouseAssertFailedException(string message, Exception inner)
-            : base(FormatExceptionMessage(message), inner)
-        {
-        }
-
-        private static string FormatExceptionMessage(string exceptionMessage) => $"\n\n{new string('#', 40)}\n\n{exceptionMessage}\n\n{new string('#', 40)}\n";
     }
+
+    public LighthouseAssertFailedException(string message)
+        : base(FormatExceptionMessage(message))
+    {
+    }
+
+    public LighthouseAssertFailedException(string message, Exception inner)
+        : base(FormatExceptionMessage(message), inner)
+    {
+    }
+
+    private static string FormatExceptionMessage(string exceptionMessage) => $"\n\n{new string('#', 40)}\n\n{exceptionMessage}\n\n{new string('#', 40)}\n";
 }

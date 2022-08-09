@@ -11,13 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+public static class StringExtensions
 {
-    public static class StringExtensions
+    public static string RemoveSpaces(this string value)
     {
-        public static string RemoveSpaces(this string value)
-        {
-            return value.Replace(" ", string.Empty);
-        }
+        return value.Replace(" ", string.Empty);
     }
 }

@@ -24,94 +24,93 @@ using Bellatrix.Plugins.Video.Plugins;
 using Bellatrix.Utilities;
 using HtmlAgilityPack;
 
-namespace Bellatrix.Plugins.Video
+namespace Bellatrix.Plugins.Video;
+
+public class VideoPlugin : Plugin
 {
-    public class VideoPlugin : Plugin
+    private readonly IVideoRecorderOutputProvider _videoRecorderOutputProvider;
+    private readonly IVideoPluginProvider _videoPluginProvider;
+    private IVideoRecorder _videoRecorder;
+    private bool _isEnabled;
+
+    public VideoPlugin(IVideoRecorder videoRecorder, IVideoRecorderOutputProvider videoRecorderOutputProvider, IVideoPluginProvider videoPluginProvider)
     {
-        private readonly IVideoRecorderOutputProvider _videoRecorderOutputProvider;
-        private readonly IVideoPluginProvider _videoPluginProvider;
-        private IVideoRecorder _videoRecorder;
-        private bool _isEnabled;
+        _isEnabled = ConfigurationService.GetSection<VideoRecordingSettings>().IsEnabled;
+        _videoRecorder = videoRecorder;
+        _videoRecorderOutputProvider = videoRecorderOutputProvider;
+        _videoPluginProvider = videoPluginProvider;
+        InitializeVideoProviderObservers();
+    }
 
-        public VideoPlugin(IVideoRecorder videoRecorder, IVideoRecorderOutputProvider videoRecorderOutputProvider, IVideoPluginProvider videoPluginProvider)
+    protected override void PostTestInit(object sender, PluginEventArgs e)
+    {
+        if (_isEnabled)
         {
-            _isEnabled = ConfigurationService.GetSection<VideoRecordingSettings>().IsEnabled;
-            _videoRecorder = videoRecorder;
-            _videoRecorderOutputProvider = videoRecorderOutputProvider;
-            _videoPluginProvider = videoPluginProvider;
-            InitializeVideoProviderObservers();
+            string cleanTestName = e.TestName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty);
+            var fullTestName = $"{e.TestMethodMemberInfo.DeclaringType.Name}.{cleanTestName}";
+            var videoRecordingDir = _videoRecorderOutputProvider.GetOutputFolder();
+            var videoRecordingFileName = _videoRecorderOutputProvider.GetUniqueFileName(fullTestName);
+
+            string videoRecordingPath = _videoRecorder.Record(videoRecordingDir, videoRecordingFileName);
+            e.Container.RegisterInstance(videoRecordingPath, "_videoRecordingPath");
+            e.Container.RegisterInstance(_videoRecorder, "_videoRecorder");
         }
+    }
 
-        protected override void PostTestInit(object sender, PluginEventArgs e)
+    protected override void PostTestCleanup(object sender, PluginEventArgs e)
+    {
+        if (_isEnabled)
         {
-            if (_isEnabled)
+            bool hasTestPassed = e.TestOutcome.Equals(TestOutcome.Passed);
+            bool isFileDeleted = false;
+            try
             {
-                string cleanTestName = e.TestName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty);
-                var fullTestName = $"{e.TestMethodMemberInfo.DeclaringType.Name}.{cleanTestName}";
-                var videoRecordingDir = _videoRecorderOutputProvider.GetOutputFolder();
-                var videoRecordingFileName = _videoRecorderOutputProvider.GetUniqueFileName(fullTestName);
-
-                string videoRecordingPath = _videoRecorder.Record(videoRecordingDir, videoRecordingFileName);
-                e.Container.RegisterInstance(videoRecordingPath, "_videoRecordingPath");
-                e.Container.RegisterInstance(_videoRecorder, "_videoRecorder");
+                string videoRecordingPath = e.Container.Resolve<string>("_videoRecordingPath");
+                isFileDeleted = DeleteVideoDependingOnTestOutcome(hasTestPassed, videoRecordingPath);
             }
-        }
-
-        protected override void PostTestCleanup(object sender, PluginEventArgs e)
-        {
-            if (_isEnabled)
+            finally
             {
-                bool hasTestPassed = e.TestOutcome.Equals(TestOutcome.Passed);
-                bool isFileDeleted = false;
-                try
+                _videoRecorder = e.Container.Resolve<IVideoRecorder>("_videoRecorder");
+                _videoRecorder?.Dispose();
+                if (!isFileDeleted)
                 {
                     string videoRecordingPath = e.Container.Resolve<string>("_videoRecordingPath");
-                    isFileDeleted = DeleteVideoDependingOnTestOutcome(hasTestPassed, videoRecordingPath);
+                    _videoPluginProvider.VideoGenerated(e, videoRecordingPath);
                 }
-                finally
+            }
+        }
+    }
+
+    private bool DeleteVideoDependingOnTestOutcome(bool haveTestPassed, string videoRecordingPath)
+    {
+        bool isFileDeleted = false;
+        if (_isEnabled)
+        {
+            // Release the video file then delete it.
+            _videoRecorder?.Stop();
+            if (haveTestPassed && File.Exists(videoRecordingPath))
+            {
+                try
                 {
-                    _videoRecorder = e.Container.Resolve<IVideoRecorder>("_videoRecorder");
-                    _videoRecorder?.Dispose();
-                    if (!isFileDeleted)
-                    {
-                        string videoRecordingPath = e.Container.Resolve<string>("_videoRecordingPath");
-                        _videoPluginProvider.VideoGenerated(e, videoRecordingPath);
-                    }
+                    File.Delete(videoRecordingPath);
+                    isFileDeleted = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
                 }
             }
         }
 
-        private bool DeleteVideoDependingOnTestOutcome(bool haveTestPassed, string videoRecordingPath)
-        {
-            bool isFileDeleted = false;
-            if (_isEnabled)
-            {
-                // Release the video file then delete it.
-                _videoRecorder?.Stop();
-                if (haveTestPassed && File.Exists(videoRecordingPath))
-                {
-                    try
-                    {
-                        File.Delete(videoRecordingPath);
-                        isFileDeleted = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex);
-                    }
-                }
-            }
+        return isFileDeleted;
+    }
 
-            return isFileDeleted;
-        }
-
-        private void InitializeVideoProviderObservers()
+    private void InitializeVideoProviderObservers()
+    {
+        var observers = ServicesCollection.Current.ResolveAll<IVideoPlugin>();
+        foreach (var observer in observers)
         {
-            var observers = ServicesCollection.Current.ResolveAll<IVideoPlugin>();
-            foreach (var observer in observers)
-            {
-                observer.SubscribeVideoPlugin(_videoPluginProvider);
-            }
+            observer.SubscribeVideoPlugin(_videoPluginProvider);
         }
     }
 }

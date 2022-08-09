@@ -13,78 +13,77 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("CheckBox Control")]
+[AllureTag("WinForms")]
+public class CheckBoxControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("CheckBox Control")]
-    [AllureTag("WinForms")]
-    public class CheckBoxControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_CheckBoxHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_CheckBoxHovered_WinForms()
-        {
-            var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkBox");
+        var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkBox");
 
-            checkBox.Hover();
+        checkBox.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.IsTrue(label.IsPresent);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.IsTrue(label.IsPresent);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt_WinForms()
-        {
-            var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt_WinForms()
+    {
+        var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkBox");
 
-            checkBox.Check();
+        checkBox.Check();
 
-            Assert.IsTrue(checkBox.IsChecked);
-        }
+        Assert.IsTrue(checkBox.IsChecked);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt_WinForms()
-        {
-            var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkedCheckBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt_WinForms()
+    {
+        var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkedCheckBox");
 
-            checkBox.Uncheck();
+        checkBox.Uncheck();
 
-            Assert.IsFalse(checkBox.IsChecked);
-        }
+        Assert.IsFalse(checkBox.IsChecked);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsCheckedReturnsTrue_When_CheckBoxChecked_WinForms()
-        {
-            var checkBox = App.Components.CreateByAutomationId<CheckBox>("disabledCheckBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsCheckedReturnsTrue_When_CheckBoxChecked_WinForms()
+    {
+        var checkBox = App.Components.CreateByAutomationId<CheckBox>("disabledCheckBox");
 
-            Assert.IsTrue(checkBox.IsChecked);
-        }
+        Assert.IsTrue(checkBox.IsChecked);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled_WinForms()
-        {
-            var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkedCheckBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled_WinForms()
+    {
+        var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkedCheckBox");
 
-            Assert.AreEqual(false, checkBox.IsDisabled);
-        }
+        Assert.AreEqual(false, checkBox.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_CheckBoxIsDisabled_WinForms()
-        {
-            var checkBox = App.Components.CreateByAutomationId<CheckBox>("disabledCheckBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_CheckBoxIsDisabled_WinForms()
+    {
+        var checkBox = App.Components.CreateByAutomationId<CheckBox>("disabledCheckBox");
 
-            Assert.AreEqual(true, checkBox.IsDisabled);
-        }
+        Assert.AreEqual(true, checkBox.IsDisabled);
     }
 }

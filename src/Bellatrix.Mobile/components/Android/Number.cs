@@ -17,33 +17,32 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Controls.Android;
 using Bellatrix.Mobile.Events;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public class Number : AndroidComponent, IComponentDisabled, IComponentNumber
 {
-    public class Number : AndroidComponent, IComponentDisabled, IComponentNumber
+    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingNumber;
+    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> NumberSet;
+
+    public virtual void SetNumber(int value)
     {
-        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingNumber;
-        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> NumberSet;
-
-        public virtual void SetNumber(int value)
-        {
-            SetText(SettingNumber, NumberSet, value.ToString());
-        }
-
-        public virtual int GetNumber()
-        {
-            var resultText = GetText();
-            if (string.IsNullOrEmpty(resultText))
-            {
-                var textField = this.CreateByClass<TextField>("android.widget.EditText");
-                resultText = textField.GetText();
-            }
-
-            int.TryParse(resultText, out var result);
-
-            return result;
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        SetText(SettingNumber, NumberSet, value.ToString());
     }
+
+    public virtual int GetNumber()
+    {
+        var resultText = GetText();
+        if (string.IsNullOrEmpty(resultText))
+        {
+            var textField = this.CreateByClass<TextField>("android.widget.EditText");
+            resultText = textField.GetText();
+        }
+
+        int.TryParse(resultText, out var result);
+
+        return result;
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

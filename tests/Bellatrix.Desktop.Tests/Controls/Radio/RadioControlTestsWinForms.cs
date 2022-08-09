@@ -13,66 +13,65 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Radio Control")]
+[AllureTag("WinForms")]
+public class RadioControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Radio Control")]
-    [AllureTag("WinForms")]
-    public class RadioControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_RadioHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_RadioHovered_WinForms()
-        {
-            var button = App.Components.CreateByAutomationId<RadioButton>("enabledRadioButton");
+        var button = App.Components.CreateByAutomationId<RadioButton>("enabledRadioButton");
 
-            button.Hover();
+        button.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.AreEqual("radioHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.AreEqual("radioHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void RadioChecked_When_RadioClicked_WinForms()
-        {
-            var button = App.Components.CreateByAutomationId<RadioButton>("enabledRadioButton");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void RadioChecked_When_RadioClicked_WinForms()
+    {
+        var button = App.Components.CreateByAutomationId<RadioButton>("enabledRadioButton");
 
-            button.Click();
+        button.Click();
 
-            Assert.IsTrue(button.IsChecked);
-        }
+        Assert.IsTrue(button.IsChecked);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsCheckedReturnsTrue_When_RadioChecked_WinForms()
-        {
-            var button = App.Components.CreateByAutomationId<RadioButton>("radioButton2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsCheckedReturnsTrue_When_RadioChecked_WinForms()
+    {
+        var button = App.Components.CreateByAutomationId<RadioButton>("radioButton2");
 
-            Assert.IsTrue(button.IsChecked);
-        }
+        Assert.IsTrue(button.IsChecked);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_RadioIsNotDisabled_WinForms()
-        {
-            var button = App.Components.CreateByAutomationId<RadioButton>("enabledRadioButton");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_RadioIsNotDisabled_WinForms()
+    {
+        var button = App.Components.CreateByAutomationId<RadioButton>("enabledRadioButton");
 
-            Assert.AreEqual(false, button.IsDisabled);
-        }
+        Assert.AreEqual(false, button.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_RadioIsDisabled_WinForms()
-        {
-            var button = App.Components.CreateByAutomationId<RadioButton>("radioButton2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_RadioIsDisabled_WinForms()
+    {
+        var button = App.Components.CreateByAutomationId<RadioButton>("radioButton2");
 
-            Assert.AreEqual(true, button.IsDisabled);
-        }
+        Assert.AreEqual(true, button.IsDisabled);
     }
 }

@@ -14,86 +14,85 @@
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.Services
+namespace Bellatrix.Mobile.Services;
+
+public static class DisposeDriverService
 {
-    public static class DisposeDriverService
+    public static void DisposeAndroid(ServicesCollection childContainer)
     {
-        public static void DisposeAndroid(ServicesCollection childContainer)
-        {
-            var androidDriver = childContainer.Resolve<AndroidDriver<AndroidElement>>();
-            androidDriver?.CloseApp();
-            androidDriver?.Quit();
-            androidDriver?.Dispose();
-            childContainer.UnregisterSingleInstance<AndroidDriver<AndroidElement>>();
-        }
+        var androidDriver = childContainer.Resolve<AndroidDriver<AndroidElement>>();
+        androidDriver?.CloseApp();
+        androidDriver?.Quit();
+        androidDriver?.Dispose();
+        childContainer.UnregisterSingleInstance<AndroidDriver<AndroidElement>>();
+    }
 
-        public static void DisposeAllAndroid()
+    public static void DisposeAllAndroid()
+    {
+        foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
         {
-            foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
+            try
             {
-                try
-                {
-                    var driver = childContainer.Resolve<AndroidDriver<AndroidElement>>();
-                    driver?.CloseApp();
-                    driver?.Quit();
-                    driver?.Dispose();
-                    childContainer?.UnregisterSingleInstance<AndroidDriver<AndroidElement>>();
-                }
-                catch (System.Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex);
-                }
+                var driver = childContainer.Resolve<AndroidDriver<AndroidElement>>();
+                driver?.CloseApp();
+                driver?.Quit();
+                driver?.Dispose();
+                childContainer?.UnregisterSingleInstance<AndroidDriver<AndroidElement>>();
             }
-
-            var webDriver = ServicesCollection.Main.Resolve<AndroidDriver<AndroidElement>>();
-            webDriver?.Quit();
-            webDriver?.Dispose();
-            ServicesCollection.Main.UnregisterSingleInstance<AndroidDriver<AndroidElement>>();
-        }
-
-        public static void CloseAndroidApp(ServicesCollection childContainer)
-        {
-            var androidDriver = childContainer.Resolve<AndroidDriver<AndroidElement>>();
-            androidDriver?.ResetApp();
-            androidDriver?.CloseApp();
-        }
-
-        public static void DisposeAllIOS()
-        {
-            foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
+            catch (System.Exception ex)
             {
-                try
-                {
-                    var driver = childContainer.Resolve<IOSDriver<IOSElement>>();
-                    driver?.CloseApp();
-                    driver?.Quit();
-                    driver?.Dispose();
-                    childContainer?.UnregisterSingleInstance<IOSDriver<IOSElement>>();
-                }
-                catch (System.Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex);
-                }
+                System.Diagnostics.Debug.WriteLine(ex);
             }
-
-            var webDriver = ServicesCollection.Main.Resolve<IOSDriver<IOSElement>>();
-            webDriver?.Quit();
-            webDriver?.Dispose();
-            ServicesCollection.Main.UnregisterSingleInstance<IOSDriver<IOSElement>>();
         }
 
-        public static void DisposeIOS(ServicesCollection childContainer)
+        var webDriver = ServicesCollection.Main.Resolve<AndroidDriver<AndroidElement>>();
+        webDriver?.Quit();
+        webDriver?.Dispose();
+        ServicesCollection.Main.UnregisterSingleInstance<AndroidDriver<AndroidElement>>();
+    }
+
+    public static void CloseAndroidApp(ServicesCollection childContainer)
+    {
+        var androidDriver = childContainer.Resolve<AndroidDriver<AndroidElement>>();
+        androidDriver?.ResetApp();
+        androidDriver?.CloseApp();
+    }
+
+    public static void DisposeAllIOS()
+    {
+        foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
         {
-            var iosDriver = childContainer.Resolve<IOSDriver<IOSElement>>();
-            iosDriver?.CloseApp();
-            iosDriver?.Quit();
-            childContainer.UnregisterSingleInstance<IOSDriver<IOSElement>>();
+            try
+            {
+                var driver = childContainer.Resolve<IOSDriver<IOSElement>>();
+                driver?.CloseApp();
+                driver?.Quit();
+                driver?.Dispose();
+                childContainer?.UnregisterSingleInstance<IOSDriver<IOSElement>>();
+            }
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
 
-        public static void CloseIOSApp(ServicesCollection childContainer)
-        {
-            var iosDriver = childContainer.Resolve<IOSDriver<IOSElement>>();
-            iosDriver?.CloseApp();
-        }
+        var webDriver = ServicesCollection.Main.Resolve<IOSDriver<IOSElement>>();
+        webDriver?.Quit();
+        webDriver?.Dispose();
+        ServicesCollection.Main.UnregisterSingleInstance<IOSDriver<IOSElement>>();
+    }
+
+    public static void DisposeIOS(ServicesCollection childContainer)
+    {
+        var iosDriver = childContainer.Resolve<IOSDriver<IOSElement>>();
+        iosDriver?.CloseApp();
+        iosDriver?.Quit();
+        childContainer.UnregisterSingleInstance<IOSDriver<IOSElement>>();
+    }
+
+    public static void CloseIOSApp(ServicesCollection childContainer)
+    {
+        var iosDriver = childContainer.Resolve<IOSDriver<IOSElement>>();
+        iosDriver?.CloseApp();
     }
 }

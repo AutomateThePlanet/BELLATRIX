@@ -14,17 +14,16 @@
 
 using System;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class TextFieldControlDataHandler : IEditableControlDataHandler<TextField>
 {
-    public class TextFieldControlDataHandler : IEditableControlDataHandler<TextField>
+    public dynamic GetData(TextField element) => element.Value.Trim();
+
+    public void SetData(TextField element, string data)
     {
-        public dynamic GetData(TextField element) => element.Value.Trim();
-
-        public void SetData(TextField element, string data)
-        {
-            element.SetText(data);
-        }
-
-        public void ValidateValueIs(TextField element, string expectedValue) => element.ValidateValueIs(expectedValue);
+        element.SetText(data);
     }
+
+    public void ValidateValueIs(TextField element, string expectedValue) => element.ValidateValueIs(expectedValue);
 }

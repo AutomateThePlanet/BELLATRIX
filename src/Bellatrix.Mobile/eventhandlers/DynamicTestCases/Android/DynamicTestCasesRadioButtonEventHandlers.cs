@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.DynamicTestCases.Android
+namespace Bellatrix.Mobile.DynamicTestCases.Android;
+
+public class DynamicTestCasesRadioButtonEventHandlers : RadioButtonEventHandlers
 {
-    public class DynamicTestCasesRadioButtonEventHandlers : RadioButtonEventHandlers
-    {
-        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

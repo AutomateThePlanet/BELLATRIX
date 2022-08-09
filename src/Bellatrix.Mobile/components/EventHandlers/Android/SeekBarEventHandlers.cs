@@ -15,30 +15,29 @@ using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.EventHandlers.Android
+namespace Bellatrix.Mobile.EventHandlers.Android;
+
+public class SeekBarEventHandlers : ComponentEventHandlers
 {
-    public class SeekBarEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            SeekBar.SettingPercentage += SettingPercentageEventHandler;
-            SeekBar.PercentageSet += PercentageSetEventHandler;
-        }
+        base.SubscribeToAll();
+        SeekBar.SettingPercentage += SettingPercentageEventHandler;
+        SeekBar.PercentageSet += PercentageSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            SeekBar.SettingPercentage -= SettingPercentageEventHandler;
-            SeekBar.PercentageSet -= PercentageSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        SeekBar.SettingPercentage -= SettingPercentageEventHandler;
+        SeekBar.PercentageSet -= PercentageSetEventHandler;
+    }
 
-        protected virtual void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void PercentageSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void PercentageSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
     }
 }

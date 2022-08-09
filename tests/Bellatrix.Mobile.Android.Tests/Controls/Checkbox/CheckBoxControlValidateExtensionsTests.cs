@@ -13,55 +13,54 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("CheckBox Control")]
+[AllureFeature("ValidateExtensions")]
+public class CheckBoxControlValidateExtensionsTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("CheckBox Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class CheckBoxControlValidateExtensionsTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsChecked_DoesNotThrowException_When_CheckBoxIsChecked()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsChecked_DoesNotThrowException_When_CheckBoxIsChecked()
-        {
-            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
+        var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
 
-            checkBox.Check();
+        checkBox.Check();
 
-            checkBox.ValidateIsChecked();
-        }
+        checkBox.ValidateIsChecked();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsNotChecked_DoesNotThrowException_When_CheckBoxIsNotChecked()
-        {
-            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsNotChecked_DoesNotThrowException_When_CheckBoxIsNotChecked()
+    {
+        var checkBox = App.Components.CreateByIdContaining<CheckBox>("check2");
 
-            checkBox.ValidateIsNotChecked();
-        }
+        checkBox.ValidateIsNotChecked();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIs_DoesNotThrowException_When_CheckBoxCorrectTextSet()
-        {
-            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIs_DoesNotThrowException_When_CheckBoxCorrectTextSet()
+    {
+        var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
 
-            checkBox.ValidateTextIs("Checkbox 1");
-        }
+        checkBox.ValidateTextIs("Checkbox 1");
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_CheckBoxIsNotDisabled()
-        {
-            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_CheckBoxIsNotDisabled()
+    {
+        var checkBox = App.Components.CreateByIdContaining<CheckBox>("check2");
 
-            checkBox.ValidateIsNotDisabled();
-        }
+        checkBox.ValidateIsNotDisabled();
     }
 }

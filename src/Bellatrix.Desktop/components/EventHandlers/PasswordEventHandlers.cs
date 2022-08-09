@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.EventHandlers
+namespace Bellatrix.Desktop.EventHandlers;
+
+public class PasswordEventHandlers : ComponentEventHandlers
 {
-    public class PasswordEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Password.Hovering += HoveringEventHandler;
-            Password.Hovered += HoveredEventHandler;
-            Password.SettingPassword += SettingPasswordEventHandler;
-            Password.PasswordSet += PasswordSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Password.Hovering += HoveringEventHandler;
+        Password.Hovered += HoveredEventHandler;
+        Password.SettingPassword += SettingPasswordEventHandler;
+        Password.PasswordSet += PasswordSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Password.Hovering -= HoveringEventHandler;
-            Password.Hovered -= HoveredEventHandler;
-            Password.SettingPassword -= SettingPasswordEventHandler;
-            Password.PasswordSet -= PasswordSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Password.Hovering -= HoveringEventHandler;
+        Password.Hovered -= HoveredEventHandler;
+        Password.SettingPassword -= SettingPasswordEventHandler;
+        Password.PasswordSet -= PasswordSetEventHandler;
+    }
 
-        protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

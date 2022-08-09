@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix
+namespace Bellatrix;
+
+public class AppInsightsSettings
 {
-    public class AppInsightsSettings
-    {
-        public string InstrumentationKey { get; set; }
-        public bool IsEnabled { get; set; }
-    }
+    public string InstrumentationKey { get; set; }
+    public bool IsEnabled { get; set; }
 }

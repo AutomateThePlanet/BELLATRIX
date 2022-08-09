@@ -3,21 +3,20 @@ using Bellatrix.Web.GettingStarted.ExtensionMethodsLocators;
 
 using NUnit.Framework;
 
-namespace Bellatrix.Web.GettingStarted
+namespace Bellatrix.Web.GettingStarted;
+
+[TestFixture]
+public class NewFindLocatorsTests : NUnit.WebTest
 {
-    [TestFixture]
-    public class NewFindLocatorsTests : NUnit.WebTest
+    [Test]
+    [Ignore("no need to run")]
+    public void PromotionsPageOpened_When_PromotionsButtonClicked()
     {
-        [Test]
-        [Ignore("no need to run")]
-        public void PromotionsPageOpened_When_PromotionsButtonClicked()
-        {
-            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            // 2. After that, you can use the new locator as it was originally part of Bellatrix.
-            var promotionsLink = App.Components.CreateByIdStartingWith<Anchor>("promo");
+        // 2. After that, you can use the new locator as it was originally part of Bellatrix.
+        var promotionsLink = App.Components.CreateByIdStartingWith<Anchor>("promo");
 
-            promotionsLink.Click();
-        }
+        promotionsLink.Click();
     }
 }

@@ -17,17 +17,16 @@ using System.IO;
 using Bellatrix.Plugins.Screenshots.Contracts;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Plugins.Screenshots
-{
-    public sealed class VanillaWebDriverScreenshotEngine : IScreenshotEngine
-    {
-        public string TakeScreenshot(ServicesCollection serviceContainer) => TakeScreenshotVanillaWebDriver(serviceContainer);
+namespace Bellatrix.Plugins.Screenshots;
 
-        public string TakeScreenshotVanillaWebDriver(ServicesCollection serviceContainer)
-        {
-            var driver = serviceContainer.Resolve<IWebDriver>();
-            var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-            return screenshot.AsBase64EncodedString;
-        }
+public sealed class VanillaWebDriverScreenshotEngine : IScreenshotEngine
+{
+    public string TakeScreenshot(ServicesCollection serviceContainer) => TakeScreenshotVanillaWebDriver(serviceContainer);
+
+    public string TakeScreenshotVanillaWebDriver(ServicesCollection serviceContainer)
+    {
+        var driver = serviceContainer.Resolve<IWebDriver>();
+        var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+        return screenshot.AsBase64EncodedString;
     }
 }

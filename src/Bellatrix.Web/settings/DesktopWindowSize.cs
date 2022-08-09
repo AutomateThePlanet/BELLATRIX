@@ -11,15 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public enum DesktopWindowSize
 {
-    public enum DesktopWindowSize
-    {
-        _1366_768 = 1,
-        _1920_1080 = 2,
-        _1440_900 = 3,
-        _1600_900 = 4,
-        _1280_800 = 5,
-        _1280_1024 = 6,
-    }
+    _1366_768 = 1,
+    _1920_1080 = 2,
+    _1440_900 = 3,
+    _1600_900 = 4,
+    _1280_800 = 5,
+    _1280_1024 = 6,
 }

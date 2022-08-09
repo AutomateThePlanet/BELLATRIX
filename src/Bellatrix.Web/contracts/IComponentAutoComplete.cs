@@ -11,10 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Contracts
+namespace Bellatrix.Web.Contracts;
+
+public interface IComponentAutoComplete
 {
-    public interface IComponentAutoComplete
-    {
-        bool IsAutoComplete { get; }
-    }
+    bool IsAutoComplete { get; }
 }

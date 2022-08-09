@@ -21,46 +21,45 @@ using Bellatrix.Utilities;
 using Microsoft.Extensions.Configuration;
 
 // ReSharper disable All
-namespace Bellatrix
+namespace Bellatrix;
+
+public sealed class ConfigurationService
 {
-    public sealed class ConfigurationService
+    private static IConfigurationRoot _root;
+
+    static ConfigurationService()
     {
-        private static IConfigurationRoot _root;
+        _root = InitializeConfiguration();
+    }
 
-        static ConfigurationService()
-        {
-            _root = InitializeConfiguration();
-        }
+    public static TSection GetSection<TSection>()
+      where TSection : class, new()
+    {
+        string sectionName = MakeFirstLetterToLower(typeof(TSection).Name);
+        return _root.GetSection(sectionName).Get<TSection>();
+    }
 
-        public static TSection GetSection<TSection>()
-          where TSection : class, new()
-        {
-            string sectionName = MakeFirstLetterToLower(typeof(TSection).Name);
-            return _root.GetSection(sectionName).Get<TSection>();
-        }
+    private static string MakeFirstLetterToLower(string text)
+    {
+        return char.ToLower(text[0]) + text.Substring(1);
+    }
 
-        private static string MakeFirstLetterToLower(string text)
-        {
-            return char.ToLower(text[0]) + text.Substring(1);
-        }
-
-        private static IConfigurationRoot InitializeConfiguration()
-        {
-            var builder = new ConfigurationBuilder();
-            var executionDir = ExecutionDirectoryResolver.GetDriverExecutablePath();
-            var filesInExecutionDir = Directory.GetFiles(executionDir);
-            var settingsFile =
+    private static IConfigurationRoot InitializeConfiguration()
+    {
+        var builder = new ConfigurationBuilder();
+        var executionDir = ExecutionDirectoryResolver.GetDriverExecutablePath();
+        var filesInExecutionDir = Directory.GetFiles(executionDir);
+        var settingsFile =
 #pragma warning disable CA1310 // Specify StringComparison for correctness
-                    filesInExecutionDir.FirstOrDefault(x => x.Contains("testFrameworkSettings") && x.EndsWith(".json"));
+                filesInExecutionDir.FirstOrDefault(x => x.Contains("testFrameworkSettings") && x.EndsWith(".json"));
 #pragma warning restore CA1310 // Specify StringComparison for correctness
-            if (settingsFile != null)
-            {
-                builder.AddJsonFile(settingsFile, optional: true, reloadOnChange: true);
-            }
-
-            builder.AddEnvironmentVariables();
-
-            return builder.Build();
+        if (settingsFile != null)
+        {
+            builder.AddJsonFile(settingsFile, optional: true, reloadOnChange: true);
         }
+
+        builder.AddEnvironmentVariables();
+
+        return builder.Build();
     }
 }

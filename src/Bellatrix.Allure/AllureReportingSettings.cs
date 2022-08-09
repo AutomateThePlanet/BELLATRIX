@@ -15,10 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.Results.Allure
+namespace Bellatrix.Results.Allure;
+
+public class AllureReportingSettings
 {
-    public class AllureReportingSettings
-    {
-        public bool IsEnabled { get; set; }
-    }
+    public bool IsEnabled { get; set; }
 }

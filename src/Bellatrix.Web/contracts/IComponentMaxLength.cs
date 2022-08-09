@@ -11,10 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Contracts
+namespace Bellatrix.Web.Contracts;
+
+public interface IComponentMaxLength
 {
-    public interface IComponentMaxLength
-    {
-        int? MaxLength { get; }
-    }
+    int? MaxLength { get; }
 }

@@ -14,16 +14,15 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.BugReporting
+namespace Bellatrix.Desktop.BugReporting;
+
+public class BugReportingComponentEventHandlers : ComponentEventHandlers
 {
-    public class BugReportingComponentEventHandlers : ComponentEventHandlers
-    {
-        protected override void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Scroll to visible {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Scroll to visible {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void HoveringEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Hover {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void HoveringEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Hover {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-        protected override void FocusingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Focus {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void FocusingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Focus {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

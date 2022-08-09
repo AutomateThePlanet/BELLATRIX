@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Plugins.Video.Contracts
-{
-    public interface IVideoRecorder : IDisposable
-    {
-        string Record(string filePath, string fileName);
+namespace Bellatrix.Plugins.Video.Contracts;
 
-        void Stop();
-    }
+public interface IVideoRecorder : IDisposable
+{
+    string Record(string filePath, string fileName);
+
+    void Stop();
 }

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class UrlSettings
 {
-    public class UrlSettings
-    {
-        public string BaseUrl { get; set; }
-        public string ShopUrl { get; set; }
-        public string AccountUrl { get; set; }
-    }
+    public string BaseUrl { get; set; }
+    public string ShopUrl { get; set; }
+    public string AccountUrl { get; set; }
 }

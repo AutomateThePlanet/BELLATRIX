@@ -14,74 +14,73 @@
 using System;
 using BA = Bellatrix.Assertions;
 
-namespace Bellatrix.Layout
+namespace Bellatrix.Layout;
+
+public static partial class AssertionsExtensions
 {
-    public static partial class AssertionsExtensions
+    public static event EventHandler<LayoutTwoComponentsNoExpectedActionEventArgs> AssertedRightInsideOfNoExpectedValueEvent;
+    public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightInsideOfEvent;
+    public static event EventHandler<LayoutTwoComponentsActionTwoValuesEventArgs> AssertedRightInsideOfBetweenEvent;
+    public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightInsideOfGreaterThanEvent;
+    public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightInsideOfGreaterOrEqualThanEvent;
+    public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightInsideOfLessThanEvent;
+    public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightInsideOfLessOrEqualThanEvent;
+    public static event EventHandler<LayoutTwoComponentsActionTwoValuesEventArgs> AssertedRightInsideOfApproximateEvent;
+
+    public static void AssertRightInsideOf(this ILayoutComponent innerElement, ILayoutComponent outerElement)
     {
-        public static event EventHandler<LayoutTwoComponentsNoExpectedActionEventArgs> AssertedRightInsideOfNoExpectedValueEvent;
-        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightInsideOfEvent;
-        public static event EventHandler<LayoutTwoComponentsActionTwoValuesEventArgs> AssertedRightInsideOfBetweenEvent;
-        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightInsideOfGreaterThanEvent;
-        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightInsideOfGreaterOrEqualThanEvent;
-        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightInsideOfLessThanEvent;
-        public static event EventHandler<LayoutTwoComponentsActionEventArgs> AssertedRightInsideOfLessOrEqualThanEvent;
-        public static event EventHandler<LayoutTwoComponentsActionTwoValuesEventArgs> AssertedRightInsideOfApproximateEvent;
+        double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
+        BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance >= 0, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding but was {actualRightDistance} px.");
+        AssertedRightInsideOfNoExpectedValueEvent?.Invoke(innerElement, new LayoutTwoComponentsNoExpectedActionEventArgs(innerElement, outerElement));
+    }
 
-        public static void AssertRightInsideOf(this ILayoutComponent innerElement, ILayoutComponent outerElement)
-        {
-            double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance >= 0, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding but was {actualRightDistance} px.");
-            AssertedRightInsideOfNoExpectedValueEvent?.Invoke(innerElement, new LayoutTwoComponentsNoExpectedActionEventArgs(innerElement, outerElement));
-        }
+    public static void AssertRightInsideOf(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right)
+    {
+        double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
+        BA.Assert.AreEqual<LayoutAssertFailedException, double>(right, actualRightDistance, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding = {right} px but was {actualRightDistance} px.");
+        AssertedRightInsideOfEvent?.Invoke(innerElement, new LayoutTwoComponentsActionEventArgs(innerElement, outerElement, right));
+    }
 
-        public static void AssertRightInsideOf(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right)
-        {
-            double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
-            BA.Assert.AreEqual<LayoutAssertFailedException, double>(right, actualRightDistance, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding = {right} px but was {actualRightDistance} px.");
-            AssertedRightInsideOfEvent?.Invoke(innerElement, new LayoutTwoComponentsActionEventArgs(innerElement, outerElement, right));
-        }
+    public static void AssertRightInsideOfBetween(this ILayoutComponent innerElement, ILayoutComponent outerElement, double from, double to)
+    {
+        double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
+        BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance >= from && actualRightDistance <= to, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding between {from}-{to} px but was {actualRightDistance} px.");
+        AssertedRightInsideOfBetweenEvent?.Invoke(innerElement, new LayoutTwoComponentsActionTwoValuesEventArgs(innerElement, outerElement, from, to));
+    }
 
-        public static void AssertRightInsideOfBetween(this ILayoutComponent innerElement, ILayoutComponent outerElement, double from, double to)
-        {
-            double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance >= from && actualRightDistance <= to, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding between {from}-{to} px but was {actualRightDistance} px.");
-            AssertedRightInsideOfBetweenEvent?.Invoke(innerElement, new LayoutTwoComponentsActionTwoValuesEventArgs(innerElement, outerElement, from, to));
-        }
+    public static void AssertRightInsideOfGreaterThan(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right)
+    {
+        double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
+        BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance > right, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding > {right} px but was {actualRightDistance} px.");
+        AssertedRightInsideOfGreaterThanEvent?.Invoke(innerElement, new LayoutTwoComponentsActionEventArgs(innerElement, outerElement, right));
+    }
 
-        public static void AssertRightInsideOfGreaterThan(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right)
-        {
-            double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance > right, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding > {right} px but was {actualRightDistance} px.");
-            AssertedRightInsideOfGreaterThanEvent?.Invoke(innerElement, new LayoutTwoComponentsActionEventArgs(innerElement, outerElement, right));
-        }
+    public static void AssertRightInsideOfGreaterThanOrEqual(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right)
+    {
+        double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
+        BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance >= right, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding >= {right} px but was {actualRightDistance} px.");
+        AssertedRightInsideOfGreaterOrEqualThanEvent?.Invoke(innerElement, new LayoutTwoComponentsActionEventArgs(innerElement, outerElement, right));
+    }
 
-        public static void AssertRightInsideOfGreaterThanOrEqual(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right)
-        {
-            double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance >= right, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding >= {right} px but was {actualRightDistance} px.");
-            AssertedRightInsideOfGreaterOrEqualThanEvent?.Invoke(innerElement, new LayoutTwoComponentsActionEventArgs(innerElement, outerElement, right));
-        }
+    public static void AssertRightInsideOfLessThan(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right)
+    {
+        double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
+        BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance < right, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding < {right} px but was {actualRightDistance} px.");
+        AssertedRightInsideOfLessThanEvent?.Invoke(innerElement, new LayoutTwoComponentsActionEventArgs(innerElement, outerElement, right));
+    }
 
-        public static void AssertRightInsideOfLessThan(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right)
-        {
-            double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance < right, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding < {right} px but was {actualRightDistance} px.");
-            AssertedRightInsideOfLessThanEvent?.Invoke(innerElement, new LayoutTwoComponentsActionEventArgs(innerElement, outerElement, right));
-        }
+    public static void AssertRightInsideOfLessThanOrEqual(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right)
+    {
+        double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
+        BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance <= right, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding <= {right} px but was {actualRightDistance} px.");
+        AssertedRightInsideOfLessOrEqualThanEvent?.Invoke(innerElement, new LayoutTwoComponentsActionEventArgs(innerElement, outerElement, right));
+    }
 
-        public static void AssertRightInsideOfLessThanOrEqual(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right)
-        {
-            double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualRightDistance <= right, $"{innerElement.ComponentName} should be inside of {outerElement.ComponentName} right padding <= {right} px but was {actualRightDistance} px.");
-            AssertedRightInsideOfLessOrEqualThanEvent?.Invoke(innerElement, new LayoutTwoComponentsActionEventArgs(innerElement, outerElement, right));
-        }
-
-        public static void AssertRightInsideOfApproximate(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right, double percent)
-        {
-            double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
-            var actualPercentDifference = CalculatePercentDifference(right, actualRightDistance);
-            BA.Assert.IsTrue<LayoutAssertFailedException>(actualPercentDifference <= percent, $"{innerElement.ComponentName} should be <= {percent}% of {right} px right padding of {outerElement.ComponentName} but was {actualRightDistance} px.");
-            AssertedRightInsideOfApproximateEvent?.Invoke(innerElement, new LayoutTwoComponentsActionTwoValuesEventArgs(innerElement, outerElement, right, percent));
-        }
+    public static void AssertRightInsideOfApproximate(this ILayoutComponent innerElement, ILayoutComponent outerElement, double right, double percent)
+    {
+        double actualRightDistance = CalculateRightInsideOfDistance(innerElement, outerElement);
+        var actualPercentDifference = CalculatePercentDifference(right, actualRightDistance);
+        BA.Assert.IsTrue<LayoutAssertFailedException>(actualPercentDifference <= percent, $"{innerElement.ComponentName} should be <= {percent}% of {right} px right padding of {outerElement.ComponentName} but was {actualRightDistance} px.");
+        AssertedRightInsideOfApproximateEvent?.Invoke(innerElement, new LayoutTwoComponentsActionTwoValuesEventArgs(innerElement, outerElement, right, percent));
     }
 }

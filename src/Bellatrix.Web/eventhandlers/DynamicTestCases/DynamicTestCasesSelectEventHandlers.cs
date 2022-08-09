@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class DynamicTestCasesSelectEventHandlers : SelectEventHandlers
 {
-    public class DynamicTestCasesSelectEventHandlers : SelectEventHandlers
-    {
-        protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
-    }
+    protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 }

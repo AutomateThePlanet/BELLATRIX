@@ -15,17 +15,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting.Jira.Model
+namespace Bellatrix.BugReporting.Jira.Model;
+
+public class Attachment
 {
-    public class Attachment
-    {
-        public string self { get; set; }
-        public string id { get; set; }
-        public string filename { get; set; }
-        public DateTime created { get; set; }
-        public int size { get; set; }
-        public string mimeType { get; set; }
-        public string content { get; set; }
-        public string thumbnail { get; set; }
-    }
+    public string self { get; set; }
+    public string id { get; set; }
+    public string filename { get; set; }
+    public DateTime created { get; set; }
+    public int size { get; set; }
+    public string mimeType { get; set; }
+    public string content { get; set; }
+    public string thumbnail { get; set; }
 }

@@ -16,31 +16,30 @@ using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Results.MSTest
+namespace Bellatrix.Results.MSTest;
+
+public class MSTestResultsWorkflowPlugin : Plugin, IScreenshotPlugin
 {
-    public class MSTestResultsWorkflowPlugin : Plugin, IScreenshotPlugin
+    private static readonly object _lockObject = new object();
+    public static TestContext TestContext { get; set; }
+
+    public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
     {
-        private static readonly object _lockObject = new object();
-        public static TestContext TestContext { get; set; }
+        provider.ScreenshotGeneratedEvent += ScreenshotGenerated;
+    }
 
-        public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
-        {
-            provider.ScreenshotGeneratedEvent += ScreenshotGenerated;
-        }
+    public void UnsubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
+    {
+        provider.ScreenshotGeneratedEvent -= ScreenshotGenerated;
+    }
 
-        public void UnsubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
+    public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs args)
+    {
+        lock (_lockObject)
         {
-            provider.ScreenshotGeneratedEvent -= ScreenshotGenerated;
-        }
-
-        public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs args)
-        {
-            lock (_lockObject)
+            if (!string.IsNullOrEmpty(args.ScreenshotPath))
             {
-                if (!string.IsNullOrEmpty(args.ScreenshotPath))
-                {
-                    TestContext?.AddResultFile(args.ScreenshotPath);
-                }
+                TestContext?.AddResultFile(args.ScreenshotPath);
             }
         }
     }

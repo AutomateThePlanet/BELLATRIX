@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
-{
-    [TestClass]
-    public class TestsInitialize
-    {
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
-        {
-            AllurePlugin.Add();
-            App.StartWinAppDriver();
-        }
+namespace Bellatrix.Desktop.Tests;
 
-        [AssemblyCleanup]
-        public static void AssemblyCleanUp()
-        {
-            var app = ServicesCollection.Current.Resolve<App>();
-            app.Dispose();
-            App.StopWinAppDriver();
-        }
+[TestClass]
+public class TestsInitialize
+{
+    [AssemblyInitialize]
+    public static void AssemblyInitialize(TestContext testContext)
+    {
+        AllurePlugin.Add();
+        App.StartWinAppDriver();
+    }
+
+    [AssemblyCleanup]
+    public static void AssemblyCleanUp()
+    {
+        var app = ServicesCollection.Current.Resolve<App>();
+        app.Dispose();
+        App.StopWinAppDriver();
     }
 }

@@ -14,18 +14,17 @@
 using Bellatrix.Plugins.Api;
 using RestSharp.Authenticators;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+/// <summary>
+///     JSON WEB TOKEN (JWT) Authenticator class.
+///     <remarks>https://tools.ietf.org/html/draft-ietf-oauth-json-web-token</remarks>
+/// </summary>
+public class JwtAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
 {
-    /// <summary>
-    ///     JSON WEB TOKEN (JWT) Authenticator class.
-    ///     <remarks>https://tools.ietf.org/html/draft-ietf-oauth-json-web-token</remarks>
-    /// </summary>
-    public class JwtAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
-    {
-        private readonly string _accessToken;
+    private readonly string _accessToken;
 
-        public JwtAuthenticationStrategyAttribute(string accessToken) => _accessToken = accessToken;
+    public JwtAuthenticationStrategyAttribute(string accessToken) => _accessToken = accessToken;
 
-        public override IAuthenticator GetAuthenticator() => new JwtAuthenticator(_accessToken);
-    }
+    public override IAuthenticator GetAuthenticator() => new JwtAuthenticator(_accessToken);
 }

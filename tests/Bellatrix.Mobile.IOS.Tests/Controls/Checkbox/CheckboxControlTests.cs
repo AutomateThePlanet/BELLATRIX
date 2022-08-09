@@ -13,55 +13,54 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.AppleCalendarBundleId,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("CheckBox Control")]
+public class CheckboxControlTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.AppleCalendarBundleId,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("CheckBox Control")]
-    public class CheckboxControlTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
-        {
-            var addButton = App.Components.CreateById<Button>("Add");
-            addButton.Click();
+        var addButton = App.Components.CreateById<Button>("Add");
+        addButton.Click();
 
-            var checkBox = App.Components.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+        var checkBox = App.Components.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
-            checkBox.Check();
+        checkBox.Check();
 
-            Assert.IsTrue(checkBox.IsChecked);
-        }
+        Assert.IsTrue(checkBox.IsChecked);
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt()
-        {
-            var addButton = App.Components.CreateById<Button>("Add");
-            addButton.Click();
+    [TestMethod]
+    [Timeout(180000)]
+    public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt()
+    {
+        var addButton = App.Components.CreateById<Button>("Add");
+        addButton.Click();
 
-            var checkBox = App.Components.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+        var checkBox = App.Components.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
-            checkBox.Check();
-            checkBox.Uncheck();
+        checkBox.Check();
+        checkBox.Uncheck();
 
-            Assert.IsFalse(checkBox.IsChecked);
-        }
+        Assert.IsFalse(checkBox.IsChecked);
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled()
-        {
-            var addButton = App.Components.CreateById<Button>("Add");
-            addButton.Click();
+    [TestMethod]
+    [Timeout(180000)]
+    public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled()
+    {
+        var addButton = App.Components.CreateById<Button>("Add");
+        addButton.Click();
 
-            var checkBox = App.Components.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
+        var checkBox = App.Components.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
-            Assert.AreEqual(false, checkBox.IsDisabled);
-        }
+        Assert.AreEqual(false, checkBox.IsDisabled);
     }
 }

@@ -15,38 +15,37 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Locators
+namespace Bellatrix.Desktop.Locators;
+
+public class FindAccessibilityIdStrategy : FindStrategy
 {
-    public class FindAccessibilityIdStrategy : FindStrategy
+    public FindAccessibilityIdStrategy(string name)
+        : base(name)
     {
-        public FindAccessibilityIdStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
-        {
-            return searchContext.FindElementByAccessibilityId(Value);
-        }
+    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    {
+        return searchContext.FindElementByAccessibilityId(Value);
+    }
 
-        public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
-        {
-            return searchContext.FindElementsByAccessibilityId(Value);
-        }
+    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    {
+        return searchContext.FindElementsByAccessibilityId(Value);
+    }
 
-        public override AppiumWebElement FindElement(WindowsElement element)
-        {
-            return element.FindElementByAccessibilityId(Value);
-        }
+    public override AppiumWebElement FindElement(WindowsElement element)
+    {
+        return element.FindElementByAccessibilityId(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
-        {
-            return element.FindElementsByAccessibilityId(Value);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
+    {
+        return element.FindElementsByAccessibilityId(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"AccessibilityId = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"AccessibilityId = {Value}";
     }
 }

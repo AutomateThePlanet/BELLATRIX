@@ -13,125 +13,124 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.ControlsMaterialDark",
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Services")]
+[AllureFeature("ComponentCreateService")]
+public class ComponentCreateServiceCreateAllElementTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.ControlsMaterialDark",
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Services")]
-    [AllureFeature("ComponentCreateService")]
-    public class ComponentCreateServiceCreateAllElementTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllByIdContaining_And_ElementIsOnScreen()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllByIdContaining_And_ElementIsOnScreen()
-        {
-            var buttons = App.Components.CreateAllByIdContaining<Button>("button");
+        var buttons = App.Components.CreateAllByIdContaining<Button>("button");
 
-            buttons[0].ValidateIsVisible();
-        }
+        buttons[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllByIdContaining_And_ElementIsNotOnScreen()
-        {
-            var textFields = App.Components.CreateAllByIdContaining<TextField>("edit");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllByIdContaining_And_ElementIsNotOnScreen()
+    {
+        var textFields = App.Components.CreateAllByIdContaining<TextField>("edit");
 
-            textFields[0].ValidateIsVisible();
-        }
+        textFields[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllById_And_ElementIsOnScreen()
-        {
-            var buttons = App.Components.CreateAllById<Button>("com.example.android.apis:id/button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllById_And_ElementIsOnScreen()
+    {
+        var buttons = App.Components.CreateAllById<Button>("com.example.android.apis:id/button");
 
-            buttons[0].ValidateIsVisible();
-        }
+        buttons[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllById_And_ElementIsNotOnScreen()
-        {
-            var textFields = App.Components.CreateAllById<TextField>("com.example.android.apis:id/edit");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllById_And_ElementIsNotOnScreen()
+    {
+        var textFields = App.Components.CreateAllById<TextField>("com.example.android.apis:id/edit");
 
-            textFields[0].ValidateIsVisible();
-        }
+        textFields[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllByClass()
-        {
-            var checkBoxes = App.Components.CreateAllByClass<CheckBox>("android.widget.CheckBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllByClass()
+    {
+        var checkBoxes = App.Components.CreateAllByClass<CheckBox>("android.widget.CheckBox");
 
-            checkBoxes[0].ValidateIsNotDisabled();
-        }
+        checkBoxes[0].ValidateIsNotDisabled();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllByText_And_ElementIsOnScreen()
-        {
-            var buttons = App.Components.CreateAllByText<Button>("BUTTON");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllByText_And_ElementIsOnScreen()
+    {
+        var buttons = App.Components.CreateAllByText<Button>("BUTTON");
 
-            buttons[0].ValidateIsVisible();
-        }
+        buttons[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllByText_And_ElementIsNotOnScreen()
-        {
-            var textFields = App.Components.CreateAllByText<TextField>("Text appearances");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllByText_And_ElementIsNotOnScreen()
+    {
+        var textFields = App.Components.CreateAllByText<TextField>("Text appearances");
 
-            textFields[0].ValidateIsVisible();
-        }
+        textFields[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllByTextContaining_And_ElementIsOnScreen()
-        {
-            var buttons = App.Components.CreateAllByTextContaining<Button>("BUTTO");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllByTextContaining_And_ElementIsOnScreen()
+    {
+        var buttons = App.Components.CreateAllByTextContaining<Button>("BUTTO");
 
-            buttons[0].ValidateIsVisible();
-        }
+        buttons[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllByTextContaining_And_ElementIsNotOnScreen()
-        {
-            var textFields = App.Components.CreateAllByTextContaining<TextField>("Text appearanc");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllByTextContaining_And_ElementIsNotOnScreen()
+    {
+        var textFields = App.Components.CreateAllByTextContaining<TextField>("Text appearanc");
 
-            textFields[0].ValidateIsVisible();
-        }
+        textFields[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllByAndroidUIAutomator_And_ElementIsOnScreen()
-        {
-            var buttons = App.Components.CreateAllByAndroidUIAutomator<Button>("new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().resourceId(\"com.example.android.apis:id/button\"));");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllByAndroidUIAutomator_And_ElementIsOnScreen()
+    {
+        var buttons = App.Components.CreateAllByAndroidUIAutomator<Button>("new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().resourceId(\"com.example.android.apis:id/button\"));");
 
-            buttons[0].ValidateIsVisible();
-        }
+        buttons[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllByAndroidUIAutomator_And_ElementIsNotOnScreen()
-        {
-            var textFields = App.Components.CreateAllByAndroidUIAutomator<TextField>("new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().resourceId(\"com.example.android.apis:id/edit\"));");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllByAndroidUIAutomator_And_ElementIsNotOnScreen()
+    {
+        var textFields = App.Components.CreateAllByAndroidUIAutomator<TextField>("new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().resourceId(\"com.example.android.apis:id/edit\"));");
 
-            textFields[0].ValidateIsVisible();
-        }
+        textFields[0].ValidateIsVisible();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateAllByXPath_And_ElementIsOnScreen()
-        {
-            var buttons = App.Components.CreateAllByXPath<Button>("//*[@resource-id='com.example.android.apis:id/button']");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateAllByXPath_And_ElementIsOnScreen()
+    {
+        var buttons = App.Components.CreateAllByXPath<Button>("//*[@resource-id='com.example.android.apis:id/button']");
 
-            buttons[0].ValidateIsVisible();
-        }
+        buttons[0].ValidateIsVisible();
     }
 }

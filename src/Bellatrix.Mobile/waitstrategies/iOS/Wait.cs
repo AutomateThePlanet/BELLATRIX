@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile.Untils.IOS
-{
-    public class Wait
-    {
-        static Wait() => To = new WaitStrategyFactory();
+namespace Bellatrix.Mobile.Untils.IOS;
 
-        public static WaitStrategyFactory To { get; }
-    }
+public class Wait
+{
+    static Wait() => To = new WaitStrategyFactory();
+
+    public static WaitStrategyFactory To { get; }
 }

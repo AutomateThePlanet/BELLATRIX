@@ -14,13 +14,12 @@
 using Bellatrix.Api.Configuration;
 using Microsoft.Extensions.Configuration;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class ConfigurationSettingsExtensions
 {
-    public static class ConfigurationSettingsExtensions
+    public static ApiSettings GetApiSettings(this ConfigurationService service)
     {
-        public static ApiSettings GetApiSettings(this ConfigurationService service)
-        {
-            return ConfigurationService.GetSection<ApiSettings>();
-        }
+        return ConfigurationService.GetSection<ApiSettings>();
     }
 }

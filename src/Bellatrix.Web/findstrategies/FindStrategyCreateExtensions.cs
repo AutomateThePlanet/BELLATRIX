@@ -11,24 +11,23 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    public static class FindStrategyCreateExtensions
-    {
-        public static TComponent Create<TComponent, TBy>(this TBy by, bool shouldCacheElement = false)
-            where TBy : FindStrategy
-            where TComponent : Component
-        {
-            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
-            return elementRepository.Create<TComponent, TBy>(by, shouldCacheElement);
-        }
+namespace Bellatrix.Web;
 
-        public static ComponentsList<TComponent> CreateAll<TComponent, TBy>(this TBy by, bool shouldCacheElement = false)
-            where TBy : FindStrategy
-            where TComponent : Component
-        {
-            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
-            return elementRepository.CreateAll<TComponent, TBy>(by, shouldCacheElement);
-        }
+public static class FindStrategyCreateExtensions
+{
+    public static TComponent Create<TComponent, TBy>(this TBy by, bool shouldCacheElement = false)
+        where TBy : FindStrategy
+        where TComponent : Component
+    {
+        var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        return elementRepository.Create<TComponent, TBy>(by, shouldCacheElement);
+    }
+
+    public static ComponentsList<TComponent> CreateAll<TComponent, TBy>(this TBy by, bool shouldCacheElement = false)
+        where TBy : FindStrategy
+        where TComponent : Component
+    {
+        var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        return elementRepository.CreateAll<TComponent, TBy>(by, shouldCacheElement);
     }
 }

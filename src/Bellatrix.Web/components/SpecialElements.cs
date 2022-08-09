@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Layout;
 
-namespace Bellatrix.Web
-{
-    public static class SpecialElements
-    {
-        public static ILayoutComponent Viewport => new Viewport();
+namespace Bellatrix.Web;
 
-        public static ILayoutComponent Screen => new Screen();
-    }
+public static class SpecialElements
+{
+    public static ILayoutComponent Viewport => new Viewport();
+
+    public static ILayoutComponent Screen => new Screen();
 }

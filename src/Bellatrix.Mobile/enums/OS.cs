@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public enum OS
 {
-    public enum OS
-    {
-        Windows,
-        OSX,
-        Linux,
-    }
+    Windows,
+    OSX,
+    Linux,
 }

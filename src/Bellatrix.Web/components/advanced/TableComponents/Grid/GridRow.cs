@@ -22,127 +22,126 @@ using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Controls.Advanced.Grid;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class GridRow : Component, IComponentInnerHtml
 {
-    public class GridRow : Component, IComponentInnerHtml
+    private Grid _parentGrid;
+
+    public static event EventHandler<ComponentActionEventArgs> Clicking;
+    public static event EventHandler<ComponentActionEventArgs> Clicked;
+
+    public int Index { get; set; }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public string InnerHtml => GetInnerHtmlAttribute();
+
+    public GridCell this[int i] => GetCells().ToList().ElementAt(i);
+
+    public void Click()
     {
-        private Grid _parentGrid;
+        Clicking?.Invoke(this, new ComponentActionEventArgs(this));
+        WrappedElement.Click();
+        Clicked?.Invoke(this, new ComponentActionEventArgs(this));
+    }
 
-        public static event EventHandler<ComponentActionEventArgs> Clicking;
-        public static event EventHandler<ComponentActionEventArgs> Clicked;
+    public void SetParentGrid(Grid grid)
+    {
+        _parentGrid = grid;
+    }
 
-        public int Index { get; set; }
+    public GridCell GetCell(int column)
+    {
+        return _parentGrid.GetCell(Index, column);
+    }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
+    public GridCell GetCell(string headerName)
+    {
+        return _parentGrid.GetCell(headerName, Index);
+    }
 
-        public GridCell this[int i] => GetCells().ToList().ElementAt(i);
+    public GridCell GetCell<TDto>(Expression<Func<TDto, object>> expression)
+        where TDto : class
+    {
+        return _parentGrid.GetCell<TDto>(expression, Index);
+    }
 
-        public void Click()
+    public IEnumerable<GridCell> GetCells()
+    {
+        var listOfCells = new List<GridCell>();
+        var rowCells = _parentGrid.TableService.GetRowCells(Index);
+        for (int rowCellsIndex = 0; rowCellsIndex < rowCells.Count; rowCellsIndex++)
         {
-            Clicking?.Invoke(this, new ComponentActionEventArgs(this));
-            WrappedElement.Click();
-            Clicked?.Invoke(this, new ComponentActionEventArgs(this));
+            var rowCellXPath = rowCells[rowCellsIndex].GetXPath();
+            var cell = ComponentCreateService.CreateByXpath<GridCell>(rowCellXPath);
+            _parentGrid.SetCellMetaData(cell, Index, rowCellsIndex);
+            listOfCells.Add(cell);
         }
 
-        public void SetParentGrid(Grid grid)
-        {
-            _parentGrid = grid;
-        }
+        return listOfCells;
+    }
 
-        public GridCell GetCell(int column)
+    public IEnumerable<TComponent> GetCells<TComponent>()
+        where TComponent : Component, new()
+    {
+        var listOfElements = new ComponentsList<TComponent>();
+        var cells = GetCells().ToList();
+        for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
         {
-            return _parentGrid.GetCell(Index, column);
-        }
-
-        public GridCell GetCell(string headerName)
-        {
-            return _parentGrid.GetCell(headerName, Index);
-        }
-
-        public GridCell GetCell<TDto>(Expression<Func<TDto, object>> expression)
-            where TDto : class
-        {
-            return _parentGrid.GetCell<TDto>(expression, Index);
-        }
-
-        public IEnumerable<GridCell> GetCells()
-        {
-            var listOfCells = new List<GridCell>();
-            var rowCells = _parentGrid.TableService.GetRowCells(Index);
-            for (int rowCellsIndex = 0; rowCellsIndex < rowCells.Count; rowCellsIndex++)
+            var cell = cells[columnIndex];
+            TComponent element = new TComponent();
+            if (cell.CellControlComponentType == null)
             {
-                var rowCellXPath = rowCells[rowCellsIndex].GetXPath();
-                var cell = ComponentCreateService.CreateByXpath<GridCell>(rowCellXPath);
-                _parentGrid.SetCellMetaData(cell, Index, rowCellsIndex);
-                listOfCells.Add(cell);
+                listOfElements.Add(cell.As<TComponent>());
             }
-
-            return listOfCells;
-        }
-
-        public IEnumerable<TComponent> GetCells<TComponent>()
-            where TComponent : Component, new()
-        {
-            var listOfElements = new ComponentsList<TComponent>();
-            var cells = GetCells().ToList();
-            for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
+            else
             {
-                var cell = cells[columnIndex];
-                TComponent element = new TComponent();
-                if (cell.CellControlComponentType == null)
-                {
-                    listOfElements.Add(cell.As<TComponent>());
-                }
-                else
-                {
-                    var repo = new ComponentRepository();
-                    element = repo.CreateComponentWithParent(cell.CellControlBy, cell.WrappedElement, typeof(TComponent), false);
-                    listOfElements.Add(element);
-                }
+                var repo = new ComponentRepository();
+                element = repo.CreateComponentWithParent(cell.CellControlBy, cell.WrappedElement, typeof(TComponent), false);
+                listOfElements.Add(element);
             }
-
-            return listOfElements;
         }
 
-        public List<TComponent> GetCells<TComponent>(Func<TComponent, bool> selector)
-            where TComponent : Component, new()
-        {
-            return GetCells<TComponent>().Where(selector).ToList();
-        }
+        return listOfElements;
+    }
 
-        public TComponent GetFirstOrDefaultCell<TComponent>(Func<TComponent, bool> selector)
-            where TComponent : Component, new()
-        {
-            return GetCells(selector).FirstOrDefault();
-        }
+    public List<TComponent> GetCells<TComponent>(Func<TComponent, bool> selector)
+        where TComponent : Component, new()
+    {
+        return GetCells<TComponent>().Where(selector).ToList();
+    }
 
-        public T GetItem<T>()
-            where T : new()
-        {
-            return _parentGrid.CastRow<T>(Index);
-        }
+    public TComponent GetFirstOrDefaultCell<TComponent>(Func<TComponent, bool> selector)
+        where TComponent : Component, new()
+    {
+        return GetCells(selector).FirstOrDefault();
+    }
 
-        public void AssertRow<T>(T expectedItem, params string[] propertiesNotToCompare)
-            where T : new()
-        {
-            var actualItem = GetItem<T>();
+    public T GetItem<T>()
+        where T : new()
+    {
+        return _parentGrid.CastRow<T>(Index);
+    }
 
-            EntitiesAsserter.AreEqual(expectedItem, actualItem, propertiesNotToCompare);
-        }
+    public void AssertRow<T>(T expectedItem, params string[] propertiesNotToCompare)
+        where T : new()
+    {
+        var actualItem = GetItem<T>();
 
-        internal void DefaultClick<TComponent>(
-            TComponent element,
-            EventHandler<ComponentActionEventArgs> clicking,
-            EventHandler<ComponentActionEventArgs> clicked)
-            where TComponent : Component
-        {
-            clicking?.Invoke(this, new ComponentActionEventArgs(element));
+        EntitiesAsserter.AreEqual(expectedItem, actualItem, propertiesNotToCompare);
+    }
 
-            element.ToExists().ToBeClickable().WaitToBe();
-            element.WrappedElement.Click();
+    internal void DefaultClick<TComponent>(
+        TComponent element,
+        EventHandler<ComponentActionEventArgs> clicking,
+        EventHandler<ComponentActionEventArgs> clicked)
+        where TComponent : Component
+    {
+        clicking?.Invoke(this, new ComponentActionEventArgs(element));
 
-            clicked?.Invoke(this, new ComponentActionEventArgs(element));
-        }
+        element.ToExists().ToBeClickable().WaitToBe();
+        element.WrappedElement.Click();
+
+        clicked?.Invoke(this, new ComponentActionEventArgs(element));
     }
 }

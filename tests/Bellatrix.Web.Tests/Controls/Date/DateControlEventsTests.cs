@@ -14,134 +14,133 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Date Control")]
+[AllureFeature("ControlEvents")]
+public class DateControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Date Control")]
-    [AllureFeature("ControlEvents")]
-    public class DateControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingDateCalled_BeforeActuallySetDate()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
+        Date.SettingDate += AssertValueAttributeEmpty;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingDateCalled_BeforeActuallySetDate()
+        var dateElement = App.Components.CreateById<Date>("myDate");
+
+        dateElement.SetDate(2017, 7, 6);
+
+        Assert.AreEqual("2017-07-06", dateElement.GetDate());
+
+        Date.SettingDate -= AssertValueAttributeEmpty;
+
+        void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Date.SettingDate += AssertValueAttributeEmpty;
-
-            var dateElement = App.Components.CreateById<Date>("myDate");
-
-            dateElement.SetDate(2017, 7, 6);
-
-            Assert.AreEqual("2017-07-06", dateElement.GetDate());
-
-            Date.SettingDate -= AssertValueAttributeEmpty;
-
-            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingDateCalled_AfterSetDate()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingDateCalled_AfterSetDate()
+    {
+        Date.DateSet += AssertValueAttributeContainsNewValue;
+
+        var dateElement = App.Components.CreateById<Date>("myDate");
+
+        dateElement.SetDate(2017, 7, 6);
+
+        Date.DateSet -= AssertValueAttributeContainsNewValue;
+
+        void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Date.DateSet += AssertValueAttributeContainsNewValue;
-
-            var dateElement = App.Components.CreateById<Date>("myDate");
-
-            dateElement.SetDate(2017, 7, 6);
-
-            Date.DateSet -= AssertValueAttributeContainsNewValue;
-
-            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("2017-07-06", args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual("2017-07-06", args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+        Date.Hovering += AssertStyleAttributeEmpty;
+
+        var dateElement = App.Components.CreateById<Date>("myDate7");
+
+        dateElement.Hover();
+
+        Assert.AreEqual("color: red;", dateElement.GetStyle());
+
+        Date.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Date.Hovering += AssertStyleAttributeEmpty;
-
-            var dateElement = App.Components.CreateById<Date>("myDate7");
-
-            dateElement.Hover();
-
-            Assert.AreEqual("color: red;", dateElement.GetStyle());
-
-            Date.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        Date.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var dateElement = App.Components.CreateById<Date>("myDate7");
+
+        dateElement.Hover();
+
+        Date.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Date.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var dateElement = App.Components.CreateById<Date>("myDate7");
-
-            dateElement.Hover();
-
-            Date.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Date>("myDate7").ValidateStyleIs("color: red;");
-            }
+            App.Components.CreateById<Date>("myDate7").ValidateStyleIs("color: red;");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusingCalled_BeforeActuallyFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusingCalled_BeforeActuallyFocus()
+    {
+        Date.Focusing += AssertStyleAttributeEmpty;
+
+        var dateElement = App.Components.CreateById<Date>("myDate8");
+
+        dateElement.Focus();
+
+        Assert.AreEqual("color: blue;", dateElement.GetStyle());
+
+        Date.Focusing -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Date.Focusing += AssertStyleAttributeEmpty;
-
-            var dateElement = App.Components.CreateById<Date>("myDate8");
-
-            dateElement.Focus();
-
-            Assert.AreEqual("color: blue;", dateElement.GetStyle());
-
-            Date.Focusing -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusedCalled_AfterFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusedCalled_AfterFocus()
+    {
+        Date.Focused += AssertStyleAttributeContainsNewValue;
+
+        var dateElement = App.Components.CreateById<Date>("myDate8");
+
+        dateElement.Focus();
+
+        Date.Focused -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Date.Focused += AssertStyleAttributeContainsNewValue;
-
-            var dateElement = App.Components.CreateById<Date>("myDate8");
-
-            dateElement.Focus();
-
-            Date.Focused -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
         }
     }
 }

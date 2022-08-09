@@ -15,14 +15,13 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class TextAreaControlDataHandler : IEditableControlDataHandler<TextArea>
 {
-    public class TextAreaControlDataHandler : IEditableControlDataHandler<TextArea>
-    {
-        public dynamic GetData(TextArea element) => element.GetText().Trim();
+    public dynamic GetData(TextArea element) => element.GetText().Trim();
 
-        public void SetData(TextArea element, string data) => element.SetText(data);
+    public void SetData(TextArea element, string data) => element.SetText(data);
 
-        public void ValidateValueIs(TextArea element, string expectedValue) => element.ValidateTextIs(expectedValue);
-    }
+    public void ValidateValueIs(TextArea element, string expectedValue) => element.ValidateTextIs(expectedValue);
 }

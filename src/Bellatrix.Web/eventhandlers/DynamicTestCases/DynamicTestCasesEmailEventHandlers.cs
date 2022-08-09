@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class DynamicTestCasesEmailEventHandlers : EmailEventHandlers
 {
-    public class DynamicTestCasesEmailEventHandlers : EmailEventHandlers
-    {
-        protected override void SettingEmailEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
-    }
+    protected override void SettingEmailEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 }

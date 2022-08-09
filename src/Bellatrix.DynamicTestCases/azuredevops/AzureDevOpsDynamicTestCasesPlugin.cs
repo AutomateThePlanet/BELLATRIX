@@ -20,21 +20,20 @@ using Bellatrix.DynamicTestCases.AzureDevOps;
 using Bellatrix.DynamicTestCases.Contracts;
 using Bellatrix.Plugins;
 
-namespace Bellatrix
-{
-    public static class AzureDevOpsDynamicTestCasesPlugin
-    {
-        private static bool _isAdded = false;
+namespace Bellatrix;
 
-        public static void Add()
+public static class AzureDevOpsDynamicTestCasesPlugin
+{
+    private static bool _isAdded = false;
+
+    public static void Add()
+    {
+        if (!_isAdded)
         {
-            if (!_isAdded)
-            {
-                ServicesCollection.Current.RegisterInstance(new DynamicTestCasesService());
-                ServicesCollection.Current.RegisterType<ITestCaseManagementService, AzureDevOpsTestCaseManagementService>();
-                ServicesCollection.Current.RegisterType<Plugin, Bellatrix.DynamicTestCases.Core.DynamicTestCasesPlugin>(Guid.NewGuid().ToString());
-                _isAdded = true;
-            }
+            ServicesCollection.Current.RegisterInstance(new DynamicTestCasesService());
+            ServicesCollection.Current.RegisterType<ITestCaseManagementService, AzureDevOpsTestCaseManagementService>();
+            ServicesCollection.Current.RegisterType<Plugin, Bellatrix.DynamicTestCases.Core.DynamicTestCasesPlugin>(Guid.NewGuid().ToString());
+            _isAdded = true;
         }
     }
 }

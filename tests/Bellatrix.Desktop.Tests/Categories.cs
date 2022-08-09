@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+public class Categories
 {
-    public class Categories
-    {
-        public const string CI = "CI";
-        public const string Layout = "Layout";
-        public const string Desktop = "Desktop";
-    }
+    public const string CI = "CI";
+    public const string Layout = "Layout";
+    public const string Desktop = "Desktop";
 }

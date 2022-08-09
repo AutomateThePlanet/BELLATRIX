@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsSelected<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentSelected, IComponent
     {
-        public static void ValidateIsSelected<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentSelected, IComponent
-        {
-            WaitUntil(() => control.IsSelected.Equals(true), "The control should be selected but was NOT.", timeout, sleepInterval);
-            ValidatedIsSelectedEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateIsNotSelected<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentSelected, IComponent
-        {
-            WaitUntil(() => control.IsSelected.Equals(false), "The control should be not selected but it WAS.", timeout, sleepInterval);
-            ValidatedIsNotSelectedEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsSelectedEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotSelectedEvent;
+        WaitUntil(() => control.IsSelected.Equals(true), "The control should be selected but was NOT.", timeout, sleepInterval);
+        ValidatedIsSelectedEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateIsNotSelected<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentSelected, IComponent
+    {
+        WaitUntil(() => control.IsSelected.Equals(false), "The control should be not selected but it WAS.", timeout, sleepInterval);
+        ValidatedIsNotSelectedEvent?.Invoke(control, new ComponentActionEventArgs(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsSelectedEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotSelectedEvent;
 }

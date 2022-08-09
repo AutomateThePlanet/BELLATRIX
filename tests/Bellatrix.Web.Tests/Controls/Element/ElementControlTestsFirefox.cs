@@ -13,219 +13,218 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls.Element
+namespace Bellatrix.Web.Tests.Controls.Element;
+
+[TestClass]
+[Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Element Control")]
+public class ElementControlTestsFirefox : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Element Control")]
-    public class ElementControlTestsFirefox : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void IsVisibleReturnsTrue_When_ElementIsPresent_Firefox()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+        var urlElement = App.Components.CreateById<Url>("myURL");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void IsVisibleReturnsTrue_When_ElementIsPresent_Firefox()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL");
+        Assert.IsTrue(urlElement.IsVisible);
+    }
 
-            Assert.IsTrue(urlElement.IsVisible);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void IsVisibleReturnsFalse_When_ElementIsHidden_Firefox()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL11");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void IsVisibleReturnsFalse_When_ElementIsHidden_Firefox()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL11");
+        Assert.IsFalse(urlElement.IsVisible);
+    }
 
-            Assert.IsFalse(urlElement.IsVisible);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void SetAttributeChangesAttributeValue_Firefox()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void SetAttributeChangesAttributeValue_Firefox()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL");
+        urlElement.SetAttribute("class", "myTestClass1");
+        var cssClass = urlElement.GetAttribute("class");
 
-            urlElement.SetAttribute("class", "myTestClass1");
-            var cssClass = urlElement.GetAttribute("class");
+        Assert.AreEqual("myTestClass1", cssClass);
+    }
 
-            Assert.AreEqual("myTestClass1", cssClass);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetAttributeReturnsName_When_NameAttributeIsSet_Firefox()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetAttributeReturnsName_When_NameAttributeIsSet_Firefox()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL");
+        var nameValue = urlElement.GetAttribute("name");
 
-            var nameValue = urlElement.GetAttribute("name");
+        Assert.AreEqual("myURL", nameValue);
+    }
 
-            Assert.AreEqual("myURL", nameValue);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetAttributeReturnsEmpty_When_NameAttributeIsNotPresent_Firefox()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetAttributeReturnsEmpty_When_NameAttributeIsNotPresent_Firefox()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL");
+        var nameValue = urlElement.GetAttribute("style");
 
-            var nameValue = urlElement.GetAttribute("style");
+        Assert.AreEqual(string.Empty, nameValue);
+    }
 
-            Assert.AreEqual(string.Empty, nameValue);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void CssClassReturnsMyTestClass_When_ClassAttributeIsSet_Firefox()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void CssClassReturnsMyTestClass_When_ClassAttributeIsSet_Firefox()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL");
+        var cssClass = urlElement.CssClass;
 
-            var cssClass = urlElement.CssClass;
+        Assert.AreEqual("myTestClass", cssClass);
+    }
 
-            Assert.AreEqual("myTestClass", cssClass);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void CssClassReturnsNull_When_ClassAttributeIsNotPresent_Firefox()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void CssClassReturnsNull_When_ClassAttributeIsNotPresent_Firefox()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL1");
+        var cssClass = urlElement.CssClass;
 
-            var cssClass = urlElement.CssClass;
+        Assert.IsNull(cssClass);
+    }
 
-            Assert.IsNull(cssClass);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ElementVisible_AfterCallingScrollToVisible_Firefox()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL12");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ElementVisible_AfterCallingScrollToVisible_Firefox()
-        {
-            var urlElement = App.Components.CreateById<Url>("myURL12");
+        urlElement.ScrollToVisible();
 
-            urlElement.ScrollToVisible();
+        Assert.AreEqual("color: red;", urlElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", urlElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void CreateElement_When_InsideAnotherElementAndIsPresent_Firefox()
+    {
+        var wrapperDiv = App.Components.CreateById<Div>("myURL10Wrapper");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void CreateElement_When_InsideAnotherElementAndIsPresent_Firefox()
-        {
-            var wrapperDiv = App.Components.CreateById<Div>("myURL10Wrapper");
+        var urlElement = wrapperDiv.CreateById<Url>("myURL10");
 
-            var urlElement = wrapperDiv.CreateById<Url>("myURL10");
+        Assert.IsTrue(urlElement.IsDisabled);
+    }
 
-            Assert.IsTrue(urlElement.IsDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetTitle_When_TitleAttributeIsPresent_Firefox()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetTitle_When_TitleAttributeIsPresent_Firefox()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
+        string title = element.GetTitle();
 
-            string title = element.GetTitle();
+        Assert.AreEqual("bellatrix.solutions", title);
+    }
 
-            Assert.AreEqual("bellatrix.solutions", title);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void RetunsNull_When_TitleAttributeIsNotPresent_Firefox()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void RetunsNull_When_TitleAttributeIsNotPresent_Firefox()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
+        string title = element.GetTitle();
 
-            string title = element.GetTitle();
+        Assert.IsNull(title);
+    }
 
-            Assert.IsNull(title);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetTabIndexOne_When_TabIndexAttributeIsPresent_Firefox()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL14");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetTabIndexOne_When_TabIndexAttributeIsPresent_Firefox()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL14");
+        string tabIndex = element.GetTabIndex();
 
-            string tabIndex = element.GetTabIndex();
+        Assert.AreEqual("1", tabIndex);
+    }
 
-            Assert.AreEqual("1", tabIndex);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnsNull_When_TabIndexAttributeIsNotPresent_Firefox()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnsNull_When_TabIndexAttributeIsNotPresent_Firefox()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
+        string tabIndex = element.GetTabIndex();
 
-            string tabIndex = element.GetTabIndex();
+        Assert.IsNull(tabIndex);
+    }
 
-            Assert.IsNull(tabIndex);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetStyle_When_StyleAttributeIsPresent_Firefox()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL16");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetStyle_When_StyleAttributeIsPresent_Firefox()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL16");
+        var style = element.GetStyle();
 
-            var style = element.GetStyle();
+        Assert.AreEqual("color: green;", style);
+    }
 
-            Assert.AreEqual("color: green;", style);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnsNull_When_StyleAttributeIsNotPresent_Firefox()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnsNull_When_StyleAttributeIsNotPresent_Firefox()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL");
+        string style = element.GetStyle();
 
-            string style = element.GetStyle();
+        Assert.AreEqual(null, style);
+    }
 
-            Assert.AreEqual(null, style);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetDir_When_DirAttributeIsPresent_Firefox()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL19");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetDir_When_DirAttributeIsPresent_Firefox()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL19");
+        var dir = element.GetDir();
 
-            var dir = element.GetDir();
+        Assert.AreEqual("rtl", dir);
+    }
 
-            Assert.AreEqual("rtl", dir);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnsNull_When_DirAttributeIsNotPresent_Firefox()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnsNull_When_DirAttributeIsNotPresent_Firefox()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
+        string dir = element.GetDir();
 
-            string dir = element.GetDir();
+        Assert.IsNull(dir);
+    }
 
-            Assert.IsNull(dir);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetLang_When_LangAttributeIsPresent_Firefox()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL20");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetLang_When_LangAttributeIsPresent_Firefox()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL20");
+        var lang = element.GetLang();
 
-            var lang = element.GetLang();
+        Assert.AreEqual("en", lang);
+    }
 
-            Assert.AreEqual("en", lang);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnsNull_When_LangAttributeIsNotPresent_Firefox()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnsNull_When_LangAttributeIsNotPresent_Firefox()
-        {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL12");
+        string lang = element.GetLang();
 
-            string lang = element.GetLang();
-
-            Assert.IsNull(lang);
-        }
+        Assert.IsNull(lang);
     }
 }

@@ -17,43 +17,42 @@ using Bellatrix.Mobile.Locators;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Untils
+namespace Bellatrix.Mobile.Untils;
+
+public class WaitNotExistStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
+   where TDriver : AppiumDriver<TDriverElement>
+   where TDriverElement : AppiumWebElement
 {
-    public class WaitNotExistStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
-       where TDriver : AppiumDriver<TDriverElement>
-       where TDriverElement : AppiumWebElement
+    public WaitNotExistStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitNotExistStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToNotExistTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToNotExistTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-        {
-            WaitUntil(d => ElementNotExists(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementNotExists(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
 
-        private bool ElementNotExists<TBy>(TDriver searchContext, TBy by)
-            where TBy : FindStrategy<TDriver, TDriverElement>
+    private bool ElementNotExists<TBy>(TDriver searchContext, TBy by)
+        where TBy : FindStrategy<TDriver, TDriverElement>
+    {
+        try
         {
-            try
-            {
-                var element = by.FindElement(searchContext);
-                return element == null;
-            }
-            catch (InvalidOperationException)
-            {
-                return true;
-            }
-            catch (TimeoutException)
-            {
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return true;
-            }
+            var element = by.FindElement(searchContext);
+            return element == null;
+        }
+        catch (InvalidOperationException)
+        {
+            return true;
+        }
+        catch (TimeoutException)
+        {
+            return true;
+        }
+        catch (NoSuchElementException)
+        {
+            return true;
         }
     }
 }

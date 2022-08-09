@@ -13,17 +13,16 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public class ExecutionSettings
 {
-    public class ExecutionSettings
-    {
-        public string ExecutionType { get; set; }
-        public string DefaultAppPath { get; set; }
-        public string DefaultLifeCycle { get; set; }
-        public string Resolution { get; set; }
-        public bool ShouldStartLocalService { get; set; } = true;
-        public string Url { get; set; }
-        public List<Dictionary<string, string>> Arguments { get; set; }
-        public bool IsCloudRun { get; set; }
-    }
+    public string ExecutionType { get; set; }
+    public string DefaultAppPath { get; set; }
+    public string DefaultLifeCycle { get; set; }
+    public string Resolution { get; set; }
+    public bool ShouldStartLocalService { get; set; } = true;
+    public string Url { get; set; }
+    public List<Dictionary<string, string>> Arguments { get; set; }
+    public bool IsCloudRun { get; set; }
 }

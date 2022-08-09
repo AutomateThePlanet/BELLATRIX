@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class MonthEventHandlers : ComponentEventHandlers
 {
-    public class MonthEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Month.Hovering += HoveringEventHandler;
-            Month.Hovered += HoveredEventHandler;
-            Month.SettingMonth += SettingMonthEventHandler;
-            Month.MonthSet += MonthSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Month.Hovering += HoveringEventHandler;
+        Month.Hovered += HoveredEventHandler;
+        Month.SettingMonth += SettingMonthEventHandler;
+        Month.MonthSet += MonthSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Month.Hovering -= HoveringEventHandler;
-            Month.Hovered -= HoveredEventHandler;
-            Month.SettingMonth -= SettingMonthEventHandler;
-            Month.MonthSet -= MonthSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Month.Hovering -= HoveringEventHandler;
+        Month.Hovered -= HoveredEventHandler;
+        Month.SettingMonth -= SettingMonthEventHandler;
+        Month.MonthSet -= MonthSetEventHandler;
+    }
 
-        protected virtual void SettingMonthEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingMonthEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void MonthSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void MonthSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

@@ -14,134 +14,133 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Url Control")]
+[AllureFeature("ControlEvents")]
+public class UrlControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Url Control")]
-    [AllureFeature("ControlEvents")]
-    public class UrlControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().UrlLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingUrlCalled_BeforeActuallySetUrl()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().UrlLocalPage);
+        Url.SettingUrl += AssertValueAttributeEmpty;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingUrlCalled_BeforeActuallySetUrl()
+        var urlElement = App.Components.CreateById<Url>("myURL");
+
+        urlElement.SetUrl("bellatrix.solutions");
+
+        Assert.AreEqual("bellatrix.solutions", urlElement.GetUrl());
+
+        Url.SettingUrl -= AssertValueAttributeEmpty;
+
+        void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Url.SettingUrl += AssertValueAttributeEmpty;
-
-            var urlElement = App.Components.CreateById<Url>("myURL");
-
-            urlElement.SetUrl("bellatrix.solutions");
-
-            Assert.AreEqual("bellatrix.solutions", urlElement.GetUrl());
-
-            Url.SettingUrl -= AssertValueAttributeEmpty;
-
-            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingUrlCalled_AfterSetUrl()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingUrlCalled_AfterSetUrl()
+    {
+        Url.UrlSet += AssertValueAttributeContainsNewValue;
+
+        var urlElement = App.Components.CreateById<Url>("myURL");
+
+        urlElement.SetUrl("bellatrix.solutions");
+
+        Url.UrlSet -= AssertValueAttributeContainsNewValue;
+
+        void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Url.UrlSet += AssertValueAttributeContainsNewValue;
-
-            var urlElement = App.Components.CreateById<Url>("myURL");
-
-            urlElement.SetUrl("bellatrix.solutions");
-
-            Url.UrlSet -= AssertValueAttributeContainsNewValue;
-
-            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("bellatrix.solutions", args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual("bellatrix.solutions", args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+        Url.Hovering += AssertStyleAttributeEmpty;
+
+        var urlElement = App.Components.CreateById<Url>("myURL8");
+
+        urlElement.Hover();
+
+        Assert.AreEqual("color: red;", urlElement.GetStyle());
+
+        Url.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Url.Hovering += AssertStyleAttributeEmpty;
-
-            var urlElement = App.Components.CreateById<Url>("myURL8");
-
-            urlElement.Hover();
-
-            Assert.AreEqual("color: red;", urlElement.GetStyle());
-
-            Url.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        Url.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var urlElement = App.Components.CreateById<Url>("myURL8");
+
+        urlElement.Hover();
+
+        Url.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Url.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var urlElement = App.Components.CreateById<Url>("myURL8");
-
-            urlElement.Hover();
-
-            Url.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Url>("myURL8").ValidateStyleIs("color: red;");
-            }
+            App.Components.CreateById<Url>("myURL8").ValidateStyleIs("color: red;");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusingCalled_BeforeActuallyFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusingCalled_BeforeActuallyFocus()
+    {
+        Url.Focusing += AssertStyleAttributeEmpty;
+
+        var urlElement = App.Components.CreateById<Url>("myURL9");
+
+        urlElement.Focus();
+
+        Assert.AreEqual("color: blue;", urlElement.GetStyle());
+
+        Url.Focusing -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Url.Focusing += AssertStyleAttributeEmpty;
-
-            var urlElement = App.Components.CreateById<Url>("myURL9");
-
-            urlElement.Focus();
-
-            Assert.AreEqual("color: blue;", urlElement.GetStyle());
-
-            Url.Focusing -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusedCalled_AfterFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusedCalled_AfterFocus()
+    {
+        Url.Focused += AssertStyleAttributeContainsNewValue;
+
+        var urlElement = App.Components.CreateById<Url>("myURL9");
+
+        urlElement.Focus();
+
+        Url.Focused -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Url.Focused += AssertStyleAttributeContainsNewValue;
-
-            var urlElement = App.Components.CreateById<Url>("myURL9");
-
-            urlElement.Focus();
-
-            Url.Focused -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
         }
     }
 }

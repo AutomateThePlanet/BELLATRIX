@@ -16,25 +16,24 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsOn<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentOn, IComponent<IOSElement>
     {
-        public static void ValidateIsOn<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentOn, IComponent<IOSElement>
-        {
-            ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsOn.Equals(true), "The control should be ON but was OFF.", timeout, sleepInterval);
-            ValidatedIsOnEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
-        }
-
-        public static void ValidateIsOff<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentOn, IComponent<IOSElement>
-        {
-            ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsOn.Equals(false), "The control should be OFF but it was ON.", timeout, sleepInterval);
-            ValidatedIsOffEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsOnEvent;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsOffEvent;
+        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsOn.Equals(true), "The control should be ON but was OFF.", timeout, sleepInterval);
+        ValidatedIsOnEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
     }
+
+    public static void ValidateIsOff<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentOn, IComponent<IOSElement>
+    {
+        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsOn.Equals(false), "The control should be OFF but it was ON.", timeout, sleepInterval);
+        ValidatedIsOffEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsOnEvent;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsOffEvent;
 }

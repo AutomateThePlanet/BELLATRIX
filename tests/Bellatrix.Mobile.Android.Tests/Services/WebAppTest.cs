@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[AndroidWeb(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Services")]
+[AllureFeature("WebService")]
+public class WebAppTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [AndroidWeb(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Services")]
-    [AllureFeature("WebService")]
-    public class WebAppTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Ignore]
+    public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Ignore]
-        public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
-        {
-            App.Web.NavigationService.Navigate("http://demos.bellatrix.solutions/");
-            Assert.IsTrue(App.Web.BrowserService.HtmlSource.Contains("Shop"));
-        }
+        App.Web.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+        Assert.IsTrue(App.Web.BrowserService.HtmlSource.Contains("Shop"));
     }
 }

@@ -13,9 +13,8 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Controls.IOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class Image : IOSComponent
 {
-    public class Image : IOSComponent
-    {
-    }
 }

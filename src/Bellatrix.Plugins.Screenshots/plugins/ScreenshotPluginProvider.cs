@@ -14,16 +14,15 @@
 using System;
 using Bellatrix.Plugins;
 
-namespace Bellatrix.Plugins.Screenshots
+namespace Bellatrix.Plugins.Screenshots;
+
+public class ScreenshotPluginProvider : IScreenshotPluginProvider
 {
-    public class ScreenshotPluginProvider : IScreenshotPluginProvider
-    {
-        public event EventHandler<ScreenshotPluginEventArgs> ScreenshotGeneratedEvent;
+    public event EventHandler<ScreenshotPluginEventArgs> ScreenshotGeneratedEvent;
 
-        public void ScreenshotGenerated(PluginEventArgs e, string screenshotPath) =>
-            RaiseTestEvent(ScreenshotGeneratedEvent, e, screenshotPath);
+    public void ScreenshotGenerated(PluginEventArgs e, string screenshotPath) =>
+        RaiseTestEvent(ScreenshotGeneratedEvent, e, screenshotPath);
 
-        private void RaiseTestEvent(EventHandler<ScreenshotPluginEventArgs> eventHandler, PluginEventArgs e, string screenshotPath) =>
-            eventHandler?.Invoke(this, new ScreenshotPluginEventArgs(e, screenshotPath));
-    }
+    private void RaiseTestEvent(EventHandler<ScreenshotPluginEventArgs> eventHandler, PluginEventArgs e, string screenshotPath) =>
+        eventHandler?.Invoke(this, new ScreenshotPluginEventArgs(e, screenshotPath));
 }

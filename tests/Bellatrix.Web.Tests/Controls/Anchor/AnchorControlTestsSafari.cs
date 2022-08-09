@@ -13,140 +13,139 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Anchor Control")]
+public class AnchorControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Anchor Control")]
-    public class AnchorControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ClickOpensAutomateThePlanetUrl_When_DefaultClickIsSet_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ClickOpensAutomateThePlanetUrl_When_DefaultClickIsSet_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
+        anchorElement.Click();
 
-            anchorElement.Click();
+        App.Navigation.WaitForPartialUrl("automatetheplanet");
 
-            App.Navigation.WaitForPartialUrl("automatetheplanet");
+        Assert.IsTrue(App.Browser.Url.ToString().Contains("automatetheplanet.com"));
+    }
 
-            Assert.IsTrue(App.Browser.Url.ToString().Contains("automatetheplanet.com"));
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
+        anchorElement.Hover();
 
-            anchorElement.Hover();
+        Assert.AreEqual("color: red;", anchorElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", anchorElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor2");
+        anchorElement.Focus();
+    }
 
-            anchorElement.Focus();
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnAutomateThePlanet_When_InnerText_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnAutomateThePlanet_When_InnerText_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
+        Assert.AreEqual("Automate The Planet", anchorElement.InnerText);
+    }
 
-            Assert.AreEqual("Automate The Planet", anchorElement.InnerText);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnButtonHtml_When_InnerHtml_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnButtonHtml_When_InnerHtml_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor4");
+        Assert.IsTrue(anchorElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
+    }
 
-            Assert.IsTrue(anchorElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnEmpty_When_InnerTextNotSet_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnEmpty_When_InnerTextNotSet_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
+        Assert.AreEqual(string.Empty, anchorElement.InnerText);
+    }
 
-            Assert.AreEqual(string.Empty, anchorElement.InnerText);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnEmpty_When_InnerHtmlNotSet_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnEmpty_When_InnerHtmlNotSet_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor6");
+        string actualInnerHtml = anchorElement.InnerHtml;
 
-            string actualInnerHtml = anchorElement.InnerHtml;
+        Assert.AreEqual(string.Empty, actualInnerHtml);
+    }
 
-            Assert.AreEqual(string.Empty, actualInnerHtml);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnEmpty_When_RelNotSet_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnEmpty_When_RelNotSet_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
+        string actualRel = anchorElement.Rel;
 
-            string actualRel = anchorElement.Rel;
+        Assert.AreEqual(string.Empty, actualRel);
+    }
 
-            Assert.AreEqual(string.Empty, actualRel);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnCanonical_When_RelRel_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnCanonical_When_RelRel_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
+        Assert.AreEqual("canonical", anchorElement.Rel);
+    }
 
-            Assert.AreEqual("canonical", anchorElement.Rel);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnEmpty_When_TargetNotSet_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnEmpty_When_TargetNotSet_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor1");
+        Assert.AreEqual(string.Empty, anchorElement.Target);
+    }
 
-            Assert.AreEqual(string.Empty, anchorElement.Target);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnSelf_When_RelRel_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnSelf_When_RelRel_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
+        Assert.AreEqual("_self", anchorElement.Target);
+    }
 
-            Assert.AreEqual("_self", anchorElement.Target);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_HrefNotSet_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_HrefNotSet_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor5");
+        Assert.IsNull(anchorElement.Href);
+    }
 
-            Assert.IsNull(anchorElement.Href);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnAutomateThePlanetUrl_When_Href_Safari()
+    {
+        var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnAutomateThePlanetUrl_When_Href_Safari()
-        {
-            var anchorElement = App.Components.CreateById<Anchor>("myAnchor");
-
-            Assert.AreEqual("https://automatetheplanet.com/", anchorElement.Href);
-        }
+        Assert.AreEqual("https://automatetheplanet.com/", anchorElement.Href);
     }
 }

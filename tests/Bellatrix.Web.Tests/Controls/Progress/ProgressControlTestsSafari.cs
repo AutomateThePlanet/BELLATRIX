@@ -13,71 +13,70 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Progress Control")]
+public class ProgressControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Progress Control")]
-    public class ProgressControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ProgressLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void Return70_When_UseGetValueMethod_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ProgressLocalPage);
+        var progressElement = App.Components.CreateById<Progress>("myProgress");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void Return70_When_UseGetValueMethod_Safari()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress");
+        Assert.AreEqual("70", progressElement.Value);
+    }
 
-            Assert.AreEqual("70", progressElement.Value);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_NoValueAttributeAttributePresent_Safari()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_NoValueAttributeAttributePresent_Safari()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress2");
+        Assert.IsNotNull(progressElement.Value);
+    }
 
-            Assert.IsNotNull(progressElement.Value);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void Return100_When_UseGetMaxMethod_Safari()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void Return100_When_UseGetMaxMethod_Safari()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress");
+        Assert.AreEqual("100", progressElement.Max);
+    }
 
-            Assert.AreEqual("100", progressElement.Max);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void Return1_When_NoMaxAttributePresent_Safari()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void Return1_When_NoMaxAttributePresent_Safari()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress1");
+        var actualMax = progressElement.Max;
 
-            var actualMax = progressElement.Max;
+        Assert.AreEqual("1", actualMax);
+    }
 
-            Assert.AreEqual("1", actualMax);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void Return70_When_UseGetInnerTextMethod_Safari()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void Return70_When_UseGetInnerTextMethod_Safari()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress");
+        Assert.AreEqual("70 %", progressElement.InnerText);
+    }
 
-            Assert.AreEqual("70 %", progressElement.InnerText);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnEmpty_When_NoInnerTextPresent_Safari()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress3");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnEmpty_When_NoInnerTextPresent_Safari()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress3");
+        var actualInnerText = progressElement.InnerText;
 
-            var actualInnerText = progressElement.InnerText;
-
-            Assert.AreEqual(string.Empty, actualInnerText);
-        }
+        Assert.AreEqual(string.Empty, actualInnerText);
     }
 }

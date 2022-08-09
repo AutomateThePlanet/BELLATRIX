@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class PhoneEventHandlers : ComponentEventHandlers
 {
-    public class PhoneEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Phone.Hovering += HoveringEventHandler;
-            Phone.Hovered += HoveredEventHandler;
-            Phone.SettingPhone += SettingPhoneEventHandler;
-            Phone.PhoneSet += PhoneSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Phone.Hovering += HoveringEventHandler;
+        Phone.Hovered += HoveredEventHandler;
+        Phone.SettingPhone += SettingPhoneEventHandler;
+        Phone.PhoneSet += PhoneSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Phone.Hovering -= HoveringEventHandler;
-            Phone.Hovered -= HoveredEventHandler;
-            Phone.SettingPhone -= SettingPhoneEventHandler;
-            Phone.PhoneSet -= PhoneSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Phone.Hovering -= HoveringEventHandler;
+        Phone.Hovered -= HoveredEventHandler;
+        Phone.SettingPhone -= SettingPhoneEventHandler;
+        Phone.PhoneSet -= PhoneSetEventHandler;
+    }
 
-        protected virtual void SettingPhoneEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingPhoneEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void PhoneSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void PhoneSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

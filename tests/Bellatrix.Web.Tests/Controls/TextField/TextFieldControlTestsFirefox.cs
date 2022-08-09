@@ -13,206 +13,205 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
+[AllureSuite("TextField Control")]
+public class TextFieldControlTestsFirefox : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("TextField Control")]
-    public class TextFieldControlTestsFirefox : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void TextSet_When_UseSetTextMethod_Firefox()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage);
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void TextSet_When_UseSetTextMethod_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        textFieldElement.SetText("aangelov@bellatrix.solutions");
 
-            textFieldElement.SetText("aangelov@bellatrix.solutions");
+        Assert.AreEqual("aangelov@bellatrix.solutions", textFieldElement.Value);
+    }
 
-            Assert.AreEqual("aangelov@bellatrix.solutions", textFieldElement.Value);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        Assert.AreEqual(false, textFieldElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText5");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText5");
+        Assert.AreEqual(false, textFieldElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        Assert.AreEqual(true, textFieldElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(true, textFieldElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        Assert.AreEqual(false, textFieldElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText6");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText6");
+        Assert.AreEqual(true, textFieldElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, textFieldElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        var maxLength = textFieldElement.MaxLength;
 
-            var maxLength = textFieldElement.MaxLength;
+        Assert.IsNull(maxLength);
+    }
 
-            Assert.IsNull(maxLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        Assert.IsNull(textFieldElement.MinLength);
+    }
 
-            Assert.IsNull(textFieldElement.MinLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        // Specifies the width of an <input> element, in characters. Default value is 20
+        Assert.AreEqual(20, textFieldElement.Size);
+    }
 
-            // Specifies the width of an <input> element, in characters. Default value is 20
-            Assert.AreEqual(20, textFieldElement.Size);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        Assert.AreEqual(80, textFieldElement.MaxLength);
+    }
 
-            Assert.AreEqual(80, textFieldElement.MaxLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        Assert.AreEqual(10, textFieldElement.MinLength);
+    }
 
-            Assert.AreEqual(10, textFieldElement.MinLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        Assert.AreEqual(30, textFieldElement.Size);
+    }
 
-            Assert.AreEqual(30, textFieldElement.Size);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        Assert.AreEqual(false, textFieldElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText7");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText7");
+        Assert.AreEqual(true, textFieldElement.IsRequired);
+    }
 
-            Assert.AreEqual(true, textFieldElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetPlaceholder_When_PlaceholderAttributeIsSet_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetPlaceholder_When_PlaceholderAttributeIsSet_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        Assert.AreEqual("your Text term goes here", textFieldElement.Placeholder);
+    }
 
-            Assert.AreEqual("your Text term goes here", textFieldElement.Placeholder);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText1");
+        Assert.IsNull(textFieldElement.Placeholder);
+    }
 
-            Assert.IsNull(textFieldElement.Placeholder);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText8");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText8");
+        textFieldElement.Hover();
 
-            textFieldElement.Hover();
+        textFieldElement.ValidateStyleIs("color: red;");
+    }
 
-            textFieldElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText9");
+        textFieldElement.Focus();
 
-            textFieldElement.Focus();
+        textFieldElement.ValidateStyleIs("color: blue;");
+    }
 
-            textFieldElement.ValidateStyleIs("color: blue;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText9");
+        bool isDisabled = textFieldElement.IsDisabled;
 
-            bool isDisabled = textFieldElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Firefox()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText10");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Firefox()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText10");
+        bool isDisabled = textFieldElement.IsDisabled;
 
-            bool isDisabled = textFieldElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

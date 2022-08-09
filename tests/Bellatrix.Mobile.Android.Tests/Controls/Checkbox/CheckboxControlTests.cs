@@ -13,59 +13,58 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("CheckBox Control")]
+public class CheckboxControlTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("CheckBox Control")]
-    public class CheckboxControlTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
-        {
-            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
+        var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
 
-            checkBox.Check();
+        checkBox.Check();
 
-            Assert.IsTrue(checkBox.IsChecked);
-        }
+        Assert.IsTrue(checkBox.IsChecked);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void Checkbox1TextReturned_When_CheckBoxGetTextMethodCalled()
-        {
-            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void Checkbox1TextReturned_When_CheckBoxGetTextMethodCalled()
+    {
+        var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
 
-            string text = checkBox.GetText();
+        string text = checkBox.GetText();
 
-            Assert.AreEqual("Checkbox 1", text);
-        }
+        Assert.AreEqual("Checkbox 1", text);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt()
-        {
-            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt()
+    {
+        var checkBox = App.Components.CreateByIdContaining<CheckBox>("check2");
 
-            checkBox.Check();
-            checkBox.Uncheck();
+        checkBox.Check();
+        checkBox.Uncheck();
 
-            Assert.IsFalse(checkBox.IsChecked);
-        }
+        Assert.IsFalse(checkBox.IsChecked);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled()
-        {
-            var checkBox = App.Components.CreateByIdContaining<CheckBox>("check2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled()
+    {
+        var checkBox = App.Components.CreateByIdContaining<CheckBox>("check2");
 
-            Assert.AreEqual(false, checkBox.IsDisabled);
-        }
+        Assert.AreEqual(false, checkBox.IsDisabled);
     }
 }

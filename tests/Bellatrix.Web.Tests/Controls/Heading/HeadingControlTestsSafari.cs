@@ -13,42 +13,41 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Heading Control")]
+public class HeadingControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Heading Control")]
-    public class HeadingControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+        var headingElement = App.Components.CreateById<Heading>("myHeading");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Safari()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading");
+        headingElement.Hover();
 
-            headingElement.Hover();
+        Assert.AreEqual("color: red;", headingElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", headingElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnAutomateThePlanet_When_InnerText_Safari()
+    {
+        var headingElement = App.Components.CreateById<Heading>("myHeading2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnAutomateThePlanet_When_InnerText_Safari()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading2");
+        Assert.AreEqual("Automate The Planet", headingElement.InnerText);
+    }
 
-            Assert.AreEqual("Automate The Planet", headingElement.InnerText);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnEmpty_When_InnerTextNotSet_Safari()
+    {
+        var headingElement = App.Components.CreateById<Heading>("myHeading4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnEmpty_When_InnerTextNotSet_Safari()
-        {
-            var headingElement = App.Components.CreateById<Heading>("myHeading4");
-
-            Assert.AreEqual(string.Empty, headingElement.InnerText);
-        }
+        Assert.AreEqual(string.Empty, headingElement.InnerText);
     }
 }

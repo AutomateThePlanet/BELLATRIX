@@ -15,12 +15,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix.BugReporting.Jira;
+
+public class IssueCreateResponse
 {
-    public class IssueCreateResponse
-    {
-        public string id { get; set; }
-        public string key { get; set; }
-        public string self { get; set; }
-    }
+    public string id { get; set; }
+    public string key { get; set; }
+    public string self { get; set; }
 }

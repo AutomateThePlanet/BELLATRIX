@@ -16,34 +16,33 @@ using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class Reset : Component, IComponentDisabled, IComponentInnerText, IComponentValue
 {
-    public class Reset : Component, IComponentDisabled, IComponentInnerText, IComponentValue
+    public static event EventHandler<ComponentActionEventArgs> Clicking;
+    public static event EventHandler<ComponentActionEventArgs> Clicked;
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+
+    public override Type ComponentType => GetType();
+
+    public virtual void Click()
     {
-        public static event EventHandler<ComponentActionEventArgs> Clicking;
-        public static event EventHandler<ComponentActionEventArgs> Clicked;
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-
-        public override Type ComponentType => GetType();
-
-        public virtual void Click()
-        {
-            Click(Clicking, Clicked);
-        }
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string InnerText => GetInnerText();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Value => DefaultGetValue();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetDisabledAttribute();
+        Click(Clicking, Clicked);
     }
+
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string InnerText => GetInnerText();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Value => DefaultGetValue();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetDisabledAttribute();
 }

@@ -13,52 +13,51 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Button Control")]
+public class ButtonControlTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Button Control")]
-    public class ButtonControlTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ButtonClicked_When_CallClickMethod()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ButtonClicked_When_CallClickMethod()
-        {
-            var button = App.Components.CreateByIdContaining<Button>("button");
+        var button = App.Components.CreateByIdContaining<Button>("button");
 
-            button.Click();
-        }
+        button.Click();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ReturnsSave_When_GetText()
-        {
-            var button = App.Components.CreateByIdContaining<Button>("button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ReturnsSave_When_GetText()
+    {
+        var button = App.Components.CreateByIdContaining<Button>("button");
 
-            Assert.AreEqual("Save", button.GetText());
-        }
+        Assert.AreEqual("Save", button.GetText());
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled()
-        {
-            var button = App.Components.CreateByIdContaining<Button>("button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled()
+    {
+        var button = App.Components.CreateByIdContaining<Button>("button");
 
-            Assert.AreEqual(false, button.IsDisabled);
-        }
+        Assert.AreEqual(false, button.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsTrue_When_ButtonIsDisabled()
-        {
-            var button = App.Components.CreateByIdContaining<Button>("button_disabled");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsTrue_When_ButtonIsDisabled()
+    {
+        var button = App.Components.CreateByIdContaining<Button>("button_disabled");
 
-            Assert.AreEqual(true, button.IsDisabled);
-        }
+        Assert.AreEqual(true, button.IsDisabled);
     }
 }

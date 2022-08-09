@@ -11,22 +11,21 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.ExceptionAnalysation
+namespace Bellatrix.Web.ExceptionAnalysation;
+
+public class CustomHtmlExceptionHandler : HtmlSourceExceptionHandler
 {
-    public class CustomHtmlExceptionHandler : HtmlSourceExceptionHandler
+    public CustomHtmlExceptionHandler(string textToSearchInSource, string detailedIssueExplanation)
     {
-        public CustomHtmlExceptionHandler(string textToSearchInSource, string detailedIssueExplanation)
-        {
-            TextToSearchInSource = textToSearchInSource;
-            DetailedIssueExplanation = detailedIssueExplanation;
-        }
-
-        public CustomHtmlExceptionHandler()
-        {
-        }
-
-        public override string DetailedIssueExplanation { get; }
-
-        protected override string TextToSearchInSource { get; }
+        TextToSearchInSource = textToSearchInSource;
+        DetailedIssueExplanation = detailedIssueExplanation;
     }
+
+    public CustomHtmlExceptionHandler()
+    {
+    }
+
+    public override string DetailedIssueExplanation { get; }
+
+    protected override string TextToSearchInSource { get; }
 }

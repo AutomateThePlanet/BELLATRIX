@@ -14,43 +14,42 @@
 
 using Bellatrix.Mobile.IOS;
 
-namespace Bellatrix.Mobile.MSTest
+namespace Bellatrix.Mobile.MSTest;
+
+public abstract class IOSTest : MSTestBaseTest
 {
-    public abstract class IOSTest : MSTestBaseTest
+    private static readonly object _lockObject = new object();
+    private static bool _arePluginsAlreadyInitialized;
+
+    public IOSApp App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<IOSApp>();
+
+    public override void Configure()
     {
-        private static readonly object _lockObject = new object();
-        private static bool _arePluginsAlreadyInitialized;
-
-        public IOSApp App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<IOSApp>();
-
-        public override void Configure()
+        lock (_lockObject)
         {
-            lock (_lockObject)
+            if (!_arePluginsAlreadyInitialized)
             {
-                if (!_arePluginsAlreadyInitialized)
-                {
-                    MSTestPluginConfiguration.Add();
-                    ExecutionTimePlugin.Add();
-                    VideoRecorderPluginConfiguration.AddMSTest();
-                    ScreenshotsPluginConfiguration.AddMSTest();
-                    DynamicTestCasesPlugin.Add();
-                    AllurePlugin.Add();
-                    BugReportingPlugin.Add();
-                    IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
-                    IOSPluginsConfiguration.AddElementsBddLogging();
-                    IOSPluginsConfiguration.AddDynamicTestCases();
-                    IOSPluginsConfiguration.AddBugReporting();
-                    IOSPluginsConfiguration.AddValidateExtensionsBddLogging();
-                    IOSPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                    IOSPluginsConfiguration.AddValidateExtensionsBugReporting();
-                    IOSPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                    IOSPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                    IOSPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
-                    IOSPluginsConfiguration.AddLifecycle();
-                    IOSPluginsConfiguration.AddLogExecutionLifecycle();
+                MSTestPluginConfiguration.Add();
+                ExecutionTimePlugin.Add();
+                VideoRecorderPluginConfiguration.AddMSTest();
+                ScreenshotsPluginConfiguration.AddMSTest();
+                DynamicTestCasesPlugin.Add();
+                AllurePlugin.Add();
+                BugReportingPlugin.Add();
+                IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
+                IOSPluginsConfiguration.AddElementsBddLogging();
+                IOSPluginsConfiguration.AddDynamicTestCases();
+                IOSPluginsConfiguration.AddBugReporting();
+                IOSPluginsConfiguration.AddValidateExtensionsBddLogging();
+                IOSPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+                IOSPluginsConfiguration.AddValidateExtensionsBugReporting();
+                IOSPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+                IOSPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+                IOSPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+                IOSPluginsConfiguration.AddLifecycle();
+                IOSPluginsConfiguration.AddLogExecutionLifecycle();
 
-                    _arePluginsAlreadyInitialized = true;
-                }
+                _arePluginsAlreadyInitialized = true;
             }
         }
     }

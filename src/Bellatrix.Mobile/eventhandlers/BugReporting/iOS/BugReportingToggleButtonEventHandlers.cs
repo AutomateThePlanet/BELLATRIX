@@ -15,12 +15,11 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.BugReporting.IOS
-{
-    public class BugReportingToggleButtonEventHandlers : ToggleButtonEventHandlers
-    {
-        protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+namespace Bellatrix.Mobile.BugReporting.IOS;
 
-        protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+public class BugReportingToggleButtonEventHandlers : ToggleButtonEventHandlers
+{
+    protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+
+    protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

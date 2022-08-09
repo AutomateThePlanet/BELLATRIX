@@ -15,38 +15,37 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Locators.Android
+namespace Bellatrix.Mobile.Locators.Android;
+
+public class FindNameStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
 {
-    public class FindNameStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+    public FindNameStrategy(string name)
+        : base(name)
     {
-        public FindNameStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
-        {
-            return searchContext.FindElementByName(Value);
-        }
+    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    {
+        return searchContext.FindElementByName(Value);
+    }
 
-        public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
-        {
-            return searchContext.FindElementsByName(Value);
-        }
+    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
+    {
+        return searchContext.FindElementsByName(Value);
+    }
 
-        public override AppiumWebElement FindElement(AndroidElement element)
-        {
-            return element.FindElementByName(Value);
-        }
+    public override AppiumWebElement FindElement(AndroidElement element)
+    {
+        return element.FindElementByName(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
-        {
-            return element.FindElementsByName(Value);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    {
+        return element.FindElementsByName(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"Name = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"Name = {Value}";
     }
 }

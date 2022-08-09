@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.KeyVault
+namespace Bellatrix.KeyVault;
+
+public class KeyVaultSettings
 {
-    public class KeyVaultSettings
-    {
-        public string KeyVaultEndpoint { get; set; }
-        public bool IsEnabled { get; set; }
-    }
+    public string KeyVaultEndpoint { get; set; }
+    public bool IsEnabled { get; set; }
 }

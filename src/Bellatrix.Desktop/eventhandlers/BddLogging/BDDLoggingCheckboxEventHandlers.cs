@@ -14,12 +14,11 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.BddLogging
-{
-    public class BDDLoggingCheckboxEventHandlers : CheckboxEventHandlers
-    {
-        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+namespace Bellatrix.Desktop.BddLogging;
 
-        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+public class BDDLoggingCheckboxEventHandlers : CheckboxEventHandlers
+{
+    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+
+    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

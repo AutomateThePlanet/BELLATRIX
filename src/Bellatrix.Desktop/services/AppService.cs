@@ -13,21 +13,20 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Services
+namespace Bellatrix.Desktop.Services;
+
+public class AppService : DesktopService
 {
-    public class AppService : DesktopService
+    public AppService(WindowsDriver<WindowsElement> wrappedDriver)
+        : base(wrappedDriver)
     {
-        public AppService(WindowsDriver<WindowsElement> wrappedDriver)
-            : base(wrappedDriver)
-        {
-        }
-
-        public string Title => WrappedDriver.Title;
-
-        public void Back() => WrappedDriver.Navigate().Back();
-
-        public void Forward() => WrappedDriver.Navigate().Forward();
-
-        public void Maximize() => WrappedDriver.Manage().Window.Maximize();
     }
+
+    public string Title => WrappedDriver.Title;
+
+    public void Back() => WrappedDriver.Navigate().Back();
+
+    public void Forward() => WrappedDriver.Navigate().Forward();
+
+    public void Maximize() => WrappedDriver.Manage().Window.Maximize();
 }

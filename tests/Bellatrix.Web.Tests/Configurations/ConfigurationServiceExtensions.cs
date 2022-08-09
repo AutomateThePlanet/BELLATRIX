@@ -13,11 +13,10 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.Extensions.Configuration;
 
-namespace Bellatrix.Web.Tests
+namespace Bellatrix.Web.Tests;
+
+public static class ConfigurationServiceExtensions
 {
-    public static class ConfigurationServiceExtensions
-    {
-        public static TestPagesSettings GetTestPagesSettings(this ConfigurationService service)
-            => ConfigurationService.GetSection<TestPagesSettings>();
-    }
+    public static TestPagesSettings GetTestPagesSettings(this ConfigurationService service)
+        => ConfigurationService.GetSection<TestPagesSettings>();
 }

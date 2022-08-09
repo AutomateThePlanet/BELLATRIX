@@ -14,12 +14,11 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.BugReporting
-{
-    public class BugReportingCheckboxEventHandlers : CheckboxEventHandlers
-    {
-        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+namespace Bellatrix.Desktop.BugReporting;
 
-        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+public class BugReportingCheckboxEventHandlers : CheckboxEventHandlers
+{
+    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+
+    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

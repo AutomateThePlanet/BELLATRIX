@@ -13,37 +13,36 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.NumberPickerActivity",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Number Control")]
+[AllureFeature("ValidateExtensions")]
+public class NumberControlValidateExtensionTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.NumberPickerActivity",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Number Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class NumberControlValidateExtensionTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateNumberIs_DoesNotThrowException_When_NumberIsSet()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateNumberIs_DoesNotThrowException_When_NumberIsSet()
-        {
-            var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
+        var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
 
-            number.SetNumber(9);
+        number.SetNumber(9);
 
-            number.ValidateNumberIs(9);
-        }
+        number.ValidateNumberIs(9);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_NumberIsNotDisabled()
-        {
-            var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_NumberIsNotDisabled()
+    {
+        var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
 
-            number.ValidateIsNotDisabled();
-        }
+        number.ValidateIsNotDisabled();
     }
 }

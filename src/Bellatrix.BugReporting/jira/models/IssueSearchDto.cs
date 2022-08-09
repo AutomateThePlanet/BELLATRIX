@@ -15,15 +15,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix.BugReporting.Jira;
+
+public class IssueSearchDto
 {
-    public class IssueSearchDto
-    {
-        public List<string> expand { get; set; }
-        public string jql { get; set; }
-        public int maxResults { get; set; }
-        public bool fieldsByKeys { get; set; }
-        public List<string> fields { get; set; }
-        public int startAt { get; set; }
-    }
+    public List<string> expand { get; set; }
+    public string jql { get; set; }
+    public int maxResults { get; set; }
+    public bool fieldsByKeys { get; set; }
+    public List<string> fields { get; set; }
+    public int startAt { get; set; }
 }

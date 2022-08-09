@@ -13,28 +13,27 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+public static class TimeSpanConverter
 {
-    public static class TimeSpanConverter
+    public static TimeSpan Convert(int time, TimeUnit timeUnit)
     {
-        public static TimeSpan Convert(int time, TimeUnit timeUnit)
+        TimeSpan result = default;
+
+        switch (timeUnit)
         {
-            TimeSpan result = default;
-
-            switch (timeUnit)
-            {
-                case TimeUnit.Milliseconds:
-                    result = TimeSpan.FromMilliseconds(time);
-                    break;
-                case TimeUnit.Seconds:
-                    result = TimeSpan.FromSeconds(time);
-                    break;
-                case TimeUnit.Minutes:
-                    result = TimeSpan.FromMinutes(time);
-                    break;
-            }
-
-            return result;
+            case TimeUnit.Milliseconds:
+                result = TimeSpan.FromMilliseconds(time);
+                break;
+            case TimeUnit.Seconds:
+                result = TimeSpan.FromSeconds(time);
+                break;
+            case TimeUnit.Minutes:
+                result = TimeSpan.FromMinutes(time);
+                break;
         }
+
+        return result;
     }
 }

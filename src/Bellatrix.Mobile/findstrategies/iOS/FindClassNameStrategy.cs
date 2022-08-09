@@ -15,38 +15,37 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.Locators.IOS
+namespace Bellatrix.Mobile.Locators.IOS;
+
+public class FindClassNameStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
 {
-    public class FindClassNameStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+    public FindClassNameStrategy(string name)
+        : base(name)
     {
-        public FindClassNameStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
-        {
-            return searchContext.FindElementByClassName(Value);
-        }
+    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    {
+        return searchContext.FindElementByClassName(Value);
+    }
 
-        public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
-        {
-            return searchContext.FindElementsByClassName(Value);
-        }
+    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    {
+        return searchContext.FindElementsByClassName(Value);
+    }
 
-        public override AppiumWebElement FindElement(IOSElement element)
-        {
-            return element.FindElementByClassName(Value);
-        }
+    public override AppiumWebElement FindElement(IOSElement element)
+    {
+        return element.FindElementByClassName(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
-        {
-            return element.FindElementsByClassName(Value);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    {
+        return element.FindElementsByClassName(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"ClassName = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"ClassName = {Value}";
     }
 }

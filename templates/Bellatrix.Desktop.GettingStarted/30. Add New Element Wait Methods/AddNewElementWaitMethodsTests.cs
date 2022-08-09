@@ -3,22 +3,21 @@ using Bellatrix.Desktop.GettingStarted.ExtensionMethodsWaitMethods;
 using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
-namespace Bellatrix.Desktop.GettingStarted
+namespace Bellatrix.Desktop.GettingStarted;
+
+[TestFixture]
+public class AddNewElementWaitMethodsTests : DesktopTest
 {
-    [TestFixture]
-    public class AddNewElementWaitMethodsTests : DesktopTest
+    [Test]
+    [Category(Categories.CI)]
+    public void MessageChanged_When_ButtonHovered_Wpf()
     {
-        [Test]
-        [Category(Categories.CI)]
-        public void MessageChanged_When_ButtonHovered_Wpf()
-        {
-            // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
-            var button = App.Components.CreateByName<Button>("E Button").ToHaveSpecificContent("E Button");
+        // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
+        var button = App.Components.CreateByName<Button>("E Button").ToHaveSpecificContent("E Button");
 
-            button.Hover();
+        button.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-            Assert.AreEqual("ebuttonHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        Assert.AreEqual("ebuttonHovered", label.InnerText);
     }
 }

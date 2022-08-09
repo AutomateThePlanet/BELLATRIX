@@ -28,123 +28,122 @@ using Bellatrix.DynamicTestCases;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class App : IDisposable
 {
-    public class App : IDisposable
+    // TODO: Change to be ThreadLocal.
+    private static bool _shouldStartLocalService;
+    private static Process _winAppDriverProcess;
+
+    public App()
     {
-        // TODO: Change to be ThreadLocal.
-        private static bool _shouldStartLocalService;
-        private static Process _winAppDriverProcess;
+        _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
+    }
 
-        public App()
+    public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
+    public ComponentWaitService Wait => ServicesCollection.Current.Resolve<ComponentWaitService>();
+    public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
+
+    public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+    public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
+    public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
+
+    public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
+
+    public static void StartWinAppDriver()
+    {
+        if (_shouldStartLocalService)
         {
-            _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
-        }
+            int port = int.Parse(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url.Split(':').Last());
 
-        public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
-        public ComponentWaitService Wait => ServicesCollection.Current.Resolve<ComponentWaitService>();
-        public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
-
-        public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-        public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
-        public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
-
-        public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
-
-        public static void StartWinAppDriver()
-        {
-            if (_shouldStartLocalService)
+            // Anton(06.09.2018): maybe we can kill WinAppDriver every time
+            if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver") || ProcessProvider.IsPortBusy(port))
             {
-                int port = int.Parse(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url.Split(':').Last());
+                return;
+            }
 
-                // Anton(06.09.2018): maybe we can kill WinAppDriver every time
-                if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver") || ProcessProvider.IsPortBusy(port))
-                {
-                    return;
-                }
+            string winAppDriverPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Windows Application Driver");
+            if (!Directory.Exists(winAppDriverPath))
+            {
+                throw new ArgumentException("Windows Application Driver is not installed on the machine. To use BELLATRIX Desktop libraries you need to install it first. You can download it from here: https://github.com/Microsoft/WinAppDriver/releases");
+            }
 
-                string winAppDriverPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Windows Application Driver");
-                if (!Directory.Exists(winAppDriverPath))
-                {
-                    throw new ArgumentException("Windows Application Driver is not installed on the machine. To use BELLATRIX Desktop libraries you need to install it first. You can download it from here: https://github.com/Microsoft/WinAppDriver/releases");
-                }
+            string winAppDriverExePath = Path.Combine(winAppDriverPath, "WinAppDriver.exe");
+            _winAppDriverProcess = ProcessProvider.StartProcess(winAppDriverExePath, winAppDriverPath, $"{ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url}", true);
+            ProcessProvider.WaitPortToGetBusy(port);
+        }
+    }
 
-                string winAppDriverExePath = Path.Combine(winAppDriverPath, "WinAppDriver.exe");
-                _winAppDriverProcess = ProcessProvider.StartProcess(winAppDriverExePath, winAppDriverPath, $"{ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url}", true);
-                ProcessProvider.WaitPortToGetBusy(port);
+    public static void StopWinAppDriver()
+    {
+        if (_shouldStartLocalService)
+        {
+            if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver"))
+            {
+                ProcessProvider.CloseProcess(_winAppDriverProcess);
+            }
+        }
+    }
+
+    public void AddAdditionalCapability(string name, object value)
+    {
+        string fullClassName = DetermineTestClassFullNameAttributes();
+        var dictionary = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{fullClassName}") ?? new Dictionary<string, object>();
+        dictionary.Add(name, value);
+        ServicesCollection.Main.RegisterInstance(dictionary, $"caps-{fullClassName}");
+    }
+
+    public void AddElementEventHandler<TComponentsEventHandler>()
+        where TComponentsEventHandler : ComponentEventHandlers
+    {
+        var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
+        elementEventHandler.SubscribeToAll();
+    }
+
+    public void RemoveElementEventHandler<TComponentsEventHandler>()
+        where TComponentsEventHandler : ComponentEventHandlers
+    {
+        var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
+        elementEventHandler.UnsubscribeToAll();
+    }
+
+    public void AddPlugin<TExecutionExtension>()
+        where TExecutionExtension : Plugin
+    {
+        ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
+    }
+
+    public void Dispose()
+    {
+        DisposeDriverService.DisposeAll();
+        GC.SuppressFinalize(this);
+    }
+
+    public TPage Create<TPage>()
+        where TPage : DesktopPage
+    {
+        TPage page = ServicesCollection.Current.Resolve<TPage>();
+        return page;
+    }
+
+    private string DetermineTestClassFullNameAttributes()
+    {
+        string fullClassName = string.Empty;
+        var callStackTrace = new StackTrace();
+        var currentAssembly = GetType().Assembly;
+
+        foreach (var frame in callStackTrace.GetFrames())
+        {
+            var frameMethodInfo = frame.GetMethod() as MethodInfo;
+            if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
+                frameMethodInfo.Name.Equals("TestsArrange") || frameMethodInfo.Name.Equals("ScenarioInitialize"))
+            {
+                fullClassName = frameMethodInfo.DeclaringType.FullName;
+                break;
             }
         }
 
-        public static void StopWinAppDriver()
-        {
-            if (_shouldStartLocalService)
-            {
-                if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver"))
-                {
-                    ProcessProvider.CloseProcess(_winAppDriverProcess);
-                }
-            }
-        }
-
-        public void AddAdditionalCapability(string name, object value)
-        {
-            string fullClassName = DetermineTestClassFullNameAttributes();
-            var dictionary = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{fullClassName}") ?? new Dictionary<string, object>();
-            dictionary.Add(name, value);
-            ServicesCollection.Main.RegisterInstance(dictionary, $"caps-{fullClassName}");
-        }
-
-        public void AddElementEventHandler<TComponentsEventHandler>()
-            where TComponentsEventHandler : ComponentEventHandlers
-        {
-            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
-            elementEventHandler.SubscribeToAll();
-        }
-
-        public void RemoveElementEventHandler<TComponentsEventHandler>()
-            where TComponentsEventHandler : ComponentEventHandlers
-        {
-            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
-            elementEventHandler.UnsubscribeToAll();
-        }
-
-        public void AddPlugin<TExecutionExtension>()
-            where TExecutionExtension : Plugin
-        {
-            ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
-        }
-
-        public void Dispose()
-        {
-            DisposeDriverService.DisposeAll();
-            GC.SuppressFinalize(this);
-        }
-
-        public TPage Create<TPage>()
-            where TPage : DesktopPage
-        {
-            TPage page = ServicesCollection.Current.Resolve<TPage>();
-            return page;
-        }
-
-        private string DetermineTestClassFullNameAttributes()
-        {
-            string fullClassName = string.Empty;
-            var callStackTrace = new StackTrace();
-            var currentAssembly = GetType().Assembly;
-
-            foreach (var frame in callStackTrace.GetFrames())
-            {
-                var frameMethodInfo = frame.GetMethod() as MethodInfo;
-                if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
-                    frameMethodInfo.Name.Equals("TestsArrange") || frameMethodInfo.Name.Equals("ScenarioInitialize"))
-                {
-                    fullClassName = frameMethodInfo.DeclaringType.FullName;
-                    break;
-                }
-            }
-
-            return fullClassName;
-        }
+        return fullClassName;
     }
 }

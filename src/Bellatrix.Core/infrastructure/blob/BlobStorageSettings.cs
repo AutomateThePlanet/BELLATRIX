@@ -12,10 +12,9 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Core.Infrastructure
+namespace Bellatrix.Core.Infrastructure;
+
+public class BlobStorageSettings
 {
-    public class BlobStorageSettings
-    {
-        public string ConnectionString { get; set; }
-    }
+    public string ConnectionString { get; set; }
 }

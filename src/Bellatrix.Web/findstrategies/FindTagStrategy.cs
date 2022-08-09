@@ -13,23 +13,22 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class FindTagStrategy : FindStrategy
 {
-    public class FindTagStrategy : FindStrategy
+    public FindTagStrategy(string value)
+        : base(value)
     {
-        public FindTagStrategy(string value)
-            : base(value)
-        {
-        }
+    }
 
-        public override By Convert()
-        {
-            return By.TagName(Value);
-        }
+    public override By Convert()
+    {
+        return By.TagName(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"Tag = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"Tag = {Value}";
     }
 }

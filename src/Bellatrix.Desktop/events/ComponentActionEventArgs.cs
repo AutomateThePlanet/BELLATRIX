@@ -13,16 +13,15 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Contracts;
 
-namespace Bellatrix.Desktop.Events
+namespace Bellatrix.Desktop.Events;
+
+public class ComponentActionEventArgs
 {
-    public class ComponentActionEventArgs
-    {
-        public ComponentActionEventArgs(IComponent element) => Element = element;
+    public ComponentActionEventArgs(IComponent element) => Element = element;
 
-        public ComponentActionEventArgs(IComponent element, string actionValue)
-            : this(element) => ActionValue = actionValue;
+    public ComponentActionEventArgs(IComponent element, string actionValue)
+        : this(element) => ActionValue = actionValue;
 
-        public IComponent Element { get; }
-        public string ActionValue { get; }
-    }
+    public IComponent Element { get; }
+    public string ActionValue { get; }
 }

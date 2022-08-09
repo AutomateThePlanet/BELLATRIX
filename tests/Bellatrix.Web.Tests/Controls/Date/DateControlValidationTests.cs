@@ -14,83 +14,82 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Date Control")]
+public class DateControlValidationTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Date Control")]
-    public class DateControlValidationTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void DateSetThrowsArgumentException_When_Month0_Edge()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void DateSetThrowsArgumentException_When_Month0_Edge()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, 0, 1));
+    }
 
-            Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, 0, 1));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void DateSetThrowsArgumentException_When_MonthMinus1_Edge()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void DateSetThrowsArgumentException_When_MonthMinus1_Edge()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, -1, 1));
+    }
 
-            Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, -1, 1));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void DateSetThrowsArgumentException_When_YearMinus1_Edge()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void DateSetThrowsArgumentException_When_YearMinus1_Edge()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(-1, 2, 1));
+    }
 
-            Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(-1, 2, 1));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void DateSetThrowsArgumentException_When_Year0_Edge()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void DateSetThrowsArgumentException_When_Year0_Edge()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(0, 1, 1));
+    }
 
-            Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(0, 1, 1));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void DateSetThrowsArgumentException_When_DayMinus1_Edge()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void DateSetThrowsArgumentException_When_DayMinus1_Edge()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, 1, -1));
+    }
 
-            Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, 1, -1));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void DateSetThrowsArgumentException_When_Day0_Edge()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void DateSetThrowsArgumentException_When_Day0_Edge()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2007, 2, 0));
+    }
 
-            Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2007, 2, 0));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    [TestCategory(Categories.CI)]
+    public void DateSetThrowsArgumentException_When_Day32_Edge()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        [TestCategory(Categories.CI)]
-        public void DateSetThrowsArgumentException_When_Day32_Edge()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
-
-            Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2007, 1, 32));
-        }
+        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2007, 1, 32));
     }
 }

@@ -19,71 +19,70 @@ using Bellatrix.Desktop.Configuration;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Remote;
 
-namespace Bellatrix.Desktop.Services
+namespace Bellatrix.Desktop.Services;
+
+public class WrappedWebDriverCreateService
 {
-    public class WrappedWebDriverCreateService
+    private static readonly string _serviceUrl;
+
+    static WrappedWebDriverCreateService()
     {
-        private static readonly string _serviceUrl;
+        _serviceUrl = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url;
+    }
 
-        static WrappedWebDriverCreateService()
+    public static WindowsDriver<WindowsElement> Create(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
+    {
+        var driverOptions = childContainer.Resolve<DesiredCapabilities>(appConfiguration.ClassFullName) ?? childContainer.Resolve<DesiredCapabilities>() ?? appConfiguration.AppiumOptions;
+        driverOptions.SetCapability("app", appConfiguration.AppPath);
+        driverOptions.SetCapability("deviceName", "WindowsPC");
+        driverOptions.SetCapability("platformName", "Windows");
+        string workingDir = Path.GetDirectoryName(appConfiguration.AppPath);
+        driverOptions.SetCapability("appWorkingDir", workingDir);
+        driverOptions.SetCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.CreateSessionTimeout);
+        driverOptions.SetCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.WaitForAppLaunchTimeout);
+
+        var additionalCapabilities = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{appConfiguration.ClassFullName}") ?? new Dictionary<string, object>();
+        foreach (var additionalCapability in additionalCapabilities)
         {
-            _serviceUrl = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url;
+            driverOptions.SetCapability(additionalCapability.Key, additionalCapability.Value);
         }
 
-        public static WindowsDriver<WindowsElement> Create(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
+        var wrappedWebDriver = new WindowsDriver<WindowsElement>(new Uri(_serviceUrl), driverOptions);
+
+        wrappedWebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ImplicitWaitTimeout);
+
+        ChangeWindowSize(appConfiguration.Size, wrappedWebDriver);
+        wrappedWebDriver.SwitchTo().Window(wrappedWebDriver.CurrentWindowHandle);
+        try
         {
-            var driverOptions = childContainer.Resolve<DesiredCapabilities>(appConfiguration.ClassFullName) ?? childContainer.Resolve<DesiredCapabilities>() ?? appConfiguration.AppiumOptions;
-            driverOptions.SetCapability("app", appConfiguration.AppPath);
-            driverOptions.SetCapability("deviceName", "WindowsPC");
-            driverOptions.SetCapability("platformName", "Windows");
-            string workingDir = Path.GetDirectoryName(appConfiguration.AppPath);
-            driverOptions.SetCapability("appWorkingDir", workingDir);
-            driverOptions.SetCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.CreateSessionTimeout);
-            driverOptions.SetCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.WaitForAppLaunchTimeout);
-
-            var additionalCapabilities = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{appConfiguration.ClassFullName}") ?? new Dictionary<string, object>();
-            foreach (var additionalCapability in additionalCapabilities)
-            {
-                driverOptions.SetCapability(additionalCapability.Key, additionalCapability.Value);
-            }
-
-            var wrappedWebDriver = new WindowsDriver<WindowsElement>(new Uri(_serviceUrl), driverOptions);
-
-            wrappedWebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ImplicitWaitTimeout);
-
-            ChangeWindowSize(appConfiguration.Size, wrappedWebDriver);
-            wrappedWebDriver.SwitchTo().Window(wrappedWebDriver.CurrentWindowHandle);
-            try
-            {
-                var closeButton = wrappedWebDriver.FindElementByAccessibilityId("Close");
-                wrappedWebDriver.Mouse.MouseMove(closeButton.Coordinates);
-            }
-            catch (Exception e)
-            {
-                e.PrintStackTrace();
-            }
-
-            return wrappedWebDriver;
+            var closeButton = wrappedWebDriver.FindElementByAccessibilityId("Close");
+            wrappedWebDriver.Mouse.MouseMove(closeButton.Coordinates);
+        }
+        catch (Exception e)
+        {
+            e.PrintStackTrace();
         }
 
-        private static void ChangeWindowSize(Size windowSize, WindowsDriver<WindowsElement> wrappedWebDriver)
+        return wrappedWebDriver;
+    }
+
+    private static void ChangeWindowSize(Size windowSize, WindowsDriver<WindowsElement> wrappedWebDriver)
+    {
+        try
         {
-            try
+            if (windowSize != default)
             {
-                if (windowSize != default)
-                {
-                    wrappedWebDriver.Manage().Window.Size = windowSize;
-                }
-                else
-                {
-                    wrappedWebDriver.Manage().Window.Maximize();
-                }
+                wrappedWebDriver.Manage().Window.Size = windowSize;
             }
-            catch (Exception e)
+            else
             {
-                e.PrintStackTrace();
-                throw;
+                wrappedWebDriver.Manage().Window.Maximize();
             }
+        }
+        catch (Exception e)
+        {
+            e.PrintStackTrace();
+            throw;
         }
     }
 }

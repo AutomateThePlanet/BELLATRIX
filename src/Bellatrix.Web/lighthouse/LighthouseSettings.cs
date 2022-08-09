@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public class LighthouseSettings
 {
-    public class LighthouseSettings
-    {
-        public List<Dictionary<string, string>> Arguments { get; set; }
-        public int Timeout { get; set; }
-        public bool IsEnabled { get; set; }
-    }
+    public List<Dictionary<string, string>> Arguments { get; set; }
+    public int Timeout { get; set; }
+    public bool IsEnabled { get; set; }
 }

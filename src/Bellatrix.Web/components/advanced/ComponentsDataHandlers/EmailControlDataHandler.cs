@@ -14,17 +14,16 @@
 
 using System;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class EmailControlDataHandler : IEditableControlDataHandler<Email>
 {
-    public class EmailControlDataHandler : IEditableControlDataHandler<Email>
+    public dynamic GetData(Email element) => element.GetEmail();
+
+    public void SetData(Email element, string data)
     {
-        public dynamic GetData(Email element) => element.GetEmail();
-
-        public void SetData(Email element, string data)
-        {
-            element.SetEmail(data);
-        }
-
-        public void ValidateValueIs(Email element, string expectedValue) => element.ValidateEmailIs(expectedValue);
+        element.SetEmail(data);
     }
+
+    public void ValidateValueIs(Email element, string expectedValue) => element.ValidateEmailIs(expectedValue);
 }

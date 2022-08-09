@@ -11,14 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Api.Configuration
+namespace Bellatrix.Api.Configuration;
+
+public class ApiSettings
 {
-    public class ApiSettings
-    {
-        public string BaseUrl { get; set; }
-        public int ClientTimeoutSeconds { get; set; }
-        public int MaxRetryAttempts { get; set; }
-        public int PauseBetweenFailures { get; set; }
-        public TimeUnit TimeUnit { get; set; }
-    }
+    public string BaseUrl { get; set; }
+    public int ClientTimeoutSeconds { get; set; }
+    public int MaxRetryAttempts { get; set; }
+    public int PauseBetweenFailures { get; set; }
+    public TimeUnit TimeUnit { get; set; }
 }

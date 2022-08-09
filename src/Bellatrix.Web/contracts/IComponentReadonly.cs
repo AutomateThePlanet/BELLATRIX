@@ -11,10 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Contracts
+namespace Bellatrix.Web.Contracts;
+
+public interface IComponentReadonly
 {
-    public interface IComponentReadonly
-    {
-        bool IsReadonly { get; }
-    }
+    bool IsReadonly { get; }
 }

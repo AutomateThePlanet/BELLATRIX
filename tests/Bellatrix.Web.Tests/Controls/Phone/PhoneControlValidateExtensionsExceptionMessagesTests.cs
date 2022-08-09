@@ -13,39 +13,38 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Phone Control")]
+[AllureFeature("ValidateExtensions")]
+public class PhoneControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Phone Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class PhoneControlValidateExtensionsTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().PhoneLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().PhoneLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidatePhoneIsThrowsException()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone");
+
+        phoneElement.SetPhone("123-4567-8901");
+
+        try
         {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
+            phoneElement.ValidatePhoneIs("123-4567-8902", 200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidatePhoneIsThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone");
-
-            phoneElement.SetPhone("123-4567-8901");
-
-            try
-            {
-                phoneElement.ValidatePhoneIs("123-4567-8902", 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's phone should be '123-4567-8902' but was '123-4567-8901'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control's phone should be '123-4567-8902' but was '123-4567-8901'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

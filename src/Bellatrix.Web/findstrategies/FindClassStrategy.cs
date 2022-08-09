@@ -13,23 +13,22 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class FindClassStrategy : FindStrategy
 {
-    public class FindClassStrategy : FindStrategy
+    public FindClassStrategy(string value)
+        : base(value)
     {
-        public FindClassStrategy(string value)
-            : base(value)
-        {
-        }
+    }
 
-        public override By Convert()
-        {
-            return By.ClassName(Value);
-        }
+    public override By Convert()
+    {
+        return By.ClassName(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"Class = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"Class = {Value}";
     }
 }

@@ -12,17 +12,16 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Web.Tests.Controls.Table
+namespace Bellatrix.Web.Tests.Controls.Table;
+
+public class DataTableExampleOne
 {
-    public class DataTableExampleOne
-    {
-        [HeaderName("Last Name")]
-        public string LastName { get; set; }
-        [HeaderName("First Name")]
-        public string FirstName { get; set; }
-        public string Email { get; set; }
-        public string Due { get; set; }
-        [HeaderName("Web Site")]
-        public string WebSite { get; set; }
-    }
+    [HeaderName("Last Name")]
+    public string LastName { get; set; }
+    [HeaderName("First Name")]
+    public string FirstName { get; set; }
+    public string Email { get; set; }
+    public string Due { get; set; }
+    [HeaderName("Web Site")]
+    public string WebSite { get; set; }
 }

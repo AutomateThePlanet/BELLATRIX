@@ -14,17 +14,16 @@
 using System.Diagnostics;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Services
-{
-    public class MobileService<TDriver, TComponent>
-        where TDriver : AppiumDriver<TComponent>
-        where TComponent : AppiumWebElement
-    {
-        public MobileService(TDriver wrappedDriver)
-        {
-            WrappedAppiumDriver = wrappedDriver;
-        }
+namespace Bellatrix.Mobile.Services;
 
-        public TDriver WrappedAppiumDriver { get; set; }
+public class MobileService<TDriver, TComponent>
+    where TDriver : AppiumDriver<TComponent>
+    where TComponent : AppiumWebElement
+{
+    public MobileService(TDriver wrappedDriver)
+    {
+        WrappedAppiumDriver = wrappedDriver;
     }
+
+    public TDriver WrappedAppiumDriver { get; set; }
 }

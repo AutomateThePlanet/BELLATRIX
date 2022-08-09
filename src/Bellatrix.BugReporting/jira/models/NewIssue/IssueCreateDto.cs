@@ -15,97 +15,96 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix.BugReporting.Jira;
+
+public class IssueCreateDto
 {
-    public class IssueCreateDto
+    public static IssueCreateDto CreateDto(string projectName, string priority, string title, List<string> descriptionLines)
     {
-        public static IssueCreateDto CreateDto(string projectName, string priority, string title, List<string> descriptionLines)
+        var issueCreateDto = new IssueCreateDto();
+
+        issueCreateDto.fields = new Fields();
+        issueCreateDto.fields.project = new Project()
         {
-            var issueCreateDto = new IssueCreateDto();
+            key = projectName,
+        };
 
-            issueCreateDto.fields = new Fields();
-            issueCreateDto.fields.project = new Project()
-            {
-                key = projectName,
-            };
+        issueCreateDto.fields.issuetype = new Issuetype()
+        {
+            name = "Bug",
+        };
 
-            issueCreateDto.fields.issuetype = new Issuetype()
-            {
-                name = "Bug",
-            };
+        issueCreateDto.fields.summary = title;
+        issueCreateDto.fields.priority = new Priority()
+        {
+            name = priority,
+        };
 
-            issueCreateDto.fields.summary = title;
-            issueCreateDto.fields.priority = new Priority()
+        issueCreateDto.fields.description = new Description()
+        {
+            version = 1,
+            type = "doc",
+            content = new List<Content>()
             {
-                name = priority,
-            };
-
-            issueCreateDto.fields.description = new Description()
-            {
-                version = 1,
-                type = "doc",
-                content = new List<Content>()
+                new Content()
                 {
-                    new Content()
-                    {
-                        type = "paragraph",
-                        content = new List<Content2>(),
-                    },
+                    type = "paragraph",
+                    content = new List<Content2>(),
                 },
-            };
+            },
+        };
 
-            foreach (var currentLine in descriptionLines)
-            {
-                issueCreateDto.fields.description.content.First().content.Add(new Content2() { type = "text", text = currentLine });
-                issueCreateDto.fields.description.content.First().content.Add(new Content2() { type = "text", text = Environment.NewLine });
-            }
-
-            return issueCreateDto;
-        }
-
-        public Fields fields { get; set; }
-
-        public class Project
+        foreach (var currentLine in descriptionLines)
         {
-            public string key { get; set; }
+            issueCreateDto.fields.description.content.First().content.Add(new Content2() { type = "text", text = currentLine });
+            issueCreateDto.fields.description.content.First().content.Add(new Content2() { type = "text", text = Environment.NewLine });
         }
 
-        public class Content2
-        {
-            public string type { get; set; }
-            public string text { get; set; }
-        }
+        return issueCreateDto;
+    }
 
-        public class Content
-        {
-            public string type { get; set; }
-            public List<Content2> content { get; set; }
-        }
+    public Fields fields { get; set; }
 
-        public class Description
-        {
-            public int version { get; set; }
-            public string type { get; set; }
-            public List<Content> content { get; set; }
-        }
+    public class Project
+    {
+        public string key { get; set; }
+    }
 
-        public class Issuetype
-        {
-            public string name { get; set; }
-        }
+    public class Content2
+    {
+        public string type { get; set; }
+        public string text { get; set; }
+    }
 
-        public class Priority
-        {
-            public string name { get; set; }
-        }
+    public class Content
+    {
+        public string type { get; set; }
+        public List<Content2> content { get; set; }
+    }
 
-        public class Fields
-        {
-            public Project project { get; set; }
-            public string summary { get; set; }
-            public Description description { get; set; }
-            public Issuetype issuetype { get; set; }
-            public Priority priority { get; set; }
-        }
+    public class Description
+    {
+        public int version { get; set; }
+        public string type { get; set; }
+        public List<Content> content { get; set; }
+    }
+
+    public class Issuetype
+    {
+        public string name { get; set; }
+    }
+
+    public class Priority
+    {
+        public string name { get; set; }
+    }
+
+    public class Fields
+    {
+        public Project project { get; set; }
+        public string summary { get; set; }
+        public Description description { get; set; }
+        public Issuetype issuetype { get; set; }
+        public Priority priority { get; set; }
     }
 }

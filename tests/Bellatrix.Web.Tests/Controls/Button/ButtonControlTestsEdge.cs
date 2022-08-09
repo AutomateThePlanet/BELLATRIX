@@ -13,96 +13,95 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Button Control")]
+[AllureFeature("Edge Browser")]
+public class ButtonControlTestsEdge : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Button Control")]
-    [AllureFeature("Edge Browser")]
-    public class ButtonControlTestsEdge : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SetTextToStop_When_UseClickMethod_Edge()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SetTextToStop_When_UseClickMethod_Edge()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
+        buttonElement.Click();
 
-            buttonElement.Click();
+        Assert.AreEqual("Stop", buttonElement.InnerText);
+    }
 
-            Assert.AreEqual("Stop", buttonElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnRed_When_Hover_Edge()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnRed_When_Hover_Edge()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton9");
+        buttonElement.Hover();
 
-            buttonElement.Hover();
+        Assert.AreEqual("color: red;", buttonElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", buttonElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnBlue_When_Focus_Edge()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnBlue_When_Focus_Edge()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton10");
+        buttonElement.Focus();
 
-            buttonElement.Focus();
+        Assert.AreEqual("color: blue;", buttonElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", buttonElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
+        bool isDisabled = buttonElement.IsDisabled;
 
-            bool isDisabled = buttonElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnTrue_When_DisabledAttributePresent_Edge()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton11");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnTrue_When_DisabledAttributePresent_Edge()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton11");
+        bool isDisabled = buttonElement.IsDisabled;
 
-            bool isDisabled = buttonElement.IsDisabled;
+        Assert.IsTrue(isDisabled);
+    }
 
-            Assert.IsTrue(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnStart_When_ValueAttributePresent_Edge()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnStart_When_ValueAttributePresent_Edge()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
+        var actualValue = buttonElement.Value;
 
-            var actualValue = buttonElement.Value;
+        Assert.AreEqual("Start", actualValue);
+    }
 
-            Assert.AreEqual("Start", actualValue);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnStart_When_UseInnerText_Edge()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnStart_When_UseInnerText_Edge()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
-
-            Assert.AreEqual("Start", buttonElement.InnerText);
-        }
+        Assert.AreEqual("Start", buttonElement.InnerText);
     }
 }

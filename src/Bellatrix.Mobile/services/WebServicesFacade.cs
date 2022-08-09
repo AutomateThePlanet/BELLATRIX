@@ -14,22 +14,21 @@
 using System;
 using Bellatrix.Web;
 
-namespace Bellatrix.Mobile.Services
-{
-    public class WebServicesFacade
-    {
-        private ServicesCollection _childContainer;
-        public WebServicesFacade(ServicesCollection childContainer)
-        {
-            _childContainer = childContainer;
-        }
+namespace Bellatrix.Mobile.Services;
 
-        public BrowserService BrowserService => _childContainer.Resolve<BrowserService>();
-        public CookiesService CookiesService => _childContainer.Resolve<CookiesService>();
-        public DialogService DialogService => _childContainer.Resolve<DialogService>();
-        public JavaScriptService JavaScriptService => _childContainer.Resolve<JavaScriptService>();
-        public NavigationService NavigationService => _childContainer.Resolve<NavigationService>();
-        public ComponentCreateService ComponentCreateService => _childContainer.Resolve<ComponentCreateService>();
-        public InteractionsService InteractionsService => _childContainer.Resolve<InteractionsService>();
+public class WebServicesFacade
+{
+    private ServicesCollection _childContainer;
+    public WebServicesFacade(ServicesCollection childContainer)
+    {
+        _childContainer = childContainer;
     }
+
+    public BrowserService BrowserService => _childContainer.Resolve<BrowserService>();
+    public CookiesService CookiesService => _childContainer.Resolve<CookiesService>();
+    public DialogService DialogService => _childContainer.Resolve<DialogService>();
+    public JavaScriptService JavaScriptService => _childContainer.Resolve<JavaScriptService>();
+    public NavigationService NavigationService => _childContainer.Resolve<NavigationService>();
+    public ComponentCreateService ComponentCreateService => _childContainer.Resolve<ComponentCreateService>();
+    public InteractionsService InteractionsService => _childContainer.Resolve<InteractionsService>();
 }

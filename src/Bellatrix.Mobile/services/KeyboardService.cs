@@ -14,27 +14,26 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Services
-{
-    public class KeyboardService<TDriver, TComponent> : MobileService<TDriver, TComponent>
-        where TDriver : AppiumDriver<TComponent>
-        where TComponent : AppiumWebElement
-    {
-        public KeyboardService(TDriver wrappedDriver)
-            : base(wrappedDriver)
-        {
-        }
+namespace Bellatrix.Mobile.Services;
 
-        public void HideKeyboard()
+public class KeyboardService<TDriver, TComponent> : MobileService<TDriver, TComponent>
+    where TDriver : AppiumDriver<TComponent>
+    where TComponent : AppiumWebElement
+{
+    public KeyboardService(TDriver wrappedDriver)
+        : base(wrappedDriver)
+    {
+    }
+
+    public void HideKeyboard()
+    {
+        try
         {
-            try
-            {
-                WrappedAppiumDriver.HideKeyboard();
-            }
-            catch (WebDriverException ex) when (ex.StackTrace.Contains("Soft keyboard not present, cannot hide keyboard"))
-            {
-                // ignore
-            }
+            WrappedAppiumDriver.HideKeyboard();
+        }
+        catch (WebDriverException ex) when (ex.StackTrace.Contains("Soft keyboard not present, cannot hide keyboard"))
+        {
+            // ignore
         }
     }
 }

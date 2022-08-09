@@ -21,20 +21,19 @@ using Bellatrix.DynamicTestCases.Contracts;
 using Bellatrix.DynamicTestCases.QTest;
 using Bellatrix.Plugins;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class DynamicTestCasesPlugin
 {
-    public static class DynamicTestCasesPlugin
+    public static void Add()
     {
-        public static void Add()
+        if (ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().IsEnabled)
         {
-            if (ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().IsEnabled)
-            {
-                QTestDynamicTestCasesPlugin.Add();
-            }
-            else if (ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().IsEnabled)
-            {
-                AzureDevOpsDynamicTestCasesPlugin.Add();
-            }
+            QTestDynamicTestCasesPlugin.Add();
+        }
+        else if (ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().IsEnabled)
+        {
+            AzureDevOpsDynamicTestCasesPlugin.Add();
         }
     }
 }

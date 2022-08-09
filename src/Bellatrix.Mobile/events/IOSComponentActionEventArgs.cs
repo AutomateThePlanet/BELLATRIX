@@ -13,18 +13,17 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Contracts;
 
-namespace Bellatrix.Mobile.Events
-{
-    public class IOSComponentActionEventArgs : ComponentActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>
-    {
-        public IOSComponentActionEventArgs(IIOSComponent element)
-            : base(element)
-        {
-        }
+namespace Bellatrix.Mobile.Events;
 
-        public IOSComponentActionEventArgs(IIOSComponent element, string actionValue)
-            : base(element, actionValue)
-        {
-        }
+public class IOSComponentActionEventArgs : ComponentActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>
+{
+    public IOSComponentActionEventArgs(IIOSComponent element)
+        : base(element)
+    {
+    }
+
+    public IOSComponentActionEventArgs(IIOSComponent element, string actionValue)
+        : base(element, actionValue)
+    {
     }
 }

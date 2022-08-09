@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.BugReporting.IOS
+namespace Bellatrix.Mobile.BugReporting.IOS;
+
+public class BugReportingImageButtonEventHandlers : ImageButtonEventHandlers
 {
-    public class BugReportingImageButtonEventHandlers : ImageButtonEventHandlers
-    {
-        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

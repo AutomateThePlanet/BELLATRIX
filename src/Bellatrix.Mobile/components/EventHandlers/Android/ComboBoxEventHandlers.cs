@@ -15,30 +15,29 @@ using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.EventHandlers.Android
+namespace Bellatrix.Mobile.EventHandlers.Android;
+
+public class ComboBoxEventHandlers : ComponentEventHandlers
 {
-    public class ComboBoxEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            ComboBox.Selecting += SelectingEventHandler;
-            ComboBox.Selected += SelectedEventHandler;
-        }
+        base.SubscribeToAll();
+        ComboBox.Selecting += SelectingEventHandler;
+        ComboBox.Selected += SelectedEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            ComboBox.Selecting -= SelectingEventHandler;
-            ComboBox.Selected -= SelectedEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        ComboBox.Selecting -= SelectingEventHandler;
+        ComboBox.Selected -= SelectedEventHandler;
+    }
 
-        protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
     }
 }

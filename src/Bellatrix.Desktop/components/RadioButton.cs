@@ -16,29 +16,28 @@ using System.Diagnostics;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class RadioButton : Component, IComponentDisabled, IComponentChecked
 {
-    public class RadioButton : Component, IComponentDisabled, IComponentChecked
+    public static event EventHandler<ComponentActionEventArgs> Clicking;
+    public static event EventHandler<ComponentActionEventArgs> Clicked;
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsChecked => WrappedElement.Selected;
+
+    public virtual void Hover()
     {
-        public static event EventHandler<ComponentActionEventArgs> Clicking;
-        public static event EventHandler<ComponentActionEventArgs> Clicked;
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        Hover(Hovering, Hovered);
+    }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsChecked => WrappedElement.Selected;
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        public virtual void Click()
-        {
-            Click(Clicking, Clicked);
-        }
+    public virtual void Click()
+    {
+        Click(Clicking, Clicked);
     }
 }

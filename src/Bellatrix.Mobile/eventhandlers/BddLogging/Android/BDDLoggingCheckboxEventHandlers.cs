@@ -15,12 +15,11 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.BddLogging.Android
-{
-    public class BDDLoggingCheckboxEventHandlers : CheckboxEventHandlers
-    {
-        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+namespace Bellatrix.Mobile.BddLogging.Android;
 
-        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+public class BDDLoggingCheckboxEventHandlers : CheckboxEventHandlers
+{
+    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+
+    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

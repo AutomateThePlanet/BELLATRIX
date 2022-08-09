@@ -13,121 +13,120 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Select Control")]
+public class SelectControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Select Control")]
-    public class SelectControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void SelectByTextToAwesome_When_UseSelectByTextMethod_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void SelectByTextToAwesome_When_UseSelectByTextMethod_Safari()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
+        selectComponent.SelectByText("Awesome");
 
-            selectComponent.SelectByText("Awesome");
+        Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
+    }
 
-            Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void SelectByIndexToAwesome_When_UseSelectByTextMethod_Safari()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void SelectByIndexToAwesome_When_UseSelectByTextMethod_Safari()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
+        selectComponent.SelectByIndex(2);
 
-            selectComponent.SelectByIndex(2);
+        Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
+    }
 
-            Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnAwesome_When_UseGetSelectedValueMethod_Safari()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnAwesome_When_UseGetSelectedValueMethod_Safari()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect2");
+        Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
+    }
 
-            Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Safari()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Safari()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect1");
+        selectComponent.Hover();
 
-            selectComponent.Hover();
+        Assert.AreEqual("color: red;", selectComponent.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", selectComponent.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Safari()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Safari()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect2");
+        selectComponent.Focus();
 
-            selectComponent.Focus();
+        Assert.AreEqual("color: blue;", selectComponent.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", selectComponent.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
+        bool isDisabled = selectComponent.IsDisabled;
 
-            bool isDisabled = selectComponent.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Safari()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect3");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Safari()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect3");
+        bool isDisabled = selectComponent.IsDisabled;
 
-            bool isDisabled = selectComponent.IsDisabled;
+        Assert.IsTrue(isDisabled);
+    }
 
-            Assert.IsTrue(isDisabled);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_RequiredAttributePresent_Safari()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_RequiredAttributePresent_Safari()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect4");
+        var actualValue = selectComponent.IsRequired;
 
-            var actualValue = selectComponent.IsRequired;
+        Assert.IsTrue(actualValue);
+    }
 
-            Assert.IsTrue(actualValue);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_RequiredAttributeNotPresent_Safari()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_RequiredAttributeNotPresent_Safari()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
+        var actualValue = selectComponent.IsRequired;
 
-            var actualValue = selectComponent.IsRequired;
+        Assert.IsFalse(actualValue);
+    }
 
-            Assert.IsFalse(actualValue);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void Return3Options_When_GetAllOptions_Safari()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void Return3Options_When_GetAllOptions_Safari()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
+        var allOptions = selectComponent.GetAllOptions();
 
-            var allOptions = selectComponent.GetAllOptions();
-
-            Assert.AreEqual(3, allOptions.Count);
-        }
+        Assert.AreEqual(3, allOptions.Count);
     }
 }

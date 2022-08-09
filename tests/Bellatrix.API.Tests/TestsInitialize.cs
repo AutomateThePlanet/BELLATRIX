@@ -17,26 +17,25 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.IO;
 
-namespace Bellatrix.API.Tests
+namespace Bellatrix.API.Tests;
+
+[TestClass]
+public class TestsInitialize
 {
-    [TestClass]
-    public class TestsInitialize
+    private static Process _testApiProcess;
+
+    [AssemblyInitialize]
+    public static void AssemblyInitialize(TestContext testContext)
     {
-        private static Process _testApiProcess;
+        AllurePlugin.Add();
+        string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");
+        _testApiProcess = ProcessProvider.StartProcess("dotnet", workingDir, " run", true);
+        ProcessProvider.WaitPortToGetBusy(55215);
+    }
 
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
-        {
-            AllurePlugin.Add();
-            string workingDir = Path.Combine(ProcessProvider.GetEntryProcessApplicationPath(), "Demos", "TestAPI");
-            _testApiProcess = ProcessProvider.StartProcess("dotnet", workingDir, " run", true);
-            ProcessProvider.WaitPortToGetBusy(55215);
-        }
-
-        [AssemblyCleanup]
-        public static void AssemblyCleanUp()
-        {
-            ProcessProvider.CloseProcess(_testApiProcess);
-        }
+    [AssemblyCleanup]
+    public static void AssemblyCleanUp()
+    {
+        ProcessProvider.CloseProcess(_testApiProcess);
     }
 }

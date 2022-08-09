@@ -15,67 +15,66 @@
 using System;
 using Bellatrix.Web.Screenshots;
 
-namespace Bellatrix.Web.MSTest
+namespace Bellatrix.Web.MSTest;
+
+public abstract class WebTest : MSTestBaseTest
 {
-    public abstract class WebTest : MSTestBaseTest
+    private static readonly object _lockObject = new object();
+    private static bool _arePluginsAlreadyInitialized;
+
+    public App App { get; private set; }
+
+    public override void Initialize()
     {
-        private static readonly object _lockObject = new object();
-        private static bool _arePluginsAlreadyInitialized;
+        App = ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
+    }
 
-        public App App { get; private set; }
-
-        public override void Initialize()
+    public override void Configure()
+    {
+        lock (_lockObject)
         {
-            App = ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
-        }
-
-        public override void Configure()
-        {
-            lock (_lockObject)
+            if (!_arePluginsAlreadyInitialized)
             {
-                if (!_arePluginsAlreadyInitialized)
+                MSTestPluginConfiguration.Add();
+                ExecutionTimePlugin.Add();
+                VideoRecorderPluginConfiguration.AddMSTest();
+                ScreenshotsPluginConfiguration.AddMSTest();
+                DynamicTestCasesPlugin.Add();
+                AllurePlugin.Add();
+                BugReportingPlugin.Add();
+                WebPluginsConfiguration.AddBrowserLifecycle();
+                WebPluginsConfiguration.AddLogExecutionLifecycle();
+                WebPluginsConfiguration.AddControlDataHandlers();
+                WebPluginsConfiguration.AddValidateExtensionsBddLogging();
+                WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+                WebPluginsConfiguration.AddValidateExtensionsBugReporting();
+                WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+                WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+                WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+                WebPluginsConfiguration.AddElementsBddLogging();
+                WebPluginsConfiguration.AddDynamicTestCases();
+                WebPluginsConfiguration.AddBugReporting();
+                WebPluginsConfiguration.AddHighlightComponents();
+                WebPluginsConfiguration.AddMSTestGoogleLighthouse();
+                WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
+
+                APIPluginsConfiguration.AddAssertExtensionsBddLogging();
+                APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
+                APIPluginsConfiguration.AddAssertExtensionsBugReporting();
+                APIPluginsConfiguration.AddApiAuthenticationStrategies();
+                APIPluginsConfiguration.AddRetryFailedRequests();
+                APIPluginsConfiguration.AddLogExecution();
+
+                if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
                 {
-                    MSTestPluginConfiguration.Add();
-                    ExecutionTimePlugin.Add();
-                    VideoRecorderPluginConfiguration.AddMSTest();
-                    ScreenshotsPluginConfiguration.AddMSTest();
-                    DynamicTestCasesPlugin.Add();
-                    AllurePlugin.Add();
-                    BugReportingPlugin.Add();
-                    WebPluginsConfiguration.AddBrowserLifecycle();
-                    WebPluginsConfiguration.AddLogExecutionLifecycle();
-                    WebPluginsConfiguration.AddControlDataHandlers();
-                    WebPluginsConfiguration.AddValidateExtensionsBddLogging();
-                    WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                    WebPluginsConfiguration.AddValidateExtensionsBugReporting();
-                    WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                    WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                    WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
-                    WebPluginsConfiguration.AddElementsBddLogging();
-                    WebPluginsConfiguration.AddDynamicTestCases();
-                    WebPluginsConfiguration.AddBugReporting();
-                    WebPluginsConfiguration.AddHighlightComponents();
-                    WebPluginsConfiguration.AddMSTestGoogleLighthouse();
-                    WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
-
-                    APIPluginsConfiguration.AddAssertExtensionsBddLogging();
-                    APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
-                    APIPluginsConfiguration.AddAssertExtensionsBugReporting();
-                    APIPluginsConfiguration.AddApiAuthenticationStrategies();
-                    APIPluginsConfiguration.AddRetryFailedRequests();
-                    APIPluginsConfiguration.AddLogExecution();
-
-                    if (ConfigurationService.GetSection<WebSettings>().FullPageScreenshotsEnabled)
-                    {
-                        WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
-                    }
-                    else
-                    {
-                        WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
-                    }
-
-                    _arePluginsAlreadyInitialized = true;
+                    WebScreenshotPluginConfiguration.UseFullPageScreenshotsOnFail();
                 }
+                else
+                {
+                    WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
+                }
+
+                _arePluginsAlreadyInitialized = true;
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bellatrix.Core.utilities.mail.model;
+namespace Bellatrix.Utilities;
 
 public class Email : IComparer<Email>
 {

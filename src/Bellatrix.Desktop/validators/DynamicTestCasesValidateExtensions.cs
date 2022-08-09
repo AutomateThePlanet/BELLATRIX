@@ -15,36 +15,35 @@ using Bellatrix.Desktop.Events;
 using Bellatrix.DynamicTestCases;
 using ElementNotFulfillingValidateConditionEventArgs = Bellatrix.Desktop.Validates.ComponentNotFulfillingValidateConditionEventArgs;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class DynamicTestCasesValidateExtensions : ValidateExtensionsEventHandlers
 {
-    public class DynamicTestCasesValidateExtensions : ValidateExtensionsEventHandlers
-    {
-        protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+    protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
-        protected override void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is visible");
+    protected override void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is visible");
 
-        protected override void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT visible");
+    protected override void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT visible");
 
-        protected override void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} time ", "is '{arg.ActionValue}'");
+    protected override void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} time ", "is '{arg.ActionValue}'");
 
-        protected override void ValidatedTextIsNullEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} text ", "is NULL");
+    protected override void ValidatedTextIsNullEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} text ", "is NULL");
 
-        protected override void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} text ", $"is '{arg.ActionValue}'");
+    protected override void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} text ", $"is '{arg.ActionValue}'");
 
-        protected override void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is selected");
+    protected override void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is selected");
 
-        protected override void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT selected");
+    protected override void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT selected");
 
-        protected override void ValidatedInnerTextIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} inner text ", $"is '{arg.ActionValue}'");
+    protected override void ValidatedInnerTextIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} inner text ", $"is '{arg.ActionValue}'");
 
-        protected override void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is disabled");
+    protected override void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is disabled");
 
-        protected override void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT disabled");
+    protected override void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT disabled");
 
-        protected override void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} date ", $"is '{arg.ActionValue}'");
+    protected override void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} date ", $"is '{arg.ActionValue}'");
 
-        protected override void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is checked");
+    protected override void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is checked");
 
-        protected override void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT checked");
-    }
+    protected override void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT checked");
 }

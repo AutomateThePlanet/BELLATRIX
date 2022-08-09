@@ -17,72 +17,71 @@ using System.Threading;
 using Bellatrix.Layout;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests
+namespace Bellatrix.Web.Tests;
+
+[TestClass]
+[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+[Browser(OS.OSX, BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+[AllureSuite("TestWorkflowHooks")]
+public class TestWorkflowHooksTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("TestWorkflowHooks")]
-    public class TestWorkflowHooksTests : MSTest.WebTest
+    private static Select _sortDropDown;
+    private static Anchor _protonRocketAnchor;
+
+    public override void TestsArrange()
     {
-        private static Select _sortDropDown;
-        private static Anchor _protonRocketAnchor;
+        _sortDropDown = App.Components.CreateByXpath<Select>("//*[@id='main']/div[1]/form/select");
+        _protonRocketAnchor = App.Components.CreateByXpath<Anchor>("//*[@id='main']/div[2]/ul/li[1]/a[1]");
+    }
 
-        public override void TestsArrange()
-        {
-            _sortDropDown = App.Components.CreateByXpath<Select>("//*[@id='main']/div[1]/form/select");
-            _protonRocketAnchor = App.Components.CreateByXpath<Anchor>("//*[@id='main']/div[2]/ul/li[1]/a[1]");
-        }
+    public override void TestsAct()
+    {
+        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        _sortDropDown.SelectByText("Sort by price: low to high");
+    }
 
-        public override void TestsAct()
-        {
-            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
-            _sortDropDown.SelectByText("Sort by price: low to high");
-        }
+    public override void TestInit()
+    {
+        // Executes a logic before each test in the test class.
+    }
 
-        public override void TestInit()
-        {
-            // Executes a logic before each test in the test class.
-        }
+    public override void TestCleanup()
+    {
+        // Executes a logic after each test in the test class.
+    }
 
-        public override void TestCleanup()
-        {
-            // Executes a logic after each test in the test class.
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void SortDropDownIsAboveOfProtonRocketAnchor()
+    {
+        _sortDropDown.AssertAboveOf(_protonRocketAnchor);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void SortDropDownIsAboveOfProtonRocketAnchor()
-        {
-            _sortDropDown.AssertAboveOf(_protonRocketAnchor);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void SortDropDownIsAboveOfProtonRocketAnchor_41px()
+    {
+        _sortDropDown.AssertAboveOf(_protonRocketAnchor, 41);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void SortDropDownIsAboveOfProtonRocketAnchor_41px()
-        {
-            _sortDropDown.AssertAboveOf(_protonRocketAnchor, 41);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void SortDropDownIsAboveOfProtonRocketAnchor_GreaterThan40px()
+    {
+        _sortDropDown.AssertAboveOfGreaterThan(_protonRocketAnchor, 40);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void SortDropDownIsAboveOfProtonRocketAnchor_GreaterThan40px()
-        {
-            _sortDropDown.AssertAboveOfGreaterThan(_protonRocketAnchor, 40);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void SortDropDownIsAboveOfProtonRocketAnchor_GreaterThanOrEqual41px()
+    {
+        _sortDropDown.AssertAboveOfGreaterThanOrEqual(_protonRocketAnchor, 41);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void SortDropDownIsAboveOfProtonRocketAnchor_GreaterThanOrEqual41px()
-        {
-            _sortDropDown.AssertAboveOfGreaterThanOrEqual(_protonRocketAnchor, 41);
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void SortDropDownIsNearTopOfProtonRocketAnchor_GreaterThan40px()
-        {
-            _sortDropDown.AssertNearTopOfGreaterThan(_protonRocketAnchor, 40);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void SortDropDownIsNearTopOfProtonRocketAnchor_GreaterThan40px()
+    {
+        _sortDropDown.AssertNearTopOfGreaterThan(_protonRocketAnchor, 40);
     }
 }

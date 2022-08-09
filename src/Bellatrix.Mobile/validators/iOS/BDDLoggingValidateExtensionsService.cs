@@ -14,38 +14,37 @@
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class BDDLoggingValidateExtensionsService : ValidateExtensionsEventHandlers
 {
-    public class BDDLoggingValidateExtensionsService : ValidateExtensionsEventHandlers
-    {
-        protected override void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is visible");
+    protected override void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is visible");
 
-        protected override void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is NOT visible");
+    protected override void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is NOT visible");
 
-        protected override void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} time is '{arg.ActionValue}'");
+    protected override void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} time is '{arg.ActionValue}'");
 
-        protected override void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} text is NULL");
+    protected override void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} text is NULL");
 
-        protected override void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} text is '{arg.ActionValue}'");
+    protected override void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} text is '{arg.ActionValue}'");
 
-        protected override void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is selected");
+    protected override void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is selected");
 
-        protected override void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is NOT selected");
+    protected override void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is NOT selected");
 
-        protected override void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is disabled");
+    protected override void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is disabled");
 
-        protected override void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is NOT disabled");
+    protected override void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is NOT disabled");
 
-        protected override void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} date is '{arg.ActionValue}'");
+    protected override void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} date is '{arg.ActionValue}'");
 
-        protected override void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is checked");
+    protected override void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is checked");
 
-        protected override void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is NOT checked");
+    protected override void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is NOT checked");
 
-        protected override void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is ON");
+    protected override void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is ON");
 
-        protected override void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is OFF");
+    protected override void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} is OFF");
 
-        protected override void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} number is '{arg.ActionValue}'");
-    }
+    protected override void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Validate {arg.Element.ComponentName} number is '{arg.ActionValue}'");
 }

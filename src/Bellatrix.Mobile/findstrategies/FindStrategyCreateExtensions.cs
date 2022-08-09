@@ -16,28 +16,27 @@ using Bellatrix.Mobile.Core;
 using Bellatrix.Mobile.Locators;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.SytaxSugar
-{
-    public static class FindStrategyCreateExtensions
-    {
-        public static TComponent Create<TComponent, TBy, TDriver, TDriverElement>(this TBy by)
-            where TComponent : Component<TDriver, TDriverElement>
-            where TBy : FindStrategy<TDriver, TDriverElement>
-            where TDriver : AppiumDriver<TDriverElement>
-            where TDriverElement : AppiumWebElement
-        {
-            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
-            return elementRepository.Create<TComponent, TBy, TDriver, TDriverElement>(by);
-        }
+namespace Bellatrix.Mobile.SytaxSugar;
 
-        public static ComponentsList<TComponent, TBy, TDriver, TDriverElement> CreateAll<TComponent, TBy, TDriver, TDriverElement>(this TBy by)
-            where TComponent : Component<TDriver, TDriverElement>
-            where TBy : FindStrategy<TDriver, TDriverElement>
-            where TDriver : AppiumDriver<TDriverElement>
-            where TDriverElement : AppiumWebElement
-        {
-            var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
-            return elementRepository.CreateAll<TComponent, TBy, TDriver, TDriverElement>(by);
-        }
+public static class FindStrategyCreateExtensions
+{
+    public static TComponent Create<TComponent, TBy, TDriver, TDriverElement>(this TBy by)
+        where TComponent : Component<TDriver, TDriverElement>
+        where TBy : FindStrategy<TDriver, TDriverElement>
+        where TDriver : AppiumDriver<TDriverElement>
+        where TDriverElement : AppiumWebElement
+    {
+        var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        return elementRepository.Create<TComponent, TBy, TDriver, TDriverElement>(by);
+    }
+
+    public static ComponentsList<TComponent, TBy, TDriver, TDriverElement> CreateAll<TComponent, TBy, TDriver, TDriverElement>(this TBy by)
+        where TComponent : Component<TDriver, TDriverElement>
+        where TBy : FindStrategy<TDriver, TDriverElement>
+        where TDriver : AppiumDriver<TDriverElement>
+        where TDriverElement : AppiumWebElement
+    {
+        var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        return elementRepository.CreateAll<TComponent, TBy, TDriver, TDriverElement>(by);
     }
 }

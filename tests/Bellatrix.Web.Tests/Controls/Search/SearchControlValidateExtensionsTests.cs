@@ -13,188 +13,187 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Search Control")]
+[AllureFeature("ValidateExtensions")]
+public class SearchControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Search Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class SearchControlValidateExtensionsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SearchLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateSearchIs_DoesNotThrowException_When_UseSetSearchMethod_Edge()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SearchLocalPage);
+        var searchElement = App.Components.CreateById<Search>("mySearch");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateSearchIs_DoesNotThrowException_When_UseSetSearchMethod_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch");
+        searchElement.SetSearch("bellatrix test framework");
 
-            searchElement.SetSearch("bellatrix test framework");
+        searchElement.ValidateSearchIs("bellatrix test framework");
+    }
 
-            searchElement.ValidateSearchIs("bellatrix test framework");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch");
+        searchElement.ValidateAutoCompleteOff();
+    }
 
-            searchElement.ValidateAutoCompleteOff();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch4");
+        searchElement.ValidateAutoCompleteOn();
+    }
 
-            searchElement.ValidateAutoCompleteOn();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch4");
+        searchElement.ValidateIsNotReadonly();
+    }
 
-            searchElement.ValidateIsNotReadonly();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch6");
+        searchElement.ValidateIsReadonly();
+    }
 
-            searchElement.ValidateIsReadonly();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch");
+        searchElement.ValidateMaxLengthIsNull();
+    }
 
-            searchElement.ValidateMaxLengthIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch");
+        searchElement.ValidateMinLengthIsNull();
+    }
 
-            searchElement.ValidateMinLengthIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateSizeIs_DoesNotThrowException_When_SizeAttributeIsNotPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateSizeIs_DoesNotThrowException_When_SizeAttributeIsNotPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch");
+        searchElement.ValidateSizeIs(20);
+    }
 
-            searchElement.ValidateSizeIs(20);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch2");
+        searchElement.ValidateMaxLengthIs(80);
+    }
 
-            searchElement.ValidateMaxLengthIs(80);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch2");
+        searchElement.ValidateMinLengthIs(10);
+    }
 
-            searchElement.ValidateMinLengthIs(10);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch4");
+        searchElement.ValidateIsNotRequired();
+    }
 
-            searchElement.ValidateIsNotRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch7");
+        searchElement.ValidateIsRequired();
+    }
 
-            searchElement.ValidateIsRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch");
+        searchElement.ValidatePlaceholderIs("your search term goes here");
+    }
 
-            searchElement.ValidatePlaceholderIs("your search term goes here");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch1");
+        searchElement.ValidatePlaceholderIsNull();
+    }
 
-            searchElement.ValidatePlaceholderIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch8");
+        searchElement.Hover();
 
-            searchElement.Hover();
+        searchElement.ValidateStyleIs("color: red;");
+    }
 
-            searchElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch9");
+        searchElement.ValidateIsNotDisabled();
+    }
 
-            searchElement.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent_Edge()
+    {
+        var searchElement = App.Components.CreateById<Search>("mySearch10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent_Edge()
-        {
-            var searchElement = App.Components.CreateById<Search>("mySearch10");
-
-            searchElement.ValidateIsDisabled();
-        }
+        searchElement.ValidateIsDisabled();
     }
 }

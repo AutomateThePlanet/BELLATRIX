@@ -21,17 +21,16 @@ using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Plugins.Video.Plugins;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class AzureDevOpsBugReportingPlugin
 {
-    public static class AzureDevOpsBugReportingPlugin
+    public static void Add()
     {
-        public static void Add()
-        {
-            ServicesCollection.Current.RegisterInstance(new BugReportingContextService());
-            ServicesCollection.Current.RegisterType<IBugReportingService, AzureDevOpsBugReportingService>();
-            ServicesCollection.Current.RegisterType<Plugin, Bellatrix.BugReporting.Core.BugReportingPlugin>(Guid.NewGuid().ToString());
-            ServicesCollection.Current.RegisterType<IScreenshotPlugin, Bellatrix.BugReporting.Core.BugReportingPlugin>(Guid.NewGuid().ToString());
-            ServicesCollection.Current.RegisterType<IVideoPlugin, Bellatrix.BugReporting.Core.BugReportingPlugin>(Guid.NewGuid().ToString());
-        }
+        ServicesCollection.Current.RegisterInstance(new BugReportingContextService());
+        ServicesCollection.Current.RegisterType<IBugReportingService, AzureDevOpsBugReportingService>();
+        ServicesCollection.Current.RegisterType<Plugin, Bellatrix.BugReporting.Core.BugReportingPlugin>(Guid.NewGuid().ToString());
+        ServicesCollection.Current.RegisterType<IScreenshotPlugin, Bellatrix.BugReporting.Core.BugReportingPlugin>(Guid.NewGuid().ToString());
+        ServicesCollection.Current.RegisterType<IVideoPlugin, Bellatrix.BugReporting.Core.BugReportingPlugin>(Guid.NewGuid().ToString());
     }
 }

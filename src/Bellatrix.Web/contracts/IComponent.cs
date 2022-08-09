@@ -14,15 +14,14 @@
 using System;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web.Contracts
+namespace Bellatrix.Web.Contracts;
+
+public interface IComponent
 {
-    public interface IComponent
-    {
-        string ComponentName { get; }
-        string PageName { get; }
-        IWebElement WrappedElement { get; }
-        Type ComponentType { get; }
-        Type LocatorType { get; }
-        string LocatorValue { get; }
-    }
+    string ComponentName { get; }
+    string PageName { get; }
+    IWebElement WrappedElement { get; }
+    Type ComponentType { get; }
+    Type LocatorType { get; }
+    string LocatorValue { get; }
 }

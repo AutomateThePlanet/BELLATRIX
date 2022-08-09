@@ -11,19 +11,18 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    public abstract class CompositeComponent
-    {
-        protected CompositeComponent(Component wrappedElement)
-        {
-            ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
-            BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
-            Component = wrappedElement;
-        }
+namespace Bellatrix.Web;
 
-        protected Component Component { get; set; }
-        protected ComponentCreateService ComponentCreateService { get; set; }
-        protected BrowserService BrowserService { get; set; }
+public abstract class CompositeComponent
+{
+    protected CompositeComponent(Component wrappedElement)
+    {
+        ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
+        Component = wrappedElement;
     }
+
+    protected Component Component { get; set; }
+    protected ComponentCreateService ComponentCreateService { get; set; }
+    protected BrowserService BrowserService { get; set; }
 }

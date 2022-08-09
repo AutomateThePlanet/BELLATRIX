@@ -13,215 +13,214 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Email Control")]
+public class EmailControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Email Control")]
-    public class EmailControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void EmailSet_When_UseSetEmailMethod_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage);
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void EmailSet_When_UseSetEmailMethod_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        emailElement.SetEmail("aangelov@bellatrix.solutions");
 
-            emailElement.SetEmail("aangelov@bellatrix.solutions");
+        Assert.AreEqual("aangelov@bellatrix.solutions", emailElement.GetEmail());
+    }
 
-            Assert.AreEqual("aangelov@bellatrix.solutions", emailElement.GetEmail());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetEmailReturnsCorrectEmail_When_DefaultEmailIsSet_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail3");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetEmailReturnsCorrectEmail_When_DefaultEmailIsSet_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail3");
+        Assert.AreEqual("aangelov@bellatrix.solutions", emailElement.GetEmail());
+    }
 
-            Assert.AreEqual("aangelov@bellatrix.solutions", emailElement.GetEmail());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        Assert.AreEqual(false, emailElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, emailElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail5");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail5");
+        Assert.AreEqual(false, emailElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, emailElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail4");
+        Assert.AreEqual(true, emailElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(true, emailElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail4");
+        Assert.AreEqual(false, emailElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, emailElement.IsReadonly);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail6");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail6");
+        Assert.AreEqual(true, emailElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, emailElement.IsReadonly);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        var maxLength = emailElement.MaxLength;
 
-            var maxLength = emailElement.MaxLength;
+        Assert.IsNull(maxLength);
+    }
 
-            Assert.IsNull(maxLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        Assert.IsNull(emailElement.MinLength);
+    }
 
-            Assert.IsNull(emailElement.MinLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        // Specifies the width of an <input> element, in characters. Default value is 20
+        Assert.AreEqual(20, emailElement.Size);
+    }
 
-            // Specifies the width of an <input> element, in characters. Default value is 20
-            Assert.AreEqual(20, emailElement.Size);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail2");
+        Assert.AreEqual(80, emailElement.MaxLength);
+    }
 
-            Assert.AreEqual(80, emailElement.MaxLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail2");
+        Assert.AreEqual(10, emailElement.MinLength);
+    }
 
-            Assert.AreEqual(10, emailElement.MinLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail2");
+        Assert.AreEqual(30, emailElement.Size);
+    }
 
-            Assert.AreEqual(30, emailElement.Size);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail4");
+        Assert.AreEqual(false, emailElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, emailElement.IsRequired);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail7");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail7");
+        Assert.AreEqual(true, emailElement.IsRequired);
+    }
 
-            Assert.AreEqual(true, emailElement.IsRequired);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetPlaceholder_When_PlaceholderAttributeIsSet_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetPlaceholder_When_PlaceholderAttributeIsSet_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        Assert.AreEqual("your email term goes here", emailElement.Placeholder);
+    }
 
-            Assert.AreEqual("your email term goes here", emailElement.Placeholder);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail1");
+        Assert.IsNull(emailElement.Placeholder);
+    }
 
-            Assert.IsNull(emailElement.Placeholder);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail8");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail8");
+        emailElement.Hover();
 
-            emailElement.Hover();
+        Assert.AreEqual("color: red;", emailElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", emailElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail9");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail9");
+        emailElement.Focus();
 
-            emailElement.Focus();
+        Assert.AreEqual("color: blue;", emailElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", emailElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail9");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail9");
+        bool isDisabled = emailElement.IsDisabled;
 
-            bool isDisabled = emailElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Safari()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail10");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Safari()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail10");
+        bool isDisabled = emailElement.IsDisabled;
 
-            bool isDisabled = emailElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

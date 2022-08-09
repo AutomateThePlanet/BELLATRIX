@@ -11,18 +11,17 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Plugins
+namespace Bellatrix.Plugins;
+
+public enum TestOutcome
 {
-    public enum TestOutcome
-    {
-        NotSet = 100,
-        Failed = 0,
-        Inconclusive = 1,
-        Passed = 2,
-        InProgress = 3,
-        Error = 4,
-        Timeout = 5,
-        Aborted = 6,
-        Unknown = 7,
-    }
+    NotSet = 100,
+    Failed = 0,
+    Inconclusive = 1,
+    Passed = 2,
+    InProgress = 3,
+    Error = 4,
+    Timeout = 5,
+    Aborted = 6,
+    Unknown = 7,
 }

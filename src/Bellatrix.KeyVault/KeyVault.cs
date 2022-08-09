@@ -19,42 +19,41 @@ using System.Threading.Tasks;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 
-namespace Bellatrix.KeyVault
+namespace Bellatrix.KeyVault;
+
+public static class KeyVault
 {
-    public static class KeyVault
+    private static SecretClient _secretClient;
+
+    static KeyVault()
     {
-        private static SecretClient _secretClient;
+        InitializeClient();
+    }
 
-        static KeyVault()
+    public static bool IsAvailable = _secretClient != null;
+
+    public static string GetSecret(string name)
+    {
+        if (_secretClient == null)
         {
-            InitializeClient();
+            return null;
         }
 
-        public static bool IsAvailable = _secretClient != null;
+        var secret = _secretClient.GetSecret(name);
+        return secret.Value.Value;
+    }
 
-        public static string GetSecret(string name)
+    private static void InitializeClient()
+    {
+        if (_secretClient == null)
         {
-            if (_secretClient == null)
+            var settings = ConfigurationService.GetSection<KeyVaultSettings>();
+            if (settings.IsEnabled && !string.IsNullOrEmpty(settings.KeyVaultEndpoint))
             {
-                return null;
-            }
-
-            var secret = _secretClient.GetSecret(name);
-            return secret.Value.Value;
-        }
-
-        private static void InitializeClient()
-        {
-            if (_secretClient == null)
-            {
-                var settings = ConfigurationService.GetSection<KeyVaultSettings>();
-                if (settings.IsEnabled && !string.IsNullOrEmpty(settings.KeyVaultEndpoint))
-                {
-                    // Create a new secret client using the default credential from Azure.Identity using environment variables previously set,
-                    // including AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, and AZURE_TENANT_ID.
-                    var cred = new ChainedTokenCredential(new ManagedIdentityCredential(), new AzureCliCredential());
-                    _secretClient = new SecretClient(vaultUri: new Uri(settings.KeyVaultEndpoint), cred);
-                }
+                // Create a new secret client using the default credential from Azure.Identity using environment variables previously set,
+                // including AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, and AZURE_TENANT_ID.
+                var cred = new ChainedTokenCredential(new ManagedIdentityCredential(), new AzureCliCredential());
+                _secretClient = new SecretClient(vaultUri: new Uri(settings.KeyVaultEndpoint), cred);
             }
         }
     }

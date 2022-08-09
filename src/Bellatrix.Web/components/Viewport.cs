@@ -14,23 +14,22 @@
 using System.Drawing;
 using Bellatrix.Layout;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+internal class Viewport : ILayoutComponent
 {
-    internal class Viewport : ILayoutComponent
+    internal Viewport()
     {
-        internal Viewport()
-        {
-            var javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
-            Location = new Point(0, 0);
-            var viewportWidth = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientWidth, window.innerWidth || 0);").ToString());
-            var viewportHeight = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientHeight, window.innerHeight || 0);").ToString());
-            Size = new Size(viewportWidth, viewportHeight);
-        }
-
-        public Point Location { get; }
-
-        public Size Size { get; }
-
-        public string ComponentName => "Viewport";
+        var javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
+        Location = new Point(0, 0);
+        var viewportWidth = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientWidth, window.innerWidth || 0);").ToString());
+        var viewportHeight = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientHeight, window.innerHeight || 0);").ToString());
+        Size = new Size(viewportWidth, viewportHeight);
     }
+
+    public Point Location { get; }
+
+    public Size Size { get; }
+
+    public string ComponentName => "Viewport";
 }

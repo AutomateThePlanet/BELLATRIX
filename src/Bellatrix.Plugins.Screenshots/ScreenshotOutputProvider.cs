@@ -17,40 +17,39 @@ using System.Linq;
 using Bellatrix.Plugins.Screenshots.Contracts;
 using Bellatrix.Utilities;
 
-namespace Bellatrix.Plugins.Screenshots
+namespace Bellatrix.Plugins.Screenshots;
+
+public class ScreenshotOutputProvider : IScreenshotOutputProvider
 {
-    public class ScreenshotOutputProvider : IScreenshotOutputProvider
+    public virtual string GetOutputFolder()
     {
-        public virtual string GetOutputFolder()
+        var outputDir = ConfigurationService.GetSection<ScreenshotsSettings>().FilePath;
+
+        if (outputDir.StartsWith("ApplicationData", StringComparison.Ordinal))
         {
-            var outputDir = ConfigurationService.GetSection<ScreenshotsSettings>().FilePath;
-
-            if (outputDir.StartsWith("ApplicationData", StringComparison.Ordinal))
+            var folders = outputDir.Split('\\').ToList();
+            folders.RemoveAt(0);
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string newFolderToBeCreated = Path.GetDirectoryName(appData);
+            foreach (var currentFolder in folders)
             {
-                var folders = outputDir.Split('\\').ToList();
-                folders.RemoveAt(0);
-                var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string newFolderToBeCreated = Path.GetDirectoryName(appData);
-                foreach (var currentFolder in folders)
-                {
-                    newFolderToBeCreated = Path.Combine(newFolderToBeCreated ?? throw new InvalidOperationException(), currentFolder);
-                }
-
-                outputDir = newFolderToBeCreated;
+                newFolderToBeCreated = Path.Combine(newFolderToBeCreated ?? throw new InvalidOperationException(), currentFolder);
             }
 
-            if (!Directory.Exists(outputDir))
-            {
-                Directory.CreateDirectory(outputDir ?? throw new InvalidOperationException());
-            }
-
-            return outputDir;
+            outputDir = newFolderToBeCreated;
         }
 
-        public virtual string GetUniqueFileName(string testName)
+        if (!Directory.Exists(outputDir))
         {
-            string testShortName = string.Concat(testName.Where(c => char.IsUpper(c)));
-            return string.Concat(testShortName, Guid.NewGuid().ToString().Substring(0, 4), ".png");
+            Directory.CreateDirectory(outputDir ?? throw new InvalidOperationException());
         }
+
+        return outputDir;
+    }
+
+    public virtual string GetUniqueFileName(string testName)
+    {
+        string testShortName = string.Concat(testName.Where(c => char.IsUpper(c)));
+        return string.Concat(testShortName, Guid.NewGuid().ToString().Substring(0, 4), ".png");
     }
 }

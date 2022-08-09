@@ -14,12 +14,11 @@
 using System;
 using Bellatrix.Plugins;
 
-namespace Bellatrix.Plugins.Screenshots
-{
-    public interface IScreenshotPluginProvider
-    {
-        event EventHandler<ScreenshotPluginEventArgs> ScreenshotGeneratedEvent;
+namespace Bellatrix.Plugins.Screenshots;
 
-        void ScreenshotGenerated(PluginEventArgs e, string screenshotPath);
-    }
+public interface IScreenshotPluginProvider
+{
+    event EventHandler<ScreenshotPluginEventArgs> ScreenshotGeneratedEvent;
+
+    void ScreenshotGenerated(PluginEventArgs e, string screenshotPath);
 }

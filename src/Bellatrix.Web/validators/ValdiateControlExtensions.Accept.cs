@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateAcceptIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentAccept, IComponent
     {
-        public static void ValidateAcceptIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentAccept, IComponent
-        {
-            WaitUntil(() => control.Accept == null, $"The control's accept should be null but was '{control.Accept}'.", timeout, sleepInterval);
-            ValidatedAcceptIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateAcceptIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentAccept, IComponent
-        {
-            WaitUntil(() => control.Accept.Equals(value), $"The control's accept should be '{value}' but was '{control.Accept}'.", timeout, sleepInterval);
-            ValidatedAcceptIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedAcceptIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedAcceptIsEvent;
+        WaitUntil(() => control.Accept == null, $"The control's accept should be null but was '{control.Accept}'.", timeout, sleepInterval);
+        ValidatedAcceptIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateAcceptIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentAccept, IComponent
+    {
+        WaitUntil(() => control.Accept.Equals(value), $"The control's accept should be '{value}' but was '{control.Accept}'.", timeout, sleepInterval);
+        ValidatedAcceptIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedAcceptIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedAcceptIsEvent;
 }

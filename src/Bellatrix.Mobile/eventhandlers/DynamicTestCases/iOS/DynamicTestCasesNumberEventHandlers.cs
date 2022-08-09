@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.DynamicTestCases.IOS
+namespace Bellatrix.Mobile.DynamicTestCases.IOS;
+
+public class DynamicTestCasesNumberEventHandlers : NumberEventHandlers
 {
-    public class DynamicTestCasesNumberEventHandlers : NumberEventHandlers
-    {
-        protected override void SettingNumberEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SettingNumberEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

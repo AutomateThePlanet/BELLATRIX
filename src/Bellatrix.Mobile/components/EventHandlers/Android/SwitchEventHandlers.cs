@@ -15,42 +15,41 @@ using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.EventHandlers.Android
+namespace Bellatrix.Mobile.EventHandlers.Android;
+
+public class SwitchEventHandlers : ComponentEventHandlers
 {
-    public class SwitchEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Switch.TurningOn += TurningOnEventHandler;
-            Switch.TurnedOn += TurnedOnEventHandler;
-            Switch.TurningOff += TurningOffEventHandler;
-            Switch.TurnedOff += TurnedOffEventHandler;
-        }
+        base.SubscribeToAll();
+        Switch.TurningOn += TurningOnEventHandler;
+        Switch.TurnedOn += TurnedOnEventHandler;
+        Switch.TurningOff += TurningOffEventHandler;
+        Switch.TurnedOff += TurnedOffEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Switch.TurningOn -= TurningOnEventHandler;
-            Switch.TurnedOn -= TurnedOnEventHandler;
-            Switch.TurningOff -= TurningOffEventHandler;
-            Switch.TurnedOff -= TurnedOffEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Switch.TurningOn -= TurningOnEventHandler;
+        Switch.TurnedOn -= TurnedOnEventHandler;
+        Switch.TurningOff -= TurningOffEventHandler;
+        Switch.TurnedOff -= TurnedOffEventHandler;
+    }
 
-        protected virtual void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void TurnedOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void TurnedOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void TurnedOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void TurnedOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
     }
 }

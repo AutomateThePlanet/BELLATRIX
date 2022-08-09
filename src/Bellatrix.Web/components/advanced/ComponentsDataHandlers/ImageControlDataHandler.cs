@@ -12,12 +12,11 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
-{
-    public class ImageControlDataHandler : IReadonlyControlDataHandler<Image>
-    {
-        public dynamic GetData(Image element) => element.Src;
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 
-        public void ValidateValueIs(Image element, string expectedValue) => element.ValidateSrcIs(expectedValue);
-    }
+public class ImageControlDataHandler : IReadonlyControlDataHandler<Image>
+{
+    public dynamic GetData(Image element) => element.Src;
+
+    public void ValidateValueIs(Image element, string expectedValue) => element.ValidateSrcIs(expectedValue);
 }

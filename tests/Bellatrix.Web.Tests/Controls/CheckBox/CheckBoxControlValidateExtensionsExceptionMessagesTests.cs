@@ -13,57 +13,56 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("CheckBox Control")]
+[AllureFeature("ValidateExtensions")]
+public class CheckBoxControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("CheckBox Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class CheckBoxControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateCheckedThrowsException()
+    {
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
+
+        checkBoxElement.Uncheck();
+
+        try
         {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
+            checkBoxElement.ValidateIsChecked();
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateCheckedThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
-
-            checkBoxElement.Uncheck();
-
-            try
-            {
-                checkBoxElement.ValidateIsChecked();
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control should be checked but was NOT. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control should be checked but was NOT. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateNotCheckedThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateNotCheckedThrowsException()
+    {
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
+
+        checkBoxElement.Check();
+        try
         {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
-
-            checkBoxElement.Check();
-            try
-            {
-                checkBoxElement.ValidateIsNotChecked();
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control should be not checked but it WAS. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            checkBoxElement.ValidateIsNotChecked();
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control should be not checked but it WAS. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

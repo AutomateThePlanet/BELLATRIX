@@ -11,13 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public enum Lifecycle
 {
-    public enum Lifecycle
-    {
-        NotSet = 0,
-        ReuseIfStarted = 1,
-        RestartEveryTime = 2,
-        RestartOnFail = 3,
-    }
+    NotSet = 0,
+    ReuseIfStarted = 1,
+    RestartEveryTime = 2,
+    RestartOnFail = 3,
 }

@@ -15,30 +15,29 @@ using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.IOS;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.EventHandlers.IOS
+namespace Bellatrix.Mobile.EventHandlers.IOS;
+
+public class ButtonEventHandlers : ComponentEventHandlers
 {
-    public class ButtonEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Button.Clicking += ClickingEventHandler;
-            Button.Clicked += ClickedEventHandler;
-        }
+        base.SubscribeToAll();
+        Button.Clicking += ClickingEventHandler;
+        Button.Clicked += ClickedEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Button.Clicking -= ClickingEventHandler;
-            Button.Clicked -= ClickedEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Button.Clicking -= ClickingEventHandler;
+        Button.Clicked -= ClickedEventHandler;
+    }
 
-        protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
     }
 }

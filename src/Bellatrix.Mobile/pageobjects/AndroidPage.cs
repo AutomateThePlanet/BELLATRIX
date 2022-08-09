@@ -13,15 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Services.Android;
 
-namespace Bellatrix.Mobile.PageObjects
+namespace Bellatrix.Mobile.PageObjects;
+
+public abstract class AndroidPage : MobilePage
 {
-    public abstract class AndroidPage : MobilePage
-    {
-        public AndroidApp App => ServicesCollection.Current.Resolve<AndroidApp>();
+    public AndroidApp App => ServicesCollection.Current.Resolve<AndroidApp>();
 
-        protected abstract string ActivityName { get; }
-        protected abstract string PackageName { get; }
+    protected abstract string ActivityName { get; }
+    protected abstract string PackageName { get; }
 
-        public void GoTo() => App.AppService.StartActivity(PackageName, ActivityName);
-    }
+    public void GoTo() => App.AppService.StartActivity(PackageName, ActivityName);
 }

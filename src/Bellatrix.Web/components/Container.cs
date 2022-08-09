@@ -15,18 +15,17 @@ using System;
 using System.Diagnostics;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls
+namespace Bellatrix.Web.Controls;
+
+public class Container : Component
 {
-    public class Container : Component
-    {
-        public new Action Hover { get; set; }
+    public new Action Hover { get; set; }
 
-        public new Action Focus { get; set; }
+    public new Action Focus { get; set; }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public Func<string> InnerText { get; set; }
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public Func<string> InnerText { get; set; }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public Func<string> InnerHtml { get; set; }
-    }
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public Func<string> InnerHtml { get; set; }
 }

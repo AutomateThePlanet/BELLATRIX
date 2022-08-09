@@ -13,23 +13,22 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Text.Json.Serialization;
 
-namespace Bellatrix.Web.Utilities
+namespace Bellatrix.Web.Utilities;
+
+public class Email
 {
-    public class Email
-    {
-        [JsonPropertyName("tpl")]
-        public string Tpl { get; set; }
+    [JsonPropertyName("tpl")]
+    public string Tpl { get; set; }
 
-        [JsonPropertyName("to")]
-        public string To { get; set; }
+    [JsonPropertyName("to")]
+    public string To { get; set; }
 
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
+    [JsonPropertyName("subject")]
+    public string Subject { get; set; }
 
-        [JsonPropertyName("bcc")]
-        public string Bcc { get; set; }
+    [JsonPropertyName("bcc")]
+    public string Bcc { get; set; }
 
-        [JsonPropertyName("html")]
-        public string Html { get; set; }
-    }
+    [JsonPropertyName("html")]
+    public string Html { get; set; }
 }

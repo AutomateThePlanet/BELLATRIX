@@ -12,12 +12,11 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
-{
-    public class ColorControlDataHandler : IReadonlyControlDataHandler<Color>
-    {
-        public dynamic GetData(Color element) => element.GetColor();
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 
-        public void ValidateValueIs(Color element, string expectedValue) => element.ValidateColorIs(expectedValue);
-    }
+public class ColorControlDataHandler : IReadonlyControlDataHandler<Color>
+{
+    public dynamic GetData(Color element) => element.GetColor();
+
+    public void ValidateValueIs(Color element, string expectedValue) => element.ValidateColorIs(expectedValue);
 }

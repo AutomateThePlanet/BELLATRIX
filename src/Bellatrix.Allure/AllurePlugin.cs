@@ -19,28 +19,27 @@ using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Plugins.Video.Plugins;
 using Bellatrix.Results.Allure;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class AllurePlugin
 {
-    public static class AllurePlugin
+    public static void Add()
     {
-        public static void Add()
+        if (ConfigurationService.GetSection<AllureReportingSettings>().IsEnabled)
         {
-            if (ConfigurationService.GetSection<AllureReportingSettings>().IsEnabled)
-            {
-                ServicesCollection.Current.RegisterType<Plugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
-                ServicesCollection.Current.RegisterType<IScreenshotPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
-                ServicesCollection.Current.RegisterType<IVideoPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<Plugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<IScreenshotPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
+            ServicesCollection.Current.RegisterType<IVideoPlugin, AllureWorkflowPlugin>(Guid.NewGuid().ToString());
 
-                Environment.SetEnvironmentVariable("ALLURE_CONFIG", Path.Combine(GetAssemblyDirectory(), "allureConfig.json"));
-            }
+            Environment.SetEnvironmentVariable("ALLURE_CONFIG", Path.Combine(GetAssemblyDirectory(), "allureConfig.json"));
         }
+    }
 
-        private static string GetAssemblyDirectory()
-        {
-            string codeBase = Assembly.GetExecutingAssembly().Location;
-            var uri = new UriBuilder(codeBase);
-            string path = Uri.UnescapeDataString(uri.Path);
-            return Path.GetDirectoryName(path);
-        }
+    private static string GetAssemblyDirectory()
+    {
+        string codeBase = Assembly.GetExecutingAssembly().Location;
+        var uri = new UriBuilder(codeBase);
+        string path = Uri.UnescapeDataString(uri.Path);
+        return Path.GetDirectoryName(path);
     }
 }

@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Tabs Control")]
+[AllureTag("WPF")]
+public class TabsControlTestsWpf : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Tabs Control")]
-    [AllureTag("WPF")]
-    public class TabsControlTestsWpf : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_TabsHovered_Wpf()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_TabsHovered_Wpf()
-        {
-            var listBox = App.Components.CreateByAutomationId<Tabs>("tabs");
+        var listBox = App.Components.CreateByAutomationId<Tabs>("tabs");
 
-            listBox.Hover();
+        listBox.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-            label.ValidateInnerTextIs("tabsHovered");
-        }
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        label.ValidateInnerTextIs("tabsHovered");
     }
 }

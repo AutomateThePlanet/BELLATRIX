@@ -14,188 +14,187 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("DateTimeLocal Control")]
+[AllureFeature("ValidateExtensions")]
+public class DateTimeLocalControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("DateTimeLocal Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class DateTimeLocalControlValidateExtensionsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateTimeIs_DoesNotThrowException_When_UseSetDateTimeLocalMethod()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateTimeIs_DoesNotThrowException_When_UseSetDateTimeLocalMethod()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        timeElement.SetTime(new DateTime(1989, 10, 28, 23, 23, 0));
 
-            timeElement.SetTime(new DateTime(1989, 10, 28, 23, 23, 0));
+        timeElement.ValidateTimeIs("1989-10-28T23:23");
+    }
 
-            timeElement.ValidateTimeIs("1989-10-28T23:23");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        timeElement.ValidateAutoCompleteOff();
+    }
 
-            timeElement.ValidateAutoCompleteOff();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
+        Assert.IsFalse(timeElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(timeElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime3");
+        timeElement.ValidateAutoCompleteOn();
+    }
 
-            timeElement.ValidateAutoCompleteOn();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
+        timeElement.ValidateIsNotReadonly();
+    }
 
-            timeElement.ValidateIsNotReadonly();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime5");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime5");
+        timeElement.ValidateIsReadonly();
+    }
 
-            timeElement.ValidateIsReadonly();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxTextIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxTextIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        timeElement.ValidateMaxTextIsNull();
+    }
 
-            timeElement.ValidateMaxTextIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinTextIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinTextIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        timeElement.ValidateMinTextIsNull();
+    }
 
-            timeElement.ValidateMinTextIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        timeElement.ValidateStepIsNull();
+    }
 
-            timeElement.ValidateStepIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxTextIs_DoesNotThrowException_MaxAttributeIsPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxTextIs_DoesNotThrowException_MaxAttributeIsPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
+        timeElement.ValidateMaxTextIs("2017-06-30T16:30");
+    }
 
-            timeElement.ValidateMaxTextIs("2017-06-30T16:30");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinTextIs_DoesNotThrowException_When_MinAttributeIsPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinTextIs_DoesNotThrowException_When_MinAttributeIsPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
+        timeElement.ValidateMinTextIs("2017-06-01T08:30");
+    }
 
-            timeElement.ValidateMinTextIs("2017-06-01T08:30");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime1");
+        timeElement.ValidateStepIs(10);
+    }
 
-            timeElement.ValidateStepIs(10);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime4");
+        timeElement.ValidateIsNotRequired();
+    }
 
-            timeElement.ValidateIsNotRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime6");
+        timeElement.ValidateIsRequired();
+    }
 
-            timeElement.ValidateIsRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime7");
+        timeElement.Hover();
 
-            timeElement.Hover();
+        timeElement.ValidateStyleIs("color: red;");
+    }
 
-            timeElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotDisabled_DoesNotThrowException__When_DisabledAttributeNotPresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotDisabled_DoesNotThrowException__When_DisabledAttributeNotPresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime");
+        timeElement.ValidateIsNotDisabled();
+    }
 
-            timeElement.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
+    {
+        var timeElement = App.Components.CreateById<DateTimeLocal>("myTime9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
-        {
-            var timeElement = App.Components.CreateById<DateTimeLocal>("myTime9");
-
-            timeElement.ValidateIsDisabled();
-        }
+        timeElement.ValidateIsDisabled();
     }
 }

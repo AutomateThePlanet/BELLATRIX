@@ -13,35 +13,34 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Api;
 
-namespace Bellatrix.API.NUnit
+namespace Bellatrix.API.NUnit;
+
+public abstract class APITest : NUnitBaseTest
 {
-    public abstract class APITest : NUnitBaseTest
+    private static readonly object _lockObject = new object();
+    private static bool _arePluginsAlreadyInitialized;
+
+    public App App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<App>();
+
+    public override void Configure()
     {
-        private static readonly object _lockObject = new object();
-        private static bool _arePluginsAlreadyInitialized;
-
-        public App App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<App>();
-
-        public override void Configure()
+        lock (_lockObject)
         {
-            lock (_lockObject)
+            if (!_arePluginsAlreadyInitialized)
             {
-                if (!_arePluginsAlreadyInitialized)
-                {
-                    NUnitPluginConfiguration.Add();
-                    ExecutionTimePlugin.Add();
-                    DynamicTestCasesPlugin.Add();
-                    AllurePlugin.Add();
-                    BugReportingPlugin.Add();
-                    APIPluginsConfiguration.AddAssertExtensionsBddLogging();
-                    APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
-                    APIPluginsConfiguration.AddAssertExtensionsBugReporting();
-                    APIPluginsConfiguration.AddApiAuthenticationStrategies();
-                    APIPluginsConfiguration.AddRetryFailedRequests();
-                    APIPluginsConfiguration.AddLogExecution();
+                NUnitPluginConfiguration.Add();
+                ExecutionTimePlugin.Add();
+                DynamicTestCasesPlugin.Add();
+                AllurePlugin.Add();
+                BugReportingPlugin.Add();
+                APIPluginsConfiguration.AddAssertExtensionsBddLogging();
+                APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
+                APIPluginsConfiguration.AddAssertExtensionsBugReporting();
+                APIPluginsConfiguration.AddApiAuthenticationStrategies();
+                APIPluginsConfiguration.AddRetryFailedRequests();
+                APIPluginsConfiguration.AddLogExecution();
 
-                    _arePluginsAlreadyInitialized = true;
-                }
+                _arePluginsAlreadyInitialized = true;
             }
         }
     }

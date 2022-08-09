@@ -14,107 +14,106 @@
 using Bellatrix.Desktop.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Button Control")]
+[AllureFeature("Control Events")]
+[AllureTag("WPF")]
+public class ButtonControlEventsTests : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Button Control")]
-    [AllureFeature("Control Events")]
-    [AllureTag("WPF")]
-    public class ButtonControlEventsTests : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void HoveringCalled_BeforeActuallyHover()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void HoveringCalled_BeforeActuallyHover()
+        Button.Hovering += AssertTextResultLabel;
+
+        var button = App.Components.CreateByName<Button>("E Button");
+
+        button.Hover();
+
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        Assert.AreEqual("ebuttonHovered", label.InnerText);
+
+        Button.Hovering -= AssertTextResultLabel;
+
+        label.Hover();
+
+        void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
         {
-            Button.Hovering += AssertTextResultLabel;
+            var label1 = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+            Assert.AreEqual("Result Label", label1.InnerText);
+        }
+    }
 
-            var button = App.Components.CreateByName<Button>("E Button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void HoveredCalled_AfterHover()
+    {
+        Button.Hovered += AssertTextResultLabel;
 
-            button.Hover();
+        var button = App.Components.CreateByName<Button>("E Button");
 
+        button.Hover();
+
+        Button.Hovered -= AssertTextResultLabel;
+
+        void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
+        {
             var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonHovered", label.InnerText);
 
-            Button.Hovering -= AssertTextResultLabel;
-
             label.Hover();
-
-            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
-            {
-                var label1 = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-                Assert.AreEqual("Result Label", label1.InnerText);
-            }
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void ClickingCalled_BeforeActuallyClick()
+    {
+        Button.Clicking += AssertTextResultLabel;
+
+        var button = App.Components.CreateByName<Button>("E Button");
+
+        button.Click();
+
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        Assert.AreEqual("ebuttonClicked", label.InnerText);
+
+        Button.Clicking -= AssertTextResultLabel;
+
+        label.Hover();
+
+        void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
         {
-            Button.Hovered += AssertTextResultLabel;
-
-            var button = App.Components.CreateByName<Button>("E Button");
-
-            button.Hover();
-
-            Button.Hovered -= AssertTextResultLabel;
-
-            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
-            {
-                var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-                Assert.AreEqual("ebuttonHovered", label.InnerText);
-
-                label.Hover();
-            }
+            var label1 = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+            Assert.AreEqual("Result Label", label1.InnerText);
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void ClickingCalled_BeforeActuallyClick()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void ClickedCalled_AfterClick()
+    {
+        Button.Clicked += AssertTextResultLabel;
+
+        var button = App.Components.CreateByName<Button>("E Button");
+
+        button.Click();
+
+        Button.Clicked -= AssertTextResultLabel;
+
+        void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
         {
-            Button.Clicking += AssertTextResultLabel;
-
-            var button = App.Components.CreateByName<Button>("E Button");
-
-            button.Click();
-
             var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
             Assert.AreEqual("ebuttonClicked", label.InnerText);
 
-            Button.Clicking -= AssertTextResultLabel;
-
             label.Hover();
-
-            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
-            {
-                var label1 = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-                Assert.AreEqual("Result Label", label1.InnerText);
-            }
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void ClickedCalled_AfterClick()
-        {
-            Button.Clicked += AssertTextResultLabel;
-
-            var button = App.Components.CreateByName<Button>("E Button");
-
-            button.Click();
-
-            Button.Clicked -= AssertTextResultLabel;
-
-            void AssertTextResultLabel(object sender, ComponentActionEventArgs args)
-            {
-                var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-                Assert.AreEqual("ebuttonClicked", label.InnerText);
-
-                label.Hover();
-            }
         }
     }
 }

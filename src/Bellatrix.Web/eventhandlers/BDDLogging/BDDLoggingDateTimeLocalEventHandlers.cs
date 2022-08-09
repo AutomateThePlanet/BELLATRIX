@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class BDDLoggingDateTimeLocalEventHandlers : DateTimeLocalEventHandlers
 {
-    public class BDDLoggingDateTimeLocalEventHandlers : DateTimeLocalEventHandlers
-    {
-        protected override void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Set '{arg.ActionValue}' into {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
-    }
+    protected override void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Set '{arg.ActionValue}' into {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 }

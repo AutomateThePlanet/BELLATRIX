@@ -13,27 +13,26 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Mobile
-{
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class IOSWebAttribute : AppAttribute
-    {
-        public IOSWebAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
-            : base(appPath, platformVersion, deviceName, behavior)
-        {
-            AppConfiguration.OSPlatform = OS.OSX;
-            AppConfiguration.MobileOSType = MobileOSType.IOS;
-            AppConfiguration.PlatformName = "iOS";
-            AppConfiguration.BrowserName = "Safari";
-        }
+namespace Bellatrix.Mobile;
 
-        public IOSWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
-            : base(osPlatform, appPath, platformVersion, deviceName, behavior)
-        {
-            AppConfiguration.OSPlatform = OS.OSX;
-            AppConfiguration.MobileOSType = MobileOSType.IOS;
-            AppConfiguration.PlatformName = "iOS";
-            AppConfiguration.BrowserName = "Safari";
-        }
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public class IOSWebAttribute : AppAttribute
+{
+    public IOSWebAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+        : base(appPath, platformVersion, deviceName, behavior)
+    {
+        AppConfiguration.OSPlatform = OS.OSX;
+        AppConfiguration.MobileOSType = MobileOSType.IOS;
+        AppConfiguration.PlatformName = "iOS";
+        AppConfiguration.BrowserName = "Safari";
+    }
+
+    public IOSWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+        : base(osPlatform, appPath, platformVersion, deviceName, behavior)
+    {
+        AppConfiguration.OSPlatform = OS.OSX;
+        AppConfiguration.MobileOSType = MobileOSType.IOS;
+        AppConfiguration.PlatformName = "iOS";
+        AppConfiguration.BrowserName = "Safari";
     }
 }

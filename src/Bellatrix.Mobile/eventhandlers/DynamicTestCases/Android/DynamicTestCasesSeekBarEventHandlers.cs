@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.DynamicTestCases.Android
+namespace Bellatrix.Mobile.DynamicTestCases.Android;
+
+public class DynamicTestCasesSeekBarEventHandlers : SeekBarEventHandlers
 {
-    public class DynamicTestCasesSeekBarEventHandlers : SeekBarEventHandlers
-    {
-        protected override void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Set {arg.Element.ComponentName} to '{arg.ActionValue}'% on {arg.Element.PageName}");
-    }
+    protected override void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Set {arg.Element.ComponentName} to '{arg.ActionValue}'% on {arg.Element.PageName}");
 }

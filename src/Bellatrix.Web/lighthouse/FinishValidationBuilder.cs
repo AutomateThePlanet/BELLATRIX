@@ -19,29 +19,28 @@ using System.Threading.Tasks;
 using Bellatrix.Assertions;
 using Bellatrix.GoogleLighthouse;
 
-namespace Bellatrix.Web.lighthouse
+namespace Bellatrix.Web.lighthouse;
+
+public class FinishValidationBuilder
 {
-    public class FinishValidationBuilder
+    public static event EventHandler<LighthouseReportEventArgs> AssertedLighthouseReportEventArgs;
+
+    private Func<bool> _comparingFunction;
+    private string _notificationMessage;
+    private string _failedAssertionMessage;
+
+    public FinishValidationBuilder(Func<bool> comparingFunction) => _comparingFunction = comparingFunction;
+
+    public FinishValidationBuilder(Func<bool> comparingFunction, Func<string> notificationMessageFunction, Func<string> failedAssertionMessageFunction)
     {
-        public static event EventHandler<LighthouseReportEventArgs> AssertedLighthouseReportEventArgs;
+        _comparingFunction = comparingFunction;
+        _notificationMessage = notificationMessageFunction.Invoke();
+        _failedAssertionMessage = failedAssertionMessageFunction.Invoke();
+    }
 
-        private Func<bool> _comparingFunction;
-        private string _notificationMessage;
-        private string _failedAssertionMessage;
-
-        public FinishValidationBuilder(Func<bool> comparingFunction) => _comparingFunction = comparingFunction;
-
-        public FinishValidationBuilder(Func<bool> comparingFunction, Func<string> notificationMessageFunction, Func<string> failedAssertionMessageFunction)
-        {
-            _comparingFunction = comparingFunction;
-            _notificationMessage = notificationMessageFunction.Invoke();
-            _failedAssertionMessage = failedAssertionMessageFunction.Invoke();
-        }
-
-        public void Perform()
-        {
-            Assert.IsTrue<LighthouseAssertFailedException>(_comparingFunction.Invoke(), _failedAssertionMessage);
-            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(_notificationMessage));
-        }
+    public void Perform()
+    {
+        Assert.IsTrue<LighthouseAssertFailedException>(_comparingFunction.Invoke(), _failedAssertionMessage);
+        AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(_notificationMessage));
     }
 }

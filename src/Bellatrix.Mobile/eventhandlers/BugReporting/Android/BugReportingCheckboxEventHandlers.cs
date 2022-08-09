@@ -15,12 +15,11 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.BugReporting.Android
-{
-    public class BugReportingCheckboxEventHandlers : CheckboxEventHandlers
-    {
-        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+namespace Bellatrix.Mobile.BugReporting.Android;
 
-        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+public class BugReportingCheckboxEventHandlers : CheckboxEventHandlers
+{
+    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+
+    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

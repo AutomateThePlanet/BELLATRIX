@@ -16,47 +16,46 @@ using Bellatrix.Web.Services;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class TestExecutionEngine
 {
-    public class TestExecutionEngine
+    public void StartBrowser(BrowserConfiguration browserConfiguration, ServicesCollection childContainer)
     {
-        public void StartBrowser(BrowserConfiguration browserConfiguration, ServicesCollection childContainer)
+        try
         {
-            try
-            {
-                var wrappedWebDriver = WrappedWebDriverCreateService.Create(browserConfiguration);
+            var wrappedWebDriver = WrappedWebDriverCreateService.Create(browserConfiguration);
 
-                childContainer.RegisterInstance<IWebDriver>(wrappedWebDriver);
-                childContainer.RegisterInstance(((WebDriver)wrappedWebDriver).SessionId.ToString(), "SessionId");
-                childContainer.RegisterInstance(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url, "GridUri");
-                childContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(wrappedWebDriver));
-                childContainer.RegisterNull<int?>();
-                childContainer.RegisterNull<IWebElement>();
-                IsBrowserStartedCorrectly = true;
-            }
-            catch (Exception ex)
-            {
-                DebugInformation.PrintStackTrace(ex);
-                IsBrowserStartedCorrectly = false;
-                throw;
-            }
+            childContainer.RegisterInstance<IWebDriver>(wrappedWebDriver);
+            childContainer.RegisterInstance(((WebDriver)wrappedWebDriver).SessionId.ToString(), "SessionId");
+            childContainer.RegisterInstance(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url, "GridUri");
+            childContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(wrappedWebDriver));
+            childContainer.RegisterNull<int?>();
+            childContainer.RegisterNull<IWebElement>();
+            IsBrowserStartedCorrectly = true;
         }
-
-        public bool IsBrowserStartedCorrectly { get; set; }
-
-        public void Dispose(ServicesCollection container)
+        catch (Exception ex)
         {
-            var webDriver = container.Resolve<IWebDriver>();
-            DisposeDriverService.Dispose(webDriver, container);
+            DebugInformation.PrintStackTrace(ex);
+            IsBrowserStartedCorrectly = false;
+            throw;
         }
+    }
 
-        public void DisposeAll()
+    public bool IsBrowserStartedCorrectly { get; set; }
+
+    public void Dispose(ServicesCollection container)
+    {
+        var webDriver = container.Resolve<IWebDriver>();
+        DisposeDriverService.Dispose(webDriver, container);
+    }
+
+    public void DisposeAll()
+    {
+        foreach (var childContainer in ServicesCollection.Current.GetChildServicesCollections())
         {
-            foreach (var childContainer in ServicesCollection.Current.GetChildServicesCollections())
-            {
-                var driver = childContainer.Resolve<IWebDriver>();
-                DisposeDriverService.Dispose(driver, childContainer);
-            }
+            var driver = childContainer.Resolve<IWebDriver>();
+            DisposeDriverService.Dispose(driver, childContainer);
         }
     }
 }

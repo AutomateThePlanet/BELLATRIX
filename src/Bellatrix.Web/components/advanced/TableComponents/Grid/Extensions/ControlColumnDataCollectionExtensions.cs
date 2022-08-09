@@ -15,18 +15,17 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bellatrix.Web.Controls.Advanced.Grid
-{
-    public static class ControlColumnDataCollectionExtensions
-    {
-        public static ControlColumnData GetControlColumnDataByHeaderName(this List<IHeaderInfo> controlColumnDataCollection, string headerName)
-        {
-            return controlColumnDataCollection.First(x => x.HeaderName.Equals(headerName)) as ControlColumnData;
-        }
+namespace Bellatrix.Web.Controls.Advanced.Grid;
 
-        public static bool AnyControlColumnDataByHeaderName(this List<IHeaderInfo> controlColumnDataCollection, string headerName)
-        {
-            return controlColumnDataCollection.Any(x => x.HeaderName.Equals(headerName));
-        }
+public static class ControlColumnDataCollectionExtensions
+{
+    public static ControlColumnData GetControlColumnDataByHeaderName(this List<IHeaderInfo> controlColumnDataCollection, string headerName)
+    {
+        return controlColumnDataCollection.First(x => x.HeaderName.Equals(headerName)) as ControlColumnData;
+    }
+
+    public static bool AnyControlColumnDataByHeaderName(this List<IHeaderInfo> controlColumnDataCollection, string headerName)
+    {
+        return controlColumnDataCollection.Any(x => x.HeaderName.Equals(headerName));
     }
 }

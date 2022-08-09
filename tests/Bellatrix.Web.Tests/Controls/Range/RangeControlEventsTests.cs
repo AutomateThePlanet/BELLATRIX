@@ -14,134 +14,133 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Range Control")]
+[AllureFeature("ControlEvents")]
+public class RangeControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Range Control")]
-    [AllureFeature("ControlEvents")]
-    public class RangeControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingRangeCalled_BeforeActuallySetRange()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
+        Range.SettingRange += AssertValueAttributeEmpty;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingRangeCalled_BeforeActuallySetRange()
+        var rangeElement = App.Components.CreateById<Range>("myRange");
+
+        rangeElement.SetRange(9);
+
+        Assert.AreEqual(9, rangeElement.GetRange());
+
+        Range.SettingRange -= AssertValueAttributeEmpty;
+
+        void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Range.SettingRange += AssertValueAttributeEmpty;
-
-            var rangeElement = App.Components.CreateById<Range>("myRange");
-
-            rangeElement.SetRange(9);
-
-            Assert.AreEqual(9, rangeElement.GetRange());
-
-            Range.SettingRange -= AssertValueAttributeEmpty;
-
-            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("50", args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual("50", args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void RangeSetCalled_AfterSettingRange()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void RangeSetCalled_AfterSettingRange()
+    {
+        Range.RangeSet += AssertValueAttributeContainsNewValue;
+
+        var rangeElement = App.Components.CreateById<Range>("myRange");
+
+        rangeElement.SetRange(9);
+
+        Range.RangeSet -= AssertValueAttributeContainsNewValue;
+
+        void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Range.RangeSet += AssertValueAttributeContainsNewValue;
-
-            var rangeElement = App.Components.CreateById<Range>("myRange");
-
-            rangeElement.SetRange(9);
-
-            Range.RangeSet -= AssertValueAttributeContainsNewValue;
-
-            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("9", args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual("9", args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+        Range.Hovering += AssertStyleAttributeEmpty;
+
+        var rangeElement = App.Components.CreateById<Range>("myRange7");
+
+        rangeElement.Hover();
+
+        Assert.AreEqual("color: red;", rangeElement.GetStyle());
+
+        Range.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Range.Hovering += AssertStyleAttributeEmpty;
-
-            var rangeElement = App.Components.CreateById<Range>("myRange7");
-
-            rangeElement.Hover();
-
-            Assert.AreEqual("color: red;", rangeElement.GetStyle());
-
-            Range.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        Range.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var rangeElement = App.Components.CreateById<Range>("myRange7");
+
+        rangeElement.Hover();
+
+        Range.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Range.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var rangeElement = App.Components.CreateById<Range>("myRange7");
-
-            rangeElement.Hover();
-
-            Range.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Range>("myRange7").ValidateStyleIs("color: red;");
-            }
+            App.Components.CreateById<Range>("myRange7").ValidateStyleIs("color: red;");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusingCalled_BeforeActuallyFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusingCalled_BeforeActuallyFocus()
+    {
+        Range.Focusing += AssertStyleAttributeEmpty;
+
+        var rangeElement = App.Components.CreateById<Range>("myRange8");
+
+        rangeElement.Focus();
+
+        Assert.AreEqual("color: blue;", rangeElement.GetStyle());
+
+        Range.Focusing -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Range.Focusing += AssertStyleAttributeEmpty;
-
-            var rangeElement = App.Components.CreateById<Range>("myRange8");
-
-            rangeElement.Focus();
-
-            Assert.AreEqual("color: blue;", rangeElement.GetStyle());
-
-            Range.Focusing -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusedCalled_AfterFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusedCalled_AfterFocus()
+    {
+        Range.Focused += AssertStyleAttributeContainsNewValue;
+
+        var rangeElement = App.Components.CreateById<Range>("myRange8");
+
+        rangeElement.Focus();
+
+        Range.Focused -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Range.Focused += AssertStyleAttributeContainsNewValue;
-
-            var rangeElement = App.Components.CreateById<Range>("myRange8");
-
-            rangeElement.Focus();
-
-            Range.Focused -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
         }
     }
 }

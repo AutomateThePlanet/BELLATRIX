@@ -13,67 +13,66 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Button Control")]
+[AllureTag("WinForms")]
+public class ButtonControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Button Control")]
-    [AllureTag("WinForms")]
-    public class ButtonControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_ButtonHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_ButtonHovered_WinForms()
-        {
-            var button = App.Components.CreateByName<Button>("E Button");
+        var button = App.Components.CreateByName<Button>("E Button");
 
-            button.Hover();
+        button.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.IsTrue(label.IsVisible);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.IsTrue(label.IsVisible);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_ButtonClicked_WinForms()
-        {
-            var button = App.Components.CreateByName<Button>("E Button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_ButtonClicked_WinForms()
+    {
+        var button = App.Components.CreateByName<Button>("E Button");
 
-            button.Click();
+        button.Click();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.IsTrue(label.IsPresent);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.IsTrue(label.IsPresent);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void EButtonContent_When_ButtonLocated_WinForms()
-        {
-            var button = App.Components.CreateByName<Button>("E Button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void EButtonContent_When_ButtonLocated_WinForms()
+    {
+        var button = App.Components.CreateByName<Button>("E Button");
 
-            Assert.AreEqual("E Button", button.InnerText);
-        }
+        Assert.AreEqual("E Button", button.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled_WinForms()
-        {
-            var button = App.Components.CreateByName<Button>("E Button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_ButtonIsNotDisabled_WinForms()
+    {
+        var button = App.Components.CreateByName<Button>("E Button");
 
-            Assert.AreEqual(false, button.IsDisabled);
-        }
+        Assert.AreEqual(false, button.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_ButtonIsDisabled_WinForms()
-        {
-            var button = App.Components.CreateByName<Button>("D Button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_ButtonIsDisabled_WinForms()
+    {
+        var button = App.Components.CreateByName<Button>("D Button");
 
-            Assert.AreEqual(true, button.IsDisabled);
-        }
+        Assert.AreEqual(true, button.IsDisabled);
     }
 }

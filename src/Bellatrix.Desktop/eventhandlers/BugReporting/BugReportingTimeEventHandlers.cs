@@ -14,10 +14,9 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.BugReporting
+namespace Bellatrix.Desktop.BugReporting;
+
+public class BugReportingTimeEventHandlers : TimeEventHandlers
 {
-    public class BugReportingTimeEventHandlers : TimeEventHandlers
-    {
-        protected override void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Set '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Set '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

@@ -15,22 +15,21 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class SelectControlDataHandler : IEditableControlDataHandler<Select>
 {
-    public class SelectControlDataHandler : IEditableControlDataHandler<Select>
+    public virtual dynamic GetData(Select element)
     {
-        public virtual dynamic GetData(Select element)
-        {
-            var value = element.GetSelected().InnerText.Trim();
+        var value = element.GetSelected().InnerText.Trim();
 
-            return value;
-        }
-
-        public virtual void SetData(Select element, string data)
-        {
-            element.SelectByText(data);
-        }
-
-        public void ValidateValueIs(Select element, string expectedValue) => element.GetSelected().ValidateInnerTextIs(expectedValue);
+        return value;
     }
+
+    public virtual void SetData(Select element, string data)
+    {
+        element.SelectByText(data);
+    }
+
+    public void ValidateValueIs(Select element, string expectedValue) => element.GetSelected().ValidateInnerTextIs(expectedValue);
 }

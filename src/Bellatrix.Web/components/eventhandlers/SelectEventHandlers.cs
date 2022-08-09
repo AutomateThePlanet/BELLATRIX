@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class SelectEventHandlers : ComponentEventHandlers
 {
-    public class SelectEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Select.Selecting += SelectingEventHandler;
-            Select.Selected += SelectedEventHandler;
-            Select.Hovering += HoveringEventHandler;
-            Select.Hovered += HoveredEventHandler;
-        }
+        base.SubscribeToAll();
+        Select.Selecting += SelectingEventHandler;
+        Select.Selected += SelectedEventHandler;
+        Select.Hovering += HoveringEventHandler;
+        Select.Hovered += HoveredEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Select.Selecting -= SelectingEventHandler;
-            Select.Selected -= SelectedEventHandler;
-            Select.Hovering -= HoveringEventHandler;
-            Select.Hovered -= HoveredEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Select.Selecting -= SelectingEventHandler;
+        Select.Selected -= SelectedEventHandler;
+        Select.Hovering -= HoveringEventHandler;
+        Select.Hovered -= HoveredEventHandler;
+    }
 
-        protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

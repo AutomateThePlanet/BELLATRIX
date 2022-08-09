@@ -13,23 +13,22 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Api.Model
+namespace Bellatrix.Api.Model;
+
+[Serializable]
+public class NotSuccessfulRequestException : Exception
 {
-    [Serializable]
-    public class NotSuccessfulRequestException : Exception
+    public NotSuccessfulRequestException()
     {
-        public NotSuccessfulRequestException()
-        {
-        }
+    }
 
-        public NotSuccessfulRequestException(string message)
-            : base(message)
-        {
-        }
+    public NotSuccessfulRequestException(string message)
+        : base(message)
+    {
+    }
 
-        public NotSuccessfulRequestException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
+    public NotSuccessfulRequestException(string message, Exception inner)
+        : base(message, inner)
+    {
     }
 }

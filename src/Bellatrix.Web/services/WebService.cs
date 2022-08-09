@@ -14,15 +14,14 @@
 using System;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
-{
-    public abstract class WebService
-    {
-        protected WebService(IWebDriver wrappedDriver)
-        {
-            WrappedDriver = wrappedDriver;
-        }
+namespace Bellatrix.Web;
 
-        public IWebDriver WrappedDriver { get; }
+public abstract class WebService
+{
+    protected WebService(IWebDriver wrappedDriver)
+    {
+        WrappedDriver = wrappedDriver;
     }
+
+    public IWebDriver WrappedDriver { get; }
 }

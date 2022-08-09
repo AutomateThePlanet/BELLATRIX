@@ -12,31 +12,31 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+/**
+* All scripts to be run on the client via ExecuteAsyncScript or
+* ExecuteScript should be put here. These scripts are transmitted over
+* the wire using their toString representation, and cannot reference
+* external variables. They can, however use the array passed in to
+* arguments. Instead of params, all functions on clientSideScripts
+* should list the arguments array they expect.
+*/
+internal class AngularClientSideScripts
 {
     /**
-    * All scripts to be run on the client via ExecuteAsyncScript or
-    * ExecuteScript should be put here. These scripts are transmitted over
-    * the wire using their toString representation, and cannot reference
-    * external variables. They can, however use the array passed in to
-    * arguments. Instead of params, all functions on clientSideScripts
-    * should list the arguments array they expect.
+    * Tries to find $$testability and possibly $injector for an ng1 app
+    *
+    * By default, doesn't care about $injector if it finds $$testability.
+    * However, these priorities can be reversed.
+    *
+    * @param {string=} selector The selector for the element with the injector.
+    * If falsy, tries a variety of methods to find an injector
+    * @param {boolean=} injectorPlease Prioritize finding an injector
+    * @return {$$testability?: Testability, $injector?: Injector} Returns whatever
+    * ng1 app hooks it finds
     */
-    internal class AngularClientSideScripts
-    {
-        /**
-        * Tries to find $$testability and possibly $injector for an ng1 app
-        *
-        * By default, doesn't care about $injector if it finds $$testability.
-        * However, these priorities can be reversed.
-        *
-        * @param {string=} selector The selector for the element with the injector.
-        * If falsy, tries a variety of methods to find an injector
-        * @param {boolean=} injectorPlease Prioritize finding an injector
-        * @return {$$testability?: Testability, $injector?: Injector} Returns whatever
-        * ng1 app hooks it finds
-        */
-        private const string GetNg1HooksHelper = @"
+    private const string GetNg1HooksHelper = @"
 function getNg1Hooks(selector, injectorPlease) {
     function tryEl(el) {
         try {
@@ -80,34 +80,34 @@ function getNg1Hooks(selector, injectorPlease) {
 };
 ";
 
-        /**
-         * Continue to bootstrap Angular.
-         *
-         * arguments[0] {array} The module names to load.
-         */
-        public const string ResumeAngularBootstrap = @"
+    /**
+     * Continue to bootstrap Angular.
+     *
+     * arguments[0] {array} The module names to load.
+     */
+    public const string ResumeAngularBootstrap = @"
 window.__TESTABILITY__NG1_APP_ROOT_INJECTOR__ = 
     angular.resumeBootstrap(arguments[0].length ? arguments[0].split(',') : []);";
 
-        /**
-         * Return the current location using $location.url().
-         *
-         * arguments[0] {string} The selector housing an ng-app
-         */
-        public const string GetLocation = GetNg1HooksHelper + @"
+    /**
+     * Return the current location using $location.url().
+     *
+     * arguments[0] {string} The selector housing an ng-app
+     */
+    public const string GetLocation = GetNg1HooksHelper + @"
 var hooks = getNg1Hooks(arguments[0]);
 if (angular.getTestability) {
     return hooks.$$testability.getLocation();
 }
 return hooks.$injector.get('$location').getLocation();";
 
-        /**
-         * Browse to another page using in-page navigation.
-         *
-         * arguments[0] {string} The selector housing an ng-app
-         * arguments[1] {string} In page URL using the same syntax as $location.url()
-         */
-        public const string SetLocation = GetNg1HooksHelper + @"
+    /**
+     * Browse to another page using in-page navigation.
+     *
+     * arguments[0] {string} The selector housing an ng-app
+     * arguments[1] {string} In page URL using the same syntax as $location.url()
+     */
+    public const string SetLocation = GetNg1HooksHelper + @"
 var hooks = getNg1Hooks(arguments[0]);
 var url = arguments[1];
 if (angular.getTestability) {
@@ -122,30 +122,30 @@ if (url !== $location.url()) {
     $rootScope.$digest();
 }";
 
-        /**
-         * Evaluate an Angular expression in the context of a given element.
-         *
-         * arguments[0] {Element} The element in whose scope to evaluate.
-         * arguments[1] {string} The expression to evaluate.
-         *
-         * @return {?Object} The result of the evaluation.
-         */
-        public const string Evaluate = @"
+    /**
+     * Evaluate an Angular expression in the context of a given element.
+     *
+     * arguments[0] {Element} The element in whose scope to evaluate.
+     * arguments[1] {string} The expression to evaluate.
+     *
+     * @return {?Object} The result of the evaluation.
+     */
+    public const string Evaluate = @"
 var element = arguments[0];
 var expression = arguments[1];
 return angular.element(element).scope().$eval(expression);";
 
-        /**
-         * Find a list of elements in the page by their angular binding.
-         *
-         * arguments[0] {string} The binding, e.g. {{cat.name}}.
-         * arguments[1] {boolean} Whether the binding needs to be matched exactly
-         * arguments[2] {string} The selector to use for the root app element.
-         * arguments[3] {Element} The scope of the search.
-         *
-         * @return {Array.WebElement} The elements containing the binding.
-         */
-        public const string FindBindings = GetNg1HooksHelper + @"
+    /**
+     * Find a list of elements in the page by their angular binding.
+     *
+     * arguments[0] {string} The binding, e.g. {{cat.name}}.
+     * arguments[1] {boolean} Whether the binding needs to be matched exactly
+     * arguments[2] {string} The selector to use for the root app element.
+     * arguments[3] {Element} The scope of the search.
+     *
+     * @return {Array.WebElement} The elements containing the binding.
+     */
+    public const string FindBindings = GetNg1HooksHelper + @"
 var binding = arguments[0];
 var exactMatch = arguments[1];
 var using = arguments[3] || document;
@@ -176,16 +176,16 @@ for (var i = 0; i < bindings.length; ++i) {
 }
 return matches;";
 
-        /**
-         * Find elements by model name.
-         *
-         * arguments[0] {string} The model name.
-         * arguments[1] {string} The selector to use for the root app element.
-         * arguments[2] {Element} The scope of the search.
-         *
-         * @return {Array.WebElement} The matching input elements.
-         */
-        public const string FindModel = GetNg1HooksHelper + @"
+    /**
+     * Find elements by model name.
+     *
+     * arguments[0] {string} The model name.
+     * arguments[1] {string} The selector to use for the root app element.
+     * arguments[2] {Element} The scope of the search.
+     *
+     * @return {Array.WebElement} The matching input elements.
+     */
+    public const string FindModel = GetNg1HooksHelper + @"
 var model = arguments[0];
 var using = arguments[2] || document;
 if (angular.getTestability) {
@@ -201,16 +201,16 @@ for (var p = 0; p < prefixes.length; ++p) {
     }
 }";
 
-        /**
-         * Find selected option elements by model name.
-         *
-         * arguments[0] {string} The model name.
-         * arguments[1] {string} The selector to use for the root app element.
-         * arguments[2] {Element} The scope of the search.
-         *
-         * @return {Array.WebElement} The matching select elements.
-         */
-        public const string FindSelectedOptions = @"
+    /**
+     * Find selected option elements by model name.
+     *
+     * arguments[0] {string} The model name.
+     * arguments[1] {string} The selector to use for the root app element.
+     * arguments[2] {Element} The scope of the search.
+     *
+     * @return {Array.WebElement} The matching select elements.
+     */
+    public const string FindSelectedOptions = @"
 var model = arguments[0];
 var using = arguments[2] || document;
 var prefixes = ['ng-', 'ng_', 'data-ng-', 'x-ng-', 'ng\\:'];
@@ -222,17 +222,17 @@ for (var p = 0; p < prefixes.length; ++p) {
     }
 }";
 
-        /**
-         * Find all rows of an ng-repeat.
-         *
-         * arguments[0] {string} The text of the repeater, e.g. 'cat in cats'.
-         * arguments[1] {boolean} Whether the repeater needs to be matched exactly
-         * arguments[1] {string} The selector to use for the root app element.
-         * arguments[2] {Element} The scope of the search.
-         *
-         * @return {Array.WebElement} All rows of the repeater.
-         */
-        public const string FindAllRepeaterRows = @"
+    /**
+     * Find all rows of an ng-repeat.
+     *
+     * arguments[0] {string} The text of the repeater, e.g. 'cat in cats'.
+     * arguments[1] {boolean} Whether the repeater needs to be matched exactly
+     * arguments[1] {string} The selector to use for the root app element.
+     * arguments[2] {Element} The scope of the search.
+     *
+     * @return {Array.WebElement} All rows of the repeater.
+     */
+    public const string FindAllRepeaterRows = @"
 var repeaterMatch = function(ngRepeat, repeater, exact) {
     if (exact) {
         return ngRepeat.split(' track by ')[0].split(' as ')[0].split('|')[0].
@@ -275,5 +275,4 @@ for (var p = 0; p < prefixes.length; ++p) {
     }
 }
 return rows;";
-    }
 }

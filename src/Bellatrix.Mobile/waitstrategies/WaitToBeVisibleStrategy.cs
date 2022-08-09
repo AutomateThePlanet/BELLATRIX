@@ -17,35 +17,34 @@ using Bellatrix.Mobile.Locators;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Untils
+namespace Bellatrix.Mobile.Untils;
+
+public class WaitToBeVisibleStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
+   where TDriver : AppiumDriver<TDriverElement>
+   where TDriverElement : AppiumWebElement
 {
-    public class WaitToBeVisibleStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
-       where TDriver : AppiumDriver<TDriverElement>
-       where TDriverElement : AppiumWebElement
+    public WaitToBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitToBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToBeVisibleTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToBeVisibleTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-        {
-            WaitUntil(d => ElementIsVisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementIsVisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
 
-        private bool ElementIsVisible<TBy>(TDriver searchContext, TBy by)
-             where TBy : FindStrategy<TDriver, TDriverElement>
+    private bool ElementIsVisible<TBy>(TDriver searchContext, TBy by)
+         where TBy : FindStrategy<TDriver, TDriverElement>
+    {
+        try
         {
-            try
-            {
-                var element = by.FindElement(searchContext);
-                return element.Displayed;
-            }
-            catch (StaleElementReferenceException)
-            {
-                return false;
-            }
+            var element = by.FindElement(searchContext);
+            return element.Displayed;
+        }
+        catch (StaleElementReferenceException)
+        {
+            return false;
         }
     }
 }

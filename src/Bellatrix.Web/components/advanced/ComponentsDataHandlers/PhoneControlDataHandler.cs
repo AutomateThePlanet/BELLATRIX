@@ -15,17 +15,16 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class PhoneControlDataHandler : IEditableControlDataHandler<Phone>
 {
-    public class PhoneControlDataHandler : IEditableControlDataHandler<Phone>
+    public dynamic GetData(Phone element) => element.GetPhone();
+
+    public void SetData(Phone element, string data)
     {
-        public dynamic GetData(Phone element) => element.GetPhone();
-
-        public void SetData(Phone element, string data)
-        {
-            element.SetPhone(data);
-        }
-
-        public void ValidateValueIs(Phone element, string expectedValue) => element.ValidatePhoneIs(expectedValue);
+        element.SetPhone(data);
     }
+
+    public void ValidateValueIs(Phone element, string expectedValue) => element.ValidatePhoneIs(expectedValue);
 }

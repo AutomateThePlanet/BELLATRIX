@@ -20,91 +20,90 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace Bellatrix.BugReporting
+namespace Bellatrix.BugReporting;
+
+public class BugReportingContextService
 {
-    public class BugReportingContextService
+    public BugReportingContextService()
     {
-        public BugReportingContextService()
-        {
-            Context = new ThreadLocal<BugReportingContext>(() => new BugReportingContext());
-        }
-
-        public ThreadLocal<BugReportingContext> Context { get; internal set; }
-
-        public void ResetContext()
-        {
-            Context = new ThreadLocal<BugReportingContext>(() => new BugReportingContext());
-        }
-
-        // Appends precondition to the test case.
-        public void AddPrecondition(string precondition)
-        {
-            Context.Value.Precondition += precondition;
-        }
-
-        // Adds a regular test step
-        public void AddStep(string description)
-        {
-            Context.Value.TestSteps.Add(new TestStep(description));
-        }
-
-        // Adds a test step, using description generated from the method name, from which it was invoked.
-        public void AddMethodAsStep(params string[] parameters)
-        {
-            var stackTrace = new StackTrace();
-            var methodInfo = stackTrace.GetFrame(1).GetMethod() as MethodInfo;
-            var description = MethodToSentence(methodInfo.Name);
-            if (parameters.Any())
-            {
-                description += " using data: " + parameters.Stringify();
-            }
-
-            Context.Value.TestSteps.Add(new TestStep(description));
-        }
-
-        // Adds test case using the description and expected result columns.
-        public void AddAssertStep(string assertDescription, string expectedResult)
-        {
-            Context.Value.TestSteps.Add(new TestStep(assertDescription, expectedResult));
-        }
-
-        public void AddAdditionalProperty(string name, string value)
-        {
-            if (Context.Value.AdditionalProperties.ContainsKey(name))
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    return;
-                }
-
-                Context.Value.AdditionalProperties[name] = value;
-            }
-            else
-            {
-                Context.Value.AdditionalProperties.Add(name, value);
-            }
-        }
-
-        // Converts a method name to a human-readable sentence
-        private string MethodToSentence(string name)
-        {
-            var returnStr = name;
-            for (var i = 1; i < name.Length; i++)
-            {
-                var letter = name.Substring(i, 1);
-
-                if (letter.GetHashCode() != letter.ToLower().GetHashCode())
-                {
-                    returnStr = returnStr.Replace(letter, $" {letter.ToLower()}");
-                }
-            }
-
-            returnStr = RemoveSpecialCharacters(returnStr);
-            returnStr = returnStr.First().ToString().ToUpper() + returnStr.Substring(1);
-
-            return returnStr;
-        }
-
-        private string RemoveSpecialCharacters(string nameValue) => new Regex(@"[^a-zA-Z0-9]|[0]").Replace(nameValue, string.Empty);
+        Context = new ThreadLocal<BugReportingContext>(() => new BugReportingContext());
     }
+
+    public ThreadLocal<BugReportingContext> Context { get; internal set; }
+
+    public void ResetContext()
+    {
+        Context = new ThreadLocal<BugReportingContext>(() => new BugReportingContext());
+    }
+
+    // Appends precondition to the test case.
+    public void AddPrecondition(string precondition)
+    {
+        Context.Value.Precondition += precondition;
+    }
+
+    // Adds a regular test step
+    public void AddStep(string description)
+    {
+        Context.Value.TestSteps.Add(new TestStep(description));
+    }
+
+    // Adds a test step, using description generated from the method name, from which it was invoked.
+    public void AddMethodAsStep(params string[] parameters)
+    {
+        var stackTrace = new StackTrace();
+        var methodInfo = stackTrace.GetFrame(1).GetMethod() as MethodInfo;
+        var description = MethodToSentence(methodInfo.Name);
+        if (parameters.Any())
+        {
+            description += " using data: " + parameters.Stringify();
+        }
+
+        Context.Value.TestSteps.Add(new TestStep(description));
+    }
+
+    // Adds test case using the description and expected result columns.
+    public void AddAssertStep(string assertDescription, string expectedResult)
+    {
+        Context.Value.TestSteps.Add(new TestStep(assertDescription, expectedResult));
+    }
+
+    public void AddAdditionalProperty(string name, string value)
+    {
+        if (Context.Value.AdditionalProperties.ContainsKey(name))
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return;
+            }
+
+            Context.Value.AdditionalProperties[name] = value;
+        }
+        else
+        {
+            Context.Value.AdditionalProperties.Add(name, value);
+        }
+    }
+
+    // Converts a method name to a human-readable sentence
+    private string MethodToSentence(string name)
+    {
+        var returnStr = name;
+        for (var i = 1; i < name.Length; i++)
+        {
+            var letter = name.Substring(i, 1);
+
+            if (letter.GetHashCode() != letter.ToLower().GetHashCode())
+            {
+                returnStr = returnStr.Replace(letter, $" {letter.ToLower()}");
+            }
+        }
+
+        returnStr = RemoveSpecialCharacters(returnStr);
+        returnStr = returnStr.First().ToString().ToUpper() + returnStr.Substring(1);
+
+        return returnStr;
+    }
+
+    private string RemoveSpecialCharacters(string nameValue) => new Regex(@"[^a-zA-Z0-9]|[0]").Replace(nameValue, string.Empty);
 }

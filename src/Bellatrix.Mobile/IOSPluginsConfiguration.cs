@@ -24,125 +24,124 @@ using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Contracts;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public static class IOSPluginsConfiguration
 {
-    public static class IOSPluginsConfiguration
+    public static void AddIOSDriverScreenshotsOnFail()
     {
-        public static void AddIOSDriverScreenshotsOnFail()
-        {
-            ServicesCollection.Current.RegisterType<IScreenshotEngine, IOSDriverScreenshotEngine>();
-            ServicesCollection.Current.RegisterType<IScreenshotOutputProvider, ScreenshotOutputProvider>();
-            ServicesCollection.Current.RegisterType<IScreenshotPluginProvider, ScreenshotPluginProvider>();
-            ServicesCollection.Current.RegisterType<Plugin, ScreenshotPlugin>(Guid.NewGuid().ToString());
-        }
+        ServicesCollection.Current.RegisterType<IScreenshotEngine, IOSDriverScreenshotEngine>();
+        ServicesCollection.Current.RegisterType<IScreenshotOutputProvider, ScreenshotOutputProvider>();
+        ServicesCollection.Current.RegisterType<IScreenshotPluginProvider, ScreenshotPluginProvider>();
+        ServicesCollection.Current.RegisterType<Plugin, ScreenshotPlugin>(Guid.NewGuid().ToString());
+    }
 
-        public static void AddElementsBddLogging()
+    public static void AddElementsBddLogging()
+    {
+        var elementEventHandlers = new List<ComponentEventHandlers>
+                                   {
+                                       new BDDLoggingButtonEventHandlers(),
+                                       new BDDLoggingRadioButtonEventHandlers(),
+                                       new BDDLoggingCheckboxEventHandlers(),
+                                       new BDDLoggingToggleButtonEventHandlers(),
+                                       new BDDLoggingTextFieldEventHandlers(),
+                                       new BDDLoggingComboBoxEventHandlers(),
+                                       new BDDLoggingPasswordEventHandlers(),
+                                       new BDDLoggingImageButtonEventHandlers(),
+                                       new BDDLoggingNumberEventHandlers(),
+                                       new BDDLoggingSeekBarEventHandlers(),
+                                   };
+        foreach (var elementEventHandler in elementEventHandlers)
         {
-            var elementEventHandlers = new List<ComponentEventHandlers>
-                                       {
-                                           new BDDLoggingButtonEventHandlers(),
-                                           new BDDLoggingRadioButtonEventHandlers(),
-                                           new BDDLoggingCheckboxEventHandlers(),
-                                           new BDDLoggingToggleButtonEventHandlers(),
-                                           new BDDLoggingTextFieldEventHandlers(),
-                                           new BDDLoggingComboBoxEventHandlers(),
-                                           new BDDLoggingPasswordEventHandlers(),
-                                           new BDDLoggingImageButtonEventHandlers(),
-                                           new BDDLoggingNumberEventHandlers(),
-                                           new BDDLoggingSeekBarEventHandlers(),
-                                       };
-            foreach (var elementEventHandler in elementEventHandlers)
-            {
-                elementEventHandler.SubscribeToAll();
-            }
+            elementEventHandler.SubscribeToAll();
         }
+    }
 
-        public static void AddDynamicTestCases()
+    public static void AddDynamicTestCases()
+    {
+        var elementEventHandlers = new List<ComponentEventHandlers>
+                                   {
+                                       new DynamicTestCasesButtonEventHandlers(),
+                                       new DynamicTestCasesRadioButtonEventHandlers(),
+                                       new DynamicTestCasesCheckboxEventHandlers(),
+                                       new DynamicTestCasesToggleButtonEventHandlers(),
+                                       new DynamicTestCasesTextFieldEventHandlers(),
+                                       new DynamicTestCasesComboBoxEventHandlers(),
+                                       new DynamicTestCasesPasswordEventHandlers(),
+                                       new DynamicTestCasesImageButtonEventHandlers(),
+                                       new DynamicTestCasesNumberEventHandlers(),
+                                       new DynamicTestCasesSeekBarEventHandlers(),
+                                   };
+        foreach (var elementEventHandler in elementEventHandlers)
         {
-            var elementEventHandlers = new List<ComponentEventHandlers>
-                                       {
-                                           new DynamicTestCasesButtonEventHandlers(),
-                                           new DynamicTestCasesRadioButtonEventHandlers(),
-                                           new DynamicTestCasesCheckboxEventHandlers(),
-                                           new DynamicTestCasesToggleButtonEventHandlers(),
-                                           new DynamicTestCasesTextFieldEventHandlers(),
-                                           new DynamicTestCasesComboBoxEventHandlers(),
-                                           new DynamicTestCasesPasswordEventHandlers(),
-                                           new DynamicTestCasesImageButtonEventHandlers(),
-                                           new DynamicTestCasesNumberEventHandlers(),
-                                           new DynamicTestCasesSeekBarEventHandlers(),
-                                       };
-            foreach (var elementEventHandler in elementEventHandlers)
-            {
-                elementEventHandler.SubscribeToAll();
-            }
+            elementEventHandler.SubscribeToAll();
         }
+    }
 
-        public static void AddBugReporting()
+    public static void AddBugReporting()
+    {
+        var elementEventHandlers = new List<ComponentEventHandlers>
+                                   {
+                                       new BugReportingButtonEventHandlers(),
+                                       new BugReportingRadioButtonEventHandlers(),
+                                       new BugReportingCheckboxEventHandlers(),
+                                       new BugReportingToggleButtonEventHandlers(),
+                                       new BugReportingTextFieldEventHandlers(),
+                                       new BugReportingComboBoxEventHandlers(),
+                                       new BugReportingPasswordEventHandlers(),
+                                       new BugReportingImageButtonEventHandlers(),
+                                       new BugReportingNumberEventHandlers(),
+                                       new BugReportingSeekBarEventHandlers(),
+                                   };
+        foreach (var elementEventHandler in elementEventHandlers)
         {
-            var elementEventHandlers = new List<ComponentEventHandlers>
-                                       {
-                                           new BugReportingButtonEventHandlers(),
-                                           new BugReportingRadioButtonEventHandlers(),
-                                           new BugReportingCheckboxEventHandlers(),
-                                           new BugReportingToggleButtonEventHandlers(),
-                                           new BugReportingTextFieldEventHandlers(),
-                                           new BugReportingComboBoxEventHandlers(),
-                                           new BugReportingPasswordEventHandlers(),
-                                           new BugReportingImageButtonEventHandlers(),
-                                           new BugReportingNumberEventHandlers(),
-                                           new BugReportingSeekBarEventHandlers(),
-                                       };
-            foreach (var elementEventHandler in elementEventHandlers)
-            {
-                elementEventHandler.SubscribeToAll();
-            }
+            elementEventHandler.SubscribeToAll();
         }
+    }
 
-        public static void AddValidateExtensionsBddLogging()
-        {
-            var bddLoggingValidateExtensions = new BDDLoggingValidateExtensionsService();
-            bddLoggingValidateExtensions.SubscribeToAll();
-        }
+    public static void AddValidateExtensionsBddLogging()
+    {
+        var bddLoggingValidateExtensions = new BDDLoggingValidateExtensionsService();
+        bddLoggingValidateExtensions.SubscribeToAll();
+    }
 
-        public static void AddValidateExtensionsDynamicTestCases()
-        {
-            var dynamicTestCasesValidateExtensions = new DynamicTestCasesValidateExtensions();
-            dynamicTestCasesValidateExtensions.SubscribeToAll();
-        }
+    public static void AddValidateExtensionsDynamicTestCases()
+    {
+        var dynamicTestCasesValidateExtensions = new DynamicTestCasesValidateExtensions();
+        dynamicTestCasesValidateExtensions.SubscribeToAll();
+    }
 
-        public static void AddValidateExtensionsBugReporting()
-        {
-            var bugReprtingValidateExtensions = new BugReportingValidateExtensions();
-            bugReprtingValidateExtensions.SubscribeToAll();
-        }
+    public static void AddValidateExtensionsBugReporting()
+    {
+        var bugReprtingValidateExtensions = new BugReportingValidateExtensions();
+        bugReprtingValidateExtensions.SubscribeToAll();
+    }
 
-        public static void AddLayoutAssertionExtensionsBddLogging()
-        {
-            var bddLoggingLayoutAssertionsExtensions = new BDDLoggingAssertionExtensionsService();
-            bddLoggingLayoutAssertionsExtensions.SubscribeToAll();
-        }
+    public static void AddLayoutAssertionExtensionsBddLogging()
+    {
+        var bddLoggingLayoutAssertionsExtensions = new BDDLoggingAssertionExtensionsService();
+        bddLoggingLayoutAssertionsExtensions.SubscribeToAll();
+    }
 
-        public static void AddLayoutAssertionExtensionsDynamicTestCases()
-        {
-            var dynamicTestCasesLayoutAssertionsExtensions = new DynamicTestCasesAssertionExtensions();
-            dynamicTestCasesLayoutAssertionsExtensions.SubscribeToAll();
-        }
+    public static void AddLayoutAssertionExtensionsDynamicTestCases()
+    {
+        var dynamicTestCasesLayoutAssertionsExtensions = new DynamicTestCasesAssertionExtensions();
+        dynamicTestCasesLayoutAssertionsExtensions.SubscribeToAll();
+    }
 
-        public static void AddLayoutAssertionExtensionsBugReporting()
-        {
-            var bugReportingLayoutAssertionsExtensions = new BugReportingAssertionExtensions();
-            bugReportingLayoutAssertionsExtensions.SubscribeToAll();
-        }
+    public static void AddLayoutAssertionExtensionsBugReporting()
+    {
+        var bugReportingLayoutAssertionsExtensions = new BugReportingAssertionExtensions();
+        bugReportingLayoutAssertionsExtensions.SubscribeToAll();
+    }
 
-        public static void AddLifecycle()
-        {
-            ServicesCollection.Current.RegisterType<Plugin, AppWorkflowPlugin>(Guid.NewGuid().ToString());
-        }
+    public static void AddLifecycle()
+    {
+        ServicesCollection.Current.RegisterType<Plugin, AppWorkflowPlugin>(Guid.NewGuid().ToString());
+    }
 
-        public static void AddLogExecutionLifecycle()
-        {
-            ServicesCollection.Current.RegisterType<Plugin, LogWorkflowPlugin>(Guid.NewGuid().ToString());
-        }
+    public static void AddLogExecutionLifecycle()
+    {
+        ServicesCollection.Current.RegisterType<Plugin, LogWorkflowPlugin>(Guid.NewGuid().ToString());
     }
 }

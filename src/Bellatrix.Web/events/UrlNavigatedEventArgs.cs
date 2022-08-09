@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Web.Events
-{
-    public class UrlNavigatedEventArgs
-    {
-        public UrlNavigatedEventArgs(string url) => Url = url;
+namespace Bellatrix.Web.Events;
 
-        public string Url { get; }
-    }
+public class UrlNavigatedEventArgs
+{
+    public UrlNavigatedEventArgs(string url) => Url = url;
+
+    public string Url { get; }
 }

@@ -14,43 +14,42 @@
 
 using System;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class ParseExtensions
 {
-    public static class ParseExtensions
+    public static int ToInt(this string value)
     {
-        public static int ToInt(this string value)
-        {
-            return int.Parse(value);
-        }
+        return int.Parse(value);
+    }
 
-        public static long ToLong(this string value)
-        {
-            return long.Parse(value);
-        }
+    public static long ToLong(this string value)
+    {
+        return long.Parse(value);
+    }
 
-        public static float ToFloat(this string value)
-        {
-            return float.Parse(value);
-        }
+    public static float ToFloat(this string value)
+    {
+        return float.Parse(value);
+    }
 
-        public static double ToDouble(this string value)
-        {
-            return double.Parse(value);
-        }
+    public static double ToDouble(this string value)
+    {
+        return double.Parse(value);
+    }
 
-        public static Guid ToGuide(this string value)
-        {
-            return Guid.Parse(value);
-        }
+    public static Guid ToGuide(this string value)
+    {
+        return Guid.Parse(value);
+    }
 
-        public static TimeSpan ToTimeSpan(this string value)
-        {
-            return TimeSpan.Parse(value);
-        }
+    public static TimeSpan ToTimeSpan(this string value)
+    {
+        return TimeSpan.Parse(value);
+    }
 
-        public static DateTime ToDateTime(this string value)
-        {
-            return DateTime.Parse(value);
-        }
+    public static DateTime ToDateTime(this string value)
+    {
+        return DateTime.Parse(value);
     }
 }

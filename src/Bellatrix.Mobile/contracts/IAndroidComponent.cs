@@ -13,9 +13,8 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Contracts
+namespace Bellatrix.Mobile.Contracts;
+
+public interface IAndroidComponent : IComponent<AndroidElement>
 {
-    public interface IAndroidComponent : IComponent<AndroidElement>
-    {
-    }
 }

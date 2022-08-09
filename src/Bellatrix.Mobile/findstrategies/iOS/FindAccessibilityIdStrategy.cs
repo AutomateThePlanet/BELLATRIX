@@ -16,38 +16,37 @@ using System.Linq;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.Locators.IOS
+namespace Bellatrix.Mobile.Locators.IOS;
+
+public class FindAccessibilityIdStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
 {
-    public class FindAccessibilityIdStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+    public FindAccessibilityIdStrategy(string name)
+        : base(name)
     {
-        public FindAccessibilityIdStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
-        {
-            return searchContext.FindElementByAccessibilityId(Value);
-        }
+    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    {
+        return searchContext.FindElementByAccessibilityId(Value);
+    }
 
-        public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
-        {
-            return searchContext.FindElementsByAccessibilityId(Value).AsEnumerable();
-        }
+    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    {
+        return searchContext.FindElementsByAccessibilityId(Value).AsEnumerable();
+    }
 
-        public override AppiumWebElement FindElement(IOSElement element)
-        {
-            return element.FindElementByAccessibilityId(Value);
-        }
+    public override AppiumWebElement FindElement(IOSElement element)
+    {
+        return element.FindElementByAccessibilityId(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
-        {
-            return element.FindElementsByAccessibilityId(Value).AsEnumerable();
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    {
+        return element.FindElementsByAccessibilityId(Value).AsEnumerable();
+    }
 
-        public override string ToString()
-        {
-            return $"AccessibilityId = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"AccessibilityId = {Value}";
     }
 }

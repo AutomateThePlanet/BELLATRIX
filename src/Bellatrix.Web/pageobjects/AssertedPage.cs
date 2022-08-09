@@ -14,13 +14,12 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web
-{
-    [Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
-    public abstract class AssertedPage : Page
-    {
-        protected AssertedPage() => Assert = ServicesCollection.Current.Resolve<IAssert>();
+namespace Bellatrix.Web;
 
-        protected IAssert Assert { get; }
-    }
+[Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
+public abstract class AssertedPage : Page
+{
+    protected AssertedPage() => Assert = ServicesCollection.Current.Resolve<IAssert>();
+
+    protected IAssert Assert { get; }
 }

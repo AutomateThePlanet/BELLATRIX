@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentChecked, IComponent
     {
-        public static void ValidateIsChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentChecked, IComponent
-        {
-            WaitUntil(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
-            ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateIsNotChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentChecked, IComponent
-        {
-            WaitUntil(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
-            ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsCheckedEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotCheckedEvent;
+        WaitUntil(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
+        ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateIsNotChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentChecked, IComponent
+    {
+        WaitUntil(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
+        ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsCheckedEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotCheckedEvent;
 }

@@ -14,69 +14,68 @@
 using Bellatrix.Layout;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Layout")]
+public class LayoutRightOfTestsChrome : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Layout")]
-    public class LayoutRightOfTestsChrome : MSTest.WebTest
+    private Heading _free;
+    private Heading _pro;
+
+    public override void TestInit()
     {
-        private Heading _free;
-        private Heading _pro;
-
-        public override void TestInit()
-        {
-            App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
-            _free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
-            _pro = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeRightOfPro_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _free.AssertRightOf(_pro);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeRightOfPro72_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _free.AssertRightOf(_pro, 72);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeRightOfProBetween60To80_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _free.AssertRightOfBetween(_pro, 60, 80);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeRightOfProGreaterThan71_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _free.AssertRightOfGreaterThan(_pro, 71);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeRightOfProGreaterThanOrEqual72_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _free.AssertRightOfGreaterThanOrEqual(_pro, 72);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeRightOfProLessThan73_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _free.AssertRightOfLessThan(_pro, 73);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeRightOfProLessThanOrEqual72_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _free.AssertRightOfLessThanOrEqual(_pro, 72);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeRightOfProApproximate70_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _free.AssertRightOfApproximate(_pro, 70, 5);
+        App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+        _free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+        _pro = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
     }
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeRightOfPro_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _free.AssertRightOf(_pro);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeRightOfPro72_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _free.AssertRightOf(_pro, 72);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeRightOfProBetween60To80_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _free.AssertRightOfBetween(_pro, 60, 80);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeRightOfProGreaterThan71_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _free.AssertRightOfGreaterThan(_pro, 71);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeRightOfProGreaterThanOrEqual72_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _free.AssertRightOfGreaterThanOrEqual(_pro, 72);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeRightOfProLessThan73_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _free.AssertRightOfLessThan(_pro, 73);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeRightOfProLessThanOrEqual72_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _free.AssertRightOfLessThanOrEqual(_pro, 72);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeRightOfProApproximate70_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _free.AssertRightOfApproximate(_pro, 70, 5);
 }

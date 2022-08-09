@@ -13,158 +13,157 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Email Control")]
+[AllureFeature("ValidateExtensions")]
+public class EmailControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Email Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class EmailControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateEmailIsThrowsException()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
+
+        emailElement.SetEmail("aangelov@bellatrix.solutions");
+
+        try
         {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
+            emailElement.ValidateEmailIs("aangelov@bellatrix.solutions1", 200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateEmailIsThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
-
-            emailElement.SetEmail("aangelov@bellatrix.solutions");
-
-            try
-            {
-                emailElement.ValidateEmailIs("aangelov@bellatrix.solutions1", 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's email should be 'aangelov@bellatrix.solutions1' but was 'aangelov@bellatrix.solutions'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control's email should be 'aangelov@bellatrix.solutions1' but was 'aangelov@bellatrix.solutions'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateMaxLengthIsNullThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateMaxLengthIsNullThrowsException()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail2");
+
+        try
         {
-            var emailElement = App.Components.CreateById<Email>("myEmail2");
-
-            try
-            {
-                emailElement.ValidateMaxLengthIsNull(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's maxlength should be null but was '80'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            emailElement.ValidateMaxLengthIsNull(200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateMinLengthIsNullThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var emailElement = App.Components.CreateById<Email>("myEmail2");
-
-            try
-            {
-                emailElement.ValidateMinLengthIsNull(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's minlength should be null but was '10'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control's maxlength should be null but was '80'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateSizeIsThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateMinLengthIsNullThrowsException()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail2");
+
+        try
         {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
-
-            try
-            {
-                emailElement.ValidateSizeIs(19, 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's size should be '19' but was '20'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            emailElement.ValidateMinLengthIsNull(200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateMaxLengthIsThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var emailElement = App.Components.CreateById<Email>("myEmail2");
-
-            try
-            {
-                emailElement.ValidateMaxLengthIs(79, 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's maxlength should be '79' but was '80'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control's minlength should be null but was '10'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateMinLengthIsThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateSizeIsThrowsException()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
+
+        try
         {
-            var emailElement = App.Components.CreateById<Email>("myEmail2");
-
-            try
-            {
-                emailElement.ValidateMinLengthIs(9, 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's minlength should be '9' but was '10'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            emailElement.ValidateSizeIs(19, 200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidatePlaceholderIsThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
-
-            try
-            {
-                emailElement.ValidatePlaceholderIs("your email term goes here1", 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's placeholder should be 'your email term goes here1' but was 'your email term goes here'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control's size should be '19' but was '20'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidatePlaceholderIsNullThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateMaxLengthIsThrowsException()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail2");
+
+        try
         {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+            emailElement.ValidateMaxLengthIs(79, 200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's maxlength should be '79' but was '80'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
 
-            try
-            {
-                emailElement.ValidatePlaceholderIsNull(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's placeholder should be null but was 'your email term goes here'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateMinLengthIsThrowsException()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail2");
+
+        try
+        {
+            emailElement.ValidateMinLengthIs(9, 200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's minlength should be '9' but was '10'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidatePlaceholderIsThrowsException()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
+
+        try
+        {
+            emailElement.ValidatePlaceholderIs("your email term goes here1", 200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's placeholder should be 'your email term goes here1' but was 'your email term goes here'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidatePlaceholderIsNullThrowsException()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
+
+        try
+        {
+            emailElement.ValidatePlaceholderIsNull(200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's placeholder should be null but was 'your email term goes here'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

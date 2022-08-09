@@ -13,215 +13,214 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Email Control")]
+public class EmailControlTestsFirefox : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Email Control")]
-    public class EmailControlTestsFirefox : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void EmailSet_When_UseSetEmailMethod_Firefox()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().EmailLocalPage);
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void EmailSet_When_UseSetEmailMethod_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        emailElement.SetEmail("aangelov@bellatrix.solutions");
 
-            emailElement.SetEmail("aangelov@bellatrix.solutions");
+        Assert.AreEqual("aangelov@bellatrix.solutions", emailElement.GetEmail());
+    }
 
-            Assert.AreEqual("aangelov@bellatrix.solutions", emailElement.GetEmail());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetEmailReturnsCorrectEmail_When_DefaultEmailIsSet_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail3");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetEmailReturnsCorrectEmail_When_DefaultEmailIsSet_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail3");
+        Assert.AreEqual("aangelov@bellatrix.solutions", emailElement.GetEmail());
+    }
 
-            Assert.AreEqual("aangelov@bellatrix.solutions", emailElement.GetEmail());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        Assert.AreEqual(false, emailElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, emailElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail5");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail5");
+        Assert.AreEqual(false, emailElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, emailElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail4");
+        Assert.AreEqual(true, emailElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(true, emailElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail4");
+        Assert.AreEqual(false, emailElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, emailElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail6");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail6");
+        Assert.AreEqual(true, emailElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, emailElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        var maxLength = emailElement.MaxLength;
 
-            var maxLength = emailElement.MaxLength;
+        Assert.IsNull(maxLength);
+    }
 
-            Assert.IsNull(maxLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        Assert.IsNull(emailElement.MinLength);
+    }
 
-            Assert.IsNull(emailElement.MinLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        // Specifies the width of an <input> element, in characters. Default value is 20
+        Assert.AreEqual(20, emailElement.Size);
+    }
 
-            // Specifies the width of an <input> element, in characters. Default value is 20
-            Assert.AreEqual(20, emailElement.Size);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail2");
+        Assert.AreEqual(80, emailElement.MaxLength);
+    }
 
-            Assert.AreEqual(80, emailElement.MaxLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail2");
+        Assert.AreEqual(10, emailElement.MinLength);
+    }
 
-            Assert.AreEqual(10, emailElement.MinLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail2");
+        Assert.AreEqual(30, emailElement.Size);
+    }
 
-            Assert.AreEqual(30, emailElement.Size);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail4");
+        Assert.AreEqual(false, emailElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, emailElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail7");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail7");
+        Assert.AreEqual(true, emailElement.IsRequired);
+    }
 
-            Assert.AreEqual(true, emailElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetPlaceholder_When_PlaceholderAttributeIsSet_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetPlaceholder_When_PlaceholderAttributeIsSet_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail");
+        Assert.AreEqual("your email term goes here", emailElement.Placeholder);
+    }
 
-            Assert.AreEqual("your email term goes here", emailElement.Placeholder);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail1");
+        Assert.IsNull(emailElement.Placeholder);
+    }
 
-            Assert.IsNull(emailElement.Placeholder);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail8");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail8");
+        emailElement.Hover();
 
-            emailElement.Hover();
+        emailElement.ValidateStyleIs("color: red;");
+    }
 
-            emailElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail9");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail9");
+        emailElement.Focus();
 
-            emailElement.Focus();
+        emailElement.ValidateStyleIs("color: blue;");
+    }
 
-            emailElement.ValidateStyleIs("color: blue;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail9");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail9");
+        bool isDisabled = emailElement.IsDisabled;
 
-            bool isDisabled = emailElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Firefox()
+    {
+        var emailElement = App.Components.CreateById<Email>("myEmail10");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Firefox()
-        {
-            var emailElement = App.Components.CreateById<Email>("myEmail10");
+        bool isDisabled = emailElement.IsDisabled;
 
-            bool isDisabled = emailElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

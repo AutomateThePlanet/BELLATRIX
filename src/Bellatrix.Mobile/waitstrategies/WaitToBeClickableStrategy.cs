@@ -17,37 +17,36 @@ using Bellatrix.Mobile.Locators;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Untils
+namespace Bellatrix.Mobile.Untils;
+
+public class WaitToBeClickableStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
+   where TDriver : AppiumDriver<TDriverElement>
+   where TDriverElement : AppiumWebElement
 {
-    public class WaitToBeClickableStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
-       where TDriver : AppiumDriver<TDriverElement>
-       where TDriverElement : AppiumWebElement
+    public WaitToBeClickableStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitToBeClickableStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToBeClickableTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToBeClickableTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-            => WaitUntil(ElementIsClickable(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    public override void WaitUntil<TBy>(TBy by)
+        => WaitUntil(ElementIsClickable(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
 
-        private Func<TDriver, bool> ElementIsClickable<TBy>(TDriver searchContext, TBy by)
-            where TBy : FindStrategy<TDriver, TDriverElement>
-        {
-            return driver =>
+    private Func<TDriver, bool> ElementIsClickable<TBy>(TDriver searchContext, TBy by)
+        where TBy : FindStrategy<TDriver, TDriverElement>
+    {
+        return driver =>
+                {
+                    var element = by.FindElement(searchContext);
+                    element = element.Displayed ? element : null;
+                    try
                     {
-                        var element = by.FindElement(searchContext);
-                        element = element.Displayed ? element : null;
-                        try
-                        {
-                            return element != null && element.Enabled;
-                        }
-                        catch (StaleElementReferenceException)
-                        {
-                            return false;
-                        }
-                    };
-        }
+                        return element != null && element.Enabled;
+                    }
+                    catch (StaleElementReferenceException)
+                    {
+                        return false;
+                    }
+                };
     }
 }

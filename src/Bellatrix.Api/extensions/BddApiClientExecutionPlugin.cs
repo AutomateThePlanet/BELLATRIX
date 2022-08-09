@@ -14,30 +14,29 @@
 using System.Text;
 using Bellatrix.Api.Events;
 
-namespace Bellatrix.Api.Extensions
+namespace Bellatrix.Api.Extensions;
+
+public class BddApiClientExecutionPlugin : ApiClientExecutionPlugin
 {
-    public class BddApiClientExecutionPlugin : ApiClientExecutionPlugin
+    protected override void OnRequestTimeout(object sender, ClientEventArgs client) => Logger.LogInformation("Request was not executed in the specified timeout.");
+
+    protected override void OnMakingRequest(object sender, RequestEventArgs requestEventArgs)
     {
-        protected override void OnRequestTimeout(object sender, ClientEventArgs client) => Logger.LogInformation("Request was not executed in the specified timeout.");
-
-        protected override void OnMakingRequest(object sender, RequestEventArgs requestEventArgs)
+        var sb = new StringBuilder();
+        sb.Append($"Making {requestEventArgs.Request.Method} request against resource {requestEventArgs.RequestResource}");
+        if (requestEventArgs.Request.Parameters != null && requestEventArgs.Request.Parameters.Count > 0)
         {
-            var sb = new StringBuilder();
-            sb.Append($"Making {requestEventArgs.Request.Method} request against resource {requestEventArgs.RequestResource}");
-            if (requestEventArgs.Request.Parameters != null && requestEventArgs.Request.Parameters.Count > 0)
+            sb.Append(" with parameters ");
+            foreach (var param in requestEventArgs.Request.Parameters)
             {
-                sb.Append(" with parameters ");
-                foreach (var param in requestEventArgs.Request.Parameters)
-                {
-                    sb.Append($"{param.Name}={param.Value} ");
-                }
+                sb.Append($"{param.Name}={param.Value} ");
             }
-
-            Logger.LogInformation(sb.ToString().TrimEnd());
         }
 
-        protected override void OnRequestMade(object sender, ResponseEventArgs responseEventArgs) => Logger.LogInformation($"Response of request {responseEventArgs.Response.Request.Method} against resource {responseEventArgs.RequestUri} - {responseEventArgs.Response.ResponseStatus}");
-
-        protected override void OnRequestFailed(object sender, ResponseEventArgs responseEventArgs) => Logger.LogInformation($"Request Failed {responseEventArgs.Response.Request.Method} on URL {responseEventArgs.RequestUri} - {responseEventArgs.Response.ResponseStatus} {responseEventArgs.Response.ErrorMessage}");
+        Logger.LogInformation(sb.ToString().TrimEnd());
     }
+
+    protected override void OnRequestMade(object sender, ResponseEventArgs responseEventArgs) => Logger.LogInformation($"Response of request {responseEventArgs.Response.Request.Method} against resource {responseEventArgs.RequestUri} - {responseEventArgs.Response.ResponseStatus}");
+
+    protected override void OnRequestFailed(object sender, ResponseEventArgs responseEventArgs) => Logger.LogInformation($"Request Failed {responseEventArgs.Response.Request.Method} on URL {responseEventArgs.RequestUri} - {responseEventArgs.Response.ResponseStatus} {responseEventArgs.Response.ErrorMessage}");
 }

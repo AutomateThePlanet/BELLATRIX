@@ -14,42 +14,41 @@
 using System;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web.Untils
+namespace Bellatrix.Web.Untils;
+
+public class WaitToBeDisabledStrategy : WaitStrategy
 {
-    public class WaitToBeDisabledStrategy : WaitStrategy
+    public WaitToBeDisabledStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitToBeDisabledStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementNotToBeVisibleTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementNotToBeVisibleTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-        {
-            WaitUntil(d => ElementBeDisabled(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementBeDisabled(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
 
-        public override void WaitUntil<TBy>(TBy by, Component parent)
-        {
-            WaitUntil(d => ElementBeDisabled(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by, Component parent)
+    {
+        WaitUntil(d => ElementBeDisabled(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
+    }
 
-        private bool ElementBeDisabled<TBy>(ISearchContext searchContext, TBy by)
-            where TBy : FindStrategy
+    private bool ElementBeDisabled<TBy>(ISearchContext searchContext, TBy by)
+        where TBy : FindStrategy
+    {
+        try
         {
-            try
-            {
-                var element = searchContext.FindElement(by.Convert());
-                return element != null && !element.Enabled;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-            catch (StaleElementReferenceException)
-            {
-                return false;
-            }
+            var element = searchContext.FindElement(by.Convert());
+            return element != null && !element.Enabled;
+        }
+        catch (NoSuchElementException)
+        {
+            return false;
+        }
+        catch (StaleElementReferenceException)
+        {
+            return false;
         }
     }
 }

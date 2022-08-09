@@ -11,10 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile.Contracts
+namespace Bellatrix.Mobile.Contracts;
+
+public interface IComponentTime
 {
-    public interface IComponentTime
-    {
-        string GetTime();
-    }
+    string GetTime();
 }

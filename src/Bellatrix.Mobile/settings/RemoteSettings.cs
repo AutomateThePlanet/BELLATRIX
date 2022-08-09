@@ -13,10 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public class RemoteSettings
 {
-    public class RemoteSettings
-    {
-        public Uri GridUri { get; set; }
-    }
+    public Uri GridUri { get; set; }
 }

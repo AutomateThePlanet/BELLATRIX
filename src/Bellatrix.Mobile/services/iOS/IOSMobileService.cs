@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.Services.IOS
+namespace Bellatrix.Mobile.Services.IOS;
+
+public class IOSAppService : AppService<IOSDriver<IOSElement>, IOSElement>
 {
-    public class IOSAppService : AppService<IOSDriver<IOSElement>, IOSElement>
+    public IOSAppService(IOSDriver<IOSElement> wrappedDriver)
+        : base(wrappedDriver)
     {
-        public IOSAppService(IOSDriver<IOSElement> wrappedDriver)
-            : base(wrappedDriver)
-        {
-        }
     }
 }

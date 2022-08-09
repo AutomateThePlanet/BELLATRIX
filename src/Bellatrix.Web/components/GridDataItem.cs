@@ -11,9 +11,8 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class GridDataItem : Component
 {
-    public class GridDataItem : Component
-    {
-    }
 }

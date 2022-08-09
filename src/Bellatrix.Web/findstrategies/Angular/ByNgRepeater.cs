@@ -11,15 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    public class ByNgRepeater : JavaScriptBy
-    {
-        public ByNgRepeater(string value)
-            : base(AngularClientSideScripts.FindAllRepeaterRows, value, true)
-        {
-        }
+namespace Bellatrix.Web;
 
-        public override string ToString() => $"Angular Repeater = {Value}";
+public class ByNgRepeater : JavaScriptBy
+{
+    public ByNgRepeater(string value)
+        : base(AngularClientSideScripts.FindAllRepeaterRows, value, true)
+    {
     }
+
+    public override string ToString() => $"Angular Repeater = {Value}";
 }

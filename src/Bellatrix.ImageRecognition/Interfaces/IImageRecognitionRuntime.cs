@@ -13,14 +13,13 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.ImageRecognition.Interfaces
+namespace Bellatrix.ImageRecognition.Interfaces;
+
+public interface IImageRecognitionRuntime : IDisposable
 {
-    public interface IImageRecognitionRuntime : IDisposable
-    {
-        void Start();
+    void Start();
 
-        void Stop(bool ignoreErrors = false);
+    void Stop(bool ignoreErrors = false);
 
-        void Run(string command, double? timeoutInSeconds);
-    }
+    void Run(string command, double? timeoutInSeconds);
 }

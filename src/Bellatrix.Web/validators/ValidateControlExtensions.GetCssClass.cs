@@ -15,33 +15,32 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateCssClassIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentCssClass, IComponent
     {
-        public static void ValidateCssClassIsNull<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentCssClass, IComponent
-        {
-            WaitUntil(() => control.CssClass == null, $"The control's CSS class should be null but was '{control.CssClass}'.", timeout, sleepInterval);
-            ValidatedCssClassIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateCssClassIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentCssClass, IComponent
-        {
-            WaitUntil(() => control.CssClass.Equals(value), $"The control's CSS class should be '{value}' but was '{control.CssClass}'.", timeout, sleepInterval);
-            ValidatedCssClassIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static void ValidateCssClassContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentCssClass, IComponent
-        {
-            WaitUntil(() => control.CssClass.Contains(value), $"The control's CSS class should contain '{value}' but was '{control.CssClass}'.", timeout, sleepInterval);
-            ValidatedCssClassContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassIsNullEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassIsEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassContainsEvent;
+        WaitUntil(() => control.CssClass == null, $"The control's CSS class should be null but was '{control.CssClass}'.", timeout, sleepInterval);
+        ValidatedCssClassIsNullEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateCssClassIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentCssClass, IComponent
+    {
+        WaitUntil(() => control.CssClass.Equals(value), $"The control's CSS class should be '{value}' but was '{control.CssClass}'.", timeout, sleepInterval);
+        ValidatedCssClassIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static void ValidateCssClassContains<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentCssClass, IComponent
+    {
+        WaitUntil(() => control.CssClass.Contains(value), $"The control's CSS class should contain '{value}' but was '{control.CssClass}'.", timeout, sleepInterval);
+        ValidatedCssClassContainsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassIsNullEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassIsEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedCssClassContainsEvent;
 }

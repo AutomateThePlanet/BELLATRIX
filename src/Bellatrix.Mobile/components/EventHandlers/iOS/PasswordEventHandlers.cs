@@ -15,30 +15,29 @@ using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.IOS;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.EventHandlers.IOS
+namespace Bellatrix.Mobile.EventHandlers.IOS;
+
+public class PasswordEventHandlers : ComponentEventHandlers
 {
-    public class PasswordEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Password.SettingPassword += SettingPasswordEventHandler;
-            Password.PasswordSet += PasswordSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Password.SettingPassword += SettingPasswordEventHandler;
+        Password.PasswordSet += PasswordSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Password.SettingPassword -= SettingPasswordEventHandler;
-            Password.PasswordSet -= PasswordSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Password.SettingPassword -= SettingPasswordEventHandler;
+        Password.PasswordSet -= PasswordSetEventHandler;
+    }
 
-        protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
     }
 }

@@ -1,11 +1,10 @@
-﻿namespace Bellatrix.Web.Tests
+﻿namespace Bellatrix.Web.Tests;
+
+public enum ProductFilter
 {
-    public enum ProductFilter
-    {
-        Popularity,
-        Rating,
-        Date,
-        Price,
-        PriceDesc,
-    }
+    Popularity,
+    Rating,
+    Date,
+    Price,
+    PriceDesc,
 }

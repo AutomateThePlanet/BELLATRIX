@@ -15,30 +15,29 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Bellatrix.Infrastructure
+namespace Bellatrix.Infrastructure;
+
+public class JsonSerializer
 {
-    public class JsonSerializer
+    public string Serialize<TEntity>(TEntity entityToBeSerialized)
     {
-        public string Serialize<TEntity>(TEntity entityToBeSerialized)
+        var options = new JsonSerializerOptions
         {
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                DefaultIgnoreCondition = JsonIgnoreCondition.Never,
-            };
+            WriteIndented = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+        };
 
-            return System.Text.Json.JsonSerializer.Serialize(entityToBeSerialized, options);
-        }
+        return System.Text.Json.JsonSerializer.Serialize(entityToBeSerialized, options);
+    }
 
-        public TEntity Deserialize<TEntity>(string content)
+    public TEntity Deserialize<TEntity>(string content)
+    {
+        var options = new JsonSerializerOptions
         {
-            var options = new JsonSerializerOptions
-            {
-                AllowTrailingCommas = true,
-                DefaultIgnoreCondition = JsonIgnoreCondition.Never,
-            };
+            AllowTrailingCommas = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+        };
 
-            return System.Text.Json.JsonSerializer.Deserialize<TEntity>(content, options);
-        }
+        return System.Text.Json.JsonSerializer.Deserialize<TEntity>(content, options);
     }
 }

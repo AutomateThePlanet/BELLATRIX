@@ -13,19 +13,18 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class ExecutionSettings
 {
-    public class ExecutionSettings
-    {
-        public string ExecutionType { get; set; }
-        public string DefaultBrowser { get; set; }
-        public string BrowserVersion { get; set; }
-        public string DefaultLifeCycle { get; set; }
-        public string Resolution { get; set; }
-        public string Url { get; set; }
-        public List<Dictionary<string, string>> Arguments { get; set; }
-        public string PackedExtensionPath { get; set; }
-        public string UnpackedExtensionPath { get; set; }
-        public bool IsCloudRun { get; set; }
-    }
+    public string ExecutionType { get; set; }
+    public string DefaultBrowser { get; set; }
+    public string BrowserVersion { get; set; }
+    public string DefaultLifeCycle { get; set; }
+    public string Resolution { get; set; }
+    public string Url { get; set; }
+    public List<Dictionary<string, string>> Arguments { get; set; }
+    public string PackedExtensionPath { get; set; }
+    public string UnpackedExtensionPath { get; set; }
+    public bool IsCloudRun { get; set; }
 }

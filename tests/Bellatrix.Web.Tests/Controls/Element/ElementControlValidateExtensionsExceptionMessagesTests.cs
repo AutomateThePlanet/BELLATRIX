@@ -13,243 +13,242 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls.Element
+namespace Bellatrix.Web.Tests.Controls.Element;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Element Control")]
+[AllureFeature("ValidateExtensions")]
+public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Element Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateIsVisibleThrowsException()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL11");
+
+        try
         {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
+            urlElement.ValidateIsVisible(200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateIsVisibleThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var urlElement = App.Components.CreateById<Url>("myURL11");
-
-            try
-            {
-                urlElement.ValidateIsVisible(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control should be visible but was NOT. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control should be visible but was NOT. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateIsNotVisibleThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateIsNotVisibleThrowsException()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
+
+        try
         {
-            var urlElement = App.Components.CreateById<Url>("myURL");
-
-            try
-            {
-                urlElement.ValidateIsNotVisible(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control should be NOT visible but was NOT. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            urlElement.ValidateIsNotVisible(200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateCssClassIsThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var urlElement = App.Components.CreateById<Url>("myURL");
-
-            urlElement.SetAttribute("class", "myTestClass1");
-
-            try
-            {
-                urlElement.ValidateCssClassIs("myTestClass2", 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's CSS class should be 'myTestClass2' but was 'myTestClass1'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control should be NOT visible but was NOT. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateCssClassIsNullThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateCssClassIsThrowsException()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
+
+        urlElement.SetAttribute("class", "myTestClass1");
+
+        try
         {
-            var urlElement = App.Components.CreateById<Url>("myURL");
-
-            try
-            {
-                urlElement.ValidateCssClassIsNull(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's CSS class should be null but was 'myTestClass'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            urlElement.ValidateCssClassIs("myTestClass2", 200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateTitleIsThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
-
-            try
-            {
-                element.ValidateTitleIs("bellatrix.solutions1", 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's title should be 'bellatrix.solutions1' but was 'bellatrix.solutions'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control's CSS class should be 'myTestClass2' but was 'myTestClass1'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateTitleIsNotNullThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateCssClassIsNullThrowsException()
+    {
+        var urlElement = App.Components.CreateById<Url>("myURL");
+
+        try
         {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL11");
-
-            try
-            {
-                element.ValidateTitleIsNotNull(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's title shouldn't be null but was. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            urlElement.ValidateCssClassIsNull(200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateTitleIsNullThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
-
-            try
-            {
-                element.ValidateTitleIsNull(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's title should be null but was 'bellatrix.solutions'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control's CSS class should be null but was 'myTestClass'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateTabIndexIsThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateTitleIsThrowsException()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
+
+        try
         {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL14");
-
-            try
-            {
-                element.ValidateTabIndexIs("2", 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's tabindex should be '2' but was '1'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            element.ValidateTitleIs("bellatrix.solutions1", 200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateStyleIsNullThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL16");
-
-            try
-            {
-                element.ValidateStyleIsNull(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's style should be null but was 'color: green;'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control's title should be 'bellatrix.solutions1' but was 'bellatrix.solutions'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateDirIsThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateTitleIsNotNullThrowsException()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL11");
+
+        try
         {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL19");
-
-            try
-            {
-                element.ValidateDirIs("rtl1", 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's dir should be 'rtl1' but was 'rtl'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            element.ValidateTitleIsNotNull(200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateDirIsNullThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL19");
-
-            try
-            {
-                element.ValidateDirIsNull(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's dir should be null but was 'rtl'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = $"The control's title shouldn't be null but was. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateLangIsThrowsException()
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateTitleIsNullThrowsException()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL13");
+
+        try
         {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL20");
-
-            try
-            {
-                element.ValidateLangIs("bg", 200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's lang should be 'bg' but was 'en'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            element.ValidateTitleIsNull(200, 50);
         }
-
-        [TestMethod]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CorrectExceptionMessageSet_When_ValidateLangIsNullThrowsException()
+        catch (ComponentPropertyValidateException e)
         {
-            var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL20");
+            string expectedExceptionMessage = $"The control's title should be null but was 'bellatrix.solutions'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
 
-            try
-            {
-                element.ValidateLangIsNull(200, 50);
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = $"The control's lang should be null but was 'en'. The test failed on URL:";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateTabIndexIsThrowsException()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL14");
+
+        try
+        {
+            element.ValidateTabIndexIs("2", 200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's tabindex should be '2' but was '1'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateStyleIsNullThrowsException()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL16");
+
+        try
+        {
+            element.ValidateStyleIsNull(200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's style should be null but was 'color: green;'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateDirIsThrowsException()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL19");
+
+        try
+        {
+            element.ValidateDirIs("rtl1", 200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's dir should be 'rtl1' but was 'rtl'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateDirIsNullThrowsException()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL19");
+
+        try
+        {
+            element.ValidateDirIsNull(200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's dir should be null but was 'rtl'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateLangIsThrowsException()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL20");
+
+        try
+        {
+            element.ValidateLangIs("bg", 200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's lang should be 'bg' but was 'en'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CorrectExceptionMessageSet_When_ValidateLangIsNullThrowsException()
+    {
+        var element = App.Components.CreateById<Bellatrix.Web.Component>("myURL20");
+
+        try
+        {
+            element.ValidateLangIsNull(200, 50);
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = $"The control's lang should be null but was 'en'. The test failed on URL:";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

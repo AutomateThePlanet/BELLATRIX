@@ -14,69 +14,68 @@
 using Bellatrix.Layout;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Layout")]
+public class LayoutLeftOfTestsChrome : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Layout")]
-    public class LayoutLeftOfTestsChrome : MSTest.WebTest
+    private Heading _free;
+    private Heading _pro;
+
+    public override void TestInit()
     {
-        private Heading _free;
-        private Heading _pro;
-
-        public override void TestInit()
-        {
-            App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
-            _free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
-            _pro = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeLeftOfPro_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _pro.AssertLeftOf(_free);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeLeftOfPro72_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _pro.AssertLeftOf(_free, 72);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeLeftOfProBetween60To80_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _pro.AssertLeftOfBetween(_free, 60, 80);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeLeftOfProGreaterThan71_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _pro.AssertLeftOfGreaterThan(_free, 71);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeLeftOfProGreaterThanOrEqual72_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _pro.AssertLeftOfGreaterThanOrEqual(_free, 72);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeLeftOfProLessThan73_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _pro.AssertLeftOfLessThan(_free, 73);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeLeftOfProLessThanOrEqual72_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _pro.AssertLeftOfLessThanOrEqual(_free, 72);
-
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void FreeLeftOfProApproximate70_WhenDesktopWindowsSize_1280_1024_Chrome()
-            => _pro.AssertLeftOfApproximate(_free, 70, 5);
+        App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+        _free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+        _pro = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
     }
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeLeftOfPro_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _pro.AssertLeftOf(_free);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeLeftOfPro72_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _pro.AssertLeftOf(_free, 72);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeLeftOfProBetween60To80_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _pro.AssertLeftOfBetween(_free, 60, 80);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeLeftOfProGreaterThan71_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _pro.AssertLeftOfGreaterThan(_free, 71);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeLeftOfProGreaterThanOrEqual72_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _pro.AssertLeftOfGreaterThanOrEqual(_free, 72);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeLeftOfProLessThan73_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _pro.AssertLeftOfLessThan(_free, 73);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeLeftOfProLessThanOrEqual72_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _pro.AssertLeftOfLessThanOrEqual(_free, 72);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void FreeLeftOfProApproximate70_WhenDesktopWindowsSize_1280_1024_Chrome()
+        => _pro.AssertLeftOfApproximate(_free, 70, 5);
 }

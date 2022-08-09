@@ -11,15 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix.BugReporting.Jira;
+
+public class Status
 {
-    public class Status
-    {
-        public string self { get; set; }
-        public string description { get; set; }
-        public string iconUrl { get; set; }
-        public string name { get; set; }
-        public string id { get; set; }
-        public StatusCategory statusCategory { get; set; }
-    }
+    public string self { get; set; }
+    public string description { get; set; }
+    public string iconUrl { get; set; }
+    public string name { get; set; }
+    public string id { get; set; }
+    public StatusCategory statusCategory { get; set; }
 }

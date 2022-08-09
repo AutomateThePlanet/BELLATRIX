@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Image Control")]
+[AllureTag("WPF")]
+public class ImageControlTestsWpf : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Image Control")]
-    [AllureTag("WPF")]
-    public class ImageControlTestsWpf : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_ImageHovered_Wpf()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_ImageHovered_Wpf()
-        {
-            var image = App.Components.CreateByAutomationId<Image>("image");
+        var image = App.Components.CreateByAutomationId<Image>("image");
 
-            image.Hover();
+        image.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-            Assert.AreEqual("imageHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        Assert.AreEqual("imageHovered", label.InnerText);
     }
 }

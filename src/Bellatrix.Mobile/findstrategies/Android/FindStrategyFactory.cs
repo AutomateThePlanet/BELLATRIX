@@ -13,30 +13,29 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Locators.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public class FindStrategyFactory
 {
-    public class FindStrategyFactory
-    {
-        public FindIdStrategy Id(string id) => new FindIdStrategy(id);
+    public FindIdStrategy Id(string id) => new FindIdStrategy(id);
 
-        public FindIdContainingStrategy IdContaining(string id) => new FindIdContainingStrategy(id);
+    public FindIdContainingStrategy IdContaining(string id) => new FindIdContainingStrategy(id);
 
-        public FindDescriptionStrategy Description(string description) => new FindDescriptionStrategy(description);
+    public FindDescriptionStrategy Description(string description) => new FindDescriptionStrategy(description);
 
-        public FindDescriptionContainingStrategy DescriptionContaining(string description) => new FindDescriptionContainingStrategy(description);
+    public FindDescriptionContainingStrategy DescriptionContaining(string description) => new FindDescriptionContainingStrategy(description);
 
-        public FindTextStrategy Text(string text) => new FindTextStrategy(text);
+    public FindTextStrategy Text(string text) => new FindTextStrategy(text);
 
-        public FindTextContainingStrategy TextContaining(string text) => new FindTextContainingStrategy(text);
+    public FindTextContainingStrategy TextContaining(string text) => new FindTextContainingStrategy(text);
 
-        public FindClassNameStrategy ClassName(string className) => new FindClassNameStrategy(className);
+    public FindClassNameStrategy ClassName(string className) => new FindClassNameStrategy(className);
 
-        public FindNameStrategy Name(string name) => new FindNameStrategy(name);
+    public FindNameStrategy Name(string name) => new FindNameStrategy(name);
 
-        public FindTagNameStrategy TagName(string tag) => new FindTagNameStrategy(tag);
+    public FindTagNameStrategy TagName(string tag) => new FindTagNameStrategy(tag);
 
-        public FindXPathStrategy XPath(string name) => new FindXPathStrategy(name);
+    public FindXPathStrategy XPath(string name) => new FindXPathStrategy(name);
 
-        public FindAndroidUIAutomatorStrategy AndroidUIAutomator(string name) => new FindAndroidUIAutomatorStrategy(name);
-    }
+    public FindAndroidUIAutomatorStrategy AndroidUIAutomator(string name) => new FindAndroidUIAutomatorStrategy(name);
 }

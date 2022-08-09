@@ -15,17 +15,16 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
-{
-    public static partial class ValidateControlExtensions
-    {
-        public static void ValidateColorIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentColor, IComponent
-        {
-            WaitUntil(() => control.GetColor().Equals(value), $"The control's color should be '{value}' but was '{control.GetColor()}'.", timeout, sleepInterval);
-            ValidatedColorIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
+namespace Bellatrix.Web;
 
-        public static event EventHandler<ComponentActionEventArgs> ValidatedColorIsEvent;
+public static partial class ValidateControlExtensions
+{
+    public static void ValidateColorIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentColor, IComponent
+    {
+        WaitUntil(() => control.GetColor().Equals(value), $"The control's color should be '{value}' but was '{control.GetColor()}'.", timeout, sleepInterval);
+        ValidatedColorIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
     }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedColorIsEvent;
 }

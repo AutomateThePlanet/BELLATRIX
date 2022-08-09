@@ -11,24 +11,23 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Layout
+namespace Bellatrix.Layout;
+
+public class LayoutTwoComponentsActionEventArgs
 {
-    public class LayoutTwoComponentsActionEventArgs
+    public LayoutTwoComponentsActionEventArgs(ILayoutComponent element, ILayoutComponent secondElement)
     {
-        public LayoutTwoComponentsActionEventArgs(ILayoutComponent element, ILayoutComponent secondElement)
-        {
-            Element = element;
-            SecondElement = secondElement;
-        }
-
-        public LayoutTwoComponentsActionEventArgs(ILayoutComponent element, ILayoutComponent secondElement, string actionValue)
-            : this(element, secondElement) => ActionValue = actionValue;
-
-        public LayoutTwoComponentsActionEventArgs(ILayoutComponent element, ILayoutComponent secondElement, double actionValue)
-            : this(element, secondElement) => ActionValue = actionValue.ToString();
-
-        public ILayoutComponent Element { get; }
-        public ILayoutComponent SecondElement { get; }
-        public string ActionValue { get; }
+        Element = element;
+        SecondElement = secondElement;
     }
+
+    public LayoutTwoComponentsActionEventArgs(ILayoutComponent element, ILayoutComponent secondElement, string actionValue)
+        : this(element, secondElement) => ActionValue = actionValue;
+
+    public LayoutTwoComponentsActionEventArgs(ILayoutComponent element, ILayoutComponent secondElement, double actionValue)
+        : this(element, secondElement) => ActionValue = actionValue.ToString();
+
+    public ILayoutComponent Element { get; }
+    public ILayoutComponent SecondElement { get; }
+    public string ActionValue { get; }
 }

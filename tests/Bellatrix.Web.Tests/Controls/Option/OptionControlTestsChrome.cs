@@ -13,67 +13,66 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Option Control")]
+public class OptionControlTestsChrome : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Option Control")]
-    public class OptionControlTestsChrome : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OptionLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnBellatrix_When_UseGetInnerTextMethod_Chrome()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OptionLocalPage);
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnBellatrix_When_UseGetInnerTextMethod_Chrome()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
+        Assert.AreEqual("Bellatrix", selectComponent.GetSelected().InnerText);
+    }
 
-            Assert.AreEqual("Bellatrix", selectComponent.GetSelected().InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnBella_When_UseGetValueMethod_Chrome()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect2");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnBella_When_UseGetValueMethod_Chrome()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect2");
+        Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
+    }
 
-            Assert.AreEqual("bella2", selectComponent.GetSelected().Value);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_OptionSelectedAndCallGetIsSelectedMethod_Chrome()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_OptionSelectedAndCallGetIsSelectedMethod_Chrome()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
+        Assert.IsTrue(selectComponent.GetAllOptions()[0].IsSelected);
+    }
 
-            Assert.IsTrue(selectComponent.GetAllOptions()[0].IsSelected);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_OptionNotSelectedAndCallGetIsSelectedMethod_Chrome()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_OptionNotSelectedAndCallGetIsSelectedMethod_Chrome()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
+        Assert.IsFalse(selectComponent.GetAllOptions()[1].IsSelected);
+    }
 
-            Assert.IsFalse(selectComponent.GetAllOptions()[1].IsSelected);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Chrome()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Chrome()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect");
+        Assert.IsFalse(selectComponent.GetSelected().IsDisabled);
+    }
 
-            Assert.IsFalse(selectComponent.GetSelected().IsDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributeIsPresent_Chrome()
+    {
+        var selectComponent = App.Components.CreateById<Select>("mySelect4");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributeIsPresent_Chrome()
-        {
-            var selectComponent = App.Components.CreateById<Select>("mySelect4");
-
-            Assert.IsFalse(selectComponent.GetAllOptions()[2].IsDisabled);
-        }
+        Assert.IsFalse(selectComponent.GetAllOptions()[2].IsDisabled);
     }
 }

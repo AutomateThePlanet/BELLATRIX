@@ -17,27 +17,26 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Controls.Android;
 using Bellatrix.Mobile.Events;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public class RadioButton : AndroidComponent, IComponentDisabled, IComponentChecked, IComponentText
 {
-    public class RadioButton : AndroidComponent, IComponentDisabled, IComponentChecked, IComponentText
+    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicking;
+    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicked;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsChecked => GetIsChecked();
+
+    public new virtual string GetText()
     {
-        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicking;
-        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicked;
+        return GetText();
+    }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsChecked => GetIsChecked();
-
-        public new virtual string GetText()
-        {
-            return GetText();
-        }
-
-        public virtual void Click()
-        {
-            Click(Clicking, Clicked);
-        }
+    public virtual void Click()
+    {
+        Click(Clicking, Clicked);
     }
 }

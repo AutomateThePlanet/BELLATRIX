@@ -18,24 +18,23 @@ using Bellatrix.Mobile.Controls.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class Password : IOSComponent, IComponentDisabled
 {
-    public class Password : IOSComponent, IComponentDisabled
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingPassword;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> PasswordSet;
+
+    public virtual string GetPassword()
     {
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingPassword;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> PasswordSet;
-
-        public virtual string GetPassword()
-        {
-            return GetValueAttribute();
-        }
-
-        public virtual void SetPassword(string password)
-        {
-            SetValue(SettingPassword, PasswordSet, password);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        return GetValueAttribute();
     }
+
+    public virtual void SetPassword(string password)
+    {
+        SetValue(SettingPassword, PasswordSet, password);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

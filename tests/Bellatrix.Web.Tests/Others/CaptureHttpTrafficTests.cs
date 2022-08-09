@@ -13,77 +13,76 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests
+namespace Bellatrix.Web.Tests;
+
+[TestClass]
+[AllureSuite("CaptureHttpTraffic")]
+[Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: true)]
+public class CaptureHttpTrafficTests : MSTest.WebTest
 {
-    [TestClass]
-    [AllureSuite("CaptureHttpTraffic")]
-    [Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: true)]
-    public class CaptureHttpTrafficTests : MSTest.WebTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void CaptureTrafficTests()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void CaptureTrafficTests()
-        {
-            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
-            Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
-            Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
+        Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
+        Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
+        Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
+        Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
 
-            sortDropDown.SelectByText("Sort by price: low to high");
-            protonMReadMoreButton.Hover();
-            addToCartFalcon9.Focus();
-            addToCartFalcon9.Click();
-            viewCartButton.Click();
+        sortDropDown.SelectByText("Sort by price: low to high");
+        protonMReadMoreButton.Hover();
+        addToCartFalcon9.Focus();
+        addToCartFalcon9.Click();
+        viewCartButton.Click();
 
-            App.Proxy.AssertNoErrorCodes();
+        App.Proxy.AssertNoErrorCodes();
 
-            App.Proxy.AssertNoLargeImagesRequested();
+        App.Proxy.AssertNoLargeImagesRequested();
 
-            App.Proxy.AssertRequestMade("http://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
-        }
+        App.Proxy.AssertRequestMade("http://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void RedirectRequestsTest()
-        {
-            App.Proxy.SetUrlToBeRedirectedTo("http://demos.bellatrix.solutions/favicon.ico", "https://www.automatetheplanet.com/wp-content/uploads/2016/12/logo.svg");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void RedirectRequestsTest()
+    {
+        App.Proxy.SetUrlToBeRedirectedTo("http://demos.bellatrix.solutions/favicon.ico", "https://www.automatetheplanet.com/wp-content/uploads/2016/12/logo.svg");
 
-            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
-            Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
-            Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
+        Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
+        Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
+        Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
+        Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
 
-            sortDropDown.SelectByText("Sort by price: low to high");
-            protonMReadMoreButton.Hover();
-            addToCartFalcon9.Focus();
-            addToCartFalcon9.Click();
-            viewCartButton.Click();
-        }
+        sortDropDown.SelectByText("Sort by price: low to high");
+        protonMReadMoreButton.Hover();
+        addToCartFalcon9.Focus();
+        addToCartFalcon9.Click();
+        viewCartButton.Click();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void BlockRequestsTest()
-        {
-            App.Proxy.SetUrlToBeBlocked("http://demos.bellatrix.solutions/favicon.ico");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void BlockRequestsTest()
+    {
+        App.Proxy.SetUrlToBeBlocked("http://demos.bellatrix.solutions/favicon.ico");
 
-            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
-            Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
-            Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
-            Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
+        Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
+        Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
+        Anchor addToCartFalcon9 = App.Components.CreateByAttributesContaining<Anchor>("data-product_id", "28").ToBeClickable();
+        Anchor viewCartButton = App.Components.CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
 
-            sortDropDown.SelectByText("Sort by price: low to high");
-            protonMReadMoreButton.Hover();
-            addToCartFalcon9.Focus();
-            addToCartFalcon9.Click();
-            viewCartButton.Click();
+        sortDropDown.SelectByText("Sort by price: low to high");
+        protonMReadMoreButton.Hover();
+        addToCartFalcon9.Focus();
+        addToCartFalcon9.Click();
+        viewCartButton.Click();
 
-            App.Proxy.AssertRequestNotMade("http://demos.bellatrix.solutions/welcome");
-        }
+        App.Proxy.AssertRequestNotMade("http://demos.bellatrix.solutions/welcome");
     }
 }

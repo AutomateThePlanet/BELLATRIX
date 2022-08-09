@@ -13,25 +13,24 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
-{
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Label Control")]
-    public class LabelControlTests : MSTest.AndroidTest
-    {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
-        {
-            var label = App.Components.CreateByText<Label>("textColorPrimary");
+namespace Bellatrix.Mobile.Android.Tests;
 
-            label.ValidateTextIs("textColorPrimary");
-        }
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Label Control")]
+public class LabelControlTests : MSTest.AndroidTest
+{
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
+    {
+        var label = App.Components.CreateByText<Label>("textColorPrimary");
+
+        label.ValidateTextIs("textColorPrimary");
     }
 }

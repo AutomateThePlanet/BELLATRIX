@@ -13,70 +13,69 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Switches",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Switch Control")]
+public class SwitchControlTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Switches",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Switch Control")]
-    public class SwitchControlTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsOnTrue_When_SwitchTurnedOffAndTurnOn()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsOnTrue_When_SwitchTurnedOffAndTurnOn()
-        {
-            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][1]");
+        var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][1]");
 
-            Assert.IsFalse(switchControl.IsOn);
+        Assert.IsFalse(switchControl.IsOn);
 
-            switchControl.TurnOn();
+        switchControl.TurnOn();
 
-            Assert.IsTrue(switchControl.IsOn);
-        }
+        Assert.IsTrue(switchControl.IsOn);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsOnFalse_When_SwitchTurnedOnAndTurnOff()
-        {
-            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsOnFalse_When_SwitchTurnedOnAndTurnOff()
+    {
+        var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
 
-            switchControl.TurnOff();
+        switchControl.TurnOff();
 
-            Assert.IsFalse(switchControl.IsOn);
-        }
+        Assert.IsFalse(switchControl.IsOn);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void DefaultIsOnTextReturned_When_CallGetTextMethod()
-        {
-            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void DefaultIsOnTextReturned_When_CallGetTextMethod()
+    {
+        var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
 
-            switchControl.TurnOn();
-            string text = switchControl.GetText();
+        switchControl.TurnOn();
+        string text = switchControl.GetText();
 
-            Assert.AreEqual("Default is on ON", text);
-        }
+        Assert.AreEqual("Default is on ON", text);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsCheckedFalse_When_ToggleButtonIsTurnedOff()
-        {
-            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsCheckedFalse_When_ToggleButtonIsTurnedOff()
+    {
+        var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
 
-            Assert.IsFalse(switchControl.IsOn);
-        }
+        Assert.IsFalse(switchControl.IsOn);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_ToggleButtonIsNotDisabled()
-        {
-            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_ToggleButtonIsNotDisabled()
+    {
+        var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
 
-            Assert.AreEqual(false, switchControl.IsDisabled);
-        }
+        Assert.AreEqual(false, switchControl.IsDisabled);
     }
 }

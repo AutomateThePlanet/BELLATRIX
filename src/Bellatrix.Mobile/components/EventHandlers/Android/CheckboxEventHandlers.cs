@@ -15,42 +15,41 @@ using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.EventHandlers.Android
+namespace Bellatrix.Mobile.EventHandlers.Android;
+
+public class CheckboxEventHandlers : ComponentEventHandlers
 {
-    public class CheckboxEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            CheckBox.Checking += CheckingEventHandler;
-            CheckBox.Checked += CheckedEventHandler;
-            CheckBox.Unchecking += UncheckingEventHandler;
-            CheckBox.Unchecked += UncheckedEventHandler;
-        }
+        base.SubscribeToAll();
+        CheckBox.Checking += CheckingEventHandler;
+        CheckBox.Checked += CheckedEventHandler;
+        CheckBox.Unchecking += UncheckingEventHandler;
+        CheckBox.Unchecked += UncheckedEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            CheckBox.Checking -= CheckingEventHandler;
-            CheckBox.Checked -= CheckedEventHandler;
-            CheckBox.Unchecking -= UncheckingEventHandler;
-            CheckBox.Unchecked -= UncheckedEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        CheckBox.Checking -= CheckingEventHandler;
+        CheckBox.Checked -= CheckedEventHandler;
+        CheckBox.Unchecking -= UncheckingEventHandler;
+        CheckBox.Unchecked -= UncheckedEventHandler;
+    }
 
-        protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
     }
 }

@@ -15,12 +15,11 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.BugReporting.Android
-{
-    public class BugReportingSwitchEventHandlers : SwitchEventHandlers
-    {
-        protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+namespace Bellatrix.Mobile.BugReporting.Android;
 
-        protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+public class BugReportingSwitchEventHandlers : SwitchEventHandlers
+{
+    protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+
+    protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

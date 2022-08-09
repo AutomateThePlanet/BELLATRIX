@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop.Enums
+namespace Bellatrix.Desktop.Enums;
+
+public enum ExecutionType
 {
-    public enum ExecutionType
-    {
-        Regular,
-        Grid,
-    }
+    Regular,
+    Grid,
 }

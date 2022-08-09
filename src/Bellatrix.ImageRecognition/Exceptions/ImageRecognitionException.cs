@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.ImageRecognition.Exceptions
+namespace Bellatrix.ImageRecognition.Exceptions;
+
+public class ImageRecognitionException : Exception
 {
-    public class ImageRecognitionException : Exception
+    public ImageRecognitionException(string message)
+        : base(message)
     {
-        public ImageRecognitionException(string message)
-            : base(message)
-        {
-        }
     }
 }

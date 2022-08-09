@@ -11,13 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix.BugReporting.Jira;
+
+public class Priority
 {
-    public class Priority
-    {
-        public string self { get; set; }
-        public string iconUrl { get; set; }
-        public string name { get; set; }
-        public string id { get; set; }
-    }
+    public string self { get; set; }
+    public string iconUrl { get; set; }
+    public string name { get; set; }
+    public string id { get; set; }
 }

@@ -18,41 +18,40 @@ using Bellatrix.Mobile.Controls.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class ComboBox : IOSComponent, IComponentDisabled, IComponentText
 {
-    public class ComboBox : IOSComponent, IComponentDisabled, IComponentText
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Selecting;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Selected;
+
+    public virtual void SelectByText(string value)
     {
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Selecting;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Selected;
+        Selecting?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
 
-        public virtual void SelectByText(string value)
+        if (WrappedElement.Text != value)
         {
-            Selecting?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
-
-            if (WrappedElement.Text != value)
-            {
-                WrappedElement.Click();
-                var elementCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
-                var innerElementToClick = elementCreateService.CreateByValueContaining<RadioButton>(value);
-                innerElementToClick.Click();
-            }
-
-            Selected?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
+            WrappedElement.Click();
+            var elementCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
+            var innerElementToClick = elementCreateService.CreateByValueContaining<RadioButton>(value);
+            innerElementToClick.Click();
         }
 
-        public new virtual string GetText()
-        {
-            var result = GetText();
-            if (string.IsNullOrEmpty(result))
-            {
-                var textField = this.CreateByClass<TextField>("android.widget.TextView");
-                result = textField.GetText();
-            }
-
-            return result;
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        Selected?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
     }
+
+    public new virtual string GetText()
+    {
+        var result = GetText();
+        if (string.IsNullOrEmpty(result))
+        {
+            var textField = this.CreateByClass<TextField>("android.widget.TextView");
+            result = textField.GetText();
+        }
+
+        return result;
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

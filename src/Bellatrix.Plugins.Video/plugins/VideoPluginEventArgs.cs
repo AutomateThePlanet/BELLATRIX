@@ -13,30 +13,29 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Plugins;
 
-namespace Bellatrix.Plugins.Video.Plugins
+namespace Bellatrix.Plugins.Video.Plugins;
+
+public sealed class VideoPluginEventArgs : PluginEventArgs
 {
-    public sealed class VideoPluginEventArgs : PluginEventArgs
+    public VideoPluginEventArgs()
     {
-        public VideoPluginEventArgs()
-        {
-        }
-
-        public VideoPluginEventArgs(PluginEventArgs pluginEventArgs, string videoPath)
-            : base(pluginEventArgs.TestOutcome,
-                pluginEventArgs.TestName,
-                pluginEventArgs.TestMethodMemberInfo,
-                pluginEventArgs.TestClassType,
-                pluginEventArgs.Arguments,
-                pluginEventArgs.ConsoleOutputMessage,
-                pluginEventArgs.ConsoleOutputStackTrace,
-                pluginEventArgs.Exception,
-                pluginEventArgs.Categories,
-                pluginEventArgs.Authors,
-                pluginEventArgs.Descriptions)
-        {
-            VideoPath = videoPath;
-        }
-
-        public string VideoPath { get; }
     }
+
+    public VideoPluginEventArgs(PluginEventArgs pluginEventArgs, string videoPath)
+        : base(pluginEventArgs.TestOutcome,
+            pluginEventArgs.TestName,
+            pluginEventArgs.TestMethodMemberInfo,
+            pluginEventArgs.TestClassType,
+            pluginEventArgs.Arguments,
+            pluginEventArgs.ConsoleOutputMessage,
+            pluginEventArgs.ConsoleOutputStackTrace,
+            pluginEventArgs.Exception,
+            pluginEventArgs.Categories,
+            pluginEventArgs.Authors,
+            pluginEventArgs.Descriptions)
+    {
+        VideoPath = videoPath;
+    }
+
+    public string VideoPath { get; }
 }

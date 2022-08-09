@@ -19,10 +19,9 @@ using Bellatrix.DynamicTestCases;
 using Bellatrix.Web.Proxy;
 using OpenQA.Selenium.Support.UI;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public abstract class WebSection
 {
-    public abstract class WebSection
-    {
-        public App App => ServicesCollection.Current.Resolve<App>();
-    }
+    public App App => ServicesCollection.Current.Resolve<App>();
 }

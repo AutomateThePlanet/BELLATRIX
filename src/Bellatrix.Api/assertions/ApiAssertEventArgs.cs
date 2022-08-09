@@ -13,16 +13,15 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Api.Contracts;
 
-namespace Bellatrix.Api
+namespace Bellatrix.Api;
+
+public class ApiAssertEventArgs
 {
-    public class ApiAssertEventArgs
-    {
-        public ApiAssertEventArgs(IMeasuredResponse measuredResponse) => MeasuredResponse = measuredResponse;
+    public ApiAssertEventArgs(IMeasuredResponse measuredResponse) => MeasuredResponse = measuredResponse;
 
-        public ApiAssertEventArgs(IMeasuredResponse measuredResponse, string actionValue)
-            : this(measuredResponse) => ActionValue = actionValue;
+    public ApiAssertEventArgs(IMeasuredResponse measuredResponse, string actionValue)
+        : this(measuredResponse) => ActionValue = actionValue;
 
-        public IMeasuredResponse MeasuredResponse { get; }
-        public string ActionValue { get; }
-    }
+    public IMeasuredResponse MeasuredResponse { get; }
+    public string ActionValue { get; }
 }

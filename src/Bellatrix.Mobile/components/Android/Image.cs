@@ -13,9 +13,8 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Controls.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public class Image : AndroidComponent
 {
-    public class Image : AndroidComponent
-    {
-    }
 }

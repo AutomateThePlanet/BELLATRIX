@@ -11,23 +11,22 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Locators
+namespace Bellatrix.Web.Locators;
+
+public class FindIdStrategy : FindStrategy
 {
-    public class FindIdStrategy : FindStrategy
+    public FindIdStrategy(string value)
+        : base(value)
     {
-        public FindIdStrategy(string value)
-            : base(value)
-        {
-        }
+    }
 
-        public override OpenQA.Selenium.By Convert()
-        {
-            return OpenQA.Selenium.By.Id(Value);
-        }
+    public override OpenQA.Selenium.By Convert()
+    {
+        return OpenQA.Selenium.By.Id(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"ID = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"ID = {Value}";
     }
 }

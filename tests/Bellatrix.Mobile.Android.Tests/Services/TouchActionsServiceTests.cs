@@ -14,115 +14,114 @@
 using System.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".ApiDemos",
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Services")]
+[AllureFeature("TouchActionsService")]
+public class TouchActionsServiceTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".ApiDemos",
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Services")]
-    [AllureFeature("TouchActionsService")]
-    public class TouchActionsServiceTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ElementSwiped_When_CallSwipeByCoordinatesMethod()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ElementSwiped_When_CallSwipeByCoordinatesMethod()
-        {
-            App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".graphics.FingerPaint");
+        App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".graphics.FingerPaint");
 
-            var textField = App.Components.CreateByIdContaining<TextField>("content");
-            Point point = textField.Location;
-            Size size = textField.Size;
+        var textField = App.Components.CreateByIdContaining<TextField>("content");
+        Point point = textField.Location;
+        Size size = textField.Size;
 
-            App.TouchActions.Swipe(
-                point.X + 5,
-                point.Y + 5,
-                point.X + size.Width - 5,
-                point.Y + size.Height - 5,
-                200);
+        App.TouchActions.Swipe(
+            point.X + 5,
+            point.Y + 5,
+            point.X + size.Width - 5,
+            point.Y + size.Height - 5,
+            200);
 
-            App.TouchActions.Swipe(
-                point.X + size.Width - 5,
-                point.Y + 5,
-                point.X + 5,
-                point.Y + size.Height - 5,
-                2000);
-        }
+        App.TouchActions.Swipe(
+            point.X + size.Width - 5,
+            point.Y + 5,
+            point.X + 5,
+            point.Y + size.Height - 5,
+            2000);
+    }
 
-        [TestMethod]
-        public void ElementTaped_When_CallTap()
-        {
-            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
-            int initialCount = elements.Count();
+    [TestMethod]
+    public void ElementTaped_When_CallTap()
+    {
+        var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
+        int initialCount = elements.Count();
 
-            App.TouchActions.Tap(elements[6]).Perform();
+        App.TouchActions.Tap(elements[6]).Perform();
 
-            var consumerTextView = App.Components.CreateByText<TextField>("Consumer IR");
-            consumerTextView.ToBeVisible().WaitToBe();
+        var consumerTextView = App.Components.CreateByText<TextField>("Consumer IR");
+        consumerTextView.ToBeVisible().WaitToBe();
 
-            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
+        elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
-            Assert.AreNotEqual(initialCount, elements.Count());
-            Assert.AreEqual(2, elements.Count());
-        }
+        Assert.AreNotEqual(initialCount, elements.Count());
+        Assert.AreEqual(2, elements.Count());
+    }
 
-        [TestMethod]
-        public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinates()
-        {
-            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
-            var locationOne = elements[7].Location;
-            var locationTwo = elements[1].Location;
+    [TestMethod]
+    public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinates()
+    {
+        var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
+        var locationOne = elements[7].Location;
+        var locationTwo = elements[1].Location;
 
-            App.TouchActions.Press(locationOne.X, locationOne.Y, 100).
-                MoveTo(locationTwo.X, locationTwo.Y).
-                Release().
-                Perform();
+        App.TouchActions.Press(locationOne.X, locationOne.Y, 100).
+            MoveTo(locationTwo.X, locationTwo.Y).
+            Release().
+            Perform();
 
-            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
+        elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
-            Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
-        }
+        Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
+    }
 
-        [TestMethod]
-        public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinatesMultiAction()
-        {
-            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
-            var locationOne = elements[7].Location;
-            var locationTwo = elements[1].Location;
+    [TestMethod]
+    public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinatesMultiAction()
+    {
+        var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
+        var locationOne = elements[7].Location;
+        var locationTwo = elements[1].Location;
 
-            var swipe = App.TouchActions.Press(locationOne.X, locationOne.Y, 100).
-                MoveTo(locationTwo.X, locationTwo.Y).
-                Release();
-            App.TouchActions.Perform();
+        var swipe = App.TouchActions.Press(locationOne.X, locationOne.Y, 100).
+            MoveTo(locationTwo.X, locationTwo.Y).
+            Release();
+        App.TouchActions.Perform();
 
-            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
+        elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
-            Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
-        }
+        Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.KnownIssue)]
-        [Ignore]
-        public void TwoTouchActionExecutedInOneMultiAction_When_CallPerformAllActions()
-        {
-            string originalActivity = App.AppService.CurrentActivity;
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.KnownIssue)]
+    [Ignore]
+    public void TwoTouchActionExecutedInOneMultiAction_When_CallPerformAllActions()
+    {
+        string originalActivity = App.AppService.CurrentActivity;
 
-            var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
+        var elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
-            App.TouchActions.Press(elements[5], 1500).Release();
-            App.TouchActions.Press(elements[5], 1500).Release();
-            App.TouchActions.Perform();
-            elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
+        App.TouchActions.Press(elements[5], 1500).Release();
+        App.TouchActions.Press(elements[5], 1500).Release();
+        App.TouchActions.Perform();
+        elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
-            App.TouchActions.Press(elements[1], 1500).Release();
-            App.TouchActions.Press(elements[1], 1500).Release();
-            App.TouchActions.Perform();
+        App.TouchActions.Press(elements[1], 1500).Release();
+        App.TouchActions.Press(elements[1], 1500).Release();
+        App.TouchActions.Perform();
 
-            Assert.AreNotEqual(originalActivity, App.AppService.CurrentActivity);
-        }
+        Assert.AreNotEqual(originalActivity, App.AppService.CurrentActivity);
     }
 }

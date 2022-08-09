@@ -15,17 +15,16 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
-{
-    public static partial class ValidateControlExtensions
-    {
-        public static void ValidatePhoneIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentPhone, IComponent
-        {
-            WaitUntil(() => control.GetPhone().Equals(value), $"The control's phone should be '{value}' but was '{control.GetPhone()}'.", timeout, sleepInterval);
-            ValidatedPhoneIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
+namespace Bellatrix.Web;
 
-        public static event EventHandler<ComponentActionEventArgs> ValidatedPhoneIsEvent;
+public static partial class ValidateControlExtensions
+{
+    public static void ValidatePhoneIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentPhone, IComponent
+    {
+        WaitUntil(() => control.GetPhone().Equals(value), $"The control's phone should be '{value}' but was '{control.GetPhone()}'.", timeout, sleepInterval);
+        ValidatedPhoneIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
     }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedPhoneIsEvent;
 }

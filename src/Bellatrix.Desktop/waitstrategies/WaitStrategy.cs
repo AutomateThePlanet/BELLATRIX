@@ -17,55 +17,54 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Support.UI;
 
-namespace Bellatrix.Desktop.Untils
+namespace Bellatrix.Desktop.Untils;
+
+public abstract class WaitStrategy
 {
-   public abstract class WaitStrategy
+    protected WaitStrategy(int? timeoutInterval = null, int? sleepInterval = null)
     {
-        protected WaitStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        WrappedWebDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+        TimeoutInterval = timeoutInterval;
+        SleepInterval = sleepInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.SleepInterval;
+    }
+
+    protected WindowsDriver<WindowsElement> WrappedWebDriver { get; }
+
+    protected int? TimeoutInterval { get; set; }
+
+    protected int? SleepInterval { get; }
+
+    public abstract void WaitUntil<TBy>(TBy by)
+        where TBy : Locators.FindStrategy;
+
+    protected void WaitUntil(Func<IWebDriver, bool> waitCondition, int? timeout, int? sleepInterval)
+    {
+        if (timeout != null && sleepInterval != null)
         {
-            WrappedWebDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
-            TimeoutInterval = timeoutInterval;
-            SleepInterval = sleepInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.SleepInterval;
+            var timeoutTimeSpan = TimeSpan.FromSeconds((int)timeout);
+            var sleepIntervalTimeSpan = TimeSpan.FromSeconds((int)sleepInterval);
+            var wait = new WebDriverWait(new SystemClock(), WrappedWebDriver, timeoutTimeSpan, sleepIntervalTimeSpan);
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException), typeof(InvalidOperationException));
+            wait.Until(waitCondition);
         }
+    }
 
-        protected WindowsDriver<WindowsElement> WrappedWebDriver { get; }
-
-        protected int? TimeoutInterval { get; set; }
-
-        protected int? SleepInterval { get; }
-
-        public abstract void WaitUntil<TBy>(TBy by)
-            where TBy : Locators.FindStrategy;
-
-        protected void WaitUntil(Func<IWebDriver, bool> waitCondition, int? timeout, int? sleepInterval)
+    protected void WaitUntil(Func<IWebDriver, IWebElement> waitCondition, int? timeout, int? sleepInterval)
+    {
+        if (timeout != null && sleepInterval != null)
         {
-            if (timeout != null && sleepInterval != null)
-            {
-                var timeoutTimeSpan = TimeSpan.FromSeconds((int)timeout);
-                var sleepIntervalTimeSpan = TimeSpan.FromSeconds((int)sleepInterval);
-                var wait = new WebDriverWait(new SystemClock(), WrappedWebDriver, timeoutTimeSpan, sleepIntervalTimeSpan);
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException), typeof(InvalidOperationException));
-                wait.Until(waitCondition);
-            }
+            var timeoutTimeSpan = TimeSpan.FromSeconds((int)timeout);
+            var sleepIntervalTimeSpan = TimeSpan.FromSeconds((int)sleepInterval);
+            var wait = new WebDriverWait(new SystemClock(), WrappedWebDriver, timeoutTimeSpan, sleepIntervalTimeSpan);
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException), typeof(InvalidOperationException));
+            wait.Until(waitCondition);
         }
+    }
 
-        protected void WaitUntil(Func<IWebDriver, IWebElement> waitCondition, int? timeout, int? sleepInterval)
-        {
-            if (timeout != null && sleepInterval != null)
-            {
-                var timeoutTimeSpan = TimeSpan.FromSeconds((int)timeout);
-                var sleepIntervalTimeSpan = TimeSpan.FromSeconds((int)sleepInterval);
-                var wait = new WebDriverWait(new SystemClock(), WrappedWebDriver, timeoutTimeSpan, sleepIntervalTimeSpan);
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException), typeof(InvalidOperationException));
-                wait.Until(waitCondition);
-            }
-        }
-
-        protected IWebElement FindElement<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
-            where TBy : Locators.FindStrategy
-        {
-            var element = by.FindElement(searchContext);
-            return element;
-        }
+    protected IWebElement FindElement<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
+        where TBy : Locators.FindStrategy
+    {
+        var element = by.FindElement(searchContext);
+        return element;
     }
 }

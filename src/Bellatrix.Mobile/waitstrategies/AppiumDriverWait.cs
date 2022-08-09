@@ -15,22 +15,21 @@ using System;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 
-namespace Bellatrix.Mobile.Untils
-{
-    public class AppiumDriverWait<TDriver, TDriverElement> : DefaultWait<TDriver>
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
-    {
-        public AppiumDriverWait(TDriver driver, IClock clock, TimeSpan timeout, TimeSpan sleepInterval)
-            : base(driver, clock)
-        {
-            Timeout = timeout;
-            PollingInterval = sleepInterval;
-        }
+namespace Bellatrix.Mobile.Untils;
 
-        public AppiumDriverWait(TDriver driver, IClock clock)
-               : base(driver, clock)
-        {
-        }
+public class AppiumDriverWait<TDriver, TDriverElement> : DefaultWait<TDriver>
+    where TDriver : AppiumDriver<TDriverElement>
+    where TDriverElement : AppiumWebElement
+{
+    public AppiumDriverWait(TDriver driver, IClock clock, TimeSpan timeout, TimeSpan sleepInterval)
+        : base(driver, clock)
+    {
+        Timeout = timeout;
+        PollingInterval = sleepInterval;
+    }
+
+    public AppiumDriverWait(TDriver driver, IClock clock)
+           : base(driver, clock)
+    {
     }
 }

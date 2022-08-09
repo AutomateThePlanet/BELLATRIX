@@ -15,22 +15,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting.Jira
-{
-    public class IssueDateInfo
-    {
-        public IssueDateInfo(DateTime creationDate, int year, int month)
-        {
-            CreationDate = creationDate;
-            Year = year;
-            Month = month;
-        }
+namespace Bellatrix.BugReporting.Jira;
 
-        public DateTime CreationDate { get; set; }
-        public int Year { get; set; }
-        public int Month { get; set; }
-        public int WeekOfYear { get; set; }
-        public int WeekYearId => WeekOfYear * Year;
-        public int MonthYearId => CreationDate.Month * Year;
+public class IssueDateInfo
+{
+    public IssueDateInfo(DateTime creationDate, int year, int month)
+    {
+        CreationDate = creationDate;
+        Year = year;
+        Month = month;
     }
+
+    public DateTime CreationDate { get; set; }
+    public int Year { get; set; }
+    public int Month { get; set; }
+    public int WeekOfYear { get; set; }
+    public int WeekYearId => WeekOfYear * Year;
+    public int MonthYearId => CreationDate.Month * Year;
 }

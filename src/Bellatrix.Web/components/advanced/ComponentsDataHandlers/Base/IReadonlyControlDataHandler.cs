@@ -12,12 +12,11 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public interface IReadonlyControlDataHandler<TComponent> : IControlDataHandler<TComponent>
+where TComponent : Component
 {
-    public interface IReadonlyControlDataHandler<TComponent> : IControlDataHandler<TComponent>
-    where TComponent : Component
-    {
-        dynamic GetData(TComponent element);
-        void ValidateValueIs(TComponent element, string expectedValue);
-    }
+    dynamic GetData(TComponent element);
+    void ValidateValueIs(TComponent element, string expectedValue);
 }

@@ -14,31 +14,30 @@
 using Bellatrix.Desktop.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
-{
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Calendar Control")]
-    [AllureFeature("ValidateExtensionsExceptionMessages")]
-    [AllureTag("WPF")]
-    public class CalendarControlValidateExtensionsExceptionMessagesTests : MSTest.DesktopTest
-    {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void ValidateIsNotDisabled_ThrowException_When_CalendarNotDisabled()
-        {
-            var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
+namespace Bellatrix.Desktop.Tests;
 
-            try
-            {
-                calendar.ValidateIsDisabled();
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = "The control should be disabled but it was NOT.";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Calendar Control")]
+[AllureFeature("ValidateExtensionsExceptionMessages")]
+[AllureTag("WPF")]
+public class CalendarControlValidateExtensionsExceptionMessagesTests : MSTest.DesktopTest
+{
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void ValidateIsNotDisabled_ThrowException_When_CalendarNotDisabled()
+    {
+        var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
+
+        try
+        {
+            calendar.ValidateIsDisabled();
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = "The control should be disabled but it was NOT.";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

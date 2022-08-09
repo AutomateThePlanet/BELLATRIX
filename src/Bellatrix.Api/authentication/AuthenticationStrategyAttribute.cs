@@ -14,11 +14,10 @@
 using System;
 using RestSharp.Authenticators;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+[AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
+public abstract class AuthenticationStrategyAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
-    public abstract class AuthenticationStrategyAttribute : Attribute
-    {
-        public abstract IAuthenticator GetAuthenticator();
-    }
+    public abstract IAuthenticator GetAuthenticator();
 }

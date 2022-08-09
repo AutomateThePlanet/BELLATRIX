@@ -11,14 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Plugins.Video.Plugins
+namespace Bellatrix.Plugins.Video.Plugins;
+
+public interface IVideoPlugin
 {
-    public interface IVideoPlugin
-    {
-        void SubscribeVideoPlugin(IVideoPluginProvider provider);
+    void SubscribeVideoPlugin(IVideoPluginProvider provider);
 
-        void UnsubscribeVideoPlugin(IVideoPluginProvider provider);
+    void UnsubscribeVideoPlugin(IVideoPluginProvider provider);
 
-        void VideoGenerated(object sender, VideoPluginEventArgs e);
-    }
+    void VideoGenerated(object sender, VideoPluginEventArgs e);
 }

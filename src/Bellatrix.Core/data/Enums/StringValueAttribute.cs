@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Data
-{
-    public class StringValueAttribute : Attribute
-    {
-        public StringValueAttribute(string value) => StringValue = value;
+namespace Bellatrix.Data;
 
-        public string StringValue { get; protected set; }
-    }
+public class StringValueAttribute : Attribute
+{
+    public StringValueAttribute(string value) => StringValue = value;
+
+    public string StringValue { get; protected set; }
 }

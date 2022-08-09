@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Desktop.Exceptions
+namespace Bellatrix.Desktop.Exceptions;
+
+public class ComponentPropertyValidateException : Exception
 {
-    public class ComponentPropertyValidateException : Exception
+    public ComponentPropertyValidateException()
     {
-        public ComponentPropertyValidateException()
-        {
-        }
+    }
 
-        public ComponentPropertyValidateException(string message)
-            : base(message)
-        {
-        }
+    public ComponentPropertyValidateException(string message)
+        : base(message)
+    {
+    }
 
-        public ComponentPropertyValidateException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
+    public ComponentPropertyValidateException(string message, Exception inner)
+        : base(message, inner)
+    {
     }
 }

@@ -13,14 +13,13 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public abstract class FindStrategy
 {
-    public abstract class FindStrategy
-    {
-        public FindStrategy(string value) => Value = value;
+    public FindStrategy(string value) => Value = value;
 
-        public string Value { get; }
+    public string Value { get; }
 
-        public abstract By Convert();
-    }
+    public abstract By Convert();
 }

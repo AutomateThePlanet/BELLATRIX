@@ -15,30 +15,29 @@ using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.EventHandlers.Android
+namespace Bellatrix.Mobile.EventHandlers.Android;
+
+public class NumberEventHandlers : ComponentEventHandlers
 {
-    public class NumberEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Number.SettingNumber += SettingNumberEventHandler;
-            Number.NumberSet += NumberSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Number.SettingNumber += SettingNumberEventHandler;
+        Number.NumberSet += NumberSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Number.SettingNumber -= SettingNumberEventHandler;
-            Number.NumberSet -= NumberSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Number.SettingNumber -= SettingNumberEventHandler;
+        Number.NumberSet -= NumberSetEventHandler;
+    }
 
-        protected virtual void SettingNumberEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void SettingNumberEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
+    }
 
-        protected virtual void NumberSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
-        {
-        }
+    protected virtual void NumberSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    {
     }
 }

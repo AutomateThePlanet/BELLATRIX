@@ -11,11 +11,10 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class DesktopSettings
 {
-    public class DesktopSettings
-    {
-        public TimeoutSettings TimeoutSettings { get; set; }
-        public ExecutionSettings ExecutionSettings { get; set; }
-    }
+    public TimeoutSettings TimeoutSettings { get; set; }
+    public ExecutionSettings ExecutionSettings { get; set; }
 }

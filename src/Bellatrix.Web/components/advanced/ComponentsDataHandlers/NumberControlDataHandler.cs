@@ -14,12 +14,11 @@
 
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
-{
-    public class NumberControlDataHandler : IReadonlyControlDataHandler<Number>
-    {
-        public dynamic GetData(Number element) => element.GetNumber();
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 
-        public void ValidateValueIs(Number element, string expectedValue) => element.ValidateNumberIs(double.Parse(expectedValue));
-    }
+public class NumberControlDataHandler : IReadonlyControlDataHandler<Number>
+{
+    public dynamic GetData(Number element) => element.GetNumber();
+
+    public void ValidateValueIs(Number element, string expectedValue) => element.ValidateNumberIs(double.Parse(expectedValue));
 }

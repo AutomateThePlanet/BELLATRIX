@@ -16,31 +16,30 @@ using System.Diagnostics;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class Password : Component, IComponentDisabled
 {
-    public class Password : Component, IComponentDisabled
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> SettingPassword;
+    public static event EventHandler<ComponentActionEventArgs> PasswordSet;
+
+    public virtual string GetPassword()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> SettingPassword;
-        public static event EventHandler<ComponentActionEventArgs> PasswordSet;
-
-        public virtual string GetPassword()
-        {
-            return GetInnerText();
-        }
-
-        public virtual void SetPassword(string password)
-        {
-            SetText(SettingPassword, PasswordSet, password);
-        }
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        return GetInnerText();
     }
+
+    public virtual void SetPassword(string password)
+    {
+        SetText(SettingPassword, PasswordSet, password);
+    }
+
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

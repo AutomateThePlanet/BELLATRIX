@@ -14,10 +14,9 @@
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.BddLogging
+namespace Bellatrix.Desktop.BddLogging;
+
+public class BDDLoggingTextAreaEventHandlers : TextAreaEventHandlers
 {
-    public class BDDLoggingTextAreaEventHandlers : TextAreaEventHandlers
-    {
-        protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

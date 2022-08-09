@@ -15,17 +15,16 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
-{
-    public static partial class ValidateControlExtensions
-    {
-        public static void ValidateSearchIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentSearch, IComponent
-        {
-            WaitUntil(() => control.GetSearch().Equals(value), $"The control's search should be '{value}' but was '{control.GetSearch()}'.", timeout, sleepInterval);
-            ValidatedSearchIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
+namespace Bellatrix.Web;
 
-        public static event EventHandler<ComponentActionEventArgs> ValidatedSearchIsEvent;
+public static partial class ValidateControlExtensions
+{
+    public static void ValidateSearchIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentSearch, IComponent
+    {
+        WaitUntil(() => control.GetSearch().Equals(value), $"The control's search should be '{value}' but was '{control.GetSearch()}'.", timeout, sleepInterval);
+        ValidatedSearchIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
     }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedSearchIsEvent;
 }

@@ -11,13 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Assertions
+namespace Bellatrix.Assertions;
+
+public enum DateTimeDeltaType
 {
-    public enum DateTimeDeltaType
-    {
-        Days,
-        Minutes,
-        Hours,
-        Seconds,
-    }
+    Days,
+    Minutes,
+    Hours,
+    Seconds,
 }

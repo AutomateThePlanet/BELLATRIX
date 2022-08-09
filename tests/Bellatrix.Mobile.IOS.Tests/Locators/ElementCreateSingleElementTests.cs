@@ -14,63 +14,62 @@
 using Bellatrix.Mobile.Controls.IOS;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+////curl -u angelov.st.anton+sauce:eaa32fdc-f200-4e53-b47f-b93553a8726e -X POST -H "Content-Type: application/octet-stream" https://saucelabs.com/rest/v1/storage/angelov.st.anton+sauce/ApiDemos.apk?overwrite=true --data-binary "D:\SourceCode\AutomateThePlanet\BellatrixTestFramework\Tests\Bellatrix.Mobile.Android.Tests\bin\Debug\netcoreapp2.0\Demos\ApiDemos.apk"
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Services")]
+[AllureFeature("ComponentCreateService")]
+public class ElementCreateSingleElementTests : MSTest.IOSTest
 {
-    ////curl -u angelov.st.anton+sauce:eaa32fdc-f200-4e53-b47f-b93553a8726e -X POST -H "Content-Type: application/octet-stream" https://saucelabs.com/rest/v1/storage/angelov.st.anton+sauce/ApiDemos.apk?overwrite=true --data-binary "D:\SourceCode\AutomateThePlanet\BellatrixTestFramework\Tests\Bellatrix.Mobile.Android.Tests\bin\Debug\netcoreapp2.0\Demos\ApiDemos.apk"
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Services")]
-    [AllureFeature("ComponentCreateService")]
-    public class ElementCreateSingleElementTests : MSTest.IOSTest
+    private IOSComponent _mainElement;
+
+    public override void TestInit()
     {
-        private IOSComponent _mainElement;
+        _mainElement = App.Components.CreateByIOSNsPredicate<IOSComponent>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+    }
 
-        public override void TestInit()
-        {
-            _mainElement = App.Components.CreateByIOSNsPredicate<IOSComponent>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
-        }
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateById_And_ElementIsOnScreen()
+    {
+        var textFields = _mainElement.CreateById<TextField>("IntegerA");
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateById_And_ElementIsOnScreen()
-        {
-            var textFields = _mainElement.CreateById<TextField>("IntegerA");
+        textFields.ValidateIsVisible();
+    }
 
-            textFields.ValidateIsVisible();
-        }
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateByClass()
+    {
+        var textFields = _mainElement.CreateByClass<TextField>("XCUIElementTypeTextField");
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateByClass()
-        {
-            var textFields = _mainElement.CreateByClass<TextField>("XCUIElementTypeTextField");
+        textFields.ValidateIsNotDisabled();
+    }
 
-            textFields.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateByValueContaining_And_ElementIsOnScreen()
+    {
+        var labels = _mainElement.CreateByValueContaining<Label>("SumLabel");
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateByValueContaining_And_ElementIsOnScreen()
-        {
-            var labels = _mainElement.CreateByValueContaining<Label>("SumLabel");
+        labels.ValidateIsVisible();
+    }
 
-            labels.ValidateIsVisible();
-        }
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ElementFound_When_CreateByXPath_And_ElementIsOnScreen()
+    {
+        var button = _mainElement.CreateByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ElementFound_When_CreateByXPath_And_ElementIsOnScreen()
-        {
-            var button = _mainElement.CreateByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");
-
-            button.ValidateIsVisible();
-        }
+        button.ValidateIsVisible();
     }
 }

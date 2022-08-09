@@ -17,18 +17,17 @@ using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Results.MSTest;
 using Bellatrix.Results.NUnit;
 
-namespace Bellatrix
-{
-    public static class ScreenshotsPluginConfiguration
-    {
-        public static void AddMSTest()
-        {
-            ServicesCollection.Current.RegisterType<IScreenshotPlugin, MSTestResultsWorkflowPlugin>(Guid.NewGuid().ToString());
-        }
+namespace Bellatrix;
 
-        public static void AddNUnit()
-        {
-            ServicesCollection.Current.RegisterType<IScreenshotPlugin, NUnitResultsWorkflowPlugin>(Guid.NewGuid().ToString());
-        }
+public static class ScreenshotsPluginConfiguration
+{
+    public static void AddMSTest()
+    {
+        ServicesCollection.Current.RegisterType<IScreenshotPlugin, MSTestResultsWorkflowPlugin>(Guid.NewGuid().ToString());
+    }
+
+    public static void AddNUnit()
+    {
+        ServicesCollection.Current.RegisterType<IScreenshotPlugin, NUnitResultsWorkflowPlugin>(Guid.NewGuid().ToString());
     }
 }

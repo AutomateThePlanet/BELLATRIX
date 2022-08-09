@@ -13,14 +13,13 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Contracts
+namespace Bellatrix.Desktop.Contracts;
+
+public interface IComponent
 {
-    public interface IComponent
-    {
-        string ComponentName { get; }
+    string ComponentName { get; }
 
-        string PageName { get; }
+    string PageName { get; }
 
-        WindowsElement WrappedElement { get; }
-    }
+    WindowsElement WrappedElement { get; }
 }

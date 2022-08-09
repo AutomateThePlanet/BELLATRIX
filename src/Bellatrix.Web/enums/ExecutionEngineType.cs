@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Enums
+namespace Bellatrix.Web.Enums;
+
+public enum ExecutionEngineType
 {
-    public enum ExecutionEngineType
-    {
-        TestStudio,
-        WebDriver,
-        NotSpecified,
-    }
+    TestStudio,
+    WebDriver,
+    NotSpecified,
 }

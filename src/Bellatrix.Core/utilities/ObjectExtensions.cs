@@ -17,33 +17,32 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Bellatrix
-{
-    public static class ObjectExtensions
-    {
-        public static string Stringify(this object obj, bool skipNullOrDefaultValues = true)
-        {
-            string stringifiedObject;
-            if (skipNullOrDefaultValues)
-            {
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    DefaultIgnoreCondition = JsonIgnoreCondition.Never,
-                };
-                stringifiedObject = JsonSerializer.Serialize(obj, options);
-            }
-            else
-            {
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    DefaultIgnoreCondition = JsonIgnoreCondition.Never,
-                };
-                stringifiedObject = JsonSerializer.Serialize(obj, options);
-            }
+namespace Bellatrix;
 
-            return stringifiedObject;
+public static class ObjectExtensions
+{
+    public static string Stringify(this object obj, bool skipNullOrDefaultValues = true)
+    {
+        string stringifiedObject;
+        if (skipNullOrDefaultValues)
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+            };
+            stringifiedObject = JsonSerializer.Serialize(obj, options);
         }
+        else
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+            };
+            stringifiedObject = JsonSerializer.Serialize(obj, options);
+        }
+
+        return stringifiedObject;
     }
 }

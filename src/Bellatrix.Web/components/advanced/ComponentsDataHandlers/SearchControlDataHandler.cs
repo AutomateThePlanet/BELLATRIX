@@ -15,17 +15,16 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class SearchControlDataHandler : IEditableControlDataHandler<Search>
 {
-    public class SearchControlDataHandler : IEditableControlDataHandler<Search>
+    public dynamic GetData(Search element) => element.GetSearch();
+
+    public void SetData(Search element, string data)
     {
-        public dynamic GetData(Search element) => element.GetSearch();
-
-        public void SetData(Search element, string data)
-        {
-            element.SetSearch(data);
-        }
-
-        public void ValidateValueIs(Search element, string expectedValue) => element.ValidateSearchIs(expectedValue);
+        element.SetSearch(data);
     }
+
+    public void ValidateValueIs(Search element, string expectedValue) => element.ValidateSearchIs(expectedValue);
 }

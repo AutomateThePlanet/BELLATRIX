@@ -1,12 +1,11 @@
 ﻿using System.Diagnostics;
 
-namespace Bellatrix.Api
+namespace Bellatrix.Api;
+
+public static class DebugLogger
 {
-    public static class DebugLogger
+    public static void LogInformation(string message)
     {
-        public static void LogInformation(string message)
-        {
-            Debug.WriteLine(message);
-        }
+        Debug.WriteLine(message);
     }
 }

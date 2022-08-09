@@ -13,10 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Infrastructure
+namespace Bellatrix.Infrastructure;
+
+public class GuidFacade
 {
-    public class GuidFacade
-    {
-        public Guid NewGuid() => Guid.NewGuid();
-    }
+    public Guid NewGuid() => Guid.NewGuid();
 }

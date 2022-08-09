@@ -11,10 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Contracts
+namespace Bellatrix.Web.Contracts;
+
+public interface IComponentCols
 {
-    public interface IComponentCols
-    {
-        int? Cols { get; }
-    }
+    int? Cols { get; }
 }

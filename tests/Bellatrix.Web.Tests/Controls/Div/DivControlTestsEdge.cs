@@ -13,66 +13,65 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Div Control")]
+[AllureFeature("Edge Browser")]
+public class DivControlTestsEdge : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Div Control")]
-    [AllureFeature("Edge Browser")]
-    public class DivControlTestsEdge : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DivLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnRed_When_Hover_Edge()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DivLocalPage);
+        var divElement = App.Components.CreateById<Div>("myDiv");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnRed_When_Hover_Edge()
-        {
-            var divElement = App.Components.CreateById<Div>("myDiv");
+        divElement.Hover();
 
-            divElement.Hover();
+        Assert.AreEqual("color: red;", divElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", divElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnAutomateThePlanet_When_InnerText_Edge()
+    {
+        var divElement = App.Components.CreateById<Div>("myDiv1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnAutomateThePlanet_When_InnerText_Edge()
-        {
-            var divElement = App.Components.CreateById<Div>("myDiv1");
+        Assert.AreEqual("Automate The Planet", divElement.InnerText);
+    }
 
-            Assert.AreEqual("Automate The Planet", divElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnNull_When_InnerTextNotSet_Edge()
+    {
+        var divElement = App.Components.CreateById<Div>("myDiv3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnNull_When_InnerTextNotSet_Edge()
-        {
-            var divElement = App.Components.CreateById<Div>("myDiv3");
+        Assert.IsNotNull(divElement.InnerText);
+    }
 
-            Assert.IsNotNull(divElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnNull_When_InnerHtmlNotSet_Edge()
+    {
+        var divElement = App.Components.CreateById<Div>("myDiv3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnNull_When_InnerHtmlNotSet_Edge()
-        {
-            var divElement = App.Components.CreateById<Div>("myDiv3");
+        Assert.IsNotNull(divElement.InnerHtml);
+    }
 
-            Assert.IsNotNull(divElement.InnerHtml);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnButtonHtml_When_InnerHtmlSet_Edge()
+    {
+        var divElement = App.Components.CreateById<Div>("myDiv2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnButtonHtml_When_InnerHtmlSet_Edge()
-        {
-            var divElement = App.Components.CreateById<Div>("myDiv2");
-
-            Assert.AreEqual("<button name=\"button\">Click me</button>", divElement.InnerHtml);
-        }
+        Assert.AreEqual("<button name=\"button\">Click me</button>", divElement.InnerHtml);
     }
 }

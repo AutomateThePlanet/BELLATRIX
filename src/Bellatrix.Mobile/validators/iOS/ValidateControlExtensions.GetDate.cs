@@ -16,17 +16,16 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
-{
-    public static partial class ValidateControlExtensions
-    {
-        public static void ValidateDateIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentDate, IComponent<IOSElement>
-        {
-            ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.GetDate().Equals(value), $"The control's date should be '{value}' but was '{control.GetDate()}'.", timeout, sleepInterval);
-            ValidatedDateIsEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control, value));
-        }
+namespace Bellatrix.Mobile.IOS;
 
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedDateIsEvent;
+public static partial class ValidateControlExtensions
+{
+    public static void ValidateDateIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentDate, IComponent<IOSElement>
+    {
+        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.GetDate().Equals(value), $"The control's date should be '{value}' but was '{control.GetDate()}'.", timeout, sleepInterval);
+        ValidatedDateIsEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control, value));
     }
+
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedDateIsEvent;
 }

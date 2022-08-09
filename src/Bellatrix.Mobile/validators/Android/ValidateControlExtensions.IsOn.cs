@@ -16,25 +16,24 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsOn<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentOn, IComponent<AndroidElement>
     {
-        public static void ValidateIsOn<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentOn, IComponent<AndroidElement>
-        {
-            ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsOn.Equals(true), "The control should be ON but was OFF.", timeout, sleepInterval);
-            ValidatedIsOnEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
-        }
-
-        public static void ValidateIsOff<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentOn, IComponent<AndroidElement>
-        {
-            ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsOn.Equals(false), "The control should be OFF but it was ON.", timeout, sleepInterval);
-            ValidatedIsOffEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsOnEvent;
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsOffEvent;
+        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsOn.Equals(true), "The control should be ON but was OFF.", timeout, sleepInterval);
+        ValidatedIsOnEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
     }
+
+    public static void ValidateIsOff<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentOn, IComponent<AndroidElement>
+    {
+        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsOn.Equals(false), "The control should be OFF but it was ON.", timeout, sleepInterval);
+        ValidatedIsOffEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsOnEvent;
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsOffEvent;
 }

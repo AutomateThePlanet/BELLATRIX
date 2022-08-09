@@ -15,35 +15,34 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Locators.Android
+namespace Bellatrix.Mobile.Locators.Android;
+
+public class FindAndroidUIAutomatorStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
 {
-    public class FindAndroidUIAutomatorStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+    public FindAndroidUIAutomatorStrategy(string name)
+        : base(name)
     {
-        public FindAndroidUIAutomatorStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
-        {
-            return searchContext.FindElementByAndroidUIAutomator(Value);
-        }
+    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    {
+        return searchContext.FindElementByAndroidUIAutomator(Value);
+    }
 
-        public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext) => searchContext.FindElementsByAndroidUIAutomator(Value);
+    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext) => searchContext.FindElementsByAndroidUIAutomator(Value);
 
-        public override AppiumWebElement FindElement(AndroidElement element)
-        {
-            return element.FindElementByAndroidUIAutomator(Value);
-        }
+    public override AppiumWebElement FindElement(AndroidElement element)
+    {
+        return element.FindElementByAndroidUIAutomator(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
-        {
-            return element.FindElementsByAndroidUIAutomator(Value);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    {
+        return element.FindElementsByAndroidUIAutomator(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"AndroidUIAutomator = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"AndroidUIAutomator = {Value}";
     }
 }

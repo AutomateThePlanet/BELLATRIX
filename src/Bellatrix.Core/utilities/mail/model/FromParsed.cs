@@ -1,4 +1,4 @@
-﻿namespace Bellatrix.Core.utilities.mail.model;
+﻿namespace Bellatrix.Utilities;
 
 public class FromParsed
 {

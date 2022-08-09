@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Helpers
+namespace Bellatrix.Web.Helpers;
+
+public interface INavigationHelper
 {
-    public interface INavigationHelper
-    {
-        string GetHostByLocation(string currentLocation);
-        string FormatUrl(string relativeUrl, string host, bool sslEnabled);
-        string GetAbsoluteUrl(string relativeUrl, string currentLocation, bool sslEnabled = false);
-    }
+    string GetHostByLocation(string currentLocation);
+    string FormatUrl(string relativeUrl, string host, bool sslEnabled);
+    string GetAbsoluteUrl(string relativeUrl, string currentLocation, bool sslEnabled = false);
 }

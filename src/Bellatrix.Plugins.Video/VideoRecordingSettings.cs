@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Plugins.Video
+namespace Bellatrix.Plugins.Video;
+
+public class VideoRecordingSettings
 {
-    public class VideoRecordingSettings
-    {
-        public int WaitAfterFinishRecordingMilliseconds { get; set; } = 500;
-        public string FilePath { get; set; }
-        public bool IsEnabled { get; set; }
-    }
+    public int WaitAfterFinishRecordingMilliseconds { get; set; } = 500;
+    public string FilePath { get; set; }
+    public bool IsEnabled { get; set; }
 }

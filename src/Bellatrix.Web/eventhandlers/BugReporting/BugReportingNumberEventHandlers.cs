@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class BugReportingNumberEventHandlers : NumberEventHandlers
 {
-    public class BugReportingNumberEventHandlers : NumberEventHandlers
-    {
-        protected override void SettingNumberEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Set '{arg.ActionValue}' into {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
-    }
+    protected override void SettingNumberEventHandler(object sender, ComponentActionEventArgs arg) => BugReportingContextService.AddStep($"Set '{arg.ActionValue}' into {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 }

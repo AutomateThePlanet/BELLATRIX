@@ -13,49 +13,48 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("RadioButton Control")]
+public class RadioButtonControlTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("RadioButton Control")]
-    public class RadioButtonControlTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ButtonClicked_When_ClickMethodCalled()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ButtonClicked_When_ClickMethodCalled()
-        {
-            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
+        var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
 
-            Assert.IsFalse(radioButton.IsChecked);
+        Assert.IsFalse(radioButton.IsChecked);
 
-            radioButton.Click();
+        radioButton.Click();
 
-            Assert.IsTrue(radioButton.IsChecked);
-        }
+        Assert.IsTrue(radioButton.IsChecked);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_RadioButtonIsNotDisabled()
-        {
-            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_RadioButtonIsNotDisabled()
+    {
+        var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
 
-            Assert.IsFalse(radioButton.IsDisabled);
-        }
+        Assert.IsFalse(radioButton.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void RadioButton1TextReturned_When_RadioButtonGetTextMethodCalled()
-        {
-            var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio1");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void RadioButton1TextReturned_When_RadioButtonGetTextMethodCalled()
+    {
+        var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio1");
 
-            string text = radioButton.GetText();
+        string text = radioButton.GetText();
 
-            Assert.AreEqual("RadioButton 1", text);
-        }
+        Assert.AreEqual("RadioButton 1", text);
     }
 }

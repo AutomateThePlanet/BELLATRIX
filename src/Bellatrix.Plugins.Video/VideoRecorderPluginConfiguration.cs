@@ -20,28 +20,27 @@ using Bellatrix.Results.MSTest;
 using Bellatrix.Results.NUnit;
 using Bellatrix.VideoRecording.FFmpeg;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class VideoRecorderPluginConfiguration
 {
-    public static class VideoRecorderPluginConfiguration
+    public static void AddMSTest()
     {
-        public static void AddMSTest()
-        {
-            Add();
-            ServicesCollection.Current.RegisterType<IVideoPlugin, MSTestResultsWorkflowPlugin>(Guid.NewGuid().ToString());
-        }
+        Add();
+        ServicesCollection.Current.RegisterType<IVideoPlugin, MSTestResultsWorkflowPlugin>(Guid.NewGuid().ToString());
+    }
 
-        public static void AddNUnit()
-        {
-            Add();
-            ServicesCollection.Current.RegisterType<IVideoPlugin, NUnitResultsWorkflowPlugin>(Guid.NewGuid().ToString());
-        }
+    public static void AddNUnit()
+    {
+        Add();
+        ServicesCollection.Current.RegisterType<IVideoPlugin, NUnitResultsWorkflowPlugin>(Guid.NewGuid().ToString());
+    }
 
-        private static void Add()
-        {
-            ServicesCollection.Current.RegisterType<IVideoRecorder, FFmpegVideoRecorder>();
-            ServicesCollection.Current.RegisterType<IVideoRecorderOutputProvider, VideoRecorderOutputProvider>();
-            ServicesCollection.Current.RegisterType<IVideoPluginProvider, VideoPluginProvider>();
-            ServicesCollection.Current.RegisterType<Plugin, VideoPlugin>(Guid.NewGuid().ToString());
-        }
+    private static void Add()
+    {
+        ServicesCollection.Current.RegisterType<IVideoRecorder, FFmpegVideoRecorder>();
+        ServicesCollection.Current.RegisterType<IVideoRecorderOutputProvider, VideoRecorderOutputProvider>();
+        ServicesCollection.Current.RegisterType<IVideoPluginProvider, VideoPluginProvider>();
+        ServicesCollection.Current.RegisterType<Plugin, VideoPlugin>(Guid.NewGuid().ToString());
     }
 }

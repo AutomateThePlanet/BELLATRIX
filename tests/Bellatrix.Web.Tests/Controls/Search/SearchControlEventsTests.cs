@@ -14,134 +14,133 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Search Control")]
+[AllureFeature("ControlEvents")]
+public class SearchControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Search Control")]
-    [AllureFeature("ControlEvents")]
-    public class SearchControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SearchLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingSearchCalled_BeforeActuallySetSearch()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SearchLocalPage);
+        Search.SettingSearch += AssertValueAttributeEmpty;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingSearchCalled_BeforeActuallySetSearch()
+        var searchElement = App.Components.CreateById<Search>("mySearch");
+
+        searchElement.SetSearch("bellatrix test framework");
+
+        Assert.AreEqual("bellatrix test framework", searchElement.GetSearch());
+
+        Search.SettingSearch -= AssertValueAttributeEmpty;
+
+        void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Search.SettingSearch += AssertValueAttributeEmpty;
-
-            var searchElement = App.Components.CreateById<Search>("mySearch");
-
-            searchElement.SetSearch("bellatrix test framework");
-
-            Assert.AreEqual("bellatrix test framework", searchElement.GetSearch());
-
-            Search.SettingSearch -= AssertValueAttributeEmpty;
-
-            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingSearchCalled_AfterSetSearch()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingSearchCalled_AfterSetSearch()
+    {
+        Search.SearchSet += AssertValueAttributeContainsNewValue;
+
+        var searchElement = App.Components.CreateById<Search>("mySearch");
+
+        searchElement.SetSearch("bellatrix test framework");
+
+        Search.SearchSet -= AssertValueAttributeContainsNewValue;
+
+        void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Search.SearchSet += AssertValueAttributeContainsNewValue;
-
-            var searchElement = App.Components.CreateById<Search>("mySearch");
-
-            searchElement.SetSearch("bellatrix test framework");
-
-            Search.SearchSet -= AssertValueAttributeContainsNewValue;
-
-            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("bellatrix test framework", args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual("bellatrix test framework", args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+        Search.Hovering += AssertStyleAttributeEmpty;
+
+        var searchElement = App.Components.CreateById<Search>("mySearch8");
+
+        searchElement.Hover();
+
+        Assert.AreEqual("color: red;", searchElement.GetStyle());
+
+        Search.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Search.Hovering += AssertStyleAttributeEmpty;
-
-            var searchElement = App.Components.CreateById<Search>("mySearch8");
-
-            searchElement.Hover();
-
-            Assert.AreEqual("color: red;", searchElement.GetStyle());
-
-            Search.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        Search.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var searchElement = App.Components.CreateById<Search>("mySearch8");
+
+        searchElement.Hover();
+
+        Search.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Search.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var searchElement = App.Components.CreateById<Search>("mySearch8");
-
-            searchElement.Hover();
-
-            Search.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Search>("mySearch8").ValidateStyleIs("color: red;");
-            }
+            App.Components.CreateById<Search>("mySearch8").ValidateStyleIs("color: red;");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusingCalled_BeforeActuallyFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusingCalled_BeforeActuallyFocus()
+    {
+        Search.Focusing += AssertStyleAttributeEmpty;
+
+        var searchElement = App.Components.CreateById<Search>("mySearch9");
+
+        searchElement.Focus();
+
+        Assert.AreEqual("color: blue;", searchElement.GetStyle());
+
+        Search.Focusing -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Search.Focusing += AssertStyleAttributeEmpty;
-
-            var searchElement = App.Components.CreateById<Search>("mySearch9");
-
-            searchElement.Focus();
-
-            Assert.AreEqual("color: blue;", searchElement.GetStyle());
-
-            Search.Focusing -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusedCalled_AfterFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusedCalled_AfterFocus()
+    {
+        Search.Focused += AssertStyleAttributeContainsNewValue;
+
+        var searchElement = App.Components.CreateById<Search>("mySearch9");
+
+        searchElement.Focus();
+
+        Search.Focused -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Search.Focused += AssertStyleAttributeContainsNewValue;
-
-            var searchElement = App.Components.CreateById<Search>("mySearch9");
-
-            searchElement.Focus();
-
-            Search.Focused -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
         }
     }
 }

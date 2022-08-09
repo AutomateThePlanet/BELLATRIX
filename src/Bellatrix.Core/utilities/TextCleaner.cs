@@ -11,23 +11,22 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+public static class TextCleaner
 {
-    public static class TextCleaner
+    public static string CleanText(string text)
     {
-        public static string CleanText(string text)
-        {
-            var result = text.Replace("\\r\\n", string.Empty).Trim('"').Replace("\\\"", @"""");
+        var result = text.Replace("\\r\\n", string.Empty).Trim('"').Replace("\\\"", @"""");
 
-            return result;
-        }
+        return result;
+    }
 
-        public static string TrimAndReplaceNewlineChars(this string text)
-        {
-            var result = text.Trim().Replace("\n", " ");
-            result.Replace("<br>", " ");
+    public static string TrimAndReplaceNewlineChars(this string text)
+    {
+        var result = text.Trim().Replace("\n", " ");
+        result.Replace("<br>", " ");
 
-            return result;
-        }
+        return result;
     }
 }

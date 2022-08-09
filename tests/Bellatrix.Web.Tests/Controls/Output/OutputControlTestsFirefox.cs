@@ -13,78 +13,77 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Output Control")]
+public class OutputControlTestsFirefox : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Output Control")]
-    public class OutputControlTestsFirefox : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OutputLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Firefox()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OutputLocalPage);
+        var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Firefox()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput");
+        outputComponent.Hover();
 
-            outputComponent.Hover();
+        Assert.AreEqual("color: red;", outputComponent.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", outputComponent.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void Return10_When_InnerText_Firefox()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void Return10_When_InnerText_Firefox()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput");
+        Assert.AreEqual("10", outputComponent.InnerText);
+    }
 
-            Assert.AreEqual("10", outputComponent.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_InnerTextNotSet_Firefox()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_InnerTextNotSet_Firefox()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput2");
+        Assert.IsNotNull(outputComponent.InnerText);
+    }
 
-            Assert.IsNotNull(outputComponent.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_InnerHtmlNotSet_Firefox()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_InnerHtmlNotSet_Firefox()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput2");
+        Assert.IsNotNull(outputComponent.InnerHtml);
+    }
 
-            Assert.IsNotNull(outputComponent.InnerHtml);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnButtonHtml_When_InnerHtmlSet_Firefox()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnButtonHtml_When_InnerHtmlSet_Firefox()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput1");
+        Assert.AreEqual("<button name=\"button\">Click me</button>", outputComponent.InnerHtml);
+    }
 
-            Assert.AreEqual("<button name=\"button\">Click me</button>", outputComponent.InnerHtml);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_ForNotSet_Firefox()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_ForNotSet_Firefox()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput2");
+        Assert.IsNull(outputComponent.For);
+    }
 
-            Assert.IsNull(outputComponent.For);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnOutputFor_When_ForSet_Firefox()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnOutputFor_When_ForSet_Firefox()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput");
-
-            Assert.AreEqual("myOutput", outputComponent.For);
-        }
+        Assert.AreEqual("myOutput", outputComponent.For);
     }
 }

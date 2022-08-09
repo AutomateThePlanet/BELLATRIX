@@ -13,10 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.DynamicTestCases;
 
-namespace Bellatrix.Desktop.PageObjects
+namespace Bellatrix.Desktop.PageObjects;
+
+public abstract class DesktopPage
 {
-    public abstract class DesktopPage
-    {
-        public App App => ServicesCollection.Current.Resolve<App>();
-    }
+    public App App => ServicesCollection.Current.Resolve<App>();
 }

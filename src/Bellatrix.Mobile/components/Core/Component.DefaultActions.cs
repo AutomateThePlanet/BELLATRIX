@@ -18,100 +18,99 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Mobile.Core
+namespace Bellatrix.Mobile.Core;
+
+public partial class Component<TDriver, TDriverElement> : IComponentVisible, ILayoutComponent
 {
-    public partial class Component<TDriver, TDriverElement> : IComponentVisible, ILayoutComponent
+    internal void Click(EventHandler<ComponentActionEventArgs<TDriverElement>> clicking, EventHandler<ComponentActionEventArgs<TDriverElement>> clicked)
     {
-        internal void Click(EventHandler<ComponentActionEventArgs<TDriverElement>> clicking, EventHandler<ComponentActionEventArgs<TDriverElement>> clicked)
+        clicking?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
+
+        WrappedElement.Click();
+
+        clicked?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
+    }
+
+    internal bool GetIsCheckedValue()
+    {
+        string value = WrappedElement.GetAttribute("value");
+        if (value == "1")
         {
-            clicking?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-            WrappedElement.Click();
+    internal bool GetIsChecked()
+    {
+        return bool.Parse(WrappedElement.GetAttribute("checked"));
+    }
 
-            clicked?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this));
+    internal string GetText()
+    {
+        return WrappedElement.Text.Replace("\r\n", string.Empty);
+    }
+
+    internal string GetValueAttribute()
+    {
+        return WrappedElement.GetAttribute("value");
+    }
+
+    internal bool GetIsDisabled()
+    {
+        return !WrappedElement.Enabled;
+    }
+
+    internal void SetValue(EventHandler<ComponentActionEventArgs<TDriverElement>> settingValue, EventHandler<ComponentActionEventArgs<TDriverElement>> valueSet, string value)
+    {
+        settingValue?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
+        WrappedElement.Clear();
+        WrappedElement.SetImmediateValue(value);
+        valueSet?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
+    }
+
+    internal void SetText(EventHandler<ComponentActionEventArgs<TDriverElement>> settingValue, EventHandler<ComponentActionEventArgs<TDriverElement>> valueSet, string value)
+    {
+        settingValue?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
+        WrappedElement.Clear();
+        WrappedElement.SendKeys(value);
+
+        try
+        {
+            WrappedDriver.HideKeyboard();
+        }
+        catch
+        {
+            // ignore
         }
 
-        internal bool GetIsCheckedValue()
+        valueSet?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
+    }
+
+    private void MobileScroll(ScrollDirection direction)
+    {
+        var js = (IJavaScriptExecutor)WrappedDriver;
+        var swipeObject = new Dictionary<string, string>();
+        switch (direction)
         {
-            string value = WrappedElement.GetAttribute("value");
-            if (value == "1")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            case ScrollDirection.Up:
+                swipeObject.Add("direction", "up");
+                break;
+            case ScrollDirection.Down:
+                swipeObject.Add("direction", "down");
+                break;
+            case ScrollDirection.Right:
+                swipeObject.Add("direction", "right");
+                break;
+            case ScrollDirection.Left:
+                swipeObject.Add("direction", "left");
+                break;
         }
 
-        internal bool GetIsChecked()
-        {
-            return bool.Parse(WrappedElement.GetAttribute("checked"));
-        }
-
-        internal string GetText()
-        {
-            return WrappedElement.Text.Replace("\r\n", string.Empty);
-        }
-
-        internal string GetValueAttribute()
-        {
-            return WrappedElement.GetAttribute("value");
-        }
-
-        internal bool GetIsDisabled()
-        {
-            return !WrappedElement.Enabled;
-        }
-
-        internal void SetValue(EventHandler<ComponentActionEventArgs<TDriverElement>> settingValue, EventHandler<ComponentActionEventArgs<TDriverElement>> valueSet, string value)
-        {
-            settingValue?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
-            WrappedElement.Clear();
-            WrappedElement.SetImmediateValue(value);
-            valueSet?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
-        }
-
-        internal void SetText(EventHandler<ComponentActionEventArgs<TDriverElement>> settingValue, EventHandler<ComponentActionEventArgs<TDriverElement>> valueSet, string value)
-        {
-            settingValue?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
-            WrappedElement.Clear();
-            WrappedElement.SendKeys(value);
-
-            try
-            {
-                WrappedDriver.HideKeyboard();
-            }
-            catch
-            {
-                // ignore
-            }
-
-            valueSet?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
-        }
-
-        private void MobileScroll(ScrollDirection direction)
-        {
-            var js = (IJavaScriptExecutor)WrappedDriver;
-            var swipeObject = new Dictionary<string, string>();
-            switch (direction)
-            {
-                case ScrollDirection.Up:
-                    swipeObject.Add("direction", "up");
-                    break;
-                case ScrollDirection.Down:
-                    swipeObject.Add("direction", "down");
-                    break;
-                case ScrollDirection.Right:
-                    swipeObject.Add("direction", "right");
-                    break;
-                case ScrollDirection.Left:
-                    swipeObject.Add("direction", "left");
-                    break;
-            }
-
-            swipeObject.Add("element", WrappedElement.Id);
-            js.ExecuteScript("mobile:swipe", swipeObject);
-        }
+        swipeObject.Add("element", WrappedElement.Id);
+        js.ExecuteScript("mobile:swipe", swipeObject);
     }
 }

@@ -4,19 +4,18 @@ using Bellatrix.Mobile.Android.GettingStarted.ExtensionMethodsWaitMethods;
 
 using NUnit.Framework;
 
-namespace Bellatrix.Mobile.Android.GettingStarted
-{
-    [TestFixture]
-    public class AddNewElementWaitMethodsTests : NUnit.AndroidTest
-    {
-        [Test]
-        [Category(Categories.CI)]
-        public void ButtonClicked_When_WaitToHaveSpecificContent()
-        {
-            // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
-            var button = App.Components.CreateByIdContaining<Button>("button").ToHaveSpecificContent("button");
+namespace Bellatrix.Mobile.Android.GettingStarted;
 
-            button.Click();
-        }
+[TestFixture]
+public class AddNewElementWaitMethodsTests : NUnit.AndroidTest
+{
+    [Test]
+    [Category(Categories.CI)]
+    public void ButtonClicked_When_WaitToHaveSpecificContent()
+    {
+        // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
+        var button = App.Components.CreateByIdContaining<Button>("button").ToHaveSpecificContent("button");
+
+        button.Click();
     }
 }

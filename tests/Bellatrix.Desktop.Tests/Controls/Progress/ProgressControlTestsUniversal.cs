@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Progress Control")]
+[AllureTag("Universal")]
+public class ProgressControlTestsUniversal : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Progress Control")]
-    [AllureTag("Universal")]
-    public class ProgressControlTestsUniversal : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_ProgressHovered_Universal()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_ProgressHovered_Universal()
-        {
-            var progress = App.Components.CreateByAutomationId<Progress>("progress");
+        var progress = App.Components.CreateByAutomationId<Progress>("progress");
 
-            progress.Hover();
+        progress.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
-            Assert.AreEqual("progressHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
+        Assert.AreEqual("progressHovered", label.InnerText);
     }
 }

@@ -14,85 +14,84 @@
 using Bellatrix.Layout;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Layout")]
+public class LayoutHeightTestsChrome : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, 1280, 600, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Layout")]
-    public class LayoutHeightTestsChrome : MSTest.WebTest
+    public override void TestInit()
+        => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void HeadingHeightEqual28_WhenDesktopWindowsSize_1280_1024_Chrome()
     {
-        public override void TestInit()
-            => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LayoutPricingPage);
+        var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void HeadingHeightEqual28_WhenDesktopWindowsSize_1280_1024_Chrome()
-        {
-            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+        free.AssertHeight(29);
+    }
 
-            free.AssertHeight(29);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void HeadingHeightBetween10And30_WhenDesktopWindowsSize_1280_1024_Chrome()
+    {
+        var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void HeadingHeightBetween10And30_WhenDesktopWindowsSize_1280_1024_Chrome()
-        {
-            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+        free.AssertHeightBetween(10, 30);
+    }
 
-            free.AssertHeightBetween(10, 30);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void HeadingHeightGreaterThan27_WhenDesktopWindowsSize_1280_1024_Chrome()
+    {
+        var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void HeadingHeightGreaterThan27_WhenDesktopWindowsSize_1280_1024_Chrome()
-        {
-            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+        free.AssertHeightGreaterThan(27);
+    }
 
-            free.AssertHeightGreaterThan(27);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void HeadingHeightGreaterThanOrEqual28_WhenDesktopWindowsSize_1280_1024_Chrome()
+    {
+        var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void HeadingHeightGreaterThanOrEqual28_WhenDesktopWindowsSize_1280_1024_Chrome()
-        {
-            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+        free.AssertHeightGreaterThanOrEqual(28);
+    }
 
-            free.AssertHeightGreaterThanOrEqual(28);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void HeadingHeightLessThan30_WhenDesktopWindowsSize_1280_1024_Chrome()
+    {
+        var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void HeadingHeightLessThan30_WhenDesktopWindowsSize_1280_1024_Chrome()
-        {
-            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+        free.AssertHeightLessThan(30);
+    }
 
-            free.AssertHeightLessThan(30);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void HeadingHeightLessThanOrEqual29_WhenDesktopWindowsSize_1280_1024_Chrome()
+    {
+        var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
 
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void HeadingHeightLessThanOrEqual29_WhenDesktopWindowsSize_1280_1024_Chrome()
-        {
-            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+        free.AssertHeightLessThanOrEqual(29);
+    }
 
-            free.AssertHeightLessThanOrEqual(29);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Layout)]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void HeadingHeightApproximate1PercentDifference_WhenDesktopWindowsSize_1280_1024_Chrome()
+    {
+        var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
+        var pro = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
 
-        [TestMethod]
-        [TestCategory(Categories.Layout)]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void HeadingHeightApproximate1PercentDifference_WhenDesktopWindowsSize_1280_1024_Chrome()
-        {
-            var free = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[1]/div[1]/h4");
-            var pro = App.Components.CreateByXpath<Heading>("/html/body/div[3]/div/div[2]/div[1]/h4");
-
-            free.AssertHeightApproximate(pro, 1);
-        }
+        free.AssertHeightApproximate(pro, 1);
     }
 }

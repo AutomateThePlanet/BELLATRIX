@@ -14,26 +14,25 @@
 using Bellatrix.Web.Events;
 using Microsoft.Extensions.Configuration;
 
-namespace Bellatrix.Web.Extensions
+namespace Bellatrix.Web.Extensions;
+
+public static class BddLoggingExtensions
 {
-    public static class BddLoggingExtensions
+    public static string AddUrlOrPageToBddLogging(this string loggingMessage, string location)
     {
-        public static string AddUrlOrPageToBddLogging(this string loggingMessage, string location)
+        var loggingSettings = ConfigurationService.GetSection<WebSettings>();
+
+        if (loggingSettings == null || string.IsNullOrEmpty(location))
         {
-            var loggingSettings = ConfigurationService.GetSection<WebSettings>();
-
-            if (loggingSettings == null || string.IsNullOrEmpty(location))
-            {
-                return loggingMessage;
-            }
-
-            string result = loggingSettings.AddUrlToBddLogging ? $"{loggingMessage} on {location}" : loggingMessage;
-            return result;
+            return loggingMessage;
         }
 
-        public static string AddDynamicTestCasesUsingLocatorsMessage(this string loggingMessage, ComponentActionEventArgs arg)
-        {
-            return $"{loggingMessage} {arg.Element.ComponentType.Name} using {arg.Element.LocatorType.Name} locator: '{arg.Element.LocatorValue}'";
-        }
+        string result = loggingSettings.AddUrlToBddLogging ? $"{loggingMessage} on {location}" : loggingMessage;
+        return result;
+    }
+
+    public static string AddDynamicTestCasesUsingLocatorsMessage(this string loggingMessage, ComponentActionEventArgs arg)
+    {
+        return $"{loggingMessage} {arg.Element.ComponentType.Name} using {arg.Element.LocatorType.Name} locator: '{arg.Element.LocatorValue}'";
     }
 }

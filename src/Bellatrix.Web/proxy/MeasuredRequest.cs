@@ -16,17 +16,16 @@ using System.Collections.Generic;
 using System.Text;
 using Titanium.Web.Proxy.Http;
 
-namespace Bellatrix.Web.Proxy
-{
-    public class MeasuredRequest
-    {
-        public MeasuredRequest(DateTime creationTime, Request request)
-        {
-            CreationTime = creationTime;
-            Request = request;
-        }
+namespace Bellatrix.Web.Proxy;
 
-        public DateTime CreationTime { get; set; }
-        public Request Request { get; set; }
+public class MeasuredRequest
+{
+    public MeasuredRequest(DateTime creationTime, Request request)
+    {
+        CreationTime = creationTime;
+        Request = request;
     }
+
+    public DateTime CreationTime { get; set; }
+    public Request Request { get; set; }
 }

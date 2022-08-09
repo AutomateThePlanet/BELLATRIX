@@ -11,15 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    public class ByNgBinding : JavaScriptBy
-    {
-        public ByNgBinding(string value)
-            : base(AngularClientSideScripts.FindBindings, value, true)
-        {
-        }
+namespace Bellatrix.Web;
 
-        public override string ToString() => $"Angular Binding = {Value}";
+public class ByNgBinding : JavaScriptBy
+{
+    public ByNgBinding(string value)
+        : base(AngularClientSideScripts.FindBindings, value, true)
+    {
     }
+
+    public override string ToString() => $"Angular Binding = {Value}";
 }

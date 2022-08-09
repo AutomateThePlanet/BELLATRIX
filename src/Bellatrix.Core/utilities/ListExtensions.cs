@@ -14,22 +14,21 @@
 using System;
 using System.Collections.Generic;
 
-namespace Bellatrix.Utilities
-{
-    public static class ListExtensions
-    {
-        public static int IndexOf<TSource>(this IList<TSource> source, Func<TSource, bool> predicate)
-            where TSource : IEquatable<TSource>
-        {
-            for (int i = 0; i < source.Count; i++)
-            {
-                if (predicate(source[i]))
-                {
-                    return i;
-                }
-            }
+namespace Bellatrix.Utilities;
 
-            throw new ArgumentException("List doesn't contain such an element");
+public static class ListExtensions
+{
+    public static int IndexOf<TSource>(this IList<TSource> source, Func<TSource, bool> predicate)
+        where TSource : IEquatable<TSource>
+    {
+        for (int i = 0; i < source.Count; i++)
+        {
+            if (predicate(source[i]))
+            {
+                return i;
+            }
         }
+
+        throw new ArgumentException("List doesn't contain such an element");
     }
 }

@@ -11,19 +11,18 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public enum BrowserType
 {
-    public enum BrowserType
-    {
-        NotSet,
-        Chrome,
-        ChromeHeadless,
-        Firefox,
-        FirefoxHeadless,
-        InternetExplorer,
-        Edge,
-        EdgeHeadless,
-        Opera,
-        Safari,
-    }
+    NotSet,
+    Chrome,
+    ChromeHeadless,
+    Firefox,
+    FirefoxHeadless,
+    InternetExplorer,
+    Edge,
+    EdgeHeadless,
+    Opera,
+    Safari,
 }

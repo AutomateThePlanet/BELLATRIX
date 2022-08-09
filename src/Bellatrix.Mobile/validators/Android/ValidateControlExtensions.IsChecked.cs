@@ -16,25 +16,24 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentChecked, IComponent<AndroidElement>
     {
-        public static void ValidateIsChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentChecked, IComponent<AndroidElement>
-        {
-            ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
-            ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
-        }
-
-        public static void ValidateIsNotChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentChecked, IComponent<AndroidElement>
-        {
-            ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
-            ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsCheckedEvent;
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsNotCheckedEvent;
+        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
+        ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
     }
+
+    public static void ValidateIsNotChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentChecked, IComponent<AndroidElement>
+    {
+        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
+        ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsCheckedEvent;
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsNotCheckedEvent;
 }

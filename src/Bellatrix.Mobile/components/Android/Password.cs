@@ -17,24 +17,23 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Controls.Android;
 using Bellatrix.Mobile.Events;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public class Password : AndroidComponent, IComponentDisabled
 {
-    public class Password : AndroidComponent, IComponentDisabled
+    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingPassword;
+    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> PasswordSet;
+
+    public virtual string GetPassword()
     {
-        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingPassword;
-        public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> PasswordSet;
-
-        public virtual string GetPassword()
-        {
-            return GetText();
-        }
-
-        public virtual void SetPassword(string password)
-        {
-            SetText(SettingPassword, PasswordSet, password);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        return GetText();
     }
+
+    public virtual void SetPassword(string password)
+    {
+        SetText(SettingPassword, PasswordSet, password);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

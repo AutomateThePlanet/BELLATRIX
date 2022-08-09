@@ -13,31 +13,30 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests
+namespace Bellatrix.Web.Tests;
+
+[TestClass]
+[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+[Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+public class FullPageScreenshotsOnFailTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    [Browser(OS.OSX, BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    public class FullPageScreenshotsOnFailTests : MSTest.WebTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void PromotionsPageOpened_When_PromotionsButtonClicked()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void PromotionsPageOpened_When_PromotionsButtonClicked()
-        {
-            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
-            var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
-            promotionsLink.Click();
-        }
+        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
+        promotionsLink.Click();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void BlogPageOpened_When_PromotionsButtonClicked()
-        {
-            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void BlogPageOpened_When_PromotionsButtonClicked()
+    {
+        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
+        var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
 
-            blogLink.Click();
-        }
+        blogLink.Click();
     }
 }

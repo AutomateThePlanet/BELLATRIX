@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class DateTimeLocalEventHandlers : ComponentEventHandlers
 {
-    public class DateTimeLocalEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            DateTimeLocal.Hovering += HoveringEventHandler;
-            DateTimeLocal.Hovered += HoveredEventHandler;
-            DateTimeLocal.SettingTime += SettingTimeEventHandler;
-            DateTimeLocal.TimeSet += TimeSetEventHandler;
-        }
+        base.SubscribeToAll();
+        DateTimeLocal.Hovering += HoveringEventHandler;
+        DateTimeLocal.Hovered += HoveredEventHandler;
+        DateTimeLocal.SettingTime += SettingTimeEventHandler;
+        DateTimeLocal.TimeSet += TimeSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            DateTimeLocal.Hovering -= HoveringEventHandler;
-            DateTimeLocal.Hovered -= HoveredEventHandler;
-            DateTimeLocal.SettingTime -= SettingTimeEventHandler;
-            DateTimeLocal.TimeSet -= TimeSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        DateTimeLocal.Hovering -= HoveringEventHandler;
+        DateTimeLocal.Hovered -= HoveredEventHandler;
+        DateTimeLocal.SettingTime -= SettingTimeEventHandler;
+        DateTimeLocal.TimeSet -= TimeSetEventHandler;
+    }
 
-        protected virtual void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingTimeEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void TimeSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void TimeSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

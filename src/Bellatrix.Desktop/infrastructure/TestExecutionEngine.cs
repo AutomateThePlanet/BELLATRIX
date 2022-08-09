@@ -17,42 +17,41 @@ using Bellatrix.Desktop.Services;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class TestExecutionEngine
 {
-    public class TestExecutionEngine
+    public void StartApp(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
     {
-        public void StartApp(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
+        try
         {
-            try
-            {
-                var wrappedWebDriver = WrappedWebDriverCreateService.Create(appConfiguration, childContainer);
-                childContainer.RegisterInstance<WindowsDriver<WindowsElement>>(wrappedWebDriver);
-                ////childContainer.RegisterInstance(new AppService(wrappedWebDriver));
-                ////childContainer.RegisterInstance(new ComponentCreateService());
-                childContainer.RegisterNull<int?>();
-                childContainer.RegisterNull<IWebElement>();
-                childContainer.RegisterNull<WindowsElement>();
-                IsAppStartedCorrectly = true;
-            }
-            catch (Exception e)
-            {
-                e.PrintStackTrace();
-                IsAppStartedCorrectly = false;
-                throw;
-            }
+            var wrappedWebDriver = WrappedWebDriverCreateService.Create(appConfiguration, childContainer);
+            childContainer.RegisterInstance<WindowsDriver<WindowsElement>>(wrappedWebDriver);
+            ////childContainer.RegisterInstance(new AppService(wrappedWebDriver));
+            ////childContainer.RegisterInstance(new ComponentCreateService());
+            childContainer.RegisterNull<int?>();
+            childContainer.RegisterNull<IWebElement>();
+            childContainer.RegisterNull<WindowsElement>();
+            IsAppStartedCorrectly = true;
         }
-
-        public bool IsAppStartedCorrectly { get; set; }
-
-        public void Dispose(ServicesCollection childContainer) => DisposeDriverService.Dispose(childContainer);
-
-        public void DisposeAll()
+        catch (Exception e)
         {
-            foreach (var childContainer in ServicesCollection.Current.GetChildServicesCollections())
-            {
-                var driver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
-                DisposeDriverService.Dispose(driver, childContainer);
-            }
+            e.PrintStackTrace();
+            IsAppStartedCorrectly = false;
+            throw;
+        }
+    }
+
+    public bool IsAppStartedCorrectly { get; set; }
+
+    public void Dispose(ServicesCollection childContainer) => DisposeDriverService.Dispose(childContainer);
+
+    public void DisposeAll()
+    {
+        foreach (var childContainer in ServicesCollection.Current.GetChildServicesCollections())
+        {
+            var driver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
+            DisposeDriverService.Dispose(driver, childContainer);
         }
     }
 }

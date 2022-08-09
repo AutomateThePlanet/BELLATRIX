@@ -11,25 +11,24 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Tests
+namespace Bellatrix.Web.Tests;
+
+public class Categories
 {
-    public class Categories
-    {
-        public const string CI = "CI";
-        public const string Layout = "Layout";
-        public const string Debug = "Debug";
-        public const string InternetExplorer = "InternetExplorer";
-        public const string Chrome = "Chrome";
-        public const string ChromeHeadless = "ChromeHeadless";
-        public const string Firefox = "Firefox";
-        public const string FirefoxHeadless = "FirefoxHeadless";
-        public const string Opera = "Opera";
-        public const string Edge = "Edge";
-        public const string Safari = "Safari";
-        public const string Windows = "Windows";
-        public const string OSX = "OSX";
-        public const string KnownIssueMacOS = "KnownIssue-MACOS";
-        public const string KnownIssueWindows = "KnownIssue-Windows";
-        public const string KnownIssue = "KnownIssue";
-    }
+    public const string CI = "CI";
+    public const string Layout = "Layout";
+    public const string Debug = "Debug";
+    public const string InternetExplorer = "InternetExplorer";
+    public const string Chrome = "Chrome";
+    public const string ChromeHeadless = "ChromeHeadless";
+    public const string Firefox = "Firefox";
+    public const string FirefoxHeadless = "FirefoxHeadless";
+    public const string Opera = "Opera";
+    public const string Edge = "Edge";
+    public const string Safari = "Safari";
+    public const string Windows = "Windows";
+    public const string OSX = "OSX";
+    public const string KnownIssueMacOS = "KnownIssue-MACOS";
+    public const string KnownIssueWindows = "KnownIssue-Windows";
+    public const string KnownIssue = "KnownIssue";
 }

@@ -13,23 +13,22 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class FindXpathStrategy : FindStrategy
 {
-    public class FindXpathStrategy : FindStrategy
+    public FindXpathStrategy(string value)
+        : base(value)
     {
-        public FindXpathStrategy(string value)
-            : base(value)
-        {
-        }
+    }
 
-        public override By Convert()
-        {
-            return By.XPath(Value);
-        }
+    public override By Convert()
+    {
+        return By.XPath(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"XPath = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"XPath = {Value}";
     }
 }

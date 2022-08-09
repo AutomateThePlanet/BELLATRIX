@@ -16,30 +16,29 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 
-namespace Bellatrix.DynamicTestCases.AzureDevOps
+namespace Bellatrix.DynamicTestCases.AzureDevOps;
+
+public static class TestStepsService
 {
-    public static class TestStepsService
+    public static string GenerateTestStepsHtml(List<TestStep> testSteps)
     {
-        public static string GenerateTestStepsHtml(List<TestStep> testSteps)
+        var sb = new StringBuilder();
+        sb.Append($"<steps id=\"0\" last=\"{testSteps.Count}\">");
+        for (int i = 0; i < testSteps.Count; i++)
         {
-            var sb = new StringBuilder();
-            sb.Append($"<steps id=\"0\" last=\"{testSteps.Count}\">");
-            for (int i = 0; i < testSteps.Count; i++)
-            {
-                sb.Append($"<step id=\"{i + 1}\" type=\"ValidateStep\">");
-                sb.Append("<parameterizedString isformatted=\"true\">");
-                sb.Append(HttpUtility.HtmlEncode($"<div><p>{testSteps[i].Description}</p></div>"));
-                sb.Append("</parameterizedString>");
-                sb.Append("<parameterizedString isformatted=\"true\">");
-                sb.Append(HttpUtility.HtmlEncode($"<div><p>{testSteps[i].Expected}</p></div>"));
-                sb.Append("</parameterizedString>");
-                sb.Append("<description/>");
-                sb.Append("</step>");
-            }
-
-            sb.Append("</steps>");
-
-            return sb.ToString();
+            sb.Append($"<step id=\"{i + 1}\" type=\"ValidateStep\">");
+            sb.Append("<parameterizedString isformatted=\"true\">");
+            sb.Append(HttpUtility.HtmlEncode($"<div><p>{testSteps[i].Description}</p></div>"));
+            sb.Append("</parameterizedString>");
+            sb.Append("<parameterizedString isformatted=\"true\">");
+            sb.Append(HttpUtility.HtmlEncode($"<div><p>{testSteps[i].Expected}</p></div>"));
+            sb.Append("</parameterizedString>");
+            sb.Append("<description/>");
+            sb.Append("</step>");
         }
+
+        sb.Append("</steps>");
+
+        return sb.ToString();
     }
 }

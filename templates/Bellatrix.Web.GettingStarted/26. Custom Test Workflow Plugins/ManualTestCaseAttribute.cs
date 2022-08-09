@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace Bellatrix.Web.GettingStarted
-{
-    [AttributeUsage(AttributeTargets.Method)]
-    public class ManualTestCaseAttribute : Attribute
-    {
-        public ManualTestCaseAttribute(int testCaseId) => TestCaseId = testCaseId;
+namespace Bellatrix.Web.GettingStarted;
 
-        public int TestCaseId { get; set; }
-    }
+[AttributeUsage(AttributeTargets.Method)]
+public class ManualTestCaseAttribute : Attribute
+{
+    public ManualTestCaseAttribute(int testCaseId) => TestCaseId = testCaseId;
+
+    public int TestCaseId { get; set; }
 }

@@ -13,56 +13,55 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Password Control")]
+[AllureTag("WPF")]
+public class PasswordControlTestsWpf : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Password Control")]
-    [AllureTag("WPF")]
-    public class PasswordControlTestsWpf : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_PasswordHovered_Wpf()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_PasswordHovered_Wpf()
-        {
-            var password = App.Components.CreateByAutomationId<Password>("passwordBox");
+        var password = App.Components.CreateByAutomationId<Password>("passwordBox");
 
-            password.Hover();
+        password.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-            Assert.AreEqual("passwordBoxHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        Assert.AreEqual("passwordBoxHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_NewTextSet_Wpf()
-        {
-            var textField = App.Components.CreateByAutomationId<Password>("passwordBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_NewTextSet_Wpf()
+    {
+        var textField = App.Components.CreateByAutomationId<Password>("passwordBox");
 
-            textField.SetPassword("topsecret");
+        textField.SetPassword("topsecret");
 
-            Assert.AreEqual("●●●●●●●●●", textField.GetPassword());
-        }
+        Assert.AreEqual("●●●●●●●●●", textField.GetPassword());
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_PasswordIsNotDisabled_Wpf()
-        {
-            var textField = App.Components.CreateByAutomationId<Password>("passwordBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_PasswordIsNotDisabled_Wpf()
+    {
+        var textField = App.Components.CreateByAutomationId<Password>("passwordBox");
 
-            Assert.AreEqual(false, textField.IsDisabled);
-        }
+        Assert.AreEqual(false, textField.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_PasswordIsDisabled_Wpf()
-        {
-            var textField = App.Components.CreateByAutomationId<Password>("disabledPasswordBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_PasswordIsDisabled_Wpf()
+    {
+        var textField = App.Components.CreateByAutomationId<Password>("disabledPasswordBox");
 
-            Assert.AreEqual(true, textField.IsDisabled);
-        }
+        Assert.AreEqual(true, textField.IsDisabled);
     }
 }

@@ -11,13 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public enum ToastNotificationType
 {
-    public enum ToastNotificationType
-    {
-        Information,
-        Success,
-        Warning,
-        Error,
-    }
+    Information,
+    Success,
+    Warning,
+    Error,
 }

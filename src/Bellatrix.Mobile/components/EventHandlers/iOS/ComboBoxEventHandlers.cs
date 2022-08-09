@@ -15,30 +15,29 @@ using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.IOS;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.EventHandlers.IOS
+namespace Bellatrix.Mobile.EventHandlers.IOS;
+
+public class ComboBoxEventHandlers : ComponentEventHandlers
 {
-    public class ComboBoxEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            ComboBox.Selecting += SelectingEventHandler;
-            ComboBox.Selected += SelectedEventHandler;
-        }
+        base.SubscribeToAll();
+        ComboBox.Selecting += SelectingEventHandler;
+        ComboBox.Selected += SelectedEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            ComboBox.Selecting -= SelectingEventHandler;
-            ComboBox.Selected -= SelectedEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        ComboBox.Selecting -= SelectingEventHandler;
+        ComboBox.Selected -= SelectedEventHandler;
+    }
 
-        protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
     }
 }

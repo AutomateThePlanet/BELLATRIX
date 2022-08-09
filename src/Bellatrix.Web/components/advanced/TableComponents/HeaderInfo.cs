@@ -12,17 +12,16 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Web
-{
-    public class HeaderInfo : IHeaderInfo
-    {
-        public HeaderInfo(string headerName, int order = 0)
-        {
-            HeaderName = headerName;
-            Order = order;
-        }
+namespace Bellatrix.Web;
 
-        public string HeaderName { get; set; }
-        public int Order { get; set; }
+public class HeaderInfo : IHeaderInfo
+{
+    public HeaderInfo(string headerName, int order = 0)
+    {
+        HeaderName = headerName;
+        Order = order;
     }
+
+    public string HeaderName { get; set; }
+    public int Order { get; set; }
 }

@@ -16,34 +16,33 @@ using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class RadioButton : Component, IComponentDisabled, IComponentValue, IComponentChecked
 {
-    public class RadioButton : Component, IComponentDisabled, IComponentValue, IComponentChecked
+    public static event EventHandler<ComponentActionEventArgs> Clicking;
+    public static event EventHandler<ComponentActionEventArgs> Clicked;
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+
+    public override Type ComponentType => GetType();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Value => DefaultGetValue();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetDisabledAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsChecked => WrappedElement.Selected;
+
+    public virtual void Hover()
     {
-        public static event EventHandler<ComponentActionEventArgs> Clicking;
-        public static event EventHandler<ComponentActionEventArgs> Clicked;
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
+        Hover(Hovering, Hovered);
+    }
 
-        public override Type ComponentType => GetType();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Value => DefaultGetValue();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetDisabledAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsChecked => WrappedElement.Selected;
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        public virtual void Click()
-        {
-            Click(Clicking, Clicked);
-        }
+    public virtual void Click()
+    {
+        Click(Clicking, Clicked);
     }
 }

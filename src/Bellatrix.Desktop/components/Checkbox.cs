@@ -16,42 +16,41 @@ using System.Diagnostics;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class CheckBox : Component, IComponentDisabled, IComponentChecked
 {
-   public class CheckBox : Component, IComponentDisabled, IComponentChecked
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> Checking;
+    public static event EventHandler<ComponentActionEventArgs> Checked;
+    public static event EventHandler<ComponentActionEventArgs> Unchecking;
+    public static event EventHandler<ComponentActionEventArgs> Unchecked;
+
+    public virtual void Check(bool isChecked = true)
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> Checking;
-        public static event EventHandler<ComponentActionEventArgs> Checked;
-        public static event EventHandler<ComponentActionEventArgs> Unchecking;
-        public static event EventHandler<ComponentActionEventArgs> Unchecked;
-
-        public virtual void Check(bool isChecked = true)
+        if (isChecked && !WrappedElement.Selected || !isChecked && WrappedElement.Selected)
         {
-            if (isChecked && !WrappedElement.Selected || !isChecked && WrappedElement.Selected)
-            {
-                Click(Checking, Checked);
-            }
+            Click(Checking, Checked);
         }
-
-        public virtual void Uncheck()
-        {
-            if (WrappedElement.Selected)
-            {
-                Click(Unchecking, Unchecked);
-            }
-        }
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsChecked => WrappedElement.Selected;
     }
+
+    public virtual void Uncheck()
+    {
+        if (WrappedElement.Selected)
+        {
+            Click(Unchecking, Unchecked);
+        }
+    }
+
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsChecked => WrappedElement.Selected;
 }

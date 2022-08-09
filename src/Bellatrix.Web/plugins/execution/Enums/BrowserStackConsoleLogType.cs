@@ -11,14 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public enum BrowserStackConsoleLogType
 {
-    public enum BrowserStackConsoleLogType
-    {
-        Disable,
-        Errors,
-        Warnings,
-        Info,
-        Verbose,
-    }
+    Disable,
+    Errors,
+    Warnings,
+    Info,
+    Verbose,
 }

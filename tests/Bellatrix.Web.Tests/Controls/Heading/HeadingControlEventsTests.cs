@@ -14,54 +14,53 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Heading Control")]
+[AllureFeature("ControlEvents")]
+public class HeadingControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Heading Control")]
-    [AllureFeature("ControlEvents")]
-    public class HeadingControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage);
+        Heading.Hovering += AssertStyleAttributeEmpty;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+        var headingElement = App.Components.CreateById<Heading>("myHeading");
+
+        headingElement.Hover();
+
+        Assert.AreEqual("color: red;", headingElement.GetStyle());
+
+        Heading.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Heading.Hovering += AssertStyleAttributeEmpty;
-
-            var headingElement = App.Components.CreateById<Heading>("myHeading");
-
-            headingElement.Hover();
-
-            Assert.AreEqual("color: red;", headingElement.GetStyle());
-
-            Heading.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        Heading.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var headingElement = App.Components.CreateById<Heading>("myHeading");
+
+        headingElement.Hover();
+
+        Heading.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Heading.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var headingElement = App.Components.CreateById<Heading>("myHeading");
-
-            headingElement.Hover();
-
-            Heading.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Heading>("myHeading").ValidateStyleIs("color: red;");
-            }
+            App.Components.CreateById<Heading>("myHeading").ValidateStyleIs("color: red;");
         }
     }
 }

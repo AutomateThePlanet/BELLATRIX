@@ -15,31 +15,30 @@ using System;
 using System.Globalization;
 using Bellatrix.ImageRecognition.Interfaces;
 
-namespace Bellatrix.ImageRecognition.Models
+namespace Bellatrix.ImageRecognition.Models;
+
+public class FileImage : Image, IImage
 {
-    public class FileImage : Image, IImage
+    private readonly double _similarity;
+
+    public FileImage(string path, double similarity)
+        : base(path)
     {
-        private readonly double _similarity;
-
-        public FileImage(string path, double similarity)
-            : base(path)
+        if (similarity <= 0 || similarity >= 1)
         {
-            if (similarity <= 0 || similarity >= 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(similarity));
-            }
-
-            _similarity = similarity;
+            throw new ArgumentOutOfRangeException(nameof(similarity));
         }
 
-        public string ToSikuliScript(string command, double? commandParameter)
-        {
-            return $"print \"SIKULI#: YES\" if {command}({GeneratePatternString()}{ToSukuliFloat(commandParameter)}) else \"SIKULI#: NO\"";
-        }
+        _similarity = similarity;
+    }
 
-        public string GeneratePatternString()
-        {
-            return string.Format(NumberFormatInfo.InvariantInfo, $"Pattern(\"{Path}\").similar({_similarity})");
-        }
+    public string ToSikuliScript(string command, double? commandParameter)
+    {
+        return $"print \"SIKULI#: YES\" if {command}({GeneratePatternString()}{ToSukuliFloat(commandParameter)}) else \"SIKULI#: NO\"";
+    }
+
+    public string GeneratePatternString()
+    {
+        return string.Format(NumberFormatInfo.InvariantInfo, $"Pattern(\"{Path}\").similar({_similarity})");
     }
 }

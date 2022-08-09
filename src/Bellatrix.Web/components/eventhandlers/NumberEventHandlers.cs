@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class NumberEventHandlers : ComponentEventHandlers
 {
-    public class NumberEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Number.Hovering += HoveringEventHandler;
-            Number.Hovered += HoveredEventHandler;
-            Number.SettingNumber += SettingNumberEventHandler;
-            Number.NumberSet += NumberSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Number.Hovering += HoveringEventHandler;
+        Number.Hovered += HoveredEventHandler;
+        Number.SettingNumber += SettingNumberEventHandler;
+        Number.NumberSet += NumberSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Number.Hovering -= HoveringEventHandler;
-            Number.Hovered -= HoveredEventHandler;
-            Number.SettingNumber -= SettingNumberEventHandler;
-            Number.NumberSet -= NumberSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Number.Hovering -= HoveringEventHandler;
+        Number.Hovered -= HoveredEventHandler;
+        Number.SettingNumber -= SettingNumberEventHandler;
+        Number.NumberSet -= NumberSetEventHandler;
+    }
 
-        protected virtual void SettingNumberEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingNumberEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void NumberSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void NumberSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

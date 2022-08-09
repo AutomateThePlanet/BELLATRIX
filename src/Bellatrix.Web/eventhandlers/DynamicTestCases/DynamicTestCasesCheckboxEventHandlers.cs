@@ -14,12 +14,11 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
-{
-    public class DynamicTestCasesCheckboxEventHandlers : CheckboxEventHandlers
-    {
-        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Check {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
 
-        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Uncheck {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
-    }
+public class DynamicTestCasesCheckboxEventHandlers : CheckboxEventHandlers
+{
+    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Check {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
+
+    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Uncheck {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 }

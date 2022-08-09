@@ -1,51 +1,50 @@
 ﻿using Bellatrix.Web.Angular;
 using NUnit.Framework;
 
-namespace Bellatrix.Web.GettingStarted
+namespace Bellatrix.Web.GettingStarted;
+
+[TestFixture]
+public class AngularTests : NUnit.WebTest
 {
-    [TestFixture]
-    public class AngularTests : NUnit.WebTest
+    [Test]
+    public void ShouldGreetUsingBinding()
     {
-        [Test]
-        public void ShouldGreetUsingBinding()
-        {
-            App.Navigation.Navigate("http://www.angularjs.org");
+        App.Navigation.Navigate("http://www.angularjs.org");
 
-            // If the automatic wait for Angular is turned off, you can tell the framework explicitly to wait.
-            App.Browser.WaitForAngular();
+        // If the automatic wait for Angular is turned off, you can tell the framework explicitly to wait.
+        App.Browser.WaitForAngular();
 
-            // BELLATRIX can find elements through Angular locators, for example by the Angular ng-model attribute.
-            var textField = App.Components.CreateByNgModel<TextField>("yourName");
+        // BELLATRIX can find elements through Angular locators, for example by the Angular ng-model attribute.
+        var textField = App.Components.CreateByNgModel<TextField>("yourName");
 
-            textField.SetText("Julie");
+        textField.SetText("Julie");
 
-            App.Browser.WaitForAngular();
+        App.Browser.WaitForAngular();
 
-            // Find element by Angular ng-binding.
-            var heading = App.Components.CreateByNgBinding<Heading>("yourName");
+        // Find element by Angular ng-binding.
+        var heading = App.Components.CreateByNgBinding<Heading>("yourName");
 
-            heading.ValidateInnerTextIs("Hello Julie!");
-        }
+        heading.ValidateInnerTextIs("Hello Julie!");
+    }
 
-        [Test]
-        public void ShouldListTodos()
-        {
-            App.Navigation.Navigate("http://www.angularjs.org");
+    [Test]
+    public void ShouldListTodos()
+    {
+        App.Navigation.Navigate("http://www.angularjs.org");
 
-            // Find element(s) by Angular ng-repeat.
-            var labels = App.Components.CreateAllByNgRepeater<Label>("todo in todoList.todos");
+        // Find element(s) by Angular ng-repeat.
+        var labels = App.Components.CreateAllByNgRepeater<Label>("todo in todoList.todos");
 
-            Assert.AreEqual("build an AngularJS app", labels[1].InnerText.Trim());
-        }
+        Assert.AreEqual("build an AngularJS app", labels[1].InnerText.Trim());
+    }
 
-        [Test]
-        public void Angular2Test()
-        {
-            App.Navigation.Navigate("https://material.angular.io/");
-            var button = App.Components.CreateByXpath<Button>("//a[@routerlink='/guide/getting-started']");
-            button.Click();
+    [Test]
+    public void Angular2Test()
+    {
+        App.Navigation.Navigate("https://material.angular.io/");
+        var button = App.Components.CreateByXpath<Button>("//a[@routerlink='/guide/getting-started']");
+        button.Click();
 
-            Assert.AreEqual("https://material.angular.io/", App.Browser.Url.ToString());
-        }
+        Assert.AreEqual("https://material.angular.io/", App.Browser.Url.ToString());
     }
 }

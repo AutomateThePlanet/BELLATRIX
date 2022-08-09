@@ -14,10 +14,9 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+
+public class HighlightComponentEventHandlers : ComponentEventHandlers
 {
-    public class HighlightComponentEventHandlers : ComponentEventHandlers
-    {
-        protected override void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs arg) => arg.Element.Highlight();
-    }
+    protected override void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs arg) => arg.Element.Highlight();
 }

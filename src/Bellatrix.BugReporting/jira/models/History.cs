@@ -14,13 +14,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Bellatrix.BugReporting.Jira
+namespace Bellatrix.BugReporting.Jira;
+
+public class History
 {
-    public class History
-    {
-        public string id { get; set; }
-        public Author author { get; set; }
-        public DateTime created { get; set; }
-        public List<Item> items { get; set; }
-    }
+    public string id { get; set; }
+    public Author author { get; set; }
+    public DateTime created { get; set; }
+    public List<Item> items { get; set; }
 }

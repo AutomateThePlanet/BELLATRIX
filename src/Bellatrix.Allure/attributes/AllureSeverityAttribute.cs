@@ -14,13 +14,12 @@
 using System;
 using Allure.Commons;
 
-namespace Bellatrix
-{
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-    public class AllureSeverityAttribute : Attribute
-    {
-        public AllureSeverityAttribute(SeverityLevel severity = SeverityLevel.normal) => Severity = severity;
+namespace Bellatrix;
 
-        internal SeverityLevel Severity { get; }
-    }
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
+public class AllureSeverityAttribute : Attribute
+{
+    public AllureSeverityAttribute(SeverityLevel severity = SeverityLevel.normal) => Severity = severity;
+
+    internal SeverityLevel Severity { get; }
 }

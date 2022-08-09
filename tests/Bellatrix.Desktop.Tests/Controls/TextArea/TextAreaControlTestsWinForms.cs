@@ -13,66 +13,65 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("TextArea Control")]
+[AllureTag("WinForms")]
+public class TextAreaControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("TextArea Control")]
-    [AllureTag("WinForms")]
-    public class TextAreaControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_TextAreaHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_TextAreaHovered_WinForms()
-        {
-            var textArea = App.Components.CreateByAutomationId<TextArea>("textArea");
+        var textArea = App.Components.CreateByAutomationId<TextArea>("textArea");
 
-            textArea.Hover();
+        textArea.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.AreEqual("textAreaHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.AreEqual("textAreaHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_NewTextSet_WinForms()
-        {
-            var textArea = App.Components.CreateByAutomationId<TextArea>("textArea");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_NewTextSet_WinForms()
+    {
+        var textArea = App.Components.CreateByAutomationId<TextArea>("textArea");
 
-            textArea.SetText("Meissa Is Beautiful!");
+        textArea.SetText("Meissa Is Beautiful!");
 
-            Assert.IsTrue(textArea.InnerText.Contains("Meissa Is Beautiful!"));
-        }
+        Assert.IsTrue(textArea.InnerText.Contains("Meissa Is Beautiful!"));
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void GetContent_When_TextAreaLocated_WinForms()
-        {
-            var textArea = App.Components.CreateByAutomationId<TextArea>("disabledTextArea");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void GetContent_When_TextAreaLocated_WinForms()
+    {
+        var textArea = App.Components.CreateByAutomationId<TextArea>("disabledTextArea");
 
-            Assert.IsTrue(textArea.InnerText.Contains("Bellatrix Is Awesome!"));
-        }
+        Assert.IsTrue(textArea.InnerText.Contains("Bellatrix Is Awesome!"));
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_TextAreaIsNotDisabled_WinForms()
-        {
-            var textArea = App.Components.CreateByAutomationId<TextArea>("textArea");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_TextAreaIsNotDisabled_WinForms()
+    {
+        var textArea = App.Components.CreateByAutomationId<TextArea>("textArea");
 
-            Assert.AreEqual(false, textArea.IsDisabled);
-        }
+        Assert.AreEqual(false, textArea.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_TextAreaIsDisabled_WinForms()
-        {
-            var textArea = App.Components.CreateByAutomationId<TextArea>("disabledTextArea");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_TextAreaIsDisabled_WinForms()
+    {
+        var textArea = App.Components.CreateByAutomationId<TextArea>("disabledTextArea");
 
-            Assert.AreEqual(true, textArea.IsDisabled);
-        }
+        Assert.AreEqual(true, textArea.IsDisabled);
     }
 }

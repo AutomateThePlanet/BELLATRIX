@@ -13,15 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+[Flags]
+public enum DigitsFormatting
 {
-    [Flags]
-    public enum DigitsFormatting
-    {
-        None = 1,
-        PrefixDollar = 2,
-        PrefixMinus = 4,
-        SufixDollar = 8,
-        NoComma = 16,
-    }
+    None = 1,
+    PrefixDollar = 2,
+    PrefixMinus = 4,
+    SufixDollar = 8,
+    NoComma = 16,
 }

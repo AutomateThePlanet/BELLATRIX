@@ -13,46 +13,45 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Button Control")]
+[AllureFeature("ValidateExtensions")]
+[AllureTag("WPF")]
+public class ButtonControlValidateExtensionsTests : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Button Control")]
-    [AllureFeature("ValidateExtensions")]
-    [AllureTag("WPF")]
-    public class ButtonControlValidateExtensionsTests : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void ValidateInnerTextIs_DoesNotThrowException_Button_When_InnerTextIsAsExpected()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void ValidateInnerTextIs_DoesNotThrowException_Button_When_InnerTextIsAsExpected()
-        {
-            var button = App.Components.CreateByName<Button>("E Button");
+        var button = App.Components.CreateByName<Button>("E Button");
 
-            button.Hover();
+        button.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-            label.ValidateInnerTextIs("ebuttonHovered");
-        }
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        label.ValidateInnerTextIs("ebuttonHovered");
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_Button_When_DisabledAttributeNotPresent()
-        {
-            var button = App.Components.CreateByName<Button>("E Button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_Button_When_DisabledAttributeNotPresent()
+    {
+        var button = App.Components.CreateByName<Button>("E Button");
 
-            button.ValidateIsNotDisabled();
-        }
+        button.ValidateIsNotDisabled();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_ButtonIsNotDisabled()
-        {
-            var button = App.Components.CreateByName<Button>("D Button");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_ButtonIsNotDisabled()
+    {
+        var button = App.Components.CreateByName<Button>("D Button");
 
-            button.ValidateIsDisabled();
-        }
+        button.ValidateIsDisabled();
     }
 }

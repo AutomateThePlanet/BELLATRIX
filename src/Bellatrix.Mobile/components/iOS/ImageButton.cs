@@ -18,24 +18,23 @@ using Bellatrix.Mobile.Controls.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class ImageButton : IOSComponent, IComponentDisabled, IComponentText
 {
-    public class ImageButton : IOSComponent, IComponentDisabled, IComponentText
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicking;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicked;
+
+    public virtual void Click()
     {
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicking;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicked;
-
-        public virtual void Click()
-        {
-            Click(Clicking, Clicked);
-        }
-
-        public new virtual string GetText()
-        {
-            return GetText();
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        Click(Clicking, Clicked);
     }
+
+    public new virtual string GetText()
+    {
+        return GetText();
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

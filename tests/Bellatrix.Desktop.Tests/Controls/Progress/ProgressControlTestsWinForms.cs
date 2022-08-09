@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Progress Control")]
+[AllureTag("WinForms")]
+public class ProgressControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Progress Control")]
-    [AllureTag("WinForms")]
-    public class ProgressControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_ProgressHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_ProgressHovered_WinForms()
-        {
-            var progress = App.Components.CreateByAutomationId<Calendar>("progress");
+        var progress = App.Components.CreateByAutomationId<Calendar>("progress");
 
-            progress.Hover();
+        progress.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.IsTrue(label.IsVisible);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.IsTrue(label.IsVisible);
     }
 }

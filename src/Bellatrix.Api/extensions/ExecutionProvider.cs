@@ -15,20 +15,19 @@ using System;
 using Bellatrix.Api.Events;
 using RestSharp;
 
-namespace Bellatrix.Api.Extensions
-{
-    public class ExecutionProvider : IExecutionProvider
-    {
-        public event EventHandler<ClientEventArgs> OnClientInitializedEvent;
-        public event EventHandler<ClientEventArgs> OnRequestTimeoutEvent;
-        public event EventHandler<RequestEventArgs> OnMakingRequestEvent;
-        public event EventHandler<ResponseEventArgs> OnRequestMadeEvent;
-        public event EventHandler<ResponseEventArgs> OnRequestFailedEvent;
+namespace Bellatrix.Api.Extensions;
 
-        public void OnClientInitialized(IRestClient client) => OnClientInitializedEvent?.Invoke(this, new ClientEventArgs(client));
-        public void OnRequestTimeout(IRestClient client) => OnRequestTimeoutEvent?.Invoke(this, new ClientEventArgs(client));
-        public void OnMakingRequest(IRestRequest request, string requestUri) => OnMakingRequestEvent?.Invoke(this, new RequestEventArgs(request, requestUri));
-        public void OnRequestMade(IRestResponse response, string requestUri) => OnRequestMadeEvent?.Invoke(this, new ResponseEventArgs(response, requestUri));
-        public void OnRequestFailed(IRestResponse response, string requestUri) => OnRequestFailedEvent?.Invoke(this, new ResponseEventArgs(response, requestUri));
-    }
+public class ExecutionProvider : IExecutionProvider
+{
+    public event EventHandler<ClientEventArgs> OnClientInitializedEvent;
+    public event EventHandler<ClientEventArgs> OnRequestTimeoutEvent;
+    public event EventHandler<RequestEventArgs> OnMakingRequestEvent;
+    public event EventHandler<ResponseEventArgs> OnRequestMadeEvent;
+    public event EventHandler<ResponseEventArgs> OnRequestFailedEvent;
+
+    public void OnClientInitialized(IRestClient client) => OnClientInitializedEvent?.Invoke(this, new ClientEventArgs(client));
+    public void OnRequestTimeout(IRestClient client) => OnRequestTimeoutEvent?.Invoke(this, new ClientEventArgs(client));
+    public void OnMakingRequest(IRestRequest request, string requestUri) => OnMakingRequestEvent?.Invoke(this, new RequestEventArgs(request, requestUri));
+    public void OnRequestMade(IRestResponse response, string requestUri) => OnRequestMadeEvent?.Invoke(this, new ResponseEventArgs(response, requestUri));
+    public void OnRequestFailed(IRestResponse response, string requestUri) => OnRequestFailedEvent?.Invoke(this, new ResponseEventArgs(response, requestUri));
 }

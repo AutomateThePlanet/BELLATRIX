@@ -14,12 +14,11 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers
-{
-    public class BDDLoggingCheckboxEventHandlers : CheckboxEventHandlers
-    {
-        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Check {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
 
-        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Uncheck {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
-    }
+public class BDDLoggingCheckboxEventHandlers : CheckboxEventHandlers
+{
+    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Check {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
+
+    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Uncheck {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 }

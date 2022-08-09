@@ -11,15 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    public class ByNgSelectedOption : JavaScriptBy
-    {
-        public ByNgSelectedOption(string value)
-            : base(AngularClientSideScripts.FindSelectedOptions, value, true)
-        {
-        }
+namespace Bellatrix.Web;
 
-        public override string ToString() => $"Angular Selected Option = {Value}";
+public class ByNgSelectedOption : JavaScriptBy
+{
+    public ByNgSelectedOption(string value)
+        : base(AngularClientSideScripts.FindSelectedOptions, value, true)
+    {
     }
+
+    public override string ToString() => $"Angular Selected Option = {Value}";
 }

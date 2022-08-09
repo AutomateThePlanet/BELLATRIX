@@ -17,24 +17,23 @@ using Bellatrix.Mobile.Locators;
 using Bellatrix.Mobile.Services;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile
-{
-    public class ComponentCreateService
-    {
-        public TComponent Create<TComponent, TBy, TDriver, TDriverElement>(TBy by)
-            where TComponent : Component<TDriver, TDriverElement>
-            where TBy : FindStrategy<TDriver, TDriverElement>
-            where TDriver : AppiumDriver<TDriverElement>
-            where TDriverElement : AppiumWebElement
-        {
-            var elementRepository = new ComponentRepository();
-            return elementRepository.CreateComponentThatIsFound<TComponent, TBy, TDriver, TDriverElement>(by, null);
-        }
+namespace Bellatrix.Mobile;
 
-        public ComponentsList<TComponent, TBy, TDriver, TDriverElement> CreateAll<TComponent, TBy, TDriver, TDriverElement>(TBy by)
-            where TComponent : Component<TDriver, TDriverElement>
-            where TBy : FindStrategy<TDriver, TDriverElement>
-            where TDriver : AppiumDriver<TDriverElement>
-            where TDriverElement : AppiumWebElement => new ComponentsList<TComponent, TBy, TDriver, TDriverElement>(by, null);
+public class ComponentCreateService
+{
+    public TComponent Create<TComponent, TBy, TDriver, TDriverElement>(TBy by)
+        where TComponent : Component<TDriver, TDriverElement>
+        where TBy : FindStrategy<TDriver, TDriverElement>
+        where TDriver : AppiumDriver<TDriverElement>
+        where TDriverElement : AppiumWebElement
+    {
+        var elementRepository = new ComponentRepository();
+        return elementRepository.CreateComponentThatIsFound<TComponent, TBy, TDriver, TDriverElement>(by, null);
     }
+
+    public ComponentsList<TComponent, TBy, TDriver, TDriverElement> CreateAll<TComponent, TBy, TDriver, TDriverElement>(TBy by)
+        where TComponent : Component<TDriver, TDriverElement>
+        where TBy : FindStrategy<TDriver, TDriverElement>
+        where TDriver : AppiumDriver<TDriverElement>
+        where TDriverElement : AppiumWebElement => new ComponentsList<TComponent, TBy, TDriver, TDriverElement>(by, null);
 }

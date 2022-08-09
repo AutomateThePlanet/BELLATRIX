@@ -16,17 +16,16 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
-{
-    public static partial class ValidateControlExtensions
-    {
-        public static void ValidateTimeIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentTime, IComponent<AndroidElement>
-        {
-            ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.GetTime().Equals(value), $"The control's time should be '{value}' but was '{control.GetTime()}'.", timeout, sleepInterval);
-            ValidatedTimeIsEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control, value));
-        }
+namespace Bellatrix.Mobile.Android;
 
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedTimeIsEvent;
+public static partial class ValidateControlExtensions
+{
+    public static void ValidateTimeIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentTime, IComponent<AndroidElement>
+    {
+        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.GetTime().Equals(value), $"The control's time should be '{value}' but was '{control.GetTime()}'.", timeout, sleepInterval);
+        ValidatedTimeIsEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control, value));
     }
+
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedTimeIsEvent;
 }

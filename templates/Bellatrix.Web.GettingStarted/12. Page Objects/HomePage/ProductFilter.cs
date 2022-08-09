@@ -1,11 +1,10 @@
-﻿namespace Bellatrix.Web.GettingStarted._12._Page_Objects
+﻿namespace Bellatrix.Web.GettingStarted._12._Page_Objects;
+
+public enum ProductFilter
 {
-    public enum ProductFilter
-    {
-        Popularity,
-        Rating,
-        Date,
-        Price,
-        PriceDesc,
-    }
+    Popularity,
+    Rating,
+    Date,
+    Price,
+    PriceDesc,
 }

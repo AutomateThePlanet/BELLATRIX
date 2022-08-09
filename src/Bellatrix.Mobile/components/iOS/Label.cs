@@ -15,13 +15,12 @@ using System;
 using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Controls.IOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class Label : IOSComponent, IComponentText
 {
-   public class Label : IOSComponent, IComponentText
+    public new virtual string GetText()
     {
-        public new virtual string GetText()
-        {
-            return GetText();
-        }
+        return GetText();
     }
 }

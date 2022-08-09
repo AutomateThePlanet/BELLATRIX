@@ -14,10 +14,9 @@
 using System;
 using System.Reflection;
 
-namespace Bellatrix.Web.Plugins.Browser
+namespace Bellatrix.Web.Plugins.Browser;
+
+public interface IDriverOptionsAttribute
 {
-    public interface IDriverOptionsAttribute
-    {
-        dynamic CreateOptions(MemberInfo memberInfo, Type testClassType);
-    }
+    dynamic CreateOptions(MemberInfo memberInfo, Type testClassType);
 }

@@ -14,19 +14,18 @@
 using System;
 using Bellatrix.DynamicTestCases;
 
-namespace Bellatrix.Web
-{
-    [Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
-    public abstract class Page
-    {
-        protected Page()
-        {
-            Element = ServicesCollection.Current.Resolve<ComponentCreateService>();
-            Browser = ServicesCollection.Current.Resolve<BrowserService>();
-        }
+namespace Bellatrix.Web;
 
-        protected ComponentCreateService Element { get; }
-        protected BrowserService Browser { get; }
-        protected DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+[Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
+public abstract class Page
+{
+    protected Page()
+    {
+        Element = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        Browser = ServicesCollection.Current.Resolve<BrowserService>();
     }
+
+    protected ComponentCreateService Element { get; }
+    protected BrowserService Browser { get; }
+    protected DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 }

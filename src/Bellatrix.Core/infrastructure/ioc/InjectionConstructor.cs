@@ -5,12 +5,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix
-{
-    public class InjectionConstructor
-    {
-        public InjectionConstructor(params object[] parameters) => Parameters = parameters;
+namespace Bellatrix;
 
-        public object[] Parameters { get; set; }
-    }
+public class InjectionConstructor
+{
+    public InjectionConstructor(params object[] parameters) => Parameters = parameters;
+
+    public object[] Parameters { get; set; }
 }

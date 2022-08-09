@@ -13,197 +13,196 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Range Control")]
+public class RangeControlTestsFirefox : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Range Control")]
-    public class RangeControlTestsFirefox : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void RangeSet_When_UseSetRangeMethod_Firefox()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void RangeSet_When_UseSetRangeMethod_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        rangeElement.SetRange(4);
 
-            rangeElement.SetRange(4);
+        Assert.AreEqual(4, rangeElement.GetRange());
+    }
 
-            Assert.AreEqual(4, rangeElement.GetRange());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetRangeReturnsCorrectRange_When_DefaultRangeIsSet_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetRangeReturnsCorrectRange_When_DefaultRangeIsSet_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange2");
+        // TODO: Investigate why WebDriver returns 8 instead of 7.
+        Assert.AreEqual(8, rangeElement.GetRange());
+    }
 
-            // TODO: Investigate why WebDriver returns 8 instead of 7.
-            Assert.AreEqual(8, rangeElement.GetRange());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        Assert.IsFalse(rangeElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(rangeElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange4");
+        Assert.IsFalse(rangeElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(rangeElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange3");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange3");
+        Assert.IsTrue(rangeElement.IsAutoComplete);
+    }
 
-            Assert.IsTrue(rangeElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        var max = rangeElement.Max;
 
-            var max = rangeElement.Max;
+        Assert.IsNull(max);
+    }
 
-            Assert.IsNull(max);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        Assert.IsNull(rangeElement.Min);
+    }
 
-            Assert.IsNull(rangeElement.Min);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        Assert.IsNull(rangeElement.Step);
+    }
 
-            Assert.IsNull(rangeElement.Step);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMaxReturns10Range_When_MaxAttributeIsPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMaxReturns10Range_When_MaxAttributeIsPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange1");
+        Assert.AreEqual(10, rangeElement.Max);
+    }
 
-            Assert.AreEqual(10, rangeElement.Max);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetMinReturns2Range_When_MinAttributeIsPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetMinReturns2Range_When_MinAttributeIsPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange1");
+        Assert.AreEqual(2, rangeElement.Min);
+    }
 
-            Assert.AreEqual(2, rangeElement.Min);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetStepReturns2_When_StepAttributeIsNotPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetStepReturns2_When_StepAttributeIsNotPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange1");
+        Assert.AreEqual(2, rangeElement.Step);
+    }
 
-            Assert.AreEqual(2, rangeElement.Step);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange4");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange4");
+        Assert.AreEqual(false, rangeElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, rangeElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange6");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange6");
+        Assert.IsTrue(rangeElement.IsRequired);
+    }
 
-            Assert.IsTrue(rangeElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange7");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange7");
+        rangeElement.Hover();
 
-            rangeElement.Hover();
+        rangeElement.ValidateStyleIs("color: red;");
+    }
 
-            rangeElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange8");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange8");
+        rangeElement.Focus();
 
-            rangeElement.Focus();
+        rangeElement.ValidateStyleIs("color: blue;");
+    }
 
-            rangeElement.ValidateStyleIs("color: blue;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        bool isDisabled = rangeElement.IsDisabled;
 
-            bool isDisabled = rangeElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange9");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange9");
+        bool isDisabled = rangeElement.IsDisabled;
 
-            bool isDisabled = rangeElement.IsDisabled;
+        Assert.IsTrue(isDisabled);
+    }
 
-            Assert.IsTrue(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetListReturnsNull_When_ListAttributeIsNotPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetListReturnsNull_When_ListAttributeIsNotPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange");
+        Assert.IsNull(rangeElement.List);
+    }
 
-            Assert.IsNull(rangeElement.List);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void GetListReturnsTickmarks_When_MaxAttributeIsPresent_Firefox()
+    {
+        var rangeElement = App.Components.CreateById<Range>("myRange10");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void GetListReturnsTickmarks_When_MaxAttributeIsPresent_Firefox()
-        {
-            var rangeElement = App.Components.CreateById<Range>("myRange10");
-
-            Assert.AreEqual("tickmarks", rangeElement.List);
-        }
+        Assert.AreEqual("tickmarks", rangeElement.List);
     }
 }

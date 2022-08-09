@@ -14,132 +14,131 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("CheckBox Control")]
+[AllureFeature("ControlEvents")]
+public class CheckBoxControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("CheckBox Control")]
-    [AllureFeature("ControlEvents")]
-    public class CheckBoxControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CheckingCalled_BeforeActuallyCheck()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage);
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
+        CheckBox.Checking += AssertIsCheckedFalse;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CheckingCalled_BeforeActuallyCheck()
+        checkBoxElement.Check(false);
+
+        Assert.IsFalse(checkBoxElement.IsChecked);
+
+        CheckBox.Checking -= AssertIsCheckedFalse;
+
+        void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
         {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
-            CheckBox.Checking += AssertIsCheckedFalse;
+            Assert.IsTrue(checkBoxElement.IsChecked);
+        }
+    }
 
-            checkBoxElement.Check(false);
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void CheckedCalled_AfterCheck()
+    {
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
+        CheckBox.Checked += AssertIsCheckedFalse;
 
+        checkBoxElement.Check(false);
+
+        CheckBox.Checked -= AssertIsCheckedFalse;
+
+        void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
+        {
             Assert.IsFalse(checkBoxElement.IsChecked);
-
-            CheckBox.Checking -= AssertIsCheckedFalse;
-
-            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
-            {
-                Assert.IsTrue(checkBoxElement.IsChecked);
-            }
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void CheckedCalled_AfterCheck()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+        CheckBox.Hovering += AssertStyleAttributeEmpty;
+
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
+
+        checkBoxElement.Hover();
+
+        Assert.AreEqual("color: red;", checkBoxElement.GetStyle());
+
+        CheckBox.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox");
-            CheckBox.Checked += AssertIsCheckedFalse;
-
-            checkBoxElement.Check(false);
-
-            CheckBox.Checked -= AssertIsCheckedFalse;
-
-            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
-            {
-                Assert.IsFalse(checkBoxElement.IsChecked);
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        CheckBox.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
+
+        checkBoxElement.Hover();
+
+        CheckBox.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            CheckBox.Hovering += AssertStyleAttributeEmpty;
-
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
-
-            checkBoxElement.Hover();
-
-            Assert.AreEqual("color: red;", checkBoxElement.GetStyle());
-
-            CheckBox.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            App.Components.CreateById<CheckBox>("myCheckbox1").ValidateStyleIs("color: red;");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusingCalled_BeforeActuallyFocus()
+    {
+        CheckBox.Focusing += AssertStyleAttributeEmpty;
+
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
+
+        checkBoxElement.Focus();
+
+        Assert.AreEqual("color: blue;", checkBoxElement.GetStyle());
+
+        CheckBox.Focusing -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            CheckBox.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox1");
-
-            checkBoxElement.Hover();
-
-            CheckBox.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<CheckBox>("myCheckbox1").ValidateStyleIs("color: red;");
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusingCalled_BeforeActuallyFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusedCalled_AfterFocus()
+    {
+        CheckBox.Focused += AssertStyleAttributeContainsNewValue;
+
+        var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
+
+        checkBoxElement.Focus();
+
+        CheckBox.Focused -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            CheckBox.Focusing += AssertStyleAttributeEmpty;
-
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
-
-            checkBoxElement.Focus();
-
-            Assert.AreEqual("color: blue;", checkBoxElement.GetStyle());
-
-            CheckBox.Focusing -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusedCalled_AfterFocus()
-        {
-            CheckBox.Focused += AssertStyleAttributeContainsNewValue;
-
-            var checkBoxElement = App.Components.CreateById<CheckBox>("myCheckbox2");
-
-            checkBoxElement.Focus();
-
-            CheckBox.Focused -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
         }
     }
 }

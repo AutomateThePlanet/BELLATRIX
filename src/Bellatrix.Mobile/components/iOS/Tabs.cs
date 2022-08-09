@@ -18,15 +18,14 @@ using Bellatrix.Mobile.Core;
 using Bellatrix.Mobile.Locators.IOS;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class Tabs<TComponent> : IOSComponent
+        where TComponent : Component<IOSDriver<IOSElement>, IOSElement>
 {
-    public class Tabs<TComponent> : IOSComponent
-            where TComponent : Component<IOSDriver<IOSElement>, IOSElement>
+    public virtual ComponentsList<TComponent, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll(string searchClass)
     {
-        public virtual ComponentsList<TComponent, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll(string searchClass)
-        {
-            var elements = this.CreateAllByClass<TComponent>(searchClass);
-            return elements;
-        }
+        var elements = this.CreateAllByClass<TComponent>(searchClass);
+        return elements;
     }
 }

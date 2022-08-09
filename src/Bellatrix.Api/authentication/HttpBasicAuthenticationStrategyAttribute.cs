@@ -13,19 +13,18 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp.Authenticators;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public class HttpBasicAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
 {
-    public class HttpBasicAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
+    private readonly string _userName;
+    private readonly string _password;
+
+    public HttpBasicAuthenticationStrategyAttribute(string username, string password)
     {
-        private readonly string _userName;
-        private readonly string _password;
-
-        public HttpBasicAuthenticationStrategyAttribute(string username, string password)
-        {
-            _userName = username;
-            _password = password;
-        }
-
-        public override IAuthenticator GetAuthenticator() => new HttpBasicAuthenticator(_userName, _password);
+        _userName = username;
+        _password = password;
     }
+
+    public override IAuthenticator GetAuthenticator() => new HttpBasicAuthenticator(_userName, _password);
 }

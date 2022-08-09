@@ -15,23 +15,22 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Locators
+namespace Bellatrix.Desktop.Locators;
+
+public abstract class FindStrategy
 {
-    public abstract class FindStrategy
+    public FindStrategy(string name)
     {
-        public FindStrategy(string name)
-        {
-            Value = name;
-        }
-
-        public string Value { get; }
-
-        public abstract WindowsElement FindElement(WindowsDriver<WindowsElement> driver);
-
-        public abstract IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> driver);
-
-        public abstract AppiumWebElement FindElement(WindowsElement element);
-
-        public abstract IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element);
+        Value = name;
     }
+
+    public string Value { get; }
+
+    public abstract WindowsElement FindElement(WindowsDriver<WindowsElement> driver);
+
+    public abstract IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> driver);
+
+    public abstract AppiumWebElement FindElement(WindowsElement element);
+
+    public abstract IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element);
 }

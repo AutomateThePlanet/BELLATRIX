@@ -16,47 +16,46 @@ using System.Collections.Generic;
 using Bellatrix.Mobile.Configuration;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public abstract class AppAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public abstract class AppAttribute : Attribute
-    {
-        protected AppAttribute(string appPath, string platformVersion, string deviceName, Lifecycle lifecycle = Lifecycle.NotSet)
-            => AppConfiguration = new AppConfiguration
-            {
-                AppPath = appPath,
-                Lifecycle = lifecycle,
-                PlatformVersion = platformVersion,
-                DeviceName = deviceName,
-                AppiumOptions = new AppiumOptions(),
-                OSPlatform = OS.Windows,
-            };
-
-        protected AppAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
-            => AppConfiguration = new AppConfiguration
-                                  {
-                                      AppPath = appPath,
-                                      Lifecycle = behavior,
-                                      PlatformVersion = platformVersion,
-                                      DeviceName = deviceName,
-                                      AppiumOptions = new AppiumOptions(),
-                                      OSPlatform = osPlatform,
-                                  };
-
-        public AppConfiguration AppConfiguration { get; }
-
-        protected AppiumOptions AddAdditionalCapabilities(Type type, AppiumOptions appiumOptions)
+    protected AppAttribute(string appPath, string platformVersion, string deviceName, Lifecycle lifecycle = Lifecycle.NotSet)
+        => AppConfiguration = new AppConfiguration
         {
-            var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
-            if (additionalCaps != null)
-            {
-                foreach (var key in additionalCaps.Keys)
-                {
-                    appiumOptions.AddAdditionalCapability(key, additionalCaps[key]);
-                }
-            }
+            AppPath = appPath,
+            Lifecycle = lifecycle,
+            PlatformVersion = platformVersion,
+            DeviceName = deviceName,
+            AppiumOptions = new AppiumOptions(),
+            OSPlatform = OS.Windows,
+        };
 
-            return appiumOptions;
+    protected AppAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+        => AppConfiguration = new AppConfiguration
+                              {
+                                  AppPath = appPath,
+                                  Lifecycle = behavior,
+                                  PlatformVersion = platformVersion,
+                                  DeviceName = deviceName,
+                                  AppiumOptions = new AppiumOptions(),
+                                  OSPlatform = osPlatform,
+                              };
+
+    public AppConfiguration AppConfiguration { get; }
+
+    protected AppiumOptions AddAdditionalCapabilities(Type type, AppiumOptions appiumOptions)
+    {
+        var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
+        if (additionalCaps != null)
+        {
+            foreach (var key in additionalCaps.Keys)
+            {
+                appiumOptions.AddAdditionalCapability(key, additionalCaps[key]);
+            }
         }
+
+        return appiumOptions;
     }
 }

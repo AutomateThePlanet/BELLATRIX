@@ -12,12 +12,11 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
-{
-    public class DivControlDataHandler : IReadonlyControlDataHandler<Div>
-    {
-        public dynamic GetData(Div element) => element.InnerText.Trim();
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 
-        public void ValidateValueIs(Div element, string expectedValue) => element.ValidateInnerTextIs(expectedValue);
-    }
+public class DivControlDataHandler : IReadonlyControlDataHandler<Div>
+{
+    public dynamic GetData(Div element) => element.InnerText.Trim();
+
+    public void ValidateValueIs(Div element, string expectedValue) => element.ValidateInnerTextIs(expectedValue);
 }

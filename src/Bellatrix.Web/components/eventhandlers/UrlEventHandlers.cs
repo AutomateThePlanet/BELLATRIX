@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class UrlEventHandlers : ComponentEventHandlers
 {
-    public class UrlEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Url.Hovering += HoveringEventHandler;
-            Url.Hovered += HoveredEventHandler;
-            Url.SettingUrl += SettingUrlEventHandler;
-            Url.UrlSet += UrlSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Url.Hovering += HoveringEventHandler;
+        Url.Hovered += HoveredEventHandler;
+        Url.SettingUrl += SettingUrlEventHandler;
+        Url.UrlSet += UrlSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Url.Hovering -= HoveringEventHandler;
-            Url.Hovered -= HoveredEventHandler;
-            Url.SettingUrl -= SettingUrlEventHandler;
-            Url.UrlSet -= UrlSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Url.Hovering -= HoveringEventHandler;
+        Url.Hovered -= HoveredEventHandler;
+        Url.SettingUrl -= SettingUrlEventHandler;
+        Url.UrlSet -= UrlSetEventHandler;
+    }
 
-        protected virtual void SettingUrlEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingUrlEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void UrlSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void UrlSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

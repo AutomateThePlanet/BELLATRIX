@@ -13,18 +13,17 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix
-{
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-    public class BugAttribute : Attribute
-    {
-        public BugAttribute(string bugId, string description)
-        {
-            BugId = bugId;
-            Description = description;
-        }
+namespace Bellatrix;
 
-        public string BugId { get; set; }
-        public string Description { get; set; }
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
+public class BugAttribute : Attribute
+{
+    public BugAttribute(string bugId, string description)
+    {
+        BugId = bugId;
+        Description = description;
     }
+
+    public string BugId { get; set; }
+    public string Description { get; set; }
 }

@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Ventsislav Ivanov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.ImageRecognition.Interfaces
+namespace Bellatrix.ImageRecognition.Interfaces;
+
+public interface IImage
 {
-    public interface IImage
-    {
-        string Path { get; set; }
-        string GeneratePatternString();
-        string ToSikuliScript(string command, double? commandParameter);
-    }
+    string Path { get; set; }
+    string GeneratePatternString();
+    string ToSikuliScript(string command, double? commandParameter);
 }

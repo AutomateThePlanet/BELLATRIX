@@ -13,37 +13,36 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Number Control")]
+[AllureFeature("ValidateExtensions")]
+public class NumberControlValidateExtensionTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Number Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class NumberControlValidateExtensionTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ValidateNumberIs_DoesNotThrowException_When_NumberIsSet()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ValidateNumberIs_DoesNotThrowException_When_NumberIsSet()
-        {
-            var number = App.Components.CreateById<Number>("IntegerA");
+        var number = App.Components.CreateById<Number>("IntegerA");
 
-            number.SetNumber(9);
+        number.SetNumber(9);
 
-            number.ValidateNumberIs(9);
-        }
+        number.ValidateNumberIs(9);
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_NumberIsNotDisabled()
-        {
-            var number = App.Components.CreateById<Number>("IntegerA");
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_NumberIsNotDisabled()
+    {
+        var number = App.Components.CreateById<Number>("IntegerA");
 
-            number.ValidateIsNotDisabled();
-        }
+        number.ValidateIsNotDisabled();
     }
 }

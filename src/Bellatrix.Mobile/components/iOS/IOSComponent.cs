@@ -14,13 +14,12 @@
 using Bellatrix.Mobile.Core;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.Controls.IOS
+namespace Bellatrix.Mobile.Controls.IOS;
+
+public class IOSComponent : Component<IOSDriver<IOSElement>, IOSElement>
 {
-    public class IOSComponent : Component<IOSDriver<IOSElement>, IOSElement>
+    // ReSharper disable once MemberCanBeProtected.Global
+    public IOSComponent()
     {
-        // ReSharper disable once MemberCanBeProtected.Global
-        public IOSComponent()
-        {
-        }
     }
 }

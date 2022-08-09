@@ -11,20 +11,19 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop.Untils
+namespace Bellatrix.Desktop.Untils;
+
+public class WaitStrategyFactory
 {
-    public class WaitStrategyFactory
-    {
-        public WaitToExistStrategy Exists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToExistStrategy(timeoutInterval, sleepinterval);
+    public WaitToExistStrategy Exists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToExistStrategy(timeoutInterval, sleepinterval);
 
-        public WaitNotExistStrategy NotExists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotExistStrategy(timeoutInterval, sleepinterval);
+    public WaitNotExistStrategy NotExists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotExistStrategy(timeoutInterval, sleepinterval);
 
-        public WaitToBeVisibleStrategy BeVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeVisibleStrategy(timeoutInterval, sleepinterval);
+    public WaitToBeVisibleStrategy BeVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeVisibleStrategy(timeoutInterval, sleepinterval);
 
-        public WaitNotBeVisibleStrategy BeNotVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotBeVisibleStrategy(timeoutInterval, sleepinterval);
+    public WaitNotBeVisibleStrategy BeNotVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotBeVisibleStrategy(timeoutInterval, sleepinterval);
 
-        public WaitToBeClickable BeClickable(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeClickable(timeoutInterval, sleepinterval);
+    public WaitToBeClickable BeClickable(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeClickable(timeoutInterval, sleepinterval);
 
-        public WaitToHaveContentStrategy HasContent(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToHaveContentStrategy(timeoutInterval, sleepinterval);
-    }
+    public WaitToHaveContentStrategy HasContent(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToHaveContentStrategy(timeoutInterval, sleepinterval);
 }

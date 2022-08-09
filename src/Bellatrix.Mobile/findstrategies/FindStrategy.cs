@@ -14,25 +14,24 @@
 using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Locators
+namespace Bellatrix.Mobile.Locators;
+
+public abstract class FindStrategy<TDriver, TComponent>
+    where TDriver : AppiumDriver<TComponent>
+    where TComponent : AppiumWebElement
 {
-    public abstract class FindStrategy<TDriver, TComponent>
-        where TDriver : AppiumDriver<TComponent>
-        where TComponent : AppiumWebElement
+    public FindStrategy(string name)
     {
-        public FindStrategy(string name)
-        {
-            Value = name;
-        }
-
-        public string Value { get; }
-
-        public abstract TComponent FindElement(TDriver driver);
-
-        public abstract IEnumerable<TComponent> FindAllElements(TDriver driver);
-
-        public abstract AppiumWebElement FindElement(TComponent element);
-
-        public abstract IEnumerable<AppiumWebElement> FindAllElements(TComponent element);
+        Value = name;
     }
+
+    public string Value { get; }
+
+    public abstract TComponent FindElement(TDriver driver);
+
+    public abstract IEnumerable<TComponent> FindAllElements(TDriver driver);
+
+    public abstract AppiumWebElement FindElement(TComponent element);
+
+    public abstract IEnumerable<AppiumWebElement> FindAllElements(TComponent element);
 }

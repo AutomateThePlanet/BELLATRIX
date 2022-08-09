@@ -13,23 +13,22 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class FindValueContainingStrategy : FindStrategy
 {
-    public class FindValueContainingStrategy : FindStrategy
+    public FindValueContainingStrategy(string value)
+        : base(value)
     {
-        public FindValueContainingStrategy(string value)
-            : base(value)
-        {
-        }
+    }
 
-        public override By Convert()
-        {
-            return By.CssSelector($"[value*='{Value}']");
-        }
+    public override By Convert()
+    {
+        return By.CssSelector($"[value*='{Value}']");
+    }
 
-        public override string ToString()
-        {
-            return $"Value containing {Value}";
-        }
+    public override string ToString()
+    {
+        return $"Value containing {Value}";
     }
 }

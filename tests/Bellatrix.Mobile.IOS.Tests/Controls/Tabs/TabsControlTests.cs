@@ -13,33 +13,32 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Tabs Control")]
+public class TabsControlTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Tabs Control")]
-    public class TabsControlTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    public void GetAllTabs_When_CallGetAllWithButtonControl()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        public void GetAllTabs_When_CallGetAllWithButtonControl()
-        {
-            var tabs = App.Components.CreateByIOSNsPredicate<Tabs<TextField>>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
+        var tabs = App.Components.CreateByIOSNsPredicate<Tabs<TextField>>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
 
-            var tabButtons = tabs.GetAll("XCUIElementTypeTextField");
-            tabButtons[0].SetText("1");
-            tabButtons[1].SetText("2");
+        var tabButtons = tabs.GetAll("XCUIElementTypeTextField");
+        tabButtons[0].SetText("1");
+        tabButtons[1].SetText("2");
 
-            var button = App.Components.CreateByName<Button>("ComputeSumButton");
+        var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
-            button.Click();
+        button.Click();
 
-            var resultLabel = App.Components.CreateByName<Label>("Answer");
+        var resultLabel = App.Components.CreateByName<Label>("Answer");
 
-            resultLabel.ValidateTextIs("3");
-        }
+        resultLabel.ValidateTextIs("3");
     }
 }

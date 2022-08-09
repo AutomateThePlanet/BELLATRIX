@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.BddLogging.Android
+namespace Bellatrix.Mobile.BddLogging.Android;
+
+public class BDDLoggingImageButtonEventHandlers : ImageButtonEventHandlers
 {
-    public class BDDLoggingImageButtonEventHandlers : ImageButtonEventHandlers
-    {
-        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

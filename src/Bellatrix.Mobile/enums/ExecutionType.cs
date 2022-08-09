@@ -11,13 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Mobile.Enums
+namespace Bellatrix.Mobile.Enums;
+
+public enum ExecutionType
 {
-    public enum ExecutionType
-    {
-        Regular,
-        SauceLabs,
-        BrowserStack,
-        CrossBrowserTesting,
-    }
+    Regular,
+    SauceLabs,
+    BrowserStack,
+    CrossBrowserTesting,
 }
