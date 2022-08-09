@@ -37,7 +37,7 @@ namespace Bellatrix.Web.GettingStarted
             loginButton.Click();
 
             Div myAccountContentDiv = App.Components.CreateByClass<Div>("woocommerce-MyAccount-content");
-            myAccountContentDiv.ValidateInnerTextContains("Hello info1");
+            myAccountContentDiv.ValidateInnerTextContains("Hello Berlin Spaceflowers");
 
             // Once you are ready. Call the PerformLighthouseAnalysis method, which will start the Lighthouse CLI.
             // Keep in mind that this will take 20-30 seconds since Lighthouse is starting its own Chrome tab.

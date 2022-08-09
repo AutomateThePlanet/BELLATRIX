@@ -28,7 +28,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Opera;
 
 namespace Bellatrix.Web.Plugins.Browser
 {
@@ -365,9 +364,6 @@ namespace Bellatrix.Web.Plugins.Browser
                     break;
                 case BrowserType.Edge:
                     driverOptions = ServicesCollection.Current.Resolve<EdgeOptions>(type.FullName) ?? new EdgeOptions();
-                    break;
-                case BrowserType.Opera:
-                    driverOptions = ServicesCollection.Current.Resolve<OperaOptions>(type.FullName) ?? new OperaOptions();
                     break;
                 default:
                     {

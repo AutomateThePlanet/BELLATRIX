@@ -236,20 +236,6 @@ namespace Bellatrix.Web
         }
 
         /// <summary>
-        /// Moves the mouse to the specified offset of the top-left corner of the specified element.
-        /// </summary>
-        /// <param name="sourceElement">The element to which to move the mouse.</param>
-        /// <param name="offsetX">The horizontal offset to which to move the mouse.</param>
-        /// <param name="offsetY">The vertical offset to which to move the mouse.</param>
-        /// <param name="offsetOrigin">The <see cref="OpenQA.Selenium.Interactions.MoveToElementOffsetOrigin" /> value from which to calculate the offset.</param>
-        /// <returns>A self-reference to this <see cref="Bellatrix.Web.InteractionsService" />.</returns>
-        public InteractionsService MoveToElement(Component sourceElement, int offsetX, int offsetY, MoveToElementOffsetOrigin offsetOrigin)
-        {
-            WrappedActions.MoveToElement(sourceElement.WrappedElement, offsetX, offsetY, offsetOrigin);
-            return this;
-        }
-
-        /// <summary>
         /// Moves the mouse to the specified offset of the last known mouse coordinates.
         /// </summary>
         /// <param name="offsetX">The horizontal offset to which to move the mouse.</param>

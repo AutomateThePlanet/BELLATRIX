@@ -6,6 +6,7 @@ using RestSharp;
 namespace Bellatrix.API.GettingStarted
 {
     [TestClass]
+    [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
     public class CustomTestCaseExtensionTests : APITest
     {
         // 1. Once we created the test workflow plugin, we need to add it to the existing test workflow.

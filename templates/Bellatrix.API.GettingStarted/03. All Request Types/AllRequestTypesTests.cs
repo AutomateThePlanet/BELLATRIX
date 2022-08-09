@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace Bellatrix.API.GettingStarted
 {
     [TestClass]
+    [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
     public class AllRequestTypesTests : APITest
     {
         private ApiClientService _apiClientService;

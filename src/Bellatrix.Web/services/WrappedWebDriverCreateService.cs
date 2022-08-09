@@ -32,7 +32,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Opera;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 using WebDriverManager;
@@ -449,32 +448,6 @@ namespace Bellatrix.Web
                     edgeHeadlessOptions.SetLoggingPreference("performance", LogLevel.All);
 
                     wrappedWebDriver = new EdgeDriver(edgeHeadlessOptions);
-                    break;
-                case BrowserType.Opera:
-                    new DriverManager().SetUpDriver(new OperaConfig());
-
-                    // the driver will be different for different OS.
-                    // Check for different releases- https://github.com/operasoftware/operachromiumdriver/releases
-                    var operaOptions = executionConfiguration.DriverOptions;
-
-                    if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
-                    {
-                        operaOptions.Proxy = webDriverProxy;
-                    }
-
-                    var operaService = OperaDriverService.CreateDefaultService();
-                    operaService.SuppressInitialDiagnosticInformation = true;
-                    operaService.Port = GetFreeTcpPort();
-
-                    try
-                    {
-                        wrappedWebDriver = new OperaDriver(operaService, operaOptions);
-                    }
-                    catch (WebDriverException ex) when (ex.Message.Contains("DevToolsActivePort file doesn't exist"))
-                    {
-                        throw new Exception("This is a known issue in the latest versions of Opera driver. It is reported to the Opera team. As soon it is fixed we will update BELLATRIX.", ex);
-                    }
-
                     break;
                 case BrowserType.InternetExplorer:
                     new DriverManager().SetUpDriver(new InternetExplorerConfig());

@@ -6,6 +6,7 @@ using RestSharp;
 namespace Bellatrix.API.GettingStarted
 {
     [TestClass]
+    [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
     public class LoggingTests : APITest
     {
         [TestMethod]

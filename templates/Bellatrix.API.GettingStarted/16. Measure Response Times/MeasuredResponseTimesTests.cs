@@ -9,6 +9,7 @@ using System.Collections.Generic;
 namespace Bellatrix.API.GettingStarted
 {
     [TestClass]
+    [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
 
     // 1. Sometimes it is useful to use your functional tests to measure performance. Or to just make sure that your app
     // is not slow. To do that BELLATRIX libraries offer the ExecutionTimeUnder attribute. You specify a timeout and if the

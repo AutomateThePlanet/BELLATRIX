@@ -25,7 +25,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Opera;
 using OpenQA.Selenium.Safari;
 
 namespace Bellatrix.Web
@@ -166,9 +165,6 @@ namespace Bellatrix.Web
                     break;
                 case BrowserType.Edge:
                     driverOptions = ServicesCollection.Current.Resolve<EdgeOptions>(type.FullName) ?? new EdgeOptions();
-                    break;
-                case BrowserType.Opera:
-                    driverOptions = ServicesCollection.Current.Resolve<OperaOptions>(type.FullName) ?? new OperaOptions();
                     break;
                 case BrowserType.Safari:
                     driverOptions = ServicesCollection.Current.Resolve<SafariOptions>(type.FullName) ?? new SafariOptions();

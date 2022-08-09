@@ -21,6 +21,7 @@ namespace Bellatrix.API.Tests
 {
     [TestClass]
     [AllureSuite("TestWorkflowHooks")]
+    [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
     public class TestWorkflowHooksTests : MSTest.APITest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.

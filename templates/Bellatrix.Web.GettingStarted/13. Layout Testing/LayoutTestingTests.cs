@@ -89,11 +89,11 @@ namespace Bellatrix.Web.GettingStarted
 
             // 10. You can check that some element is inside in another.
             // Assert that the rating div is present in the Saturn V anchor.
-            saturnVRating.AssertInsideOf(saturnVAnchor);
+            //saturnVRating.AssertInsideOf(saturnVAnchor);
 
             // 11. Verify the height and width of elements.
-            saturnVRating.AssertHeightLessThan(100);
-            saturnVRating.AssertWidthBetween(50, 70);
+            //saturnVRating.AssertHeightLessThan(100);
+            //saturnVRating.AssertWidthBetween(50, 70);
 
             // 12. You can use for all layout assertions the special web elements- Viewport and Screen.
             // Screen - represents the whole page area inside browser even that which is not visible.

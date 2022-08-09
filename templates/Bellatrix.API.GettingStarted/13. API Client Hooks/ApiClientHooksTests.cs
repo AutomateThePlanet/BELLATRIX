@@ -6,6 +6,7 @@ using RestSharp;
 namespace Bellatrix.API.GettingStarted
 {
     [TestClass]
+    [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
     public class ApiClientHooksTests : APITest
     {
         // 1. Another way to execute BELLATRIX is to create an API client plugin.

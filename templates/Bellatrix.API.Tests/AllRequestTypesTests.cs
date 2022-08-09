@@ -13,6 +13,7 @@ namespace Bellatrix.API.MSTest.Tests
     // Delete the code with TODO notes in TestInitialize.
     // Uninstall Bellatrix.API.DemoApps NuGet package
     [TestFixture]
+    [JwtAuthenticationStrategy("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiZWxsYXRyaXhVc2VyIiwianRpIjoiMDUyMzlmYjgtYTY5MS00NTZhLWE3MDMtYzFhMDEyYmMzZDU4IiwibmJmIjoxNTI0NzcyODAyLCJleHAiOjE1Mjk5NTY4MDIsImlzcyI6ImF1dG9tYXRldGhlcGxhbmV0LmNvbSIsImF1ZCI6ImF1dG9tYXRldGhlcGxhbmV0LmNvbSJ9.MZtFEtfKzu-BhfiXMSwZprPT5wGJnXTGAYzUTy0E5AA")]
     public class AllRequestTypesTests : NUnit.APITest
     {
         private ApiClientService _apiClientService;

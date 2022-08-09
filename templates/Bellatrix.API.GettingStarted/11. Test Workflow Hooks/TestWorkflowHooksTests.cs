@@ -8,6 +8,7 @@ using RestSharp;
 namespace Bellatrix.API.GettingStarted
 {
     [TestClass]
+    [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
     public class TestWorkflowHooksTests : APITest
     {
         // 1. One of the greatest features of BELLATRIX is test workflow hooks.

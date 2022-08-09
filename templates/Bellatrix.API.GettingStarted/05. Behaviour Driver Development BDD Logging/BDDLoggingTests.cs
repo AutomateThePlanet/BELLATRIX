@@ -10,6 +10,7 @@ using System.Linq;
 namespace Bellatrix.API.GettingStarted
 {
     [TestClass]
+    [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
     public class BDDLoggingTests : APITest
     {
         private ApiClientService _apiClientService;

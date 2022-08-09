@@ -56,8 +56,8 @@ namespace Bellatrix.Web.GettingStarted
         // some of it through the usage of TestInit and TestCleanup methods.
         public override void TestsArrange()
         {
-            _sortDropDown = App.Components.CreateByXpath<Select>("//*[@id='main']/div[1]/form/select");
-            _protonRocketAnchor = App.Components.CreateByXpath<Anchor>("//*[@id='main']/div[2]/ul/li[1]/a[1]");
+            _sortDropDown = App.Components.CreateByXpath<Select>("//select[@name='orderby']");
+            _protonRocketAnchor = App.Components.CreateByXpath<Anchor>("//a[@aria-label='Add “Proton Rocket” to your cart']");
         }
 
         public override void TestsAct()

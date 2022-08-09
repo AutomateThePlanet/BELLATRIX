@@ -25,7 +25,8 @@ namespace Bellatrix
     {
         static TelemetryService()
         {
-            var config = new TelemetryConfiguration(SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AppInsightsSettings>().InstrumentationKey));
+            var config = new TelemetryConfiguration();
+            config.ConnectionString = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AppInsightsSettings>().InstrumentationKey);
             TelemetryClient = new TelemetryClient(config);
 
             // Enable filter by product version.
