@@ -18,6 +18,7 @@
       - new AWS integrations
       - convert to file-scoped namespaces
       - update demo apps
+      - add new CSV service for working with CSV files
       - update API libraries
       - upgrade all 3rd-party NuGet packages
       - fix all known bugs

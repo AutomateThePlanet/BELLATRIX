@@ -36,7 +36,7 @@ public class EmbeddedResourcesService
 
     public string FromFile(string name)
     {
-        _currentExecutingAssembly = _currentExecutingAssembly ?? _assemblyFacade.GetAssembliesCallChain()[2];
+        _currentExecutingAssembly ??= _assemblyFacade.GetAssembliesCallChain()[2];
         string currentFileTempPath;
         using (var resourceStream = _currentExecutingAssembly.GetManifestResourceStream(name))
         {
