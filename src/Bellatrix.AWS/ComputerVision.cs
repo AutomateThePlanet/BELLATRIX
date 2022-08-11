@@ -1,4 +1,4 @@
-﻿// <copyright file="ToParsed.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ComputerVision.cs" company="Automate The Planet Ltd.">
 // Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,10 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Email;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class ToParsed
+namespace Bellatrix.AWS;
+public class ComputerVision
 {
-    public string address { get; set; }
-    public string name { get; set; }
 }
