@@ -5,7 +5,7 @@ using mailslurp.Model;
 using System;
 using System.Collections.Generic;
 
-namespace Bellatrix.Utilities;
+namespace Bellatrix.Email;
 
 public class MailslurpService
 {

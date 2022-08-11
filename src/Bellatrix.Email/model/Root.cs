@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Bellatrix.Utilities;
+namespace Bellatrix.Email;
 
 public class Root
 {

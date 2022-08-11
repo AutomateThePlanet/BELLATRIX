@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bellatrix.Utilities;
+namespace Bellatrix.Email;
 
 public class TestmailService
 {

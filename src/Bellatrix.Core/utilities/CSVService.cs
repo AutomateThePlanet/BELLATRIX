@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace Bellatrix.Core.utilities;
+namespace Bellatrix.Utilities;
 public static class CSVService
 {
     public static void ValidateData<TEntity>(string localFile, List<TEntity> expectedEntities)

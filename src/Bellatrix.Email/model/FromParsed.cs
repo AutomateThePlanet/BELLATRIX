@@ -1,6 +1,6 @@
-﻿namespace Bellatrix.Utilities;
+﻿namespace Bellatrix.Email;
 
-public class ToParsed
+public class FromParsed
 {
     public string address { get; set; }
     public string name { get; set; }
