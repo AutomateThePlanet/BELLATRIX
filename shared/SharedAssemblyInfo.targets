@@ -15,7 +15,9 @@
     <Copyright>Automate The Planet Ltd. 2021</Copyright>
     <PackageReleaseNotes>
       - new email testing 3rd-party services integrations
-      - new AWS integrations
+      - new AWS integration - S3
+      - new AWS integration - Computer Vision OCR images and PDFs
+      - new AWS integration - Secrets Manager
       - convert to file-scoped namespaces
       - update demo apps
       - add new CSV service for working with CSV files
