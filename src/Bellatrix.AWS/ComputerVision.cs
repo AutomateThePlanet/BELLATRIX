@@ -11,13 +11,52 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
+using Amazon;
+using Amazon.Rekognition;
+using Amazon.Rekognition.Model;
+using Bellatrix.Assertions;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bellatrix.AWS;
 public class ComputerVision
 {
+    public List<string> ExtractOCRTextFromLocalFile(RegionEndpoint region, string bucket, string fileName)
+    {
+        List<string> textSnippets = ExtractBlocksFromLocalFile(region, bucket, fileName).Select(t => t.DetectedText).ToList();
+        return textSnippets;
+    }
+
+    public void ValidateText(RegionEndpoint region, string bucket, string fileName, List<string> expectedTextSnippets)
+    {
+        var actualTextSnippets = ExtractBlocksFromLocalFile(region, bucket, fileName);
+
+        CollectionAssert.AreEqual(actualTextSnippets, expectedTextSnippets, "Some of the expected text snippets weren't present on the actual PDF/Image.");
+    }
+
+    public List<TextDetection> ExtractBlocksFromLocalFile(RegionEndpoint region, string bucket, string fileName)
+    {
+        using var rekognitionClient = InitializeRekognitionClient(region);
+        var detectTextRequest = new DetectTextRequest()
+        {
+            Image = new Image()
+            {
+                S3Object = new S3Object()
+                {
+                    Name = fileName,
+                    Bucket = bucket,
+                },
+            },
+        };
+        var response = rekognitionClient.DetectTextAsync(detectTextRequest).Result;
+        return response.TextDetections;
+    }
+
+    private AmazonRekognitionClient InitializeRekognitionClient(RegionEndpoint region)
+    {
+        var config = new AmazonRekognitionConfig();
+        config.RegionEndpoint = region;
+        var client = new AmazonRekognitionClient(config);
+        return client;
+    }
 }
