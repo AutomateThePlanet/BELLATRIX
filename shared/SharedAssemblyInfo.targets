@@ -19,6 +19,7 @@
       - convert to file-scoped namespaces
       - update demo apps
       - add new CSV service for working with CSV files
+      - deprecate touch web services
       - update API libraries
       - upgrade all 3rd-party NuGet packages
       - fix all known bugs

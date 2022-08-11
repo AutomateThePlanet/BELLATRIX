@@ -37,11 +37,11 @@ public class LighthouseService
 {
     public static event EventHandler<LighthouseReportEventArgs> AssertedLighthouseReportEvent;
 
-    public static ThreadLocal<Root> PerformanceReport { get; set; }
+    public static ThreadLocal<Lighthouse.Root> PerformanceReport { get; set; }
 
     static LighthouseService()
     {
-        PerformanceReport = new ThreadLocal<Root>();
+        PerformanceReport = new ThreadLocal<Lighthouse.Root>();
     }
 
     public void PerformLighthouseAnalysis(string customArgs = "", bool shouldOverrideDefaultArgs = false)
@@ -76,7 +76,7 @@ public class LighthouseService
             app.ApiClient.BaseUrl = $"http://{queryResult.Content}";
             request = new RestRequest($"/extra/LighthouseServlet", Method.GET);
             request.AddHeader("lighthouse", arguments.Replace("lighthouse ", string.Empty));
-            PerformanceReport.Value = app.ApiClient.Get<Root>(request).Data;
+            PerformanceReport.Value = app.ApiClient.Get<Lighthouse.Root>(request).Data;
         }
         else
         {
@@ -182,10 +182,10 @@ public class LighthouseService
         AssertedLighthouseReportEvent?.Invoke(this, new LighthouseReportEventArgs(expected.ToString(), PerformanceReport.Value.Categories.Performance.Score.ToString(), PerformanceReport.Value.Categories.Performance.Title));
     }
 
-    public MetricPreciseValidationBuilder AssertMetric(Expression<Func<Root, object>> expression)
+    public MetricPreciseValidationBuilder AssertMetric(Expression<Func<Lighthouse.Root, object>> expression)
     {
         string metricName = TypePropertiesNameResolver.GetMemberName(expression);
-        Func<Root, object> compiledExpression = expression.Compile();
+        Func<Lighthouse.Root, object> compiledExpression = expression.Compile();
         dynamic actualValue = compiledExpression(PerformanceReport.Value);
 
         return new MetricPreciseValidationBuilder(actualValue, metricName);
@@ -207,13 +207,13 @@ public class LighthouseService
         return defaultArgs.ToString();
     }
 
-    private Root ReadPerformanceReport()
+    private Lighthouse.Root ReadPerformanceReport()
     {
         var driverExecutablePath = ExecutionDirectoryResolver.GetDriverExecutablePath();
         var directoryInfo = new DirectoryInfo(driverExecutablePath);
         string pattern = "*.report.json";
         var file = directoryInfo.GetFiles(pattern, SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
         string fileContent = File.ReadAllText(file.FullName);
-        return JsonConvert.DeserializeObject<Root>(fileContent);
+        return JsonConvert.DeserializeObject<Lighthouse.Root>(fileContent);
     }
 }
