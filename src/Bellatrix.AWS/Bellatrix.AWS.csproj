@@ -4,6 +4,7 @@
 	  <PackageReference Include="AWSSDK.Core" Version="3.7.12.19" />
 	  <PackageReference Include="AWSSDK.Rekognition" Version="3.7.9.6" />
 	  <PackageReference Include="AWSSDK.S3" Version="3.7.9.37" />
+	  <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.2.74" />
 	  <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
 	</ItemGroup>  
 	<ItemGroup>
