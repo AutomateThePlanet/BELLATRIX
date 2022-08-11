@@ -1,5 +1,5 @@
 ﻿// <copyright file="KeyboardServiceTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,26 +14,25 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BA = Bellatrix.Assertions;
 
-namespace Bellatrix.Mobile.IOS.Tests
-{
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Services")]
-    [AllureFeature("KeyboardService")]
-    public class KeyboardServiceTests : MSTest.IOSTest
-    {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void TestHideKeyBoard()
-        {
-            var textField = App.Components.CreateById<TextField>("IntegerA");
-            textField.SetText(string.Empty);
+namespace Bellatrix.Mobile.IOS.Tests;
 
-            App.Keyboard.HideKeyboard();
-        }
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Services")]
+[AllureFeature("KeyboardService")]
+public class KeyboardServiceTests : MSTest.IOSTest
+{
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void TestHideKeyBoard()
+    {
+        var textField = App.Components.CreateById<TextField>("IntegerA");
+        textField.SetText(string.Empty);
+
+        App.Keyboard.HideKeyboard();
     }
 }

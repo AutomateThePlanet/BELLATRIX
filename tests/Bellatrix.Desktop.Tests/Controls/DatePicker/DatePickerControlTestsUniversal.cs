@@ -1,5 +1,5 @@
 ﻿// <copyright file="DatePickerControlTestsUniversal.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,44 +13,43 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("DatePicker Control")]
+[AllureTag("Universal")]
+public class DatePickerControlTestsUniversal : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("DatePicker Control")]
-    [AllureTag("Universal")]
-    public class DatePickerControlTestsUniversal : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_DateHovered_Universal()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_DateHovered_Universal()
-        {
-            var datePicker = App.Components.CreateByAutomationId<Date>("datePicker");
+        var datePicker = App.Components.CreateByAutomationId<Date>("datePicker");
 
-            datePicker.Hover();
+        datePicker.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
-            Assert.AreEqual("edatepickerHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultTextBlock");
+        Assert.AreEqual("edatepickerHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_DatePickerIsNotDisabled_Universal()
-        {
-            var datePicker = App.Components.CreateByAutomationId<Date>("datePicker");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_DatePickerIsNotDisabled_Universal()
+    {
+        var datePicker = App.Components.CreateByAutomationId<Date>("datePicker");
 
-            Assert.AreEqual(false, datePicker.IsDisabled);
-        }
+        Assert.AreEqual(false, datePicker.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_DatePickerIsDisabled_Universal()
-        {
-            var datePicker = App.Components.CreateByAutomationId<Date>("disabledDatePicker");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_DatePickerIsDisabled_Universal()
+    {
+        var datePicker = App.Components.CreateByAutomationId<Date>("disabledDatePicker");
 
-            Assert.AreEqual(true, datePicker.IsDisabled);
-        }
+        Assert.AreEqual(true, datePicker.IsDisabled);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="HttpBasicAuthenticationStrategyAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,19 +13,18 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp.Authenticators;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public class HttpBasicAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
 {
-    public class HttpBasicAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
+    private readonly string _userName;
+    private readonly string _password;
+
+    public HttpBasicAuthenticationStrategyAttribute(string username, string password)
     {
-        private readonly string _userName;
-        private readonly string _password;
-
-        public HttpBasicAuthenticationStrategyAttribute(string username, string password)
-        {
-            _userName = username;
-            _password = password;
-        }
-
-        public override IAuthenticator GetAuthenticator() => new HttpBasicAuthenticator(_userName, _password);
+        _userName = username;
+        _password = password;
     }
+
+    public override IAuthenticator GetAuthenticator() => new HttpBasicAuthenticator(_userName, _password);
 }

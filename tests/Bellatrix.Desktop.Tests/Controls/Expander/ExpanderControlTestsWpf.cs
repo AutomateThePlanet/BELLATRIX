@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExpanderControlTestsWpf.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,57 +15,56 @@ using System.Linq;
 using Bellatrix.Desktop.Locators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Expander Control")]
+[AllureTag("WPF")]
+public class ExpanderControlTestsWpf : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Expander Control")]
-    [AllureTag("WPF")]
-    public class ExpanderControlTestsWpf : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_ExpanderHovered_Wpf()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_ExpanderHovered_Wpf()
-        {
-            var expander = App.Components.CreateByAutomationId<Expander>("HeaderSite");
+        var expander = App.Components.CreateByAutomationId<Expander>("HeaderSite");
 
-            expander.Hover();
+        expander.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-            Assert.AreEqual("expanderHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        Assert.AreEqual("expanderHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void LabelVisible_When_ExpanderClicked_Wpf()
-        {
-            var expander = App.Components.CreateByAutomationId<Expander>("HeaderSite");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void LabelVisible_When_ExpanderClicked_Wpf()
+    {
+        var expander = App.Components.CreateByAutomationId<Expander>("HeaderSite");
 
-            expander.Click();
+        expander.Click();
 
-            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
-            Assert.IsTrue(label.IsVisible);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        Assert.IsTrue(label.IsVisible);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_ExpanderIsNotDisabled_Wpf()
-        {
-            var expander = App.Components.CreateByAutomationId<Expander>("HeaderSite");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_ExpanderIsNotDisabled_Wpf()
+    {
+        var expander = App.Components.CreateByAutomationId<Expander>("HeaderSite");
 
-            Assert.AreEqual(false, expander.IsDisabled);
-        }
+        Assert.AreEqual(false, expander.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_ExpanderIsDisabled_Wpf()
-        {
-            var expander = App.Components.CreateAll<Expander, FindAutomationIdStrategy>(Find.By.AutomationId("HeaderSite")).Last();
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_ExpanderIsDisabled_Wpf()
+    {
+        var expander = App.Components.CreateAll<Expander, FindAutomationIdStrategy>(Find.By.AutomationId("HeaderSite")).Last();
 
-            Assert.AreEqual(true, expander.IsDisabled);
-        }
+        Assert.AreEqual(true, expander.IsDisabled);
     }
 }

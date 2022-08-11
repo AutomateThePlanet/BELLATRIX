@@ -1,5 +1,5 @@
 ﻿// <copyright file="JsonSerializer.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,30 +15,29 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Bellatrix.Infrastructure
+namespace Bellatrix.Infrastructure;
+
+public class JsonSerializer
 {
-    public class JsonSerializer
+    public string Serialize<TEntity>(TEntity entityToBeSerialized)
     {
-        public string Serialize<TEntity>(TEntity entityToBeSerialized)
+        var options = new JsonSerializerOptions
         {
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                DefaultIgnoreCondition = JsonIgnoreCondition.Never,
-            };
+            WriteIndented = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+        };
 
-            return System.Text.Json.JsonSerializer.Serialize(entityToBeSerialized, options);
-        }
+        return System.Text.Json.JsonSerializer.Serialize(entityToBeSerialized, options);
+    }
 
-        public TEntity Deserialize<TEntity>(string content)
+    public TEntity Deserialize<TEntity>(string content)
+    {
+        var options = new JsonSerializerOptions
         {
-            var options = new JsonSerializerOptions
-            {
-                AllowTrailingCommas = true,
-                DefaultIgnoreCondition = JsonIgnoreCondition.Never,
-            };
+            AllowTrailingCommas = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+        };
 
-            return System.Text.Json.JsonSerializer.Deserialize<TEntity>(content, options);
-        }
+        return System.Text.Json.JsonSerializer.Deserialize<TEntity>(content, options);
     }
 }

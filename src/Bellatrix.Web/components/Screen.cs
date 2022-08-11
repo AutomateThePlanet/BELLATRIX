@@ -1,5 +1,5 @@
 ﻿// <copyright file="Screen.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,21 +14,20 @@
 using System.Drawing;
 using Bellatrix.Layout;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+internal class Screen : ILayoutComponent
 {
-    internal class Screen : ILayoutComponent
+    internal Screen()
     {
-        internal Screen()
-        {
-            var browserService = ServicesCollection.Current.Resolve<BrowserService>();
-            Location = new Point(0, 0);
-            Size = browserService.WrappedDriver.Manage().Window.Size;
-        }
-
-        public Point Location { get; }
-
-        public Size Size { get; }
-
-        public string ComponentName => "Screen";
+        var browserService = ServicesCollection.Current.Resolve<BrowserService>();
+        Location = new Point(0, 0);
+        Size = browserService.WrappedDriver.Manage().Window.Size;
     }
+
+    public Point Location { get; }
+
+    public Size Size { get; }
+
+    public string ComponentName => "Screen";
 }

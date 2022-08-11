@@ -1,5 +1,5 @@
 ﻿// <copyright file="InputFile.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,36 +16,35 @@ using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class InputFile : Component, IComponentRequired, IComponentMultiple, IComponentAccept
 {
-    public class InputFile : Component, IComponentRequired, IComponentMultiple, IComponentAccept
+    public static event EventHandler<ComponentActionEventArgs> Uploading;
+    public static event EventHandler<ComponentActionEventArgs> Uploaded;
+
+    public override Type ComponentType => GetType();
+
+    public virtual void Upload(string file)
     {
-        public static event EventHandler<ComponentActionEventArgs> Uploading;
-        public static event EventHandler<ComponentActionEventArgs> Uploaded;
+        DefaultUpload(file);
+    }
 
-        public override Type ComponentType => GetType();
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsRequired => GetRequiredAttribute();
 
-        public virtual void Upload(string file)
-        {
-            DefaultUpload(file);
-        }
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsMultiple => !string.IsNullOrEmpty(GetAttribute("multiple"));
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsRequired => GetRequiredAttribute();
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Accept => string.IsNullOrEmpty(GetAttribute("accept")) ? null : GetAttribute("accept");
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsMultiple => !string.IsNullOrEmpty(GetAttribute("multiple"));
+    protected virtual void DefaultUpload(string filePath)
+    {
+        Uploading?.Invoke(this, new ComponentActionEventArgs(this));
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Accept => string.IsNullOrEmpty(GetAttribute("accept")) ? null : GetAttribute("accept");
+        WrappedElement.SendKeys(filePath);
 
-        protected virtual void DefaultUpload(string filePath)
-        {
-            Uploading?.Invoke(this, new ComponentActionEventArgs(this));
-
-            WrappedElement.SendKeys(filePath);
-
-            Uploaded?.Invoke(this, new ComponentActionEventArgs(this));
-        }
+        Uploaded?.Invoke(this, new ComponentActionEventArgs(this));
     }
 }

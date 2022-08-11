@@ -1,5 +1,5 @@
 ﻿// <copyright file="JavaScriptService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,129 +15,128 @@ using System;
 using System.Diagnostics;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class JavaScriptService : WebService
 {
-    public class JavaScriptService : WebService
+    public JavaScriptService(IWebDriver wrappedDriver)
+        : base(wrappedDriver)
     {
-        public JavaScriptService(IWebDriver wrappedDriver)
-            : base(wrappedDriver)
+    }
+
+    public object Execute<TComponent>(string script, TComponent element, params object[] args)
+        where TComponent : Component
+    {
+        try
         {
-        }
-
-        public object Execute<TComponent>(string script, TComponent element, params object[] args)
-            where TComponent : Component
-        {
-            try
-            {
-                var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
-                var result = javaScriptExecutor?.ExecuteScript(script, element.WrappedElement, args);
-
-                return result;
-            }
-            catch (NullReferenceException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                return string.Empty;
-            }
-        }
-
-        public object Execute(string script)
-        {
-            try
-            {
-                var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
-                var result = javaScriptExecutor?.ExecuteScript(script);
-
-                return result?.ToString();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                return string.Empty;
-            }
-        }
-
-        public string Execute(string frameName, string script)
-        {
-            WrappedDriver.SwitchTo().Frame(frameName);
-            var result = (string)Execute(script);
-            WrappedDriver.SwitchTo().DefaultContent();
+            var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
+            var result = javaScriptExecutor?.ExecuteScript(script, element.WrappedElement, args);
 
             return result;
         }
-
-        public string Execute(string script, params object[] args)
+        catch (NullReferenceException)
         {
-            try
-            {
-                var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
-                var result = javaScriptExecutor?.ExecuteScript(script, args);
-
-                return result?.ToString();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                return string.Empty;
-            }
+            throw;
         }
-
-        public string Execute<TComponent>(string script, TComponent element)
-            where TComponent : Component
+        catch (Exception ex)
         {
-            try
-            {
-                var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
-                var result = javaScriptExecutor?.ExecuteScript(script, element.WrappedElement);
-
-                return result?.ToString();
-            }
-            catch (NullReferenceException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                return string.Empty;
-            }
+            Debug.WriteLine(ex);
+            return string.Empty;
         }
+    }
 
-        public string Execute(string script, IWebElement nativeElement)
+    public object Execute(string script)
+    {
+        try
         {
-            try
-            {
-                var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
-                var result = javaScriptExecutor?.ExecuteScript(script, nativeElement);
+            var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
+            var result = javaScriptExecutor?.ExecuteScript(script);
 
-                return result?.ToString();
-            }
-            catch (NullReferenceException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                return string.Empty;
-            }
+            return result?.ToString();
         }
-
-        public void ExecuteAsync(string script, IWebElement nativeElement)
+        catch (Exception ex)
         {
-            try
-            {
-                var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
-                javaScriptExecutor?.ExecuteAsyncScript(script, nativeElement);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
+            Debug.WriteLine(ex);
+            return string.Empty;
+        }
+    }
+
+    public string Execute(string frameName, string script)
+    {
+        WrappedDriver.SwitchTo().Frame(frameName);
+        var result = (string)Execute(script);
+        WrappedDriver.SwitchTo().DefaultContent();
+
+        return result;
+    }
+
+    public string Execute(string script, params object[] args)
+    {
+        try
+        {
+            var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
+            var result = javaScriptExecutor?.ExecuteScript(script, args);
+
+            return result?.ToString();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return string.Empty;
+        }
+    }
+
+    public string Execute<TComponent>(string script, TComponent element)
+        where TComponent : Component
+    {
+        try
+        {
+            var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
+            var result = javaScriptExecutor?.ExecuteScript(script, element.WrappedElement);
+
+            return result?.ToString();
+        }
+        catch (NullReferenceException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return string.Empty;
+        }
+    }
+
+    public string Execute(string script, IWebElement nativeElement)
+    {
+        try
+        {
+            var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
+            var result = javaScriptExecutor?.ExecuteScript(script, nativeElement);
+
+            return result?.ToString();
+        }
+        catch (NullReferenceException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return string.Empty;
+        }
+    }
+
+    public void ExecuteAsync(string script, IWebElement nativeElement)
+    {
+        try
+        {
+            var javaScriptExecutor = WrappedDriver as IJavaScriptExecutor;
+            javaScriptExecutor?.ExecuteAsyncScript(script, nativeElement);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
         }
     }
 }

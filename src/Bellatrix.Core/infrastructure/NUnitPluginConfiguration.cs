@@ -7,14 +7,13 @@ using Bellatrix.Assertions;
 using Bellatrix.Assertions.NUnit;
 using Bellatrix.NUnit;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public class NUnitPluginConfiguration
 {
-    public class NUnitPluginConfiguration
+    public static void Add()
     {
-        public static void Add()
-        {
-            ServicesCollection.Current.RegisterType<IAssert, NUnitAssert>();
-            ServicesCollection.Current.RegisterType<ICollectionAssert, NUnitCollectionAssert>();
-        }
+        ServicesCollection.Current.RegisterType<IAssert, NUnitAssert>();
+        ServicesCollection.Current.RegisterType<ICollectionAssert, NUnitCollectionAssert>();
     }
 }

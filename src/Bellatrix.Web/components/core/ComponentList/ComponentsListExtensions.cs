@@ -1,5 +1,5 @@
 ﻿// <copyright file="ElementsListExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,22 +15,21 @@ using System.Collections.Generic;
 using System.Linq;
 using Bellatrix.Web.Contracts;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static class ComponentsListExtensions
 {
-    public static class ComponentsListExtensions
+    public static IEnumerable<string> SelectInnerText<TComponent>(this ComponentsList<TComponent> elementsList)
+        where TComponent : Component, IComponentInnerText
     {
-        public static IEnumerable<string> SelectInnerText<TComponent>(this ComponentsList<TComponent> elementsList)
-            where TComponent : Component, IComponentInnerText
-        {
-            return elementsList.Select(e => e.InnerText);
-        }
+        return elementsList.Select(e => e.InnerText);
+    }
 
-        public static ComponentsList<TComponent> ToElementList<TComponent>(this IEnumerable<TComponent> nativeElementsList)
-            where TComponent : Component
-        {
-            var elementList = new ComponentsList<TComponent>(nativeElementsList);
+    public static ComponentsList<TComponent> ToElementList<TComponent>(this IEnumerable<TComponent> nativeElementsList)
+        where TComponent : Component
+    {
+        var elementList = new ComponentsList<TComponent>(nativeElementsList);
 
-            return elementList;
-        }
+        return elementList;
     }
 }

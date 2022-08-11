@@ -1,5 +1,5 @@
 ﻿// <copyright file="MobileWindowSize.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,15 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public enum MobileWindowSize
 {
-    public enum MobileWindowSize
-    {
-        _360_640 = 101,
-        _375_667 = 102,
-        _720_1280 = 103,
-        _320_568 = 104,
-        _414_736 = 105,
-        _320_534 = 106,
-    }
+    _360_640 = 101,
+    _375_667 = 102,
+    _720_1280 = 103,
+    _320_568 = 104,
+    _414_736 = 105,
+    _320_534 = 106,
 }

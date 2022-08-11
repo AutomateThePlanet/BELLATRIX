@@ -1,5 +1,5 @@
 ﻿// <copyright file="AppAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,47 +16,46 @@ using System.Collections.Generic;
 using Bellatrix.Mobile.Configuration;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public abstract class AppAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public abstract class AppAttribute : Attribute
-    {
-        protected AppAttribute(string appPath, string platformVersion, string deviceName, Lifecycle lifecycle = Lifecycle.NotSet)
-            => AppConfiguration = new AppConfiguration
-            {
-                AppPath = appPath,
-                Lifecycle = lifecycle,
-                PlatformVersion = platformVersion,
-                DeviceName = deviceName,
-                AppiumOptions = new AppiumOptions(),
-                OSPlatform = OS.Windows,
-            };
-
-        protected AppAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
-            => AppConfiguration = new AppConfiguration
-                                  {
-                                      AppPath = appPath,
-                                      Lifecycle = behavior,
-                                      PlatformVersion = platformVersion,
-                                      DeviceName = deviceName,
-                                      AppiumOptions = new AppiumOptions(),
-                                      OSPlatform = osPlatform,
-                                  };
-
-        public AppConfiguration AppConfiguration { get; }
-
-        protected AppiumOptions AddAdditionalCapabilities(Type type, AppiumOptions appiumOptions)
+    protected AppAttribute(string appPath, string platformVersion, string deviceName, Lifecycle lifecycle = Lifecycle.NotSet)
+        => AppConfiguration = new AppConfiguration
         {
-            var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
-            if (additionalCaps != null)
-            {
-                foreach (var key in additionalCaps.Keys)
-                {
-                    appiumOptions.AddAdditionalCapability(key, additionalCaps[key]);
-                }
-            }
+            AppPath = appPath,
+            Lifecycle = lifecycle,
+            PlatformVersion = platformVersion,
+            DeviceName = deviceName,
+            AppiumOptions = new AppiumOptions(),
+            OSPlatform = OS.Windows,
+        };
 
-            return appiumOptions;
+    protected AppAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+        => AppConfiguration = new AppConfiguration
+                              {
+                                  AppPath = appPath,
+                                  Lifecycle = behavior,
+                                  PlatformVersion = platformVersion,
+                                  DeviceName = deviceName,
+                                  AppiumOptions = new AppiumOptions(),
+                                  OSPlatform = osPlatform,
+                              };
+
+    public AppConfiguration AppConfiguration { get; }
+
+    protected AppiumOptions AddAdditionalCapabilities(Type type, AppiumOptions appiumOptions)
+    {
+        var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
+        if (additionalCaps != null)
+        {
+            foreach (var key in additionalCaps.Keys)
+            {
+                appiumOptions.AddAdditionalCapability(key, additionalCaps[key]);
+            }
         }
+
+        return appiumOptions;
     }
 }

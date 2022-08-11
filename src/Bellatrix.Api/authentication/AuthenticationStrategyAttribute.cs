@@ -1,5 +1,5 @@
 ﻿// <copyright file="AuthenticationStrategyAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,11 +14,10 @@
 using System;
 using RestSharp.Authenticators;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+[AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
+public abstract class AuthenticationStrategyAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
-    public abstract class AuthenticationStrategyAttribute : Attribute
-    {
-        public abstract IAuthenticator GetAuthenticator();
-    }
+    public abstract IAuthenticator GetAuthenticator();
 }

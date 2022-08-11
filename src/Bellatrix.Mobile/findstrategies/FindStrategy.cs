@@ -1,5 +1,5 @@
 ﻿// <copyright file="By.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,25 +14,24 @@
 using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Locators
+namespace Bellatrix.Mobile.Locators;
+
+public abstract class FindStrategy<TDriver, TComponent>
+    where TDriver : AppiumDriver<TComponent>
+    where TComponent : AppiumWebElement
 {
-    public abstract class FindStrategy<TDriver, TComponent>
-        where TDriver : AppiumDriver<TComponent>
-        where TComponent : AppiumWebElement
+    public FindStrategy(string name)
     {
-        public FindStrategy(string name)
-        {
-            Value = name;
-        }
-
-        public string Value { get; }
-
-        public abstract TComponent FindElement(TDriver driver);
-
-        public abstract IEnumerable<TComponent> FindAllElements(TDriver driver);
-
-        public abstract AppiumWebElement FindElement(TComponent element);
-
-        public abstract IEnumerable<AppiumWebElement> FindAllElements(TComponent element);
+        Value = name;
     }
+
+    public string Value { get; }
+
+    public abstract TComponent FindElement(TDriver driver);
+
+    public abstract IEnumerable<TComponent> FindAllElements(TDriver driver);
+
+    public abstract AppiumWebElement FindElement(TComponent element);
+
+    public abstract IEnumerable<AppiumWebElement> FindAllElements(TComponent element);
 }

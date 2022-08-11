@@ -15,38 +15,37 @@ using Bellatrix.Plugins;
 using Bellatrix.Plugins.Video.Plugins;
 using NUnit.Framework;
 
-namespace Bellatrix.Results.NUnit
+namespace Bellatrix.Results.NUnit;
+
+public class NUnitResultsWorkflowPlugin : Plugin, IVideoPlugin
 {
-    public class NUnitResultsWorkflowPlugin : Plugin, IVideoPlugin
+    public NUnitResultsWorkflowPlugin()
     {
-        public NUnitResultsWorkflowPlugin()
-        {
-        }
+    }
 
-        public TestContext TestContext { get; set; }
+    public TestContext TestContext { get; set; }
 
-        public void SubscribeVideoPlugin(IVideoPluginProvider provider)
-        {
-            provider.VideoGeneratedEvent += VideoGenerated;
-        }
+    public void SubscribeVideoPlugin(IVideoPluginProvider provider)
+    {
+        provider.VideoGeneratedEvent += VideoGenerated;
+    }
 
-        public void UnsubscribeVideoPlugin(IVideoPluginProvider provider)
-        {
-            provider.VideoGeneratedEvent -= VideoGenerated;
-        }
+    public void UnsubscribeVideoPlugin(IVideoPluginProvider provider)
+    {
+        provider.VideoGeneratedEvent -= VideoGenerated;
+    }
 
-        public void VideoGenerated(object sender, VideoPluginEventArgs args)
+    public void VideoGenerated(object sender, VideoPluginEventArgs args)
+    {
+        if (!string.IsNullOrEmpty(args.VideoPath))
         {
-            if (!string.IsNullOrEmpty(args.VideoPath))
+            try
             {
-                try
-                {
-                    TestContext.AddTestAttachment(args.VideoPath);
-                }
-                catch
-                {
-                    // ignore
-                }
+                TestContext.AddTestAttachment(args.VideoPath);
+            }
+            catch
+            {
+                // ignore
             }
         }
     }

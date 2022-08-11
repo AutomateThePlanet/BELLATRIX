@@ -1,5 +1,5 @@
 ﻿// <copyright file="Playlists.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,15 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
 
-namespace MediaStore.Demo.API.Models
+namespace MediaStore.Demo.API.Models;
+
+public class Playlists
 {
-    public class Playlists
-    {
-        public Playlists() => PlaylistTrack = new HashSet<PlaylistTrack>();
+    public Playlists() => PlaylistTrack = new HashSet<PlaylistTrack>();
 
-        public long PlaylistId { get; set; }
-        public string Name { get; set; }
+    public long PlaylistId { get; set; }
+    public string Name { get; set; }
 
-        public ICollection<PlaylistTrack> PlaylistTrack { get; set; }
-    }
+    public ICollection<PlaylistTrack> PlaylistTrack { get; set; }
 }

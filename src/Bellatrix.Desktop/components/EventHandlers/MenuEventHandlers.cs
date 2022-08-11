@@ -1,5 +1,5 @@
 ﻿// <copyright file="MenuEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.EventHandlers
-{
-    public class MenuEventHandlers : ComponentEventHandlers
-    {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Menu.Hovering += HoveringEventHandler;
-            Menu.Hovered += HoveredEventHandler;
-        }
+namespace Bellatrix.Desktop.EventHandlers;
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Menu.Hovering -= HoveringEventHandler;
-            Menu.Hovered -= HoveredEventHandler;
-        }
+public class MenuEventHandlers : ComponentEventHandlers
+{
+    public override void SubscribeToAll()
+    {
+        base.SubscribeToAll();
+        Menu.Hovering += HoveringEventHandler;
+        Menu.Hovered += HoveredEventHandler;
+    }
+
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Menu.Hovering -= HoveringEventHandler;
+        Menu.Hovered -= HoveredEventHandler;
     }
 }

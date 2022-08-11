@@ -1,5 +1,5 @@
 ﻿// <copyright file="AndroidWebAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,25 +13,24 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Mobile
-{
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class AndroidWebAttribute : AppAttribute
-    {
-        public AndroidWebAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
-            : base(appPath, platformVersion, deviceName, behavior)
-        {
-            AppConfiguration.MobileOSType = MobileOSType.Android;
-            AppConfiguration.PlatformName = "Android";
-            AppConfiguration.BrowserName = "Chrome";
-        }
+namespace Bellatrix.Mobile;
 
-        public AndroidWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
-            : base(osPlatform, appPath, platformVersion, deviceName, behavior)
-        {
-            AppConfiguration.MobileOSType = MobileOSType.Android;
-            AppConfiguration.PlatformName = "Android";
-            AppConfiguration.BrowserName = "Chrome";
-        }
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public class AndroidWebAttribute : AppAttribute
+{
+    public AndroidWebAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+        : base(appPath, platformVersion, deviceName, behavior)
+    {
+        AppConfiguration.MobileOSType = MobileOSType.Android;
+        AppConfiguration.PlatformName = "Android";
+        AppConfiguration.BrowserName = "Chrome";
+    }
+
+    public AndroidWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+        : base(osPlatform, appPath, platformVersion, deviceName, behavior)
+    {
+        AppConfiguration.MobileOSType = MobileOSType.Android;
+        AppConfiguration.PlatformName = "Android";
+        AppConfiguration.BrowserName = "Chrome";
     }
 }

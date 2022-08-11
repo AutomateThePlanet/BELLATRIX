@@ -1,5 +1,5 @@
 ﻿// <copyright file="ColorEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class ColorEventHandlers : ComponentEventHandlers
 {
-    public class ColorEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Color.Hovering += HoveringEventHandler;
-            Color.Hovered += HoveredEventHandler;
-            Color.SettingColor += SettingColorEventHandler;
-            Color.ColorSet += ColorSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Color.Hovering += HoveringEventHandler;
+        Color.Hovered += HoveredEventHandler;
+        Color.SettingColor += SettingColorEventHandler;
+        Color.ColorSet += ColorSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Color.Hovering -= HoveringEventHandler;
-            Color.Hovered -= HoveredEventHandler;
-            Color.SettingColor -= SettingColorEventHandler;
-            Color.ColorSet -= ColorSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Color.Hovering -= HoveringEventHandler;
+        Color.Hovered -= HoveredEventHandler;
+        Color.SettingColor -= SettingColorEventHandler;
+        Color.ColorSet -= ColorSetEventHandler;
+    }
 
-        protected virtual void SettingColorEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingColorEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void ColorSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void ColorSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

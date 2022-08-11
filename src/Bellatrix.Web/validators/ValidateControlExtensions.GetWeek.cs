@@ -1,5 +1,5 @@
 ﻿// <copyright file="ValidateControlExtensions.GetWeek.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,17 +15,16 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
-{
-    public static partial class ValidateControlExtensions
-    {
-        public static void ValidateWeekIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentWeek, IComponent
-        {
-            WaitUntil(() => control.GetWeek().Equals(value), $"The control's week should be '{value}' but was '{control.GetWeek()}'.", timeout, sleepInterval);
-            ValidatedWeekIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
-        }
+namespace Bellatrix.Web;
 
-        public static event EventHandler<ComponentActionEventArgs> ValidatedWeekIsEvent;
+public static partial class ValidateControlExtensions
+{
+    public static void ValidateWeekIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentWeek, IComponent
+    {
+        WaitUntil(() => control.GetWeek().Equals(value), $"The control's week should be '{value}' but was '{control.GetWeek()}'.", timeout, sleepInterval);
+        ValidatedWeekIsEvent?.Invoke(control, new ComponentActionEventArgs(control, value));
     }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedWeekIsEvent;
 }

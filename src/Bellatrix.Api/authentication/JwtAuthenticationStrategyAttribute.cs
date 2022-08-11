@@ -1,5 +1,5 @@
 ﻿// <copyright file="JwtAuthenticationStrategyAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,18 +14,17 @@
 using Bellatrix.Plugins.Api;
 using RestSharp.Authenticators;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+/// <summary>
+///     JSON WEB TOKEN (JWT) Authenticator class.
+///     <remarks>https://tools.ietf.org/html/draft-ietf-oauth-json-web-token</remarks>
+/// </summary>
+public class JwtAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
 {
-    /// <summary>
-    ///     JSON WEB TOKEN (JWT) Authenticator class.
-    ///     <remarks>https://tools.ietf.org/html/draft-ietf-oauth-json-web-token</remarks>
-    /// </summary>
-    public class JwtAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
-    {
-        private readonly string _accessToken;
+    private readonly string _accessToken;
 
-        public JwtAuthenticationStrategyAttribute(string accessToken) => _accessToken = accessToken;
+    public JwtAuthenticationStrategyAttribute(string accessToken) => _accessToken = accessToken;
 
-        public override IAuthenticator GetAuthenticator() => new JwtAuthenticator(_accessToken);
-    }
+    public override IAuthenticator GetAuthenticator() => new JwtAuthenticator(_accessToken);
 }

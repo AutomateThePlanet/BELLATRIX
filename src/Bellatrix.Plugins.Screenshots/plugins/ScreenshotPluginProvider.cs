@@ -1,5 +1,5 @@
 ﻿// <copyright file="ScreenshotPluginProvider.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,16 +14,15 @@
 using System;
 using Bellatrix.Plugins;
 
-namespace Bellatrix.Plugins.Screenshots
+namespace Bellatrix.Plugins.Screenshots;
+
+public class ScreenshotPluginProvider : IScreenshotPluginProvider
 {
-    public class ScreenshotPluginProvider : IScreenshotPluginProvider
-    {
-        public event EventHandler<ScreenshotPluginEventArgs> ScreenshotGeneratedEvent;
+    public event EventHandler<ScreenshotPluginEventArgs> ScreenshotGeneratedEvent;
 
-        public void ScreenshotGenerated(PluginEventArgs e, string screenshotPath) =>
-            RaiseTestEvent(ScreenshotGeneratedEvent, e, screenshotPath);
+    public void ScreenshotGenerated(PluginEventArgs e, string screenshotPath) =>
+        RaiseTestEvent(ScreenshotGeneratedEvent, e, screenshotPath);
 
-        private void RaiseTestEvent(EventHandler<ScreenshotPluginEventArgs> eventHandler, PluginEventArgs e, string screenshotPath) =>
-            eventHandler?.Invoke(this, new ScreenshotPluginEventArgs(e, screenshotPath));
-    }
+    private void RaiseTestEvent(EventHandler<ScreenshotPluginEventArgs> eventHandler, PluginEventArgs e, string screenshotPath) =>
+        eventHandler?.Invoke(this, new ScreenshotPluginEventArgs(e, screenshotPath));
 }

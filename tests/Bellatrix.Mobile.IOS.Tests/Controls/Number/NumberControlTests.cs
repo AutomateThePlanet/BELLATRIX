@@ -1,5 +1,5 @@
 ﻿// <copyright file="NumberControlTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,36 +13,35 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Number Control")]
+public class NumberControlTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Number Control")]
-    public class NumberControlTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void NineSet_When_CallSetTextMethod()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void NineSet_When_CallSetTextMethod()
-        {
-            var number = App.Components.CreateById<Number>("IntegerA");
+        var number = App.Components.CreateById<Number>("IntegerA");
 
-            number.SetNumber(9);
+        number.SetNumber(9);
 
-            Assert.AreEqual(9, number.GetNumber());
-        }
+        Assert.AreEqual(9, number.GetNumber());
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_NumberIsNotDisabled()
-        {
-            var number = App.Components.CreateById<Number>("IntegerA");
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_NumberIsNotDisabled()
+    {
+        var number = App.Components.CreateById<Number>("IntegerA");
 
-            Assert.AreEqual(false, number.IsDisabled);
-        }
+        Assert.AreEqual(false, number.IsDisabled);
     }
 }

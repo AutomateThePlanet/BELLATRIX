@@ -2,26 +2,25 @@
 ////using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 
-namespace Bellatrix.Mobile.Tests
-{
-    // uncomment to use MSTest
-    ////[TestClass]
-    [TestFixture]
-    [Android("pathToApk",
-        "7.1",
-        "yourTestDeviceName",
-        "testPackageName",
-        "testActivityName",
-        Lifecycle.ReuseIfStarted)]
-    public class AndroidSampleTests : NUnit.AndroidTest
-    {
-        ////[TestMethod]
-        [Test]
-        public void CorrectTextDisplayed_When_ClickSubscribeButton()
-        {
-            var button = App.Components.CreateByIdContaining<Button>("button");
+namespace Bellatrix.Mobile.Tests;
 
-            button.Click();
-        }
+// uncomment to use MSTest
+////[TestClass]
+[TestFixture]
+[Android("pathToApk",
+    "7.1",
+    "yourTestDeviceName",
+    "testPackageName",
+    "testActivityName",
+    Lifecycle.ReuseIfStarted)]
+public class AndroidSampleTests : NUnit.AndroidTest
+{
+    ////[TestMethod]
+    [Test]
+    public void CorrectTextDisplayed_When_ClickSubscribeButton()
+    {
+        var button = App.Components.CreateByIdContaining<Button>("button");
+
+        button.Click();
     }
 }

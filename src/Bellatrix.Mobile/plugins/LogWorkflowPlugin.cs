@@ -1,5 +1,5 @@
 ﻿// <copyright file="LogWorkflowPlugin.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,13 +14,12 @@
 using Bellatrix.Plugins;
 using Serilog;
 
-namespace Bellatrix.Mobile.Plugins
+namespace Bellatrix.Mobile.Plugins;
+
+public class LogWorkflowPlugin : Plugin
 {
-    public class LogWorkflowPlugin : Plugin
+    protected override void PreTestInit(object sender, PluginEventArgs e)
     {
-        protected override void PreTestInit(object sender, PluginEventArgs e)
-        {
-            Logger.LogInformation($"Start Test {e.TestClassType.Name}.{e.TestMethodMemberInfo.Name}");
-        }
+        Logger.LogInformation($"Start Test {e.TestClassType.Name}.{e.TestMethodMemberInfo.Name}");
     }
 }

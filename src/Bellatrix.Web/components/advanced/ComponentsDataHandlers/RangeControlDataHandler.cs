@@ -1,5 +1,5 @@
 ﻿// <copyright file="RangeControlDataHandler.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,24 +15,23 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class RangeControlDataHandler : IEditableControlDataHandler<Range>
 {
-    public class RangeControlDataHandler : IEditableControlDataHandler<Range>
+    public dynamic GetData(Range element) => element.GetRange();
+
+    public void SetData(Range element, string data)
     {
-        public dynamic GetData(Range element) => element.GetRange();
-
-        public void SetData(Range element, string data)
+        if (int.TryParse(data, out int valueToSet))
         {
-            if (int.TryParse(data, out int valueToSet))
-            {
-                element.SetRange(valueToSet);
-            }
-            else
-            {
-                throw new ArgumentException($"The input string {data} was not recognized as valid integer.");
-            }
+            element.SetRange(valueToSet);
         }
-
-        public void ValidateValueIs(Range element, string expectedValue) => element.ValidateRangeIs(int.Parse(expectedValue));
+        else
+        {
+            throw new ArgumentException($"The input string {data} was not recognized as valid integer.");
+        }
     }
+
+    public void ValidateValueIs(Range element, string expectedValue) => element.ValidateRangeIs(int.Parse(expectedValue));
 }

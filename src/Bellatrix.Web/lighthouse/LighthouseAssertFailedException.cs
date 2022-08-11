@@ -1,5 +1,5 @@
 ﻿// <copyright file="LighthouseAssertFailedException.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.GoogleLighthouse
+namespace Bellatrix.GoogleLighthouse;
+
+public class LighthouseAssertFailedException : Exception
 {
-    public class LighthouseAssertFailedException : Exception
+    public LighthouseAssertFailedException()
     {
-        public LighthouseAssertFailedException()
-        {
-        }
-
-        public LighthouseAssertFailedException(string message)
-            : base(FormatExceptionMessage(message))
-        {
-        }
-
-        public LighthouseAssertFailedException(string message, Exception inner)
-            : base(FormatExceptionMessage(message), inner)
-        {
-        }
-
-        private static string FormatExceptionMessage(string exceptionMessage) => $"\n\n{new string('#', 40)}\n\n{exceptionMessage}\n\n{new string('#', 40)}\n";
     }
+
+    public LighthouseAssertFailedException(string message)
+        : base(FormatExceptionMessage(message))
+    {
+    }
+
+    public LighthouseAssertFailedException(string message, Exception inner)
+        : base(FormatExceptionMessage(message), inner)
+    {
+    }
+
+    private static string FormatExceptionMessage(string exceptionMessage) => $"\n\n{new string('#', 40)}\n\n{exceptionMessage}\n\n{new string('#', 40)}\n";
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="ButtonControlTestsChrome.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,88 +13,87 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Button Control")]
+public class ButtonControlTestsChrome : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Button Control")]
-    public class ButtonControlTestsChrome : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void SetTextToStop_When_UseClickMethod_Chrome()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ButtonLocalPage);
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void SetTextToStop_When_UseClickMethod_Chrome()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
+        buttonElement.Click();
 
-            buttonElement.Click();
+        Assert.AreEqual("Stop", buttonElement.InnerText);
+    }
 
-            Assert.AreEqual("Stop", buttonElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Chrome()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton9");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Chrome()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton9");
+        buttonElement.Hover();
 
-            buttonElement.Hover();
+        Assert.AreEqual("color: red;", buttonElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", buttonElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Chrome()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton10");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Chrome()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton10");
+        buttonElement.Focus();
 
-            buttonElement.Focus();
+        Assert.AreEqual("color: blue;", buttonElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", buttonElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Chrome()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Chrome()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
+        bool isDisabled = buttonElement.IsDisabled;
 
-            bool isDisabled = buttonElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
+    public void ReturnTrue_When_DisabledAttributePresent_Chrome()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton11");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]
-        public void ReturnTrue_When_DisabledAttributePresent_Chrome()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton11");
+        bool isDisabled = buttonElement.IsDisabled;
 
-            bool isDisabled = buttonElement.IsDisabled;
+        Assert.IsTrue(isDisabled);
+    }
 
-            Assert.IsTrue(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnStart_When_ValueAttributePresent_Chrome()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnStart_When_ValueAttributePresent_Chrome()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
+        var actualValue = buttonElement.Value;
 
-            var actualValue = buttonElement.Value;
+        Assert.AreEqual("Start", actualValue);
+    }
 
-            Assert.AreEqual("Start", actualValue);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnStart_When_UseInnerText_Chrome()
+    {
+        var buttonElement = App.Components.CreateById<Button>("myButton8");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnStart_When_UseInnerText_Chrome()
-        {
-            var buttonElement = App.Components.CreateById<Button>("myButton8");
-
-            Assert.AreEqual("Start", buttonElement.InnerText);
-        }
+        Assert.AreEqual("Start", buttonElement.InnerText);
     }
 }

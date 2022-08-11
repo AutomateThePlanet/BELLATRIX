@@ -1,5 +1,5 @@
 ﻿// <copyright file="TabsControlTestsWinForms.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Tabs Control")]
+[AllureTag("WinForms")]
+public class TabsControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Tabs Control")]
-    [AllureTag("WinForms")]
-    public class TabsControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_TabsHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_TabsHovered_WinForms()
-        {
-            var listBox = App.Components.CreateByAutomationId<Tabs>("tabs");
+        var listBox = App.Components.CreateByAutomationId<Tabs>("tabs");
 
-            listBox.Hover();
+        listBox.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.AreEqual("tabsHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.AreEqual("tabsHovered", label.InnerText);
     }
 }

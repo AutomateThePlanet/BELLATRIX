@@ -1,5 +1,5 @@
 ﻿// <copyright file="AzureDevOpsBugReportingService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,32 +19,31 @@ using Bellatrix.BugReporting;
 using Bellatrix.BugReporting.AzureDevOps;
 using Bellatrix.BugReporting.Contracts;
 
-namespace Bellatrix.BugReporting.AzureDevOps
+namespace Bellatrix.BugReporting.AzureDevOps;
+
+public class AzureDevOpsBugReportingService : IBugReportingService
 {
-    public class AzureDevOpsBugReportingService : IBugReportingService
+    public void LogBug(BugReportingContext testCasesContext, string exceptionMessage, List<string> filePathsToBeAttached = null)
     {
-        public void LogBug(BugReportingContext testCasesContext, string exceptionMessage, List<string> filePathsToBeAttached = null)
-        {
-            string stepsToReproduce = GenerateStepsToReproduce(testCasesContext.TestSteps);
-            AzureQueryExecutor.CreateBug($"TEST FAILED: {testCasesContext.TestFullName}", stepsToReproduce, exceptionMessage, filePathsToBeAttached);
-        }
+        string stepsToReproduce = GenerateStepsToReproduce(testCasesContext.TestSteps);
+        AzureQueryExecutor.CreateBug($"TEST FAILED: {testCasesContext.TestFullName}", stepsToReproduce, exceptionMessage, filePathsToBeAttached);
+    }
 
-        // TODO: Generate Better HTML. Do it in editor and then see the format.
-        private string GenerateStepsToReproduce(List<TestStep> testSteps)
+    // TODO: Generate Better HTML. Do it in editor and then see the format.
+    private string GenerateStepsToReproduce(List<TestStep> testSteps)
+    {
+        var stepsToReproduceBuilder = new StringBuilder();
+        foreach (var step in testSteps)
         {
-            var stepsToReproduceBuilder = new StringBuilder();
-            foreach (var step in testSteps)
+            stepsToReproduceBuilder.AppendLine($"<div>{step.Description}");
+            if (!string.IsNullOrEmpty(step.Expected))
             {
-                stepsToReproduceBuilder.AppendLine($"<div>{step.Description}");
-                if (!string.IsNullOrEmpty(step.Expected))
-                {
-                    stepsToReproduceBuilder.Append($" {step.Expected}");
-                }
-
-                stepsToReproduceBuilder.AppendLine("</div>");
+                stepsToReproduceBuilder.Append($" {step.Expected}");
             }
 
-            return stepsToReproduceBuilder.ToString();
+            stepsToReproduceBuilder.AppendLine("</div>");
         }
+
+        return stepsToReproduceBuilder.ToString();
     }
 }

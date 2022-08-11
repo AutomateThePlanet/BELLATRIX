@@ -1,5 +1,5 @@
 ﻿// <copyright file="Location.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,33 +14,32 @@
 using System;
 using System.Drawing;
 
-namespace Bellatrix.ImageRecognition.Models
+namespace Bellatrix.ImageRecognition.Models;
+
+public class Location
 {
-    public class Location
+    private readonly Point _point;
+
+    public Location(int x, int y)
+        : this(new Point(x, y))
     {
-        private readonly Point _point;
+    }
 
-        public Location(int x, int y)
-            : this(new Point(x, y))
-        {
-        }
+    private Location(Point point)
+    {
+        _point = point;
+    }
 
-        private Location(Point point)
+    public void Validate()
+    {
+        if (_point.X < 0 || _point.Y < 0)
         {
-            _point = point;
+            throw new ArgumentException("Cannot target a negative position");
         }
+    }
 
-        public void Validate()
-        {
-            if (_point.X < 0 || _point.Y < 0)
-            {
-                throw new ArgumentException("Cannot target a negative position");
-            }
-        }
-
-        public string ToSikuliScript()
-        {
-            return $"Location({_point.X},{_point.Y})";
-        }
+    public string ToSikuliScript()
+    {
+        return $"Location({_point.X},{_point.Y})";
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="WebAppTest.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,25 +13,24 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOSWebAttribute(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Services")]
+[AllureFeature("WebService")]
+public class WebAppTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOSWebAttribute(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Services")]
-    [AllureFeature("WebService")]
-    public class WebAppTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.KnownIssue)]
+    public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.KnownIssue)]
-        public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
-        {
-            App.Web.NavigationService.Navigate("http://demos.bellatrix.solutions/");
-            Assert.IsTrue(App.Web.BrowserService.Title != string.Empty);
-        }
+        App.Web.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+        Assert.IsTrue(App.Web.BrowserService.Title != string.Empty);
     }
 }

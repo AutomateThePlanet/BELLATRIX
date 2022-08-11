@@ -1,5 +1,5 @@
 ﻿// <copyright file="UntilNotBeVisible.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,47 +17,46 @@ using Bellatrix.Mobile.Locators;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Untils
+namespace Bellatrix.Mobile.Untils;
+
+public class WaitNotBeVisibleStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
+   where TDriver : AppiumDriver<TDriverElement>
+   where TDriverElement : AppiumWebElement
 {
-    public class WaitNotBeVisibleStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
-       where TDriver : AppiumDriver<TDriverElement>
-       where TDriverElement : AppiumWebElement
+    public WaitNotBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitNotBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementNotToBeVisibleTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementNotToBeVisibleTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-        {
-            WaitUntil(d => ElementIsInvisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementIsInvisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
 
-        private bool ElementIsInvisible<TBy>(TDriver searchContext, TBy by)
-            where TBy : FindStrategy<TDriver, TDriverElement>
+    private bool ElementIsInvisible<TBy>(TDriver searchContext, TBy by)
+        where TBy : FindStrategy<TDriver, TDriverElement>
+    {
+        try
         {
-            try
-            {
-                var element = by.FindElement(searchContext);
-                return !element.Displayed;
-            }
-            catch (NoSuchElementException)
-            {
-                // Returns true because the element is not present in DOM. The
-                // try block checks if the element is present but is invisible.
-                return true;
-            }
-            catch (InvalidOperationException)
-            {
-                return true;
-            }
-            catch (StaleElementReferenceException)
-            {
-                // Returns true because stale element reference implies that element
-                // is no longer visible.
-                return true;
-            }
+            var element = by.FindElement(searchContext);
+            return !element.Displayed;
+        }
+        catch (NoSuchElementException)
+        {
+            // Returns true because the element is not present in DOM. The
+            // try block checks if the element is present but is invisible.
+            return true;
+        }
+        catch (InvalidOperationException)
+        {
+            return true;
+        }
+        catch (StaleElementReferenceException)
+        {
+            // Returns true because stale element reference implies that element
+            // is no longer visible.
+            return true;
         }
     }
 }

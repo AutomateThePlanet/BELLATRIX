@@ -1,5 +1,5 @@
 ﻿// <copyright file="AppRegistrationExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -20,28 +20,27 @@ using Bellatrix.Results.MSTest;
 using Bellatrix.Results.NUnit;
 using Bellatrix.VideoRecording.FFmpeg;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class VideoRecorderPluginConfiguration
 {
-    public static class VideoRecorderPluginConfiguration
+    public static void AddMSTest()
     {
-        public static void AddMSTest()
-        {
-            Add();
-            ServicesCollection.Current.RegisterType<IVideoPlugin, MSTestResultsWorkflowPlugin>(Guid.NewGuid().ToString());
-        }
+        Add();
+        ServicesCollection.Current.RegisterType<IVideoPlugin, MSTestResultsWorkflowPlugin>(Guid.NewGuid().ToString());
+    }
 
-        public static void AddNUnit()
-        {
-            Add();
-            ServicesCollection.Current.RegisterType<IVideoPlugin, NUnitResultsWorkflowPlugin>(Guid.NewGuid().ToString());
-        }
+    public static void AddNUnit()
+    {
+        Add();
+        ServicesCollection.Current.RegisterType<IVideoPlugin, NUnitResultsWorkflowPlugin>(Guid.NewGuid().ToString());
+    }
 
-        private static void Add()
-        {
-            ServicesCollection.Current.RegisterType<IVideoRecorder, FFmpegVideoRecorder>();
-            ServicesCollection.Current.RegisterType<IVideoRecorderOutputProvider, VideoRecorderOutputProvider>();
-            ServicesCollection.Current.RegisterType<IVideoPluginProvider, VideoPluginProvider>();
-            ServicesCollection.Current.RegisterType<Plugin, VideoPlugin>(Guid.NewGuid().ToString());
-        }
+    private static void Add()
+    {
+        ServicesCollection.Current.RegisterType<IVideoRecorder, FFmpegVideoRecorder>();
+        ServicesCollection.Current.RegisterType<IVideoRecorderOutputProvider, VideoRecorderOutputProvider>();
+        ServicesCollection.Current.RegisterType<IVideoPluginProvider, VideoPluginProvider>();
+        ServicesCollection.Current.RegisterType<Plugin, VideoPlugin>(Guid.NewGuid().ToString());
     }
 }

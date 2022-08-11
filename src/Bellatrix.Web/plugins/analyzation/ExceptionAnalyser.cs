@@ -16,52 +16,51 @@ using System.Collections.Generic;
 using Bellatrix.ExceptionAnalysation.Contracts;
 using Bellatrix.Web;
 
-namespace Bellatrix.ExceptionAnalysation
+namespace Bellatrix.ExceptionAnalysation;
+
+public class ExceptionAnalyser : IExceptionAnalyser
 {
-    public class ExceptionAnalyser : IExceptionAnalyser
+    private readonly List<IExceptionAnalysationHandler> _exceptionAnalysationHandlers;
+
+    public ExceptionAnalyser() => _exceptionAnalysationHandlers = new List<IExceptionAnalysationHandler>();
+
+    public void RemoveFirstExceptionAnalysationHandler()
     {
-        private readonly List<IExceptionAnalysationHandler> _exceptionAnalysationHandlers;
-
-        public ExceptionAnalyser() => _exceptionAnalysationHandlers = new List<IExceptionAnalysationHandler>();
-
-        public void RemoveFirstExceptionAnalysationHandler()
+        if (_exceptionAnalysationHandlers.Count > 0)
         {
-            if (_exceptionAnalysationHandlers.Count > 0)
-            {
-                _exceptionAnalysationHandlers.RemoveAt(0);
-            }
+            _exceptionAnalysationHandlers.RemoveAt(0);
         }
+    }
 
-        public void Analyse(Exception ex = null, ServicesCollection container = null, params object[] context)
+    public void Analyse(Exception ex = null, ServicesCollection container = null, params object[] context)
+    {
+        container ??= ServicesCollection.Current;
+
+        IEnumerable<IExceptionAnalysationHandler> handlers = ServicesCollection.Current.ResolveAll<IExceptionAnalysationHandler>();
+        _exceptionAnalysationHandlers.AddRange(handlers);
+        foreach (IExceptionAnalysationHandler exceptionHandler in _exceptionAnalysationHandlers)
         {
-            container ??= ServicesCollection.Current;
-
-            IEnumerable<IExceptionAnalysationHandler> handlers = ServicesCollection.Current.ResolveAll<IExceptionAnalysationHandler>();
-            _exceptionAnalysationHandlers.AddRange(handlers);
-            foreach (IExceptionAnalysationHandler exceptionHandler in _exceptionAnalysationHandlers)
+            if (exceptionHandler.IsApplicable(ex, container, context))
             {
-                if (exceptionHandler.IsApplicable(ex, container, context))
+                BrowserService browserService = container?.Resolve<BrowserService>();
+                if (browserService != null)
                 {
-                    BrowserService browserService = container?.Resolve<BrowserService>();
-                    if (browserService != null)
-                    {
-                        string url = browserService.Url.ToString();
-                        browserService.PrintConsoleOutput();
-                        throw new AnalyzedTestException(exceptionHandler.DetailedIssueExplanation, url, ex);
-                    }
-                    else
-                    {
-                        throw new AnalyzedTestException(exceptionHandler.DetailedIssueExplanation);
-                    }
+                    string url = browserService.Url.ToString();
+                    browserService.PrintConsoleOutput();
+                    throw new AnalyzedTestException(exceptionHandler.DetailedIssueExplanation, url, ex);
+                }
+                else
+                {
+                    throw new AnalyzedTestException(exceptionHandler.DetailedIssueExplanation);
                 }
             }
         }
-
-        public void AddExceptionAnalysationHandler<TExceptionAnalysationHandler>(
-            IExceptionAnalysationHandler exceptionAnalysationHandler)
-            where TExceptionAnalysationHandler : IExceptionAnalysationHandler => _exceptionAnalysationHandlers.Insert(0, exceptionAnalysationHandler);
-
-        public void AddExceptionAnalysationHandler<TExceptionAnalysationHandler>()
-            where TExceptionAnalysationHandler : IExceptionAnalysationHandler, new() => _exceptionAnalysationHandlers.Insert(0, new TExceptionAnalysationHandler());
     }
+
+    public void AddExceptionAnalysationHandler<TExceptionAnalysationHandler>(
+        IExceptionAnalysationHandler exceptionAnalysationHandler)
+        where TExceptionAnalysationHandler : IExceptionAnalysationHandler => _exceptionAnalysationHandlers.Insert(0, exceptionAnalysationHandler);
+
+    public void AddExceptionAnalysationHandler<TExceptionAnalysationHandler>()
+        where TExceptionAnalysationHandler : IExceptionAnalysationHandler, new() => _exceptionAnalysationHandlers.Insert(0, new TExceptionAnalysationHandler());
 }

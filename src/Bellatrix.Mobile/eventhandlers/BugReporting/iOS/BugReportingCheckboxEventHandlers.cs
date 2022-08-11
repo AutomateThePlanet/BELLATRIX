@@ -1,5 +1,5 @@
 ﻿// <copyright file="BugReportingCheckboxEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,12 +15,11 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.BugReporting.IOS
-{
-    public class BugReportingCheckboxEventHandlers : CheckboxEventHandlers
-    {
-        protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+namespace Bellatrix.Mobile.BugReporting.IOS;
 
-        protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+public class BugReportingCheckboxEventHandlers : CheckboxEventHandlers
+{
+    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+
+    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

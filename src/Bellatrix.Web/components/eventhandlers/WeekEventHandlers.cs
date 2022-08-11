@@ -1,5 +1,5 @@
 ﻿// <copyright file="WeekEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class WeekEventHandlers : ComponentEventHandlers
 {
-    public class WeekEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Week.Hovering += HoveringEventHandler;
-            Week.Hovered += HoveredEventHandler;
-            Week.SettingWeek += SettingWeekEventHandler;
-            Week.WeekSet += WeekSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Week.Hovering += HoveringEventHandler;
+        Week.Hovered += HoveredEventHandler;
+        Week.SettingWeek += SettingWeekEventHandler;
+        Week.WeekSet += WeekSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Week.Hovering -= HoveringEventHandler;
-            Week.Hovered -= HoveredEventHandler;
-            Week.SettingWeek -= SettingWeekEventHandler;
-            Week.WeekSet -= WeekSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Week.Hovering -= HoveringEventHandler;
+        Week.Hovered -= HoveredEventHandler;
+        Week.SettingWeek -= SettingWeekEventHandler;
+        Week.WeekSet -= WeekSetEventHandler;
+    }
 
-        protected virtual void SettingWeekEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingWeekEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void WeekSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void WeekSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

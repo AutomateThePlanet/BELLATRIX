@@ -1,5 +1,5 @@
 ﻿// <copyright file="EmailEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class EmailEventHandlers : ComponentEventHandlers
 {
-    public class EmailEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Email.Hovering += HoveringEventHandler;
-            Email.Hovered += HoveredEventHandler;
-            Email.SettingEmail += SettingEmailEventHandler;
-            Email.EmailSet += EmailSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Email.Hovering += HoveringEventHandler;
+        Email.Hovered += HoveredEventHandler;
+        Email.SettingEmail += SettingEmailEventHandler;
+        Email.EmailSet += EmailSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Email.Hovering -= HoveringEventHandler;
-            Email.Hovered -= HoveredEventHandler;
-            Email.SettingEmail -= SettingEmailEventHandler;
-            Email.EmailSet -= EmailSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Email.Hovering -= HoveringEventHandler;
+        Email.Hovered -= HoveredEventHandler;
+        Email.SettingEmail -= SettingEmailEventHandler;
+        Email.EmailSet -= EmailSetEventHandler;
+    }
 
-        protected virtual void SettingEmailEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingEmailEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void EmailSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void EmailSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

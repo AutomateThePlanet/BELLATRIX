@@ -1,5 +1,5 @@
 ﻿// <copyright file="Time.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,31 +16,30 @@ using System.Diagnostics;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class Time : Component, IComponentDisabled, IComponentTime
 {
-    public class Time : Component, IComponentDisabled, IComponentTime
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> SettingTime;
+    public static event EventHandler<ComponentActionEventArgs> TimeSet;
+
+    public virtual string GetTime()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> SettingTime;
-        public static event EventHandler<ComponentActionEventArgs> TimeSet;
-
-        public virtual string GetTime()
-        {
-            return GetInnerText();
-        }
-
-        public virtual void SetTime(int hours, int minutes)
-        {
-            SetText(SettingTime, TimeSet, $"{hours}:{minutes}:00");
-        }
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        return GetInnerText();
     }
+
+    public virtual void SetTime(int hours, int minutes)
+    {
+        SetText(SettingTime, TimeSet, $"{hours}:{minutes}:00");
+    }
+
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

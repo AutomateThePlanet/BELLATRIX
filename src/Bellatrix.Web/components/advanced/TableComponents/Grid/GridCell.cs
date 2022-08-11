@@ -1,5 +1,5 @@
 ﻿// <copyright file="GridCell.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,111 +17,110 @@ using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class GridCell : Component, IComponentInnerText, IComponentInnerHtml
 {
-    public class GridCell : Component, IComponentInnerText, IComponentInnerHtml
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> Clicking;
+    public static event EventHandler<ComponentActionEventArgs> Clicked;
+
+    public void Hover()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> Clicking;
-        public static event EventHandler<ComponentActionEventArgs> Clicked;
+        Hover(Hovering, Hovered);
+    }
 
-        public void Hover()
+    public void Click()
+    {
+        Click(Clicking, Clicked);
+    }
+
+    public Type CellControlComponentType { get; set; }
+
+    public dynamic CellControlBy { get; set; }
+
+    public int Column { get; set; }
+
+    public int Row { get; set; }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public string InnerText => GetInnerText();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public string InnerHtml => GetInnerHtmlAttribute();
+
+    public TComponent As<TComponent>()
+        where TComponent : Component, new()
+    {
+        CellControlComponentType = typeof(TComponent);
+        if (CellControlBy == null)
         {
-            Hover(Hovering, Hovered);
+            object instance = Activator.CreateInstance(CellControlComponentType);
+            var byProperty = CellControlComponentType.GetProperty("By");
+            byProperty?.SetValue(instance, By, null);
+
+            var wrappedElementProperty = CellControlComponentType.GetProperty("WrappedElement");
+            var wrappedElementParent = CellControlComponentType.GetProperty("ParentWrappedElement");
+            var wrappedElementIndex = CellControlComponentType.GetProperty("ElementIndex");
+
+            wrappedElementProperty?.SetValue(instance, WrappedElement, null);
+            wrappedElementParent?.SetValue(instance, ParentWrappedElement, null);
+            wrappedElementIndex?.SetValue(instance, ElementIndex, null);
+
+            var isRefreshableElementProperty = CellControlComponentType.GetProperty("ShouldCacheElement");
+            isRefreshableElementProperty?.SetValue(instance, true, null);
+            return instance as TComponent;
+        }
+        else
+        {
+            return Create(CellControlBy, typeof(TComponent));
+        }
+    }
+
+    public dynamic As()
+    {
+        if (CellControlComponentType == null)
+        {
+            CellControlComponentType = typeof(Label);
         }
 
-        public void Click()
+        if (CellControlBy == null)
         {
-            Click(Clicking, Clicked);
+            object instance = Activator.CreateInstance(CellControlComponentType);
+            var byProperty = CellControlComponentType.GetProperty("By");
+            byProperty?.SetValue(instance, By, null);
+
+            var wrappedElementProperty = CellControlComponentType.GetProperty("WrappedElement");
+            var wrappedElementParent = CellControlComponentType.GetProperty("ParentWrappedElement");
+            var wrappedElementIndex = CellControlComponentType.GetProperty("ElementIndex");
+
+            wrappedElementProperty?.SetValue(instance, WrappedElement, null);
+            wrappedElementParent?.SetValue(instance, ParentWrappedElement, null);
+            wrappedElementIndex?.SetValue(instance, ElementIndex, null);
+
+            var isRefreshableElementProperty = CellControlComponentType.GetProperty("ShouldCacheElement");
+            isRefreshableElementProperty?.SetValue(instance, true, null);
+
+            return instance;
         }
-
-        public Type CellControlComponentType { get; set; }
-
-        public dynamic CellControlBy { get; set; }
-
-        public int Column { get; set; }
-
-        public int Row { get; set; }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerText => GetInnerText();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
-
-        public TComponent As<TComponent>()
-            where TComponent : Component, new()
+        else
         {
-            CellControlComponentType = typeof(TComponent);
-            if (CellControlBy == null)
-            {
-                object instance = Activator.CreateInstance(CellControlComponentType);
-                var byProperty = CellControlComponentType.GetProperty("By");
-                byProperty?.SetValue(instance, By, null);
-
-                var wrappedElementProperty = CellControlComponentType.GetProperty("WrappedElement");
-                var wrappedElementParent = CellControlComponentType.GetProperty("ParentWrappedElement");
-                var wrappedElementIndex = CellControlComponentType.GetProperty("ElementIndex");
-
-                wrappedElementProperty?.SetValue(instance, WrappedElement, null);
-                wrappedElementParent?.SetValue(instance, ParentWrappedElement, null);
-                wrappedElementIndex?.SetValue(instance, ElementIndex, null);
-
-                var isRefreshableElementProperty = CellControlComponentType.GetProperty("ShouldCacheElement");
-                isRefreshableElementProperty?.SetValue(instance, true, null);
-                return instance as TComponent;
-            }
-            else
-            {
-                return Create(CellControlBy, typeof(TComponent));
-            }
+            return Create(CellControlBy, CellControlComponentType);
         }
+    }
 
-        public dynamic As()
-        {
-            if (CellControlComponentType == null)
-            {
-                CellControlComponentType = typeof(Label);
-            }
+    internal void DefaultClick<TComponent>(
+       TComponent element,
+       EventHandler<ComponentActionEventArgs> clicking,
+       EventHandler<ComponentActionEventArgs> clicked)
+       where TComponent : Component
+    {
+        clicking?.Invoke(this, new ComponentActionEventArgs(element));
 
-            if (CellControlBy == null)
-            {
-                object instance = Activator.CreateInstance(CellControlComponentType);
-                var byProperty = CellControlComponentType.GetProperty("By");
-                byProperty?.SetValue(instance, By, null);
+        element.ToExists().ToBeClickable().WaitToBe();
+        element.WrappedElement.Click();
 
-                var wrappedElementProperty = CellControlComponentType.GetProperty("WrappedElement");
-                var wrappedElementParent = CellControlComponentType.GetProperty("ParentWrappedElement");
-                var wrappedElementIndex = CellControlComponentType.GetProperty("ElementIndex");
-
-                wrappedElementProperty?.SetValue(instance, WrappedElement, null);
-                wrappedElementParent?.SetValue(instance, ParentWrappedElement, null);
-                wrappedElementIndex?.SetValue(instance, ElementIndex, null);
-
-                var isRefreshableElementProperty = CellControlComponentType.GetProperty("ShouldCacheElement");
-                isRefreshableElementProperty?.SetValue(instance, true, null);
-
-                return instance;
-            }
-            else
-            {
-                return Create(CellControlBy, CellControlComponentType);
-            }
-        }
-
-        internal void DefaultClick<TComponent>(
-           TComponent element,
-           EventHandler<ComponentActionEventArgs> clicking,
-           EventHandler<ComponentActionEventArgs> clicked)
-           where TComponent : Component
-        {
-            clicking?.Invoke(this, new ComponentActionEventArgs(element));
-
-            element.ToExists().ToBeClickable().WaitToBe();
-            element.WrappedElement.Click();
-
-            clicked?.Invoke(this, new ComponentActionEventArgs(element));
-        }
+        clicked?.Invoke(this, new ComponentActionEventArgs(element));
     }
 }

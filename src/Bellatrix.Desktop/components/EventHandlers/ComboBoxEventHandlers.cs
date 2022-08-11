@@ -1,5 +1,5 @@
 ﻿// <copyright file="ComboBoxEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.EventHandlers
+namespace Bellatrix.Desktop.EventHandlers;
+
+public class ComboBoxEventHandlers : ComponentEventHandlers
 {
-    public class ComboBoxEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            ComboBox.Selecting += SelectingEventHandler;
-            ComboBox.Selected += SelectedEventHandler;
-            ComboBox.Hovering += HoveringEventHandler;
-            ComboBox.Hovered += HoveredEventHandler;
-        }
+        base.SubscribeToAll();
+        ComboBox.Selecting += SelectingEventHandler;
+        ComboBox.Selected += SelectedEventHandler;
+        ComboBox.Hovering += HoveringEventHandler;
+        ComboBox.Hovered += HoveredEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            ComboBox.Selecting -= SelectingEventHandler;
-            ComboBox.Selected -= SelectedEventHandler;
-            ComboBox.Hovering -= HoveringEventHandler;
-            ComboBox.Hovered -= HoveredEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        ComboBox.Selecting -= SelectingEventHandler;
+        ComboBox.Selected -= SelectedEventHandler;
+        ComboBox.Hovering -= HoveringEventHandler;
+        ComboBox.Hovered -= HoveredEventHandler;
+    }
 
-        protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

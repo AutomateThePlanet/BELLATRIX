@@ -1,5 +1,5 @@
 ﻿// <copyright file="IWebDriverElementFinderService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,14 +14,13 @@
 using System.Collections.Generic;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
-{
-    public interface IWebDriverElementFinderService
-    {
-        IWebElement Find<TBy>(TBy by)
-            where TBy : FindStrategy;
+namespace Bellatrix.Web;
 
-        IEnumerable<IWebElement> FindAll<TBy>(TBy by)
-            where TBy : FindStrategy;
-    }
+public interface IWebDriverElementFinderService
+{
+    IWebElement Find<TBy>(TBy by)
+        where TBy : FindStrategy;
+
+    IEnumerable<IWebElement> FindAll<TBy>(TBy by)
+        where TBy : FindStrategy;
 }

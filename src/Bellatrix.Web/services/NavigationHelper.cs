@@ -1,5 +1,5 @@
 ﻿// <copyright file="NavigationHelper.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,39 +14,38 @@
 using System;
 using Bellatrix.Web.Helpers;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+internal class NavigationHelper : INavigationHelper
 {
-    internal class NavigationHelper : INavigationHelper
+    public string GetHostByLocation(string currentLocation)
     {
-        public string GetHostByLocation(string currentLocation)
+        var currentHost = string.Empty;
+        return currentHost;
+    }
+
+    public string FormatUrl(string relativeUrl, string host, bool sslEnabled)
+    {
+        var url = relativeUrl;
+        if (!relativeUrl.StartsWith("/", StringComparison.Ordinal) &&
+            relativeUrl.StartsWith(@"~/", StringComparison.Ordinal))
         {
-            var currentHost = string.Empty;
-            return currentHost;
+            url = relativeUrl.Substring(2);
         }
 
-        public string FormatUrl(string relativeUrl, string host, bool sslEnabled)
+        url = string.Concat(host, url);
+
+        if (sslEnabled)
         {
-            var url = relativeUrl;
-            if (!relativeUrl.StartsWith("/", StringComparison.Ordinal) &&
-                relativeUrl.StartsWith(@"~/", StringComparison.Ordinal))
-            {
-                url = relativeUrl.Substring(2);
-            }
-
-            url = string.Concat(host, url);
-
-            if (sslEnabled)
-            {
-                url = url.Replace("http://", "https://");
-            }
-
-            return url;
+            url = url.Replace("http://", "https://");
         }
 
-        public string GetAbsoluteUrl(string relativeUrl, string currentLocation, bool sslEnabled = false)
-        {
-            var host = GetHostByLocation(currentLocation);
-            return FormatUrl(relativeUrl, host, sslEnabled);
-        }
+        return url;
+    }
+
+    public string GetAbsoluteUrl(string relativeUrl, string currentLocation, bool sslEnabled = false)
+    {
+        var host = GetHostByLocation(currentLocation);
+        return FormatUrl(relativeUrl, host, sslEnabled);
     }
 }

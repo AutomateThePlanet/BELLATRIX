@@ -1,5 +1,5 @@
 ﻿// <copyright file="ButtonControlDataHandler.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,31 +14,30 @@
 
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
-{
-    public class ButtonControlDataHandler : IReadonlyControlDataHandler<Button>
-    {
-        public dynamic GetData(Button element)
-        {
-            string data = element.InnerText.Trim();
-            if (string.IsNullOrEmpty(data))
-            {
-                data = element.Value;
-            }
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 
-            return data;
+public class ButtonControlDataHandler : IReadonlyControlDataHandler<Button>
+{
+    public dynamic GetData(Button element)
+    {
+        string data = element.InnerText.Trim();
+        if (string.IsNullOrEmpty(data))
+        {
+            data = element.Value;
         }
 
-        public void ValidateValueIs(Button element, string expectedValue)
+        return data;
+    }
+
+    public void ValidateValueIs(Button element, string expectedValue)
+    {
+        if (string.IsNullOrEmpty(element.InnerText.Trim()))
         {
-            if (string.IsNullOrEmpty(element.InnerText.Trim()))
-            {
-                element.ValidateValueIs(expectedValue);
-            }
-            else
-            {
-                element.ValidateInnerTextIs(expectedValue);
-            }
+            element.ValidateValueIs(expectedValue);
+        }
+        else
+        {
+            element.ValidateInnerTextIs(expectedValue);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="ToggleButtonEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,42 +15,41 @@ using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.IOS;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.EventHandlers.IOS
+namespace Bellatrix.Mobile.EventHandlers.IOS;
+
+public class ToggleButtonEventHandlers : ComponentEventHandlers
 {
-    public class ToggleButtonEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            ToggleButton.TurningOn += TurningOnEventHandler;
-            ToggleButton.TurnedOn += TurnedOnEventHandler;
-            ToggleButton.TurningOff += TurningOffEventHandler;
-            ToggleButton.TurnedOff += TurnedOffEventHandler;
-        }
+        base.SubscribeToAll();
+        ToggleButton.TurningOn += TurningOnEventHandler;
+        ToggleButton.TurnedOn += TurnedOnEventHandler;
+        ToggleButton.TurningOff += TurningOffEventHandler;
+        ToggleButton.TurnedOff += TurnedOffEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            ToggleButton.TurningOn -= TurningOnEventHandler;
-            ToggleButton.TurnedOn -= TurnedOnEventHandler;
-            ToggleButton.TurningOff -= TurningOffEventHandler;
-            ToggleButton.TurnedOff -= TurnedOffEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        ToggleButton.TurningOn -= TurningOnEventHandler;
+        ToggleButton.TurnedOn -= TurnedOnEventHandler;
+        ToggleButton.TurningOff -= TurningOffEventHandler;
+        ToggleButton.TurnedOff -= TurnedOffEventHandler;
+    }
 
-        protected virtual void TurningOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void TurningOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void TurnedOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void TurnedOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void TurningOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void TurningOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void TurnedOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void TurnedOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
     }
 }

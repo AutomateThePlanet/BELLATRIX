@@ -1,5 +1,5 @@
 ﻿// <copyright file="AssemblyFacade.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,63 +18,62 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Bellatrix.Infrastructure
+namespace Bellatrix.Infrastructure;
+
+public class AssemblyFacade
 {
-    public class AssemblyFacade
+    public Assembly GetExecutingAssembly() => Assembly.GetExecutingAssembly();
+
+    public Assembly LoadFile(string path)
     {
-        public Assembly GetExecutingAssembly() => Assembly.GetExecutingAssembly();
+        var assemblyBytes = File.ReadAllBytes(path);
+        var assembly = Assembly.Load(assemblyBytes);
+        return assembly;
+    }
 
-        public Assembly LoadFile(string path)
+    public string GetAssemblyDirectory()
+    {
+        var codeBase = Assembly.GetExecutingAssembly().Location;
+        var uri = new UriBuilder(codeBase);
+        var path = Uri.UnescapeDataString(uri.Path);
+        return Path.GetDirectoryName(path);
+    }
+
+    public List<Assembly> GetAssembliesCallChain()
+    {
+        var trace = new StackTrace();
+        var assemblies = new List<Assembly>();
+        var frames = trace.GetFrames();
+
+        if (frames == null)
         {
-            var assemblyBytes = File.ReadAllBytes(path);
-            var assembly = Assembly.Load(assemblyBytes);
-            return assembly;
+            throw new Exception("Couldn't get the stack trace");
         }
 
-        public string GetAssemblyDirectory()
+        foreach (var frame in frames)
         {
-            var codeBase = Assembly.GetExecutingAssembly().Location;
-            var uri = new UriBuilder(codeBase);
-            var path = Uri.UnescapeDataString(uri.Path);
-            return Path.GetDirectoryName(path);
+            var method = frame.GetMethod();
+            var declaringType = method.DeclaringType;
+
+            if (declaringType == null)
+            {
+                continue;
+            }
+
+            var declaringTypeAssembly = declaringType.Assembly;
+            var lastAssembly = assemblies.LastOrDefault();
+
+            if (declaringTypeAssembly != lastAssembly)
+            {
+                assemblies.Add(declaringTypeAssembly);
+            }
         }
 
-        public List<Assembly> GetAssembliesCallChain()
+        foreach (var currentAssembly in assemblies)
         {
-            var trace = new StackTrace();
-            var assemblies = new List<Assembly>();
-            var frames = trace.GetFrames();
-
-            if (frames == null)
-            {
-                throw new Exception("Couldn't get the stack trace");
-            }
-
-            foreach (var frame in frames)
-            {
-                var method = frame.GetMethod();
-                var declaringType = method.DeclaringType;
-
-                if (declaringType == null)
-                {
-                    continue;
-                }
-
-                var declaringTypeAssembly = declaringType.Assembly;
-                var lastAssembly = assemblies.LastOrDefault();
-
-                if (declaringTypeAssembly != lastAssembly)
-                {
-                    assemblies.Add(declaringTypeAssembly);
-                }
-            }
-
-            foreach (var currentAssembly in assemblies)
-            {
-                Debug.WriteLine(currentAssembly.ManifestModule.Name);
-            }
-
-            return assemblies;
+            Debug.WriteLine(currentAssembly.ManifestModule.Name);
         }
+
+        return assemblies;
     }
 }

@@ -1,16 +1,15 @@
 ﻿// <copyright file="InjectionConstructor.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix
-{
-    public class InjectionConstructor
-    {
-        public InjectionConstructor(params object[] parameters) => Parameters = parameters;
+namespace Bellatrix;
 
-        public object[] Parameters { get; set; }
-    }
+public class InjectionConstructor
+{
+    public InjectionConstructor(params object[] parameters) => Parameters = parameters;
+
+    public object[] Parameters { get; set; }
 }

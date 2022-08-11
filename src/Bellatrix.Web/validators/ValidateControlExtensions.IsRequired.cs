@@ -1,5 +1,5 @@
 ﻿// <copyright file="ValidateControlExtensions.IsRequired.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsRequired<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentRequired, IComponent
     {
-        public static void ValidateIsRequired<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentRequired, IComponent
-        {
-            WaitUntil(() => control.IsRequired.Equals(true), "The control should be required but was NOT.", timeout, sleepInterval);
-            ValidatedIsRequiredEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateIsNotRequired<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentRequired, IComponent
-        {
-            WaitUntil(() => !control.IsRequired.Equals(true), "The control should be NOT required but it was.", timeout, sleepInterval);
-            ValidatedIsNotRequiredEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsRequiredEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotRequiredEvent;
+        WaitUntil(() => control.IsRequired.Equals(true), "The control should be required but was NOT.", timeout, sleepInterval);
+        ValidatedIsRequiredEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateIsNotRequired<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentRequired, IComponent
+    {
+        WaitUntil(() => !control.IsRequired.Equals(true), "The control should be NOT required but it was.", timeout, sleepInterval);
+        ValidatedIsNotRequiredEvent?.Invoke(control, new ComponentActionEventArgs(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsRequiredEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotRequiredEvent;
 }

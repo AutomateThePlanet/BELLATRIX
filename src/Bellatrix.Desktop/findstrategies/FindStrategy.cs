@@ -1,5 +1,5 @@
 ﻿// <copyright file="By.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,23 +15,22 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Locators
+namespace Bellatrix.Desktop.Locators;
+
+public abstract class FindStrategy
 {
-    public abstract class FindStrategy
+    public FindStrategy(string name)
     {
-        public FindStrategy(string name)
-        {
-            Value = name;
-        }
-
-        public string Value { get; }
-
-        public abstract WindowsElement FindElement(WindowsDriver<WindowsElement> driver);
-
-        public abstract IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> driver);
-
-        public abstract AppiumWebElement FindElement(WindowsElement element);
-
-        public abstract IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element);
+        Value = name;
     }
+
+    public string Value { get; }
+
+    public abstract WindowsElement FindElement(WindowsDriver<WindowsElement> driver);
+
+    public abstract IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> driver);
+
+    public abstract AppiumWebElement FindElement(WindowsElement element);
+
+    public abstract IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element);
 }

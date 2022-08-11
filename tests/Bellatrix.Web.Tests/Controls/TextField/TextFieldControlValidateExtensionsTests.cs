@@ -1,5 +1,5 @@
 ﻿// <copyright file="TextFieldControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,183 +13,182 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("TextField Control")]
+[AllureFeature("ValidateExtensions")]
+public class TextFieldControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("TextField Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class TextFieldControlValidateExtensionsTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
-        {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        textFieldElement.ValidateAutoCompleteOff();
+    }
 
-            textFieldElement.ValidateAutoCompleteOff();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        Assert.AreEqual(true, textFieldElement.IsAutoComplete);
+        textFieldElement.ValidateAutoCompleteOn();
+    }
 
-            Assert.AreEqual(true, textFieldElement.IsAutoComplete);
-            textFieldElement.ValidateAutoCompleteOn();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        textFieldElement.ValidateIsNotReadonly();
+    }
 
-            textFieldElement.ValidateIsNotReadonly();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText6");
+        textFieldElement.ValidateIsReadonly();
+    }
 
-            textFieldElement.ValidateIsReadonly();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        textFieldElement.ValidateMaxLengthIsNull();
+    }
 
-            textFieldElement.ValidateMaxLengthIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        textFieldElement.ValidateMinLengthIsNull();
+    }
 
-            textFieldElement.ValidateMinLengthIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateSizeIs_DoesNotThrowException_When_SizeAttributeIsNotPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateSizeIs_DoesNotThrowException_When_SizeAttributeIsNotPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        textFieldElement.ValidateSizeIs(20);
+    }
 
-            textFieldElement.ValidateSizeIs(20);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        textFieldElement.ValidateMaxLengthIs(80);
+    }
 
-            textFieldElement.ValidateMaxLengthIs(80);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        textFieldElement.ValidateMinLengthIs(10);
+    }
 
-            textFieldElement.ValidateMinLengthIs(10);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        textFieldElement.ValidateIsNotRequired();
+    }
 
-            textFieldElement.ValidateIsNotRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText7");
+        textFieldElement.ValidateIsRequired();
+    }
 
-            textFieldElement.ValidateIsRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        textFieldElement.ValidatePlaceholderIs("your Text term goes here");
+    }
 
-            textFieldElement.ValidatePlaceholderIs("your Text term goes here");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText1");
+        textFieldElement.ValidatePlaceholderIsNull();
+    }
 
-            textFieldElement.ValidatePlaceholderIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText8");
+        textFieldElement.Hover();
 
-            textFieldElement.Hover();
+        textFieldElement.ValidateStyleIs("color: red;");
+    }
 
-            textFieldElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText9");
+        textFieldElement.ValidateIsNotDisabled();
+    }
 
-            textFieldElement.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText10");
-
-            textFieldElement.ValidateIsDisabled();
-        }
+        textFieldElement.ValidateIsDisabled();
     }
 }

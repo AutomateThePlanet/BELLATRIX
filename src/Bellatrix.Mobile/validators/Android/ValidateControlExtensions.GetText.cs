@@ -1,5 +1,5 @@
 ﻿// <copyright file="ValidateControlExtensions.GetText.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,25 +16,24 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateTextIsNotSet<TComponent>(this TComponent control, int? timeout = null, int? sleepInterval = null)
+        where TComponent : IComponentText, IComponent<AndroidElement>
     {
-        public static void ValidateTextIsNotSet<TComponent>(this TComponent control, int? timeout = null, int? sleepInterval = null)
-            where TComponent : IComponentText, IComponent<AndroidElement>
-        {
-            ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => string.IsNullOrEmpty(control.GetText()), $"The control's text should be null but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextIsNotSetEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
-        }
-
-        public static void ValidateTextIs<TComponent>(this TComponent control, string value, int? timeout = null, int? sleepInterval = null)
-             where TComponent : IComponentText, IComponent<AndroidElement>
-        {
-            ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.GetText().Equals(value), $"The control's text should be '{value}' but was '{control.GetText()}'.", timeout, sleepInterval);
-            ValidatedTextIsEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control, value));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedTextIsNotSetEvent;
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedTextIsEvent;
+        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => string.IsNullOrEmpty(control.GetText()), $"The control's text should be null but was '{control.GetText()}'.", timeout, sleepInterval);
+        ValidatedTextIsNotSetEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
     }
+
+    public static void ValidateTextIs<TComponent>(this TComponent control, string value, int? timeout = null, int? sleepInterval = null)
+         where TComponent : IComponentText, IComponent<AndroidElement>
+    {
+        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.GetText().Equals(value), $"The control's text should be '{value}' but was '{control.GetText()}'.", timeout, sleepInterval);
+        ValidatedTextIsEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control, value));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedTextIsNotSetEvent;
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedTextIsEvent;
 }

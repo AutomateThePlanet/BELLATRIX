@@ -1,5 +1,5 @@
 ﻿// <copyright file="DynamicTestCaseAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,47 +15,46 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+[AttributeUsage(AttributeTargets.All)]
+public class DynamicTestCaseAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.All)]
-    public class DynamicTestCaseAttribute : Attribute
+    public string SuiteId { get; set; }
+    public string RequirementId { get; set; }
+    public string TestName { get; set; }
+    public string Description { get; set; }
+    public string TestCaseId { get; set; }
+
+    public DynamicTestCaseAttribute()
     {
-        public string SuiteId { get; set; }
-        public string RequirementId { get; set; }
-        public string TestName { get; set; }
-        public string Description { get; set; }
-        public string TestCaseId { get; set; }
+    }
 
-        public DynamicTestCaseAttribute()
-        {
-        }
+    public DynamicTestCaseAttribute(string testCaseId, string testCaseDescription)
+    {
+        TestCaseId = testCaseId;
+        Description = testCaseDescription;
+    }
 
-        public DynamicTestCaseAttribute(string testCaseId, string testCaseDescription)
-        {
-            TestCaseId = testCaseId;
-            Description = testCaseDescription;
-        }
+    public DynamicTestCaseAttribute(string testCaseId, string testCaseDescription, string testCaseName)
+        : this(testCaseId, testCaseDescription)
+    {
+        TestName = testCaseName;
+    }
 
-        public DynamicTestCaseAttribute(string testCaseId, string testCaseDescription, string testCaseName)
-            : this(testCaseId, testCaseDescription)
-        {
-            TestName = testCaseName;
-        }
+    public DynamicTestCaseAttribute(
+        string testCaseId,
+        string testCaseDescription,
+        string testCaseName,
+        string requirementId,
+        string suiteId)
+       : this(testCaseId, testCaseDescription, testCaseName)
+    {
+        RequirementId = requirementId;
+        SuiteId = suiteId;
+    }
 
-        public DynamicTestCaseAttribute(
-            string testCaseId,
-            string testCaseDescription,
-            string testCaseName,
-            string requirementId,
-            string suiteId)
-           : this(testCaseId, testCaseDescription, testCaseName)
-        {
-            RequirementId = requirementId;
-            SuiteId = suiteId;
-        }
-
-        public virtual void SetCustomProperties()
-        {
-        }
+    public virtual void SetCustomProperties()
+    {
     }
 }

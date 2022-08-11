@@ -1,5 +1,5 @@
 ﻿// <copyright file="UrlControlDataHandler.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,24 +15,23 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class UrlControlDataHandler : IEditableControlDataHandler<Url>
 {
-    public class UrlControlDataHandler : IEditableControlDataHandler<Url>
+    public dynamic GetData(Url element) => element.GetUrl();
+
+    public void SetData(Url element, string data)
     {
-        public dynamic GetData(Url element) => element.GetUrl();
-
-        public void SetData(Url element, string data)
+        try
         {
-            try
-            {
-                element.SetUrl(data);
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException($"Exception occured while trying to set Url value: {data}", e);
-            }
+            element.SetUrl(data);
         }
-
-        public void ValidateValueIs(Url element, string expectedValue) => element.ValidateUrlIs(expectedValue);
+        catch (Exception e)
+        {
+            throw new ArgumentException($"Exception occured while trying to set Url value: {data}", e);
+        }
     }
+
+    public void ValidateValueIs(Url element, string expectedValue) => element.ValidateUrlIs(expectedValue);
 }

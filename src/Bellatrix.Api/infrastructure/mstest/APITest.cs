@@ -1,5 +1,5 @@
 ﻿// <copyright file="APITest.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,35 +14,34 @@
 using Bellatrix.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.API.MSTest
+namespace Bellatrix.API.MSTest;
+
+public abstract class APITest : MSTestBaseTest
 {
-    public abstract class APITest : MSTestBaseTest
+    private static readonly object _lockObject = new object();
+    private static bool _arePluginsAlreadyInitialized;
+
+    public App App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
+
+    public override void Configure()
     {
-        private static readonly object _lockObject = new object();
-        private static bool _arePluginsAlreadyInitialized;
-
-        public App App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<App>();
-
-        public override void Configure()
+        lock (_lockObject)
         {
-            lock (_lockObject)
+            if (!_arePluginsAlreadyInitialized)
             {
-                if (!_arePluginsAlreadyInitialized)
-                {
-                    MSTestPluginConfiguration.Add();
-                    ExecutionTimePlugin.Add();
-                    DynamicTestCasesPlugin.Add();
-                    AllurePlugin.Add();
-                    BugReportingPlugin.Add();
-                    APIPluginsConfiguration.AddAssertExtensionsBddLogging();
-                    APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
-                    APIPluginsConfiguration.AddAssertExtensionsBugReporting();
-                    APIPluginsConfiguration.AddApiAuthenticationStrategies();
-                    APIPluginsConfiguration.AddRetryFailedRequests();
-                    APIPluginsConfiguration.AddLogExecution();
+                MSTestPluginConfiguration.Add();
+                ExecutionTimePlugin.Add();
+                DynamicTestCasesPlugin.Add();
+                AllurePlugin.Add();
+                BugReportingPlugin.Add();
+                APIPluginsConfiguration.AddAssertExtensionsBddLogging();
+                APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
+                APIPluginsConfiguration.AddAssertExtensionsBugReporting();
+                APIPluginsConfiguration.AddApiAuthenticationStrategies();
+                APIPluginsConfiguration.AddRetryFailedRequests();
+                APIPluginsConfiguration.AddLogExecution();
 
-                    _arePluginsAlreadyInitialized = true;
-                }
+                _arePluginsAlreadyInitialized = true;
             }
         }
     }

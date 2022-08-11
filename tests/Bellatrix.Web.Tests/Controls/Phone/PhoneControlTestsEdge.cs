@@ -1,5 +1,5 @@
 ﻿// <copyright file="PhoneControlTestsEdge.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,237 +13,236 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Phone Control")]
+[AllureFeature("Edge Browser")]
+public class PhoneControlTestsEdge : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Phone Control")]
-    [AllureFeature("Edge Browser")]
-    public class PhoneControlTestsEdge : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PhoneLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void PhoneSet_When_UseSetPhoneMethod_Edge()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PhoneLocalPage);
+        var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void PhoneSet_When_UseSetPhoneMethod_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone");
+        phoneElement.SetPhone("123-4567-8901");
 
-            phoneElement.SetPhone("123-4567-8901");
+        Assert.AreEqual("123-4567-8901", phoneElement.GetPhone());
+    }
 
-            Assert.AreEqual("123-4567-8901", phoneElement.GetPhone());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetPhoneReturnsCorrectPhone_When_DefaultPhoneIsSet_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetPhoneReturnsCorrectPhone_When_DefaultPhoneIsSet_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone3");
+        Assert.AreEqual("123-4567-8901", phoneElement.GetPhone());
+    }
 
-            Assert.AreEqual("123-4567-8901", phoneElement.GetPhone());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone");
+        Assert.AreEqual(false, phoneElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, phoneElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone5");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone5");
+        Assert.AreEqual(false, phoneElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, phoneElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone4");
+        Assert.AreEqual(true, phoneElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(true, phoneElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone4");
+        Assert.AreEqual(false, phoneElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, phoneElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone6");
+        Assert.AreEqual(true, phoneElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, phoneElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone");
+        var maxLength = phoneElement.MaxLength;
 
-            var maxLength = phoneElement.MaxLength;
+        Assert.IsNull(maxLength);
+    }
 
-            Assert.IsNull(maxLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone");
+        Assert.IsNull(phoneElement.MinLength);
+    }
 
-            Assert.IsNull(phoneElement.MinLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone");
+        // Specifies the width of an <input> element, in characters. Default value is 20
+        Assert.AreEqual(20, phoneElement.Size);
+    }
 
-            // Specifies the width of an <input> element, in characters. Default value is 20
-            Assert.AreEqual(20, phoneElement.Size);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone2");
+        Assert.AreEqual(80, phoneElement.MaxLength);
+    }
 
-            Assert.AreEqual(80, phoneElement.MaxLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone2");
+        Assert.AreEqual(10, phoneElement.MinLength);
+    }
 
-            Assert.AreEqual(10, phoneElement.MinLength);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone2");
+        Assert.AreEqual(30, phoneElement.Size);
+    }
 
-            Assert.AreEqual(30, phoneElement.Size);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone4");
+        Assert.AreEqual(false, phoneElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, phoneElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone7");
+        Assert.AreEqual(true, phoneElement.IsRequired);
+    }
 
-            Assert.AreEqual(true, phoneElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetPlaceholder_When_PlaceholderAttributeIsSet_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetPlaceholder_When_PlaceholderAttributeIsSet_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone");
+        Assert.AreEqual("123-4567-8901", phoneElement.Placeholder);
+    }
 
-            Assert.AreEqual("123-4567-8901", phoneElement.Placeholder);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone1");
+        Assert.IsNull(phoneElement.Placeholder);
+    }
 
-            Assert.IsNull(phoneElement.Placeholder);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnRed_When_Hover_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnRed_When_Hover_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone8");
+        phoneElement.Hover();
 
-            phoneElement.Hover();
+        Assert.AreEqual("color: red;", phoneElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", phoneElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnBlue_When_Focus_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnBlue_When_Focus_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone9");
+        phoneElement.Focus();
 
-            phoneElement.Focus();
+        Assert.AreEqual("color: blue;", phoneElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", phoneElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone9");
+        bool isDisabled = phoneElement.IsDisabled;
 
-            bool isDisabled = phoneElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnTrue_When_DisabledAttributePresent_Edge()
+    {
+        var phoneElement = App.Components.CreateById<Phone>("myPhone10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnTrue_When_DisabledAttributePresent_Edge()
-        {
-            var phoneElement = App.Components.CreateById<Phone>("myPhone10");
+        bool isDisabled = phoneElement.IsDisabled;
 
-            bool isDisabled = phoneElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

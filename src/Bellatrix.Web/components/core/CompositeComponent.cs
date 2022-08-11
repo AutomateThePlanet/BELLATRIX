@@ -1,5 +1,5 @@
 ﻿// <copyright file="CompositeComponent.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,19 +11,18 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    public abstract class CompositeComponent
-    {
-        protected CompositeComponent(Component wrappedElement)
-        {
-            ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
-            BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
-            Component = wrappedElement;
-        }
+namespace Bellatrix.Web;
 
-        protected Component Component { get; set; }
-        protected ComponentCreateService ComponentCreateService { get; set; }
-        protected BrowserService BrowserService { get; set; }
+public abstract class CompositeComponent
+{
+    protected CompositeComponent(Component wrappedElement)
+    {
+        ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
+        Component = wrappedElement;
     }
+
+    protected Component Component { get; set; }
+    protected ComponentCreateService ComponentCreateService { get; set; }
+    protected BrowserService BrowserService { get; set; }
 }

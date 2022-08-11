@@ -1,5 +1,5 @@
 ﻿// <copyright file="ScreenshotWorkflowPlugin.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -20,58 +20,57 @@ using Bellatrix.Plugins.Screenshots.Contracts;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Serilog;
 
-namespace Bellatrix.Plugins.Screenshots
+namespace Bellatrix.Plugins.Screenshots;
+
+public class ScreenshotPlugin : Plugin
 {
-    public class ScreenshotPlugin : Plugin
+    private readonly IScreenshotEngine _screenshotEngine;
+    private readonly IScreenshotOutputProvider _screenshotOutputProvider;
+    private readonly IScreenshotPluginProvider _screenshotPluginProvider;
+    private bool _isEnabled;
+
+    public ScreenshotPlugin(
+        IScreenshotEngine screenshotEngine,
+        IScreenshotOutputProvider screenshotOutputProvider,
+        IScreenshotPluginProvider screenshotPluginProvider)
     {
-        private readonly IScreenshotEngine _screenshotEngine;
-        private readonly IScreenshotOutputProvider _screenshotOutputProvider;
-        private readonly IScreenshotPluginProvider _screenshotPluginProvider;
-        private bool _isEnabled;
+        _isEnabled = ConfigurationService.GetSection<ScreenshotsSettings>().IsEnabled;
+        _screenshotEngine = screenshotEngine;
+        _screenshotOutputProvider = screenshotOutputProvider;
+        _screenshotPluginProvider = screenshotPluginProvider;
+        InitializeScreenshotProviderObservers();
+    }
 
-        public ScreenshotPlugin(
-            IScreenshotEngine screenshotEngine,
-            IScreenshotOutputProvider screenshotOutputProvider,
-            IScreenshotPluginProvider screenshotPluginProvider)
+    protected override void PreTestCleanup(object sender, PluginEventArgs e)
+    {
+        try
         {
-            _isEnabled = ConfigurationService.GetSection<ScreenshotsSettings>().IsEnabled;
-            _screenshotEngine = screenshotEngine;
-            _screenshotOutputProvider = screenshotOutputProvider;
-            _screenshotPluginProvider = screenshotPluginProvider;
-            InitializeScreenshotProviderObservers();
+            if (_isEnabled && e.TestOutcome != TestOutcome.Passed)
+            {
+                var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
+                var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestName);
+                string image = _screenshotEngine.TakeScreenshot(e.Container);
+                string imagePath = Path.Combine(screenshotSaveDir, screenshotFileName);
+                File.WriteAllBytes(imagePath, Convert.FromBase64String(image));
+                _screenshotPluginProvider.ScreenshotGenerated(e, imagePath);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogWarning("Failed to take screenshot due to error: " + ex.Message);
+
+            // Ignore since it is failing often because of bugs in Remote driver for Chrome
         }
 
-        protected override void PreTestCleanup(object sender, PluginEventArgs e)
+        base.PreTestCleanup(sender, e);
+    }
+
+    private void InitializeScreenshotProviderObservers()
+    {
+        var observers = ServicesCollection.Current.ResolveAll<IScreenshotPlugin>();
+        foreach (var observer in observers)
         {
-            try
-            {
-                if (_isEnabled && e.TestOutcome != TestOutcome.Passed)
-                {
-                    var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
-                    var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestName);
-                    string image = _screenshotEngine.TakeScreenshot(e.Container);
-                    string imagePath = Path.Combine(screenshotSaveDir, screenshotFileName);
-                    File.WriteAllBytes(imagePath, Convert.FromBase64String(image));
-                    _screenshotPluginProvider.ScreenshotGenerated(e, imagePath);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogWarning("Failed to take screenshot due to error: " + ex.Message);
-
-                // Ignore since it is failing often because of bugs in Remote driver for Chrome
-            }
-
-            base.PreTestCleanup(sender, e);
-        }
-
-        private void InitializeScreenshotProviderObservers()
-        {
-            var observers = ServicesCollection.Current.ResolveAll<IScreenshotPlugin>();
-            foreach (var observer in observers)
-            {
-                observer.SubscribeScreenshotPlugin(_screenshotPluginProvider);
-            }
+            observer.SubscribeScreenshotPlugin(_screenshotPluginProvider);
         }
     }
 }

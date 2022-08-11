@@ -1,5 +1,5 @@
 ﻿// <copyright file="NtlmAuthenticationStrategyAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp.Authenticators;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+/// <summary>
+///     Tries to Authenticate with the credentials of the currently logged in user, or impersonate a user.
+/// </summary>
+public class NtlmAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
 {
-    /// <summary>
-    ///     Tries to Authenticate with the credentials of the currently logged in user, or impersonate a user.
-    /// </summary>
-    public class NtlmAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
-    {
-        public override IAuthenticator GetAuthenticator() => new NtlmAuthenticator();
-    }
+    public override IAuthenticator GetAuthenticator() => new NtlmAuthenticator();
 }

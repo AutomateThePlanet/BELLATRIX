@@ -1,5 +1,5 @@
 ﻿// <copyright file="UntilHaveContent.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,42 +14,41 @@
 using System;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web.Untils
+namespace Bellatrix.Web.Untils;
+
+public class WaitToHaveContentStrategy : WaitStrategy
 {
-    public class WaitToHaveContentStrategy : WaitStrategy
+    public WaitToHaveContentStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitToHaveContentStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToHaveContentTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToHaveContentTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-        {
-            WaitUntil(d => ElementHasContent(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementHasContent(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
 
-        public override void WaitUntil<TBy>(TBy by, Component parent)
-        {
-            WaitUntil(d => ElementHasContent(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
-        }
+    public override void WaitUntil<TBy>(TBy by, Component parent)
+    {
+        WaitUntil(d => ElementHasContent(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
+    }
 
-        private bool ElementHasContent<TBy>(ISearchContext searchContext, TBy by)
-            where TBy : FindStrategy
+    private bool ElementHasContent<TBy>(ISearchContext searchContext, TBy by)
+        where TBy : FindStrategy
+    {
+        try
         {
-            try
-            {
-                var element = searchContext.FindElement(by.Convert());
-                return element != null && !string.IsNullOrEmpty(element.Text);
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-            catch (StaleElementReferenceException)
-            {
-                return false;
-            }
+            var element = searchContext.FindElement(by.Convert());
+            return element != null && !string.IsNullOrEmpty(element.Text);
+        }
+        catch (NoSuchElementException)
+        {
+            return false;
+        }
+        catch (StaleElementReferenceException)
+        {
+            return false;
         }
     }
 }

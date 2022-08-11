@@ -1,5 +1,5 @@
 ﻿// <copyright file="LayoutTwoComponentsActionTwoValuesEventArgs.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,33 +11,32 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Layout
+namespace Bellatrix.Layout;
+
+public class LayoutTwoComponentsActionTwoValuesEventArgs
 {
-    public class LayoutTwoComponentsActionTwoValuesEventArgs
+    public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement)
     {
-        public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement)
-        {
-            Element = element;
-            SecondElement = secondElement;
-        }
-
-        public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement, string actionValue, string secondActionValue)
-            : this(element, secondElement)
-        {
-            ActionValue = actionValue;
-            SecondActionValue = secondActionValue;
-        }
-
-        public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement, double actionValue, double secondActionValue)
-            : this(element, secondElement)
-        {
-            ActionValue = actionValue.ToString();
-            SecondActionValue = secondActionValue.ToString();
-        }
-
-        public ILayoutComponent Element { get; }
-        public ILayoutComponent SecondElement { get; }
-        public string ActionValue { get; }
-        public string SecondActionValue { get; }
+        Element = element;
+        SecondElement = secondElement;
     }
+
+    public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement, string actionValue, string secondActionValue)
+        : this(element, secondElement)
+    {
+        ActionValue = actionValue;
+        SecondActionValue = secondActionValue;
+    }
+
+    public LayoutTwoComponentsActionTwoValuesEventArgs(ILayoutComponent element, ILayoutComponent secondElement, double actionValue, double secondActionValue)
+        : this(element, secondElement)
+    {
+        ActionValue = actionValue.ToString();
+        SecondActionValue = secondActionValue.ToString();
+    }
+
+    public ILayoutComponent Element { get; }
+    public ILayoutComponent SecondElement { get; }
+    public string ActionValue { get; }
+    public string SecondActionValue { get; }
 }

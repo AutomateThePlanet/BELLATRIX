@@ -1,5 +1,5 @@
 ﻿// <copyright file="OAuth2UriQueryParameterAuthenticationStrategyAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,20 +13,19 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp.Authenticators;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+/// <summary>
+///     The OAuth 2 authenticator using URI query parameter.
+/// </summary>
+/// <remarks>
+///     Based on http://tools.ietf.org/html/draft-ietf-oauth-v2-10#section-5.1.2.
+/// </remarks>
+public class OAuth2UriQueryParameterAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
 {
-    /// <summary>
-    ///     The OAuth 2 authenticator using URI query parameter.
-    /// </summary>
-    /// <remarks>
-    ///     Based on http://tools.ietf.org/html/draft-ietf-oauth-v2-10#section-5.1.2.
-    /// </remarks>
-    public class OAuth2UriQueryParameterAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
-    {
-        private readonly string _accessToken;
+    private readonly string _accessToken;
 
-        public OAuth2UriQueryParameterAuthenticationStrategyAttribute(string accessToken) => _accessToken = accessToken;
+    public OAuth2UriQueryParameterAuthenticationStrategyAttribute(string accessToken) => _accessToken = accessToken;
 
-        public override IAuthenticator GetAuthenticator() => new OAuth2UriQueryParameterAuthenticator(_accessToken);
-    }
+    public override IAuthenticator GetAuthenticator() => new OAuth2UriQueryParameterAuthenticator(_accessToken);
 }

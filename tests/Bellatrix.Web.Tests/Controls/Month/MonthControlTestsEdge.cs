@@ -1,5 +1,5 @@
 ﻿// <copyright file="MonthControlTestsEdge.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,228 +13,227 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Month Control")]
+[AllureFeature("Edge Browser")]
+public class MonthControlTestsEdge : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Month Control")]
-    [AllureFeature("Edge Browser")]
-    public class MonthControlTestsEdge : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void MonthSet_When_UseSetMonthMethodWithMonthLessThan10_Edge()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().MonthLocalPage);
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void MonthSet_When_UseSetMonthMethodWithMonthLessThan10_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        monthElement.SetMonth(2017, 7);
 
-            monthElement.SetMonth(2017, 7);
+        Assert.AreEqual("2017-07", monthElement.GetMonth());
+    }
 
-            Assert.AreEqual("2017-07", monthElement.GetMonth());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void MonthSet_When_UseSetMonthMethodWithMonthBiggerThan9_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void MonthSet_When_UseSetMonthMethodWithMonthBiggerThan9_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        monthElement.SetMonth(2017, 11);
 
-            monthElement.SetMonth(2017, 11);
+        Assert.AreEqual("2017-11", monthElement.GetMonth());
+    }
 
-            Assert.AreEqual("2017-11", monthElement.GetMonth());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMonthReturnsCorrectMonth_When_DefaultMonthIsSet_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMonthReturnsCorrectMonth_When_DefaultMonthIsSet_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth2");
+        Assert.AreEqual("2017-08", monthElement.GetMonth());
+    }
 
-            Assert.AreEqual("2017-08", monthElement.GetMonth());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        Assert.IsFalse(monthElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(monthElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth4");
+        Assert.IsFalse(monthElement.IsAutoComplete);
+    }
 
-            Assert.IsFalse(monthElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth3");
+        Assert.IsTrue(monthElement.IsAutoComplete);
+    }
 
-            Assert.IsTrue(monthElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth4");
+        Assert.AreEqual(false, monthElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, monthElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth5");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth5");
+        Assert.AreEqual(true, monthElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, monthElement.IsReadonly);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMaxReturnsEmpty_When_MaxAttributeIsNotPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        var max = monthElement.Max;
 
-            var max = monthElement.Max;
+        Assert.IsNull(max);
+    }
 
-            Assert.IsNull(max);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMinReturnsEmpty_When_MinAttributeIsNotPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        Assert.IsNull(monthElement.Min);
+    }
 
-            Assert.IsNull(monthElement.Min);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetStepReturnsNull_When_StepAttributeIsNotPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        Assert.IsNull(monthElement.Step);
+    }
 
-            Assert.IsNull(monthElement.Step);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMaxReturns52Month_When_MaxAttributeIsPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMaxReturns52Month_When_MaxAttributeIsPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth1");
+        Assert.AreEqual("2032-12", monthElement.Max);
+    }
 
-            Assert.AreEqual("2032-12", monthElement.Max);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetMinReturnsFirstMonth_When_MinAttributeIsPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetMinReturnsFirstMonth_When_MinAttributeIsPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth1");
+        Assert.AreEqual("1900-01", monthElement.Min);
+    }
 
-            Assert.AreEqual("1900-01", monthElement.Min);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetStepReturns10_When_StepAttributeIsNotPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetStepReturns10_When_StepAttributeIsNotPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth1");
+        Assert.AreEqual(2, monthElement.Step);
+    }
 
-            Assert.AreEqual(2, monthElement.Step);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth4");
+        Assert.AreEqual(false, monthElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, monthElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth6");
+        Assert.IsTrue(monthElement.IsRequired);
+    }
 
-            Assert.IsTrue(monthElement.IsRequired);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnRed_When_Hover_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnRed_When_Hover_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth7");
+        monthElement.Hover();
 
-            monthElement.Hover();
+        Assert.AreEqual("color: red;", monthElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", monthElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnBlue_When_Focus_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnBlue_When_Focus_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth8");
+        monthElement.Focus();
 
-            monthElement.Focus();
+        Assert.AreEqual("color: blue;", monthElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", monthElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth");
+        bool isDisabled = monthElement.IsDisabled;
 
-            bool isDisabled = monthElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ReturnTrue_When_DisabledAttributePresent_Edge()
+    {
+        var monthElement = App.Components.CreateById<Month>("myMonth9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ReturnTrue_When_DisabledAttributePresent_Edge()
-        {
-            var monthElement = App.Components.CreateById<Month>("myMonth9");
+        bool isDisabled = monthElement.IsDisabled;
 
-            bool isDisabled = monthElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

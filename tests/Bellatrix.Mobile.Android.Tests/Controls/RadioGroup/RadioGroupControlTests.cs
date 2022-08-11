@@ -1,5 +1,5 @@
 ﻿// <copyright file="RadioGroupControlTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,53 +13,52 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.RadioGroup1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("RadioGroup Control")]
+public class RadioGroupControlTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.RadioGroup1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("RadioGroup Control")]
-    public class RadioGroupControlTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void Return5RadioButtons_When_CallGetAllMethod()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void Return5RadioButtons_When_CallGetAllMethod()
-        {
-            var radioGroup = App.Components.CreateByIdContaining<RadioGroup>("menu");
+        var radioGroup = App.Components.CreateByIdContaining<RadioGroup>("menu");
 
-            var radioButtons = radioGroup.GetAll();
+        var radioButtons = radioGroup.GetAll();
 
-            Assert.AreEqual(5, radioButtons.Count());
-        }
+        Assert.AreEqual(5, radioButtons.Count());
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ClickDinnerRadioButton_When_CallClickByText()
-        {
-            var radioGroup = App.Components.CreateByIdContaining<RadioGroup>("menu");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ClickDinnerRadioButton_When_CallClickByText()
+    {
+        var radioGroup = App.Components.CreateByIdContaining<RadioGroup>("menu");
 
-            radioGroup.ClickByText("Dinner");
-            var clickedRadioButton = radioGroup.GetChecked();
+        radioGroup.ClickByText("Dinner");
+        var clickedRadioButton = radioGroup.GetChecked();
 
-            clickedRadioButton.ValidateTextIs("Dinner");
-            clickedRadioButton.ValidateIsChecked();
-        }
+        clickedRadioButton.ValidateTextIs("Dinner");
+        clickedRadioButton.ValidateIsChecked();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ClickLunchRadioButton_When_CallClickByIndex()
-        {
-            var radioGroup = App.Components.CreateByIdContaining<RadioGroup>("menu");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ClickLunchRadioButton_When_CallClickByIndex()
+    {
+        var radioGroup = App.Components.CreateByIdContaining<RadioGroup>("menu");
 
-            radioGroup.ClickByIndex(2);
-            var clickedRadioButton = radioGroup.GetChecked();
+        radioGroup.ClickByIndex(2);
+        var clickedRadioButton = radioGroup.GetChecked();
 
-            clickedRadioButton.ValidateTextIs("Lunch");
-            clickedRadioButton.ValidateIsChecked();
-        }
+        clickedRadioButton.ValidateTextIs("Lunch");
+        clickedRadioButton.ValidateIsChecked();
     }
 }

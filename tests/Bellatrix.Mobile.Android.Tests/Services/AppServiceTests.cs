@@ -1,5 +1,5 @@
 ﻿// <copyright file="AppServiceTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,53 +16,52 @@ using Bellatrix.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BA = Bellatrix.Assertions;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Services")]
+[AllureFeature("AppService")]
+public class AppServiceTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Services")]
-    [AllureFeature("AppService")]
-    public class AppServiceTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void TestBackgroundApp()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void TestBackgroundApp()
-        {
-            App.AppService.BackgroundApp(1);
-        }
+        App.AppService.BackgroundApp(1);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void TestResetApp()
-        {
-            App.AppService.ResetApp();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void TestResetApp()
+    {
+        App.AppService.ResetApp();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void InstallAppInstalledTrue_When_AppIsInstalled()
-        {
-            Assert.IsTrue(App.AppService.IsAppInstalled(Constants.AndroidNativeAppAppExamplePackage));
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void InstallAppInstalledTrue_When_AppIsInstalled()
+    {
+        Assert.IsTrue(App.AppService.IsAppInstalled(Constants.AndroidNativeAppAppExamplePackage));
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void InstallAppInstalledFalse_When_AppIsUninstalled()
-        {
-            string appPath = Path.Combine(ProcessProvider.GetExecutingAssemblyFolder(), "Demos\\ApiDemos.apk");
-            App.AppService.InstallApp(appPath);
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void InstallAppInstalledFalse_When_AppIsUninstalled()
+    {
+        string appPath = Path.Combine(ProcessProvider.GetExecutingAssemblyFolder(), "Demos\\ApiDemos.apk");
+        App.AppService.InstallApp(appPath);
 
-            App.AppService.RemoveApp(Constants.AndroidNativeAppAppExamplePackage);
+        App.AppService.RemoveApp(Constants.AndroidNativeAppAppExamplePackage);
 
-            Assert.IsFalse(App.AppService.IsAppInstalled(Constants.AndroidNativeAppAppExamplePackage));
+        Assert.IsFalse(App.AppService.IsAppInstalled(Constants.AndroidNativeAppAppExamplePackage));
 
-            App.AppService.InstallApp(appPath);
-            Assert.IsTrue(App.AppService.IsAppInstalled(Constants.AndroidNativeAppAppExamplePackage));
-        }
+        App.AppService.InstallApp(appPath);
+        Assert.IsTrue(App.AppService.IsAppInstalled(Constants.AndroidNativeAppAppExamplePackage));
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="AppRegistrationExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -20,21 +20,20 @@ using Bellatrix.DynamicTestCases.Contracts;
 using Bellatrix.DynamicTestCases.QTest;
 using Bellatrix.Plugins;
 
-namespace Bellatrix
-{
-    public static class QTestDynamicTestCasesPlugin
-    {
-        private static bool _isAdded = false;
+namespace Bellatrix;
 
-        public static void Add()
+public static class QTestDynamicTestCasesPlugin
+{
+    private static bool _isAdded = false;
+
+    public static void Add()
+    {
+        if (!_isAdded)
         {
-            if (!_isAdded)
-            {
-                ServicesCollection.Current.RegisterInstance(new DynamicTestCasesService());
-                ServicesCollection.Current.RegisterType<ITestCaseManagementService, QTestTestCaseManagementService>();
-                ServicesCollection.Current.RegisterType<Plugin, Bellatrix.DynamicTestCases.Core.DynamicTestCasesPlugin>(Guid.NewGuid().ToString());
-                _isAdded = true;
-            }
+            ServicesCollection.Current.RegisterInstance(new DynamicTestCasesService());
+            ServicesCollection.Current.RegisterType<ITestCaseManagementService, QTestTestCaseManagementService>();
+            ServicesCollection.Current.RegisterType<Plugin, Bellatrix.DynamicTestCases.Core.DynamicTestCasesPlugin>(Guid.NewGuid().ToString());
+            _isAdded = true;
         }
     }
 }

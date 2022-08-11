@@ -1,5 +1,5 @@
 ﻿// <copyright file="ControlColumnData.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,27 +14,26 @@
 
 using System;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class ControlColumnData : IHeaderInfo
 {
-    public class ControlColumnData : IHeaderInfo
+    public ControlColumnData(string headerName, int order = 0)
     {
-        public ControlColumnData(string headerName, int order = 0)
-        {
-            HeaderName = headerName;
-            Order = order;
-        }
-
-        public ControlColumnData(string headerName, dynamic by, Type elementType, int order = 0)
-            : this(headerName)
-        {
-            By = by;
-            ComponentType = elementType;
-            Order = order;
-        }
-
-        public string HeaderName { get; set; }
-        public int Order { get; set; }
-        public dynamic By { get; set; }
-        public Type ComponentType { get; set; }
+        HeaderName = headerName;
+        Order = order;
     }
+
+    public ControlColumnData(string headerName, dynamic by, Type elementType, int order = 0)
+        : this(headerName)
+    {
+        By = by;
+        ComponentType = elementType;
+        Order = order;
+    }
+
+    public string HeaderName { get; set; }
+    public int Order { get; set; }
+    public dynamic By { get; set; }
+    public Type ComponentType { get; set; }
 }

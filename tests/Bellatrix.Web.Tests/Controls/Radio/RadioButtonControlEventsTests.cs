@@ -1,5 +1,5 @@
 ﻿// <copyright file="RadioButtonControlEventsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,92 +14,91 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Radio Control")]
+[AllureFeature("ControlEvents")]
+public class RadioButtonControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Radio Control")]
-    [AllureFeature("ControlEvents")]
-    public class RadioButtonControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ClickingCalled_BeforeActuallyClick()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+        var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio");
+        RadioButton.Clicking += AssertIsCheckedFalse;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ClickingCalled_BeforeActuallyClick()
+        radioButtonElement.Click();
+
+        Assert.IsTrue(radioButtonElement.IsChecked);
+
+        RadioButton.Clicking -= AssertIsCheckedFalse;
+
+        void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
         {
-            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio");
-            RadioButton.Clicking += AssertIsCheckedFalse;
+            Assert.IsFalse(radioButtonElement.IsChecked);
+        }
+    }
 
-            radioButtonElement.Click();
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ClickedCalled_AfterClick()
+    {
+        var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio");
+        RadioButton.Clicked += AssertIsCheckedFalse;
 
+        radioButtonElement.Click();
+
+        RadioButton.Clicked -= AssertIsCheckedFalse;
+
+        void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
+        {
             Assert.IsTrue(radioButtonElement.IsChecked);
-
-            RadioButton.Clicking -= AssertIsCheckedFalse;
-
-            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
-            {
-                Assert.IsFalse(radioButtonElement.IsChecked);
-            }
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ClickedCalled_AfterClick()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+        RadioButton.Hovering += AssertStyleAttributeEmpty;
+
+        var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio1");
+
+        radioButtonElement.Hover();
+
+        Assert.AreEqual("color: red;", radioButtonElement.GetStyle());
+
+        RadioButton.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio");
-            RadioButton.Clicked += AssertIsCheckedFalse;
-
-            radioButtonElement.Click();
-
-            RadioButton.Clicked -= AssertIsCheckedFalse;
-
-            void AssertIsCheckedFalse(object sender, ComponentActionEventArgs args)
-            {
-                Assert.IsTrue(radioButtonElement.IsChecked);
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        RadioButton.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio1");
+
+        radioButtonElement.Hover();
+
+        RadioButton.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            RadioButton.Hovering += AssertStyleAttributeEmpty;
-
-            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio1");
-
-            radioButtonElement.Hover();
-
-            Assert.AreEqual("color: red;", radioButtonElement.GetStyle());
-
-            RadioButton.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
-        }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
-        {
-            RadioButton.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var radioButtonElement = App.Components.CreateById<RadioButton>("myRadio1");
-
-            radioButtonElement.Hover();
-
-            RadioButton.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<RadioButton>("myRadio1").ValidateStyleIs("color: red;");
-            }
+            App.Components.CreateById<RadioButton>("myRadio1").ValidateStyleIs("color: red;");
         }
     }
 }

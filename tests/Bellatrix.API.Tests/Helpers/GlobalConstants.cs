@@ -1,5 +1,5 @@
 ﻿// <copyright file="GlobalConstants.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,10 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.API.Tests
+namespace Bellatrix.API.Tests;
+
+public sealed class GlobalConstants
 {
-    public sealed class GlobalConstants
-    {
-        public const string JwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiZWxsYXRyaXhVc2VyIiwianRpIjoiMDUyMzlmYjgtYTY5MS00NTZhLWE3MDMtYzFhMDEyYmMzZDU4IiwibmJmIjoxNTI0NzcyODAyLCJleHAiOjE1Mjk5NTY4MDIsImlzcyI6ImF1dG9tYXRldGhlcGxhbmV0LmNvbSIsImF1ZCI6ImF1dG9tYXRldGhlcGxhbmV0LmNvbSJ9.MZtFEtfKzu-BhfiXMSwZprPT5wGJnXTGAYzUTy0E5AA";
-    }
+    public const string JwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiZWxsYXRyaXhVc2VyIiwianRpIjoiMDUyMzlmYjgtYTY5MS00NTZhLWE3MDMtYzFhMDEyYmMzZDU4IiwibmJmIjoxNTI0NzcyODAyLCJleHAiOjE1Mjk5NTY4MDIsImlzcyI6ImF1dG9tYXRldGhlcGxhbmV0LmNvbSIsImF1ZCI6ImF1dG9tYXRldGhlcGxhbmV0LmNvbSJ9.MZtFEtfKzu-BhfiXMSwZprPT5wGJnXTGAYzUTy0E5AA";
 }

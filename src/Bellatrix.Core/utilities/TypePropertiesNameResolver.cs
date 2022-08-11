@@ -1,5 +1,5 @@
 ﻿// <copyright file="TypePropertiesNameResolver.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,71 +16,70 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+public static class TypePropertiesNameResolver
 {
-    public static class TypePropertiesNameResolver
+    private static readonly string expressionCannotBeNullMessage = "The expression cannot be null.";
+    private static readonly string invalidExpressionMessage = "Invalid expression.";
+
+    public static string GetMemberName<T>(Expression<Func<T, object>> expression)
+    where T : class
     {
-        private static readonly string expressionCannotBeNullMessage = "The expression cannot be null.";
-        private static readonly string invalidExpressionMessage = "Invalid expression.";
+        return GetMemberName(expression.Body);
+    }
 
-        public static string GetMemberName<T>(Expression<Func<T, object>> expression)
+    public static List<string> GetMemberNames<T>(params Expression<Func<T, object>>[] expressions)
         where T : class
+    {
+        List<string> memberNames = new List<string>();
+        foreach (var cExpression in expressions)
         {
-            return GetMemberName(expression.Body);
+            memberNames.Add(GetMemberName(cExpression.Body));
         }
 
-        public static List<string> GetMemberNames<T>(params Expression<Func<T, object>>[] expressions)
-            where T : class
-        {
-            List<string> memberNames = new List<string>();
-            foreach (var cExpression in expressions)
-            {
-                memberNames.Add(GetMemberName(cExpression.Body));
-            }
+        return memberNames;
+    }
 
-            return memberNames;
+    private static string GetMemberName(Expression expression)
+    {
+        if (expression == null)
+        {
+            throw new ArgumentException(expressionCannotBeNullMessage);
         }
 
-        private static string GetMemberName(Expression expression)
+        if (expression is MemberExpression)
         {
-            if (expression == null)
-            {
-                throw new ArgumentException(expressionCannotBeNullMessage);
-            }
-
-            if (expression is MemberExpression)
-            {
-                // Reference type property or field
-                var memberExpression = (MemberExpression)expression;
-                return memberExpression.Member.Name;
-            }
-
-            if (expression is MethodCallExpression)
-            {
-                // Reference type method
-                var methodCallExpression = (MethodCallExpression)expression;
-                return methodCallExpression.Method.Name;
-            }
-
-            if (expression is UnaryExpression)
-            {
-                // Property, field of method returning value type
-                var unaryExpression = (UnaryExpression)expression;
-                return GetMemberName(unaryExpression);
-            }
-
-            throw new ArgumentException(invalidExpressionMessage);
+            // Reference type property or field
+            var memberExpression = (MemberExpression)expression;
+            return memberExpression.Member.Name;
         }
 
-        private static string GetMemberName(UnaryExpression unaryExpression)
+        if (expression is MethodCallExpression)
         {
-            if (unaryExpression.Operand is MethodCallExpression)
-            {
-                var methodExpression = (MethodCallExpression)unaryExpression.Operand;
-                return methodExpression.Method.Name;
-            }
-
-            return ((MemberExpression)unaryExpression.Operand).Member.Name;
+            // Reference type method
+            var methodCallExpression = (MethodCallExpression)expression;
+            return methodCallExpression.Method.Name;
         }
+
+        if (expression is UnaryExpression)
+        {
+            // Property, field of method returning value type
+            var unaryExpression = (UnaryExpression)expression;
+            return GetMemberName(unaryExpression);
+        }
+
+        throw new ArgumentException(invalidExpressionMessage);
+    }
+
+    private static string GetMemberName(UnaryExpression unaryExpression)
+    {
+        if (unaryExpression.Operand is MethodCallExpression)
+        {
+            var methodExpression = (MethodCallExpression)unaryExpression.Operand;
+            return methodExpression.Method.Name;
+        }
+
+        return ((MemberExpression)unaryExpression.Operand).Member.Name;
     }
 }

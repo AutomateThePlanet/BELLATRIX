@@ -1,5 +1,5 @@
 ﻿// <copyright file="IComponent.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,15 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Contracts
+namespace Bellatrix.Mobile.Contracts;
+
+public interface IComponent<TDriverElement>
+    where TDriverElement : AppiumWebElement
 {
-    public interface IComponent<TDriverElement>
-        where TDriverElement : AppiumWebElement
-    {
-        string ComponentName { get; }
+    string ComponentName { get; }
 
-        string PageName { get; }
+    string PageName { get; }
 
-        TDriverElement WrappedElement { get; }
-    }
+    TDriverElement WrappedElement { get; }
 }

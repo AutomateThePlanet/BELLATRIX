@@ -1,12 +1,11 @@
 ﻿using System.Diagnostics;
 
-namespace Bellatrix.Web.Desktop.CommonServicesActionHooks
+namespace Bellatrix.Web.Desktop.CommonServicesActionHooks;
+
+public static class DebugLogger
 {
-    public static class DebugLogger
+    public static void LogInfo(string message)
     {
-        public static void LogInfo(string message)
-        {
-            Debug.WriteLine(message);
-        }
+        Debug.WriteLine(message);
     }
 }

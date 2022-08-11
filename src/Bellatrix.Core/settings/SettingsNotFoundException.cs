@@ -1,5 +1,5 @@
 ﻿// <copyright file="SettingsNotFoundException.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Settings
+namespace Bellatrix.Settings;
+
+public class SettingsNotFoundException : Exception
 {
-    public class SettingsNotFoundException : Exception
+    public SettingsNotFoundException()
     {
-        public SettingsNotFoundException()
-        {
-        }
+    }
 
-        public SettingsNotFoundException(string configurationType)
-            : base($"Configuration section for {configurationType} was not found. Please add the section.")
-        {
-        }
+    public SettingsNotFoundException(string configurationType)
+        : base($"Configuration section for {configurationType} was not found. Please add the section.")
+    {
+    }
 
-        public SettingsNotFoundException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
+    public SettingsNotFoundException(string message, Exception inner)
+        : base(message, inner)
+    {
     }
 }

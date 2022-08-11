@@ -1,5 +1,5 @@
 ﻿// <copyright file="HeaderRowIndex.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,21 +11,20 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web
-{
-    internal class HeaderRowIndex
-    {
-        public HeaderRowIndex(string headerName, int rowspan, int colspan, int rowIndex)
-        {
-            HeaderName = headerName;
-            Rowspan = rowspan;
-            Colspan = colspan;
-            RowIndex = rowIndex;
-        }
+namespace Bellatrix.Web;
 
-        public string HeaderName { get; set; }
-        public int Rowspan { get; set; }
-        public int Colspan { get; set; }
-        public int RowIndex { get; set; }
+internal class HeaderRowIndex
+{
+    public HeaderRowIndex(string headerName, int rowspan, int colspan, int rowIndex)
+    {
+        HeaderName = headerName;
+        Rowspan = rowspan;
+        Colspan = colspan;
+        RowIndex = rowIndex;
     }
+
+    public string HeaderName { get; set; }
+    public int Rowspan { get; set; }
+    public int Colspan { get; set; }
+    public int RowIndex { get; set; }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="JavaScriptBy.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,15 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Locators;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class JavaScriptBy : FindStrategy
 {
-    public class JavaScriptBy : FindStrategy
-    {
-        private readonly object[] _args;
+    private readonly object[] _args;
 
-        public JavaScriptBy(string value, params object[] args)
-            : base(value) => _args = args;
+    public JavaScriptBy(string value, params object[] args)
+        : base(value) => _args = args;
 
-        public override OpenQA.Selenium.By Convert() => new SeleniumJavaScriptBy(Value, _args);
-    }
+    public override OpenQA.Selenium.By Convert() => new SeleniumJavaScriptBy(Value, _args);
 }

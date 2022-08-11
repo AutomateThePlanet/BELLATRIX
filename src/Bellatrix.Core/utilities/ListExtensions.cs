@@ -1,5 +1,5 @@
 ﻿// <copyright file="ListExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,22 +14,21 @@
 using System;
 using System.Collections.Generic;
 
-namespace Bellatrix.Utilities
-{
-    public static class ListExtensions
-    {
-        public static int IndexOf<TSource>(this IList<TSource> source, Func<TSource, bool> predicate)
-            where TSource : IEquatable<TSource>
-        {
-            for (int i = 0; i < source.Count; i++)
-            {
-                if (predicate(source[i]))
-                {
-                    return i;
-                }
-            }
+namespace Bellatrix.Utilities;
 
-            throw new ArgumentException("List doesn't contain such an element");
+public static class ListExtensions
+{
+    public static int IndexOf<TSource>(this IList<TSource> source, Func<TSource, bool> predicate)
+        where TSource : IEquatable<TSource>
+    {
+        for (int i = 0; i < source.Count; i++)
+        {
+            if (predicate(source[i]))
+            {
+                return i;
+            }
         }
+
+        throw new ArgumentException("List doesn't contain such an element");
     }
 }

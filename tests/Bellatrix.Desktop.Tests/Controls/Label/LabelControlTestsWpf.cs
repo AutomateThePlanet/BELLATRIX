@@ -1,5 +1,5 @@
 ﻿// <copyright file="LabelControlTestsWpf.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,25 +13,24 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Label Control")]
+[AllureTag("WPF")]
+public class LabelControlTestsWpf : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Label Control")]
-    [AllureTag("WPF")]
-    public class LabelControlTestsWpf : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_LabelHovered_Wpf()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_LabelHovered_Wpf()
-        {
-            var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
+        var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");
 
-            label.Hover();
+        label.Hover();
 
-            var changedLabel = App.Components.CreateByName<Label>("labelHovered");
+        var changedLabel = App.Components.CreateByName<Label>("labelHovered");
 
-            Assert.IsTrue(changedLabel.IsPresent);
-        }
+        Assert.IsTrue(changedLabel.IsPresent);
     }
 }

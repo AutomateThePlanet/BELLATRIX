@@ -1,5 +1,5 @@
 ﻿// <copyright file="Categories.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,25 +11,24 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Tests
+namespace Bellatrix.Web.Tests;
+
+public class Categories
 {
-    public class Categories
-    {
-        public const string CI = "CI";
-        public const string Layout = "Layout";
-        public const string Debug = "Debug";
-        public const string InternetExplorer = "InternetExplorer";
-        public const string Chrome = "Chrome";
-        public const string ChromeHeadless = "ChromeHeadless";
-        public const string Firefox = "Firefox";
-        public const string FirefoxHeadless = "FirefoxHeadless";
-        public const string Opera = "Opera";
-        public const string Edge = "Edge";
-        public const string Safari = "Safari";
-        public const string Windows = "Windows";
-        public const string OSX = "OSX";
-        public const string KnownIssueMacOS = "KnownIssue-MACOS";
-        public const string KnownIssueWindows = "KnownIssue-Windows";
-        public const string KnownIssue = "KnownIssue";
-    }
+    public const string CI = "CI";
+    public const string Layout = "Layout";
+    public const string Debug = "Debug";
+    public const string InternetExplorer = "InternetExplorer";
+    public const string Chrome = "Chrome";
+    public const string ChromeHeadless = "ChromeHeadless";
+    public const string Firefox = "Firefox";
+    public const string FirefoxHeadless = "FirefoxHeadless";
+    public const string Opera = "Opera";
+    public const string Edge = "Edge";
+    public const string Safari = "Safari";
+    public const string Windows = "Windows";
+    public const string OSX = "OSX";
+    public const string KnownIssueMacOS = "KnownIssue-MACOS";
+    public const string KnownIssueWindows = "KnownIssue-Windows";
+    public const string KnownIssue = "KnownIssue";
 }

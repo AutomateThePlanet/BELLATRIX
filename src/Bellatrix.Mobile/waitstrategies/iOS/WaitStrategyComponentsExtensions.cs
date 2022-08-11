@@ -1,5 +1,5 @@
 ﻿// <copyright file="UntilElementsExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,56 +15,55 @@ using Bellatrix.Mobile.Controls.IOS;
 using Bellatrix.Mobile.Untils;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+ public static class WaitStrategyComponentsExtensions
 {
-     public static class WaitStrategyComponentsExtensions
+    public static TComponentType ToExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+        where TComponentType : IOSComponent
     {
-        public static TComponentType ToExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-            where TComponentType : IOSComponent
-        {
-            var until = new WaitToExistStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+        var until = new WaitToExistStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToNotExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-           where TComponentType : IOSComponent
-        {
-            var until = new WaitNotExistStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToNotExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+       where TComponentType : IOSComponent
+    {
+        var until = new WaitNotExistStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-          where TComponentType : IOSComponent
-        {
-            var until = new WaitToBeVisibleStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+      where TComponentType : IOSComponent
+    {
+        var until = new WaitToBeVisibleStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToNotBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TComponentType : IOSComponent
-        {
-            var until = new WaitNotBeVisibleStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToNotBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+     where TComponentType : IOSComponent
+    {
+        var until = new WaitNotBeVisibleStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToBeClickable<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TComponentType : IOSComponent
-        {
-            var until = new WaitToBeClickableStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToBeClickable<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+     where TComponentType : IOSComponent
+    {
+        var until = new WaitToBeClickableStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
+    }
 
-        public static TComponentType ToHasContent<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
-         where TComponentType : IOSComponent
-        {
-            var until = new WaitToHaveContentStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
-            element.EnsureState(until);
-            return element;
-        }
+    public static TComponentType ToHasContent<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
+     where TComponentType : IOSComponent
+    {
+        var until = new WaitToHaveContentStrategy<IOSDriver<IOSElement>, IOSElement>(timeoutInterval, sleepInterval);
+        element.EnsureState(until);
+        return element;
     }
 }

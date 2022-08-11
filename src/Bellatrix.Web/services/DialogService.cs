@@ -1,5 +1,5 @@
 ﻿// <copyright file="DialogService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,29 +14,28 @@
 using System;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
-{
-    public class DialogService : WebService
-    {
-        public DialogService(IWebDriver wrappedDriver)
-            : base(wrappedDriver)
-        {
-        }
+namespace Bellatrix.Web;
 
-        public void Handle(Action<IAlert> action = null, DialogButton dialogButton = DialogButton.Ok)
+public class DialogService : WebService
+{
+    public DialogService(IWebDriver wrappedDriver)
+        : base(wrappedDriver)
+    {
+    }
+
+    public void Handle(Action<IAlert> action = null, DialogButton dialogButton = DialogButton.Ok)
+    {
+        var alert = WrappedDriver.SwitchTo().Alert();
+        action?.Invoke(alert);
+        if (dialogButton == DialogButton.Ok)
         {
-            var alert = WrappedDriver.SwitchTo().Alert();
-            action?.Invoke(alert);
-            if (dialogButton == DialogButton.Ok)
-            {
-                alert.Accept();
-                WrappedDriver.SwitchTo().DefaultContent();
-            }
-            else
-            {
-                alert.Dismiss();
-                WrappedDriver.SwitchTo().DefaultContent();
-            }
+            alert.Accept();
+            WrappedDriver.SwitchTo().DefaultContent();
+        }
+        else
+        {
+            alert.Dismiss();
+            WrappedDriver.SwitchTo().DefaultContent();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="AzureTestCase.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,27 +15,26 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.DynamicTestCases.AzureDevOps
-{
-    public class AzureTestCase
-    {
-        public AzureTestCase()
-        {
-            TestSteps = new List<TestStep>();
-        }
+namespace Bellatrix.DynamicTestCases.AzureDevOps;
 
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string AreaPath { get; set; }
-        public string TeamProject { get; set; }
-        public string IterationPath { get; set; }
-        public string Priority { get; set; }
-        public string AutomatedTestName { get; set; }
-        public string AutomatedTestStorage { get; set; }
-        public string Steps { get; set; }
-        public string RequirementUrl { get; set; }
-        public int Id { get; set; }
-        public List<TestStep> TestSteps { get; set; }
-        public string TestStepsHtml { get; set; }
+public class AzureTestCase
+{
+    public AzureTestCase()
+    {
+        TestSteps = new List<TestStep>();
     }
+
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public string AreaPath { get; set; }
+    public string TeamProject { get; set; }
+    public string IterationPath { get; set; }
+    public string Priority { get; set; }
+    public string AutomatedTestName { get; set; }
+    public string AutomatedTestStorage { get; set; }
+    public string Steps { get; set; }
+    public string RequirementUrl { get; set; }
+    public int Id { get; set; }
+    public List<TestStep> TestSteps { get; set; }
+    public string TestStepsHtml { get; set; }
 }

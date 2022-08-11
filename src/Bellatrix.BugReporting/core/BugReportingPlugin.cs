@@ -1,5 +1,5 @@
 ﻿// <copyright file="BugReportingPlugin.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -25,115 +25,114 @@ using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Plugins.Video.Plugins;
 
-namespace Bellatrix.BugReporting.Core
+namespace Bellatrix.BugReporting.Core;
+
+public class BugReportingPlugin : Plugin, IScreenshotPlugin, IVideoPlugin
 {
-    public class BugReportingPlugin : Plugin, IScreenshotPlugin, IVideoPlugin
+    private static List<string> _filesToBeAttached;
+    private readonly IBugReportingService _bugReportingService;
+    private readonly BugReportingContextService _bugReportingContextService;
+
+    public BugReportingPlugin(IBugReportingService bugReportingService, BugReportingContextService bugReportingContextService)
     {
-        private static List<string> _filesToBeAttached;
-        private readonly IBugReportingService _bugReportingService;
-        private readonly BugReportingContextService _bugReportingContextService;
+        _bugReportingService = bugReportingService;
+        _bugReportingContextService = bugReportingContextService;
+        _filesToBeAttached = new List<string>();
+    }
 
-        public BugReportingPlugin(IBugReportingService bugReportingService, BugReportingContextService bugReportingContextService)
+    protected override void PreTestInit(object sender, PluginEventArgs e)
+    {
+        if (!IsBugReportingEnabled())
         {
-            _bugReportingService = bugReportingService;
-            _bugReportingContextService = bugReportingContextService;
-            _filesToBeAttached = new List<string>();
+            return;
         }
 
-        protected override void PreTestInit(object sender, PluginEventArgs e)
+        base.PreTestInit(sender, e);
+        InitializeTestCase(e);
+    }
+
+    protected override void PostTestCleanup(object sender, PluginEventArgs e)
+    {
+        if (!IsBugReportingEnabled())
         {
-            if (!IsBugReportingEnabled())
+            return;
+        }
+
+        base.PostTestCleanup(sender, e);
+
+        if ((e.TestOutcome == TestOutcome.Failed || e.TestOutcome == TestOutcome.Error) && _bugReportingContextService?.Context != null)
+        {
+            _bugReportingService.LogBug(_bugReportingContextService.Context.Value, e.Exception.ToString(), _filesToBeAttached);
+        }
+
+        _bugReportingContextService?.ResetContext();
+    }
+
+    public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
+    {
+        provider.ScreenshotGeneratedEvent += ScreenshotGenerated;
+    }
+
+    public void UnsubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
+    {
+        provider.ScreenshotGeneratedEvent -= ScreenshotGenerated;
+    }
+
+    public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs e)
+    {
+        _filesToBeAttached.Add(e.ScreenshotPath);
+    }
+
+    public void SubscribeVideoPlugin(IVideoPluginProvider provider)
+    {
+        provider.VideoGeneratedEvent += VideoGenerated;
+    }
+
+    public void UnsubscribeVideoPlugin(IVideoPluginProvider provider)
+    {
+        provider.VideoGeneratedEvent -= VideoGenerated;
+    }
+
+    public void VideoGenerated(object sender, VideoPluginEventArgs e)
+    {
+        _filesToBeAttached.Add(e.VideoPath);
+    }
+
+    private void InitializeTestCase(PluginEventArgs args)
+    {
+        if (args.TestMethodMemberInfo == null)
+        {
+            return;
+        }
+
+        _filesToBeAttached = new List<string>();
+        _bugReportingContextService.Context.Value = new BugReportingContext();
+        _bugReportingContextService.Context.Value.TestCaseName = TestNameToDesciption(args.TestName);
+        _bugReportingContextService.Context.Value.TestFullName = $"{args.TestMethodMemberInfo.DeclaringType.Name}.{args.TestName}";
+        _bugReportingContextService.Context.Value.TestProjectName = args.TestMethodMemberInfo.DeclaringType.FullName;
+    }
+
+    private string TestNameToDesciption(string name)
+    {
+        var returnStr = name;
+        for (var i = 1; i < name.Length; i++)
+        {
+            var letter = name.Substring(i, 1);
+
+            if (letter.GetHashCode() != letter.ToLower().GetHashCode())
             {
-                return;
+                returnStr = returnStr.Replace(letter, $" {letter.ToLower()}");
             }
-
-            base.PreTestInit(sender, e);
-            InitializeTestCase(e);
         }
 
-        protected override void PostTestCleanup(object sender, PluginEventArgs e)
-        {
-            if (!IsBugReportingEnabled())
-            {
-                return;
-            }
+        returnStr = returnStr.Replace("_", string.Empty).Trim();
+        returnStr = returnStr.First().ToString().ToUpper() + returnStr.Substring(1);
+        return returnStr;
+    }
 
-            base.PostTestCleanup(sender, e);
-
-            if ((e.TestOutcome == TestOutcome.Failed || e.TestOutcome == TestOutcome.Error) && _bugReportingContextService?.Context != null)
-            {
-                _bugReportingService.LogBug(_bugReportingContextService.Context.Value, e.Exception.ToString(), _filesToBeAttached);
-            }
-
-            _bugReportingContextService?.ResetContext();
-        }
-
-        public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
-        {
-            provider.ScreenshotGeneratedEvent += ScreenshotGenerated;
-        }
-
-        public void UnsubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
-        {
-            provider.ScreenshotGeneratedEvent -= ScreenshotGenerated;
-        }
-
-        public void ScreenshotGenerated(object sender, ScreenshotPluginEventArgs e)
-        {
-            _filesToBeAttached.Add(e.ScreenshotPath);
-        }
-
-        public void SubscribeVideoPlugin(IVideoPluginProvider provider)
-        {
-            provider.VideoGeneratedEvent += VideoGenerated;
-        }
-
-        public void UnsubscribeVideoPlugin(IVideoPluginProvider provider)
-        {
-            provider.VideoGeneratedEvent -= VideoGenerated;
-        }
-
-        public void VideoGenerated(object sender, VideoPluginEventArgs e)
-        {
-            _filesToBeAttached.Add(e.VideoPath);
-        }
-
-        private void InitializeTestCase(PluginEventArgs args)
-        {
-            if (args.TestMethodMemberInfo == null)
-            {
-                return;
-            }
-
-            _filesToBeAttached = new List<string>();
-            _bugReportingContextService.Context.Value = new BugReportingContext();
-            _bugReportingContextService.Context.Value.TestCaseName = TestNameToDesciption(args.TestName);
-            _bugReportingContextService.Context.Value.TestFullName = $"{args.TestMethodMemberInfo.DeclaringType.Name}.{args.TestName}";
-            _bugReportingContextService.Context.Value.TestProjectName = args.TestMethodMemberInfo.DeclaringType.FullName;
-        }
-
-        private string TestNameToDesciption(string name)
-        {
-            var returnStr = name;
-            for (var i = 1; i < name.Length; i++)
-            {
-                var letter = name.Substring(i, 1);
-
-                if (letter.GetHashCode() != letter.ToLower().GetHashCode())
-                {
-                    returnStr = returnStr.Replace(letter, $" {letter.ToLower()}");
-                }
-            }
-
-            returnStr = returnStr.Replace("_", string.Empty).Trim();
-            returnStr = returnStr.First().ToString().ToUpper() + returnStr.Substring(1);
-            return returnStr;
-        }
-
-        private bool IsBugReportingEnabled()
-        {
-            return ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().IsEnabled ||
-                ConfigurationService.GetSection<JiraBugReportingSettings>().IsEnabled;
-        }
+    private bool IsBugReportingEnabled()
+    {
+        return ConfigurationService.GetSection<AzureDevOpsBugReportingSettings>().IsEnabled ||
+            ConfigurationService.GetSection<JiraBugReportingSettings>().IsEnabled;
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="OutputControlTestsChrome.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,78 +13,77 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Output Control")]
+public class OutputControlTestsChrome : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Output Control")]
-    public class OutputControlTestsChrome : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OutputLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Chrome()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OutputLocalPage);
+        var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Chrome()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput");
+        outputComponent.Hover();
 
-            outputComponent.Hover();
+        Assert.AreEqual("color: red;", outputComponent.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", outputComponent.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void Return10_When_InnerText_Chrome()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void Return10_When_InnerText_Chrome()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput");
+        Assert.AreEqual("10", outputComponent.InnerText);
+    }
 
-            Assert.AreEqual("10", outputComponent.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_InnerTextNotSet_Chrome()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_InnerTextNotSet_Chrome()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput2");
+        Assert.IsNotNull(outputComponent.InnerText);
+    }
 
-            Assert.IsNotNull(outputComponent.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_InnerHtmlNotSet_Chrome()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_InnerHtmlNotSet_Chrome()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput2");
+        Assert.IsNotNull(outputComponent.InnerHtml);
+    }
 
-            Assert.IsNotNull(outputComponent.InnerHtml);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnButtonHtml_When_InnerHtmlSet_Chrome()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput1");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnButtonHtml_When_InnerHtmlSet_Chrome()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput1");
+        Assert.AreEqual("<button name=\"button\">Click me</button>", outputComponent.InnerHtml);
+    }
 
-            Assert.AreEqual("<button name=\"button\">Click me</button>", outputComponent.InnerHtml);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_ForNotSet_Chrome()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_ForNotSet_Chrome()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput2");
+        Assert.IsNull(outputComponent.For);
+    }
 
-            Assert.IsNull(outputComponent.For);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnOutputFor_When_ForSet_Chrome()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnOutputFor_When_ForSet_Chrome()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput");
-
-            Assert.AreEqual("myOutput", outputComponent.For);
-        }
+        Assert.AreEqual("myOutput", outputComponent.For);
     }
 }

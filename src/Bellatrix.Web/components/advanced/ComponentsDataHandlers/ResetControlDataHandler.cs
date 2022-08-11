@@ -1,5 +1,5 @@
 ﻿// <copyright file="ResetControlDataHandler.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,12 +12,11 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
-{
-    public class ResetControlDataHandler : IReadonlyControlDataHandler<Reset>
-    {
-        public dynamic GetData(Reset element) => element.InnerText.Trim();
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 
-        public void ValidateValueIs(Reset element, string expectedValue) => element.ValidateInnerTextIs(expectedValue);
-    }
+public class ResetControlDataHandler : IReadonlyControlDataHandler<Reset>
+{
+    public dynamic GetData(Reset element) => element.InnerText.Trim();
+
+    public void ValidateValueIs(Reset element, string expectedValue) => element.ValidateInnerTextIs(expectedValue);
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="PlaylistTrack.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,14 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace MediaStore.Demo.API.Models
-{
-    public class PlaylistTrack
-    {
-        public long PlaylistId { get; set; }
-        public long TrackId { get; set; }
+namespace MediaStore.Demo.API.Models;
 
-        public Playlists Playlist { get; set; }
-        public Tracks Track { get; set; }
-    }
+public class PlaylistTrack
+{
+    public long PlaylistId { get; set; }
+    public long TrackId { get; set; }
+
+    public Playlists Playlist { get; set; }
+    public Tracks Track { get; set; }
 }

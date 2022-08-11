@@ -1,5 +1,5 @@
 ﻿// <copyright file="ActionsRetrier.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,26 +18,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Bellatrix.Utilities;
 
-namespace Bellatrix.Core.Utilities
+namespace Bellatrix.Core.Utilities;
+
+public static class ActionsRetrier
 {
-    public static class ActionsRetrier
+    public static void Perform(Action mainAction, Action onRetry, int numbersToRetry = 3)
     {
-        public static void Perform(Action mainAction, Action onRetry, int numbersToRetry = 3)
+        do
         {
-            do
+            try
             {
-                try
-                {
-                    mainAction();
-                    break;
-                }
-                catch
-                {
-                    onRetry();
-                    numbersToRetry--;
-                }
+                mainAction();
+                break;
             }
-            while (numbersToRetry != 0);
+            catch
+            {
+                onRetry();
+                numbersToRetry--;
+            }
         }
+        while (numbersToRetry != 0);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="DesktopWindowSize.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,15 +11,14 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop.Configuration
+namespace Bellatrix.Desktop.Configuration;
+
+public enum DesktopWindowSize
 {
-    public enum DesktopWindowSize
-    {
-        _1366_768 = 1,
-        _1920_1080 = 2,
-        _1440_900 = 3,
-        _1600_900 = 4,
-        _1280_800 = 5,
-        _1280_1024 = 6,
-    }
+    _1366_768 = 1,
+    _1920_1080 = 2,
+    _1440_900 = 3,
+    _1600_900 = 4,
+    _1280_800 = 5,
+    _1280_1024 = 6,
 }

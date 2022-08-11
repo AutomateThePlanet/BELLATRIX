@@ -1,5 +1,5 @@
 ﻿// <copyright file="ById.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,38 +15,37 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Locators
+namespace Bellatrix.Desktop.Locators;
+
+public class FindIdStrategy : FindStrategy
 {
-    public class FindIdStrategy : FindStrategy
+    public FindIdStrategy(string name)
+        : base(name)
     {
-        public FindIdStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
-        {
-            return searchContext.FindElementById(Value);
-        }
+    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    {
+        return searchContext.FindElementById(Value);
+    }
 
-        public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
-        {
-            return searchContext.FindElementsById(Value);
-        }
+    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    {
+        return searchContext.FindElementsById(Value);
+    }
 
-        public override AppiumWebElement FindElement(WindowsElement element)
-        {
-            return element.FindElementById(Value);
-        }
+    public override AppiumWebElement FindElement(WindowsElement element)
+    {
+        return element.FindElementById(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
-        {
-            return element.FindElementsById(Value);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
+    {
+        return element.FindElementsById(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"Id = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"Id = {Value}";
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="VideoPluginEventArgs.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,30 +13,29 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Plugins;
 
-namespace Bellatrix.Plugins.Video.Plugins
+namespace Bellatrix.Plugins.Video.Plugins;
+
+public sealed class VideoPluginEventArgs : PluginEventArgs
 {
-    public sealed class VideoPluginEventArgs : PluginEventArgs
+    public VideoPluginEventArgs()
     {
-        public VideoPluginEventArgs()
-        {
-        }
-
-        public VideoPluginEventArgs(PluginEventArgs pluginEventArgs, string videoPath)
-            : base(pluginEventArgs.TestOutcome,
-                pluginEventArgs.TestName,
-                pluginEventArgs.TestMethodMemberInfo,
-                pluginEventArgs.TestClassType,
-                pluginEventArgs.Arguments,
-                pluginEventArgs.ConsoleOutputMessage,
-                pluginEventArgs.ConsoleOutputStackTrace,
-                pluginEventArgs.Exception,
-                pluginEventArgs.Categories,
-                pluginEventArgs.Authors,
-                pluginEventArgs.Descriptions)
-        {
-            VideoPath = videoPath;
-        }
-
-        public string VideoPath { get; }
     }
+
+    public VideoPluginEventArgs(PluginEventArgs pluginEventArgs, string videoPath)
+        : base(pluginEventArgs.TestOutcome,
+            pluginEventArgs.TestName,
+            pluginEventArgs.TestMethodMemberInfo,
+            pluginEventArgs.TestClassType,
+            pluginEventArgs.Arguments,
+            pluginEventArgs.ConsoleOutputMessage,
+            pluginEventArgs.ConsoleOutputStackTrace,
+            pluginEventArgs.Exception,
+            pluginEventArgs.Categories,
+            pluginEventArgs.Authors,
+            pluginEventArgs.Descriptions)
+    {
+        VideoPath = videoPath;
+    }
+
+    public string VideoPath { get; }
 }

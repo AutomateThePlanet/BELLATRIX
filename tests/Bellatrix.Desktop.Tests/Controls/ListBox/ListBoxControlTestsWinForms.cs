@@ -1,5 +1,5 @@
 ﻿// <copyright file="ListBoxControlTestsWinForms.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("ListBox Control")]
+[AllureTag("WinForms")]
+public class ListBoxControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("ListBox Control")]
-    [AllureTag("WinForms")]
-    public class ListBoxControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_ListBoxHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_ListBoxHovered_WinForms()
-        {
-            var listBox = App.Components.CreateByAutomationId<ListBox>("listBox");
+        var listBox = App.Components.CreateByAutomationId<ListBox>("listBox");
 
-            listBox.Hover();
+        listBox.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.AreEqual("listBoxHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.AreEqual("listBoxHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_ListBoxIsNotDisabled_WinForms()
-        {
-            var listBox = App.Components.CreateByAutomationId<ListBox>("listBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_ListBoxIsNotDisabled_WinForms()
+    {
+        var listBox = App.Components.CreateByAutomationId<ListBox>("listBox");
 
-            Assert.AreEqual(false, listBox.IsDisabled);
-        }
+        Assert.AreEqual(false, listBox.IsDisabled);
     }
 }

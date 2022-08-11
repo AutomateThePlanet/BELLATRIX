@@ -1,5 +1,5 @@
 ﻿// <copyright file="TextFieldControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,48 +13,47 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("TextField Control")]
+[AllureFeature("ValidateExtensions")]
+public class TextFieldControlValidateExtensionsTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("TextField Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class TextFieldControlValidateExtensionsTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
-        {
-            var textField = App.Components.CreateById<TextField>("IntegerA");
+        var textField = App.Components.CreateById<TextField>("IntegerA");
 
-            textField.SetText("1");
+        textField.SetText("1");
 
-            textField.ValidateTextIs("1");
-        }
+        textField.ValidateTextIs("1");
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIsNotSet_DoesNotThrowException_When_TextFieldIsNotSet()
-        {
-            var textField = App.Components.CreateById<TextField>("IntegerA");
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIsNotSet_DoesNotThrowException_When_TextFieldIsNotSet()
+    {
+        var textField = App.Components.CreateById<TextField>("IntegerA");
 
-            textField.SetText(string.Empty);
+        textField.SetText(string.Empty);
 
-            textField.ValidateTextIsNotSet();
-        }
+        textField.ValidateTextIsNotSet();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_TextFieldIsNotDisabled()
-        {
-            var textField = App.Components.CreateById<TextField>("IntegerA");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_TextFieldIsNotDisabled()
+    {
+        var textField = App.Components.CreateById<TextField>("IntegerA");
 
-            Assert.AreEqual(false, textField.IsDisabled);
-        }
+        Assert.AreEqual(false, textField.IsDisabled);
     }
 }

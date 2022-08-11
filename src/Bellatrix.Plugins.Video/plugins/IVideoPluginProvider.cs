@@ -1,5 +1,5 @@
 ﻿// <copyright file="IVideoPluginProvider.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,12 +14,11 @@
 using System;
 using Bellatrix.Plugins;
 
-namespace Bellatrix.Plugins.Video.Plugins
-{
-    public interface IVideoPluginProvider
-    {
-        event EventHandler<VideoPluginEventArgs> VideoGeneratedEvent;
+namespace Bellatrix.Plugins.Video.Plugins;
 
-        void VideoGenerated(PluginEventArgs e, string screenshotPath);
-    }
+public interface IVideoPluginProvider
+{
+    event EventHandler<VideoPluginEventArgs> VideoGeneratedEvent;
+
+    void VideoGenerated(PluginEventArgs e, string screenshotPath);
 }

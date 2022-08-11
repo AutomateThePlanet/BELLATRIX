@@ -1,5 +1,5 @@
 ﻿// <copyright file="UrlDeterminer.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,17 +19,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Bellatrix.Utilities;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static class UrlDeterminer
 {
-    public static class UrlDeterminer
+    public static string GetUrl<TUrlSettings>(Expression<Func<TUrlSettings, object>> expression, string partialUrl = "")
+        where TUrlSettings : class, new()
     {
-        public static string GetUrl<TUrlSettings>(Expression<Func<TUrlSettings, object>> expression, string partialUrl = "")
-            where TUrlSettings : class, new()
-        {
-            string propertyName = TypePropertiesNameResolver.GetMemberName(expression);
-            var urlSettings = ConfigurationService.GetSection<TUrlSettings>();
-            var propertyInfo = typeof(TUrlSettings).GetProperties().FirstOrDefault(x => x.Name.Equals(propertyName));
-            return new Uri(new Uri(propertyInfo.GetValue(urlSettings) as string), partialUrl).AbsoluteUri;
-        }
+        string propertyName = TypePropertiesNameResolver.GetMemberName(expression);
+        var urlSettings = ConfigurationService.GetSection<TUrlSettings>();
+        var propertyInfo = typeof(TUrlSettings).GetProperties().FirstOrDefault(x => x.Name.Equals(propertyName));
+        return new Uri(new Uri(propertyInfo.GetValue(urlSettings) as string), partialUrl).AbsoluteUri;
     }
 }

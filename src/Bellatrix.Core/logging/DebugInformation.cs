@@ -1,5 +1,5 @@
 ﻿// <copyright file="DebugInformation.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,37 +19,36 @@ using System.Text;
 using System.Threading.Tasks;
 using Bellatrix.Core.Logging;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public static class DebugInformation
 {
-    public static class DebugInformation
+    private static readonly object _lockObject = new object();
+
+    public static void PrintStackTrace<TException>(this TException ex)
+        where TException : Exception
     {
-        private static readonly object _lockObject = new object();
-
-        public static void PrintStackTrace<TException>(this TException ex)
-            where TException : Exception
+        if (ConfigurationService.GetSection<TroubleshootingSettings>().DebugInformationEnabled)
         {
-            if (ConfigurationService.GetSection<TroubleshootingSettings>().DebugInformationEnabled)
+            lock (_lockObject)
             {
-                lock (_lockObject)
+                try
                 {
-                    try
-                    {
-                        Console.Error.WriteLine();
-                        Console.Error.WriteLine(new string('*', 10));
-                        Console.Error.WriteLine(ex.ToString());
-                        Console.Error.WriteLine(new string('*', 10));
-                        Console.Error.WriteLine();
+                    Console.Error.WriteLine();
+                    Console.Error.WriteLine(new string('*', 10));
+                    Console.Error.WriteLine(ex.ToString());
+                    Console.Error.WriteLine(new string('*', 10));
+                    Console.Error.WriteLine();
 
-                        Debug.WriteLine(string.Empty);
-                        Debug.WriteLine(new string('*', 10));
-                        Debug.WriteLine(ex.ToString());
-                        Debug.WriteLine(new string('*', 10));
-                        Debug.WriteLine(string.Empty);
-                    }
-                    catch
-                    {
-                        // ignore
-                    }
+                    Debug.WriteLine(string.Empty);
+                    Debug.WriteLine(new string('*', 10));
+                    Debug.WriteLine(ex.ToString());
+                    Debug.WriteLine(new string('*', 10));
+                    Debug.WriteLine(string.Empty);
+                }
+                catch
+                {
+                    // ignore
                 }
             }
         }

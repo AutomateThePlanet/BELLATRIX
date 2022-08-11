@@ -1,5 +1,5 @@
 ﻿// <copyright file="Image.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,46 +17,45 @@ using System.Web;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class Image : Component, IComponentSrc, IComponentHeight, IComponentWidth, IComponentLongDesc, IComponentAlt, IComponentSrcSet, IComponentSizes
 {
-    public class Image : Component, IComponentSrc, IComponentHeight, IComponentWidth, IComponentLongDesc, IComponentAlt, IComponentSrcSet, IComponentSizes
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> Clicking;
+    public static event EventHandler<ComponentActionEventArgs> Clicked;
+
+    public override Type ComponentType => GetType();
+
+    public virtual void Click()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> Clicking;
-        public static event EventHandler<ComponentActionEventArgs> Clicked;
-
-        public override Type ComponentType => GetType();
-
-        public virtual void Click()
-        {
-            Click(Clicking, Clicked);
-        }
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Src => HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("src")));
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string LongDesc => string.IsNullOrEmpty(GetAttribute("longdesc")) ? null : GetAttribute("longdesc");
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Alt => string.IsNullOrEmpty(GetAttribute("alt")) ? null : GetAttribute("alt");
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string SrcSet => string.IsNullOrEmpty(GetAttribute("srcset")) ? null : GetAttribute("srcset");
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Sizes => string.IsNullOrEmpty(GetAttribute("sizes")) ? null : GetAttribute("sizes");
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual int? Height => GetHeightAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual int? Width => GetWidthAttribute();
+        Click(Clicking, Clicked);
     }
+
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Src => HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("src")));
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string LongDesc => string.IsNullOrEmpty(GetAttribute("longdesc")) ? null : GetAttribute("longdesc");
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Alt => string.IsNullOrEmpty(GetAttribute("alt")) ? null : GetAttribute("alt");
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string SrcSet => string.IsNullOrEmpty(GetAttribute("srcset")) ? null : GetAttribute("srcset");
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Sizes => string.IsNullOrEmpty(GetAttribute("sizes")) ? null : GetAttribute("sizes");
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual int? Height => GetHeightAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual int? Width => GetWidthAttribute();
 }

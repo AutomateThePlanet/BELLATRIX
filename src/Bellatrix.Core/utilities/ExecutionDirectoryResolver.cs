@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExecutionDirectoryResolver.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,73 +18,72 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+public static class ExecutionDirectoryResolver
 {
-    public static class ExecutionDirectoryResolver
+    private static string _driverExecutablePath = string.Empty;
+    private static string _rootPath = string.Empty;
+
+    public static string GetDriverExecutablePath()
     {
-        private static string _driverExecutablePath = string.Empty;
-        private static string _rootPath = string.Empty;
-
-        public static string GetDriverExecutablePath()
+        if (string.IsNullOrEmpty(_driverExecutablePath))
         {
-            if (string.IsNullOrEmpty(_driverExecutablePath))
+            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var directoryInfo = new DirectoryInfo(assemblyFolder);
+            var parentDirectories = GetAllParentDirectories(directoryInfo);
+
+            if (parentDirectories.Count(x => x.Equals(directoryInfo.Name)) > 1)
             {
-                string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                var directoryInfo = new DirectoryInfo(assemblyFolder);
-                var parentDirectories = GetAllParentDirectories(directoryInfo);
-
-                if (parentDirectories.Count(x => x.Equals(directoryInfo.Name)) > 1)
+                for (int i = 0; i < 4; i++)
                 {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        directoryInfo = directoryInfo?.Parent;
-                    }
-                }
-
-                _driverExecutablePath = directoryInfo?.FullName;
-            }
-
-            return _driverExecutablePath;
-        }
-
-        public static string GetRootPath()
-        {
-            if (string.IsNullOrEmpty(_rootPath))
-            {
-                string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                var directoryInfo = new DirectoryInfo(assemblyFolder);
-                var currentDirectory = directoryInfo;
-                var parentDirectory = directoryInfo.Parent;
-                var childDirectories = directoryInfo.GetDirectories().ToList();
-
-                while (parentDirectory != null && !childDirectories.Any(x => x.Name.Equals(".vs")))
-                {
-                    currentDirectory = parentDirectory;
-                    parentDirectory = currentDirectory.Parent;
-                    childDirectories = currentDirectory.GetDirectories().ToList();
-                    _rootPath = currentDirectory.FullName;
+                    directoryInfo = directoryInfo?.Parent;
                 }
             }
 
-            return _rootPath;
+            _driverExecutablePath = directoryInfo?.FullName;
         }
 
-        private static IEnumerable<string> GetAllParentDirectories(DirectoryInfo directoryToScan)
-        {
-            var parentFolders = new List<string>();
-            GetAllParentDirectories(directoryToScan, parentFolders);
-            return parentFolders;
-        }
+        return _driverExecutablePath;
+    }
 
-        private static void GetAllParentDirectories(DirectoryInfo directoryToScan, List<string> directories)
+    public static string GetRootPath()
+    {
+        if (string.IsNullOrEmpty(_rootPath))
         {
-            if (directoryToScan == null || directoryToScan.Name == directoryToScan.Root.Name)
+            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var directoryInfo = new DirectoryInfo(assemblyFolder);
+            var currentDirectory = directoryInfo;
+            var parentDirectory = directoryInfo.Parent;
+            var childDirectories = directoryInfo.GetDirectories().ToList();
+
+            while (parentDirectory != null && !childDirectories.Any(x => x.Name.Equals(".vs")))
             {
-                return;
+                currentDirectory = parentDirectory;
+                parentDirectory = currentDirectory.Parent;
+                childDirectories = currentDirectory.GetDirectories().ToList();
+                _rootPath = currentDirectory.FullName;
             }
-
-            directories.Add(directoryToScan.Name);
-            GetAllParentDirectories(directoryToScan.Parent, directories);
         }
+
+        return _rootPath;
+    }
+
+    private static IEnumerable<string> GetAllParentDirectories(DirectoryInfo directoryToScan)
+    {
+        var parentFolders = new List<string>();
+        GetAllParentDirectories(directoryToScan, parentFolders);
+        return parentFolders;
+    }
+
+    private static void GetAllParentDirectories(DirectoryInfo directoryToScan, List<string> directories)
+    {
+        if (directoryToScan == null || directoryToScan.Name == directoryToScan.Root.Name)
+        {
+            return;
+        }
+
+        directories.Add(directoryToScan.Name);
+        GetAllParentDirectories(directoryToScan.Parent, directories);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="OffsetImage.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,28 +15,27 @@
 using System.Drawing;
 using Bellatrix.ImageRecognition.Interfaces;
 
-namespace Bellatrix.ImageRecognition.Models
+namespace Bellatrix.ImageRecognition.Models;
+
+public class OffsetImage : Image, IImage
 {
-    public class OffsetImage : Image, IImage
+    private readonly IImage _pattern;
+    private readonly Point _offset;
+
+    public OffsetImage(IImage pattern, Point offset)
+        : base(pattern.Path)
     {
-        private readonly IImage _pattern;
-        private readonly Point _offset;
+        _pattern = pattern;
+        _offset = offset;
+    }
 
-        public OffsetImage(IImage pattern, Point offset)
-            : base(pattern.Path)
-        {
-            _pattern = pattern;
-            _offset = offset;
-        }
+    public string ToSikuliScript(string command, double? commandParameter)
+    {
+        return $"print \"SIKULI#: YES\" if {command}({GeneratePatternString()}{ToSukuliFloat(commandParameter)}) else \"SIKULI#: NO\"";
+    }
 
-        public string ToSikuliScript(string command, double? commandParameter)
-        {
-            return $"print \"SIKULI#: YES\" if {command}({GeneratePatternString()}{ToSukuliFloat(commandParameter)}) else \"SIKULI#: NO\"";
-        }
-
-        public string GeneratePatternString()
-        {
-            return $"{_pattern.GeneratePatternString()}.targetOffset({_offset.X}, {_offset.Y})";
-        }
+    public string GeneratePatternString()
+    {
+        return $"{_pattern.GeneratePatternString()}.targetOffset({_offset.X}, {_offset.Y})";
     }
 }

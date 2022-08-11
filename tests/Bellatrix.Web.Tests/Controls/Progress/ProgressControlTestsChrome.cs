@@ -1,5 +1,5 @@
 ﻿// <copyright file="ProgressControlTestsChrome.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,71 +13,70 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Progress Control")]
+public class ProgressControlTestsChrome : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Progress Control")]
-    public class ProgressControlTestsChrome : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ProgressLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void Return70_When_UseGetValueMethod_Chrome()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ProgressLocalPage);
+        var progressElement = App.Components.CreateById<Progress>("myProgress");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void Return70_When_UseGetValueMethod_Chrome()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress");
+        Assert.AreEqual("70", progressElement.Value);
+    }
 
-            Assert.AreEqual("70", progressElement.Value);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_NoValueAttributeAttributePresent_Chrome()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress2");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_NoValueAttributeAttributePresent_Chrome()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress2");
+        Assert.IsNotNull(progressElement.Value);
+    }
 
-            Assert.IsNotNull(progressElement.Value);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void Return100_When_UseGetMaxMethod_Chrome()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void Return100_When_UseGetMaxMethod_Chrome()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress");
+        Assert.AreEqual("100", progressElement.Max);
+    }
 
-            Assert.AreEqual("100", progressElement.Max);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void Return1_When_NoMaxAttributePresent_Chrome()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress1");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void Return1_When_NoMaxAttributePresent_Chrome()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress1");
+        var actualMax = progressElement.Max;
 
-            var actualMax = progressElement.Max;
+        Assert.AreEqual("1", actualMax);
+    }
 
-            Assert.AreEqual("1", actualMax);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void Return70_When_UseGetInnerTextMethod_Chrome()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void Return70_When_UseGetInnerTextMethod_Chrome()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress");
+        Assert.AreEqual("70 %", progressElement.InnerText);
+    }
 
-            Assert.AreEqual("70 %", progressElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnEmpty_When_NoInnerTextPresent_Chrome()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress3");
 
-        [TestMethod]
-        [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnEmpty_When_NoInnerTextPresent_Chrome()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress3");
+        var actualInnerText = progressElement.InnerText;
 
-            var actualInnerText = progressElement.InnerText;
-
-            Assert.AreEqual(string.Empty, actualInnerText);
-        }
+        Assert.AreEqual(string.Empty, actualInnerText);
     }
 }

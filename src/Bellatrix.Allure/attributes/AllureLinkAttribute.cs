@@ -1,5 +1,5 @@
 ﻿// <copyright file="AllureLinkAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,27 +14,26 @@
 using System;
 using Allure.Commons;
 
-namespace Bellatrix
-{
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
-    public class AllureLinkAttribute : Attribute
-    {
-        public AllureLinkAttribute(string name, string url)
-            => Link = new Link
-            {
-                name = name,
-                type = "link",
-                url = url,
-            };
+namespace Bellatrix;
 
-        public AllureLinkAttribute(string url)
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
+public class AllureLinkAttribute : Attribute
+{
+    public AllureLinkAttribute(string name, string url)
         => Link = new Link
         {
-            name = url,
+            name = name,
             type = "link",
             url = url,
         };
 
-        internal Link Link { get; }
-    }
+    public AllureLinkAttribute(string url)
+    => Link = new Link
+    {
+        name = url,
+        type = "link",
+        url = url,
+    };
+
+    internal Link Link { get; }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="AllureTmsAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,27 +14,26 @@
 using System;
 using Allure.Commons;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
+public class AllureTmsAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
-    public class AllureTmsAttribute : Attribute
-    {
-        public AllureTmsAttribute(string name, string url)
-            => TmsLink = new Link
-            {
-                name = name,
-                type = "tms",
-                url = url,
-            };
+    public AllureTmsAttribute(string name, string url)
+        => TmsLink = new Link
+        {
+            name = name,
+            type = "tms",
+            url = url,
+        };
 
-        public AllureTmsAttribute(string name)
-            => TmsLink = new Link
-            {
-                name = name,
-                type = "tms",
-                url = name,
-            };
+    public AllureTmsAttribute(string name)
+        => TmsLink = new Link
+        {
+            name = name,
+            type = "tms",
+            url = name,
+        };
 
-        internal Link TmsLink { get; }
-    }
+    internal Link TmsLink { get; }
 }

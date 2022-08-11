@@ -1,5 +1,5 @@
 ﻿// <copyright file="SeekBarControlTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.SeekBar1",
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("SeekBar Control")]
+public class SeekBarControlTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.SeekBar1",
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("SeekBar Control")]
-    public class SeekBarControlTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void NinePercentageSet_When_CallSeekBarSetMethod()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void NinePercentageSet_When_CallSeekBarSetMethod()
-        {
-            var seekBar = App.Components.CreateByClass<SeekBar>("android.widget.SeekBar");
+        var seekBar = App.Components.CreateByClass<SeekBar>("android.widget.SeekBar");
 
-            seekBar.Set(9);
-        }
+        seekBar.Set(9);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_SeekbarIsNotDisabled()
-        {
-            var seekBar = App.Components.CreateByClass<SeekBar>("android.widget.SeekBar");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_SeekbarIsNotDisabled()
+    {
+        var seekBar = App.Components.CreateByClass<SeekBar>("android.widget.SeekBar");
 
-            Assert.AreEqual(false, seekBar.IsDisabled);
-        }
+        Assert.AreEqual(false, seekBar.IsDisabled);
     }
 }

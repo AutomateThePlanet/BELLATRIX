@@ -1,5 +1,5 @@
 ﻿// <copyright file="CheckboxEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,46 +13,45 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Events;
 
-namespace Bellatrix.Desktop.EventHandlers
+namespace Bellatrix.Desktop.EventHandlers;
+
+public class CheckboxEventHandlers : ComponentEventHandlers
 {
-    public class CheckboxEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            CheckBox.Checking += CheckingEventHandler;
-            CheckBox.Checked += CheckedEventHandler;
-            CheckBox.Unchecking += UncheckingEventHandler;
-            CheckBox.Unchecked += UncheckedEventHandler;
-            CheckBox.Hovering += HoveringEventHandler;
-            CheckBox.Hovered += HoveredEventHandler;
-        }
+        base.SubscribeToAll();
+        CheckBox.Checking += CheckingEventHandler;
+        CheckBox.Checked += CheckedEventHandler;
+        CheckBox.Unchecking += UncheckingEventHandler;
+        CheckBox.Unchecked += UncheckedEventHandler;
+        CheckBox.Hovering += HoveringEventHandler;
+        CheckBox.Hovered += HoveredEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            CheckBox.Checking -= CheckingEventHandler;
-            CheckBox.Checked -= CheckedEventHandler;
-            CheckBox.Unchecking -= UncheckingEventHandler;
-            CheckBox.Unchecked -= UncheckedEventHandler;
-            CheckBox.Hovering -= HoveringEventHandler;
-            CheckBox.Hovered -= HoveredEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        CheckBox.Checking -= CheckingEventHandler;
+        CheckBox.Checked -= CheckedEventHandler;
+        CheckBox.Unchecking -= UncheckingEventHandler;
+        CheckBox.Unchecked -= UncheckedEventHandler;
+        CheckBox.Hovering -= HoveringEventHandler;
+        CheckBox.Hovered -= HoveredEventHandler;
+    }
 
-        protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

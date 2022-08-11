@@ -1,5 +1,5 @@
 ﻿// <copyright file="TestOutcome.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,18 +11,17 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Plugins
+namespace Bellatrix.Plugins;
+
+public enum TestOutcome
 {
-    public enum TestOutcome
-    {
-        NotSet = 100,
-        Failed = 0,
-        Inconclusive = 1,
-        Passed = 2,
-        InProgress = 3,
-        Error = 4,
-        Timeout = 5,
-        Aborted = 6,
-        Unknown = 7,
-    }
+    NotSet = 100,
+    Failed = 0,
+    Inconclusive = 1,
+    Passed = 2,
+    InProgress = 3,
+    Error = 4,
+    Timeout = 5,
+    Aborted = 6,
+    Unknown = 7,
 }

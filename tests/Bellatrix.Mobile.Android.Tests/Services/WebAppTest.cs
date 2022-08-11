@@ -1,5 +1,5 @@
 ﻿// <copyright file="WebAppTest.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,24 +13,23 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[AndroidWeb(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Services")]
+[AllureFeature("WebService")]
+public class WebAppTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [AndroidWeb(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Services")]
-    [AllureFeature("WebService")]
-    public class WebAppTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [Ignore]
+    public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [Ignore]
-        public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
-        {
-            App.Web.NavigationService.Navigate("http://demos.bellatrix.solutions/");
-            Assert.IsTrue(App.Web.BrowserService.HtmlSource.Contains("Shop"));
-        }
+        App.Web.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+        Assert.IsTrue(App.Web.BrowserService.HtmlSource.Contains("Shop"));
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="ComponentActionEventArgs.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,16 +13,15 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Contracts;
 
-namespace Bellatrix.Web.Events
+namespace Bellatrix.Web.Events;
+
+public class ComponentActionEventArgs
 {
-    public class ComponentActionEventArgs
-    {
-        public ComponentActionEventArgs(IComponent element) => Element = element;
+    public ComponentActionEventArgs(IComponent element) => Element = element;
 
-        public ComponentActionEventArgs(IComponent element, string actionValue)
-            : this(element) => ActionValue = actionValue;
+    public ComponentActionEventArgs(IComponent element, string actionValue)
+        : this(element) => ActionValue = actionValue;
 
-        public IComponent Element { get; }
-        public string ActionValue { get; }
-    }
+    public IComponent Element { get; }
+    public string ActionValue { get; }
 }

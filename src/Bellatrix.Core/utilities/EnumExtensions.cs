@@ -1,5 +1,5 @@
 ﻿// <copyright file="EnumExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,44 +14,43 @@
 using System;
 using System.ComponentModel;
 
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+public static class EnumExtensions
 {
-    public static class EnumExtensions
+    public static string GetEnumName(this Enum en, object value)
     {
-        public static string GetEnumName(this Enum en, object value)
+        return Enum.GetName(en.GetType(), value);
+    }
+
+    public static string GetEnumDescription(this Enum value)
+    {
+        var fieldInfo = value.GetType().GetField(value.ToString());
+
+        var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+        if (attributes.Length > 0)
         {
-            return Enum.GetName(en.GetType(), value);
+            return attributes[0].Description;
         }
 
-        public static string GetEnumDescription(this Enum value)
+        return value.ToString();
+    }
+
+    public static TEnum ParseToEnum<TEnum>(this string enumValue)
+        where TEnum : struct
+    {
+        if (int.TryParse(enumValue, out int result))
         {
-            var fieldInfo = value.GetType().GetField(value.ToString());
-
-            var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
-
-            if (attributes.Length > 0)
-            {
-                return attributes[0].Description;
-            }
-
-            return value.ToString();
+            return result.ParseToEnum<TEnum>();
         }
 
-        public static TEnum ParseToEnum<TEnum>(this string enumValue)
-            where TEnum : struct
-        {
-            if (int.TryParse(enumValue, out int result))
-            {
-                return result.ParseToEnum<TEnum>();
-            }
+        return (TEnum)Enum.Parse(typeof(TEnum), enumValue);
+    }
 
-            return (TEnum)Enum.Parse(typeof(TEnum), enumValue);
-        }
-
-        public static TEnum ParseToEnum<TEnum>(this int enumValue)
-            where TEnum : struct
-        {
-            return (TEnum)Enum.ToObject(typeof(TEnum), enumValue);
-        }
+    public static TEnum ParseToEnum<TEnum>(this int enumValue)
+        where TEnum : struct
+    {
+        return (TEnum)Enum.ToObject(typeof(TEnum), enumValue);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="ButtonControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,85 +14,84 @@
 using Bellatrix.Mobile.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Button Control")]
+[AllureFeature("ValidateExtensions")]
+public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Button Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateInnerTextIs_ThrowException_Button_When_InnerTextIsAsExpected()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateInnerTextIs_ThrowException_Button_When_InnerTextIsAsExpected()
+        try
         {
-            try
-            {
-                var button = App.Components.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
-                button.ValidateTextIs("GoTo");
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = "The control's text should be 'GoTo'";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            button.ValidateTextIs("GoTo");
         }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateInnerTextIsNull_ThrowException_Button_When_InnerTextIsNotNull()
+        catch (ComponentPropertyValidateException e)
         {
-            try
-            {
-                var button = App.Components.CreateByIdContaining<Button>("button");
-
-                button.ValidateTextIsNotSet();
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = "The control's text should be null but was 'Save'";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            string expectedExceptionMessage = "The control's text should be 'GoTo'";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsNotDisabled_ThrowException_When_ButtonNotDisabled()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateInnerTextIsNull_ThrowException_Button_When_InnerTextIsNotNull()
+    {
+        try
         {
-            try
-            {
-                var button = App.Components.CreateByIdContaining<Button>("button");
+            var button = App.Components.CreateByIdContaining<Button>("button");
 
-                button.ValidateIsDisabled();
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = "The control should be disabled but it was NOT.";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+            button.ValidateTextIsNotSet();
         }
-
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsNotDisabled_ThrowException_When_ButtonDisabled()
+        catch (ComponentPropertyValidateException e)
         {
-            try
-            {
-                var button = App.Components.CreateByIdContaining<Button>("button_disabled");
+            string expectedExceptionMessage = "The control's text should be null but was 'Save'";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
 
-                button.ValidateIsNotDisabled();
-            }
-            catch (ComponentPropertyValidateException e)
-            {
-                string expectedExceptionMessage = "The control should NOT be disabled but it was.";
-                Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
-            }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsNotDisabled_ThrowException_When_ButtonNotDisabled()
+    {
+        try
+        {
+            var button = App.Components.CreateByIdContaining<Button>("button");
+
+            button.ValidateIsDisabled();
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = "The control should be disabled but it was NOT.";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+        }
+    }
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsNotDisabled_ThrowException_When_ButtonDisabled()
+    {
+        try
+        {
+            var button = App.Components.CreateByIdContaining<Button>("button_disabled");
+
+            button.ValidateIsNotDisabled();
+        }
+        catch (ComponentPropertyValidateException e)
+        {
+            string expectedExceptionMessage = "The control should NOT be disabled but it was.";
+            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

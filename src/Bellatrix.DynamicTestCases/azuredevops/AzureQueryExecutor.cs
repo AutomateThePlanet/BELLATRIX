@@ -1,5 +1,5 @@
 ﻿// <copyright file="AzureQueryExecutor.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -20,37 +20,36 @@ using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.Common;
 
-namespace Bellatrix.DynamicTestCases.AzureDevOps
+namespace Bellatrix.DynamicTestCases.AzureDevOps;
+
+public static class AzureQueryExecutor
 {
-    public static class AzureQueryExecutor
+    private static readonly string _uri;
+    private static readonly string _personalAccessToken;
+
+    static AzureQueryExecutor()
     {
-        private static readonly string _uri;
-        private static readonly string _personalAccessToken;
+        _uri = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Url);
+        _personalAccessToken = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Token);
+    }
 
-        static AzureQueryExecutor()
+    public static List<WorkItem> GetWorkItems(string workItemId)
+    {
+        var credentials = new VssBasicCredential(string.Empty, _personalAccessToken);
+
+        try
         {
-            _uri = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Url);
-            _personalAccessToken = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<AzureDevOpsDynamicTestCasesSettings>().Token);
+            // create instance of work item tracking http client
+            using var httpClient = new WorkItemTrackingHttpClient(new Uri(_uri), credentials);
+
+            // execute the query to get the list of work items in the results
+            var result = httpClient.GetWorkItemsAsync(new int[] { workItemId.ToInt() }).Result;
+
+            return httpClient.GetWorkItemsAsync(new int[] { workItemId.ToInt() }).Result;
         }
-
-        public static List<WorkItem> GetWorkItems(string workItemId)
+        catch
         {
-            var credentials = new VssBasicCredential(string.Empty, _personalAccessToken);
-
-            try
-            {
-                // create instance of work item tracking http client
-                using var httpClient = new WorkItemTrackingHttpClient(new Uri(_uri), credentials);
-
-                // execute the query to get the list of work items in the results
-                var result = httpClient.GetWorkItemsAsync(new int[] { workItemId.ToInt() }).Result;
-
-                return httpClient.GetWorkItemsAsync(new int[] { workItemId.ToInt() }).Result;
-            }
-            catch
-            {
-                return new List<WorkItem>();
-            }
+            return new List<WorkItem>();
         }
     }
 }

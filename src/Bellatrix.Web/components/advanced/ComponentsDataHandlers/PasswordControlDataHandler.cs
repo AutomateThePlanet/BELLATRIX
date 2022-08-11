@@ -1,5 +1,5 @@
 ﻿// <copyright file="PasswordControlDataHandler.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,17 +15,16 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class PasswordControlDataHandler : IEditableControlDataHandler<Password>
 {
-    public class PasswordControlDataHandler : IEditableControlDataHandler<Password>
+    public dynamic GetData(Password element) => element.GetPassword();
+
+    public void SetData(Password element, string data)
     {
-        public dynamic GetData(Password element) => element.GetPassword();
-
-        public void SetData(Password element, string data)
-        {
-            element.SetPassword(data);
-        }
-
-        public void ValidateValueIs(Password element, string expectedValue) => element.ValidatePasswordIs(expectedValue);
+        element.SetPassword(data);
     }
+
+    public void ValidateValueIs(Password element, string expectedValue) => element.ValidatePasswordIs(expectedValue);
 }

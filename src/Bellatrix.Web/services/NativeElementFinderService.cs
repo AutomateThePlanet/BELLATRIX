@@ -1,5 +1,5 @@
 ﻿// <copyright file="NativeElementFinderService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,28 +14,27 @@
 using System.Collections.Generic;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class NativeElementFinderService : IWebDriverElementFinderService
 {
-    public class NativeElementFinderService : IWebDriverElementFinderService
+    private readonly ISearchContext _searchContext;
+
+    public NativeElementFinderService(ISearchContext searchContext) => _searchContext = searchContext;
+
+    public IWebElement Find<TBy>(TBy by)
+        where TBy : FindStrategy
     {
-        private readonly ISearchContext _searchContext;
+        var element = _searchContext.FindElement(by.Convert());
 
-        public NativeElementFinderService(ISearchContext searchContext) => _searchContext = searchContext;
+        return element;
+    }
 
-        public IWebElement Find<TBy>(TBy by)
-            where TBy : FindStrategy
-        {
-            var element = _searchContext.FindElement(by.Convert());
+    public IEnumerable<IWebElement> FindAll<TBy>(TBy by)
+        where TBy : FindStrategy
+    {
+        IEnumerable<IWebElement> result = _searchContext.FindElements(@by.Convert());
 
-            return element;
-        }
-
-        public IEnumerable<IWebElement> FindAll<TBy>(TBy by)
-            where TBy : FindStrategy
-        {
-            IEnumerable<IWebElement> result = _searchContext.FindElements(@by.Convert());
-
-            return result;
-        }
+        return result;
     }
 }

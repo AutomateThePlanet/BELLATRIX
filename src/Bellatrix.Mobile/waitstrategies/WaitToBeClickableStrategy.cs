@@ -1,5 +1,5 @@
 ﻿// <copyright file="UntilBeClickable.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,37 +17,36 @@ using Bellatrix.Mobile.Locators;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile.Untils
+namespace Bellatrix.Mobile.Untils;
+
+public class WaitToBeClickableStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
+   where TDriver : AppiumDriver<TDriverElement>
+   where TDriverElement : AppiumWebElement
 {
-    public class WaitToBeClickableStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
-       where TDriver : AppiumDriver<TDriverElement>
-       where TDriverElement : AppiumWebElement
+    public WaitToBeClickableStrategy(int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        public WaitToBeClickableStrategy(int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
-        {
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToBeClickableTimeout;
-        }
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ElementToBeClickableTimeout;
+    }
 
-        public override void WaitUntil<TBy>(TBy by)
-            => WaitUntil(ElementIsClickable(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    public override void WaitUntil<TBy>(TBy by)
+        => WaitUntil(ElementIsClickable(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
 
-        private Func<TDriver, bool> ElementIsClickable<TBy>(TDriver searchContext, TBy by)
-            where TBy : FindStrategy<TDriver, TDriverElement>
-        {
-            return driver =>
+    private Func<TDriver, bool> ElementIsClickable<TBy>(TDriver searchContext, TBy by)
+        where TBy : FindStrategy<TDriver, TDriverElement>
+    {
+        return driver =>
+                {
+                    var element = by.FindElement(searchContext);
+                    element = element.Displayed ? element : null;
+                    try
                     {
-                        var element = by.FindElement(searchContext);
-                        element = element.Displayed ? element : null;
-                        try
-                        {
-                            return element != null && element.Enabled;
-                        }
-                        catch (StaleElementReferenceException)
-                        {
-                            return false;
-                        }
-                    };
-        }
+                        return element != null && element.Enabled;
+                    }
+                    catch (StaleElementReferenceException)
+                    {
+                        return false;
+                    }
+                };
     }
 }

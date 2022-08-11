@@ -1,5 +1,5 @@
 ﻿// <copyright file="AssertedTableFormLine.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,38 +19,37 @@ using System.Threading.Tasks;
 using Azure.AI.FormRecognizer.Models;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.CognitiveServices.services
+namespace Bellatrix.CognitiveServices.services;
+
+public class AssertedTableFormLine
 {
-    public class AssertedTableFormLine
+    public static event EventHandler<string> TableFormLineAsserted;
+    private readonly FormLine _formLine;
+
+    public AssertedTableFormLine(FormLine formLine)
     {
-        public static event EventHandler<string> TableFormLineAsserted;
-        private readonly FormLine _formLine;
+        _formLine = formLine;
+    }
 
-        public AssertedTableFormLine(FormLine formLine)
-        {
-            _formLine = formLine;
-        }
+    public List<string> Words => _formLine.Words.Select(x => x.Text).ToList();
+    public FieldBoundingBox BoundingBox => _formLine.BoundingBox;
+    public FormLine WrappedFormLine => _formLine;
 
-        public List<string> Words => _formLine.Words.Select(x => x.Text).ToList();
-        public FieldBoundingBox BoundingBox => _formLine.BoundingBox;
-        public FormLine WrappedFormLine => _formLine;
+    public void AssertWordsCount(int expectedWordsCount)
+    {
+        TableFormLineAsserted?.Invoke(this, $"Assert line words' count = {expectedWordsCount}");
+        Assert.AreEqual(expectedWordsCount, _formLine.Words.Count, $"Line words' count != {expectedWordsCount}");
+    }
 
-        public void AssertWordsCount(int expectedWordsCount)
-        {
-            TableFormLineAsserted?.Invoke(this, $"Assert line words' count = {expectedWordsCount}");
-            Assert.AreEqual(expectedWordsCount, _formLine.Words.Count, $"Line words' count != {expectedWordsCount}");
-        }
+    public void AssertWordsEqual(params string[] expectedWords)
+    {
+        TableFormLineAsserted?.Invoke(this, $"Assert line words are {expectedWords}");
+        CollectionAssert.AreEqual(expectedWords, Words, "Expected words are different than the actual ones present on the line.");
+    }
 
-        public void AssertWordsEqual(params string[] expectedWords)
-        {
-            TableFormLineAsserted?.Invoke(this, $"Assert line words are {expectedWords}");
-            CollectionAssert.AreEqual(expectedWords, Words, "Expected words are different than the actual ones present on the line.");
-        }
-
-        public void AssertWordsContain(params string[] expectedWords)
-        {
-            TableFormLineAsserted?.Invoke(this, $"Assert line words contain the words: {expectedWords}");
-            CollectionAssert.IsSubsetOf(expectedWords, Words, "Expected words are different than the actual ones present on the line.");
-        }
+    public void AssertWordsContain(params string[] expectedWords)
+    {
+        TableFormLineAsserted?.Invoke(this, $"Assert line words contain the words: {expectedWords}");
+        CollectionAssert.IsSubsetOf(expectedWords, Words, "Expected words are different than the actual ones present on the line.");
     }
 }

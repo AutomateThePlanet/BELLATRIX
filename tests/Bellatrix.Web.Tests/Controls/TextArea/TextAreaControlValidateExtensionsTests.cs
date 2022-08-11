@@ -1,5 +1,5 @@
 ﻿// <copyright file="TextAreaControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,216 +13,215 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("TextArea Control")]
+[AllureFeature("ValidateExtensions")]
+public class TextAreaControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("TextArea Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class TextAreaControlValidateExtensionsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextAreaLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent_Edge()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextAreaLocalPage);
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
+        textAreaElement.ValidateAutoCompleteOff();
+    }
 
-            textAreaElement.ValidateAutoCompleteOff();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
+        textAreaElement.ValidateAutoCompleteOn();
+    }
 
-            textAreaElement.ValidateAutoCompleteOn();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
+        textAreaElement.ValidateIsNotReadonly();
+    }
 
-            textAreaElement.ValidateIsNotReadonly();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea6");
+        textAreaElement.ValidateIsReadonly();
+    }
 
-            textAreaElement.ValidateIsReadonly();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxLengthIsNull_DoesNotThrowException_When_MaxLengthAttributeIsNotPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
+        textAreaElement.ValidateMaxLengthIsNull();
+    }
 
-            textAreaElement.ValidateMaxLengthIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinLengthIsNull_DoesNotThrowException_When_MinLengthAttributeIsNotPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
+        textAreaElement.ValidateMinLengthIsNull();
+    }
 
-            textAreaElement.ValidateMinLengthIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinLengthIsNull_DoesNotThrowException_When_RowsAttributeIsNotPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinLengthIsNull_DoesNotThrowException_When_RowsAttributeIsNotPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
+        textAreaElement.ValidateRowsIs(2);
+    }
 
-            textAreaElement.ValidateRowsIs(2);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateColsIs_DoesNotThrowException_When_ColsAttributeIsNotPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateColsIs_DoesNotThrowException_When_ColsAttributeIsNotPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
+        textAreaElement.ValidateColsIs(20);
+    }
 
-            textAreaElement.ValidateColsIs(20);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxLengthIs_DoesNotThrowException_When_MaxLengthAttributeIsPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea2");
+        textAreaElement.ValidateMaxLengthIs(80);
+    }
 
-            textAreaElement.ValidateMaxLengthIs(80);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea2");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinLengthIs_DoesNotThrowException_When_MinLengthAttributeIsPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea2");
+        textAreaElement.ValidateMinLengthIs(10);
+    }
 
-            textAreaElement.ValidateMinLengthIs(10);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateRowsIs_DoesNotThrowException_When_RowsAttributeIsNotPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea11");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateRowsIs_DoesNotThrowException_When_RowsAttributeIsNotPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea11");
+        textAreaElement.ValidateRowsIs(5);
+    }
 
-            textAreaElement.ValidateRowsIs(5);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
+        textAreaElement.ValidateIsNotRequired();
+    }
 
-            textAreaElement.ValidateIsNotRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea7");
+        textAreaElement.ValidateIsRequired();
+    }
 
-            textAreaElement.ValidateIsRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidatePlaceholderIs_DoesNotThrowException_When_PlaceholderAttributeIsSet_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
+        textAreaElement.ValidatePlaceholderIs("your Text term goes here");
+    }
 
-            textAreaElement.ValidatePlaceholderIs("your Text term goes here");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidatePlaceholderIsNull_DoesNotThrowException_When_PlaceholderAttributeIsNotPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea1");
+        textAreaElement.ValidatePlaceholderIsNull();
+    }
 
-            textAreaElement.ValidatePlaceholderIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea8");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea8");
+        textAreaElement.Hover();
 
-            textAreaElement.Hover();
+        textAreaElement.ValidateStyleIs("color: red;");
+    }
 
-            textAreaElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea9");
+        textAreaElement.ValidateIsNotDisabled();
+    }
 
-            textAreaElement.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea10");
+        textAreaElement.ValidateIsDisabled();
+    }
 
-            textAreaElement.ValidateIsDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateWrapIs_DoesNotThrowException_When_WrapAttributeIsSet_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea13");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateWrapIs_DoesNotThrowException_When_WrapAttributeIsSet_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea13");
+        textAreaElement.ValidateWrapIs("hard");
+    }
 
-            textAreaElement.ValidateWrapIs("hard");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateSpellCheckIs_DoesNotThrowException_When_SpellCheckAttributeIsSet_Edge()
+    {
+        var textAreaElement = App.Components.CreateById<TextArea>("myTextArea12");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateSpellCheckIs_DoesNotThrowException_When_SpellCheckAttributeIsSet_Edge()
-        {
-            var textAreaElement = App.Components.CreateById<TextArea>("myTextArea12");
-
-            textAreaElement.ValidateSpellCheckIs("true");
-        }
+        textAreaElement.ValidateSpellCheckIs("true");
     }
 }

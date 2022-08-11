@@ -1,5 +1,5 @@
 ﻿// <copyright file="SwitchControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,59 +13,58 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Switches",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Switch Control")]
+[AllureFeature("ValidateExtensions")]
+public class SwitchControlValidateExtensionsTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Switches",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Switch Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class SwitchControlValidateExtensionsTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsOn_DoesNotThrowException_When_SwitchIsTurnedOn()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsOn_DoesNotThrowException_When_SwitchIsTurnedOn()
-        {
-            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
+        var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
 
-            switchControl.TurnOn();
+        switchControl.TurnOn();
 
-            switchControl.ValidateIsOn();
-        }
+        switchControl.ValidateIsOn();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsOff_DoesNotThrowException_When_SwitchIsTurnedoff()
-        {
-            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsOff_DoesNotThrowException_When_SwitchIsTurnedoff()
+    {
+        var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
 
-            switchControl.TurnOff();
+        switchControl.TurnOff();
 
-            switchControl.ValidateIsOff();
-        }
+        switchControl.ValidateIsOff();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIs_DoesNotThrowException_When_CorrectTextIsSet()
-        {
-            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIs_DoesNotThrowException_When_CorrectTextIsSet()
+    {
+        var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][2]");
 
-            switchControl.TurnOn();
+        switchControl.TurnOn();
 
-            switchControl.ValidateTextIs("Default is on ON");
-        }
+        switchControl.ValidateTextIs("Default is on ON");
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_SwitchIsNotDisabled()
-        {
-            var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_SwitchIsNotDisabled()
+    {
+        var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
 
-            switchControl.ValidateIsNotDisabled();
-        }
+        switchControl.ValidateIsNotDisabled();
     }
 }

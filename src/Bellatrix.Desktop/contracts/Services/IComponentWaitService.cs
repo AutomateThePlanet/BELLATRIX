@@ -1,5 +1,5 @@
 ﻿// <copyright file="IElementWaitService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,12 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Untils;
 
-namespace Bellatrix.Desktop.Contracts.Services
+namespace Bellatrix.Desktop.Contracts.Services;
+
+public interface IComponentWaitService
 {
-    public interface IComponentWaitService
-    {
-        void Wait<TUntil, TComponent>(TComponent element, TUntil until)
-            where TUntil : WaitStrategy
-            where TComponent : Component;
-    }
+    void Wait<TUntil, TComponent>(TComponent element, TUntil until)
+        where TUntil : WaitStrategy
+        where TComponent : Component;
 }

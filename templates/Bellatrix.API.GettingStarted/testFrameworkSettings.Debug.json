@@ -3,7 +3,7 @@
     "debugInformationEnabled": "false"
   },
   "apiSettings": {
-    "baseUrl": "http://127.0.0.1:55215",
+    "baseUrl": "http://127.0.0.1:60715",
     "clientTimeoutSeconds": "30",
     "maxRetryAttempts": "3",
     "pauseBetweenFailures": "1",

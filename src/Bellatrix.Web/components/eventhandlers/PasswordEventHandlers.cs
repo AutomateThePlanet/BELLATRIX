@@ -1,5 +1,5 @@
 ﻿// <copyright file="PasswordEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,34 +13,33 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Controls.EventHandlers
+namespace Bellatrix.Web.Controls.EventHandlers;
+
+public class PasswordEventHandlers : ComponentEventHandlers
 {
-    public class PasswordEventHandlers : ComponentEventHandlers
+    public override void SubscribeToAll()
     {
-        public override void SubscribeToAll()
-        {
-            base.SubscribeToAll();
-            Password.Hovering += HoveringEventHandler;
-            Password.Hovered += HoveredEventHandler;
-            Password.SettingPassword += SettingPasswordEventHandler;
-            Password.PasswordSet += PasswordSetEventHandler;
-        }
+        base.SubscribeToAll();
+        Password.Hovering += HoveringEventHandler;
+        Password.Hovered += HoveredEventHandler;
+        Password.SettingPassword += SettingPasswordEventHandler;
+        Password.PasswordSet += PasswordSetEventHandler;
+    }
 
-        public override void UnsubscribeToAll()
-        {
-            base.UnsubscribeToAll();
-            Password.Hovering -= HoveringEventHandler;
-            Password.Hovered -= HoveredEventHandler;
-            Password.SettingPassword -= SettingPasswordEventHandler;
-            Password.PasswordSet -= PasswordSetEventHandler;
-        }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        Password.Hovering -= HoveringEventHandler;
+        Password.Hovered -= HoveredEventHandler;
+        Password.SettingPassword -= SettingPasswordEventHandler;
+        Password.PasswordSet -= PasswordSetEventHandler;
+    }
 
-        protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
 
-        protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs arg)
-        {
-        }
+    protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs arg)
+    {
     }
 }

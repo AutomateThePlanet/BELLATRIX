@@ -1,5 +1,5 @@
 ﻿// <copyright file="NavigatablePage.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,17 +13,16 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+[Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
+public abstract class NavigatablePage : Page
 {
-    [Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
-    public abstract class NavigatablePage : Page
-    {
-        protected NavigatablePage() => NavigationService = ServicesCollection.Current.Resolve<NavigationService>();
+    protected NavigatablePage() => NavigationService = ServicesCollection.Current.Resolve<NavigationService>();
 
-        protected NavigationService NavigationService { get; set; }
+    protected NavigationService NavigationService { get; set; }
 
-        public abstract string Url { get; }
+    public abstract string Url { get; }
 
-        public virtual void Open() => NavigationService.Navigate(new Uri(Url));
-    }
+    public virtual void Open() => NavigationService.Navigate(new Uri(Url));
 }

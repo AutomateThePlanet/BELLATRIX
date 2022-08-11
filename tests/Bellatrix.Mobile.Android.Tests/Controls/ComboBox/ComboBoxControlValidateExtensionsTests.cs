@@ -1,5 +1,5 @@
 ﻿// <copyright file="ComboBoxControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,37 +13,36 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("ComboBox Control")]
+[AllureFeature("ValidateExtensions")]
+public class ComboBoxControlValidateExtensionsTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("ComboBox Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ComboBoxControlValidateExtensionsTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIs_DoesNotThrowException_When_ComboBoxTextIsAsExpected()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIs_DoesNotThrowException_When_ComboBoxTextIsAsExpected()
-        {
-            var comboBox = App.Components.CreateByIdContaining<ComboBox>("spinner1");
+        var comboBox = App.Components.CreateByIdContaining<ComboBox>("spinner1");
 
-            comboBox.SelectByText("Jupiter");
+        comboBox.SelectByText("Jupiter");
 
-            comboBox.ValidateTextIs("Jupiter");
-        }
+        comboBox.ValidateTextIs("Jupiter");
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_ComboBoxIsNotDisabled()
-        {
-            var comboBox = App.Components.CreateByIdContaining<ComboBox>("spinner1");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_ComboBoxIsNotDisabled()
+    {
+        var comboBox = App.Components.CreateByIdContaining<ComboBox>("spinner1");
 
-            Assert.AreEqual(false, comboBox.IsDisabled);
-        }
+        Assert.AreEqual(false, comboBox.IsDisabled);
     }
 }

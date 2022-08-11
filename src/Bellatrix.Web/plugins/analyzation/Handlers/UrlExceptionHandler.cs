@@ -1,5 +1,5 @@
 ﻿// <copyright file="UrlExceptionHandler.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Royalty-free End-user License Agreement, Version 1.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://bellatrix.solutions/licensing-royalty-free/
@@ -14,29 +14,28 @@
 using System;
 using Bellatrix.ExceptionAnalysation.Contracts;
 
-namespace Bellatrix.Web.ExceptionAnalysation
+namespace Bellatrix.Web.ExceptionAnalysation;
+
+public abstract class UrlExceptionHandler : IExceptionAnalysationHandler
 {
-    public abstract class UrlExceptionHandler : IExceptionAnalysationHandler
+    public abstract string DetailedIssueExplanation { get; }
+
+    protected abstract string TextToSearchInUrl { get; }
+
+    public bool IsApplicable(Exception ex = null, ServicesCollection container = null, params object[] context)
     {
-        public abstract string DetailedIssueExplanation { get; }
-
-        protected abstract string TextToSearchInUrl { get; }
-
-        public bool IsApplicable(Exception ex = null, ServicesCollection container = null, params object[] context)
+        if (container == null)
         {
-            if (container == null)
-            {
-                container = ServicesCollection.Current;
-            }
-
-            BrowserService browserService = container.Resolve<BrowserService>();
-            if (browserService == null)
-            {
-                throw new ArgumentNullException(nameof(BrowserService));
-            }
-
-            var result = browserService.Url.AbsoluteUri.Contains(TextToSearchInUrl);
-            return result;
+            container = ServicesCollection.Current;
         }
+
+        BrowserService browserService = container.Resolve<BrowserService>();
+        if (browserService == null)
+        {
+            throw new ArgumentNullException(nameof(BrowserService));
+        }
+
+        var result = browserService.Url.AbsoluteUri.Contains(TextToSearchInUrl);
+        return result;
     }
 }

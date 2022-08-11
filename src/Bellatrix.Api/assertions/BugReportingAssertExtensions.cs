@@ -1,5 +1,5 @@
 ﻿// <copyright file="BugReportingAssertExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,40 +13,39 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.BugReporting;
 
-namespace Bellatrix.Api
+namespace Bellatrix.Api;
+
+public class BugReportingAssertExtensions : AssertExtensionsEventHandlers
 {
-    public class BugReportingAssertExtensions : AssertExtensionsEventHandlers
-    {
-        protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
+    protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
 
-        protected override void AssertContentContainsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"contains {arg.ActionValue}.");
+    protected override void AssertContentContainsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"contains {arg.ActionValue}.");
 
-        protected override void AssertContentEncodingEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response Cache-Info header ", $"is equal to {arg.ActionValue}.");
+    protected override void AssertContentEncodingEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response Cache-Info header ", $"is equal to {arg.ActionValue}.");
 
-        protected override void AssertContentEqualsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"is equal to {arg.ActionValue}.");
+    protected override void AssertContentEqualsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"is equal to {arg.ActionValue}.");
 
-        protected override void AssertContentNotContainsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"does not contain {arg.ActionValue}.");
+    protected override void AssertContentNotContainsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"does not contain {arg.ActionValue}.");
 
-        protected override void AssertContentNotEqualsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"is not equal to {arg.ActionValue}.");
+    protected override void AssertContentNotEqualsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"is not equal to {arg.ActionValue}.");
 
-        protected override void AssertContentTypeEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response Content-Type ", $"is equal to {arg.ActionValue}.");
+    protected override void AssertContentTypeEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response Content-Type ", $"is equal to {arg.ActionValue}.");
 
-        protected override void AssertCookieEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response cookie ", $"is equal to {arg.ActionValue}.");
+    protected override void AssertCookieEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response cookie ", $"is equal to {arg.ActionValue}.");
 
-        protected override void AssertCookieExistsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response ", $"cookie {arg.ActionValue} exists.");
+    protected override void AssertCookieExistsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response ", $"cookie {arg.ActionValue} exists.");
 
-        protected override void AssertExecutionTimeUnderEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response execution time ", $"is under {arg.ActionValue}.");
+    protected override void AssertExecutionTimeUnderEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response execution time ", $"is under {arg.ActionValue}.");
 
-        protected override void AssertResponseHeaderEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response header ", $"is equal to {arg.ActionValue}.");
+    protected override void AssertResponseHeaderEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response header ", $"is equal to {arg.ActionValue}.");
 
-        protected override void AssertResultEqualsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"is equal to {arg.ActionValue}.");
+    protected override void AssertResultEqualsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"is equal to {arg.ActionValue}.");
 
-        protected override void AssertResultNotEqualsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"is not equal to {arg.ActionValue}.");
+    protected override void AssertResultNotEqualsEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response content ", $"is not equal to {arg.ActionValue}.");
 
-        protected override void AssertStatusCodeEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response status code ", $"is equal to {arg.ActionValue}.");
+    protected override void AssertStatusCodeEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response status code ", $"is equal to {arg.ActionValue}.");
 
-        protected override void AssertSuccessStatusCodeEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response status code ", "is successfull.");
+    protected override void AssertSuccessStatusCodeEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response status code ", "is successfull.");
 
-        protected override void AssertSchemaEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response ", "is compatible to specified schema.");
-    }
+    protected override void AssertSchemaEventHandler(object sender, ApiAssertEventArgs arg) => BugReportingContextService.AddAssertStep($"Assert response ", "is compatible to specified schema.");
 }

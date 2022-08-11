@@ -1,5 +1,5 @@
 ﻿// <copyright file="AppRegistrationExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,18 +17,17 @@ using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Results.MSTest;
 using Bellatrix.Results.NUnit;
 
-namespace Bellatrix
-{
-    public static class ScreenshotsPluginConfiguration
-    {
-        public static void AddMSTest()
-        {
-            ServicesCollection.Current.RegisterType<IScreenshotPlugin, MSTestResultsWorkflowPlugin>(Guid.NewGuid().ToString());
-        }
+namespace Bellatrix;
 
-        public static void AddNUnit()
-        {
-            ServicesCollection.Current.RegisterType<IScreenshotPlugin, NUnitResultsWorkflowPlugin>(Guid.NewGuid().ToString());
-        }
+public static class ScreenshotsPluginConfiguration
+{
+    public static void AddMSTest()
+    {
+        ServicesCollection.Current.RegisterType<IScreenshotPlugin, MSTestResultsWorkflowPlugin>(Guid.NewGuid().ToString());
+    }
+
+    public static void AddNUnit()
+    {
+        ServicesCollection.Current.RegisterType<IScreenshotPlugin, NUnitResultsWorkflowPlugin>(Guid.NewGuid().ToString());
     }
 }

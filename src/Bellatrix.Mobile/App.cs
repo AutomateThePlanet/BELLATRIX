@@ -1,5 +1,5 @@
 ﻿// <copyright file="App.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -26,87 +26,86 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Service;
 using OpenQA.Selenium.Appium.Service.Options;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public abstract class App<TDriver, TDriverElement> : IDisposable
+    where TDriver : AppiumDriver<TDriverElement>
+    where TDriverElement : AppiumWebElement
 {
-    public abstract class App<TDriver, TDriverElement> : IDisposable
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+    private static bool _shouldStartAppiumLocalService;
+
+    public App()
     {
-        private static bool _shouldStartAppiumLocalService;
+        _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.ShouldStartLocalService;
+    }
 
-        public App()
+    public ComponentWaitService<TDriver, TDriverElement> Wait => ServicesCollection.Current.Resolve<ComponentWaitService<TDriver, TDriverElement>>();
+    public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
+    public WebServicesFacade Web => ServicesCollection.Current.Resolve<WebServicesFacade>();
+    public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+    public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
+    public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
+
+    public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
+
+    public static void StartAppiumLocalService()
+    {
+        if (_shouldStartAppiumLocalService)
         {
-            _shouldStartAppiumLocalService = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.ShouldStartLocalService;
+            var args = new OptionCollector().AddArguments(GeneralOptionList.PreLaunch());
+            WrappedAppiumCreateService.AppiumLocalService = new AppiumServiceBuilder().WithArguments(args).UsingAnyFreePort().Build();
+            WrappedAppiumCreateService.AppiumLocalService.Start();
         }
+    }
 
-        public ComponentWaitService<TDriver, TDriverElement> Wait => ServicesCollection.Current.Resolve<ComponentWaitService<TDriver, TDriverElement>>();
-        public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
-        public WebServicesFacade Web => ServicesCollection.Current.Resolve<WebServicesFacade>();
-        public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-        public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
-        public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
-
-        public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
-
-        public static void StartAppiumLocalService()
+    public void StopAppiumLocalService()
+    {
+        if (_shouldStartAppiumLocalService)
         {
-            if (_shouldStartAppiumLocalService)
+            WrappedAppiumCreateService.AppiumLocalService.Dispose();
+        }
+    }
+
+    public void AddAdditionalCapability(string name, object value)
+    {
+        string fullClassName = DetermineTestClassFullNameAttributes();
+        var dictionary = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{fullClassName}") ?? new Dictionary<string, object>();
+        dictionary.Add(name, value);
+        ServicesCollection.Current.RegisterInstance(dictionary, $"caps-{fullClassName}");
+    }
+
+    public void AddPlugin<TExecutionExtension>()
+        where TExecutionExtension : Plugin
+    {
+        ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
+    }
+
+    public abstract void Dispose();
+
+    public TPage Create<TPage>()
+        where TPage : MobilePage
+    {
+        TPage page = ServicesCollection.Current.Resolve<TPage>();
+        return page;
+    }
+
+    private string DetermineTestClassFullNameAttributes()
+    {
+        string fullClassName = string.Empty;
+        var callStackTrace = new StackTrace();
+        var currentAssembly = GetType().Assembly;
+
+        foreach (var frame in callStackTrace.GetFrames())
+        {
+            var frameMethodInfo = frame.GetMethod() as MethodInfo;
+            if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
+                frameMethodInfo.Name.Equals("TestsArrange") || frameMethodInfo.Name.Equals("ScenarioInitialize"))
             {
-                var args = new OptionCollector().AddArguments(GeneralOptionList.PreLaunch());
-                WrappedAppiumCreateService.AppiumLocalService = new AppiumServiceBuilder().WithArguments(args).UsingAnyFreePort().Build();
-                WrappedAppiumCreateService.AppiumLocalService.Start();
+                fullClassName = frameMethodInfo.DeclaringType.FullName;
+                break;
             }
         }
 
-        public void StopAppiumLocalService()
-        {
-            if (_shouldStartAppiumLocalService)
-            {
-                WrappedAppiumCreateService.AppiumLocalService.Dispose();
-            }
-        }
-
-        public void AddAdditionalCapability(string name, object value)
-        {
-            string fullClassName = DetermineTestClassFullNameAttributes();
-            var dictionary = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{fullClassName}") ?? new Dictionary<string, object>();
-            dictionary.Add(name, value);
-            ServicesCollection.Current.RegisterInstance(dictionary, $"caps-{fullClassName}");
-        }
-
-        public void AddPlugin<TExecutionExtension>()
-            where TExecutionExtension : Plugin
-        {
-            ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
-        }
-
-        public abstract void Dispose();
-
-        public TPage Create<TPage>()
-            where TPage : MobilePage
-        {
-            TPage page = ServicesCollection.Current.Resolve<TPage>();
-            return page;
-        }
-
-        private string DetermineTestClassFullNameAttributes()
-        {
-            string fullClassName = string.Empty;
-            var callStackTrace = new StackTrace();
-            var currentAssembly = GetType().Assembly;
-
-            foreach (var frame in callStackTrace.GetFrames())
-            {
-                var frameMethodInfo = frame.GetMethod() as MethodInfo;
-                if (!frameMethodInfo?.ReflectedType?.Assembly.Equals(currentAssembly) == true &&
-                    frameMethodInfo.Name.Equals("TestsArrange") || frameMethodInfo.Name.Equals("ScenarioInitialize"))
-                {
-                    fullClassName = frameMethodInfo.DeclaringType.FullName;
-                    break;
-                }
-            }
-
-            return fullClassName;
-        }
+        return fullClassName;
     }
 }

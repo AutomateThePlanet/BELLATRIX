@@ -14,29 +14,28 @@
 using System;
 using Bellatrix.ExceptionAnalysation.Contracts;
 
-namespace Bellatrix.Web.ExceptionAnalysation
+namespace Bellatrix.Web.ExceptionAnalysation;
+
+public abstract class HtmlSourceExceptionHandler : IExceptionAnalysationHandler
 {
-    public abstract class HtmlSourceExceptionHandler : IExceptionAnalysationHandler
+    public abstract string DetailedIssueExplanation { get; }
+
+    protected abstract string TextToSearchInSource { get; }
+
+    public bool IsApplicable(Exception ex = null, ServicesCollection container = null, params object[] context)
     {
-        public abstract string DetailedIssueExplanation { get; }
-
-        protected abstract string TextToSearchInSource { get; }
-
-        public bool IsApplicable(Exception ex = null, ServicesCollection container = null, params object[] context)
+        if (container == null)
         {
-            if (container == null)
-            {
-                container = ServicesCollection.Current;
-            }
-
-            BrowserService browserService = container.Resolve<BrowserService>();
-            if (browserService == null)
-            {
-                throw new ArgumentNullException(nameof(BrowserService));
-            }
-
-            var result = browserService.HtmlSource.Contains(TextToSearchInSource);
-            return result;
+            container = ServicesCollection.Current;
         }
+
+        BrowserService browserService = container.Resolve<BrowserService>();
+        if (browserService == null)
+        {
+            throw new ArgumentNullException(nameof(BrowserService));
+        }
+
+        var result = browserService.HtmlSource.Contains(TextToSearchInSource);
+        return result;
     }
 }

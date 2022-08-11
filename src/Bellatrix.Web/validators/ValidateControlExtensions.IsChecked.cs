@@ -1,5 +1,5 @@
 ﻿// <copyright file="ValidateControlExtensions.IsChecked.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,25 +15,24 @@ using System;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentChecked, IComponent
     {
-        public static void ValidateIsChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentChecked, IComponent
-        {
-            WaitUntil(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
-            ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static void ValidateIsNotChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentChecked, IComponent
-        {
-            WaitUntil(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
-            ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsCheckedEvent;
-        public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotCheckedEvent;
+        WaitUntil(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
+        ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs(control));
     }
+
+    public static void ValidateIsNotChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentChecked, IComponent
+    {
+        WaitUntil(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
+        ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsCheckedEvent;
+    public static event EventHandler<ComponentActionEventArgs> ValidatedIsNotCheckedEvent;
 }

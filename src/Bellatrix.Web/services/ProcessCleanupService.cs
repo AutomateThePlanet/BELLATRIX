@@ -1,5 +1,5 @@
 ﻿// <copyright file="ProcessCleanupService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,112 +18,110 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Bellatrix.Web;
 
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+public static class ProcessCleanupService
 {
-    public static class ProcessCleanupService
+    private static readonly WebSettings ProcessCleanupSettings = ConfigurationService.GetSection<WebSettings>();
+    private static readonly bool IsParallelExecutionEnabled = ProcessCleanupSettings?.IsParallelExecutionEnabled ?? false;
+
+    public static void KillPreviousDriversAndBrowsersOsAgnostic(DateTime? executionStartDate)
     {
-        private static readonly WebSettings ProcessCleanupSettings = ConfigurationService.GetSection<WebSettings>();
-        private static readonly bool IsParallelExecutionEnabled = ProcessCleanupSettings?.IsParallelExecutionEnabled ?? false;
-
-        public static void KillPreviousDriversAndBrowsersOsAgnostic(DateTime? executionStartDate)
+        // TODO: Anton(16.12.2019): This should be moved to configuration and the service should be made more generic for other processes as well.
+        var browsersToCheck = new List<string>
         {
-            // TODO: Anton(16.12.2019): This should be moved to configuration and the service should be made more generic for other processes as well.
-            var browsersToCheck = new List<string>
-            {
-                "opera",
-                "chrome",
-                "firefox",
-                "edge",
-                "iexplore",
-                "safari",
-            };
-            var driversToCheck = new List<string>
-            {
-                "operadriver",
-                "chromedriver",
-                "iedriverserver",
-                "geckodriver",
-                "msedgedriver",
-            };
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                KillAllProcesses(driversToCheck);
-            }
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                var driversAndBrowsersТoCheck = driversToCheck.Union(browsersToCheck).ToList();
-
-                KillProcessStartedAfterTime(driversAndBrowsersТoCheck, executionStartDate);
-            }
-        }
-
-        public static void KillAllDriversAndChildProcessesWindows()
+            "opera",
+            "chrome",
+            "firefox",
+            "edge",
+            "iexplore",
+            "safari",
+        };
+        var driversToCheck = new List<string>
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                return;
-            }
+            "operadriver",
+            "chromedriver",
+            "iedriverserver",
+            "geckodriver",
+            "msedgedriver",
+        };
 
-            if (IsParallelExecutionEnabled)
-            {
-                return;
-            }
-
-            var driversToCheck = new List<string>
-            {
-                "operadriver",
-                "chromedriver",
-                "iedriverserver",
-                "geckodriver",
-                "msedgedriver",
-            };
-
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
             KillAllProcesses(driversToCheck);
         }
 
-        private static void KillAllProcesses(List<string> processesToKill)
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            var processes = Process.GetProcesses().Where(p => processesToKill.Any(x => p.ProcessName.ToLower().Contains(x)));
+            var driversAndBrowsersТoCheck = driversToCheck.Union(browsersToCheck).ToList();
 
-            foreach (var process in processes)
-            {
-                try
-                {
-                    var children = process.GetChildProcesses();
+            KillProcessStartedAfterTime(driversAndBrowsersТoCheck, executionStartDate);
+        }
+    }
 
-                    foreach (var child in children)
-                    {
-                        child.Kill();
-                    }
-
-                    process.Kill();
-                }
-                catch (Exception e)
-                {
-                    e.PrintStackTrace();
-                }
-            }
+    public static void KillAllDriversAndChildProcessesWindows()
+    {
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            return;
         }
 
-        private static void KillProcessStartedAfterTime(List<string> processesToKill, DateTime? executionStartDate)
+        if (IsParallelExecutionEnabled)
         {
-            var processes = Process.GetProcesses().Where(p => processesToKill.Any(x => p.ProcessName.ToLower().Contains(x)));
-            foreach (var process in processes)
+            return;
+        }
+
+        var driversToCheck = new List<string>
+        {
+            "operadriver",
+            "chromedriver",
+            "iedriverserver",
+            "geckodriver",
+            "msedgedriver",
+        };
+
+        KillAllProcesses(driversToCheck);
+    }
+
+    private static void KillAllProcesses(List<string> processesToKill)
+    {
+        var processes = Process.GetProcesses().Where(p => processesToKill.Any(x => p.ProcessName.ToLower().Contains(x)));
+
+        foreach (var process in processes)
+        {
+            try
             {
-                try
+                ////var children = process.GetChildProcesses();
+                ////foreach (var child in children)
+                ////{
+                ////    child.Kill();
+                ////}
+
+                process.Kill();
+            }
+            catch (Exception e)
+            {
+                e.PrintStackTrace();
+            }
+        }
+    }
+
+    private static void KillProcessStartedAfterTime(List<string> processesToKill, DateTime? executionStartDate)
+    {
+        var processes = Process.GetProcesses().Where(p => processesToKill.Any(x => p.ProcessName.ToLower().Contains(x)));
+        foreach (var process in processes)
+        {
+            try
+            {
+                Debug.WriteLine(process.ProcessName);
+                if (process.StartTime > executionStartDate)
                 {
-                    Debug.WriteLine(process.ProcessName);
-                    if (process.StartTime > executionStartDate)
-                    {
-                        process.Kill();
-                    }
+                    process.Kill();
                 }
-                catch (Exception e)
-                {
-                    e.PrintStackTrace();
-                }
+            }
+            catch (Exception e)
+            {
+                e.PrintStackTrace();
             }
         }
     }

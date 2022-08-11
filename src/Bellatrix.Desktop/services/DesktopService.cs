@@ -1,5 +1,5 @@
 ﻿// <copyright file="DesktopService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,15 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Services
-{
-    public abstract class DesktopService
-    {
-        protected DesktopService(WindowsDriver<WindowsElement> wrappedDriver)
-        {
-            WrappedDriver = wrappedDriver;
-        }
+namespace Bellatrix.Desktop.Services;
 
-        public WindowsDriver<WindowsElement> WrappedDriver { get; set; }
+public abstract class DesktopService
+{
+    protected DesktopService(WindowsDriver<WindowsElement> wrappedDriver)
+    {
+        WrappedDriver = wrappedDriver;
     }
+
+    public WindowsDriver<WindowsElement> WrappedDriver { get; set; }
 }

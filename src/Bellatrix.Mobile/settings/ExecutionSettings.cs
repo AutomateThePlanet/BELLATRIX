@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExecutionSettings.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,17 +13,16 @@
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public class ExecutionSettings
 {
-    public class ExecutionSettings
-    {
-        public string ExecutionType { get; set; }
-        public string DefaultAppPath { get; set; }
-        public string DefaultLifeCycle { get; set; }
-        public string Resolution { get; set; }
-        public bool ShouldStartLocalService { get; set; } = true;
-        public string Url { get; set; }
-        public List<Dictionary<string, string>> Arguments { get; set; }
-        public bool IsCloudRun { get; set; }
-    }
+    public string ExecutionType { get; set; }
+    public string DefaultAppPath { get; set; }
+    public string DefaultLifeCycle { get; set; }
+    public string Resolution { get; set; }
+    public bool ShouldStartLocalService { get; set; } = true;
+    public string Url { get; set; }
+    public List<Dictionary<string, string>> Arguments { get; set; }
+    public bool IsCloudRun { get; set; }
 }

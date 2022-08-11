@@ -1,5 +1,5 @@
 ﻿// <copyright file="LabelControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,29 +13,28 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.RestartEveryTime)]
+[AllureSuite("Label Control")]
+[AllureFeature("ValidateExtensions")]
+public class LabelControlValidateExtensionsTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.RestartEveryTime)]
-    [AllureSuite("Label Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class LabelControlValidateExtensionsTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
-        {
-            var button = App.Components.CreateByName<Button>("ComputeSumButton");
+        var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
-            button.Click();
+        button.Click();
 
-            var answerLabel = App.Components.CreateByName<Label>("Answer");
+        var answerLabel = App.Components.CreateByName<Label>("Answer");
 
-            answerLabel.ValidateTextIs("0");
-        }
+        answerLabel.ValidateTextIs("0");
     }
 }

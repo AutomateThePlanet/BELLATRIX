@@ -1,5 +1,5 @@
 ﻿// <copyright file="AppServiceTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,39 +14,38 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BA = Bellatrix.Assertions;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Services")]
+[AllureFeature("AppService")]
+public class AppServiceTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Services")]
-    [AllureFeature("AppService")]
-    public class AppServiceTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void TestBackgroundApp()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void TestBackgroundApp()
-        {
-            App.AppService.BackgroundApp(1);
-        }
+        App.AppService.BackgroundApp(1);
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void TestResetApp()
-        {
-            App.AppService.ResetApp();
-        }
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void TestResetApp()
+    {
+        App.AppService.ResetApp();
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void InstallAppInstalledTrue_When_AppIsInstalled()
-        {
-            Assert.IsTrue(App.AppService.IsAppInstalled(Constants.AppleCalendarBundleId));
-        }
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void InstallAppInstalledTrue_When_AppIsInstalled()
+    {
+        Assert.IsTrue(App.AppService.IsAppInstalled(Constants.AppleCalendarBundleId));
     }
 }

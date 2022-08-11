@@ -1,5 +1,5 @@
 ﻿// <copyright file="SeekBar.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,25 +19,24 @@ using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.Services;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public class SeekBar : AndroidComponent, IComponentDisabled
 {
-    public class SeekBar : AndroidComponent, IComponentDisabled
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> SettingPercentage;
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> PercentageSet;
+
+    public virtual void Set(double percentage)
     {
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> SettingPercentage;
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> PercentageSet;
-
-        public virtual void Set(double percentage)
-        {
-            SettingPercentage?.Invoke(this, new ComponentActionEventArgs<AndroidElement>(this, percentage.ToString()));
-            int end = WrappedElement.Size.Width;
-            int y = WrappedElement.Location.Y;
-            var touchActionsService = ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement>>();
-            int moveTo = (int)((percentage / 100) * end);
-            touchActionsService.Press(moveTo, y, 0).Release().Perform();
-            PercentageSet?.Invoke(this, new ComponentActionEventArgs<AndroidElement>(this, percentage.ToString()));
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        SettingPercentage?.Invoke(this, new ComponentActionEventArgs<AndroidElement>(this, percentage.ToString()));
+        int end = WrappedElement.Size.Width;
+        int y = WrappedElement.Location.Y;
+        var touchActionsService = ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement>>();
+        int moveTo = (int)((percentage / 100) * end);
+        touchActionsService.Press(moveTo, y, 0).Release().Perform();
+        PercentageSet?.Invoke(this, new ComponentActionEventArgs<AndroidElement>(this, percentage.ToString()));
     }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="LabelControlTestsWinForms.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,23 +13,22 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("Label Control")]
+[AllureTag("WinForms")]
+public class LabelControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("Label Control")]
-    [AllureTag("WinForms")]
-    public class LabelControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_LabelHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_LabelHovered_WinForms()
-        {
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
 
-            label.Hover();
+        label.Hover();
 
-            Assert.AreEqual("labelHovered", label.InnerText);
-        }
+        Assert.AreEqual("labelHovered", label.InnerText);
     }
 }

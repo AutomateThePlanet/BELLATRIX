@@ -1,5 +1,5 @@
 ﻿// <copyright file="DeviceServiceTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,50 +16,49 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using BA = Bellatrix.Assertions;
 
-namespace Bellatrix.Mobile.IOS.Tests
+namespace Bellatrix.Mobile.IOS.Tests;
+
+[TestClass]
+[IOS(Constants.IOSNativeAppPath,
+    Constants.IOSDefaultVersion,
+    Constants.IOSDefaultDeviceName,
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Services")]
+[AllureFeature("DeviceService")]
+public class DeviceServiceTests : MSTest.IOSTest
 {
-    [TestClass]
-    [IOS(Constants.IOSNativeAppPath,
-        Constants.IOSDefaultVersion,
-        Constants.IOSDefaultDeviceName,
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Services")]
-    [AllureFeature("DeviceService")]
-    public class DeviceServiceTests : MSTest.IOSTest
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void OrientationSetToLandscape_When_CallRotateWithLandscape()
     {
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void OrientationSetToLandscape_When_CallRotateWithLandscape()
-        {
-            App.Device.Rotate(ScreenOrientation.Landscape);
+        App.Device.Rotate(ScreenOrientation.Landscape);
 
-            Assert.AreEqual(ScreenOrientation.Landscape, App.Device.Orientation);
-        }
+        Assert.AreEqual(ScreenOrientation.Landscape, App.Device.Orientation);
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void CorrectTimeReturned_When_CallDeviceTime()
-        {
-            BA.DateTimeAssert.AreEqual(DateTime.Now, App.Device.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
-        }
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void CorrectTimeReturned_When_CallDeviceTime()
+    {
+        BA.DateTimeAssert.AreEqual(DateTime.Now, App.Device.DeviceTime, BA.DateTimeDeltaType.Minutes, 5);
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        public void DeviceIsLockedTrue_When_CallLock()
-        {
-            App.Device.Lock(1);
-        }
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    public void DeviceIsLockedTrue_When_CallLock()
+    {
+        App.Device.Lock(1);
+    }
 
-        [TestMethod]
-        [Timeout(180000)]
-        [TestCategory(Categories.CI)]
-        [Ignore]
-        public void TestShakeDevice()
-        {
-            App.Device.ShakeDevice();
-        }
+    [TestMethod]
+    [Timeout(180000)]
+    [TestCategory(Categories.CI)]
+    [Ignore]
+    public void TestShakeDevice()
+    {
+        App.Device.ShakeDevice();
     }
 }

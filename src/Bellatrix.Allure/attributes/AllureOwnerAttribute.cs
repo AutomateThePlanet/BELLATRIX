@@ -1,5 +1,5 @@
 ﻿// <copyright file="AllureOwnerAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,13 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix
-{
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
-    public class AllureOwnerAttribute : Attribute
-    {
-        public AllureOwnerAttribute(string owner) => Owner = owner;
+namespace Bellatrix;
 
-        internal string Owner { get; }
-    }
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
+public class AllureOwnerAttribute : Attribute
+{
+    public AllureOwnerAttribute(string owner) => Owner = owner;
+
+    internal string Owner { get; }
 }

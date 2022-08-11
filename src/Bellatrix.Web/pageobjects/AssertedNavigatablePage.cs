@@ -1,5 +1,5 @@
 ﻿// <copyright file="AssertedNavigatablePage.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,63 +16,62 @@ using System.Web;
 using Bellatrix.Assertions;
 using OpenQA.Selenium.Support.UI;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+[Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
+public abstract class AssertedNavigatablePage : NavigatablePage
 {
-    [Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
-    public abstract class AssertedNavigatablePage : NavigatablePage
+    protected AssertedNavigatablePage() => Assert = ServicesCollection.Current.Resolve<IAssert>();
+
+    protected IAssert Assert { get; }
+
+    public void AssertLandedOnPage(string partialUrl, bool shouldUrlEncode = false)
     {
-        protected AssertedNavigatablePage() => Assert = ServicesCollection.Current.Resolve<IAssert>();
-
-        protected IAssert Assert { get; }
-
-        public void AssertLandedOnPage(string partialUrl, bool shouldUrlEncode = false)
+        if (shouldUrlEncode)
         {
-            if (shouldUrlEncode)
-            {
-                partialUrl = HttpUtility.UrlEncode(partialUrl);
-            }
-
-            Browser.WaitUntilReady();
-
-            var currentBrowserUrl = Browser.Url.ToString().ToLower();
-
-            Assert.IsTrue(currentBrowserUrl.Contains(partialUrl.ToLower()), $"The expected partialUrl: '{partialUrl}' was not found in the PageUrl: '{currentBrowserUrl}'");
+            partialUrl = HttpUtility.UrlEncode(partialUrl);
         }
 
-        public void AssertNotLandedOnPage(string partialUrl, bool shouldUrlEncode = false)
-        {
-            if (shouldUrlEncode)
-            {
-                partialUrl = HttpUtility.UrlEncode(partialUrl);
-            }
+        Browser.WaitUntilReady();
 
-            var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
-            Assert.IsFalse(currentBrowserUrl.Contains(partialUrl), $"The expected partialUrl: '{partialUrl}' was found in the PageUrl: '{currentBrowserUrl}'");
+        var currentBrowserUrl = Browser.Url.ToString().ToLower();
+
+        Assert.IsTrue(currentBrowserUrl.Contains(partialUrl.ToLower()), $"The expected partialUrl: '{partialUrl}' was not found in the PageUrl: '{currentBrowserUrl}'");
+    }
+
+    public void AssertNotLandedOnPage(string partialUrl, bool shouldUrlEncode = false)
+    {
+        if (shouldUrlEncode)
+        {
+            partialUrl = HttpUtility.UrlEncode(partialUrl);
         }
 
-        public void AssertUrl(string fullUrl)
-        {
-            var currentBrowserUrl = Browser.Url.ToString();
-            Uri actualUri = new Uri(currentBrowserUrl);
-            Uri expectedUri = new Uri(fullUrl);
+        var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
+        Assert.IsFalse(currentBrowserUrl.Contains(partialUrl), $"The expected partialUrl: '{partialUrl}' was found in the PageUrl: '{currentBrowserUrl}'");
+    }
 
-            Assert.AreEqual(expectedUri.AbsoluteUri, actualUri.AbsoluteUri, $"Expected URL is different than the Actual one.");
-        }
+    public void AssertUrl(string fullUrl)
+    {
+        var currentBrowserUrl = Browser.Url.ToString();
+        Uri actualUri = new Uri(currentBrowserUrl);
+        Uri expectedUri = new Uri(fullUrl);
 
-        public void AssertUrlPath(string urlPath)
-        {
-            var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
-            Uri actualUri = new Uri(currentBrowserUrl);
+        Assert.AreEqual(expectedUri.AbsoluteUri, actualUri.AbsoluteUri, $"Expected URL is different than the Actual one.");
+    }
 
-            Assert.AreEqual(urlPath, actualUri.AbsolutePath, $"Expected URL path is different than the Actual one.");
-        }
+    public void AssertUrlPath(string urlPath)
+    {
+        var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
+        Uri actualUri = new Uri(currentBrowserUrl);
 
-        public void AssertUrlPathAndQuery(string pathAndQuery)
-        {
-            var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
-            Uri actualUri = new Uri(currentBrowserUrl);
+        Assert.AreEqual(urlPath, actualUri.AbsolutePath, $"Expected URL path is different than the Actual one.");
+    }
 
-            Assert.AreEqual(pathAndQuery, actualUri.PathAndQuery, $"Expected URL is different than the Actual one.");
-        }
+    public void AssertUrlPathAndQuery(string pathAndQuery)
+    {
+        var currentBrowserUrl = NavigationService.WrappedDriver.Url.ToString();
+        Uri actualUri = new Uri(currentBrowserUrl);
+
+        Assert.AreEqual(pathAndQuery, actualUri.PathAndQuery, $"Expected URL is different than the Actual one.");
     }
 }

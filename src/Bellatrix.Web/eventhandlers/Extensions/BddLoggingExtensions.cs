@@ -1,5 +1,5 @@
 ﻿// <copyright file="BddLoggingExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,26 +14,25 @@
 using Bellatrix.Web.Events;
 using Microsoft.Extensions.Configuration;
 
-namespace Bellatrix.Web.Extensions
+namespace Bellatrix.Web.Extensions;
+
+public static class BddLoggingExtensions
 {
-    public static class BddLoggingExtensions
+    public static string AddUrlOrPageToBddLogging(this string loggingMessage, string location)
     {
-        public static string AddUrlOrPageToBddLogging(this string loggingMessage, string location)
+        var loggingSettings = ConfigurationService.GetSection<WebSettings>();
+
+        if (loggingSettings == null || string.IsNullOrEmpty(location))
         {
-            var loggingSettings = ConfigurationService.GetSection<WebSettings>();
-
-            if (loggingSettings == null || string.IsNullOrEmpty(location))
-            {
-                return loggingMessage;
-            }
-
-            string result = loggingSettings.AddUrlToBddLogging ? $"{loggingMessage} on {location}" : loggingMessage;
-            return result;
+            return loggingMessage;
         }
 
-        public static string AddDynamicTestCasesUsingLocatorsMessage(this string loggingMessage, ComponentActionEventArgs arg)
-        {
-            return $"{loggingMessage} {arg.Element.ComponentType.Name} using {arg.Element.LocatorType.Name} locator: '{arg.Element.LocatorValue}'";
-        }
+        string result = loggingSettings.AddUrlToBddLogging ? $"{loggingMessage} on {location}" : loggingMessage;
+        return result;
+    }
+
+    public static string AddDynamicTestCasesUsingLocatorsMessage(this string loggingMessage, ComponentActionEventArgs arg)
+    {
+        return $"{loggingMessage} {arg.Element.ComponentType.Name} using {arg.Element.LocatorType.Name} locator: '{arg.Element.LocatorValue}'";
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="FinishValidationBuilder.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,29 +19,28 @@ using System.Threading.Tasks;
 using Bellatrix.Assertions;
 using Bellatrix.GoogleLighthouse;
 
-namespace Bellatrix.Web.lighthouse
+namespace Bellatrix.Web.lighthouse;
+
+public class FinishValidationBuilder
 {
-    public class FinishValidationBuilder
+    public static event EventHandler<LighthouseReportEventArgs> AssertedLighthouseReportEventArgs;
+
+    private Func<bool> _comparingFunction;
+    private string _notificationMessage;
+    private string _failedAssertionMessage;
+
+    public FinishValidationBuilder(Func<bool> comparingFunction) => _comparingFunction = comparingFunction;
+
+    public FinishValidationBuilder(Func<bool> comparingFunction, Func<string> notificationMessageFunction, Func<string> failedAssertionMessageFunction)
     {
-        public static event EventHandler<LighthouseReportEventArgs> AssertedLighthouseReportEventArgs;
+        _comparingFunction = comparingFunction;
+        _notificationMessage = notificationMessageFunction.Invoke();
+        _failedAssertionMessage = failedAssertionMessageFunction.Invoke();
+    }
 
-        private Func<bool> _comparingFunction;
-        private string _notificationMessage;
-        private string _failedAssertionMessage;
-
-        public FinishValidationBuilder(Func<bool> comparingFunction) => _comparingFunction = comparingFunction;
-
-        public FinishValidationBuilder(Func<bool> comparingFunction, Func<string> notificationMessageFunction, Func<string> failedAssertionMessageFunction)
-        {
-            _comparingFunction = comparingFunction;
-            _notificationMessage = notificationMessageFunction.Invoke();
-            _failedAssertionMessage = failedAssertionMessageFunction.Invoke();
-        }
-
-        public void Perform()
-        {
-            Assert.IsTrue<LighthouseAssertFailedException>(_comparingFunction.Invoke(), _failedAssertionMessage);
-            AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(_notificationMessage));
-        }
+    public void Perform()
+    {
+        Assert.IsTrue<LighthouseAssertFailedException>(_comparingFunction.Invoke(), _failedAssertionMessage);
+        AssertedLighthouseReportEventArgs?.Invoke(this, new LighthouseReportEventArgs(_notificationMessage));
     }
 }

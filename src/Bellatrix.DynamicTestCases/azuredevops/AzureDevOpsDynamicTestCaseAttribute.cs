@@ -1,5 +1,5 @@
 ﻿// <copyright file="AzureDevOpsDynamicTestCaseAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,45 +15,44 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.DynamicTestCases.AzureDevOps
+namespace Bellatrix.DynamicTestCases.AzureDevOps;
+
+[AttributeUsage(AttributeTargets.All)]
+public class AzureDevOpsDynamicTestCaseAttribute : DynamicTestCaseAttribute
 {
-    [AttributeUsage(AttributeTargets.All)]
-    public class AzureDevOpsDynamicTestCaseAttribute : DynamicTestCaseAttribute
+    public AzureDevOpsDynamicTestCaseAttribute()
     {
-        public AzureDevOpsDynamicTestCaseAttribute()
-        {
-        }
+    }
 
-        public AzureDevOpsDynamicTestCaseAttribute(string testCaseId, string testCaseDescription)
-            : base(testCaseId, testCaseDescription)
-        {
-        }
+    public AzureDevOpsDynamicTestCaseAttribute(string testCaseId, string testCaseDescription)
+        : base(testCaseId, testCaseDescription)
+    {
+    }
 
-        public AzureDevOpsDynamicTestCaseAttribute(string testCaseId, string testCaseDescription, string testCaseName)
-            : base(testCaseId, testCaseDescription, testCaseName)
-        {
-        }
+    public AzureDevOpsDynamicTestCaseAttribute(string testCaseId, string testCaseDescription, string testCaseName)
+        : base(testCaseId, testCaseDescription, testCaseName)
+    {
+    }
 
-        public AzureDevOpsDynamicTestCaseAttribute(
-            string testCaseId,
-            string testCaseDescription,
-            string testCaseName,
-            string requirementId,
-            string suiteId)
-           : base(testCaseId, testCaseDescription, testCaseName, requirementId, suiteId)
-        {
-        }
+    public AzureDevOpsDynamicTestCaseAttribute(
+        string testCaseId,
+        string testCaseDescription,
+        string testCaseName,
+        string requirementId,
+        string suiteId)
+       : base(testCaseId, testCaseDescription, testCaseName, requirementId, suiteId)
+    {
+    }
 
-        public int Priority { get; set; } = 1;
-        public string AreaPath { get; set; }
-        public string IterationPath { get; set; }
+    public int Priority { get; set; } = 1;
+    public string AreaPath { get; set; }
+    public string IterationPath { get; set; }
 
-        public override void SetCustomProperties()
-        {
-            var dynamicTestCasesService = ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-            dynamicTestCasesService.AddAdditionalProperty(nameof(Priority), Priority.ToString());
-            dynamicTestCasesService.AddAdditionalProperty(nameof(AreaPath), AreaPath);
-            dynamicTestCasesService.AddAdditionalProperty(nameof(IterationPath), IterationPath);
-        }
+    public override void SetCustomProperties()
+    {
+        var dynamicTestCasesService = ServicesCollection.Current.Resolve<DynamicTestCasesService>();
+        dynamicTestCasesService.AddAdditionalProperty(nameof(Priority), Priority.ToString());
+        dynamicTestCasesService.AddAdditionalProperty(nameof(AreaPath), AreaPath);
+        dynamicTestCasesService.AddAdditionalProperty(nameof(IterationPath), IterationPath);
     }
 }

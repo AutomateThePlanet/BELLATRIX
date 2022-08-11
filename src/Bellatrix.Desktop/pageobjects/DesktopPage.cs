@@ -1,5 +1,5 @@
 ﻿// <copyright file="Page.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,10 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.DynamicTestCases;
 
-namespace Bellatrix.Desktop.PageObjects
+namespace Bellatrix.Desktop.PageObjects;
+
+public abstract class DesktopPage
 {
-    public abstract class DesktopPage
-    {
-        public App App => ServicesCollection.Current.Resolve<App>();
-    }
+    public App App => ServicesCollection.Current.Resolve<App>();
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="PasswordControlEventsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,134 +14,133 @@
 using Bellatrix.Web.Events;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Password Control")]
+[AllureFeature("ControlEvents")]
+public class PasswordControlEventsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Password Control")]
-    [AllureFeature("ControlEvents")]
-    public class PasswordControlEventsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PasswordLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingPasswordCalled_BeforeActuallySetPassword()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().PasswordLocalPage);
+        Password.SettingPassword += AssertValueAttributeEmpty;
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingPasswordCalled_BeforeActuallySetPassword()
+        var passwordElement = App.Components.CreateById<Password>("myPassword");
+
+        passwordElement.SetPassword("bellatrix");
+
+        Assert.AreEqual("bellatrix", passwordElement.GetPassword());
+
+        Password.SettingPassword -= AssertValueAttributeEmpty;
+
+        void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Password.SettingPassword += AssertValueAttributeEmpty;
-
-            var passwordElement = App.Components.CreateById<Password>("myPassword");
-
-            passwordElement.SetPassword("bellatrix");
-
-            Assert.AreEqual("bellatrix", passwordElement.GetPassword());
-
-            Password.SettingPassword -= AssertValueAttributeEmpty;
-
-            void AssertValueAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void SettingPasswordCalled_AfterSetPassword()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void SettingPasswordCalled_AfterSetPassword()
+    {
+        Password.PasswordSet += AssertValueAttributeContainsNewValue;
+
+        var passwordElement = App.Components.CreateById<Password>("myPassword");
+
+        passwordElement.SetPassword("bellatrix");
+
+        Password.PasswordSet -= AssertValueAttributeContainsNewValue;
+
+        void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Password.PasswordSet += AssertValueAttributeContainsNewValue;
-
-            var passwordElement = App.Components.CreateById<Password>("myPassword");
-
-            passwordElement.SetPassword("bellatrix");
-
-            Password.PasswordSet -= AssertValueAttributeContainsNewValue;
-
-            void AssertValueAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("bellatrix", args.Element.WrappedElement.GetAttribute("value"));
-            }
+            Assert.AreEqual("bellatrix", args.Element.WrappedElement.GetAttribute("value"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveringCalled_BeforeActuallyHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveringCalled_BeforeActuallyHover()
+    {
+        Password.Hovering += AssertStyleAttributeEmpty;
+
+        var passwordElement = App.Components.CreateById<Password>("myPassword8");
+
+        passwordElement.Hover();
+
+        Assert.AreEqual("color: red;", passwordElement.GetStyle());
+
+        Password.Hovering -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Password.Hovering += AssertStyleAttributeEmpty;
-
-            var passwordElement = App.Components.CreateById<Password>("myPassword8");
-
-            passwordElement.Hover();
-
-            Assert.AreEqual("color: red;", passwordElement.GetStyle());
-
-            Password.Hovering -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void HoveredCalled_AfterHover()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void HoveredCalled_AfterHover()
+    {
+        Password.Hovered += AssertStyleAttributeContainsNewValue;
+
+        var passwordElement = App.Components.CreateById<Password>("myPassword8");
+
+        passwordElement.Hover();
+
+        Password.Hovered -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Password.Hovered += AssertStyleAttributeContainsNewValue;
-
-            var passwordElement = App.Components.CreateById<Password>("myPassword8");
-
-            passwordElement.Hover();
-
-            Password.Hovered -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                App.Components.CreateById<Password>("myPassword8").ValidateStyleIs("color: red;");
-            }
+            App.Components.CreateById<Password>("myPassword8").ValidateStyleIs("color: red;");
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusingCalled_BeforeActuallyFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusingCalled_BeforeActuallyFocus()
+    {
+        Password.Focusing += AssertStyleAttributeEmpty;
+
+        var passwordElement = App.Components.CreateById<Password>("myPassword9");
+
+        passwordElement.Focus();
+
+        Assert.AreEqual("color: blue;", passwordElement.GetStyle());
+
+        Password.Focusing -= AssertStyleAttributeEmpty;
+
+        void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
         {
-            Password.Focusing += AssertStyleAttributeEmpty;
-
-            var passwordElement = App.Components.CreateById<Password>("myPassword9");
-
-            passwordElement.Focus();
-
-            Assert.AreEqual("color: blue;", passwordElement.GetStyle());
-
-            Password.Focusing -= AssertStyleAttributeEmpty;
-
-            void AssertStyleAttributeEmpty(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual(string.Empty, args.Element.WrappedElement.GetAttribute("style"));
         }
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void FocusedCalled_AfterFocus()
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void FocusedCalled_AfterFocus()
+    {
+        Password.Focused += AssertStyleAttributeContainsNewValue;
+
+        var passwordElement = App.Components.CreateById<Password>("myPassword9");
+
+        passwordElement.Focus();
+
+        Password.Focused -= AssertStyleAttributeContainsNewValue;
+
+        void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
         {
-            Password.Focused += AssertStyleAttributeContainsNewValue;
-
-            var passwordElement = App.Components.CreateById<Password>("myPassword9");
-
-            passwordElement.Focus();
-
-            Password.Focused -= AssertStyleAttributeContainsNewValue;
-
-            void AssertStyleAttributeContainsNewValue(object sender, ComponentActionEventArgs args)
-            {
-                Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
-            }
+            Assert.AreEqual("color: blue;", args.Element.WrappedElement.GetAttribute("style"));
         }
     }
 }

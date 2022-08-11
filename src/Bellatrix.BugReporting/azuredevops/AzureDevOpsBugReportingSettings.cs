@@ -1,5 +1,5 @@
 ﻿// <copyright file="AzureDevOpsBugReportingSettings.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,16 +15,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting.AzureDevOps
+namespace Bellatrix.BugReporting.AzureDevOps;
+
+public class AzureDevOpsBugReportingSettings
 {
-    public class AzureDevOpsBugReportingSettings
-    {
-        public bool IsEnabled { get; set; }
-        public string Url { get; set; }
-        public string Token { get; set; }
-        public string OrganizationName { get; set; }
-        public string ProjectName { get; set; }
-        public string DefaultPriority { get; set; }
-        public string DefaultSeverity { get; set; }
-    }
+    public bool IsEnabled { get; set; }
+    public string Url { get; set; }
+    public string Token { get; set; }
+    public string OrganizationName { get; set; }
+    public string ProjectName { get; set; }
+    public string DefaultPriority { get; set; }
+    public string DefaultSeverity { get; set; }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="TextField.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,25 +18,24 @@ using Bellatrix.Mobile.Controls.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public class TextField : IOSComponent, IComponentDisabled, IComponentText
 {
-    public class TextField : IOSComponent, IComponentDisabled, IComponentText
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingText;
+    public static event EventHandler<ComponentActionEventArgs<IOSElement>> TextSet;
+
+    public virtual void SetText(string value)
     {
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingText;
-        public static event EventHandler<ComponentActionEventArgs<IOSElement>> TextSet;
-
-        public virtual void SetText(string value)
-        {
-            SetValue(SettingText, TextSet, value);
-        }
-
-        public new virtual string GetText()
-        {
-            string textValue = GetValueAttribute();
-            return textValue ?? string.Empty;
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetIsDisabled();
+        SetValue(SettingText, TextSet, value);
     }
+
+    public new virtual string GetText()
+    {
+        string textValue = GetValueAttribute();
+        return textValue ?? string.Empty;
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetIsDisabled();
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="BugReportingContext.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,33 +15,32 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bellatrix.BugReporting
+namespace Bellatrix.BugReporting;
+
+public sealed class BugReportingContext
 {
-    public sealed class BugReportingContext
+    public BugReportingContext()
     {
-        public BugReportingContext()
+        AdditionalProperties = new Dictionary<string, string>();
+        TestSteps = new List<TestStep>();
+    }
+
+    public string TestCaseName { get; set; }
+    public string Precondition { get; set; }
+    public string TestFullName { get; set; }
+    public string TestProjectName { get; set; }
+    public List<TestStep> TestSteps { get; set; }
+    public Dictionary<string, string> AdditionalProperties { get; set; }
+
+    public string GetAdditionalPropertyByKey(string key)
+    {
+        if (AdditionalProperties.ContainsKey(key))
         {
-            AdditionalProperties = new Dictionary<string, string>();
-            TestSteps = new List<TestStep>();
+            return AdditionalProperties[key];
         }
-
-        public string TestCaseName { get; set; }
-        public string Precondition { get; set; }
-        public string TestFullName { get; set; }
-        public string TestProjectName { get; set; }
-        public List<TestStep> TestSteps { get; set; }
-        public Dictionary<string, string> AdditionalProperties { get; set; }
-
-        public string GetAdditionalPropertyByKey(string key)
+        else
         {
-            if (AdditionalProperties.ContainsKey(key))
-            {
-                return AdditionalProperties[key];
-            }
-            else
-            {
-                return null;
-            }
+            return null;
         }
     }
 }

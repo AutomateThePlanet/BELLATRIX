@@ -1,5 +1,5 @@
 ﻿// <copyright file="IMeasuredResponseT.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,10 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp;
 
-namespace Bellatrix.Api.Contracts
+namespace Bellatrix.Api.Contracts;
+
+public interface IMeasuredResponse<TReturnType> : IRestResponse<TReturnType>, IMeasuredResponse
+    where TReturnType : new()
 {
-    public interface IMeasuredResponse<TReturnType> : IRestResponse<TReturnType>, IMeasuredResponse
-        where TReturnType : new()
-    {
-    }
 }

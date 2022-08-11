@@ -1,5 +1,5 @@
 ﻿// <copyright file="DisposeDriverService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,44 +13,43 @@
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Services
+namespace Bellatrix.Desktop.Services;
+
+public static class DisposeDriverService
 {
-    public static class DisposeDriverService
+    public static void Dispose(WindowsDriver<WindowsElement> driver, ServicesCollection childContainer)
     {
-        public static void Dispose(WindowsDriver<WindowsElement> driver, ServicesCollection childContainer)
-        {
-            driver?.Quit();
-            driver?.Dispose();
-            childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-        }
+        driver?.Quit();
+        driver?.Dispose();
+        childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+    }
 
-        public static void Dispose(ServicesCollection childContainer)
-        {
-            var webDriver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
-            webDriver?.Quit();
-            webDriver?.Dispose();
-            childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-            ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-        }
+    public static void Dispose(ServicesCollection childContainer)
+    {
+        var webDriver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
+        webDriver?.Quit();
+        webDriver?.Dispose();
+        childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+        ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+    }
 
-        public static void DisposeAll()
+    public static void DisposeAll()
+    {
+        foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
         {
-            foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
+            try
             {
-                try
-                {
-                    var driver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
-                    driver?.Quit();
-                    driver?.Dispose();
-                    childContainer?.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-                }
-                catch (System.Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex);
-                }
+                var driver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
+                driver?.Quit();
+                driver?.Dispose();
+                childContainer?.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
             }
-
-            ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
+
+        ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
     }
 }

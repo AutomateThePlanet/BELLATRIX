@@ -1,5 +1,5 @@
 ﻿// <copyright file="ComputerVision.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -23,69 +23,68 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
-namespace Bellatrix.CognitiveServices
+namespace Bellatrix.CognitiveServices;
+
+public class ComputerVision
 {
-    public class ComputerVision
+    private readonly ComputerVisionClient _client;
+
+    public ComputerVision()
     {
-        private readonly ComputerVisionClient _client;
+        string endpoint = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<CognitiveServicesSettings>().ComputerVisionEndpoint);
+        string subscriptionKey = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<CognitiveServicesSettings>().ComputerVisionSubscriptionKey);
 
-        public ComputerVision()
+        if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(subscriptionKey))
         {
-            string endpoint = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<CognitiveServicesSettings>().ComputerVisionEndpoint);
-            string subscriptionKey = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<CognitiveServicesSettings>().ComputerVisionSubscriptionKey);
+            throw new ArgumentException("To use the ComputerVision you need to set a valid endpoint and subscription key for Azure Computer Vision Cognitive Service in the testFrameworkSettings.json under cognitiveServicesSettings section. Please check BELLATRIX docs for more info - https://docs.bellatrix.solutions/web-automation/image-recognition/");
+        }
 
-            if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(subscriptionKey))
+        _client = Authenticate(endpoint, subscriptionKey);
+    }
+
+    public void ValidateText(string localFile, string language, List<string> expectedTextSnippets)
+    {
+        var actualTextSnippets = ExtractOCRTextFromLocalFile(localFile, language);
+        CollectionAssert.IsSubsetOf(expectedTextSnippets, actualTextSnippets, "Some of the expected text snippets weren't present on the actual PDF/Image.");
+    }
+
+    public List<string> ExtractOCRTextFromLocalFile(string localFile, string language = "en")
+    {
+        var textHeaders = _client.ReadInStreamAsync(File.OpenRead(localFile), language: language).Result;
+
+        // After the request, get the operation location (operation ID)
+        string operationLocation = textHeaders.OperationLocation;
+        Thread.Sleep(2000);
+
+        // Retrieve the URI where the recognized text will be stored from the Operation-Location header.
+        // We only need the ID and not the full URL
+        const int numberOfCharsInOperationId = 36;
+        string operationId = operationLocation.Substring(operationLocation.Length - numberOfCharsInOperationId);
+
+        // Extract the text
+        ReadOperationResult results;
+        do
+        {
+            results = _client.GetReadResultAsync(Guid.Parse(operationId)).Result;
+        }
+        while (results.Status == OperationStatusCodes.Running || results.Status == OperationStatusCodes.NotStarted);
+
+        List<string> foundTextSnippets = new List<string>();
+        var textUrlFileResults = results.AnalyzeResult.ReadResults;
+        foreach (ReadResult page in textUrlFileResults)
+        {
+            foreach (Line line in page.Lines)
             {
-                throw new ArgumentException("To use the ComputerVision you need to set a valid endpoint and subscription key for Azure Computer Vision Cognitive Service in the testFrameworkSettings.json under cognitiveServicesSettings section. Please check BELLATRIX docs for more info - https://docs.bellatrix.solutions/web-automation/image-recognition/");
+                foundTextSnippets.Add(line.Text);
             }
-
-            _client = Authenticate(endpoint, subscriptionKey);
         }
 
-        public void ValidateText(string localFile, string language, List<string> expectedTextSnippets)
-        {
-            var actualTextSnippets = ExtractOCRTextFromLocalFile(localFile, language);
-            CollectionAssert.IsSubsetOf(expectedTextSnippets, actualTextSnippets, "Some of the expected text snippets weren't present on the actual PDF/Image.");
-        }
+        return foundTextSnippets;
+    }
 
-        public List<string> ExtractOCRTextFromLocalFile(string localFile, string language = "en")
-        {
-            var textHeaders = _client.ReadInStreamAsync(File.OpenRead(localFile), language: language).Result;
-
-            // After the request, get the operation location (operation ID)
-            string operationLocation = textHeaders.OperationLocation;
-            Thread.Sleep(2000);
-
-            // Retrieve the URI where the recognized text will be stored from the Operation-Location header.
-            // We only need the ID and not the full URL
-            const int numberOfCharsInOperationId = 36;
-            string operationId = operationLocation.Substring(operationLocation.Length - numberOfCharsInOperationId);
-
-            // Extract the text
-            ReadOperationResult results;
-            do
-            {
-                results = _client.GetReadResultAsync(Guid.Parse(operationId)).Result;
-            }
-            while (results.Status == OperationStatusCodes.Running || results.Status == OperationStatusCodes.NotStarted);
-
-            List<string> foundTextSnippets = new List<string>();
-            var textUrlFileResults = results.AnalyzeResult.ReadResults;
-            foreach (ReadResult page in textUrlFileResults)
-            {
-                foreach (Line line in page.Lines)
-                {
-                    foundTextSnippets.Add(line.Text);
-                }
-            }
-
-            return foundTextSnippets;
-        }
-
-        private ComputerVisionClient Authenticate(string endpoint, string key)
-        {
-            ComputerVisionClient client = new ComputerVisionClient(new ApiKeyServiceClientCredentials(key)) { Endpoint = endpoint };
-            return client;
-        }
+    private ComputerVisionClient Authenticate(string endpoint, string key)
+    {
+        ComputerVisionClient client = new ComputerVisionClient(new ApiKeyServiceClientCredentials(key)) { Endpoint = endpoint };
+        return client;
     }
 }

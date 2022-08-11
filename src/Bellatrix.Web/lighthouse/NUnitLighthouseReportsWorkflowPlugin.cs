@@ -20,43 +20,42 @@ using Bellatrix.Utilities;
 using Bellatrix.Web;
 using NUnit.Framework;
 
-namespace Bellatrix.GoogleLighthouse.NUnit
+namespace Bellatrix.GoogleLighthouse.NUnit;
+
+public class NUnitLighthouseReportsWorkflowPlugin : Plugin
 {
-    public class NUnitLighthouseReportsWorkflowPlugin : Plugin
+    private static readonly object _lockObject = new object();
+
+    public NUnitLighthouseReportsWorkflowPlugin()
     {
-        private static readonly object _lockObject = new object();
+    }
 
-        public NUnitLighthouseReportsWorkflowPlugin()
+    public TestContext TestContext { get; set; }
+
+    protected override void PostTestCleanup(object sender, PluginEventArgs e)
+    {
+        var settings = ConfigurationService.GetSection<LighthouseSettings>();
+        if (settings != null && settings.IsEnabled && WrappedWebDriverCreateService.BrowserConfiguration.ExecutionType == Web.Enums.ExecutionType.Regular)
         {
-        }
-
-        public TestContext TestContext { get; set; }
-
-        protected override void PostTestCleanup(object sender, PluginEventArgs e)
-        {
-            var settings = ConfigurationService.GetSection<LighthouseSettings>();
-            if (settings != null && settings.IsEnabled && WrappedWebDriverCreateService.BrowserConfiguration.ExecutionType == Web.Enums.ExecutionType.Regular)
+            lock (_lockObject)
             {
-                lock (_lockObject)
+                var driverExecutablePath = new DirectoryInfo(ExecutionDirectoryResolver.GetDriverExecutablePath());
+                var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+                if (file != null && file.Exists)
                 {
-                    var driverExecutablePath = new DirectoryInfo(ExecutionDirectoryResolver.GetDriverExecutablePath());
-                    var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
-                    if (file != null && file.Exists)
-                    {
-                        TestContext.AddTestAttachment(file.FullName);
-                    }
+                    TestContext.AddTestAttachment(file.FullName);
+                }
 
-                    file = driverExecutablePath.GetFiles("*.report.html", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
-                    if (file != null && file.Exists)
-                    {
-                        TestContext.AddTestAttachment(file.FullName);
-                    }
+                file = driverExecutablePath.GetFiles("*.report.html", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+                if (file != null && file.Exists)
+                {
+                    TestContext.AddTestAttachment(file.FullName);
+                }
 
-                    file = driverExecutablePath.GetFiles("*.report.csv", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
-                    if (file != null && file.Exists)
-                    {
-                        TestContext.AddTestAttachment(file.FullName);
-                    }
+                file = driverExecutablePath.GetFiles("*.report.csv", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+                if (file != null && file.Exists)
+                {
+                    TestContext.AddTestAttachment(file.FullName);
                 }
             }
         }

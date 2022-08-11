@@ -1,5 +1,5 @@
 ﻿// <copyright file="OutputControlTestsSafari.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,78 +13,77 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Output Control")]
+public class OutputControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Output Control")]
-    public class OutputControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OutputLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OutputLocalPage);
+        var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Safari()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput");
+        outputComponent.Hover();
 
-            outputComponent.Hover();
+        Assert.AreEqual("color: red;", outputComponent.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", outputComponent.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void Return10_When_InnerText_Safari()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void Return10_When_InnerText_Safari()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput");
+        Assert.AreEqual("10", outputComponent.InnerText);
+    }
 
-            Assert.AreEqual("10", outputComponent.InnerText);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_InnerTextNotSet_Safari()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_InnerTextNotSet_Safari()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput2");
+        Assert.IsNotNull(outputComponent.InnerText);
+    }
 
-            Assert.IsNotNull(outputComponent.InnerText);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_InnerHtmlNotSet_Safari()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_InnerHtmlNotSet_Safari()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput2");
+        Assert.IsNotNull(outputComponent.InnerHtml);
+    }
 
-            Assert.IsNotNull(outputComponent.InnerHtml);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnButtonHtml_When_InnerHtmlSet_Safari()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnButtonHtml_When_InnerHtmlSet_Safari()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput1");
+        Assert.AreEqual("<button name=\"button\">Click me</button>", outputComponent.InnerHtml);
+    }
 
-            Assert.AreEqual("<button name=\"button\">Click me</button>", outputComponent.InnerHtml);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_ForNotSet_Safari()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_ForNotSet_Safari()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput2");
+        Assert.IsNull(outputComponent.For);
+    }
 
-            Assert.IsNull(outputComponent.For);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnOutputFor_When_ForSet_Safari()
+    {
+        var outputComponent = App.Components.CreateById<Output>("myOutput");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnOutputFor_When_ForSet_Safari()
-        {
-            var outputComponent = App.Components.CreateById<Output>("myOutput");
-
-            Assert.AreEqual("myOutput", outputComponent.For);
-        }
+        Assert.AreEqual("myOutput", outputComponent.For);
     }
 }

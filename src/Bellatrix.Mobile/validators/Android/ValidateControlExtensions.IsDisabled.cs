@@ -1,5 +1,5 @@
 ﻿// <copyright file="ValidateControlExtensions.IsDisabled.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,25 +16,24 @@ using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public static partial class ValidateControlExtensions
 {
-    public static partial class ValidateControlExtensions
+    public static void ValidateIsDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentDisabled, IComponent<AndroidElement>
     {
-        public static void ValidateIsDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentDisabled, IComponent<AndroidElement>
-        {
-            ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsDisabled.Equals(true), "The control should be disabled but it was NOT.", timeout, sleepInterval);
-            ValidatedIsDisabledEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
-        }
-
-        public static void ValidateIsNotDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentDisabled, IComponent<AndroidElement>
-        {
-            ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => !control.IsDisabled.Equals(true), "The control should NOT be disabled but it was.", timeout, sleepInterval);
-            ValidatedIsNotDisabledEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
-        }
-
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsDisabledEvent;
-        public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsNotDisabledEvent;
+        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsDisabled.Equals(true), "The control should be disabled but it was NOT.", timeout, sleepInterval);
+        ValidatedIsDisabledEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
     }
+
+    public static void ValidateIsNotDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
+        where T : IComponentDisabled, IComponent<AndroidElement>
+    {
+        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => !control.IsDisabled.Equals(true), "The control should NOT be disabled but it was.", timeout, sleepInterval);
+        ValidatedIsNotDisabledEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
+    }
+
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsDisabledEvent;
+    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsNotDisabledEvent;
 }

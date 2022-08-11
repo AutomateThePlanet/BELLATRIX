@@ -1,5 +1,5 @@
 ﻿// <copyright file="BrowserAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -25,161 +25,156 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Opera;
 using OpenQA.Selenium.Safari;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+[DebuggerDisplay("BELLATRIX BrowserAttribute")]
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public class BrowserAttribute : Attribute
 {
-    [DebuggerDisplay("BELLATRIX BrowserAttribute")]
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class BrowserAttribute : Attribute
+    public BrowserAttribute(BrowserType browser, Lifecycle lifecycle = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
     {
-        public BrowserAttribute(BrowserType browser, Lifecycle lifecycle = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        OS = OS.Windows;
+        Browser = browser;
+        Lifecycle = lifecycle;
+        ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
+        Size = default;
+        ExecutionType = ExecutionType.Regular;
+        ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
+    }
+
+    public BrowserAttribute(BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+    {
+        OS = OS.Windows;
+        Browser = browser;
+        Lifecycle = behavior;
+        ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
+        Size = new Size(width, height);
+        ExecutionType = ExecutionType.Regular;
+        ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
+    }
+
+    public BrowserAttribute(OS oS, BrowserType browser, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+    {
+        OS = oS;
+        Browser = browser;
+        Lifecycle = behavior;
+        ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
+        Size = default;
+        ExecutionType = ExecutionType.Regular;
+        ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
+    }
+
+    public BrowserAttribute(OS oS, BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+    {
+        OS = oS;
+        Browser = browser;
+        Lifecycle = behavior;
+        ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
+        Size = new Size(width, height);
+        ExecutionType = ExecutionType.Regular;
+        ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
+    }
+
+    public BrowserAttribute(BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+    : this(browser, behavior, shouldCaptureHttpTraffic)
+        => Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
+
+    public BrowserAttribute(BrowserType browser, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+    : this(browser, behavior, shouldCaptureHttpTraffic)
+        => Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
+
+    public BrowserAttribute(BrowserType browser, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+    : this(browser, behavior, shouldCaptureHttpTraffic)
+        => Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
+
+    public BrowserAttribute(OS oS, BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        : this(oS, browser, behavior, shouldCaptureHttpTraffic)
+        => Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
+
+    public BrowserAttribute(OS oS, BrowserType browser, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        : this(oS, browser, behavior, shouldCaptureHttpTraffic)
+        => Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
+
+    public BrowserAttribute(OS oS, BrowserType browser, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+        : this(oS, browser, behavior, shouldCaptureHttpTraffic)
+        => Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
+
+    public BrowserType Browser { get; }
+
+    public Lifecycle Lifecycle { get; }
+
+    public Size Size { get; }
+
+    public bool ShouldCaptureHttpTraffic { get; }
+
+    public ExecutionType ExecutionType { get; protected set; }
+
+    public OS OS { get; internal set; }
+
+    public bool ShouldAutomaticallyScrollToVisible { get; }
+
+    public bool IsLighthouseEnabled { get; protected set; }
+
+    protected string GetTestFullName(MemberInfo memberInfo, Type testClassType)
+    {
+        string testFullName = $"{testClassType.FullName}.{memberInfo?.Name}".Trim('.');
+        string testName = testFullName != null ? testFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty) : testClassType.FullName;
+        return testName;
+    }
+
+    // We allow users to set custom capabilities and profiles from the web App class. We register the type by the unique name of the class.
+    protected TDriverOptions AddAdditionalCapabilities<TDriverOptions>(Type type, TDriverOptions driverOptions)
+        where TDriverOptions : DriverOptions, new()
+    {
+        var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
+        if (additionalCaps != null)
         {
-            OS = OS.Windows;
-            Browser = browser;
-            Lifecycle = lifecycle;
-            ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
-            Size = default;
-            ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
-        }
-
-        public BrowserAttribute(BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-        {
-            OS = OS.Windows;
-            Browser = browser;
-            Lifecycle = behavior;
-            ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
-            Size = new Size(width, height);
-            ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
-        }
-
-        public BrowserAttribute(OS oS, BrowserType browser, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-        {
-            OS = oS;
-            Browser = browser;
-            Lifecycle = behavior;
-            ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
-            Size = default;
-            ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
-        }
-
-        public BrowserAttribute(OS oS, BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-        {
-            OS = oS;
-            Browser = browser;
-            Lifecycle = behavior;
-            ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
-            Size = new Size(width, height);
-            ExecutionType = ExecutionType.Regular;
-            ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
-        }
-
-        public BrowserAttribute(BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-        : this(browser, behavior, shouldCaptureHttpTraffic)
-            => Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
-
-        public BrowserAttribute(BrowserType browser, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-        : this(browser, behavior, shouldCaptureHttpTraffic)
-            => Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
-
-        public BrowserAttribute(BrowserType browser, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-        : this(browser, behavior, shouldCaptureHttpTraffic)
-            => Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
-
-        public BrowserAttribute(OS oS, BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-            : this(oS, browser, behavior, shouldCaptureHttpTraffic)
-            => Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
-
-        public BrowserAttribute(OS oS, BrowserType browser, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-            : this(oS, browser, behavior, shouldCaptureHttpTraffic)
-            => Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
-
-        public BrowserAttribute(OS oS, BrowserType browser, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-            : this(oS, browser, behavior, shouldCaptureHttpTraffic)
-            => Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
-
-        public BrowserType Browser { get; }
-
-        public Lifecycle Lifecycle { get; }
-
-        public Size Size { get; }
-
-        public bool ShouldCaptureHttpTraffic { get; }
-
-        public ExecutionType ExecutionType { get; protected set; }
-
-        public OS OS { get; internal set; }
-
-        public bool ShouldAutomaticallyScrollToVisible { get; }
-
-        public bool IsLighthouseEnabled { get; protected set; }
-
-        protected string GetTestFullName(MemberInfo memberInfo, Type testClassType)
-        {
-            string testFullName = $"{testClassType.FullName}.{memberInfo?.Name}".Trim('.');
-            string testName = testFullName != null ? testFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty) : testClassType.FullName;
-            return testName;
-        }
-
-        // We allow users to set custom capabilities and profiles from the web App class. We register the type by the unique name of the class.
-        protected TDriverOptions AddAdditionalCapabilities<TDriverOptions>(Type type, TDriverOptions driverOptions)
-            where TDriverOptions : DriverOptions, new()
-        {
-            var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{type.FullName}");
-            if (additionalCaps != null)
+            foreach (var key in additionalCaps.Keys)
             {
-                foreach (var key in additionalCaps.Keys)
+                driverOptions.AddAdditionalOption(key, additionalCaps[key]);
+            }
+        }
+
+        return driverOptions;
+    }
+
+    protected dynamic GetDriverOptionsBasedOnBrowser(Type type)
+    {
+        dynamic driverOptions;
+        switch (Browser)
+        {
+            case BrowserType.Chrome:
+            case BrowserType.ChromeHeadless:
+                driverOptions = ServicesCollection.Current.Resolve<ChromeOptions>(type.FullName) ?? new ChromeOptions();
+                break;
+            case BrowserType.Firefox:
+            case BrowserType.FirefoxHeadless:
+                driverOptions = ServicesCollection.Current.Resolve<FirefoxOptions>(type.FullName) ?? new FirefoxOptions();
+                var firefoxProfile = ServicesCollection.Current.Resolve<FirefoxProfile>(type.FullName);
+
+                if (firefoxProfile != null)
                 {
-                    driverOptions.AddAdditionalOption(key, additionalCaps[key]);
+                    driverOptions.Profile = firefoxProfile;
                 }
-            }
 
-            return driverOptions;
+                break;
+            case BrowserType.InternetExplorer:
+                driverOptions = ServicesCollection.Current.Resolve<InternetExplorerOptions>(type.FullName) ?? new InternetExplorerOptions();
+                break;
+            case BrowserType.Edge:
+                driverOptions = ServicesCollection.Current.Resolve<EdgeOptions>(type.FullName) ?? new EdgeOptions();
+                break;
+            case BrowserType.Safari:
+                driverOptions = ServicesCollection.Current.Resolve<SafariOptions>(type.FullName) ?? new SafariOptions();
+                break;
+            default:
+                {
+                    throw new ArgumentException("You should specify a browser.");
+                }
         }
 
-        protected dynamic GetDriverOptionsBasedOnBrowser(Type type)
-        {
-            dynamic driverOptions;
-            switch (Browser)
-            {
-                case BrowserType.Chrome:
-                case BrowserType.ChromeHeadless:
-                    driverOptions = ServicesCollection.Current.Resolve<ChromeOptions>(type.FullName) ?? new ChromeOptions();
-                    break;
-                case BrowserType.Firefox:
-                case BrowserType.FirefoxHeadless:
-                    driverOptions = ServicesCollection.Current.Resolve<FirefoxOptions>(type.FullName) ?? new FirefoxOptions();
-                    var firefoxProfile = ServicesCollection.Current.Resolve<FirefoxProfile>(type.FullName);
-
-                    if (firefoxProfile != null)
-                    {
-                        driverOptions.Profile = firefoxProfile;
-                    }
-
-                    break;
-                case BrowserType.InternetExplorer:
-                    driverOptions = ServicesCollection.Current.Resolve<InternetExplorerOptions>(type.FullName) ?? new InternetExplorerOptions();
-                    break;
-                case BrowserType.Edge:
-                    driverOptions = ServicesCollection.Current.Resolve<EdgeOptions>(type.FullName) ?? new EdgeOptions();
-                    break;
-                case BrowserType.Opera:
-                    driverOptions = ServicesCollection.Current.Resolve<OperaOptions>(type.FullName) ?? new OperaOptions();
-                    break;
-                case BrowserType.Safari:
-                    driverOptions = ServicesCollection.Current.Resolve<SafariOptions>(type.FullName) ?? new SafariOptions();
-                    break;
-                default:
-                    {
-                        throw new ArgumentException("You should specify a browser.");
-                    }
-            }
-
-            return driverOptions;
-        }
+        return driverOptions;
     }
 }

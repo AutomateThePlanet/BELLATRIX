@@ -1,5 +1,5 @@
 ﻿// <copyright file="BrowserStackAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,66 +18,65 @@ using Bellatrix.Mobile.Plugins;
 using Bellatrix.Mobile.Plugins.Attributes;
 using OpenQA.Selenium.Appium;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public abstract class BrowserStackAttribute : AppAttribute, IAppiumOptionsFactory
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public abstract class BrowserStackAttribute : AppAttribute, IAppiumOptionsFactory
+    protected BrowserStackAttribute(
+        string appPath,
+        string platformVersion,
+        string deviceName,
+        Lifecycle behavior = Lifecycle.NotSet,
+        bool captureVideo = false,
+        bool captureNetworkLogs = false,
+        BrowserStackConsoleLogType consoleLogType = BrowserStackConsoleLogType.Disable,
+        bool debug = false,
+        string build = null)
+        : base(appPath, platformVersion, deviceName, behavior)
     {
-        protected BrowserStackAttribute(
-            string appPath,
-            string platformVersion,
-            string deviceName,
-            Lifecycle behavior = Lifecycle.NotSet,
-            bool captureVideo = false,
-            bool captureNetworkLogs = false,
-            BrowserStackConsoleLogType consoleLogType = BrowserStackConsoleLogType.Disable,
-            bool debug = false,
-            string build = null)
-            : base(appPath, platformVersion, deviceName, behavior)
+        Debug = debug;
+        Build = build;
+        CaptureVideo = captureVideo;
+        CaptureNetworkLogs = captureNetworkLogs;
+        ConsoleLogType = consoleLogType;
+        AppConfiguration.ExecutionType = ExecutionType.BrowserStack;
+    }
+
+    public bool Debug { get; }
+
+    public string Build { get; }
+
+    public bool CaptureVideo { get; }
+
+    public bool CaptureNetworkLogs { get; }
+
+    public BrowserStackConsoleLogType ConsoleLogType { get; }
+
+    public AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
+    {
+        var appiumOptions = new AppiumOptions();
+        AddAdditionalCapabilities(testClassType, appiumOptions);
+
+        appiumOptions.AddAdditionalCapability("browserstack.debug", Debug);
+
+        if (!string.IsNullOrEmpty(Build))
         {
-            Debug = debug;
-            Build = build;
-            CaptureVideo = captureVideo;
-            CaptureNetworkLogs = captureNetworkLogs;
-            ConsoleLogType = consoleLogType;
-            AppConfiguration.ExecutionType = ExecutionType.BrowserStack;
+            appiumOptions.AddAdditionalCapability("build", Build);
         }
 
-        public bool Debug { get; }
+        appiumOptions.AddAdditionalCapability("device", AppConfiguration.DeviceName);
+        appiumOptions.AddAdditionalCapability("os_version", AppConfiguration.PlatformVersion);
+        appiumOptions.AddAdditionalCapability("app", AppConfiguration.AppPath);
+        appiumOptions.AddAdditionalCapability("browserstack.video", CaptureVideo);
+        appiumOptions.AddAdditionalCapability("browserstack.networkLogs", CaptureNetworkLogs);
+        string consoleLogTypeText = Enum.GetName(typeof(BrowserStackConsoleLogType), ConsoleLogType)?.ToLower();
+        appiumOptions.AddAdditionalCapability("browserstack.console", consoleLogTypeText);
 
-        public string Build { get; }
+        var credentials = CloudProviderCredentialsResolver.GetCredentials();
+        appiumOptions.AddAdditionalCapability("browserstack.user", credentials.Item1);
+        appiumOptions.AddAdditionalCapability("browserstack.key", credentials.Item2);
 
-        public bool CaptureVideo { get; }
-
-        public bool CaptureNetworkLogs { get; }
-
-        public BrowserStackConsoleLogType ConsoleLogType { get; }
-
-        public AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
-        {
-            var appiumOptions = new AppiumOptions();
-            AddAdditionalCapabilities(testClassType, appiumOptions);
-
-            appiumOptions.AddAdditionalCapability("browserstack.debug", Debug);
-
-            if (!string.IsNullOrEmpty(Build))
-            {
-                appiumOptions.AddAdditionalCapability("build", Build);
-            }
-
-            appiumOptions.AddAdditionalCapability("device", AppConfiguration.DeviceName);
-            appiumOptions.AddAdditionalCapability("os_version", AppConfiguration.PlatformVersion);
-            appiumOptions.AddAdditionalCapability("app", AppConfiguration.AppPath);
-            appiumOptions.AddAdditionalCapability("browserstack.video", CaptureVideo);
-            appiumOptions.AddAdditionalCapability("browserstack.networkLogs", CaptureNetworkLogs);
-            string consoleLogTypeText = Enum.GetName(typeof(BrowserStackConsoleLogType), ConsoleLogType)?.ToLower();
-            appiumOptions.AddAdditionalCapability("browserstack.console", consoleLogTypeText);
-
-            var credentials = CloudProviderCredentialsResolver.GetCredentials();
-            appiumOptions.AddAdditionalCapability("browserstack.user", credentials.Item1);
-            appiumOptions.AddAdditionalCapability("browserstack.key", credentials.Item2);
-
-            return appiumOptions;
-        }
+        return appiumOptions;
     }
 }

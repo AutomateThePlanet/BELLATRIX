@@ -1,5 +1,5 @@
 ﻿// <copyright file="UntilHaveContent.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,45 +14,44 @@
 using System;
 using OpenQA.Selenium;
 
-namespace Bellatrix.Web.Untils
+namespace Bellatrix.Web.Untils;
+
+public class WaitToNotHaveInnerTextStrategy : WaitStrategy
 {
-    public class WaitToNotHaveInnerTextStrategy : WaitStrategy
+    private readonly string _elementText;
+
+    public WaitToNotHaveInnerTextStrategy(string elementText, int? timeoutInterval = null, int? sleepInterval = null)
+        : base(timeoutInterval, sleepInterval)
     {
-        private readonly string _elementText;
+        _elementText = elementText;
+        TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToHaveContentTimeout;
+    }
 
-        public WaitToNotHaveInnerTextStrategy(string elementText, int? timeoutInterval = null, int? sleepInterval = null)
-            : base(timeoutInterval, sleepInterval)
+    public override void WaitUntil<TBy>(TBy by)
+    {
+        WaitUntil(d => ElementHasNotInnerText(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    }
+
+    public override void WaitUntil<TBy>(TBy by, Component parent)
+    {
+        WaitUntil(d => ElementHasNotInnerText(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
+    }
+
+    private bool ElementHasNotInnerText<TBy>(ISearchContext searchContext, TBy by)
+        where TBy : FindStrategy
+    {
+        try
         {
-            _elementText = elementText;
-            TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ElementToHaveContentTimeout;
+            var element = searchContext.FindElement(by.Convert());
+            return element != null && !_elementText.Equals(element.Text);
         }
-
-        public override void WaitUntil<TBy>(TBy by)
+        catch (NoSuchElementException)
         {
-            WaitUntil(d => ElementHasNotInnerText(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+            return false;
         }
-
-        public override void WaitUntil<TBy>(TBy by, Component parent)
+        catch (StaleElementReferenceException)
         {
-            WaitUntil(d => ElementHasNotInnerText(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
-        }
-
-        private bool ElementHasNotInnerText<TBy>(ISearchContext searchContext, TBy by)
-            where TBy : FindStrategy
-        {
-            try
-            {
-                var element = searchContext.FindElement(by.Convert());
-                return element != null && !_elementText.Equals(element.Text);
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-            catch (StaleElementReferenceException)
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

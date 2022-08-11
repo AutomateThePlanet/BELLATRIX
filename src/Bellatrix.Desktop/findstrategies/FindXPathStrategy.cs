@@ -1,5 +1,5 @@
 ﻿// <copyright file="ByXPath.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,38 +15,37 @@ using System.Collections.Generic;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
-namespace Bellatrix.Desktop.Locators
+namespace Bellatrix.Desktop.Locators;
+
+public class FindXPathStrategy : FindStrategy
 {
-    public class FindXPathStrategy : FindStrategy
+    public FindXPathStrategy(string name)
+        : base(name)
     {
-        public FindXPathStrategy(string name)
-            : base(name)
-        {
-        }
+    }
 
-        public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
-        {
-            return searchContext.FindElementByXPath(Value);
-        }
+    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    {
+        return searchContext.FindElementByXPath(Value);
+    }
 
-        public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
-        {
-            return searchContext.FindElementsByXPath(Value);
-        }
+    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    {
+        return searchContext.FindElementsByXPath(Value);
+    }
 
-        public override AppiumWebElement FindElement(WindowsElement element)
-        {
-            return element.FindElementByXPath(Value);
-        }
+    public override AppiumWebElement FindElement(WindowsElement element)
+    {
+        return element.FindElementByXPath(Value);
+    }
 
-        public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
-        {
-            return element.FindElementsByXPath(Value);
-        }
+    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
+    {
+        return element.FindElementsByXPath(Value);
+    }
 
-        public override string ToString()
-        {
-            return $"ByXPath = {Value}";
-        }
+    public override string ToString()
+    {
+        return $"ByXPath = {Value}";
     }
 }

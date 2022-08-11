@@ -1,5 +1,5 @@
 ﻿// <copyright file="AndroidTest.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,43 +14,42 @@
 
 using Bellatrix.Mobile.Android;
 
-namespace Bellatrix.Mobile.MSTest
+namespace Bellatrix.Mobile.MSTest;
+
+public abstract class AndroidTest : MSTestBaseTest
 {
-    public abstract class AndroidTest : MSTestBaseTest
+    private static readonly object _lockObject = new object();
+    private static bool _arePluginsAlreadyInitialized;
+
+    public AndroidApp App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<AndroidApp>();
+
+    public override void Configure()
     {
-        private static readonly object _lockObject = new object();
-        private static bool _arePluginsAlreadyInitialized;
-
-        public AndroidApp App => ServicesCollection.Current.FindCollection(TestContext.FullyQualifiedTestClassName).Resolve<AndroidApp>();
-
-        public override void Configure()
+        lock (_lockObject)
         {
-            lock (_lockObject)
+            if (!_arePluginsAlreadyInitialized)
             {
-                if (!_arePluginsAlreadyInitialized)
-                {
-                    MSTestPluginConfiguration.Add();
-                    ExecutionTimePlugin.Add();
-                    VideoRecorderPluginConfiguration.AddMSTest();
-                    ScreenshotsPluginConfiguration.AddMSTest();
-                    DynamicTestCasesPlugin.Add();
-                    AllurePlugin.Add();
-                    BugReportingPlugin.Add();
-                    AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();
-                    AndroidPluginsConfiguration.AddElementsBddLogging();
-                    AndroidPluginsConfiguration.AddDynamicTestCases();
-                    AndroidPluginsConfiguration.AddBugReporting();
-                    AndroidPluginsConfiguration.AddValidateExtensionsBddLogging();
-                    AndroidPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                    AndroidPluginsConfiguration.AddValidateExtensionsBugReporting();
-                    AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                    AndroidPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                    AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
-                    AndroidPluginsConfiguration.AddLifecycle();
-                    AndroidPluginsConfiguration.AddLogExecutionLifecycle();
+                MSTestPluginConfiguration.Add();
+                ExecutionTimePlugin.Add();
+                VideoRecorderPluginConfiguration.AddMSTest();
+                ScreenshotsPluginConfiguration.AddMSTest();
+                DynamicTestCasesPlugin.Add();
+                AllurePlugin.Add();
+                BugReportingPlugin.Add();
+                AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();
+                AndroidPluginsConfiguration.AddElementsBddLogging();
+                AndroidPluginsConfiguration.AddDynamicTestCases();
+                AndroidPluginsConfiguration.AddBugReporting();
+                AndroidPluginsConfiguration.AddValidateExtensionsBddLogging();
+                AndroidPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+                AndroidPluginsConfiguration.AddValidateExtensionsBugReporting();
+                AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+                AndroidPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+                AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+                AndroidPluginsConfiguration.AddLifecycle();
+                AndroidPluginsConfiguration.AddLogExecutionLifecycle();
 
-                    _arePluginsAlreadyInitialized = true;
-                }
+                _arePluginsAlreadyInitialized = true;
             }
         }
     }

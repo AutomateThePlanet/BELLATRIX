@@ -1,5 +1,5 @@
 ﻿// <copyright file="KeyboardServiceTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,55 +16,54 @@ using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Android.Enums;
 using BA = Bellatrix.Assertions;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".app.CustomTitle",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Services")]
+[AllureFeature("KeyboardService")]
+public class KeyboardServiceTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".app.CustomTitle",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Services")]
-    [AllureFeature("KeyboardService")]
-    public class KeyboardServiceTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void TestHideKeyBoard()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void TestHideKeyBoard()
-        {
-            var textField = App.Components.CreateByIdContaining<TextField>("left_text_edit");
-            textField.SetText(string.Empty);
+        var textField = App.Components.CreateByIdContaining<TextField>("left_text_edit");
+        textField.SetText(string.Empty);
 
-            App.Keyboard.HideKeyboard();
-        }
+        App.Keyboard.HideKeyboard();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void PressKeyCodeTest()
-        {
-            App.Keyboard.PressKeyCode(AndroidKeyCode.Home);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void PressKeyCodeTest()
+    {
+        App.Keyboard.PressKeyCode(AndroidKeyCode.Home);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void PressKeyCodeWithMetastateTest()
-        {
-            App.Keyboard.PressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void PressKeyCodeWithMetastateTest()
+    {
+        App.Keyboard.PressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void LongPressKeyCodeTest()
-        {
-            App.Keyboard.LongPressKeyCode(AndroidKeyCode.Home);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void LongPressKeyCodeTest()
+    {
+        App.Keyboard.LongPressKeyCode(AndroidKeyCode.Home);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void LongPressKeyCodeWithMetastateTest()
-        {
-            App.Keyboard.LongPressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void LongPressKeyCodeWithMetastateTest()
+    {
+        App.Keyboard.LongPressKeyCode(AndroidKeyCode.Space, AndroidKeyMetastate.Meta_Shift_On);
     }
 }

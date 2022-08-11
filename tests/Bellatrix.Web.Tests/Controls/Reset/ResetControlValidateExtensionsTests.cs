@@ -1,5 +1,5 @@
 ﻿// <copyright file="ResetControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,74 +13,73 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Reset Control")]
+[AllureFeature("ValidateExtensions")]
+public class ResetControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Reset Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ResetControlValidateExtensionsTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
-        {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateValueIs_DoesNotThrowException_When_UseClickMethod()
+    {
+        var buttonElement = App.Components.CreateById<Reset>("myButton");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateValueIs_DoesNotThrowException_When_UseClickMethod()
-        {
-            var buttonElement = App.Components.CreateById<Reset>("myButton");
+        buttonElement.Click();
 
-            buttonElement.Click();
+        buttonElement.ValidateValueIs("Stop");
+    }
 
-            buttonElement.ValidateValueIs("Stop");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover()
+    {
+        var buttonElement = App.Components.CreateById<Reset>("myButton1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover()
-        {
-            var buttonElement = App.Components.CreateById<Reset>("myButton1");
+        buttonElement.Hover();
 
-            buttonElement.Hover();
+        buttonElement.ValidateStyleIs("color: red;");
+    }
 
-            buttonElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
+    {
+        var buttonElement = App.Components.CreateById<Reset>("myButton");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
-        {
-            var buttonElement = App.Components.CreateById<Reset>("myButton");
+        buttonElement.ValidateIsNotDisabled();
+    }
 
-            buttonElement.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
+    {
+        var buttonElement = App.Components.CreateById<Reset>("myButton3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
-        {
-            var buttonElement = App.Components.CreateById<Reset>("myButton3");
+        buttonElement.ValidateIsDisabled();
+    }
 
-            buttonElement.ValidateIsDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateInnerTextIs_DoesNotThrowException_When_UseInnerText()
+    {
+        var buttonElement = App.Components.CreateById<Reset>("myButton");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateInnerTextIs_DoesNotThrowException_When_UseInnerText()
-        {
-            var buttonElement = App.Components.CreateById<Reset>("myButton");
-
-            buttonElement.ValidateInnerTextIs(string.Empty);
-        }
+        buttonElement.ValidateInnerTextIs(string.Empty);
     }
 }

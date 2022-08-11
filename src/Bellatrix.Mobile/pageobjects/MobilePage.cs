@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public abstract class MobilePage
 {
-    public abstract class MobilePage
-    {
-    }
 }

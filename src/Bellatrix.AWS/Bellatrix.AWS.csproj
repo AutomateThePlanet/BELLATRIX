@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+	<ItemGroup>
+	  <PackageReference Include="AWSSDK.Core" Version="3.7.12.19" />
+	  <PackageReference Include="AWSSDK.Rekognition" Version="3.7.9.6" />
+	  <PackageReference Include="AWSSDK.S3" Version="3.7.9.37" />
+	  <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.2.74" />
+	  <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
+	</ItemGroup>  
+	<ItemGroup>
+	  <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
+	</ItemGroup>  
+	<ItemGroup>
+    <PackageReference Include="mailslurp" Version="15.13.9" />
+    <PackageReference Include="RestSharp" Version="106.12.0" />
+	  <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
+</Project>

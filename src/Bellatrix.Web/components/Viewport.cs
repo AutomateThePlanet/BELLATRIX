@@ -1,5 +1,5 @@
 ﻿// <copyright file="Viewport.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,23 +14,22 @@
 using System.Drawing;
 using Bellatrix.Layout;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+internal class Viewport : ILayoutComponent
 {
-    internal class Viewport : ILayoutComponent
+    internal Viewport()
     {
-        internal Viewport()
-        {
-            var javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
-            Location = new Point(0, 0);
-            var viewportWidth = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientWidth, window.innerWidth || 0);").ToString());
-            var viewportHeight = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientHeight, window.innerHeight || 0);").ToString());
-            Size = new Size(viewportWidth, viewportHeight);
-        }
-
-        public Point Location { get; }
-
-        public Size Size { get; }
-
-        public string ComponentName => "Viewport";
+        var javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
+        Location = new Point(0, 0);
+        var viewportWidth = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientWidth, window.innerWidth || 0);").ToString());
+        var viewportHeight = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientHeight, window.innerHeight || 0);").ToString());
+        Size = new Size(viewportWidth, viewportHeight);
     }
+
+    public Point Location { get; }
+
+    public Size Size { get; }
+
+    public string ComponentName => "Viewport";
 }

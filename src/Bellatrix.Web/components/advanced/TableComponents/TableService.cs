@@ -1,5 +1,5 @@
 ﻿// <copyright file="TableService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,82 +16,81 @@ using System.Collections.Generic;
 using System.Linq;
 using HtmlAgilityPack;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class TableService
 {
-    public class TableService
+    private const string RowsXPathLocator = "//tr[descendant::td]";
+    private string _tableXPath;
+    private HtmlDocument _htmlDoc;
+
+    public TableService(string html)
     {
-        private const string RowsXPathLocator = "//tr[descendant::td]";
-        private string _tableXPath;
-        private HtmlDocument _htmlDoc;
-
-        public TableService(string html)
+        _htmlDoc = new HtmlDocument
         {
-            _htmlDoc = new HtmlDocument
+            OptionFixNestedTags = true,
+            OptionOutputAsXml = true,
+            BackwardCompatibility = false,
+            OptionWriteEmptyNodes = false,
+        };
+        _htmlDoc.LoadHtml(html);
+    }
+
+    public TableService(string html, string tableXpath)
+        : this(html)
+    {
+        _tableXPath = tableXpath;
+    }
+
+    public virtual HtmlNode Table
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_tableXPath))
             {
-                OptionFixNestedTags = true,
-                OptionOutputAsXml = true,
-                BackwardCompatibility = false,
-                OptionWriteEmptyNodes = false,
-            };
-            _htmlDoc.LoadHtml(html);
-        }
-
-        public TableService(string html, string tableXpath)
-            : this(html)
-        {
-            _tableXPath = tableXpath;
-        }
-
-        public virtual HtmlNode Table
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_tableXPath))
-                {
-                    // By default we use root element for table
-                    _tableXPath = "//*";
-                }
-
-                return _htmlDoc.DocumentNode.SelectSingleNode(_tableXPath);
-            }
-        }
-
-        public virtual List<HtmlNode> Headers => Table.SelectNodes("//th").ToList();
-
-        public virtual List<HtmlNode> HeaderRows => Table
-                                            .SelectNodes("//tr[descendant::th]")?
-                                            .Where(a => a.GetAttributeValue("style", null) != "display:none")
-                                            .ToList();
-
-        public virtual List<HtmlNode> Rows => Table.SelectNodes(RowsXPathLocator).ToList();
-
-        public virtual HtmlNode Footer => Table.SelectSingleNode("//tfoot");
-
-        public HtmlNode GetRow(int row)
-        {
-            return Rows[row];
-        }
-
-        public HtmlNode GetCell(int row, int column)
-        {
-            return GetRowCells(row)[column];
-        }
-
-        public virtual List<HtmlNode> GetCells()
-        {
-            var listOfNodes = new List<HtmlNode>();
-
-            for (int i = 0; i < Rows.Count; i++)
-            {
-                listOfNodes.AddRange(Rows[i].Descendants("td"));
+                // By default we use root element for table
+                _tableXPath = "//*";
             }
 
-            return listOfNodes;
+            return _htmlDoc.DocumentNode.SelectSingleNode(_tableXPath);
+        }
+    }
+
+    public virtual List<HtmlNode> Headers => Table.SelectNodes("//th").ToList();
+
+    public virtual List<HtmlNode> HeaderRows => Table
+                                        .SelectNodes("//tr[descendant::th]")?
+                                        .Where(a => a.GetAttributeValue("style", null) != "display:none")
+                                        .ToList();
+
+    public virtual List<HtmlNode> Rows => Table.SelectNodes(RowsXPathLocator).ToList();
+
+    public virtual HtmlNode Footer => Table.SelectSingleNode("//tfoot");
+
+    public HtmlNode GetRow(int row)
+    {
+        return Rows[row];
+    }
+
+    public HtmlNode GetCell(int row, int column)
+    {
+        return GetRowCells(row)[column];
+    }
+
+    public virtual List<HtmlNode> GetCells()
+    {
+        var listOfNodes = new List<HtmlNode>();
+
+        for (int i = 0; i < Rows.Count; i++)
+        {
+            listOfNodes.AddRange(Rows[i].Descendants("td"));
         }
 
-        public virtual List<HtmlNode> GetRowCells(int rowIndex)
-        {
-            return Table.SelectNodes(Rows[rowIndex].XPath + "//td").ToList();
-        }
+        return listOfNodes;
+    }
+
+    public virtual List<HtmlNode> GetRowCells(int rowIndex)
+    {
+        return Table.SelectNodes(Rows[rowIndex].XPath + "//td").ToList();
     }
 }

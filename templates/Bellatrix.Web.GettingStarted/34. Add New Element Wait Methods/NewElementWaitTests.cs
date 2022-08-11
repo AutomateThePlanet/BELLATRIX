@@ -3,21 +3,20 @@ using Bellatrix.Web.GettingStarted.ExtensionMethodsWaits;
 
 using NUnit.Framework;
 
-namespace Bellatrix.Web.GettingStarted
+namespace Bellatrix.Web.GettingStarted;
+
+[TestFixture]
+public class NewElementWaitTests : NUnit.WebTest
 {
-    [TestFixture]
-    public class NewElementWaitTests : NUnit.WebTest
+    [Test]
+    [Ignore("no need to run")]
+    public void PromotionsPageOpened_When_PromotionsButtonClicked()
     {
-        [Test]
-        [Ignore("no need to run")]
-        public void PromotionsPageOpened_When_PromotionsButtonClicked()
-        {
-            App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
-            // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
-            var promotionsLink = App.Components.CreateByLinkText<Anchor>("promo").ToHasSpecificStyle("padding: 1.618em 1em");
+        // 2. After that, you can use the new wait method as it was originally part of Bellatrix.
+        var promotionsLink = App.Components.CreateByLinkText<Anchor>("promo").ToHasSpecificStyle("padding: 1.618em 1em");
 
-            promotionsLink.Click();
-        }
+        promotionsLink.Click();
     }
 }

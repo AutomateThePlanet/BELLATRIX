@@ -1,5 +1,5 @@
 ﻿// <copyright file="UntilFactory.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Untils;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+internal class WaitStrategyFactory
 {
-    internal class WaitStrategyFactory
-    {
-        internal WaitToExistStrategy Exists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToExistStrategy(timeoutInterval, sleepinterval);
+    internal WaitToExistStrategy Exists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToExistStrategy(timeoutInterval, sleepinterval);
 
-        internal WaitNotToExistStrategy NotExists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotToExistStrategy(timeoutInterval, sleepinterval);
+    internal WaitNotToExistStrategy NotExists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotToExistStrategy(timeoutInterval, sleepinterval);
 
-        internal WaitToBeVisibleStrategy BeVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeVisibleStrategy(timeoutInterval, sleepinterval);
+    internal WaitToBeVisibleStrategy BeVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeVisibleStrategy(timeoutInterval, sleepinterval);
 
-        internal WaitNotBeVisibleStrategy BeNotVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotBeVisibleStrategy(timeoutInterval, sleepinterval);
+    internal WaitNotBeVisibleStrategy BeNotVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotBeVisibleStrategy(timeoutInterval, sleepinterval);
 
-        internal WaitToBeClickableStrategy BeClickable(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeClickableStrategy(timeoutInterval, sleepinterval);
+    internal WaitToBeClickableStrategy BeClickable(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeClickableStrategy(timeoutInterval, sleepinterval);
 
-        internal WaitToHaveContentStrategy HasContent(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToHaveContentStrategy(timeoutInterval, sleepinterval);
+    internal WaitToHaveContentStrategy HasContent(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToHaveContentStrategy(timeoutInterval, sleepinterval);
 
-        internal WaitToBeDisabledStrategy BeDisabled(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeDisabledStrategy(timeoutInterval, sleepinterval);
-    }
+    internal WaitToBeDisabledStrategy BeDisabled(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeDisabledStrategy(timeoutInterval, sleepinterval);
 }

@@ -1,5 +1,5 @@
 // <copyright file="ValidateExtensionsEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,87 +14,86 @@
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.IOS
+namespace Bellatrix.Mobile.IOS;
+
+public abstract class ValidateExtensionsEventHandlers
 {
-    public abstract class ValidateExtensionsEventHandlers
+    public virtual void SubscribeToAll()
     {
-        public virtual void SubscribeToAll()
-        {
-            ValidateControlExtensions.ValidatedIsCheckedEvent += ValidatedIsCheckedEventHandler;
-            ValidateControlExtensions.ValidatedIsNotCheckedEvent += ValidatedIsNotCheckedEventHandler;
-            ValidateControlExtensions.ValidatedDateIsEvent += ValidatedDateIsEventHandler;
-            ValidateControlExtensions.ValidatedIsDisabledEvent += ValidatedIsDisabledEventHandler;
-            ValidateControlExtensions.ValidatedIsNotDisabledEvent += ValidatedIsNotDisabledEventHandler;
-            ValidateControlExtensions.ValidatedIsSelectedEvent += ValidatedIsSelectedEventHandler;
-            ValidateControlExtensions.ValidatedIsNotSelectedEvent += ValidatedIsNotSelectedEventHandler;
-            ValidateControlExtensions.ValidatedTextIsNotSetEvent += ValidatedTextIsNotSetEventHandler;
-            ValidateControlExtensions.ValidatedTextIsEvent += ValidatedTextIsEventHandler;
-            ValidateControlExtensions.ValidatedTimeIsEvent += ValidatedTimeIsEventHandler;
-            ValidateControlExtensions.ValidatedIsVisibleEvent += ValidatedIsVisibleEventHandler;
-            ValidateControlExtensions.ValidatedIsNotVisibleEvent += ValidatedIsNotVisibleEventHandler;
-            ValidateControlExtensions.ValidatedIsOnEvent += ValidatedIsOnEventHandler;
-            ValidateControlExtensions.ValidatedIsOffEvent += ValidatedIsOffEventHandler;
-            ValidateControlExtensions.ValidatedNumberIsEvent += ValidatedNumberIsEventHandler;
-        }
+        ValidateControlExtensions.ValidatedIsCheckedEvent += ValidatedIsCheckedEventHandler;
+        ValidateControlExtensions.ValidatedIsNotCheckedEvent += ValidatedIsNotCheckedEventHandler;
+        ValidateControlExtensions.ValidatedDateIsEvent += ValidatedDateIsEventHandler;
+        ValidateControlExtensions.ValidatedIsDisabledEvent += ValidatedIsDisabledEventHandler;
+        ValidateControlExtensions.ValidatedIsNotDisabledEvent += ValidatedIsNotDisabledEventHandler;
+        ValidateControlExtensions.ValidatedIsSelectedEvent += ValidatedIsSelectedEventHandler;
+        ValidateControlExtensions.ValidatedIsNotSelectedEvent += ValidatedIsNotSelectedEventHandler;
+        ValidateControlExtensions.ValidatedTextIsNotSetEvent += ValidatedTextIsNotSetEventHandler;
+        ValidateControlExtensions.ValidatedTextIsEvent += ValidatedTextIsEventHandler;
+        ValidateControlExtensions.ValidatedTimeIsEvent += ValidatedTimeIsEventHandler;
+        ValidateControlExtensions.ValidatedIsVisibleEvent += ValidatedIsVisibleEventHandler;
+        ValidateControlExtensions.ValidatedIsNotVisibleEvent += ValidatedIsNotVisibleEventHandler;
+        ValidateControlExtensions.ValidatedIsOnEvent += ValidatedIsOnEventHandler;
+        ValidateControlExtensions.ValidatedIsOffEvent += ValidatedIsOffEventHandler;
+        ValidateControlExtensions.ValidatedNumberIsEvent += ValidatedNumberIsEventHandler;
+    }
 
-        protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
+    }
 
-        protected virtual void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
-        {
-        }
+    protected virtual void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    {
     }
 }

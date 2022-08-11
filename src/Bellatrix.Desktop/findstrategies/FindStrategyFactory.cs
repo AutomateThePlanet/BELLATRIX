@@ -1,5 +1,5 @@
 ﻿// <copyright file="ByFactory.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Desktop.Locators;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public class FindStrategyFactory
 {
-    public class FindStrategyFactory
-    {
-        public FindIdStrategy Id(string id) => new FindIdStrategy(id);
+    public FindIdStrategy Id(string id) => new FindIdStrategy(id);
 
-        public FindAccessibilityIdStrategy AccessibilityId(string css) => new FindAccessibilityIdStrategy(css);
+    public FindAccessibilityIdStrategy AccessibilityId(string css) => new FindAccessibilityIdStrategy(css);
 
-        public FindClassNameStrategy ClassName(string linkText) => new FindClassNameStrategy(linkText);
+    public FindClassNameStrategy ClassName(string linkText) => new FindClassNameStrategy(linkText);
 
-        public FindNameStrategy Name(string name) => new FindNameStrategy(name);
+    public FindNameStrategy Name(string name) => new FindNameStrategy(name);
 
-        public FindTagNameStrategy TagName(string tag) => new FindTagNameStrategy(tag);
+    public FindTagNameStrategy TagName(string tag) => new FindTagNameStrategy(tag);
 
-        public FindXPathStrategy XPath(string name) => new FindXPathStrategy(name);
+    public FindXPathStrategy XPath(string name) => new FindXPathStrategy(name);
 
-        public FindAutomationIdStrategy AutomationId(string name) => new FindAutomationIdStrategy(name);
-    }
+    public FindAutomationIdStrategy AutomationId(string name) => new FindAutomationIdStrategy(name);
 }

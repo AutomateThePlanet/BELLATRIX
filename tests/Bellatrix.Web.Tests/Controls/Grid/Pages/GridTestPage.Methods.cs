@@ -1,7 +1,6 @@
-﻿namespace Bellatrix.Web.Tests.Controls
+﻿namespace Bellatrix.Web.Tests.Controls;
+
+public partial class GridTestPage : WebPage
 {
-    public partial class GridTestPage : WebPage
-    {
-        public override string Url => ConfigurationService.GetSection<TestPagesSettings>().GridLocalPage;
-    }
+    public override string Url => ConfigurationService.GetSection<TestPagesSettings>().GridLocalPage;
 }

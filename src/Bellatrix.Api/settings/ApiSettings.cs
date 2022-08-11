@@ -1,5 +1,5 @@
 ﻿// <copyright file="ApiSettings.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,14 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Api.Configuration
+namespace Bellatrix.Api.Configuration;
+
+public class ApiSettings
 {
-    public class ApiSettings
-    {
-        public string BaseUrl { get; set; }
-        public int ClientTimeoutSeconds { get; set; }
-        public int MaxRetryAttempts { get; set; }
-        public int PauseBetweenFailures { get; set; }
-        public TimeUnit TimeUnit { get; set; }
-    }
+    public string BaseUrl { get; set; }
+    public int ClientTimeoutSeconds { get; set; }
+    public int MaxRetryAttempts { get; set; }
+    public int PauseBetweenFailures { get; set; }
+    public TimeUnit TimeUnit { get; set; }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="CustomHtmlExceptionHandler.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Royalty-free End-user License Agreement, Version 1.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://bellatrix.solutions/licensing-royalty-free/
@@ -11,22 +11,21 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.ExceptionAnalysation
+namespace Bellatrix.Web.ExceptionAnalysation;
+
+public class CustomHtmlExceptionHandler : HtmlSourceExceptionHandler
 {
-    public class CustomHtmlExceptionHandler : HtmlSourceExceptionHandler
+    public CustomHtmlExceptionHandler(string textToSearchInSource, string detailedIssueExplanation)
     {
-        public CustomHtmlExceptionHandler(string textToSearchInSource, string detailedIssueExplanation)
-        {
-            TextToSearchInSource = textToSearchInSource;
-            DetailedIssueExplanation = detailedIssueExplanation;
-        }
-
-        public CustomHtmlExceptionHandler()
-        {
-        }
-
-        public override string DetailedIssueExplanation { get; }
-
-        protected override string TextToSearchInSource { get; }
+        TextToSearchInSource = textToSearchInSource;
+        DetailedIssueExplanation = detailedIssueExplanation;
     }
+
+    public CustomHtmlExceptionHandler()
+    {
+    }
+
+    public override string DetailedIssueExplanation { get; }
+
+    protected override string TextToSearchInSource { get; }
 }

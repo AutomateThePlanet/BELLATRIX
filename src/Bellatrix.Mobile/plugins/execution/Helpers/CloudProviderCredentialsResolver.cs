@@ -1,5 +1,5 @@
 ﻿// <copyright file="CloudProviderCredentialsResolver.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,38 +14,37 @@
 using System;
 using Bellatrix.KeyVault;
 
-namespace Bellatrix.Mobile.Plugins
+namespace Bellatrix.Mobile.Plugins;
+
+public static class CloudProviderCredentialsResolver
 {
-    public static class CloudProviderCredentialsResolver
+    private const string USER_ENVIRONMENTAL_VARIABLE = "cloud.grid.user";
+    private const string ACCESS_KEY_ENVIRONMENTAL_VARIABLE = "cloud.grid.key";
+
+    public static Tuple<string, string> GetCredentials()
     {
-        private const string USER_ENVIRONMENTAL_VARIABLE = "cloud.grid.user";
-        private const string ACCESS_KEY_ENVIRONMENTAL_VARIABLE = "cloud.grid.key";
+        var user = SecretsResolver.GetSecret(USER_ENVIRONMENTAL_VARIABLE);
+        var accessKey = SecretsResolver.GetSecret(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
 
-        public static Tuple<string, string> GetCredentials()
+        if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(accessKey))
         {
-            var user = SecretsResolver.GetSecret(USER_ENVIRONMENTAL_VARIABLE);
-            var accessKey = SecretsResolver.GetSecret(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
-
-            if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(accessKey))
-            {
-                return Tuple.Create(user, accessKey);
-            }
-
-            return GetCredentialsFromConfig();
-        }
-
-        private static Tuple<string, string> GetCredentialsFromConfig()
-        {
-            if (!ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0].ContainsKey(USER_ENVIRONMENTAL_VARIABLE) ||
-                !ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0].ContainsKey(ACCESS_KEY_ENVIRONMENTAL_VARIABLE))
-            {
-                throw new ArgumentException($"To use grid execution you need to set environment variables called ({USER_ENVIRONMENTAL_VARIABLE} and {ACCESS_KEY_ENVIRONMENTAL_VARIABLE}) or set them in browser settings file.");
-            }
-
-            string user = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0][USER_ENVIRONMENTAL_VARIABLE];
-            string accessKey = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0][ACCESS_KEY_ENVIRONMENTAL_VARIABLE];
-
             return Tuple.Create(user, accessKey);
         }
+
+        return GetCredentialsFromConfig();
+    }
+
+    private static Tuple<string, string> GetCredentialsFromConfig()
+    {
+        if (!ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0].ContainsKey(USER_ENVIRONMENTAL_VARIABLE) ||
+            !ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0].ContainsKey(ACCESS_KEY_ENVIRONMENTAL_VARIABLE))
+        {
+            throw new ArgumentException($"To use grid execution you need to set environment variables called ({USER_ENVIRONMENTAL_VARIABLE} and {ACCESS_KEY_ENVIRONMENTAL_VARIABLE}) or set them in browser settings file.");
+        }
+
+        string user = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0][USER_ENVIRONMENTAL_VARIABLE];
+        string accessKey = ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments[0][ACCESS_KEY_ENVIRONMENTAL_VARIABLE];
+
+        return Tuple.Create(user, accessKey);
     }
 }

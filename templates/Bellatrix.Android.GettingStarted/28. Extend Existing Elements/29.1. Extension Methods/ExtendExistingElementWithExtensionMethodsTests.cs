@@ -3,19 +3,18 @@ using Bellatrix.Mobile.Android.GettingStarted.Custom;
 
 using NUnit.Framework;
 
-namespace Bellatrix.Mobile.Android.GettingStarted
-{
-    [TestFixture]
-    public class ExtendExistingElementWithExtensionMethodsTests : NUnit.AndroidTest
-    {
-        [Test]
-        [Ignore("API example purposes only. No need to run.")]
-        public void ButtonClicked_When_CallClickMethod()
-        {
-            var button = App.Components.CreateByIdContaining<Button>("button");
+namespace Bellatrix.Mobile.Android.GettingStarted;
 
-            // 2. Use the custom added submit button  with scroll-to-visible lifecycle.
-            button.SubmitButtonWithScroll();
-        }
+[TestFixture]
+public class ExtendExistingElementWithExtensionMethodsTests : NUnit.AndroidTest
+{
+    [Test]
+    [Ignore("API example purposes only. No need to run.")]
+    public void ButtonClicked_When_CallClickMethod()
+    {
+        var button = App.Components.CreateByIdContaining<Button>("button");
+
+        // 2. Use the custom added submit button  with scroll-to-visible lifecycle.
+        button.SubmitButtonWithScroll();
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="NumberControlTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,36 +13,35 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.NumberPickerActivity",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("Number Control")]
+public class NumberControlTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.NumberPickerActivity",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Number Control")]
-    public class NumberControlTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void NineSet_When_CallSetTextMethod()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void NineSet_When_CallSetTextMethod()
-        {
-            var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
+        var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
 
-            number.SetNumber(9);
+        number.SetNumber(9);
 
-            Assert.AreEqual(9, number.GetNumber());
-        }
+        Assert.AreEqual(9, number.GetNumber());
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void IsDisabledReturnsFalse_When_NumberIsNotDisabled()
-        {
-            var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void IsDisabledReturnsFalse_When_NumberIsNotDisabled()
+    {
+        var number = App.Components.CreateByClass<Number>("android.widget.NumberPicker");
 
-            Assert.AreEqual(false, number.IsDisabled);
-        }
+        Assert.AreEqual(false, number.IsDisabled);
     }
 }

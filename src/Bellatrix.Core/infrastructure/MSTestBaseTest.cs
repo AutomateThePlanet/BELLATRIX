@@ -1,5 +1,5 @@
 ﻿// <copyright file="MSTestBaseTest.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -20,276 +20,275 @@ using System.Threading;
 using Bellatrix.Plugins;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+[TestClass]
+public class MSTestBaseTest
 {
-    [TestClass]
-    public class MSTestBaseTest
-    {
 #pragma warning disable SA1401 // Fields should be private
-        public ServicesCollection Container;
+    public ServicesCollection Container;
 #pragma warning restore SA1401 // Fields should be private
-        private static readonly List<string> TypeForAlreadyExecutedClassInits = new List<string>();
-        private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
-        private static ThreadLocal<Exception> _thrownException;
-        private PluginProvider _currentTestExecutionProvider;
+    private static readonly List<string> TypeForAlreadyExecutedClassInits = new List<string>();
+    private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
+    private static ThreadLocal<Exception> _thrownException;
+    private PluginProvider _currentTestExecutionProvider;
 
-        public MSTestBaseTest()
+    public MSTestBaseTest()
+    {
+        _currentTestExecutionProvider = new PluginProvider();
+        if (!_isConfigurationExecuted.Value)
         {
-            _currentTestExecutionProvider = new PluginProvider();
-            if (!_isConfigurationExecuted.Value)
-            {
-                Configure();
-                _isConfigurationExecuted.Value = true;
-            }
+            Configure();
+            _isConfigurationExecuted.Value = true;
+        }
 
-            InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
-            AppDomain.CurrentDomain.FirstChanceException += (sender, eventArgs) =>
+        InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+        AppDomain.CurrentDomain.FirstChanceException += (sender, eventArgs) =>
+        {
+            if (eventArgs.Exception.Source != "System.Private.CoreLib")
             {
-                if (eventArgs.Exception.Source != "System.Private.CoreLib")
+                if (_thrownException == null)
                 {
-                    if (_thrownException == null)
-                    {
-                        _thrownException = new ThreadLocal<Exception>(() => eventArgs.Exception);
-                    }
-                    else
-                    {
-                        _thrownException.Value = eventArgs.Exception;
-                    }
+                    _thrownException = new ThreadLocal<Exception>(() => eventArgs.Exception);
                 }
-            };
-        }
-
-        public TestContext TestContext { get; set; }
-
-        public virtual void Configure()
-        {
-        }
-
-        [TestInitialize]
-        public void CoreTestInit()
-        {
-            var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
-            var testClassType = GetCurrentExecutionTestClassType();
-            ExecuteActArrangePhases();
-
-            Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            _currentTestExecutionProvider = new PluginProvider();
-            InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
-
-            var categories = GetAllTestCategories(testMethodMemberInfo);
-            var authors = GetAllAuthors(testMethodMemberInfo);
-            var descriptions = GetAllDescriptions(testMethodMemberInfo);
-            try
-            {
-                Initialize();
-                _currentTestExecutionProvider.PreTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
-                TestInit();
-                _currentTestExecutionProvider.PostTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
+                else
+                {
+                    _thrownException.Value = eventArgs.Exception;
+                }
             }
-            catch (Exception ex)
-            {
-                _currentTestExecutionProvider.TestInitFailed(ex, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
-                throw;
-            }
-        }
+        };
+    }
 
-        [TestCleanup]
-        public void CoreTestCleanup()
+    public TestContext TestContext { get; set; }
+
+    public virtual void Configure()
+    {
+    }
+
+    [TestInitialize]
+    public void CoreTestInit()
+    {
+        var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
+        var testClassType = GetCurrentExecutionTestClassType();
+        ExecuteActArrangePhases();
+
+        Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+        _currentTestExecutionProvider = new PluginProvider();
+        InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+
+        var categories = GetAllTestCategories(testMethodMemberInfo);
+        var authors = GetAllAuthors(testMethodMemberInfo);
+        var descriptions = GetAllDescriptions(testMethodMemberInfo);
+        try
         {
-            var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
-            var testClassType = GetCurrentExecutionTestClassType();
-            var categories = GetAllTestCategories(testMethodMemberInfo);
-            var authors = GetAllAuthors(testMethodMemberInfo);
-            var descriptions = GetAllDescriptions(testMethodMemberInfo);
-
-            Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            _currentTestExecutionProvider = new PluginProvider();
-            InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
-
-            try
-            {
-                _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
-                TestCleanup();
-                _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
-            }
-            catch (Exception ex)
-            {
-                _currentTestExecutionProvider.TestCleanupFailed(ex, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
-                throw;
-            }
+            Initialize();
+            _currentTestExecutionProvider.PreTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
+            TestInit();
+            _currentTestExecutionProvider.PostTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
         }
-
-        [ClassCleanup]
-        public void CoreClassCleanup()
+        catch (Exception ex)
         {
-            var testClassType = GetCurrentExecutionTestClassType();
-
-            Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-            _currentTestExecutionProvider = new PluginProvider();
-            InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
-
-            try
-            {
-                _currentTestExecutionProvider.PreClassCleanup(testClassType);
-                TestsCleanup();
-                _currentTestExecutionProvider.PostClassCleanup(testClassType);
-            }
-            catch (Exception ex)
-            {
-                _currentTestExecutionProvider.TestsCleanupFailed(ex);
-                throw;
-            }
+            _currentTestExecutionProvider.TestInitFailed(ex, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
+            throw;
         }
+    }
 
-        // ReSharper disable once MemberCanBeProtected.Global
-        public virtual void Initialize()
+    [TestCleanup]
+    public void CoreTestCleanup()
+    {
+        var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
+        var testClassType = GetCurrentExecutionTestClassType();
+        var categories = GetAllTestCategories(testMethodMemberInfo);
+        var authors = GetAllAuthors(testMethodMemberInfo);
+        var descriptions = GetAllDescriptions(testMethodMemberInfo);
+
+        Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+        _currentTestExecutionProvider = new PluginProvider();
+        InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+
+        try
         {
+            _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
+            TestCleanup();
+            _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
         }
-
-        // ReSharper disable once MemberCanBeProtected.Global
-        public virtual void TestsArrange()
+        catch (Exception ex)
         {
+            _currentTestExecutionProvider.TestCleanupFailed(ex, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
+            throw;
         }
+    }
 
-        // ReSharper disable once MemberCanBeProtected.Global
-        public virtual void TestsAct()
+    [ClassCleanup]
+    public void CoreClassCleanup()
+    {
+        var testClassType = GetCurrentExecutionTestClassType();
+
+        Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+        _currentTestExecutionProvider = new PluginProvider();
+        InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+
+        try
         {
+            _currentTestExecutionProvider.PreClassCleanup(testClassType);
+            TestsCleanup();
+            _currentTestExecutionProvider.PostClassCleanup(testClassType);
         }
-
-        public virtual void TestInit()
+        catch (Exception ex)
         {
+            _currentTestExecutionProvider.TestsCleanupFailed(ex);
+            throw;
         }
+    }
 
-        public virtual void TestCleanup()
-        {
-        }
+    // ReSharper disable once MemberCanBeProtected.Global
+    public virtual void Initialize()
+    {
+    }
 
-        public virtual void TestsCleanup()
-        {
-        }
+    // ReSharper disable once MemberCanBeProtected.Global
+    public virtual void TestsArrange()
+    {
+    }
 
-        protected static bool IsDebugRun()
-        {
+    // ReSharper disable once MemberCanBeProtected.Global
+    public virtual void TestsAct()
+    {
+    }
+
+    public virtual void TestInit()
+    {
+    }
+
+    public virtual void TestCleanup()
+    {
+    }
+
+    public virtual void TestsCleanup()
+    {
+    }
+
+    protected static bool IsDebugRun()
+    {
 #if DEBUG
-            var isDebug = true;
+        var isDebug = true;
 #else
-            bool isDebug = false;
+        bool isDebug = false;
 #endif
 
-            return isDebug;
+        return isDebug;
+    }
+
+    private List<string> GetAllTestCategories(MemberInfo memberInfo)
+    {
+        var categories = new List<string>();
+        var testCategoryAttributes = GetAllAttributes<TestCategoryAttribute>(memberInfo);
+        foreach (var testCategoryAttribute in testCategoryAttributes)
+        {
+            categories.AddRange(testCategoryAttribute.TestCategories);
         }
 
-        private List<string> GetAllTestCategories(MemberInfo memberInfo)
-        {
-            var categories = new List<string>();
-            var testCategoryAttributes = GetAllAttributes<TestCategoryAttribute>(memberInfo);
-            foreach (var testCategoryAttribute in testCategoryAttributes)
-            {
-                categories.AddRange(testCategoryAttribute.TestCategories);
-            }
+        return categories;
+    }
 
-            return categories;
+    private List<string> GetAllAuthors(MemberInfo memberInfo)
+    {
+        var authors = new List<string>();
+        var ownerAttributes = GetAllAttributes<OwnerAttribute>(memberInfo);
+        foreach (var ownerAttribute in ownerAttributes)
+        {
+            authors.Add(ownerAttribute.Owner);
         }
 
-        private List<string> GetAllAuthors(MemberInfo memberInfo)
-        {
-            var authors = new List<string>();
-            var ownerAttributes = GetAllAttributes<OwnerAttribute>(memberInfo);
-            foreach (var ownerAttribute in ownerAttributes)
-            {
-                authors.Add(ownerAttribute.Owner);
-            }
+        return authors;
+    }
 
-            return authors;
+    private List<string> GetAllDescriptions(MemberInfo memberInfo)
+    {
+        var descriptions = new List<string>();
+        var descriptionAttributes = GetAllAttributes<DescriptionAttribute>(memberInfo);
+        foreach (var descriptionAttribute in descriptionAttributes)
+        {
+            descriptions.Add(descriptionAttribute.Description);
         }
 
-        private List<string> GetAllDescriptions(MemberInfo memberInfo)
-        {
-            var descriptions = new List<string>();
-            var descriptionAttributes = GetAllAttributes<DescriptionAttribute>(memberInfo);
-            foreach (var descriptionAttribute in descriptionAttributes)
-            {
-                descriptions.Add(descriptionAttribute.Description);
-            }
+        return descriptions;
+    }
 
-            return descriptions;
+    private void InitializeTestExecutionBehaviorObservers(PluginProvider testExecutionProvider)
+    {
+        var observers = ServicesCollection.Current.ResolveAll<Plugin>();
+        foreach (var observer in observers)
+        {
+            observer.Subscribe(testExecutionProvider);
         }
+    }
 
-        private void InitializeTestExecutionBehaviorObservers(PluginProvider testExecutionProvider)
+    private void ExecuteActArrangePhases()
+    {
+        try
         {
-            var observers = ServicesCollection.Current.ResolveAll<Plugin>();
-            foreach (var observer in observers)
+            var testClassType = GetCurrentExecutionTestClassType();
+            if (!TypeForAlreadyExecutedClassInits.Contains(TestContext.FullyQualifiedTestClassName))
             {
-                observer.Subscribe(testExecutionProvider);
-            }
-        }
-
-        private void ExecuteActArrangePhases()
-        {
-            try
-            {
-                var testClassType = GetCurrentExecutionTestClassType();
-                if (!TypeForAlreadyExecutedClassInits.Contains(TestContext.FullyQualifiedTestClassName))
-                {
-                    Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
-                    Container.RegisterInstance(Container);
-                    _currentTestExecutionProvider = new PluginProvider();
-                    InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
-                    TypeForAlreadyExecutedClassInits.Add(TestContext.FullyQualifiedTestClassName);
-                    _currentTestExecutionProvider.PreTestsArrange(testClassType, new List<object>());
-                    Initialize();
-                    TestsArrange();
-                    _currentTestExecutionProvider.PostTestsArrange(testClassType);
-                    _currentTestExecutionProvider.PreTestsAct(testClassType, new List<object>());
-                    TestsAct();
-                    _currentTestExecutionProvider.PostTestsAct(testClassType, new List<object>());
-                }
-            }
-            catch (Exception ex)
-            {
-                _currentTestExecutionProvider.TestsArrangeFailed(ex);
+                Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
+                Container.RegisterInstance(Container);
+                _currentTestExecutionProvider = new PluginProvider();
+                InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+                TypeForAlreadyExecutedClassInits.Add(TestContext.FullyQualifiedTestClassName);
+                _currentTestExecutionProvider.PreTestsArrange(testClassType, new List<object>());
+                Initialize();
+                TestsArrange();
+                _currentTestExecutionProvider.PostTestsArrange(testClassType);
+                _currentTestExecutionProvider.PreTestsAct(testClassType, new List<object>());
+                TestsAct();
+                _currentTestExecutionProvider.PostTestsAct(testClassType, new List<object>());
             }
         }
-
-        private MethodInfo GetCurrentExecutionMethodInfo()
+        catch (Exception ex)
         {
-            var memberInfo = GetType().GetMethod(TestContext.TestName);
-            return memberInfo;
+            _currentTestExecutionProvider.TestsArrangeFailed(ex);
         }
+    }
 
-        private Type GetCurrentExecutionTestClassType()
-        {
-            string className = TestContext.FullyQualifiedTestClassName;
-            var testClassType = GetType().Assembly.GetType(className);
+    private MethodInfo GetCurrentExecutionMethodInfo()
+    {
+        var memberInfo = GetType().GetMethod(TestContext.TestName);
+        return memberInfo;
+    }
 
-            return testClassType;
-        }
+    private Type GetCurrentExecutionTestClassType()
+    {
+        string className = TestContext.FullyQualifiedTestClassName;
+        var testClassType = GetType().Assembly.GetType(className);
 
-        private List<TAttribute> GetAllAttributes<TAttribute>(MemberInfo memberInfo)
-            where TAttribute : Attribute
-        {
-            var allureClassAttributes = GetClassAttributes<TAttribute>(memberInfo.DeclaringType);
-            var allureMethodAttributes = GetMethodAttributes<TAttribute>(memberInfo);
-            var allAllureAttributes = allureClassAttributes.ToList();
-            allAllureAttributes.AddRange(allureMethodAttributes);
+        return testClassType;
+    }
 
-            return allAllureAttributes;
-        }
+    private List<TAttribute> GetAllAttributes<TAttribute>(MemberInfo memberInfo)
+        where TAttribute : Attribute
+    {
+        var allureClassAttributes = GetClassAttributes<TAttribute>(memberInfo.DeclaringType);
+        var allureMethodAttributes = GetMethodAttributes<TAttribute>(memberInfo);
+        var allAllureAttributes = allureClassAttributes.ToList();
+        allAllureAttributes.AddRange(allureMethodAttributes);
 
-        private IEnumerable<TAttribute> GetClassAttributes<TAttribute>(Type currentType)
-            where TAttribute : Attribute
-        {
-            var classAttributes = currentType.GetCustomAttributes<TAttribute>(true);
+        return allAllureAttributes;
+    }
 
-            return classAttributes;
-        }
+    private IEnumerable<TAttribute> GetClassAttributes<TAttribute>(Type currentType)
+        where TAttribute : Attribute
+    {
+        var classAttributes = currentType.GetCustomAttributes<TAttribute>(true);
 
-        private IEnumerable<TAttribute> GetMethodAttributes<TAttribute>(MemberInfo memberInfo)
-            where TAttribute : Attribute
-        {
-            var methodAttributes = memberInfo.GetCustomAttributes<TAttribute>(true);
+        return classAttributes;
+    }
 
-            return methodAttributes;
-        }
+    private IEnumerable<TAttribute> GetMethodAttributes<TAttribute>(MemberInfo memberInfo)
+        where TAttribute : Attribute
+    {
+        var methodAttributes = memberInfo.GetCustomAttributes<TAttribute>(true);
+
+        return methodAttributes;
     }
 }

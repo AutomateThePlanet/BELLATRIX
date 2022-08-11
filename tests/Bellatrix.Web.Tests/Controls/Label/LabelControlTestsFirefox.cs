@@ -1,5 +1,5 @@
 ﻿// <copyright file="LabelControlTestsFirefox.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,87 +13,86 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Label Control")]
+public class LabelControlTestsFirefox : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Firefox, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Label Control")]
-    public class LabelControlTestsFirefox : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Firefox()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().LabelLocalPage);
+        var labelElement = App.Components.CreateById<Label>("myLabel");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Firefox()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel");
+        labelElement.Hover();
 
-            labelElement.Hover();
+        Assert.AreEqual("color: red;", labelElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", labelElement.GetStyle());
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnAutomateThePlanet_When_InnerText_Firefox()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnAutomateThePlanet_When_InnerText_Firefox()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel");
+        Assert.AreEqual("Hover", labelElement.InnerText);
+    }
 
-            Assert.AreEqual("Hover", labelElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_InnerTextNotSet_Firefox()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_InnerTextNotSet_Firefox()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel2");
+        Assert.IsNotNull(labelElement.InnerText);
+    }
 
-            Assert.IsNotNull(labelElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnHover_When_InnerTextSet_Firefox()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnHover_When_InnerTextSet_Firefox()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel");
+        Assert.AreEqual("Hover", labelElement.InnerText);
+    }
 
-            Assert.AreEqual("Hover", labelElement.InnerText);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_InnerHtmlNotSet_Firefox()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_InnerHtmlNotSet_Firefox()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel2");
+        Assert.IsNotNull(labelElement.InnerHtml);
+    }
 
-            Assert.IsNotNull(labelElement.InnerHtml);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnButtonHtml_When_InnerHtmlSet_Firefox()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel1");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnButtonHtml_When_InnerHtmlSet_Firefox()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel1");
+        Assert.IsTrue(labelElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
+    }
 
-            Assert.IsTrue(labelElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnNull_When_ForNotSet_Firefox()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel2");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnNull_When_ForNotSet_Firefox()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel2");
+        Assert.IsNull(labelElement.For);
+    }
 
-            Assert.IsNull(labelElement.For);
-        }
+    [TestMethod]
+    [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
+    public void ReturnLabelFor_When_ForSet_Firefox()
+    {
+        var labelElement = App.Components.CreateById<Label>("myLabel");
 
-        [TestMethod]
-        [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]
-        public void ReturnLabelFor_When_ForSet_Firefox()
-        {
-            var labelElement = App.Components.CreateById<Label>("myLabel");
-
-            Assert.AreEqual("myLabel", labelElement.For);
-        }
+        Assert.AreEqual("myLabel", labelElement.For);
     }
 }

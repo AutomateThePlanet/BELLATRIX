@@ -1,5 +1,5 @@
 ﻿// <copyright file="TextFieldControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,48 +13,47 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Mobile.Android.Tests
+namespace Bellatrix.Mobile.Android.Tests;
+
+[TestClass]
+[Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidDefaultAndroidVersion,
+    Constants.AndroidDefaultDeviceName,
+    Constants.AndroidNativeAppAppExamplePackage,
+    ".view.Controls1",
+    Lifecycle.ReuseIfStarted)]
+[AllureSuite("TextField Control")]
+[AllureFeature("ValidateExtensions")]
+public class TextFieldControlValidateExtensionsTests : MSTest.AndroidTest
 {
-    [TestClass]
-    [Android(Constants.AndroidNativeAppPath,
-        Constants.AndroidDefaultAndroidVersion,
-        Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
-        ".view.Controls1",
-        Lifecycle.ReuseIfStarted)]
-    [AllureSuite("TextField Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class TextFieldControlValidateExtensionsTests : MSTest.AndroidTest
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
     {
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
-        {
-            var textField = App.Components.CreateByIdContaining<TextField>("edit");
+        var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
-            textField.SetText("Bellatrix");
+        textField.SetText("Bellatrix");
 
-            textField.ValidateTextIs("Bellatrix");
-        }
+        textField.ValidateTextIs("Bellatrix");
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateTextIsNotSet_DoesNotThrowException_When_TextFieldIsNotSet()
-        {
-            var textField = App.Components.CreateByIdContaining<TextField>("edit");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateTextIsNotSet_DoesNotThrowException_When_TextFieldIsNotSet()
+    {
+        var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
-            textField.SetText(string.Empty);
+        textField.SetText(string.Empty);
 
-            textField.ValidateTextIsNotSet();
-        }
+        textField.ValidateTextIsNotSet();
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_TextFieldIsNotDisabled()
-        {
-            var textField = App.Components.CreateByIdContaining<TextField>("edit");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_TextFieldIsNotDisabled()
+    {
+        var textField = App.Components.CreateByIdContaining<TextField>("edit");
 
-            Assert.AreEqual(false, textField.IsDisabled);
-        }
+        Assert.AreEqual(false, textField.IsDisabled);
     }
 }

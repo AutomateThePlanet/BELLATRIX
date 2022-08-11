@@ -1,5 +1,5 @@
 ﻿// <copyright file="SimpleAuthenticationStrategyAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,23 +13,22 @@
 // <site>https://bellatrix.solutions/</site>
 using RestSharp.Authenticators;
 
-namespace Bellatrix
+namespace Bellatrix;
+
+public class SimpleAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
 {
-    public class SimpleAuthenticationStrategyAttribute : AuthenticationStrategyAttribute
+    private readonly string _userNameKey;
+    private readonly string _userName;
+    private readonly string _passwordKey;
+    private readonly string _password;
+
+    public SimpleAuthenticationStrategyAttribute(string usernameKey, string username, string passwordKey, string password)
     {
-        private readonly string _userNameKey;
-        private readonly string _userName;
-        private readonly string _passwordKey;
-        private readonly string _password;
-
-        public SimpleAuthenticationStrategyAttribute(string usernameKey, string username, string passwordKey, string password)
-        {
-            _userNameKey = usernameKey;
-            _userName = username;
-            _passwordKey = passwordKey;
-            _password = password;
-        }
-
-        public override IAuthenticator GetAuthenticator() => new SimpleAuthenticator(_userNameKey, _userName, _passwordKey, _password);
+        _userNameKey = usernameKey;
+        _userName = username;
+        _passwordKey = passwordKey;
+        _password = password;
     }
+
+    public override IAuthenticator GetAuthenticator() => new SimpleAuthenticator(_userNameKey, _userName, _passwordKey, _password);
 }

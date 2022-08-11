@@ -1,5 +1,5 @@
 ﻿// <copyright file="CheckBox.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,57 +16,56 @@ using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class CheckBox : Component, IComponentDisabled, IComponentChecked, IComponentValue
 {
-    public class CheckBox : Component, IComponentDisabled, IComponentChecked, IComponentValue
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> Checking;
+    public static event EventHandler<ComponentActionEventArgs> Checked;
+    public static event EventHandler<ComponentActionEventArgs> Unchecking;
+    public static event EventHandler<ComponentActionEventArgs> Unchecked;
+
+    public override Type ComponentType => GetType();
+
+    public virtual void Check(bool isChecked = true)
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> Checking;
-        public static event EventHandler<ComponentActionEventArgs> Checked;
-        public static event EventHandler<ComponentActionEventArgs> Unchecking;
-        public static event EventHandler<ComponentActionEventArgs> Unchecked;
+        DefaultCheck(isChecked);
+    }
 
-        public override Type ComponentType => GetType();
+    public virtual void Uncheck()
+    {
+        DefaultUncheck();
+    }
 
-        public virtual void Check(bool isChecked = true)
+    public virtual void Hover()
+    {
+        Hover(Hovering, Hovered);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetDisabledAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Value => DefaultGetValue();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsChecked => WrappedElement.Selected;
+
+    protected virtual void DefaultCheck(bool isChecked = true)
+    {
+        if (isChecked && !WrappedElement.Selected || !isChecked && WrappedElement.Selected)
         {
-            DefaultCheck(isChecked);
+            Click(Checking, Checked);
         }
+    }
 
-        public virtual void Uncheck()
+    protected virtual void DefaultUncheck()
+    {
+        if (WrappedElement.Selected)
         {
-            DefaultUncheck();
-        }
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetDisabledAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Value => DefaultGetValue();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsChecked => WrappedElement.Selected;
-
-        protected virtual void DefaultCheck(bool isChecked = true)
-        {
-            if (isChecked && !WrappedElement.Selected || !isChecked && WrappedElement.Selected)
-            {
-                Click(Checking, Checked);
-            }
-        }
-
-        protected virtual void DefaultUncheck()
-        {
-            if (WrappedElement.Selected)
-            {
-                Click(Unchecking, Unchecked);
-            }
+            Click(Unchecking, Unchecked);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="AndroidApp.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,34 +17,33 @@ using Bellatrix.Mobile.Services;
 using Bellatrix.Mobile.Services.Android;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile
+namespace Bellatrix.Mobile;
+
+public class AndroidApp : App<AndroidDriver<AndroidElement>, AndroidElement>
 {
-    public class AndroidApp : App<AndroidDriver<AndroidElement>, AndroidElement>
+    public AndroidAppService AppService => ServicesCollection.Current.Resolve<AndroidAppService>();
+    public AndroidFileSystemService Files => ServicesCollection.Current.Resolve<AndroidFileSystemService>();
+    public AndroidDeviceService Device => ServicesCollection.Current.Resolve<AndroidDeviceService>();
+    public AndroidKeyboardService Keyboard => ServicesCollection.Current.Resolve<AndroidKeyboardService>();
+    public TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement> TouchActions => ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement>>();
+
+    public override void Dispose()
     {
-        public AndroidAppService AppService => ServicesCollection.Current.Resolve<AndroidAppService>();
-        public AndroidFileSystemService Files => ServicesCollection.Current.Resolve<AndroidFileSystemService>();
-        public AndroidDeviceService Device => ServicesCollection.Current.Resolve<AndroidDeviceService>();
-        public AndroidKeyboardService Keyboard => ServicesCollection.Current.Resolve<AndroidKeyboardService>();
-        public TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement> TouchActions => ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement>>();
+        DisposeDriverService.DisposeAllAndroid();
+        GC.SuppressFinalize(this);
+    }
 
-        public override void Dispose()
-        {
-            DisposeDriverService.DisposeAllAndroid();
-            GC.SuppressFinalize(this);
-        }
+    public void AddElementEventHandler<TComponentsEventHandler>()
+       where TComponentsEventHandler : ComponentEventHandlers
+    {
+        var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
+        elementEventHandler.SubscribeToAll();
+    }
 
-        public void AddElementEventHandler<TComponentsEventHandler>()
-           where TComponentsEventHandler : ComponentEventHandlers
-        {
-            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
-            elementEventHandler.SubscribeToAll();
-        }
-
-        public void RemoveElementEventHandler<TComponentsEventHandler>()
-            where TComponentsEventHandler : ComponentEventHandlers
-        {
-            var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
-            elementEventHandler.UnsubscribeToAll();
-        }
+    public void RemoveElementEventHandler<TComponentsEventHandler>()
+        where TComponentsEventHandler : ComponentEventHandlers
+    {
+        var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
+        elementEventHandler.UnsubscribeToAll();
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="RadioGroup.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,54 +17,53 @@ using Bellatrix.Mobile.Controls.Core;
 using Bellatrix.Mobile.Locators.Android;
 using OpenQA.Selenium.Appium.Android;
 
-namespace Bellatrix.Mobile.Android
+namespace Bellatrix.Mobile.Android;
+
+public class RadioGroup : AndroidComponent
 {
-    public class RadioGroup : AndroidComponent
+    public virtual void ClickByText(string text)
     {
-        public virtual void ClickByText(string text)
+        var allRadioButton = GetAll();
+        foreach (var radioButton in allRadioButton)
         {
-            var allRadioButton = GetAll();
-            foreach (var radioButton in allRadioButton)
+            if (radioButton.GetText().Equals(text))
             {
-                if (radioButton.GetText().Equals(text))
-                {
-                    radioButton.Click();
-                    break;
-                }
+                radioButton.Click();
+                break;
             }
         }
+    }
 
-        public virtual void ClickByIndex(int index)
+    public virtual void ClickByIndex(int index)
+    {
+        var allRadioButton = GetAll();
+        if (index > allRadioButton.Count() - 1)
         {
-            var allRadioButton = GetAll();
-            if (index > allRadioButton.Count() - 1)
+            throw new ArgumentException($"Only {allRadioButton.Count()} radio buttons were present which is less than the specified index = {index}.");
+        }
+
+        int currentIndex = 0;
+        foreach (var radioButton in allRadioButton)
+        {
+            if (currentIndex == index)
             {
-                throw new ArgumentException($"Only {allRadioButton.Count()} radio buttons were present which is less than the specified index = {index}.");
+                radioButton.Click();
+                break;
             }
 
-            int currentIndex = 0;
-            foreach (var radioButton in allRadioButton)
-            {
-                if (currentIndex == index)
-                {
-                    radioButton.Click();
-                    break;
-                }
-
-                currentIndex++;
-            }
+            currentIndex++;
         }
+    }
 
-        public virtual RadioButton GetChecked()
-        {
-            var clickedRadioButton = this.CreateByXPath<RadioButton>("//*[@checked='true']");
-            return clickedRadioButton;
-        }
+    public virtual RadioButton GetChecked()
+    {
+        var clickedRadioButton = this.CreateByXPath<RadioButton>("//*[@checked='true']");
+        return clickedRadioButton;
+    }
 
-        public virtual ComponentsList<RadioButton, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll()
-        {
-            var radioButtons = this.CreateAllByClass<RadioButton>("android.widget.RadioButton");
-            return radioButtons;
-        }
+    public virtual ComponentsList<RadioButton, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll()
+    {
+        var radioButtons = this.CreateAllByClass<RadioButton>("android.widget.RadioButton");
+        return radioButtons;
     }
 }

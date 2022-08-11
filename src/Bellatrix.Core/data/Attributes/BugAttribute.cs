@@ -1,5 +1,5 @@
 ﻿// <copyright file="BugAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,18 +13,17 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix
-{
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-    public class BugAttribute : Attribute
-    {
-        public BugAttribute(string bugId, string description)
-        {
-            BugId = bugId;
-            Description = description;
-        }
+namespace Bellatrix;
 
-        public string BugId { get; set; }
-        public string Description { get; set; }
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
+public class BugAttribute : Attribute
+{
+    public BugAttribute(string bugId, string description)
+    {
+        BugId = bugId;
+        Description = description;
     }
+
+    public string BugId { get; set; }
+    public string Description { get; set; }
 }

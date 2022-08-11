@@ -1,5 +1,5 @@
 ﻿// <copyright file="BlobStorageService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,69 +19,68 @@ using Bellatrix;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace Bellatrix.Core.Infrastructure
+namespace Bellatrix.Core.Infrastructure;
+
+public class BlobStorageService
 {
-    public class BlobStorageService
+    private string _connectionString;
+
+    public BlobStorageService(string connectionString)
     {
-        private string _connectionString;
+        _connectionString = connectionString;
+    }
 
-        public BlobStorageService(string connectionString)
+    public BlobStorageService()
+    {
+        _connectionString = ConfigurationService.GetSection<BlobStorageSettings>().ConnectionString;
+    }
+
+    public void DownloadFile(string fileName, string downloadFilePath, string blobContainerName)
+    {
+        var storageAccount = CloudStorageAccount.Parse(_connectionString);
+        var blobClient = storageAccount.CreateCloudBlobClient();
+        var container = blobClient.GetContainerReference(blobContainerName);
+        var pageBlob = container.GetBlobReference(fileName);
+
+        try
         {
-            _connectionString = connectionString;
+            pageBlob.DownloadToFileAsync(downloadFilePath, FileMode.CreateNew).Wait();
         }
-
-        public BlobStorageService()
+        catch (Exception ex)
         {
-            _connectionString = ConfigurationService.GetSection<BlobStorageSettings>().ConnectionString;
+            DebugInformation.PrintStackTrace(ex);
         }
+    }
 
-        public void DownloadFile(string fileName, string downloadFilePath, string blobContainerName)
-        {
-            var storageAccount = CloudStorageAccount.Parse(_connectionString);
-            var blobClient = storageAccount.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference(blobContainerName);
-            var pageBlob = container.GetBlobReference(fileName);
+    public string GetFileUrl(string fileName, string blobContainerName)
+    {
+        var storageAccount = CloudStorageAccount.Parse(_connectionString);
+        var blobClient = storageAccount.CreateCloudBlobClient();
+        var container = blobClient.GetContainerReference(blobContainerName);
+        var pageBlob = container.GetBlobReference(fileName);
 
-            try
-            {
-                pageBlob.DownloadToFileAsync(downloadFilePath, FileMode.CreateNew).Wait();
-            }
-            catch (Exception ex)
-            {
-                DebugInformation.PrintStackTrace(ex);
-            }
-        }
+        return pageBlob.Uri.AbsoluteUri;
+    }
 
-        public string GetFileUrl(string fileName, string blobContainerName)
-        {
-            var storageAccount = CloudStorageAccount.Parse(_connectionString);
-            var blobClient = storageAccount.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference(blobContainerName);
-            var pageBlob = container.GetBlobReference(fileName);
+    public bool CheckIfFileExists(string fileName, string blobContainerName)
+    {
+        var storageAccount = CloudStorageAccount.Parse(_connectionString);
+        var blobClient = storageAccount.CreateCloudBlobClient();
+        var container = blobClient.GetContainerReference(blobContainerName);
+        var pageBlob = container.GetBlobReference(fileName);
 
-            return pageBlob.Uri.AbsoluteUri;
-        }
+        return pageBlob.ExistsAsync().Result;
+    }
 
-        public bool CheckIfFileExists(string fileName, string blobContainerName)
-        {
-            var storageAccount = CloudStorageAccount.Parse(_connectionString);
-            var blobClient = storageAccount.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference(blobContainerName);
-            var pageBlob = container.GetBlobReference(fileName);
+    public string UploadFile(string fileName, string filePath, string blobContainerName, string contentType)
+    {
+        var storageAccount = CloudStorageAccount.Parse(_connectionString);
+        var blobClient = storageAccount.CreateCloudBlobClient();
+        var container = blobClient.GetContainerReference(blobContainerName);
+        var pageBlob = container.GetBlockBlobReference(fileName);
+        pageBlob.Properties.ContentType = contentType;
+        pageBlob.UploadFromFileAsync(filePath).Wait();
 
-            return pageBlob.ExistsAsync().Result;
-        }
-
-        public string UploadFile(string fileName, string filePath, string blobContainerName, string contentType)
-        {
-            var storageAccount = CloudStorageAccount.Parse(_connectionString);
-            var blobClient = storageAccount.CreateCloudBlobClient();
-            var container = blobClient.GetContainerReference(blobContainerName);
-            var pageBlob = container.GetBlockBlobReference(fileName);
-            pageBlob.Properties.ContentType = contentType;
-            pageBlob.UploadFromFileAsync(filePath).Wait();
-
-            return pageBlob.Uri.AbsoluteUri;
-        }
+        return pageBlob.Uri.AbsoluteUri;
     }
 }

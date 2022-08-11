@@ -1,5 +1,5 @@
 ﻿// <copyright file="IOSTest.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,43 +14,42 @@
 
 using Bellatrix.Mobile.IOS;
 
-namespace Bellatrix.Mobile.NUnit
+namespace Bellatrix.Mobile.NUnit;
+
+public abstract class IOSTest : NUnitBaseTest
 {
-    public abstract class IOSTest : NUnitBaseTest
+    private static readonly object _lockObject = new object();
+    private static bool _arePluginsAlreadyInitialized;
+
+    public IOSApp App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<IOSApp>();
+
+    public override void Configure()
     {
-        private static readonly object _lockObject = new object();
-        private static bool _arePluginsAlreadyInitialized;
-
-        public IOSApp App => ServicesCollection.Current.FindCollection(TestContext.Test.ClassName).Resolve<IOSApp>();
-
-        public override void Configure()
+        lock (_lockObject)
         {
-            lock (_lockObject)
+            if (!_arePluginsAlreadyInitialized)
             {
-                if (!_arePluginsAlreadyInitialized)
-                {
-                    NUnitPluginConfiguration.Add();
-                    ExecutionTimePlugin.Add();
-                    DynamicTestCasesPlugin.Add();
-                    AllurePlugin.Add();
-                    BugReportingPlugin.Add();
-                    VideoRecorderPluginConfiguration.AddNUnit();
-                    ScreenshotsPluginConfiguration.AddNUnit();
-                    IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
-                    IOSPluginsConfiguration.AddElementsBddLogging();
-                    IOSPluginsConfiguration.AddDynamicTestCases();
-                    IOSPluginsConfiguration.AddBugReporting();
-                    IOSPluginsConfiguration.AddValidateExtensionsBddLogging();
-                    IOSPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                    IOSPluginsConfiguration.AddValidateExtensionsBugReporting();
-                    IOSPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                    IOSPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                    IOSPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
-                    IOSPluginsConfiguration.AddLifecycle();
-                    IOSPluginsConfiguration.AddLogExecutionLifecycle();
+                NUnitPluginConfiguration.Add();
+                ExecutionTimePlugin.Add();
+                DynamicTestCasesPlugin.Add();
+                AllurePlugin.Add();
+                BugReportingPlugin.Add();
+                VideoRecorderPluginConfiguration.AddNUnit();
+                ScreenshotsPluginConfiguration.AddNUnit();
+                IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
+                IOSPluginsConfiguration.AddElementsBddLogging();
+                IOSPluginsConfiguration.AddDynamicTestCases();
+                IOSPluginsConfiguration.AddBugReporting();
+                IOSPluginsConfiguration.AddValidateExtensionsBddLogging();
+                IOSPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
+                IOSPluginsConfiguration.AddValidateExtensionsBugReporting();
+                IOSPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
+                IOSPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
+                IOSPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+                IOSPluginsConfiguration.AddLifecycle();
+                IOSPluginsConfiguration.AddLogExecutionLifecycle();
 
-                    _arePluginsAlreadyInitialized = true;
-                }
+                _arePluginsAlreadyInitialized = true;
             }
         }
     }

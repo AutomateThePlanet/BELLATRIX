@@ -1,5 +1,5 @@
 ﻿// <copyright file="SelectControlDataHandler.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,22 +15,21 @@
 using System;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class SelectControlDataHandler : IEditableControlDataHandler<Select>
 {
-    public class SelectControlDataHandler : IEditableControlDataHandler<Select>
+    public virtual dynamic GetData(Select element)
     {
-        public virtual dynamic GetData(Select element)
-        {
-            var value = element.GetSelected().InnerText.Trim();
+        var value = element.GetSelected().InnerText.Trim();
 
-            return value;
-        }
-
-        public virtual void SetData(Select element, string data)
-        {
-            element.SelectByText(data);
-        }
-
-        public void ValidateValueIs(Select element, string expectedValue) => element.GetSelected().ValidateInnerTextIs(expectedValue);
+        return value;
     }
+
+    public virtual void SetData(Select element, string data)
+    {
+        element.SelectByText(data);
+    }
+
+    public void ValidateValueIs(Select element, string expectedValue) => element.GetSelected().ValidateInnerTextIs(expectedValue);
 }

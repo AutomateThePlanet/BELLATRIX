@@ -1,5 +1,5 @@
 ﻿// <copyright file="Constants.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,12 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+public class Constants
 {
-    public class Constants
-    {
-        public const string WpfAppPath = @"AssemblyFolder\Demos\Wpf\WPFSampleApp.exe";
-        public const string WinFormsAppPath = @"AssemblyFolder\Demos\WinForms\WindowsFormsSampleApp.exe";
-        public const string UniversalAppPath = @"369ede42-bebe-41ea-a02a-0da04991478e_hkj3ysbfh4b9w!App";
-    }
+    public const string WpfAppPath = @"AssemblyFolder\Demos\Wpf\WPFSampleApp.exe";
+    public const string WinFormsAppPath = @"AssemblyFolder\Demos\WinForms\WindowsFormsSampleApp.exe";
+    public const string UniversalAppPath = @"369ede42-bebe-41ea-a02a-0da04991478e_hkj3ysbfh4b9w!App";
 }

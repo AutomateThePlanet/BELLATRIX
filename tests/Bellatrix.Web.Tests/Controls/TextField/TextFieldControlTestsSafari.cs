@@ -1,5 +1,5 @@
 ﻿// <copyright file="TextFieldControlTestsSafari.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,206 +13,205 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
+[AllureSuite("TextField Control")]
+public class TextFieldControlTestsSafari : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Safari, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("TextField Control")]
-    public class TextFieldControlTestsSafari : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage);
+
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void TextSet_When_UseSetTextMethod_Safari()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TextFieldLocalPage);
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void TextSet_When_UseSetTextMethod_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        textFieldElement.SetText("aangelov@bellatrix.solutions");
 
-            textFieldElement.SetText("aangelov@bellatrix.solutions");
+        Assert.AreEqual("aangelov@bellatrix.solutions", textFieldElement.Value);
+    }
 
-            Assert.AreEqual("aangelov@bellatrix.solutions", textFieldElement.Value);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_NoAutoCompleteAttributeIsPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        Assert.AreEqual(false, textFieldElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText5");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsFalse_When_AutoCompleteAttributeExistsAndIsSetToOff_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText5");
+        Assert.AreEqual(false, textFieldElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void AutoCompleteReturnsTrue_When_AutoCompleteAttributeExistsAndIsSetToOn_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        Assert.AreEqual(true, textFieldElement.IsAutoComplete);
+    }
 
-            Assert.AreEqual(true, textFieldElement.IsAutoComplete);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsFalse_When_ReadonlyAttributeIsNotPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        Assert.AreEqual(false, textFieldElement.IsReadonly);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsReadonly);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText6");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetReadonlyReturnsTrue_When_ReadonlyAttributeIsPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText6");
+        Assert.AreEqual(true, textFieldElement.IsReadonly);
+    }
 
-            Assert.AreEqual(true, textFieldElement.IsReadonly);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMaxLengthReturnsNull_When_MaxLengthAttributeIsNotPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        var maxLength = textFieldElement.MaxLength;
 
-            var maxLength = textFieldElement.MaxLength;
+        Assert.IsNull(maxLength);
+    }
 
-            Assert.IsNull(maxLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMinLengthReturnsNull_When_MinLengthAttributeIsNotPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        Assert.IsNull(textFieldElement.MinLength);
+    }
 
-            Assert.IsNull(textFieldElement.MinLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetSizeReturnsDefault20_When_SizeAttributeIsNotPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        // Specifies the width of an <input> element, in characters. Default value is 20
+        Assert.AreEqual(20, textFieldElement.Size);
+    }
 
-            // Specifies the width of an <input> element, in characters. Default value is 20
-            Assert.AreEqual(20, textFieldElement.Size);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMaxLengthReturns80_When_MaxLengthAttributeIsPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        Assert.AreEqual(80, textFieldElement.MaxLength);
+    }
 
-            Assert.AreEqual(80, textFieldElement.MaxLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetMinLengthReturns10_When_MinLengthAttributeIsPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        Assert.AreEqual(10, textFieldElement.MinLength);
+    }
 
-            Assert.AreEqual(10, textFieldElement.MinLength);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText2");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetSizeReturns30_When_SizeAttributeIsNotPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText2");
+        Assert.AreEqual(30, textFieldElement.Size);
+    }
 
-            Assert.AreEqual(30, textFieldElement.Size);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsFalse_When_RequiredAttributeIsNotPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText4");
+        Assert.AreEqual(false, textFieldElement.IsRequired);
+    }
 
-            Assert.AreEqual(false, textFieldElement.IsRequired);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText7");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetRequiredReturnsTrue_When_RequiredAttributeIsPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText7");
+        Assert.AreEqual(true, textFieldElement.IsRequired);
+    }
 
-            Assert.AreEqual(true, textFieldElement.IsRequired);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetPlaceholder_When_PlaceholderAttributeIsSet_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetPlaceholder_When_PlaceholderAttributeIsSet_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText");
+        Assert.AreEqual("your Text term goes here", textFieldElement.Placeholder);
+    }
 
-            Assert.AreEqual("your Text term goes here", textFieldElement.Placeholder);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText1");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void GetPlaceholderReturnsNull_When_PlaceholderAttributeIsNotPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText1");
+        Assert.IsNull(textFieldElement.Placeholder);
+    }
 
-            Assert.IsNull(textFieldElement.Placeholder);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnRed_When_Hover_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText8");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnRed_When_Hover_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText8");
+        textFieldElement.Hover();
 
-            textFieldElement.Hover();
+        Assert.AreEqual("color: red;", textFieldElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: red;", textFieldElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnBlue_When_Focus_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnBlue_When_Focus_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText9");
+        textFieldElement.Focus();
 
-            textFieldElement.Focus();
+        Assert.AreEqual("color: blue;", textFieldElement.GetStyle());
+    }
 
-            Assert.AreEqual("color: blue;", textFieldElement.GetStyle());
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText9");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnFalse_When_DisabledAttributeNotPresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText9");
+        bool isDisabled = textFieldElement.IsDisabled;
 
-            bool isDisabled = textFieldElement.IsDisabled;
+        Assert.IsFalse(isDisabled);
+    }
 
-            Assert.IsFalse(isDisabled);
-        }
+    [TestMethod]
+    [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
+    public void ReturnTrue_When_DisabledAttributePresent_Safari()
+    {
+        var textFieldElement = App.Components.CreateById<TextField>("myText10");
 
-        [TestMethod]
-        [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]
-        public void ReturnTrue_When_DisabledAttributePresent_Safari()
-        {
-            var textFieldElement = App.Components.CreateById<TextField>("myText10");
+        bool isDisabled = textFieldElement.IsDisabled;
 
-            bool isDisabled = textFieldElement.IsDisabled;
-
-            Assert.IsTrue(isDisabled);
-        }
+        Assert.IsTrue(isDisabled);
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace Bellatrix.Desktop.GettingStarted
+﻿namespace Bellatrix.Desktop.GettingStarted;
+
+public class Categories
 {
-    public class Categories
-    {
-        public const string CI = "CI";
-        public const string Layout = "Layout";
-        public const string Desktop = "Desktop";
-    }
+    public const string CI = "CI";
+    public const string Layout = "Layout";
+    public const string Desktop = "Desktop";
 }

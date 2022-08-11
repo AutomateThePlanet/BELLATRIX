@@ -1,5 +1,5 @@
 ﻿// <copyright file="ConditionsWaitService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,29 +15,28 @@ using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace Bellatrix.Web.Utilities
-{
-    internal static class ConditionsWaitService
-    {
-        internal static void WaitUntil(Func<bool> waitCondition, int? timeoutInMilliseconds = null, int? sleepIntervalInMilliseconds = null)
-        {
-            var localTimeout = timeoutInMilliseconds ?? 5000;
-            var localSleepInterval = sleepIntervalInMilliseconds ?? 500;
-            var wrappedWebDriver = ServicesCollection.Current.Resolve<IWebDriver>();
-            var webDriverWait = new WebDriverWait(new SystemClock(), wrappedWebDriver, TimeSpan.FromMilliseconds(localTimeout), TimeSpan.FromMilliseconds(localSleepInterval));
-            bool LocalCondition(IWebDriver s)
-            {
-                try
-                {
-                    return waitCondition();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
+namespace Bellatrix.Web.Utilities;
 
-            webDriverWait.Until(LocalCondition);
+internal static class ConditionsWaitService
+{
+    internal static void WaitUntil(Func<bool> waitCondition, int? timeoutInMilliseconds = null, int? sleepIntervalInMilliseconds = null)
+    {
+        var localTimeout = timeoutInMilliseconds ?? 5000;
+        var localSleepInterval = sleepIntervalInMilliseconds ?? 500;
+        var wrappedWebDriver = ServicesCollection.Current.Resolve<IWebDriver>();
+        var webDriverWait = new WebDriverWait(new SystemClock(), wrappedWebDriver, TimeSpan.FromMilliseconds(localTimeout), TimeSpan.FromMilliseconds(localSleepInterval));
+        bool LocalCondition(IWebDriver s)
+        {
+            try
+            {
+                return waitCondition();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
+
+        webDriverWait.Until(LocalCondition);
     }
 }

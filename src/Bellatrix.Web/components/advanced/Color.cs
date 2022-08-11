@@ -1,5 +1,5 @@
 ﻿// <copyright file="Color.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,45 +16,44 @@ using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web
+namespace Bellatrix.Web;
+
+public class Color : Component, IComponentDisabled, IComponentValue, IComponentColor, IComponentList, IComponentAutoComplete, IComponentRequired
 {
-    public class Color : Component, IComponentDisabled, IComponentValue, IComponentColor, IComponentList, IComponentAutoComplete, IComponentRequired
+    public static event EventHandler<ComponentActionEventArgs> Hovering;
+    public static event EventHandler<ComponentActionEventArgs> Hovered;
+    public static event EventHandler<ComponentActionEventArgs> SettingColor;
+    public static event EventHandler<ComponentActionEventArgs> ColorSet;
+
+    public override Type ComponentType => GetType();
+
+    public virtual void Hover()
     {
-        public static event EventHandler<ComponentActionEventArgs> Hovering;
-        public static event EventHandler<ComponentActionEventArgs> Hovered;
-        public static event EventHandler<ComponentActionEventArgs> SettingColor;
-        public static event EventHandler<ComponentActionEventArgs> ColorSet;
-
-        public override Type ComponentType => GetType();
-
-        public virtual void Hover()
-        {
-            Hover(Hovering, Hovered);
-        }
-
-        public virtual string GetColor()
-        {
-            return DefaultGetValue();
-        }
-
-        public virtual void SetColor(string value)
-        {
-            SetValue(SettingColor, ColorSet, value);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsDisabled => GetDisabledAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual bool IsRequired => GetRequiredAttribute();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string Value => DefaultGetValue();
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public virtual string List => GetList();
+        Hover(Hovering, Hovered);
     }
+
+    public virtual string GetColor()
+    {
+        return DefaultGetValue();
+    }
+
+    public virtual void SetColor(string value)
+    {
+        SetValue(SettingColor, ColorSet, value);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetDisabledAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsAutoComplete => GetAutoCompleteAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsRequired => GetRequiredAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Value => DefaultGetValue();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string List => GetList();
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="TextFieldControlTestsWinForms.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,66 +13,65 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Desktop.Tests
+namespace Bellatrix.Desktop.Tests;
+
+[TestClass]
+[App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
+[AllureSuite("TextField Control")]
+[AllureTag("WinForms")]
+public class TextFieldControlTestsWinForms : MSTest.DesktopTest
 {
-    [TestClass]
-    [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
-    [AllureSuite("TextField Control")]
-    [AllureTag("WinForms")]
-    public class TextFieldControlTestsWinForms : MSTest.DesktopTest
+    [TestMethod]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_TextFieldHovered_WinForms()
     {
-        [TestMethod]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_TextFieldHovered_WinForms()
-        {
-            var button = App.Components.CreateByAutomationId<TextField>("textBox");
+        var button = App.Components.CreateByAutomationId<TextField>("textBox");
 
-            button.Hover();
+        button.Hover();
 
-            var label = App.Components.CreateByAutomationId<Label>("resultLabel");
-            Assert.AreEqual("textFieldHovered", label.InnerText);
-        }
+        var label = App.Components.CreateByAutomationId<Label>("resultLabel");
+        Assert.AreEqual("textFieldHovered", label.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void MessageChanged_When_NewTextSet_WinForms()
-        {
-            var textField = App.Components.CreateByAutomationId<TextField>("textBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void MessageChanged_When_NewTextSet_WinForms()
+    {
+        var textField = App.Components.CreateByAutomationId<TextField>("textBox");
 
-            textField.SetText("Meissa Is Beautiful!");
+        textField.SetText("Meissa Is Beautiful!");
 
-            Assert.AreEqual("Meissa Is Beautiful!", textField.InnerText);
-        }
+        Assert.AreEqual("Meissa Is Beautiful!", textField.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void GetContent_When_TextFieldLocated_WinForms()
-        {
-            var textField = App.Components.CreateByAutomationId<TextField>("textBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void GetContent_When_TextFieldLocated_WinForms()
+    {
+        var textField = App.Components.CreateByAutomationId<TextField>("textBox");
 
-            Assert.AreEqual("Bellatrix Is Awesome!", textField.InnerText);
-        }
+        Assert.AreEqual("Bellatrix Is Awesome!", textField.InnerText);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsFalse_When_TextFieldIsNotDisabled_WinForms()
-        {
-            var textField = App.Components.CreateByAutomationId<TextField>("textBox");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsFalse_When_TextFieldIsNotDisabled_WinForms()
+    {
+        var textField = App.Components.CreateByAutomationId<TextField>("textBox");
 
-            Assert.AreEqual(false, textField.IsDisabled);
-        }
+        Assert.AreEqual(false, textField.IsDisabled);
+    }
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Desktop)]
-        public void IsDisabledReturnsTrue_When_TextFieldIsDisabled_WinForms()
-        {
-            var textField = App.Components.CreateByAutomationId<TextField>("disabledTextField");
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Desktop)]
+    public void IsDisabledReturnsTrue_When_TextFieldIsDisabled_WinForms()
+    {
+        var textField = App.Components.CreateByAutomationId<TextField>("disabledTextField");
 
-            Assert.AreEqual(true, textField.IsDisabled);
-        }
+        Assert.AreEqual(true, textField.IsDisabled);
     }
 }

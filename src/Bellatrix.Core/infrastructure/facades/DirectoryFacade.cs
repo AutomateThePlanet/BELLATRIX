@@ -1,5 +1,5 @@
 ﻿// <copyright file="DirectoryFacade.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,22 +13,21 @@
 // <site>https://bellatrix.solutions/</site>
 using System.IO;
 
-namespace Bellatrix.Infrastructure
+namespace Bellatrix.Infrastructure;
+
+public class DirectoryFacade
 {
-    public class DirectoryFacade
-    {
-        public bool DoesDirectoryExists(string path) => Directory.Exists(path);
+    public bool DoesDirectoryExists(string path) => Directory.Exists(path);
 
-        public string[] GetFiles(string path) => Directory.GetFiles(path);
+    public string[] GetFiles(string path) => Directory.GetFiles(path);
 
-        public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
+    public string[] GetFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern);
 
-        public void CreateDirectory(string path) => Directory.CreateDirectory(path);
+    public void CreateDirectory(string path) => Directory.CreateDirectory(path);
 
-        public string GetCurrentDirectory() => Directory.GetCurrentDirectory();
+    public string GetCurrentDirectory() => Directory.GetCurrentDirectory();
 
-        public bool Exists(string path) => Directory.Exists(path);
+    public bool Exists(string path) => Directory.Exists(path);
 
-        public DirectoryInfo GetParent(string path) => Directory.GetParent(path);
-    }
+    public DirectoryInfo GetParent(string path) => Directory.GetParent(path);
 }

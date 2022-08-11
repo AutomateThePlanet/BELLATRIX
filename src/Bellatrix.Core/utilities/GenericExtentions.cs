@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Bellatrix.Extensions
+namespace Bellatrix.Extensions;
+
+public static class GenericExtentions
 {
-    public static class GenericExtentions
+    public static List<T> ToEntityList<T>(this T entity)
+        where T : class
     {
-        public static List<T> ToEntityList<T>(this T entity)
-            where T : class
-        {
-            return new List<T> { entity };
-        }
+        return new List<T> { entity };
     }
 }

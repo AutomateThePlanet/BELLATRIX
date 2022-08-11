@@ -1,5 +1,5 @@
 ﻿// <copyright file="DateControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,178 +13,177 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Date Control")]
+[AllureFeature("ValidateExtensions")]
+public class DateControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Date Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class DateControlValidateExtensionsTests : MSTest.WebTest
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
+
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateDateIs_DoesNotThrowException_When_UseSetDateMethodWithDateLessThan10()
     {
-        public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateDateIs_DoesNotThrowException_When_UseSetDateMethodWithDateLessThan10()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        dateElement.SetDate(2017, 7, 6);
 
-            dateElement.SetDate(2017, 7, 6);
+        dateElement.ValidateDateIs("2017-07-06");
+    }
 
-            dateElement.ValidateDateIs("2017-07-06");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOff_DoesNotThrowException_When_NoAutoCompleteAttributeIsPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        dateElement.ValidateAutoCompleteOff();
+    }
 
-            dateElement.ValidateAutoCompleteOff();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate3");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateAutoCompleteOn_DoesNotThrowException_When_AutoCompleteAttributeExistsAndIsSetToOn()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate3");
+        dateElement.ValidateAutoCompleteOn();
+    }
 
-            dateElement.ValidateAutoCompleteOn();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateNotReadonly_DoesNotThrowException_When_ReadonlyAttributeIsNotPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate4");
+        dateElement.ValidateIsNotReadonly();
+    }
 
-            dateElement.ValidateIsNotReadonly();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate5");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateReadonly_DoesNotThrowException_When_ReadonlyAttributeIsPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate5");
+        dateElement.ValidateIsReadonly();
+    }
 
-            dateElement.ValidateIsReadonly();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxTextIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxTextIsNull_DoesNotThrowException_When_MaxAttributeIsNotPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        dateElement.ValidateMaxTextIsNull();
+    }
 
-            dateElement.ValidateMaxTextIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinTextIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinTextIsNull_DoesNotThrowException_When_MinAttributeIsNotPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        dateElement.ValidateMinTextIsNull();
+    }
 
-            dateElement.ValidateMinTextIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStepIsNull_DoesNotThrowException_When_StepAttributeIsNotPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        dateElement.ValidateStepIsNull();
+    }
 
-            dateElement.ValidateStepIsNull();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxTextIs_DoesNotThrowException_When_MaxAttributeIsPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxTextIs_DoesNotThrowException_When_MaxAttributeIsPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate1");
+        dateElement.ValidateMaxTextIs("2032-12-01");
+    }
 
-            dateElement.ValidateMaxTextIs("2032-12-01");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMinTextIs_DoesNotThrowException_MinAttributeIsPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMinTextIs_DoesNotThrowException_MinAttributeIsPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate1");
+        dateElement.ValidateMinTextIs("1900-01-01");
+    }
 
-            dateElement.ValidateMinTextIs("1900-01-01");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate1");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStepIs_DoesNotThrowException_When_StepAttributeIsNotPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate1");
+        dateElement.ValidateStepIs(2);
+    }
 
-            dateElement.ValidateStepIs(2);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate4");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateNotRequired_DoesNotThrowException_When_RequiredAttributeIsNotPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate4");
+        dateElement.ValidateIsNotRequired();
+    }
 
-            dateElement.ValidateIsNotRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent_Edge()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate6");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsRequired_DoesNotThrowException_When_RequiredAttributeIsPresent_Edge()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate6");
+        dateElement.ValidateIsRequired();
+    }
 
-            dateElement.ValidateIsRequired();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateStyleIs_DoesNotThrowException_When_Hover()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate7");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateStyleIs_DoesNotThrowException_When_Hover()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate7");
+        dateElement.Hover();
 
-            dateElement.Hover();
+        dateElement.ValidateStyleIs("color: red;");
+    }
 
-            dateElement.ValidateStyleIs("color: red;");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsNotDisabled_DoesNotThrowException_When_DisabledAttributeNotPresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate");
+        dateElement.ValidateIsNotDisabled();
+    }
 
-            dateElement.ValidateIsNotDisabled();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
+    {
+        var dateElement = App.Components.CreateById<Date>("myDate9");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateIsDisabled_DoesNotThrowException_When_DisabledAttributePresent()
-        {
-            var dateElement = App.Components.CreateById<Date>("myDate9");
-
-            dateElement.ValidateIsDisabled();
-        }
+        dateElement.ValidateIsDisabled();
     }
 }

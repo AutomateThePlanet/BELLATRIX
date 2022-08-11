@@ -1,5 +1,5 @@
 ﻿// <copyright file="ElementWaitService.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,29 +17,28 @@ using Bellatrix.Desktop.Events;
 using Bellatrix.Desktop.Locators;
 using Bellatrix.Desktop.Untils;
 
-namespace Bellatrix.Desktop.Services
+namespace Bellatrix.Desktop.Services;
+
+public class ComponentWaitService : IComponentWaitService
 {
-    public class ComponentWaitService : IComponentWaitService
+    public static event EventHandler<ComponentNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
+
+    public void Wait<TUntil, TComponent>(TComponent element, TUntil until)
+        where TUntil : WaitStrategy
+        where TComponent : Component
     {
-        public static event EventHandler<ComponentNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
-
-        public void Wait<TUntil, TComponent>(TComponent element, TUntil until)
-            where TUntil : WaitStrategy
-            where TComponent : Component
+        try
         {
-            try
-            {
-                WaitInternal(element.By, until);
-            }
-            catch (Exception ex)
-            {
-                OnElementNotFulfillingWaitConditionEvent?.Invoke(this, new ComponentNotFulfillingWaitConditionEventArgs(ex));
-                throw;
-            }
+            WaitInternal(element.By, until);
         }
-
-        public void WaitInternal<TUntil, TBy>(TBy by, TUntil until)
-            where TUntil : WaitStrategy
-            where TBy : FindStrategy => until?.WaitUntil(@by);
+        catch (Exception ex)
+        {
+            OnElementNotFulfillingWaitConditionEvent?.Invoke(this, new ComponentNotFulfillingWaitConditionEventArgs(ex));
+            throw;
+        }
     }
+
+    public void WaitInternal<TUntil, TBy>(TBy by, TUntil until)
+        where TUntil : WaitStrategy
+        where TBy : FindStrategy => until?.WaitUntil(@by);
 }

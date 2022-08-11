@@ -1,5 +1,5 @@
 ﻿// <copyright file="WeekControlDataHandler.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,18 +16,17 @@ using System;
 using System.Globalization;
 using Bellatrix.Assertions;
 
-namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers
+namespace Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
+
+public class WeekControlDataHandler : IEditableControlDataHandler<Week>
 {
-    public class WeekControlDataHandler : IEditableControlDataHandler<Week>
+    public dynamic GetData(Week element) => element.GetWeek();
+
+    public void SetData(Week element, string data)
     {
-        public dynamic GetData(Week element) => element.GetWeek();
-
-        public void SetData(Week element, string data)
-        {
-            DateTime valueToSet = DateTime.Parse(data);
-            element.SetWeek(valueToSet.Year, CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(valueToSet, CalendarWeekRule.FirstDay, DayOfWeek.Monday));
-        }
-
-        public void ValidateValueIs(Week element, string expectedValue) => element.ValidateWeekIs(expectedValue);
+        DateTime valueToSet = DateTime.Parse(data);
+        element.SetWeek(valueToSet.Year, CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(valueToSet, CalendarWeekRule.FirstDay, DayOfWeek.Monday));
     }
+
+    public void ValidateValueIs(Week element, string expectedValue) => element.ValidateWeekIs(expectedValue);
 }

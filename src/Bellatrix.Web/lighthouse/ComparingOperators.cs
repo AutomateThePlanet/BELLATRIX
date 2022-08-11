@@ -1,5 +1,5 @@
 ﻿// <copyright file="ComparingOperators.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,14 +17,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bellatrix.Web.lighthouse
+namespace Bellatrix.Web.lighthouse;
+
+public enum ComparingOperators
 {
-    public enum ComparingOperators
-    {
-        EQUAL,
-        GREATER_THAN,
-        LESS_THAN,
-        GREATER_THAN_EQUAL,
-        LESS_THAN_EQAUL,
-    }
+    EQUAL,
+    GREATER_THAN,
+    LESS_THAN,
+    GREATER_THAN_EQUAL,
+    LESS_THAN_EQAUL,
 }

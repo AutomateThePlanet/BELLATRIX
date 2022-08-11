@@ -1,5 +1,5 @@
 ﻿// <copyright file="RetryFailedRequestsWorkflowPlugin.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,59 +18,58 @@ using Bellatrix.Plugins;
 using Bellatrix.Plugins.Api.Retry;
 using Bellatrix.Utilities;
 
-namespace Bellatrix.Plugins.Api
+namespace Bellatrix.Plugins.Api;
+
+public class RetryFailedRequestsWorkflowPlugin : Plugin
 {
-    public class RetryFailedRequestsWorkflowPlugin : Plugin
+    protected override void PostTestInit(object sender, PluginEventArgs e)
     {
-        protected override void PostTestInit(object sender, PluginEventArgs e)
-        {
-            RetryFailedRequestsInfo retryFailedRequestsInfo = GetRetryFailedRequestsInfo(e.TestMethodMemberInfo);
+        RetryFailedRequestsInfo retryFailedRequestsInfo = GetRetryFailedRequestsInfo(e.TestMethodMemberInfo);
 
-            if (retryFailedRequestsInfo != null)
-            {
-                var client = e.Container.Resolve<ApiClientService>();
-                client.PauseBetweenFailures = TimeSpanConverter.Convert(retryFailedRequestsInfo.PauseBetweenFailures, retryFailedRequestsInfo.TimeUnit);
-                client.MaxRetryAttempts = retryFailedRequestsInfo.MaxRetryAttempts;
-            }
+        if (retryFailedRequestsInfo != null)
+        {
+            var client = e.Container.Resolve<ApiClientService>();
+            client.PauseBetweenFailures = TimeSpanConverter.Convert(retryFailedRequestsInfo.PauseBetweenFailures, retryFailedRequestsInfo.TimeUnit);
+            client.MaxRetryAttempts = retryFailedRequestsInfo.MaxRetryAttempts;
+        }
+    }
+
+    private RetryFailedRequestsInfo GetRetryFailedRequestsInfo(MemberInfo memberInfo)
+    {
+        RetryFailedRequestsInfo methodRetryFailedRequestsInfo = GetRetryFailedRequestsInfoByMethodInfo(memberInfo);
+        RetryFailedRequestsInfo classRetryFailedRequestsInfo = GetRetryFailedRequestsInfoByType(memberInfo.DeclaringType);
+
+        if (methodRetryFailedRequestsInfo != null)
+        {
+            return methodRetryFailedRequestsInfo;
+        }
+        else if (classRetryFailedRequestsInfo != null)
+        {
+            return classRetryFailedRequestsInfo;
         }
 
-        private RetryFailedRequestsInfo GetRetryFailedRequestsInfo(MemberInfo memberInfo)
+        return null;
+    }
+
+    private RetryFailedRequestsInfo GetRetryFailedRequestsInfoByType(Type currentType)
+    {
+        if (currentType == null)
         {
-            RetryFailedRequestsInfo methodRetryFailedRequestsInfo = GetRetryFailedRequestsInfoByMethodInfo(memberInfo);
-            RetryFailedRequestsInfo classRetryFailedRequestsInfo = GetRetryFailedRequestsInfoByType(memberInfo.DeclaringType);
-
-            if (methodRetryFailedRequestsInfo != null)
-            {
-                return methodRetryFailedRequestsInfo;
-            }
-            else if (classRetryFailedRequestsInfo != null)
-            {
-                return classRetryFailedRequestsInfo;
-            }
-
-            return null;
+            throw new ArgumentNullException();
         }
 
-        private RetryFailedRequestsInfo GetRetryFailedRequestsInfoByType(Type currentType)
-        {
-            if (currentType == null)
-            {
-                throw new ArgumentNullException();
-            }
+        var retryFailedRequestsClassAttribute = currentType.GetCustomAttribute<RetryFailedRequestsAttribute>(true);
+        return retryFailedRequestsClassAttribute?.RetryFailedRequestsInfo;
+    }
 
-            var retryFailedRequestsClassAttribute = currentType.GetCustomAttribute<RetryFailedRequestsAttribute>(true);
-            return retryFailedRequestsClassAttribute?.RetryFailedRequestsInfo;
+    private RetryFailedRequestsInfo GetRetryFailedRequestsInfoByMethodInfo(MemberInfo memberInfo)
+    {
+        if (memberInfo == null)
+        {
+            throw new ArgumentNullException();
         }
 
-        private RetryFailedRequestsInfo GetRetryFailedRequestsInfoByMethodInfo(MemberInfo memberInfo)
-        {
-            if (memberInfo == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            var retryFailedRequestsMethodAttribute = memberInfo.GetCustomAttribute<RetryFailedRequestsAttribute>(true);
-            return retryFailedRequestsMethodAttribute?.RetryFailedRequestsInfo;
-        }
+        var retryFailedRequestsMethodAttribute = memberInfo.GetCustomAttribute<RetryFailedRequestsAttribute>(true);
+        return retryFailedRequestsMethodAttribute?.RetryFailedRequestsInfo;
     }
 }

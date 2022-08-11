@@ -1,5 +1,5 @@
 ﻿// <copyright file="ControlsLocalOverridesCleanExtension.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,16 +13,15 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Plugins;
 
-namespace Bellatrix.Web.Plugins.Browser
-{
-    public class ChildContainerExtension : Plugin
-    {
-        protected override void PreTestsArrange(object sender, PluginEventArgs e)
-        {
-        }
+namespace Bellatrix.Web.Plugins.Browser;
 
-        protected override void PostTestCleanup(object sender, PluginEventArgs e)
-        {
-        }
+public class ChildContainerExtension : Plugin
+{
+    protected override void PreTestsArrange(object sender, PluginEventArgs e)
+    {
+    }
+
+    protected override void PostTestCleanup(object sender, PluginEventArgs e)
+    {
     }
 }

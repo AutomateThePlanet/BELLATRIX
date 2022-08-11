@@ -1,5 +1,5 @@
 ﻿// <copyright file="ImageFactory.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,50 +19,49 @@ using Bellatrix.ImageRecognition.Models;
 using Bellatrix.Infrastructure;
 using Bellatrix.Infrastructure.SystemFacades;
 
-namespace Bellatrix.ImageRecognition.Utilities
+namespace Bellatrix.ImageRecognition.Utilities;
+
+public static class ImageFactory
 {
-    public static class ImageFactory
+    private static readonly EmbeddedResourcesService EmbeddedResourcesService;
+    private static readonly double DefaultSimilarity = ConfigurationService.GetSection<ImageRecognitionSettings>().DefaultSimilarity;
+
+    static ImageFactory()
     {
-        private static readonly EmbeddedResourcesService EmbeddedResourcesService;
-        private static readonly double DefaultSimilarity = ConfigurationService.GetSection<ImageRecognitionSettings>().DefaultSimilarity;
+        EmbeddedResourcesService = new EmbeddedResourcesService();
+    }
 
-        static ImageFactory()
+    public static IImage FromFile(string name, double? similarity = null)
+    {
+        if (similarity == null)
         {
-            EmbeddedResourcesService = new EmbeddedResourcesService();
+            similarity = DefaultSimilarity;
         }
 
-        public static IImage FromFile(string name, double? similarity = null)
+        string currentFileTempPath = EmbeddedResourcesService.FromFile(name, "png");
+
+        if (!currentFileTempPath.EndsWith(".png"))
         {
-            if (similarity == null)
+            string destinationFileName = Path.ChangeExtension(currentFileTempPath, ".png");
+            if (File.Exists(destinationFileName))
             {
-                similarity = DefaultSimilarity;
+                File.Delete(destinationFileName);
             }
 
-            string currentFileTempPath = EmbeddedResourcesService.FromFile(name, "png");
-
-            if (!currentFileTempPath.EndsWith(".png"))
-            {
-                string destinationFileName = Path.ChangeExtension(currentFileTempPath, ".png");
-                if (File.Exists(destinationFileName))
-                {
-                    File.Delete(destinationFileName);
-                }
-
-                File.Move(currentFileTempPath, destinationFileName);
-                currentFileTempPath = Path.ChangeExtension(currentFileTempPath, "png");
-            }
-
-            if (!File.Exists(currentFileTempPath))
-            {
-                throw new ArgumentException($"Image {name} was not found. Please add the base line image as embedded resource.");
-            }
-
-            return new FileImage(currentFileTempPath, (double)similarity);
+            File.Move(currentFileTempPath, destinationFileName);
+            currentFileTempPath = Path.ChangeExtension(currentFileTempPath, "png");
         }
 
-        public static Location Location(int x, int y)
+        if (!File.Exists(currentFileTempPath))
         {
-            return new Location(x, y);
+            throw new ArgumentException($"Image {name} was not found. Please add the base line image as embedded resource.");
         }
+
+        return new FileImage(currentFileTempPath, (double)similarity);
+    }
+
+    public static Location Location(int x, int y)
+    {
+        return new Location(x, y);
     }
 }

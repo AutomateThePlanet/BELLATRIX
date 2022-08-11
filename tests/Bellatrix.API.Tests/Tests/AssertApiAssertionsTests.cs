@@ -1,5 +1,5 @@
 ﻿// <copyright file="AssertApiAssertionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,209 +18,209 @@ using MediaStore.Demo.API.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 
-namespace Bellatrix.API.Tests
+namespace Bellatrix.API.Tests;
+
+[TestClass]
+[JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
+[AllureFeature("API Assertions")]
+[AllureSuite("API Assertions")]
+public class AssertApiAssertionsTests : MSTest.APITest
 {
-    [TestClass]
-    [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
-    [AllureFeature("API Assertions")]
-    [AllureSuite("API Assertions")]
-    public class AssertApiAssertionsTests : MSTest.APITest
+    private ApiClientService _apiClientService;
+
+    public override void TestInit()
     {
-        private ApiClientService _apiClientService;
+        FixtureFactory.Create();
+        _apiClientService = App.GetApiClientService();
+    }
 
-        public override void TestInit()
-        {
-            FixtureFactory.Create();
-            _apiClientService = App.GetApiClientService();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public void AssertSuccessStatusCode()
+    {
+        var request = new RestRequest("api/Albums");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public void AssertSuccessStatusCode()
-        {
-            var request = new RestRequest("api/Albums");
+        var response = _apiClientService.Get(request);
 
-            var response = _apiClientService.Get(request);
+        response.AssertSuccessStatusCode();
+    }
 
-            response.AssertSuccessStatusCode();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public void AssertStatusCodeOk()
+    {
+        var request = new RestRequest("api/Albums");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public void AssertStatusCodeOk()
-        {
-            var request = new RestRequest("api/Albums");
+        var response = _apiClientService.Get(request);
 
-            var response = _apiClientService.Get(request);
+        response.AssertStatusCode(HttpStatusCode.OK);
+    }
 
-            response.AssertStatusCode(HttpStatusCode.OK);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public void AssertResponseHeaderServerIsEqualToKestrel()
+    {
+        var request = new RestRequest("api/Albums");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public void AssertResponseHeaderServerIsEqualToKestrel()
-        {
-            var request = new RestRequest("api/Albums");
+        var response = _apiClientService.Get(request);
 
-            var response = _apiClientService.Get(request);
+        response.AssertResponseHeader("server", "Kestrel");
+    }
 
-            response.AssertResponseHeader("server", "Kestrel");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public void AssertExecutionTimeUnderIsUnderOneSecond()
+    {
+        var request = new RestRequest("api/Albums");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public void AssertExecutionTimeUnderIsUnderOneSecond()
-        {
-            var request = new RestRequest("api/Albums");
+        var response = _apiClientService.Get(request);
 
-            var response = _apiClientService.Get(request);
+        response.AssertExecutionTimeUnder(1);
+    }
 
-            response.AssertExecutionTimeUnder(1);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public async Task AssertContentTypeJson()
+    {
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public async Task AssertContentTypeJson()
-        {
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request);
 
-            var response = await _apiClientService.GetAsync<Albums>(request);
+        response.AssertContentType("application/json; charset=utf-8");
+    }
 
-            response.AssertContentType("application/json; charset=utf-8");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public async Task AssertContentContainsAudioslave()
+    {
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public async Task AssertContentContainsAudioslave()
-        {
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
 
-            var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
+        response.AssertContentContains("Audioslave");
+    }
 
-            response.AssertContentContains("Audioslave");
-        }
+    [TestMethod]
+    [Ignore]
+    [TestCategory(Categories.API)]
+    public async Task AssertContentEncodingUtf8()
+    {
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [Ignore]
-        [TestCategory(Categories.API)]
-        public async Task AssertContentEncodingUtf8()
-        {
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
 
-            var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
+        response.AssertContentEncoding("gzip");
+    }
 
-            response.AssertContentEncoding("gzip");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public async Task AssertContentEquals()
+    {
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public async Task AssertContentEquals()
-        {
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
 
-            var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
+        response.AssertContentEquals("{\"albumId\":10,\"title\":\"Audioslave\",\"artistId\":8,\"artist\":null,\"tracks\":[]}");
+    }
 
-            response.AssertContentEquals("{\"albumId\":10,\"title\":\"Audioslave\",\"artistId\":8,\"artist\":null,\"tracks\":[]}");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public async Task AssertContentNotContainsRammstein()
+    {
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public async Task AssertContentNotContainsRammstein()
-        {
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
 
-            var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
+        response.AssertContentNotContains("Rammstein");
+    }
 
-            response.AssertContentNotContains("Rammstein");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public async Task AssertContentNotEqualsRammstein()
+    {
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public async Task AssertContentNotEqualsRammstein()
-        {
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
 
-            var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
+        response.AssertContentNotEquals("Rammstein");
+    }
 
-            response.AssertContentNotEquals("Rammstein");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public async Task AssertResultEquals()
+    {
+        var expectedAlbum = new Albums
+                            {
+                                AlbumId = 10,
+                            };
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public async Task AssertResultEquals()
-        {
-            var expectedAlbum = new Albums
-                                {
-                                    AlbumId = 10,
-                                };
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
 
-            var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
+        response.AssertResultEquals(expectedAlbum);
+    }
 
-            response.AssertResultEquals(expectedAlbum);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public async Task AssertResultNotEquals()
+    {
+        var expectedAlbum = new Albums
+                            {
+                                AlbumId = 11,
+                            };
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public async Task AssertResultNotEquals()
-        {
-            var expectedAlbum = new Albums
-                                {
-                                    AlbumId = 11,
-                                };
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
 
-            var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
+        response.AssertResultNotEquals(expectedAlbum);
+    }
 
-            response.AssertResultNotEquals(expectedAlbum);
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public async Task AssertCookieExists()
+    {
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public async Task AssertCookieExists()
-        {
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
 
-            var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
+        response.AssertCookieExists("whoIs");
+    }
 
-            response.AssertCookieExists("whoIs");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public async Task AssertCookieWhoIsBella()
+    {
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public async Task AssertCookieWhoIsBella()
-        {
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
 
-            var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
+        response.AssertCookie("whoIs", "Bella");
+    }
 
-            response.AssertCookie("whoIs", "Bella");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.API)]
+    public async Task AssertJsonSchema()
+    {
+        var request = new RestRequest("api/Albums/10");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.API)]
-        public async Task AssertJsonSchema()
-        {
-            var request = new RestRequest("api/Albums/10");
+        var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
 
-            var response = await _apiClientService.GetAsync<Albums>(request).ConfigureAwait(false);
-
-            // http://json-schema.org/examples.html
-            var expectedSchema = @"{
+        // http://json-schema.org/examples.html
+        var expectedSchema = @"{
                                     ""title"": ""Albums"",
                                     ""type"": ""object"",
                                     ""properties"": {
@@ -242,7 +242,6 @@ namespace Bellatrix.API.Tests
                                             },
                                     ""required"": [""albumId""]
                                   }";
-            response.AssertSchema(expectedSchema);
-        }
+        response.AssertSchema(expectedSchema);
     }
 }

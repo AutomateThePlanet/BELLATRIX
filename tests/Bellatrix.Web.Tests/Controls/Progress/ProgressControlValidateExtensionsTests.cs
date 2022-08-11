@@ -1,5 +1,5 @@
 ﻿// <copyright file="ProgressControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2020 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,50 +13,49 @@
 // <site>https://bellatrix.solutions/</site>
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bellatrix.Web.Tests.Controls
+namespace Bellatrix.Web.Tests.Controls;
+
+[TestClass]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
+[AllureSuite("Progress Control")]
+[AllureFeature("ValidateExtensions")]
+public class ProgressControlValidateExtensionsTests : MSTest.WebTest
 {
-    [TestClass]
-    [Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
-    [AllureSuite("Progress Control")]
-    [AllureFeature("ValidateExtensions")]
-    public class ProgressControlValidateExtensionsTests : MSTest.WebTest
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().ProgressLocalPage;
+
+    public override void TestInit()
     {
-        private string _url = ConfigurationService.GetSection<TestPagesSettings>().ProgressLocalPage;
+        App.Navigation.NavigateToLocalPage(_url);
+        ////_url = App.Browser.Url.ToString();
+    }
 
-        public override void TestInit()
-        {
-            App.Navigation.NavigateToLocalPage(_url);
-            ////_url = App.Browser.Url.ToString();
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateValueIs_DoesNotThrowException_When_UseGetValueMethod()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateValueIs_DoesNotThrowException_When_UseGetValueMethod()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress");
+        progressElement.ValidateValueIs("70");
+    }
 
-            progressElement.ValidateValueIs("70");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateMaxTextIs_DoesNotThrowException_When_UseGetMaxMethod()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateMaxTextIs_DoesNotThrowException_When_UseGetMaxMethod()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress");
+        progressElement.ValidateMaxTextIs("100");
+    }
 
-            progressElement.ValidateMaxTextIs("100");
-        }
+    [TestMethod]
+    [TestCategory(Categories.CI)]
+    [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
+    public void ValidateInnerTextIs_DoesNotThrowException_When_UseGetInnerTextMethod()
+    {
+        var progressElement = App.Components.CreateById<Progress>("myProgress");
 
-        [TestMethod]
-        [TestCategory(Categories.CI)]
-        [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]
-        public void ValidateInnerTextIs_DoesNotThrowException_When_UseGetInnerTextMethod()
-        {
-            var progressElement = App.Components.CreateById<Progress>("myProgress");
-
-            progressElement.ValidateInnerTextIs("70 %");
-        }
+        progressElement.ValidateInnerTextIs("70 %");
     }
 }

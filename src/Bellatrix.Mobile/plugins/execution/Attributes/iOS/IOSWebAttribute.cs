@@ -1,5 +1,5 @@
 ﻿// <copyright file="IOSWebAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,27 +13,26 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 
-namespace Bellatrix.Mobile
-{
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class IOSWebAttribute : AppAttribute
-    {
-        public IOSWebAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
-            : base(appPath, platformVersion, deviceName, behavior)
-        {
-            AppConfiguration.OSPlatform = OS.OSX;
-            AppConfiguration.MobileOSType = MobileOSType.IOS;
-            AppConfiguration.PlatformName = "iOS";
-            AppConfiguration.BrowserName = "Safari";
-        }
+namespace Bellatrix.Mobile;
 
-        public IOSWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
-            : base(osPlatform, appPath, platformVersion, deviceName, behavior)
-        {
-            AppConfiguration.OSPlatform = OS.OSX;
-            AppConfiguration.MobileOSType = MobileOSType.IOS;
-            AppConfiguration.PlatformName = "iOS";
-            AppConfiguration.BrowserName = "Safari";
-        }
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+public class IOSWebAttribute : AppAttribute
+{
+    public IOSWebAttribute(string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+        : base(appPath, platformVersion, deviceName, behavior)
+    {
+        AppConfiguration.OSPlatform = OS.OSX;
+        AppConfiguration.MobileOSType = MobileOSType.IOS;
+        AppConfiguration.PlatformName = "iOS";
+        AppConfiguration.BrowserName = "Safari";
+    }
+
+    public IOSWebAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+        : base(osPlatform, appPath, platformVersion, deviceName, behavior)
+    {
+        AppConfiguration.OSPlatform = OS.OSX;
+        AppConfiguration.MobileOSType = MobileOSType.IOS;
+        AppConfiguration.PlatformName = "iOS";
+        AppConfiguration.BrowserName = "Safari";
     }
 }

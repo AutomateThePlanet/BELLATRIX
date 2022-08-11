@@ -1,5 +1,5 @@
 ﻿// <copyright file="TableHeaderRow.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,13 +16,12 @@ using System;
 using System.Diagnostics;
 using Bellatrix.Web.Contracts;
 
-namespace Bellatrix.Web
-{
-    public class TableHeaderRow : Component, IComponentInnerHtml
-    {
-        public ComponentsList<TableCell> HeaderCells => this.CreateAllByTag<TableCell>("th", true);
+namespace Bellatrix.Web;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public string InnerHtml => GetInnerHtmlAttribute();
-    }
+public class TableHeaderRow : Component, IComponentInnerHtml
+{
+    public ComponentsList<TableCell> HeaderCells => this.CreateAllByTag<TableCell>("th", true);
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public string InnerHtml => GetInnerHtmlAttribute();
 }

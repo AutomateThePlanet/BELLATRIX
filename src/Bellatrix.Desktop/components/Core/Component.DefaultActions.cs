@@ -1,5 +1,5 @@
 ﻿// <copyright file="Element.DefaultActions.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,44 +18,43 @@ using Bellatrix.Layout;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 
-namespace Bellatrix.Desktop
+namespace Bellatrix.Desktop;
+
+public partial class Component : IComponentVisible, IComponent, ILayoutComponent
 {
-    public partial class Component : IComponentVisible, IComponent, ILayoutComponent
+    internal virtual void Click(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked)
     {
-        internal virtual void Click(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked)
-        {
-            clicking?.Invoke(this, new ComponentActionEventArgs(this));
+        clicking?.Invoke(this, new ComponentActionEventArgs(this));
 
-            WrappedElement.Click();
+        WrappedElement.Click();
 
-            clicked?.Invoke(this, new ComponentActionEventArgs(this));
-        }
+        clicked?.Invoke(this, new ComponentActionEventArgs(this));
+    }
 
-        internal virtual void Hover(EventHandler<ComponentActionEventArgs> hovering, EventHandler<ComponentActionEventArgs> hovered)
-        {
-            hovering?.Invoke(this, new ComponentActionEventArgs(this));
+    internal virtual void Hover(EventHandler<ComponentActionEventArgs> hovering, EventHandler<ComponentActionEventArgs> hovered)
+    {
+        hovering?.Invoke(this, new ComponentActionEventArgs(this));
 
-            WrappedDriver.Mouse.MouseMove(WrappedElement.Coordinates);
+        WrappedDriver.Mouse.MouseMove(WrappedElement.Coordinates);
 
-            hovered?.Invoke(this, new ComponentActionEventArgs(this));
-        }
+        hovered?.Invoke(this, new ComponentActionEventArgs(this));
+    }
 
-        internal virtual string GetInnerText()
-        {
-            return WrappedElement.Text.Replace("\r\n", string.Empty);
-        }
+    internal virtual string GetInnerText()
+    {
+        return WrappedElement.Text.Replace("\r\n", string.Empty);
+    }
 
-        internal virtual bool GetIsDisabled()
-        {
-            return !WrappedElement.Enabled;
-        }
+    internal virtual bool GetIsDisabled()
+    {
+        return !WrappedElement.Enabled;
+    }
 
-        internal virtual void SetText(EventHandler<ComponentActionEventArgs> settingValue, EventHandler<ComponentActionEventArgs> valueSet, string value)
-        {
-            settingValue?.Invoke(this, new ComponentActionEventArgs(this, value));
-            WrappedElement.Clear();
-            WrappedElement.SendKeys(value);
-            valueSet?.Invoke(this, new ComponentActionEventArgs(this, value));
-        }
+    internal virtual void SetText(EventHandler<ComponentActionEventArgs> settingValue, EventHandler<ComponentActionEventArgs> valueSet, string value)
+    {
+        settingValue?.Invoke(this, new ComponentActionEventArgs(this, value));
+        WrappedElement.Clear();
+        WrappedElement.SendKeys(value);
+        valueSet?.Invoke(this, new ComponentActionEventArgs(this, value));
     }
 }

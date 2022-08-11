@@ -1,5 +1,5 @@
 ﻿// <copyright file="DynamicTestCasesRadioButtonEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,10 +15,9 @@ using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Events;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.DynamicTestCases.IOS
+namespace Bellatrix.Mobile.DynamicTestCases.IOS;
+
+public class DynamicTestCasesRadioButtonEventHandlers : RadioButtonEventHandlers
 {
-    public class DynamicTestCasesRadioButtonEventHandlers : RadioButtonEventHandlers
-    {
-        protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
-    }
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

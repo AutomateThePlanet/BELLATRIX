@@ -1,5 +1,5 @@
 ﻿// <copyright file="TextCleaner.cs" company="Automate The Planet Ltd.">
-// Copyright 2021 Automate The Planet Ltd.
+// Copyright 2022 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,23 +11,22 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Utilities
+namespace Bellatrix.Utilities;
+
+public static class TextCleaner
 {
-    public static class TextCleaner
+    public static string CleanText(string text)
     {
-        public static string CleanText(string text)
-        {
-            var result = text.Replace("\\r\\n", string.Empty).Trim('"').Replace("\\\"", @"""");
+        var result = text.Replace("\\r\\n", string.Empty).Trim('"').Replace("\\\"", @"""");
 
-            return result;
-        }
+        return result;
+    }
 
-        public static string TrimAndReplaceNewlineChars(this string text)
-        {
-            var result = text.Trim().Replace("\n", " ");
-            result.Replace("<br>", " ");
+    public static string TrimAndReplaceNewlineChars(this string text)
+    {
+        var result = text.Trim().Replace("\n", " ");
+        result.Replace("<br>", " ");
 
-            return result;
-        }
+        return result;
     }
 }
