@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Bellatrix.AWS;
-public class ComputerVision
+public class Rekognition
 {
     public List<string> ExtractOCRTextFromLocalFile(RegionEndpoint region, string bucket, string fileName)
     {

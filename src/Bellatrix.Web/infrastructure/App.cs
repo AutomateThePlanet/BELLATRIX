@@ -18,6 +18,7 @@ using System.Reflection;
 using Bellatrix.Api;
 using Bellatrix.Api.Configuration;
 using Bellatrix.Assertions;
+using Bellatrix.AWS;
 using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.Plugins;
@@ -56,6 +57,7 @@ public class App : IDisposable
     public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
     public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
+    public AWSServicesFactory AWS => ServicesCollection.Current.Resolve<AWSServicesFactory>();
 
     public ApiClientService ApiClient
     {

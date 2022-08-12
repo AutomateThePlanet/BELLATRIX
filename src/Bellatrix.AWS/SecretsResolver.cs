@@ -13,16 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using Amazon;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bellatrix.AWS;
 
-public static class SecretsResolver
+public class SecretsResolver
 {
-    public static string GetSecret(RegionEndpoint region, Func<string> getConfigValue)
+    public  string GetSecret(RegionEndpoint region, Func<string> getConfigValue)
     {
         if (getConfigValue().StartsWith("env_"))
         {
@@ -31,7 +27,7 @@ public static class SecretsResolver
         }
         else if (getConfigValue().StartsWith("smaws_"))
         {
-            string keyVaultValue = SecretsManager.GetSecret(region, getConfigValue().Replace("smaws_", string.Empty));
+            string keyVaultValue = new SecretsManager().GetSecret(region, getConfigValue().Replace("smaws_", string.Empty));
             return keyVaultValue;
         }
         else

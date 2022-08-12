@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Bellatrix.Assertions;
+using Bellatrix.AWS;
 using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.Mobile.Configuration;
@@ -45,7 +46,7 @@ public abstract class App<TDriver, TDriverElement> : IDisposable
     public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
     public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
     public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
-
+    public AWSServicesFactory AWS => ServicesCollection.Current.Resolve<AWSServicesFactory>();
     public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
     public static void StartAppiumLocalService()

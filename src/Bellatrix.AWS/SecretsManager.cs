@@ -17,9 +17,9 @@ using Amazon.SecretsManager.Model;
 
 namespace Bellatrix.AWS;
 
-public static class SecretsManager
+public class SecretsManager
 {
-    public static string GetSecret(RegionEndpoint region, string name)
+    public string GetSecret(RegionEndpoint region, string name)
     {
         using var secretsManager = InitializeSecretsManagerClient(region);
         var request = new GetSecretValueRequest
@@ -30,7 +30,7 @@ public static class SecretsManager
         return secret.SecretString;
     }
 
-    private static AmazonSecretsManagerClient InitializeSecretsManagerClient(RegionEndpoint region)
+    private AmazonSecretsManagerClient InitializeSecretsManagerClient(RegionEndpoint region)
     {
         var config = new AmazonSecretsManagerConfig();
         config.RegionEndpoint = region;

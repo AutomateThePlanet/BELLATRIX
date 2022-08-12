@@ -28,6 +28,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
 		<ProjectReference Include="..\Bellatrix.Api\Bellatrix.API.csproj" />
+		<ProjectReference Include="..\Bellatrix.AWS\Bellatrix.AWS.csproj" />
 		<ProjectReference Include="..\Bellatrix.CognitiveServices\Bellatrix.CognitiveServices.csproj" />
 		<ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
 		<ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
