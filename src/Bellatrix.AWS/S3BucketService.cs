@@ -21,7 +21,7 @@ using System.Threading;
 namespace Bellatrix.AWS;
 public class S3BucketService
 {
-    public void downloadFile(RegionEndpoint region, string bucketName, string key, string resultFilePath)
+    public void DownloadFile(RegionEndpoint region, string bucketName, string key, string resultFilePath)
     {
         using AmazonS3Client client = InitializeS3Client(region);
         var request = new GetObjectRequest();
@@ -31,7 +31,7 @@ public class S3BucketService
         response.WriteResponseStreamToFileAsync(resultFilePath, false, new CancellationToken()).Wait();
     }
 
-    public void uploadFile(RegionEndpoint region, string bucketName, string sourceFilePath, string resultFileName)
+    public void UploadFile(RegionEndpoint region, string bucketName, string sourceFilePath, string resultFileName)
     {
         using AmazonS3Client client = InitializeS3Client(region);
         TransferUtility utility = new TransferUtility(client);
@@ -42,7 +42,7 @@ public class S3BucketService
         utility.Upload(request);
     }
 
-    public void deleteFile(RegionEndpoint region, string bucketName, string key)
+    public void DeleteFile(RegionEndpoint region, string bucketName, string key)
     {
         using AmazonS3Client client = InitializeS3Client(region);
         var deleteObjectRequest = new DeleteObjectRequest
