@@ -102,8 +102,8 @@ public class ApiClientService
 
     public IMeasuredResponse Put(IRestRequest request) => ExecuteMeasuredRequest(request, Method.PUT);
 
-    public IMeasuredResponse<TReturnType> Put<TReturnType>(IRestRequest request)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.PUT);
+    public IMeasuredResponse<TReturnType> Put<TReturnType>(IRestRequest request, bool shouldReturnResponseOnFailure = false)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.PUT, shouldReturnResponseOnFailure);
 
     public async Task<IMeasuredResponse> PutAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
         => await ExecuteMeasuredRequestAsync(request, Method.PUT, cancellationTokenSource).ConfigureAwait(false);
@@ -124,8 +124,8 @@ public class ApiClientService
 
     public IMeasuredResponse Delete(IRestRequest request) => ExecuteMeasuredRequest(request, Method.DELETE);
 
-    public IMeasuredResponse<TReturnType> Delete<TReturnType>(IRestRequest request)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.DELETE);
+    public IMeasuredResponse<TReturnType> Delete<TReturnType>(IRestRequest request, bool shouldReturnResponseOnFailure = false)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.DELETE, shouldReturnResponseOnFailure);
 
     public async Task<IMeasuredResponse> DeleteAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
         => await ExecuteMeasuredRequestAsync(request, Method.DELETE, cancellationTokenSource).ConfigureAwait(false);
