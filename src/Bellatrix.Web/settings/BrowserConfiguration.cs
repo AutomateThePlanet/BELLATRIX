@@ -25,26 +25,27 @@ public class BrowserConfiguration : IEquatable<BrowserConfiguration>
     }
 
 #pragma warning disable 618
-    public BrowserConfiguration(ExecutionType executionType, Lifecycle browserBehavior, BrowserType browserType, Size size, string classFullName, bool shouldCaptureHttpTraffic, bool shouldAutomaticallyScrollToVisible, DriverOptions driverOptions = null)
+    public BrowserConfiguration(ExecutionType executionType, Lifecycle browserBehavior, BrowserType browserType, Size size, string classFullName, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, DriverOptions driverOptions = null)
 #pragma warning restore 618
-        : this(browserBehavior, browserType, size, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible)
+        : this(browserBehavior, browserType, size, shouldCaptureHttpTraffic, shouldDisableJavaScript, shouldAutomaticallyScrollToVisible)
     {
         ExecutionType = executionType;
         ClassFullName = classFullName;
         DriverOptions = driverOptions;
     }
 
-    public BrowserConfiguration(Lifecycle browserBehavior, BrowserType browserType, Size size, bool shouldCaptureHttpTraffic, bool shouldAutomaticallyScrollToVisible)
-        : this(browserType, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible)
+    public BrowserConfiguration(Lifecycle browserBehavior, BrowserType browserType, Size size, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible)
+        : this(browserType, shouldCaptureHttpTraffic, shouldDisableJavaScript, shouldAutomaticallyScrollToVisible)
     {
         BrowserBehavior = browserBehavior;
         Size = size;
     }
 
-    public BrowserConfiguration(BrowserType browserType, bool shouldCaptureHttpTraffic, bool shouldAutomaticallyScrollToVisible)
+    public BrowserConfiguration(BrowserType browserType, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible)
     {
         BrowserType = browserType;
         ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
+        ShouldDisableJavaScript = shouldDisableJavaScript;
         ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible;
     }
 
@@ -55,6 +56,7 @@ public class BrowserConfiguration : IEquatable<BrowserConfiguration>
     public Size Size { get; set; }
 
     public bool ShouldCaptureHttpTraffic { get; set; }
+    public bool ShouldDisableJavaScript { get; set; }
 
     public string ClassFullName { get; set; }
 
@@ -68,6 +70,7 @@ public class BrowserConfiguration : IEquatable<BrowserConfiguration>
     public bool Equals(BrowserConfiguration other) => ExecutionType.Equals(other?.ExecutionType) &&
                                                       BrowserType.Equals(other?.BrowserType) &&
                                                       ShouldCaptureHttpTraffic.Equals(other?.ShouldCaptureHttpTraffic) &&
+                                                      ShouldDisableJavaScript.Equals(other?.ShouldDisableJavaScript) &&
                                                       Size.Equals(other?.Size) &&
                                                       IsLighthouseEnabled.Equals(other?.IsLighthouseEnabled) &&
                                                       ShouldAutomaticallyScrollToVisible.Equals(other?.ShouldAutomaticallyScrollToVisible);
@@ -78,6 +81,7 @@ public class BrowserConfiguration : IEquatable<BrowserConfiguration>
         return ExecutionType.Equals(browserConfiguration?.ExecutionType) &&
         BrowserType.Equals(browserConfiguration?.BrowserType) &&
         ShouldCaptureHttpTraffic.Equals(browserConfiguration?.ShouldCaptureHttpTraffic) &&
+        ShouldDisableJavaScript.Equals(browserConfiguration?.ShouldDisableJavaScript) &&
         Size.Equals(browserConfiguration?.Size) &&
         ShouldAutomaticallyScrollToVisible.Equals(browserConfiguration?.ShouldAutomaticallyScrollToVisible) &&
         IsLighthouseEnabled.Equals(browserConfiguration?.IsLighthouseEnabled);
@@ -88,6 +92,7 @@ public class BrowserConfiguration : IEquatable<BrowserConfiguration>
         return ExecutionType.GetHashCode() +
                 BrowserType.GetHashCode() +
                 ShouldCaptureHttpTraffic.GetHashCode() +
+                ShouldDisableJavaScript.GetHashCode() +
                 Size.GetHashCode() +
                 IsLighthouseEnabled.GetHashCode() +
                 ShouldAutomaticallyScrollToVisible.GetHashCode();

@@ -15,9 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Reflection;
-using Bellatrix.Utilities;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Services;
 using OpenQA.Selenium;
@@ -33,72 +31,76 @@ namespace Bellatrix.Web;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public class BrowserAttribute : Attribute
 {
-    public BrowserAttribute(BrowserType browser, Lifecycle lifecycle = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+    public BrowserAttribute(BrowserType browser, Lifecycle lifecycle = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false, bool shouldDisableJavaScript = false)
     {
         OS = OS.Windows;
         Browser = browser;
         Lifecycle = lifecycle;
         ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
+        ShouldDisableJavaScript = shouldDisableJavaScript;
         Size = default;
         ExecutionType = ExecutionType.Regular;
         ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
     }
 
-    public BrowserAttribute(BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+    public BrowserAttribute(BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false, bool shouldDisableJavaScript = false)
     {
         OS = OS.Windows;
         Browser = browser;
         Lifecycle = behavior;
         ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
+        ShouldDisableJavaScript = shouldDisableJavaScript;
         Size = new Size(width, height);
         ExecutionType = ExecutionType.Regular;
         ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
     }
 
-    public BrowserAttribute(OS oS, BrowserType browser, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+    public BrowserAttribute(OS oS, BrowserType browser, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false, bool shouldDisableJavaScript = false)
     {
         OS = oS;
         Browser = browser;
         Lifecycle = behavior;
         ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
+        ShouldDisableJavaScript = shouldDisableJavaScript;
         Size = default;
         ExecutionType = ExecutionType.Regular;
         ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
     }
 
-    public BrowserAttribute(OS oS, BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
+    public BrowserAttribute(OS oS, BrowserType browser, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false, bool shouldDisableJavaScript = false)
     {
         OS = oS;
         Browser = browser;
         Lifecycle = behavior;
         ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
+        ShouldDisableJavaScript = shouldDisableJavaScript;
         Size = new Size(width, height);
         ExecutionType = ExecutionType.Regular;
         ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible && ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
     }
 
-    public BrowserAttribute(BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-    : this(browser, behavior, shouldCaptureHttpTraffic)
+    public BrowserAttribute(BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false, bool shouldDisableJavaScript = false)
+    : this(browser, behavior, shouldCaptureHttpTraffic, shouldDisableJavaScript)
         => Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
 
-    public BrowserAttribute(BrowserType browser, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-    : this(browser, behavior, shouldCaptureHttpTraffic)
+    public BrowserAttribute(BrowserType browser, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false, bool shouldDisableJavaScript = false)
+    : this(browser, behavior, shouldCaptureHttpTraffic, shouldDisableJavaScript)
         => Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
 
-    public BrowserAttribute(BrowserType browser, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-    : this(browser, behavior, shouldCaptureHttpTraffic)
+    public BrowserAttribute(BrowserType browser, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false, bool shouldDisableJavaScript = false)
+    : this(browser, behavior, shouldCaptureHttpTraffic, shouldDisableJavaScript)
         => Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
 
-    public BrowserAttribute(OS oS, BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-        : this(oS, browser, behavior, shouldCaptureHttpTraffic)
+    public BrowserAttribute(OS oS, BrowserType browser, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false, bool shouldDisableJavaScript = false)
+        : this(oS, browser, behavior, shouldCaptureHttpTraffic, shouldDisableJavaScript)
         => Size = WindowsSizeResolver.GetWindowSize(mobileWindowSize);
 
-    public BrowserAttribute(OS oS, BrowserType browser, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-        : this(oS, browser, behavior, shouldCaptureHttpTraffic)
+    public BrowserAttribute(OS oS, BrowserType browser, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false, bool shouldDisableJavaScript = false)
+        : this(oS, browser, behavior, shouldCaptureHttpTraffic, shouldDisableJavaScript)
         => Size = WindowsSizeResolver.GetWindowSize(tabletWindowSize);
 
-    public BrowserAttribute(OS oS, BrowserType browser, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false)
-        : this(oS, browser, behavior, shouldCaptureHttpTraffic)
+    public BrowserAttribute(OS oS, BrowserType browser, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true, bool shouldCaptureHttpTraffic = false, bool shouldDisableJavaScript = false)
+        : this(oS, browser, behavior, shouldCaptureHttpTraffic, shouldDisableJavaScript)
         => Size = WindowsSizeResolver.GetWindowSize(desktopWindowSize);
 
     public BrowserType Browser { get; }
@@ -108,18 +110,18 @@ public class BrowserAttribute : Attribute
     public Size Size { get; }
 
     public bool ShouldCaptureHttpTraffic { get; }
+    public bool ShouldDisableJavaScript { get; }
 
     public ExecutionType ExecutionType { get; protected set; }
 
     public OS OS { get; internal set; }
 
     public bool ShouldAutomaticallyScrollToVisible { get; }
-
     public bool IsLighthouseEnabled { get; protected set; }
 
     protected string GetTestFullName(MemberInfo memberInfo, Type testClassType)
     {
-        string testFullName = $"{testClassType.FullName}.{memberInfo?.Name}".Trim('.');
+        string testFullName = $"{testClassType.FullName}.{memberInfo.Name}";
         string testName = testFullName != null ? testFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty) : testClassType.FullName;
         return testName;
     }
