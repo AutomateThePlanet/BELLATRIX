@@ -12,10 +12,8 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
@@ -87,10 +85,10 @@ public static class WrappedWebDriverCreateService
 
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 var options = executionConfiguration.DriverOptions;
-                options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
-                options.SetLoggingPreference(LogType.Browser, LogLevel.All);
-                options.SetLoggingPreference("performance", LogLevel.All);
-
+                if (!executionConfiguration.BrowserType.Equals(BrowserType.Safari) && !executionConfiguration.BrowserType.Equals(BrowserType.Firefox))
+                {
+                    options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
+                }
                 wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), options.ToCapabilities(), TimeSpan.FromSeconds(180));
 
                 IAllowsFileDetection allowsDetection = wrappedWebDriver as IAllowsFileDetection;
@@ -218,6 +216,11 @@ public static class WrappedWebDriverCreateService
                     chromeOptions.AddArguments($"load-extension={unpackedExtensionPath}");
                 }
 
+                if (executionConfiguration.ShouldDisableJavaScript)
+                {
+                    chromeOptions.AddArguments("--blink-settings=scriptEnabled=false");
+                }
+
                 if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled && !executionConfiguration.IsLighthouseEnabled)
                 {
                     chromeOptions.Proxy = webDriverProxy;
@@ -228,6 +231,8 @@ public static class WrappedWebDriverCreateService
                 chromeOptions.SetLoggingPreference("performance", LogLevel.All);
 
                 wrappedWebDriver = new ChromeDriver(chromeDriverService, chromeOptions);
+                //wrappedWebDriver.Manage().Window.Position = new System.Drawing.Point(2000, 1); // To 2nd monitor. 
+                wrappedWebDriver.Manage().Window.Maximize();
                 break;
             case BrowserType.ChromeHeadless:
                 new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
@@ -279,6 +284,11 @@ public static class WrappedWebDriverCreateService
                     chromeHeadlessOptions.Proxy = webDriverProxy;
                 }
 
+                if (executionConfiguration.ShouldDisableJavaScript)
+                {
+                    chromeHeadlessOptions.AddArguments("--blink-settings=scriptEnabled=false");
+                }
+
                 chromeHeadlessOptions.SetLoggingPreference(LogType.Browser, LogLevel.All);
                 chromeHeadlessOptions.SetLoggingPreference("performance", LogLevel.All);
 
@@ -292,6 +302,11 @@ public static class WrappedWebDriverCreateService
                 if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                 {
                     firefoxOptions.Proxy = webDriverProxy;
+                }
+
+                if (executionConfiguration.ShouldDisableJavaScript)
+                {
+                    firefoxOptions.addPreference("javascript.enabled", false);
                 }
 
                 var firefoxService = FirefoxDriverService.CreateDefaultService();
@@ -346,6 +361,11 @@ public static class WrappedWebDriverCreateService
                     firefoxHeadlessOptions.Proxy = webDriverProxy;
                 }
 
+                if (executionConfiguration.ShouldDisableJavaScript)
+                {
+                    firefoxHeadlessOptions.addPreference("javascript.enabled", false);
+                }
+
                 if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                 {
                     string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
@@ -385,6 +405,11 @@ public static class WrappedWebDriverCreateService
                 if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                 {
                     edgeOptions.Proxy = webDriverProxy;
+                }
+
+                if (executionConfiguration.ShouldDisableJavaScript)
+                {
+                    edgeOptions.AddArguments("--blink-settings=scriptEnabled=false");
                 }
 
                 if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
@@ -430,6 +455,11 @@ public static class WrappedWebDriverCreateService
                     edgeHeadlessOptions.Proxy = webDriverProxy;
                 }
 
+                if (executionConfiguration.ShouldDisableJavaScript)
+                {
+                    edgeHeadlessOptions.AddArguments("--blink-settings=scriptEnabled=false");
+                }
+
                 if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
                 {
                     string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
@@ -472,6 +502,11 @@ public static class WrappedWebDriverCreateService
                     ieOptions.Proxy = webDriverProxy;
                 }
 
+                if (executionConfiguration.ShouldDisableJavaScript)
+                {
+                    throw new NotSupportedException("disable javascript not suported for Safari and InternetExplorer.");
+                }
+
                 wrappedWebDriver = new InternetExplorerDriver(_driverExecutablePath, ieOptions);
                 break;
             case BrowserType.Safari:
@@ -480,6 +515,11 @@ public static class WrappedWebDriverCreateService
                 if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                 {
                     safariOptions.Proxy = webDriverProxy;
+                }
+
+                if (executionConfiguration.ShouldDisableJavaScript)
+                {
+                    throw new NotSupportedException("disable javascript not suported for Safari and InternetExplorer.");
                 }
 
                 wrappedWebDriver = new SafariDriver(safariOptions);

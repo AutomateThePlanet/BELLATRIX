@@ -76,6 +76,7 @@ public class ApiClientService
     }
 
     public int MaxRetryAttempts { get; set; }
+
     public string BaseUrl
     {
         get => WrappedClient.BaseUrl.AbsoluteUri;
@@ -90,8 +91,8 @@ public class ApiClientService
 
     public IMeasuredResponse Get(IRestRequest request) => ExecuteMeasuredRequest(request, Method.GET);
 
-    public IMeasuredResponse<TReturnType> Get<TReturnType>(IRestRequest request)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.GET);
+    public IMeasuredResponse<TReturnType> Get<TReturnType>(IRestRequest request, bool shouldReturnResponseOnFailure = false)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.GET, shouldReturnResponseOnFailure);
 
     public async Task<IMeasuredResponse> GetAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
         => await ExecuteMeasuredRequestAsync(request, Method.GET, cancellationTokenSource).ConfigureAwait(false);
@@ -112,8 +113,8 @@ public class ApiClientService
 
     public IMeasuredResponse Post(IRestRequest request) => ExecuteMeasuredRequest(request, Method.POST);
 
-    public IMeasuredResponse<TReturnType> Post<TReturnType>(IRestRequest request)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.POST);
+    public IMeasuredResponse<TReturnType> Post<TReturnType>(IRestRequest request, bool shouldReturnResponseOnFailure = false)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.POST, shouldReturnResponseOnFailure);
 
     public async Task<IMeasuredResponse> PostAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
         => await ExecuteMeasuredRequestAsync(request, Method.POST, cancellationTokenSource).ConfigureAwait(false);
@@ -261,7 +262,7 @@ public class ApiClientService
         return measuredResponse;
     }
 
-    private IMeasuredResponse<TReturnType> ExecuteMeasuredRequest<TReturnType>(IRestRequest request, Method method)
+    private IMeasuredResponse<TReturnType> ExecuteMeasuredRequest<TReturnType>(IRestRequest request, Method method, bool shouldReturnReponseOnFailure = false)
         where TReturnType : new()
     {
         var retryPolicy = Policy.Handle<NotSuccessfulRequestException>().WaitAndRetry(MaxRetryAttempts, i => PauseBetweenFailures);
@@ -284,9 +285,9 @@ public class ApiClientService
             watch.Stop();
             measuredResponse = new MeasuredResponse<TReturnType>(response, watch.Elapsed);
 
-            if (!measuredResponse.IsSuccessful)
+            if (!measuredResponse.IsSuccessful && !shouldReturnReponseOnFailure)
             {
-                throw new NotSuccessfulRequestException();
+                throw new NotSuccessfulRequestException($"Failed on URL= {measuredResponse.ResponseUri} {Environment.NewLine} {measuredResponse.StatusCode} {Environment.NewLine} {measuredResponse.Content}. Elapsed Time: {measuredResponse.ExecutionTime.ToString()}");
             }
         });
 

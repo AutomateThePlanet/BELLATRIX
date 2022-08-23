@@ -156,7 +156,7 @@ public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
         previousTestExecutionEngine?.DisposeAll();
 
         bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
-        var browserConfiguration = new BrowserConfiguration(BrowserType.NotSet, false, shouldScrollToVisible);
+        var browserConfiguration = new BrowserConfiguration(BrowserType.NotSet, false, false, shouldScrollToVisible);
         container.RegisterInstance(browserConfiguration, "_previousBrowserConfiguration");
         container.UnregisterSingleInstance<TestExecutionEngine>();
     }
@@ -164,7 +164,7 @@ public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
     private void ResolvePreviousBrowserType(ServicesCollection container)
     {
         bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
-        var browserConfiguration = new BrowserConfiguration(BrowserType.NotSet, false, shouldScrollToVisible);
+        var browserConfiguration = new BrowserConfiguration(BrowserType.NotSet, false, false, shouldScrollToVisible);
         if (container.IsRegistered<BrowserConfiguration>())
         {
             browserConfiguration = container.Resolve<BrowserConfiguration>();
@@ -184,6 +184,7 @@ public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
 
             Lifecycle currentLifecycle = browserAttribute.Lifecycle;
             bool shouldCaptureHttpTraffic = browserAttribute.ShouldCaptureHttpTraffic;
+            bool shouldDisableJavaScript = browserAttribute.ShouldDisableJavaScript;
             bool shouldAutomaticallyScrollToVisible = browserAttribute.ShouldAutomaticallyScrollToVisible;
             Size currentBrowserSize = browserAttribute.Size;
             ExecutionType executionType = browserAttribute.ExecutionType;
@@ -191,7 +192,7 @@ public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
             var options = (browserAttribute as IDriverOptionsAttribute)?.CreateOptions(e.TestMethodMemberInfo, e.TestClassType) ?? GetDriverOptionsBasedOnBrowser(currentBrowserType, e.TestClassType);
             InitializeCustomCodeOptions(options, e.TestClassType);
 
-            var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible, options);
+            var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldDisableJavaScript, shouldAutomaticallyScrollToVisible, options);
             e.Container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
 
             return browserConfiguration;
@@ -237,7 +238,7 @@ public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
             string testName = e.TestFullName != null ? e.TestFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty) : e.TestClassType.FullName;
             InitializeGridOptionsFromConfiguration(options, e.TestClassType, testName);
             InitializeCustomCodeOptions(options, e.TestClassType);
-            var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldAutomaticallyScrollToVisible, options);
+            var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic: false, shouldDisableJavaScript: false, shouldAutomaticallyScrollToVisible, options);
             e.Container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
 
             return browserConfiguration;

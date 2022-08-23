@@ -23,6 +23,22 @@ namespace Bellatrix.Api;
 
 public class App
 {
+    private readonly ApiClientService _apiClientService;
+
+    public App()
+    {
+        _apiClientService = GetApiClientService();
+    }
+
+    public ApiClientService ApiClient
+    {
+        get => _apiClientService;
+        init
+        {
+            _apiClientService = GetApiClientService();
+        }
+    }
+
     public bool ShouldReuseRestClient { get; set; } = true;
 
     public LoadTestService LoadTestService => new LoadTestService();

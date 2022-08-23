@@ -22,6 +22,7 @@ public sealed class WebSettings
     public bool ShouldHighlightElements { get; set; }
     public bool FullPageScreenshotsEnabled { get; set; }
     public bool ShouldCaptureHttpTraffic { get; set; }
+    public bool ShouldDisableJavaScript { get; set; }
     public string PathToSslCertificate { get; set; }
     public bool IsParallelExecutionEnabled { get; set; }
     public bool ShouldCheckForJavaScriptErrors { get; set; }
