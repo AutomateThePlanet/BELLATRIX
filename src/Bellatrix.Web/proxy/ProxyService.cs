@@ -224,13 +224,8 @@ public class ProxyService : IDisposable
                 }
             }).ConfigureAwait(false);
 
-    private void ShouldExecute()
+    public void ShouldExecute()
     {
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            throw new NotSupportedException("Bellatrix Web capture HTTP traffic feature is available only on Windows.");
-        }
-
         if (!IsEnabled)
         {
             throw new ArgumentException("ProxyService is not enabled. To use open testFramework.json and set isEnabled = true of webProxySettings");

@@ -81,6 +81,15 @@ public static class AssertExtensions
         }
     }
 
+    public static void AssertBadRequestStatusCode(this IMeasuredResponse response)
+    {
+        AssertSuccessStatusCodeEvent?.Invoke(response, new ApiAssertEventArgs(response, "2**"));
+        if ((int)response.StatusCode < 400 || (int)response.StatusCode > 499)
+        {
+            throw new ApiAssertException($"Request's status code is not bad - {response.StatusCode}.", response.ResponseUri.ToString());
+        }
+    }
+
     public static void AssertContentNotEquals(this IMeasuredResponse response, string content)
     {
         AssertContentNotEqualsEvent?.Invoke(response, new ApiAssertEventArgs(response, content));
