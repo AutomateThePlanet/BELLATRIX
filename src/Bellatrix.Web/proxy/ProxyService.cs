@@ -36,10 +36,6 @@ public class ProxyService : IDisposable
     public ProxyService()
     {
         IsEnabled = ConfigurationService.GetSection<WebSettings>().ShouldCaptureHttpTraffic;
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            IsEnabled = false;
-        }
 
         if (IsEnabled)
         {
