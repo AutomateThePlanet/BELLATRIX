@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-	  <Configurations>Debug;Release;Test</Configurations>
+	  <Configurations>DEBUG;STAGE;QA;LOCAL</Configurations>
 	</PropertyGroup>
 	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 	<ItemGroup>
