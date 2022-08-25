@@ -74,10 +74,10 @@ public class ProxyService : IDisposable
         {
             Port = GetFreeTcpPort();
             var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, Port);
-
+            Console.WriteLine($"Start proxy on port {Port}"); 
             ProxyServer.AddEndPoint(explicitEndPoint);
             ProxyServer.Start();
-
+            Console.WriteLine($"PROXY STARTED");
             ProxyServer.BeforeRequest += OnRequestCaptureTrafficEventHandler;
             ProxyServer.BeforeResponse += OnResponseCaptureTrafficEventHandler;
             ProxyServer.BeforeRequest += OnRequestBlockResourceEventHandler;
@@ -169,6 +169,7 @@ public class ProxyService : IDisposable
     private async Task OnRequestCaptureTrafficEventHandler(object sender, SessionEventArgs e) => await Task.Run(
             () =>
             {
+                Console.WriteLine($"call to OnRequestCaptureTrafficEventHandler");
                 if (!RequestsHistory.ContainsKey(e.HttpClient.Request.GetHashCode()) && e.HttpClient != null && e.HttpClient.Request != null)
                 {
                     var measuredRequest = new MeasuredRequest(DateTime.Now, e.HttpClient.Request);

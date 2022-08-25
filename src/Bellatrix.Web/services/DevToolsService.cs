@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.DevTools;
-using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V103.DevToolsSessionDomains;
-using OpenQA.Selenium.DevTools.V103.DOMSnapshot;
-using OpenQA.Selenium.DevTools.V103.Network;
-using EnableCommandSettings = OpenQA.Selenium.DevTools.V103.Network.EnableCommandSettings;
-using OpenQA.Selenium.DevTools.V103.Security;
-using OpenQA.Selenium.DevTools.V103.Emulation;
-using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V103.Network.SetUserAgentOverrideCommandSettings;
-using OpenQA.Selenium.DevTools.V103.Console;
-using OpenQA.Selenium.DevTools.V103.Performance;
+using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V104.DevToolsSessionDomains;
+using OpenQA.Selenium.DevTools.V104.DOMSnapshot;
+using OpenQA.Selenium.DevTools.V104.Network;
+using EnableCommandSettings = OpenQA.Selenium.DevTools.V104.Network.EnableCommandSettings;
+using OpenQA.Selenium.DevTools.V104.Security;
+using OpenQA.Selenium.DevTools.V104.Emulation;
+using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V104.Network.SetUserAgentOverrideCommandSettings;
+using OpenQA.Selenium.DevTools.V104.Console;
+using OpenQA.Selenium.DevTools.V104.Performance;
 
 namespace Bellatrix.Web.services;
 
