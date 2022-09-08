@@ -91,11 +91,11 @@ public static class ProcessCleanupService
         {
             try
             {
-                ////var children = process.GetChildProcesses();
-                ////foreach (var child in children)
-                ////{
-                ////    child.Kill();
-                ////}
+                var children = process.GetChildProcesses();
+                foreach (var child in children)
+                {
+                    child.Kill();
+                }
 
                 process.Kill();
             }

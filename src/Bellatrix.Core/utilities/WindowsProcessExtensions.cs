@@ -17,3 +17,31 @@ using System.Diagnostics;
 using System.Management;
 
 namespace Bellatrix.Utilities;
+
+public static class WindowsProcessExtensions
+{
+    public static IEnumerable<Process> GetChildProcesses(this Process process)
+    {
+        var children = new List<Process>();
+        var mos = new ManagementObjectSearcher(string.Format("Select * From Win32_Process Where ParentProcessID={0}", process.Id));
+
+        foreach (ManagementObject mo in mos.Get())
+        {
+            children.Add(Process.GetProcessById(Convert.ToInt32(mo["ProcessID"])));
+        }
+
+        return children;
+    }
+
+    public static Process GetParentProcess(this Process process)
+    {
+        int parentPid = 0;
+        using (ManagementObject mo = new ManagementObject($"win32_process.handle='{process.Id}'"))
+        {
+            mo.Get();
+            parentPid = Convert.ToInt32(mo["ParentProcessId"]);
+        }
+
+        return Process.GetProcessById(parentPid);
+    }
+}
