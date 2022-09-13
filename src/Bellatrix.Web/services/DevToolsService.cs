@@ -14,8 +14,10 @@ using OpenQA.Selenium.DevTools.V104.Emulation;
 using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V104.Network.SetUserAgentOverrideCommandSettings;
 using OpenQA.Selenium.DevTools.V104.Console;
 using OpenQA.Selenium.DevTools.V104.Performance;
+using Bellatrix.Assertions;
+using System.Collections.Concurrent;
 
-namespace Bellatrix.Web.services;
+namespace Bellatrix.Web;
 
 public class DevToolsService : WebService, IDisposable
 {
@@ -28,6 +30,99 @@ public class DevToolsService : WebService, IDisposable
 
     public DevToolsSessionDomains DevToolsSessionDomains { get; set; }
     public DevToolsSession DevToolsSession { get; set; }
+    public List<NetworkRequestSentEventArgs> RequestsHistory { get; set; }
+    public List<NetworkResponseReceivedEventArgs> ResponsesHistory { get; set; }
+
+    public void StartMonitoringBiDiApi()
+    {
+        RequestsHistory = new();
+        ResponsesHistory = new();
+
+        INetwork networkInterceptor = WrappedDriver.Manage().Network;
+        networkInterceptor.NetworkResponseReceived += (o, s) =>
+        {
+            ResponsesHistory.Add(s);
+        };
+        networkInterceptor.NetworkRequestSent += (o, s) =>
+        {
+            RequestsHistory.Add(s);
+        };
+
+        networkInterceptor.StartMonitoring();
+    }
+
+    public void EmptyResponseAndRequestHistory()
+    {
+        RequestsHistory.Clear();
+        ResponsesHistory.Clear();
+    }
+
+    public List<string> GetSpecificRequestUrls(string requestName)
+    {
+        HashSet<NetworkRequestSentEventArgs> requests = new HashSet<NetworkRequestSentEventArgs>(RequestsHistory);
+        return requests.ToList()
+            .FindAll(r => r.RequestUrl.ToString().Contains(requestName))
+            .Select(fr => fr.RequestUrl).ToList();
+    }
+
+    public void OverrideScreenMetrics(long screenHeight, long screenWidth, bool mobile, double deviceScaleFactor)
+    {
+        var settings = new SetDeviceMetricsOverrideCommandSettings();
+        settings.ScreenHeight = screenHeight;
+        settings.ScreenWidth = screenWidth;
+        settings.Mobile = mobile;
+        settings.DeviceScaleFactor = deviceScaleFactor;
+
+        DevToolsSession.SendCommand(settings);
+    }
+
+    public long GetContentLengthForSpecificResponse(string requestName)
+    {
+        var exactResponse = long.Parse(ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(requestName)).ResponseHeaders["content-length"].ToString());
+
+        return exactResponse;
+    }
+
+    public string GetContentTypeForSpecificResponse(string requestName)
+    {
+        var exactResponse = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(requestName)).ResponseHeaders["content-type"].ToString();
+
+        return exactResponse;
+    }
+
+    public void Assert404ErrorCodeDisplayed(string path)
+    {
+        var response = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(path)).ResponseStatusCode.ToString();
+
+        Assert.AreEqual(response, "404", "404 Error code not detected on the page.");
+    }
+
+    public void AssertNoErrorCodes()
+    {
+        bool areThereErrorCodes = ResponsesHistory.Any(r => r.ResponseStatusCode > 400 && r.ResponseStatusCode < 599);
+        Assert.IsFalse(areThereErrorCodes, "Error codes detected on the page.");
+    }
+
+    public void AssertRequestMade(string url)
+    {
+        bool areRequestsMade = ResponsesHistory.Any(r => r.ResponseUrl.Contains(url));
+        Assert.IsTrue(areRequestsMade, $"Request {url} was not made.");
+    }
+
+    public void AssertRequestNotMade(string url)
+    {
+        bool areRequestsMade = ResponsesHistory.Any(r => r.ResponseUrl.Contains(url));
+        Assert.IsFalse(areRequestsMade, $"Request {url} was made.");
+    }
+
+    public int CalculateSpecificFileFormatCount(string fileFormat)
+    {
+        var exactResponse = ResponsesHistory.ToList().FindAll(r => r.ResponseUrl.Contains(fileFormat)).ToList();
+
+        var numberOfResponses = exactResponse.Count;
+
+        return numberOfResponses;
+    }
 
     public void DisableCache()
     {
