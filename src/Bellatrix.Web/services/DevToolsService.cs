@@ -51,7 +51,7 @@ public class DevToolsService : WebService, IDisposable
         networkInterceptor.StartMonitoring();
     }
 
-    public void EmptyResponseAndRequestHistory()
+    public void ClearRequestsResponsesHistory()
     {
         RequestsHistory.Clear();
         ResponsesHistory.Clear();
@@ -65,7 +65,7 @@ public class DevToolsService : WebService, IDisposable
             .Select(fr => fr.RequestUrl).ToList();
     }
 
-    public void OverrideScreenMetrics(long screenHeight, long screenWidth, bool mobile, double deviceScaleFactor)
+    public void OverrideScreenResolution(long screenHeight, long screenWidth, bool mobile, double deviceScaleFactor)
     {
         var settings = new SetDeviceMetricsOverrideCommandSettings();
         settings.ScreenHeight = screenHeight;
@@ -76,25 +76,25 @@ public class DevToolsService : WebService, IDisposable
         DevToolsSession.SendCommand(settings);
     }
 
-    public long GetContentLengthForSpecificResponse(string requestName)
+    public long GetResponseContentLengthByPartialUrl(string responseName)
     {
-        var exactResponse = long.Parse(ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(requestName)).ResponseHeaders["content-length"].ToString());
+        var exactResponse = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(responseName)).ResponseHeaders["content-length"].ToString();
+
+        return exactResponse.ToLong();
+    }
+
+    public string GetResponseContentTypeByPartialUrl(string responseName)
+    {
+        var exactResponse = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(responseName)).ResponseHeaders["content-type"].ToString();
 
         return exactResponse;
     }
 
-    public string GetContentTypeForSpecificResponse(string requestName)
+    public void AssertResponse404ErrorCodeRecievedByPartialUrl(string partialUrl)
     {
-        var exactResponse = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(requestName)).ResponseHeaders["content-type"].ToString();
+        var response = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseStatusCode;
 
-        return exactResponse;
-    }
-
-    public void Assert404ErrorCodeDisplayed(string path)
-    {
-        var response = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(path)).ResponseStatusCode.ToString();
-
-        Assert.AreEqual(response, "404", "404 Error code not detected on the page.");
+        Assert.AreEqual(response, 404, "404 Error code not detected on the page.");
     }
 
     public void AssertNoErrorCodes()
@@ -115,7 +115,7 @@ public class DevToolsService : WebService, IDisposable
         Assert.IsFalse(areRequestsMade, $"Request {url} was made.");
     }
 
-    public int CalculateSpecificFileFormatCount(string fileFormat)
+    public int CountRequestsMadeByFileFormat(string fileFormat)
     {
         var exactResponse = ResponsesHistory.ToList().FindAll(r => r.ResponseUrl.Contains(fileFormat)).ToList();
 
