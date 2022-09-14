@@ -76,16 +76,16 @@ public class DevToolsService : WebService, IDisposable
         DevToolsSession.SendCommand(settings);
     }
 
-    public long GetResponseContentLengthByPartialUrl(string responseName)
+    public long GetResponseContentLengthByPartialUrl(string partialUrl)
     {
-        var exactResponse = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(responseName)).ResponseHeaders["content-length"].ToString();
+        var exactResponse = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseHeaders["content-length"].ToString();
 
         return exactResponse.ToLong();
     }
 
-    public string GetResponseContentTypeByPartialUrl(string responseName)
+    public string GetResponseContentTypeByPartialUrl(string partialUrl)
     {
-        var exactResponse = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(responseName)).ResponseHeaders["content-type"].ToString();
+        var exactResponse = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseHeaders["content-type"].ToString();
 
         return exactResponse;
     }
