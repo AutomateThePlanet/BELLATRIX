@@ -26,11 +26,21 @@ public static class DisposeDriverService
 
     public static void Dispose(ServicesCollection childContainer)
     {
-        var webDriver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
-        webDriver?.Quit();
-        webDriver?.Dispose();
-        childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-        ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+        try
+        {
+            if (childContainer.IsRegistered<WindowsDriver<WindowsElement>>())
+            {
+                var webDriver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
+                webDriver?.Quit();
+                webDriver?.Dispose();
+                childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+                ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+            }
+        }
+        catch (System.Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(ex);
+        }
     }
 
     public static void DisposeAll()

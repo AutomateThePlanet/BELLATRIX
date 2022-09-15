@@ -1,7 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+  <ItemGroup>
+    <None Remove="Image Recognition\Images\chrome-dots-button.png" />
+    <None Remove="Image Recognition\Images\chrome-print-button.png" />
+    <None Remove="Image Recognition\Images\chrome-print-preview-grid.png" />
+    <None Remove="Image Recognition\Images\print-preview-cancel-button.png" />
+  </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bellatrix.ImageRecognition.SikuliX" Version="1.1.3" />
     <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.3.0" />
 
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
@@ -26,6 +33,13 @@
   <Target Name="CopyCategoriesToAllureFolder">
     <Copy SourceFiles="@(Categories)" DestinationFolder="$(OutputPath)\allure-results" />
   </Target>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Image Recognition\Images\chrome-dots-button.png" />
+    <EmbeddedResource Include="Image Recognition\Images\chrome-print-button.png" />
+    <EmbeddedResource Include="Image Recognition\Images\chrome-print-preview-grid.png" />
+    <EmbeddedResource Include="Image Recognition\Images\print-preview-cancel-button.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Update="allureConfig.json">
