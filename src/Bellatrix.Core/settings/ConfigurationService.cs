@@ -49,9 +49,10 @@ public sealed class ConfigurationService
         var builder = new ConfigurationBuilder();
         var executionDir = ExecutionDirectoryResolver.GetDriverExecutablePath();
         var filesInExecutionDir = Directory.GetFiles(executionDir);
+        var configuration = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyConfigurationAttribute>().Configuration;
         var settingsFile =
 #pragma warning disable CA1310 // Specify StringComparison for correctness
-                filesInExecutionDir.FirstOrDefault(x => x.Contains("testFrameworkSettings") && x.EndsWith(".json"));
+                filesInExecutionDir.FirstOrDefault(x => x.Contains("testFrameworkSettings") && x.Contains(configuration) && x.EndsWith(".json"));
 #pragma warning restore CA1310 // Specify StringComparison for correctness
         if (settingsFile != null)
         {
