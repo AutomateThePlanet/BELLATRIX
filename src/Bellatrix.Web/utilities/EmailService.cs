@@ -52,10 +52,10 @@ public static class EmailService
         File.WriteAllText(tempFilePath, htmlBody);
         var navigationService = ServicesCollection.Current.Resolve<NavigationService>();
 
-        #if DEBUG
+        #if DEBUG || QA
         navigationService.NavigateToLocalPage(tempFilePath);
-        #elif QA
-        navigationService.Navigate($"http://local-folder.lambdatest.com/{fileName}");
+        #elif QASAFARI || QAFIREFOX
+        navigationService.Navigate($"{ConfigurationService.GetSection<WebSettings>().ExecutionSettings.FileRemoteLocation}{fileName}");
         #endif
 
         return htmlBody;
