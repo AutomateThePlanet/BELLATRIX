@@ -55,7 +55,6 @@ public static class EmailService
         #if DEBUG || QA
         navigationService.NavigateToLocalPage(tempFilePath);
         #elif QASAFARI || QAFIREFOX
-        Logger.LogInformation("BrakePoint: 7 - QASafari");
         navigationService.Navigate($"{ConfigurationService.GetSection<WebSettings>().ExecutionSettings.FileRemoteLocation}{fileName}");
         #endif
 
