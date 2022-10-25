@@ -214,6 +214,25 @@ public class BrowserService : WebService
             onTimeout: () => { Logger.LogWarning($"Timed out waiting for open connections to be closed. Wait time: {maxSeconds} sec."); });
     }
 
+    public void WaitForIframeRequest(string requestPartialUrl, int additionalTimeoutInSeconds = 0)
+    {
+        Bellatrix.Utilities.Wait.Until(
+            () =>
+            {
+                string result = InvokeScript($"return performance.getEntriesByType('resource').filter(item => item.initiatorType == 'iframe' && item.name.toLowerCase().includes('{requestPartialUrl.ToLower()}'))[0] !== undefined;");
+                if (result == "True")
+                {
+                    return true;
+                }
+
+                return false;
+            },
+
+            timeoutInSeconds: ConfigurationService.GetSection<WebSettings>().TimeoutSettings.WaitForAjaxTimeout + additionalTimeoutInSeconds,
+            retryRateDelay: ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval * 1000,
+            exceptionMessage: $"Iframe request with url contains '{requestPartialUrl}' was not found.");
+    }
+
     public void PrintConsoleOutput()
     {
         var consoleLogs = WrappedDriver.Manage()?.Logs?.GetLog(LogType.Browser) ?? new ReadOnlyCollection<LogEntry>(new List<LogEntry>());
