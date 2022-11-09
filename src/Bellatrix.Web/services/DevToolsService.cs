@@ -97,16 +97,16 @@ public class DevToolsService : WebService, IDisposable
 
     public void AssertNoErrorCodes()
     {
-        bool areThereErrorCodes = ResponsesHistory.Any(r => r.ResponseStatusCode > 400 && r.ResponseStatusCode < 599);
+        bool hasErrorCode = ResponsesHistory.Any(r => r.ResponseStatusCode > 400 && r.ResponseStatusCode < 599);
 
-        Assert.IsFalse(areThereErrorCodes, "Error codes detected on the page.");
+        Assert.IsFalse(hasErrorCode, "Error codes detected on the page.");
     }
 
     public void AssertRequestMade(string url)
     {
-        bool areRequestsMade = ResponsesHistory.Any(r => r.ResponseUrl.Contains(url));
+        bool isRequestMade = ResponsesHistory.Any(r => r.ResponseUrl.Contains(url));
 
-        Assert.IsTrue(areRequestsMade, $"Request {url} was not made.");
+        Assert.IsTrue(isRequestMade, $"Request {url} was not made.");
     }
 
     public void AssertRequestNotMade(string url)
@@ -118,9 +118,9 @@ public class DevToolsService : WebService, IDisposable
 
     public int CountRequestsMadeByFileFormat(string fileFormat)
     {
-        var exactResponse = ResponsesHistory.ToList().FindAll(r => r.ResponseUrl.EndsWith(fileFormat)).ToList();
+        var responsesList = ResponsesHistory.ToList().FindAll(r => r.ResponseUrl.EndsWith(fileFormat)).ToList();
 
-        var numberOfResponses = exactResponse.Count;
+        var numberOfResponses = responsesList.Count;
 
         return numberOfResponses;
     }
