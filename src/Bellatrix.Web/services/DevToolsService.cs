@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.DevTools;
 using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V104.DevToolsSessionDomains;
@@ -15,7 +14,6 @@ using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V104.Networ
 using OpenQA.Selenium.DevTools.V104.Console;
 using OpenQA.Selenium.DevTools.V104.Performance;
 using Bellatrix.Assertions;
-using System.Collections.Concurrent;
 
 namespace Bellatrix.Web;
 
@@ -33,7 +31,7 @@ public class DevToolsService : WebService, IDisposable
     public List<NetworkRequestSentEventArgs> RequestsHistory { get; set; }
     public List<NetworkResponseReceivedEventArgs> ResponsesHistory { get; set; }
 
-    public void StartMonitoringBiDiApi()
+    public void StartNetworkTrafficMonitoring()
     {
         RequestsHistory = new();
         ResponsesHistory = new();
@@ -51,7 +49,7 @@ public class DevToolsService : WebService, IDisposable
         networkInterceptor.StartMonitoring();
     }
 
-    public void ClearRequestsResponsesHistory()
+    public void ClearNetworkTrafficHistory()
     {
         RequestsHistory.Clear();
         ResponsesHistory.Clear();
@@ -78,46 +76,49 @@ public class DevToolsService : WebService, IDisposable
 
     public long GetResponseContentLengthByPartialUrl(string partialUrl)
     {
-        var exactResponse = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseHeaders["content-length"].ToString();
+        var contentLength = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseHeaders["content-length"].ToString();
 
-        return exactResponse.ToLong();
+        return contentLength.ToLong();
     }
 
     public string GetResponseContentTypeByPartialUrl(string partialUrl)
     {
-        var exactResponse = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseHeaders["content-type"].ToString();
+        var contentType = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseHeaders["content-type"].ToString();
 
-        return exactResponse;
+        return contentType;
     }
 
     public void AssertResponse404ErrorCodeRecievedByPartialUrl(string partialUrl)
     {
-        var response = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseStatusCode;
+        var responseStatusCode = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseStatusCode;
 
-        Assert.AreEqual(response, 404, "404 Error code not detected on the page.");
+        Assert.AreEqual(responseStatusCode, 404, "404 Error code not detected on the page.");
     }
 
     public void AssertNoErrorCodes()
     {
         bool areThereErrorCodes = ResponsesHistory.Any(r => r.ResponseStatusCode > 400 && r.ResponseStatusCode < 599);
+
         Assert.IsFalse(areThereErrorCodes, "Error codes detected on the page.");
     }
 
     public void AssertRequestMade(string url)
     {
         bool areRequestsMade = ResponsesHistory.Any(r => r.ResponseUrl.Contains(url));
+
         Assert.IsTrue(areRequestsMade, $"Request {url} was not made.");
     }
 
     public void AssertRequestNotMade(string url)
     {
         bool areRequestsMade = ResponsesHistory.Any(r => r.ResponseUrl.Contains(url));
+
         Assert.IsFalse(areRequestsMade, $"Request {url} was made.");
     }
 
     public int CountRequestsMadeByFileFormat(string fileFormat)
     {
-        var exactResponse = ResponsesHistory.ToList().FindAll(r => r.ResponseUrl.Contains(fileFormat)).ToList();
+        var exactResponse = ResponsesHistory.ToList().FindAll(r => r.ResponseUrl.EndsWith(fileFormat)).ToList();
 
         var numberOfResponses = exactResponse.Count;
 
@@ -153,6 +154,7 @@ public class DevToolsService : WebService, IDisposable
     {
         var settings = new SetUserAgentOverrideCommandSettings();
         settings.UserAgent = userAgent;
+
         DevToolsSession.SendCommand(settings);
     }
 
@@ -181,6 +183,7 @@ public class DevToolsService : WebService, IDisposable
     {
         var settings = new SetIgnoreCertificateErrorsCommandSettings();
         settings.Ignore = true;
+
         DevToolsSession.SendCommand(settings);
     }
 
