@@ -22,8 +22,8 @@ internal class Viewport : ILayoutComponent
     {
         var javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
         Location = new Point(0, 0);
-        var viewportWidth = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientWidth, window.innerWidth || 0);").ToString());
-        var viewportHeight = int.Parse(javaScriptService.Execute("return Math.max(document.documenTComponent.clientHeight, window.innerHeight || 0);").ToString());
+        var viewportWidth = int.Parse(javaScriptService.Execute("return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);").ToString());
+        var viewportHeight = int.Parse(javaScriptService.Execute("return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);").ToString());
         Size = new Size(viewportWidth, viewportHeight);
     }
 
