@@ -1,4 +1,12 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools;
+using OpenQA.Selenium.DevTools.V106.Console;
+using OpenQA.Selenium.DevTools.V106.DOMSnapshot;
+using OpenQA.Selenium.DevTools.V106.Emulation;
+using OpenQA.Selenium.DevTools.V106.Network;
+using OpenQA.Selenium.DevTools.V106.Performance;
+using OpenQA.Selenium.DevTools.V106.Security;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
