@@ -26,7 +26,6 @@ using Bellatrix.Utilities;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Proxy;
-using Bellatrix.Web.services;
 using Bellatrix.Web.Services;
 using OpenQA.Selenium;
 

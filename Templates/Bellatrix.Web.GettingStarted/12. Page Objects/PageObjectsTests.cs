@@ -6,7 +6,7 @@ namespace Bellatrix.Web.GettingStarted;
 [TestFixture]
 public class PageObjectsTests : NUnit.WebTest
 {
-      // 1. As you most probably noticed this is like the 4th time we use almost the same elements and logic inside our tests.
+    // 1. As you most probably noticed this is like the 4th time we use almost the same elements and logic inside our tests.
     // Similar test writing approach leads to unreadable and hard to maintain tests.
     // Because of that people use the so-called Page Object design pattern to reuse their elements and pages' logic.
     // BELLATRIX comes with powerful built-in page objects which are much more readable and maintainable than regular vanilla WebDriver ones.
@@ -122,21 +122,21 @@ public class PageObjectsTests : NUnit.WebTest
 
         // You can move the creation of the data objects in a separate factory method or class.
         var billingInfo = new BillingInfo
-                                  {
-                                      FirstName = "In",
-                                      LastName = "Deepthought",
-                                      Company = "Automate The Planet Ltd.",
-                                      Country = "Bulgaria",
-                                      Address1 = "bul. Yerusalim 5",
-                                      Address2 = "bul. Yerusalim 6",
-                                      City = "Sofia",
-                                      State = "Sofia-Grad",
-                                      Zip = "1000",
-                                      Phone = "+00359894646464",
-                                      Email = "info@bellatrix.solutions",
-                                      ShouldCreateAccount = true,
-                                      OrderCommentsTextArea = "cool product",
-                                  };
+        {
+            FirstName = "In",
+            LastName = "Deepthought",
+            Company = "Automate The Planet Ltd.",
+            Country = "Bulgaria",
+            Address1 = "bul. Yerusalim 5",
+            Address2 = "bul. Yerusalim 6",
+            City = "Sofia",
+            State = "Sofia-Grad",
+            Zip = "1000",
+            Phone = "+00359894646464",
+            Email = "info@bellatrix.solutions",
+            ShouldCreateAccount = true,
+            OrderCommentsTextArea = "cool product",
+        };
 
         var checkoutPage = App.Create<CheckoutPage>();
         checkoutPage.FillBillingInfo(billingInfo);

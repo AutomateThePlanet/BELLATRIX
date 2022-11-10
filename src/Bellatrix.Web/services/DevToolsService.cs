@@ -1,20 +1,21 @@
-﻿using OpenQA.Selenium;
+﻿using Bellatrix.Assertions;
+using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools;
-using OpenQA.Selenium.DevTools.V106.Console;
-using OpenQA.Selenium.DevTools.V106.DOMSnapshot;
-using OpenQA.Selenium.DevTools.V106.Emulation;
-using OpenQA.Selenium.DevTools.V106.Network;
-using OpenQA.Selenium.DevTools.V106.Performance;
-using OpenQA.Selenium.DevTools.V106.Security;
-
+using OpenQA.Selenium.DevTools.V107.Console;
+using OpenQA.Selenium.DevTools.V107.DOMSnapshot;
+using OpenQA.Selenium.DevTools.V107.Emulation;
+using OpenQA.Selenium.DevTools.V107.Network;
+using OpenQA.Selenium.DevTools.V107.Performance;
+using OpenQA.Selenium.DevTools.V107.Security;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V107.DevToolsSessionDomains;
+using EnableCommandSettings = OpenQA.Selenium.DevTools.V107.Network.EnableCommandSettings;
+using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V107.Network.SetUserAgentOverrideCommandSettings;
 
-using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V106.DevToolsSessionDomains;
-using EnableCommandSettings = OpenQA.Selenium.DevTools.V106.Network.EnableCommandSettings;
-using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V106.Network.SetUserAgentOverrideCommandSettings;
-
-namespace Bellatrix.Web.services;
+namespace Bellatrix.Web;
 
 public class DevToolsService : WebService, IDisposable
 {
@@ -27,6 +28,102 @@ public class DevToolsService : WebService, IDisposable
 
     public DevToolsSessionDomains DevToolsSessionDomains { get; set; }
     public DevToolsSession DevToolsSession { get; set; }
+    public List<NetworkRequestSentEventArgs> RequestsHistory { get; set; }
+    public List<NetworkResponseReceivedEventArgs> ResponsesHistory { get; set; }
+
+    public void StartNetworkTrafficMonitoring()
+    {
+        RequestsHistory = new();
+        ResponsesHistory = new();
+
+        INetwork networkInterceptor = WrappedDriver.Manage().Network;
+        networkInterceptor.NetworkResponseReceived += (o, s) =>
+        {
+            ResponsesHistory.Add(s);
+        };
+        networkInterceptor.NetworkRequestSent += (o, s) =>
+        {
+            RequestsHistory.Add(s);
+        };
+
+        networkInterceptor.StartMonitoring();
+    }
+
+    public void ClearNetworkTrafficHistory()
+    {
+        RequestsHistory.Clear();
+        ResponsesHistory.Clear();
+    }
+
+    public List<string> GetSpecificRequestUrls(string requestName)
+    {
+        HashSet<NetworkRequestSentEventArgs> requests = new HashSet<NetworkRequestSentEventArgs>(RequestsHistory);
+        return requests.ToList()
+            .FindAll(r => r.RequestUrl.ToString().Contains(requestName))
+            .Select(fr => fr.RequestUrl).ToList();
+    }
+
+    public void OverrideScreenResolution(long screenHeight, long screenWidth, bool mobile, double deviceScaleFactor)
+    {
+        var settings = new SetDeviceMetricsOverrideCommandSettings();
+        settings.ScreenHeight = screenHeight;
+        settings.ScreenWidth = screenWidth;
+        settings.Mobile = mobile;
+        settings.DeviceScaleFactor = deviceScaleFactor;
+
+        DevToolsSession.SendCommand(settings);
+    }
+
+    public long GetResponseContentLengthByPartialUrl(string partialUrl)
+    {
+        var contentLength = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseHeaders["content-length"].ToString();
+
+        return contentLength.ToLong();
+    }
+
+    public string GetResponseContentTypeByPartialUrl(string partialUrl)
+    {
+        var contentType = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseHeaders["content-type"].ToString();
+
+        return contentType;
+    }
+
+    public void AssertResponse404ErrorCodeRecievedByPartialUrl(string partialUrl)
+    {
+        var responseStatusCode = ResponsesHistory.ToList().Find(r => r.ResponseUrl.Contains(partialUrl)).ResponseStatusCode;
+
+        Assert.AreEqual(responseStatusCode, 404, "404 Error code not detected on the page.");
+    }
+
+    public void AssertNoErrorCodes()
+    {
+        bool hasErrorCode = ResponsesHistory.Any(r => r.ResponseStatusCode > 400 && r.ResponseStatusCode < 599);
+
+        Assert.IsFalse(hasErrorCode, "Error codes detected on the page.");
+    }
+
+    public void AssertRequestMade(string url)
+    {
+        bool isRequestMade = ResponsesHistory.Any(r => r.ResponseUrl.Contains(url));
+
+        Assert.IsTrue(isRequestMade, $"Request {url} was not made.");
+    }
+
+    public void AssertRequestNotMade(string url)
+    {
+        bool areRequestsMade = ResponsesHistory.Any(r => r.ResponseUrl.Contains(url));
+
+        Assert.IsFalse(areRequestsMade, $"Request {url} was made.");
+    }
+
+    public int CountRequestsMadeByFileFormat(string fileFormat)
+    {
+        var responsesList = ResponsesHistory.ToList().FindAll(r => r.ResponseUrl.EndsWith(fileFormat)).ToList();
+
+        var numberOfResponses = responsesList.Count;
+
+        return numberOfResponses;
+    }
 
     public void DisableCache()
     {
@@ -57,6 +154,7 @@ public class DevToolsService : WebService, IDisposable
     {
         var settings = new SetUserAgentOverrideCommandSettings();
         settings.UserAgent = userAgent;
+
         DevToolsSession.SendCommand(settings);
     }
 
@@ -85,6 +183,7 @@ public class DevToolsService : WebService, IDisposable
     {
         var settings = new SetIgnoreCertificateErrorsCommandSettings();
         settings.Ignore = true;
+
         DevToolsSession.SendCommand(settings);
     }
 
