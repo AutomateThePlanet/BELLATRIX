@@ -38,4 +38,11 @@ public class DialogService : WebService
             WrappedDriver.SwitchTo().DefaultContent();
         }
     }
+
+    public string GetText()
+    {
+        var alert = WrappedDriver.SwitchTo().Alert();
+
+        return alert.Text;
+    }
 }
