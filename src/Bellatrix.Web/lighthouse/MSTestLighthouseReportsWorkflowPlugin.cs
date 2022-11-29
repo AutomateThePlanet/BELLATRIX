@@ -35,19 +35,19 @@ public class MSTestLighthouseReportsWorkflowPlugin : Plugin
             lock (_lockObject)
             {
                 var driverExecutablePath = new DirectoryInfo(ExecutionDirectoryResolver.GetDriverExecutablePath());
-                var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
+                var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                 if (file != null && file.Exists)
                 {
                     TestContext?.AddResultFile(file.FullName);
                 }
 
-                file = driverExecutablePath.GetFiles("*.report.html", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
+                file = driverExecutablePath.GetFiles("*.report.html", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                 if (file != null && file.Exists)
                 {
                     TestContext?.AddResultFile(file.FullName);
                 }
 
-                file = driverExecutablePath.GetFiles("*.report.csv", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
+                file = driverExecutablePath.GetFiles("*.report.csv", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                 if (file != null && file.Exists)
                 {
                     TestContext?.AddResultFile(file.FullName);
