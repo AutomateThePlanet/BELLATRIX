@@ -238,7 +238,7 @@ public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
             string testName = e.TestFullName != null ? e.TestFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty) : e.TestClassType.FullName;
             InitializeGridOptionsFromConfiguration(options, e.TestClassType, testName);
             InitializeCustomCodeOptions(options, e.TestClassType);
-            var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic: false, shouldDisableJavaScript: false, shouldAutomaticallyScrollToVisible, options);
+            var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, false, false, shouldAutomaticallyScrollToVisible, options);
             e.Container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
 
             return browserConfiguration;
