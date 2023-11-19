@@ -16,7 +16,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using Bellatrix.Desktop.Configuration;
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop.Services;
@@ -32,19 +34,19 @@ public class WrappedWebDriverCreateService
 
     public static WindowsDriver<WindowsElement> Create(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
     {
-        var driverOptions = childContainer.Resolve<DesiredCapabilities>(appConfiguration.ClassFullName) ?? childContainer.Resolve<DesiredCapabilities>() ?? appConfiguration.AppiumOptions;
-        driverOptions.SetCapability("app", appConfiguration.AppPath);
-        driverOptions.SetCapability("deviceName", "WindowsPC");
-        driverOptions.SetCapability("platformName", "Windows");
+        var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? childContainer.Resolve<AppiumOptions>() ?? appConfiguration.AppiumOptions;
+        driverOptions.PlatformName = "Windows";
+        driverOptions.AddAdditionalCapability("deviceName", "WindowsPC");
+        driverOptions.AddAdditionalCapability("app", appConfiguration.AppPath);
         string workingDir = Path.GetDirectoryName(appConfiguration.AppPath);
-        driverOptions.SetCapability("appWorkingDir", workingDir);
-        driverOptions.SetCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.CreateSessionTimeout);
-        driverOptions.SetCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.WaitForAppLaunchTimeout);
+        driverOptions.AddAdditionalCapability("appWorkingDir", workingDir);
+        driverOptions.AddAdditionalCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.CreateSessionTimeout);
+        driverOptions.AddAdditionalCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.WaitForAppLaunchTimeout);
 
         var additionalCapabilities = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{appConfiguration.ClassFullName}") ?? new Dictionary<string, object>();
         foreach (var additionalCapability in additionalCapabilities)
         {
-            driverOptions.SetCapability(additionalCapability.Key, additionalCapability.Value);
+            driverOptions.AddAdditionalCapability(additionalCapability.Key, additionalCapability.Value);
         }
 
         var wrappedWebDriver = new WindowsDriver<WindowsElement>(new Uri(_serviceUrl), driverOptions);
@@ -56,7 +58,8 @@ public class WrappedWebDriverCreateService
         try
         {
             var closeButton = wrappedWebDriver.FindElementByAccessibilityId("Close");
-            wrappedWebDriver.Mouse.MouseMove(closeButton.Coordinates);
+            var action = new Actions(wrappedWebDriver);
+            action.MoveToElement(closeButton).Perform();
         }
         catch (Exception e)
         {

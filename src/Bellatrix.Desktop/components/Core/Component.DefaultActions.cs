@@ -15,8 +15,7 @@ using System;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 using Bellatrix.Layout;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Interactions;
 
 namespace Bellatrix.Desktop;
 
@@ -35,7 +34,8 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
     {
         hovering?.Invoke(this, new ComponentActionEventArgs(this));
 
-        WrappedDriver.Mouse.MouseMove(WrappedElement.Coordinates);
+        var action = new Actions(WrappedDriver);
+        action.MoveToElement(WrappedElement).Perform();
 
         hovered?.Invoke(this, new ComponentActionEventArgs(this));
     }

@@ -12,12 +12,10 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.Services;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop;
 
@@ -30,7 +28,7 @@ public class AppAttribute : Attribute
         AppConfiguration.AppPath = appPath;
         AppConfiguration.Lifecycle = lifecycle;
         AppConfiguration.Size = default;
-        AppConfiguration.AppiumOptions = new DesiredCapabilities();
+        AppConfiguration.AppiumOptions = new AppiumOptions();
     }
 
     public AppAttribute(string appPath, int width, int height, Lifecycle behavior = Lifecycle.NotSet)

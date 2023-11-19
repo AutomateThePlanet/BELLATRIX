@@ -14,7 +14,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Bellatrix.Desktop.Configuration;
@@ -23,7 +22,6 @@ using Bellatrix.KeyVault;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop.Plugins;
 
@@ -167,7 +165,7 @@ public class AppLifecyclePlugin : Plugin
                 AppPath = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.DefaultAppPath,
                 Lifecycle = currentLifecycle,
                 Size = currentAppSize,
-                AppiumOptions = new DesiredCapabilities(),
+                AppiumOptions = new AppiumOptions(),
                 ClassFullName = testClassType.FullName,
             };
 
