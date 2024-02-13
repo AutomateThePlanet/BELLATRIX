@@ -47,12 +47,7 @@ public class ScreenshotPlugin : Plugin
         {
             if (_isEnabled && e.TestOutcome != TestOutcome.Passed)
             {
-                var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
-                var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestName);
-                string image = _screenshotEngine.TakeScreenshot(e.Container);
-                string imagePath = Path.Combine(screenshotSaveDir, screenshotFileName);
-                File.WriteAllBytes(imagePath, Convert.FromBase64String(image));
-                _screenshotPluginProvider.ScreenshotGenerated(e, imagePath);
+                TakeScreenshotAndSaveAsFile(e);
             }
         }
         catch (Exception ex)
@@ -63,6 +58,23 @@ public class ScreenshotPlugin : Plugin
         }
 
         base.PreTestCleanup(sender, e);
+    }
+
+    protected override void TestCleanupFailed(object sender, PluginEventArgs e)
+    {
+        TakeScreenshotAndSaveAsFile(e);
+
+        base.TestCleanupFailed(sender, e);
+    }
+
+    private void TakeScreenshotAndSaveAsFile(PluginEventArgs e)
+    {
+        var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
+        var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestName);
+        string image = _screenshotEngine.TakeScreenshot(e.Container);
+        string imagePath = Path.Combine(screenshotSaveDir, screenshotFileName);
+        File.WriteAllBytes(imagePath, Convert.FromBase64String(image));
+        _screenshotPluginProvider.ScreenshotGenerated(e, imagePath);
     }
 
     private void InitializeScreenshotProviderObservers()

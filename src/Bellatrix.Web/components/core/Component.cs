@@ -18,6 +18,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading;
+using Azure.AI.FormRecognizer.Models;
 using Bellatrix.CognitiveServices;
 using Bellatrix.CognitiveServices.services;
 using Bellatrix.Plugins.Screenshots;

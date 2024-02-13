@@ -72,7 +72,7 @@ public class BrowserService : WebService
 
     /// <summary>
     /// Static wait that calls Thread.Sleep().
-    /// USE IN EXTREAM CONDITIONS WHEN NO OTHER WAIT WORKS.
+    /// USE IN EXTREME CONDITIONS WHEN NO OTHER WAIT WORKS.
     /// </summary>
     /// <param name="timeoutMilliseconds">Timeout milliseconds. Default 1000 ms = 1 second.</param>
     public void WaitForUserInteraction(int timeoutMilliseconds = 1000)
@@ -216,12 +216,27 @@ public class BrowserService : WebService
 
     public void PrintConsoleOutput()
     {
-        var consoleLogs = WrappedDriver.Manage()?.Logs?.GetLog(LogType.Browser) ?? new ReadOnlyCollection<LogEntry>(new List<LogEntry>());
+        var consoleLogs = GetConsoleOutput();
 
         if (consoleLogs.Any())
         {
             Console.Error.WriteLine($"Browser console output: \r\n{consoleLogs.Stringify()}");
         }
+    }
+
+    public ReadOnlyCollection<LogEntry> GetConsoleOutput()
+    {
+        try
+        {
+            return WrappedDriver.Manage()?.Logs?.GetLog(LogType.Browser) ?? new ReadOnlyCollection<LogEntry>(new List<LogEntry>());
+
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError("Browser console output cannot be extracted: " + ex.Message);
+        }
+
+        return new ReadOnlyCollection<LogEntry>(new List<LogEntry>());
     }
 
     public void InjectNotificationToast(string message, int timeoutMillis = 1500, ToastNotificationType type = ToastNotificationType.Information)

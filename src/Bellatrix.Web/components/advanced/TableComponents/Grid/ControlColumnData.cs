@@ -24,7 +24,7 @@ public class ControlColumnData : IHeaderInfo
         Order = order;
     }
 
-    public ControlColumnData(string headerName, dynamic by, Type elementType, int order = 0)
+    public ControlColumnData(string headerName, FindStrategy by, Type elementType, int order = 0)
         : this(headerName)
     {
         By = by;

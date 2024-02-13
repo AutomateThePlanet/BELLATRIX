@@ -22,6 +22,7 @@ public class TestExecutionEngine
 {
     public void StartBrowser(BrowserConfiguration browserConfiguration, ServicesCollection childContainer)
     {
+        var currentContainer = ServicesCollection.Current;
         try
         {
             var wrappedWebDriver = WrappedWebDriverCreateService.Create(browserConfiguration);
@@ -32,6 +33,13 @@ public class TestExecutionEngine
             childContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(wrappedWebDriver));
             childContainer.RegisterNull<int?>();
             childContainer.RegisterNull<IWebElement>();
+
+            currentContainer.RegisterInstance<IWebDriver>(wrappedWebDriver);
+            currentContainer.RegisterInstance(((WebDriver)wrappedWebDriver).SessionId.ToString(), "SessionId");
+            currentContainer.RegisterInstance(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url, "GridUri");
+            currentContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(wrappedWebDriver));
+            currentContainer.RegisterNull<int?>();
+            currentContainer.RegisterNull<IWebElement>();
             IsBrowserStartedCorrectly = true;
         }
         catch (Exception ex)

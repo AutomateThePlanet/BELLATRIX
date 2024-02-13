@@ -39,7 +39,7 @@ public class FooterService
     public virtual List<HtmlNode> Rows => _tableFooter
                         .SelectNodes("//tr[ancestor::tfoot]")?
                         .Where(a => a.GetAttributeValue("style", null) != "display:none")
-                        .ToList();
+                        .ToList() ?? new List<HtmlNode>();
     public List<List<string>> GetFooterRowsData()
     {
         InitializeFooterRows();

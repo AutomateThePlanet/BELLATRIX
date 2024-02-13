@@ -29,11 +29,14 @@ public static class DisposeDriverService
             driver?.Close();
             driver?.Quit();
             driver?.Dispose();
-            ServicesCollection.Current?.UnregisterSingleInstance<IWebDriver>();
         }
         catch (Exception ex)
         {
             DebugInformation.PrintStackTrace(ex);
+        }
+        finally
+        {
+            ServicesCollection.Current?.UnregisterSingleInstance<IWebDriver>();
         }
 
         ProcessCleanupService.KillPreviousDriversAndBrowsersOsAgnostic(TestRunStartTime);
@@ -46,11 +49,14 @@ public static class DisposeDriverService
             webDriver?.Close();
             webDriver?.Quit();
             webDriver?.Dispose();
-            container?.UnregisterSingleInstance<IWebDriver>();
         }
         catch (Exception ex)
         {
             DebugInformation.PrintStackTrace(ex);
+        }
+        finally 
+        { 
+            container?.UnregisterSingleInstance<IWebDriver>(); 
         }
 
         ProcessCleanupService.KillPreviousDriversAndBrowsersOsAgnostic(TestRunStartTime);
@@ -66,11 +72,14 @@ public static class DisposeDriverService
                 driver?.Close();
                 driver?.Quit();
                 driver?.Dispose();
-                childContainer?.UnregisterSingleInstance<IWebDriver>();
             }
             catch (Exception ex)
             {
                 DebugInformation.PrintStackTrace(ex);
+            }
+            finally
+            {
+                childContainer?.UnregisterSingleInstance<IWebDriver>();
             }
         }
     }

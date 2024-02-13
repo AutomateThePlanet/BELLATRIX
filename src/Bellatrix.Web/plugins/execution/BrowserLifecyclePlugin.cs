@@ -31,7 +31,7 @@ using OpenQA.Selenium.IE;
 
 namespace Bellatrix.Web.Plugins.Browser;
 
-public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
+public class BrowserLifecyclePlugin : Plugin
 {
     protected override void PreTestsArrange(object sender, Bellatrix.Plugins.PluginEventArgs e)
     {
@@ -238,7 +238,16 @@ public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
             string testName = e.TestFullName != null ? e.TestFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty) : e.TestClassType.FullName;
             InitializeGridOptionsFromConfiguration(options, e.TestClassType, testName);
             InitializeCustomCodeOptions(options, e.TestClassType);
-            var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic: false, shouldDisableJavaScript: false, shouldAutomaticallyScrollToVisible, options);
+            var browserConfiguration = new BrowserConfiguration(
+                executionType: executionType,
+                browserBehavior: currentLifecycle,
+                browserType: currentBrowserType,
+                size: currentBrowserSize,
+                classFullName: fullClassName,
+                shouldCaptureHttpTraffic: false,
+                shouldDisableJavaScript: false,
+                shouldAutomaticallyScrollToVisible: shouldAutomaticallyScrollToVisible,
+                driverOptions: options);
             e.Container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
 
             return browserConfiguration;

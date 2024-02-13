@@ -14,6 +14,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Bellatrix.Web;
 
@@ -78,5 +80,20 @@ public static class GridExtensions
         table.ControlColumnDataCollection.Add(new ControlColumnData(headerName, controlInnerLocator, elementType));
 
         return table;
+    }
+
+    public static Grid SetModelColumns<TGridModel>(this Grid grid)
+          where TGridModel : class
+    {
+        grid.ControlColumnDataCollection = new List<IHeaderInfo>();
+        foreach (PropertyInfo property in typeof(TGridModel).GetProperties())
+        {
+            var headerNameAttribute = (HeaderNameAttribute)property.GetCustomAttributes(typeof(HeaderNameAttribute), false).FirstOrDefault();
+            var headerName = headerNameAttribute != null ? headerNameAttribute.Name : property.Name;
+
+            grid.ControlColumnDataCollection.Add(new ControlColumnData(headerName));
+        }
+
+        return grid;
     }
 }

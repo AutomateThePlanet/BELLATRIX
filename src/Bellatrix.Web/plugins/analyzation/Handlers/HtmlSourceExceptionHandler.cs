@@ -35,7 +35,17 @@ public abstract class HtmlSourceExceptionHandler : IExceptionAnalysationHandler
             throw new ArgumentNullException(nameof(BrowserService));
         }
 
-        var result = browserService.HtmlSource.Contains(TextToSearchInSource);
-        return result;
+        bool containsText = false;
+        try
+        {
+            containsText = browserService.HtmlSource.Contains(TextToSearchInSource);
+
+        }
+        catch (Exception err)
+        {
+            Logger.LogError("Could not get HTML source: " + err.Message);
+        }
+
+        return containsText;
     }
 }

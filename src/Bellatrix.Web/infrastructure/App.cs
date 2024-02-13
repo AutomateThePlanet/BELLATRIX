@@ -50,12 +50,11 @@ public class App : IDisposable
     public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
     public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
     public LighthouseService Lighthouse => ServicesCollection.Current.Resolve<LighthouseService>();
+    public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
+    public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
     public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
     public ProxyService Proxy => ServicesCollection.Current.Resolve<ProxyService>();
 
-    public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
-
-    public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
     public AWSServicesFactory AWS => ServicesCollection.Current.Resolve<AWSServicesFactory>();
 
     public ApiClientService ApiClient
@@ -156,6 +155,15 @@ public class App : IDisposable
         where TExecutionExtension : Plugin
     {
         ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
+    }
+
+    public void AddPlugin<TExecutionExtension>(bool isEnabled)
+        where TExecutionExtension : Plugin
+    {
+        if (isEnabled)
+        {
+            ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
+        }
     }
 
     public void Initialize()

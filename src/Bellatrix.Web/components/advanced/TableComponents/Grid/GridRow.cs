@@ -117,18 +117,31 @@ public class GridRow : Component, IComponentInnerHtml
         return GetCells(selector).FirstOrDefault();
     }
 
-    public T GetItem<T>()
+    public T GetItem<T>(params string[] propertiesToSkip)
         where T : new()
     {
-        return _parentGrid.CastRow<T>(Index);
+        return _parentGrid.CastRow<T>(Index, propertiesToSkip);
     }
 
     public void AssertRow<T>(T expectedItem, params string[] propertiesNotToCompare)
         where T : new()
     {
-        var actualItem = GetItem<T>();
+        var actualItem = GetItem<T>(propertiesNotToCompare);
 
         EntitiesAsserter.AreEqual(expectedItem, actualItem, propertiesNotToCompare);
+    }
+
+    public void AssertRow<T>(T expectedItem)
+        where T : new()
+    {
+        var propsNotToCompare = expectedItem
+                .GetType()
+                .GetProperties()
+                .Where(p => p.GetValue(expectedItem) == null)
+                .Select(n => _parentGrid.HeaderNamesService.GetHeaderNameByProperty(n))
+                .ToArray();
+
+        AssertRow(expectedItem, propsNotToCompare);
     }
 
     internal void DefaultClick<TComponent>(

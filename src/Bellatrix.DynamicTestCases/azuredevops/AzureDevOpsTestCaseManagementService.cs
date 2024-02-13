@@ -28,7 +28,7 @@ public class AzureDevOpsTestCaseManagementService : ITestCaseManagementService
         _azureTestCasesService = new AzureTestCasesService();
     }
 
-    public TestCase InitTestCase(TestCasesContext testCasesContext)
+    public TestCase UpdateTestCaseStepAndCreateANewTestCase(TestCasesContext testCasesContext)
     {
         var createdTestCase = new AzureTestCase();
         var existingTestCase = testCasesContext.TestCase != null ? ServicesCollection.Current.Resolve<AzureTestCase>() : null;

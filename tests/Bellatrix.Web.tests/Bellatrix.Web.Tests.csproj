@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+
   <ItemGroup>
     <None Remove="Image Recognition\Images\chrome-dots-button.png" />
     <None Remove="Image Recognition\Images\chrome-print-button.png" />

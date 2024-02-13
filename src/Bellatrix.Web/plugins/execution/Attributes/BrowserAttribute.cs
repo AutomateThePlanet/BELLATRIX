@@ -121,7 +121,7 @@ public class BrowserAttribute : Attribute
 
     protected string GetTestFullName(MemberInfo memberInfo, Type testClassType)
     {
-        string testFullName = $"{testClassType.FullName}.{memberInfo.Name}";
+        string testFullName = $"{testClassType.FullName}.{memberInfo?.Name}".Trim('.');
         string testName = testFullName != null ? testFullName.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace(",", string.Empty).Replace("\"", string.Empty) : testClassType.FullName;
         return testName;
     }

@@ -89,6 +89,12 @@ public static class WrappedWebDriverCreateService
                 {
                     options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
                 }
+                options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+                options.SetLoggingPreference("performance", LogLevel.All);
+                options.AddUserProfilePreference("disable-popup-blocking", "true");
+                options.AddUserProfilePreference("safebrowsing.enabled", "true");
+                options.AddArguments("--disable-dev-shm-usage");
+
                 wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), options.ToCapabilities(), TimeSpan.FromSeconds(180));
 
                 IAllowsFileDetection allowsDetection = wrappedWebDriver as IAllowsFileDetection;
@@ -190,6 +196,8 @@ public static class WrappedWebDriverCreateService
                 chromeDriverService.EnableVerboseLogging = false;
                 var chromeOptions = executionConfiguration.DriverOptions;
                 chromeOptions.AddArguments("--log-level=3");
+                chromeOptions.AddUserProfilePreference("disable-popup-blocking", "true");
+                chromeOptions.AddUserProfilePreference("safebrowsing.enabled", "true");
                 Port = GetFreeTcpPort();
                 chromeDriverService.Port = Port;
                 DebuggerPort = GetFreeTcpPort();
@@ -231,7 +239,7 @@ public static class WrappedWebDriverCreateService
                 chromeOptions.SetLoggingPreference("performance", LogLevel.All);
 
                 wrappedWebDriver = new ChromeDriver(chromeDriverService, chromeOptions);
-                //wrappedWebDriver.Manage().Window.Position = new System.Drawing.Point(2000, 1); // To 2nd monitor. 
+                //wrappedWebDriver.Manage().Window.Position = new System.Drawing.Point(2000, 1); // To 2nd monitor.
                 wrappedWebDriver.Manage().Window.Maximize();
                 break;
             case BrowserType.ChromeHeadless:
@@ -241,9 +249,8 @@ public static class WrappedWebDriverCreateService
                 Port = GetFreeTcpPort();
                 chromeHeadlessDriverService.Port = Port;
                 var chromeHeadlessOptions = executionConfiguration.DriverOptions;
-                chromeHeadlessOptions.AddArguments("--headless");
+                chromeHeadlessOptions.AddArguments("--headless=new");
                 chromeHeadlessOptions.AddArguments("--log-level=3");
-
                 chromeHeadlessOptions.AddArguments("--test-type");
                 chromeHeadlessOptions.AddArguments("--disable-infobars");
                 chromeHeadlessOptions.AddArguments("--allow-no-sandbox-job");
@@ -354,7 +361,7 @@ public static class WrappedWebDriverCreateService
             case BrowserType.FirefoxHeadless:
                 new DriverManager().SetUpDriver(new FirefoxConfig());
                 var firefoxHeadlessOptions = executionConfiguration.DriverOptions;
-                firefoxHeadlessOptions.AddArguments("--headless");
+                firefoxHeadlessOptions.AddArguments("--headless=new");
                 firefoxHeadlessOptions.AddAdditionalOption("acceptInsecureCerts", true);
                 if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                 {
@@ -435,7 +442,7 @@ public static class WrappedWebDriverCreateService
             case BrowserType.EdgeHeadless:
                 ////new DriverManager().SetUpDriver(new EdgeConfig());
                 var edgeHeadlessOptions = executionConfiguration.DriverOptions;
-                edgeHeadlessOptions.AddArguments("--headless");
+                edgeHeadlessOptions.AddArguments("--headless=new");
                 edgeHeadlessOptions.AddArguments("--log-level=3");
 
                 edgeHeadlessOptions.AddArguments("--test-type");
@@ -553,7 +560,6 @@ public static class WrappedWebDriverCreateService
         return port;
     }
 
-    // TODO  Dushka (01.10.2021) Read all experimental options from config file
     private static string[] GetExperimentalOptions()
     {
         var downloadDirectory = Path.Combine("home", Environment.UserName, "Downloads");

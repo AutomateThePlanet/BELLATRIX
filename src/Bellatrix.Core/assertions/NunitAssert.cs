@@ -20,9 +20,9 @@ namespace Bellatrix.Assertions.NUnit;
 
 public class NUnitAssert : IAssert
 {
-    public void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds) => NU.Assert.That(actualDate, NU.Is.EqualTo(actualDate).Within(deltaSeconds).Seconds);
+    public void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds) => NU.Assert.That(actualDate, NU.Is.EqualTo(expectedDate).Within(deltaSeconds).Seconds);
 
-    public void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds, string message) => NU.Assert.That(actualDate, NU.Is.EqualTo(actualDate).Within(deltaSeconds).Seconds, message);
+    public void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds, string message) => NU.Assert.That(actualDate, NU.Is.EqualTo(expectedDate).Within(deltaSeconds).Seconds, message);
 
     public void AreEqual(double expected, double actual, double delta) => NU.Assert.AreEqual(expected, actual, delta);
 

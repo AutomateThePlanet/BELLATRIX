@@ -12,6 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using Bellatrix.Web.Enums;
@@ -117,6 +118,7 @@ public class SelenoidAttribute : BrowserAttribute, IDriverOptionsAttribute
         var driverOptions = GetDriverOptionsBasedOnBrowser(testClassType);
         AddAdditionalCapabilities(testClassType, driverOptions);
         driverOptions.BrowserVersion = BrowserVersion;
+        Dictionary<string, object> selenoidOptions = new Dictionary<string, object>();
 
         switch (Browser)
         {
@@ -127,30 +129,34 @@ public class SelenoidAttribute : BrowserAttribute, IDriverOptionsAttribute
             case BrowserType.Firefox:
             case BrowserType.InternetExplorer:
             case BrowserType.Opera:
-                driverOptions.AddAdditionalCapability("name", runName, true);
-                driverOptions.AddAdditionalCapability("videoName", $"{runName}.{timestamp}.mp4", true);
-                driverOptions.AddAdditionalCapability("logName", $"{runName}.{timestamp}.log", true);
-                driverOptions.AddAdditionalCapability("enableVNC", EnableVnc, true);
-                driverOptions.AddAdditionalCapability("enableVideo", RecordVideo, true);
-                driverOptions.AddAdditionalCapability("enableLog", SaveSessionLogs, true);
-                driverOptions.AddAdditionalCapability("screenResolution", ScreenResolution, true);
+                selenoidOptions.Add("name", runName);
+                selenoidOptions.Add("videoName", $"{runName}.{timestamp}.mp4");
+                selenoidOptions.Add("logName", $"{runName}.{timestamp}.log");
+                selenoidOptions.Add("enableVNC", EnableVnc);
+                selenoidOptions.Add("enableVideo", RecordVideo);
+                selenoidOptions.Add("enableLog", SaveSessionLogs);
+                selenoidOptions.Add("screenResolution", ScreenResolution);
+                driverOptions.AddAdditionalOption("selenoid:options", selenoidOptions);
                 break;
 
             // Headless sessions are much simpler and do not support video or vnc
             case BrowserType.ChromeHeadless:
             case BrowserType.FirefoxHeadless:
-                driverOptions.AddAdditionalCapability("name", runName, true);
-                driverOptions.AddAdditionalCapability("logName", $"{runName}.{timestamp}.log", true);
-                driverOptions.AddAdditionalCapability("enableLog", SaveSessionLogs, true);
-                driverOptions.AddAdditionalCapability("screenResolution", ScreenResolution, true);
+                selenoidOptions.Add("name", runName);
+                selenoidOptions.Add("logName", $"{runName}.{timestamp}.log");
+                selenoidOptions.Add("enableLog", SaveSessionLogs);
+                selenoidOptions.Add("screenResolution", ScreenResolution);
+                driverOptions.AddAdditionalOption("selenoid:options", selenoidOptions);
                 break;
             default:
-                driverOptions.AddAdditionalCapability("name", runName);
-                driverOptions.AddAdditionalCapability("videoName", $"{runName}.{timestamp}.mp4");
-                driverOptions.AddAdditionalCapability("enableVNC", EnableVnc);
-                driverOptions.AddAdditionalCapability("enableVideo", RecordVideo);
-                driverOptions.AddAdditionalCapability("enableLog", SaveSessionLogs);
-                driverOptions.AddAdditionalCapability("screenResolution", ScreenResolution);
+                selenoidOptions.Add("name", runName);
+                selenoidOptions.Add("videoName", $"{runName}.{timestamp}.mp4");
+                selenoidOptions.Add("logName", $"{runName}.{timestamp}.log");
+                selenoidOptions.Add("enableVNC", EnableVnc);
+                selenoidOptions.Add("enableVideo", RecordVideo);
+                selenoidOptions.Add("enableLog", SaveSessionLogs);
+                selenoidOptions.Add("screenResolution", ScreenResolution);
+                driverOptions.AddAdditionalOption("selenoid:options", selenoidOptions);
                 break;
         }
 

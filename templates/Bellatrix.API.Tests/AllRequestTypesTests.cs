@@ -6,6 +6,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bellatrix.API.MSTest.Tests;
 
@@ -190,7 +191,7 @@ public class AllRequestTypesTests : NUnit.APITest
     }
 
     [Test]
-    public async void ArtistsDeleted_When_PerformGenericDeleteRequestAsync()
+    public async Task ArtistsDeleted_When_PerformGenericDeleteRequestAsync()
     {
         // 11. All BELLATRIX client API methods have an async version.
         // Your test should be marked as async.
