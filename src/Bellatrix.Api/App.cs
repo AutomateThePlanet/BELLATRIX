@@ -1,5 +1,5 @@
 ﻿// <copyright file="App.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -92,17 +92,17 @@ public class App
                     throw new SettingsNotFoundException("apiSettings");
                 }
 
-                client.WrappedClient.BaseUrl = new Uri(apiSettingsConfig.BaseUrl);
+                ////client.WrappedClient.AddDefaultUrlSegment(new Uri(apiSettingsConfig.BaseUrl));
             }
             else
             {
-                client.WrappedClient.BaseUrl = new Uri(url);
+                ////client.WrappedClient.BaseUrl = new Uri(url);
             }
 
-            if (sharedCookies)
-            {
-                client.WrappedClient.CookieContainer = new System.Net.CookieContainer();
-            }
+            ////if (sharedCookies)
+            ////{
+            ////    client.WrappedClient.CookieContainer = new System.Net.CookieContainer();
+            ////}
 
             client.PauseBetweenFailures = TimeSpanConverter.Convert(pauseBetweenFailures, timeUnit);
             client.MaxRetryAttempts = maxRetryAttempts;

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.ApplicationInsights" Version="2.21.0" />
+	  <PackageReference Include="Microsoft.ApplicationInsights" Version="2.22.0" />
 	</ItemGroup>  
 	<ItemGroup>
 	  <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />

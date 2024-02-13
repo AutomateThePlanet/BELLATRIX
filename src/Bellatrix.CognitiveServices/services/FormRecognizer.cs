@@ -1,5 +1,5 @@
 ﻿// <copyright file="FormRecognizer.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,23 +12,14 @@
 // <author>Ventsislav Ivanov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 using Azure;
 using Azure.AI.FormRecognizer;
 using Azure.AI.FormRecognizer.Models;
+using Bellatrix.Assertions;
 using Bellatrix.CognitiveServices.services;
 using Bellatrix.Infrastructure;
 using Bellatrix.KeyVault;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NUnit.Framework;
-
 namespace Bellatrix.CognitiveServices;
 
 public class FormRecognizer

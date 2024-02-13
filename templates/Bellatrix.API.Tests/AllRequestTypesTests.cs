@@ -1,12 +1,14 @@
 ﻿using AutoFixture;
 using Bellatrix.Api;
 using Bellatrix.API.MSTest.Tests.Models;
+using Bellatrix.Assertions;
 using NUnit.Framework;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assert = Bellatrix.Assertions.Assert;
 
 namespace Bellatrix.API.MSTest.Tests;
 
