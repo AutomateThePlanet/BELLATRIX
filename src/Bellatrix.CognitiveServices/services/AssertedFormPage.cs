@@ -24,24 +24,25 @@ namespace Bellatrix.CognitiveServices.services;
 public class AssertedFormPage
 {
     public static event EventHandler<string> FormPageAsserted;
-    private readonly FormPage _formPage;
+
+    public FormPage FormPage { get; }
 
     public AssertedFormPage(FormPageCollection formPages, int pageNumber)
     {
-        _formPage = formPages[pageNumber];
-        Lines = _formPage.Lines.Select(x => new AssertedTableFormLine(x)).ToList();
+        FormPage = formPages[pageNumber];
+        Lines = FormPage.Lines.Select(x => new AssertedTableFormLine(x)).ToList();
     }
 
     public List<AssertedTableFormLine> Lines { get; set; }
 
     public AssertedFormTable GetTable(int index = 0)
     {
-        return new AssertedFormTable(_formPage.Tables[index]);
+        return new AssertedFormTable(FormPage.Tables[index]);
     }
 
     public void AssertLinesCount(int expectedLinesCount)
     {
         FormPageAsserted?.Invoke(this, $"Assert page lines' count = {expectedLinesCount}");
-        Assert.AreEqual(expectedLinesCount, _formPage.Lines.Count, $"Page lines' count != {expectedLinesCount}");
+        Assert.AreEqual(expectedLinesCount, FormPage.Lines.Count, $"Page lines' count != {expectedLinesCount}");
     }
 }

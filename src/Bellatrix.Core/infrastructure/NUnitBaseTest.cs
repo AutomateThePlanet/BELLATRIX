@@ -176,7 +176,6 @@ public class NUnitBaseTest
         catch (Exception ex)
         {
             cleanupExceptions.Add(ex);
-            _currentTestExecutionProvider.TestCleanupFailed(ex, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions);
         }
 
         try
@@ -190,6 +189,7 @@ public class NUnitBaseTest
 
         if (cleanupExceptions.Any())
         {
+            _currentTestExecutionProvider.TestCleanupFailed(cleanupExceptions.Last(), TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions);
             throw new AggregateException("Test Cleanup failed with one or more errors:", cleanupExceptions);
         }
     }

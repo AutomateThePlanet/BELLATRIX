@@ -11,13 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Bellatrix.DynamicTestCases.Contracts;
 
 public interface ITestCaseManagementService
 {
-    TestCase InitTestCase(TestCasesContext testCasesContext);
+    TestCase UpdateTestCaseStepAndCreateANewTestCase(TestCasesContext testCasesContext);
 }

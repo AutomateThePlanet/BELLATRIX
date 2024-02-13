@@ -204,11 +204,11 @@ public class SauceLabsAttribute : BrowserAttribute, IDriverOptionsAttribute
             case BrowserType.FirefoxHeadless:
             case BrowserType.InternetExplorer:
             case BrowserType.Opera:
-                driverOptions.AddAdditionalCapability("sauce:options", sauceOptions, true);
+                driverOptions.AddAdditionalOption("sauce:options", sauceOptions);
                 break;
 
             default:
-                driverOptions.AddAdditionalCapability("sauce:options", sauceOptions);
+                driverOptions.AddAdditionalOption("sauce:options", sauceOptions);
                 break;
         }
 

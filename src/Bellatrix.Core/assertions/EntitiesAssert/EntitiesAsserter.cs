@@ -49,6 +49,16 @@ public static class EntitiesAsserter
                     {
                         Assert.IsTrue(string.IsNullOrEmpty((string)currentRealProperty.GetValue(realObject, null)), exceptionMessage);
                     }
+                    else if (currentRealProperty.PropertyType == typeof(double) ||
+                        currentRealProperty.PropertyType == typeof(double?) ||
+                        currentRealProperty.PropertyType == typeof(float) ||
+                        currentRealProperty.PropertyType == typeof(float?))
+                    {
+                        Assert.AreEqual((currentExpectedProperty?.GetValue(expectedObject, null) as double?).Value,
+                             (currentRealProperty.GetValue(realObject, null) as double?).Value,
+                             0.0001,
+                             exceptionMessage);
+                    }
                     else
                     {
                         Assert.AreEqual(

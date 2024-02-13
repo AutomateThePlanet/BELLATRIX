@@ -254,7 +254,7 @@ public class DevToolsService : WebService, IDisposable
     public async Task TurnOnPerformanceMetrics()
     {
         var enableCommand = new EnableCommandSettings();
-        await DevToolsSession.SendCommand(enableCommand);           
+        await DevToolsSession.SendCommand(enableCommand);
     }
 
     public async Task<Metric[]> GetPerformanceMetrics()
@@ -265,7 +265,7 @@ public class DevToolsService : WebService, IDisposable
 
     public void Dispose()
     {
-        DevToolsSession.Dispose();
+        DevToolsSession?.Dispose();
         GC.SuppressFinalize(this);
     }
 }

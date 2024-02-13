@@ -28,7 +28,7 @@ public static class QTestDynamicTestCasesPlugin
 
     public static void Add()
     {
-        if (!_isAdded)
+        if (!_isAdded && ConfigurationService.GetSection<QTestDynamicTestCasesSettings>().IsEnabled)
         {
             ServicesCollection.Current.RegisterInstance(new DynamicTestCasesService());
             ServicesCollection.Current.RegisterType<ITestCaseManagementService, QTestTestCaseManagementService>();

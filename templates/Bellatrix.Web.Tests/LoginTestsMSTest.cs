@@ -21,7 +21,7 @@ public class LoginTestsMSTest : MSTest.WebTest
         loginButton.Click();
 
         Div myAccountContentDiv = App.Components.CreateByClass<Div>("woocommerce-MyAccount-content");
-        myAccountContentDiv.ValidateInnerTextContains("Hello info1");
+        myAccountContentDiv.ValidateInnerTextContains("Hello Berlin Spaceflowers");
 
         Anchor logoutLink = App.Components.CreateByInnerTextContaining<Anchor>("Log out");
 
@@ -41,7 +41,7 @@ public class LoginTestsMSTest : MSTest.WebTest
         loginButton.Click();
 
         Div myAccountContentDiv = App.Components.CreateByClass<Div>("woocommerce-MyAccount-content");
-        myAccountContentDiv.ValidateInnerTextContains("Hello info1");
+        myAccountContentDiv.ValidateInnerTextContains("Hello Berlin Spaceflowers");
 
         Anchor logoutLink = App.Components.CreateByInnerTextContaining<Anchor>("Log out");
 

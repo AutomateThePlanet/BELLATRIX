@@ -48,7 +48,7 @@ public class QTestTestCaseManagementService : ITestCaseManagementService
         }
     }
 
-    public DTC.TestCase InitTestCase(TestCasesContext testCasesContext)
+    public DTC.TestCase UpdateTestCaseStepAndCreateANewTestCase(TestCasesContext testCasesContext)
     {
         QT.ServiceResponse<QT.TestCase> result = default;
         QT.TestCase qTestCreatedTestCase = new QT.TestCase();

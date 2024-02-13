@@ -24,5 +24,7 @@ public class Albums : IEquatable<Albums>
 
     public bool Equals(Albums other) => AlbumId.Equals(other.AlbumId);
 
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public override bool Equals(object obj) => Equals(obj as Albums);
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 }

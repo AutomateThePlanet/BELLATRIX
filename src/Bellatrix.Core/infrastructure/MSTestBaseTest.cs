@@ -25,9 +25,7 @@ namespace Bellatrix;
 [TestClass]
 public class MSTestBaseTest
 {
-#pragma warning disable SA1401 // Fields should be private
-    public ServicesCollection Container;
-#pragma warning restore SA1401 // Fields should be private
+    private ServicesCollection _container;
     private static readonly List<string> TypeForAlreadyExecutedClassInits = new List<string>();
     private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
     private static ThreadLocal<Exception> _thrownException;
@@ -72,7 +70,7 @@ public class MSTestBaseTest
         var testClassType = GetCurrentExecutionTestClassType();
         ExecuteActArrangePhases();
 
-        Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+        _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
         _currentTestExecutionProvider = new PluginProvider();
         InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
@@ -102,7 +100,7 @@ public class MSTestBaseTest
         var authors = GetAllAuthors(testMethodMemberInfo);
         var descriptions = GetAllDescriptions(testMethodMemberInfo);
 
-        Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+        _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
         _currentTestExecutionProvider = new PluginProvider();
         InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
@@ -124,7 +122,7 @@ public class MSTestBaseTest
     {
         var testClassType = GetCurrentExecutionTestClassType();
 
-        Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+        _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
         _currentTestExecutionProvider = new PluginProvider();
         InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
@@ -231,8 +229,8 @@ public class MSTestBaseTest
             var testClassType = GetCurrentExecutionTestClassType();
             if (!TypeForAlreadyExecutedClassInits.Contains(TestContext.FullyQualifiedTestClassName))
             {
-                Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
-                Container.RegisterInstance(Container);
+                _container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
+                _container.RegisterInstance(_container);
                 _currentTestExecutionProvider = new PluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                 TypeForAlreadyExecutedClassInits.Add(TestContext.FullyQualifiedTestClassName);

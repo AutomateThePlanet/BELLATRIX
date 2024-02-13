@@ -11,9 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Bellatrix.DynamicTestCases;
 
@@ -28,17 +26,18 @@ public sealed class TestCasesContext
         TestSteps = new List<TestStep>();
     }
 
-    public string TestCaseName { get; set; }
-    public string Precondition { get; set; }
-    public string TestCaseDescription { get; set; }
-    public string TestCaseId { get; set; }
-    public string TestFullName { get; set; }
-    public string TestProjectName { get; set; }
-    public string RequirementId { get; set; }
-    public string SuiteId { get; set; }
-    public TestCase TestCase { get; set; }
-    public List<TestStep> TestSteps { get; set; }
-    public Dictionary<string, string> AdditionalProperties { get; set; }
+        public string TestCaseName { get; set; }
+        public string Precondition { get; set; }
+        public string TestCaseDescription { get; set; }
+        public string TestCaseId { get; set; }
+        public string TestFullName { get; set; }
+        public string TestProjectName { get; set; }
+        public string RequirementId { get; set; }
+        public string SuiteId { get; set; }
+        public long ProjectId { get; set; }
+        public TestCase TestCase { get; set; }
+        public List<TestStep> TestSteps { get; set; }
+        public Dictionary<string, string> AdditionalProperties { get; set; }
 
     public string GetAdditionalPropertyByKey(string key)
     {
