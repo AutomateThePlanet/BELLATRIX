@@ -22,7 +22,7 @@ public class TestsInitialize
     public static void AssemblyInitialize(TestContext testContext)
     {
         AllurePlugin.Add();
-        App.StartWinAppDriver();
+        ////App.StartWinAppDriver();
     }
 
     [AssemblyCleanup]
@@ -30,6 +30,6 @@ public class TestsInitialize
     {
         var app = ServicesCollection.Current.Resolve<App>();
         app.Dispose();
-        App.StopWinAppDriver();
+        ////App.StopWinAppDriver();
     }
 }

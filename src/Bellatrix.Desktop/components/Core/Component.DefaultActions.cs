@@ -11,11 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+
 using System;
+using System.Collections.Generic;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 using Bellatrix.Layout;
-using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.Extensions;
 
 namespace Bellatrix.Desktop;
 
@@ -24,8 +26,12 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
     internal virtual void Click(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked)
     {
         clicking?.Invoke(this, new ComponentActionEventArgs(this));
-
-        WrappedElement.Click();
+        
+        WrappedDriver.ExecuteScript("windows: click", new Dictionary<string, object>
+        {
+            { "elementId", WrappedElement.Id },
+            { "durationMs", 0 }
+        });
 
         clicked?.Invoke(this, new ComponentActionEventArgs(this));
     }
@@ -34,8 +40,12 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
     {
         hovering?.Invoke(this, new ComponentActionEventArgs(this));
 
-        var action = new Actions(WrappedDriver);
-        action.MoveToElement(WrappedElement).Perform();
+        WrappedDriver.ExecuteScript("windows: hover", new Dictionary<string, object>
+        {
+            { "startElementId", WrappedElement.Id },
+            { "endElementId", WrappedElement.Id },
+            { "durationMs", 0 }
+        });
 
         hovered?.Invoke(this, new ComponentActionEventArgs(this));
     }

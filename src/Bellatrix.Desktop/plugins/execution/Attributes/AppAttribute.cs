@@ -24,11 +24,13 @@ public class AppAttribute : Attribute
 {
     public AppAttribute(string appPath, Lifecycle lifecycle = Lifecycle.NotSet)
     {
-        AppConfiguration = new AppInitializationInfo();
-        AppConfiguration.AppPath = appPath;
-        AppConfiguration.Lifecycle = lifecycle;
-        AppConfiguration.Size = default;
-        AppConfiguration.AppiumOptions = new AppiumOptions();
+        AppConfiguration = new AppInitializationInfo
+        {
+            AppPath = appPath,
+            Lifecycle = lifecycle,
+            Size = default,
+            AppiumOptions = new AppiumOptions()
+        };
     }
 
     public AppAttribute(string appPath, int width, int height, Lifecycle behavior = Lifecycle.NotSet)

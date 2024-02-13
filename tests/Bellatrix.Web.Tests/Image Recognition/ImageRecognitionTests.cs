@@ -5,7 +5,7 @@ using ImageRecognition = Bellatrix.ImageRecognition;
 namespace Bellatrix.Web.Demos;
 
 [TestClass]
-[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
+[Browser(BrowserType.Edge, Lifecycle.ReuseIfStarted)]
 public class ImageRecognitionTests : MSTest.WebTest
 {
     [TestMethod]

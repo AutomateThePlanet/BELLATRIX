@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("DatePicker Control")]
 [AllureTag("Universal")]
+[TestCategory(Categories.Universal)]
 public class DatePickerControlTestsUniversal : MSTest.DesktopTest
 {
     [TestMethod]

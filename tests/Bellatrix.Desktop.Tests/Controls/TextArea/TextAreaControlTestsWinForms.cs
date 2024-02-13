@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("TextArea Control")]
 [AllureTag("WinForms")]
+[TestCategory(Categories.WinForms)]
 public class TextAreaControlTestsWinForms : MSTest.DesktopTest
 {
     [TestMethod]

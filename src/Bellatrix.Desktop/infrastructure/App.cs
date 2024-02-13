@@ -28,19 +28,16 @@ using Bellatrix.Desktop.Services;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
+using OpenQA.Selenium.Appium.Service;
+using OpenQA.Selenium.Appium.Service.Options;
 
 namespace Bellatrix.Desktop;
 
 public class App : IDisposable
 {
     // TODO: Change to be ThreadLocal.
-    private static bool _shouldStartLocalService;
-    private static Process _winAppDriverProcess;
-
-    public App()
-    {
-        _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
-    }
+    private static readonly bool ShouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
+    private static Process _appiumServerProcess;
 
     public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
     public ComponentWaitService Wait => ServicesCollection.Current.Resolve<ComponentWaitService>();
@@ -52,39 +49,46 @@ public class App : IDisposable
     public AWSServicesFactory AWS => ServicesCollection.Current.Resolve<AWSServicesFactory>();
     public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
-    public static void StartWinAppDriver()
+    public static void StartAppiumServer()
     {
-        if (_shouldStartLocalService)
+        if (!ShouldStartLocalService)
         {
-            int port = int.Parse(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url.Split(':').Last());
-
-            // Anton(06.09.2018): maybe we can kill WinAppDriver every time
-            if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver") || ProcessProvider.IsPortBusy(port))
-            {
-                return;
-            }
-
-            string winAppDriverPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Windows Application Driver");
-            if (!Directory.Exists(winAppDriverPath))
-            {
-                throw new ArgumentException("Windows Application Driver is not installed on the machine. To use BELLATRIX Desktop libraries you need to install it first. You can download it from here: https://github.com/Microsoft/WinAppDriver/releases");
-            }
-
-            string winAppDriverExePath = Path.Combine(winAppDriverPath, "WinAppDriver.exe");
-            _winAppDriverProcess = ProcessProvider.StartProcess(winAppDriverExePath, winAppDriverPath, $"{ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url}", true);
-            ProcessProvider.WaitPortToGetBusy(port);
+            return;
         }
+
+        var uri = new Uri(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url);
+
+        // Anton(06.09.2018): maybe we can kill WinAppDriver every time
+        if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver") || ProcessProvider.IsPortBusy(uri.Port))
+        {
+            return;
+        }
+
+        var winAppDriverPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Windows Application Driver");
+        if (!Directory.Exists(winAppDriverPath))
+        {
+            throw new ArgumentException("Windows Application Driver is not installed on the machine. To use BELLATRIX Desktop libraries you need to install it first. You can download it from here: https://github.com/Microsoft/WinAppDriver/releases");
+        }
+        
+        var appiumPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "npm");
+        if (!Directory.Exists(appiumPath))
+        {
+            throw new ArgumentException("Node.js is not installed on the machine. To use BELLATRIX Desktop libraries you need to install it first. You can download it from here: https://nodejs.org/en/download");
+        }
+
+        var appiumPs1Path = Path.Combine(appiumPath, "appium.ps1");
+        _appiumServerProcess = ProcessProvider.StartProcess(
+            "powershell.exe", 
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), 
+            $"-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File \"{appiumPs1Path}\" -a {uri.Host} -p {uri.Port}", 
+            true);
+
+        ProcessProvider.WaitPortToGetBusy(uri.Port);
     }
 
-    public static void StopWinAppDriver()
+    public static void StopAppiumServer()
     {
-        if (_shouldStartLocalService)
-        {
-            if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver"))
-            {
-                ProcessProvider.CloseProcess(_winAppDriverProcess);
-            }
-        }
+        ProcessProvider.CloseProcess(_appiumServerProcess);
     }
 
     public void AddAdditionalCapability(string name, object value)

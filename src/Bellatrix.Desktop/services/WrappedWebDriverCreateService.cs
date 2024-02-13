@@ -18,48 +18,80 @@ using System.IO;
 using Bellatrix.Desktop.Configuration;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop.Services;
 
 public class WrappedWebDriverCreateService
 {
-    private static readonly string _serviceUrl;
+    private static readonly string ServiceUrl;
+
+    private const string CloseButtonXPath = "//Button[contains(translate(@AutomationId, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'close') or contains(translate(@Name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'close')]";
 
     static WrappedWebDriverCreateService()
     {
-        _serviceUrl = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url;
+        ServiceUrl = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url;
     }
 
     public static WindowsDriver<WindowsElement> Create(AppInitializationInfo appConfiguration, ServicesCollection childContainer)
     {
         var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? childContainer.Resolve<AppiumOptions>() ?? appConfiguration.AppiumOptions;
-        driverOptions.PlatformName = "Windows";
-        driverOptions.AddAdditionalCapability("deviceName", "WindowsPC");
-        driverOptions.AddAdditionalCapability("app", appConfiguration.AppPath);
-        string workingDir = Path.GetDirectoryName(appConfiguration.AppPath);
-        driverOptions.AddAdditionalCapability("appWorkingDir", workingDir);
-        driverOptions.AddAdditionalCapability("createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.CreateSessionTimeout);
-        driverOptions.AddAdditionalCapability("ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.WaitForAppLaunchTimeout);
 
-        var additionalCapabilities = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{appConfiguration.ClassFullName}") ?? new Dictionary<string, object>();
+        var appiumOptions = new Dictionary<string, object>
+        {
+            { "automationName", "Windows" },
+            { "appWorkingDir", Path.GetDirectoryName(appConfiguration.AppPath) },
+            { "createSessionTimeout", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.CreateSessionTimeout },
+            { "ms:waitForAppLaunch", ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.WaitForAppLaunchTimeout },
+            { "ms:experimental-webdriver", true }
+        };
+
+        if (appConfiguration.AppPath == "Root")
+        {
+            if (appConfiguration.WindowHandle == null)
+            {
+                appiumOptions.Add("app", appConfiguration.AppPath);
+            }
+            else
+            {
+                appiumOptions.Add("appTopLevelWindow", appConfiguration.WindowHandle);
+            }
+        }
+        else
+        {
+            appiumOptions.Add("app", appConfiguration.AppPath);
+        }
+
+        var appiumCapabilities = ServicesCollection.Main.Resolve<Dictionary<string, object>>($"caps-{appConfiguration.ClassFullName}");
+
+        driverOptions.PlatformName = "Windows";
+        driverOptions.AddAdditionalCapability("appium:options", appiumOptions);
+        var additionalCapabilities = appiumCapabilities ?? new Dictionary<string, object>();
         foreach (var additionalCapability in additionalCapabilities)
         {
             driverOptions.AddAdditionalCapability(additionalCapability.Key, additionalCapability.Value);
         }
 
-        var wrappedWebDriver = new WindowsDriver<WindowsElement>(new Uri(_serviceUrl), driverOptions);
+        var wrappedWebDriver = new WindowsDriver<WindowsElement>(new Uri(ServiceUrl), driverOptions);
 
         wrappedWebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ImplicitWaitTimeout);
 
-        ChangeWindowSize(appConfiguration.Size, wrappedWebDriver);
-        wrappedWebDriver.SwitchTo().Window(wrappedWebDriver.CurrentWindowHandle);
+        if (!appiumOptions.TryGetValue("app", out var app) || app as string == "Root")
+        {
+            return wrappedWebDriver;
+        }
+
         try
         {
-            var closeButton = wrappedWebDriver.FindElementByAccessibilityId("Close");
-            var action = new Actions(wrappedWebDriver);
-            action.MoveToElement(closeButton).Perform();
+            var closeButton = wrappedWebDriver.FindElementByXPath(CloseButtonXPath);
+
+            wrappedWebDriver.ExecuteScript("windows: hover", new Dictionary<string, object>
+            {
+                { "startElementId", closeButton.Id },
+                { "endElementId", closeButton.Id },
+                { "durationMs", 0 }
+            });
+            
+            wrappedWebDriver.SwitchTo().Window(wrappedWebDriver.CurrentWindowHandle);
         }
         catch (Exception e)
         {

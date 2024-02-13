@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("Password Control")]
 [AllureTag("WPF")]
+[TestCategory(Categories.WPF)]
 public class PasswordControlTestsWpf : MSTest.DesktopTest
 {
     [TestMethod]
