@@ -33,11 +33,11 @@ public class NumberEventHandlers : ComponentEventHandlers
         Number.NumberSet -= NumberSetEventHandler;
     }
 
-    protected virtual void SettingNumberEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void SettingNumberEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void NumberSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void NumberSetEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

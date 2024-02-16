@@ -18,31 +18,31 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Locators.IOS;
 
-public class FindAccessibilityIdStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+public class FindAccessibilityIdStrategy : FindStrategy<IOSDriver, AppiumElement>
 {
     public FindAccessibilityIdStrategy(string name)
         : base(name)
     {
     }
 
-    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    public override AppiumElement FindElement(IOSDriver searchContext)
     {
-        return searchContext.FindElementByAccessibilityId(Value);
+        return searchContext.FindElement(MobileBy.AccessibilityId(Value));
     }
 
-    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(IOSDriver searchContext)
     {
-        return searchContext.FindElementsByAccessibilityId(Value).AsEnumerable();
+        return searchContext.FindElements(MobileBy.AccessibilityId(Value)).AsEnumerable();
     }
 
-    public override AppiumWebElement FindElement(IOSElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByAccessibilityId(Value);
+        return element.FindElement(MobileBy.AccessibilityId(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByAccessibilityId(Value).AsEnumerable();
+        return element.FindElements(MobileBy.AccessibilityId(Value)).AsEnumerable();
     }
 
     public override string ToString()

@@ -18,8 +18,8 @@ using OpenQA.Selenium.Appium;
 namespace Bellatrix.Mobile.Services;
 
 public class FileSystemService<TDriver, TComponent> : MobileService<TDriver, TComponent>
-    where TDriver : AppiumDriver<TComponent>
-    where TComponent : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TComponent : AppiumElement
 {
     public FileSystemService(TDriver wrappedDriver)
         : base(wrappedDriver)

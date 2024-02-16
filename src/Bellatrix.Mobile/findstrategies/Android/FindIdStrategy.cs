@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Locators.Android;
 
-public class FindIdStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+public class FindIdStrategy : FindStrategy<AndroidDriver, AppiumElement>
 {
     private readonly string _locatorValue;
 
@@ -27,24 +27,24 @@ public class FindIdStrategy : FindStrategy<AndroidDriver<AndroidElement>, Androi
         _locatorValue = $"new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().resourceId(\"{Value}\"));";
     }
 
-    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    public override AppiumElement FindElement(AndroidDriver searchContext)
     {
-        return searchContext.FindElementByAndroidUIAutomator(_locatorValue);
+        return searchContext.FindElement(MobileBy.AndroidUIAutomator(_locatorValue));
     }
 
-    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(AndroidDriver searchContext)
     {
-        return searchContext.FindElementsByAndroidUIAutomator(_locatorValue);
+        return searchContext.FindElements(MobileBy.AndroidUIAutomator(_locatorValue));
     }
 
-    public override AppiumWebElement FindElement(AndroidElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByAndroidUIAutomator(_locatorValue);
+        return element.FindElement(MobileBy.AndroidUIAutomator(_locatorValue));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByAndroidUIAutomator(_locatorValue);
+        return element.FindElements(MobileBy.AndroidUIAutomator(_locatorValue));
     }
 
     public override string ToString()

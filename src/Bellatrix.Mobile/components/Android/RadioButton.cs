@@ -21,8 +21,8 @@ namespace Bellatrix.Mobile.Android;
 
 public class RadioButton : AndroidComponent, IComponentDisabled, IComponentChecked, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicking;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Clicking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Clicked;
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsDisabled => GetIsDisabled();

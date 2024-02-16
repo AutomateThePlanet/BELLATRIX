@@ -17,31 +17,31 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Locators.IOS;
 
-public class FindTagNameStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+public class FindTagNameStrategy : FindStrategy<IOSDriver, AppiumElement>
 {
     public FindTagNameStrategy(string name)
         : base(name)
     {
     }
 
-    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    public override AppiumElement FindElement(IOSDriver searchContext)
     {
-        return searchContext.FindElementByTagName(Value);
+        return searchContext.FindElement(MobileBy.TagName(Value));
     }
 
-    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(IOSDriver searchContext)
     {
-        return searchContext.FindElementsByTagName(Value);
+        return searchContext.FindElements(MobileBy.TagName(Value));
     }
 
-    public override AppiumWebElement FindElement(IOSElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByTagName(Value);
+        return element.FindElement(MobileBy.TagName(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByTagName(Value);
+        return element.FindElements(MobileBy.TagName(Value));
     }
 
     public override string ToString()

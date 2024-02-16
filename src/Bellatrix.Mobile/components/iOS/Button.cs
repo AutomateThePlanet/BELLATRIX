@@ -21,8 +21,8 @@ namespace Bellatrix.Mobile.IOS;
 
 public class Button : IOSComponent, IComponentDisabled, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>> Clicking;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>> Clicked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Clicking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Clicked;
 
     public virtual void Click()
     {

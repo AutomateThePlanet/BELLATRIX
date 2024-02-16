@@ -19,5 +19,5 @@ namespace Bellatrix.Mobile.BddLogging.Android;
 
 public class BDDLoggingNumberEventHandlers : NumberEventHandlers
 {
-    protected override void SettingNumberEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void SettingNumberEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

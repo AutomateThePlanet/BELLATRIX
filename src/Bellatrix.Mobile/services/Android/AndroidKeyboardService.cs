@@ -15,9 +15,9 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Services.Android;
 
-public class AndroidKeyboardService : KeyboardService<AndroidDriver<AndroidElement>, AndroidElement>
+public class AndroidKeyboardService : KeyboardService<AndroidDriver, AppiumElement>
 {
-    public AndroidKeyboardService(AndroidDriver<AndroidElement> wrappedDriver)
+    public AndroidKeyboardService(AndroidDriver wrappedDriver)
         : base(wrappedDriver)
     {
     }

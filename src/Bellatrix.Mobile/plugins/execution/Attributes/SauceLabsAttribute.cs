@@ -25,12 +25,13 @@ public abstract class SauceLabsAttribute : AppAttribute, IAppiumOptionsFactory
 {
     protected SauceLabsAttribute(
         string appPath,
+        string appId,
         string platformVersion,
         string deviceName,
         Lifecycle behavior = Lifecycle.NotSet,
         bool recordVideo = false,
         bool recordScreenshots = false)
-        : base(appPath, platformVersion, deviceName, behavior)
+        : base(appPath, appId, platformVersion, deviceName, behavior)
     {
         RecordVideo = recordVideo;
         RecordScreenshots = recordScreenshots;
@@ -46,18 +47,18 @@ public abstract class SauceLabsAttribute : AppAttribute, IAppiumOptionsFactory
         var appiumOptions = new AppiumOptions();
         AddAdditionalCapabilities(testClassType, appiumOptions);
 
-        appiumOptions.AddAdditionalCapability("browserName", string.Empty);
-        appiumOptions.AddAdditionalCapability("deviceName", AppConfiguration.DeviceName);
-        appiumOptions.AddAdditionalCapability("app", AppConfiguration.AppPath);
-        appiumOptions.AddAdditionalCapability("platformVersion", AppConfiguration.PlatformVersion);
-        appiumOptions.AddAdditionalCapability("recordVideo", RecordVideo);
-        appiumOptions.AddAdditionalCapability("recordScreenshots", RecordScreenshots);
-        appiumOptions.AddAdditionalCapability("appiumVersion", "1.8.1");
+        appiumOptions.AddAdditionalAppiumOption("browserName", string.Empty);
+        appiumOptions.AddAdditionalAppiumOption("deviceName", AppConfiguration.DeviceName);
+        appiumOptions.AddAdditionalAppiumOption("app", AppConfiguration.AppPath);
+        appiumOptions.AddAdditionalAppiumOption("platformVersion", AppConfiguration.PlatformVersion);
+        appiumOptions.AddAdditionalAppiumOption("recordVideo", RecordVideo);
+        appiumOptions.AddAdditionalAppiumOption("recordScreenshots", RecordScreenshots);
+        appiumOptions.AddAdditionalAppiumOption("appiumVersion", "1.8.1");
 
         var credentials = CloudProviderCredentialsResolver.GetCredentials();
-        appiumOptions.AddAdditionalCapability("username", credentials.Item1);
-        appiumOptions.AddAdditionalCapability("accessKey", credentials.Item2);
-        appiumOptions.AddAdditionalCapability("name", testClassType.FullName);
+        appiumOptions.AddAdditionalAppiumOption("username", credentials.Item1);
+        appiumOptions.AddAdditionalAppiumOption("accessKey", credentials.Item2);
+        appiumOptions.AddAdditionalAppiumOption("name", testClassType.FullName);
 
         return appiumOptions;
     }

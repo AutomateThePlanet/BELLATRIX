@@ -20,9 +20,10 @@ using OpenQA.Selenium.Appium.MultiTouch;
 namespace Bellatrix.Mobile.Services;
 
 public class TouchActionsService<TDriver, TDriverElement> : MobileService<TDriver, TDriverElement>
-    where TDriver : AppiumDriver<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TDriverElement : AppiumElement
 {
+#pragma warning disable CS0618 // Type or member is obsolete
     public TouchActionsService(TDriver wrappedDriver)
         : base(wrappedDriver)
     {
@@ -113,4 +114,5 @@ public class TouchActionsService<TDriver, TDriverElement> : MobileService<TDrive
     {
         WrappedMultiAction.Perform();
     }
+#pragma warning restore CS0618 // Type or member is obsolete
 }

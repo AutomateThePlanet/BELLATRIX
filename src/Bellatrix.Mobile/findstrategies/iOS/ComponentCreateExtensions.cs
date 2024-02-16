@@ -20,51 +20,51 @@ namespace Bellatrix.Mobile.IOS;
 
 public static class ComponentCreateExtensions
 {
-    public static TComponent CreateByTag<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string tag)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TComponent, FindTagNameStrategy>(new FindTagNameStrategy(tag));
+    public static TComponent CreateByTag<TComponent>(this Component<IOSDriver, AppiumElement> element, string tag)
+        where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindTagNameStrategy>(new FindTagNameStrategy(tag));
 
-    public static TComponent CreateById<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string id)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TComponent, FindStrategyId>(new FindStrategyId(id));
+    public static TComponent CreateById<TComponent>(this Component<IOSDriver, AppiumElement> element, string id)
+        where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindStrategyId>(new FindStrategyId(id));
 
-    public static TComponent CreateByAccessibilityId<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string accessibilityId)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TComponent, FindAccessibilityIdStrategy>(new FindAccessibilityIdStrategy(accessibilityId));
+    public static TComponent CreateByAccessibilityId<TComponent>(this Component<IOSDriver, AppiumElement> element, string accessibilityId)
+        where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindAccessibilityIdStrategy>(new FindAccessibilityIdStrategy(accessibilityId));
 
-    public static TComponent CreateByName<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string name)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TComponent, FindNameStrategy>(new FindNameStrategy(name));
+    public static TComponent CreateByName<TComponent>(this Component<IOSDriver, AppiumElement> element, string name)
+        where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindNameStrategy>(new FindNameStrategy(name));
 
-    public static TComponent CreateByClass<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string elementClass)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TComponent, FindClassNameStrategy>(new FindClassNameStrategy(elementClass));
+    public static TComponent CreateByClass<TComponent>(this Component<IOSDriver, AppiumElement> element, string elementClass)
+        where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindClassNameStrategy>(new FindClassNameStrategy(elementClass));
 
-    public static TComponent CreateByIOSUIAutomation<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string automationId)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TComponent, FindIOSUIAutomationStrategy>(new FindIOSUIAutomationStrategy(automationId));
+    public static TComponent CreateByIOSUIAutomation<TComponent>(this Component<IOSDriver, AppiumElement> element, string automationId)
+        where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindIOSUIAutomationStrategy>(new FindIOSUIAutomationStrategy(automationId));
 
-    public static TComponent CreateByXPath<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string xpath)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TComponent, FindXPathStrategy>(new FindXPathStrategy(xpath));
+    public static TComponent CreateByXPath<TComponent>(this Component<IOSDriver, AppiumElement> element, string xpath)
+        where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindXPathStrategy>(new FindXPathStrategy(xpath));
 
-    public static TComponent CreateByValueContaining<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string text)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TComponent, FindValueContainingStrategy>(new FindValueContainingStrategy(text));
+    public static TComponent CreateByValueContaining<TComponent>(this Component<IOSDriver, AppiumElement> element, string text)
+        where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindValueContainingStrategy>(new FindValueContainingStrategy(text));
 
-    public static ComponentsList<TComponent, FindTagNameStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByTag<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string tag)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindTagNameStrategy, IOSDriver<IOSElement>, IOSElement>(new FindTagNameStrategy(tag), element.WrappedElement);
+    public static ComponentsList<TComponent, FindTagNameStrategy, IOSDriver, AppiumElement> CreateAllByTag<TComponent>(this Component<IOSDriver, AppiumElement> element, string tag)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindTagNameStrategy, IOSDriver, AppiumElement>(new FindTagNameStrategy(tag), element.WrappedElement);
 
-    public static ComponentsList<TComponent, FindStrategyId, IOSDriver<IOSElement>, IOSElement> CreateAllById<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string id)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindStrategyId, IOSDriver<IOSElement>, IOSElement>(new FindStrategyId(id), element.WrappedElement);
+    public static ComponentsList<TComponent, FindStrategyId, IOSDriver, AppiumElement> CreateAllById<TComponent>(this Component<IOSDriver, AppiumElement> element, string id)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindStrategyId, IOSDriver, AppiumElement>(new FindStrategyId(id), element.WrappedElement);
 
-    public static ComponentsList<TComponent, FindAccessibilityIdStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByAccessibilityId<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string accessibilityId)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindAccessibilityIdStrategy, IOSDriver<IOSElement>, IOSElement>(new FindAccessibilityIdStrategy(accessibilityId), element.WrappedElement);
+    public static ComponentsList<TComponent, FindAccessibilityIdStrategy, IOSDriver, AppiumElement> CreateAllByAccessibilityId<TComponent>(this Component<IOSDriver, AppiumElement> element, string accessibilityId)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindAccessibilityIdStrategy, IOSDriver, AppiumElement>(new FindAccessibilityIdStrategy(accessibilityId), element.WrappedElement);
 
-    public static ComponentsList<TComponent, FindNameStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByName<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string name)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindNameStrategy, IOSDriver<IOSElement>, IOSElement>(new FindNameStrategy(name), element.WrappedElement);
+    public static ComponentsList<TComponent, FindNameStrategy, IOSDriver, AppiumElement> CreateAllByName<TComponent>(this Component<IOSDriver, AppiumElement> element, string name)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindNameStrategy, IOSDriver, AppiumElement>(new FindNameStrategy(name), element.WrappedElement);
 
-    public static ComponentsList<TComponent, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByClass<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string elementClass)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement>(new FindClassNameStrategy(elementClass), element.WrappedElement);
+    public static ComponentsList<TComponent, FindClassNameStrategy, IOSDriver, AppiumElement> CreateAllByClass<TComponent>(this Component<IOSDriver, AppiumElement> element, string elementClass)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindClassNameStrategy, IOSDriver, AppiumElement>(new FindClassNameStrategy(elementClass), element.WrappedElement);
 
-    public static ComponentsList<TComponent, FindIOSUIAutomationStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByIOSUIAutomation<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string automationId)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindIOSUIAutomationStrategy, IOSDriver<IOSElement>, IOSElement>(new FindIOSUIAutomationStrategy(automationId), element.WrappedElement);
+    public static ComponentsList<TComponent, FindIOSUIAutomationStrategy, IOSDriver, AppiumElement> CreateAllByIOSUIAutomation<TComponent>(this Component<IOSDriver, AppiumElement> element, string automationId)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindIOSUIAutomationStrategy, IOSDriver, AppiumElement>(new FindIOSUIAutomationStrategy(automationId), element.WrappedElement);
 
-    public static ComponentsList<TComponent, FindXPathStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByXPath<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string xpath)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindXPathStrategy, IOSDriver<IOSElement>, IOSElement>(new FindXPathStrategy(xpath), element.WrappedElement);
+    public static ComponentsList<TComponent, FindXPathStrategy, IOSDriver, AppiumElement> CreateAllByXPath<TComponent>(this Component<IOSDriver, AppiumElement> element, string xpath)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindXPathStrategy, IOSDriver, AppiumElement>(new FindXPathStrategy(xpath), element.WrappedElement);
 
-    public static ComponentsList<TComponent, FindValueContainingStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByValueContaining<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string text)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindValueContainingStrategy, IOSDriver<IOSElement>, IOSElement>(new FindValueContainingStrategy(text), element.WrappedElement);
+    public static ComponentsList<TComponent, FindValueContainingStrategy, IOSDriver, AppiumElement> CreateAllByValueContaining<TComponent>(this Component<IOSDriver, AppiumElement> element, string text)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindValueContainingStrategy, IOSDriver, AppiumElement>(new FindValueContainingStrategy(text), element.WrappedElement);
 }

@@ -37,19 +37,19 @@ public class SwitchEventHandlers : ComponentEventHandlers
         Switch.TurnedOff -= TurnedOffEventHandler;
     }
 
-    protected virtual void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void TurningOffEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void TurnedOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void TurnedOffEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void TurningOnEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void TurnedOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void TurnedOnEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

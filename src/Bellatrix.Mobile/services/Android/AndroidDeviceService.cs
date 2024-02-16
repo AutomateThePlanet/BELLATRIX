@@ -19,9 +19,9 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Services.Android;
 
-public class AndroidDeviceService : DeviceService<AndroidDriver<AndroidElement>, AndroidElement>
+public class AndroidDeviceService : DeviceService<AndroidDriver, AppiumElement>
 {
-    public AndroidDeviceService(AndroidDriver<AndroidElement> wrappedDriver)
+    public AndroidDeviceService(AndroidDriver wrappedDriver)
         : base(wrappedDriver)
     {
     }

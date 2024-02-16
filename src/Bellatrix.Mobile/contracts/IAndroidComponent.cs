@@ -12,9 +12,10 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using OpenQA.Selenium.Appium.Android;
+using OpenQA.Selenium.Appium.Interfaces;
 
 namespace Bellatrix.Mobile.Contracts;
 
-public interface IAndroidComponent : IComponent<AndroidElement>
+public interface IAndroidComponent : IComponent<AppiumElement>
 {
 }

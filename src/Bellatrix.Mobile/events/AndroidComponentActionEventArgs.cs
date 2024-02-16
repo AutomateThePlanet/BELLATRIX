@@ -15,7 +15,7 @@ using Bellatrix.Mobile.Contracts;
 
 namespace Bellatrix.Mobile.Events;
 
-public class AndroidComponentActionEventArgs : ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>
+public class AndroidComponentActionEventArgs : ComponentActionEventArgs<AppiumElement>
 {
     public AndroidComponentActionEventArgs(IAndroidComponent element)
         : base(element)

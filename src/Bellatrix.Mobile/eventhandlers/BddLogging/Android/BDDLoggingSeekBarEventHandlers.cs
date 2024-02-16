@@ -19,5 +19,5 @@ namespace Bellatrix.Mobile.BddLogging.Android;
 
 public class BDDLoggingSeekBarEventHandlers : SeekBarEventHandlers
 {
-    protected override void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Set {arg.Element.ComponentName} to '{arg.ActionValue}'% on {arg.Element.PageName}");
+    protected override void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => Logger.LogInformation($"Set {arg.Element.ComponentName} to '{arg.ActionValue}'% on {arg.Element.PageName}");
 }

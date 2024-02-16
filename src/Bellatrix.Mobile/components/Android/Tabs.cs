@@ -21,9 +21,9 @@ using OpenQA.Selenium.Appium.Android;
 namespace Bellatrix.Mobile.Android;
 
 public class Tabs<TComponent> : AndroidComponent
-        where TComponent : Component<AndroidDriver<AndroidElement>, AndroidElement>
+        where TComponent : Component<AndroidDriver, AppiumElement>
 {
-    public virtual ComponentsList<TComponent, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll(string searchClass)
+    public virtual ComponentsList<TComponent, FindClassNameStrategy, AndroidDriver, AppiumElement> GetAll(string searchClass)
     {
         var elements = this.CreateAllByClass<TComponent>(searchClass);
         return elements;

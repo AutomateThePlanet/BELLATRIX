@@ -19,5 +19,5 @@ namespace Bellatrix.Mobile.DynamicTestCases.IOS;
 
 public class DynamicTestCasesTextFieldEventHandlers : TextFieldEventHandlers
 {
-    protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

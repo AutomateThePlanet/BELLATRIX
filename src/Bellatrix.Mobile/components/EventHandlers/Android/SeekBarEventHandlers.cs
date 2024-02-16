@@ -33,11 +33,11 @@ public class SeekBarEventHandlers : ComponentEventHandlers
         SeekBar.PercentageSet -= PercentageSetEventHandler;
     }
 
-    protected virtual void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void PercentageSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void PercentageSetEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

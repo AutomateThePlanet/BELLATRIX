@@ -26,7 +26,7 @@ public sealed class IOSDriverScreenshotEngine : IScreenshotEngine
 
     public string TakeScreenshotIOSDriver(ServicesCollection serviceContainer)
     {
-        var driver = serviceContainer.Resolve<IOSDriver<IOSElement>>();
+        var driver = serviceContainer.Resolve<IOSDriver>();
         var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
         return screenshot.AsBase64EncodedString;
     }

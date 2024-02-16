@@ -26,7 +26,7 @@ public sealed class AndroidDriverScreenshotEngine : IScreenshotEngine
 
     public string TakeScreenshotAndroidDriver(ServicesCollection container)
     {
-        var driver = container.Resolve<AndroidDriver<AndroidElement>>();
+        var driver = container.Resolve<AndroidDriver>();
         Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
         return screenshot.AsBase64EncodedString;
     }

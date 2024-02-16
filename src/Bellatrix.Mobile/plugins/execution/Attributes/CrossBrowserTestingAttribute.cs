@@ -25,13 +25,14 @@ public abstract class CrossBrowserTestingAttribute : AppAttribute, IAppiumOption
 {
     protected CrossBrowserTestingAttribute(
         string appPath,
+        string appId,
         string platformVersion,
         string deviceName,
         Lifecycle behavior = Lifecycle.NotSet,
         bool recordVideo = false,
         bool recordNetwork = false,
         string build = null)
-        : base(appPath, platformVersion, deviceName, behavior)
+        : base(appPath, appId, platformVersion, deviceName, behavior)
     {
         Build = build;
         RecordVideo = recordVideo;
@@ -52,19 +53,19 @@ public abstract class CrossBrowserTestingAttribute : AppAttribute, IAppiumOption
 
         if (!string.IsNullOrEmpty(Build))
         {
-            appiumOptions.AddAdditionalCapability("build", Build);
+            appiumOptions.AddAdditionalAppiumOption("build", Build);
         }
 
-        appiumOptions.AddAdditionalCapability("device", AppConfiguration.DeviceName);
-        appiumOptions.AddAdditionalCapability("app", AppConfiguration.AppPath);
-        appiumOptions.AddAdditionalCapability("record_video", RecordVideo);
-        appiumOptions.AddAdditionalCapability("record_network", RecordNetwork);
+        appiumOptions.AddAdditionalAppiumOption("device", AppConfiguration.DeviceName);
+        appiumOptions.AddAdditionalAppiumOption("app", AppConfiguration.AppPath);
+        appiumOptions.AddAdditionalAppiumOption("record_video", RecordVideo);
+        appiumOptions.AddAdditionalAppiumOption("record_network", RecordNetwork);
 
         var credentials = CloudProviderCredentialsResolver.GetCredentials();
-        appiumOptions.AddAdditionalCapability("username", credentials.Item1);
-        appiumOptions.AddAdditionalCapability("password", credentials.Item2);
+        appiumOptions.AddAdditionalAppiumOption("username", credentials.Item1);
+        appiumOptions.AddAdditionalAppiumOption("password", credentials.Item2);
 
-        appiumOptions.AddAdditionalCapability("name", memberInfo.Name);
+        appiumOptions.AddAdditionalAppiumOption("name", memberInfo.Name);
 
         return appiumOptions;
     }

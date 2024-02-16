@@ -61,7 +61,7 @@ public class RadioGroup : IOSComponent
         return clickedRadioButton;
     }
 
-    public virtual ComponentsList<RadioButton, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll()
+    public virtual ComponentsList<RadioButton, FindClassNameStrategy, IOSDriver, AppiumElement> GetAll()
     {
         var radioButtons = this.CreateAllByClass<RadioButton>("XCUIElementTypeSwitch");
         return radioButtons;

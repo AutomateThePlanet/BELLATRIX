@@ -47,8 +47,8 @@ public class TestExecutionEngine
             childContainer.RegisterInstance(childContainer.Resolve<ComponentCreateService>());
             childContainer.RegisterNull<int?>();
             childContainer.RegisterNull<IWebElement>();
-            childContainer.RegisterNull<AndroidElement>();
-            childContainer.RegisterNull<IOSElement>();
+            childContainer.RegisterNull<AppiumElement>();
+            childContainer.RegisterNull<AppiumElement>();
             IsAppStartedCorrectly = true;
         }
         catch (Exception e)

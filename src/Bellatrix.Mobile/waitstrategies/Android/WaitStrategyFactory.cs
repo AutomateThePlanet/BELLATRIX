@@ -17,15 +17,15 @@ namespace Bellatrix.Mobile.Untils.Android;
 
 public class WaitStrategyFactory
 {
-    public WaitToExistStrategy<AndroidDriver<AndroidElement>, AndroidElement> Exists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToExistStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepinterval);
+    public WaitToExistStrategy<AndroidDriver, AppiumElement> Exists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToExistStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepinterval);
 
-    public WaitNotExistStrategy<AndroidDriver<AndroidElement>, AndroidElement> NotExists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotExistStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepinterval);
+    public WaitNotExistStrategy<AndroidDriver, AppiumElement> NotExists(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotExistStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepinterval);
 
-    public WaitToBeVisibleStrategy<AndroidDriver<AndroidElement>, AndroidElement> BeVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeVisibleStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepinterval);
+    public WaitToBeVisibleStrategy<AndroidDriver, AppiumElement> BeVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeVisibleStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepinterval);
 
-    public WaitNotBeVisibleStrategy<AndroidDriver<AndroidElement>, AndroidElement> BeNotVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotBeVisibleStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepinterval);
+    public WaitNotBeVisibleStrategy<AndroidDriver, AppiumElement> BeNotVisible(int? timeoutInterval = null, int? sleepinterval = null) => new WaitNotBeVisibleStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepinterval);
 
-    public WaitToBeClickableStrategy<AndroidDriver<AndroidElement>, AndroidElement> BeClickable(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeClickableStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepinterval);
+    public WaitToBeClickableStrategy<AndroidDriver, AppiumElement> BeClickable(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToBeClickableStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepinterval);
 
-    public WaitToHaveContentStrategy<AndroidDriver<AndroidElement>, AndroidElement> HasContent(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToHaveContentStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepinterval);
+    public WaitToHaveContentStrategy<AndroidDriver, AppiumElement> HasContent(int? timeoutInterval = null, int? sleepinterval = null) => new WaitToHaveContentStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepinterval);
 }

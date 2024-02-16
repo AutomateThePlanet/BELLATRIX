@@ -19,5 +19,5 @@ namespace Bellatrix.Mobile.BddLogging.Android;
 
 public class BDDLoggingTextFieldEventHandlers : TextFieldEventHandlers
 {
-    protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void SettingTextEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => Logger.LogInformation($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

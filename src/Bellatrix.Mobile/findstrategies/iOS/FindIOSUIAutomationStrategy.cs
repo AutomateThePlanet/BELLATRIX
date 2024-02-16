@@ -12,36 +12,35 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
-using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Locators.IOS;
 
-public class FindIOSUIAutomationStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+public class FindIOSUIAutomationStrategy : FindStrategy<IOSDriver, AppiumElement>
 {
     public FindIOSUIAutomationStrategy(string name)
         : base(name)
     {
     }
 
-    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    public override AppiumElement FindElement(IOSDriver searchContext)
     {
-        return searchContext.FindElementByIosUIAutomation(Value);
+        return searchContext.FindElement(MobileBy.IosUIAutomation(Value));
     }
 
-    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(IOSDriver searchContext)
     {
-        return searchContext.FindElementsByIosUIAutomation(Value);
+        return searchContext.FindElements(MobileBy.IosUIAutomation(Value));
     }
 
-    public override AppiumWebElement FindElement(IOSElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByIosUIAutomation(Value);
+        return element.FindElement(MobileBy.IosUIAutomation(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByIosUIAutomation(Value);
+        return element.FindElements(MobileBy.IosUIAutomation(Value));
     }
 
     public override string ToString()

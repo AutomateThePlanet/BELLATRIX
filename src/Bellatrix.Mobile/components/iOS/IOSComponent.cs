@@ -16,7 +16,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Controls.IOS;
 
-public class IOSComponent : Component<IOSDriver<IOSElement>, IOSElement>
+public class IOSComponent : Component<IOSDriver, AppiumElement>
 {
     // ReSharper disable once MemberCanBeProtected.Global
     public IOSComponent()

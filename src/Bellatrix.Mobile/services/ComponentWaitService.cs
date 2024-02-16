@@ -21,8 +21,8 @@ using OpenQA.Selenium.Appium;
 namespace Bellatrix.Mobile.Services;
 
 public class ComponentWaitService<TDriver, TDriverElement>
-    where TDriver : AppiumDriver<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TDriverElement : AppiumElement
 {
     public static event EventHandler<ComponentNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
 

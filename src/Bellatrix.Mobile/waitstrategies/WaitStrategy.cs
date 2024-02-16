@@ -21,8 +21,8 @@ using OpenQA.Selenium.Support.UI;
 namespace Bellatrix.Mobile.Untils;
 
 public abstract class WaitStrategy<TDriver, TDriverElement>
-   where TDriver : AppiumDriver<TDriverElement>
-   where TDriverElement : AppiumWebElement
+   where TDriver : AppiumDriver
+   where TDriverElement : AppiumElement
 {
     protected WaitStrategy(int? timeoutInterval = null, int? sleepInterval = null)
     {

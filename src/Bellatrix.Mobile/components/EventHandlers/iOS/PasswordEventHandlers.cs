@@ -33,11 +33,11 @@ public class PasswordEventHandlers : ComponentEventHandlers
         Password.PasswordSet -= PasswordSetEventHandler;
     }
 
-    protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void PasswordSetEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

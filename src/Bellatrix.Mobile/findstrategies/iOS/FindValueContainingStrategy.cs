@@ -17,7 +17,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Locators.IOS;
 
-public class FindValueContainingStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+public class FindValueContainingStrategy : FindStrategy<IOSDriver, AppiumElement>
 {
     private readonly string _locatorValue;
 
@@ -27,24 +27,24 @@ public class FindValueContainingStrategy : FindStrategy<IOSDriver<IOSElement>, I
         _locatorValue = $"//*[contains(@value, '{Value}')]";
     }
 
-    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    public override AppiumElement FindElement(IOSDriver searchContext)
     {
-        return searchContext.FindElementByXPath(_locatorValue);
+        return searchContext.FindElement(MobileBy.XPath(_locatorValue));
     }
 
-    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(IOSDriver searchContext)
     {
-        return searchContext.FindElementsByXPath(_locatorValue);
+        return searchContext.FindElements(MobileBy.XPath(_locatorValue));
     }
 
-    public override AppiumWebElement FindElement(IOSElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByXPath(_locatorValue);
+        return element.FindElement(MobileBy.XPath(_locatorValue));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByXPath(_locatorValue);
+        return element.FindElements(MobileBy.XPath(_locatorValue));
     }
 
     public override string ToString()

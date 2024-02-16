@@ -21,10 +21,11 @@ namespace Bellatrix.Mobile;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public abstract class AppAttribute : Attribute
 {
-    protected AppAttribute(string appPath, string platformVersion, string deviceName, Lifecycle lifecycle = Lifecycle.NotSet)
+    protected AppAttribute(string appPath, string appId, string platformVersion, string deviceName, Lifecycle lifecycle = Lifecycle.NotSet)
         => AppConfiguration = new AppConfiguration
         {
             AppPath = appPath,
+            AppId = appId,
             Lifecycle = lifecycle,
             PlatformVersion = platformVersion,
             DeviceName = deviceName,
@@ -32,10 +33,11 @@ public abstract class AppAttribute : Attribute
             OSPlatform = OS.Windows,
         };
 
-    protected AppAttribute(OS osPlatform, string appPath, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
+    protected AppAttribute(OS osPlatform, string appPath, string appId, string platformVersion, string deviceName, Lifecycle behavior = Lifecycle.NotSet)
         => AppConfiguration = new AppConfiguration
                               {
                                   AppPath = appPath,
+                                  AppId = appId,
                                   Lifecycle = behavior,
                                   PlatformVersion = platformVersion,
                                   DeviceName = deviceName,
@@ -52,7 +54,7 @@ public abstract class AppAttribute : Attribute
         {
             foreach (var key in additionalCaps.Keys)
             {
-                appiumOptions.AddAdditionalCapability(key, additionalCaps[key]);
+                appiumOptions.AddAdditionalAppiumOption(key, additionalCaps[key]);
             }
         }
 

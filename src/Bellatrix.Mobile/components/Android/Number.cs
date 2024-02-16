@@ -21,8 +21,8 @@ namespace Bellatrix.Mobile.Android;
 
 public class Number : AndroidComponent, IComponentDisabled, IComponentNumber
 {
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingNumber;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> NumberSet;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> SettingNumber;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> NumberSet;
 
     public virtual void SetNumber(int value)
     {

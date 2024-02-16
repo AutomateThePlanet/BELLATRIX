@@ -16,9 +16,9 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Services.Android;
 
-public class AndroidFileSystemService : FileSystemService<AndroidDriver<AndroidElement>, AndroidElement>
+public class AndroidFileSystemService : FileSystemService<AndroidDriver, AppiumElement>
 {
-    public AndroidFileSystemService(AndroidDriver<AndroidElement> wrappedDriver)
+    public AndroidFileSystemService(AndroidDriver wrappedDriver)
         : base(wrappedDriver)
     {
     }

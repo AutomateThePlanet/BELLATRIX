@@ -18,8 +18,8 @@ using OpenQA.Selenium.Appium;
 namespace Bellatrix.Mobile.Services;
 
 public class AppService<TDriver, TComponent> : MobileService<TDriver, TComponent>
-    where TDriver : AppiumDriver<TComponent>
-    where TComponent : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TComponent : AppiumElement
 {
     public AppService(TDriver wrappedDriver)
         : base(wrappedDriver)
@@ -30,11 +30,12 @@ public class AppService<TDriver, TComponent> : MobileService<TDriver, TComponent
 
     public void BackgroundApp(int seconds) => WrappedAppiumDriver.BackgroundApp(TimeSpan.FromSeconds(seconds));
 
-    public void CloseApp() => WrappedAppiumDriver.CloseApp();
+    public void CloseApp() => WrappedAppiumDriver.TerminateApp(AppConfiguration.AppId);
 
-    public void LaunchApp() => WrappedAppiumDriver.LaunchApp();
+    public void LaunchApp() => WrappedAppiumDriver.ActivateApp(AppConfiguration.AppId);
 
-    public void ResetApp() => WrappedAppiumDriver.ResetApp();
+    // TODO: ResetApp() method
+    public void ResetApp() => throw new NotImplementedException("Reset? No.");
 
     public void InstallApp(string appPath)
     {

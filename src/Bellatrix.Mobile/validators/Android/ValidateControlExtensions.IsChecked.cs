@@ -21,19 +21,19 @@ namespace Bellatrix.Mobile.Android;
 public static partial class ValidateControlExtensions
 {
     public static void ValidateIsChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentChecked, IComponent<AndroidElement>
+        where T : IComponentChecked, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
-        ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
+        ValidateControlWaitService.WaitUntil<AndroidDriver, AppiumElement>(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
+        ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control));
     }
 
     public static void ValidateIsNotChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentChecked, IComponent<AndroidElement>
+        where T : IComponentChecked, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
-        ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
+        ValidateControlWaitService.WaitUntil<AndroidDriver, AppiumElement>(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
+        ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control));
     }
 
-    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsCheckedEvent;
-    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsNotCheckedEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedIsCheckedEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedIsNotCheckedEvent;
 }

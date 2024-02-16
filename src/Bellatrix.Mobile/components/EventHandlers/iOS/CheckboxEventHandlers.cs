@@ -37,19 +37,19 @@ public class CheckboxEventHandlers : ComponentEventHandlers
         CheckBox.Unchecked -= UncheckedEventHandler;
     }
 
-    protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void UncheckingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void UncheckedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void CheckingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void CheckedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

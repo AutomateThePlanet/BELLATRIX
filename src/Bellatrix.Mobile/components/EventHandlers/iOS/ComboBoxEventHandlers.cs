@@ -33,11 +33,11 @@ public class ComboBoxEventHandlers : ComponentEventHandlers
         ComboBox.Selected -= SelectedEventHandler;
     }
 
-    protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void SelectedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

@@ -21,12 +21,12 @@ namespace Bellatrix.Mobile.Android;
 
 public class ComboBox : AndroidComponent, IComponentDisabled, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Selecting;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Selected;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Selecting;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Selected;
 
     public virtual void SelectByText(string value)
     {
-        Selecting?.Invoke(this, new ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>(this, value));
+        Selecting?.Invoke(this, new ComponentActionEventArgs<AppiumElement>(this, value));
 
         if (WrappedElement.Text != value)
         {
@@ -36,7 +36,7 @@ public class ComboBox : AndroidComponent, IComponentDisabled, IComponentText
             innerElementToClick.Click();
         }
 
-        Selected?.Invoke(this, new ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>(this, value));
+        Selected?.Invoke(this, new ComponentActionEventArgs<AppiumElement>(this, value));
     }
 
     public new virtual string GetText()

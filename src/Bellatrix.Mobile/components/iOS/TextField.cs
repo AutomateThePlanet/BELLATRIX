@@ -16,14 +16,13 @@ using System.Diagnostics;
 using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Controls.IOS;
 using Bellatrix.Mobile.Events;
-using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS;
 
 public class TextField : IOSComponent, IComponentDisabled, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingText;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> TextSet;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> SettingText;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> TextSet;
 
     public virtual void SetText(string value)
     {

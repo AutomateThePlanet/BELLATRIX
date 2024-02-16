@@ -21,19 +21,19 @@ namespace Bellatrix.Mobile.IOS;
 public static partial class ValidateControlExtensions
 {
     public static void ValidateIsVisible<T>(this T control, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentVisible, IComponent<IOSElement>
+        where T : IComponentVisible, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsVisible.Equals(true), "The control should be visible but was NOT.", timeout, sleepInterval);
-        ValidatedIsVisibleEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
+        ValidateControlWaitService.WaitUntil<IOSDriver, AppiumElement>(() => control.IsVisible.Equals(true), "The control should be visible but was NOT.", timeout, sleepInterval);
+        ValidatedIsVisibleEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control));
     }
 
     public static void ValidateIsNotVisible<T>(this T control, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentVisible, IComponent<IOSElement>
+        where T : IComponentVisible, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => !control.IsVisible.Equals(true), "The control should be NOT visible but was NOT.", timeout, sleepInterval);
-        ValidatedIsNotVisibleEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
+        ValidateControlWaitService.WaitUntil<IOSDriver, AppiumElement>(() => !control.IsVisible.Equals(true), "The control should be NOT visible but was NOT.", timeout, sleepInterval);
+        ValidatedIsNotVisibleEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control));
     }
 
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsVisibleEvent;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsNotVisibleEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedIsVisibleEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedIsNotVisibleEvent;
 }

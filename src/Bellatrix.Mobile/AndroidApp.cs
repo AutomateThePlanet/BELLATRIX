@@ -19,13 +19,13 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile;
 
-public class AndroidApp : App<AndroidDriver<AndroidElement>, AndroidElement>
+public class AndroidApp : App<AndroidDriver, AppiumElement>
 {
     public AndroidAppService AppService => ServicesCollection.Current.Resolve<AndroidAppService>();
     public AndroidFileSystemService Files => ServicesCollection.Current.Resolve<AndroidFileSystemService>();
     public AndroidDeviceService Device => ServicesCollection.Current.Resolve<AndroidDeviceService>();
     public AndroidKeyboardService Keyboard => ServicesCollection.Current.Resolve<AndroidKeyboardService>();
-    public TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement> TouchActions => ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement>>();
+    public TouchActionsService<AndroidDriver, AppiumElement> TouchActions => ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver, AppiumElement>>();
 
     public override void Dispose()
     {

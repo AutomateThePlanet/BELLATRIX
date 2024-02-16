@@ -19,5 +19,5 @@ namespace Bellatrix.Mobile.BddLogging.IOS;
 
 public class BDDLoggingRadioButtonEventHandlers : RadioButtonEventHandlers
 {
-    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => Logger.LogInformation($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => Logger.LogInformation($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

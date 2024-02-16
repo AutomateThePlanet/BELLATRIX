@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.Events;
-using OpenQA.Selenium.Appium.Android;
+using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.EventHandlers.Android;
 
@@ -33,11 +33,11 @@ public class ButtonEventHandlers : ComponentEventHandlers
         Button.Clicked -= ClickedEventHandler;
     }
 
-    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

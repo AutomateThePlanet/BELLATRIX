@@ -21,10 +21,10 @@ namespace Bellatrix.Mobile.Android;
 
 public class CheckBox : AndroidComponent, IComponentDisabled, IComponentChecked, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Checking;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Checked;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Unchecking;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Unchecked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Checking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Checked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Unchecking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Unchecked;
 
     public virtual void Check(bool isChecked = true)
     {

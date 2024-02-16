@@ -24,6 +24,7 @@ public class IOSBrowserStackAttribute : BrowserStackAttribute, IAppiumOptionsFac
 {
     public IOSBrowserStackAttribute(
         string appPath,
+        string appId,
         string platformVersion,
         string deviceName,
         Lifecycle behavior = Lifecycle.NotSet,
@@ -32,7 +33,7 @@ public class IOSBrowserStackAttribute : BrowserStackAttribute, IAppiumOptionsFac
         BrowserStackConsoleLogType consoleLogType = BrowserStackConsoleLogType.Disable,
         bool debug = false,
         string build = null)
-        : base(appPath, platformVersion, deviceName, behavior, captureVideo, captureNetworkLogs, consoleLogType, debug, build)
+        : base(appPath, appId, platformVersion, deviceName, behavior, captureVideo, captureNetworkLogs, consoleLogType, debug, build)
     {
         AppConfiguration.MobileOSType = MobileOSType.IOS;
         AppConfiguration.PlatformName = "iOS";
@@ -41,7 +42,7 @@ public class IOSBrowserStackAttribute : BrowserStackAttribute, IAppiumOptionsFac
     public new AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
     {
         var appiumOptions = base.CreateAppiumOptions(memberInfo, testClassType);
-        appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
+        appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
 
         return appiumOptions;
     }

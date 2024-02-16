@@ -24,12 +24,13 @@ public class IOSSauceLabsAttribute : SauceLabsAttribute, IAppiumOptionsFactory
 {
     public IOSSauceLabsAttribute(
         string appPath,
+        string appId,
         string platformVersion,
         string deviceName,
         Lifecycle behavior = Lifecycle.NotSet,
         bool recordVideo = false,
         bool recordScreenshots = false)
-        : base(appPath, platformVersion, deviceName, behavior, recordVideo, recordScreenshots)
+        : base(appPath, appId, platformVersion, deviceName, behavior, recordVideo, recordScreenshots)
     {
         AppConfiguration.MobileOSType = MobileOSType.IOS;
         AppConfiguration.PlatformName = "iOS";
@@ -38,9 +39,9 @@ public class IOSSauceLabsAttribute : SauceLabsAttribute, IAppiumOptionsFactory
     public new AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
     {
         var appiumOptions = base.CreateAppiumOptions(memberInfo, testClassType);
-        appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
-        appiumOptions.AddAdditionalCapability("deviceOrientation", "portrait");
-        appiumOptions.AddAdditionalCapability("browserName", string.Empty);
+        appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
+        appiumOptions.AddAdditionalAppiumOption("deviceOrientation", "portrait");
+        appiumOptions.AddAdditionalAppiumOption("browserName", string.Empty);
 
         return appiumOptions;
     }

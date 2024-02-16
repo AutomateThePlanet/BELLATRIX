@@ -19,5 +19,5 @@ namespace Bellatrix.Mobile.BugReporting.IOS;
 
 public class BugReportingImageButtonEventHandlers : ImageButtonEventHandlers
 {
-    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

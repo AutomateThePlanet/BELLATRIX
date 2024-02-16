@@ -19,5 +19,5 @@ namespace Bellatrix.Mobile.DynamicTestCases.Android;
 
 public class DynamicTestCasesPasswordEventHandlers : PasswordEventHandlers
 {
-    protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void SettingPasswordEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => DynamicTestCasesService.AddStep($"Type '{arg.ActionValue}' into {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

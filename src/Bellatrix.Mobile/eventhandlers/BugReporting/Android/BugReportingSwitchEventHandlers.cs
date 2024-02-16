@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.BugReporting.Android;
 
 public class BugReportingSwitchEventHandlers : SwitchEventHandlers
 {
-    protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-    protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

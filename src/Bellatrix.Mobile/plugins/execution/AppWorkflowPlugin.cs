@@ -301,7 +301,7 @@ public class AppWorkflowPlugin : Plugin
             {
                 if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
                 {
-                    options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                    options.AddAdditionalAppiumOption(item.Key, FormatGridOptions(item.Value, testClassType));
                 }
             }
         }
@@ -320,7 +320,7 @@ public class AppWorkflowPlugin : Plugin
             {
                 if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
                 {
-                    options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
+                    options.AddAdditionalAppiumOption(item.Key, FormatGridOptions(item.Value, testClassType));
                 }
             }
         }

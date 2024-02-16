@@ -21,8 +21,8 @@ namespace Bellatrix.Mobile.Android;
 
 public class TextField : AndroidComponent, IComponentDisabled, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingText;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> TextSet;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> SettingText;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> TextSet;
 
     public virtual void SetText(string value)
     {

@@ -16,7 +16,7 @@ using OpenQA.Selenium.Appium;
 namespace Bellatrix.Mobile.Contracts;
 
 public interface IComponent<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriverElement : AppiumElement
 {
     string ComponentName { get; }
 

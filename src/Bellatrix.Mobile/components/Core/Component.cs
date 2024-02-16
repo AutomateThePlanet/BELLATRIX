@@ -33,8 +33,8 @@ namespace Bellatrix.Mobile.Core;
 
 [DebuggerDisplay("BELLATRIX Element")]
 public partial class Component<TDriver, TDriverElement> : IComponent<TDriverElement>
-    where TDriver : AppiumDriver<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TDriverElement : AppiumElement
 {
     private readonly ComponentWaitService<TDriver, TDriverElement> _elementWait;
     private readonly List<WaitStrategy<TDriver, TDriverElement>> _untils;

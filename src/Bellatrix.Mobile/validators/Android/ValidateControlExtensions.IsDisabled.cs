@@ -21,19 +21,19 @@ namespace Bellatrix.Mobile.Android;
 public static partial class ValidateControlExtensions
 {
     public static void ValidateIsDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentDisabled, IComponent<AndroidElement>
+        where T : IComponentDisabled, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsDisabled.Equals(true), "The control should be disabled but it was NOT.", timeout, sleepInterval);
-        ValidatedIsDisabledEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
+        ValidateControlWaitService.WaitUntil<AndroidDriver, AppiumElement>(() => control.IsDisabled.Equals(true), "The control should be disabled but it was NOT.", timeout, sleepInterval);
+        ValidatedIsDisabledEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control));
     }
 
     public static void ValidateIsNotDisabled<T>(this T control, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentDisabled, IComponent<AndroidElement>
+        where T : IComponentDisabled, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => !control.IsDisabled.Equals(true), "The control should NOT be disabled but it was.", timeout, sleepInterval);
-        ValidatedIsNotDisabledEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
+        ValidateControlWaitService.WaitUntil<AndroidDriver, AppiumElement>(() => !control.IsDisabled.Equals(true), "The control should NOT be disabled but it was.", timeout, sleepInterval);
+        ValidatedIsNotDisabledEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control));
     }
 
-    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsDisabledEvent;
-    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsNotDisabledEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedIsDisabledEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedIsNotDisabledEvent;
 }

@@ -21,19 +21,19 @@ namespace Bellatrix.Mobile.Android;
 public static partial class ValidateControlExtensions
 {
     public static void ValidateIsSelected<T>(this T control, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentSelected, IComponent<AndroidElement>
+        where T : IComponentSelected, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsSelected.Equals(true), "The control should be selected but was NOT.", timeout, sleepInterval);
-        ValidatedIsSelectedEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
+        ValidateControlWaitService.WaitUntil<AndroidDriver, AppiumElement>(() => control.IsSelected.Equals(true), "The control should be selected but was NOT.", timeout, sleepInterval);
+        ValidatedIsSelectedEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control));
     }
 
     public static void ValidateIsNotSelected<T>(this T control, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentSelected, IComponent<AndroidElement>
+        where T : IComponentSelected, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<AndroidDriver<AndroidElement>, AndroidElement>(() => control.IsSelected.Equals(false), "The control should be not selected but it WAS.", timeout, sleepInterval);
-        ValidatedIsNotSelectedEvent?.Invoke(control, new ComponentActionEventArgs<AndroidElement>(control));
+        ValidateControlWaitService.WaitUntil<AndroidDriver, AppiumElement>(() => control.IsSelected.Equals(false), "The control should be not selected but it WAS.", timeout, sleepInterval);
+        ValidatedIsNotSelectedEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control));
     }
 
-    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsSelectedEvent;
-    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> ValidatedIsNotSelectedEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedIsSelectedEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedIsNotSelectedEvent;
 }

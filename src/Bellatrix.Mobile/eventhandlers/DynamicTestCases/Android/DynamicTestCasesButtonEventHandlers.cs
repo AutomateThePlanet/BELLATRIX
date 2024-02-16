@@ -19,5 +19,5 @@ namespace Bellatrix.Mobile.DynamicTestCases.Android;
 
 public class DynamicTestCasesButtonEventHandlers : ButtonEventHandlers
 {
-    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void ClickingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => DynamicTestCasesService.AddStep($"Click {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

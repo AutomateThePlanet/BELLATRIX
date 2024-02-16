@@ -26,8 +26,8 @@ internal class ComponentRepository
     public TComponent CreateComponentWithParent<TComponent, TBy, TDriver, TDriverElement>(TBy by, TDriverElement webElement)
         where TComponent : Component<TDriver, TDriverElement>
         where TBy : FindStrategy<TDriver, TDriverElement>
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+        where TDriver : AppiumDriver
+        where TDriverElement : AppiumElement
     {
         DetermineComponentAttributes<TDriver, TDriverElement>(out var elementName, out var pageName);
 
@@ -43,8 +43,8 @@ internal class ComponentRepository
     public TComponent CreateComponentThatIsFound<TComponent, TBy, TDriver, TDriverElement>(TBy by, TDriverElement webElement)
         where TComponent : Component<TDriver, TDriverElement>
         where TBy : FindStrategy<TDriver, TDriverElement>
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+        where TDriver : AppiumDriver
+        where TDriverElement : AppiumElement
     {
         DetermineComponentAttributes<TDriver, TDriverElement>(out var elementName, out var pageName);
 
@@ -58,8 +58,8 @@ internal class ComponentRepository
     }
 
     private void DetermineComponentAttributes<TDriver, TDriverElement>(out string elementName, out string pageName)
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+        where TDriver : AppiumDriver
+        where TDriverElement : AppiumElement
     {
         elementName = string.Empty;
         pageName = string.Empty;

@@ -19,8 +19,8 @@ using OpenQA.Selenium.Appium;
 namespace Bellatrix.Mobile.Services;
 
 public class DeviceService<TDriver, TComponent> : MobileService<TDriver, TComponent>
-    where TDriver : AppiumDriver<TComponent>
-    where TComponent : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TComponent : AppiumElement
 {
     public DeviceService(TDriver wrappedDriver)
         : base(wrappedDriver)

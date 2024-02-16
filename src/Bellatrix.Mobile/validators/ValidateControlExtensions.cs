@@ -24,8 +24,8 @@ namespace Bellatrix.Mobile;
 internal static class ValidateControlWaitService
 {
     internal static void WaitUntil<TDriver, TDriverElement>(Func<bool> waitCondition, string exceptionMessage, int? timeoutInSeconds, int? sleepIntervalInSeconds)
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+        where TDriver : AppiumDriver
+        where TDriverElement : AppiumElement
     {
         var localTimeout = timeoutInSeconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ValidationsTimeout;
         var localSleepInterval = sleepIntervalInSeconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.SleepInterval;

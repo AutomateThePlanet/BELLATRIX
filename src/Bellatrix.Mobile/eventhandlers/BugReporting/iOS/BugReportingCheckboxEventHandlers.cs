@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.BugReporting.IOS;
 
 public class BugReportingCheckboxEventHandlers : CheckboxEventHandlers
 {
-    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

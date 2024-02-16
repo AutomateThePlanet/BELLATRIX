@@ -24,13 +24,14 @@ public class IOSCrossBrowserTestingAttribute : CrossBrowserTestingAttribute, IAp
 {
     public IOSCrossBrowserTestingAttribute(
         string appPath,
+        string appId,
         string platformVersion,
         string deviceName,
         Lifecycle behavior = Lifecycle.NotSet,
         bool recordVideo = false,
         bool recordNetwork = false,
         string build = null)
-        : base(appPath, platformVersion, deviceName, behavior, recordVideo, recordNetwork, build)
+        : base(appPath, appId, platformVersion, deviceName, behavior, recordVideo, recordNetwork, build)
     {
         AppConfiguration.MobileOSType = MobileOSType.IOS;
         AppConfiguration.PlatformName = "iOS";
@@ -39,7 +40,7 @@ public class IOSCrossBrowserTestingAttribute : CrossBrowserTestingAttribute, IAp
     public new AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
     {
         var appiumOptions = base.CreateAppiumOptions(memberInfo, testClassType);
-        appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
+        appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
 
         return appiumOptions;
     }

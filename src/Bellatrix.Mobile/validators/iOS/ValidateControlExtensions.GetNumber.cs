@@ -21,11 +21,11 @@ namespace Bellatrix.Mobile.IOS;
 public static partial class ValidateControlExtensions
 {
     public static void ValidateNumberIs<T>(this T control, int value, int? timeout = null, int? sleepInterval = null)
-            where T : IComponentNumber, IComponent<IOSElement>
+            where T : IComponentNumber, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.GetNumber().Equals(value), $"The control's number should be '{value}' but was '{control.GetNumber()}'.", timeout, sleepInterval);
-        ValidatedNumberIsEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control, value.ToString()));
+        ValidateControlWaitService.WaitUntil<IOSDriver, AppiumElement>(() => control.GetNumber().Equals(value), $"The control's number should be '{value}' but was '{control.GetNumber()}'.", timeout, sleepInterval);
+        ValidatedNumberIsEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control, value.ToString()));
     }
 
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedNumberIsEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedNumberIsEvent;
 }

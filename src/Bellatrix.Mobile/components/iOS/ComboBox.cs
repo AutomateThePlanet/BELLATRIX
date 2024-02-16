@@ -22,12 +22,12 @@ namespace Bellatrix.Mobile.IOS;
 
 public class ComboBox : IOSComponent, IComponentDisabled, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Selecting;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Selected;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Selecting;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Selected;
 
     public virtual void SelectByText(string value)
     {
-        Selecting?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
+        Selecting?.Invoke(this, new ComponentActionEventArgs<AppiumElement>(this, value));
 
         if (WrappedElement.Text != value)
         {
@@ -37,7 +37,7 @@ public class ComboBox : IOSComponent, IComponentDisabled, IComponentText
             innerElementToClick.Click();
         }
 
-        Selected?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
+        Selected?.Invoke(this, new ComponentActionEventArgs<AppiumElement>(this, value));
     }
 
     public new virtual string GetText()

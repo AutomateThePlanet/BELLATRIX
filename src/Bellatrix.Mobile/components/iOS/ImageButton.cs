@@ -22,8 +22,8 @@ namespace Bellatrix.Mobile.IOS;
 
 public class ImageButton : IOSComponent, IComponentDisabled, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicking;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Clicked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Clicking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Clicked;
 
     public virtual void Click()
     {

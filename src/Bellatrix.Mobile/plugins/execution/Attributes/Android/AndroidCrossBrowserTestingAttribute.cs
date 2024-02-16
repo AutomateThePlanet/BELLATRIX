@@ -24,6 +24,7 @@ public class AndroidCrossBrowserTestingAttribute : CrossBrowserTestingAttribute,
 {
     public AndroidCrossBrowserTestingAttribute(
         string appPath,
+        string appId,
         string platformVersion,
         string deviceName,
         string appPackage,
@@ -32,7 +33,7 @@ public class AndroidCrossBrowserTestingAttribute : CrossBrowserTestingAttribute,
         bool recordVideo = false,
         bool recordNetwork = false,
         string build = null)
-        : base(appPath, platformVersion, deviceName, behavior, recordVideo, recordNetwork, build)
+        : base(appPath, appId, platformVersion, deviceName, behavior, recordVideo, recordNetwork, build)
     {
         AppConfiguration.MobileOSType = MobileOSType.Android;
         AppConfiguration.PlatformName = "Android";
@@ -43,10 +44,10 @@ public class AndroidCrossBrowserTestingAttribute : CrossBrowserTestingAttribute,
     public new AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
     {
         var appiumOptions = base.CreateAppiumOptions(memberInfo, testClassType);
-        appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppActivity, AppConfiguration.AppActivity);
-        appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppWaitActivity, "*");
-        appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
-        appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppPackage, AppConfiguration.AppPackage);
+        appiumOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, AppConfiguration.AppActivity);
+        appiumOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppWaitActivity, "*");
+        appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
+        appiumOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, AppConfiguration.AppPackage);
 
         return appiumOptions;
     }

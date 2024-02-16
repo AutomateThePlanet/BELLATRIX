@@ -15,9 +15,9 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Services.IOS;
 
-public class IOSDeviceService : DeviceService<IOSDriver<IOSElement>, IOSElement>
+public class IOSDeviceService : DeviceService<IOSDriver, AppiumElement>
 {
-    public IOSDeviceService(IOSDriver<IOSElement> wrappedDriver)
+    public IOSDeviceService(IOSDriver wrappedDriver)
         : base(wrappedDriver)
     {
     }

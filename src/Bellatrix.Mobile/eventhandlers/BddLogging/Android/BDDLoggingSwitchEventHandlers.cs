@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.BddLogging.Android;
 
 public class BDDLoggingSwitchEventHandlers : SwitchEventHandlers
 {
-    protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => Logger.LogInformation($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-    protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => Logger.LogInformation($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => Logger.LogInformation($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

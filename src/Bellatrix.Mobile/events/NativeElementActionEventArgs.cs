@@ -16,7 +16,7 @@ using OpenQA.Selenium.Appium;
 namespace Bellatrix.Mobile.Events;
 
 public class NativeElementActionEventArgs<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriverElement : AppiumElement
 {
     public NativeElementActionEventArgs(TDriverElement element) => Element = element;
 

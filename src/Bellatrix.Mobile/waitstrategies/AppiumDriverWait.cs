@@ -18,8 +18,8 @@ using OpenQA.Selenium.Support.UI;
 namespace Bellatrix.Mobile.Untils;
 
 public class AppiumDriverWait<TDriver, TDriverElement> : DefaultWait<TDriver>
-    where TDriver : AppiumDriver<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TDriverElement : AppiumElement
 {
     public AppiumDriverWait(TDriver driver, IClock clock, TimeSpan timeout, TimeSpan sleepInterval)
         : base(driver, clock)

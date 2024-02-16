@@ -24,6 +24,7 @@ public class AndroidBrowserStackAttribute : BrowserStackAttribute, IAppiumOption
 {
     public AndroidBrowserStackAttribute(
         string appPath,
+        string appId,
         string platformVersion,
         string deviceName,
         string appPackage,
@@ -34,7 +35,7 @@ public class AndroidBrowserStackAttribute : BrowserStackAttribute, IAppiumOption
         BrowserStackConsoleLogType consoleLogType = BrowserStackConsoleLogType.Disable,
         bool debug = false,
         string build = null)
-        : base(appPath, platformVersion, deviceName, behavior, captureVideo, captureNetworkLogs, consoleLogType, debug, build)
+        : base(appPath, appId, platformVersion, deviceName, behavior, captureVideo, captureNetworkLogs, consoleLogType, debug, build)
     {
         AppConfiguration.MobileOSType = MobileOSType.Android;
         AppConfiguration.PlatformName = "Android";
@@ -45,10 +46,10 @@ public class AndroidBrowserStackAttribute : BrowserStackAttribute, IAppiumOption
     public new AppiumOptions CreateAppiumOptions(MemberInfo memberInfo, Type testClassType)
     {
         var appiumOptions = base.CreateAppiumOptions(memberInfo, testClassType);
-        appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppActivity, AppConfiguration.AppActivity);
-        appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppWaitActivity, "*");
-        appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
-        appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppPackage, AppConfiguration.AppPackage);
+        appiumOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, AppConfiguration.AppActivity);
+        appiumOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppWaitActivity, "*");
+        appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
+        appiumOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, AppConfiguration.AppPackage);
 
         return appiumOptions;
     }

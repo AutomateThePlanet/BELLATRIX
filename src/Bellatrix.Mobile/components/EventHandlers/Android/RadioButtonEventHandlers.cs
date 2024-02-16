@@ -33,11 +33,11 @@ public class RadioButtonEventHandlers : ComponentEventHandlers
         RadioButton.Clicked -= ClickedEventHandler;
     }
 
-    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

@@ -13,11 +13,12 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Contracts;
 using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Interfaces;
 
 namespace Bellatrix.Mobile.Events;
 
 public class ComponentActionEventArgs<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriverElement : AppiumElement
 {
     public ComponentActionEventArgs(IComponent<TDriverElement> element) => Element = element;
 

@@ -15,7 +15,7 @@ using Bellatrix.Mobile.Contracts;
 
 namespace Bellatrix.Mobile.Events;
 
-public class IOSComponentActionEventArgs : ComponentActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>
+public class IOSComponentActionEventArgs : ComponentActionEventArgs<AppiumElement>
 {
     public IOSComponentActionEventArgs(IIOSComponent element)
         : base(element)

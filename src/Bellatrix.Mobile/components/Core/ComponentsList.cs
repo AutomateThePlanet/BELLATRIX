@@ -28,8 +28,8 @@ namespace Bellatrix.Mobile.Controls.Core;
 public class ComponentsList<TComponent, TBy, TDriver, TDriverElement> : IEnumerable<TComponent>
     where TBy : FindStrategy<TDriver, TDriverElement>
     where TComponent : Component<TDriver, TDriverElement>
-    where TDriver : AppiumDriver<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TDriverElement : AppiumElement
 {
     private readonly TBy _by;
     private readonly TDriverElement _mobileElement;
@@ -65,13 +65,13 @@ public class ComponentsList<TComponent, TBy, TDriver, TDriverElement> : IEnumera
             var elementRepository = new ComponentRepository();
             var wrappedDriver = ServicesCollection.Current.Resolve<TDriver>();
             TDriverElement currentNativeElement;
-            if (wrappedDriver is AndroidDriver<AndroidElement>)
+            if (wrappedDriver is AndroidDriver)
             {
-                currentNativeElement = (TDriverElement)Activator.CreateInstance(typeof(AndroidElement), wrappedDriver, nativeElement.Id);
+                currentNativeElement = (TDriverElement)Activator.CreateInstance(typeof(AppiumElement), wrappedDriver, nativeElement.Id);
             }
             else
             {
-                currentNativeElement = (TDriverElement)Activator.CreateInstance(typeof(IOSElement), wrappedDriver, nativeElement.Id);
+                currentNativeElement = (TDriverElement)Activator.CreateInstance(typeof(AppiumElement), wrappedDriver, nativeElement.Id);
             }
 
             yield return elementRepository.CreateComponentThatIsFound<TComponent, TBy, TDriver, TDriverElement>(_by, currentNativeElement);

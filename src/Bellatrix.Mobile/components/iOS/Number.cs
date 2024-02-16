@@ -22,8 +22,8 @@ namespace Bellatrix.Mobile.IOS;
 
 public class Number : IOSComponent, IComponentDisabled, IComponentNumber
 {
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingNumber;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> NumberSet;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> SettingNumber;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> NumberSet;
 
     public virtual void SetNumber(int value)
     {

@@ -23,18 +23,18 @@ namespace Bellatrix.Mobile.Android;
 
 public class SeekBar : AndroidComponent, IComponentDisabled
 {
-    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> SettingPercentage;
-    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> PercentageSet;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> SettingPercentage;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> PercentageSet;
 
     public virtual void Set(double percentage)
     {
-        SettingPercentage?.Invoke(this, new ComponentActionEventArgs<AndroidElement>(this, percentage.ToString()));
+        SettingPercentage?.Invoke(this, new ComponentActionEventArgs<AppiumElement>(this, percentage.ToString()));
         int end = WrappedElement.Size.Width;
         int y = WrappedElement.Location.Y;
-        var touchActionsService = ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement>>();
+        var touchActionsService = ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver, AppiumElement>>();
         int moveTo = (int)((percentage / 100) * end);
         touchActionsService.Press(moveTo, y, 0).Release().Perform();
-        PercentageSet?.Invoke(this, new ComponentActionEventArgs<AndroidElement>(this, percentage.ToString()));
+        PercentageSet?.Invoke(this, new ComponentActionEventArgs<AppiumElement>(this, percentage.ToString()));
     }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]

@@ -21,8 +21,8 @@ namespace Bellatrix.Mobile.Android;
 
 public class Password : AndroidComponent, IComponentDisabled
 {
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> SettingPassword;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> PasswordSet;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> SettingPassword;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> PasswordSet;
 
     public virtual string GetPassword()
     {

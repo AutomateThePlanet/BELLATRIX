@@ -22,8 +22,8 @@ namespace Bellatrix.Mobile.IOS;
 
 public class Password : IOSComponent, IComponentDisabled
 {
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingPassword;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> PasswordSet;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> SettingPassword;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> PasswordSet;
 
     public virtual string GetPassword()
     {

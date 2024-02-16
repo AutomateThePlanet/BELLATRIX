@@ -22,10 +22,10 @@ namespace Bellatrix.Mobile.IOS;
 
 public class ToggleButton : IOSComponent, IComponentDisabled, IComponentOn, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurningOn;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurnedOn;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurningOff;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> TurnedOff;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> TurningOn;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> TurnedOn;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> TurningOff;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> TurnedOff;
 
     public virtual void TurnOn()
     {

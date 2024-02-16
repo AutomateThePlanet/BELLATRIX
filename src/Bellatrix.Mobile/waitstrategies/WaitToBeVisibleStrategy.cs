@@ -20,8 +20,8 @@ using OpenQA.Selenium.Appium;
 namespace Bellatrix.Mobile.Untils;
 
 public class WaitToBeVisibleStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
-   where TDriver : AppiumDriver<TDriverElement>
-   where TDriverElement : AppiumWebElement
+   where TDriver : AppiumDriver
+   where TDriverElement : AppiumElement
 {
     public WaitToBeVisibleStrategy(int? timeoutInterval = null, int? sleepInterval = null)
         : base(timeoutInterval, sleepInterval)

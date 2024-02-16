@@ -21,8 +21,8 @@ namespace Bellatrix.Mobile.Android;
 
 public class Button : AndroidComponent, IComponentDisabled, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicking;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Clicked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Clicking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Clicked;
 
     public virtual void Click()
     {

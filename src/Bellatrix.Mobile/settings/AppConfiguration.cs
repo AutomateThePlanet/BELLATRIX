@@ -32,9 +32,10 @@ public class AppConfiguration : IEquatable<AppConfiguration>
 
     public AppConfiguration(OS os) => OSPlatform = os;
 
-    public AppConfiguration(string appPath, Lifecycle lifecycle, string classFullName, AppiumOptions appiumOptions = null)
+    public AppConfiguration(string appPath, string appId, Lifecycle lifecycle, string classFullName, AppiumOptions appiumOptions = null)
     {
         AppPath = appPath;
+        AppId = appId;
         Lifecycle = lifecycle;
         ClassFullName = classFullName;
         AppiumOptions = appiumOptions;
@@ -63,6 +64,8 @@ public class AppConfiguration : IEquatable<AppConfiguration>
     public ExecutionType ExecutionType { get; set; }
 
     public string AppPath { get => NormalizeAppPath(); set => _appPath = value; }
+    
+    public string AppId { get; set; }
 
     public AppiumOptions AppiumOptions { get; set; }
 
@@ -80,14 +83,14 @@ public class AppConfiguration : IEquatable<AppConfiguration>
 
     public override bool Equals(object obj) => Equals(obj as AppConfiguration);
 
-    protected AppiumOptions AddAdditionalCapability(string classFullName, AppiumOptions appiumOptions)
+    protected AppiumOptions AddAdditionalAppiumOption(string classFullName, AppiumOptions appiumOptions)
     {
         var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{classFullName}");
         if (additionalCaps != null)
         {
             foreach (var key in additionalCaps.Keys)
             {
-                appiumOptions.AddAdditionalCapability(key, additionalCaps[key]);
+                appiumOptions.AddAdditionalAppiumOption(key, additionalCaps[key]);
             }
         }
 
@@ -117,6 +120,7 @@ public class AppConfiguration : IEquatable<AppConfiguration>
     public override int GetHashCode()
     {
         return AppPath.GetHashCode() +
+               AppId.GetHashCode() +
                Lifecycle.GetHashCode() +
                DeviceName.GetHashCode() +
                AppPackage.GetHashCode() +

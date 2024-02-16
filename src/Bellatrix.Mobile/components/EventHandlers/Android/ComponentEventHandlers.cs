@@ -47,31 +47,31 @@ public class ComponentEventHandlers : IControlEventHandlers
         AndroidComponent.ReturningWrappedElement -= ReturningWrappedElementEventHandler;
     }
 
-    protected virtual void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ScrolledToVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ScrolledToVisibleEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void CreatingComponentEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void CreatingComponentEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void CreatedComponentEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void CreatedComponentEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void CreatingComponentsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void CreatingComponentsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void CreatedComponentsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void CreatedComponentsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs<AndroidElement> arg)
+    protected virtual void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs<AppiumElement> arg)
     {
     }
 }

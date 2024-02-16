@@ -16,7 +16,7 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Controls.Android;
 
-public class AndroidComponent : Component<AndroidDriver<AndroidElement>, AndroidElement>
+public class AndroidComponent : Component<AndroidDriver, AppiumElement>
 {
     public AndroidComponent()
     {

@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.IOS;
+using OpenQA.Selenium.Appium.Interfaces;
 using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.EventHandlers.IOS;
@@ -33,11 +34,11 @@ public class ButtonEventHandlers : ComponentEventHandlers
         Button.Clicked -= ClickedEventHandler;
     }
 
-    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

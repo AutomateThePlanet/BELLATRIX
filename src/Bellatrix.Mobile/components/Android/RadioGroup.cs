@@ -61,7 +61,7 @@ public class RadioGroup : AndroidComponent
         return clickedRadioButton;
     }
 
-    public virtual ComponentsList<RadioButton, FindClassNameStrategy, AndroidDriver<AndroidElement>, AndroidElement> GetAll()
+    public virtual ComponentsList<RadioButton, FindClassNameStrategy, AndroidDriver, AppiumElement> GetAll()
     {
         var radioButtons = this.CreateAllByClass<RadioButton>("android.widget.RadioButton");
         return radioButtons;

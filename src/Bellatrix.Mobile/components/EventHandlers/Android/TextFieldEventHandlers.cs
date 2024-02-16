@@ -33,11 +33,11 @@ public class TextFieldEventHandlers : ComponentEventHandlers
         TextField.TextSet -= TextSetEventHandler;
     }
 
-    protected virtual void SettingTextEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void SettingTextEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void TextSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void TextSetEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

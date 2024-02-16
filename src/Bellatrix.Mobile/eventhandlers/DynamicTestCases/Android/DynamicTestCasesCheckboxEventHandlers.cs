@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.DynamicTestCases.Android;
 
 public class DynamicTestCasesCheckboxEventHandlers : CheckboxEventHandlers
 {
-    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void CheckingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => DynamicTestCasesService.AddStep($"Check {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => DynamicTestCasesService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void UncheckingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => DynamicTestCasesService.AddStep($"Uncheck {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

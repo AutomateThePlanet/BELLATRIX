@@ -23,8 +23,8 @@ public static class FindStrategyCreateExtensions
     public static TComponent Create<TComponent, TBy, TDriver, TDriverElement>(this TBy by)
         where TComponent : Component<TDriver, TDriverElement>
         where TBy : FindStrategy<TDriver, TDriverElement>
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+        where TDriver : AppiumDriver
+        where TDriverElement : AppiumElement
     {
         var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
         return elementRepository.Create<TComponent, TBy, TDriver, TDriverElement>(by);
@@ -33,8 +33,8 @@ public static class FindStrategyCreateExtensions
     public static ComponentsList<TComponent, TBy, TDriver, TDriverElement> CreateAll<TComponent, TBy, TDriver, TDriverElement>(this TBy by)
         where TComponent : Component<TDriver, TDriverElement>
         where TBy : FindStrategy<TDriver, TDriverElement>
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+        where TDriver : AppiumDriver
+        where TDriverElement : AppiumElement
     {
         var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
         return elementRepository.CreateAll<TComponent, TBy, TDriver, TDriverElement>(by);

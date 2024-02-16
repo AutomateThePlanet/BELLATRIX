@@ -17,31 +17,31 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Locators.Android;
 
-public class FindNameStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+public class FindNameStrategy : FindStrategy<AndroidDriver, AppiumElement>
 {
     public FindNameStrategy(string name)
         : base(name)
     {
     }
 
-    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    public override AppiumElement FindElement(AndroidDriver searchContext)
     {
-        return searchContext.FindElementByName(Value);
+        return searchContext.FindElement(MobileBy.Name(Value));
     }
 
-    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(AndroidDriver searchContext)
     {
-        return searchContext.FindElementsByName(Value);
+        return searchContext.FindElements(MobileBy.Name(Value));
     }
 
-    public override AppiumWebElement FindElement(AndroidElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByName(Value);
+        return element.FindElement(MobileBy.Name(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByName(Value);
+        return element.FindElements(MobileBy.Name(Value));
     }
 
     public override string ToString()

@@ -33,11 +33,11 @@ public class ImageButtonEventHandlers : ComponentEventHandlers
         ImageButton.Clicked -= ClickedEventHandler;
     }
 
-    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

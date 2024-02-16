@@ -22,10 +22,10 @@ namespace Bellatrix.Mobile.IOS;
 
 public class CheckBox : IOSComponent, IComponentDisabled, IComponentChecked, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Checking;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Checked;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Unchecking;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Unchecked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Checking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Checked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Unchecking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Unchecked;
 
     public virtual void Check(bool isChecked = true)
     {

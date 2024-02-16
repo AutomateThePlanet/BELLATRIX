@@ -20,10 +20,10 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.IOS;
 
-public class Grid<TComponent> : Component<IOSDriver<IOSElement>, IOSElement>
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement>
+public class Grid<TComponent> : Component<IOSDriver, AppiumElement>
+        where TComponent : Component<IOSDriver, AppiumElement>
 {
-    public ComponentsList<TComponent, FindClassNameStrategy, IOSDriver<IOSElement>, IOSElement> GetAll(string searchClass)
+    public ComponentsList<TComponent, FindClassNameStrategy, IOSDriver, AppiumElement> GetAll(string searchClass)
     {
         var elements = this.CreateAllByClass<TComponent>(searchClass);
         return elements;

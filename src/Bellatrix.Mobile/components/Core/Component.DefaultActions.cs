@@ -68,7 +68,7 @@ public partial class Component<TDriver, TDriverElement> : IComponentVisible, ILa
     {
         settingValue?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
         WrappedElement.Clear();
-        WrappedElement.SetImmediateValue(value);
+        WrappedElement.SendKeys(value);
         valueSet?.Invoke(this, new ComponentActionEventArgs<TDriverElement>(this, value));
     }
 
