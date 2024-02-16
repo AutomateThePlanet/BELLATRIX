@@ -8,6 +8,7 @@ namespace Bellatrix.Mobile.Tests;
 ////[TestClass]
 [TestFixture]
 [Android("pathToApk",
+    "appId",
     "7.1",
     "yourTestDeviceName",
     "testPackageName",

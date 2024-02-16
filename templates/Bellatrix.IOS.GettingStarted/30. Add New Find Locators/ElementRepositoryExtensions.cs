@@ -9,8 +9,8 @@ namespace Bellatrix.Mobile.IOS.GettingStarted.ExtensionMethodsLocators;
 public static class ElementRepositoryExtensions
 {
     public static TComponent CreateByNameStartingWith<TComponent>(this ComponentCreateService repo, string id)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => repo.Create<TComponent, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement>(new FindNameStartingWithStrategy(id));
+        where TComponent : Component<IOSDriver, AppiumElement> => repo.Create<TComponent, FindNameStartingWithStrategy, IOSDriver, AppiumElement>(new FindNameStartingWithStrategy(id));
 
-    public static ComponentsList<TComponent, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByNameStartingWith<TComponent>(this ComponentCreateService repo, string id)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement>(new FindNameStartingWithStrategy(id), null);
+    public static ComponentsList<TComponent, FindNameStartingWithStrategy, IOSDriver, AppiumElement> CreateAllByNameStartingWith<TComponent>(this ComponentCreateService repo, string id)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindNameStartingWithStrategy, IOSDriver, AppiumElement>(new FindNameStartingWithStrategy(id), null);
 }

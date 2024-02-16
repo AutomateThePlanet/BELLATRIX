@@ -18,6 +18,7 @@ namespace Bellatrix.Mobile.Android.Tests;
 
 [TestClass]
 [Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
     Constants.AndroidNativeAppAppExamplePackage,
@@ -25,6 +26,7 @@ namespace Bellatrix.Mobile.Android.Tests;
     Lifecycle.RestartEveryTime)]
 [Android(OS.OSX,
     Constants.AndroidNativeAppPath,
+    Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
     Constants.AndroidNativeAppAppExamplePackage,

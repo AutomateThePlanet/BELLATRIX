@@ -16,7 +16,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bellatrix.Mobile.IOS.Tests;
 
 [TestClass]
-[IOS(Constants.AppleCalendarBundleId,
+[IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]

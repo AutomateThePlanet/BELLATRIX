@@ -17,6 +17,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 
 [TestClass]
 [IOS(Constants.AppleCalendarBundleId,
+    Constants.IOSAppBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]

@@ -4,6 +4,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
@@ -18,7 +19,7 @@ public class BDDLoggingTests : NUnit.IOSTest
     // This is why in BELLATRIX we built a feature that generates the test cases after the tests execution.
     // After each action or assertion, a new entry is logged.
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void CommonAssertionsIOSControls()
     {

@@ -17,6 +17,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 
 [TestClass]
 [IOSWebAttribute(Constants.IOSNativeAppPath,
+    Constants.IOSAppBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.ReuseIfStarted)]

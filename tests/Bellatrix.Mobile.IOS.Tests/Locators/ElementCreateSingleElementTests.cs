@@ -19,6 +19,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 ////curl -u angelov.st.anton+sauce:eaa32fdc-f200-4e53-b47f-b93553a8726e -X POST -H "Content-Type: application/octet-stream" https://saucelabs.com/rest/v1/storage/angelov.st.anton+sauce/ApiDemos.apk?overwrite=true --data-binary "D:\SourceCode\AutomateThePlanet\BellatrixTestFramework\Tests\Bellatrix.Mobile.Android.Tests\bin\Debug\netcoreapp2.0\Demos\ApiDemos.apk"
 [TestClass]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.IOSAppBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]

@@ -18,6 +18,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
 //
 // There you can set the grid URL and credentials.
 [AndroidCrossBrowserTesting("crossBrowser-storage:ApiDemos.apk",
+    "",
     "7.1",
     "Android GoogleAPI Emulator",
     Constants.AndroidNativeAppAppExamplePackage,
@@ -41,6 +42,7 @@ public class CrossBrowserTesting : NUnit.AndroidTest
     [Test]
     [Ignore("API example purposes only. No need to run.")]
     [AndroidCrossBrowserTesting("crossBrowser-storage:ApiDemos.apk",
+        "",
         "7.1",
         "Android GoogleAPI Emulator",
         Constants.AndroidNativeAppAppExamplePackage,

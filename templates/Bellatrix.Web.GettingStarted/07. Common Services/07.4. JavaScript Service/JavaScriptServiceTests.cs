@@ -35,6 +35,6 @@ public class JavaScriptServiceTests : NUnit.WebTest
         // 4. Get the results from a script. After that, get the value for a specific style and assert it.
         string fontSize = App.JavaScript.Execute("return arguments[0].style.font-size", resultsCount.WrappedElement);
 
-        Assert.AreEqual("14px", fontSize);
+        Assert.That("14px".Equals(fontSize));
     }
 }

@@ -19,7 +19,7 @@ public class DeviceServiceTests : NUnit.AndroidTest
         App.Device.Rotate(ScreenOrientation.Landscape);
 
         // Gets the current device orientation.
-        Assert.AreEqual(ScreenOrientation.Landscape, App.Device.Orientation);
+        Assert.That(ScreenOrientation.Landscape.Equals(App.Device.Orientation));
     }
 
     [Test]
@@ -40,7 +40,7 @@ public class DeviceServiceTests : NUnit.AndroidTest
         App.Device.Unlock();
 
         // Checks if the device is locked or not.
-        Assert.IsTrue(App.Device.IsLocked);
+        Assert.That(App.Device.IsLocked);
     }
 
     [Test]
@@ -51,7 +51,7 @@ public class DeviceServiceTests : NUnit.AndroidTest
         // Locks the device.
         App.Device.Lock();
 
-        Assert.IsTrue(App.Device.IsLocked);
+        Assert.That(App.Device.IsLocked);
     }
 
     [Test]
@@ -64,10 +64,10 @@ public class DeviceServiceTests : NUnit.AndroidTest
             App.Device.ConnectionType = ConnectionType.AirplaneMode;
 
             // Checks whether the current connection type is airplane mode.
-            Assert.AreEqual(ConnectionType.AirplaneMode, App.Device.ConnectionType);
+            Assert.That(ConnectionType.AirplaneMode.Equals(App.Device.ConnectionType));
 
             App.Device.ConnectionType = ConnectionType.AllNetworkOn;
-            Assert.AreEqual(ConnectionType.AllNetworkOn, App.Device.ConnectionType);
+            Assert.That(ConnectionType.AllNetworkOn.Equals(App.Device.ConnectionType));
         }
         finally
         {

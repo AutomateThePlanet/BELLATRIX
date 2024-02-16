@@ -12,13 +12,14 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 // 1.2. After that you need to add a using statement to Bellatrix.TestExecutionExtensions.Common.ExecutionTime
 [ExecutionTimeUnder(5000, TimeUnit.Milliseconds)]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
 public class MeasureTestExecutionTimesTests : NUnit.IOSTest
 {
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ButtonClicked_When_CallClickMethod()
     {

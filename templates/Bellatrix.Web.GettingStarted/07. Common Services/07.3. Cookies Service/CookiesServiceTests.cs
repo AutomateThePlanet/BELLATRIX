@@ -21,7 +21,7 @@ public class CookiesServiceTests : NUnit.WebTest
         // 2. Get all cookies.
         var cookies = App.Cookies.GetAllCookies();
 
-        Assert.IsTrue(cookies.Count > 0);
+        Assert.That(cookies.Count > 0);
     }
 
     [Test]
@@ -35,7 +35,7 @@ public class CookiesServiceTests : NUnit.WebTest
         // 3. Get a specific cookie by name.
         var itemsInCartCookie = App.Cookies.GetCookie("woocommerce_items_in_cart");
 
-        Assert.AreEqual("3", itemsInCartCookie);
+        Assert.That("3".Equals(itemsInCartCookie));
     }
 
     [Test]

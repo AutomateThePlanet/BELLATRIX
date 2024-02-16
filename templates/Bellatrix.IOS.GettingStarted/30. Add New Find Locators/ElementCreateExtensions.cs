@@ -8,9 +8,9 @@ namespace Bellatrix.Mobile.IOS.GettingStarted.ExtensionMethodsLocators;
 // This is everything after that you can use your new locator as it was originally part of Bellatrix.
 public static class ElementCreateExtensions
 {
-    public static TComponent CreateByNameStartingWith<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string id)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => element.Create<TComponent, FindNameStartingWithStrategy>(new FindNameStartingWithStrategy(id));
+    public static TComponent CreateByNameStartingWith<TComponent>(this Component<IOSDriver, AppiumElement> element, string id)
+        where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindNameStartingWithStrategy>(new FindNameStartingWithStrategy(id));
 
-    public static ComponentsList<TComponent, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement> CreateAllByNameStartingWith<TComponent>(this Component<IOSDriver<IOSElement>, IOSElement> element, string id)
-        where TComponent : Component<IOSDriver<IOSElement>, IOSElement> => new ComponentsList<TComponent, FindNameStartingWithStrategy, IOSDriver<IOSElement>, IOSElement>(new FindNameStartingWithStrategy(id), element.WrappedElement);
+    public static ComponentsList<TComponent, FindNameStartingWithStrategy, IOSDriver, AppiumElement> CreateAllByNameStartingWith<TComponent>(this Component<IOSDriver, AppiumElement> element, string id)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindNameStartingWithStrategy, IOSDriver, AppiumElement>(new FindNameStartingWithStrategy(id), element.WrappedElement);
 }

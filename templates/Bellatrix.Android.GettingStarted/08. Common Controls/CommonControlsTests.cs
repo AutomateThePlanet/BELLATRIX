@@ -4,6 +4,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
 
 [TestFixture]
 [Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
     Constants.AndroidNativeAppAppExamplePackage,
@@ -31,10 +32,10 @@ public class CommonControlsTests : NUnit.AndroidTest
         // 5. Select the radio button.
         radioButton.Click();
 
-        Assert.IsTrue(radioButton.IsChecked);
+        Assert.That(radioButton.IsChecked);
 
         // 6. Most Android controls have properties such as checking whether the radio button is enabled or not.
-        Assert.AreEqual(false, radioButton.IsDisabled);
+        Assert.That(radioButton.IsDisabled);
 
         var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
 
@@ -42,11 +43,11 @@ public class CommonControlsTests : NUnit.AndroidTest
         checkBox.Check();
 
         // 8. Asserting whether the check was successful.
-        Assert.IsTrue(checkBox.IsChecked);
+        Assert.That(checkBox.IsChecked);
 
         checkBox.Uncheck();
 
-        Assert.IsFalse(checkBox.IsChecked);
+        Assert.That(!checkBox.IsChecked);
 
         var comboBox = App.Components.CreateByIdContaining<ComboBox>("spinner1");
 
@@ -54,7 +55,7 @@ public class CommonControlsTests : NUnit.AndroidTest
         comboBox.SelectByText("Jupiter");
 
         // 10. Get the current comboBox text through GetText method.
-        Assert.AreEqual("Jupiter", comboBox.GetText());
+        Assert.That("Jupiter".Equals(comboBox.GetText()));
 
         App.Components.CreateByClass<SeekBar>("android.widget.SeekBar");
 
@@ -67,7 +68,7 @@ public class CommonControlsTests : NUnit.AndroidTest
         var label = App.Components.CreateByText<Label>("textColorPrimary");
 
         // 13. See if the element is present or not using the IsPresent property.
-        Assert.IsTrue(label.IsPresent);
+        Assert.That(label.IsPresent);
 
         // ReSharper disable once UnusedVariable
         var password = App.Components.CreateByDescription<Password>("passwordBox");
@@ -80,7 +81,7 @@ public class CommonControlsTests : NUnit.AndroidTest
 
         textField.SetText("Bellatrix");
 
-        Assert.AreEqual("Bellatrix", textField.GetText());
+        Assert.That("Bellatrix".Equals(textField.GetText()));
 
         // 15. Full list of all supported Android controls, their methods and properties:
         // Common controls:

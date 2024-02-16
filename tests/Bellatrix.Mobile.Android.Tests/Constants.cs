@@ -16,6 +16,7 @@ namespace Bellatrix.Mobile.Android.Tests;
 public class Constants
 {
     public const string AndroidNativeAppPath = @"AssemblyFolder\Demos\ApiDemos.apk";
+    public const string AndroidNativeAppId = "id?";
     public const string AndroidHybridAppPath = @"AssemblyFolder\Demos\selendroid-test-app-0.10.0.apk";
     public const string AndroidNativeScriptAppPath = @"AssemblyFolder\Demos\native-script-UITests-debug.apk";
     public const string AndroidDefaultDeviceName = "android25-test";

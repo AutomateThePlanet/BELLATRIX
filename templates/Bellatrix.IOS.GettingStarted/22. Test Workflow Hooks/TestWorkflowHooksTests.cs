@@ -5,6 +5,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.ReuseIfStarted)]
@@ -80,7 +81,7 @@ public class TestWorkflowHooksTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ButtonIsAboveOfCheckBox()
     {
@@ -88,7 +89,7 @@ public class TestWorkflowHooksTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
 
     public void ButtonIsAboveOfCheckBox_20px()
@@ -97,7 +98,7 @@ public class TestWorkflowHooksTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ButtonIsAboveOfCheckBox_GreaterThan20px()
     {
@@ -105,7 +106,7 @@ public class TestWorkflowHooksTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ButtonIsAboveOfCheckBox_GreaterThanOrEqual20px()
     {
@@ -113,7 +114,7 @@ public class TestWorkflowHooksTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ButtonIsNearTopOfCheckBox_GreaterThan20px()
     {

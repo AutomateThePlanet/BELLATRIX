@@ -19,6 +19,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 [TestClass]
 [AllureSuite("TestWorkflowHooks")]
 [IOS(Constants.IOSNativeAppPath,
+    "",
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.ReuseIfStarted)]

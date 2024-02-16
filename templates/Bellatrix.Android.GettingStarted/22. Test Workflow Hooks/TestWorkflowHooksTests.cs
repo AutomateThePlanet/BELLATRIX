@@ -5,6 +5,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
 
 [TestFixture]
 [Android(Constants.AndroidNativeAppPath,
+    "",
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
     Constants.AndroidNativeAppAppExamplePackage,

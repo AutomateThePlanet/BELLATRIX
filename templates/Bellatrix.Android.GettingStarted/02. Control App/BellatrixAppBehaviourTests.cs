@@ -22,6 +22,7 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
 // If you don't use the attribute, the default information from the configuration will be used placed under the executionSettings section.
 // Also, you can add additional driver arguments under the arguments section array in the configuration file.
 [Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
     Constants.AndroidNativeAppAppExamplePackage,
@@ -52,6 +53,7 @@ public class BellatrixAppLifecycleTests : NUnit.AndroidTest
     // 2.4. As mentioned above you can override the app lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse an instance of the app.
     // Only for this particular test, BELLATRIX opens the app and restarts it only on fail.
     [Android(Constants.AndroidNativeAppPath,
+        Constants.AndroidNativeAppId,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
         Constants.AndroidNativeAppAppExamplePackage,
@@ -62,6 +64,6 @@ public class BellatrixAppLifecycleTests : NUnit.AndroidTest
     {
         var button = App.Components.CreateByIdContaining<Button>("button");
 
-        Assert.AreEqual("Save", button.GetText());
+        Assert.That("Save".Equals(button.GetText()));
     }
 }

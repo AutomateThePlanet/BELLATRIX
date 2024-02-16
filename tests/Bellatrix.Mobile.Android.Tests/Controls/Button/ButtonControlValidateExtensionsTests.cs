@@ -17,6 +17,7 @@ namespace Bellatrix.Mobile.Android.Tests;
 
 [TestClass]
 [Android(Constants.AndroidNativeAppPath,
+    "",
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
     Constants.AndroidNativeAppAppExamplePackage,

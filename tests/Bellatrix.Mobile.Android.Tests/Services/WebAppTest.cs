@@ -17,6 +17,7 @@ namespace Bellatrix.Mobile.Android.Tests;
 
 [TestClass]
 [AndroidWeb(Constants.AndroidNativeAppPath,
+    Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
     Lifecycle.RestartEveryTime)]

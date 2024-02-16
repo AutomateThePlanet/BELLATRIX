@@ -129,7 +129,7 @@ public class SimpleControlsTests : NUnit.WebTest
         TextField billingAddress1 = App.Components.CreateById<TextField>("billing_address_1");
 
         // 19. Through the Placeholder, you can get the default text of the control.
-        Assert.AreEqual("House number and street name", billingAddress1.Placeholder);
+        Assert.That("House number and street name".Equals(billingAddress1.Placeholder));
         billingAddress1.SetText("bul. Yerusalim 5");
 
         TextField billingAddress2 = App.Components.CreateById<TextField>("billing_address_2");

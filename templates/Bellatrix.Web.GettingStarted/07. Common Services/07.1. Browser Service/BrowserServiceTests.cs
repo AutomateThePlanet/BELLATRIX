@@ -45,7 +45,7 @@ public class BrowserServiceTests : NUnit.WebTest
         App.Navigation.Navigate("http://demos.bellatrix.solutions/");
 
         // 7. Get the current tab Title.
-        Assert.AreEqual("Bellatrix Demos – Bellatrix is a cross-platform, easily customizable and extendable .NET test automation framework that increases tests’ reliability.", App.Browser.Title);
+        Assert.That("Bellatrix Demos – Bellatrix is a cross-platform, easily customizable and extendable .NET test automation framework that increases tests’ reliability.".Equals(App.Browser.Title));
     }
 
     [Test]

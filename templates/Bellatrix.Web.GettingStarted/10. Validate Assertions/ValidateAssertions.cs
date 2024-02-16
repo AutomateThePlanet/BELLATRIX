@@ -33,15 +33,15 @@ public class ValidateAssertions : NUnit.WebTest
         Button applyCouponButton = App.Components.CreateByValueContaining<Button>("Apply coupon");
 
         // 2. Assert that the apply coupon button exists and is visible on the page.
-        // On fail the following message is displayed: "Message: Assert.IsTrue failed."
+        // On fail the following message is displayed: "Message: Assert.That failed."
         // Cannot learn much about what happened.
         //
         // Now if we use the ValidateIsVisible method and the check does not succeed the following error message is displayed:
         // "The control should be visible but was NOT. The test failed on URL: http://demos.bellatrix.solutions/cart/"
         // To all exception messages, the current URL is displayed, which improves the troubleshooting.
 
-        ////Assert.IsTrue(applyCouponButton.IsPresent);
-        ////Assert.IsTrue(applyCouponButton.IsVisible);
+        ////Assert.That(applyCouponButton.IsPresent);
+        ////Assert.That(applyCouponButton.IsVisible);
         applyCouponButton.ValidateIsVisible();
 
         Div messageAlert = App.Components.CreateByClassContaining<Div>("woocommerce-message");
@@ -54,7 +54,7 @@ public class ValidateAssertions : NUnit.WebTest
 
         // 4. No changes are made to the added products so the update cart button should be disabled.
         updateCart.ValidateIsDisabled();
-        ////Assert.IsTrue(updateCart.IsDisabled);
+        ////Assert.That(updateCart.IsDisabled);
 
         Span totalSpan = App.Components.CreateByXpath<Span>("//*[@class='order-total']//span");
 
@@ -70,6 +70,6 @@ public class ValidateAssertions : NUnit.WebTest
             () => totalSpan.ValidateInnerTextIs("120.00€", timeout: 30, sleepInterval: 2),
             () => updateCart.ValidateIsDisabled(),
             () => messageAlert.ValidateIsNotVisible(),
-            () => Assert.AreEqual("120.00€", totalSpan.InnerText));
+            () => Assert.That("120.00€".Equals(totalSpan.InnerText)));
     }
 }
