@@ -17,6 +17,7 @@ using System.Reflection;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Plugins.Browser;
 using Bellatrix.Web.Services;
+using OpenQA.Selenium;
 
 namespace Bellatrix.Web;
 
@@ -122,23 +123,25 @@ public class CrossBrowserTestingAttribute : BrowserAttribute, IDriverOptionsAttr
 
         if (!string.IsNullOrEmpty(Build))
         {
+            // TODO: DriverOptions have no such method, but because driverOptions is dynamic, it doesn't show. This will fail if the code is ran.
+            // Should be fixed.
             driverOptions.SetCapability("build", Build);
         }
 
         string browserName = Enum.GetName(typeof(BrowserType), Browser);
-        driverOptions.AddAdditionalCapability("browserName", browserName);
-        driverOptions.AddAdditionalCapability("platform", Platform);
-        driverOptions.AddAdditionalCapability("version", BrowserVersion);
-        driverOptions.AddAdditionalCapability("screen_resolution", ScreenResolution);
-        driverOptions.AddAdditionalCapability("record_video", RecordVideo);
-        driverOptions.AddAdditionalCapability("record_network", RecordNetwork);
+        driverOptions.AddAdditionalOption("browserName", browserName);
+        driverOptions.AddAdditionalOption("platform", Platform);
+        driverOptions.AddAdditionalOption("version", BrowserVersion);
+        driverOptions.AddAdditionalOption("screen_resolution", ScreenResolution);
+        driverOptions.AddAdditionalOption("record_video", RecordVideo);
+        driverOptions.AddAdditionalOption("record_network", RecordNetwork);
 
         var credentials = CloudProviderCredentialsResolver.GetCredentials();
-        driverOptions.AddAdditionalCapability("username", credentials.Item1);
-        driverOptions.AddAdditionalCapability("password", credentials.Item2);
+        driverOptions.AddAdditionalOption("username", credentials.Item1);
+        driverOptions.AddAdditionalOption("password", credentials.Item2);
 
         var testName = GetTestFullName(memberInfo, testClassType);
-        driverOptions.AddAdditionalCapability("name", testName);
+        driverOptions.AddAdditionalOption("name", testName);
 
         return driverOptions;
     }

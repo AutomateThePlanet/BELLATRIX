@@ -269,7 +269,7 @@ public class BrowserLifecyclePlugin : Plugin
             {
                 if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
                 {
-                    options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType), true);
+                    options.AddAdditionalOption(item.Key, FormatGridOptions(item.Value, testClassType), true);
                 }
             }
         }
@@ -314,11 +314,10 @@ public class BrowserLifecyclePlugin : Plugin
                     }
                     else if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
                     {
-                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType), true);
+                        options.AddAdditionalOption(item.Key, FormatGridOptions(item.Value, testClassType), true);
                     }
                 }
-
-                options.AddAdditionalCapability("name", testName);
+                options.AddAdditionalOption("name", testName);
             }
         }
     }

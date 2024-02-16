@@ -502,7 +502,7 @@ public static class WrappedWebDriverCreateService
                 ieOptions.EnsureCleanSession = true;
                 ieOptions.PageLoadStrategy = PageLoadStrategy.Eager;
                 ieOptions.ForceShellWindowsApi = true;
-                ieOptions.AddAdditionalCapability("disable-popup-blocking", true);
+                ieOptions.AddAdditionalOption("disable-popup-blocking", true);
 
                 if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                 {
