@@ -44,15 +44,16 @@ public static class WrappedAppiumCreateService
     public static AndroidDriver CreateAndroidDriver(AppConfiguration appConfiguration, ServicesCollection childContainer)
     {
         var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? appConfiguration.AppiumOptions;
-        driverOptions = driverOptions ?? new AppiumOptions();
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.App, appConfiguration.AppPath);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.DeviceName, appConfiguration.DeviceName);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformName, appConfiguration.PlatformName);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformVersion, appConfiguration.PlatformVersion);
+        driverOptions ??= new AppiumOptions();
+        driverOptions.App = appConfiguration.AppPath ?? appConfiguration.AppId;
+        driverOptions.DeviceName = appConfiguration.DeviceName;
+        driverOptions.PlatformName = appConfiguration.PlatformName;
+        driverOptions.PlatformVersion = appConfiguration.PlatformVersion;
+        driverOptions.AutomationName = "UiAutomator2";
 
         if (string.IsNullOrEmpty(appConfiguration.BrowserName))
         {
-            AddAdditionalOptions(driverOptions, AndroidMobileCapabilityType.AppPackage, appConfiguration.AppPackage);
+            AddAdditionalOptions(driverOptions, AndroidMobileCapabilityType.AppPackage, appConfiguration.AppId);
             AddAdditionalOptions(driverOptions, AndroidMobileCapabilityType.AppActivity, appConfiguration.AppActivity);
         }
         else
@@ -96,11 +97,11 @@ public static class WrappedAppiumCreateService
     public static IOSDriver CreateIOSDriver(AppConfiguration appConfiguration, ServicesCollection childContainer)
     {
         var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? appConfiguration.AppiumOptions;
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.App, appConfiguration.AppPath);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.DeviceName, appConfiguration.DeviceName);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformName, appConfiguration.PlatformName);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformVersion, appConfiguration.PlatformVersion);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.AutomationName, "XCUITest");
+        driverOptions.App = appConfiguration.AppPath;
+        driverOptions.DeviceName = appConfiguration.DeviceName;
+        driverOptions.PlatformName = appConfiguration.PlatformName;
+        driverOptions.PlatformVersion = appConfiguration.PlatformVersion;
+        driverOptions.AutomationName = "XCUITest";
 
         IOSDriver wrappedWebDriver;
         if (_shouldStartAppiumLocalService)

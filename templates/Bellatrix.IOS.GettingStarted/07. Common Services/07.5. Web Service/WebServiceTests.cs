@@ -21,7 +21,7 @@ public class WebServiceTests : NUnit.IOSTest
     [Category(Categories.KnownIssue)]
     public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
     {
-        App.Web.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+        App.Web.NavigationService.Navigate("https://demos.bellatrix.solutions/");
         Assert.That(App.Web.BrowserService.HtmlSource.Contains("Shop"));
     }
 }

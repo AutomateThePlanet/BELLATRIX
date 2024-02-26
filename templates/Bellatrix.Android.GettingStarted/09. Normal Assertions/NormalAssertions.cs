@@ -7,7 +7,6 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
     Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.Controls1",
     Lifecycle.ReuseIfStarted)]
 public class NormalAssertions : NUnit.AndroidTest

@@ -28,7 +28,7 @@ public class CaptureHttpTrafficTests : NUnit.WebTest
     [Category(Categories.Windows)]
     public void CaptureTrafficTests()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
         Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
@@ -51,7 +51,7 @@ public class CaptureHttpTrafficTests : NUnit.WebTest
         App.Proxy.AssertNoLargeImagesRequested();
 
         // Check if some specific request is made.
-        App.Proxy.AssertRequestMade("http://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
+        App.Proxy.AssertRequestMade("https://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
     }
 
     [Test]
@@ -63,7 +63,7 @@ public class CaptureHttpTrafficTests : NUnit.WebTest
         // access to production code and want to use a mock service instead.
         App.Proxy.SetUrlToBeRedirectedTo("http://demos.bellatrix.sokilmlutions/favicon.ico", "https://www.automatetheplanet.com/wp-content/uploads/2016/12/logo.svg");
 
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
         Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
@@ -84,9 +84,9 @@ public class CaptureHttpTrafficTests : NUnit.WebTest
     {
         // 4. To make web pages load faster, you can block some not required services- for example
         // analytics scripts, you do not need them in test environments.
-        App.Proxy.SetUrlToBeBlocked("http://demos.bellatrix.solutions/favicon.ico");
+        App.Proxy.SetUrlToBeBlocked("https://demos.bellatrix.solutions/favicon.ico");
 
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
         Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
@@ -100,6 +100,6 @@ public class CaptureHttpTrafficTests : NUnit.WebTest
         viewCartButton.Click();
 
         // Check that no request is made to specific URL.
-        App.Proxy.AssertRequestNotMade("http://demos.bellatrix.solutions/welcome");
+        App.Proxy.AssertRequestNotMade("https://demos.bellatrix.solutions/welcome");
     }
 }

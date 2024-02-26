@@ -31,7 +31,7 @@ public class WebAppTests : MSTest.IOSTest
     [TestCategory(Categories.KnownIssue)]
     public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
     {
-        App.Web.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+        App.Web.NavigationService.Navigate("https://demos.bellatrix.solutions/");
         Assert.IsTrue(App.Web.BrowserService.Title != string.Empty);
     }
 }

@@ -13,7 +13,7 @@ public class BrowserServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void GetCurrentUri()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 2. Get the current tab URL.
         Debug.WriteLine(App.Browser.Url);
@@ -23,7 +23,7 @@ public class BrowserServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void ControlBrowser()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 3. Maximizes the browser.
         App.Browser.Maximize();
@@ -42,7 +42,7 @@ public class BrowserServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void GetTabTitle()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 7. Get the current tab Title.
         Assert.That("Bellatrix Demos – Bellatrix is a cross-platform, easily customizable and extendable .NET test automation framework that increases tests’ reliability.".Equals(App.Browser.Title));
@@ -52,7 +52,7 @@ public class BrowserServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void PrintCurrentPageHtml()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 8. Get the current page HTML.
         Debug.WriteLine(App.Browser.HtmlSource);
@@ -62,7 +62,7 @@ public class BrowserServiceTests : NUnit.WebTest
     [Ignore("no need to run")]
     public void SwitchToFrame()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 9. To work with elements inside a frame, you should switch to it first.
         var frame = App.Components.CreateById<Frame>("myFrameId");

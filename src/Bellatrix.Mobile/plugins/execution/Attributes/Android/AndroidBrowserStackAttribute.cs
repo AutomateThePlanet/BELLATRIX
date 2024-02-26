@@ -27,7 +27,6 @@ public class AndroidBrowserStackAttribute : BrowserStackAttribute, IAppiumOption
         string appId,
         string platformVersion,
         string deviceName,
-        string appPackage,
         string appActivity,
         Lifecycle behavior = Lifecycle.NotSet,
         bool captureVideo = false,
@@ -39,7 +38,6 @@ public class AndroidBrowserStackAttribute : BrowserStackAttribute, IAppiumOption
     {
         AppConfiguration.MobileOSType = MobileOSType.Android;
         AppConfiguration.PlatformName = "Android";
-        AppConfiguration.AppPackage = appPackage;
         AppConfiguration.AppActivity = appActivity;
     }
 
@@ -49,7 +47,7 @@ public class AndroidBrowserStackAttribute : BrowserStackAttribute, IAppiumOption
         appiumOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppActivity, AppConfiguration.AppActivity);
         appiumOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppWaitActivity, "*");
         appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.PlatformName, AppConfiguration.PlatformName);
-        appiumOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, AppConfiguration.AppPackage);
+        appiumOptions.AddAdditionalAppiumOption(AndroidMobileCapabilityType.AppPackage, AppConfiguration.AppId);
 
         return appiumOptions;
     }

@@ -10,7 +10,7 @@ public class WaitElementsTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void BlogPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 1. Besides the ToBe methods that you can use on element creation, you have a couple of other options if you need to wait for elements.
         // For example, if you want to reuse your element in multiple tests or if you use it through page objects (more about that in later chapters),

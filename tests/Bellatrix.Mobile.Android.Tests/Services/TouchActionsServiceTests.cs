@@ -21,7 +21,6 @@ namespace Bellatrix.Mobile.Android.Tests;
     Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".ApiDemos",
     Lifecycle.RestartEveryTime)]
 [AllureSuite("Services")]
@@ -32,7 +31,7 @@ public class TouchActionsServiceTests : MSTest.AndroidTest
     [TestCategory(Categories.CI)]
     public void ElementSwiped_When_CallSwipeByCoordinatesMethod()
     {
-        App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".graphics.FingerPaint");
+        App.AppService.StartActivity(Constants.AndroidNativeAppId, ".graphics.FingerPaint");
 
         var textField = App.Components.CreateByIdContaining<TextField>("content");
         Point point = textField.Location;

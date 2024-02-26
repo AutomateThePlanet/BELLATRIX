@@ -20,7 +20,6 @@ namespace Bellatrix.Mobile.Android.Tests;
     "",
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.Controls1",
     Lifecycle.ReuseIfStarted)]
 [AllureSuite("Button Control")]

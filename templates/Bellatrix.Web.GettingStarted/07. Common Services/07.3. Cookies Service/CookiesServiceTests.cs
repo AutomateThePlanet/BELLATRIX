@@ -12,7 +12,7 @@ public class CookiesServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void GetAllCookies()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         App.Cookies.AddCookie("woocommerce_items_in_cart1", "3");
         App.Cookies.AddCookie("woocommerce_items_in_cart2", "3");
@@ -28,7 +28,7 @@ public class CookiesServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void GetSpecificCookie()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         App.Cookies.AddCookie("woocommerce_items_in_cart", "3");
 
@@ -42,7 +42,7 @@ public class CookiesServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void DeleteAllCookies()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         var protonRocketAddToCartBtn = App.Components.CreateAllByInnerTextContaining<Anchor>("Add to cart").First();
         protonRocketAddToCartBtn.Click();
@@ -55,7 +55,7 @@ public class CookiesServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void DeleteSpecificCookie()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         var protonRocketAddToCartBtn = App.Components.CreateAllByInnerTextContaining<Anchor>("Add to cart").First();
         protonRocketAddToCartBtn.Click();
@@ -68,7 +68,7 @@ public class CookiesServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void AddNewCookie()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         // 6. Add a new cookie.
         App.Cookies.AddCookie("woocommerce_items_in_cart", "3");

@@ -24,7 +24,7 @@ public class FullPageScreenshotsOnFailTests : MSTest.WebTest
     [TestCategory(Categories.CI)]
     public void PromotionsPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
         var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
         promotionsLink.Click();
     }
@@ -33,7 +33,7 @@ public class FullPageScreenshotsOnFailTests : MSTest.WebTest
     [TestCategory(Categories.CI)]
     public void BlogPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
 

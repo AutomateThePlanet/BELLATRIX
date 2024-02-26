@@ -2,7 +2,7 @@
 
 public partial class CheckoutPage : WebPage
 {
-    public override string Url => "http://demos.bellatrix.solutions/checkout/";
+    public override string Url => "https://demos.bellatrix.solutions/checkout/";
 
     public void FillBillingInfo(BillingInfo billingInfo)
     {

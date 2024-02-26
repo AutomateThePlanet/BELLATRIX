@@ -20,7 +20,6 @@ namespace Bellatrix.Mobile.Android.Tests;
     Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.Switches",
     Lifecycle.ReuseIfStarted)]
 [AllureSuite("Switch Control")]

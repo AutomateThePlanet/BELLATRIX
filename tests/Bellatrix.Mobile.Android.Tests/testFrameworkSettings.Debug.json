@@ -19,14 +19,14 @@
     "executionSettings": {
       "defaultLifeCycle": "restart every time",
       "shouldStartLocalService": "false",
-      "url": "http://127.0.0.1:4722/wd/hub",
+      "url": "http://127.0.0.1:4723",
       "arguments": [
         {
           "platformName": "Android",
           "deviceOrientation": "portrait",
           "browserName": "",
-          "platformVersion": "7.1",
-          "deviceName": "android25test",
+          "platformVersion": "14",
+          "deviceName": "android34",
           "app": "AssemblyFolder\\Demos\\ApiDemos.apk",
           "appWaitActivity": "*",
           "appPackage": "com.example.android.apis",

@@ -20,7 +20,6 @@ namespace Bellatrix.Mobile.Android.Tests;
     Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.Tabs1",
     Lifecycle.ReuseIfStarted)]
 [AllureSuite("Tabs Control")]

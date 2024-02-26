@@ -8,7 +8,6 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
     Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".ApiDemos",
     Lifecycle.RestartEveryTime)]
 public class TouchActionsServiceTests : NUnit.AndroidTest

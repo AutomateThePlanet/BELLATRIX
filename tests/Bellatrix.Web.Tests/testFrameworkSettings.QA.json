@@ -41,7 +41,7 @@
       "url": "http://127.0.0.1:4444/wd/hub",
       "arguments": [
         {
-         
+
         }
       ]
       // sample selenoid args or you can set here custom default browser options for non-grid execution
@@ -121,8 +121,8 @@
     ]
   },
   "urlSettings": {
-    "shopUrl": "http://demos.bellatrix.solutions/cart/",
-    "accountUrl": "http://demos.bellatrix.solutions/account/"
+    "shopUrl": "https://demos.bellatrix.solutions/cart/",
+    "accountUrl": "https://demos.bellatrix.solutions/account/"
   },
   "videoRecordingSettings": {
     "isEnabled": "false",

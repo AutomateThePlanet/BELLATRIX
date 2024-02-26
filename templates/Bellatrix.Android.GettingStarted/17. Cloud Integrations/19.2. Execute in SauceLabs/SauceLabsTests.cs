@@ -18,10 +18,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
 //
 // There you can set the grid URL and credentials.
 [AndroidSauceLabs("sauce-storage:ApiDemos.apk",
-    "",
+    Constants.AndroidNativeAppId,
     "7.1",
     "Android GoogleAPI Emulator",
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.ControlsMaterialDark",
     Lifecycle.RestartEveryTime)]
 public class SauceLabsTests : NUnit.AndroidTest
@@ -38,10 +37,9 @@ public class SauceLabsTests : NUnit.AndroidTest
     // 2. As mentioned if you use the SauceLabs attribute on method level it overrides the class settings.
     [Test]
     [AndroidSauceLabs("sauce-storage:ApiDemos.apk",
-        "",
+        Constants.AndroidNativeAppId,
         "7.1",
         "Android GoogleAPI Emulator",
-        Constants.AndroidNativeAppAppExamplePackage,
         ".view.ControlsMaterialDark",
         Lifecycle.ReuseIfStarted)]
     [Ignore("API example purposes only. No need to run.")]

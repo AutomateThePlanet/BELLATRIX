@@ -16,13 +16,12 @@ namespace Bellatrix.Mobile.Android.Tests;
 public class Constants
 {
     public const string AndroidNativeAppPath = @"AssemblyFolder\Demos\ApiDemos.apk";
-    public const string AndroidNativeAppId = "id?";
+    public const string AndroidNativeAppId = "com.example.android.apis";
     public const string AndroidHybridAppPath = @"AssemblyFolder\Demos\selendroid-test-app-0.10.0.apk";
     public const string AndroidNativeScriptAppPath = @"AssemblyFolder\Demos\native-script-UITests-debug.apk";
-    public const string AndroidDefaultDeviceName = "android25-test";
+    public const string AndroidDefaultDeviceName = "android34";
     public const string AndroidRealDeviceName = "BHY7N17519003398";
-    public const string AndroidDefaultAndroidVersion = "7.1";
+    public const string AndroidDefaultAndroidVersion = "14";
     ////public const string AndroidDefaultAndroidVersion = "6.0";
     ////public const string AndroidNativeAppAppAppiumPackage = "io.appium.android.apis";
-    public const string AndroidNativeAppAppExamplePackage = "com.example.android.apis";
 }

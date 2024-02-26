@@ -31,13 +31,17 @@ public class ApiClientService
     private readonly ApiSettings _apiSettings = ConfigurationService.GetSection<ApiSettings>();
 
     // TODO: is this going to be accessible in the service container?
-    public ApiClientService(string baseUrl = "")
+    public ApiClientService(string baseUrl = null)
     {
         _executionProvider = new ExecutionProvider();
         InitializeExecutionExtensions(_executionProvider);
-        var options = new RestClientOptions();
-        options.BaseUrl = new Uri(baseUrl);
-        options.FollowRedirects = true;
+
+        var options = new RestClientOptions
+        {
+            BaseUrl = baseUrl is not null ? new Uri(baseUrl) : null,
+            FollowRedirects = true
+        };
+
         _executionProvider.OnClientInitialized(WrappedClient);
         var authenticator = ServicesCollection.Current.Resolve<IAuthenticator>();
         if (authenticator != null)
@@ -45,17 +49,14 @@ public class ApiClientService
             options.Authenticator = authenticator;
         }
         WrappedClient = new RestClient(
-           options,
-           configureSerialization: s => s.UseNewtonsoftJson()
-           );
+            options,
+            configureSerialization: s => s.UseNewtonsoftJson()
+            );
         ////WrappedClient.AddHandler("application/json", () => NewtonsoftJsonSerializer.Default);
         ////WrappedClient.AddHandler("text/json", () => NewtonsoftJsonSerializer.Default);
         ////WrappedClient.AddHandler("text/x-json", () => NewtonsoftJsonSerializer.Default);
         ////WrappedClient.AddHandler("text/javascript", () => NewtonsoftJsonSerializer.Default);
         ////WrappedClient.AddHandler("*+json", () => NewtonsoftJsonSerializer.Default);
-
-     
-
 
         if (_apiSettings != null)
         {

@@ -19,22 +19,20 @@ namespace Bellatrix.Mobile;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public class AndroidAttribute : AppAttribute
 {
-    public AndroidAttribute(string appPath, string appId, string platformVersion, string deviceName, string appPackage, string appActivity, Lifecycle behavior = Lifecycle.NotSet)
+    public AndroidAttribute(string appPath, string appId, string platformVersion, string deviceName, string appActivity, Lifecycle behavior = Lifecycle.NotSet)
         : base(appPath, appId, platformVersion, deviceName, behavior)
     {
         AppConfiguration.OSPlatform = DetermineOS();
         AppConfiguration.MobileOSType = MobileOSType.Android;
         AppConfiguration.PlatformName = "Android";
-        AppConfiguration.AppPackage = appPackage;
         AppConfiguration.AppActivity = appActivity;
     }
 
-    public AndroidAttribute(OS osPlatform, string appPath, string appId, string platformVersion, string deviceName, string appPackage, string appActivity, Lifecycle behavior = Lifecycle.NotSet)
+    public AndroidAttribute(OS osPlatform, string appPath, string appId, string platformVersion, string deviceName, string appActivity, Lifecycle behavior = Lifecycle.NotSet)
         : base(osPlatform, appPath, appId, platformVersion, deviceName, behavior)
     {
         AppConfiguration.MobileOSType = MobileOSType.Android;
         AppConfiguration.PlatformName = "Android";
-        AppConfiguration.AppPackage = appPackage;
         AppConfiguration.AppActivity = appActivity;
     }
 

@@ -24,7 +24,7 @@ public class PageObjectsTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void PurchaseRocketWithoutPageObjects()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
         // Home page elements
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
         Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
@@ -76,7 +76,7 @@ public class PageObjectsTests : NUnit.WebTest
 
         // Checkout page actions
         billingDetailsHeading.ToBeVisible().WaitToBe();
-        showLogin.ValidateHrefIs("http://demos.bellatrix.solutions/checkout/#");
+        showLogin.ValidateHrefIs("https://demos.bellatrix.solutions/checkout/#");
         showLogin.ValidateCssClassIs("showlogin");
         orderCommentsTextArea.ScrollToVisible();
         orderCommentsTextArea.SetText("Please send the rocket to my door step! And don't use the elevator, they don't like when it is not clean...");

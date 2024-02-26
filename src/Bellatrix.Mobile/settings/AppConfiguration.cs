@@ -49,8 +49,6 @@ public class AppConfiguration : IEquatable<AppConfiguration>
 
     public string DeviceName { get; set; }
 
-    public string AppPackage { get; set; }
-
     public string PlatformName { get; set; }
 
     public string PlatformVersion { get; set; }
@@ -64,7 +62,7 @@ public class AppConfiguration : IEquatable<AppConfiguration>
     public ExecutionType ExecutionType { get; set; }
 
     public string AppPath { get => NormalizeAppPath(); set => _appPath = value; }
-    
+
     public string AppId { get; set; }
 
     public AppiumOptions AppiumOptions { get; set; }
@@ -74,7 +72,7 @@ public class AppConfiguration : IEquatable<AppConfiguration>
         return AppPath == other.AppPath
                    && Lifecycle == other.Lifecycle
                    && DeviceName == other.DeviceName
-                   && AppPackage == other.AppPackage
+                   && AppId == other.AppId
                    && PlatformName == other.PlatformName
                    && PlatformVersion == other.PlatformVersion
                    && AppActivity == other.AppActivity
@@ -120,10 +118,9 @@ public class AppConfiguration : IEquatable<AppConfiguration>
     public override int GetHashCode()
     {
         return AppPath.GetHashCode() +
-               AppId.GetHashCode() +
                Lifecycle.GetHashCode() +
                DeviceName.GetHashCode() +
-               AppPackage.GetHashCode() +
+               AppId.GetHashCode() +
                PlatformName.GetHashCode() +
                PlatformVersion.GetHashCode() +
                AppActivity.GetHashCode() +

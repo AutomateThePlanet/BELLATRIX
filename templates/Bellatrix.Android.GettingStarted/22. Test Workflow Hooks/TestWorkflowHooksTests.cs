@@ -8,7 +8,6 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
     "",
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.Controls1",
     Lifecycle.ReuseIfStarted)]
 public class TestWorkflowHooksTests : NUnit.AndroidTest

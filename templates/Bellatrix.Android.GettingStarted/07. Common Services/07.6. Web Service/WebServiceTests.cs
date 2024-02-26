@@ -17,7 +17,7 @@ public class WebServiceTests : NUnit.AndroidTest
     [Ignore("API example purposes only. No need to run.")]
     public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
     {
-        App.Web.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+        App.Web.NavigationService.Navigate("https://demos.bellatrix.solutions/");
         Assert.That(App.Web.BrowserService.HtmlSource.Contains("Shop"));
     }
 }

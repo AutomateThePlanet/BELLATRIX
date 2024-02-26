@@ -20,7 +20,6 @@ namespace Bellatrix.Mobile.Android.Tests;
     "",
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.NumberPickerActivity",
     Lifecycle.ReuseIfStarted)]
 [AllureSuite("Number Control")]

@@ -30,7 +30,7 @@ public class WebAppTests : MSTest.AndroidTest
     [Ignore]
     public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
     {
-        App.Web.NavigationService.Navigate("http://demos.bellatrix.solutions/");
+        App.Web.NavigationService.Navigate("https://demos.bellatrix.solutions/");
         Assert.IsTrue(App.Web.BrowserService.HtmlSource.Contains("Shop"));
     }
 }

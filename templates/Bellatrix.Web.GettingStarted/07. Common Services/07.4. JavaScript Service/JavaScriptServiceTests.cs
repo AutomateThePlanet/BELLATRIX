@@ -12,7 +12,7 @@ public class JavaScriptServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void FillUpAllFields()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/my-account/");
 
         // 2. Execute a JavaScript code on the page. Here we find an element with id = 'firstName' and sets its value to 'Bellatrix'.
         App.JavaScript.Execute("document.geTComponentById('username').value = 'Bellatrix';");
@@ -28,7 +28,7 @@ public class JavaScriptServiceTests : NUnit.WebTest
     [Ignore("no need to run")]
     public void GeTComponentStyle()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         var resultsCount = App.Components.CreateByClassContaining<Component>("woocommerce-result-count");
 

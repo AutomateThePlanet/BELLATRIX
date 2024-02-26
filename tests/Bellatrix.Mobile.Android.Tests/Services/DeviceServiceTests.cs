@@ -24,7 +24,6 @@ namespace Bellatrix.Mobile.Android.Tests;
     Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.ControlsMaterialDark",
     Lifecycle.RestartEveryTime)]
 [AllureSuite("Services")]

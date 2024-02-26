@@ -18,10 +18,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
 //
 // There you can set the grid URL and credentials.
 [AndroidBrowserStack("pngG38y26LZ5muB1p46P",
-    "",
+    Constants.AndroidNativeAppId,
     "7.1",
     "Android GoogleAPI Emulator",
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.ControlsMaterialDark",
     Lifecycle.RestartEveryTime,
     captureVideo: true,
@@ -44,10 +43,9 @@ public class BrowserStackTests : NUnit.AndroidTest
     [Test]
     [Ignore("API example purposes only. No need to run.")]
     [AndroidBrowserStack("pngG38y26LZ5muB1p46P",
-        "",
+        Constants.AndroidNativeAppId,
         "7.1",
         "Android GoogleAPI Emulator",
-        Constants.AndroidNativeAppAppExamplePackage,
         ".view.ControlsMaterialDark",
         Lifecycle.ReuseIfStarted,
         captureVideo: true,

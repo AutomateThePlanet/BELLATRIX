@@ -36,7 +36,7 @@ public class TestWorkflowHooksTests : MSTest.WebTest
 
     public override void TestsAct()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
         _sortDropDown.SelectByText("Sort by price: low to high");
     }
 

@@ -10,10 +10,10 @@ public class NormalAssertions : NUnit.WebTest
     public void AssertCartPageFields()
     {
         // Instead of going to the main page and clicking the Add to Cart buttons we can directly add a product to the cart following the below link.
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/?add-to-cart=26");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/?add-to-cart=26");
 
         // Instead of clicking the view cart button we can directly navigate to the cart.
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/cart/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/cart/");
 
         TextField couponCodeTextField = App.Components.CreateById<TextField>("coupon_code");
 

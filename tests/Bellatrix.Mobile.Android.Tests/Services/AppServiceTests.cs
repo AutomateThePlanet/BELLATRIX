@@ -23,7 +23,6 @@ namespace Bellatrix.Mobile.Android.Tests;
     Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.Controls1",
     Lifecycle.ReuseIfStarted)]
 [AllureSuite("Services")]
@@ -48,7 +47,7 @@ public class AppServiceTests : MSTest.AndroidTest
     [TestCategory(Categories.CI)]
     public void InstallAppInstalledTrue_When_AppIsInstalled()
     {
-        Assert.IsTrue(App.AppService.IsAppInstalled(Constants.AndroidNativeAppAppExamplePackage));
+        Assert.IsTrue(App.AppService.IsAppInstalled(Constants.AndroidNativeAppId));
     }
 
     [TestMethod]
@@ -58,11 +57,11 @@ public class AppServiceTests : MSTest.AndroidTest
         string appPath = Path.Combine(ProcessProvider.GetExecutingAssemblyFolder(), "Demos\\ApiDemos.apk");
         App.AppService.InstallApp(appPath);
 
-        App.AppService.RemoveApp(Constants.AndroidNativeAppAppExamplePackage);
+        App.AppService.RemoveApp(Constants.AndroidNativeAppId);
 
-        Assert.IsFalse(App.AppService.IsAppInstalled(Constants.AndroidNativeAppAppExamplePackage));
+        Assert.IsFalse(App.AppService.IsAppInstalled(Constants.AndroidNativeAppId));
 
         App.AppService.InstallApp(appPath);
-        Assert.IsTrue(App.AppService.IsAppInstalled(Constants.AndroidNativeAppAppExamplePackage));
+        Assert.IsTrue(App.AppService.IsAppInstalled(Constants.AndroidNativeAppId));
     }
 }

@@ -29,7 +29,7 @@ public class CommonControlsTests : MSTest.WebTest
     [TestCategory(Categories.CI)]
     public void PurchaseRocket()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 2. Create methods accept a generic parameter the type of the web control. Then only the methods for this specific control are accessible.
         // Here we tell BELLATRIX to find your element by name attribute ending with 'orderby'.
@@ -47,7 +47,7 @@ public class CommonControlsTests : MSTest.WebTest
         sortDropDown.SelectByText("Sort by price: low to high");
 
         // 4. Here BELLATRIX finds the first anchor element which has inner text containing the 'Read more' text.
-        // <a href='http://demos.bellatrix.solutions/product/proton-m/'>Read more</a>
+        // <a href='https://demos.bellatrix.solutions/product/proton-m/'>Read more</a>
         Anchor protonMReadMoreButton =
             App.Components.CreateByInnerTextContaining<Anchor>("Read more");
 
@@ -62,7 +62,7 @@ public class CommonControlsTests : MSTest.WebTest
         addToCartFalcon9.Click();
 
         // 7. Find the anchor by class 'added_to_cart wc-forward' and wait for the element again to be clickable.
-        // <a href="http://demos.bellatrix.solutions/cart/" class="added_to_cart wc-forward" title="View cart">View cart</a>
+        // <a href="https://demos.bellatrix.solutions/cart/" class="added_to_cart wc-forward" title="View cart">View cart</a>
         Anchor viewCartButton = App.Components
             .CreateByClassContaining<Anchor>("added_to_cart wc-forward").ToBeClickable();
         viewCartButton.Click();
@@ -129,8 +129,8 @@ public class CommonControlsTests : MSTest.WebTest
         Anchor showLogin = App.Components.CreateByInnerTextContaining<Anchor>("Click here to login");
 
         // 17. All web controls have multiple properties for their most important attributes and Validate methods for their verification.
-        ////Assert.AreEqual("http://demos.bellatrix.solutions/checkout/#", showLogin.Href);
-        showLogin.ValidateHrefIs("http://demos.bellatrix.solutions/checkout/#");
+        ////Assert.AreEqual("https://demos.bellatrix.solutions/checkout/#", showLogin.Href);
+        showLogin.ValidateHrefIs("https://demos.bellatrix.solutions/checkout/#");
         ////Assert.AreEqual("showlogin", showLogin.CssClass);
         showLogin.ValidateCssClassIs("showlogin");
 

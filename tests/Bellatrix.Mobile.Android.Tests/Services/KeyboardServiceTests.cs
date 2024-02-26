@@ -23,7 +23,6 @@ namespace Bellatrix.Mobile.Android.Tests;
     Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".app.CustomTitle",
     Lifecycle.ReuseIfStarted)]
 [AllureSuite("Services")]

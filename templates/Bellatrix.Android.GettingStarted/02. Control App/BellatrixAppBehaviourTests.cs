@@ -25,7 +25,6 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
     Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.Controls1",
     Lifecycle.ReuseIfStarted)]
 
@@ -40,7 +39,7 @@ public class BellatrixAppLifecycleTests : NUnit.AndroidTest
     {
         // There is more about the App class in the next sections. However, it is the primary point where you access the BELLATRIX services.
         // It comes from the AndroidTest class as a property. Here we use the BELLATRIX app service to open a specific Android activity.
-        App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".view.Controls1");
+        App.AppService.StartActivity(Constants.AndroidNativeAppId, ".view.Controls1");
 
         // Use the element creation service to create an instance of the button. There are much more details about this process in the next sections.
         var button = App.Components.CreateByIdContaining<Button>("button");
@@ -56,7 +55,6 @@ public class BellatrixAppLifecycleTests : NUnit.AndroidTest
         Constants.AndroidNativeAppId,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.RestartOnFail)]
     [Category(Categories.CI)]
