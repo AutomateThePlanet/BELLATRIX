@@ -1,5 +1,5 @@
 ﻿// <copyright file="ValidateControlExtensions.IsChecked.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,19 +21,19 @@ namespace Bellatrix.Mobile.IOS;
 public static partial class ValidateControlExtensions
 {
     public static void ValidateIsChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentChecked, IComponent<IOSElement>
+        where T : IComponentChecked, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
-        ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
+        ValidateControlWaitService.WaitUntil<IOSDriver, AppiumElement>(() => control.IsChecked.Equals(true), "The control should be checked but was NOT.", timeout, sleepInterval);
+        ValidatedIsCheckedEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control));
     }
 
     public static void ValidateIsNotChecked<T>(this T control, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentChecked, IComponent<IOSElement>
+        where T : IComponentChecked, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
-        ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control));
+        ValidateControlWaitService.WaitUntil<IOSDriver, AppiumElement>(() => control.IsChecked.Equals(false), "The control should be not checked but it WAS.", timeout, sleepInterval);
+        ValidatedIsNotCheckedEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control));
     }
 
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsCheckedEvent;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedIsNotCheckedEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedIsCheckedEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedIsNotCheckedEvent;
 }

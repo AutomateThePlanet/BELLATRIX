@@ -1,5 +1,5 @@
 ﻿// <copyright file="ValidateControlExtensions.GetDate.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,11 +21,11 @@ namespace Bellatrix.Mobile.IOS;
 public static partial class ValidateControlExtensions
 {
     public static void ValidateDateIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentDate, IComponent<IOSElement>
+        where T : IComponentDate, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.GetDate().Equals(value), $"The control's date should be '{value}' but was '{control.GetDate()}'.", timeout, sleepInterval);
-        ValidatedDateIsEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control, value));
+        ValidateControlWaitService.WaitUntil<IOSDriver, AppiumElement>(() => control.GetDate().Equals(value), $"The control's date should be '{value}' but was '{control.GetDate()}'.", timeout, sleepInterval);
+        ValidatedDateIsEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control, value));
     }
 
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedDateIsEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedDateIsEvent;
 }

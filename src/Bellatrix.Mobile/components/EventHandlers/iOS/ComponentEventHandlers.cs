@@ -1,5 +1,5 @@
 ﻿// <copyright file="ComponentEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -47,31 +47,31 @@ public class ComponentEventHandlers : IControlEventHandlers
         IOSComponent.ReturningWrappedElement -= ReturningWrappedElementEventHandler;
     }
 
-    protected virtual void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void ScrollingToVisibleEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ScrolledToVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void ScrolledToVisibleEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void CreatingComponentEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void CreatingComponentEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void CreatedComponentEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void CreatedComponentEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void CreatingComponentsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void CreatingComponentsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void CreatedComponentsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void CreatedComponentsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs<IOSElement> arg)
+    protected virtual void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs<AppiumElement> arg)
     {
     }
 }

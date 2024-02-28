@@ -1,5 +1,5 @@
 ﻿// <copyright file="ByTagName.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,31 +17,31 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Locators.Android;
 
-public class FindTagNameStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+public class FindTagNameStrategy : FindStrategy<AndroidDriver, AppiumElement>
 {
     public FindTagNameStrategy(string name)
         : base(name)
     {
     }
 
-    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    public override AppiumElement FindElement(AndroidDriver searchContext)
     {
-        return searchContext.FindElementByTagName(Value);
+        return searchContext.FindElement(MobileBy.TagName(Value));
     }
 
-    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(AndroidDriver searchContext)
     {
-        return searchContext.FindElementsByTagName(Value);
+        return searchContext.FindElements(MobileBy.TagName(Value));
     }
 
-    public override AppiumWebElement FindElement(AndroidElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByTagName(Value);
+        return element.FindElement(MobileBy.TagName(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByTagName(Value);
+        return element.FindElements(MobileBy.TagName(Value));
     }
 
     public override string ToString()

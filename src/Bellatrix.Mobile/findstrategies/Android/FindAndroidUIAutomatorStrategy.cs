@@ -1,5 +1,5 @@
 ﻿// <copyright file="ByAndroidUIAutomator.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,28 +17,31 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Locators.Android;
 
-public class FindAndroidUIAutomatorStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+public class FindAndroidUIAutomatorStrategy : FindStrategy<AndroidDriver, AppiumElement>
 {
     public FindAndroidUIAutomatorStrategy(string name)
         : base(name)
     {
     }
 
-    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    public override AppiumElement FindElement(AndroidDriver searchContext)
     {
-        return searchContext.FindElementByAndroidUIAutomator(Value);
+        return searchContext.FindElement(MobileBy.AndroidUIAutomator(Value));
     }
 
-    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext) => searchContext.FindElementsByAndroidUIAutomator(Value);
-
-    public override AppiumWebElement FindElement(AndroidElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AndroidDriver searchContext)
     {
-        return element.FindElementByAndroidUIAutomator(Value);
+        return searchContext.FindElements(MobileBy.AndroidUIAutomator(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementsByAndroidUIAutomator(Value);
+        return element.FindElement(MobileBy.AndroidUIAutomator(Value));
+    }
+
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
+    {
+        return element.FindElements(MobileBy.AndroidUIAutomator(Value));
     }
 
     public override string ToString()

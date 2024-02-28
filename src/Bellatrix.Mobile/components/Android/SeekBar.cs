@@ -1,5 +1,5 @@
 ﻿// <copyright file="SeekBar.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -23,18 +23,18 @@ namespace Bellatrix.Mobile.Android;
 
 public class SeekBar : AndroidComponent, IComponentDisabled
 {
-    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> SettingPercentage;
-    public static event EventHandler<ComponentActionEventArgs<AndroidElement>> PercentageSet;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> SettingPercentage;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> PercentageSet;
 
     public virtual void Set(double percentage)
     {
-        SettingPercentage?.Invoke(this, new ComponentActionEventArgs<AndroidElement>(this, percentage.ToString()));
+        SettingPercentage?.Invoke(this, new ComponentActionEventArgs<AppiumElement>(this, percentage.ToString()));
         int end = WrappedElement.Size.Width;
         int y = WrappedElement.Location.Y;
-        var touchActionsService = ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver<AndroidElement>, AndroidElement>>();
+        var touchActionsService = ServicesCollection.Current.Resolve<TouchActionsService<AndroidDriver, AppiumElement>>();
         int moveTo = (int)((percentage / 100) * end);
         touchActionsService.Press(moveTo, y, 0).Release().Perform();
-        PercentageSet?.Invoke(this, new ComponentActionEventArgs<AndroidElement>(this, percentage.ToString()));
+        PercentageSet?.Invoke(this, new ComponentActionEventArgs<AppiumElement>(this, percentage.ToString()));
     }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]

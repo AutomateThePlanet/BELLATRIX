@@ -102,7 +102,7 @@ public class TableControlTests : NUnit.WebTest
 
         // You can get particular cells by a selector.
         List<TableCell> cells = Table.GetCells(cell => cell.InnerText.ToLower().StartsWith('j'));
-        Assert.AreEqual(4, cells.Count());
+        Assert.AreEqual(4, cells.Count);
 
         // As a shortcut, you can get the first cell matching a given condition through the GetFirstOrDefaultCell method.
         var matchingCell = Table.GetFirstOrDefaultCell(cell => cell.InnerText.ToLower().StartsWith('j'));
@@ -141,7 +141,7 @@ public class TableControlTests : NUnit.WebTest
 
         // You can get the cells matching a condition.
         List<TableCell> matchingCells = firstRow.GetCells(cell => cell.InnerText.ToLower().Contains("smith"));
-        Assert.AreEqual(3, matchingCells.Count());
+        Assert.AreEqual(3, matchingCells.Count);
 
         // You can get the first cell matching a condition through the GetFirstOrDefaultCell method.
         var matchingCell = firstRow.GetFirstOrDefaultCell(cell => cell.InnerText.ToLower().Contains("smith"));

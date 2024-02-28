@@ -1,5 +1,5 @@
 ﻿// <copyright file="ComponentCreateService.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -24,8 +24,8 @@ public class ComponentCreateService
     public TComponent Create<TComponent, TBy, TDriver, TDriverElement>(TBy by)
         where TComponent : Component<TDriver, TDriverElement>
         where TBy : FindStrategy<TDriver, TDriverElement>
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+        where TDriver : AppiumDriver
+        where TDriverElement : AppiumElement
     {
         var elementRepository = new ComponentRepository();
         return elementRepository.CreateComponentThatIsFound<TComponent, TBy, TDriver, TDriverElement>(by, null);
@@ -34,6 +34,6 @@ public class ComponentCreateService
     public ComponentsList<TComponent, TBy, TDriver, TDriverElement> CreateAll<TComponent, TBy, TDriver, TDriverElement>(TBy by)
         where TComponent : Component<TDriver, TDriverElement>
         where TBy : FindStrategy<TDriver, TDriverElement>
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement => new ComponentsList<TComponent, TBy, TDriver, TDriverElement>(by, null);
+        where TDriver : AppiumDriver
+        where TDriverElement : AppiumElement => new ComponentsList<TComponent, TBy, TDriver, TDriverElement>(by, null);
 }

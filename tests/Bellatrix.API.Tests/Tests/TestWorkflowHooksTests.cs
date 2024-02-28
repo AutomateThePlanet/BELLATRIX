@@ -1,5 +1,5 @@
 ﻿// <copyright file="TestWorkflowHooksTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,7 +12,6 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Api;
-using Bellatrix.Api.Contracts;
 using MediaStore.Demo.API.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
@@ -55,7 +54,7 @@ public class TestWorkflowHooksTests : MSTest.APITest
     // 2.11. Current class TestCleanup method executes. By default it is empty, but you can override it in each class and execute your logic.
     // You can add some logic that is executed after each test instead of copy pasting it. For example- deleting some entity from DB.
     // 2.12. All plug-ins PostTestCleanup logic executes.
-    private static IMeasuredResponse _putResponse;
+    private static MeasuredResponse _putResponse;
     private static RestRequest _getRequest;
     private static RestRequest _putRequest;
     private ApiClientService _apiClientService;

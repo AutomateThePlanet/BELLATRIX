@@ -7,7 +7,7 @@ namespace Bellatrix.Web.Tests;
 ////[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
 public class LoginTestsMSTest : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
+    public override void TestInit() => App.Navigation.Navigate("https://demos.bellatrix.solutions/my-account/");
 
     [TestMethod]
     public void SuccessfullyLoginToMyAccount()

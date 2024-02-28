@@ -1,5 +1,5 @@
 ﻿// <copyright file="ByIOSNsPredicate.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,36 +13,37 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Collections.Generic;
+using Bellatrix.Web;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Locators.IOS;
 
-public class FindIOSNsPredicateStrategy : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+public class FindIOSNsPredicateStrategy : FindStrategy<IOSDriver, AppiumElement>
 {
     public FindIOSNsPredicateStrategy(string name)
         : base(name)
     {
     }
 
-    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    public override AppiumElement FindElement(IOSDriver searchContext)
     {
-        return searchContext.FindElementByIosNsPredicate(Value);
+        return searchContext.FindElement(MobileBy.IosNSPredicate(Value));
     }
 
-    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(IOSDriver searchContext)
     {
-        return searchContext.FindElementsByIosNsPredicate(Value);
+        return searchContext.FindElements(MobileBy.IosNSPredicate(Value));
     }
 
-    public override AppiumWebElement FindElement(IOSElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        throw new NotSupportedException("Appium doesn't support FindElementByIosNsPredicate on element level.");
+        return element.FindElement(MobileBy.IosNSPredicate(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        throw new NotSupportedException("Appium doesn't support FindElementsByIosNsPredicate on element level.");
+        return element.FindElements(MobileBy.IosNSPredicate(Value));
     }
 
     public override string ToString()

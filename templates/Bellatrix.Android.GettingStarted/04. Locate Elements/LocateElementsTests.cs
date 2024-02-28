@@ -6,9 +6,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
 
 [TestFixture]
 [Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.ControlsMaterialDark",
     Lifecycle.RestartEveryTime)]
 public class LocateElementsTests : NUnit.AndroidTest
@@ -25,7 +25,7 @@ public class LocateElementsTests : NUnit.AndroidTest
 
         button.ValidateIsVisible();
 
-        // 2. Because of the proxy element mechanism (we have a separate type of element instead of single WebDriver IWebElement interface or Appium AndroidElement) we have several benefits.
+        // 2. Because of the proxy element mechanism (we have a separate type of element instead of single WebDriver IWebElement interface or Appium AppiumElement) we have several benefits.
         // Each control (element type- ComboBox, TextField and so on) contains only the actions you can do with it, and the methods are named properly.
         // In vanilla WebDriver to type the text you call SendKeys method.
         // Also, we have some additional properties in the proxy web control such as- By. Now you can get the locator with which you element was found.

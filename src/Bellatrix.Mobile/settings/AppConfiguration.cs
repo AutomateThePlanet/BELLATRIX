@@ -1,5 +1,5 @@
 ﻿// <copyright file="AppConfiguration.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -32,9 +32,10 @@ public class AppConfiguration : IEquatable<AppConfiguration>
 
     public AppConfiguration(OS os) => OSPlatform = os;
 
-    public AppConfiguration(string appPath, Lifecycle lifecycle, string classFullName, AppiumOptions appiumOptions = null)
+    public AppConfiguration(string appPath, string appId, Lifecycle lifecycle, string classFullName, AppiumOptions appiumOptions = null)
     {
         AppPath = appPath;
+        AppId = appId;
         Lifecycle = lifecycle;
         ClassFullName = classFullName;
         AppiumOptions = appiumOptions;
@@ -47,8 +48,6 @@ public class AppConfiguration : IEquatable<AppConfiguration>
     public string ClassFullName { get; set; }
 
     public string DeviceName { get; set; }
-
-    public string AppPackage { get; set; }
 
     public string PlatformName { get; set; }
 
@@ -64,6 +63,8 @@ public class AppConfiguration : IEquatable<AppConfiguration>
 
     public string AppPath { get => NormalizeAppPath(); set => _appPath = value; }
 
+    public string AppId { get; set; }
+
     public AppiumOptions AppiumOptions { get; set; }
 
     public bool Equals(AppConfiguration other)
@@ -71,7 +72,7 @@ public class AppConfiguration : IEquatable<AppConfiguration>
         return AppPath == other.AppPath
                    && Lifecycle == other.Lifecycle
                    && DeviceName == other.DeviceName
-                   && AppPackage == other.AppPackage
+                   && AppId == other.AppId
                    && PlatformName == other.PlatformName
                    && PlatformVersion == other.PlatformVersion
                    && AppActivity == other.AppActivity
@@ -80,14 +81,14 @@ public class AppConfiguration : IEquatable<AppConfiguration>
 
     public override bool Equals(object obj) => Equals(obj as AppConfiguration);
 
-    protected AppiumOptions AddAdditionalCapability(string classFullName, AppiumOptions appiumOptions)
+    protected AppiumOptions AddAdditionalAppiumOption(string classFullName, AppiumOptions appiumOptions)
     {
         var additionalCaps = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{classFullName}");
         if (additionalCaps != null)
         {
             foreach (var key in additionalCaps.Keys)
             {
-                appiumOptions.AddAdditionalCapability(key, additionalCaps[key]);
+                appiumOptions.AddAdditionalAppiumOption(key, additionalCaps[key]);
             }
         }
 
@@ -119,7 +120,7 @@ public class AppConfiguration : IEquatable<AppConfiguration>
         return AppPath.GetHashCode() +
                Lifecycle.GetHashCode() +
                DeviceName.GetHashCode() +
-               AppPackage.GetHashCode() +
+               AppId.GetHashCode() +
                PlatformName.GetHashCode() +
                PlatformVersion.GetHashCode() +
                AppActivity.GetHashCode() +

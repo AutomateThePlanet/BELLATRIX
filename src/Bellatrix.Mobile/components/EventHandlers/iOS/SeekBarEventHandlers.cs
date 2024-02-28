@@ -1,5 +1,5 @@
 ﻿// <copyright file="SeekBarEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -33,11 +33,11 @@ public class SeekBarEventHandlers : ComponentEventHandlers
         SeekBar.PercentageSet -= PercentageSetEventHandler;
     }
 
-    protected virtual void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void SettingPercentageEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void PercentageSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg)
+    protected virtual void PercentageSetEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

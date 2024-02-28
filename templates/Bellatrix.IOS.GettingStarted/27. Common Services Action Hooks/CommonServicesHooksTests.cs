@@ -4,6 +4,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
@@ -21,7 +22,7 @@ public class CommonServicesHooksTests : NUnit.IOSTest
     //
     // To add custom logic to the element's methods you can create a class that derives from ElementEventHandlers. The override the methods you like.
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Ignore("API example purposes only. No need to run.")]
     public void ButtonClicked_When_CallClickMethod()
     {

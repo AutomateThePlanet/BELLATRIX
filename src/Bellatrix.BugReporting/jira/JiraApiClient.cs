@@ -1,5 +1,5 @@
 ﻿// <copyright file="JiraApiClient.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,9 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Bellatrix.BugReporting.Jira;
 using Bellatrix.KeyVault;
 using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace Bellatrix.BugReporting.Jira;
 
@@ -32,15 +32,21 @@ public static class JiraApiClient
         string baseUrl = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<JiraBugReportingSettings>().Url);
         _token = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<JiraBugReportingSettings>().Token);
         _projectName = SecretsResolver.GetSecret(() => ConfigurationService.GetSection<JiraBugReportingSettings>().ProjectName);
-        _restClient = new RestClient(baseUrl).UseSerializer<JsonNetSerializer>();
+        var options = new RestClientOptions();
+        options.BaseUrl = new Uri(baseUrl);
+        _restClient = new RestClient(
+            options,
+            configureSerialization: s => s.UseNewtonsoftJson()
+            );
+
     }
 
     public static IssueResponse GetIssue(string id)
     {
-        var request = new RestRequest($"rest/api/3/issue/{id}", Method.GET);
+        var request = new RestRequest($"rest/api/3/issue/{id}", Method.Get);
         request.AddHeader("Authorization", $"Basic {_token}");
         request.AddQueryParameter("fields", "summary");
-        var response = _restClient.Execute<IssueResponse>(request);
+        var response = _restClient.ExecuteAsync<IssueResponse>(request).Result;
         var content = response.Content;
 
         return response.Data;
@@ -63,11 +69,11 @@ public static class JiraApiClient
         };
         issueSearchDto.expand = new List<string>() { "changelog" };
         issueSearchDto.maxResults = 100;
-        var searchRequest = new RestRequest("rest/api/3/search", Method.POST);
+        var searchRequest = new RestRequest("rest/api/3/search", Method.Post);
         searchRequest.AddHeader("Authorization", $"Basic {_token}");
         searchRequest.RequestFormat = DataFormat.Json;
         searchRequest.AddJsonBody(issueSearchDto);
-        var searchResponse = _restClient.Execute<IssueSearchResult>(searchRequest);
+        var searchResponse = _restClient.ExecuteAsync<IssueSearchResult>(searchRequest).Result;
 
         var issuesWithSetDates = PopulateIssuesDateInfo(searchResponse.Data.issues);
 
@@ -80,7 +86,7 @@ public static class JiraApiClient
 
         var issueCreateDto = IssueCreateDto.CreateDto(_projectName, defaultPriority, title, summaryLines);
 
-        var createRequest = new RestRequest("rest/api/3/issue", Method.POST);
+        var createRequest = new RestRequest("rest/api/3/issue", Method.Post);
         createRequest.AddHeader("Authorization", $"Basic {_token}");
         createRequest.RequestFormat = DataFormat.Json;
         createRequest.AddJsonBody(issueCreateDto);
@@ -88,19 +94,19 @@ public static class JiraApiClient
         IssueCreateResponse result = default;
         try
         {
-            result = _restClient.Execute<IssueCreateResponse>(createRequest)?.Data;
+            result = _restClient.ExecuteAsync<IssueCreateResponse>(createRequest)?.Result.Data;
 
             if (filesToUpload != null && filesToUpload.Any())
             {
                 foreach (var fileToUpload in filesToUpload)
                 {
-                    var attachFileRequest = new RestRequest($"rest/api/2/issue/{result.key}/attachments", Method.POST);
+                    var attachFileRequest = new RestRequest($"rest/api/2/issue/{result.key}/attachments", Method.Post);
                     attachFileRequest.AddHeader("Authorization", $"Basic {_token}");
                     attachFileRequest.AddHeader("X-Atlassian-Token", "no-check");
                     attachFileRequest.RequestFormat = DataFormat.Json;
                     attachFileRequest.AddFile("file", fileToUpload);
 
-                    var attachResult = _restClient.Execute(attachFileRequest);
+                    var attachResult = _restClient.ExecuteAsync(attachFileRequest).Result;
                 }
             }
         }

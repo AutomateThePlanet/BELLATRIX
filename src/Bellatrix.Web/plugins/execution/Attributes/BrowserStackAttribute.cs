@@ -1,5 +1,5 @@
 ﻿// <copyright file="BrowserStackAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,7 @@ using System.Reflection;
 using Bellatrix.Web.Enums;
 using Bellatrix.Web.Plugins.Browser;
 using Bellatrix.Web.Services;
+using OpenQA.Selenium;
 
 namespace Bellatrix.Web;
 
@@ -154,22 +155,22 @@ public class BrowserStackAttribute : BrowserAttribute, IDriverOptionsAttribute
         }
 
         string browserName = Enum.GetName(typeof(BrowserType), Browser);
-        driverOptions.AddAdditionalCapability("browser", browserName);
-        driverOptions.AddAdditionalCapability("os", OperatingSystem);
-        driverOptions.AddAdditionalCapability("os_version", OSVersion);
-        driverOptions.AddAdditionalCapability("browser_version", BrowserVersion);
-        driverOptions.AddAdditionalCapability("resolution", ScreenResolution);
-        driverOptions.AddAdditionalCapability("browserstack.video", CaptureVideo);
-        driverOptions.AddAdditionalCapability("browserstack.networkLogs", CaptureNetworkLogs);
+        driverOptions.AddAdditionalOption("browser", browserName);
+        driverOptions.AddAdditionalOption("os", OperatingSystem);
+        driverOptions.AddAdditionalOption("os_version", OSVersion);
+        driverOptions.AddAdditionalOption("browser_version", BrowserVersion);
+        driverOptions.AddAdditionalOption("resolution", ScreenResolution);
+        driverOptions.AddAdditionalOption("browserstack.video", CaptureVideo);
+        driverOptions.AddAdditionalOption("browserstack.networkLogs", CaptureNetworkLogs);
         string consoleLogTypeText = Enum.GetName(typeof(BrowserStackConsoleLogType), ConsoleLogType).ToLower();
-        driverOptions.AddAdditionalCapability("browserstack.console", consoleLogTypeText);
+        driverOptions.AddAdditionalOption("browserstack.console", consoleLogTypeText);
 
         var credentials = CloudProviderCredentialsResolver.GetCredentials();
-        driverOptions.AddAdditionalCapability("browserstack.user", credentials.Item1);
-        driverOptions.AddAdditionalCapability("browserstack.key", credentials.Item2);
+        driverOptions.AddAdditionalOption("browserstack.user", credentials.Item1);
+        driverOptions.AddAdditionalOption("browserstack.key", credentials.Item2);
 
         var testName = GetTestFullName(memberInfo, testClassType);
-        driverOptions.AddAdditionalCapability("name", testName);
+        driverOptions.AddAdditionalOption("name", testName);
 
         return driverOptions;
     }      

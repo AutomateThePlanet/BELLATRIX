@@ -27,7 +27,7 @@ public class GoogleLighthouseAnalysisTests : NUnit.WebTest
     [Test]
     public void LighthouseAnalysisLogin()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/my-account/");
         TextField userNameField = App.Components.CreateById<TextField>("username");
         Password passwordField = App.Components.CreateById<Password>("password");
         Button loginButton = App.Components.CreateByXpath<Button>("//button[@name='login']");

@@ -1,5 +1,5 @@
 ﻿// <copyright file="BrowserWorkflowPlugin.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -28,6 +28,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Safari;
 
 namespace Bellatrix.Web.Plugins.Browser;
 
@@ -269,7 +270,7 @@ public class BrowserLifecyclePlugin : Plugin
             {
                 if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
                 {
-                    options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType), true);
+                    options.AddAdditionalOption(item.Key, FormatGridOptions(item.Value, testClassType), true);
                 }
             }
         }
@@ -314,11 +315,10 @@ public class BrowserLifecyclePlugin : Plugin
                     }
                     else if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
                     {
-                        options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType), true);
+                        options.AddAdditionalOption(item.Key, FormatGridOptions(item.Value, testClassType), true);
                     }
                 }
-
-                options.AddAdditionalCapability("name", testName);
+                options.AddAdditionalOption("name", testName);
             }
         }
     }
@@ -373,7 +373,11 @@ public class BrowserLifecyclePlugin : Plugin
                 driverOptions = ServicesCollection.Current.Resolve<InternetExplorerOptions>(type.FullName) ?? new InternetExplorerOptions();
                 break;
             case BrowserType.Edge:
+            case BrowserType.EdgeHeadless:
                 driverOptions = ServicesCollection.Current.Resolve<EdgeOptions>(type.FullName) ?? new EdgeOptions();
+                break;
+            case BrowserType.Safari:
+                driverOptions = ServicesCollection.Current.Resolve<SafariOptions>(type.FullName) ?? new SafariOptions();
                 break;
             default:
                 {

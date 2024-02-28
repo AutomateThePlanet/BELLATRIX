@@ -1,5 +1,5 @@
 // <copyright file="BugReportingValidateExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,33 +21,33 @@ public class BugReportingValidateExtensions : ValidateExtensionsEventHandlers
 {
     protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
 
-    protected override void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is visible");
+    protected override void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is visible");
 
-    protected override void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT visible");
+    protected override void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT visible");
 
-    protected override void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} time ", $"is '{arg.ActionValue}'");
+    protected override void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} time ", $"is '{arg.ActionValue}'");
 
-    protected override void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "text is NULL");
+    protected override void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "text is NULL");
 
-    protected override void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} text ", $"is '{arg.ActionValue}'");
+    protected override void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} text ", $"is '{arg.ActionValue}'");
 
-    protected override void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is selected");
+    protected override void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is selected");
 
-    protected override void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT selected");
+    protected override void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT selected");
 
-    protected override void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is disabled");
+    protected override void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is disabled");
 
-    protected override void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT disabled");
+    protected override void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT disabled");
 
-    protected override void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} date ", $"is '{arg.ActionValue}'");
+    protected override void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} date ", $"is '{arg.ActionValue}'");
 
-    protected override void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is checked");
+    protected override void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is checked");
 
-    protected override void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT checked");
+    protected override void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is NOT checked");
 
-    protected override void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is ON");
+    protected override void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is ON");
 
-    protected override void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is OFF");
+    protected override void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} ", "is OFF");
 
-    protected override void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<IOSElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} number ", $"is '{arg.ActionValue}'");
+    protected override void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddAssertStep($"Assert {arg.Element.ComponentName} number ", $"is '{arg.ActionValue}'");
 }

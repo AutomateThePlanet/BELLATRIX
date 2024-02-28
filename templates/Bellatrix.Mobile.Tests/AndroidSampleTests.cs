@@ -8,9 +8,9 @@ namespace Bellatrix.Mobile.Tests;
 ////[TestClass]
 [TestFixture]
 [Android("pathToApk",
+    "appId",
     "7.1",
     "yourTestDeviceName",
-    "testPackageName",
     "testActivityName",
     Lifecycle.ReuseIfStarted)]
 public class AndroidSampleTests : NUnit.AndroidTest

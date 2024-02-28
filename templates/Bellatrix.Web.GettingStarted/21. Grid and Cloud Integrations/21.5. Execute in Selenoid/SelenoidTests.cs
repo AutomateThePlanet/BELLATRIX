@@ -15,7 +15,7 @@ public class SelenoidTests : NUnit.WebTest
     [Ignore("no need to run")]
     public void PromotionsPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
 
@@ -33,7 +33,7 @@ public class SelenoidTests : NUnit.WebTest
     ////[Selenoid(BrowserType.Chrome, "76", TabletWindowSize._600_1024, Lifecycle.RestartEveryTime)]
     public void BlogPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
 

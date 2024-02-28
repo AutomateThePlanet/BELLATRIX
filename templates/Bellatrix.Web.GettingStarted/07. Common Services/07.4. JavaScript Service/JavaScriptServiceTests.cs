@@ -12,7 +12,7 @@ public class JavaScriptServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void FillUpAllFields()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/my-account/");
 
         // 2. Execute a JavaScript code on the page. Here we find an element with id = 'firstName' and sets its value to 'Bellatrix'.
         App.JavaScript.Execute("document.geTComponentById('username').value = 'Bellatrix';");
@@ -28,13 +28,13 @@ public class JavaScriptServiceTests : NUnit.WebTest
     [Ignore("no need to run")]
     public void GeTComponentStyle()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         var resultsCount = App.Components.CreateByClassContaining<Component>("woocommerce-result-count");
 
         // 4. Get the results from a script. After that, get the value for a specific style and assert it.
         string fontSize = App.JavaScript.Execute("return arguments[0].style.font-size", resultsCount.WrappedElement);
 
-        Assert.AreEqual("14px", fontSize);
+        Assert.That("14px".Equals(fontSize));
     }
 }

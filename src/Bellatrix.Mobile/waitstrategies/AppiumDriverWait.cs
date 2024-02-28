@@ -1,5 +1,5 @@
 ﻿// <copyright file="AppiumDriverWait.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,8 +18,8 @@ using OpenQA.Selenium.Support.UI;
 namespace Bellatrix.Mobile.Untils;
 
 public class AppiumDriverWait<TDriver, TDriverElement> : DefaultWait<TDriver>
-    where TDriver : AppiumDriver<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TDriverElement : AppiumElement
 {
     public AppiumDriverWait(TDriver driver, IClock clock, TimeSpan timeout, TimeSpan sleepInterval)
         : base(driver, clock)

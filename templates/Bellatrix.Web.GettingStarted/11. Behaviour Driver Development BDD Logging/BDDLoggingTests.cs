@@ -17,7 +17,7 @@ public class BDDLoggingTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void PurchaseRocketWithLogs()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // As mentioned before BELLATRIX searches for elements not immediately but after you perform an action or assert.
         // This is why we can place all elements and later perform actions on them. It is possible at the moment of declaring them,
@@ -72,7 +72,7 @@ public class BDDLoggingTests : NUnit.WebTest
 
         // Checkout page actions
         billingDetailsHeading.ToBeVisible().WaitToBe();
-        showLogin.ValidateHrefIs("http://demos.bellatrix.solutions/checkout/#");
+        showLogin.ValidateHrefIs("https://demos.bellatrix.solutions/checkout/#");
         showLogin.ValidateCssClassIs("showlogin");
         orderCommentsTextArea.ScrollToVisible();
         orderCommentsTextArea.SetText("Please send the rocket to my door step! And don't use the elevator, they don't like when it is not clean...");
@@ -108,7 +108,7 @@ public class BDDLoggingTests : NUnit.WebTest
         //  Click control (Value containing Update cart)
         //  Validate control (XPath = //*[@class='order-total']//span) inner text is '95.00€'
         //  Click control (Class = checkout-button button alt wc-forward)
-        //  Validate control (InnerText containing Click here to login) href is 'http://demos.bellatrix.solutions/checkout/#'
+        //  Validate control (InnerText containing Click here to login) href is 'https://demos.bellatrix.solutions/checkout/#'
         //  Validate control (InnerText containing Click here to login) CSS class is 'showlogin'
         //  Scroll to visible control (ID = order_comments)
         //  Type 'Please send the rocket to my door step! And don't use the elevator, they don't like when it is not clean...' into control (ID = order_comments)

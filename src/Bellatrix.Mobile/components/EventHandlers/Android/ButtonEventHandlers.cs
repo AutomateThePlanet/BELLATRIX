@@ -1,5 +1,5 @@
 ﻿// <copyright file="ButtonEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.Events;
-using OpenQA.Selenium.Appium.Android;
+using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.EventHandlers.Android;
 
@@ -33,11 +33,11 @@ public class ButtonEventHandlers : ComponentEventHandlers
         Button.Clicked -= ClickedEventHandler;
     }
 
-    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ClickingEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ClickedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

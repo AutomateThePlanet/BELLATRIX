@@ -11,7 +11,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 public class LocateElementsTests : NUnit.IOSTest
 {
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ElementFound_When_CreateById_And_ElementIsOnScreen()
     {
@@ -23,7 +23,7 @@ public class LocateElementsTests : NUnit.IOSTest
 
         button.ValidateIsVisible();
 
-        // 2. Because of the proxy element mechanism (we have a separate type of element instead of single WebDriver IWebElement interface or Appium IOSElement) we have several benefits.
+        // 2. Because of the proxy element mechanism (we have a separate type of element instead of single WebDriver IWebElement interface or Appium AppiumElement) we have several benefits.
         // Each control (element type- ComboBox, TextField and so on) contains only the actions you can do with it, and the methods are named properly.
         // In vanilla WebDriver to type the text you call SendKeys method.
         // Also, we have some additional properties in the proxy web control such as- By. Now you can get the locator with which you element was found.
@@ -34,8 +34,9 @@ public class LocateElementsTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
-    [IOS(Constants.AppleCalendarBundleId,
+    [CancelAfter(180000)]
+    [IOS(Constants.IOSNativeAppPath,
+        Constants.AppleCalendarBundleId,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
@@ -85,7 +86,7 @@ public class LocateElementsTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ElementFound_When_CreateAllById_And_ElementIsOnScreen()
     {
@@ -120,7 +121,7 @@ public class LocateElementsTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ElementFound_When_CreateById_And_ElementIsOnScreen_NestedElement()
     {

@@ -1,5 +1,5 @@
 ﻿// <copyright file="MobileService.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,13 +12,14 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System.Diagnostics;
+using Bellatrix.Mobile.Configuration;
 using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.Services;
 
 public class MobileService<TDriver, TComponent>
-    where TDriver : AppiumDriver<TComponent>
-    where TComponent : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TComponent : AppiumElement
 {
     public MobileService(TDriver wrappedDriver)
     {
@@ -26,4 +27,6 @@ public class MobileService<TDriver, TComponent>
     }
 
     public TDriver WrappedAppiumDriver { get; set; }
+
+    public AppConfiguration AppConfiguration => ServicesCollection.Current.Resolve<AppConfiguration>("_currentAppConfiguration");
 }

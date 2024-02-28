@@ -7,6 +7,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
@@ -14,7 +15,7 @@ public class DeviceServiceTests : NUnit.IOSTest
 {
     // 1. BELLATRIX gives you an interface to most common operations for controlling the device through the DeviceService class.
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Ignore("API example purposes only. No need to run.")]
     public void OrientationSetToLandscape_When_CallRotateWithLandscape()
     {
@@ -22,13 +23,13 @@ public class DeviceServiceTests : NUnit.IOSTest
         App.Device.Rotate(ScreenOrientation.Landscape);
 
         // Gets the current device orientation.
-        Assert.AreEqual(ScreenOrientation.Landscape, App.Device.Orientation);
+        Assert.That(ScreenOrientation.Landscape.Equals(App.Device.Orientation));
 
         App.Device.Rotate(ScreenOrientation.Portrait);
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void CorrectTimeReturned_When_CallDeviceTime()
     {
@@ -37,7 +38,7 @@ public class DeviceServiceTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void DeviceIsLockedTrue_When_CallLock()
     {
@@ -46,7 +47,7 @@ public class DeviceServiceTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Ignore("API example purposes only. No need to run.")]
     public void TestShakeDevice()
     {

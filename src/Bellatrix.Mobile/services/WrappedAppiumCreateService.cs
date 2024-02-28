@@ -1,5 +1,5 @@
 ﻿// <copyright file="WrappedAppiumCreateService.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -9,14 +9,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // </copyright>
-// <author>Anton Angelov</author>
+// <author>Anton Angelov</author>AndroidDriver
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Runtime.InteropServices;
 using Bellatrix.Mobile.Configuration;
 using Bellatrix.Web;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
@@ -42,18 +41,19 @@ public static class WrappedAppiumCreateService
 
     public static AppiumLocalService AppiumLocalService { get; set; }
 
-    public static AndroidDriver<AndroidElement> CreateAndroidDriver(AppConfiguration appConfiguration, ServicesCollection childContainer)
+    public static AndroidDriver CreateAndroidDriver(AppConfiguration appConfiguration, ServicesCollection childContainer)
     {
         var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? appConfiguration.AppiumOptions;
-        driverOptions = driverOptions ?? new AppiumOptions();
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.App, appConfiguration.AppPath);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.DeviceName, appConfiguration.DeviceName);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformName, appConfiguration.PlatformName);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformVersion, appConfiguration.PlatformVersion);
+        driverOptions ??= new AppiumOptions();
+        driverOptions.App = appConfiguration.AppPath ?? appConfiguration.AppId;
+        driverOptions.DeviceName = appConfiguration.DeviceName;
+        driverOptions.PlatformName = appConfiguration.PlatformName;
+        driverOptions.PlatformVersion = appConfiguration.PlatformVersion;
+        driverOptions.AutomationName = "UiAutomator2";
 
         if (string.IsNullOrEmpty(appConfiguration.BrowserName))
         {
-            AddAdditionalOptions(driverOptions, AndroidMobileCapabilityType.AppPackage, appConfiguration.AppPackage);
+            AddAdditionalOptions(driverOptions, AndroidMobileCapabilityType.AppPackage, appConfiguration.AppId);
             AddAdditionalOptions(driverOptions, AndroidMobileCapabilityType.AppActivity, appConfiguration.AppActivity);
         }
         else
@@ -61,7 +61,7 @@ public static class WrappedAppiumCreateService
             AddAdditionalOptions(driverOptions, MobileCapabilityType.BrowserName, appConfiguration.BrowserName);
         }
 
-        var wrappedWebDriver = default(AndroidDriver<AndroidElement>);
+        var wrappedWebDriver = default(AndroidDriver);
 
         if (_shouldStartAppiumLocalService)
         {
@@ -70,11 +70,11 @@ public static class WrappedAppiumCreateService
                 throw new ArgumentException("The Appium local service is not started. You need to call App?.StartAppiumLocalService() in AssemblyInitialize method.");
             }
 
-            wrappedWebDriver = new AndroidDriver<AndroidElement>(AppiumLocalService, driverOptions);
+            wrappedWebDriver = new AndroidDriver(AppiumLocalService, driverOptions);
         }
         else
         {
-            wrappedWebDriver = new AndroidDriver<AndroidElement>(new Uri(_appiumServiceUrl), driverOptions);
+            wrappedWebDriver = new AndroidDriver(new Uri(_appiumServiceUrl), driverOptions);
         }
 
         wrappedWebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ImplicitWaitTimeout);
@@ -94,16 +94,16 @@ public static class WrappedAppiumCreateService
         return wrappedWebDriver;
     }
 
-    public static IOSDriver<IOSElement> CreateIOSDriver(AppConfiguration appConfiguration, ServicesCollection childContainer)
+    public static IOSDriver CreateIOSDriver(AppConfiguration appConfiguration, ServicesCollection childContainer)
     {
         var driverOptions = childContainer.Resolve<AppiumOptions>(appConfiguration.ClassFullName) ?? appConfiguration.AppiumOptions;
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.App, appConfiguration.AppPath);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.DeviceName, appConfiguration.DeviceName);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformName, appConfiguration.PlatformName);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.PlatformVersion, appConfiguration.PlatformVersion);
-        AddAdditionalOptions(driverOptions, MobileCapabilityType.AutomationName, "XCUITest");
+        driverOptions.App = appConfiguration.AppPath;
+        driverOptions.DeviceName = appConfiguration.DeviceName;
+        driverOptions.PlatformName = appConfiguration.PlatformName;
+        driverOptions.PlatformVersion = appConfiguration.PlatformVersion;
+        driverOptions.AutomationName = "XCUITest";
 
-        IOSDriver<IOSElement> wrappedWebDriver;
+        IOSDriver wrappedWebDriver;
         if (_shouldStartAppiumLocalService)
         {
             if (AppiumLocalService == null)
@@ -111,11 +111,11 @@ public static class WrappedAppiumCreateService
                 throw new ArgumentException("The Appium local service is not started. You need to call App?.StartAppiumLocalService() in AssemblyInitialize method.");
             }
 
-            wrappedWebDriver = new IOSDriver<IOSElement>(AppiumLocalService, driverOptions);
+            wrappedWebDriver = new IOSDriver(AppiumLocalService, driverOptions);
         }
         else
         {
-            wrappedWebDriver = new IOSDriver<IOSElement>(new Uri(_appiumServiceUrl), driverOptions);
+            wrappedWebDriver = new IOSDriver(new Uri(_appiumServiceUrl), driverOptions);
         }
 
         wrappedWebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ImplicitWaitTimeout);
@@ -140,7 +140,7 @@ public static class WrappedAppiumCreateService
     {
         if (!options.ToDictionary().ContainsKey(key))
         {
-            options.AddAdditionalCapability(key, value);
+            options.AddAdditionalAppiumOption(key, value);
         }
 
         return options;

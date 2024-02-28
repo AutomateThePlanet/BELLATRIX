@@ -21,7 +21,7 @@ public class FileSystemServiceTests : NUnit.AndroidTest
         byte[] returnDataBytes = App.Files.PullFile("/data/local/tmp/remote.txt");
         string returnedData = Encoding.UTF8.GetString(returnDataBytes);
 
-        Assert.AreEqual(data, returnedData);
+        Assert.That(data.Equals(returnedData));
     }
 
     [Test]
@@ -38,7 +38,7 @@ public class FileSystemServiceTests : NUnit.AndroidTest
         byte[] returnDataBytes = App.Files.PullFile("/data/local/tmp/remote.txt");
         string returnedData = Encoding.UTF8.GetString(returnDataBytes);
 
-        Assert.AreEqual(data, returnedData);
+        Assert.That(data.Equals(returnedData));
     }
 
     [Test]
@@ -61,9 +61,7 @@ public class FileSystemServiceTests : NUnit.AndroidTest
 
             byte[] returnDataBytes = App.Files.PullFile("/data/local/tmp/remote.txt");
             string returnedData = Encoding.UTF8.GetString(returnDataBytes);
-            Assert.AreEqual(
-                "The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra",
-                returnedData);
+            Assert.That("The eventual code is no more than the deposit of your understanding. ~E. W. Dijkstra".Equals(returnedData));
         }
         finally
         {
@@ -81,6 +79,6 @@ public class FileSystemServiceTests : NUnit.AndroidTest
         // Returns the content of the specified folder as a byte array.
         byte[] returnDataBytes = App.Files.PullFolder("/data/local/tmp/");
 
-        Assert.IsTrue(returnDataBytes.Length > 0);
+        Assert.That(returnDataBytes.Length > 0);
     }
 }

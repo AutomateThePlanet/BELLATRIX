@@ -11,7 +11,7 @@ public class LocateElementsTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void PromotionsPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 1. There are different ways to locate components on the page. To do it you use the component create service.
         // You need to know that BELLATRIX has a built-in complex mechanism for waiting for elements, so you do not need to worry about this anymore.
@@ -33,7 +33,7 @@ public class LocateElementsTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void BlogPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 4. BELLATRIX extends the vanilla WebDriver selectors and give you additional ones.
         // Available create methods:
@@ -85,7 +85,7 @@ public class LocateElementsTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void CheckAllAddToCartButtons()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 5. Sometimes we need to find more than one ComponentCreateService. For example, in this test we want to locate all Add to Cart buttons.
         // To do it you can use the element create service CreateAll method.
@@ -137,7 +137,7 @@ public class LocateElementsTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void OpenSalesPage_When_LocatedSaleButtonInsideProductImage()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 6. Sometimes it is easier to locate one element and then find the next one that you need, inside it.
         // For example in this test we want to locate the Sale! button inside the product's description.

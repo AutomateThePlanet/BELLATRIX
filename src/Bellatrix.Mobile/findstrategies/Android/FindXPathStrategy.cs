@@ -1,5 +1,5 @@
 ﻿// <copyright file="ByXPath.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,31 +17,31 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Locators.Android;
 
-public class FindXPathStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+public class FindXPathStrategy : FindStrategy<AndroidDriver, AppiumElement>
 {
     public FindXPathStrategy(string name)
         : base(name)
     {
     }
 
-    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    public override AppiumElement FindElement(AndroidDriver searchContext)
     {
-        return searchContext.FindElementByXPath(Value);
+        return searchContext.FindElement(MobileBy.XPath(Value));
     }
 
-    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(AndroidDriver searchContext)
     {
-        return searchContext.FindElementsByXPath(Value);
+        return searchContext.FindElements(MobileBy.XPath(Value));
     }
 
-    public override AppiumWebElement FindElement(AndroidElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByXPath(Value);
+        return element.FindElement(MobileBy.XPath(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByXPath(Value);
+        return element.FindElements(MobileBy.XPath(Value));
     }
 
     public override string ToString()

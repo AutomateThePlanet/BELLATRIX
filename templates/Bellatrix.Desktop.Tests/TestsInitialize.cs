@@ -1,4 +1,5 @@
 ﻿////using Microsoft.VisualStudio.TestTools.UnitTesting;
+global using Assert = Bellatrix.Assertions.Assert;
 using Bellatrix;
 using Bellatrix.Desktop;
 using NUnit.Framework;

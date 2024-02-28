@@ -1,5 +1,5 @@
 ﻿// <copyright file="ById.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,31 +18,31 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Locators.IOS;
 
-public class FindStrategyId : FindStrategy<IOSDriver<IOSElement>, IOSElement>
+public class FindStrategyId : FindStrategy<IOSDriver, AppiumElement>
 {
     public FindStrategyId(string name)
         : base(name)
     {
     }
 
-    public override IOSElement FindElement(IOSDriver<IOSElement> searchContext)
+    public override AppiumElement FindElement(IOSDriver searchContext)
     {
-        return searchContext.FindElementById(Value);
+        return searchContext.FindElement(MobileBy.Id(Value));
     }
 
-    public override IEnumerable<IOSElement> FindAllElements(IOSDriver<IOSElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(IOSDriver searchContext)
     {
-        return searchContext.FindElementsById(Value);
+        return searchContext.FindElements(MobileBy.Id(Value));
     }
 
-    public override AppiumWebElement FindElement(IOSElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementById(Value);
+        return element.FindElement(MobileBy.Id(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(IOSElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsById(Value).ToList();
+        return element.FindElements(MobileBy.Id(Value));
     }
 
     public override string ToString()

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Button.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,8 +21,8 @@ namespace Bellatrix.Mobile.IOS;
 
 public class Button : IOSComponent, IComponentDisabled, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>> Clicking;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.iOS.IOSElement>> Clicked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Clicking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Clicked;
 
     public virtual void Click()
     {

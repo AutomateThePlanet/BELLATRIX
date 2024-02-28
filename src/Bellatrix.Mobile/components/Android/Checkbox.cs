@@ -1,5 +1,5 @@
 ﻿// <copyright file="Checkbox.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,10 +21,10 @@ namespace Bellatrix.Mobile.Android;
 
 public class CheckBox : AndroidComponent, IComponentDisabled, IComponentChecked, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Checking;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Checked;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Unchecking;
-    public static event EventHandler<ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>> Unchecked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Checking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Checked;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Unchecking;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Unchecked;
 
     public virtual void Check(bool isChecked = true)
     {

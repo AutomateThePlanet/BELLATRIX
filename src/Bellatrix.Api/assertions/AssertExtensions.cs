@@ -1,5 +1,5 @@
 ﻿// <copyright file="AssertExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,7 +19,6 @@ using System.Net;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
-using Bellatrix.Api.Contracts;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using RestSharp;
@@ -45,7 +44,7 @@ public static class AssertExtensions
     public static event EventHandler<ApiAssertEventArgs> AssertCookieEvent;
     public static event EventHandler<ApiAssertEventArgs> AssertSchemaEvent;
 
-    public static void AssertExecutionTimeUnder(this IMeasuredResponse response, int seconds)
+    public static void AssertExecutionTimeUnder(this MeasuredResponse response, int seconds)
     {
         AssertExecutionTimeUnderEvent?.Invoke(response, new ApiAssertEventArgs(response, seconds.ToString()));
         if (response.ExecutionTime.TotalSeconds > seconds)
@@ -54,7 +53,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertContentContains(this IMeasuredResponse response, string contentPart)
+    public static void AssertContentContains(this MeasuredResponse response, string contentPart)
     {
         AssertContentContainsEvent?.Invoke(response, new ApiAssertEventArgs(response, contentPart));
         if (!response.Content.Contains(contentPart))
@@ -63,7 +62,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertContentNotContains(this IMeasuredResponse response, string contentPart)
+    public static void AssertContentNotContains(this MeasuredResponse response, string contentPart)
     {
         AssertContentNotContainsEvent?.Invoke(response, new ApiAssertEventArgs(response, contentPart));
         if (response.Content.Contains(contentPart))
@@ -72,7 +71,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertContentEquals(this IMeasuredResponse response, string content)
+    public static void AssertContentEquals(this MeasuredResponse response, string content)
     {
         AssertContentEqualsEvent?.Invoke(response, new ApiAssertEventArgs(response, content));
         if (!response.Content.Equals(content))
@@ -81,7 +80,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertBadRequestStatusCode(this IMeasuredResponse response)
+    public static void AssertBadRequestStatusCode(this MeasuredResponse response)
     {
         AssertSuccessStatusCodeEvent?.Invoke(response, new ApiAssertEventArgs(response, "2**"));
         if ((int)response.StatusCode < 400 || (int)response.StatusCode > 499)
@@ -90,7 +89,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertContentNotEquals(this IMeasuredResponse response, string content)
+    public static void AssertContentNotEquals(this MeasuredResponse response, string content)
     {
         AssertContentNotEqualsEvent?.Invoke(response, new ApiAssertEventArgs(response, content));
         if (response.Content.Equals(content))
@@ -99,7 +98,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertResultEquals<TResultType>(this IMeasuredResponse<TResultType> response, TResultType result)
+    public static void AssertResultEquals<TResultType>(this MeasuredResponse<TResultType> response, TResultType result)
         where TResultType : IEquatable<TResultType>, new()
     {
         AssertResultEqualsEvent?.Invoke(response, new ApiAssertEventArgs(response, result.ToString()));
@@ -109,7 +108,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertResultNotEquals<TResultType>(this IMeasuredResponse<TResultType> response, TResultType result)
+    public static void AssertResultNotEquals<TResultType>(this MeasuredResponse<TResultType> response, TResultType result)
         where TResultType : IEquatable<TResultType>, new()
     {
         AssertResultNotEqualsEvent?.Invoke(response, new ApiAssertEventArgs(response, result.ToString()));
@@ -119,7 +118,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertSuccessStatusCode(this IMeasuredResponse response)
+    public static void AssertSuccessStatusCode(this MeasuredResponse response)
     {
         AssertSuccessStatusCodeEvent?.Invoke(response, new ApiAssertEventArgs(response, "2**"));
         if ((int)response.StatusCode <= 200 && (int)response.StatusCode >= 299)
@@ -128,7 +127,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertStatusCode(this IMeasuredResponse response, HttpStatusCode statusCode)
+    public static void AssertStatusCode(this MeasuredResponse response, HttpStatusCode statusCode)
     {
         AssertStatusCodeEvent?.Invoke(response, new ApiAssertEventArgs(response, statusCode.ToString()));
         if (response.StatusCode != statusCode)
@@ -137,7 +136,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertResponseHeader(this IMeasuredResponse response, string headerName, string headerExpectedValue)
+    public static void AssertResponseHeader(this MeasuredResponse response, string headerName, string headerExpectedValue)
     {
         AssertResponseHeaderEvent?.Invoke(response, new ApiAssertEventArgs(response, $"{headerName}"));
         var headerParameter = response.Headers.FirstOrDefault(x => x.Name.ToLower().Equals(headerName.ToLower()));
@@ -152,19 +151,19 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertContentType(this IMeasuredResponse response, string expectedContentType)
+    public static void AssertContentType(this MeasuredResponse response, string expectedContentType)
     {
         AssertContentTypeEvent?.Invoke(response, new ApiAssertEventArgs(response, $"{expectedContentType}"));
         response.AssertResponseHeader("Content-Type", expectedContentType);
     }
 
-    public static void AssertContentEncoding(this IMeasuredResponse response, string expectedContentEncoding)
+    public static void AssertContentEncoding(this MeasuredResponse response, string expectedContentEncoding)
     {
         AssertContentEncodingEvent?.Invoke(response, new ApiAssertEventArgs(response, $"{expectedContentEncoding}"));
         response.AssertResponseHeader("Content-Encoding", expectedContentEncoding);
     }
 
-    public static void AssertCookieExists(this IMeasuredResponse response, string cookieName)
+    public static void AssertCookieExists(this MeasuredResponse response, string cookieName)
     {
         AssertCookieExistsEvent?.Invoke(response, new ApiAssertEventArgs(response, $"{cookieName}"));
         if (!response.Cookies.Any(x => x.Name.Equals(cookieName)))
@@ -173,7 +172,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertCookie(this IMeasuredResponse response, string cookieName, string cookieValue)
+    public static void AssertCookie(this MeasuredResponse response, string cookieName, string cookieValue)
     {
         AssertCookieEvent?.Invoke(response, new ApiAssertEventArgs(response, $"{cookieName}={cookieValue}"));
         response.AssertCookieExists(cookieName);
@@ -184,7 +183,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertSchema(this IMeasuredResponse response, string schemaContent)
+    public static void AssertSchema(this MeasuredResponse response, string schemaContent)
     {
         AssertSchemaEvent?.Invoke(response, new ApiAssertEventArgs(response, string.Empty));
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -199,7 +198,7 @@ public static class AssertExtensions
         }
     }
 
-    public static void AssertSchema(this IMeasuredResponse response, Uri schemaUri)
+    public static void AssertSchema(this MeasuredResponse response, Uri schemaUri)
     {
         AssertSchemaEvent?.Invoke(response, new ApiAssertEventArgs(response, string.Empty));
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -214,7 +213,7 @@ public static class AssertExtensions
         }
     }
 
-    private static void AssertJsonSchema(IMeasuredResponse response, string schemaContent)
+    private static void AssertJsonSchema(MeasuredResponse response, string schemaContent)
     {
         JSchema jsonSchema;
 
@@ -230,7 +229,7 @@ public static class AssertExtensions
         AssertJsonSchema(response, jsonSchema);
     }
 
-    private static void AssertJsonSchema(IMeasuredResponse response, Uri schemaUri)
+    private static void AssertJsonSchema(MeasuredResponse response, Uri schemaUri)
     {
         var client = new RestClient();
         var schemaResponse = client.Execute(new RestRequest(schemaUri));
@@ -238,7 +237,7 @@ public static class AssertExtensions
         AssertJsonSchema(response, schemaResponse.Content);
     }
 
-    private static void AssertJsonSchema(IMeasuredResponse response, JSchema jsonSchema)
+    private static void AssertJsonSchema(MeasuredResponse response, JSchema jsonSchema)
     {
         IList<string> messages;
 
@@ -262,7 +261,7 @@ public static class AssertExtensions
         }
     }
 
-    private static void AssertXmlSchema(IMeasuredResponse response, Uri schemaUri)
+    private static void AssertXmlSchema(MeasuredResponse response, Uri schemaUri)
     {
         var schemaSet = new XmlSchemaSet();
         schemaSet.Add(string.Empty, schemaUri.ToString());
@@ -270,7 +269,7 @@ public static class AssertExtensions
         AssertXmlSchema(response, schemaSet);
     }
 
-    private static void AssertXmlSchema(IMeasuredResponse response, string schema)
+    private static void AssertXmlSchema(MeasuredResponse response, string schema)
     {
         var schemaSet = new XmlSchemaSet();
         schemaSet.Add(string.Empty, XmlReader.Create(new StringReader(schema)));
@@ -278,7 +277,7 @@ public static class AssertExtensions
         AssertXmlSchema(response, schemaSet);
     }
 
-    private static void AssertXmlSchema(IMeasuredResponse response, XmlSchemaSet xmlSchemaSet)
+    private static void AssertXmlSchema(MeasuredResponse response, XmlSchemaSet xmlSchemaSet)
     {
         _xmlSchemaValidationErrors = new List<string>();
 

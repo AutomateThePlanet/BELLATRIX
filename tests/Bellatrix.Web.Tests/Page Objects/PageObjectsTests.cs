@@ -12,12 +12,12 @@ public class PageObjectsTests : MSTest.WebTest
     [TestMethod]
     ////[DynamicTestCase(
     ////    TestCaseId = "4d001440-bf6c-4a8b-b3e6-796cbad361e1",
-    ////    Description = "Create a purchase of a rocket through the online rocket shop http://demos.bellatrix.solutions/")]
+    ////    Description = "Create a purchase of a rocket through the online rocket shop https://demos.bellatrix.solutions/")]
     [AzureDevOpsDynamicTestCaseAttribute]
     public void PurchaseRocketWithoutPageObjects20()
     {
-        App.TestCases.AddPrecondition($"Navigate to http://demos.bellatrix.solutions/");
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.TestCases.AddPrecondition($"Navigate to https://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
         Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
@@ -61,7 +61,7 @@ public class PageObjectsTests : MSTest.WebTest
         RadioButton checkPaymentsRadioButton = App.Components.CreateByAttributesContaining<RadioButton>("for", "payment_method_cheque");
 
         billingDetailsHeading.ToBeVisible().WaitToBe();
-        showLogin.ValidateHrefIs("http://demos.bellatrix.solutions/checkout/#");
+        showLogin.ValidateHrefIs("https://demos.bellatrix.solutions/checkout/#");
         showLogin.ValidateCssClassIs("showlogin");
         orderCommentsTextArea.ScrollToVisible();
         orderCommentsTextArea.SetText("Please send the rocket to my door step! And don't use the elevator, they don't like when it is not clean...");

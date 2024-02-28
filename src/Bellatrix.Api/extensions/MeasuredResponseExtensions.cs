@@ -1,5 +1,5 @@
 ﻿// <copyright file="MeasuredResponseExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,7 +12,6 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System.Xml.Linq;
-using Bellatrix.Api.Contracts;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -21,7 +20,7 @@ namespace Bellatrix.Api.Extensions;
 
 public static class MeasuredResponseExtensions
 {
-    public static dynamic AsDynamicContent(this IMeasuredResponse response)
+    public static dynamic AsDynamicContent(this MeasuredResponse response)
     {
 #pragma warning disable CS0618 // Type or member is obsolete
         if (response.Request.RequestFormat == DataFormat.Xml)

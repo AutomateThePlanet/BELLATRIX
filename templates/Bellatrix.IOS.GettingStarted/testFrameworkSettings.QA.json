@@ -20,7 +20,7 @@
       "defaultLifeCycle": "restart every time",
       "shouldStartLocalService": "false",
       "isCloudRun": "false",
-      "url": "http://127.0.0.1:4722/wd/hub",
+      "url": "http://127.0.0.1:4722",
       "arguments": [
         {
           "platformName": "iOS",

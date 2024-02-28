@@ -25,7 +25,7 @@ namespace Bellatrix.GoogleLighthouse.MSTest;
 public class MSTestLighthouseReportsWorkflowPlugin : Plugin
 {
     private static readonly object _lockObject = new object();
-    public static TestContext TestContext { get; set; }
+    ////public static TestContext TestContext { get; set; }
 
     protected override void PostTestCleanup(object sender, PluginEventArgs e)
     {
@@ -34,23 +34,24 @@ public class MSTestLighthouseReportsWorkflowPlugin : Plugin
         {
             lock (_lockObject)
             {
+                var context = ServicesCollection.Current.Resolve<TestContext>();
                 var driverExecutablePath = new DirectoryInfo(ExecutionDirectoryResolver.GetDriverExecutablePath());
                 var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                 if (file != null && file.Exists)
                 {
-                    TestContext?.AddResultFile(file.FullName);
+                    context?.AddResultFile(file.FullName);
                 }
 
                 file = driverExecutablePath.GetFiles("*.report.html", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                 if (file != null && file.Exists)
                 {
-                    TestContext?.AddResultFile(file.FullName);
+                    context?.AddResultFile(file.FullName);
                 }
 
                 file = driverExecutablePath.GetFiles("*.report.csv", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                 if (file != null && file.Exists)
                 {
-                    TestContext?.AddResultFile(file.FullName);
+                    context?.AddResultFile(file.FullName);
                 }
             }
         }

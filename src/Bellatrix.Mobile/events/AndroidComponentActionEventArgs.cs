@@ -1,5 +1,5 @@
 ﻿// <copyright file="AndroidComponentActionEventArgs.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,7 +15,7 @@ using Bellatrix.Mobile.Contracts;
 
 namespace Bellatrix.Mobile.Events;
 
-public class AndroidComponentActionEventArgs : ComponentActionEventArgs<OpenQA.Selenium.Appium.Android.AndroidElement>
+public class AndroidComponentActionEventArgs : ComponentActionEventArgs<AppiumElement>
 {
     public AndroidComponentActionEventArgs(IAndroidComponent element)
         : base(element)

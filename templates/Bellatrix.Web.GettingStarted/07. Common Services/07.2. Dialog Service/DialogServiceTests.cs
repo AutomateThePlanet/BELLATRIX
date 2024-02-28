@@ -11,7 +11,7 @@ public class DialogServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void AcceptDialogAlert()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         var couponButton = App.Components.CreateById<Button>("couponBtn");
         couponButton.Click();
@@ -24,7 +24,7 @@ public class DialogServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void HappyBirthdayCouponDisplayed_When_ClickOnCouponButton()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         var couponButton = App.Components.CreateById<Button>("couponBtn");
         couponButton.Click();
@@ -37,7 +37,7 @@ public class DialogServiceTests : NUnit.WebTest
     [Ignore("no need to run")]
     public void DismissDialogAlert()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         var couponButton = App.Components.CreateById<Button>("couponBtn");
         couponButton.Click();

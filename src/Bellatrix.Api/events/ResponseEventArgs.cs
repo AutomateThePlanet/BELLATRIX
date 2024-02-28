@@ -1,5 +1,5 @@
 ﻿// <copyright file="ResponseEventArgs.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,12 +17,12 @@ namespace Bellatrix.Api.Events;
 
 public class ResponseEventArgs
 {
-    public ResponseEventArgs(IRestResponse response, string requestUri)
+    public ResponseEventArgs(RestResponse response, string requestUri)
     {
         Response = response;
         RequestUri = requestUri;
     }
 
-    public IRestResponse Response { get; }
+    public RestResponse Response { get; }
     public string RequestUri { get; }
 }
