@@ -11,6 +11,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 //
 // After that 100 assertion extensions methods are available to you to check the exact position of your iOS elements.
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
@@ -18,7 +19,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 public class LayoutTestingTests : NUnit.IOSTest
 {
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void TestPageLayout()
     {

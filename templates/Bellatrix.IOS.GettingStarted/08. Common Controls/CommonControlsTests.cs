@@ -4,6 +4,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
@@ -13,7 +14,7 @@ public class CommonControlsTests : NUnit.IOSTest
     // they are created. Another benefit is that each of them includes only the actions that you should be able to do with the specific control and nothing more.
     // For example, you cannot type into a button. Moreover, this way all of the actions has meaningful names- Type not SendKeys as in vanilla WebDriver.
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void CommonActionsWithIOSControls()
     {
@@ -35,7 +36,7 @@ public class CommonControlsTests : NUnit.IOSTest
         var answerLabel = App.Components.CreateByName<Label>("Answer");
 
         // 6. See if the element is present or not using the IsPresent property.
-        Assert.IsTrue(answerLabel.IsPresent);
+        Assert.That(answerLabel.IsPresent);
 
         var password = App.Components.CreateById<Password>("IntegerB");
 
@@ -47,12 +48,13 @@ public class CommonControlsTests : NUnit.IOSTest
 
         textField.SetText("1");
 
-        Assert.AreEqual("1", textField.GetText());
+        Assert.That("1".Equals(textField.GetText()));
     }
 
     [Test]
-    [Timeout(180000)]
-    [IOS(Constants.AppleCalendarBundleId,
+    [CancelAfter(180000)]
+    [IOS(Constants.IOSNativeAppPath,
+        Constants.AppleCalendarBundleId,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
@@ -68,16 +70,17 @@ public class CommonControlsTests : NUnit.IOSTest
         checkBox.Check();
 
         // 9. Asserting whether the check was successful.
-        Assert.IsTrue(checkBox.IsChecked);
+        Assert.That(checkBox.IsChecked);
 
         checkBox.Uncheck();
 
-        Assert.IsFalse(checkBox.IsChecked);
+        Assert.That(checkBox.IsChecked);
     }
 
     [Test]
-    [Timeout(180000)]
-    [IOS(Constants.AppleCalendarBundleId,
+    [CancelAfter(180000)]
+    [IOS(Constants.IOSNativeAppPath,
+        Constants.AppleCalendarBundleId,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]
@@ -90,13 +93,13 @@ public class CommonControlsTests : NUnit.IOSTest
         // 10. Locating the radio button control using IOSNsPredicate type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"
         var radioButton = App.Components.CreateByIOSNsPredicate<RadioButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
-        Assert.IsFalse(radioButton.IsChecked);
+        Assert.That(!radioButton.IsChecked);
 
         // 11. Select the radio button.
         radioButton.Click();
 
         // 12. Most IOS controls have properties such as checking whether the radio button is enabled or not.
-        Assert.IsTrue(radioButton.IsChecked);
+        Assert.That(radioButton.IsChecked);
 
         // 13. Full list of all supported IOS controls, their methods and properties:
         // Common controls:

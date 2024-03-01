@@ -18,6 +18,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 //
 // There you can set the grid URL and credentials.
 [IOSBrowserStack("pngG38y26LZ5muB1p46P",
+    "",
     "11.3",
     "iPhone 6",
     Lifecycle.RestartEveryTime,
@@ -29,7 +30,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 public class BrowserStackTests : NUnit.IOSTest
 {
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Ignore("API example purposes only. No need to run.")]
     public void ButtonClicked_When_CallClickMethod()
     {
@@ -40,9 +41,10 @@ public class BrowserStackTests : NUnit.IOSTest
 
     // 2. As mentioned if you use the BrowserStack attribute on method level it overrides the class settings.
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Ignore("API example purposes only. No need to run.")]
     [IOSBrowserStack("pngG38y26LZ5muB1p46P",
+        "",
         "11.3",
         "iPhone 6",
         Lifecycle.RestartOnFail,

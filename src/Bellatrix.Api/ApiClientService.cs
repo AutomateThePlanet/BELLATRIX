@@ -1,5 +1,5 @@
 ﻿// <copyright file="ApiClientService.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,12 +16,12 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Bellatrix.Api.Configuration;
-using Bellatrix.Api.Contracts;
 using Bellatrix.Api.Extensions;
 using Bellatrix.Api.Model;
 using Polly;
 using RestSharp;
 using RestSharp.Authenticators;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace Bellatrix.Api;
 
@@ -31,26 +31,32 @@ public class ApiClientService
     private readonly ApiSettings _apiSettings = ConfigurationService.GetSection<ApiSettings>();
 
     // TODO: is this going to be accessible in the service container?
-    public ApiClientService()
+    public ApiClientService(string baseUrl = null)
     {
         _executionProvider = new ExecutionProvider();
         InitializeExecutionExtensions(_executionProvider);
 
-        WrappedClient = new RestClient();
-        WrappedClient.AddHandler("application/json", () => NewtonsoftJsonSerializer.Default);
-        WrappedClient.AddHandler("text/json", () => NewtonsoftJsonSerializer.Default);
-        WrappedClient.AddHandler("text/x-json", () => NewtonsoftJsonSerializer.Default);
-        WrappedClient.AddHandler("text/javascript", () => NewtonsoftJsonSerializer.Default);
-        WrappedClient.AddHandler("*+json", () => NewtonsoftJsonSerializer.Default);
+        var options = new RestClientOptions
+        {
+            BaseUrl = baseUrl is not null ? new Uri(baseUrl) : null,
+            FollowRedirects = true
+        };
 
         _executionProvider.OnClientInitialized(WrappedClient);
         var authenticator = ServicesCollection.Current.Resolve<IAuthenticator>();
         if (authenticator != null)
         {
-            WrappedClient.Authenticator = authenticator;
+            options.Authenticator = authenticator;
         }
-
-        WrappedClient.FollowRedirects = true;
+        WrappedClient = new RestClient(
+            options,
+            configureSerialization: s => s.UseNewtonsoftJson()
+            );
+        ////WrappedClient.AddHandler("application/json", () => NewtonsoftJsonSerializer.Default);
+        ////WrappedClient.AddHandler("text/json", () => NewtonsoftJsonSerializer.Default);
+        ////WrappedClient.AddHandler("text/x-json", () => NewtonsoftJsonSerializer.Default);
+        ////WrappedClient.AddHandler("text/javascript", () => NewtonsoftJsonSerializer.Default);
+        ////WrappedClient.AddHandler("*+json", () => NewtonsoftJsonSerializer.Default);
 
         if (_apiSettings != null)
         {
@@ -77,118 +83,118 @@ public class ApiClientService
 
     public int MaxRetryAttempts { get; set; }
 
-    public string BaseUrl
-    {
-        get => WrappedClient.BaseUrl.AbsoluteUri;
-        set => WrappedClient.BaseUrl = new Uri(value);
-    }
+    ////public Uri BaseUrl
+    ////{
+    ////    get => WrappedClient.Ur.AbsoluteUri;
+    ////    set => WrappedClient.BaseUrl = new Uri(value);
+    ////}
 
     public TimeSpan PauseBetweenFailures { get; set; }
 
     public IRestClient WrappedClient { get; set; }
 
-    public IMeasuredResponse Execute(IRestRequest request) => ExecuteMeasuredRequest(request, request.Method);
+    public MeasuredResponse Execute(RestRequest request) => ExecuteMeasuredRequest(request, request.Method);
 
-    public IMeasuredResponse Get(IRestRequest request) => ExecuteMeasuredRequest(request, Method.GET);
+    public MeasuredResponse Get(RestRequest request) => ExecuteMeasuredRequest(request, Method.Get);
 
-    public IMeasuredResponse<TReturnType> Get<TReturnType>(IRestRequest request, bool shouldReturnResponseOnFailure = false)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.GET, shouldReturnResponseOnFailure);
+    public MeasuredResponse<TReturnType> Get<TReturnType>(RestRequest request, bool shouldReturnResponseOnFailure = false)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.Get, shouldReturnResponseOnFailure);
 
-    public async Task<IMeasuredResponse> GetAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        => await ExecuteMeasuredRequestAsync(request, Method.GET, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse> GetAsync(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        => await ExecuteMeasuredRequestAsync(request, Method.Get, cancellationTokenSource).ConfigureAwait(false);
 
-    public async Task<IMeasuredResponse<TReturnType>> GetAsync<TReturnType>(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.GET, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse<TReturnType>> GetAsync<TReturnType>(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.Get, cancellationTokenSource).ConfigureAwait(false);
 
-    public IMeasuredResponse Put(IRestRequest request) => ExecuteMeasuredRequest(request, Method.PUT);
+    public MeasuredResponse Put(RestRequest request) => ExecuteMeasuredRequest(request, Method.Put);
 
-    public IMeasuredResponse<TReturnType> Put<TReturnType>(IRestRequest request, bool shouldReturnResponseOnFailure = false)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.PUT, shouldReturnResponseOnFailure);
+    public MeasuredResponse<TReturnType> Put<TReturnType>(RestRequest request, bool shouldReturnResponseOnFailure = false)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.Put, shouldReturnResponseOnFailure);
 
-    public async Task<IMeasuredResponse> PutAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        => await ExecuteMeasuredRequestAsync(request, Method.PUT, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse> PutAsync(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        => await ExecuteMeasuredRequestAsync(request, Method.Put, cancellationTokenSource).ConfigureAwait(false);
 
-    public async Task<IMeasuredResponse<TReturnType>> PutAsync<TReturnType>(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.PUT, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse<TReturnType>> PutAsync<TReturnType>(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.Put, cancellationTokenSource).ConfigureAwait(false);
 
-    public IMeasuredResponse Post(IRestRequest request) => ExecuteMeasuredRequest(request, Method.POST);
+    public MeasuredResponse Post(RestRequest request) => ExecuteMeasuredRequest(request, Method.Post);
 
-    public IMeasuredResponse<TReturnType> Post<TReturnType>(IRestRequest request, bool shouldReturnResponseOnFailure = false)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.POST, shouldReturnResponseOnFailure);
+    public MeasuredResponse<TReturnType> Post<TReturnType>(RestRequest request, bool shouldReturnResponseOnFailure = false)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.Post, shouldReturnResponseOnFailure);
 
-    public async Task<IMeasuredResponse> PostAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        => await ExecuteMeasuredRequestAsync(request, Method.POST, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse> PostAsync(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        => await ExecuteMeasuredRequestAsync(request, Method.Post, cancellationTokenSource).ConfigureAwait(false);
 
-    public async Task<IMeasuredResponse<TReturnType>> PostAsync<TReturnType>(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.POST, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse<TReturnType>> PostAsync<TReturnType>(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.Post, cancellationTokenSource).ConfigureAwait(false);
 
-    public IMeasuredResponse Delete(IRestRequest request) => ExecuteMeasuredRequest(request, Method.DELETE);
+    public MeasuredResponse Delete(RestRequest request) => ExecuteMeasuredRequest(request, Method.Delete);
 
-    public IMeasuredResponse<TReturnType> Delete<TReturnType>(IRestRequest request, bool shouldReturnResponseOnFailure = false)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.DELETE, shouldReturnResponseOnFailure);
+    public MeasuredResponse<TReturnType> Delete<TReturnType>(RestRequest request, bool shouldReturnResponseOnFailure = false)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.Delete, shouldReturnResponseOnFailure);
 
-    public async Task<IMeasuredResponse> DeleteAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        => await ExecuteMeasuredRequestAsync(request, Method.DELETE, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse> DeleteAsync(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        => await ExecuteMeasuredRequestAsync(request, Method.Delete, cancellationTokenSource).ConfigureAwait(false);
 
-    public async Task<IMeasuredResponse<TReturnType>> DeleteAsync<TReturnType>(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.DELETE, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse<TReturnType>> DeleteAsync<TReturnType>(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.Delete, cancellationTokenSource).ConfigureAwait(false);
 
-    public IMeasuredResponse Copy(IRestRequest request) => ExecuteMeasuredRequest(request, Method.COPY);
+    public MeasuredResponse Copy(RestRequest request) => ExecuteMeasuredRequest(request, Method.Copy);
 
-    public IMeasuredResponse<TReturnType> Copy<TReturnType>(IRestRequest request)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.COPY);
+    public MeasuredResponse<TReturnType> Copy<TReturnType>(RestRequest request)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.Copy);
 
-    public async Task<IMeasuredResponse> CopyAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        => await ExecuteMeasuredRequestAsync(request, Method.COPY, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse> CopyAsync(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        => await ExecuteMeasuredRequestAsync(request, Method.Copy, cancellationTokenSource).ConfigureAwait(false);
 
-    public async Task<IMeasuredResponse<TReturnType>> CopyAsync<TReturnType>(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.COPY, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse<TReturnType>> CopyAsync<TReturnType>(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.Copy, cancellationTokenSource).ConfigureAwait(false);
 
-    public IMeasuredResponse Head(IRestRequest request) => ExecuteMeasuredRequest(request, Method.HEAD);
+    public MeasuredResponse Head(RestRequest request) => ExecuteMeasuredRequest(request, Method.Head);
 
-    public IMeasuredResponse<TReturnType> Head<TReturnType>(IRestRequest request)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.HEAD);
+    public MeasuredResponse<TReturnType> Head<TReturnType>(RestRequest request)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.Head);
 
-    public async Task<IMeasuredResponse> HeadAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        => await ExecuteMeasuredRequestAsync(request, Method.HEAD, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse> HeadAsync(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        => await ExecuteMeasuredRequestAsync(request, Method.Head, cancellationTokenSource).ConfigureAwait(false);
 
-    public async Task<IMeasuredResponse<TReturnType>> HeadAsync<TReturnType>(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.HEAD, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse<TReturnType>> HeadAsync<TReturnType>(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.Head, cancellationTokenSource).ConfigureAwait(false);
 
-    public IMeasuredResponse Merge(IRestRequest request) => ExecuteMeasuredRequest(request, Method.MERGE);
+    public MeasuredResponse Merge(RestRequest request) => ExecuteMeasuredRequest(request, Method.Merge);
 
-    public IMeasuredResponse<TReturnType> Merge<TReturnType>(IRestRequest request)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.MERGE);
+    public MeasuredResponse<TReturnType> Merge<TReturnType>(RestRequest request)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.Merge);
 
-    public async Task<IMeasuredResponse> MergeAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        => await ExecuteMeasuredRequestAsync(request, Method.MERGE, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse> MergeAsync(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        => await ExecuteMeasuredRequestAsync(request, Method.Merge, cancellationTokenSource).ConfigureAwait(false);
 
-    public async Task<IMeasuredResponse<TReturnType>> MergeAsync<TReturnType>(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.MERGE, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse<TReturnType>> MergeAsync<TReturnType>(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.Merge, cancellationTokenSource).ConfigureAwait(false);
 
-    public IMeasuredResponse Options(IRestRequest request) => ExecuteMeasuredRequest(request, Method.OPTIONS);
+    public MeasuredResponse Options(RestRequest request) => ExecuteMeasuredRequest(request, Method.Options);
 
-    public IMeasuredResponse<TReturnType> Options<TReturnType>(IRestRequest request)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.OPTIONS);
+    public MeasuredResponse<TReturnType> Options<TReturnType>(RestRequest request)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.Options);
 
-    public async Task<IMeasuredResponse> OptionsAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        => await ExecuteMeasuredRequestAsync(request, Method.OPTIONS, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse> OptionsAsync(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        => await ExecuteMeasuredRequestAsync(request, Method.Options, cancellationTokenSource).ConfigureAwait(false);
 
-    public async Task<IMeasuredResponse<TReturnType>> OptionsAsync<TReturnType>(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.OPTIONS, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse<TReturnType>> OptionsAsync<TReturnType>(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.Options, cancellationTokenSource).ConfigureAwait(false);
 
-    public IMeasuredResponse Patch(IRestRequest request) => ExecuteMeasuredRequest(request, Method.PATCH);
+    public MeasuredResponse Patch(RestRequest request) => ExecuteMeasuredRequest(request, Method.Patch);
 
-    public IMeasuredResponse<TReturnType> Patch<TReturnType>(IRestRequest request)
-        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.PATCH);
+    public MeasuredResponse<TReturnType> Patch<TReturnType>(RestRequest request)
+        where TReturnType : new() => ExecuteMeasuredRequest<TReturnType>(request, Method.Patch);
 
-    public async Task<IMeasuredResponse> PatchAsync(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        => await ExecuteMeasuredRequestAsync(request, Method.PATCH, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse> PatchAsync(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        => await ExecuteMeasuredRequestAsync(request, Method.Patch, cancellationTokenSource).ConfigureAwait(false);
 
-    public async Task<IMeasuredResponse<TReturnType>> PatchAsync<TReturnType>(IRestRequest request, CancellationTokenSource cancellationTokenSource = null)
-        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.PATCH, cancellationTokenSource).ConfigureAwait(false);
+    public async Task<MeasuredResponse<TReturnType>> PatchAsync<TReturnType>(RestRequest request, CancellationTokenSource cancellationTokenSource = null)
+        where TReturnType : new() => await ExecuteMeasuredRequestAsync<TReturnType>(request, Method.Patch, cancellationTokenSource).ConfigureAwait(false);
 
-    private async Task<IMeasuredResponse<TReturnType>> ExecuteMeasuredRequestAsync<TReturnType>(IRestRequest request, Method method, CancellationTokenSource cancellationTokenSource = null)
+    private async Task<MeasuredResponse<TReturnType>> ExecuteMeasuredRequestAsync<TReturnType>(RestRequest request, Method method, CancellationTokenSource cancellationTokenSource = null)
       where TReturnType : new()
     {
         if (cancellationTokenSource == null)
@@ -226,7 +232,7 @@ public class ApiClientService
         return measuredResponse;
     }
 
-    private async Task<IMeasuredResponse> ExecuteMeasuredRequestAsync(IRestRequest request, Method method, CancellationTokenSource cancellationTokenSource = null)
+    private async Task<MeasuredResponse> ExecuteMeasuredRequestAsync(RestRequest request, Method method, CancellationTokenSource cancellationTokenSource = null)
     {
         if (cancellationTokenSource == null)
         {
@@ -262,7 +268,7 @@ public class ApiClientService
         return measuredResponse;
     }
 
-    private IMeasuredResponse<TReturnType> ExecuteMeasuredRequest<TReturnType>(IRestRequest request, Method method, bool shouldReturnReponseOnFailure = false)
+    private MeasuredResponse<TReturnType> ExecuteMeasuredRequest<TReturnType>(RestRequest request, Method method, bool shouldReturnReponseOnFailure = false)
         where TReturnType : new()
     {
         var retryPolicy = Policy.Handle<NotSuccessfulRequestException>().WaitAndRetry(MaxRetryAttempts, i => PauseBetweenFailures);
@@ -278,7 +284,7 @@ public class ApiClientService
 
             _executionProvider.OnMakingRequest(request, request.Resource);
 
-            var response = WrappedClient.Execute<TReturnType>(request);
+            var response = WrappedClient.ExecuteAsync<TReturnType>(request).Result;
 
             _executionProvider.OnRequestMade(response, request.Resource);
 
@@ -294,7 +300,7 @@ public class ApiClientService
         return measuredResponse;
     }
 
-    private IMeasuredResponse ExecuteMeasuredRequest(IRestRequest request, Method method)
+    private MeasuredResponse ExecuteMeasuredRequest(RestRequest request, Method method)
     {
         var retryPolicy = Policy.Handle<NotSuccessfulRequestException>().WaitAndRetry(MaxRetryAttempts, i => PauseBetweenFailures);
 
@@ -309,7 +315,7 @@ public class ApiClientService
 
             _executionProvider.OnMakingRequest(request, request.Resource);
 
-            var response = WrappedClient.Execute(request);
+            var response = WrappedClient.ExecuteAsync(request).Result;
 
             _executionProvider.OnRequestMade(response, request.Resource);
 
@@ -334,9 +340,9 @@ public class ApiClientService
         }
     }
 
-    private void SetJsonContent(IRestRequest request, object obj = null)
+    private void SetJsonContent(RestRequest request, object obj = null)
     {
-        request.JsonSerializer = NewtonsoftJsonSerializer.Default;
+        //request.JsonSerializer = NewtonsoftJsonSerializer.Default;
         if (obj != null)
         {
             request.AddJsonBody(obj);

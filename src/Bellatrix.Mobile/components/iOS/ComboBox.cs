@@ -1,5 +1,5 @@
 ﻿// <copyright file="ComboBox.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -22,12 +22,12 @@ namespace Bellatrix.Mobile.IOS;
 
 public class ComboBox : IOSComponent, IComponentDisabled, IComponentText
 {
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Selecting;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> Selected;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Selecting;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> Selected;
 
     public virtual void SelectByText(string value)
     {
-        Selecting?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
+        Selecting?.Invoke(this, new ComponentActionEventArgs<AppiumElement>(this, value));
 
         if (WrappedElement.Text != value)
         {
@@ -37,7 +37,7 @@ public class ComboBox : IOSComponent, IComponentDisabled, IComponentText
             innerElementToClick.Click();
         }
 
-        Selected?.Invoke(this, new ComponentActionEventArgs<IOSElement>(this, value));
+        Selected?.Invoke(this, new ComponentActionEventArgs<AppiumElement>(this, value));
     }
 
     public new virtual string GetText()

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 	<ItemGroup>
-	  <PackageReference Include="Azure.AI.FormRecognizer" Version="3.1.1" />
+	  <PackageReference Include="Azure.AI.FormRecognizer" Version="4.1.0" />
 	  <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="7.0.1" />
 	</ItemGroup>  
 	<ItemGroup>

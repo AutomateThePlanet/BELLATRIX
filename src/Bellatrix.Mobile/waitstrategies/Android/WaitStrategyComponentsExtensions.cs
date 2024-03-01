@@ -1,5 +1,5 @@
 ﻿// <copyright file="WaitStrategyComponentsExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -22,7 +22,7 @@ namespace Bellatrix.Mobile.Android;
     public static TComponentType ToExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
         where TComponentType : AndroidComponent
     {
-        var until = new WaitToExistStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        var until = new WaitToExistStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepInterval);
         element.EnsureState(until);
         return element;
     }
@@ -30,7 +30,7 @@ namespace Bellatrix.Mobile.Android;
     public static TComponentType ToNotExists<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
        where TComponentType : AndroidComponent
     {
-        var until = new WaitNotExistStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        var until = new WaitNotExistStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepInterval);
         element.EnsureState(until);
         return element;
     }
@@ -38,7 +38,7 @@ namespace Bellatrix.Mobile.Android;
     public static TComponentType ToBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
       where TComponentType : AndroidComponent
     {
-        var until = new WaitToBeVisibleStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        var until = new WaitToBeVisibleStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepInterval);
         element.EnsureState(until);
         return element;
     }
@@ -46,7 +46,7 @@ namespace Bellatrix.Mobile.Android;
     public static TComponentType ToNotBeVisible<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
      where TComponentType : AndroidComponent
     {
-        var until = new WaitNotBeVisibleStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        var until = new WaitNotBeVisibleStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepInterval);
         element.EnsureState(until);
         return element;
     }
@@ -54,7 +54,7 @@ namespace Bellatrix.Mobile.Android;
     public static TComponentType ToBeClickable<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
      where TComponentType : AndroidComponent
     {
-        var until = new WaitToBeClickableStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        var until = new WaitToBeClickableStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepInterval);
         element.EnsureState(until);
         return element;
     }
@@ -62,7 +62,7 @@ namespace Bellatrix.Mobile.Android;
     public static TComponentType ToHasContent<TComponentType>(this TComponentType element, int? timeoutInterval = null, int? sleepInterval = null)
      where TComponentType : AndroidComponent
     {
-        var until = new WaitToHaveContentStrategy<AndroidDriver<AndroidElement>, AndroidElement>(timeoutInterval, sleepInterval);
+        var until = new WaitToHaveContentStrategy<AndroidDriver, AppiumElement>(timeoutInterval, sleepInterval);
         element.EnsureState(until);
         return element;
     }

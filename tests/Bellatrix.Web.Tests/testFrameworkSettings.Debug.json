@@ -120,8 +120,8 @@
     ]
   },
   "urlSettings": {
-    "shopUrl": "http://demos.bellatrix.solutions/cart/",
-    "accountUrl": "http://demos.bellatrix.solutions/account/"
+    "shopUrl": "https://demos.bellatrix.solutions/cart/",
+    "accountUrl": "https://demos.bellatrix.solutions/account/"
   },
   "videoRecordingSettings": {
     "isEnabled": "false",

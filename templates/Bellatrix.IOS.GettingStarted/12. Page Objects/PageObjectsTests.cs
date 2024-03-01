@@ -4,6 +4,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
@@ -32,7 +33,7 @@ public class PageObjectsTests : NUnit.IOSTest
     //
     // This is the same test that doesn't use page objects.
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ActionsWithoutPageObjectsFirst()
     {
@@ -45,11 +46,11 @@ public class PageObjectsTests : NUnit.IOSTest
         numberTwo.SetText("6");
         compute.Click();
 
-        Assert.AreEqual("11", answer.GetText());
+        Assert.That("11".Equals(answer.GetText()));
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ActionsWithoutPageObjectsSecond()
     {
@@ -62,11 +63,11 @@ public class PageObjectsTests : NUnit.IOSTest
         numberTwo.SetText("30");
         compute.Click();
 
-        Assert.AreEqual("50", answer.GetText());
+        Assert.That("50".Equals(answer.GetText()));
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ActionsWithPageObjectsFirst()
     {
@@ -82,7 +83,7 @@ public class PageObjectsTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ActionsWithPageObjectsSecond()
     {

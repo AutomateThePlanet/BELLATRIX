@@ -1,5 +1,5 @@
 ﻿// <copyright file="NunitAssert.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,6 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,9 @@ public class NUnitAssert : IAssert
 
     public void AreDateTimesEqual(DateTime? expectedDate, DateTime? actualDate, int deltaSeconds, string message) => NU.Assert.That(actualDate, NU.Is.EqualTo(expectedDate).Within(deltaSeconds).Seconds, message);
 
-    public void AreEqual(double expected, double actual, double delta) => NU.Assert.AreEqual(expected, actual, delta);
+    public void AreEqual(double expected, double actual, double delta) => NU.Assert.That(actual, Is.EqualTo(expected).Within(delta));
 
-    public void AreEqual(double expected, double actual, double delta, string message) => NU.Assert.AreEqual(expected, actual, delta, message);
+    public void AreEqual(double expected, double actual, double delta, string message) => NU.Assert.That(actual, Is.EqualTo(expected).Within(delta), message);
 
     public void AreEqual(object expected, object actual) => NU.Assert.That(actual, NU.Is.EqualTo(expected));
 
@@ -46,7 +47,10 @@ public class NUnitAssert : IAssert
 
     public void Fail(string message) => NU.Assert.Fail(message);
 
-    public void Fail(string message, params object[] parameters) => NU.Assert.Fail(message, parameters);
+    public void Fail(string message, params object[] parameters)
+    {
+        throw new NotImplementedException();
+    }
 
     public void IsFalse(bool condition) => NU.Assert.That(condition, NU.Is.False);
 

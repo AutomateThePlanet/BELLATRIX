@@ -1,5 +1,5 @@
 ﻿// <copyright file="BugReportingToggleButtonEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,7 +19,7 @@ namespace Bellatrix.Mobile.BugReporting.Android;
 
 public class BugReportingToggleButtonEventHandlers : ToggleButtonEventHandlers
 {
-    protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void TurningOnEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddStep($"Turn on {arg.Element.ComponentName} on {arg.Element.PageName}");
 
-    protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
+    protected override void TurningOffEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg) => BugReportingContextService.AddStep($"Turn off {arg.Element.ComponentName} on {arg.Element.PageName}");
 }

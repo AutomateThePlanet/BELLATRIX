@@ -1,5 +1,4 @@
 ﻿using Bellatrix.Api;
-using Bellatrix.Api.Contracts;
 using Bellatrix.API.GettingStarted.Models;
 using Bellatrix.API.MSTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -42,7 +41,7 @@ public class TestWorkflowHooksTests : APITest
     // 2.11. Current class TestCleanup method executes. By default it is empty, but you can override it in each class and execute your logic.
     // You can add some logic that is executed after each test instead of copy pasting it. For example- deleting some entity from DB.
     // 2.12. All plug-ins PostTestCleanup logic executes.
-    private static IMeasuredResponse _putResponse;
+    private static MeasuredResponse _putResponse;
     private static RestRequest _getRequest;
     private static RestRequest _putRequest;
     private ApiClientService _apiClientService;

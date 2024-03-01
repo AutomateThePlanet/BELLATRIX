@@ -1,5 +1,5 @@
 // <copyright file="ValidateExtensionsEventHandlers.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -37,63 +37,63 @@ public abstract class ValidateExtensionsEventHandlers
         ValidateControlExtensions.ValidatedNumberIsEvent += ValidatedNumberIsEventHandler;
     }
 
-    protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedIsVisibleEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedIsNotVisibleEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedTimeIsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedTextIsNotSetEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedTextIsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedIsSelectedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedIsNotSelectedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedIsDisabledEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedIsNotDisabledEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedDateIsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedIsCheckedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedIsNotCheckedEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedIsOnEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedIsOffEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 
-    protected virtual void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<AndroidElement> arg)
+    protected virtual void ValidatedNumberIsEventHandler(object sender, ComponentActionEventArgs<AppiumElement> arg)
     {
     }
 }

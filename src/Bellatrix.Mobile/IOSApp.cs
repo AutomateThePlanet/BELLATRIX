@@ -1,5 +1,5 @@
 ﻿// <copyright file="IOSApp.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,7 +21,7 @@ using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile;
 
-public class IOSApp : App<IOSDriver<IOSElement>, IOSElement>
+public class IOSApp : App<IOSDriver, AppiumElement>
 {
     public IOSAppService AppService => ServicesCollection.Current.Resolve<IOSAppService>();
 
@@ -31,16 +31,16 @@ public class IOSApp : App<IOSDriver<IOSElement>, IOSElement>
     public IOSDeviceService Device => ServicesCollection.Current.Resolve<IOSDeviceService>();
 
     [Obsolete("FileSystemService is deprecated use Files property instead.")]
-    public FileSystemService<IOSDriver<IOSElement>, IOSElement> FileSystemService => ServicesCollection.Current.Resolve<FileSystemService<IOSDriver<IOSElement>, IOSElement>>();
-    public FileSystemService<IOSDriver<IOSElement>, IOSElement> Files => ServicesCollection.Current.Resolve<FileSystemService<IOSDriver<IOSElement>, IOSElement>>();
+    public FileSystemService<IOSDriver, AppiumElement> FileSystemService => ServicesCollection.Current.Resolve<FileSystemService<IOSDriver, AppiumElement>>();
+    public FileSystemService<IOSDriver, AppiumElement> Files => ServicesCollection.Current.Resolve<FileSystemService<IOSDriver, AppiumElement>>();
 
     [Obsolete("KeyboardService is deprecated use Keyboard property instead.")]
-    public KeyboardService<IOSDriver<IOSElement>, IOSElement> KeyboardService => ServicesCollection.Current.Resolve<KeyboardService<IOSDriver<IOSElement>, IOSElement>>();
-    public KeyboardService<IOSDriver<IOSElement>, IOSElement> Keyboard => ServicesCollection.Current.Resolve<KeyboardService<IOSDriver<IOSElement>, IOSElement>>();
+    public KeyboardService<IOSDriver, AppiumElement> KeyboardService => ServicesCollection.Current.Resolve<KeyboardService<IOSDriver, AppiumElement>>();
+    public KeyboardService<IOSDriver, AppiumElement> Keyboard => ServicesCollection.Current.Resolve<KeyboardService<IOSDriver, AppiumElement>>();
 
     [Obsolete("TouchActionsService is deprecated use TouchActions property instead.")]
-    public TouchActionsService<IOSDriver<IOSElement>, IOSElement> TouchActionsService => ServicesCollection.Current.Resolve<TouchActionsService<IOSDriver<IOSElement>, IOSElement>>();
-    public TouchActionsService<IOSDriver<IOSElement>, IOSElement> TouchActions => ServicesCollection.Current.Resolve<TouchActionsService<IOSDriver<IOSElement>, IOSElement>>();
+    public TouchActionsService<IOSDriver, AppiumElement> TouchActionsService => ServicesCollection.Current.Resolve<TouchActionsService<IOSDriver, AppiumElement>>();
+    public TouchActionsService<IOSDriver, AppiumElement> TouchActions => ServicesCollection.Current.Resolve<TouchActionsService<IOSDriver, AppiumElement>>();
 
     public override void Dispose()
     {

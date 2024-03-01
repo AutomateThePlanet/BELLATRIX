@@ -22,9 +22,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
 // If you don't use the attribute, the default information from the configuration will be used placed under the executionSettings section.
 // Also, you can add additional driver arguments under the arguments section array in the configuration file.
 [Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".view.Controls1",
     Lifecycle.ReuseIfStarted)]
 
@@ -39,7 +39,7 @@ public class BellatrixAppLifecycleTests : NUnit.AndroidTest
     {
         // There is more about the App class in the next sections. However, it is the primary point where you access the BELLATRIX services.
         // It comes from the AndroidTest class as a property. Here we use the BELLATRIX app service to open a specific Android activity.
-        App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".view.Controls1");
+        App.AppService.StartActivity(Constants.AndroidNativeAppId, ".view.Controls1");
 
         // Use the element creation service to create an instance of the button. There are much more details about this process in the next sections.
         var button = App.Components.CreateByIdContaining<Button>("button");
@@ -52,9 +52,9 @@ public class BellatrixAppLifecycleTests : NUnit.AndroidTest
     // 2.4. As mentioned above you can override the app lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse an instance of the app.
     // Only for this particular test, BELLATRIX opens the app and restarts it only on fail.
     [Android(Constants.AndroidNativeAppPath,
+        Constants.AndroidNativeAppId,
         Constants.AndroidDefaultAndroidVersion,
         Constants.AndroidDefaultDeviceName,
-        Constants.AndroidNativeAppAppExamplePackage,
         ".view.Controls1",
         Lifecycle.RestartOnFail)]
     [Category(Categories.CI)]
@@ -62,6 +62,6 @@ public class BellatrixAppLifecycleTests : NUnit.AndroidTest
     {
         var button = App.Components.CreateByIdContaining<Button>("button");
 
-        Assert.AreEqual("Save", button.GetText());
+        Assert.That("Save".Equals(button.GetText()));
     }
 }

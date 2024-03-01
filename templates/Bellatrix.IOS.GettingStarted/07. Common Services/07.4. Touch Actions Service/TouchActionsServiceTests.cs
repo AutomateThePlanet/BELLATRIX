@@ -6,6 +6,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
@@ -16,7 +17,7 @@ public class TouchActionsServiceTests : NUnit.IOSTest
     // BELLATRIX touch APIs are simplified and made to be user-friendly as possible.
     // Their usage can eliminate lots of code duplication and boilerplate code.
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ElementSwiped_When_CallSwipeByCoordinatesMethod()
     {
@@ -41,7 +42,7 @@ public class TouchActionsServiceTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ElementTaped_When_CallTap()
     {
@@ -52,7 +53,7 @@ public class TouchActionsServiceTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinates()
     {
@@ -66,7 +67,7 @@ public class TouchActionsServiceTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinatesMultiAction()
     {
@@ -81,7 +82,7 @@ public class TouchActionsServiceTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void TwoTouchActionExecutedInOneMultiAction_When_CallPerformAllActions()
     {

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Password.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -22,8 +22,8 @@ namespace Bellatrix.Mobile.IOS;
 
 public class Password : IOSComponent, IComponentDisabled
 {
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> SettingPassword;
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> PasswordSet;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> SettingPassword;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> PasswordSet;
 
     public virtual string GetPassword()
     {

@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExecutionProvider.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -27,7 +27,7 @@ public class ExecutionProvider : IExecutionProvider
 
     public void OnClientInitialized(IRestClient client) => OnClientInitializedEvent?.Invoke(this, new ClientEventArgs(client));
     public void OnRequestTimeout(IRestClient client) => OnRequestTimeoutEvent?.Invoke(this, new ClientEventArgs(client));
-    public void OnMakingRequest(IRestRequest request, string requestUri) => OnMakingRequestEvent?.Invoke(this, new RequestEventArgs(request, requestUri));
-    public void OnRequestMade(IRestResponse response, string requestUri) => OnRequestMadeEvent?.Invoke(this, new ResponseEventArgs(response, requestUri));
-    public void OnRequestFailed(IRestResponse response, string requestUri) => OnRequestFailedEvent?.Invoke(this, new ResponseEventArgs(response, requestUri));
+    public void OnMakingRequest(RestRequest request, string requestUri) => OnMakingRequestEvent?.Invoke(this, new RequestEventArgs(request, requestUri));
+    public void OnRequestMade(RestResponse response, string requestUri) => OnRequestMadeEvent?.Invoke(this, new ResponseEventArgs(response, requestUri));
+    public void OnRequestFailed(RestResponse response, string requestUri) => OnRequestFailedEvent?.Invoke(this, new ResponseEventArgs(response, requestUri));
 }

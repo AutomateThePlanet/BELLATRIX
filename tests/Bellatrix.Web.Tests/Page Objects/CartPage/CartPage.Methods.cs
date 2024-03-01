@@ -7,7 +7,7 @@ public partial class CartPage : WebPage
 {
     private const string CouponSuccessfullyAdded = @"Coupon code applied successfully.";
 
-    public override string Url => "http://demos.bellatrix.solutions/cart/";
+    public override string Url => "https://demos.bellatrix.solutions/cart/";
 
     public void ApplyCoupon(string coupon)
     {

@@ -1,5 +1,5 @@
 ﻿// <copyright file="ValidateControlExtensions.GetTime.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,11 +21,11 @@ namespace Bellatrix.Mobile.IOS;
 public static partial class ValidateControlExtensions
 {
     public static void ValidateTimeIs<T>(this T control, string value, int? timeout = null, int? sleepInterval = null)
-        where T : IComponentTime, IComponent<IOSElement>
+        where T : IComponentTime, IComponent<AppiumElement>
     {
-        ValidateControlWaitService.WaitUntil<IOSDriver<IOSElement>, IOSElement>(() => control.GetTime().Equals(value), $"The control's time should be '{value}' but was '{control.GetTime()}'.", timeout, sleepInterval);
-        ValidatedTimeIsEvent?.Invoke(control, new ComponentActionEventArgs<IOSElement>(control, value));
+        ValidateControlWaitService.WaitUntil<IOSDriver, AppiumElement>(() => control.GetTime().Equals(value), $"The control's time should be '{value}' but was '{control.GetTime()}'.", timeout, sleepInterval);
+        ValidatedTimeIsEvent?.Invoke(control, new ComponentActionEventArgs<AppiumElement>(control, value));
     }
 
-    public static event EventHandler<ComponentActionEventArgs<IOSElement>> ValidatedTimeIsEvent;
+    public static event EventHandler<ComponentActionEventArgs<AppiumElement>> ValidatedTimeIsEvent;
 }

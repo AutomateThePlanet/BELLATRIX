@@ -1,5 +1,5 @@
 ﻿// <copyright file="TouchActionsServiceTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,9 +18,9 @@ namespace Bellatrix.Mobile.Android.Tests;
 
 [TestClass]
 [Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".ApiDemos",
     Lifecycle.RestartEveryTime)]
 [AllureSuite("Services")]
@@ -31,7 +31,7 @@ public class TouchActionsServiceTests : MSTest.AndroidTest
     [TestCategory(Categories.CI)]
     public void ElementSwiped_When_CallSwipeByCoordinatesMethod()
     {
-        App.AppService.StartActivity(Constants.AndroidNativeAppAppExamplePackage, ".graphics.FingerPaint");
+        App.AppService.StartActivity(Constants.AndroidNativeAppId, ".graphics.FingerPaint");
 
         var textField = App.Components.CreateByIdContaining<TextField>("content");
         Point point = textField.Location;

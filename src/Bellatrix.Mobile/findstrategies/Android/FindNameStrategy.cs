@@ -1,5 +1,5 @@
 ﻿// <copyright file="ByName.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,31 +17,31 @@ using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Locators.Android;
 
-public class FindNameStrategy : FindStrategy<AndroidDriver<AndroidElement>, AndroidElement>
+public class FindNameStrategy : FindStrategy<AndroidDriver, AppiumElement>
 {
     public FindNameStrategy(string name)
         : base(name)
     {
     }
 
-    public override AndroidElement FindElement(AndroidDriver<AndroidElement> searchContext)
+    public override AppiumElement FindElement(AndroidDriver searchContext)
     {
-        return searchContext.FindElementByName(Value);
+        return searchContext.FindElement(MobileBy.Name(Value));
     }
 
-    public override IEnumerable<AndroidElement> FindAllElements(AndroidDriver<AndroidElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(AndroidDriver searchContext)
     {
-        return searchContext.FindElementsByName(Value);
+        return searchContext.FindElements(MobileBy.Name(Value));
     }
 
-    public override AppiumWebElement FindElement(AndroidElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByName(Value);
+        return element.FindElement(MobileBy.Name(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(AndroidElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByName(Value);
+        return element.FindElements(MobileBy.Name(Value));
     }
 
     public override string ToString()

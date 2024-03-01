@@ -1,5 +1,5 @@
 ﻿// <copyright file="TestmailService.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -45,15 +45,12 @@ public class TestmailService
 
     private Root GetAllEmails()
     {
-        var client = new RestClient
-        {
-            BaseHost = EMAIL_SERVICE_URL
-        };
+        var client = new RestClient(EMAIL_SERVICE_URL);
         var request = new RestRequest("/api/json/");
         request.AddQueryParameter("apikey", apiKey);
         request.AddQueryParameter("namespace", emailNamespace);
         request.AddQueryParameter("pretty", "true");
-        var emailsResponse = client.Get<Root>(request);
-        return emailsResponse.Data;
+        var emailsResponse = client.GetAsync<Root>(request).Result;
+        return emailsResponse;
     }
 }

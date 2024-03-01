@@ -1,5 +1,5 @@
 ﻿// <copyright file="ValidateControlExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -24,8 +24,8 @@ namespace Bellatrix.Mobile;
 internal static class ValidateControlWaitService
 {
     internal static void WaitUntil<TDriver, TDriverElement>(Func<bool> waitCondition, string exceptionMessage, int? timeoutInSeconds, int? sleepIntervalInSeconds)
-        where TDriver : AppiumDriver<TDriverElement>
-        where TDriverElement : AppiumWebElement
+        where TDriver : AppiumDriver
+        where TDriverElement : AppiumElement
     {
         var localTimeout = timeoutInSeconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.ValidationsTimeout;
         var localSleepInterval = sleepIntervalInSeconds ?? ConfigurationService.GetSection<MobileSettings>().TimeoutSettings.SleepInterval;

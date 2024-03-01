@@ -1,5 +1,5 @@
 ﻿// <copyright file="CaptureHttpTrafficTests.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -24,7 +24,7 @@ public class CaptureHttpTrafficTests : MSTest.WebTest
     [TestCategory(Categories.CI)]
     public void CaptureTrafficTests()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
         Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
@@ -41,16 +41,16 @@ public class CaptureHttpTrafficTests : MSTest.WebTest
 
         App.Proxy.AssertNoLargeImagesRequested();
 
-        App.Proxy.AssertRequestMade("http://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
+        App.Proxy.AssertRequestMade("https://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
     }
 
     [TestMethod]
     [TestCategory(Categories.CI)]
     public void RedirectRequestsTest()
     {
-        App.Proxy.SetUrlToBeRedirectedTo("http://demos.bellatrix.solutions/favicon.ico", "https://www.automatetheplanet.com/wp-content/uploads/2016/12/logo.svg");
+        App.Proxy.SetUrlToBeRedirectedTo("https://demos.bellatrix.solutions/favicon.ico", "https://www.automatetheplanet.com/wp-content/uploads/2016/12/logo.svg");
 
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
         Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
@@ -68,9 +68,9 @@ public class CaptureHttpTrafficTests : MSTest.WebTest
     [TestCategory(Categories.CI)]
     public void BlockRequestsTest()
     {
-        App.Proxy.SetUrlToBeBlocked("http://demos.bellatrix.solutions/favicon.ico");
+        App.Proxy.SetUrlToBeBlocked("https://demos.bellatrix.solutions/favicon.ico");
 
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
         Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");
@@ -83,6 +83,6 @@ public class CaptureHttpTrafficTests : MSTest.WebTest
         addToCartFalcon9.Click();
         viewCartButton.Click();
 
-        App.Proxy.AssertRequestNotMade("http://demos.bellatrix.solutions/welcome");
+        App.Proxy.AssertRequestNotMade("https://demos.bellatrix.solutions/welcome");
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="LighthouseService.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -70,11 +70,11 @@ public class LighthouseService
         else if (WrappedWebDriverCreateService.BrowserConfiguration.ExecutionType == Web.Enums.ExecutionType.Grid)
         {
             var app = ServicesCollection.Current.Resolve<App>();
-            app.ApiClient.BaseUrl = ((RemoteWebDriver)browserService.WrappedDriver).Url;
-            var request = new RestRequest($"/grid/admin/HubRemoteHostRetrieverServlet/session/{((RemoteWebDriver)browserService.WrappedDriver).SessionId}/", Method.GET);
+            //app.ApiClient.BaseUrl = ((RemoteWebDriver)browserService.WrappedDriver).Url;
+            var request = new RestRequest($"{((RemoteWebDriver)browserService.WrappedDriver).Url}/grid/admin/HubRemoteHostRetrieverServlet/session/{((RemoteWebDriver)browserService.WrappedDriver).SessionId}/", Method.Get);
             var queryResult = app.ApiClient.Execute(request);
-            app.ApiClient.BaseUrl = $"http://{queryResult.Content}";
-            request = new RestRequest($"/extra/LighthouseServlet", Method.GET);
+            //app.ApiClient.BaseUrl = $"http://{queryResult.Content}";
+            request = new RestRequest($"http://{queryResult.Content}/extra/LighthouseServlet", Method.Get);
             request.AddHeader("lighthouse", arguments.Replace("lighthouse ", string.Empty));
             PerformanceReport.Value = app.ApiClient.Get<Lighthouse.Root>(request).Data;
         }
