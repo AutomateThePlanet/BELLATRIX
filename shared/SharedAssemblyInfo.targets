@@ -12,17 +12,23 @@
     <AssemblyVersion>3.9.0.0</AssemblyVersion>
     <FileVersion>3.9.0.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
-    <Copyright>Automate The Planet Ltd. 2021</Copyright>
+    <Copyright>Automate The Planet Ltd. 2024</Copyright>
     <PackageReleaseNotes>
-      - new email testing 3rd-party services integrations
-      - new AWS integration - S3
-      - new AWS integration - Computer Vision OCR images and PDFs
-      - new AWS integration - Secrets Manager
-      - convert to file-scoped namespaces
-      - update demo apps
-      - add new CSV service for working with CSV files
-      - deprecate touch web services
-      - update API libraries
+      - Added DevExtreme Components v1.2.0
+      - Fixed parallel execution
+      - Added Excel Service
+      - Fixed formatting
+      - Added qTestId plugin
+      - Added Advanced CkEditor component
+      - Added DevExtreme Components v.1.0
+      - .NET 8 Support
+      - Selenium Manager Support
+      - Upgrade All NuGet Packages
+      - Chrome Headless uses the new headless mode now
+      - Fixed grid execution driver additional options to Selenium 4
+      - Added SetModelColumns method to grid extensions
+      - Upgraded Azure KeyVault Identity
+      - Upgraded WebDriver Manager Version
       - upgrade all 3rd-party NuGet packages
       - fix all known bugs
     </PackageReleaseNotes>
