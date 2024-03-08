@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+	<PropertyGroup>
+		<Configurations>DEBUG;STAGE;QA;LOCAL</Configurations>
+	</PropertyGroup>
+
+	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+
+	<ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.40.0" />
+    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.40.0" />
+	<PackageReference Include="MSTest" Version="3.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bellatrix.Api\Bellatrix.API.csproj" />
+    <ProjectReference Include="..\Bellatrix.AWS\Bellatrix.AWS.csproj" />
+    <ProjectReference Include="..\Bellatrix.CognitiveServices\Bellatrix.CognitiveServices.csproj" />
+    <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
+    <ProjectReference Include="..\Bellatrix.Layout\Bellatrix.Layout.csproj" />
+  </ItemGroup>
+
+</Project>
