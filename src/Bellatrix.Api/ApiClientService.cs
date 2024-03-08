@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Diagnostics;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Bellatrix.Api.Configuration;
@@ -31,27 +32,11 @@ public class ApiClientService
     private readonly ApiSettings _apiSettings = ConfigurationService.GetSection<ApiSettings>();
 
     // TODO: is this going to be accessible in the service container?
-    public ApiClientService(string baseUrl = null)
+    public ApiClientService(string baseUrl = null, CookieContainer cookieContainer = null)
     {
         _executionProvider = new ExecutionProvider();
         InitializeExecutionExtensions(_executionProvider);
 
-        var options = new RestClientOptions
-        {
-            BaseUrl = baseUrl is not null ? new Uri(baseUrl) : null,
-            FollowRedirects = true
-        };
-
-        _executionProvider.OnClientInitialized(WrappedClient);
-        var authenticator = ServicesCollection.Current.Resolve<IAuthenticator>();
-        if (authenticator != null)
-        {
-            options.Authenticator = authenticator;
-        }
-        WrappedClient = new RestClient(
-            options,
-            configureSerialization: s => s.UseNewtonsoftJson()
-            );
         ////WrappedClient.AddHandler("application/json", () => NewtonsoftJsonSerializer.Default);
         ////WrappedClient.AddHandler("text/json", () => NewtonsoftJsonSerializer.Default);
         ////WrappedClient.AddHandler("text/x-json", () => NewtonsoftJsonSerializer.Default);
@@ -62,6 +47,8 @@ public class ApiClientService
         {
             MaxRetryAttempts = _apiSettings.MaxRetryAttempts;
             PauseBetweenFailures = Utilities.TimeSpanConverter.Convert(_apiSettings.PauseBetweenFailures, _apiSettings.TimeUnit);
+
+            InitializeNewRestClient(baseUrl, cookieContainer);
 
             int timeoutSeconds = _apiSettings.ClientTimeoutSeconds;
             Policy.Timeout(timeoutSeconds, onTimeout: (context, timespan, task) =>
@@ -83,11 +70,23 @@ public class ApiClientService
 
     public int MaxRetryAttempts { get; set; }
 
-    ////public Uri BaseUrl
-    ////{
-    ////    get => WrappedClient.Ur.AbsoluteUri;
-    ////    set => WrappedClient.BaseUrl = new Uri(value);
-    ////}
+    public CookieContainer CookieContainer
+    {
+        get => WrappedClient.Options.CookieContainer;
+        set
+        {
+            InitializeNewRestClient(WrappedClient.Options.BaseUrl.AbsoluteUri, value);
+        }
+    }
+
+    public Uri BaseUrl
+    {
+        get => WrappedClient.Options.BaseUrl;
+        set
+        {
+            InitializeNewRestClient(value.AbsoluteUri, WrappedClient.Options.CookieContainer);
+        }
+    }
 
     public TimeSpan PauseBetweenFailures { get; set; }
 
@@ -347,5 +346,30 @@ public class ApiClientService
         {
             request.AddJsonBody(obj);
         }
+    }
+
+    private void InitializeNewRestClient(string baseUrl = null, CookieContainer cookieContainer = null)
+    {
+        var options = new RestClientOptions
+        {
+            BaseUrl = baseUrl is not null ? new Uri(baseUrl) : null,
+            FollowRedirects = true
+        };
+
+        if (cookieContainer is not null)
+        {
+            options.CookieContainer = cookieContainer;
+        }
+
+        _executionProvider.OnClientInitialized(WrappedClient);
+        var authenticator = ServicesCollection.Current.Resolve<IAuthenticator>();
+        if (authenticator != null)
+        {
+            options.Authenticator = authenticator;
+        }
+        WrappedClient = new RestClient(
+            options,
+            configureSerialization: s => s.UseNewtonsoftJson()
+            );
     }
 }
