@@ -39,14 +39,18 @@ public class NativeElementFinderService : IWebElementFinderService
         where TBy : FindStrategy
     {
         var result = ((ILocator)by.Convert(_searchContext));
+
         try
         {
+            // Maybe because of the async to sync conversion, it always fails on the first try.
+            // Another reason could be the fact that Playwright doesn't wait for all elements to be loaded properly on the page before trying to find them.
             return result.AllAsync().Result;
         } 
         catch
         {
-            // patch
+            // patch: Adding a wait for no HTTP requests and responses sent in the last few hundred milliseconds.
             ServicesCollection.Current.Resolve<WrappedBrowser>().CurrentPage.WaitForLoadStateAsync(LoadState.NetworkIdle).SyncResult();
+            
             return result.AllAsync().Result;
         }
     }
