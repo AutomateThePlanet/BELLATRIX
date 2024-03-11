@@ -296,7 +296,7 @@ public static class WrappedBrowserCreateService
 
     private static void InitializeWrappedBrowserGridMode(BrowserConfiguration executionConfiguration, WrappedBrowser wrappedBrowser)
     {
-        var capsObject = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0].ParseBooleans();
+        var capsObject = ParseBooleans(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0]);
 
         var capabilities = JsonConvert.SerializeObject(capsObject);
 
@@ -321,6 +321,8 @@ public static class WrappedBrowserCreateService
 
                     var client = new ApiClientService(gridUrl);
 
+                    // Sending a request to the grid to get the url and to get session id from the response
+                    // session id is used to close the connection after the test, if needed.
                     var request = new RestRequest("/session", Method.Post);
                     var body = new Dictionary<string, object>()
                         {
@@ -417,8 +419,20 @@ public static class WrappedBrowserCreateService
         return capabilities;
     }
 
-    private static Dictionary<string, object> ParseBooleans(this object obj)
+    /// <summary>
+    /// This method goes through every key value pair in a collection and if it finds "true" or "false", it replaces them with their boolean counterparts.
+    /// </summary>
+    /// <param name="obj">Collections of key-value pairs</param>
+    private static Dictionary<string, object> ParseBooleans(object obj)
     {
+        // Patch for deserialized by Microsoft.Extensions.Configuration in ConfigurationService (Bellatrix.Core.Settings) grid options.
+        // From testFrameworkSettings.json, the options for cloud grid execution are deserialized as a Dictionary<string, object?>
+        // Microsoft.Extensions.Configuration always tries to parse them as Dictionary<string, string>, 
+        // resulting in boolean values being passed to the cloud grid as "True" or "False", which results in an error. 
+
+        // The reason the parameter is an object, not a collection, is because we don't know in exactly what collection the Microsoft.Extensions.Configuration
+        // will parse the options from the json file.
+
         Dictionary<string, object> dictionary;
 
         if (obj is IDictionary)
@@ -455,7 +469,7 @@ public static class WrappedBrowserCreateService
 
             else
             {
-                newDictionary.Add(key, ((Dictionary<string, object>)value).ParseBooleans());
+                newDictionary.Add(key, (ParseBooleans((Dictionary<string, object>)value)));
             }
         }
 
