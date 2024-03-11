@@ -40,29 +40,20 @@ public class NavigationService : WebService
 
     public void Navigate(Uri uri)
     {
-        _ = CurrentPage.GotoAsync(uri.ToString()).Result;
-        UrlNavigatedEvent?.Invoke(this, new UrlNavigatedEventArgs(uri.ToString()));
+        NavigateInternal(uri.ToString());
     }
 
     public void Navigate(string url)
     {
-        bool tryAgain = false;
         try
         {
-            _ = CurrentPage.GotoAsync(url).Result;
-            UrlNavigatedEvent?.Invoke(this, new UrlNavigatedEventArgs(url));
+           NavigateInternal(url);
         }
         catch (Exception)
         {
-            tryAgain = true;
-        }
-
-        if (tryAgain)
-        {
             try
             {
-                _ = CurrentPage.GotoAsync(url).Result;
-                UrlNavigatedEvent?.Invoke(this, new UrlNavigatedEventArgs(url));
+                NavigateInternal(url);
             }
             catch (Exception ex)
             {
@@ -126,5 +117,11 @@ public class NavigationService : WebService
         NameValueCollection query = HttpUtility.ParseQueryString(uri.Query);
         query.Add(new NameValueCollection() { { parameterName, parameterValue } });
         return uri.GetLeftPart(UriPartial.Path) + "?" + query.ToString();
+    }
+
+    private void NavigateInternal(string url)
+    {
+        _ = CurrentPage.GotoAsync(url).Result;
+        UrlNavigatedEvent?.Invoke(this, new UrlNavigatedEventArgs(url));
     }
 }
