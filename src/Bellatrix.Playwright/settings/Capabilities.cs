@@ -1,4 +1,4 @@
-﻿// <copyright file="ExecutionSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="Capabilities.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -15,18 +15,31 @@
 using Microsoft.Extensions.Configuration;
 
 namespace Bellatrix.Playwright.Settings;
-
-public class ExecutionSettings
+public class Capabilities
 {
-    public string ExecutionType { get; set; }
-    public string DefaultBrowser { get; set; }
+    public string BrowserName { get; set; }
+
     public string BrowserVersion { get; set; }
-    public string DefaultLifeCycle { get; set; }
-    public string Resolution { get; set; }
-    public string GridUrl { get; set; }
-    public string FileRemoteLocation { get; set; }
-    public List<Capabilities> Arguments { get; set; }
-    public string PackedExtensionPath { get; set; }
-    public string UnpackedExtensionPath { get; set; }
-    public bool IsCloudRun { get; set; }
+
+    public string PlatformName { get; set; }
+
+    public string AcceptInsecureCerts { get; set; }
+
+    public string PageLoadStrategy { get; set; }
+
+    public string SetWindowRect { get; set; }
+
+    public string UnhandledPromptBehaviour { get; set; }
+
+
+    [ConfigurationKeyName("LT:Options")]
+    public Dictionary<string, object> LtOptions { get; set; }
+
+
+    [ConfigurationKeyName("browserstack.username")]
+    public string Username { get; set; }
+
+
+    [ConfigurationKeyName("browserstack.accessKey")]
+    public string AccessKey { get; set; }
 }

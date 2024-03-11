@@ -9,8 +9,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // </copyright>
-// <author>Anton Angelov</author>
+// <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
+
 namespace Bellatrix.Playwright.Contracts;
 
 public interface IComponentTarget

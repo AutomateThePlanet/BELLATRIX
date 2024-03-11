@@ -1,5 +1,5 @@
 ﻿// <copyright file="Grid.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -9,24 +9,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // </copyright>
-// <author>Anton Angelov</author>
+// <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Net;
 using System.Reflection;
 using System.Web;
 using Bellatrix.Assertions;
-using Bellatrix.Infrastructure;
-using Bellatrix.Infrastructure.SystemFacades;
-using Bellatrix.Utilities;
-using Bellatrix.Playwright;
-using Bellatrix.Playwright.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Playwright.Controls.Advanced.Grid;
 using HtmlAgilityPack;
 using Bellatrix.Playwright.Services;

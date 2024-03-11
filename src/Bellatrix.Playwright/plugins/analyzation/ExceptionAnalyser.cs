@@ -9,12 +9,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // </copyright>
-// <author>Anton Angelov</author>
+// <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
-using System.Collections.Generic;
+
 using Bellatrix.ExceptionAnalysation.Contracts;
-using Bellatrix.Playwright;
 using Bellatrix.Playwright.Services;
 
 namespace Bellatrix.ExceptionAnalysation;

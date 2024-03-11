@@ -1,5 +1,5 @@
 ﻿// <copyright file="AngularClientSideScripts.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -9,7 +9,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // </copyright>
-// <author>Anton Angelov</author>
+// <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
 namespace Bellatrix.Playwright;
@@ -22,6 +22,8 @@ namespace Bellatrix.Playwright;
 * arguments. Instead of params, all functions on clientSideScripts
 * should list the arguments array they expect.
 */
+
+// TODO AngularClientSideScripts
 internal class AngularClientSideScripts
 {
     // TODO: where arguments[x] is used should be replaced; such js does not work with Playwright

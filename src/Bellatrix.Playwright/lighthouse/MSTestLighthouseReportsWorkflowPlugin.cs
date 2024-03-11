@@ -9,15 +9,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // </copyright>
-// <author>Anton Angelov</author>
+// <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
-using System.IO;
-using System.Linq;
+
 using Bellatrix.Plugins;
-using Bellatrix.Plugins.Screenshots;
-using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Utilities;
-using Bellatrix.Playwright;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bellatrix.Playwright.Services;
 using Bellatrix.Playwright.Enums;
