@@ -18,6 +18,7 @@ using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.Playwright.Settings;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Bellatrix.Playwright.Services;
 public class BrowserService : WebService
@@ -39,29 +40,65 @@ public class BrowserService : WebService
 
     public void Refresh() => _ = CurrentPage.ReloadAsync().Result;
 
+    [Obsolete("Cannot be implemented.", true)]
     public void RefreshHard()
     {
-        //    var executor = ServicesCollection.Current.Resolve<DriverCommandExecutionService>();
-        //    executor.SendCommandForHardRefresh();
+        // to be removed.
     }
 
-    //public void SwitchToDefault() => WrappedDriver.SwitchTo().DefaultContent();
+    [Obsolete("Cannot be implemented as there is no such concept as 'Default Tab' in Playwright.", true)]
+    public void SwitchToDefault()
+    {
+        // to be removed.
+    }
 
-    //public void SwitchToActive() => WrappedDriver.SwitchTo().ActiveElement();
+    [Obsolete("Cannot be implemented as there is no such concept as 'Active Tab' in Playwright.", true)]
+    public void SwitchToActive()
+    {
+        // to be removed.
+    }
 
-    //public void SwitchToFirstBrowserTab() => WrappedDriver.SwitchTo().Window(WrappedDriver.WindowHandles.First());
+    public void SwtichToFirstBrowserTab() => WrappedBrowser.CurrentContext.Pages.First();
 
-    //public void SwitchToLastTab() => WrappedDriver.SwitchTo().Window(WrappedDriver.WindowHandles.Last());
+    public void SwitchToLastTab() => WrappedBrowser.CurrentContext.Pages.Last();
 
-    //public void SwitchToTab(string tabName) => WrappedDriver.SwitchTo().Window(tabName);
+    /// <summary>
+    /// For this method to work, when an action on the current tab opens a new tab, one MUST manually create a new IPage in WrappedBrowser.CurrentContext.
+    /// </summary>
+    /// <seealso cref="BrowserService.RunAndWaitForTab(Action)"/>
+    public void SwitchToTab(string tabTitle) => WrappedBrowser.CurrentContext.Pages.FirstOrDefault(x => x.TitleAsync().Result.Equals(tabTitle));
 
-    //public void SwitchToFrame(Frame frame)
-    //{
-    //    if (frame.WrappedElement != null)
-    //    {
-    //        WrappedDriver.SwitchTo().Frame(frame.WrappedElement);
-    //    }
-    //}
+    /// <summary>
+    /// Performs action, waits for a new tab to be opened and returns it.
+    /// </summary>
+    /// <param name="action">Action on the current tab that is supposed to open a new tab.</param>
+    /// <returns></returns>
+    public IPage RunAndWaitForTab(Action action, BrowserContextRunAndWaitForPageOptions options = null)
+    {
+        Func<Task> task = new Func<Task>(() =>
+        {
+            action.Invoke();
+            return Task.CompletedTask;
+        });
+
+        return WrappedBrowser.CurrentContext.RunAndWaitForPageAsync(task, options).Result;
+    }
+
+    /// <summary>
+    /// As Playwright renders IFrames as normal HTML elements, this method is not necessary.
+    /// </summary>
+    /// <param name="frame"></param>
+    /// <returns></returns>
+    [Obsolete("As Playwright renders IFrames as normal HTML elements, this method is not necessary.", false)]
+    public Frame SwitchToFrame(Frame frame)
+    {
+        if (frame.WrappedElement != null)
+        {
+            return frame;
+        }
+
+        return null;
+    }
 
     /// <summary>
     /// Static wait that calls Thread.Sleep().
