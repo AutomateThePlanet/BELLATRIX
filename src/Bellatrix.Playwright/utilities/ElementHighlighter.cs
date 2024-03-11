@@ -20,7 +20,7 @@ using System.Threading;
 
 namespace Bellatrix.Playwright.Extensions.Controls;
 
-public static class Elementhighlighter
+public static class ElementHighlighter
 {
     public static void Highlight(this ILocator nativeElement, int waitBeforeUnhighlightMilliseconds = 100, string color = "yellow")
     {
