@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using System.Diagnostics;
+using System.Text.Json;
 using Bellatrix.Playwright.Services.Browser;
 
 namespace Bellatrix.Playwright.Services;
@@ -63,7 +64,7 @@ public class JavaScriptService : WebService
     //    return result;
     //}
 
-    public object Execute(string script, params object[] args)
+    public JsonElement? Execute(string script, params object[] args)
     {
         try
         {
@@ -72,7 +73,7 @@ public class JavaScriptService : WebService
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            return string.Empty;
+            return null;
         }
     }
 
@@ -96,6 +97,23 @@ public class JavaScriptService : WebService
         {
             Debug.WriteLine(ex);
             return string.Empty;
+        }
+    }
+
+    public JsonElement? Execute(string script, ILocator nativeLocator, params object[] args)
+    {
+        try
+        {
+            return nativeLocator.EvaluateAsync(script, args).Result;
+        }
+        catch (NullReferenceException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return null;
         }
     }
 
