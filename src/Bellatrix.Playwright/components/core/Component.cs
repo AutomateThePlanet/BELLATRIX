@@ -24,11 +24,13 @@ using Bellatrix.Playwright.WaitStrategies;
 using Bellatrix.Playwright.Waits;
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Settings.Extensions;
+using Bellatrix.CognitiveServices.services;
+using Bellatrix.CognitiveServices;
 
 
 namespace Bellatrix.Playwright;
 
-[DebuggerDisplay("BELLATRIX Element")]
+[DebuggerDisplay("BELLATRIX Component")]
 public partial class Component : IComponentVisible, IComponentCssClass, IComponent, IWebLayoutComponent
 {
     public static event EventHandler<ComponentActionEventArgs> Focusing;
@@ -38,7 +40,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     private readonly ComponentWaitService _elementWaiter;
     private readonly List<WaitStrategy> _untils;
 
-    //public string TagName => WrappedElement.TagName;
+    public string TagName => WrappedElement.EvaluateAsync("element => element.TagName;").Result.GetValueOrDefault().ToString();
 
     public Component()
     {
@@ -107,13 +109,13 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
 
     public string GetLang() => string.IsNullOrEmpty(GetAttribute("lang")) ? null : GetAttribute("lang");
 
-    //public AssertedFormPage AIAnalyze()
-    //{
-    //    string currentComponentScreenshot = TakeScreenshot();
-    //    var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
-    //    var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
-    //    return analyzedComponent;
-    //}
+    public AssertedFormPage AIAnalyze()
+    {
+        string currentComponentScreenshot = TakeScreenshot();
+        var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
+        var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
+        return analyzedComponent;
+    }
 
     public string TakeScreenshot(string filePath = null)
     {
