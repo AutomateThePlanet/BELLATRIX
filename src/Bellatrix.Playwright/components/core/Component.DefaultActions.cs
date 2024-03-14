@@ -22,19 +22,19 @@ namespace Bellatrix.Playwright;
 public partial class Component
 {
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public Point Location => new((int)WrappedElement.BoundingBoxAsync().Result.X, (int)WrappedElement.BoundingBoxAsync().Result.Y);
+    public Point Location => new((int)WrappedElement.BoundingBox().X, (int)WrappedElement.BoundingBox().Y);
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public Size Size => new((int)WrappedElement.BoundingBoxAsync().Result.Width, (int)WrappedElement.BoundingBoxAsync().Result.Height);
+    public Size Size => new((int)WrappedElement.BoundingBox().Width, (int)WrappedElement.BoundingBox().Height);
 
     // TODO: Will GetCssValue() work?
-    public string GetCssValue(string propertyName) => WrappedElement.EvaluateAsync($"element => window.getComputedStyle(element).getPropertyValue('{propertyName}')").Result.GetValueOrDefault().ToString();
+    public string GetCssValue(string propertyName) => WrappedElement.Evaluate($"element => window.getComputedStyle(element).getPropertyValue('{propertyName}')").GetValueOrDefault().ToString();
 
     protected virtual void DefaultSetAttribute(string attributeName, string attributeValue)
     {
         SettingAttribute?.Invoke(this, new ComponentActionEventArgs(this));
 
-        WrappedElement.EvaluateAsync($"el => el.{attributeName} = '{attributeValue}'");
+        WrappedElement.Evaluate($"el => el.{attributeName} = '{attributeValue}'");
 
         AttributeSet?.Invoke(this, new ComponentActionEventArgs(this));
     }
@@ -54,13 +54,13 @@ public partial class Component
         clicked?.Invoke(this, new ComponentActionEventArgs(this));
     }
 
-    private void PerformJsClick() => _ = WrappedElement.EvaluateAsync("el => el.click()").Result;
+    private void PerformJsClick() => _ = WrappedElement.Evaluate("el => el.click()");
 
     internal void DefaultCheck(EventHandler<ComponentActionEventArgs> checking, EventHandler<ComponentActionEventArgs> @checked, LocatorCheckOptions options = default)
     {
         checking?.Invoke(this, new ComponentActionEventArgs(this));
 
-        WrappedElement.CheckAsync(options).GetAwaiter().GetResult();
+        WrappedElement.Check(options);
 
         @checked?.Invoke(this, new ComponentActionEventArgs(this));
     }
@@ -69,7 +69,7 @@ public partial class Component
     {
         unchecking?.Invoke(this, new ComponentActionEventArgs(this));
 
-        WrappedElement.UncheckAsync(options).GetAwaiter().GetResult();
+        WrappedElement.Uncheck(options);
 
 
         @unchecked?.Invoke(this, new ComponentActionEventArgs(this));
@@ -79,14 +79,14 @@ public partial class Component
     {
         hovering?.Invoke(this, new ComponentActionEventArgs(this));
 
-        WrappedElement.HoverAsync().SyncResult();
+        WrappedElement.Hover();
 
         hovered?.Invoke(this, new ComponentActionEventArgs(this));
     }
 
     internal string GetInnerText()
     {
-        return WrappedElement.InnerTextAsync().Result.Trim().Replace("\r\n", string.Empty);
+        return WrappedElement.InnerText().Trim().Replace("\r\n", string.Empty);
     }
 
     internal void SetValue(EventHandler<ComponentActionEventArgs> gettingValue, EventHandler<ComponentActionEventArgs> gotValue, string value)
@@ -141,7 +141,7 @@ public partial class Component
 
     internal string GetInnerHtmlAttribute()
     {
-        return WrappedElement.InnerHTMLAsync().Result;
+        return WrappedElement.InnerHTML();
     }
 
     internal string GetForAttribute()
@@ -151,12 +151,12 @@ public partial class Component
 
     protected bool GetDisabledAttribute()
     {
-        return WrappedElement.IsDisabledAsync().Result;
+        return WrappedElement.IsDisabled();
     }
 
     internal string GetText()
     {
-        return WrappedElement.InnerTextAsync().Result;
+        return WrappedElement.InnerText();
     }
 
     internal int? GetMinAttribute()
@@ -213,7 +213,7 @@ public partial class Component
     {
         settingValue?.Invoke(this, new ComponentActionEventArgs(this, value));
 
-        WrappedElement.FillAsync(value).SyncResult();
+        WrappedElement.Fill(value);
 
         valueSet?.Invoke(this, new ComponentActionEventArgs(this, value));
     }
@@ -223,7 +223,7 @@ public partial class Component
         ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs(this));
         try
         {
-            WrappedElement.ScrollIntoViewIfNeededAsync().SyncResult();
+            WrappedElement.ScrollIntoViewIfNeeded();
         }
         catch (Exception)
         {

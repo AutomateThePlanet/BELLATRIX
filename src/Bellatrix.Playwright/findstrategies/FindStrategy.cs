@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Playwright.Services.Browser;
+using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 
@@ -22,9 +23,9 @@ public abstract class FindStrategy
 
     public string Value { get; }
 
-    public abstract ILocator Convert(IPage searchContext);
+    public abstract WebElement Convert(IPage searchContext);
 
-    public abstract ILocator Convert(ILocator searchContext);
+    public abstract WebElement Convert(WebElement searchContext);
 
     protected WrappedBrowser WrappedBrowser => ServicesCollection.Current.Resolve<WrappedBrowser>();
 }

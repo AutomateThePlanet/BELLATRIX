@@ -1,4 +1,4 @@
-﻿// <copyright file="JavaScriptBy.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="JavaScriptFindStrategy.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,7 +11,9 @@
 // </copyright>
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
+
 using Bellatrix.Playwright.Locators;
+using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 
@@ -22,12 +24,12 @@ public class JavaScriptFindStrategy : FindStrategy
     public JavaScriptFindStrategy(string value, params object[] args)
         : base(value) => _args = args;
 
-    public override ILocator Convert(IPage searchContext)
+    public override WebElement Convert(IPage searchContext)
     {
         return new PlaywrightJavaScriptLocator(Value, _args).FindElement(searchContext);
     }
 
-    public override ILocator Convert(ILocator searchContext)
+    public override WebElement Convert(WebElement searchContext)
     {
         return new PlaywrightJavaScriptLocator(Value, _args).FindElement(searchContext);
     }

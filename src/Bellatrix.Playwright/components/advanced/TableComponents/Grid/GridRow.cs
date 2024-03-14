@@ -38,7 +38,7 @@ public class GridRow : Component, IComponentInnerHtml
     public void Click()
     {
         Clicking?.Invoke(this, new ComponentActionEventArgs(this));
-        WrappedElement.ClickAsync().GetAwaiter().GetResult();
+        WrappedElement.Click();
         Clicked?.Invoke(this, new ComponentActionEventArgs(this));
     }
 
@@ -94,7 +94,7 @@ public class GridRow : Component, IComponentInnerHtml
             else
             {
                 var repo = new ComponentRepository();
-                element = repo.CreateComponentWithParent(cell.CellControlBy, cell.WrappedElement, typeof(TComponent), false);
+                element = repo.CreateComponentWithParent(cell.CellControlBy, cell, typeof(TComponent), false);
                 listOfElements.Add(element);
             }
         }

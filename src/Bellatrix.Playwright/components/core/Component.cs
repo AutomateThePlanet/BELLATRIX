@@ -26,6 +26,7 @@ using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.CognitiveServices.services;
 using Bellatrix.CognitiveServices;
+using Bellatrix.Playwright.SyncPlaywright;
 
 
 namespace Bellatrix.Playwright;
@@ -36,11 +37,11 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     public static event EventHandler<ComponentActionEventArgs> Focusing;
     public static event EventHandler<ComponentActionEventArgs> Focused;
 
-    private ILocator _wrappedElement;
+    protected WebElement _wrappedElement;
     private readonly ComponentWaitService _elementWaiter;
     private readonly List<WaitStrategy> _untils;
 
-    public string TagName => WrappedElement.EvaluateAsync("element => element.TagName;").Result.GetValueOrDefault().ToString();
+    public string TagName => WrappedElement.Evaluate("element => element.TagName;").GetValueOrDefault().ToString();
 
     public Component()
     {
@@ -70,7 +71,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     public WrappedBrowser WrappedBrowser { get; }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public ILocator WrappedElement
+    public WebElement WrappedElement
     {
         get
         {
@@ -86,7 +87,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         set => _wrappedElement = value;
     }
 
-    public ILocator ParentWrappedElement { get; set; }
+    public WebElement ParentWrappedElement { get; set; }
     public int ElementIndex { get; set; }
     internal bool ShouldCacheElement { get; set; }
 
@@ -127,7 +128,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             filePath = Path.Combine(screenshotSaveDir, screenshotFileName);
         }
 
-        _ = WrappedElement.ScreenshotAsync(new() { Path = filePath, Type = ScreenshotType.Png }).Result;
+        _ = WrappedElement.Screenshot(new() { Path = filePath, Type = ScreenshotType.Png });
 
         return filePath;
     }
@@ -138,7 +139,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
         var elementRepository = new ComponentRepository();
-        var element = elementRepository.CreateComponentWithParent(by, WrappedElement, newElementType, ShouldCacheElement);
+        var element = elementRepository.CreateComponentWithParent(by, this, newElementType, ShouldCacheElement);
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
@@ -152,7 +153,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
         var elementRepository = new ComponentRepository();
-        var element = elementRepository.CreateComponentWithParent<TComponent>(by, WrappedElement, null, 0, shouldCacheElement);
+        var element = elementRepository.CreateComponentWithParent<TComponent>(by, this, null, 0, shouldCacheElement);
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
@@ -181,7 +182,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         {
             try
             {
-                return GetAndWaitWebElement(false).ElementHandleAsync(new LocatorElementHandleOptions { Timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToExistTimeout }).Result != null;
+                return GetAndWaitWebElement(false).ElementHandle(new LocatorElementHandleOptions { Timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToExistTimeout }) != null;
             }
             catch
             {
@@ -197,7 +198,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         {
             if (IsPresent)
             {
-                return WrappedElement.IsVisibleAsync().Result;
+                return WrappedElement.IsVisible();
             }
 
             return false;
@@ -215,7 +216,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
 
     public string GetAttribute(string name)
     {
-        return WrappedElement.GetAttributeAsync(name).Result;
+        return WrappedElement.GetAttribute(name);
     }
 
     public void ScrollToVisible()
@@ -227,7 +228,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         SettingAttribute?.Invoke(this, new ComponentActionEventArgs(this));
 
-        _ = WrappedElement.EvaluateAsync($"element => element.setAttribute('{name}', '{value}');").Result;
+        _ = WrappedElement.Evaluate($"element => element.setAttribute('{name}', '{value}');");
 
         AttributeSet?.Invoke(this, new ComponentActionEventArgs(this));
     }
@@ -236,7 +237,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         Focusing?.Invoke(this, new ComponentActionEventArgs(this));
 
-        WrappedElement.FocusAsync().GetAwaiter().GetResult();
+        WrappedElement.Focus();
 
         Focused?.Invoke(this, new ComponentActionEventArgs(this));
     }
@@ -274,7 +275,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         return sb.ToString();
     }
 
-    private ILocator GetAndWaitWebElement(bool shouldCacheElement = false)
+    private WebElement GetAndWaitWebElement(bool shouldCacheElement = false)
     {
         if (_wrappedElement != null && shouldCacheElement)
         {
@@ -312,7 +313,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         }
     }
 
-    private ILocator GetWebElement(bool shouldCacheElement = false)
+    private WebElement GetWebElement(bool shouldCacheElement = false)
     {
         if (_wrappedElement != null && shouldCacheElement)
         {
@@ -330,6 +331,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             var nativeElementFinderService = new NativeElementFinderService(ParentWrappedElement);
             return nativeElementFinderService.Find(By);
         }
+
+        if (this is Frame) _wrappedElement.IsFrame = true;
 
         return _wrappedElement;
     }

@@ -85,11 +85,11 @@ public class BrowserService : WebService
     }
 
     /// <summary>
-    /// As Playwright renders IFrames as normal HTML elements, this method is not necessary.
+    /// As Bellatrix renders IFrames as normal HTML elements, this method is not necessary.
     /// </summary>
     /// <param name="frame"></param>
     /// <returns></returns>
-    [Obsolete("As Playwright renders IFrames as normal HTML elements, this method is not necessary.", false)]
+    [Obsolete("As Bellatrix renders IFrames as normal HTML elements, this method is not necessary.", false)]
     public Frame SwitchToFrame(Frame frame)
     {
         if (frame.WrappedElement != null)

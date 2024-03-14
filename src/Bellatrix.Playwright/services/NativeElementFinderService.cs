@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Playwright.Services.Browser;
-using Microsoft.VisualStudio.Services.WebApi;
+using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 
@@ -25,33 +25,21 @@ public class NativeElementFinderService : IWebElementFinderService
 
     public NativeElementFinderService(IPage searchContext) => _searchContext = searchContext;
 
-    public NativeElementFinderService(ILocator searchContext) => _searchContext = searchContext;
+    public NativeElementFinderService(WebElement searchContext) => _searchContext = searchContext;
 
-    public ILocator Find<TBy>(TBy by)
+    public WebElement Find<TBy>(TBy by)
         where TBy : FindStrategy
     {
-        var element = ((ILocator)by.Convert(_searchContext)).First;
+        var element = by.Convert(_searchContext).First;
 
         return element;
     }
 
-    public IEnumerable<ILocator> FindAll<TBy>(TBy by)
+    public IEnumerable<WebElement> FindAll<TBy>(TBy by)
         where TBy : FindStrategy
     {
-        var result = ((ILocator)by.Convert(_searchContext));
+        var result = (WebElement)by.Convert(_searchContext);
 
-        try
-        {
-            // Maybe because of the async to sync conversion, it always fails on the first try.
-            // Another reason could be the fact that Playwright doesn't wait for all elements to be loaded properly on the page before trying to find them.
-            return result.AllAsync().Result;
-        } 
-        catch
-        {
-            // patch: Adding a wait for no HTTP requests and responses sent in the last few hundred milliseconds.
-            ServicesCollection.Current.Resolve<WrappedBrowser>().CurrentPage.WaitForLoadStateAsync(LoadState.NetworkIdle).SyncResult();
-            
-            return result.AllAsync().Result;
-        }
+        return result.All();
     }
 }

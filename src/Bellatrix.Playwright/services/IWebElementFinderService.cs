@@ -12,13 +12,15 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.SyncPlaywright;
+
 namespace Bellatrix.Playwright;
 
 public interface IWebElementFinderService
 {
-    ILocator Find<TBy>(TBy by)
+    WebElement Find<TBy>(TBy by)
         where TBy : FindStrategy;
 
-    IEnumerable<ILocator> FindAll<TBy>(TBy by)
+    IEnumerable<WebElement> FindAll<TBy>(TBy by)
         where TBy : FindStrategy;
 }

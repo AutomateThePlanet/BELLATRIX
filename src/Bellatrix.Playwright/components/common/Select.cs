@@ -17,6 +17,7 @@ using System.Globalization;
 using System.Text;
 using Bellatrix.Playwright.Contracts;
 using Bellatrix.Playwright.Events;
+using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 
@@ -114,33 +115,33 @@ public class Select : Component, IComponentDisabled, IComponentRequired, ICompon
         nativeSelect.SelectByIndex(index);
         WrappedElement = null;
         ShouldCacheElement = false;
-        Selected?.Invoke(this, new ComponentActionEventArgs(select, nativeSelect.SelectedOption.InnerTextAsync().Result));
+        Selected?.Invoke(this, new ComponentActionEventArgs(select, nativeSelect.SelectedOption.InnerText()));
     }
 }
 
 public class selectComponent
 {
-    private readonly ILocator _element;
+    private readonly WebElement _element;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="selectComponent"/> class.
     /// </summary>
     /// <param name="element">The _element to be wrapped.</param>
-    /// <exception cref="ArgumentNullException">Thrown when the <see cref="ILocator"/> object is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when the <see cref="WebElement"/> object is <see langword="null"/>.</exception>
     /// <exception cref="UnexpectedTagNameException">Thrown when the _element wrapped is not a &lt;select&gt; _element.</exception>
-    public selectComponent(ILocator element)
+    public selectComponent(WebElement element)
     {
         _element = element ?? throw new ArgumentNullException("_element", "_element cannot be null");
 
         // let check if it's a multiple
-        string attribute = element.GetAttributeAsync("multiple").Result;
+        string attribute = element.GetAttribute("multiple");
         IsMultiple = attribute != null && attribute.ToLowerInvariant() != "false";
     }
 
     /// <summary>
-    /// Gets the <see cref="ILocator"/> wrapped by this object.
+    /// Gets the <see cref="WebElement"/> wrapped by this object.
     /// </summary>
-    public ILocator WrappedElement => _element;
+    public WebElement WrappedElement => _element;
 
     /// <summary>
     /// Gets a value indicating whether the parent _element supports multiple selections.
@@ -150,11 +151,11 @@ public class selectComponent
     /// <summary>
     /// Gets the list of options for the select _element.
     /// </summary>
-    public IList<ILocator> Options
+    public IList<WebElement> Options
     {
         get
         {
-            return _element.Locator(".//option").AllAsync().Result.ToList();
+            return _element.Locate(".//option").All().ToList();
         }
     }
 
@@ -163,17 +164,17 @@ public class selectComponent
     /// </summary>
     /// <remarks>If more than one item is selected this will return the first item.</remarks>
     /// <exception cref="ArgumentException">Thrown if no option is selected.</exception>
-    public ILocator SelectedOption => GetSelectedOption();
+    public WebElement SelectedOption => GetSelectedOption();
 
     /// <summary>
     /// Gets all of the selected options within the select _element.
     /// </summary>
-    public IList<ILocator> AllSelectedOptions
+    public IList<WebElement> AllSelectedOptions
     {
         get
         {
-            List<ILocator> returnValue = new List<ILocator>();
-            foreach (ILocator option in Options)
+            List<WebElement> returnValue = new List<WebElement>();
+            foreach (WebElement option in Options)
             {
                 if (IsSelected(option))
                 {
@@ -202,19 +203,19 @@ public class selectComponent
         }
 
         bool matched = false;
-        IList<ILocator> options;
+        IList<WebElement> options;
 
         if (!partialMatch)
         {
             // try to find the option via XPATH ...
-            options = _element.Locator(".//option[normalize-space(.) = " + EscapeQuotes(text) + "]").AllAsync().Result.ToList();
+            options = _element.Locate(".//option[normalize-space(.) = " + EscapeQuotes(text) + "]").All().ToList();
         }
         else
         {
-            options = _element.Locator(".//option[contains(normalize-space(.),  " + EscapeQuotes(text) + ")]").AllAsync().Result.ToList();
+            options = _element.Locate(".//option[contains(normalize-space(.),  " + EscapeQuotes(text) + ")]").All().ToList();
         }
 
-        foreach (ILocator option in options)
+        foreach (WebElement option in options)
         {
             SetSelected(option, true);
             if (!IsMultiple)
@@ -228,21 +229,21 @@ public class selectComponent
         if (options.Count == 0 && text.Contains(" "))
         {
             string substringWithoutSpace = GetLongestSubstringWithoutSpace(text);
-            IList<ILocator> candidates;
+            IList<WebElement> candidates;
             if (string.IsNullOrEmpty(substringWithoutSpace))
             {
                 // hmm, text is either empty or contains only spaces - get all options ...
-                candidates = _element.Locator(".//option").AllAsync().Result.ToList();
+                candidates = _element.Locate(".//option").All().ToList();
             }
             else
             {
                 // get candidates via XPATH ...
-                candidates = _element.Locator(".//option[contains(., " + EscapeQuotes(substringWithoutSpace) + ")]").AllAsync().Result.ToList();
+                candidates = _element.Locate(".//option[contains(., " + EscapeQuotes(substringWithoutSpace) + ")]").All().ToList();
             }
 
-            foreach (ILocator option in candidates)
+            foreach (WebElement option in candidates)
             {
-                if (text == option.InnerTextAsync().Result)
+                if (text == option.InnerText())
                 {
                     SetSelected(option, true);
                     if (!IsMultiple)
@@ -276,10 +277,10 @@ public class selectComponent
         StringBuilder builder = new StringBuilder(".//option[@value = ");
         builder.Append(EscapeQuotes(value));
         builder.Append(']');
-        IList<ILocator> options = _element.Locator(builder.ToString()).AllAsync().Result.ToList();
+        IList<WebElement> options = _element.Locate(builder.ToString()).All().ToList();
 
         bool matched = false;
-        foreach (ILocator option in options)
+        foreach (WebElement option in options)
         {
             SetSelected(option, true);
             if (!IsMultiple)
@@ -305,9 +306,9 @@ public class selectComponent
     {
         string match = index.ToString(CultureInfo.InvariantCulture);
 
-        foreach (ILocator option in Options)
+        foreach (WebElement option in Options)
         {
-            if (option.GetAttributeAsync("index").Result == match)
+            if (option.GetAttribute("index") == match)
             {
                 SetSelected(option, true);
                 return;
@@ -329,7 +330,7 @@ public class selectComponent
             throw new InvalidOperationException("You may only deselect all options if multi-select is supported");
         }
 
-        foreach (ILocator option in Options)
+        foreach (WebElement option in Options)
         {
             SetSelected(option, false);
         }
@@ -358,8 +359,8 @@ public class selectComponent
         StringBuilder builder = new StringBuilder(".//option[normalize-space(.) = ");
         builder.Append(EscapeQuotes(text));
         builder.Append(']');
-        IList<ILocator> options = _element.Locator(builder.ToString()).AllAsync().Result.ToList();
-        foreach (ILocator option in options)
+        IList<WebElement> options = _element.Locate(builder.ToString()).All().ToList();
+        foreach (WebElement option in options)
         {
             SetSelected(option, false);
             matched = true;
@@ -394,8 +395,8 @@ public class selectComponent
         StringBuilder builder = new StringBuilder(".//option[@value = ");
         builder.Append(EscapeQuotes(value));
         builder.Append(']');
-        IList<ILocator> options = _element.Locator(builder.ToString()).AllAsync().Result.ToList();
-        foreach (ILocator option in options)
+        IList<WebElement> options = _element.Locate(builder.ToString()).All().ToList();
+        foreach (WebElement option in options)
         {
             SetSelected(option, false);
             matched = true;
@@ -422,9 +423,9 @@ public class selectComponent
         }
 
         string match = index.ToString(CultureInfo.InvariantCulture);
-        foreach (ILocator option in Options)
+        foreach (WebElement option in Options)
         {
-            if (match == option.GetAttributeAsync("index").Result)
+            if (match == option.GetAttribute("index"))
             {
                 SetSelected(option, false);
                 return;
@@ -504,25 +505,25 @@ public class selectComponent
         return result;
     }
 
-    private void SetSelected(ILocator option, bool select)
+    private void SetSelected(WebElement option, bool select)
     {
         bool isSelected = IsSelected(option);
         if ((!isSelected && select) || (isSelected && !select))
         {
-            option.ClickAsync().GetAwaiter().GetResult();
+            option.Click();
         }
     }
 
-    private ILocator GetSelectedOption()
+    private WebElement GetSelectedOption()
     {
-        string optionValue = WrappedElement.EvaluateAsync("selectElement => {" +
+        string optionValue = WrappedElement.Evaluate("selectElement => {" +
             "    const selectedOption = selectElement.options[selectElement.selectedIndex];" +
             "    return selectedOption.getAttribute('value');" +
-            "}").Result.GetValueOrDefault().GetString();
+            "}").GetValueOrDefault().GetString();
 
         try
         {
-            return WrappedElement.Locator($".//option[@value='{optionValue}']");
+            return WrappedElement.Locate($".//option[@value='{optionValue}']");
         }
         catch
         {
@@ -530,8 +531,8 @@ public class selectComponent
         }
     }
 
-    private static bool IsSelected(ILocator option)
+    private static bool IsSelected(WebElement option)
     {
-        return option.EvaluateAsync("el => { el.selected; }").Result.GetValueOrDefault().GetBoolean();
+        return option.Evaluate("el => { el.selected; }").GetValueOrDefault().GetBoolean();
     }
 }

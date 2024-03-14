@@ -43,7 +43,7 @@ public class InputFile : Component, IComponentRequired, IComponentMultiple, ICom
     {
         Uploading?.Invoke(this, new ComponentActionEventArgs(this));
 
-        WrappedElement.SetInputFilesAsync(filePath).GetAwaiter().GetResult();
+        WrappedElement.SetInputFiles(filePath);
 
         Uploaded?.Invoke(this, new ComponentActionEventArgs(this));
     }

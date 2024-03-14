@@ -30,7 +30,7 @@ public class WaitToHaveStyleStrategy : WaitStrategy
 
     public override void WaitUntil<TBy>(TBy by)
     {
-        // Expect(by.Convert(WrappedBrowser.CurrentPage))
+        // Expect(by.Convert(WrappedBrowser.CurrentPage).WrappedLocator)
     }
 
     public override void WaitUntil<TBy>(TBy by, Component parent)

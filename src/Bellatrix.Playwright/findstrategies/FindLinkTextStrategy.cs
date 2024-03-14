@@ -12,6 +12,8 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.SyncPlaywright;
+
 namespace Bellatrix.Playwright;
 
 public class FindLinkTextStrategy : FindStrategy
@@ -21,14 +23,14 @@ public class FindLinkTextStrategy : FindStrategy
     {
     }
 
-    public override ILocator Convert(IPage searchContext)
+    public override WebElement Convert(IPage searchContext)
     {
-        return searchContext.Locator($"//a[text()='{Value}']");
+        return new WebElement(searchContext.Locator($"//a[text()='{Value}']"));
     }
 
-    public override ILocator Convert(ILocator searchContext)
+    public override WebElement Convert(WebElement searchContext)
     {
-        return searchContext.Locator($"//a[text()='{Value}']");
+        return searchContext.Locate($"//a[text()='{Value}']");
     }
 
     public override string ToString()

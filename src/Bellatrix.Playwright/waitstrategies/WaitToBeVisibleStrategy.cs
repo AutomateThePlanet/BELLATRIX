@@ -27,11 +27,11 @@ public class WaitToBeVisibleStrategy : WaitStrategy
 
     public override void WaitUntil<TBy>(TBy by)
     {
-        Expect(by.Convert(WrappedBrowser.CurrentPage)).ToBeVisibleAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        Expect(by.Convert(WrappedBrowser.CurrentPage).WrappedLocator).ToBeVisibleAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 
     public override void WaitUntil<TBy>(TBy by, Component parent)
     {
-        Expect(by.Convert(parent.WrappedElement)).ToBeVisibleAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        Expect(by.Convert(parent.WrappedElement).WrappedLocator).ToBeVisibleAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

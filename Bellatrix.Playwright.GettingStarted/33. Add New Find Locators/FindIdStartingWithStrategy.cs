@@ -1,5 +1,6 @@
 ﻿
 
+using Bellatrix.Playwright.SyncPlaywright;
 using Microsoft.Playwright;
 
 namespace Bellatrix.Playwright.GettingStarted;
@@ -15,14 +16,14 @@ public class FindIdStartingWithStrategy : FindStrategy
 
     // 2. In the Convert method, we use a standard Playwright Locator,
     // and in this case we implement our requirements through a little CSS.
-    public override ILocator Convert(IPage searchContext)
+    public override WebElement Convert(IPage searchContext)
     {
-        return searchContext.Locator($"[id^='{Value}']");
+        return new WebElement(searchContext.Locator($"[id^='{Value}']"));
     }
 
-    public override ILocator Convert(ILocator searchContext)
+    public override WebElement Convert(WebElement searchContext)
     {
-        return searchContext.Locator($"[id^='{Value}']");
+        return searchContext.Locate($"[id^='{Value}']");
     }
 
     public override string ToString()

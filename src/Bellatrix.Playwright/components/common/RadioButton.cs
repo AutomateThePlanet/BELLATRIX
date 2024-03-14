@@ -34,7 +34,7 @@ public class RadioButton : Component, IComponentDisabled, IComponentValue, IComp
     public virtual bool IsDisabled => GetDisabledAttribute();
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public virtual bool IsChecked => WrappedElement.IsCheckedAsync().Result;
+    public virtual bool IsChecked => WrappedElement.IsChecked();
 
     public virtual void Hover()
     {

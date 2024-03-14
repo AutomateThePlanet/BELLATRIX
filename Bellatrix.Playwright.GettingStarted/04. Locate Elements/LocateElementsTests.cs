@@ -19,7 +19,7 @@ public class LocateElementsTests : NUnit.WebTest
         var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
 
         // 2. You can access the Playwright wrapped ILocator through WrappedElement and the current Playwright, Browser, BrowserContext, and Page instances through- WrappedBrowser
-        Console.WriteLine(promotionsLink.WrappedElement.InnerTextAsync().Result);
+        Console.WriteLine(promotionsLink.WrappedElement.InnerText());
 
         // You may have noticed an addition after the method InnerTextAsync. The reason for this is because Playwright for C#, by default, is asynchronous.
         // This complicates writing tests. You may forget to await an async method and the whole test becomes unreliable.

@@ -472,7 +472,7 @@ public class Grid : Component
 
     private dynamic CastCell(ComponentRepository repo, ControlColumnData controlData, TableCell tableCell)
     {
-        var element = repo.CreateComponentWithParent(controlData.By, tableCell.WrappedElement, controlData.ComponentType, false);
+        var element = repo.CreateComponentWithParent(controlData.By, tableCell, controlData.ComponentType, false);
 
         // Resolve the appropriate Readonly Control Data Handler
         dynamic controlDataHandler = ControlDataHandlerResolver.ResolveReadonlyDataHandler(element.GetType());

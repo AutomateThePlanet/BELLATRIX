@@ -11,6 +11,7 @@
 // </copyright>
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
+
 namespace Bellatrix.Playwright;
 
 public class ByNgSelectedOption : JavaScriptFindStrategy

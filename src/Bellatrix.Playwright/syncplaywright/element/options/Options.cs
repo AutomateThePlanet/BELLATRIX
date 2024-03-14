@@ -1,4 +1,4 @@
-﻿// <copyright file="NativeElementActionEventArgs.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="Options.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -12,13 +12,9 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using Bellatrix.Playwright.SyncPlaywright;
+namespace Bellatrix.Playwright.SyncPlaywright;
 
-namespace Bellatrix.Playwright.Events;
-
-public class NativeElementActionEventArgs
+public interface Options
 {
-    public NativeElementActionEventArgs(WebElement element) => Element = element;
-
-    public WebElement Element { get; }
+    // empty, as it is used only to group together GetBy-Options
 }

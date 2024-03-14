@@ -12,13 +12,47 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.SyncPlaywright;
 using System.Diagnostics;
 using System.Reflection;
 
 namespace Bellatrix.Playwright.Services;
 public class ComponentRepository
 {
-    public dynamic CreateComponentWithParent(FindStrategy by, ILocator parenTComponent, Type newElementType, bool shouldCacheElement)
+    public dynamic CreateComponentWithParent(FindStrategy by, Component parenTComponent, Type newElementType, bool shouldCacheElement)
+    {
+        DetermineComponentAttributes(out var elementName, out var pageName);
+
+        dynamic element = Activator.CreateInstance(newElementType);
+        element.By = by;
+        element.ParentWrappedElement = parenTComponent.WrappedElement;
+        if (parenTComponent is Frame) element.ParentWrappedElement.IsFrame = true;
+        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        element.PageName = pageName ?? string.Empty;
+        element.ShouldCacheElement = shouldCacheElement;
+
+        return element;
+    }
+
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parenTComponent, WebElement foundElement, int elementsIndex, bool shouldCacheElement)
+        where TComponentType : Component
+    {
+        DetermineComponentAttributes(out var elementName, out var pageName);
+
+        var element = Activator.CreateInstance<TComponentType>();
+        element.By = by;
+        element.ParentWrappedElement = parenTComponent.WrappedElement;
+        if (parenTComponent is Frame) element.ParentWrappedElement.IsFrame = true;
+        element.WrappedElement = foundElement;
+        element.ElementIndex = elementsIndex;
+        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        element.PageName = pageName ?? string.Empty;
+        element.ShouldCacheElement = shouldCacheElement;
+
+        return element;
+    }
+
+    public dynamic CreateComponentWithParent(FindStrategy by, WebElement parenTComponent, Type newElementType, bool shouldCacheElement)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
@@ -32,7 +66,7 @@ public class ComponentRepository
         return element;
     }
 
-    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, ILocator parenTComponent, ILocator foundElement, int elementsIndex, bool shouldCacheElement)
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, WebElement parenTComponent, WebElement foundElement, int elementsIndex, bool shouldCacheElement)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
@@ -49,7 +83,7 @@ public class ComponentRepository
         return element;
     }
 
-    public dynamic CreateComponentThatIsFound(FindStrategy by, ILocator webElement, Type newElementType, bool shouldCacheElement)
+    public dynamic CreateComponentThatIsFound(FindStrategy by, WebElement webElement, Type newElementType, bool shouldCacheElement)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
@@ -63,7 +97,7 @@ public class ComponentRepository
         return element;
     }
 
-    public TComponentType CreateComponentThatIsFound<TComponentType>(FindStrategy by, ILocator webElement, bool shouldCacheElement)
+    public TComponentType CreateComponentThatIsFound<TComponentType>(FindStrategy by, WebElement webElement, bool shouldCacheElement)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);

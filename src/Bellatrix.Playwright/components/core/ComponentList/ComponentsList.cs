@@ -17,6 +17,7 @@ using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Services;
 using Bellatrix.Playwright.Settings;
 using Bellatrix.Playwright.Settings.Extensions;
+using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 
@@ -24,14 +25,14 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
     where TComponent : Component
 {
     private readonly FindStrategy _by;
-    private readonly ILocator _parenTComponent;
+    private readonly WebElement _parenTComponent;
     private readonly List<TComponent> _foundElements;
     private readonly bool _shouldCacheFoundElements;
     private List<TComponent> _cachedElements;
 
     public ComponentsList(
         FindStrategy by,
-        ILocator parenTComponent,
+        WebElement parenTComponent,
         bool shouldCacheFoundElements)
     : this(by, parenTComponent)
     {
@@ -40,7 +41,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 
     public ComponentsList(
         FindStrategy by,
-        ILocator parenTComponent)
+        WebElement parenTComponent)
     {
         _by = by;
         _parenTComponent = parenTComponent;
@@ -158,7 +159,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         }
     }
 
-    private IEnumerable<ILocator> WaitWebElements()
+    private IEnumerable<WebElement> WaitWebElements()
     {
         var elementFinder = _parenTComponent == null
             ? new NativeElementFinderService(WrappedBrowser)
@@ -177,7 +178,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
     }
 
     // TODO: This is a technical debt, for the case with _by that is not null and we want to verify the non-existance of elements
-    public IEnumerable<ILocator> ConditionalWait(NativeElementFinderService elementFinder)
+    public IEnumerable<WebElement> ConditionalWait(NativeElementFinderService elementFinder)
     {
         Bellatrix.Utilities.Wait.ForConditionUntilTimeout(
                () =>

@@ -33,7 +33,7 @@ public class JavaScriptServiceTests : NUnit.WebTest
         var resultsCount = App.Components.CreateByClassContaining<Component>("woocommerce-result-count");
 
         // 4. Get the results from a script. After that, get the value for a specific style and assert it.
-        string fontSize = App.JavaScript.Execute("el => el.style.font-size", resultsCount.WrappedElement);
+        string fontSize = App.JavaScript.Execute("el => el.style.font-size", resultsCount.WrappedElement).ToString();
 
         Assert.That("14px".Equals(fontSize));
     }

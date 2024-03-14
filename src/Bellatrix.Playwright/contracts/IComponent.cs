@@ -12,13 +12,15 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.SyncPlaywright;
+
 namespace Bellatrix.Playwright.Contracts;
 
 public interface IComponent
 {
     string ComponentName { get; }
     string PageName { get; }
-    ILocator WrappedElement { get; }
+    WebElement WrappedElement { get; }
     Type ComponentType { get; }
     Type LocatorType { get; }
     string LocatorValue { get; }

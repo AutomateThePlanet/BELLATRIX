@@ -30,11 +30,11 @@ public class WaitToHaveInnerTextStrategy : WaitStrategy
 
     public override void WaitUntil<TBy>(TBy by)
     {
-        Expect(by.Convert(WrappedBrowser.CurrentPage)).ToHaveTextAsync(_elementText, new() { Timeout = TimeoutInterval });
+        Expect(by.Convert(WrappedBrowser.CurrentPage).WrappedLocator).ToHaveTextAsync(_elementText, new() { Timeout = TimeoutInterval });
     }
 
     public override void WaitUntil<TBy>(TBy by, Component parent)
     {
-        Expect(by.Convert(parent.WrappedElement)).ToHaveTextAsync(_elementText, new() { Timeout = TimeoutInterval });
+        Expect(by.Convert(parent.WrappedElement).WrappedLocator).ToHaveTextAsync(_elementText, new() { Timeout = TimeoutInterval });
     }
 }

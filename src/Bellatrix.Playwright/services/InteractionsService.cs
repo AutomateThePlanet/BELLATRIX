@@ -57,7 +57,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService Release(Component element)
     {
-        var boundingBox = element.WrappedElement.BoundingBoxAsync().Result;
+        var boundingBox = element.WrappedElement.BoundingBox();
         Actions.Add(() =>
         {
             CurrentPage.Mouse.MoveAsync(boundingBox.X, boundingBox.Y).GetAwaiter().GetResult();
@@ -83,7 +83,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService KeyDown(Component element, string theKey)
     {
-        Actions.Add(() => element.WrappedElement.PressAsync(theKey).GetAwaiter().GetResult());
+        Actions.Add(() => element.WrappedElement.Press(theKey));
         return this;
     }
 
@@ -125,7 +125,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService SendKeys(Component element, string keysToSend)
     {
-        Actions.Add(() => element.WrappedElement.PressSequentiallyAsync(keysToSend).GetAwaiter().GetResult());
+        Actions.Add(() => element.WrappedElement.PressSequentially(keysToSend));
         return this;
     }
 
@@ -143,7 +143,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService Click(Component element)
     {
-        Actions.Add(() => element.WrappedElement.ClickAsync().GetAwaiter().GetResult());
+        Actions.Add(() => element.WrappedElement.Click());
         return this;
     }
 
@@ -165,7 +165,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService ClickAndHold(Component element, int delay = 1000)
     {
-        Actions.Add(() => element.WrappedElement.ClickAsync(new LocatorClickOptions { Delay = delay}).GetAwaiter().GetResult());
+        Actions.Add(() => element.WrappedElement.Click(new LocatorClickOptions { Delay = delay}));
         return this;
     }
 
@@ -185,7 +185,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService DoubleClick(Component element)
     {
-        Actions.Add(() => element.WrappedElement.DblClickAsync().GetAwaiter().GetResult());
+        Actions.Add(() => element.WrappedElement.DblClick());
         return this;
     }
 
@@ -205,7 +205,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService ContextClick(Component element)
     {
-        Actions.Add(() => element.WrappedElement.ClickAsync(new LocatorClickOptions { Button = MouseButton.Right }).GetAwaiter().GetResult());
+        Actions.Add(() => element.WrappedElement.Click(new LocatorClickOptions { Button = MouseButton.Right }));
         return this;
     }
 
@@ -217,7 +217,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService DragAndDrop(Component sourceElement, Component destinationElement)
     {
-        Actions.Add(() => sourceElement.WrappedElement.DragToAsync(destinationElement.WrappedElement).GetAwaiter().GetResult());
+        Actions.Add(() => sourceElement.WrappedElement.DragTo(destinationElement.WrappedElement));
         return this;
     }
 
@@ -230,10 +230,10 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService DragAndDrop(Component sourceElement, int offsetX, int offsetY)
     {
-        var boundingBox = sourceElement.WrappedElement.BoundingBoxAsync().Result;
+        var boundingBox = sourceElement.WrappedElement.BoundingBox();
         Actions.Add(() =>
         {
-            sourceElement.WrappedElement.ClickAsync(new LocatorClickOptions { Delay = 1000 }).GetAwaiter().GetResult();
+            sourceElement.WrappedElement.Click(new LocatorClickOptions { Delay = 1000 });
             CurrentPage.Mouse.MoveAsync(boundingBox.X + offsetX, boundingBox.Y + offsetY).GetAwaiter().GetResult();
         });
         return this;
@@ -244,7 +244,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService MoveToElement(Component element)
     {
-        var boundingBox = element.WrappedElement.BoundingBoxAsync().Result;
+        var boundingBox = element.WrappedElement.BoundingBox();
         Actions.Add(() => CurrentPage.Mouse.MoveAsync(boundingBox.X, boundingBox.Y).GetAwaiter().GetResult());
         return this;
     }
@@ -258,7 +258,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService MoveToElement(Component sourceElement, int offsetX, int offsetY)
     {
-        var boundingBox = sourceElement.WrappedElement.BoundingBoxAsync().Result;
+        var boundingBox = sourceElement.WrappedElement.BoundingBox();
         Actions.Add(() => CurrentPage.Mouse.MoveAsync(boundingBox.X + offsetX, boundingBox.Y + offsetY).GetAwaiter().GetResult());
         return this;
     }

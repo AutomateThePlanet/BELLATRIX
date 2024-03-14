@@ -29,7 +29,7 @@ public class JavaScriptService : WebService
     {
         try
         {
-            return component.WrappedElement.EvaluateAsync(script, args).Result.ToString();
+            return component.WrappedElement.Evaluate(script, args);
         }
         catch (NullReferenceException)
         {
@@ -38,7 +38,7 @@ public class JavaScriptService : WebService
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            return string.Empty;
+            return null;
         }
     }
 
@@ -80,7 +80,7 @@ public class JavaScriptService : WebService
     public string Execute<TComponent>(string script, TComponent component)
         where TComponent : Component
     {
-        return Execute(script, component.WrappedElement);
+        return Execute(script, component.WrappedElement).ToString();
     }
 
     public string Execute(string script, ILocator nativeLocator)

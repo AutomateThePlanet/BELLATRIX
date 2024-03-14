@@ -27,11 +27,11 @@ public class WaitToExistStrategy : WaitStrategy
 
     public override void WaitUntil<TBy>(TBy by)
     {
-        Expect(by.Convert(WrappedBrowser.CurrentPage)).ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        Expect(by.Convert(WrappedBrowser.CurrentPage).WrappedLocator).ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 
     public override void WaitUntil<TBy>(TBy by, Component parent)
     {
-        Expect(by.Convert(parent.WrappedElement)).ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        Expect(by.Convert(parent.WrappedElement).WrappedLocator).ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

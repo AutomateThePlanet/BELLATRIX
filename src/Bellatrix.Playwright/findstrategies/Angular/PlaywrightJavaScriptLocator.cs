@@ -1,4 +1,4 @@
-﻿// <copyright file="JavaScriptBy.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="PlaywrightJavaScriptLocator.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using Bellatrix.Playwright.Services;
+using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright.Locators;
 
@@ -33,9 +34,9 @@ public class PlaywrightJavaScriptLocator
 
     public object[] AdditionalScriptArguments { get; set; }
 
-    public ILocator FindElement(IPage searchContext)
+    public WebElement FindElement(IPage searchContext)
     {
-        ReadOnlyCollection<ILocator> elements = FindElements(searchContext);
+        ReadOnlyCollection<WebElement> elements = FindElements(searchContext);
         if (elements.Count == 0)
         {
             throw new ArgumentException($"Unable to locate element.");
@@ -44,7 +45,7 @@ public class PlaywrightJavaScriptLocator
         return elements[0];
     }
 
-    public ReadOnlyCollection<ILocator> FindElements(IPage context)
+    public ReadOnlyCollection<WebElement> FindElements(IPage context)
     {
         object[] scriptArgs = _args;
         if (AdditionalScriptArguments != null && AdditionalScriptArguments.Length > 0)
@@ -59,9 +60,9 @@ public class PlaywrightJavaScriptLocator
         return DeserializeJsonElement((JsonElement)ServicesCollection.Current.Resolve<JavaScriptService>().Execute(_script, scriptArgs));
     }
 
-    public ILocator FindElement(ILocator searchContext)
+    public WebElement FindElement(WebElement searchContext)
     {
-        ReadOnlyCollection<ILocator> elements = FindElements(searchContext);
+        ReadOnlyCollection<WebElement> elements = FindElements(searchContext);
         if (elements.Count == 0)
         {
             throw new ArgumentException($"Unable to locate element.");
@@ -70,7 +71,7 @@ public class PlaywrightJavaScriptLocator
         return elements[0];
     }
 
-    public ReadOnlyCollection<ILocator> FindElements(ILocator context)
+    public ReadOnlyCollection<WebElement> FindElements(WebElement context)
     {
         object[] scriptArgs = _args;
         if (AdditionalScriptArguments != null && AdditionalScriptArguments.Length > 0)
@@ -85,10 +86,18 @@ public class PlaywrightJavaScriptLocator
         return DeserializeJsonElement(ServicesCollection.Current.Resolve<JavaScriptService>().Execute(_script, context, scriptArgs));
     }
 
-    private static ReadOnlyCollection<ILocator> DeserializeJsonElement(JsonElement? jsonElement)
+    private static ReadOnlyCollection<WebElement> DeserializeJsonElement(JsonElement? jsonElement)
     {
         byte[] jsonBytes = JsonSerializer.SerializeToUtf8Bytes(jsonElement);
 
-        return JsonSerializer.Deserialize<ReadOnlyCollection<ILocator>>(jsonBytes) ?? new ReadOnlyCollection<ILocator>(new List<ILocator>(0));
+        var locators = JsonSerializer.Deserialize<ReadOnlyCollection<ILocator>>(jsonBytes) ?? new ReadOnlyCollection<ILocator>(new List<ILocator>(0));
+    
+        var elements = new List<WebElement>();
+        foreach (var locator in locators)
+        {
+            elements.Add(new WebElement(locator));
+        }
+
+        return elements.AsReadOnly();
     }
 }
