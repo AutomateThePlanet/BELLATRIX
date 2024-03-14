@@ -21,6 +21,7 @@ using Bellatrix.Playwright.Services;
 using Bellatrix.Playwright.Settings;
 using Bellatrix.Playwright.Proxy;
 using Bellatrix.Playwright.Services.Browser;
+using Bellatrix.Playwright.plugins.execution.Attributes;
 
 namespace Bellatrix.Playwright.Plugins.Browser;
 
@@ -186,8 +187,9 @@ public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
             bool shouldAutomaticallyScrollToVisible = browserAttribute.ShouldAutomaticallyScrollToVisible;
             Size currentBrowserSize = browserAttribute.Size;
             ExecutionType executionType = browserAttribute.ExecutionType;
+            var options = (browserAttribute as IBrowserOptionsAttribute)?.CreateOptions(e.TestMethodMemberInfo, e.TestClassType) ?? null;
 
-            var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldDisableJavaScript, shouldAutomaticallyScrollToVisible);
+            var browserConfiguration = new BrowserConfiguration(executionType, currentLifecycle, currentBrowserType, currentBrowserSize, fullClassName, shouldCaptureHttpTraffic, shouldDisableJavaScript, shouldAutomaticallyScrollToVisible, options);
             e.Container.RegisterInstance(browserConfiguration, "_currentBrowserConfiguration");
 
             return browserConfiguration;
