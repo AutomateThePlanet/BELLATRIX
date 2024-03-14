@@ -214,6 +214,12 @@ public class LighthouseService
         string pattern = "*.report.json";
         var file = directoryInfo.GetFiles(pattern, SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
         string fileContent = File.ReadAllText(file.FullName);
-        return JsonConvert.DeserializeObject<Lighthouse.Root>(fileContent);
+
+        JsonSerializerSettings settings = new()
+        {
+            NullValueHandling = NullValueHandling.Ignore
+        };
+
+        return JsonConvert.DeserializeObject<Lighthouse.Root>(fileContent, settings);
     }
 }
