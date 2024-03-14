@@ -64,10 +64,10 @@ public class LighthouseService
         else if (WrappedBrowserCreateService.BrowserConfiguration.ExecutionType == ExecutionType.Grid)
         {
             var app = ServicesCollection.Current.Resolve<App>();
+            var sessionId = ServicesCollection.Current.Resolve<string>("gridSessionId");
             app.ApiClient.BaseUrl = browserService.Url;
 
-            // TODO SessionId????
-            var request = new RestRequest($"/grid/admin/HubRemoteHostRetrieverServlet/session/TODOTODOTODOTODOTODOTODO/", Method.Get);
+            var request = new RestRequest($"/grid/admin/HubRemoteHostRetrieverServlet/session/{sessionId}/", Method.Get);
             var queryResult = app.ApiClient.Execute(request);
             app.ApiClient.BaseUrl = new Uri($"http://{queryResult.Content}");
             request = new RestRequest($"/extra/LighthouseServlet", Method.Get);
@@ -210,6 +210,12 @@ public class LighthouseService
         string pattern = "*.report.json";
         var file = directoryInfo.GetFiles(pattern, SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).First();
         string fileContent = File.ReadAllText(file.FullName);
-        return JsonConvert.DeserializeObject<Lighthouse.Root>(fileContent);
+
+        JsonSerializerSettings settings = new()
+        {
+            NullValueHandling = NullValueHandling.Ignore
+        };
+
+        return JsonConvert.DeserializeObject<Lighthouse.Root>(fileContent, settings);
     }
 }
