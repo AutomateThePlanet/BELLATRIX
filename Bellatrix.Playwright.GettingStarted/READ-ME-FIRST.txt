@@ -1,0 +1,11 @@
+﻿## Purpose ##
+
+The primary purpose of the project is to show you how to use the BELLATRIX web libraries and tools.
+The project contains folders sorted in numbered order. 
+It is advisable to follow the numbering. 
+Read the comments and readme files since they contain important information.
+There are todo files where there are action points for you to learn by doing. 
+There are optional you can always skip them.
+
+NOTE: Depending on the version of your browser you may need to decrease/increase the version of BELLATRIX web browser NuGets.
+If you want to execute the getting started guide on OSX, we suggest changing all tests to be performed on Safari.

@@ -1,0 +1,3 @@
+﻿1. Create an extension methods class for BrowserService
+2. Add a new method for custom resize of the browser window by specified custom width and height
+3. Add additional methods for using the BELLATRIX custom desktop, tablet and mobile screen sizes enums.

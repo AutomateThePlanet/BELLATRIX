@@ -1,0 +1,10 @@
+﻿1. Create a new MSTest test class
+2. Use the BELLATRIX Browser attribute so that you execute all tests in Firefox and restart the browser every time.
+3. Navigate to https://demos.bellatrix.solutions/
+4. Create a test where you search for the product Saturn V (upper right corner)
+5. Add the product to the cart and navigate to it
+6. Add one more product and verify that the prices are updated correctly
+7. Delete one of the products and verify that the prices are updated accordingly
+8. Undo the operation and verify that the prices are updated again
+9. Apply the coupon 99%
+10. Verify prices updated

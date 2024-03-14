@@ -1,0 +1,7 @@
+﻿1. Create a new MSTest test class
+2. Use the BELLATRIX Browser attribute so that you execute all tests in Chrome and restart the tests only on fail.
+3. Navigate to https://demos.bellatrix.solutions/
+4. Find the 'Sort by popularity' drop-down
+5. Create a test where you sort the items by price from high to low.
+6. Create a test where you sort the items by price from low to high.
+7. Open only the 2nd test in Firefox through the Browser attribute.

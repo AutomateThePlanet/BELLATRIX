@@ -1,0 +1,3 @@
+﻿1. Open the tests that you made in the page objects section
+2. Create an extension method for the IsDisabled button's property where you use JavaScript to check for it.
+3. Execute the test with the modified version.
