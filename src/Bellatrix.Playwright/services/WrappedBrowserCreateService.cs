@@ -296,9 +296,18 @@ public static class WrappedBrowserCreateService
 
     private static void InitializeWrappedBrowserGridMode(BrowserConfiguration executionConfiguration, WrappedBrowser wrappedBrowser)
     {
-        var capsObject = ParseBooleans(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0]);
+        string capabilities;
 
-        var capabilities = JsonConvert.SerializeObject(capsObject);
+        if (executionConfiguration.GridOptions != null)
+        {
+            capabilities = JsonConvert.SerializeObject(executionConfiguration.GridOptions);
+        }
+        else
+        {
+            var capsObject = ParseBooleans(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0]);
+
+            capabilities = JsonConvert.SerializeObject(capsObject);
+        }
 
         capabilities = ResolveSecrets(capabilities);
 
