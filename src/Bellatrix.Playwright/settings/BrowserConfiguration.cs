@@ -24,27 +24,30 @@ public class BrowserConfiguration
     }
 
 #pragma warning disable 618
-    public BrowserConfiguration(ExecutionType executionType, Lifecycle browserBehavior, BrowserChoice browserType, Size size, string classFullName, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible)
+    public BrowserConfiguration(ExecutionType executionType, Lifecycle browserBehavior, BrowserChoice browserType, Size size, string classFullName, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
 #pragma warning restore 618
         : this(browserBehavior, browserType, size, shouldCaptureHttpTraffic, shouldDisableJavaScript, shouldAutomaticallyScrollToVisible)
     {
         ExecutionType = executionType;
         ClassFullName = classFullName;
+        GridOptions = gridOptions;
     }
 
-    public BrowserConfiguration(Lifecycle browserBehavior, BrowserChoice browserType, Size size, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible)
+    public BrowserConfiguration(Lifecycle browserBehavior, BrowserChoice browserType, Size size, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
         : this(browserType, shouldCaptureHttpTraffic, shouldDisableJavaScript, shouldAutomaticallyScrollToVisible)
     {
         BrowserBehavior = browserBehavior;
         Size = size;
+        GridOptions = gridOptions;
     }
 
-    public BrowserConfiguration(BrowserChoice browserType, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible)
+    public BrowserConfiguration(BrowserChoice browserType, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
     {
         BrowserType = browserType;
         ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
         ShouldDisableJavaScript = shouldDisableJavaScript;
         ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible;
+        GridOptions = gridOptions;
     }
 
     public BrowserChoice BrowserType { get; set; } = BrowserChoice.Chromium;
@@ -56,6 +59,7 @@ public class BrowserConfiguration
     public dynamic PlaywrightOptions { get; set; }
     public dynamic ContextOptions { get; set; }
     public ExecutionType ExecutionType { get; set; } = ExecutionType.Regular;
+    public Dictionary<string, object> GridOptions { get; set; }
     public bool ShouldAutomaticallyScrollToVisible { get; set; }
     public bool IsLighthouseEnabled { get; set; }
 
@@ -64,6 +68,7 @@ public class BrowserConfiguration
                                                       ShouldCaptureHttpTraffic.Equals(other?.ShouldCaptureHttpTraffic) &&
                                                       ShouldDisableJavaScript.Equals(other?.ShouldDisableJavaScript) &&
                                                       Size.Equals(other?.Size) &&
+                                                      GridOptions.Equals(other?.GridOptions) &&
                                                       IsLighthouseEnabled.Equals(other?.IsLighthouseEnabled) &&
                                                       ShouldAutomaticallyScrollToVisible.Equals(other?.ShouldAutomaticallyScrollToVisible);
 
@@ -75,6 +80,7 @@ public class BrowserConfiguration
         ShouldCaptureHttpTraffic.Equals(browserConfiguration?.ShouldCaptureHttpTraffic) &&
         ShouldDisableJavaScript.Equals(browserConfiguration?.ShouldDisableJavaScript) &&
         Size.Equals(browserConfiguration?.Size) &&
+        GridOptions.Equals(browserConfiguration?.GridOptions) &&
         ShouldAutomaticallyScrollToVisible.Equals(browserConfiguration?.ShouldAutomaticallyScrollToVisible) &&
         IsLighthouseEnabled.Equals(browserConfiguration?.IsLighthouseEnabled);
     }
@@ -86,6 +92,7 @@ public class BrowserConfiguration
                 ShouldCaptureHttpTraffic.GetHashCode() +
                 ShouldDisableJavaScript.GetHashCode() +
                 Size.GetHashCode() +
+                GridOptions.GetHashCode() +
                 IsLighthouseEnabled.GetHashCode() +
                 ShouldAutomaticallyScrollToVisible.GetHashCode();
     }
