@@ -46,7 +46,7 @@ public class BrowserService : WebService
         // to be removed.
     }
 
-    [Obsolete("Cannot be implemented as there is no such concept as 'Default Tab' in Playwright.", true)]
+    [Obsolete("There is no need to switch to default after switching to frame, using the Playwright engine.", false)]
     public void SwitchToDefault()
     {
         // to be removed.
@@ -139,7 +139,7 @@ public class BrowserService : WebService
     }
     
     // Faster than sending js and checking for a X state.
-    public void WaitForLoadState(LoadState state)
+    public void WaitForLoadState(LoadState state = LoadState.Load)
     {
         WrappedBrowser.CurrentPage.WaitForLoadStateAsync(state).GetAwaiter().GetResult();
     }
