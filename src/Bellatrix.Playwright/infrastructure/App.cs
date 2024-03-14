@@ -17,6 +17,7 @@ using Bellatrix.Api;
 using Bellatrix.Api.Configuration;
 using Bellatrix.Assertions;
 using Bellatrix.AWS;
+using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
 using Bellatrix.Playwright.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Playwright.Controls.EventHandlers;
@@ -24,7 +25,6 @@ using Bellatrix.Playwright.Proxy;
 using Bellatrix.Playwright.Services;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 
 namespace Bellatrix.Playwright;
 
@@ -50,9 +50,9 @@ public class App : IDisposable
     public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
     public ProxyService Proxy => ServicesCollection.Current.Resolve<ProxyService>();
 
-    public ComputerVisionClient ComputerVision => ServicesCollection.Current.Resolve<ComputerVisionClient>();
+    public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
 
-    public FormRecognizerClient FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizerClient>();
+    public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
     public AWSServicesFactory AWS => ServicesCollection.Current.Resolve<AWSServicesFactory>();
 
     public ApiClientService ApiClient
