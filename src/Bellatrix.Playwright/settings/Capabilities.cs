@@ -15,6 +15,13 @@
 using Microsoft.Extensions.Configuration;
 
 namespace Bellatrix.Playwright.Settings;
+
+// The reason for the Grid options (this class) to be a class, not a Dictionary<string, object>
+// Is because Microsoft.Extensions.Configuration, when reading testFrameworkSettings, when it encounters a Dictionary,
+// It will always try to parse it as Dictionary<string, string>, no matter what.
+// And when this Dictionary contains another Dictionary or any collection at all
+// It fails to parse it.
+// Dictionary inside Dictionary happens when running tests in LambdaTest, because of the LT:Options
 public class Capabilities
 {
     public string BrowserName { get; set; }
@@ -37,9 +44,15 @@ public class Capabilities
 
 
     [ConfigurationKeyName("browserstack.username")]
-    public string Username { get; set; }
+    public string BrowserStackUsername { get; set; }
 
 
     [ConfigurationKeyName("browserstack.accessKey")]
-    public string AccessKey { get; set; }
+    public string BrowserStackAccessKey { get; set; }
+
+    [ConfigurationKeyName("cloud.grid.user")]
+    public string CloudGridUser { get; set; }
+
+    [ConfigurationKeyName("cloud.grid.key")]
+    public string CloudGridKey { get; set;}
 }
