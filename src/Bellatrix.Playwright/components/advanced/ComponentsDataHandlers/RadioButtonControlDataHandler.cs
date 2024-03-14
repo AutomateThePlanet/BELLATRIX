@@ -24,14 +24,14 @@ public class RadioButtonControlDataHandler : IEditableControlDataHandler<RadioBu
         {
             if (!element.IsChecked)
             {
-                element.Check();
+                element.Click();
             }
         }
         else
         {
             if (element.IsChecked)
             {
-                element.Check();
+                element.Click();
             }
         }
     }

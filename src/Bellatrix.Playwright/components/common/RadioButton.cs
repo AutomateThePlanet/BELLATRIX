@@ -45,7 +45,7 @@ public class RadioButton : Component, IComponentDisabled, IComponentValue, IComp
     /// Automatically performs a validation if the component is already selected.
     /// </summary>
     /// <param name="options"></param>
-    public virtual void Check(LocatorCheckOptions options = default)
+    public virtual void Click(LocatorCheckOptions options = default)
     {
         DefaultCheck(Checking, Checked, options);
     }
