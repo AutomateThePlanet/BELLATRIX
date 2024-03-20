@@ -23,9 +23,9 @@ public class FindInnerTextContainsStrategy : FindStrategy
     {
     }
 
-    public override WebElement Convert(IPage searchContext)
+    public override WebElement Convert(BrowserPage searchContext)
     {
-        return new WebElement(searchContext.Locator($"//*[contains(text(), '{Value}')]"));
+        return searchContext.Locate($"//*[contains(text(), '{Value}')]");
     }
     public override WebElement Convert(WebElement searchContext)
     {

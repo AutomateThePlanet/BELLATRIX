@@ -27,14 +27,13 @@ public class WaitToHaveStyleStrategy : WaitStrategy
         _elementStyle = elementStyle;
         TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToBeVisibleTimeout;
     }
-
     public override void WaitUntil<TBy>(TBy by)
     {
-        // Expect(by.Convert(WrappedBrowser.CurrentPage).WrappedLocator)
+        Expect(by.Convert(WrappedBrowser.CurrentPage).WrappedLocator).ToHaveCSSAsync("style", _elementStyle, new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 
     public override void WaitUntil<TBy>(TBy by, Component parent)
     {
-        //
+        Expect(by.Convert(parent.WrappedElement).WrappedLocator).ToHaveCSSAsync("style", _elementStyle, new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

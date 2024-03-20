@@ -23,9 +23,9 @@ public class FindLinkTextStrategy : FindStrategy
     {
     }
 
-    public override WebElement Convert(IPage searchContext)
+    public override WebElement Convert(BrowserPage searchContext)
     {
-        return new WebElement(searchContext.Locator($"//a[text()='{Value}']"));
+        return searchContext.Locate($"//a[text()='{Value}']");
     }
 
     public override WebElement Convert(WebElement searchContext)

@@ -39,8 +39,6 @@ public class ProxyService : WebService
         ResponsesHistory = new ConcurrentDictionary<int, IResponse>();
     }
 
-    //public ProxyServer ProxyServer { get; set; }
-
     public ConcurrentDictionary<int, IRequest> RequestsHistory { get; set; }
 
     public ConcurrentDictionary<int, IResponse> ResponsesHistory { get; set; }
@@ -144,7 +142,7 @@ public class ProxyService : WebService
     private void OnRequestCaptureTraffic()
     {
         Console.WriteLine($"call to OnRequestCaptureTrafficEventHandler");
-        CurrentContext.Request += (_, request) => RequestsHistory.GetOrAdd(request.GetHashCode(), request);
+        CurrentContext.OnRequest += (_, request) => RequestsHistory.GetOrAdd(request.GetHashCode(), request);
     }
 
     private void OnRequestBlockResource()
@@ -153,7 +151,7 @@ public class ProxyService : WebService
         {
             foreach (var urlToBeBlocked in _blockUrls)
             {
-                CurrentContext.RouteAsync(urlToBeBlocked, (route) =>
+                CurrentContext.Route(urlToBeBlocked, (route) =>
                 {
                     route.ContinueAsync(new RouteContinueOptions
                     {
@@ -170,7 +168,7 @@ public class ProxyService : WebService
         {
             foreach (var redirectUrlPair in _redirectUrls)
             {
-                CurrentContext.RouteAsync(redirectUrlPair.Key, (route) =>
+                CurrentContext.Route(redirectUrlPair.Key, (route) =>
                 {
                     route.ContinueAsync(new RouteContinueOptions
                     {
@@ -183,7 +181,7 @@ public class ProxyService : WebService
 
     private void OnResponseCaptureTraffic()
     {
-        CurrentContext.Response += (_, response) =>
+        CurrentContext.OnResponse += (_, response) =>
         {
             ResponsesHistory.GetOrAdd(response.GetHashCode(), response);
         };
@@ -211,4 +209,6 @@ public class ProxyService : WebService
     //{
     //    return Task.FromResult(0);
     //}
+
+    // TODO: methods for modifying requests/responses
 }

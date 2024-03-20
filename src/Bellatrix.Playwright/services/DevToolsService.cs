@@ -29,7 +29,7 @@ public class DevToolsService : WebService
         var browserType = WrappedBrowserCreateService.BrowserConfiguration.BrowserType;
         if (browserType == BrowserChoice.Chromium || browserType == BrowserChoice.ChromiumHeadless || browserType == BrowserChoice.Chrome || browserType == BrowserChoice.ChromeHeadless || browserType == BrowserChoice.Edge || browserType == BrowserChoice.EdgeHeadless)
         {
-            DevToolsSession = wrappedBrowser.CurrentContext.NewCDPSessionAsync(wrappedBrowser.CurrentPage).Result;
+            DevToolsSession = wrappedBrowser.CurrentContext.NewCDPSession(wrappedBrowser.CurrentPage);
         }
         //DevToolsSessionDomains = DevToolsSession.GetVersionSpecificDomains<DevToolsSessionDomains>();
         
@@ -45,12 +45,12 @@ public class DevToolsService : WebService
         RequestsHistory = new();
         ResponsesHistory = new();
 
-        CurrentContext.Request += (_, request) =>
+        CurrentContext.OnRequest += (_, request) =>
         {
             RequestsHistory.Add(request);
         };
 
-        CurrentContext.Response += (_, response) =>
+        CurrentContext.OnResponse += (_, response) =>
         {
             ResponsesHistory.Add(response);
         };
@@ -153,7 +153,7 @@ public class DevToolsService : WebService
     {
         var headers = new KeyValuePair<string, string>[1];
         headers.Add(header, value);
-        CurrentContext.SetExtraHTTPHeadersAsync(headers).GetAwaiter().GetResult();
+        CurrentContext.SetExtraHTTPHeaders(headers);
     }
 
     //public void OverrideUserAgent(string userAgent)
@@ -166,7 +166,7 @@ public class DevToolsService : WebService
 
     public void OverrideGeolocationSettings(double latitude, double longitude, int accuracy)
     {
-        CurrentContext.SetGeolocationAsync(new() { Latitude = (float)latitude, Longitude = (float)longitude, Accuracy = accuracy }).GetAwaiter().GetResult();
+        CurrentContext.SetGeolocation(new() { Latitude = (float)latitude, Longitude = (float)longitude, Accuracy = accuracy });
     }
 
     public void OverrideDeviceMetrics(long width, long height, bool mobile, double deviceScaleFactor)
@@ -190,12 +190,12 @@ public class DevToolsService : WebService
 
     public void BlockUrls(string pattern)
     {
-       CurrentContext.RouteAsync(new Regex(pattern), route => route.AbortAsync()).GetAwaiter().GetResult();
+       CurrentContext.Route(new Regex(pattern), route => route.AbortAsync());
     }
 
     public void EmulateNetworkConditionOffline()
     {
-        CurrentContext.SetOfflineAsync(true).GetAwaiter().GetResult();
+        CurrentContext.SetOffline(true);
     }
 
     //public async Task EmulateNetworkConditions(ConnectionType connectionType, int downloadThroughput, double latency, int uploadThroughput)

@@ -23,9 +23,9 @@ public class FindValueContainingStrategy : FindStrategy
     {
     }
 
-    public override WebElement Convert(IPage searchContext)
+    public override WebElement Convert(BrowserPage searchContext)
     {
-        return new WebElement(searchContext.Locator($"[value*='{Value}']"));
+        return searchContext.Locate($"[value*='{Value}']");
     }
 
     public override WebElement Convert(WebElement searchContext)

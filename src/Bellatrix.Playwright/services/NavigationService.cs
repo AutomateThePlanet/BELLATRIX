@@ -94,7 +94,7 @@ public class NavigationService : WebService
     {
         try
         {
-            Expect(CurrentPage).ToHaveURLAsync(new Regex(@$".*{partialUrl}.*"), new() { Timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().WaitForPartialUrl });
+            Expect(CurrentPage.WrappedPage).ToHaveURLAsync(new Regex(@$".*{partialUrl}.*"), new() { Timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().WaitForPartialUrl });
         }
         catch (Exception ex)
         {
@@ -121,7 +121,7 @@ public class NavigationService : WebService
 
     private void NavigateInternal(string url)
     {
-        _ = CurrentPage.GotoAsync(url).Result;
+        _ = CurrentPage.GoTo(url);
         UrlNavigatedEvent?.Invoke(this, new UrlNavigatedEventArgs(url));
     }
 }

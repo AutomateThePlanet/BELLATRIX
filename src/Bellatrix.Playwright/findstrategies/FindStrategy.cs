@@ -23,7 +23,7 @@ public abstract class FindStrategy
 
     public string Value { get; }
 
-    public abstract WebElement Convert(IPage searchContext);
+    public abstract WebElement Convert(BrowserPage searchContext);
 
     public abstract WebElement Convert(WebElement searchContext);
 

@@ -23,9 +23,9 @@ public class FindIdEndingWithStrategy : FindStrategy
     {
     }
 
-    public override WebElement Convert(IPage searchContext)
+    public override WebElement Convert(BrowserPage searchContext)
     {
-        return new WebElement(searchContext.Locator($"[id$='{Value}']"));
+        return searchContext.Locate($"[id$='{Value}']");
     }
 
     public override WebElement Convert(WebElement searchContext)

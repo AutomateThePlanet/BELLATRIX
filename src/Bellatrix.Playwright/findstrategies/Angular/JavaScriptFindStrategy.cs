@@ -24,7 +24,7 @@ public class JavaScriptFindStrategy : FindStrategy
     public JavaScriptFindStrategy(string value, params object[] args)
         : base(value) => _args = args;
 
-    public override WebElement Convert(IPage searchContext)
+    public override WebElement Convert(BrowserPage searchContext)
     {
         return new PlaywrightJavaScriptLocator(Value, _args).FindElement(searchContext);
     }

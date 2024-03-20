@@ -39,13 +39,14 @@ public class DialogService : WebService
     //        WrappedDriver.SwitchTo().DefaultContent();
     //    }
     //}
+
     public void AddDialogHandler(EventHandler<IDialog> handler)
     {
-        CurrentContext.Dialog += handler;
+        CurrentContext.OnDialog += handler;
     }
 
     public void RemoveDialogHandler(EventHandler<IDialog> handler)
     {
-        CurrentContext.Dialog -= handler;
+        CurrentContext.OnDialog -= handler;
     }
 }

@@ -14,7 +14,7 @@
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using Bellatrix.Playwright.Services;
-using Bellatrix.Playwright.SyncPlaywright;
+using Bellatrix.Playwright.Services.Browser;
 
 namespace Bellatrix.Playwright.Locators;
 
@@ -34,7 +34,7 @@ public class PlaywrightJavaScriptLocator
 
     public object[] AdditionalScriptArguments { get; set; }
 
-    public WebElement FindElement(IPage searchContext)
+    public WebElement FindElement(BrowserPage searchContext)
     {
         ReadOnlyCollection<WebElement> elements = FindElements(searchContext);
         if (elements.Count == 0)
@@ -45,7 +45,7 @@ public class PlaywrightJavaScriptLocator
         return elements[0];
     }
 
-    public ReadOnlyCollection<WebElement> FindElements(IPage context)
+    public ReadOnlyCollection<WebElement> FindElements(BrowserPage context)
     {
         object[] scriptArgs = _args;
         if (AdditionalScriptArguments != null && AdditionalScriptArguments.Length > 0)
@@ -57,7 +57,7 @@ public class PlaywrightJavaScriptLocator
 
         // This might not work
         // TODO TEST
-        return DeserializeJsonElement((JsonElement)ServicesCollection.Current.Resolve<JavaScriptService>().Execute(_script, scriptArgs));
+        return DeserializeJsonElement(context, (JsonElement)ServicesCollection.Current.Resolve<JavaScriptService>().Execute(_script, scriptArgs));
     }
 
     public WebElement FindElement(WebElement searchContext)
@@ -83,10 +83,10 @@ public class PlaywrightJavaScriptLocator
 
         // This might not work
         // TODO TEST
-        return DeserializeJsonElement(ServicesCollection.Current.Resolve<JavaScriptService>().Execute(_script, context, scriptArgs));
+        return DeserializeJsonElement(ServicesCollection.Current.Resolve<WrappedBrowser>().CurrentPage, ServicesCollection.Current.Resolve<JavaScriptService>().Execute(_script, context, scriptArgs));
     }
 
-    private static ReadOnlyCollection<WebElement> DeserializeJsonElement(JsonElement? jsonElement)
+    private static ReadOnlyCollection<WebElement> DeserializeJsonElement(BrowserPage page, JsonElement? jsonElement)
     {
         byte[] jsonBytes = JsonSerializer.SerializeToUtf8Bytes(jsonElement);
 
@@ -95,7 +95,7 @@ public class PlaywrightJavaScriptLocator
         var elements = new List<WebElement>();
         foreach (var locator in locators)
         {
-            elements.Add(new WebElement(locator));
+            elements.Add(new WebElement(page, locator));
         }
 
         return elements.AsReadOnly();

@@ -28,9 +28,9 @@ public class FindXpathStrategy : FindStrategy
         return searchContext.Locate($"{Value}");
     }
 
-    public override WebElement Convert(IPage searchContext)
+    public override WebElement Convert(BrowserPage searchContext)
     {
-        return new WebElement(searchContext.Locator($"{Value}"));
+        return searchContext.Locate($"{Value}");
     }
 
     public override string ToString()

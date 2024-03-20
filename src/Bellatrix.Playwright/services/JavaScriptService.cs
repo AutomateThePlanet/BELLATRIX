@@ -15,6 +15,7 @@
 using System.Diagnostics;
 using System.Text.Json;
 using Bellatrix.Playwright.Services.Browser;
+using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright.Services;
 public class JavaScriptService : WebService
@@ -46,12 +47,25 @@ public class JavaScriptService : WebService
     {
         try
         {
-            return CurrentPage.EvaluateAsync(script).Result;
+            return CurrentPage.Evaluate(script);
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            return string.Empty;
+            return null;
+        }
+    }
+
+    public T Execute<T>(string script, params object[] args)
+    {
+        try
+        {
+            return CurrentPage.Evaluate<T>(script);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return default(T);
         }
     }
 
@@ -68,7 +82,7 @@ public class JavaScriptService : WebService
     {
         try
         {
-            return CurrentPage.EvaluateAsync(script, args).Result;
+            return CurrentPage.Evaluate(script, args);
         }
         catch (Exception ex)
         {
@@ -83,11 +97,11 @@ public class JavaScriptService : WebService
         return Execute(script, component.WrappedElement).ToString();
     }
 
-    public string Execute(string script, ILocator nativeLocator)
+    public string Execute(string script, WebElement nativeLocator)
     {
         try
         {
-            return nativeLocator.EvaluateAsync(script).Result.ToString();
+            return nativeLocator.Evaluate<string>(script);
         }
         catch (NullReferenceException)
         {
@@ -100,11 +114,28 @@ public class JavaScriptService : WebService
         }
     }
 
-    public JsonElement? Execute(string script, ILocator nativeLocator, params object[] args)
+    public T Execute<T>(string script, WebElement nativeLocator)
     {
         try
         {
-            return nativeLocator.EvaluateAsync(script, args).Result;
+            return nativeLocator.Evaluate<T>(script);
+        }
+        catch (NullReferenceException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return default(T);
+        }
+    }
+
+    public JsonElement? Execute(string script, WebElement webElement, params object[] args)
+    {
+        try
+        {
+            return webElement.Evaluate(script, args);
         }
         catch (NullReferenceException)
         {
@@ -117,11 +148,11 @@ public class JavaScriptService : WebService
         }
     }
 
-    public void ExecuteAsync(string script, ILocator nativeLocator)
+    public void ExecuteAsync(string script, WebElement webElement)
     {
         try
         {
-            nativeLocator.EvaluateAsync(script);
+            webElement.WrappedLocator.EvaluateAsync(script);
         }
         catch (NullReferenceException)
         {

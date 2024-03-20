@@ -12,6 +12,8 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.SyncPlaywright;
+
 namespace Bellatrix.Playwright.Services.Browser;
 
 public class WrappedBrowser
@@ -20,7 +22,7 @@ public class WrappedBrowser
     {
     }
 
-    public WrappedBrowser(IPlaywright playwright, IBrowser browser, IBrowserContext context, IPage page)
+    public WrappedBrowser(BellatrixPlaywright playwright, BellatrixBrowser browser, BrowserContext context, BrowserPage page)
     {
         Playwright = playwright;
         Browser = browser;
@@ -29,10 +31,10 @@ public class WrappedBrowser
     }
 
     public string GridSessionId { get; internal set; }
-    public IPlaywright Playwright { get; internal set; }
-    public IBrowser Browser { get; internal set; }
-    public IBrowserContext CurrentContext { get; internal set; }
-    public IPage CurrentPage { get; internal set; }
+    public BellatrixPlaywright Playwright { get; internal set; }
+    public BellatrixBrowser Browser { get; internal set; }
+    public BrowserContext CurrentContext { get; internal set; }
+    public BrowserPage CurrentPage { get; internal set; }
 
     public ConsoleMessageStorage ConsoleMessages { get; internal set; }
 
@@ -40,13 +42,13 @@ public class WrappedBrowser
     {
         try
         {
-            CurrentPage?.CloseAsync().GetAwaiter().GetResult();
+            CurrentPage?.Close();
             CurrentPage = null;
 
-            CurrentContext?.CloseAsync().GetAwaiter().GetResult();
+            CurrentContext?.Close();
             CurrentContext = null;
 
-            Browser?.CloseAsync().GetAwaiter().GetResult();
+            Browser?.Close();
             Browser = null;
 
             Playwright?.Dispose();

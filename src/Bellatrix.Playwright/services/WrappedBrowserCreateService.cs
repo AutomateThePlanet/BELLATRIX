@@ -33,6 +33,7 @@ using Bellatrix.Api;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 using System.Threading;
+using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright.Services;
 
@@ -58,7 +59,7 @@ public static class WrappedBrowserCreateService
 
         _proxyService = ServicesCollection.Current.Resolve<ProxyService>();
 
-        wrappedBrowser.Playwright = Microsoft.Playwright.Playwright.CreateAsync().Result;
+        wrappedBrowser.Playwright = new BellatrixPlaywright(Microsoft.Playwright.Playwright.CreateAsync().Result);
 
         if (executionConfiguration.ExecutionType == ExecutionType.Regular)
         {
@@ -129,7 +130,7 @@ public static class WrappedBrowserCreateService
 
                 launchOptions.Args = args;
 
-                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.LaunchAsync(launchOptions).Result;
+                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
                 break;
             case BrowserChoice.ChromiumHeadless:
                 launchOptions.Headless = true;
@@ -165,7 +166,7 @@ public static class WrappedBrowserCreateService
                 launchOptions.Args = args;
                 launchOptions.ChromiumSandbox = false;
 
-                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.LaunchAsync(launchOptions).Result;
+                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
 
                 break;
             case BrowserChoice.Chrome:
@@ -198,7 +199,7 @@ public static class WrappedBrowserCreateService
 
                 launchOptions.Args = args;
 
-                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.LaunchAsync(launchOptions).Result;
+                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
                 break;
             case BrowserChoice.ChromeHeadless:
                 launchOptions.Headless = true;
@@ -240,40 +241,40 @@ public static class WrappedBrowserCreateService
                 launchOptions.Args = args;
                 launchOptions.ChromiumSandbox = false;
 
-                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.LaunchAsync(launchOptions).Result;
+                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
                 break;
             case BrowserChoice.Edge:
                 launchOptions.Headless = false;
                 launchOptions.Channel = "msedge";
 
-                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.LaunchAsync(launchOptions).Result;
+                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
                 break;
             case BrowserChoice.EdgeHeadless:
                 launchOptions.Headless = true;
                 launchOptions.Channel = "msedge";
 
-                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.LaunchAsync(launchOptions).Result;
+                wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
                 break;
             case BrowserChoice.Firefox:
                 launchOptions.Headless = false;
                 args.Add("--acceptInsecureCerts=true");
 
-                wrappedBrowser.Browser = wrappedBrowser.Playwright.Firefox.LaunchAsync(launchOptions).Result;
+                wrappedBrowser.Browser = wrappedBrowser.Playwright.Firefox.Launch(launchOptions);
                 break;
             case BrowserChoice.FirefoxHeadless:
                 launchOptions.Headless = true;
 
-                wrappedBrowser.Browser = wrappedBrowser.Playwright.Firefox.LaunchAsync(launchOptions).Result;
+                wrappedBrowser.Browser = wrappedBrowser.Playwright.Firefox.Launch(launchOptions);
                 break;
             case BrowserChoice.Webkit:
                 launchOptions.Headless = false;
 
-                wrappedBrowser.Browser = wrappedBrowser.Playwright.Webkit.LaunchAsync(launchOptions).Result;
+                wrappedBrowser.Browser = wrappedBrowser.Playwright.Webkit.Launch(launchOptions);
                 break;
             case BrowserChoice.WebkitHeadless:
                 launchOptions.Headless = true;
 
-                wrappedBrowser.Browser = wrappedBrowser.Playwright.Webkit.LaunchAsync(launchOptions).Result;
+                wrappedBrowser.Browser = wrappedBrowser.Playwright.Webkit.Launch(launchOptions);
                 break;
         }
 
@@ -286,10 +287,10 @@ public static class WrappedBrowserCreateService
 
         options.JavaScriptEnabled = !BrowserConfiguration.ShouldDisableJavaScript;
 
-        if (wrappedBrowser.CurrentContext != null) wrappedBrowser.CurrentContext.DisposeAsync().AsTask().SyncResult();
+        if (wrappedBrowser.CurrentContext != null) wrappedBrowser.CurrentContext.Dispose();
 
-        wrappedBrowser.CurrentContext = wrappedBrowser.Browser.NewContextAsync().Result;
-        wrappedBrowser.CurrentPage = wrappedBrowser.CurrentContext.NewPageAsync().Result;
+        wrappedBrowser.CurrentContext = wrappedBrowser.Browser.NewContext();
+        wrappedBrowser.CurrentPage = wrappedBrowser.CurrentContext.NewPage();
 
         AddConsoleMessageListener(wrappedBrowser);
     }
@@ -350,7 +351,7 @@ public static class WrappedBrowserCreateService
 
                     var cdpUrl = new UriBuilder((string)json.SelectToken("$.value.capabilities['se:cdp']")) { Host = client.BaseUrl.Host }.Uri;
 
-                    wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.ConnectOverCDPAsync(cdpUrl.ToString(), new BrowserTypeConnectOverCDPOptions { Timeout = 10000 }).Result;
+                    wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.ConnectOverCDP(cdpUrl.ToString(), new BrowserTypeConnectOverCDPOptions { Timeout = 10000 });
 
                     InitializeBrowserContextAndPage(wrappedBrowser);
 
@@ -360,7 +361,7 @@ public static class WrappedBrowserCreateService
                 {
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-                    wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.ConnectAsync($"wss://cdp.lambdatest.com/playwright?capabilities={HttpUtility.UrlEncode(capabilities)}").Result;
+                    wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Connect($"wss://cdp.lambdatest.com/playwright?capabilities={HttpUtility.UrlEncode(capabilities)}");
 
                     InitializeBrowserContextAndPage(wrappedBrowser);
 
@@ -370,14 +371,13 @@ public static class WrappedBrowserCreateService
                 {
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-                    wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.ConnectAsync($"wss://cdp.browserstack.com/playwright?caps={HttpUtility.UrlEncode(capabilities)}").Result;
+                    wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Connect($"wss://cdp.browserstack.com/playwright?caps={HttpUtility.UrlEncode(capabilities)}");
 
                     InitializeBrowserContextAndPage(wrappedBrowser);
 
                     break;
                 }
-            default:
-                throw new NotImplementedException("The Execution Type is either not possible or not implemented.");
+            default: throw new NotImplementedException("The Execution Type is either not possible or not implemented.");
         }
     }
 
@@ -410,7 +410,7 @@ public static class WrappedBrowserCreateService
     {
         wrappedBrowser.ConsoleMessages = new ConsoleMessageStorage(wrappedBrowser.CurrentContext);
 
-        wrappedBrowser.CurrentContext.Console += (_, msg) => wrappedBrowser.ConsoleMessages.Add(msg);
+        wrappedBrowser.CurrentContext.OnConsole += (_, msg) => wrappedBrowser.ConsoleMessages.Add(msg);
     }
 
     private static string ResolveSecrets(string capabilities)

@@ -19,6 +19,7 @@ using Bellatrix.Playwright.Settings;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright.Services;
 public class BrowserService : WebService
@@ -28,17 +29,17 @@ public class BrowserService : WebService
     {
     }
 
-    public string HtmlSource => CurrentPage.ContentAsync().Result;
+    public string HtmlSource => CurrentPage.Content();
 
     public Uri Url => new Uri(CurrentPage.Url);
 
-    public string Title => CurrentPage.TitleAsync().Result;
+    public string Title => CurrentPage.Title();
 
-    public void Back() => _ = CurrentPage.GoBackAsync().Result;
+    public void Back() => CurrentPage.GoBack();
 
-    public void Forward() => _ = CurrentPage.GoForwardAsync().Result;
+    public void Forward() => CurrentPage.GoForward();
 
-    public void Refresh() => _ = CurrentPage.ReloadAsync().Result;
+    public void Refresh() => CurrentPage.Reload();
 
     [Obsolete("Cannot be implemented.", true)]
     public void RefreshHard()
@@ -58,22 +59,22 @@ public class BrowserService : WebService
         // to be removed.
     }
 
-    public void SwtichToFirstBrowserTab() => WrappedBrowser.CurrentContext.Pages.First();
+    public BrowserPage SwtichToFirstBrowserTab() => WrappedBrowser.CurrentContext.Pages.First();
 
-    public void SwitchToLastTab() => WrappedBrowser.CurrentContext.Pages.Last();
+    public BrowserPage SwitchToLastTab() => WrappedBrowser.CurrentContext.Pages.Last();
 
     /// <summary>
-    /// For this method to work, when an action on the current tab opens a new tab, one MUST manually create a new IPage in WrappedBrowser.CurrentContext.
+    /// For this method to work, when an action on the current tab opens a new tab, one MUST manually create a new BrowserPage in WrappedBrowser.CurrentContext.
     /// </summary>
     /// <seealso cref="BrowserService.RunAndWaitForTab(Action)"/>
-    public void SwitchToTab(string tabTitle) => WrappedBrowser.CurrentContext.Pages.FirstOrDefault(x => x.TitleAsync().Result.Equals(tabTitle));
+    public BrowserPage SwitchToTab(string tabTitle) => WrappedBrowser.CurrentContext.Pages.FirstOrDefault(x => x.Title().Equals(tabTitle));
 
     /// <summary>
     /// Performs action, waits for a new tab to be opened and returns it.
     /// </summary>
     /// <param name="action">Action on the current tab that is supposed to open a new tab.</param>
     /// <returns></returns>
-    public IPage RunAndWaitForTab(Action action, BrowserContextRunAndWaitForPageOptions options = null)
+    public BrowserPage RunAndWaitForTab(Action action, BrowserContextRunAndWaitForPageOptions options = null)
     {
         Func<Task> task = new Func<Task>(() =>
         {
@@ -81,7 +82,7 @@ public class BrowserService : WebService
             return Task.CompletedTask;
         });
 
-        return WrappedBrowser.CurrentContext.RunAndWaitForPageAsync(task, options).Result;
+        return WrappedBrowser.CurrentContext.RunAndWaitForPage(task, options);
     }
 
     /// <summary>
@@ -141,9 +142,10 @@ public class BrowserService : WebService
     // Faster than sending js and checking for a X state.
     public void WaitForLoadState(LoadState state = LoadState.Load)
     {
-        WrappedBrowser.CurrentPage.WaitForLoadStateAsync(state).GetAwaiter().GetResult();
+        WrappedBrowser.CurrentPage.WaitForLoadState(state);
     }
 
+    [Obsolete("Playwright does not support 'maximize' out of the box. Use specific resolution instead.")]
     public void Maximize() => Debug.WriteLine("Playwright does not support maximizing the browser.");
 
     public void ClearSessionStorage()

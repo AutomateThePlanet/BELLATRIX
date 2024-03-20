@@ -43,10 +43,10 @@ public class CookiesService : WebService
 
     public void AddCookie(Cookie cookieToAdd)
     {
-        CurrentContext.AddCookiesAsync(new Cookie[] { cookieToAdd }).GetAwaiter().GetResult();
+        CurrentContext.AddCookies(new Cookie[] { cookieToAdd });
     }
 
-    public void DeleteAllCookies() => CurrentContext.ClearCookiesAsync().GetAwaiter().GetResult();
+    public void DeleteAllCookies() => CurrentContext.ClearCookies();
 
     public void DeleteCookie(string cookieName)
     {
@@ -67,12 +67,12 @@ public class CookiesService : WebService
         }
 
 
-        CurrentContext.AddCookiesAsync(updatedCookies).GetAwaiter().GetResult();
+        CurrentContext.AddCookies(updatedCookies);
     }
 
     public IReadOnlyList<BrowserContextCookiesResult> GetAllCookies()
     {
-        return CurrentContext.CookiesAsync().Result;
+        return CurrentContext.Cookies();
     }
 
     public string GetCookie(string cookieName)

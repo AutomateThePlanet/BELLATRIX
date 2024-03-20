@@ -25,9 +25,9 @@ public class FindAttributeContainingStrategy : FindStrategy
         _attributeName = attributeName;
     }
 
-    public override WebElement Convert(IPage searchContext)
+    public override WebElement Convert(BrowserPage searchContext)
     {
-        return new WebElement(searchContext.Locator($"[{_attributeName}*='{Value}']"));
+        return searchContext.Locate($"[{_attributeName}*='{Value}']");
     }
 
     public override WebElement Convert(WebElement searchContext)

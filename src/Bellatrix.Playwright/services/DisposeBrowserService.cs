@@ -67,7 +67,7 @@ public static class DisposeBrowserService
             {
                 var wrappedBrowser = childContainer.Resolve<WrappedBrowser>();
 
-                wrappedBrowser.Quit();
+                wrappedBrowser?.Quit();
                 DisposeGridSession(childContainer);
 
                 childContainer?.UnregisterSingleInstance<WrappedBrowser>();

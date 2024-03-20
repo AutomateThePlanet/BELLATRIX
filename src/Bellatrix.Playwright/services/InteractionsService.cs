@@ -31,11 +31,11 @@ public class InteractionsService : WebService
 
     public Point Coordinates()
     {
-        _ = CurrentPage.EvaluateAsync("document.addEventListener('mousemove', (event) => { window.playwrightMouseX = event.clientX; });").Result;
-        _ = CurrentPage.EvaluateAsync("document.addEventListener('mousemove', (event) => { window.playwrightMouseY = event.clientY; });").Result;
+        CurrentPage.Evaluate("document.addEventListener('mousemove', (event) => { window.playwrightMouseX = event.clientX; });");
+        CurrentPage.Evaluate("document.addEventListener('mousemove', (event) => { window.playwrightMouseY = event.clientY; });");
 
-        var x = CurrentPage.EvaluateAsync("window.playwrightMouseX").Result.GetValueOrDefault().GetInt32();
-        var y = CurrentPage.EvaluateAsync("window.playwrightMouseY").Result.GetValueOrDefault().GetInt32();
+        var x = CurrentPage.Evaluate<int>("window.playwrightMouseX");
+        var y = CurrentPage.Evaluate<int>("window.playwrightMouseY");
 
         return new Point(x, y);
     }

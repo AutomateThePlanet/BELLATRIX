@@ -23,7 +23,7 @@ public class NativeElementFinderService : IWebElementFinderService
 
     public NativeElementFinderService(WrappedBrowser searchContext) => _searchContext = searchContext.CurrentPage;
 
-    public NativeElementFinderService(IPage searchContext) => _searchContext = searchContext;
+    public NativeElementFinderService(BrowserPage searchContext) => _searchContext = searchContext;
 
     public NativeElementFinderService(WebElement searchContext) => _searchContext = searchContext;
 

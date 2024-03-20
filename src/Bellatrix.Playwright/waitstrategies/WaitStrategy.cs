@@ -48,7 +48,7 @@ public abstract class WaitStrategy
         return element;
     }
 
-    protected WebElement FindElement<TBy>(IPage searchContext, TBy by)
+    protected WebElement FindElement<TBy>(BrowserPage searchContext, TBy by)
         where TBy : FindStrategy
     {
         var nativeElementFinder = new NativeElementFinderService(searchContext);

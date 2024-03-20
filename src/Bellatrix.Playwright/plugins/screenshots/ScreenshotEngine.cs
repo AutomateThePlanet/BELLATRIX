@@ -22,7 +22,7 @@ internal static class ScreenshotEngine
     public static string TakeScreenshot(ServicesCollection serviceContainer, bool fullPage)
     {
         var browser = serviceContainer.Resolve<WrappedBrowser>();
-        return Convert.ToBase64String(browser.CurrentPage.ScreenshotAsync(new PageScreenshotOptions { FullPage = fullPage, Type = ScreenshotType.Png }).Result);
+        return Convert.ToBase64String(browser.CurrentPage.Screenshot(new PageScreenshotOptions { FullPage = fullPage, Type = ScreenshotType.Png }));
     }
 
     public static string GetEmbeddedResource(string resourceName, Assembly assembly)

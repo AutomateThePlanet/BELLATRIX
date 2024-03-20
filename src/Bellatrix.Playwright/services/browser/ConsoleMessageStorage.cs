@@ -12,13 +12,15 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.SyncPlaywright;
+
 namespace Bellatrix.Playwright.Services.Browser;
 
 public class ConsoleMessageStorage : List<IConsoleMessage>
 {
-    public IBrowserContext BrowserContext { get; set; }
+    public BrowserContext BrowserContext { get; set; }
 
-    public ConsoleMessageStorage(IBrowserContext browserContext)
+    public ConsoleMessageStorage(BrowserContext browserContext)
         : base()
     {
         BrowserContext = browserContext;

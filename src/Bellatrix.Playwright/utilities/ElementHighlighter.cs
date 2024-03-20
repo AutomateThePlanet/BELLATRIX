@@ -14,6 +14,7 @@
 
 using Bellatrix.Playwright.Enums;
 using Bellatrix.Playwright.Services;
+using Bellatrix.Playwright.SyncPlaywright;
 using System.ComponentModel;
 using System.Threading;
 
@@ -22,7 +23,7 @@ namespace Bellatrix.Playwright.Extensions.Controls;
 
 public static class ElementHighlighter
 {
-    public static void Highlight(this ILocator nativeElement, int waitBeforeUnhighlightMilliseconds = 100, string color = "yellow")
+    public static void Highlight(this WebElement webElement, int waitBeforeUnhighlightMilliseconds = 100, string color = "yellow")
     {
         if (WrappedBrowserCreateService.BrowserConfiguration.BrowserType == BrowserChoice.ChromeHeadless || WrappedBrowserCreateService.BrowserConfiguration.BrowserType == BrowserChoice.FirefoxHeadless)
         {
@@ -33,19 +34,19 @@ public static class ElementHighlighter
         try
         {
             var javaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
-            var originalElementBorder = javaScriptService.Execute("el => window.getComputedStyle(el).getPropertyValue('background')", nativeElement);
-            javaScriptService.Execute($"el => el.style.background='{color}';", nativeElement);
+            var originalElementBorder = javaScriptService.Execute("el => window.getComputedStyle(el).getPropertyValue('background')", webElement);
+            javaScriptService.Execute($"el => el.style.background='{color}';", webElement);
             if (waitBeforeUnhighlightMilliseconds >= 0)
             {
                 if (waitBeforeUnhighlightMilliseconds > 1000)
                 {
                     var backgroundWorker = new BackgroundWorker();
-                    backgroundWorker.DoWork += (obj, e) => Unhighlight(nativeElement, originalElementBorder, waitBeforeUnhighlightMilliseconds);
+                    backgroundWorker.DoWork += (obj, e) => Unhighlight(webElement, originalElementBorder, waitBeforeUnhighlightMilliseconds);
                     backgroundWorker.RunWorkerAsync();
                 }
                 else
                 {
-                    Unhighlight(nativeElement, originalElementBorder, waitBeforeUnhighlightMilliseconds);
+                    Unhighlight(webElement, originalElementBorder, waitBeforeUnhighlightMilliseconds);
                 }
             }
         }
@@ -55,7 +56,7 @@ public static class ElementHighlighter
         }
     }
 
-    private static void Unhighlight(ILocator nativeElement, string border, int waitBeforeUnhighlightMiliSeconds)
+    private static void Unhighlight(WebElement nativeElement, string border, int waitBeforeUnhighlightMiliSeconds)
     {
         try
         {

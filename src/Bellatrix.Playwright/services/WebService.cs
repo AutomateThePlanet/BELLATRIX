@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Playwright.Services.Browser;
+using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright.Services;
 public abstract class WebService
@@ -24,8 +25,7 @@ public abstract class WebService
 
     public WrappedBrowser WrappedBrowser { get; set; }
 
-    //public IPlaywright Playwright => WrappedBrowser.Playwright;
-    public IBrowser Browser => WrappedBrowser.Browser;
-    public IBrowserContext CurrentContext => WrappedBrowser.CurrentContext;
-    public IPage CurrentPage => WrappedBrowser.CurrentPage;
+    public SyncPlaywright.BellatrixBrowser Browser => WrappedBrowser.Browser;
+    public BrowserContext CurrentContext => WrappedBrowser.CurrentContext;
+    public BrowserPage CurrentPage => WrappedBrowser.CurrentPage;
 }
