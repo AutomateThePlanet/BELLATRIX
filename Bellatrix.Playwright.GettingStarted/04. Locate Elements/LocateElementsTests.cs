@@ -18,19 +18,23 @@ public class LocateElementsTests : NUnit.WebTest
         // Which means that they are searched once you perform an action or assertion on them. By default on each new action, the element is searched again and is refreshed.
         var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
 
-        // 2. You can access the Playwright wrapped ILocator through WrappedElement and the current Playwright, Browser, BrowserContext, and Page instances through- WrappedBrowser
+        // 2. In case you need something from Playwright that isn't implemented in Bellatrix, you can easily access, from the Component, the WebElement.
+        // The WebElement class is a wrapper for ILocator and IFrameLocator which converts the asynchronous code to synchronous and adds logic for switching between
+        // IFrames and normal HTML elements.
+        // In Case you nonetheless need ILocator or IFrameLocator specifically, they are accessible from the WebElement through the properties
+        // WrappedLocator and WrappedFrameLocator.
+        // Be mindful, though, that Playwright for C# is entirely asynchronous!
         Console.WriteLine(promotionsLink.WrappedElement.InnerText());
 
-        // You may have noticed an addition after the method InnerTextAsync. The reason for this is because Playwright for C#, by default, is asynchronous.
-        // This complicates writing tests. You may forget to await an async method and the whole test becomes unreliable.
+        // Async code complicates writing tests. You may forget to await an async method and the whole test becomes unreliable.
         //
         // BELLATRIX simplifies writing tests with the Playwright engine, while keeping the good performance, robustness, and speed of the native Playwright.
         //
-        // It is not advisable to use the WrappedElement because you will immediately have to write async code.
-        // BELLATRIX offers a 'gateway' to every ILocator functionality through the Component classes, internally converting the code to be synchronous.
-        // In case you need, after all, to access the WrappedElement, it is advisable to use after the async method .Result, or .RunSynchronously() or .GetAwaiter().GetResult()
-        // Otherwise, the method or test method that contains the certain logic must be marked with the 'async' keyword and return a Task<>
-        // Once you make a method async, everywhere else the method is called, must become async as well.
+        // BELLATRIX offers a 'gateway' to every ILocator and IFrameLocator functionality through the WebElement class, internally converting the code to be synchronous.
+
+        // BELLATRIX also offers, in the SyncPlaywright namespace, a 'gateway' to the most commonly used playwright classes, making them synchronous
+        // under the hood, so you don't have to write async code or convert it yourself to synchronous.
+        // The playwright classes that have a synchronous wrapper are: IPlaywright, IBrowserType, IBrowser, IBrowserContext, IPage, and previously said - ILocator and IFrameLocator.
 
         // 3. Because of the proxy element mechanism (we have a separate type of element instead of single Playwright ILocator interface) we have several benefits.
         // Each component (component type- ComboBox, TextField and so on) contains only the actions you can do with it, and the methods are named properly.
