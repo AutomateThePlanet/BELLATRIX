@@ -5,7 +5,7 @@ namespace Bellatrix.Playwright.SyncPlaywright;
 
 #nullable enable
 
-public class GetByRoleOptions : Options
+public class GetByRoleOptions : IOptions
 {
     /// <summary>
     /// <para>

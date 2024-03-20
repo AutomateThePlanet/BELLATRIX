@@ -47,7 +47,7 @@ internal static class MapperService
         Mapper = Config.CreateMapper();
     }
 
-    public static T ConvertTo<T>(this Options options)
+    public static T ConvertTo<T>(this IOptions options)
     {
         return Mapper.Map<T>(options);
     }

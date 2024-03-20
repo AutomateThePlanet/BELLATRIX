@@ -14,7 +14,7 @@
 
 namespace Bellatrix.Playwright.SyncPlaywright;
 
-public interface Options
+public interface IOptions
 {
     // empty, as it is used only to group together GetBy-Options
 }

@@ -4,7 +4,7 @@ namespace Bellatrix.Playwright.SyncPlaywright;
 
 #nullable enable
 
-public class GetByAltTextOptions : Options
+public class GetByAltTextOptions : IOptions
 {
     /// <summary>
     /// <para>

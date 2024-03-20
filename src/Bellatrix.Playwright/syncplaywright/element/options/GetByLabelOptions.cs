@@ -4,7 +4,7 @@ namespace Bellatrix.Playwright.SyncPlaywright;
 
 #nullable enable
 
-public class GetByLabelOptions : Options
+public class GetByLabelOptions : IOptions
 {
     /// <summary>
     /// <para>
