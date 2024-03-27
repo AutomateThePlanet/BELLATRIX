@@ -18,10 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Bellatrix.Core\Bellatrix.Core.csproj" />
-    <ProjectReference Include="..\src\Bellatrix.Playwright\Bellatrix.Playwright.csproj" />
-    <ProjectReference Include="..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
-    <ProjectReference Include="..\src\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Core\Bellatrix.Core.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Playwright\Bellatrix.Playwright.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
   </ItemGroup>
 
   <ItemGroup>
