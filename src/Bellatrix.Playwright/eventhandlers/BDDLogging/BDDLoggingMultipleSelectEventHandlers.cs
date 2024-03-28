@@ -1,4 +1,4 @@
-// <copyright file="BDDLoggingSelectEventHandlers.cs" company="Automate The Planet Ltd.">
+// <copyright file="BDDLoggingMultipleSelectEventHandlers.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -17,9 +17,11 @@ using Bellatrix.Playwright.Events;
 
 namespace Bellatrix.Playwright.Extensions.Controls.Controls.EventHandlers;
 
-public class BDDLoggingSelectEventHandlers : SelectEventHandlers
+public class BDDLoggingMultipleSelectEventHandlers : MultipleSelectEventHandlers
 {
     protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Select '{arg.ActionValue}' from {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 
     protected override void FailedSelectionEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"Selecting '{arg.ActionValue}' from {arg.Element.ComponentName} failed.".AddUrlOrPageToBddLogging(arg.Element.PageName));
+
+    protected override void SelectedNotFoundEventHandler(object sender, ComponentActionEventArgs arg) => Logger.LogInformation($"No selected value found in {arg.Element.ComponentName}".AddUrlOrPageToBddLogging(arg.Element.PageName));
 }

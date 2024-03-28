@@ -1,4 +1,4 @@
-// <copyright file="DynamicTestCasesSelectEventHandlers.cs" company="Automate The Planet Ltd.">
+// <copyright file="DynamicTestCasesMultipleSelectEventHandlers.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -17,9 +17,11 @@ using Bellatrix.Playwright.Events;
 
 namespace Bellatrix.Playwright.Extensions.Controls.Controls.EventHandlers;
 
-public class DynamicTestCasesSelectEventHandlers : SelectEventHandlers
+public class DynamicTestCasesMultipleSelectEventHandlers : MultipleSelectEventHandlers
 {
     protected override void SelectingEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Select '{arg.ActionValue}' from {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 
     protected override void FailedSelectionEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"Selecting '{arg.ActionValue}' from {arg.Element.ComponentName} failed.".AddDynamicTestCasesUsingLocatorsMessage(arg));
+
+    protected override void SelectedNotFoundEventHandler(object sender, ComponentActionEventArgs arg) => DynamicTestCasesService.AddStep($"No selected value found in {arg.Element.ComponentName}".AddDynamicTestCasesUsingLocatorsMessage(arg));
 }

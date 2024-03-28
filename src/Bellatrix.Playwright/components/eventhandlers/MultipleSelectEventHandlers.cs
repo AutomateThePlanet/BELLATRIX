@@ -1,4 +1,4 @@
-﻿// <copyright file="SelectEventHandlers.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="MultipleSelectEventHandlers.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -12,30 +12,33 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.Components.Common;
 using Bellatrix.Playwright.Events;
 
 namespace Bellatrix.Playwright.Controls.EventHandlers;
 
-public class SelectEventHandlers : ComponentEventHandlers
+public class MultipleSelectEventHandlers : ComponentEventHandlers
 {
     public override void SubscribeToAll()
     {
         base.SubscribeToAll();
-        Select.Selecting += SelectingEventHandler;
-        Select.Selected += SelectedEventHandler;
-        Select.Hovering += HoveringEventHandler;
-        Select.Hovered += HoveredEventHandler;
-        Select.FailedSelection += FailedSelectionEventHandler;
+        MultipleSelect.Selecting += SelectingEventHandler;
+        MultipleSelect.Selected += SelectedEventHandler;
+        MultipleSelect.Hovering += HoveringEventHandler;
+        MultipleSelect.Hovered += HoveredEventHandler;
+        MultipleSelect.FailedSelection += FailedSelectionEventHandler;
+        MultipleSelect.SelectedNotFound += SelectedNotFoundEventHandler;
     }
 
     public override void UnsubscribeToAll()
     {
         base.UnsubscribeToAll();
-        Select.Selecting -= SelectingEventHandler;
-        Select.Selected -= SelectedEventHandler;
-        Select.Hovering -= HoveringEventHandler;
-        Select.Hovered -= HoveredEventHandler;
-        Select.FailedSelection -= FailedSelectionEventHandler;
+        MultipleSelect.Selecting -= SelectingEventHandler;
+        MultipleSelect.Selected -= SelectedEventHandler;
+        MultipleSelect.Hovering -= HoveringEventHandler;
+        MultipleSelect.Hovered -= HoveredEventHandler;
+        MultipleSelect.FailedSelection -= FailedSelectionEventHandler;
+        MultipleSelect.SelectedNotFound -= SelectedNotFoundEventHandler;
     }
 
     protected virtual void SelectingEventHandler(object sender, ComponentActionEventArgs arg)
@@ -47,6 +50,10 @@ public class SelectEventHandlers : ComponentEventHandlers
     }
 
     protected virtual void FailedSelectionEventHandler(object sender, ComponentActionEventArgs arg)
+    {
+    }
+
+    protected virtual void SelectedNotFoundEventHandler(object sender, ComponentActionEventArgs arg)
     {
     }
 }

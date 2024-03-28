@@ -32,5 +32,15 @@ public class Option : Component, IComponentInnerText, IComponentValue, IComponen
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
 
-    public virtual bool IsSelected => WrappedElement.Evaluate("el => { el.selected; }").GetValueOrDefault().GetBoolean();
+    public virtual bool IsSelected => WrappedElement.Evaluate<bool>("el => el.selected");
+
+    public virtual void Select()
+    {
+        WrappedElement.Evaluate("el => el.selected = true");
+    }
+
+    public virtual void UnSelect()
+    {
+        WrappedElement.Evaluate("el => el.selected = false");
+    }
 }
