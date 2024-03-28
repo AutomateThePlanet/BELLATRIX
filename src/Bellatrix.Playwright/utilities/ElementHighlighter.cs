@@ -23,7 +23,7 @@ namespace Bellatrix.Playwright.Extensions.Controls;
 
 public static class ElementHighlighter
 {
-    public static void Highlight(this WebElement webElement, int waitBeforeUnhighlightMilliseconds = 100, string color = "yellow")
+    public static void JsHighlight(this WebElement webElement, int waitBeforeUnhighlightMilliseconds = 100, string color = "yellow")
     {
         if (WrappedBrowserCreateService.BrowserConfiguration.BrowserType == BrowserChoice.ChromeHeadless || WrappedBrowserCreateService.BrowserConfiguration.BrowserType == BrowserChoice.FirefoxHeadless)
         {

@@ -19,5 +19,5 @@ namespace Bellatrix.Playwright.Extensions.Controls.Controls.EventHandlers;
 
 public class HighlightComponentEventHandlers : ComponentEventHandlers
 {
-    protected override void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs arg) => arg.Element.Highlight();
+    protected override void ReturningWrappedElementEventHandler(object sender, NativeElementActionEventArgs arg) => arg.Element.JsHighlight();
 }
