@@ -25,9 +25,9 @@ using Bellatrix.Playwright.plugins.execution.Attributes;
 
 namespace Bellatrix.Playwright.Plugins.Browser;
 
-public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
+public class BrowserLifecyclePlugin : Plugin
 {
-    protected override void PreTestsArrange(object sender, Bellatrix.Plugins.PluginEventArgs e)
+    protected override void PreTestsArrange(object sender, PluginEventArgs e)
     {
         if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.IsCloudRun)
         {
@@ -84,7 +84,7 @@ public class BrowserLifecyclePlugin : Bellatrix.Plugins.Plugin
         base.PreTestInit(sender, e);
     }
 
-    protected override void PostTestCleanup(object sender, Bellatrix.Plugins.PluginEventArgs e)
+    protected override void PostTestCleanup(object sender, PluginEventArgs e)
     {
         var currentBrowserConfiguration = GetCurrentBrowserConfiguration(e);
         if (currentBrowserConfiguration != null)

@@ -14,7 +14,6 @@
 
 namespace Bellatrix.Playwright.Enums;
 
-// TODO: rename?
 // It has such name as to not clash with Playwright.BrowserType
 public enum BrowserChoice
 {

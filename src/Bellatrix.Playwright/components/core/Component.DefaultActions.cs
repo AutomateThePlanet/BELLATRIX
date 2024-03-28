@@ -15,7 +15,6 @@
 using System.Diagnostics;
 using System.Drawing;
 using Bellatrix.Playwright.Events;
-using Microsoft.VisualStudio.Services.WebApi;
 
 namespace Bellatrix.Playwright;
 
