@@ -28,11 +28,11 @@ public class WaitNotToExistStrategy : WaitStrategy
 
     public override void WaitUntil<TBy>(TBy by)
     {
-        Expect(by.Convert(WrappedBrowser.CurrentPage).WrappedLocator).Not.ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        Expect(by.Resolve(WrappedBrowser.CurrentPage).WrappedLocator).Not.ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 
     public override void WaitUntil<TBy>(TBy by, Component parent)
     {
-        Expect(by.Convert(parent.WrappedElement).WrappedLocator).Not.ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        Expect(by.Resolve(parent.WrappedElement).WrappedLocator).Not.ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

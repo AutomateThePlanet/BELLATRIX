@@ -23,9 +23,9 @@ public abstract class FindStrategy
 
     public string Value { get; }
 
-    public abstract WebElement Convert(BrowserPage searchContext);
+    public abstract WebElement Resolve(BrowserPage searchContext);
 
-    public abstract WebElement Convert(WebElement searchContext);
+    public abstract WebElement Resolve(WebElement searchContext);
 
     protected WrappedBrowser WrappedBrowser => ServicesCollection.Current.Resolve<WrappedBrowser>();
 }

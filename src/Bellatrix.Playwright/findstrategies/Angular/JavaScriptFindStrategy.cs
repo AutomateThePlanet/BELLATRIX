@@ -24,12 +24,12 @@ public class JavaScriptFindStrategy : FindStrategy
     public JavaScriptFindStrategy(string value, params object[] args)
         : base(value) => _args = args;
 
-    public override WebElement Convert(BrowserPage searchContext)
+    public override WebElement Resolve(BrowserPage searchContext)
     {
         return new PlaywrightJavaScriptLocator(Value, _args).FindElement(searchContext);
     }
 
-    public override WebElement Convert(WebElement searchContext)
+    public override WebElement Resolve(WebElement searchContext)
     {
         return new PlaywrightJavaScriptLocator(Value, _args).FindElement(searchContext);
     }

@@ -23,12 +23,12 @@ public class FindLinkTextContainsStrategy : FindStrategy
     {
     }
 
-    public override WebElement Convert(BrowserPage searchContext)
+    public override WebElement Resolve(BrowserPage searchContext)
     {
         return searchContext.Locate($"//a[contains(text(), '{Value}')]");
     }
 
-    public override WebElement Convert(WebElement searchContext)
+    public override WebElement Resolve(WebElement searchContext)
     {
         return searchContext.Locate($"//a[contains(text(), '{Value}')]");
     }

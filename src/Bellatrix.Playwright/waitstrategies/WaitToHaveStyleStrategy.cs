@@ -29,11 +29,11 @@ public class WaitToHaveStyleStrategy : WaitStrategy
     }
     public override void WaitUntil<TBy>(TBy by)
     {
-        Expect(by.Convert(WrappedBrowser.CurrentPage).WrappedLocator).ToHaveCSSAsync("style", _elementStyle, new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        Expect(by.Resolve(WrappedBrowser.CurrentPage).WrappedLocator).ToHaveCSSAsync("style", _elementStyle, new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 
     public override void WaitUntil<TBy>(TBy by, Component parent)
     {
-        Expect(by.Convert(parent.WrappedElement).WrappedLocator).ToHaveCSSAsync("style", _elementStyle, new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        Expect(by.Resolve(parent.WrappedElement).WrappedLocator).ToHaveCSSAsync("style", _elementStyle, new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

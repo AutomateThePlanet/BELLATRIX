@@ -29,11 +29,11 @@ public class WaitToHaveContentStrategy : WaitStrategy
     public override void WaitUntil<TBy>(TBy by)
     {
         // Is this correct?
-        Expect(by.Convert(WrappedBrowser.CurrentPage).WrappedLocator).ToHaveTextAsync(new Regex(@".*"), new() { Timeout =  TimeoutInterval });
+        Expect(by.Resolve(WrappedBrowser.CurrentPage).WrappedLocator).ToHaveTextAsync(new Regex(@".*"), new() { Timeout =  TimeoutInterval });
     }
 
     public override void WaitUntil<TBy>(TBy by, Component parent)
     {
-        Expect(by.Convert(parent.WrappedElement).WrappedLocator).ToHaveTextAsync(new Regex(@".*"), new() { Timeout = TimeoutInterval });
+        Expect(by.Resolve(parent.WrappedElement).WrappedLocator).ToHaveTextAsync(new Regex(@".*"), new() { Timeout = TimeoutInterval });
     }
 }

@@ -16,12 +16,12 @@ public class FindIdStartingWithStrategy : FindStrategy
 
     // 2. In the Convert method, we use a standard Playwright Locator,
     // and in this case we implement our requirements through a little CSS.
-    public override WebElement Convert(BrowserPage searchContext)
+    public override WebElement Resolve(BrowserPage searchContext)
     {
         return searchContext.Locate($"[id^='{Value}']");
     }
 
-    public override WebElement Convert(WebElement searchContext)
+    public override WebElement Resolve(WebElement searchContext)
     {
         return searchContext.Locate($"[id^='{Value}']");
     }
