@@ -141,7 +141,6 @@ public static class WrappedBrowserCreateService
                 args.Add("--allow-no-sandbox-job");
                 args.Add("--ignore-certificate-errors");
                 args.Add("--disable-gpu");
-                args.Add("hide-scrollbars");
 
                 if (BrowserConfiguration.IsLighthouseEnabled)
                 {
@@ -211,7 +210,6 @@ public static class WrappedBrowserCreateService
                 args.Add("--allow-no-sandbox-job");
                 args.Add("--ignore-certificate-errors");
                 args.Add("--disable-gpu");
-                args.Add("hide-scrollbars");
 
                 if (BrowserConfiguration.IsLighthouseEnabled)
                 {
