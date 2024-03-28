@@ -309,6 +309,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         // By default scroll down to make the element visible.
         if (WrappedBrowserCreateService.BrowserConfiguration.ShouldAutomaticallyScrollToVisible)
         {
+            // TODO get if should wait from the config file
             ScrollToVisible(false);
         }
     }
@@ -323,13 +324,13 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         if (ParentWrappedElement == null && _wrappedElement == null)
         {
             var nativeElementFinderService = new NativeElementFinderService(WrappedBrowser);
-            return nativeElementFinderService.Find(By);
+            return nativeElementFinderService.Find(By, ElementIndex);
         }
 
         if (ParentWrappedElement != null)
         {
             var nativeElementFinderService = new NativeElementFinderService(ParentWrappedElement);
-            return nativeElementFinderService.Find(By);
+            return nativeElementFinderService.Find(By, ElementIndex);
         }
 
         if (this is Frame) _wrappedElement.IsFrame = true;

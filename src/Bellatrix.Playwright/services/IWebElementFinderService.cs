@@ -18,7 +18,7 @@ namespace Bellatrix.Playwright;
 
 public interface IWebElementFinderService
 {
-    WebElement Find<TBy>(TBy by)
+    WebElement Find<TBy>(TBy by, int index)
         where TBy : FindStrategy;
 
     IEnumerable<WebElement> FindAll<TBy>(TBy by)

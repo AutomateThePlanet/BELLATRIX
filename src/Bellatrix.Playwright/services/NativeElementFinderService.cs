@@ -27,10 +27,10 @@ public class NativeElementFinderService : IWebElementFinderService
 
     public NativeElementFinderService(WebElement searchContext) => _searchContext = searchContext;
 
-    public WebElement Find<TBy>(TBy by)
+    public WebElement Find<TBy>(TBy by, int index = 0)
         where TBy : FindStrategy
     {
-        var element = by.Convert(_searchContext).First;
+        dynamic element = by.Resolve(_searchContext).Nth(index);
 
         return element;
     }
@@ -38,7 +38,7 @@ public class NativeElementFinderService : IWebElementFinderService
     public IEnumerable<WebElement> FindAll<TBy>(TBy by)
         where TBy : FindStrategy
     {
-        var result = (WebElement)by.Convert(_searchContext);
+        var result = (WebElement)by.Resolve(_searchContext);
 
         return result.All();
     }
