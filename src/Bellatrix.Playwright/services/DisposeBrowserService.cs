@@ -46,7 +46,7 @@ public static class DisposeBrowserService
     {
         try
         {
-            wrappedBrowser.Quit();
+            wrappedBrowser?.Quit();
             DisposeGridSession(container);
 
             container?.UnregisterSingleInstance<WrappedBrowser>();
