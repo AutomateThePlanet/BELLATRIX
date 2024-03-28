@@ -22,22 +22,13 @@ public class ComponentWaitService
 {
     public static event EventHandler<ElementNotFulfillingWaitConditionEventArgs> OnElementNotFulfillingWaitConditionEvent;
 
-    public void Wait<TUntil, TComponent>(TComponent element, TUntil until)
+    public void Wait<TUntil, TComponent>(TComponent component, TUntil until)
         where TUntil : WaitStrategy
         where TComponent : Component
     {
         try
         {
-            if (element.ParentWrappedElement == null)
-            {
-                WaitInternal(element.By, until);
-            }
-            else
-            {
-                var elementRepository = new ComponentRepository();
-                Component parenTComponent = elementRepository.CreateComponentThatIsFound<Component>(element.By, element.ParentWrappedElement, true);
-                WaitInternal(element.By, until, parenTComponent);
-            }
+            WaitInternal(component, until);
         }
         catch (Exception ex)
         {
@@ -46,11 +37,7 @@ public class ComponentWaitService
         }
     }
 
-    internal void WaitInternal<TUntil, TBy>(TBy by, TUntil until)
+    internal void WaitInternal<TUntil, TComponent>(TComponent by, TUntil until)
         where TUntil : WaitStrategy
-        where TBy : FindStrategy => until?.WaitUntil(@by);
-
-    internal void WaitInternal<TUntil, TBy>(TBy by, TUntil until, Component parent)
-        where TUntil : WaitStrategy
-        where TBy : FindStrategy => until?.WaitUntil(@by, parent);
+        where TComponent : Component => until?.WaitUntil(@by);
 }

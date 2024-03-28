@@ -18,19 +18,19 @@ namespace Bellatrix.Playwright;
 
 public static class FindStrategyCreateExtensions
 {
-    public static TComponent Create<TComponent, TBy>(this TBy by, bool shouldCacheElement = false)
+    public static TComponent Create<TComponent, TBy>(this TBy by)
         where TBy : FindStrategy
         where TComponent : Component
     {
         var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
-        return elementRepository.Create<TComponent, TBy>(by, shouldCacheElement);
+        return elementRepository.Create<TComponent, TBy>(by);
     }
 
-    public static ComponentsList<TComponent> CreateAll<TComponent, TBy>(this TBy by, bool shouldCacheElement = false)
+    public static ComponentsList<TComponent> CreateAll<TComponent, TBy>(this TBy by)
         where TBy : FindStrategy
         where TComponent : Component
     {
         var elementRepository = ServicesCollection.Current.Resolve<ComponentCreateService>();
-        return elementRepository.CreateAll<TComponent, TBy>(by, shouldCacheElement);
+        return elementRepository.CreateAll<TComponent, TBy>(by);
     }
 }

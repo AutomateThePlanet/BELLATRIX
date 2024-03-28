@@ -28,13 +28,8 @@ public class WaitToNotHaveInnerTextStrategy : WaitStrategy
         TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToHaveContentTimeout;
     }
 
-    public override void WaitUntil<TBy>(TBy by)
+    public override void WaitUntil<TComponent>(TComponent component)
     {
-        Expect(by.Resolve(WrappedBrowser.CurrentPage).WrappedLocator).Not.ToHaveTextAsync(_elementText, new() { Timeout = TimeoutInterval });
-    }
-
-    public override void WaitUntil<TBy>(TBy by, Component parent)
-    {
-        Expect(by.Resolve(parent.WrappedElement).WrappedLocator).Not.ToHaveTextAsync(_elementText, new() { Timeout = TimeoutInterval });
+        Expect(component.WrappedElement.WrappedLocator).Not.ToHaveTextAsync(_elementText, new() { Timeout = TimeoutInterval });
     }
 }

@@ -19,7 +19,7 @@ namespace Bellatrix.Playwright;
 
 public class TableHeaderRow : Component, IComponentInnerHtml
 {
-    public ComponentsList<TableCell> HeaderCells => this.CreateAllByTag<TableCell>("th", true);
+    public ComponentsList<TableCell> HeaderCells => this.CreateAllByTag<TableCell>("th");
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string InnerHtml => GetInnerHtmlAttribute();

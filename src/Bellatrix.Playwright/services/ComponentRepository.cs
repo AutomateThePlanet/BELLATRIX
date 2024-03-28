@@ -12,102 +12,84 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using Bellatrix.Playwright.SyncPlaywright;
+using Bellatrix.Playwright.Services.Browser;
 using System.Diagnostics;
 using System.Reflection;
 
 namespace Bellatrix.Playwright.Services;
 public class ComponentRepository
 {
-    public dynamic CreateComponentWithParent(FindStrategy by, Component parenTComponent, Type newElementType, bool shouldCacheElement)
+    private WrappedBrowser WrappedBrowser => ServicesCollection.Current.Resolve<WrappedBrowser>();
+
+    public dynamic CreateComponentWithParent(FindStrategy by, Component parenTComponent, Type newElementType)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         dynamic element = Activator.CreateInstance(newElementType);
         element.By = by;
-        element.ParentWrappedElement = parenTComponent.WrappedElement;
-        if (parenTComponent is Frame) element.ParentWrappedElement.IsFrame = true;
+        element.WrappedElement = by.Resolve(parenTComponent.WrappedElement);
+        if (element is Frame) element.WrappedElement.IsFrame = true;
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
-        element.ShouldCacheElement = shouldCacheElement;
 
         return element;
     }
 
-    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parenTComponent, WebElement foundElement, int elementsIndex, bool shouldCacheElement)
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parenTComponent)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
-        element.ParentWrappedElement = parenTComponent.WrappedElement;
-        if (parenTComponent is Frame) element.ParentWrappedElement.IsFrame = true;
-        element.WrappedElement = foundElement;
-        element.ElementIndex = elementsIndex;
+        element.WrappedElement = by.Resolve(parenTComponent.WrappedElement);
+        if (element is Frame) element.WrappedElement.IsFrame = true;
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
-        element.ShouldCacheElement = shouldCacheElement;
 
         return element;
     }
 
-    public dynamic CreateComponentWithParent(FindStrategy by, WebElement parenTComponent, Type newElementType, bool shouldCacheElement)
+    public dynamic CreateComponentWithParent(FindStrategy by, WebElement parenTComponent, Type newElementType)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         dynamic element = Activator.CreateInstance(newElementType);
         element.By = by;
-        element.ParentWrappedElement = parenTComponent;
+        element.WrappedElement = by.Resolve(parenTComponent);
+        if (element is Frame) element.WrappedElement.IsFrame = true;
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
-        element.ShouldCacheElement = shouldCacheElement;
 
         return element;
     }
 
-    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, WebElement parenTComponent, WebElement foundElement, int elementsIndex, bool shouldCacheElement)
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, WebElement parenTComponent)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
-        element.ParentWrappedElement = parenTComponent;
-        element.WrappedElement = foundElement;
-        element.ElementIndex = elementsIndex;
+        element.WrappedElement = by.Resolve(parenTComponent);
+        if (element is Frame) element.WrappedElement.IsFrame = true;
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
-        element.ShouldCacheElement = shouldCacheElement;
 
         return element;
     }
 
-    public dynamic CreateComponentThatIsFound(FindStrategy by, WebElement webElement, Type newElementType, bool shouldCacheElement)
-    {
-        DetermineComponentAttributes(out var elementName, out var pageName);
-
-        dynamic element = Activator.CreateInstance(newElementType);
-        element.By = by;
-        element.WrappedElement = webElement;
-        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
-        element.PageName = pageName ?? string.Empty;
-        element.ShouldCacheElement = shouldCacheElement;
-
-        return element;
-    }
-
-    public TComponentType CreateComponentThatIsFound<TComponentType>(FindStrategy by, WebElement webElement, bool shouldCacheElement)
+    public TComponentType CreateComponent<TComponentType>(FindStrategy by)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
-        element.WrappedElement = webElement;
+        element.WrappedElement = by.Resolve(WrappedBrowser.CurrentPage);
+        if (element is Frame) element.WrappedElement.IsFrame = true;
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
-        element.ShouldCacheElement = shouldCacheElement;
 
         return element;
     }

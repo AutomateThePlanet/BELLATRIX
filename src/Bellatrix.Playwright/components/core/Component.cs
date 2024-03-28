@@ -26,7 +26,6 @@ using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.CognitiveServices.services;
 using Bellatrix.CognitiveServices;
-using Bellatrix.Playwright.SyncPlaywright;
 
 
 namespace Bellatrix.Playwright;
@@ -34,6 +33,21 @@ namespace Bellatrix.Playwright;
 [DebuggerDisplay("BELLATRIX Component")]
 public partial class Component : IComponentVisible, IComponentCssClass, IComponent, IWebLayoutComponent
 {
+    // ReSharper disable All
+#pragma warning disable 67
+    public static event EventHandler<ComponentActionEventArgs> ScrollingToVisible;
+    public static event EventHandler<ComponentActionEventArgs> ScrolledToVisible;
+    public static event EventHandler<ComponentActionEventArgs> SettingAttribute;
+    public static event EventHandler<ComponentActionEventArgs> AttributeSet;
+#pragma warning restore 67
+
+    // ReSharper restore All
+    public static event EventHandler<ComponentActionEventArgs> CreatingComponent;
+    public static event EventHandler<ComponentActionEventArgs> CreatedComponent;
+    public static event EventHandler<ComponentActionEventArgs> CreatingComponents;
+    public static event EventHandler<ComponentActionEventArgs> CreatedComponents;
+    public static event EventHandler<NativeElementActionEventArgs> ReturningWrappedElement;
+
     public static event EventHandler<ComponentActionEventArgs> Focusing;
     public static event EventHandler<ComponentActionEventArgs> Focused;
 
@@ -53,21 +67,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
     }
 
-    // ReSharper disable All
-#pragma warning disable 67
-    public static event EventHandler<ComponentActionEventArgs> ScrollingToVisible;
-    public static event EventHandler<ComponentActionEventArgs> ScrolledToVisible;
-    public static event EventHandler<ComponentActionEventArgs> SettingAttribute;
-    public static event EventHandler<ComponentActionEventArgs> AttributeSet;
-#pragma warning restore 67
-
-    // ReSharper restore All
-    public static event EventHandler<ComponentActionEventArgs> CreatingComponent;
-    public static event EventHandler<ComponentActionEventArgs> CreatedComponent;
-    public static event EventHandler<ComponentActionEventArgs> CreatingComponents;
-    public static event EventHandler<ComponentActionEventArgs> CreatedComponents;
-    public static event EventHandler<NativeElementActionEventArgs> ReturningWrappedElement;
-
     public WrappedBrowser WrappedBrowser { get; }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -75,21 +74,11 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         get
         {
-            var element = GetAndWaitWebElement(ShouldCacheElement);
-            ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs(element));
-            if (element == null)
-            {
-                throw new NullReferenceException($"The element with locator {By.Value} was not found. Probably you should change the locator or wait for a specific condition.");
-            }
-
-            return element;
+            ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs(_wrappedElement));
+            return _wrappedElement;
         }
         set => _wrappedElement = value;
     }
-
-    public WebElement ParentWrappedElement { get; set; }
-    public int ElementIndex { get; set; }
-    internal bool ShouldCacheElement { get; set; }
 
     protected readonly JavaScriptService JavaScriptService;
     protected readonly BrowserService BrowserService;
@@ -128,7 +117,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             filePath = Path.Combine(screenshotSaveDir, screenshotFileName);
         }
 
-        _ = WrappedElement.Screenshot(new() { Path = filePath, Type = ScreenshotType.Png });
+        WrappedElement.Screenshot(new() { Path = filePath, Type = ScreenshotType.Png });
 
         return filePath;
     }
@@ -139,7 +128,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
         var elementRepository = new ComponentRepository();
-        var element = elementRepository.CreateComponentWithParent(by, this, newElementType, ShouldCacheElement);
+        var element = elementRepository.CreateComponentWithParent(by, this, newElementType);
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
@@ -153,7 +142,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
         var elementRepository = new ComponentRepository();
-        var element = elementRepository.CreateComponentWithParent<TComponent>(by, this, null, 0, shouldCacheElement);
+        var element = elementRepository.CreateComponentWithParent<TComponent>(by, this);
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
@@ -166,14 +155,14 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         CreatingComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
-        var elementsCollection = new ComponentsList<TComponent>(by, WrappedElement, ShouldCacheElement);
+        var elementsCollection = new ComponentsList<TComponent>(by, WrappedElement);
 
         CreatedComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
         return elementsCollection;
     }
 
-    public void WaitToBe() => GetAndWaitWebElement(true);
+    public void WaitToBe(LocatorWaitForOptions options = null) => WrappedElement.WaitFor(options);
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public bool IsPresent
@@ -182,7 +171,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         {
             try
             {
-                return GetAndWaitWebElement(false).ElementHandle(new LocatorElementHandleOptions { Timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToExistTimeout }) != null;
+                return WrappedElement.ElementHandle(new LocatorElementHandleOptions { Timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToExistTimeout }) != null;
             }
             catch
             {
@@ -228,7 +217,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         SettingAttribute?.Invoke(this, new ComponentActionEventArgs(this));
 
-        _ = WrappedElement.Evaluate($"element => element.setAttribute('{name}', '{value}');");
+        WrappedElement.Evaluate($"element => element.setAttribute('{name}', '{value}');");
 
         AttributeSet?.Invoke(this, new ComponentActionEventArgs(this));
     }
@@ -275,35 +264,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         return sb.ToString();
     }
 
-    private WebElement GetAndWaitWebElement(bool shouldCacheElement = false)
-    {
-        if (_wrappedElement != null && shouldCacheElement)
-        {
-            return _wrappedElement;
-        }
-
-        try
-        {
-            BrowserService.WaitForLoadState(LoadState.DOMContentLoaded);
-
-
-            if (ConfigurationService.GetSection<WebSettings>().ShouldWaitForAngular)
-            {
-                BrowserService.WaitForAngular();
-            }
-
-            _wrappedElement = GetWebElement(shouldCacheElement);
-
-            ScrollToMakeElementVisible();
-        }
-        catch (Exception e)
-        {
-            throw new TimeoutException($"\n\nThe element: \n Name: '{ComponentName}', \n Locator: '{LocatorType.Name} = {LocatorValue}', \n Type: '{ComponentType.Name}' \nWas not found on the page or didn't fulfill the specified conditions.\n\n {Environment.NewLine} {e}");
-        }
-
-        return _wrappedElement;
-    }
-
     private void ScrollToMakeElementVisible()
     {
         // By default scroll down to make the element visible.
@@ -312,29 +272,5 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             // TODO get if should wait from the config file
             ScrollToVisible(false);
         }
-    }
-
-    private WebElement GetWebElement(bool shouldCacheElement = false)
-    {
-        if (_wrappedElement != null && shouldCacheElement)
-        {
-            return _wrappedElement;
-        }
-
-        if (ParentWrappedElement == null && _wrappedElement == null)
-        {
-            var nativeElementFinderService = new NativeElementFinderService(WrappedBrowser);
-            return nativeElementFinderService.Find(By, ElementIndex);
-        }
-
-        if (ParentWrappedElement != null)
-        {
-            var nativeElementFinderService = new NativeElementFinderService(ParentWrappedElement);
-            return nativeElementFinderService.Find(By, ElementIndex);
-        }
-
-        if (this is Frame) _wrappedElement.IsFrame = true;
-
-        return _wrappedElement;
     }
 }

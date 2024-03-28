@@ -28,14 +28,7 @@ public class WaitToBeClickableStrategy : WaitStrategy
     /// <summary>
     /// Playwright has auto-wait.
     /// </summary>
-    public override void WaitUntil<TBy>(TBy by)
-    {
-    }
-
-    /// <summary>
-    /// Playwright has auto-wait.
-    /// </summary>
-    public override void WaitUntil<TBy>(TBy by, Component parent)
+    public override void WaitUntil<TComponent>(TComponent component)
     {
     }
 }

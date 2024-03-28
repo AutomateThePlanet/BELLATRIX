@@ -28,7 +28,6 @@ public class TestExecutionEngine
             childContainer.RegisterInstance<WrappedBrowser>(wrappedBrowser);
             childContainer.RegisterInstance<string>(wrappedBrowser.GridSessionId, "gridSessionId");
             childContainer.RegisterInstance(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.GridUrl, "GridUri");
-            childContainer.RegisterInstance<IWebElementFinderService>(new NativeElementFinderService(wrappedBrowser));
             childContainer.RegisterNull<int?>();
             childContainer.RegisterNull<ILocator>();
             IsBrowserStartedCorrectly = true;

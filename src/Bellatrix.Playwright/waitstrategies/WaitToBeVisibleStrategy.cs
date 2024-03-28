@@ -25,13 +25,8 @@ public class WaitToBeVisibleStrategy : WaitStrategy
         TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToBeVisibleTimeout;
     }
 
-    public override void WaitUntil<TBy>(TBy by)
+    public override void WaitUntil<TComponent>(TComponent component)
     {
-        Expect(by.Resolve(WrappedBrowser.CurrentPage).WrappedLocator).ToBeVisibleAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
-    }
-
-    public override void WaitUntil<TBy>(TBy by, Component parent)
-    {
-        Expect(by.Resolve(parent.WrappedElement).WrappedLocator).ToBeVisibleAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        Expect(component.WrappedElement.WrappedLocator).ToBeVisibleAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

@@ -25,13 +25,8 @@ public class WaitToExistStrategy : WaitStrategy
         TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToExistTimeout;
     }
 
-    public override void WaitUntil<TBy>(TBy by)
+    public override void WaitUntil<TComponent>(TComponent component)
     {
-        Expect(by.Resolve(WrappedBrowser.CurrentPage).WrappedLocator).ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
-    }
-
-    public override void WaitUntil<TBy>(TBy by, Component parent)
-    {
-        Expect(by.Resolve(parent.WrappedElement).WrappedLocator).ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        Expect(component.WrappedElement.WrappedLocator).ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

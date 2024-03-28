@@ -19,87 +19,87 @@ namespace Bellatrix.Playwright;
 
 public static class ComponentRepositoryExtensions
 {
-    public static TComponent CreateByIdEndingWith<TComponent>(this ComponentCreateService repository, string idEnding, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindIdEndingWithStrategy>(new FindIdEndingWithStrategy(idEnding), shouldCacheElement);
+    public static TComponent CreateByIdEndingWith<TComponent>(this ComponentCreateService repository, string idEnding)
+        where TComponent : Component => repository.Create<TComponent, FindIdEndingWithStrategy>(new FindIdEndingWithStrategy(idEnding));
 
-    public static TComponent CreateByTag<TComponent>(this ComponentCreateService repository, string tag, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindTagStrategy>(new FindTagStrategy(tag), shouldCacheElement);
+    public static TComponent CreateByTag<TComponent>(this ComponentCreateService repository, string tag)
+        where TComponent : Component => repository.Create<TComponent, FindTagStrategy>(new FindTagStrategy(tag));
 
-    public static TComponent CreateById<TComponent>(this ComponentCreateService repository, string id, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindIdStrategy>(new FindIdStrategy(id), shouldCacheElement);
+    public static TComponent CreateById<TComponent>(this ComponentCreateService repository, string id)
+        where TComponent : Component => repository.Create<TComponent, FindIdStrategy>(new FindIdStrategy(id));
 
-    public static TComponent CreateByIdContaining<TComponent>(this ComponentCreateService repository, string idContaining, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindIdContainingStrategy>(new FindIdContainingStrategy(idContaining), shouldCacheElement);
+    public static TComponent CreateByIdContaining<TComponent>(this ComponentCreateService repository, string idContaining)
+        where TComponent : Component => repository.Create<TComponent, FindIdContainingStrategy>(new FindIdContainingStrategy(idContaining));
 
-    public static TComponent CreateByValueContaining<TComponent>(this ComponentCreateService repository, string valueEnding, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindValueContainingStrategy>(new FindValueContainingStrategy(valueEnding), shouldCacheElement);
+    public static TComponent CreateByValueContaining<TComponent>(this ComponentCreateService repository, string valueEnding)
+        where TComponent : Component => repository.Create<TComponent, FindValueContainingStrategy>(new FindValueContainingStrategy(valueEnding));
 
-    public static TComponent CreateByXpath<TComponent>(this ComponentCreateService repository, string xpath, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindXpathStrategy>(new FindXpathStrategy(xpath), shouldCacheElement);
+    public static TComponent CreateByXpath<TComponent>(this ComponentCreateService repository, string xpath)
+        where TComponent : Component => repository.Create<TComponent, FindXpathStrategy>(new FindXpathStrategy(xpath));
 
-    public static TComponent CreateByLinkText<TComponent>(this ComponentCreateService repository, string linkText, bool shouldCacheElement = false)
-      where TComponent : Component => repository.Create<TComponent, FindLinkTextStrategy>(new FindLinkTextStrategy(linkText), shouldCacheElement);
+    public static TComponent CreateByLinkText<TComponent>(this ComponentCreateService repository, string linkText)
+      where TComponent : Component => repository.Create<TComponent, FindLinkTextStrategy>(new FindLinkTextStrategy(linkText));
 
-    public static TComponent CreateByLinkTextContaining<TComponent>(this ComponentCreateService repository, string linkTextContaining, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindLinkTextContainsStrategy>(new FindLinkTextContainsStrategy(linkTextContaining), shouldCacheElement);
+    public static TComponent CreateByLinkTextContaining<TComponent>(this ComponentCreateService repository, string linkTextContaining)
+        where TComponent : Component => repository.Create<TComponent, FindLinkTextContainsStrategy>(new FindLinkTextContainsStrategy(linkTextContaining));
 
-    public static TComponent CreateByClass<TComponent>(this ComponentCreateService repository, string cssClass, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindClassStrategy>(new FindClassStrategy(cssClass), shouldCacheElement);
+    public static TComponent CreateByClass<TComponent>(this ComponentCreateService repository, string cssClass)
+        where TComponent : Component => repository.Create<TComponent, FindClassStrategy>(new FindClassStrategy(cssClass));
 
-    public static TComponent CreateByCss<TComponent>(this ComponentCreateService repository, string cssClass, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindCssStrategy>(new FindCssStrategy(cssClass), shouldCacheElement);
+    public static TComponent CreateByCss<TComponent>(this ComponentCreateService repository, string cssClass)
+        where TComponent : Component => repository.Create<TComponent, FindCssStrategy>(new FindCssStrategy(cssClass));
 
-    public static TComponent CreateByClassContaining<TComponent>(this ComponentCreateService repository, string cssClassContaining, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindClassContainingStrategy>(new FindClassContainingStrategy(cssClassContaining), shouldCacheElement);
+    public static TComponent CreateByClassContaining<TComponent>(this ComponentCreateService repository, string cssClassContaining)
+        where TComponent : Component => repository.Create<TComponent, FindClassContainingStrategy>(new FindClassContainingStrategy(cssClassContaining));
 
-    public static TComponent CreateByInnerTextContaining<TComponent>(this ComponentCreateService repository, string innerText, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindInnerTextContainsStrategy>(new FindInnerTextContainsStrategy(innerText), shouldCacheElement);
+    public static TComponent CreateByInnerTextContaining<TComponent>(this ComponentCreateService repository, string innerText)
+        where TComponent : Component => repository.Create<TComponent, FindInnerTextContainsStrategy>(new FindInnerTextContainsStrategy(innerText));
 
-    public static TComponent CreateByNameEndingWith<TComponent>(this ComponentCreateService repository, string name, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindNameEndingWithStrategy>(new FindNameEndingWithStrategy(name), shouldCacheElement);
+    public static TComponent CreateByNameEndingWith<TComponent>(this ComponentCreateService repository, string name)
+        where TComponent : Component => repository.Create<TComponent, FindNameEndingWithStrategy>(new FindNameEndingWithStrategy(name));
 
-    public static TComponent CreateByAttributesContaining<TComponent>(this ComponentCreateService repository, string attributeName, string value, bool shouldCacheElement = false)
-        where TComponent : Component => repository.Create<TComponent, FindAttributeContainingStrategy>(Find.By.AttributeContaining(attributeName, value), shouldCacheElement);
+    public static TComponent CreateByAttributesContaining<TComponent>(this ComponentCreateService repository, string attributeName, string value)
+        where TComponent : Component => repository.Create<TComponent, FindAttributeContainingStrategy>(Find.By.AttributeContaining(attributeName, value));
 
-    public static ComponentsList<TComponent> CreateAllByIdEndingWith<TComponent>(this ComponentCreateService repository, string idEnding, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindIdEndingWithStrategy(idEnding), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByIdEndingWith<TComponent>(this ComponentCreateService repository, string idEnding)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindIdEndingWithStrategy(idEnding));
 
-    public static ComponentsList<TComponent> CreateAllByTag<TComponent>(this ComponentCreateService repository, string tag, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindTagStrategy(tag), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByTag<TComponent>(this ComponentCreateService repository, string tag)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindTagStrategy(tag));
 
-    public static ComponentsList<TComponent> CreateAllById<TComponent>(this ComponentCreateService repository, string id, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindIdStrategy(id), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllById<TComponent>(this ComponentCreateService repository, string id)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindIdStrategy(id));
 
-    public static ComponentsList<TComponent> CreateAllByIdContaining<TComponent>(this ComponentCreateService repository, string idContaining, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindIdContainingStrategy(idContaining), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByIdContaining<TComponent>(this ComponentCreateService repository, string idContaining)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindIdContainingStrategy(idContaining));
 
-    public static ComponentsList<TComponent> CreateAllByValueContaining<TComponent>(this ComponentCreateService repository, string valueEnding, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindValueContainingStrategy(valueEnding), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByValueContaining<TComponent>(this ComponentCreateService repository, string valueEnding)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindValueContainingStrategy(valueEnding));
 
-    public static ComponentsList<TComponent> CreateAllByXpath<TComponent>(this ComponentCreateService repository, string xpath, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindXpathStrategy(xpath), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByXpath<TComponent>(this ComponentCreateService repository, string xpath)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindXpathStrategy(xpath));
 
-    public static ComponentsList<TComponent> CreateAllByLinkText<TComponent>(this ComponentCreateService repository, string linkText, bool shouldCacheFoundElements = false)
-      where TComponent : Component => new ComponentsList<TComponent>(new FindLinkTextStrategy(linkText), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByLinkText<TComponent>(this ComponentCreateService repository, string linkText)
+      where TComponent : Component => new ComponentsList<TComponent>(new FindLinkTextStrategy(linkText));
 
-    public static ComponentsList<TComponent> CreateAllByLinkTextContaining<TComponent>(this ComponentCreateService repository, string linkTextContaining, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindLinkTextContainsStrategy(linkTextContaining), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByLinkTextContaining<TComponent>(this ComponentCreateService repository, string linkTextContaining)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindLinkTextContainsStrategy(linkTextContaining));
 
-    public static ComponentsList<TComponent> CreateAllByClass<TComponent>(this ComponentCreateService repository, string cssClass, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindClassStrategy(cssClass), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByClass<TComponent>(this ComponentCreateService repository, string cssClass)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindClassStrategy(cssClass));
 
-    public static ComponentsList<TComponent> CreateAllByCss<TComponent>(this ComponentCreateService repository, string cssClass, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindCssStrategy(cssClass), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByCss<TComponent>(this ComponentCreateService repository, string cssClass)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindCssStrategy(cssClass));
 
-    public static ComponentsList<TComponent> CreateAllByClassContaining<TComponent>(this ComponentCreateService repository, string classContaining, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindClassContainingStrategy(classContaining), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByClassContaining<TComponent>(this ComponentCreateService repository, string classContaining)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindClassContainingStrategy(classContaining));
 
-    public static ComponentsList<TComponent> CreateAllByInnerTextContaining<TComponent>(this ComponentCreateService repository, string innerText, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindInnerTextContainsStrategy(innerText), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByInnerTextContaining<TComponent>(this ComponentCreateService repository, string innerText)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindInnerTextContainsStrategy(innerText));
 
-    public static ComponentsList<TComponent> CreateAllByNameEndingWith<TComponent>(this ComponentCreateService repository, string name, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindNameEndingWithStrategy(name), null);
+    public static ComponentsList<TComponent> CreateAllByNameEndingWith<TComponent>(this ComponentCreateService repository, string name)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindNameEndingWithStrategy(name));
 
-    public static ComponentsList<TComponent> CreateAllByAttributesContaining<TComponent>(this ComponentCreateService repository, string attributeName, string value, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(Find.By.AttributeContaining(attributeName, value), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByAttributesContaining<TComponent>(this ComponentCreateService repository, string attributeName, string value)
+        where TComponent : Component => new ComponentsList<TComponent>(Find.By.AttributeContaining(attributeName, value));
 }

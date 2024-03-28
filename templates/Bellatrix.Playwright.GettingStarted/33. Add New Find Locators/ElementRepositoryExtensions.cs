@@ -6,9 +6,9 @@ namespace Bellatrix.Playwright.GettingStarted.ExtensionMethodsLocators;
 // This is everything after that you can use your new locator as it was originally part of Bellatrix.
 public static class ElementRepositoryExtensions
 {
-    public static TComponent CreateByIdStartingWith<TComponent>(this ComponentCreateService repository, string idPrefix, bool shouldCache = false)
-        where TComponent : Component => repository.Create<TComponent, FindIdStartingWithStrategy>(new FindIdStartingWithStrategy(idPrefix), shouldCache);
+    public static TComponent CreateByIdStartingWith<TComponent>(this ComponentCreateService repository, string idPrefix)
+        where TComponent : Component => repository.Create<TComponent, FindIdStartingWithStrategy>(new FindIdStartingWithStrategy(idPrefix));
 
     public static ComponentsList<TComponent> CreateAllByIdStartingWith<TComponent>(this ComponentCreateService repository, string idPrefix)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindIdStartingWithStrategy(idPrefix), null);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindIdStartingWithStrategy(idPrefix));
 }

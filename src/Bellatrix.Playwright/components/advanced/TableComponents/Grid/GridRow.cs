@@ -94,7 +94,7 @@ public class GridRow : Component, IComponentInnerHtml
             else
             {
                 var repo = new ComponentRepository();
-                element = repo.CreateComponentWithParent(cell.CellControlBy, cell, typeof(TComponent), false);
+                element = repo.CreateComponentWithParent(cell.CellControlBy, cell, typeof(TComponent));
                 listOfElements.Add(element);
             }
         }

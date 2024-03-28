@@ -15,49 +15,35 @@
 using System.Collections;
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Services;
-using Bellatrix.Playwright.Settings;
-using Bellatrix.Playwright.Settings.Extensions;
-using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 
 public class ComponentsList<TComponent> : IEnumerable<TComponent>
     where TComponent : Component
 {
-    private readonly FindStrategy _by;
-    private readonly WebElement _parenTComponent;
-    private readonly List<TComponent> _foundElements;
-    private readonly bool _shouldCacheFoundElements;
-    private List<TComponent> _cachedElements;
+    private readonly List<TComponent> _components;
 
-    public ComponentsList(
-        FindStrategy by,
-        WebElement parenTComponent,
-        bool shouldCacheFoundElements)
-    : this(by, parenTComponent)
+    public ComponentsList(FindStrategy by, WebElement parenTComponent)
     {
-        _shouldCacheFoundElements = shouldCacheFoundElements;
+        _components = InitializeComponents(by, parenTComponent);
+        WrappedBrowser = ServicesCollection.Current.Resolve<WrappedBrowser>();
     }
 
-    public ComponentsList(
-        FindStrategy by,
-        WebElement parenTComponent)
+    public ComponentsList(FindStrategy by)
     {
-        _by = by;
-        _parenTComponent = parenTComponent;
-        _foundElements = new List<TComponent>();
+        _components = InitializeComponents(by);
         WrappedBrowser = ServicesCollection.Current.Resolve<WrappedBrowser>();
     }
 
     public ComponentsList()
     {
-        _foundElements = new List<TComponent>();
+        _components = new List<TComponent>();
         WrappedBrowser = ServicesCollection.Current.Resolve<WrappedBrowser>();
     }
 
-    public ComponentsList(IEnumerable<TComponent> nativeElementList)
+    public ComponentsList(IEnumerable<TComponent> componentList)
     {
-        _foundElements = new List<TComponent>(nativeElementList);
+        _components = new List<TComponent>(componentList);
         WrappedBrowser = ServicesCollection.Current.Resolve<WrappedBrowser>();
     }
 
@@ -69,7 +55,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         {
             try
             {
-                return GetAndWaitWebElements().ElementAt(i);
+                return GetComponents().ElementAt(i);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -78,20 +64,11 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         }
     }
 
-    public IEnumerator<TComponent> GetEnumerator() => GetAndWaitWebElements().GetEnumerator();
+    public IEnumerator<TComponent> GetEnumerator() => GetComponents().GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public int Count()
-    {
-        if (_by == null)
-        {
-            return _foundElements.Count;
-        }
-
-        var nativeElements = WaitWebElements();
-        return nativeElements.Count();
-    }
+    public int Count() => _components.Count;
 
     public void ForEach(Action<TComponent> action)
     {
@@ -103,95 +80,43 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 
     public void Add(TComponent element)
     {
-        _foundElements.Add(element);
+        _components.Add(element);
     }
 
-    private IEnumerable<TComponent> GetAndWaitWebElements()
+    private IEnumerable<TComponent> GetComponents()
     {
-        if (_shouldCacheFoundElements && _cachedElements == null)
+        foreach (var component in _components)
         {
-            _cachedElements = GetAndWaitNativeElements().ToList();
-        }
-
-        if (_shouldCacheFoundElements && _cachedElements != null)
-        {
-            foreach (var element in _cachedElements)
-            {
-                yield return element;
-            }
-        }
-        else
-        {
-            foreach (var element in GetAndWaitNativeElements())
-            {
-                yield return element;
-            }
-        }
-
-        IEnumerable<TComponent> GetAndWaitNativeElements()
-        {
-            foreach (var foundElement in _foundElements)
-            {
-                yield return foundElement;
-            }
-
-            if (_by != null)
-            {
-                var nativeElements = WaitWebElements();
-                int index = 0;
-                foreach (var nativeElement in nativeElements)
-                {
-                    var elementRepository = new ComponentRepository();
-                    if (_parenTComponent != null)
-                    {
-                        var element =
-                            elementRepository.CreateComponentWithParent<TComponent>(_by, _parenTComponent, nativeElement, index++, _shouldCacheFoundElements);
-                        yield return element;
-                    }
-                    else
-                    {
-                        var element =
-                            elementRepository.CreateComponentThatIsFound<TComponent>(_by, nativeElement, _shouldCacheFoundElements);
-                        yield return element;
-                    }
-                }
-            }
+            yield return component;
         }
     }
 
-    private IEnumerable<WebElement> WaitWebElements()
+    private List<TComponent> InitializeComponents(FindStrategy by, WebElement parenTComponent)
     {
-        var elementFinder = _parenTComponent == null
-            ? new NativeElementFinderService(WrappedBrowser)
-            : new NativeElementFinderService(_parenTComponent);
-        if (_parenTComponent == null)
+        var list = new List<TComponent>();
+        var webElements = by.Resolve(parenTComponent).All();
+        foreach (var element in webElements)
         {
-            return ConditionalWait(elementFinder);
+            list.Add(ServicesCollection.Current.Resolve<ComponentRepository>().CreateComponentWithParent<TComponent>(by, parenTComponent));
         }
-        else
-        {
-            var elementRepository = new ComponentRepository();
-            var parenTComponent = elementRepository.CreateComponentThatIsFound<Component>(_by, _parenTComponent, true);
-            return ConditionalWait(elementFinder);
-        }
+
+        return list;
     }
 
-    // TODO: This is a technical debt, for the case with _by that is not null and we want to verify the non-existance of elements
-    public IEnumerable<WebElement> ConditionalWait(NativeElementFinderService elementFinder)
+    private List<TComponent> InitializeComponents(FindStrategy by)
     {
-        Bellatrix.Utilities.Wait.ForConditionUntilTimeout(
-               () =>
-               {
-                   return elementFinder.FindAll(_by).Any();
-               },
-               totalRunTimeoutMilliseconds: ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToExistTimeout,
-               sleepTimeMilliseconds: ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().SleepInterval);
+        var list = new List<TComponent>();
+        var webElements = by.Resolve(WrappedBrowser.CurrentPage).All();
+        foreach (var element in webElements)
+        {
+            list.Add(ServicesCollection.Current.Resolve<ComponentRepository>().CreateComponent<TComponent>(by));
+        }
 
-        return elementFinder.FindAll(_by);
+        return list;
     }
 
     public void AddRange(List<TComponent> currentFilteredCells)
     {
-        _foundElements.AddRange(currentFilteredCells);
+        _components.AddRange(currentFilteredCells);
     }
 }

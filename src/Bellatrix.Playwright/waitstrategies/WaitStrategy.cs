@@ -15,7 +15,6 @@
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.Playwright.Settings;
-using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright.WaitStrategies;
 
@@ -34,33 +33,6 @@ public abstract class WaitStrategy
 
     protected int? SleepInterval { get; }
 
-    public abstract void WaitUntil<TBy>(TBy by)
-        where TBy : FindStrategy;
-
-    public abstract void WaitUntil<TBy>(TBy by, Component parent)
-        where TBy : FindStrategy;
-
-    protected WebElement FindElement<TBy>(WebElement searchContext, TBy by)
-        where TBy : FindStrategy
-    {
-        var nativeElementFinder = new NativeElementFinderService(searchContext);
-        var element = nativeElementFinder.Find(by);
-        return element;
-    }
-
-    protected WebElement FindElement<TBy>(BrowserPage searchContext, TBy by)
-        where TBy : FindStrategy
-    {
-        var nativeElementFinder = new NativeElementFinderService(searchContext);
-        var element = nativeElementFinder.Find(by);
-        return element;
-    }
-
-    protected WebElement FindElement<TBy>(WrappedBrowser searchContext, TBy by)
-        where TBy : FindStrategy
-    {
-        var nativeElementFinder = new NativeElementFinderService(searchContext);
-        var element = nativeElementFinder.Find(by);
-        return element;
-    }
+    public abstract void WaitUntil<TComponent>(TComponent by)
+        where TComponent : Component;
 }

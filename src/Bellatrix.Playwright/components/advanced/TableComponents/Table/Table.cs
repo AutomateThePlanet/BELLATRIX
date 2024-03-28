@@ -77,7 +77,7 @@ public class Table : Component
     public override Type ComponentType => GetType();
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public virtual List<Label> ColumnHeaders => this.CreateAllByTag<Label>("th", true).ToList();
+    public virtual List<Label> ColumnHeaders => this.CreateAllByTag<Label>("th").ToList();
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual List<TableHeaderRow> TableHeaderRows => this.CreateAllByXpath<TableHeaderRow>(".//tr[descendant::th]").ToList();
@@ -283,12 +283,12 @@ public class Table : Component
     {
         if (_rows == null || !_rows.Any())
         {
-            _rows = this.CreateAllByXpath<TableRow>(".//tr[descendant::td]|./tbody/tr[descendant::td]", true).ToList();
+            _rows = this.CreateAllByXpath<TableRow>(".//tr[descendant::td]|./tbody/tr[descendant::td]").ToList();
 
             int rowNumber = 0;
             foreach (var gridRow in _rows)
             {
-                if (this.CreateAllByXpath<TableRow>(".//tr[descendant::th]", true).ToElementList().Any())
+                if (this.CreateAllByXpath<TableRow>(".//tr[descendant::th]").ToElementList().Any())
                 {
                     gridRow.SetParentTable(this);
                 }

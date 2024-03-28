@@ -26,14 +26,9 @@ public class WaitToHaveContentStrategy : WaitStrategy
         TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToHaveContentTimeout;
     }
 
-    public override void WaitUntil<TBy>(TBy by)
+    public override void WaitUntil<TComponent>(TComponent component)
     {
         // Is this correct?
-        Expect(by.Resolve(WrappedBrowser.CurrentPage).WrappedLocator).ToHaveTextAsync(new Regex(@".*"), new() { Timeout =  TimeoutInterval });
-    }
-
-    public override void WaitUntil<TBy>(TBy by, Component parent)
-    {
-        Expect(by.Resolve(parent.WrappedElement).WrappedLocator).ToHaveTextAsync(new Regex(@".*"), new() { Timeout = TimeoutInterval });
+        Expect(component.WrappedElement.WrappedLocator).ToHaveTextAsync(new Regex(@".*"), new() { Timeout =  TimeoutInterval });
     }
 }

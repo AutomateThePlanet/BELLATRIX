@@ -24,7 +24,7 @@ public class TableRow : Component, IComponentInnerHtml
     private Table _parentTable;
     private HeaderNamesService _headerNamesService;
 
-    protected virtual List<TableCell> TableCells => this.CreateAllByXpath<TableCell>("./td", true).ToList();
+    protected virtual List<TableCell> TableCells => this.CreateAllByXpath<TableCell>("./td").ToList();
 
     public int Index { get; set; }
 
