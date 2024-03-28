@@ -69,7 +69,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         {
             try
             {
-                return GetAndWaitWebDriverElements().ElementAt(i);
+                return GetAndWaitWebElements().ElementAt(i);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -78,7 +78,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         }
     }
 
-    public IEnumerator<TComponent> GetEnumerator() => GetAndWaitWebDriverElements().GetEnumerator();
+    public IEnumerator<TComponent> GetEnumerator() => GetAndWaitWebElements().GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -106,7 +106,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         _foundElements.Add(element);
     }
 
-    private IEnumerable<TComponent> GetAndWaitWebDriverElements()
+    private IEnumerable<TComponent> GetAndWaitWebElements()
     {
         if (_shouldCacheFoundElements && _cachedElements == null)
         {
@@ -172,7 +172,6 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         {
             var elementRepository = new ComponentRepository();
             var parenTComponent = elementRepository.CreateComponentThatIsFound<Component>(_by, _parenTComponent, true);
-
             return ConditionalWait(elementFinder);
         }
     }
