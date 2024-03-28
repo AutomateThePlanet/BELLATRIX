@@ -23,14 +23,12 @@ public class BrowserConfiguration
     {
     }
 
-#pragma warning disable 618
     public BrowserConfiguration(ExecutionType executionType, Lifecycle browserBehavior, BrowserChoice browserType, Size size, string classFullName, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
-#pragma warning restore 618
         : this(browserBehavior, browserType, size, shouldCaptureHttpTraffic, shouldDisableJavaScript, shouldAutomaticallyScrollToVisible)
     {
         ExecutionType = executionType;
         ClassFullName = classFullName;
-        GridOptions = gridOptions;
+        GridOptions = gridOptions != null ? gridOptions : new Dictionary<string, object>();
     }
 
     public BrowserConfiguration(Lifecycle browserBehavior, BrowserChoice browserType, Size size, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
@@ -38,7 +36,7 @@ public class BrowserConfiguration
     {
         BrowserBehavior = browserBehavior;
         Size = size;
-        GridOptions = gridOptions;
+        GridOptions = gridOptions != null ? gridOptions : new Dictionary<string, object>();
     }
 
     public BrowserConfiguration(BrowserChoice browserType, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
@@ -47,7 +45,7 @@ public class BrowserConfiguration
         ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
         ShouldDisableJavaScript = shouldDisableJavaScript;
         ShouldAutomaticallyScrollToVisible = shouldAutomaticallyScrollToVisible;
-        GridOptions = gridOptions;
+        GridOptions = gridOptions != null ? gridOptions : new Dictionary<string, object>();
     }
 
     public BrowserChoice BrowserType { get; set; } = BrowserChoice.Chromium;
@@ -68,21 +66,24 @@ public class BrowserConfiguration
                                                       ShouldCaptureHttpTraffic.Equals(other?.ShouldCaptureHttpTraffic) &&
                                                       ShouldDisableJavaScript.Equals(other?.ShouldDisableJavaScript) &&
                                                       Size.Equals(other?.Size) &&
-                                                      GridOptions.Equals(other?.GridOptions) &&
+                                                      GridOptions.SequenceEqual(other?.GridOptions) &&
                                                       IsLighthouseEnabled.Equals(other?.IsLighthouseEnabled) &&
                                                       ShouldAutomaticallyScrollToVisible.Equals(other?.ShouldAutomaticallyScrollToVisible);
 
     public override bool Equals(object obj)
     {
+        if (obj is not BrowserConfiguration) return false;
+
         var browserConfiguration = (BrowserConfiguration)obj;
+
         return ExecutionType.Equals(browserConfiguration?.ExecutionType) &&
-        BrowserType.Equals(browserConfiguration?.BrowserType) &&
-        ShouldCaptureHttpTraffic.Equals(browserConfiguration?.ShouldCaptureHttpTraffic) &&
-        ShouldDisableJavaScript.Equals(browserConfiguration?.ShouldDisableJavaScript) &&
-        Size.Equals(browserConfiguration?.Size) &&
-        GridOptions.Equals(browserConfiguration?.GridOptions) &&
-        ShouldAutomaticallyScrollToVisible.Equals(browserConfiguration?.ShouldAutomaticallyScrollToVisible) &&
-        IsLighthouseEnabled.Equals(browserConfiguration?.IsLighthouseEnabled);
+            BrowserType.Equals(browserConfiguration?.BrowserType) &&
+            ShouldCaptureHttpTraffic.Equals(browserConfiguration?.ShouldCaptureHttpTraffic) &&
+            ShouldDisableJavaScript.Equals(browserConfiguration?.ShouldDisableJavaScript) &&
+            Size.Equals(browserConfiguration?.Size) &&
+            GridOptions.Equals(browserConfiguration?.GridOptions) &&
+            ShouldAutomaticallyScrollToVisible.Equals(browserConfiguration?.ShouldAutomaticallyScrollToVisible) &&
+            IsLighthouseEnabled.Equals(browserConfiguration?.IsLighthouseEnabled);
     }
 
     public override int GetHashCode()
