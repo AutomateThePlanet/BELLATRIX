@@ -17,6 +17,9 @@ using Bellatrix.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bellatrix.Playwright.Services;
 using Bellatrix.Playwright.Enums;
+using Bellatrix.Playwright;
+using System.Reflection;
+using Microsoft.TeamFoundation.Common;
 
 namespace Bellatrix.GoogleLighthouse.MSTest;
 
@@ -30,8 +33,9 @@ public class MSTestLighthouseReportsWorkflowPlugin : Plugin
 
     protected override void PostTestCleanup(object sender, PluginEventArgs e)
     {
-        var settings = ConfigurationService.GetSection<LighthouseSettings>();
-        if (settings.IsEnabled && WrappedBrowserCreateService.BrowserConfiguration.ExecutionType == ExecutionType.Regular)
+        // As lighthouse analysis run is possible only if there is LighthouseAnalysisRunAttribute,
+        // The only condition that needs to be met is if there is such attribute.
+        if (HasLighthouseAttribute(e) && WrappedBrowserCreateService.BrowserConfiguration.ExecutionType == ExecutionType.Regular)
         {
             lock (_lockObject)
             {
@@ -54,6 +58,27 @@ public class MSTestLighthouseReportsWorkflowPlugin : Plugin
                     TestContext?.AddResultFile(file.FullName);
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Checks if the test is a lighthouse analysis or not.
+    /// </summary>
+    private bool HasLighthouseAttribute(PluginEventArgs e)
+    {
+        // Does it have any attribute of type BrowserAttribute?
+        bool testHasAnyAttribute = !e.TestMethodMemberInfo.GetCustomAttributes().Where(x => x is BrowserAttribute).IsNullOrEmpty();
+
+
+        if (testHasAnyAttribute)
+        {
+            // Checks if this attribute is for lighthouse analysis
+            return e.TestMethodMemberInfo.GetCustomAttribute<LighthouseAnalysisRunAttribute>() != null;
+        }
+        else
+        {
+            // Otherwise, checks if the class has this attribute
+            return e.TestClassType.GetCustomAttribute<LighthouseAnalysisRunAttribute>() != null;
         }
     }
 }
