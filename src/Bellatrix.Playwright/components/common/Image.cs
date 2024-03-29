@@ -28,9 +28,9 @@ public class Image : Component, IComponentSrc, IComponentHeight, IComponentWidth
 
     public override Type ComponentType => GetType();
 
-    public virtual void Click()
+    public virtual void Click(LocatorClickOptions options = null)
     {
-        DefaultClick(Clicking, Clicked);
+        DefaultClick(Clicking, Clicked, options);
     }
 
     public virtual void Hover()

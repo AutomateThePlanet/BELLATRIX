@@ -35,7 +35,7 @@ public class MultipleSelect : Component, IComponentDisabled, IComponentRequired,
         Hover(Hovering, Hovered);
     }
 
-    public virtual ComponentsList<Option> GetSelected()
+    public virtual ComponentsList<Option> GetAllSelected()
     {
         string[] optionValues = WrappedElement.Evaluate<string[]>("el => {" +
                 "var selectedOptions = [];" +
@@ -131,7 +131,7 @@ public class MultipleSelect : Component, IComponentDisabled, IComponentRequired,
             throw new InvalidOperationException("You may only deselect all options if multi-select is supported.");
         }
 
-        var selected = GetSelected();
+        var selected = GetAllSelected();
 
         foreach (var option in selected)
         {

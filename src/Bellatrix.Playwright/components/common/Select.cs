@@ -80,7 +80,7 @@ public class Select : Component, IComponentDisabled, IComponentRequired, ICompon
     {
         Selecting?.Invoke(this, new ComponentActionEventArgs(this, index.ToString()));
 
-        InternalSelect(new SelectOptionValue() { Index = index }, index);
+        InternalSelect(new SelectOptionValue() { Index = index }, index.ToString());
 
         Selected?.Invoke(this, new ComponentActionEventArgs(this, GetSelected().GetInnerText()));
     }
@@ -103,22 +103,6 @@ public class Select : Component, IComponentDisabled, IComponentRequired, ICompon
         catch
         {
             FailedSelection.Invoke(this, new ComponentActionEventArgs(this, by));
-
-            throw;
-        }
-    }
-
-    private void InternalSelect(SelectOptionValue option, int by)
-    {
-        try
-        {
-            var optionValue = WrappedElement.SelectOption(option)[0];
-            if (string.IsNullOrEmpty(optionValue)) throw new ArgumentException("Returning option value was empty, something went wrong during selection.");
-        }
-
-        catch
-        {
-            FailedSelection.Invoke(this, new ComponentActionEventArgs(this, by.ToString()));
 
             throw;
         }

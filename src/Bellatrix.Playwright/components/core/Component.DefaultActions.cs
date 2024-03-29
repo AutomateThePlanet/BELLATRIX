@@ -26,8 +26,7 @@ public partial class Component
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public Size Size => new((int)WrappedElement.BoundingBox().Width, (int)WrappedElement.BoundingBox().Height);
 
-    // TODO: Will GetCssValue() work?
-    public string GetCssValue(string propertyName) => WrappedElement.Evaluate($"element => window.getComputedStyle(element).getPropertyValue('{propertyName}')").GetValueOrDefault().ToString();
+    public string GetCssValue(string propertyName) => WrappedElement.Evaluate<string>($"element => window.getComputedStyle(element).getPropertyValue('{propertyName}')");
 
     protected virtual void DefaultSetAttribute(string attributeName, string attributeValue)
     {
@@ -43,17 +42,17 @@ public partial class Component
         return string.IsNullOrEmpty(GetAttribute("class")) ? null : GetAttribute("class");
     }
 
-    internal void DefaultClick(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked)
+    internal void DefaultClick(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked, LocatorClickOptions options = default)
     {
         clicking?.Invoke(this, new ComponentActionEventArgs(this));
 
-        // Should we first perform a normal click? or at least provide this option
-        PerformJsClick();
+        if ((bool)options.Force) PerformJsClick();
+        else WrappedElement.Click(options);
 
         clicked?.Invoke(this, new ComponentActionEventArgs(this));
     }
 
-    private void PerformJsClick() => _ = WrappedElement.Evaluate("el => el.click()");
+    private void PerformJsClick() => WrappedElement.Evaluate("el => el.click()");
 
     internal void DefaultCheck(EventHandler<ComponentActionEventArgs> checking, EventHandler<ComponentActionEventArgs> @checked, LocatorCheckOptions options = default)
     {
@@ -208,11 +207,11 @@ public partial class Component
         return string.IsNullOrEmpty(GetAttribute("list")) ? null : GetAttribute("list");
     }
 
-    internal void DefaultSetText(EventHandler<ComponentActionEventArgs> settingValue, EventHandler<ComponentActionEventArgs> valueSet, string value)
+    internal void DefaultSetText(EventHandler<ComponentActionEventArgs> settingValue, EventHandler<ComponentActionEventArgs> valueSet, string value, LocatorFillOptions options = default)
     {
         settingValue?.Invoke(this, new ComponentActionEventArgs(this, value));
 
-        WrappedElement.Fill(value);
+        WrappedElement.Fill(value, options);
 
         valueSet?.Invoke(this, new ComponentActionEventArgs(this, value));
     }
@@ -220,6 +219,7 @@ public partial class Component
     private void ScrollToVisible(bool shouldWait = true)
     {
         ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs(this));
+
         try
         {
             WrappedElement.ScrollIntoViewIfNeeded();
