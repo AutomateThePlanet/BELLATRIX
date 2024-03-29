@@ -17,4 +17,13 @@ namespace Bellatrix.Playwright;
 public class Frame : Component
 {
     public string Name => GetAttribute("name");
+
+    /// <summary>
+    /// Should this component act like <iframe> and allow searching inside of it or not.
+    /// </summary>
+    public bool ActAsFrame
+    {
+        get => WrappedElement.IsFrame;
+        set => WrappedElement.IsFrame = value;
+    }
 }
