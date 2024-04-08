@@ -25,12 +25,12 @@ public class FindTagStrategy : FindStrategy
 
     public override WebElement Resolve(BrowserPage searchContext)
     {
-        return searchContext.Locate($"//{Value}");
+        return searchContext.Locate($"{Value}");
     }
 
     public override WebElement Resolve(WebElement searchContext)
     {
-        return searchContext.Locate($"//{Value}");
+        return searchContext.Locate($"{Value}");
     }
 
     public override string ToString()
