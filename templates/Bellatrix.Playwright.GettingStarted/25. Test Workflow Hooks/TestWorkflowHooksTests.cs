@@ -4,7 +4,7 @@ using Bellatrix.Playwright.Enums;
 namespace Bellatrix.Playwright.GettingStarted;
 
 [TestFixture]
-[Browser(BrowserChoice.Chrome, Lifecycle.ReuseIfStarted)]
+[Browser(BrowserTypes.Chrome, Lifecycle.ReuseIfStarted)]
 public class TestWorkflowHooksTests : NUnit.WebTest
 {
     // 1. One of the greatest features of BELLATRIX is test workflow hooks.

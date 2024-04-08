@@ -4,8 +4,8 @@ using NUnit.Framework;
 namespace Bellatrix.Playwright.GettingStarted;
 
 [TestFixture]
-[Browser(BrowserChoice.Chrome, Lifecycle.RestartEveryTime)]
-[Browser(OS.OSX, BrowserChoice.Webkit, Lifecycle.RestartEveryTime)]
+[Browser(BrowserTypes.Chrome, Lifecycle.RestartEveryTime)]
+[Browser(OS.OSX, BrowserTypes.Webkit, Lifecycle.RestartEveryTime)]
 public class CustomTestCaseExtensionTests : NUnit.WebTest
 {
     // 1. Once we created the test workflow plugin, we need to add it to the existing test workflow.

@@ -23,7 +23,7 @@ public class BrowserConfiguration
     {
     }
 
-    public BrowserConfiguration(ExecutionType executionType, Lifecycle browserBehavior, BrowserChoice browserType, Size size, string classFullName, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
+    public BrowserConfiguration(ExecutionType executionType, Lifecycle browserBehavior, BrowserTypes browserType, Size size, string classFullName, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
         : this(browserBehavior, browserType, size, shouldCaptureHttpTraffic, shouldDisableJavaScript, shouldAutomaticallyScrollToVisible)
     {
         ExecutionType = executionType;
@@ -31,7 +31,7 @@ public class BrowserConfiguration
         GridOptions = gridOptions != null ? gridOptions : new Dictionary<string, object>();
     }
 
-    public BrowserConfiguration(Lifecycle browserBehavior, BrowserChoice browserType, Size size, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
+    public BrowserConfiguration(Lifecycle browserBehavior, BrowserTypes browserType, Size size, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
         : this(browserType, shouldCaptureHttpTraffic, shouldDisableJavaScript, shouldAutomaticallyScrollToVisible)
     {
         BrowserBehavior = browserBehavior;
@@ -39,7 +39,7 @@ public class BrowserConfiguration
         GridOptions = gridOptions != null ? gridOptions : new Dictionary<string, object>();
     }
 
-    public BrowserConfiguration(BrowserChoice browserType, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
+    public BrowserConfiguration(BrowserTypes browserType, bool shouldCaptureHttpTraffic, bool shouldDisableJavaScript, bool shouldAutomaticallyScrollToVisible, Dictionary<string, object> gridOptions = null)
     {
         BrowserType = browserType;
         ShouldCaptureHttpTraffic = shouldCaptureHttpTraffic;
@@ -48,7 +48,7 @@ public class BrowserConfiguration
         GridOptions = gridOptions != null ? gridOptions : new Dictionary<string, object>();
     }
 
-    public BrowserChoice BrowserType { get; set; } = BrowserChoice.Chromium;
+    public BrowserTypes BrowserType { get; set; } = BrowserTypes.Chromium;
     public Lifecycle BrowserBehavior { get; set; } = Lifecycle.RestartEveryTime;
     public Size Size { get; set; }
     public bool ShouldCaptureHttpTraffic { get; set; }

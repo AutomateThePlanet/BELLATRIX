@@ -70,7 +70,7 @@ public class NavigationService : WebService
 
         string pageFilePath = Path.Combine(path ?? throw new InvalidOperationException(), filePath);
 
-        if (WrappedBrowserCreateService.BrowserConfiguration.BrowserType.Equals(BrowserChoice.Webkit) || WrappedBrowserCreateService.BrowserConfiguration.BrowserType.Equals(BrowserChoice.Firefox) || WrappedBrowserCreateService.BrowserConfiguration.BrowserType.Equals(BrowserChoice.FirefoxHeadless))
+        if (WrappedBrowserCreateService.BrowserConfiguration.BrowserType.Equals(BrowserTypes.Webkit) || WrappedBrowserCreateService.BrowserConfiguration.BrowserType.Equals(BrowserTypes.Firefox) || WrappedBrowserCreateService.BrowserConfiguration.BrowserType.Equals(BrowserTypes.FirefoxHeadless))
         {
             pageFilePath = string.Concat("file:///", pageFilePath);
         }
@@ -80,7 +80,7 @@ public class NavigationService : WebService
             pageFilePath = pageFilePath.Replace('\\', '/').Replace("file:////", "file://////").Replace(" ", "%20");
         }
 
-        if (!WrappedBrowserCreateService.BrowserConfiguration.BrowserType.Equals(BrowserChoice.Webkit))
+        if (!WrappedBrowserCreateService.BrowserConfiguration.BrowserType.Equals(BrowserTypes.Webkit))
         {
             Navigate(new Uri(pageFilePath, uriKind: UriKind.Absolute));
         }

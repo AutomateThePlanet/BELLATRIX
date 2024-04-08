@@ -26,7 +26,7 @@ namespace Bellatrix.Playwright.GettingStarted;
 //      ]
 //}
 // 3. Keep in mind that Playwright supports only Chrome browsers for Selenium Grid.
-[Remote(BrowserChoice.Chrome, "62", Lifecycle.ReuseIfStarted)]
+[Remote(BrowserTypes.Chrome, "62", Lifecycle.ReuseIfStarted)]
 public class SeleniumGridTests : NUnit.WebTest
 {
     [Test]
@@ -44,7 +44,7 @@ public class SeleniumGridTests : NUnit.WebTest
     // As you can see with the Remote attribute we can change the browser window size again.
     [Test]
     [Ignore("no need to run")]
-    [Remote(BrowserChoice.Chrome, "62", DesktopWindowSize._1280_1024, Lifecycle.ReuseIfStarted)]
+    [Remote(BrowserTypes.Chrome, "62", DesktopWindowSize._1280_1024, Lifecycle.ReuseIfStarted)]
 
     // [Remote(BrowserChoice.Chrome, "62", 1000, 500, Lifecycle.ReuseIfStarted)]
     // [Remote(BrowserChoice.Chrome, "62", MobileWindowSize._320_568, Lifecycle.ReuseIfStarted)]

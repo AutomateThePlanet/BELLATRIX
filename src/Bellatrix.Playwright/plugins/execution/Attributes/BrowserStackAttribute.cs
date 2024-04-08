@@ -26,7 +26,7 @@ namespace Bellatrix.Playwright;
 public class BrowserStackAttribute : BrowserAttribute, IBrowserOptionsAttribute
 {
     public BrowserStackAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         string operatingSystem,
         string osVersion,
@@ -51,7 +51,7 @@ public class BrowserStackAttribute : BrowserAttribute, IBrowserOptionsAttribute
     }
 
     public BrowserStackAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         string operatingSystem,
         string osVersion,
@@ -79,7 +79,7 @@ public class BrowserStackAttribute : BrowserAttribute, IBrowserOptionsAttribute
     }
 
     public BrowserStackAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         string operatingSystem,
         string osVersion,
@@ -95,7 +95,7 @@ public class BrowserStackAttribute : BrowserAttribute, IBrowserOptionsAttribute
         => ScreenResolution = WindowsSizeResolver.GetWindowSize(mobileWindowSize).ConvertToString();
 
     public BrowserStackAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         string operatingSystem,
         string osVersion,
@@ -110,7 +110,7 @@ public class BrowserStackAttribute : BrowserAttribute, IBrowserOptionsAttribute
         => ScreenResolution = WindowsSizeResolver.GetWindowSize(tabletWindowSize).ConvertToString();
 
     public BrowserStackAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         string operatingSystem,
         string osVersion,
@@ -155,7 +155,7 @@ public class BrowserStackAttribute : BrowserAttribute, IBrowserOptionsAttribute
         }
 
 
-        string browserName = Enum.GetName(typeof(BrowserChoice), Browser);
+        string browserName = Enum.GetName(typeof(BrowserTypes), Browser);
         options.Add("browserName", browserName);
         options.Add("os", OperatingSystem);
         options.Add("os_version", OSVersion);

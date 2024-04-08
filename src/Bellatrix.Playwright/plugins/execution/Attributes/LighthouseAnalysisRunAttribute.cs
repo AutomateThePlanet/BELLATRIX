@@ -5,7 +5,7 @@ namespace Bellatrix.Playwright;
 public class LighthouseAnalysisRunAttribute : BrowserAttribute
 {
     public LighthouseAnalysisRunAttribute(bool useHeadless = false)
-        : base(useHeadless ? BrowserChoice.ChromeHeadless : BrowserChoice.Chrome, Lifecycle.RestartEveryTime)
+        : base(useHeadless ? BrowserTypes.ChromeHeadless : BrowserTypes.Chrome, Lifecycle.RestartEveryTime)
     {
         IsLighthouseEnabled = true;
     }

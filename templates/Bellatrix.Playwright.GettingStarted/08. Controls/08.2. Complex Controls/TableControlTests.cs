@@ -86,7 +86,7 @@ public class TableControlTests : NUnit.WebTest
     }
 
     [Test]
-    [Browser(BrowserChoice.Chrome, Lifecycle.ReuseIfStarted)]
+    [Browser(BrowserTypes.Chrome, Lifecycle.ReuseIfStarted)]
     public void AssertCells()
     {
         // As a shortcut, you can iterate over all table cells through the ForEachCell method.
@@ -111,7 +111,7 @@ public class TableControlTests : NUnit.WebTest
     }
 
     [Test]
-    [Browser(BrowserChoice.FirefoxHeadless, Lifecycle.ReuseIfStarted)]
+    [Browser(BrowserTypes.FirefoxHeadless, Lifecycle.ReuseIfStarted)]
     public void AssertSpecificRow()
     {
       // You can get a specific row using the GetRow method by the index of the row.

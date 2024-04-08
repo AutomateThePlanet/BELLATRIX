@@ -10,7 +10,7 @@ namespace Bellatrix.Playwright.GettingStarted;
 // LambdaTest has the same parameters as Browser but adds to additional ones-
 // browser version, platform type, recordVideo and recordScreenshots.
 // As with the Browser attribute you can override the class behavior on Test level.
-[LambdaTest(BrowserChoice.Chrome,
+[LambdaTest(BrowserTypes.Chrome,
     "93",
     "Windows",
     DesktopWindowSize._1280_800,
@@ -34,7 +34,7 @@ public class LambdaTestTests : NUnit.WebTest
     // 2. As mentioned if you use the SauceLabs attribute on method level it overrides the class settings.
     // As you can see with the SauceLabs attribute we can change the browser window size again.
     [Test]
-    [LambdaTest(BrowserChoice.Chrome, "62", "Windows", DesktopWindowSize._1280_1024, "BE", Lifecycle.ReuseIfStarted)]
+    [LambdaTest(BrowserTypes.Chrome, "62", "Windows", DesktopWindowSize._1280_1024, "BE", Lifecycle.ReuseIfStarted)]
     [Ignore("no need to run")]
 
     // [LambdaTest(BrowserChoice.Chrome, "62", "Windows", 1000, 500, "BE", Lifecycle.ReuseIfStarted)]

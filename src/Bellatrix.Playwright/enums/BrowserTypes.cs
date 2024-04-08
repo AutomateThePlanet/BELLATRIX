@@ -15,7 +15,7 @@
 namespace Bellatrix.Playwright.Enums;
 
 // It has such name as to not clash with Playwright.BrowserType
-public enum BrowserChoice
+public enum BrowserTypes
 {
     NotSet,
     Chromium,

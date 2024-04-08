@@ -27,7 +27,7 @@ public class DevToolsService : WebService
         : base(wrappedBrowser)
     {
         var browserType = WrappedBrowserCreateService.BrowserConfiguration.BrowserType;
-        if (browserType == BrowserChoice.Chromium || browserType == BrowserChoice.ChromiumHeadless || browserType == BrowserChoice.Chrome || browserType == BrowserChoice.ChromeHeadless || browserType == BrowserChoice.Edge || browserType == BrowserChoice.EdgeHeadless)
+        if (browserType == BrowserTypes.Chromium || browserType == BrowserTypes.ChromiumHeadless || browserType == BrowserTypes.Chrome || browserType == BrowserTypes.ChromeHeadless || browserType == BrowserTypes.Edge || browserType == BrowserTypes.EdgeHeadless)
         {
             DevToolsSession = wrappedBrowser.CurrentContext.NewCDPSession(wrappedBrowser.CurrentPage);
         }

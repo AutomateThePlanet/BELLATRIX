@@ -27,7 +27,7 @@ namespace Bellatrix.Playwright;
 public class LambdaTestAttribute : BrowserAttribute, IBrowserOptionsAttribute
 {
     public LambdaTestAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         string platform,
         Lifecycle behavior = Lifecycle.NotSet,
@@ -44,7 +44,7 @@ public class LambdaTestAttribute : BrowserAttribute, IBrowserOptionsAttribute
     }
 
     public LambdaTestAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         string platform,
         int width,
@@ -64,7 +64,7 @@ public class LambdaTestAttribute : BrowserAttribute, IBrowserOptionsAttribute
     }
 
     public LambdaTestAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         string platform,
         MobileWindowSize mobileWindowSize,
@@ -76,7 +76,7 @@ public class LambdaTestAttribute : BrowserAttribute, IBrowserOptionsAttribute
         => ScreenResolution = WindowsSizeResolver.GetWindowSize(mobileWindowSize).ConvertToString();
 
     public LambdaTestAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         string platform,
         TabletWindowSize tabletWindowSize,
@@ -88,7 +88,7 @@ public class LambdaTestAttribute : BrowserAttribute, IBrowserOptionsAttribute
         => ScreenResolution = WindowsSizeResolver.GetWindowSize(tabletWindowSize).ConvertToString();
 
     public LambdaTestAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         string platform,
         DesktopWindowSize desktopWindowSize,
@@ -115,7 +115,7 @@ public class LambdaTestAttribute : BrowserAttribute, IBrowserOptionsAttribute
     {
         var options = new Dictionary<string, object>();
 
-        string browserName = Enum.GetName(typeof(BrowserChoice), Browser);
+        string browserName = Enum.GetName(typeof(BrowserTypes), Browser);
 
         options.Add("browserName", browserName);
         options.Add("browserVersion", BrowserVersion);

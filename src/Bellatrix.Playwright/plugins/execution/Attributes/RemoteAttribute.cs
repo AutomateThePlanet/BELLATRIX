@@ -24,35 +24,35 @@ namespace Bellatrix.Playwright;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class RemoteAttribute : BrowserAttribute, IBrowserOptionsAttribute
 {
-    public RemoteAttribute(BrowserChoice browser, string browserVersion, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
+    public RemoteAttribute(BrowserTypes browser, string browserVersion, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
     : base(browser, behavior, shouldAutomaticallyScrollToVisible)
     {
         BrowserVersion = browserVersion;
         ExecutionType = ExecutionType.Grid;
     }
 
-    public RemoteAttribute(BrowserChoice browser, string browserVersion, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
+    public RemoteAttribute(BrowserTypes browser, string browserVersion, int width, int height, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
         : base(browser, width, height, behavior, shouldAutomaticallyScrollToVisible)
     {
         BrowserVersion = browserVersion;
         ExecutionType = ExecutionType.Grid;
     }
 
-    public RemoteAttribute(BrowserChoice browser, string browserVersion, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
+    public RemoteAttribute(BrowserTypes browser, string browserVersion, MobileWindowSize mobileWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
         : base(browser, mobileWindowSize, behavior, shouldAutomaticallyScrollToVisible)
     {
         BrowserVersion = browserVersion;
         ExecutionType = ExecutionType.Grid;
     }
 
-    public RemoteAttribute(BrowserChoice browser, string browserVersion, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
+    public RemoteAttribute(BrowserTypes browser, string browserVersion, TabletWindowSize tabletWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
         : base(browser, tabletWindowSize, behavior, shouldAutomaticallyScrollToVisible)
     {
         BrowserVersion = browserVersion;
         ExecutionType = ExecutionType.Grid;
     }
 
-    public RemoteAttribute(BrowserChoice browser, string browserVersion, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
+    public RemoteAttribute(BrowserTypes browser, string browserVersion, DesktopWindowSize desktopWindowSize, Lifecycle behavior = Lifecycle.NotSet, bool shouldAutomaticallyScrollToVisible = true)
         : base(browser, desktopWindowSize, behavior, shouldAutomaticallyScrollToVisible)
     {
         BrowserVersion = browserVersion;

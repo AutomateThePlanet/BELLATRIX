@@ -155,7 +155,7 @@ public class BrowserLifecyclePlugin : Plugin
         previousTestExecutionEngine?.DisposeAll();
         
         bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
-        var browserConfiguration = new BrowserConfiguration(BrowserChoice.NotSet, false, false, shouldScrollToVisible);
+        var browserConfiguration = new BrowserConfiguration(BrowserTypes.NotSet, false, false, shouldScrollToVisible);
         container.RegisterInstance(browserConfiguration, "_previousBrowserConfiguration");
         container.UnregisterSingleInstance<TestExecutionEngine>();
     }
@@ -163,7 +163,7 @@ public class BrowserLifecyclePlugin : Plugin
     private void ResolvePreviousBrowserType(ServicesCollection container)
     {
         bool shouldScrollToVisible = ConfigurationService.GetSection<WebSettings>().ShouldAutomaticallyScrollToVisible;
-        var browserConfiguration = new BrowserConfiguration(BrowserChoice.NotSet, false, false, shouldScrollToVisible);
+        var browserConfiguration = new BrowserConfiguration(BrowserTypes.NotSet, false, false, shouldScrollToVisible);
         if (container.IsRegistered<BrowserConfiguration>())
         {
             browserConfiguration = container.Resolve<BrowserConfiguration>();
@@ -179,7 +179,7 @@ public class BrowserLifecyclePlugin : Plugin
 
         if (browserAttribute != null)
         {
-            BrowserChoice currentBrowserType = browserAttribute.Browser;
+            BrowserTypes currentBrowserType = browserAttribute.Browser;
 
             Lifecycle currentLifecycle = browserAttribute.Lifecycle;
             bool shouldCaptureHttpTraffic = browserAttribute.ShouldCaptureHttpTraffic;
@@ -196,13 +196,13 @@ public class BrowserLifecyclePlugin : Plugin
         }
         else
         {
-            BrowserChoice currentBrowserType = Parse<BrowserChoice>(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.DefaultBrowser);
+            BrowserTypes currentBrowserType = Parse<BrowserTypes>(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.DefaultBrowser);
 
             if (e.Arguments != null & e.Arguments.Any())
             {
-                if (e.Arguments[0] is BrowserChoice)
+                if (e.Arguments[0] is BrowserTypes)
                 {
-                    currentBrowserType = (BrowserChoice)e.Arguments[0];
+                    currentBrowserType = (BrowserTypes)e.Arguments[0];
                 }
             }
 

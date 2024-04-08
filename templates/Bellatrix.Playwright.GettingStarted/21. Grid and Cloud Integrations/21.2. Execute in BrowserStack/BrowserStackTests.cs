@@ -10,7 +10,7 @@ namespace Bellatrix.Playwright.GettingStarted;
 // BrowserStack has the same parameters as Browser but adds to additional ones-
 // browser version, platform type, platform version, captureNetworkLogs, consoleLogType, build and debug. The last five are optional and have default values.
 // As with the Browser attribute you can override the class lifecycle on Test level.
-[BrowserStack(BrowserChoice.Chrome,
+[BrowserStack(BrowserTypes.Chrome,
     "62",
     "Windows",
     "10",
@@ -37,7 +37,7 @@ public class BrowserStackTests : NUnit.WebTest
     // As you can see with the BrowserStack attribute we can change the browser window size again.
     [Test]
     [Ignore("no need to run")]
-    [BrowserStack(BrowserChoice.Chrome, "62", "Windows", "10", DesktopWindowSize._1280_1024, Lifecycle.ReuseIfStarted)]
+    [BrowserStack(BrowserTypes.Chrome, "62", "Windows", "10", DesktopWindowSize._1280_1024, Lifecycle.ReuseIfStarted)]
 
     // [BrowserStack(BrowserChoice.Chrome, "62", "Windows", "10", 1000, 500, Lifecycle.ReuseIfStarted)]
     // [BrowserStack(BrowserChoice.Chrome, "62", "Windows", "10", MobileWindowSize._320_568, Lifecycle.ReuseIfStarted)]

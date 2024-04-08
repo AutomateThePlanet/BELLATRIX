@@ -96,7 +96,7 @@ public static class WrappedBrowserCreateService
 
         switch (BrowserConfiguration.BrowserType)
         {
-            case BrowserChoice.Chromium:
+            case BrowserTypes.Chromium:
                 launchOptions.Headless = false;
 
                 args.Add("--log-level=3");
@@ -132,7 +132,7 @@ public static class WrappedBrowserCreateService
 
                 wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
                 break;
-            case BrowserChoice.ChromiumHeadless:
+            case BrowserTypes.ChromiumHeadless:
                 launchOptions.Headless = true;
 
                 args.Add("--log-level=3");
@@ -168,7 +168,7 @@ public static class WrappedBrowserCreateService
                 wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
 
                 break;
-            case BrowserChoice.Chrome:
+            case BrowserTypes.Chrome:
                 launchOptions.Headless = false;
                 launchOptions.Channel = "chrome";
 
@@ -200,7 +200,7 @@ public static class WrappedBrowserCreateService
 
                 wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
                 break;
-            case BrowserChoice.ChromeHeadless:
+            case BrowserTypes.ChromeHeadless:
                 launchOptions.Headless = true;
                 launchOptions.Channel = "chrome";
 
@@ -241,35 +241,35 @@ public static class WrappedBrowserCreateService
 
                 wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
                 break;
-            case BrowserChoice.Edge:
+            case BrowserTypes.Edge:
                 launchOptions.Headless = false;
                 launchOptions.Channel = "msedge";
 
                 wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
                 break;
-            case BrowserChoice.EdgeHeadless:
+            case BrowserTypes.EdgeHeadless:
                 launchOptions.Headless = true;
                 launchOptions.Channel = "msedge";
 
                 wrappedBrowser.Browser = wrappedBrowser.Playwright.Chromium.Launch(launchOptions);
                 break;
-            case BrowserChoice.Firefox:
+            case BrowserTypes.Firefox:
                 launchOptions.Headless = false;
                 args.Add("--acceptInsecureCerts=true");
 
                 wrappedBrowser.Browser = wrappedBrowser.Playwright.Firefox.Launch(launchOptions);
                 break;
-            case BrowserChoice.FirefoxHeadless:
+            case BrowserTypes.FirefoxHeadless:
                 launchOptions.Headless = true;
 
                 wrappedBrowser.Browser = wrappedBrowser.Playwright.Firefox.Launch(launchOptions);
                 break;
-            case BrowserChoice.Webkit:
+            case BrowserTypes.Webkit:
                 launchOptions.Headless = false;
 
                 wrappedBrowser.Browser = wrappedBrowser.Playwright.Webkit.Launch(launchOptions);
                 break;
-            case BrowserChoice.WebkitHeadless:
+            case BrowserTypes.WebkitHeadless:
                 launchOptions.Headless = true;
 
                 wrappedBrowser.Browser = wrappedBrowser.Playwright.Webkit.Launch(launchOptions);
@@ -316,7 +316,7 @@ public static class WrappedBrowserCreateService
             case ExecutionType.Grid:
                 {
                     var browserType = executionConfiguration.BrowserType;
-                    if (browserType is BrowserChoice.Firefox or BrowserChoice.FirefoxHeadless or BrowserChoice.Webkit or BrowserChoice.WebkitHeadless)
+                    if (browserType is BrowserTypes.Firefox or BrowserTypes.FirefoxHeadless or BrowserTypes.Webkit or BrowserTypes.WebkitHeadless)
                     {
                         throw new NotSupportedException("Playwright supports running in Selenium Grid only Chromium browsers.");
                     }

@@ -16,12 +16,12 @@ public class ExecuteSameTestDifferentBrowsersTests : NUnit.WebTest
 
     // The browser versioning will work only if you execute the tests with Selenium grid and only with Chrome - locally or in the cloud.
     // This feature works only for NUnit.
-    [TestCase(BrowserChoice.Chrome, 86)]
-    [TestCase(BrowserChoice.Chrome, 87)]
-    [TestCase(BrowserChoice.Firefox, 82)]
-    [TestCase(BrowserChoice.Firefox, 83)]
+    [TestCase(BrowserTypes.Chrome, 86)]
+    [TestCase(BrowserTypes.Chrome, 87)]
+    [TestCase(BrowserTypes.Firefox, 82)]
+    [TestCase(BrowserTypes.Firefox, 83)]
     [Ignore("no need to run")]
-    public void SuccessfullyLoginToMyAccount(BrowserChoice BrowserChoice, int browserVersion)
+    public void SuccessfullyLoginToMyAccount(BrowserTypes BrowserChoice, int browserVersion)
     {
         TextField userNameField = App.Components.CreateById<TextField>("username");
         Password passwordField = App.Components.CreateById<Password>("password");
@@ -42,10 +42,10 @@ public class ExecuteSameTestDifferentBrowsersTests : NUnit.WebTest
     }
 
     // You can use the feature for local execution using your browser versions.
-    [TestCase(BrowserChoice.Chrome)]
-    [TestCase(BrowserChoice.Edge)]
-    [TestCase(BrowserChoice.Firefox)]
-    public void SuccessfullyLoginToMyAccount1(BrowserChoice BrowserChoice)
+    [TestCase(BrowserTypes.Chrome)]
+    [TestCase(BrowserTypes.Edge)]
+    [TestCase(BrowserTypes.Firefox)]
+    public void SuccessfullyLoginToMyAccount1(BrowserTypes BrowserChoice)
     {
         TextField userNameField = App.Components.CreateById<TextField>("username");
         Password passwordField = App.Components.CreateById<Password>("password");

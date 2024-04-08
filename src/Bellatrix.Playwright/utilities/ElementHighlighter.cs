@@ -25,7 +25,7 @@ public static class ElementHighlighter
 {
     public static void JsHighlight(this WebElement webElement, int waitBeforeUnhighlightMilliseconds = 100, string color = "yellow")
     {
-        if (WrappedBrowserCreateService.BrowserConfiguration.BrowserType == BrowserChoice.ChromeHeadless || WrappedBrowserCreateService.BrowserConfiguration.BrowserType == BrowserChoice.FirefoxHeadless)
+        if (WrappedBrowserCreateService.BrowserConfiguration.BrowserType == BrowserTypes.ChromeHeadless || WrappedBrowserCreateService.BrowserConfiguration.BrowserType == BrowserTypes.FirefoxHeadless)
         {
             // No need to highlight for headless browsers.
             return;

@@ -19,7 +19,6 @@ using Bellatrix.Playwright.Settings;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright.Services;
 public class BrowserService : WebService

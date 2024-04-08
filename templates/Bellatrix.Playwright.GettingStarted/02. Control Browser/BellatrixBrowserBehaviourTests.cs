@@ -23,7 +23,7 @@ namespace Bellatrix.Playwright.GettingStarted;
 // If you place attribute over the class all tests inherit the lifecycle. It is possible to place it over each test and this way it overrides the class lifecycle only for this particular test.
 //
 // If you don't use the attribute, the default information from the configuration will be used, placed under the executionSettings section.
-[Browser(BrowserChoice.Chrome, Lifecycle.ReuseIfStarted)]
+[Browser(BrowserTypes.Chrome, Lifecycle.ReuseIfStarted)]
 
 // 2.2. All web BELLATRIX test classes should inherit from the WebTest base class. This way you can use all built-in BELLATRIX tools and functionalities.
 public class BellatrixBrowserLifecycleTests : NUnit.WebTest
@@ -48,7 +48,7 @@ public class BellatrixBrowserLifecycleTests : NUnit.WebTest
 
     // 2.4. As mentioned above, you can override the browser lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse an instance of Chrome browser.
     // Only for this particular test, BELLATRIX opens Edge and restarts it only on fail.
-    [Browser(BrowserChoice.Edge, Lifecycle.RestartOnFail)]
+    [Browser(BrowserTypes.Edge, Lifecycle.RestartOnFail)]
     public void BlogPageOpened_When_PromotionsButtonClicked()
     {
         App.Navigation.Navigate("https://demos.bellatrix.solutions/");

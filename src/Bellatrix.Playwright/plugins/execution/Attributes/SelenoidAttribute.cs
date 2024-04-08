@@ -29,7 +29,7 @@ public class SelenoidAttribute : BrowserAttribute, IBrowserOptionsAttribute
     private const string DefaultScreenResolution = "1920x1080x24";
 
     public SelenoidAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         Lifecycle behavior = Lifecycle.NotSet,
         bool recordVideo = true,
@@ -47,7 +47,7 @@ public class SelenoidAttribute : BrowserAttribute, IBrowserOptionsAttribute
     }
 
     public SelenoidAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         int width,
         int height,
@@ -67,7 +67,7 @@ public class SelenoidAttribute : BrowserAttribute, IBrowserOptionsAttribute
     }
 
     public SelenoidAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         MobileWindowSize mobileWindowSize,
         Lifecycle behavior = Lifecycle.NotSet,
@@ -79,7 +79,7 @@ public class SelenoidAttribute : BrowserAttribute, IBrowserOptionsAttribute
         => ScreenResolution = WindowsSizeResolver.GetWindowSize(mobileWindowSize).ConvertToStringWithColorDepth();
 
     public SelenoidAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         TabletWindowSize tabletWindowSize,
         Lifecycle behavior = Lifecycle.NotSet,
@@ -91,7 +91,7 @@ public class SelenoidAttribute : BrowserAttribute, IBrowserOptionsAttribute
         => ScreenResolution = WindowsSizeResolver.GetWindowSize(tabletWindowSize).ConvertToStringWithColorDepth();
 
     public SelenoidAttribute(
-        BrowserChoice browser,
+        BrowserTypes browser,
         string browserVersion,
         DesktopWindowSize desktopWindowSize,
         Lifecycle behavior = Lifecycle.NotSet,

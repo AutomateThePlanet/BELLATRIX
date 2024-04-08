@@ -20,8 +20,8 @@ namespace Bellatrix.Playwright.GettingStarted;
 // After that, each request and response made by the browser is captured, and you have
 // the option to modify it or make assertions against it.
 [TestFixture]
-[Browser(BrowserChoice.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: true)]
-[Browser(OS.OSX, BrowserChoice.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: false)]
+[Browser(BrowserTypes.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: true)]
+[Browser(OS.OSX, BrowserTypes.Chrome, Lifecycle.RestartEveryTime, shouldCaptureHttpTraffic: false)]
 public class CaptureHttpTrafficTests : NUnit.WebTest
 {
     [Test]

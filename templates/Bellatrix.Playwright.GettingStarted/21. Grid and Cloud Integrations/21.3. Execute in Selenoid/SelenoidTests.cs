@@ -10,7 +10,7 @@ namespace Bellatrix.Playwright.GettingStarted;
 // Selenoid has the same parameters as Browser but adds to additional ones-
 // browser version, recordVideo, saveSessionLogs and enableVnc.
 // As with the Browser attribute you can override the class lifecycle on Test level.
-[Selenoid(BrowserChoice.Chrome, "77", Lifecycle.RestartEveryTime, recordVideo: true, enableVnc: true, saveSessionLogs: true)]
+[Selenoid(BrowserTypes.Chrome, "77", Lifecycle.RestartEveryTime, recordVideo: true, enableVnc: true, saveSessionLogs: true)]
 public class SelenoidTests : NUnit.WebTest
 {
     [Test]
@@ -26,7 +26,7 @@ public class SelenoidTests : NUnit.WebTest
 
     [Test]
     [Ignore("no need to run")]
-    [Selenoid(BrowserChoice.Chrome, "76", DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
+    [Selenoid(BrowserTypes.Chrome, "76", DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
 
     ////[Selenoid(BrowserChoice.Chrome, "76", 1000, 500, Lifecycle.RestartEveryTime)]
     ////[Selenoid(BrowserChoice.Chrome, "76", MobileWindowSize._320_568, Lifecycle.RestartEveryTime)]

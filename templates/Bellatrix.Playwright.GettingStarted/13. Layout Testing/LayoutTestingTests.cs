@@ -16,8 +16,8 @@ namespace Bellatrix.Playwright.GettingStarted;
 // [Browser(BrowserChoice.FirefoxHeadless, MobileWindowSize._360_640,  Lifecycle.RestartEveryTime)]
 // [Browser(BrowserChoice.FirefoxHeadless, TabletWindowSize._600_1024,  Lifecycle.RestartEveryTime)]
 // [Browser(BrowserChoice.FirefoxHeadless, width: 600, height: 900, behavior: Lifecycle.RestartEveryTime)]
-[Browser(BrowserChoice.Chrome, DesktopWindowSize._1280_1024,  Lifecycle.RestartEveryTime)]
-[Browser(OS.OSX, BrowserChoice.Chrome, DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
+[Browser(BrowserTypes.Chrome, DesktopWindowSize._1280_1024,  Lifecycle.RestartEveryTime)]
+[Browser(OS.OSX, BrowserTypes.Chrome, DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
 [TestFixture]
 public class LayoutTestingTests : NUnit.WebTest
 {

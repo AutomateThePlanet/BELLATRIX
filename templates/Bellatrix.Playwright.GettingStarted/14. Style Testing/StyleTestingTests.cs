@@ -7,8 +7,8 @@ namespace Bellatrix.Playwright.GettingStarted;
 
 // 1. Style testing is a module from BELLATRIX that allows you to test the CSS styles of your website such as
 // background, border and other colors, font size, size, weight and many others.
-[Browser(BrowserChoice.Chrome, DesktopWindowSize._1280_1024,  Lifecycle.RestartEveryTime)]
-[Browser(OS.OSX, BrowserChoice.Chrome, DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
+[Browser(BrowserTypes.Chrome, DesktopWindowSize._1280_1024,  Lifecycle.RestartEveryTime)]
+[Browser(OS.OSX, BrowserTypes.Chrome, DesktopWindowSize._1280_1024, Lifecycle.RestartEveryTime)]
 [TestFixture]
 public class StyleTestingTests : NUnit.WebTest
 {
