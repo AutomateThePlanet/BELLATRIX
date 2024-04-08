@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Playwright.Services.Browser;
+using Bellatrix.Playwright.SyncPlaywright.Element;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -27,8 +28,16 @@ public class ComponentRepository
 
         dynamic element = Activator.CreateInstance(newElementType);
         element.By = by;
-        element.WrappedElement = by.Resolve(parenTComponent.WrappedElement);
-        if (element is Frame) element.WrappedElement.IsFrame = true;
+
+        if (element is Frame)
+        {
+            element.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, by.Resolve(parenTComponent.WrappedElement));
+        }
+        else
+        {
+            element.WrappedElement = by.Resolve(parenTComponent.WrappedElement);
+        }
+
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
 
@@ -42,8 +51,16 @@ public class ComponentRepository
 
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
-        element.WrappedElement = by.Resolve(parenTComponent.WrappedElement);
-        if (element is Frame) element.WrappedElement.IsFrame = true;
+
+        if (element is Frame)
+        {
+            element.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, by.Resolve(parenTComponent.WrappedElement));
+        }
+        else
+        {
+            element.WrappedElement = by.Resolve(parenTComponent.WrappedElement);
+        }
+
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
 
@@ -56,8 +73,16 @@ public class ComponentRepository
 
         dynamic element = Activator.CreateInstance(newElementType);
         element.By = by;
-        element.WrappedElement = by.Resolve(parenTComponent);
-        if (element is Frame) element.WrappedElement.IsFrame = true;
+
+        if (element is Frame)
+        {
+            element.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, by.Resolve(parenTComponent));
+        }
+        else
+        {
+            element.WrappedElement = by.Resolve(parenTComponent);
+        }
+
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
 
@@ -71,8 +96,16 @@ public class ComponentRepository
 
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
-        element.WrappedElement = by.Resolve(parenTComponent);
-        if (element is Frame) element.WrappedElement.IsFrame = true;
+
+        if (element is Frame)
+        {
+            element.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, by.Resolve(parenTComponent));
+        }
+        else
+        {
+            element.WrappedElement = by.Resolve(parenTComponent);
+        }
+
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
 
@@ -86,8 +119,16 @@ public class ComponentRepository
 
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
-        element.WrappedElement = by.Resolve(WrappedBrowser.CurrentPage);
-        if (element is Frame) element.WrappedElement.IsFrame = true;
+
+        if (element is Frame)
+        {
+            element.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, by.Resolve(WrappedBrowser.CurrentPage));
+        }
+        else
+        {
+            element.WrappedElement = by.Resolve(WrappedBrowser.CurrentPage);
+        }
+
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
 

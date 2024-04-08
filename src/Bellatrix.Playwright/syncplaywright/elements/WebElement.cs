@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Playwright.Services.Browser;
+using Bellatrix.Playwright.SyncPlaywright.Element;
 using Microsoft.VisualStudio.Services.WebApi;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -20,7 +21,7 @@ using System.Text.RegularExpressions;
 namespace Bellatrix.Playwright.SyncPlaywright;
 
 /// <summary>
-/// Wrapper for ILocator and IFrameLocator with synchronous methods.
+/// Wrapper for ILocator with synchronous methods.
 /// </summary>
 public class WebElement
 {
@@ -28,17 +29,19 @@ public class WebElement
     {
         Page = page;
         WrappedLocator = locator;
-        WrappedFrameLocator = locator.FrameLocator(":scope");
+    }
+
+    internal WebElement(BrowserPage page, WebElement element)
+    {
+        Page = page;
+        WrappedLocator = element.WrappedLocator;
     }
 
     public ILocator WrappedLocator { get; set; }
-    public IFrameLocator WrappedFrameLocator { get; set; }
 
-    public bool IsFrame { get; set; }
+    public virtual WebElement First => new WebElement(Page, WrappedLocator.First);
 
-    public WebElement First => new WebElement(Page, WrappedLocator.First);
-
-    public WebElement Last => new WebElement(Page, WrappedLocator.Last);
+    public virtual WebElement Last => new WebElement(Page, WrappedLocator.Last);
 
     public BrowserPage Page { get; internal init; }
 
@@ -80,7 +83,7 @@ public class WebElement
         return WrappedLocator.AllTextContentsAsync().Result;
     }
 
-    public WebElement And(WebElement element)
+    public virtual WebElement And(WebElement element)
     {
         return new WebElement(Page, WrappedLocator.And(element.WrappedLocator));
     }
@@ -160,7 +163,7 @@ public class WebElement
         WrappedLocator.FillAsync(value, options).SyncResult();
     }
 
-    public WebElement Filter(LocatorFilterOptions options = null)
+    public virtual WebElement Filter(LocatorFilterOptions options = null)
     {
         return new WebElement(Page, WrappedLocator.Filter(options));
     }
@@ -225,12 +228,12 @@ public class WebElement
         return WrappedLocator.IsVisibleAsync(options).Result;
     }
 
-    public WebElement Nth(int index)
+    public virtual WebElement Nth(int index)
     {
         return new WebElement(Page, WrappedLocator.Nth(index));
     }
 
-    public WebElement Or(WebElement element)
+    public virtual WebElement Or(WebElement element)
     {
         return new WebElement(Page, WrappedLocator.Or(element.WrappedLocator));
     }
@@ -354,212 +357,83 @@ public class WebElement
 
 
 
-    public WebElement GetByAltText(string text, GetByAltTextOptions options = null)
+    public virtual WebElement GetByAltText(string text, GetByAltTextOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByAltText(text, options.ConvertTo<FrameLocatorGetByAltTextOptions>()));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByAltText(text, options.ConvertTo<LocatorGetByAltTextOptions>()));
-        }
+        return new WebElement(Page, WrappedLocator.GetByAltText(text, options.ConvertTo<LocatorGetByAltTextOptions>()));
     }
 
-    public WebElement GetByAltText(Regex text, GetByAltTextOptions options = null)
+    public virtual WebElement GetByAltText(Regex text, GetByAltTextOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByAltText(text, options.ConvertTo<FrameLocatorGetByAltTextOptions>()));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByAltText(text, options.ConvertTo<LocatorGetByAltTextOptions>()));
-        }
+        return new WebElement(Page, WrappedLocator.GetByAltText(text, options.ConvertTo<LocatorGetByAltTextOptions>()));
     }
 
-    public WebElement GetByLabel(string text, GetByLabelOptions options = null)
+    public virtual WebElement GetByLabel(string text, GetByLabelOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByLabel(text, options.ConvertTo<FrameLocatorGetByLabelOptions>()));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByLabel(text, options.ConvertTo<LocatorGetByLabelOptions>()));
-        }
+        return new WebElement(Page, WrappedLocator.GetByLabel(text, options.ConvertTo<LocatorGetByLabelOptions>()));
     }
 
-    public WebElement GetByLabel(Regex text, GetByLabelOptions options = null)
+    public virtual WebElement GetByLabel(Regex text, GetByLabelOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByLabel(text, options.ConvertTo<FrameLocatorGetByLabelOptions>()));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByLabel(text, options.ConvertTo<LocatorGetByLabelOptions>()));
-        }
+        return new WebElement(Page, WrappedLocator.GetByLabel(text, options.ConvertTo<LocatorGetByLabelOptions>()));
     }
 
-    public WebElement GetByPlaceholder(string text, GetByPlaceholderOptions options = null)
+    public virtual WebElement GetByPlaceholder(string text, GetByPlaceholderOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByPlaceholder(text, options.ConvertTo<FrameLocatorGetByPlaceholderOptions>()));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByPlaceholder(text, options.ConvertTo<LocatorGetByPlaceholderOptions>()));
-        }
+        return new WebElement(Page, WrappedLocator.GetByPlaceholder(text, options.ConvertTo<LocatorGetByPlaceholderOptions>()));
     }
 
-    public WebElement GetByPlaceholder(Regex text, GetByPlaceholderOptions options = null)
+    public virtual WebElement GetByPlaceholder(Regex text, GetByPlaceholderOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByPlaceholder(text, options.ConvertTo<FrameLocatorGetByPlaceholderOptions>()));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByPlaceholder(text, options.ConvertTo<LocatorGetByPlaceholderOptions>()));
-        }
+        return new WebElement(Page, WrappedLocator.GetByPlaceholder(text, options.ConvertTo<LocatorGetByPlaceholderOptions>()));
     }
 
-    public WebElement GetByRole(AriaRole role, GetByRoleOptions options = null)
+    public virtual WebElement GetByRole(AriaRole role, GetByRoleOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByRole(role, options.ConvertTo<FrameLocatorGetByRoleOptions>()));
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByRole(role, options.ConvertTo<LocatorGetByRoleOptions>()));
-
-        }
+        return new WebElement(Page, WrappedLocator.GetByRole(role, options.ConvertTo<LocatorGetByRoleOptions>()));
     }
 
-    public WebElement GetByTestId(string testId)
+    public virtual WebElement GetByTestId(string testId)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByTestId(testId));
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByTestId(testId));
-
-        }
+        return new WebElement(Page, WrappedLocator.GetByTestId(testId));
     }
 
-    public WebElement GetByTestId(Regex testId)
+    public virtual WebElement GetByTestId(Regex testId)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByTestId(testId));
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByTestId(testId));
-
-        }
+        return new WebElement(Page, WrappedLocator.GetByTestId(testId));
     }
 
-    public WebElement GetByText(string text, GetByTextOptions options = null)
+    public virtual WebElement GetByText(string text, GetByTextOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByText(text, options.ConvertTo<FrameLocatorGetByTextOptions>()));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByText(text, options.ConvertTo<LocatorGetByTextOptions>()));
-        }
+        return new WebElement(Page, WrappedLocator.GetByText(text, options.ConvertTo<LocatorGetByTextOptions>()));
     }
 
-    public WebElement GetByText(Regex text, GetByTextOptions options = null)
+    public virtual WebElement GetByText(Regex text, GetByTextOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByText(text, options.ConvertTo<FrameLocatorGetByTextOptions>()));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByText(text, options.ConvertTo<LocatorGetByTextOptions>()));
-        }
+        return new WebElement(Page, WrappedLocator.GetByText(text, options.ConvertTo<LocatorGetByTextOptions>()));
     }
 
-    public WebElement GetByTitle(string text, GetByTitleOptions options = null)
+    public virtual WebElement GetByTitle(string text, GetByTitleOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByTitle(text, options.ConvertTo<FrameLocatorGetByTitleOptions>()));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByTitle(text, options.ConvertTo<LocatorGetByTitleOptions>()));
-        }
+        return new WebElement(Page, WrappedLocator.GetByTitle(text, options.ConvertTo<LocatorGetByTitleOptions>()));
     }
 
-    public WebElement GetByTitle(Regex text, GetByTitleOptions options = null)
+    public virtual WebElement GetByTitle(Regex text, GetByTitleOptions options = null)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.GetByTitle(text, options.ConvertTo<FrameLocatorGetByTitleOptions>()));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.GetByTitle(text, options.ConvertTo<LocatorGetByTitleOptions>()));
-        }
+        return new WebElement(Page, WrappedLocator.GetByTitle(text, options.ConvertTo<LocatorGetByTitleOptions>()));
     }
 
-    public WebElement Locate(string selectorOrElement)
+    public virtual WebElement Locate(string selectorOrElement)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.Locator(selectorOrElement));
-
-        }
-
-        else
-        {
-            return new WebElement(Page, WrappedLocator.Locator(selectorOrElement));
-        }
+        return new WebElement(Page, WrappedLocator.Locator(selectorOrElement));
     }
 
-    public WebElement Locate(WebElement selectorOrElement)
+    public virtual WebElement Locate(WebElement selectorOrElement)
     {
-        if (IsFrame)
-        {
-            return new WebElement(Page, WrappedFrameLocator.Locator(selectorOrElement.WrappedLocator));
-        }
+        return new WebElement(Page, WrappedLocator.Locator(selectorOrElement.WrappedLocator));
+    }
 
-        else
-        {
-            return new WebElement(Page, WrappedLocator.Locator(selectorOrElement.WrappedLocator));
-        }
+    public virtual FrameElement LocateFrame(string selector)
+    {
+        return new FrameElement(Page, Locate(selector));
     }
 }

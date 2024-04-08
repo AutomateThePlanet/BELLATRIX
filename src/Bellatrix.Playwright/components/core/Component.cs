@@ -26,6 +26,7 @@ using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.CognitiveServices.services;
 using Bellatrix.CognitiveServices;
+using Bellatrix.Playwright.SyncPlaywright.Element;
 
 
 namespace Bellatrix.Playwright;
@@ -262,6 +263,24 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         sb.AppendLine($"Height = {Size.Height}");
         sb.AppendLine($"Width = {Size.Width}");
         return sb.ToString();
+    }
+
+    public virtual TComponent As<TComponent>()
+        where TComponent : Component
+    {
+        var component = Activator.CreateInstance<TComponent>();
+        component.By = this.By;
+
+        if (component is Frame)
+        {
+            component.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, this.WrappedElement);
+        }
+        else
+        {
+            component.WrappedElement = this.WrappedElement;
+        }
+
+        return component;
     }
 
     private void ScrollToMakeElementVisible()

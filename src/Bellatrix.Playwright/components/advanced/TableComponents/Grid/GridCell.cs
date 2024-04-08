@@ -49,8 +49,7 @@ public class GridCell : Component, IComponentInnerText, IComponentInnerHtml
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string InnerHtml => GetInnerHtmlAttribute();
 
-    public TComponent As<TComponent>()
-        where TComponent : Component, new()
+    public override TComponent As<TComponent>()
     {
         CellControlComponentType = typeof(TComponent);
         if (CellControlBy == null)

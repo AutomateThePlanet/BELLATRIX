@@ -12,18 +12,28 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.SyncPlaywright.Element;
+
 namespace Bellatrix.Playwright;
 
 public class Frame : Component
 {
     public string Name => GetAttribute("name");
 
-    /// <summary>
-    /// Should this component act like <iframe> and allow searching inside of it or not.
-    /// </summary>
-    public bool ActAsFrame
+    public override TComponent As<TComponent>()
     {
-        get => WrappedElement.IsFrame;
-        set => WrappedElement.IsFrame = value;
+        var component = Activator.CreateInstance<TComponent>();
+        component.By = this.By;
+
+        if (component is not Frame)
+        {
+            component.WrappedElement = new WebElement(this.WrappedElement.Page, this.WrappedElement.WrappedLocator);
+        }
+        else
+        {
+            component.WrappedElement = this.WrappedElement;
+        }
+
+        return component;
     }
 }
