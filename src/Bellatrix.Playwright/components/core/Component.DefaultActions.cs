@@ -45,9 +45,13 @@ public partial class Component
     internal void DefaultClick(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked, LocatorClickOptions options = default)
     {
         clicking?.Invoke(this, new ComponentActionEventArgs(this));
-
-        if ((bool)options.Force) PerformJsClick();
-        else WrappedElement.Click(options);
+        if (options != null)
+        {
+            if ((bool)options.Force) PerformJsClick();
+            else WrappedElement.Click(options);
+        }
+        
+        else WrappedElement.Click();
 
         clicked?.Invoke(this, new ComponentActionEventArgs(this));
     }
