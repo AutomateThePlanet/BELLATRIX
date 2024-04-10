@@ -30,6 +30,11 @@ public class WaitToHaveInnerTextStrategy : WaitStrategy
 
     public override void WaitUntil<TComponent>(TComponent component)
     {
-        Expect(component.WrappedElement.WrappedLocator).ToHaveTextAsync(_elementText, new() { Timeout = TimeoutInterval });
+        WaitUntil(component.WrappedElement);
+    }
+
+    public override void WaitUntil(WebElement element)
+    {
+        Expect(element.WrappedLocator).ToHaveTextAsync(_elementText, new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

@@ -29,6 +29,11 @@ public class WaitToHaveContentStrategy : WaitStrategy
     public override void WaitUntil<TComponent>(TComponent component)
     {
         // Is this correct?
-        Expect(component.WrappedElement.WrappedLocator).ToHaveTextAsync(new Regex(@".*"), new() { Timeout =  TimeoutInterval });
+        WaitUntil(component.WrappedElement);
+    }
+
+    public override void WaitUntil(WebElement element)
+    {
+        Expect(element.WrappedLocator).ToHaveTextAsync(new Regex(@".*"), new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

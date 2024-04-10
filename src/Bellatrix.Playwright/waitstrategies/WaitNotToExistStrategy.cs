@@ -28,6 +28,11 @@ public class WaitNotToExistStrategy : WaitStrategy
 
     public override void WaitUntil<TComponent>(TComponent component)
     {
-        Expect(component.WrappedElement.WrappedLocator).Not.ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        WaitUntil(component.WrappedElement);
+    }
+
+    public override void WaitUntil(WebElement element)
+    {
+        Expect(element.WrappedLocator).Not.ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

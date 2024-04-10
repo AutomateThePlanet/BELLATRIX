@@ -1,4 +1,5 @@
-﻿using Bellatrix.Playwright.WaitStrategies;
+﻿using Bellatrix.Playwright.SyncPlaywright;
+using Bellatrix.Playwright.WaitStrategies;
 using static Microsoft.Playwright.Assertions;
 
 namespace Bellatrix.Playwright.GettingStarted;
@@ -16,7 +17,12 @@ public class WaitToHasStyleStrategy : WaitStrategy
 
     public override void WaitUntil<TComponent>(TComponent component)
     {
-        Expect(component.WrappedElement.WrappedLocator).ToHaveCSSAsync("style", _elementStyle, new () { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        WaitUntil(component.WrappedElement);
     }
-    // Here, we use the native Playwright assertions
+
+    public override void WaitUntil(WebElement element)
+    {
+        // Here, we use the native Playwright assertions
+        Expect(element.WrappedLocator).ToHaveCSSAsync("style", _elementStyle, new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+    }
 }

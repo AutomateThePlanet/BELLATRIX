@@ -35,4 +35,6 @@ public abstract class WaitStrategy
 
     public abstract void WaitUntil<TComponent>(TComponent by)
         where TComponent : Component;
+
+    public abstract void WaitUntil(WebElement element);
 }

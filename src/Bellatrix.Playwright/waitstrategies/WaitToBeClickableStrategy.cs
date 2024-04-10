@@ -25,10 +25,13 @@ public class WaitToBeClickableStrategy : WaitStrategy
         TimeoutInterval = timeoutInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToBeClickableTimeout;
     }
 
-    /// <summary>
-    /// Playwright has auto-wait.
-    /// </summary>
     public override void WaitUntil<TComponent>(TComponent component)
     {
+        WaitUntil(component);
+    }
+
+    public override void WaitUntil(WebElement element)
+    {
+        Expect(element.WrappedLocator).ToBeEnabledAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

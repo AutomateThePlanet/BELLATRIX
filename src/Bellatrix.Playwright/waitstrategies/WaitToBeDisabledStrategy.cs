@@ -27,6 +27,11 @@ public class WaitToBeDisabledStrategy : WaitStrategy
 
     public override void WaitUntil<TComponent>(TComponent component)
     {
-        Expect(component.WrappedElement.WrappedLocator).ToBeDisabledAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        WaitUntil(component.WrappedElement);
+    }
+
+    public override void WaitUntil(WebElement element)
+    {
+        Expect(element.WrappedLocator).ToBeDisabledAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }

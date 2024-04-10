@@ -27,6 +27,8 @@ using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.CognitiveServices.services;
 using Bellatrix.CognitiveServices;
 using Bellatrix.Playwright.SyncPlaywright.Element;
+using Microsoft.TeamFoundation.Common;
+using Bellatrix.Utilities;
 
 
 namespace Bellatrix.Playwright;
@@ -76,6 +78,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         get
         {
             ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs(_wrappedElement));
+            WaitToBe();
             return _wrappedElement;
         }
         set => _wrappedElement = value;
@@ -163,7 +166,28 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         return elementsCollection;
     }
 
-    public void WaitToBe(LocatorWaitForOptions options = null) => WrappedElement.WaitFor(options);
+    /// <summary>
+    /// Execute JavaScript against the web element.
+    /// </summary>
+    public T Evaluate<T>(string expression, object arg = null)
+    {
+        return WrappedElement.Evaluate<T>(expression, arg);
+    }
+
+    public void WaitToBe()
+    {
+        if (_untils.Count == 0 || _untils[0] == null)
+        {
+            _wrappedElement.WaitFor(new() { State = WaitForSelectorState.Attached, Timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToExistTimeout });
+            return;
+        }
+
+
+        foreach (var item in _untils)
+        {
+            item.WaitUntil(_wrappedElement);
+        }
+    }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public bool IsPresent

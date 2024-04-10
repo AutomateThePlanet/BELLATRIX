@@ -27,6 +27,11 @@ public class WaitToBeVisibleStrategy : WaitStrategy
 
     public override void WaitUntil<TComponent>(TComponent component)
     {
-        Expect(component.WrappedElement.WrappedLocator).ToBeVisibleAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        WaitUntil(component.WrappedElement);
+    }
+
+    public override void WaitUntil(WebElement element)
+    {
+        Expect(element.WrappedLocator).ToBeVisibleAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
     }
 }
