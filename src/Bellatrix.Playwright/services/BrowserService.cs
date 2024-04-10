@@ -58,7 +58,7 @@ public class BrowserService : WebService
         // to be removed.
     }
 
-    public BrowserPage SwtichToFirstBrowserTab() => WrappedBrowser.CurrentContext.Pages.First();
+    public BrowserPage SwitchToFirstTab() => WrappedBrowser.CurrentContext.Pages.First();
 
     public BrowserPage SwitchToLastTab() => WrappedBrowser.CurrentContext.Pages.Last();
 
