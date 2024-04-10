@@ -31,6 +31,13 @@
       "elementNotToBeVisibleTimeout": "30",
       "elementToHaveContentTimeout": "15"
     },
+    "playwrightSettings": {
+      "contextOptions": {
+        "ignoreHTTPSErrors": "true",
+        // in case you want to add other context options, refer to the available settings in Playwright.BrowserNewContextOptions
+        // in case you don't want to add any options, just remove "contextOptions" or the settings inside
+      }
+    },
     "executionSettings": {
       "executionType": "regular",
       "defaultBrowser": "chrome",

@@ -29,4 +29,5 @@ public sealed class WebSettings
     public bool ShouldCheckForJavaScriptErrors { get; set; }
     public TimeoutSettings TimeoutSettings { get; set; }
     public ExecutionSettings ExecutionSettings { get; set; }
+    public PlaywrightSettings PlaywrightSettings { get; set; }
 }

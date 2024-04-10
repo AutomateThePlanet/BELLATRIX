@@ -1,4 +1,4 @@
-﻿// <copyright file="ContextSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="PlaywrightSettings.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 namespace Bellatrix.Playwright.Settings;
 
-// TODO: BrowserContext options?
-public sealed class ContextSettings : BrowserNewContextOptions
+public sealed class PlaywrightSettings
 {
+    public BrowserNewContextOptions ContextOptions { get; set; }
 }

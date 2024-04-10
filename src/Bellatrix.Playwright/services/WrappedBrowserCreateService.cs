@@ -70,7 +70,7 @@ public static class WrappedBrowserCreateService
             InitializeWrappedBrowserGridMode(executionConfiguration, wrappedBrowser);
         }
 
-        var pageLoadTimeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().PageLoadTimeout;
+        var pageLoadTimeout = WebSettings.TimeoutSettings.InMilliseconds().PageLoadTimeout;
         wrappedBrowser.CurrentPage.SetDefaultNavigationTimeout(pageLoadTimeout);
 
         ChangeWindowSize(executionConfiguration.Size, wrappedBrowser);
@@ -107,16 +107,16 @@ public static class WrappedBrowserCreateService
                     args.Add($"--remote-debugging-port={DebuggerPort}");
                 }
 
-                if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
+                if (WebSettings.ExecutionSettings.PackedExtensionPath != null)
                 {
-                    string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
+                    string packedExtensionPath = WebSettings.ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                     Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                    args.Add(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
+                    args.Add(WebSettings.ExecutionSettings.PackedExtensionPath);
                 }
 
-                if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
+                if (WebSettings.ExecutionSettings.UnpackedExtensionPath != null)
                 {
-                    string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
+                    string unpackedExtensionPath = WebSettings.ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                     Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                     args.Add($"load-extension={unpackedExtensionPath}");
                 }
@@ -148,16 +148,16 @@ public static class WrappedBrowserCreateService
                     args.Add($"--remote-debugging-port={DebuggerPort}");
                 }
 
-                if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
+                if (WebSettings.ExecutionSettings.PackedExtensionPath != null)
                 {
-                    string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
+                    string packedExtensionPath = WebSettings.ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                     Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                    args.Add(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
+                    args.Add(WebSettings.ExecutionSettings.PackedExtensionPath);
                 }
 
-                if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
+                if (WebSettings.ExecutionSettings.UnpackedExtensionPath != null)
                 {
-                    string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
+                    string unpackedExtensionPath = WebSettings.ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                     Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                     args.Add($"load-extension={unpackedExtensionPath}");
                 }
@@ -180,16 +180,16 @@ public static class WrappedBrowserCreateService
                     args.Add($"--remote-debugging-port={DebuggerPort}");
                 }
 
-                if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
+                if (WebSettings.ExecutionSettings.PackedExtensionPath != null)
                 {
-                    string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
+                    string packedExtensionPath = WebSettings.ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                     Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                    args.Add(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
+                    args.Add(WebSettings.ExecutionSettings.PackedExtensionPath);
                 }
 
-                if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
+                if (WebSettings.ExecutionSettings.UnpackedExtensionPath != null)
                 {
-                    string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
+                    string unpackedExtensionPath = WebSettings.ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                     Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                     args.Add($"load-extension={unpackedExtensionPath}");
                 }
@@ -217,16 +217,16 @@ public static class WrappedBrowserCreateService
                     args.Add($"--remote-debugging-port={DebuggerPort}");
                 }
 
-                if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath != null)
+                if (WebSettings.ExecutionSettings.PackedExtensionPath != null)
                 {
-                    string packedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
+                    string packedExtensionPath = WebSettings.ExecutionSettings.PackedExtensionPath.NormalizeAppPath();
                     Logger.LogInformation($"Trying to load packed extension from path: {packedExtensionPath}");
-                    args.Add(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.PackedExtensionPath);
+                    args.Add(WebSettings.ExecutionSettings.PackedExtensionPath);
                 }
 
-                if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath != null)
+                if (WebSettings.ExecutionSettings.UnpackedExtensionPath != null)
                 {
-                    string unpackedExtensionPath = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
+                    string unpackedExtensionPath = WebSettings.ExecutionSettings.UnpackedExtensionPath.NormalizeAppPath();
                     Logger.LogInformation($"Trying to load unpacked extension from path: {unpackedExtensionPath}");
                     args.Add($"load-extension={unpackedExtensionPath}");
                 }
@@ -287,7 +287,12 @@ public static class WrappedBrowserCreateService
 
         if (wrappedBrowser.CurrentContext != null) wrappedBrowser.CurrentContext.Dispose();
 
-        wrappedBrowser.CurrentContext = wrappedBrowser.Browser.NewContext();
+        if (WebSettings.PlaywrightSettings != null && WebSettings.PlaywrightSettings.ContextOptions != null)
+        {
+            options = WebSettings.PlaywrightSettings.ContextOptions;
+        }
+
+        wrappedBrowser.CurrentContext = wrappedBrowser.Browser.NewContext(options);
         wrappedBrowser.CurrentPage = wrappedBrowser.CurrentContext.NewPage();
 
         AddConsoleMessageListener(wrappedBrowser);
@@ -303,7 +308,7 @@ public static class WrappedBrowserCreateService
         }
         else
         {
-            var capsObject = ParseBooleans(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0]);
+            var capsObject = ParseBooleans(WebSettings.ExecutionSettings.Arguments[0]);
 
             capabilities = JsonConvert.SerializeObject(capsObject);
         }
@@ -321,7 +326,7 @@ public static class WrappedBrowserCreateService
                         throw new NotSupportedException("Playwright supports running in Selenium Grid only Chromium browsers.");
                     }
 
-                    var gridUrl = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.GridUrl;
+                    var gridUrl = WebSettings.ExecutionSettings.GridUrl;
                     if (gridUrl is null || gridUrl == string.Empty)
                     {
                         throw new ArgumentException("No grid url found in the config!");
@@ -505,4 +510,6 @@ public static class WrappedBrowserCreateService
 
         return dictionary;
     }
+
+    private static WebSettings WebSettings => ConfigurationService.GetSection<WebSettings>();
 }
