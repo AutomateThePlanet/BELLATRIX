@@ -33,4 +33,5 @@ public class TimeoutSettings
     public int ElementToBeClickableTimeout { get; set; } = 30;
     public int ElementNotToBeVisibleTimeout { get; set; } = 10;
     public int ElementToHaveContentTimeout { get; set; } = 30;
+    public int ActionTimeoutWhenHandlingDialogs { get; set; } = 10;
 }

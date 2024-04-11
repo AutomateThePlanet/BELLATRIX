@@ -24,6 +24,8 @@ namespace Bellatrix.Playwright.SyncPlaywright;
 /// </summary>
 public class BrowserPage
 {
+    public Dialog Dialog { get; set; }
+
     internal BrowserPage(BrowserContext context, IPage page)
     {
         Context = context;
@@ -33,6 +35,22 @@ public class BrowserPage
     internal BrowserPage(IPage page)
     {
         WrappedPage = page;
+    }
+
+    internal void ListenForDialog()
+    {
+        OnDialog += (sender, nativeDialog) =>
+        {
+            Dialog = new Dialog(nativeDialog);
+        };
+    }
+
+    internal void StopListeningForDialog()
+    {
+        OnDialog -= (sender, nativeDialog) =>
+        {
+            Dialog = new Dialog(nativeDialog);
+        };
     }
 
     public IPage WrappedPage { get; internal init; }

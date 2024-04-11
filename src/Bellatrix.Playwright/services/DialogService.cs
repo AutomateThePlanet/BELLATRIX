@@ -14,39 +14,78 @@
 
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Services;
+using System.Threading.Tasks;
+using Bellatrix.Playwright.Settings;
+using System.Threading;
+using Bellatrix.Playwright.Settings.Extensions;
 
 namespace Bellatrix.Playwright;
 
 public class DialogService : WebService
 {
+    public Dialog Dialog => CurrentPage.Dialog;
+
     public DialogService(WrappedBrowser wrappedBrowser)
         : base(wrappedBrowser)
     {
     }
 
-    //public void Handle(Action<IAlert> action = null, DialogButton dialogButton = DialogButton.Ok)
-    //{
-    //    var alert = WrappedDriver.SwitchTo().Alert();
-    //    action?.Invoke(alert);
-    //    if (dialogButton == DialogButton.Ok)
-    //    {
-    //        alert.Accept();
-    //        WrappedDriver.SwitchTo().DefaultContent();
-    //    }
-    //    else
-    //    {
-    //        alert.Dismiss();
-    //        WrappedDriver.SwitchTo().DefaultContent();
-    //    }
-    //}
+    /// <summary>
+    /// Unless you use this method and wrap your logic that will trigger a dialog, Playwright will automatically dismiss all dialogs.
+    /// </summary>
+    /// <param name="timeout">in milliseconds</param>
+    public Dialog RunAndWaitForDialog(Action action, int? timeout = null)
+    {
+        CurrentPage.ListenForDialog();
+
+        try
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+            cancellationTokenSource.CancelAfter(timeout ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ActionTimeoutWhenHandlingDialogs);
+
+            try
+            {
+                Task.Run(action).WaitAsync(cancellationTokenSource.Token).GetAwaiter().GetResult();
+            }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("Action timed out and was cancelled. Possible reason could be dialog presence before action completion.");
+            }
+        }
+        catch
+        {
+
+        }
+
+        return Dialog;
+    }
+
+    public void Accept(string promptText = null)
+    {
+        Dialog.Accept(promptText);
+
+        CurrentPage.StopListeningForDialog();
+    }
+
+    public void Dismiss()
+    {
+        Dialog.Dismiss();
+
+        CurrentPage.StopListeningForDialog();
+    }
+
+    public string GetMessage()
+    {
+        return Dialog.Message;
+    }
 
     public void AddDialogHandler(EventHandler<IDialog> handler)
     {
-        CurrentContext.OnDialog += handler;
+        CurrentPage.OnDialog += handler;
     }
 
     public void RemoveDialogHandler(EventHandler<IDialog> handler)
     {
-        CurrentContext.OnDialog -= handler;
+        CurrentPage.OnDialog -= handler;
     }
 }

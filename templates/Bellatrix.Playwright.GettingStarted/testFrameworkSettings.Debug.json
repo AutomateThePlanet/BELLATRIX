@@ -29,7 +29,8 @@
       "elementToNotExistTimeout": "30",
       "elementToBeClickableTimeout": "30",
       "elementNotToBeVisibleTimeout": "30",
-      "elementToHaveContentTimeout": "15"
+      "elementToHaveContentTimeout": "15",
+      "actionTimeoutWhenHandlingDialogs": "10"
     },
     "playwrightSettings": {
       "contextOptions": {
