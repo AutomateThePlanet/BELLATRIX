@@ -42,12 +42,12 @@ public partial class Component
         return string.IsNullOrEmpty(GetAttribute("class")) ? null : GetAttribute("class");
     }
 
-    internal void DefaultClick(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked, LocatorClickOptions options = default)
+    internal void DefaultClick(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked, LocatorClickOptions options = null)
     {
         clicking?.Invoke(this, new ComponentActionEventArgs(this));
         if (options != null)
         {
-            if ((bool)options.Force) PerformJsClick();
+            if (options.Force != null && (bool)options.Force) PerformJsClick();
             else WrappedElement.Click(options);
         }
         
