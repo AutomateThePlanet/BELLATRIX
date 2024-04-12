@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 using Bellatrix.Layout;
-using OpenQA.Selenium.Support.Extensions;
 
 namespace Bellatrix.Desktop;
 
@@ -32,8 +31,6 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
         ////    { "elementId", WrappedElement.Id },
         ////    { "durationMs", 0 }
         ////});
-
-        WrappedElement.Click();
 
         clicked?.Invoke(this, new ComponentActionEventArgs(this));
     }
