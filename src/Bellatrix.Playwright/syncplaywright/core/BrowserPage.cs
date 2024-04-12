@@ -61,11 +61,11 @@ public class BrowserPage
 
     public bool IsClosed => WrappedPage.IsClosed;
 
-    public IKeyboard Keyboard => WrappedPage.Keyboard;
+    public Keyboard Keyboard => new Keyboard(WrappedPage.Keyboard);
 
     public IFrame MainFrame => WrappedPage.MainFrame;
 
-    public IMouse Mouse => WrappedPage.Mouse;
+    public Mouse Mouse => new Mouse(WrappedPage.Mouse);
 
     public IAPIRequestContext APIRequest => WrappedPage.APIRequest;
 

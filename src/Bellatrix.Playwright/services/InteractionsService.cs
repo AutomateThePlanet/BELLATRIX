@@ -48,7 +48,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService Release()
     {
-        Actions.Add(() => CurrentPage.Mouse.UpAsync().GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Mouse.Up());
         return this;
     }
 
@@ -60,8 +60,8 @@ public class InteractionsService : WebService
         var boundingBox = element.WrappedElement.BoundingBox();
         Actions.Add(() =>
         {
-            CurrentPage.Mouse.MoveAsync(boundingBox.X, boundingBox.Y).GetAwaiter().GetResult();
-            CurrentPage.Mouse.UpAsync().GetAwaiter().GetResult();
+            CurrentPage.Mouse.Move(boundingBox.X, boundingBox.Y);
+            CurrentPage.Mouse.Up();
         });
         return this;
     }
@@ -71,7 +71,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService KeyDown(string theKey)
     {
-        Actions.Add(() => CurrentPage.Keyboard.DownAsync(theKey).GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Keyboard.Down(theKey));
         return this;
     }
 
@@ -83,7 +83,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService KeyDown(Component element, string theKey)
     {
-        Actions.Add(() => element.WrappedElement.Press(theKey));
+        Actions.Add(() => MoveToElement(element).KeyDown(theKey));
         return this;
     }
 
@@ -92,7 +92,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService KeyUp(string theKey)
     {
-        Actions.Add(() => CurrentPage.Keyboard.UpAsync(theKey).GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Keyboard.Up(theKey));
         return this;
     }
 
@@ -104,7 +104,8 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService KeyUp(Component element, string theKey)
     {
-        //WrappedActions.KeyUp(element.WrappedElement, theKey);
+        Actions.Add(() => MoveToElement(element).KeyUp(theKey));
+
         return this;
     }
 
@@ -113,7 +114,7 @@ public class InteractionsService : WebService
     /// <returns>A self-reference to this <see cref="Bellatrix.Playwright.InteractionsService" />.</returns>
     public InteractionsService SendKeys(string keysToSend)
     {
-        Actions.Add(() => CurrentPage.Keyboard.TypeAsync(keysToSend).GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Keyboard.Type(keysToSend));
         return this;
     }
 
@@ -134,7 +135,7 @@ public class InteractionsService : WebService
     public InteractionsService Click()
     {
         var coordinates = Coordinates();
-        Actions.Add(() => CurrentPage.Mouse.ClickAsync(coordinates.X, coordinates.Y).GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Mouse.Click(coordinates.X, coordinates.Y));
         return this;
     }
 
@@ -154,7 +155,7 @@ public class InteractionsService : WebService
     public InteractionsService ClickAndHold(int delay = 1000)
     {
         var coordinates = Coordinates();
-        Actions.Add(() => CurrentPage.Mouse.ClickAsync(coordinates.X, coordinates.Y, new MouseClickOptions { Delay = delay}).GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Mouse.Click(coordinates.X, coordinates.Y, new MouseClickOptions { Delay = delay}));
         return this;
     }
 
@@ -176,7 +177,7 @@ public class InteractionsService : WebService
     public InteractionsService DoubleClick()
     {
         var coordinates = Coordinates();
-        Actions.Add(() => CurrentPage.Mouse.ClickAsync(coordinates.X, coordinates.Y, new MouseClickOptions { ClickCount = 2 }).GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Mouse.Click(coordinates.X, coordinates.Y, new MouseClickOptions { ClickCount = 2 }));
         return this;
     }
 
@@ -196,7 +197,7 @@ public class InteractionsService : WebService
     public InteractionsService ContextClick()
     {
         var coordinates = Coordinates();
-        Actions.Add(() => CurrentPage.Mouse.ClickAsync(coordinates.X, coordinates.Y, new MouseClickOptions { Button = MouseButton.Right }).GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Mouse.Click(coordinates.X, coordinates.Y, new MouseClickOptions { Button = MouseButton.Right }));
         return this;
     }
 
@@ -234,7 +235,7 @@ public class InteractionsService : WebService
         Actions.Add(() =>
         {
             sourceElement.WrappedElement.Click(new LocatorClickOptions { Delay = 1000 });
-            CurrentPage.Mouse.MoveAsync(boundingBox.X + offsetX, boundingBox.Y + offsetY).GetAwaiter().GetResult();
+            CurrentPage.Mouse.Move(boundingBox.X + offsetX, boundingBox.Y + offsetY);
         });
         return this;
     }
@@ -245,7 +246,7 @@ public class InteractionsService : WebService
     public InteractionsService MoveToElement(Component element)
     {
         var boundingBox = element.WrappedElement.BoundingBox();
-        Actions.Add(() => CurrentPage.Mouse.MoveAsync(boundingBox.X, boundingBox.Y).GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Mouse.Move(boundingBox.X, boundingBox.Y));
         return this;
     }
 
@@ -259,7 +260,7 @@ public class InteractionsService : WebService
     public InteractionsService MoveToElement(Component sourceElement, int offsetX, int offsetY)
     {
         var boundingBox = sourceElement.WrappedElement.BoundingBox();
-        Actions.Add(() => CurrentPage.Mouse.MoveAsync(boundingBox.X + offsetX, boundingBox.Y + offsetY).GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Mouse.Move(boundingBox.X + offsetX, boundingBox.Y + offsetY));
         return this;
     }
 
@@ -272,7 +273,7 @@ public class InteractionsService : WebService
     public InteractionsService MoveByOffset(int offsetX, int offsetY)
     {
         var currentCoordinates = Coordinates();
-        Actions.Add(() => CurrentPage.Mouse.MoveAsync(currentCoordinates.X + offsetX, currentCoordinates.Y + offsetY).GetAwaiter().GetResult());
+        Actions.Add(() => CurrentPage.Mouse.Move(currentCoordinates.X + offsetX, currentCoordinates.Y + offsetY));
         return this;
     }
 
