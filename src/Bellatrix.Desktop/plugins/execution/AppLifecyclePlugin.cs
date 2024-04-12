@@ -106,7 +106,10 @@ public class AppLifecyclePlugin : Plugin
     {
         var currentAppConfiguration = container.Resolve<AppInitializationInfo>("_currentAppConfiguration");
 
-        ShutdownApp(container);
+        if (currentAppConfiguration.AppPath != "Root")
+        {
+            ShutdownApp(container);
+        }
 
         // Register the ExecutionEngine that should be used for the current run. Will be used in the next test as PreviousEngineType.
         var testExecutionEngine = new TestExecutionEngine();
@@ -216,58 +219,74 @@ public class AppLifecyclePlugin : Plugin
 
     private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
     {
-        if (ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Arguments == null)
+        var executionSettings = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings;
+        
+        if (executionSettings.Arguments == null)
         {
             return;
         }
 
-        if (ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Arguments[0].Count > 0)
+        if (executionSettings.Arguments.Count <= 0)
         {
-            foreach (var item in ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Arguments[0])
+            return;
+        }
+
+        if (executionSettings.Arguments[0].Count <= 0)
+        {
+            return;
+        }
+
+        foreach (var item in executionSettings.Arguments[0])
+        {
+            if (!string.IsNullOrEmpty(item.Key) && item.Value != null)
             {
-                if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
-                {
-                    options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
-                }
+                options.AddAdditionalCapability(item.Key, FormatGridOptions(item.Value, testClassType));
             }
         }
     }
 
-    private dynamic FormatGridOptions(string option, Type testClassType)
+    private dynamic FormatGridOptions(object option, Type testClassType)
     {
-        if (bool.TryParse(option, out bool result))
+        if (option is not string)
+        {
+            return option;
+        }
+
+        if (bool.TryParse((string)option, out bool result))
         {
             return result;
         }
-        else if (int.TryParse(option, out int resultNumber))
+        
+        if (int.TryParse((string)option, out int resultNumber))
         {
             return resultNumber;
         }
-        else if (option.StartsWith("env_") || option.StartsWith("vault_"))
+        
+        if (((string)option).StartsWith("env_") || ((string)option).StartsWith("vault_"))
         {
-            return SecretsResolver.GetSecret(() => option);
+            return SecretsResolver.GetSecret(() => (string)option);
         }
-        else if (double.TryParse(option, out double resultRealNumber))
+        
+        if (double.TryParse((string)option, out double resultRealNumber))
         {
             return resultRealNumber;
         }
-        else if (option.StartsWith("AssemblyFolder", StringComparison.Ordinal))
+        
+        if (((string)option).StartsWith("AssemblyFolder", StringComparison.Ordinal))
         {
             var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
-            option = option.Replace("AssemblyFolder", executionFolder);
+            option = ((string)option).Replace("AssemblyFolder", executionFolder);
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                option = option.Replace('\\', '/');
+                option = ((string)option).Replace('\\', '/');
             }
 
             return option;
         }
-        else
-        {
-            var runName = testClassType.Assembly.GetName().Name;
-            var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
-            return option.Replace("{runName}", timestamp).Replace("{runName}", runName);
-        }
+        
+        var runName = testClassType.Assembly.GetName().Name;
+        var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
+        return ((string)option).Replace("{runName}", timestamp).Replace("{runName}", runName);
     }
 }

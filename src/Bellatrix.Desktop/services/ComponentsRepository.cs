@@ -20,29 +20,29 @@ using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.Services;
 
-internal class ComponentsRepository
+public class ComponentsRepository
 {
-    public dynamic CreateComponentWithParent(FindStrategy by, WindowsElement parenTComponent, Type newElementType)
+    public dynamic CreateComponentWithParent(FindStrategy by, WindowsElement parentElement, Type newElementType)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         dynamic element = Activator.CreateInstance(newElementType);
         element.By = by;
-        element.ParentWrappedElement = parenTComponent;
-        element.ElementName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        element.ParentWrappedElement = parentElement;
+        ////element.ElementName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName; // temporary, revert
         element.PageName = pageName ?? string.Empty;
 
         return element;
     }
 
-    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, WindowsElement parenTComponent, WindowsElement foundElement, int elementsIndex)
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, WindowsElement parentElement, WindowsElement foundElement, int elementsIndex)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
-        element.ParentWrappedElement = parenTComponent;
+        element.ParentWrappedElement = parentElement;
         element.WrappedElement = foundElement;
         element.FoundWrappedElement = foundElement;
         element.ElementIndex = elementsIndex;

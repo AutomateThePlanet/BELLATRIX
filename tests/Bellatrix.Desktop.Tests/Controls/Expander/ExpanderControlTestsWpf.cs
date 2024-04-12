@@ -21,6 +21,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("Expander Control")]
 [AllureTag("WPF")]
+[TestCategory(Categories.WPF)]
 public class ExpanderControlTestsWpf : MSTest.DesktopTest
 {
     [TestMethod]

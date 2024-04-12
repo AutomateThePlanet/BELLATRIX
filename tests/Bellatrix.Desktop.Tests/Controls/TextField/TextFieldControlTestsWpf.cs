@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("TextField Control")]
 [AllureTag("WPF")]
+[TestCategory(Categories.WPF)]
 public class TextFieldControlTestsWpf : MSTest.DesktopTest
 {
     [TestMethod]

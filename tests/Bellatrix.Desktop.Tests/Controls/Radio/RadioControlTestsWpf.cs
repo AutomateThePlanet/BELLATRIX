@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("Radio Control")]
 [AllureTag("WPF")]
+[TestCategory(Categories.WPF)]
 public class RadioControlTestsWpf : MSTest.DesktopTest
 {
     [TestMethod]

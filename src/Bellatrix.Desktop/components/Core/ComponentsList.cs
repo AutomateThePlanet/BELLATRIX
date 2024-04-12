@@ -79,7 +79,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         }
 
         var nativeElements = WaitWebDriverElements();
-        return nativeElements.Count();
+        return nativeElements.Count;
     }
 
     public void ForEach(Action<TComponent> action)

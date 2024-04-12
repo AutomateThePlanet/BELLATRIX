@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("TextField Control")]
 [AllureTag("WinForms")]
+[TestCategory(Categories.WinForms)]
 public class TextFieldControlTestsWinForms : MSTest.DesktopTest
 {
     [TestMethod]

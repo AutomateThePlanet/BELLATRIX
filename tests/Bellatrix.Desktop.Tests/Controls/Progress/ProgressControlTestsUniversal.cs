@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("Progress Control")]
 [AllureTag("Universal")]
+[TestCategory(Categories.Universal)]
 public class ProgressControlTestsUniversal : MSTest.DesktopTest
 {
     [TestMethod]

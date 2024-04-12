@@ -26,7 +26,7 @@ public class TestExecutionEngine
         try
         {
             var wrappedWebDriver = WrappedWebDriverCreateService.Create(appConfiguration, childContainer);
-            childContainer.RegisterInstance<WindowsDriver<WindowsElement>>(wrappedWebDriver);
+            childContainer.RegisterInstance(wrappedWebDriver);
             ////childContainer.RegisterInstance(new AppService(wrappedWebDriver));
             ////childContainer.RegisterInstance(new ComponentCreateService());
             childContainer.RegisterNull<int?>();

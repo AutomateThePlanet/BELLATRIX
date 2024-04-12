@@ -13,9 +13,9 @@
 // <site>https://bellatrix.solutions/</site>
 namespace Bellatrix.Desktop.Tests;
 
-public class Constants
+public static class Constants
 {
     public const string WpfAppPath = @"AssemblyFolder\Demos\Wpf\WPFSampleApp.exe";
     public const string WinFormsAppPath = @"AssemblyFolder\Demos\WinForms\WindowsFormsSampleApp.exe";
-    public const string UniversalAppPath = @"369ede42-bebe-41ea-a02a-0da04991478e_hkj3ysbfh4b9w!App";
+    public const string UniversalAppPath = "369ede42-bebe-41ea-a02a-0da04991478e_hkj3ysbfh4b9w!App";
 }

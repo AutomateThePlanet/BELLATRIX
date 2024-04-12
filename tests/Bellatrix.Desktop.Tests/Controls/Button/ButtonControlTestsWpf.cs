@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("Button Control")]
 [AllureTag("WPF")]
+[TestCategory(Categories.WPF)]
 public class ButtonControlTestsWpf : MSTest.DesktopTest
 {
     [TestMethod]
