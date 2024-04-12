@@ -25,12 +25,12 @@ public class JavaScriptService : WebService
     {
     }
 
-    public object Execute<TComponent>(string script, TComponent component, params object[] args)
+    public TReturn Execute<TReturn, TComponent>(string script, TComponent component, params object[] args)
         where TComponent : Component
     {
         try
         {
-            return component.WrappedElement.Evaluate(script, args);
+            return component.Evaluate<TReturn>(script, args);
         }
         catch (NullReferenceException)
         {
@@ -39,33 +39,33 @@ public class JavaScriptService : WebService
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            return null;
+            return default;
         }
     }
 
-    public object Execute(string script)
+    public TResult Execute<TResult>(string script)
     {
         try
         {
-            return CurrentPage.Evaluate(script);
+            return CurrentPage.Evaluate<TResult>(script);
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            return null;
+            return default;
         }
     }
 
-    public T Execute<T>(string script, params object[] args)
+    public TResult Execute<TResult>(string script, params object[] args)
     {
         try
         {
-            return CurrentPage.Evaluate<T>(script);
+            return CurrentPage.Evaluate<TResult>(script);
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            return default(T);
+            return default;
         }
     }
 
@@ -94,7 +94,7 @@ public class JavaScriptService : WebService
     public string Execute<TComponent>(string script, TComponent component)
         where TComponent : Component
     {
-        return Execute(script, component.WrappedElement).ToString();
+        return Execute<string>(script, component);
     }
 
     public string Execute(string script, WebElement nativeLocator)
