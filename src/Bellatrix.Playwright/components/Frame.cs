@@ -12,12 +12,17 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using Bellatrix.Playwright.SyncPlaywright.Element;
+using Bellatrix.Playwright.Contracts;
+using Bellatrix.Playwright.Events;
+using System.Diagnostics;
 
 namespace Bellatrix.Playwright;
 
-public class Frame : Component
+public class Frame : Component, IComponentUrl, IComponentInnerHtml, IComponentDisabled
 {
+    public static event EventHandler<ComponentActionEventArgs> SettingUrl;
+    public static event EventHandler<ComponentActionEventArgs> UrlSet;
+
     public string Name => GetAttribute("name");
 
     public override TComponent As<TComponent>()
@@ -36,4 +41,22 @@ public class Frame : Component
 
         return component;
     }
+
+    public virtual string GetUrl()
+    {
+        return DefaultGetValue();
+    }
+
+    public virtual void SetUrl(string url)
+    {
+        SetValue(SettingUrl, UrlSet, url);
+    }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string InnerHtml => GetInnerHtmlAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual bool IsDisabled => GetDisabledAttribute();
+
+    public ComponentsList<Frame> ChildFrames => this.CreateAllByXpath<Frame>("//iframe");
 }
