@@ -31,6 +31,7 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
         ////    { "elementId", WrappedElement.Id },
         ////    { "durationMs", 0 }
         ////});
+        WrappedElement.Click();
 
         clicked?.Invoke(this, new ComponentActionEventArgs(this));
     }
