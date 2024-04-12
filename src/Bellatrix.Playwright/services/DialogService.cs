@@ -79,12 +79,12 @@ public class DialogService : WebService
         return Dialog.Message;
     }
 
-    public void AddDialogHandler(EventHandler<IDialog> handler)
+    public void AddDialogHandler(EventHandler<Dialog> handler)
     {
         CurrentPage.OnDialog += handler;
     }
 
-    public void RemoveDialogHandler(EventHandler<IDialog> handler)
+    public void RemoveDialogHandler(EventHandler<Dialog> handler)
     {
         CurrentPage.OnDialog -= handler;
     }

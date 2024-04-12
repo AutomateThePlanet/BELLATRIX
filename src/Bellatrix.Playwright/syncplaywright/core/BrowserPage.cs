@@ -22,7 +22,7 @@ namespace Bellatrix.Playwright.SyncPlaywright;
 /// <summary>
 /// Synchronous wrapper for Playwright IPage.
 /// </summary>
-public class BrowserPage
+public partial class BrowserPage
 {
     public Dialog Dialog { get; set; }
 
@@ -39,17 +39,17 @@ public class BrowserPage
 
     internal void ListenForDialog()
     {
-        OnDialog += (sender, nativeDialog) =>
+        OnDialog += (sender, dialog) =>
         {
-            Dialog = new Dialog(nativeDialog);
+            Dialog = dialog;
         };
     }
 
     internal void StopListeningForDialog()
     {
-        OnDialog -= (sender, nativeDialog) =>
+        OnDialog -= (sender, dialog) =>
         {
-            Dialog = new Dialog(nativeDialog);
+            Dialog = dialog;
         };
     }
 
@@ -78,121 +78,6 @@ public class BrowserPage
     public PageViewportSizeResult ViewportSize => WrappedPage.ViewportSize;
 
     public IReadOnlyList<IWorker> Workers => WrappedPage.Workers;
-
-    public event EventHandler<IPage> OnClose
-    {
-        add => WrappedPage.Close += value;
-        remove => WrappedPage.Close -= value;
-    }
-
-    public event EventHandler<IConsoleMessage> OnConsole
-    {
-        add => WrappedPage.Console += value;
-        remove => WrappedPage.Console -= value;
-    }
-
-    public event EventHandler<IPage> OnCrash
-    {
-        add => WrappedPage.Crash += value;
-        remove => WrappedPage.Crash -= value;
-    }
-
-    public event EventHandler<IDialog> OnDialog
-    {
-        add => WrappedPage.Dialog += value;
-        remove => WrappedPage.Dialog -= value;
-    }
-
-    public event EventHandler<IPage> OnDOMContentLoaded
-    {
-        add => WrappedPage.DOMContentLoaded += value;
-        remove => WrappedPage.DOMContentLoaded -= value;
-    }
-
-    public event EventHandler<IDownload> OnDownload
-    {
-        add => WrappedPage.Download += value;
-        remove => WrappedPage.Download -= value;
-    }
-
-    public event EventHandler<IFileChooser> OnFileChooser
-    {
-        add => WrappedPage.FileChooser += value;
-        remove => WrappedPage.FileChooser -= value;
-    }
-
-    public event EventHandler<IFrame> OnFrameAttached
-    {
-        add => WrappedPage.FrameAttached += value;
-        remove => WrappedPage.FrameAttached -= value;
-    }
-
-    public event EventHandler<IFrame> OnFrameDetached
-    {
-        add => WrappedPage.FrameDetached += value;
-        remove => WrappedPage.FrameDetached -= value;
-    }
-
-    public event EventHandler<IFrame> OnFrameNavigated
-    {
-        add => WrappedPage.FrameNavigated += value;
-        remove => WrappedPage.FrameNavigated -= value;
-    }
-
-    public event EventHandler<IPage> OnLoad
-    {
-        add => WrappedPage.Load += value;
-        remove => WrappedPage.Load -= value;
-    }
-
-    public event EventHandler<string> OnPageError
-    {
-        add => WrappedPage.PageError += value;
-        remove => WrappedPage.PageError -= value;
-    }
-
-    public event EventHandler<IPage> OnPopup
-    {
-        add => WrappedPage.Popup += value;
-        remove => WrappedPage.Popup -= value;
-    }
-
-    public event EventHandler<IRequest> OnRequest
-    {
-        add => WrappedPage.Request += value;
-        remove => WrappedPage.Request -= value;
-    }
-
-    public event EventHandler<IRequest> OnRequestFailed
-    {
-        add => WrappedPage.RequestFailed += value;
-        remove => WrappedPage.RequestFailed -= value;
-    }
-
-    public event EventHandler<IRequest> OnRequestFinished
-    {
-        add => WrappedPage.RequestFinished += value;
-        remove => WrappedPage.RequestFinished -= value;
-    }
-
-    public event EventHandler<IResponse> OnResponse
-    {
-        add => WrappedPage.Response += value;
-        remove => WrappedPage.Response -= value;
-    }
-
-    public event EventHandler<IWebSocket> OnWebSocket
-    {
-        add => WrappedPage.WebSocket += value;
-        remove => WrappedPage.WebSocket -= value;
-    }
-
-    public event EventHandler<IWorker> OnWorker
-    {
-        add => WrappedPage.Worker += value;
-        remove => WrappedPage.Worker -= value;
-    }
-
 
     public void AddInitScript(string script = null, string scriptPath = null)
     {
