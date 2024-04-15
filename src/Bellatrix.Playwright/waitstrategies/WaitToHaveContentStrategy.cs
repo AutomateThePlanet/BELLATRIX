@@ -34,6 +34,6 @@ public class WaitToHaveContentStrategy : WaitStrategy
 
     public override void WaitUntil(WebElement element)
     {
-        Expect(element.WrappedLocator).ToHaveTextAsync(new Regex(@".*"), new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        element.Expect().ToHaveText(new Regex(@".*"), new() { Timeout = TimeoutInterval });
     }
 }

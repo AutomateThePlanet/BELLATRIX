@@ -32,6 +32,6 @@ public class WaitToBeClickableStrategy : WaitStrategy
 
     public override void WaitUntil(WebElement element)
     {
-        Expect(element.WrappedLocator).ToBeEnabledAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        element.Expect().ToBeEnabled(new() { Timeout = TimeoutInterval });
     }
 }

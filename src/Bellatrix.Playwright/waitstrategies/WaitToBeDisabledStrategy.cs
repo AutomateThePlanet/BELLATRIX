@@ -32,6 +32,6 @@ public class WaitToBeDisabledStrategy : WaitStrategy
 
     public override void WaitUntil(WebElement element)
     {
-        Expect(element.WrappedLocator).ToBeDisabledAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        element.Expect().ToBeDisabled(new() { Timeout = TimeoutInterval });
     }
 }

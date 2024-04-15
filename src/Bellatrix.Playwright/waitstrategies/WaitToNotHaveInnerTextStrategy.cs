@@ -35,6 +35,6 @@ public class WaitToNotHaveInnerTextStrategy : WaitStrategy
 
     public override void WaitUntil(WebElement element)
     {
-        Expect(element.WrappedLocator).Not.ToHaveTextAsync(_elementText, new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        element.Expect().Not.ToHaveText(_elementText, new() { Timeout = TimeoutInterval });
     }
 }

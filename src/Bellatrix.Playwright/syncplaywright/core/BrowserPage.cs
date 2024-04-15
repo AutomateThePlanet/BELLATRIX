@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Microsoft.VisualStudio.Services.WebApi;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -57,26 +58,35 @@ public partial class BrowserPage
 
     public BrowserContext Context { get; internal init; }
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public IReadOnlyList<IFrame> Frames => WrappedPage.Frames;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public bool IsClosed => WrappedPage.IsClosed;
 
     public Keyboard Keyboard => new Keyboard(WrappedPage.Keyboard);
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public IFrame MainFrame => WrappedPage.MainFrame;
 
     public Mouse Mouse => new Mouse(WrappedPage.Mouse);
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public IAPIRequestContext APIRequest => WrappedPage.APIRequest;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public ITouchscreen Touchscreen => WrappedPage.Touchscreen;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string Url => WrappedPage.Url;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public IVideo Video => WrappedPage.Video;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public PageViewportSizeResult ViewportSize => WrappedPage.ViewportSize;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public IReadOnlyList<IWorker> Workers => WrappedPage.Workers;
 
     public void AddInitScript(string script = null, string scriptPath = null)

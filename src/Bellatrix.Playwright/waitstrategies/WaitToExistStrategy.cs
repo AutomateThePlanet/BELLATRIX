@@ -32,6 +32,6 @@ public class WaitToExistStrategy : WaitStrategy
 
     public override void WaitUntil(WebElement element)
     {
-        Expect(element.WrappedLocator).ToBeAttachedAsync(new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        element.Expect().ToBeAttached(new() { Timeout = TimeoutInterval });
     }
 }

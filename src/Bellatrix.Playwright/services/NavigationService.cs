@@ -94,7 +94,7 @@ public class NavigationService : WebService
     {
         try
         {
-            Expect(CurrentPage.WrappedPage).ToHaveURLAsync(new Regex(@$".*{partialUrl}.*"), new() { Timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().WaitForPartialUrl });
+            CurrentPage.Expect().ToHaveURL(new Regex(@$".*{partialUrl}.*"), new() { Timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().WaitForPartialUrl });
         }
         catch (Exception ex)
         {

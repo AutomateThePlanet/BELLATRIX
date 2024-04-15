@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Microsoft.VisualStudio.Services.WebApi;
+using System.Diagnostics;
 
 namespace Bellatrix.Playwright.SyncPlaywright;
 
@@ -46,8 +47,10 @@ public class BellatrixBrowser
 
     public IReadOnlyList<BrowserContext> Contexts => BrowserContexts.AsReadOnly();
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public bool IsConnected => WrappedBrowser.IsConnected;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string Version => WrappedBrowser.Version;
 
     public event EventHandler<IBrowser> OnDisconnected

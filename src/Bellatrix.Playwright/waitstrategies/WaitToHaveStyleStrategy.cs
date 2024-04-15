@@ -34,6 +34,6 @@ public class WaitToHaveStyleStrategy : WaitStrategy
 
     public override void WaitUntil(WebElement element)
     {
-        Expect(element.WrappedLocator).ToHaveCSSAsync("style", _elementStyle, new() { Timeout = TimeoutInterval }).GetAwaiter().GetResult();
+        element.Expect().ToHaveCSS("style", _elementStyle, new() { Timeout = TimeoutInterval });
     }
 }
