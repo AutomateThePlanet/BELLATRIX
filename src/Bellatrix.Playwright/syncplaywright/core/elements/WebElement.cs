@@ -15,6 +15,7 @@
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.SyncPlaywright.Element;
 using Microsoft.VisualStudio.Services.WebApi;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -39,8 +40,10 @@ public class WebElement
 
     public ILocator WrappedLocator { get; set; }
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual WebElement First => new WebElement(Page, WrappedLocator.First);
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual WebElement Last => new WebElement(Page, WrappedLocator.Last);
 
     public BrowserPage Page { get; internal init; }

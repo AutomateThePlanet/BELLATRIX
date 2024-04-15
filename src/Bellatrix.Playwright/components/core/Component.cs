@@ -27,8 +27,6 @@ using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.CognitiveServices.services;
 using Bellatrix.CognitiveServices;
 using Bellatrix.Playwright.SyncPlaywright.Element;
-using Microsoft.TeamFoundation.Common;
-using Bellatrix.Utilities;
 
 
 namespace Bellatrix.Playwright;
@@ -58,6 +56,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     private readonly ComponentWaitService _elementWaiter;
     private readonly List<WaitStrategy> _untils;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string TagName => WrappedElement.Evaluate("element => element.TagName;").GetValueOrDefault().ToString();
 
     public Component()
@@ -88,7 +87,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     protected readonly BrowserService BrowserService;
     protected readonly ComponentCreateService ComponentCreateService;
 
-    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public FindStrategy By { get; internal set; }
 
     public string GetTitle() => string.IsNullOrEmpty(GetAttribute("title")) ? null : GetAttribute("title");

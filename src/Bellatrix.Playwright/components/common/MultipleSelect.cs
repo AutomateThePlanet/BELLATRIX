@@ -105,7 +105,11 @@ public class MultipleSelect : Component, IComponentDisabled, IComponentRequired,
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsRequired => GetRequiredAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsReadonly => GetReadonlyAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsMultiple
     {
         get

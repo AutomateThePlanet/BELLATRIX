@@ -63,6 +63,7 @@ public class Select : Component, IComponentDisabled, IComponentRequired, ICompon
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsRequired => GetRequiredAttribute();
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsReadonly => GetReadonlyAttribute();
 
     protected virtual List<Option> DefaultGetAllOptions(Select select)

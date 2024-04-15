@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Microsoft.VisualStudio.Services.WebApi;
+using System.Diagnostics;
 
 namespace Bellatrix.Playwright.SyncPlaywright;
 
@@ -28,12 +29,15 @@ public class Dialog
 
     public IDialog WrappedDialog { get; internal set; }
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string DefaultValue => WrappedDialog.DefaultValue;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string Message => WrappedDialog.Message;
 
     public BrowserPage Page => new BrowserPage(WrappedDialog.Page);
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string Type => WrappedDialog.Type;
 
     public void Accept(string promptText = null)

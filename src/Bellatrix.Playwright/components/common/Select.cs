@@ -90,6 +90,8 @@ public class Select : Component, IComponentDisabled, IComponentRequired, ICompon
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsRequired => GetRequiredAttribute();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsReadonly => GetReadonlyAttribute();
 
     private void InternalSelect(SelectOptionValue option, string by)

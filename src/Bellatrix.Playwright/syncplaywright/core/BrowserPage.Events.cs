@@ -1,7 +1,6 @@
 ﻿namespace Bellatrix.Playwright.SyncPlaywright;
 public partial class BrowserPage
 {
-
     public event EventHandler<BrowserPage> OnClose
     {
         add => WrappedPage.Close += (sender, e) => value(sender, this);
@@ -115,6 +114,4 @@ public partial class BrowserPage
         add => WrappedPage.Worker += value;
         remove => WrappedPage.Worker -= value;
     }
-
-
 }

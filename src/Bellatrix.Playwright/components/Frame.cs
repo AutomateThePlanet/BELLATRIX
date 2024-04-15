@@ -13,16 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Playwright.Contracts;
-using Bellatrix.Playwright.Events;
 using System.Diagnostics;
+using System.Web;
 
 namespace Bellatrix.Playwright;
 
-public class Frame : Component, IComponentUrl, IComponentInnerHtml, IComponentDisabled
+public class Frame : Component, IComponentSrc, IComponentInnerHtml, IComponentDisabled
 {
-    public static event EventHandler<ComponentActionEventArgs> SettingUrl;
-    public static event EventHandler<ComponentActionEventArgs> UrlSet;
-
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string Name => GetAttribute("name");
 
     public override TComponent As<TComponent>()
@@ -42,15 +40,8 @@ public class Frame : Component, IComponentUrl, IComponentInnerHtml, IComponentDi
         return component;
     }
 
-    public virtual string GetUrl()
-    {
-        return DefaultGetValue();
-    }
-
-    public virtual void SetUrl(string url)
-    {
-        SetValue(SettingUrl, UrlSet, url);
-    }
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public virtual string Src => HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("src")));
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual string InnerHtml => GetInnerHtmlAttribute();
@@ -58,5 +49,6 @@ public class Frame : Component, IComponentUrl, IComponentInnerHtml, IComponentDi
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsDisabled => GetDisabledAttribute();
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public ComponentsList<Frame> ChildFrames => this.CreateAllByXpath<Frame>("//iframe");
 }

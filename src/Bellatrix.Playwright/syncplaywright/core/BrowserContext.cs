@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Microsoft.VisualStudio.Services.WebApi;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -40,10 +41,13 @@ public class BrowserContext
 
     internal List<BrowserPage> BrowserPages { get; private init; } = new List<BrowserPage>();
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public IReadOnlyList<BrowserPage> Pages => BrowserPages.AsReadOnly();
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public IAPIRequestContext APIRequest => WrappedBrowserContext.APIRequest;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public ITracing Tracing => WrappedBrowserContext.Tracing;
 
     public event EventHandler<IBrowserContext> OnClose

@@ -12,6 +12,8 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using System.Diagnostics;
+
 namespace Bellatrix.Playwright.SyncPlaywright;
 
 /// <summary>
@@ -26,8 +28,10 @@ public class BrowserType
 
     public IBrowserType WrappedBrowserType { get; internal init; }
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string ExecutablePath => WrappedBrowserType.ExecutablePath;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string Name => WrappedBrowserType.Name;
 
     public BellatrixBrowser Connect(string wsEndpoint, BrowserTypeConnectOptions options = null)
