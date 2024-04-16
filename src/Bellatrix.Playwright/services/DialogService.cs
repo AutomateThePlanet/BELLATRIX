@@ -23,7 +23,7 @@ namespace Bellatrix.Playwright;
 
 public class DialogService : WebService
 {
-    public Dialog Dialog => CurrentPage.Dialog;
+    public Dialog Dialog { get; internal set; }
 
     public DialogService(WrappedBrowser wrappedBrowser)
         : base(wrappedBrowser)
@@ -36,7 +36,7 @@ public class DialogService : WebService
     /// <param name="timeout">in milliseconds</param>
     public Dialog RunAndWaitForDialog(Action action, int? timeout = null)
     {
-        CurrentPage.ListenForDialog();
+        CurrentPage.OnceDialog((dialog) => Dialog = dialog);
 
         try
         {
@@ -63,15 +63,11 @@ public class DialogService : WebService
     public void Accept(string promptText = null)
     {
         Dialog.Accept(promptText);
-
-        CurrentPage.StopListeningForDialog();
     }
 
     public void Dismiss()
     {
         Dialog.Dismiss();
-
-        CurrentPage.StopListeningForDialog();
     }
 
     public string GetMessage()
@@ -87,5 +83,10 @@ public class DialogService : WebService
     public void RemoveDialogHandler(EventHandler<Dialog> handler)
     {
         CurrentPage.OnDialog -= handler;
+    }
+
+    public void OnceDialog(Action<Dialog> handler)
+    {
+        CurrentPage.OnceDialog(handler);
     }
 }
