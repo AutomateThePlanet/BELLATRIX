@@ -12,6 +12,8 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using mailslurp.Model;
+using Microsoft.Playwright;
 using Microsoft.VisualStudio.Services.WebApi;
 using System.Diagnostics;
 using System.Text.Json;
@@ -25,8 +27,6 @@ namespace Bellatrix.Playwright.SyncPlaywright;
 /// </summary>
 public partial class BrowserPage
 {
-    public Dialog Dialog { get; set; }
-
     internal BrowserPage(BrowserContext context, IPage page)
     {
         Context = context;
@@ -36,22 +36,6 @@ public partial class BrowserPage
     internal BrowserPage(IPage page)
     {
         WrappedPage = page;
-    }
-
-    internal void ListenForDialog()
-    {
-        OnDialog += (sender, dialog) =>
-        {
-            Dialog = dialog;
-        };
-    }
-
-    internal void StopListeningForDialog()
-    {
-        OnDialog -= (sender, dialog) =>
-        {
-            Dialog = dialog;
-        };
     }
 
     public IPage WrappedPage { get; internal init; }
