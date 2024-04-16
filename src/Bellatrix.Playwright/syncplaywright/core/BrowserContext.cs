@@ -22,7 +22,7 @@ namespace Bellatrix.Playwright.SyncPlaywright;
 /// <summary>
 /// Synchronous wrapper of Playwright IBrowserContext.
 /// </summary>
-public class BrowserContext
+public partial class BrowserContext
 {
     internal BrowserContext(BellatrixBrowser browser, IBrowserContext context)
     {
@@ -49,60 +49,6 @@ public class BrowserContext
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public ITracing Tracing => WrappedBrowserContext.Tracing;
-
-    public event EventHandler<IBrowserContext> OnClose
-    {
-        add => WrappedBrowserContext.Close += value;
-        remove => WrappedBrowserContext.Close -= value;
-    }
-
-    public event EventHandler<IConsoleMessage> OnConsole
-    {
-        add => WrappedBrowserContext.Console += value;
-        remove => WrappedBrowserContext.Console -= value;
-    }
-
-    public event EventHandler<IDialog> OnDialog
-    {
-        add => WrappedBrowserContext.Dialog += value;
-        remove => WrappedBrowserContext.Dialog -= value;
-    }
-
-    public event EventHandler<IPage> OnPage
-    {
-        add => WrappedBrowserContext.Page += value;
-        remove => WrappedBrowserContext.Page -= value;
-    }
-
-    public event EventHandler<IWebError> OnWebError
-    {
-        add => WrappedBrowserContext.WebError += value;
-        remove => WrappedBrowserContext.WebError -= value;
-    }
-
-    public event EventHandler<IRequest> OnRequest
-    {
-        add => WrappedBrowserContext.Request += value;
-        remove => WrappedBrowserContext.Request -= value;
-    }
-
-    public event EventHandler<IRequest> OnRequestFailed
-    {
-        add => WrappedBrowserContext.RequestFailed += value;
-        remove => WrappedBrowserContext.RequestFailed -= value;
-    }
-
-    public event EventHandler<IRequest> OnRequestFinished
-    {
-        add => WrappedBrowserContext.RequestFinished += value;
-        remove => WrappedBrowserContext.RequestFinished -= value;
-    }
-
-    public event EventHandler<IResponse> OnResponse
-    {
-        add => WrappedBrowserContext.Response += value;
-        remove => WrappedBrowserContext.Response -= value;
-    }
 
     public void AddCookies(IEnumerable<Cookie> cookies)
     {
