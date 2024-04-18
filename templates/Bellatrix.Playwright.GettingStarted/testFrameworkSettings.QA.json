@@ -1,0 +1,209 @@
+﻿{
+  // All Timeout Times are in seconds!
+  "troubleshootingSettings": {
+    "debugInformationEnabled": "true"
+  },
+  "webSettings": {
+    "isParallelExecutionEnabled": "false",
+    "artificialDelayBeforeAction": "0",
+    "automaticallyScrollToVisible": "false",
+    "waitUntilReadyOnElementFound": "false",
+    "waitForAngular": "false",
+    "shouldHighlightElements": "true",
+    "shouldCaptureHttpTraffic": "false",
+    "pathToSslCertificate": "path",
+    "shouldCheckForJavaScriptErrors": "false",
+    "timeoutSettings": {
+      "elementWaitTimeout": "30",
+      "pageLoadTimeout": "30",
+      "scriptTimeout": "1",
+      "waitForAjaxTimeout": "30",
+      "sleepInterval": "1",
+      "waitUntilReadyTimeout": "30",
+      "waitForJavaScriptAnimationsTimeout": "30",
+      "waitForAngularTimeout": "30",
+      "waitForPartialUrl": "30",
+      "validationsTimeout": "30",
+      "elementToBeVisibleTimeout": "30",
+      "elementToExistTimeout": "30",
+      "elementToNotExistTimeout": "30",
+      "elementToBeClickableTimeout": "30",
+      "elementNotToBeVisibleTimeout": "30",
+      "elementToHaveContentTimeout": "15"
+    },
+    "executionSettings": {
+      "executionType": "regular",
+      "defaultBrowser": "chrome",
+      "defaultLifeCycle": "restart every time",
+      "resolution": "",
+      "browserVersion": "",
+      "isCloudRun": "false",
+      "url": "http://127.0.0.1:4444/wd/hub",
+      "arguments": [
+        {
+        }
+      ]
+      // sample selenoid args or you can set here custom default browser options for non-grid execution
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "videoName": "{runName}.{timestamp}.mp4",
+      //    "logName": "{runName}.{timestamp}.log",
+      //    "enableVNC": "true",
+      //    "enableVideo": "true",
+      //    "enableLog": "true",
+      //    "screenResolution": "1920x1080x24"
+      //  }
+      //]
+      // sample saucelabs args
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "platform": "Windows",
+      //    "version": "86",
+      //    "recordVideo": "true",
+      //    "recordScreenshots": "true",
+      //    "screenResolution": "1920x1080x24",
+      //     // you case set them as environmental variables - cloud.grid.user and cloud.grid.key. Set them as value to the key to which they should be intialized.
+      //    "username": "yourUserName",
+      //    "accessKey": "accessKey"
+      //  }
+      //]
+      // sample cross browser testing args
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "platform": "Windows",
+      //    "browserName": "Chrome",
+      //    "version": "86",
+      //    "record_video": "true",
+      //    "record_network": "true",
+      //    "screen_resolution": "1920x1080x24",
+      //     // you case set them as environmental variables - cloud.grid.user and cloud.grid.key. Set them as value to the key to which they should be intialized.
+      //    "username": "yourUserName",
+      //    "password": "accessKey"
+      //  }
+      //]
+      // sample lambda test args
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "platformName": "Windows",
+      //    "browserName": "Chrome",
+      //    "browserVersion": "93.0",
+      //    "video": "true",
+      //    "visual": "true",
+      //    "resolution": "1920x1080x24",
+      //    "geoLocation": "BE",
+      //     // you case set them as environmental variables - cloud.grid.user and cloud.grid.key. Set them as value to the key to which they should be intialized.
+      //    "user": "yourUserName",
+      //    "accessKey": "accessKey"
+      //  }
+      //]
+      // sample browserstack args
+      //"arguments": [
+      //  {
+      //    "name": "{runName}",
+      //    "os": "Windows",
+      //    "os_version": "10",
+      //    "browser": "Chrome",
+      //    "browser_version": "86",
+      //    "browserstack.debug": "true",
+      //    "browserstack.video": "true",
+      //    "browserstack.networkLogs": "true",
+      //    "browserstack.console": "true",
+      //    // you case set them as environmental variables - cloud.grid.user and cloud.grid.key. Set them as value to the key to which they should be intialized.
+      //    "browserstack.user": "yourUserName",
+      //    "browserstack.key": "accessKey"
+      //  }
+      //]
+    }
+  },
+  "apiSettings": {
+    "baseUrl": "http://127.0.0.1:55215",
+    "clientTimeoutSeconds": "30",
+    "maxRetryAttempts": "3",
+    "pauseBetweenFailures": "1",
+    "timeUnit": "1"
+  },
+  "lighthouseSettings": {
+    "isEnabled": "true",
+    "timeout": "60",
+    "arguments": [
+      {
+        "screenEmulation.disabled": ""
+      }
+    ]
+  },
+  "urlSettings": {
+    "shopUrl": "https://demos.bellatrix.solutions/cart/",
+    "accountUrl": "https://demos.bellatrix.solutions/account/"
+  },
+  "videoRecordingSettings": {
+    "isEnabled": "false",
+    "waitAfterFinishRecordingMilliseconds": "500",
+    "filePath": "ApplicationData\\Troubleshooting\\Videos"
+  },
+  "screenshotsSettings": {
+    "isEnabled": "true",
+    "filePath": "ApplicationData\\Troubleshooting\\Screenshots"
+  },
+  "imageRecognitionSettings": {
+    "timeoutInSeconds": "5",
+    "defaultSimilarity": "0.7"
+  },
+  "processCleanupSettings": {
+    "isParallelExecutionEnabled": "false"
+  },
+  "azureDevOpsDynamicTestCasesSettings": {
+    "isEnabled": "false",
+    "url": "https://dev.azure.com/yourCompany",
+    "token": "yourToken",
+    "organizationName": "organizationName",
+    "projectName": "projectName"
+  },
+  "qTestDynamicTestCasesSettings": {
+    "isEnabled": "false",
+    "serviceAddress": "https://yourProject.qtestnet.com/",
+    "token": "yourAuthenticationToken",
+    "userName": "yourUserName",
+    "password": "yourPass",
+    "projectId": "559370"
+  },
+  "azureDevOpsBugReportingSettings": {
+    "isEnabled": "false",
+    "url": "https://dev.azure.com/yourCompany",
+    "token": "yourToken",
+    "organizationName": "organizationName",
+    "projectName": "projectName",
+    "defaultPriority": "2",
+    "defaultSeverity": "2 - High"
+  },
+  "jiraBugReportingSettings": {
+    "isEnabled": "false",
+    "url": "yourServerUrl",
+    "token": "authenticationToken",
+    "projectName": "projectName",
+    "defaultPriority": "Medium"
+  },
+  "allureReportingSettings": {
+    "isEnabled": "false"
+  },
+  "cognitiveServicesSettings": {
+    "computerVisionEndpoint": "computerVisionEndpointUrl",
+    "computerVisionSubscriptionKey": "yourkey",
+    "formRecognizerEndpoint": "formRecognizerEndpointUrl",
+    "formRecognizerSubscriptionKey": "yourkey"
+  },
+  "keyVaultSettings": {
+    "keyVaultEndpoint": "keyVaultEndpointUrl",
+    "isEnabled": "false"
+  },
+  "appInsightsSettings": {
+    "instrumentationKey": "yourKey",
+    "isEnabled": "false"
+  },
+  "blobStorageSettings": {
+    "connectionString": "yourKey"
+  }
+}

@@ -11,9 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using System.Diagnostics;
+
 namespace Bellatrix.Web;
 
 public class Frame : Component
 {
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public string Name => GetAttribute("name");
 }

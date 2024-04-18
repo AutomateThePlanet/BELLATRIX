@@ -1,0 +1,5 @@
+﻿1. Create a new MSTest test class
+2. Use the BELLATRIX Browser attribute so that you execute all tests in Chrome and reuse the browser.
+3. Navigate to https://demos.bellatrix.solutions/welcome/ for each test but don't navigate in the tests body.
+5. Create a test where you open the Big Rockets page by clicking the link.
+6. Create a test where you open the Small Rockets page by clicking the image.

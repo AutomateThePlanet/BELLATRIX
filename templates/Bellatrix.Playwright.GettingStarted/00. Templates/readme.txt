@@ -1,0 +1,1 @@
+﻿1. To quickly start open the starthere folder and start adding tests to the desired preconfigured project

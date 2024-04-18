@@ -1,0 +1,7 @@
+﻿1. Create a new MSTest test class
+2. Use the BELLATRIX Browser attribute so that you execute all tests in Firefox and restart the browser every time.
+3. Navigate to https://demos.bellatrix.solutions/
+4. Open the browser in a mobile resolution so that the rocket links are aligned vertically.
+5. Assert all rocket boxes are aligned vertically
+6. Assert Footer menu items are aligned horizontally
+6. Assert search icon is left of the cart icon

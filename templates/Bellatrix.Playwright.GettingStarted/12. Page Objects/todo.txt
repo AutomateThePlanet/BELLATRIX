@@ -1,0 +1,1 @@
+﻿1. Go through your previously created tests and try to refactor them to use page objects.

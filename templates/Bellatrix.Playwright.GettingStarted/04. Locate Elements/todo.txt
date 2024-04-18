@@ -1,0 +1,6 @@
+﻿1. Create a new MSTest test class
+2. Use the BELLATRIX Browser attribute so that you execute all tests in Firefox and restart the browser every time.
+3. Navigate to https://demos.bellatrix.solutions/welcome/ for each test but don't navigate in the tests body.
+5. Create a test where you click on the Saturn V Sale! Button via locating the element by inner text.
+6. Create a test where you find all Add to cart buttons
+7. Create a test where you locate all images inside the Best Sellers section. Use chain locators.

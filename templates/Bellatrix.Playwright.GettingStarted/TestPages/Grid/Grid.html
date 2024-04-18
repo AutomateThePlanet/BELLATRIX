@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Grid Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .grid th {
+            text-align: center;
+            vertical-align: central;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Grid Example</h2>
+        <h4>In the case of data displayed in a grid, we not onlly have to verify data in cells, but to perform actions in specific cells that contain buttons, inputs or other types of controls.</h4>
+        
+        <div class="grid" id="sampleGrid">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" rowspan="2">Order</th>
+                        <th scope="col" rowspan="2">Firstname</th>
+                        <th scope="col" rowspan="2">Lastname</th>
+                        <th scope="col" colspan="2">Email</th>
+                        <th scope="col" rowspan="2">Actions</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Personal</th>
+                        <th scope="col">Business</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr scope="row">
+                        <td><input type="text" value="0"/></td>
+                        <td><b>John</b></td>
+                        <td>Doe</td>
+                        <td>john.doe@gmail.com</td>
+                        <td>jdoe@corp.com</td>
+                        <td><input type="button" value="Delete" onclick="deleteRow(this)"/></td>
+                    </tr>
+                    <tr scope="row">
+                        <td><input type="text" value="1" /></td>
+                        <td>Mary</td>
+                        <td>Moe</td>
+                        <td>mary@hotmail.com</td>
+                        <td></td>
+                        <td><input type="button" value="Delete" onclick="deleteRow(this)" /></td>
+                    </tr>
+                    <tr scope="row">
+                        <td><input type="text" value="2" /></td>
+                        <td>July</td>
+                        <td>Dooley</td>
+                        <td></td>
+                        <td>july@mscorp.com</td>
+                        <td><input type="button" value="Delete" onclick="deleteRow(this)" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function deleteRow(e) {
+            debugger;
+            e.parentNode.parentNode.remove();
+        }
+    </script>
+</body>
+</html>

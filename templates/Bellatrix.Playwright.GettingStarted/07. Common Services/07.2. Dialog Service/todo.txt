@@ -1,0 +1,4 @@
+﻿1. Create a new MSTest test class
+2. Use the BELLATRIX Browser attribute so that you execute all tests in Firefox and restart the browser every time.
+3. Navigate to https://demos.bellatrix.solutions/
+4. Create a test where you click on the Promotions menu item. Click on the 'Do you want 5% off for your BD?'. Verify that the correct is displayed in the box and close the alert.

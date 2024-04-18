@@ -1,0 +1,5 @@
+﻿1. Create a test that navigates to https://demos.bellatrix.solutions/
+2. Click on the checkout button
+3. However, wait for the https://demos.bellatrix.solutions/blog/ URL (making your test to fail)
+4. Add an event handler for the UrlNotNavigatedEvent event
+5. Print the wrong URL using the DebugLogger
