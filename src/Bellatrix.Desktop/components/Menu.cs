@@ -12,6 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using System.Linq;
 using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop;
@@ -24,5 +25,10 @@ public class Menu : Component
     public virtual void Hover()
     {
         Hover(Hovering, Hovered);
+    }
+
+    public void SelectOption(string option)
+    {
+        this.CreateAllByClass<Button>("MenuItem").First(x => x.GetAttribute("Name") == option).Click();
     }
 }
