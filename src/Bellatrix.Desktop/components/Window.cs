@@ -12,9 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using System.Diagnostics;
 using Bellatrix.Desktop.Configuration;
-using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 using Bellatrix.Desktop.Services;
 using OpenQA.Selenium.Appium.Windows;
@@ -26,9 +24,9 @@ public class Window : Component
     public static event EventHandler<ComponentActionEventArgs> Attaching;
     public static event EventHandler<ComponentActionEventArgs> Attached;
 
-    private string _windowHandle;
+    protected string _windowHandle;
 
-    public string WindowHandle
+    public virtual string WindowHandle
     {
         get
         {
@@ -49,7 +47,7 @@ public class Window : Component
             {
                 return null;
             }
-            
+
 
             return _windowHandle;
         }
@@ -60,7 +58,7 @@ public class Window : Component
         Attaching?.Invoke(this, new ComponentActionEventArgs(this));
 
         this.ToExists().WaitToBe();
-        
+
         var currentAppConfiguration =
             ServicesCollection.Current.Resolve<AppInitializationInfo>("_currentAppConfiguration");
         currentAppConfiguration.WindowHandle = WindowHandle;
