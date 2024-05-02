@@ -69,7 +69,7 @@ public class App : IDisposable
         {
             throw new ArgumentException("Windows Application Driver is not installed on the machine. To use BELLATRIX Desktop libraries you need to install it first. You can download it from here: https://github.com/Microsoft/WinAppDriver/releases");
         }
-        
+
         var appiumPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "npm");
         if (!Directory.Exists(appiumPath))
         {
@@ -78,9 +78,9 @@ public class App : IDisposable
 
         var appiumPs1Path = Path.Combine(appiumPath, "appium.ps1");
         _appiumServerProcess = ProcessProvider.StartProcess(
-            "powershell.exe", 
-            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), 
-            $"-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File \"{appiumPs1Path}\" -a {uri.Host} -p {uri.Port}", 
+            "powershell.exe",
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+            $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" -a {uri.Host} -p {uri.Port} --allow-insecure=power_shell",
             true);
 
         ProcessProvider.WaitPortToGetBusy(uri.Port);

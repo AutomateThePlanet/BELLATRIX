@@ -69,6 +69,7 @@ public static class ProcessProvider
     {
         process?.CloseMainWindow();
         process?.Close();
+        process?.WaitForExit(60_000);
         process?.Dispose();
     }
 
