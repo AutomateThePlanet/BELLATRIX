@@ -23,16 +23,14 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 {
     private readonly List<TComponent> _components;
 
-    public ComponentsList(FindStrategy by, WebElement parenTComponent)
+    public ComponentsList(FindStrategy by, Component parenTComponent) 
+        : this((ServicesCollection.Current.Resolve<ComponentRepository>().CreateComponentListWithParent<TComponent>(by, parenTComponent)))
     {
-        _components = InitializeComponents(by, parenTComponent);
-        WrappedBrowser = ServicesCollection.Current.Resolve<WrappedBrowser>();
     }
 
     public ComponentsList(FindStrategy by)
+        : this((ServicesCollection.Current.Resolve<ComponentRepository>().CreateComponentList<TComponent>(by)))
     {
-        _components = InitializeComponents(by);
-        WrappedBrowser = ServicesCollection.Current.Resolve<WrappedBrowser>();
     }
 
     public ComponentsList()
@@ -89,30 +87,6 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         {
             yield return component;
         }
-    }
-
-    private List<TComponent> InitializeComponents(FindStrategy by, WebElement parenTComponent)
-    {
-        var list = new List<TComponent>();
-        var webElements = by.Resolve(parenTComponent).All();
-        foreach (var element in webElements)
-        {
-            list.Add(ServicesCollection.Current.Resolve<ComponentRepository>().CreateComponentWithParent<TComponent>(by, parenTComponent));
-        }
-
-        return list;
-    }
-
-    private List<TComponent> InitializeComponents(FindStrategy by)
-    {
-        var list = new List<TComponent>();
-        var webElements = by.Resolve(WrappedBrowser.CurrentPage).All();
-        foreach (var element in webElements)
-        {
-            list.Add(ServicesCollection.Current.Resolve<ComponentRepository>().CreateComponent<TComponent>(by));
-        }
-
-        return list;
     }
 
     public void AddRange(List<TComponent> currentFilteredCells)

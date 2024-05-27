@@ -12,6 +12,9 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Core.Utilities;
+using Bellatrix.Playwright.Components;
+using Bellatrix.Playwright.Locators;
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.SyncPlaywright.Element;
 using System.Diagnostics;
@@ -27,16 +30,10 @@ public class ComponentRepository
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         dynamic element = Activator.CreateInstance(newElementType);
-        element.By = by;
 
-        if (element is Frame)
-        {
-            element.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, by.Resolve(parenTComponent.WrappedElement));
-        }
-        else
-        {
-            element.WrappedElement = by.Resolve(parenTComponent.WrappedElement);
-        }
+        ResolveFindStrategy(element, by, parenTComponent);
+
+        ResolveRelativeWebElement(element);
 
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
@@ -50,38 +47,90 @@ public class ComponentRepository
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         var element = Activator.CreateInstance<TComponentType>();
-        element.By = by;
 
-        if (element is Frame)
-        {
-            element.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, by.Resolve(parenTComponent.WrappedElement));
-        }
-        else
-        {
-            element.WrappedElement = by.Resolve(parenTComponent.WrappedElement);
-        }
+        ResolveFindStrategy(element, by, parenTComponent);
 
-        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        ResolveRelativeWebElement(element);
+
+        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({element.By})" : elementName;
         element.PageName = pageName ?? string.Empty;
 
         return element;
     }
 
-    public dynamic CreateComponentWithParent(FindStrategy by, WebElement parenTComponent, Type newElementType)
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parenTComponent, WebElement element)
+    where TComponentType : Component
+    {
+        DetermineComponentAttributes(out var elementName, out var pageName);
+
+        var component = Activator.CreateInstance<TComponentType>();
+
+        component.WrappedElement = element;
+        component.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({component.By})" : elementName;
+        component.PageName = pageName ?? string.Empty;
+        component.ParentComponent = parenTComponent;
+
+        return component;
+    }
+
+    public ComponentsList<TComponentType> CreateComponentListWithParent<TComponentType>(FindStrategy by, Component parenTComponent)
+        where TComponentType : Component
+    {
+        var list = new List<TComponentType>();
+
+        if (parenTComponent is ShadowRoot && by is FindXpathStrategy)
+        {
+            var cssLocators = HtmlService.FindCssLocators(((ShadowRoot)parenTComponent).InnerHtml, by.Value);
+
+            foreach (var locator in cssLocators)
+            {
+                list.Add(CreateComponentWithParent<TComponentType>(new FindShadowXpathStrategy(by.Value, locator), parenTComponent));
+            }
+        }
+        else if (GetAncestor(parenTComponent) is ShadowRoot && by is FindXpathStrategy)
+        {
+            var ancestor = GetAncestor(parenTComponent);
+
+            var cssLocators = HtmlService.FindRelativeCssLocators(HtmlService.FindNodeByCss(((ShadowRoot)ancestor).InnerHtml, parenTComponent.By.Value), by.Value);
+
+            foreach (var locator in cssLocators)
+            {
+                list.Add(CreateComponentWithParent<TComponentType>(new FindShadowXpathStrategy(by.Value, locator), ancestor));
+            }
+        }
+        else
+        {
+            var webElements = by.Resolve(parenTComponent.WrappedElement).All();
+            foreach (var element in webElements)
+            {
+                list.Add(CreateComponentWithParent<TComponentType>(by, parenTComponent, element));
+            }
+        }
+
+        return new ComponentsList<TComponentType>(list);
+    }
+
+    public ComponentsList<TComponentType> CreateComponentList<TComponentType>(FindStrategy by)
+        where TComponentType : Component
+    {
+        var list = new List<TComponentType>();
+        var webElements = by.Resolve(WrappedBrowser.CurrentPage).All();
+        foreach (var element in webElements)
+        {
+            list.Add(CreateComponent<TComponentType>(by));
+        }
+
+        return new ComponentsList<TComponentType>(list);
+    }
+
+    public dynamic CreateComponentWithParent(FindStrategy by, WebElement parentElement, Type newElementType)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         dynamic element = Activator.CreateInstance(newElementType);
         element.By = by;
 
-        if (element is Frame)
-        {
-            element.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, by.Resolve(parenTComponent));
-        }
-        else
-        {
-            element.WrappedElement = by.Resolve(parenTComponent);
-        }
+        ResolveRelativeWebElement(element, parentElement);
 
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
@@ -89,7 +138,7 @@ public class ComponentRepository
         return element;
     }
 
-    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, WebElement parenTComponent)
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, WebElement parentElement)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
@@ -97,14 +146,7 @@ public class ComponentRepository
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
 
-        if (element is Frame)
-        {
-            element.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, by.Resolve(parenTComponent));
-        }
-        else
-        {
-            element.WrappedElement = by.Resolve(parenTComponent);
-        }
+        ResolveRelativeWebElement(element, parentElement);
 
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
@@ -120,14 +162,7 @@ public class ComponentRepository
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
 
-        if (element is Frame)
-        {
-            element.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, by.Resolve(WrappedBrowser.CurrentPage));
-        }
-        else
-        {
-            element.WrappedElement = by.Resolve(WrappedBrowser.CurrentPage);
-        }
+        ResolveWebElement(element);
 
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
@@ -165,5 +200,82 @@ public class ComponentRepository
         {
             e.PrintStackTrace();
         }
+    }
+
+    private void ResolveRelativeWebElement(Component component, WebElement parentElement)
+    {
+        if (component is Frame)
+        {
+            component.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, component.By.Resolve(parentElement));
+        }
+        else
+        {
+            component.WrappedElement = component.By.Resolve(parentElement);
+        }
+    }
+
+    private void ResolveWebElement(Component component)
+    {
+        if (component is Frame)
+        {
+            component.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, component.By.Resolve(WrappedBrowser.CurrentPage));
+        }
+        else
+        {
+            component.WrappedElement = component.By.Resolve(WrappedBrowser.CurrentPage);
+        }
+    }
+
+    private void ResolveRelativeWebElement(Component component)
+    {
+        if (component is Frame)
+        {
+            component.WrappedElement = new FrameElement(WrappedBrowser.CurrentPage, component.By.Resolve(component.ParentComponent.WrappedElement));
+        }
+        else
+        {
+            component.WrappedElement = component.By.Resolve(component.ParentComponent.WrappedElement);
+        }
+    }
+
+    private void ResolveFindStrategy(Component component, FindStrategy by, Component parenTComponent)
+    {
+        if (parenTComponent is ShadowRoot && by is FindXpathStrategy)
+        {
+            var cssLocator = HtmlService.FindCssLocator(((ShadowRoot)parenTComponent).InnerHtml, by.Value);
+
+            component.By = new FindShadowXpathStrategy(by.Value, cssLocator);
+            component.ParentComponent = parenTComponent;
+        }
+        else if (GetAncestor(parenTComponent) is ShadowRoot && by is FindXpathStrategy)
+        {
+            var ancestor = GetAncestor(parenTComponent);
+
+            var cssLocator = HtmlService.FindRelativeCssLocator(HtmlService.FindNodeByCss(((ShadowRoot)ancestor).InnerHtml, parenTComponent.By.Value), by.Value);
+
+            component.By = new FindShadowXpathStrategy(by.Value, cssLocator);
+            component.ParentComponent = ancestor;
+        }
+        else
+        {
+            component.By = by;
+            component.ParentComponent = parenTComponent;
+        }
+    }
+
+    private Component GetAncestor(Component parentComponent)
+    {
+        var component = parentComponent;
+
+        while (component != null)
+        {
+            if (component.GetType() == typeof(ShadowRoot))
+            {
+                return component;
+            }
+            component = component.ParentComponent;
+        }
+
+        return component;
     }
 }
