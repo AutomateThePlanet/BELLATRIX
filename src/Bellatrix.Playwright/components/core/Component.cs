@@ -27,6 +27,7 @@ using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.CognitiveServices.services;
 using Bellatrix.CognitiveServices;
 using Bellatrix.Playwright.SyncPlaywright.Element;
+using Bellatrix.Playwright.Components;
 
 
 namespace Bellatrix.Playwright;
@@ -82,6 +83,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         }
         set => _wrappedElement = value;
     }
+
+    public Component ParentComponent { get; set; }
 
     protected readonly JavaScriptService JavaScriptService;
     protected readonly BrowserService BrowserService;
@@ -157,7 +160,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         CreatingComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
-        var elementsCollection = new ComponentsList<TComponent>(by, WrappedElement);
+        var elementsCollection = new ComponentsList<TComponent>(by, this);
 
         CreatedComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
@@ -304,6 +307,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
 
         return component;
     }
+
+    public ShadowRoot ShadowRoot => this.As<ShadowRoot>();
 
     private void ScrollToMakeElementVisible()
     {
