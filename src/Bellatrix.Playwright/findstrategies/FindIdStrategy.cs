@@ -16,25 +16,18 @@ using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright.Locators;
 
-public class FindIdStrategy : FindStrategy
+public class FindIdStrategy : FindCssStrategy
 {
+    private string _value;
+
     public FindIdStrategy(string value)
-        : base(value)
+        : base($"[id='{value}']")
     {
-    }
-
-    public override WebElement Resolve(BrowserPage searchContext)
-    {
-        return searchContext.Locate($"[id='{Value}']");
-    }
-
-    public override WebElement Resolve(WebElement searchContext)
-    {
-        return searchContext.Locate($"[id='{Value}']");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"ID = {Value}";
+        return $"ID = {_value}";
     }
 }

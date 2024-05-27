@@ -16,25 +16,18 @@ using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 
-public class FindLinkTextContainsStrategy : FindStrategy
+public class FindLinkTextContainsStrategy : FindXpathStrategy
 {
+    private string _value;
+    
     public FindLinkTextContainsStrategy(string value)
-        : base(value)
+        : base($"//a[contains(text(), '{value}')]")
     {
-    }
-
-    public override WebElement Resolve(BrowserPage searchContext)
-    {
-        return searchContext.Locate($"//a[contains(text(), '{Value}')]");
-    }
-
-    public override WebElement Resolve(WebElement searchContext)
-    {
-        return searchContext.Locate($"//a[contains(text(), '{Value}')]");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"LinkText containing {Value}";
+        return $"LinkText containing {_value}";
     }
 }
