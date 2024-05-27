@@ -1,48 +1,18 @@
-﻿using Bellatrix.Playwright.Components;
-using Bellatrix.Playwright.Enums;
-using Microsoft.Playwright;
-using NUnit.Framework.Internal;
+﻿using Bellatrix.Web.Components;
+using NUnit.Framework;
 
-namespace Bellatrix.Playwright.GettingStarted;
+namespace Bellatrix.Web.GettingStarted;
 
 [TestFixture]
-[Browser(BrowserTypes.Chrome, Lifecycle.ReuseIfStarted)]
-public class IFrameAndShadowDOMTests : NUnit.WebTest
+public class ShadowDomTests : NUnit.WebTest
 {
-    [Test]
-    public void TestFindingIFramesOnThePage()
-    {
-        App.Navigation.Navigate("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_iframe");
-        App.Components.CreateById<Button>("accept-choices").Click();
-
-        // If you create a Frame component, it automatically will start searching for elements inside an <iframe> html element
-        // You can work with iframes in bellatrix.playwright module as if they were any other component
-        var parentIFrame = App.Components.CreateByXpath<Frame>("//iframe[@id='iframeResult']");
-
-        // This <iframe> is located inside the parentIFrame
-        var iframe = parentIFrame.CreateByXpath<Frame>("//iframe[@src='https://www.w3schools.com']");
-
-        // This button is located inside iframe
-        iframe.CreateByXpath<Button>("//div[@id='accept-choices']").Click();
-
-        // In case you want to reuse the component locating logic, but stop looking inside the <iframe>, you can use the As<Component>() method;
-        // It will automatically switch to using normal locating strategies and you will stop being able to pierce the <iframe>
-        var iframeAsDiv = iframe.As<Div>();
-        iframeAsDiv.CreateByXpath<Heading>("//preceding-sibling::h1").ValidateInnerTextContains("The iframe element");
-
-        // Again, if you create a 'normal' component and want to reuse it, this time to search inside it, as if it is <iframe>, you use As<Component>() method again
-        var iframeAsNormalComponent = parentIFrame.CreateByXpath<Div>("//iframe[@src='https://www.w3schools.com']");
-        var iframeAsFrame = iframeAsNormalComponent.As<Frame>();
-
-        Assert.That(iframeAsFrame.CreateByXpath<Div>("//div[@id='subtopnav']//a[@title='HTML Tutorial']").InnerText.Equals("HTML"));
-    }
-
     [Test]
     public void TestFindingElementsInShadowDOM()
     {
         App.Navigation.Navigate("https://web.dev/articles/shadowdom-v1");
         var iframe = App.Components.CreateByXpath<Frame>("//iframe[contains(@src, 'raw/fancy-tabs-demo.html')]");
         iframe.ScrollToVisible();
+        App.Browser.SwitchToFrame(iframe);
 
         // As you might know, when working with shadowRoot, we can use only CSS locators, which might prove difficult
         // When we want to find an element relative to another or an element by its inner text.
@@ -64,7 +34,7 @@ public class IFrameAndShadowDOMTests : NUnit.WebTest
         //   <slot id="panelsSlot"></slot>
         // </div>
 
-        var shadowRoot = iframe.CreateByXpath<ShadowRoot>("//fancy-tabs");
+        var shadowRoot = App.Components.CreateByXpath<ShadowRoot>("//fancy-tabs");
 
         // Absolute xpath: /div[1]/slot
         // CSS locator: div:nth-child(1)/slot
