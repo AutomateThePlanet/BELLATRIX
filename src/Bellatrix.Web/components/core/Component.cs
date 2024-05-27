@@ -16,12 +16,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using Azure.AI.FormRecognizer.Models;
 using Bellatrix.CognitiveServices;
 using Bellatrix.CognitiveServices.services;
+using Bellatrix.Core.Utilities;
 using Bellatrix.Plugins.Screenshots;
+using Bellatrix.Web.Components;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 using Bellatrix.Web.Untils;
@@ -71,7 +74,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     public IWebDriver WrappedDriver { get; }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public IWebElement WrappedElement
+    public virtual IWebElement WrappedElement
     {
         get
         {
@@ -87,7 +90,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         set => _wrappedElement = value;
     }
 
-    public IWebElement ParentWrappedElement { get; set; }
+    public Component ParentComponent { get; set; }
+    public ISearchContext ParentWrappedElement { get; set; }
     public int ElementIndex { get; set; }
     internal bool ShouldCacheElement { get; set; }
 
@@ -96,7 +100,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     protected readonly ComponentCreateService ComponentCreateService;
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public dynamic By { get; internal set; }
+    public FindStrategy By { get; internal set; }
 
     public string GetTitle() => string.IsNullOrEmpty(GetAttribute("title")) ? null : GetAttribute("title");
 
@@ -144,7 +148,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
         var elementRepository = new ComponentRepository();
-        var element = elementRepository.CreateComponentWithParent(by, WrappedElement, newElementType, ShouldCacheElement);
+        var element = elementRepository.CreateComponentWithParent(by, this, newElementType, ShouldCacheElement);
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
@@ -158,7 +162,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
         var elementRepository = new ComponentRepository();
-        var element = elementRepository.CreateComponentWithParent<TComponent>(by, WrappedElement, null, 0, shouldCacheElement);
+        var element = elementRepository.CreateComponentWithParent<TComponent>(by, this, null, 0, shouldCacheElement);
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
@@ -171,11 +175,55 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         CreatingComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
-        var elementsCollection = new ComponentsList<TComponent>(by, WrappedElement, ShouldCacheElement);
+        var elementRepository = new ComponentRepository();
+
+        ComponentsList<TComponent> elementsCollection;
+
+        if (this is Components.ShadowRoot && by.Convert().Mechanism.ToLower().Equals("xpath"))
+        {
+            elementsCollection = new ComponentsList<TComponent>(shouldCacheFoundElements: true);
+
+            var cssLocators = HtmlService.FindCssLocators(((Components.ShadowRoot)this).InnerHtml, by.Value);
+            foreach (var locator in cssLocators)
+            {
+                elementsCollection.Add(elementRepository.CreateComponentWithParent<TComponent>(new FindShadowXpathStrategy(by.Value, locator), this, null, 0, true));
+            }
+        } 
+        else if (GetAncestor() is Components.ShadowRoot && by.Convert().Mechanism.ToLower().Equals("xpath"))
+        {
+            elementsCollection = new ComponentsList<TComponent>(shouldCacheFoundElements: true);
+
+            var cssLocators = HtmlService.FindRelativeCssLocators(HtmlService.FindNodeByCss(((Components.ShadowRoot)this).InnerHtml, GetAncestor().By.Value), by.Value);
+            foreach (var locator in cssLocators)
+            {
+                elementsCollection.Add(elementRepository.CreateComponentWithParent<TComponent>(new FindShadowXpathStrategy(by.Value, locator), this, null, 0, true));
+            }
+        }
+        else
+        {
+            elementsCollection = new ComponentsList<TComponent>(by, WrappedElement, ShouldCacheElement);
+        }
 
         CreatedComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
         return elementsCollection;
+    }
+
+    private Component GetAncestor()
+    {
+        var ancestor = this.ParentComponent;
+
+        while (ancestor != null)
+        {
+            if (ancestor is Components.ShadowRoot)
+            {
+                return ancestor;
+            }
+
+            ancestor = ancestor.ParentComponent;
+        }
+
+        return ancestor;
     }
 
     public void WaitToBe() => GetAndWaitWebDriverElement(true);
@@ -351,13 +399,13 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         if (ParentWrappedElement == null && _wrappedElement == null)
         {
             var nativeElementFinderService = new NativeElementFinderService(WrappedDriver);
-            return nativeElementFinderService.FindAll(By)[ElementIndex];
+            return nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
         }
 
         if (ParentWrappedElement != null)
         {
             var nativeElementFinderService = new NativeElementFinderService(ParentWrappedElement);
-            return nativeElementFinderService.FindAll(By)[ElementIndex];
+            return nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
         }
 
         return _wrappedElement;
