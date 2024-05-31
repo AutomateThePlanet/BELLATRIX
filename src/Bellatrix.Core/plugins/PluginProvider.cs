@@ -87,9 +87,18 @@ public class PluginProvider : IPluginProvider
         RaiseTestEvent(PostTestInitEvent, TestOutcome.Unknown, testName, testMethodMemberInfo, testClassType, arguments, categories, authors, descriptions);
     }
 
+    /// <summary>
+    /// Obsolete <br></br>
+    /// Use PreTestCleanup method with parameter duration.
+    /// </summary>
     public void PreTestCleanup(TestOutcome testOutcome, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<object> arguments, List<string> categories, List<string> authors, List<string> descriptions, string message, string stackTrace, Exception exception)
     {
         RaiseTestEvent(PreTestCleanupEvent, testOutcome, testName, testMethodMemberInfo, testClassType, arguments, categories, authors, descriptions, message, stackTrace, exception);
+    }
+
+    public void PreTestCleanup(TestOutcome testOutcome, double duration, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<object> arguments, List<string> categories, List<string> authors, List<string> descriptions, string message, string stackTrace, Exception exception)
+    {
+        RaiseTestEvent(PreTestCleanupEvent, testOutcome, duration, testName, testMethodMemberInfo, testClassType, arguments, categories, authors, descriptions, message, stackTrace, exception);
     }
 
     public void TestCleanupFailed(Exception ex, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<object> arguments, List<string> categories, List<string> authors, List<string> descriptions)
@@ -97,9 +106,18 @@ public class PluginProvider : IPluginProvider
         RaiseTestEvent(TestCleanupFailedEvent, TestOutcome.Failed, testName, testMethodMemberInfo, testClassType, arguments, categories, authors, descriptions, ex.Message, ex.StackTrace);
     }
 
+    /// <summary>
+    /// Obsolete <br></br>
+    /// Use PostTestCleanup method with parameter duration.
+    /// </summary>
     public void PostTestCleanup(TestOutcome testOutcome, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<object> arguments, List<string> categories, List<string> authors, List<string> descriptions, string message, string stackTrace, Exception exception)
     {
         RaiseTestEvent(PostTestCleanupEvent, testOutcome, testName, testMethodMemberInfo, testClassType, arguments, categories, authors, descriptions, message, stackTrace, exception);
+    }
+
+    public void PostTestCleanup(TestOutcome testOutcome, double duration, string testName, MemberInfo testMethodMemberInfo, Type testClassType, List<object> arguments, List<string> categories, List<string> authors, List<string> descriptions, string message, string stackTrace, Exception exception)
+    {
+        RaiseTestEvent(PostTestCleanupEvent, testOutcome, duration, testName, testMethodMemberInfo, testClassType, arguments, categories, authors, descriptions, message, stackTrace, exception);
     }
 
     public void PreClassCleanup(Type testClassType)
@@ -135,6 +153,25 @@ public class PluginProvider : IPluginProvider
         Exception exception = null)
     {
         var args = new PluginEventArgs(testOutcome, testName, testMethodMemberInfo, testClassType, arguments, message, stackTrace, exception, categories, authors, descriptions);
+        eventHandler?.Invoke(this, args);
+    }
+
+    private void RaiseTestEvent(
+    EventHandler<PluginEventArgs> eventHandler,
+    TestOutcome testOutcome,
+    double duration,
+    string testName,
+    MemberInfo testMethodMemberInfo,
+    Type testClassType,
+    List<object> arguments,
+    List<string> categories,
+    List<string> authors,
+    List<string> descriptions,
+    string message = null,
+    string stackTrace = null,
+    Exception exception = null)
+    {
+        var args = new PluginEventArgs(testOutcome, duration, testName, testMethodMemberInfo, testClassType, arguments, message, stackTrace, exception, categories, authors, descriptions);
         eventHandler?.Invoke(this, args);
     }
 }
