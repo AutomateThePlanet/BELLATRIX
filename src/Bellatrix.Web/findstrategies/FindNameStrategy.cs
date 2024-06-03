@@ -1,4 +1,4 @@
-﻿// <copyright file="ByName.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="FindNameStrategy.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,6 +11,8 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+using OpenQA.Selenium;
+
 namespace Bellatrix.Web;
 
 public class FindNameStrategy : FindStrategy
@@ -20,9 +22,9 @@ public class FindNameStrategy : FindStrategy
     {
     }
 
-    public override OpenQA.Selenium.By Convert()
+    public override By Convert()
     {
-        return OpenQA.Selenium.By.Name(Value);
+        return By.Name(Value);
     }
 
     public override string ToString()

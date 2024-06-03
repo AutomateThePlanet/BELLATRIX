@@ -26,7 +26,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
     where TComponent : Component
 {
     private readonly FindStrategy _by;
-    private readonly IWebElement _parenTComponent;
+    private readonly IWebElement _parentElement;
     private readonly List<TComponent> _foundElements;
     private readonly bool _shouldCacheFoundElements;
     private List<TComponent> _cachedElements;
@@ -45,7 +45,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         IWebElement parenTComponent)
     {
         _by = by;
-        _parenTComponent = parenTComponent;
+        _parentElement = parenTComponent;
         _foundElements = new List<TComponent>();
         WrappedDriver = ServicesCollection.Current.Resolve<IWebDriver>();
     }
@@ -54,6 +54,12 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
     {
         _foundElements = new List<TComponent>();
         WrappedDriver = ServicesCollection.Current.Resolve<IWebDriver>();
+    }
+
+    public ComponentsList(bool shouldCacheFoundElements)
+        : this()
+    {
+        _shouldCacheFoundElements = shouldCacheFoundElements;
     }
 
     public ComponentsList(IEnumerable<TComponent> nativeElementList)
@@ -96,9 +102,9 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 
     public void ForEach(Action<TComponent> action)
     {
-        foreach (var tableRow in this)
+        foreach (var component in this)
         {
-            action(tableRow);
+            action(component);
         }
     }
 
@@ -143,10 +149,10 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
                 foreach (var nativeElement in nativeElements)
                 {
                     var elementRepository = new ComponentRepository();
-                    if (_parenTComponent != null)
+                    if (_parentElement != null)
                     {
                         var element =
-                            elementRepository.CreateComponentWithParent<TComponent>(_by, _parenTComponent, nativeElement, index++, _shouldCacheFoundElements);
+                            elementRepository.CreateComponentWithParent<TComponent>(_by, _parentElement, nativeElement, index++, _shouldCacheFoundElements);
                         yield return element;
                     }
                     else
@@ -162,18 +168,18 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 
     private IEnumerable<IWebElement> WaitWebDriverElements()
     {
-        var elementFinder = _parenTComponent == null
+        var elementFinder = _parentElement == null
             ? new NativeElementFinderService(WrappedDriver)
-            : new NativeElementFinderService(_parenTComponent);
+            : new NativeElementFinderService(_parentElement);
         var elementWaiter = new ComponentWaitService();
-        if (_parenTComponent == null)
+        if (_parentElement == null)
         {
             return ConditionalWait(elementFinder);
         }
         else
         {
             var elementRepository = new ComponentRepository();
-            var parenTComponent = elementRepository.CreateComponentThatIsFound<Component>(_by, _parenTComponent, true);
+            //var parenTComponent = elementRepository.CreateComponentThatIsFound<Component>(_by, _parentElement, true);
 
             return ConditionalWait(elementFinder);
         }

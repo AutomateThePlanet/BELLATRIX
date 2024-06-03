@@ -1,4 +1,4 @@
-﻿// <copyright file="ByLinkText.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="FindShadowXpathStrategy.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -12,22 +12,20 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using Bellatrix.Playwright.SyncPlaywright;
+namespace Bellatrix.Web;
 
-namespace Bellatrix.Playwright;
-
-public class FindLinkTextStrategy : FindXpathStrategy
+public class FindShadowXpathStrategy : FindCssStrategy
 {
-    private string _value;
+    public string OriginalXpath { get; }
 
-    public FindLinkTextStrategy(string value)
-        : base($"//a[text()='{value}']")
+    public FindShadowXpathStrategy(string xpath, string css)
+        : base(css)
     {
-        _value = value;
+        OriginalXpath = xpath;
     }
 
     public override string ToString()
     {
-        return $"LinkText = {_value}";
+        return $"XPATH = {OriginalXpath} ; CSS = {Value}";
     }
 }

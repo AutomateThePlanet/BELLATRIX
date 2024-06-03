@@ -14,12 +14,17 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using Bellatrix.Core.Utilities;
 using OpenQA.Selenium;
 
 namespace Bellatrix.Web;
 
 public class ComponentRepository
 {
+    /// <summary>
+    /// OBSOLETE. <br></br>
+    /// The whole component should be passed as argument, instead of only the wrapped element. Components contain useful information.
+    /// </summary>    
     public dynamic CreateComponentWithParent(FindStrategy by, IWebElement parenTComponent, Type newElementType, bool shouldCacheElement)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
@@ -34,6 +39,25 @@ public class ComponentRepository
         return element;
     }
 
+    public dynamic CreateComponentWithParent(FindStrategy by, Component parenTComponent, Type newElementType, bool shouldCacheElement)
+    {
+        DetermineComponentAttributes(out var elementName, out var pageName);
+
+        dynamic element = Activator.CreateInstance(newElementType);
+
+        DetermineFindStrategy(element, parenTComponent, by);
+
+        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        element.PageName = pageName ?? string.Empty;
+        element.ShouldCacheElement = shouldCacheElement;
+
+        return element;
+    }
+
+    /// <summary>
+    /// OBSOLETE. <br></br>
+    /// The whole component should be passed as argument, instead of only the wrapped element. Components contain useful information.
+    /// </summary>
     public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, IWebElement parenTComponent, IWebElement foundElement, int elementsIndex, bool shouldCacheElement)
         where TComponentType : Component
     {
@@ -49,6 +73,73 @@ public class ComponentRepository
         element.ShouldCacheElement = shouldCacheElement;
 
         return element;
+    }
+
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parenTComponent, IWebElement foundElement, int elementsIndex, bool shouldCacheElement)
+    where TComponentType : Component
+    {
+        DetermineComponentAttributes(out var elementName, out var pageName);
+
+        var element = Activator.CreateInstance<TComponentType>();
+
+        DetermineFindStrategy(element, parenTComponent, by);
+
+        element.WrappedElement = foundElement;
+        element.ElementIndex = elementsIndex;
+        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        element.PageName = pageName ?? string.Empty;
+        element.ShouldCacheElement = shouldCacheElement;
+
+        return element;
+    }
+
+    private static void DetermineFindStrategy(Component component, Component parenTComponent, FindStrategy by)
+    {
+        if (parenTComponent is Components.ShadowRoot && by.Convert().Mechanism.ToLower().Equals("xpath"))
+        {
+            var absoluteCss = HtmlService.FindCssLocator(((Components.ShadowRoot)parenTComponent).InnerHtml, by.Value);
+
+            component.By = new FindShadowXpathStrategy(by.Value, absoluteCss);
+            component.ParentComponent = parenTComponent;
+            component.ParentWrappedElement = parenTComponent.WrappedElement;
+        }
+        else if (GetAncestor(parenTComponent) is Components.ShadowRoot ancestor && by.Convert().Mechanism.ToLower().Equals("xpath"))
+        {
+            var absoluteCss = HtmlService.FindRelativeCssLocator(HtmlService.FindNodeByCss(ancestor.InnerHtml, parenTComponent.By.Value), by.Value);
+
+            component.By = new FindShadowXpathStrategy(by.Value, absoluteCss);
+            component.ParentComponent = ancestor;
+            component.ParentWrappedElement = ancestor.WrappedElement;
+        } 
+        else if (GetAncestor(parenTComponent) is Components.ShadowRoot && by is FindShadowXpathStrategy)
+        {
+            component.By = by;
+            component.ParentComponent = parenTComponent;
+            component.ParentWrappedElement = GetAncestor(parenTComponent).WrappedElement;
+        }
+        else
+        {
+            component.By = by;
+            component.ParentComponent = parenTComponent;
+            component.ParentWrappedElement = parenTComponent.WrappedElement;
+        }
+    }
+
+    private static Component GetAncestor(Component parenTComponent)
+    {
+        var ancestor = parenTComponent.ParentComponent;
+
+        while (ancestor != null)
+        {
+            if (ancestor is Components.ShadowRoot)
+            {
+                return ancestor;
+            }
+
+            ancestor = ancestor.ParentComponent;
+        }
+
+        return ancestor;
     }
 
     public dynamic CreateComponentThatIsFound(FindStrategy by, IWebElement webElement, Type newElementType, bool shouldCacheElement)

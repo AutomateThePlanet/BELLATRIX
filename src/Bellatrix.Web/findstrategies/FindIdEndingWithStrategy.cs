@@ -1,4 +1,4 @@
-﻿// <copyright file="ByIdEndingWith.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="FindIdEndingWithStrategy.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,22 +11,21 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+
 namespace Bellatrix.Web;
 
-public class FindIdEndingWithStrategy : FindStrategy
+public class FindIdEndingWithStrategy : FindCssStrategy
 {
-    public FindIdEndingWithStrategy(string value)
-        : base(value)
-    {
-    }
+    private readonly string _value;
 
-    public override OpenQA.Selenium.By Convert()
+    public FindIdEndingWithStrategy(string value)
+        : base($"[id$='{value}']")
     {
-        return OpenQA.Selenium.By.CssSelector($"[id$='{Value}']");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"ID ending with {Value}";
+        return $"ID ending with {_value}";
     }
 }

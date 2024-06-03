@@ -12,29 +12,23 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.Locators;
 using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 
-public class FindIdContainingStrategy : FindStrategy
+public class FindIdContainingStrategy : FindCssStrategy
 {
+    private string _value;
+
     public FindIdContainingStrategy(string value)
-        : base(value)
+        : base($"[id*='{value}']")
     {
-    }
-
-    public override WebElement Resolve(BrowserPage searchContext)
-    {
-        return searchContext.Locate($"[id*='{Value}']");
-    }
-
-    public override WebElement Resolve(WebElement searchContext)
-    {
-        return searchContext.Locate($"[id*='{Value}']");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"ID containing {Value}";
+        return $"ID containing {_value}";
     }
 }

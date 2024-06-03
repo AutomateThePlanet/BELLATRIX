@@ -11,6 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="1.2.0-beta.423" />
+    <PackageReference Include="AngleSharp.XPath" Version="2.0.4" />
     <PackageReference Include="CsvHelper" Version="31.0.0" />
     <PackageReference Include="CsvHelper.Excel.Core" Version="27.2.1" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.58" />

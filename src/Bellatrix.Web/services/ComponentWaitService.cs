@@ -33,9 +33,7 @@ public class ComponentWaitService
             }
             else
             {
-                var elementRepository = new ComponentRepository();
-                Component parenTComponent = elementRepository.CreateComponentThatIsFound<Component>(element.By, element.ParentWrappedElement, true);
-                WaitInternal(element.By, until, parenTComponent);
+                WaitInternal(element.By, until, element.ParentComponent);
             }
         }
         catch (Exception ex)

@@ -1,4 +1,4 @@
-﻿// <copyright file="ByLinkTextContains.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="FindLinkTextContainsStrategy.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -13,20 +13,18 @@
 // <site>https://bellatrix.solutions/</site>
 namespace Bellatrix.Web;
 
-public class FindLinkTextContainsStrategy : FindStrategy
+public class FindLinkTextContainsStrategy : FindXpathStrategy
 {
-    public FindLinkTextContainsStrategy(string value)
-        : base(value)
-    {
-    }
+    private readonly string _value;
 
-    public override OpenQA.Selenium.By Convert()
+    public FindLinkTextContainsStrategy(string value)
+        : base($"//a[contains(text(), '{value}')]")
     {
-        return OpenQA.Selenium.By.XPath($"//a[contains(text(), '{Value}')]");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"LinkText containing {Value}";
+        return $"LinkText containing {_value}";
     }
 }

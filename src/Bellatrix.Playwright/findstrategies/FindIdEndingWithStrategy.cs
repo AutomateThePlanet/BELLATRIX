@@ -12,30 +12,23 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.Locators;
 using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 
-public class FindIdEndingWithStrategy : FindStrategy
+public class FindIdEndingWithStrategy : FindCssStrategy
 {
+    private string _value;
+
     public FindIdEndingWithStrategy(string value)
-        : base(value)
+        : base($"[id$='{value}']")
     {
+        _value = value;
     }
-
-    public override WebElement Resolve(BrowserPage searchContext)
-    {
-        return searchContext.Locate($"[id$='{Value}']");
-    }
-
-    public override WebElement Resolve(WebElement searchContext)
-    {
-        return searchContext.Locate($"[id$='{Value}']");
-    }
-
 
     public override string ToString()
     {
-        return $"ID ending with {Value}";
+        return $"ID ending with {_value}";
     }
 }
