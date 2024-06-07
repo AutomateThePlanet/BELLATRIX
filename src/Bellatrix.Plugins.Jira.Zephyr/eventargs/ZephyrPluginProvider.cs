@@ -19,15 +19,21 @@ namespace Bellatrix.Plugins.Jira.Zephyr.Eventargs;
 public class ZephyrPluginProvider
 {
     public event EventHandler<ZephyrCyclePluginEventArgs> ZephyrCycleCreatedEvent;
+    public event EventHandler<ZephyrCyclePluginEventArgs> ZephyrCycleCreationFailedEvent;
     public event EventHandler<ZephyrExecutionPluginEventArgs> ZephyrTestCaseExecutionFailedEvent;
     public event EventHandler<ZephyrExecutionPluginEventArgs> ZephyrTestCaseExecutedEvent;
+    public event EventHandler<ZephyrCyclePluginEventArgs> ZephyrCycleStatusUpdatedEvent;
     public event EventHandler<ZephyrCyclePluginEventArgs> ZephyrCycleStatusUpdateFailedEvent;
 
     public void ZephyrCycleCreated(PluginEventArgs e, ZephyrTestCycle cycle) => RaiseCycleEvent(ZephyrCycleCreatedEvent, e, cycle);
 
+    public void ZephyrCycleCreationFailed(PluginEventArgs e, ZephyrTestCycle cycle) => RaiseCycleEvent(ZephyrCycleCreationFailedEvent, e, cycle);
+
     public void ZephyrTestCaseExecutionFailed(PluginEventArgs e, ZephyrTestCase testCase) => RaiseExecutionEvent(ZephyrTestCaseExecutionFailedEvent, e, testCase);
 
     public void ZephyrTestCaseExecuted(PluginEventArgs e, ZephyrTestCase testCase) => RaiseExecutionEvent(ZephyrTestCaseExecutedEvent, e, testCase);
+
+    public void ZephyrCycleStatuseUpdated(PluginEventArgs e, ZephyrTestCycle cycle) => RaiseCycleEvent(ZephyrCycleStatusUpdatedEvent, e, cycle);
 
     public void ZephyrCycleStatusUpdateFailed(PluginEventArgs e, ZephyrTestCycle cycle) => RaiseCycleEvent(ZephyrCycleStatusUpdateFailedEvent, e, cycle);
 

@@ -14,9 +14,10 @@
 
 using Bellatrix.Plugins.Jira.Zephyr;
 using Bellatrix;
-using Newtonsoft.Json;
 using RestSharp;
 using Bellatrix.Plugins.Jira.Zephyr.Data;
+using System.Text.Json;
+using System.Web;
 
 namespace Plugins.Jira.Zephyr.Services;
 
@@ -33,115 +34,121 @@ public static class ZephyrApiService
         _client.Value.AddDefaultHeader("Content-Type", "application/json");
     }
 
-    internal static ZephyrTestCycleResponse CreateTestCycle(ZephyrPlugin.ZephyrLocalData data)
+    internal static bool TryCreateTestCycle(ref ZephyrTestCycle testCycle)
     {
         var request = new RestRequest("/testcycles", Method.Post);
-        request.AddJsonBody(new { name = data.TestCycle.Name, projectKey = data.TestCycle.ProjectKey, statusName = data.TestCycle.StatusName });
+        request.AddJsonBody(new { name = testCycle.Name, projectKey = testCycle.ProjectKey, statusName = testCycle.StatusName });
 
         var response = _client.Value.Execute(request);
-        var obj =  JsonConvert.DeserializeObject<ZephyrTestCycleResponse>(response.Content);
-        return obj;
+
+        var root = JsonDocument.Parse(response.Content).RootElement;
+
+        if (root.TryGetProperty("id", out JsonElement idElement)) 
+        {
+            testCycle.Id = idElement.GetInt64().ToString();
+        }
+
+        if (root.TryGetProperty("key", out JsonElement keyElement))
+        {
+            testCycle.Key = keyElement.GetString();
+        }
+
+        return response.IsSuccessStatusCode;
     }
 
-    internal static RestResponse ExecuteTestCase(ZephyrTestCase testCase)
+    internal static bool TryExecuteTestCase(ZephyrTestCase testCase)
     {
         var body = new Dictionary<string, object>
         {
-            { "projectKey", testCase.ProjectId },
-            { "testCycleKey", testCase.TestCycleId },
-            { "testCaseKey", testCase.TestCaseId },
+            { "projectKey", testCase.ProjectKey },
+            { "testCycleKey", testCase.CycleKey },
+            { "testCaseKey", testCase.Id },
             { "statusName", testCase.Status },
             { "executionTime", (int)testCase.Duration }
         };
 
-        var request = new RestRequest("/testexecutions", Method.Post);
-        request.AddJsonBody(body);
+        if (!testCase.Status.Equals(TestExecutionStatus.Pass.GetValue()) && testCase.Exception != null) body.Add("comment", FormatError(testCase.Exception));
 
-        return _client.Value.Execute(request);
+        var request = new RestRequest("/testexecutions", Method.Post).AddJsonBody(body);
+
+        return _client.Value.Execute(request).IsSuccessStatusCode;
     }
 
-    internal static RestResponse MarkTestCycleDone(ZephyrPlugin.ZephyrLocalData data)
+    internal static bool TryMarkTestCycleDone(ZephyrTestCycle testCycle)
     {
-        var body = new Dictionary<string, object>
+        if (TryGetProjectId(testCycle.Key, out string? projectId) && TryGetStatusId(Settings.CycleFinalStatus, projectId, out string? statusId))
         {
-            { "id", data.TestCycleResponse.id },
-            { "key", data.TestCycleResponse.key },
-            { "name", data.TestCycle.Name },
-            { "project", new { id = GetProjectId(data.TestCycleResponse.key) } },
-            { "status", new { id = GetStatusId(Settings.CycleFinalStatus, data.TestCycle.ProjectKey) } },
-            { "plannedEndDate", data.TestCycle.PlannedEndDate }
+            var body = new Dictionary<string, object>
+        {
+            { "id", testCycle.Id },
+            { "key", testCycle.Key },
+            { "name", testCycle.Name },
+            { "project", new { projectId } },
+            { "status", new { statusId } },
+            { "plannedEndDate", testCycle.PlannedEndDate }
         };
 
-        var request = new RestRequest($"/testcycles/{Settings.DefaultProjectKey}", Method.Put);
-        request.AddJsonBody(body);
+            var request = new RestRequest($"/testcycles/{Settings.DefaultProjectKey}", Method.Put);
+            request.AddJsonBody(body);
 
-        return _client.Value.Execute(request);
+            return _client.Value.Execute(request).IsSuccessStatusCode;
+        }
+
+        return false;
     }
 
-    private static string GetProjectId(string testCycleIdOrKey)
+    private static bool TryGetProjectId(string testCycleIdOrKey, out string? projectId)
     {
         var request = new RestRequest($"/testcycles/{testCycleIdOrKey}", Method.Get);
 
-        var response = _client.Value.Execute<TestCycle>(request);
-        return response.Data.Project.Id;
+        var response = _client.Value.Execute(request);
+        var root = JsonDocument.Parse(response.Content).RootElement;
+
+        if (root.TryGetProperty("project", out JsonElement project) && project.TryGetProperty("id", out JsonElement id))
+        {
+            projectId = id.GetString();
+        }
+        else projectId = null;
+
+        return response.IsSuccessStatusCode;
     }
 
-    private static string GetStatusId(string statusName, string projectKey)
+    private static bool TryGetStatusId(string statusName, string projectKey, out string? statusId)
     {
-        try
+        if (TryGetStatuses(projectKey, out List<Dictionary<string, string>> statuses))
         {
-            var statuses = GetStatuses(projectKey);
-            var status = statuses.Find(s => s.Name.Equals(statusName, StringComparison.OrdinalIgnoreCase));
+            var status = statuses.Find(s => s.ContainsKey("name") && s["name"].Equals(statusName, StringComparison.OrdinalIgnoreCase));
 
             if (status == null)
             {
-                throw new ArgumentException($"Could not find a status in project {projectKey} with the provided status name: {statusName}");
+                Logger.LogInformation($"Could not find a status in project {projectKey} with the provided status name: {statusName}");
             }
+            else
+            {
+                statusId = status["id"];
+                return true;
+            }
+        }
 
-            return status.Id;
-        }
-        catch (ArgumentException ex)
-        {
-            Logger.LogInformation(ex.Message);
-            return string.Empty;
-        }
+        statusId = null;
+        return false;
     }
 
-    private static List<Status> GetStatuses(string projectKey)
+    private static bool TryGetStatuses(string projectKey, out List<Dictionary<string, string>> statuses)
     {
         var request = new RestRequest("/statuses", Method.Get);
         request.AddQueryParameter("maxResults", "100");
         request.AddQueryParameter("projectKey", projectKey);
         request.AddQueryParameter("statusType", "TEST_CYCLE");
 
-        var response = _client.Value.Execute<Statuses>(request);
-        return response.Data.Values;
+        var response = _client.Value.Execute<Dictionary<string, List<Dictionary<string, string>>>>(request);
+        statuses = response.Data["values"];
+
+        return response.IsSuccessStatusCode;
     }
 
-    private class Status
+    private static string FormatError(Exception exception)
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-    }
-
-    private class Statuses
-    {
-        [JsonProperty("values")]
-        public List<Status> Values { get; set; }
-    }
-
-    private class Project
-    {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-    }
-
-    private class TestCycle
-    {
-        [JsonProperty("project")]
-        public Project Project { get; set; }
+        return $"<strong>Failure details:</strong>\n\nError message:\n\n{HttpUtility.HtmlEncode(exception.Message)}\n\nStack Trace:<pre>{exception.StackTrace}</pre>".Replace("\n", "<br>");
     }
 }

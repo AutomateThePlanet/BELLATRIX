@@ -1,4 +1,4 @@
-﻿// <copyright file="ZephyrProjectAttribute.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ZephyrTestCycleStatus.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -12,15 +12,13 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Plugins.Jira.Zephyr.Attributes;
+namespace Bellatrix.Plugins.Jira.Zephyr.Data;
 
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-public sealed class ZephyrProjectAttribute : Attribute
+internal enum TestCycleStatus
 {
-    public string Id { get; }
-
-    public ZephyrProjectAttribute(string id)
-    {
-        Id = id;
-    }
+    [Value("Not Executed")]
+    NotExecuted,
+    [Value("In Progress")]
+    InProgress,
+    Done
 }

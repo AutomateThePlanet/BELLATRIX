@@ -1,4 +1,4 @@
-﻿// <copyright file="ZephyrTestCycleResponse.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ZephyrTestExecutionStatus.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -13,8 +13,14 @@
 // <site>https://bellatrix.solutions/</site>
 
 namespace Bellatrix.Plugins.Jira.Zephyr.Data;
-public struct ZephyrTestCycleResponse
+
+internal enum TestExecutionStatus
 {
-    public string id;
-    public string key;
+    [Value("Not Executed")]
+    NotExecuted,
+    [Value("In Progress")]
+    InProgress,
+    Pass,
+    Fail,
+    Blocked,
 }

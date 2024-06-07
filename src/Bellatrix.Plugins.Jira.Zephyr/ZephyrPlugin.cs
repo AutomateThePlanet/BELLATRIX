@@ -23,28 +23,35 @@ namespace Bellatrix.Plugins.Jira.Zephyr;
 
 public class ZephyrPlugin : Plugin
 {
-    internal static ZephyrSettings Settings => ConfigurationService.GetSection<ZephyrSettings>();
-
-    internal static ZephyrLocalData Data = new ZephyrLocalData();
-
-    private readonly ZephyrPluginProvider _zephyrPluginProvider = new ZephyrPluginProvider();
+    private static ZephyrSettings Settings => ConfigurationService.GetSection<ZephyrSettings>();
     private static bool IsEnabled => Settings.IsEnabled;
+    private readonly ZephyrPluginProvider _zephyrPluginProvider = new ZephyrPluginProvider();
+
+    private ZephyrTestCycle _testCycle = new();
+
+    public static void Add()
+    {
+        ServicesCollection.Current.RegisterType<Plugin, ZephyrPlugin>(Guid.NewGuid().ToString());
+    }
 
     protected override void PostTestsArrange(object sender, PluginEventArgs e)
     {
-        if (IsEnabled)
+        if (IsEnabled && !Settings.IsExistingCycle)
         {
-            var testCycleName = $"{DateTimeUtilities.GetUtcNow()} {Settings.TestCycleName}";
+            _testCycle.ProjectKey = GetProjectId(e.TestClassType);
+            _testCycle.Name = $"{DateTimeUtilities.GetUtcNow()} {Settings.TestCycleName}";
+            _testCycle.StatusName = TestCycleStatus.InProgress.GetValue();
+            _testCycle.PlannedStartDate = DateTimeUtilities.GetUtcNow();
 
-            var testCycle = new ZephyrTestCycle(Settings.DefaultProjectKey, testCycleName, "In Progress");
-            testCycle.PlannedStartDate = DateTimeUtilities.GetUtcNow();
-            Data.TestCycle = testCycle;
-
-            Data.TestCycleResponse = ZephyrApiService.CreateTestCycle(Data);
-
-            e.Container.RegisterInstance(Data);
-
-            _zephyrPluginProvider.ZephyrCycleCreated(e, Data.TestCycle);
+            if (ZephyrApiService.TryCreateTestCycle(ref _testCycle))
+            {
+                _zephyrPluginProvider.ZephyrCycleCreated(e, _testCycle);
+                e.Container.RegisterInstance(_testCycle);
+            }
+            else
+            {
+                _zephyrPluginProvider.ZephyrCycleCreationFailed(e, _testCycle);
+            }
         }
 
         base.PostTestsArrange(sender, e);
@@ -54,21 +61,28 @@ public class ZephyrPlugin : Plugin
     {
         if (IsEnabled)
         {
-            var data = e.Container.Resolve<ZephyrLocalData>();
-            var testCase = new ZephyrTestCase(GetProjectId(e.TestMethodMemberInfo), data.TestCycleResponse.key, GetExecutionId(e.TestMethodMemberInfo), GetTestStatus(e.TestOutcome));
+            var testCase = new ZephyrTestCase();
+            testCase.ProjectKey = GetProjectKey(e.TestMethodMemberInfo);
+            testCase.CycleKey = GetCycleKey(e);
+            testCase.Id = GetExecutionId(e.TestMethodMemberInfo);
+            testCase.Status = GetTestStatus(e.TestOutcome);
+            testCase.Exception = GetActualException(e.Exception);
 
-            if (string.IsNullOrEmpty(testCase.TestCaseId) || string.IsNullOrEmpty(testCase.Status) || string.IsNullOrEmpty(testCase.ProjectId))
+
+            if (string.IsNullOrEmpty(testCase.Id) || string.IsNullOrEmpty(testCase.Status) || string.IsNullOrEmpty(testCase.ProjectKey) || string.IsNullOrEmpty(testCase.CycleKey))
             {
                 _zephyrPluginProvider.ZephyrTestCaseExecutionFailed(e, testCase);
             }
             else
             {
-                var response = ZephyrApiService.ExecuteTestCase(testCase);
-
-                if (!response.IsSuccessful)
-                    _zephyrPluginProvider.ZephyrTestCaseExecutionFailed(e, testCase);
-                else
+                if (ZephyrApiService.TryExecuteTestCase(testCase))
+                {
                     _zephyrPluginProvider.ZephyrTestCaseExecuted(e, testCase);
+                }
+                else
+                {
+                    _zephyrPluginProvider.ZephyrTestCaseExecutionFailed(e, testCase);
+                }
             }
         }
 
@@ -77,45 +91,68 @@ public class ZephyrPlugin : Plugin
 
     protected override void PostTestsCleanup(object sender, PluginEventArgs e)
     {
-        if (IsEnabled)
+        if (IsEnabled && !Settings.IsExistingCycle)
         {
-            var data = e.Container.Resolve<ZephyrLocalData>();
+            var testCycle = e.Container.Resolve<ZephyrTestCycle>();
 
-            data.TestCycle.PlannedEndDate = DateTimeUtilities.GetUtcNow();
-            var response = ZephyrApiService.MarkTestCycleDone(data);
+            testCycle.PlannedEndDate = DateTimeUtilities.GetUtcNow();
 
-            if (!response.IsSuccessful)
+            if (ZephyrApiService.TryMarkTestCycleDone(_testCycle))
             {
-                _zephyrPluginProvider.ZephyrCycleStatusUpdateFailed(e, data.TestCycle);
+                _zephyrPluginProvider.ZephyrCycleStatuseUpdated(e, testCycle);
+            }
+            else
+            {
+                _zephyrPluginProvider.ZephyrCycleStatusUpdateFailed(e, testCycle);
             }
         }
 
         base.PostTestsCleanup(sender, e);
     }
 
-    internal class ZephyrLocalData
+    private string? GetExecutionId(MemberInfo memberInfo)
     {
-        internal ZephyrTestCycleResponse TestCycleResponse { get; set; }
-        internal ZephyrTestCycle TestCycle { get; set; }
+        return memberInfo.GetCustomAttribute<ZephyrTestCaseAttribute>()?.Id;
     }
 
-    private string GetExecutionId(MemberInfo memberInfo)
+    private string? GetProjectKey(MemberInfo memberInfo)
     {
-        var zephyrTestCaseAttribute = memberInfo.GetCustomAttribute<ZephyrTestCaseAttribute>();
-        return zephyrTestCaseAttribute != null ? zephyrTestCaseAttribute.Id : string.Empty;
+        if (memberInfo.GetCustomAttribute<ZephyrTestCaseAttribute>()?.ProjectId != null) 
+            return memberInfo.GetCustomAttribute<ZephyrTestCaseAttribute>()?.ProjectId;
+
+        if (memberInfo.DeclaringType?.GetCustomAttribute<ZephyrProjectIdAttribute>() != null) 
+            return memberInfo.DeclaringType?.GetCustomAttribute<ZephyrProjectIdAttribute>()?.Value;
+
+        else 
+            return Settings.DefaultProjectKey;
     }
 
-    private string GetProjectId(MemberInfo memberInfo)
+    private string? GetProjectId(Type? classType)
     {
-        var zephyrProjectAttribute = memberInfo.DeclaringType.GetCustomAttribute<ZephyrProjectAttribute>();
-        if (zephyrProjectAttribute != null)
-        {
-            return zephyrProjectAttribute.Id;
-        }
+        if (classType?.GetCustomAttribute<ZephyrProjectIdAttribute>() != null)
+            return classType.GetCustomAttribute<ZephyrProjectIdAttribute>()?.Value;
+
         else
+            return Settings.DefaultProjectKey;
+    }
+
+    private string? GetCycleKey(PluginEventArgs e)
+    {
+        if (!Settings.IsExistingCycle) return e.Container.Resolve<ZephyrTestCycle>().Key;
+
+        var methodInfo = e.TestMethodMemberInfo;
+
+        if (methodInfo.GetCustomAttribute<ZephyrTestCaseAttribute>()?.CycleId != null)
         {
-            return Settings.DefaultProjectKey != null ? Settings.DefaultProjectKey : string.Empty;
+            return methodInfo.GetCustomAttribute<ZephyrTestCaseAttribute>()?.CycleId;
         }
+
+        if (methodInfo.DeclaringType?.GetCustomAttribute<ZephyrCycleIdAttribute>() != null)
+        {
+            return methodInfo.DeclaringType?.GetCustomAttribute<ZephyrCycleIdAttribute>()?.Value;
+        }
+
+        else return null;
     }
 
     private string GetTestStatus(TestOutcome testOutcome)
@@ -125,11 +162,21 @@ public class ZephyrPlugin : Plugin
             case TestOutcome.Failed:
             case TestOutcome.Aborted:
             case TestOutcome.Error:
-                return "Fail";
+                return TestExecutionStatus.Fail.GetValue();
             case TestOutcome.Passed:
-                return "Pass";
+                return TestExecutionStatus.Pass.GetValue();
             default: 
-                return "In Progress";
+                return TestExecutionStatus.InProgress.GetValue();
         }
+    }
+
+    private Exception GetActualException(Exception exception)
+    {
+        while (exception.Message.Equals("Rethrown"))
+        {
+            exception = exception.InnerException;
+        }
+
+        return exception;
     }
 }

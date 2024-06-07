@@ -1,4 +1,4 @@
-﻿// <copyright file="ZephyrTestCycle.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ZephyrProjectAttribute.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -12,15 +12,15 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Plugins.Jira.Zephyr.Data;
+namespace Bellatrix.Plugins.Jira.Zephyr.Attributes;
 
-public struct ZephyrTestCycle
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+public sealed class ZephyrProjectIdAttribute : Attribute
 {
-    public string? Id;
-    public string? Key;
-    public string? Name;
-    public string? ProjectKey;
-    public string? StatusName;
-    public string? PlannedStartDate;
-    public string? PlannedEndDate;
+    public string Value { get; }
+
+    public ZephyrProjectIdAttribute(string id)
+    {
+        Value = id;
+    }
 }

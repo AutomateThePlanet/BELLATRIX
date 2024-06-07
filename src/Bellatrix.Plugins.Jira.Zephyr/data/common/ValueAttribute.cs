@@ -1,4 +1,4 @@
-﻿// <copyright file="ZephyrTestCycle.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ValueAttribute.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,13 +14,11 @@
 
 namespace Bellatrix.Plugins.Jira.Zephyr.Data;
 
-public struct ZephyrTestCycle
+internal class ValueAttribute : Attribute
 {
-    public string? Id;
-    public string? Key;
-    public string? Name;
-    public string? ProjectKey;
-    public string? StatusName;
-    public string? PlannedStartDate;
-    public string? PlannedEndDate;
+    public string Value { get; }
+    public ValueAttribute(string value)
+    {
+        Value = value;
+    }
 }

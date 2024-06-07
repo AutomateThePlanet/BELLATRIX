@@ -14,19 +14,12 @@
 
 namespace Bellatrix.Plugins.Jira.Zephyr.Data;
 
-public class ZephyrTestCase
+public struct ZephyrTestCase
 {
-    public ZephyrTestCase(string projectId, string testCycleId, string testCaseId, string status)
-    {
-        this.ProjectId = projectId;
-        this.TestCycleId = testCycleId;
-        this.TestCaseId = testCaseId;
-        this.Status = status;
-    }
-
-    public string ProjectId { get; set; }
-    public string TestCycleId { get; set; }
-    public string TestCaseId { get; set; }
-    public string Status { get; set; }
-    public double Duration { get; set; }
+    public string ProjectKey;
+    public string CycleKey;
+    public string Id;
+    public string Status;
+    public double Duration;
+    public Exception Exception;
 }

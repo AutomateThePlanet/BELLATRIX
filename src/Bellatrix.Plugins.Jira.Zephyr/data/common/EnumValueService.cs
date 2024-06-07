@@ -1,4 +1,4 @@
-﻿// <copyright file="ZephyrTestCycle.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="EnumValueService.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -12,15 +12,19 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using System.Reflection;
+
 namespace Bellatrix.Plugins.Jira.Zephyr.Data;
 
-public struct ZephyrTestCycle
+internal static class EnumValueService
 {
-    public string? Id;
-    public string? Key;
-    public string? Name;
-    public string? ProjectKey;
-    public string? StatusName;
-    public string? PlannedStartDate;
-    public string? PlannedEndDate;
+    internal static string GetValue(this Enum enumValue)
+    {
+        FieldInfo? fi = enumValue.GetType().GetField(enumValue.ToString());
+        ValueAttribute? attribute = fi?.GetCustomAttribute<ValueAttribute>();
+
+        if (attribute != null) return attribute.Value;
+
+        return enumValue.ToString();
+    }
 }

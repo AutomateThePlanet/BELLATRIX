@@ -18,9 +18,13 @@ namespace Bellatrix.Plugins.Jira.Zephyr.Attributes;
 public sealed class ZephyrTestCaseAttribute : Attribute
 {
     public string Id { get; }
+    public string? CycleId { get; }
+    public string? ProjectId { get; }
 
-    public ZephyrTestCaseAttribute(string id)
+    public ZephyrTestCaseAttribute(string id, string? cycleId = null, string? projectId = null)
     {
         Id = id;
+        CycleId = cycleId;
+        ProjectId = projectId;
     }
 }

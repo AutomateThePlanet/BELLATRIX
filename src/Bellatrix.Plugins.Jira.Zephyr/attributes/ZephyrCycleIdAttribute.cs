@@ -1,4 +1,4 @@
-﻿// <copyright file="ZephyrPluginConfigure.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ZephyrProjectAttribute.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -12,12 +12,15 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Plugins.Jira.Zephyr;
+namespace Bellatrix.Plugins.Jira.Zephyr.Attributes;
 
-public static class ZephyrPluginConfigure
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+public sealed class ZephyrCycleIdAttribute : Attribute
 {
-    public static void Add()
+    public string Value { get; }
+
+    public ZephyrCycleIdAttribute(string id)
     {
-        ServicesCollection.Current.RegisterType<Plugin, ZephyrPlugin>(Guid.NewGuid().ToString());
+        Value = id;
     }
 }
