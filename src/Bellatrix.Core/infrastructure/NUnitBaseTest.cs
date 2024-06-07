@@ -22,6 +22,7 @@ using Bellatrix.Plugins;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
+using static NUnit.Framework.TestContext;
 
 namespace Bellatrix;
 
@@ -162,7 +163,7 @@ public class NUnitBaseTest
         
         try
         {
-            _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
+            _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, GetDurationOfTest(), TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
         }
         catch (Exception preTestCleanupException)
         {
@@ -180,7 +181,7 @@ public class NUnitBaseTest
 
         try
         {
-            _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.FullName, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
+            _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, GetDurationOfTest(), TestContext.Test.FullName, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
         }
         catch (Exception postCleanupException)
         {
@@ -305,5 +306,19 @@ public class NUnitBaseTest
         var testClassType = GetType().Assembly.GetType(TestContext.CurrentContext.Test.ClassName);
 
         return testClassType;
+    }
+
+    private double GetDurationOfTest()
+    {
+        var fieldInfo = typeof(ResultAdapter).GetField("_result", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (fieldInfo != null)
+        {
+            return ((TestResult)fieldInfo.GetValue(TestContext.Result)).Duration * 1000;
+        }
+        else
+        {
+            // TODO: LOG FAILURE TO RETRIEVE
+            return 0;
+        }
     }
 }
