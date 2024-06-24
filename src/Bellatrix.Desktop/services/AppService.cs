@@ -17,7 +17,7 @@ namespace Bellatrix.Desktop.Services;
 
 public class AppService : DesktopService
 {
-    public AppService(WindowsDriver<WindowsElement> wrappedDriver)
+    public AppService(WindowsDriver wrappedDriver)
         : base(wrappedDriver)
     {
     }

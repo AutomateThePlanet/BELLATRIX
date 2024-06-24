@@ -15,6 +15,7 @@ using System;
 using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.Services;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop;
@@ -31,7 +32,7 @@ public class TestExecutionEngine
             ////childContainer.RegisterInstance(new ComponentCreateService());
             childContainer.RegisterNull<int?>();
             childContainer.RegisterNull<IWebElement>();
-            childContainer.RegisterNull<WindowsElement>();
+            childContainer.RegisterNull<AppiumElement>();
             IsAppStartedCorrectly = true;
         }
         catch (Exception e)
@@ -50,7 +51,7 @@ public class TestExecutionEngine
     {
         foreach (var childContainer in ServicesCollection.Current.GetChildServicesCollections())
         {
-            var driver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
+            var driver = childContainer.Resolve<WindowsDriver>();
             DisposeDriverService.Dispose(driver, childContainer);
         }
     }

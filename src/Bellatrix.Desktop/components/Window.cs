@@ -65,7 +65,7 @@ public class Window : Component
         var driver = WrappedWebDriverCreateService.Create(currentAppConfiguration, ServicesCollection.Current);
 
         WrappedDriver.Quit();
-        ServicesCollection.Current.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+        ServicesCollection.Current.UnregisterSingleInstance<WindowsDriver>();
         ServicesCollection.Current.RegisterInstance(driver);
 
         Attached?.Invoke(this, new ComponentActionEventArgs(this));
@@ -86,7 +86,7 @@ public class Window : Component
         var driver = WrappedWebDriverCreateService.Create(currentAppConfiguration, ServicesCollection.Current);
 
         WrappedDriver.Quit();
-        ServicesCollection.Current.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+        ServicesCollection.Current.UnregisterSingleInstance<WindowsDriver>();
         ServicesCollection.Current.RegisterInstance(driver);
 
         Attached?.Invoke(this, new ComponentActionEventArgs(this));

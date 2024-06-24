@@ -12,6 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
@@ -26,24 +27,24 @@ public class FindIdEndingWithStrategy : FindStrategy
     {
     }
 
-    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    public override AppiumElement FindElement(WindowsDriver searchContext)
     {
-        return searchContext.FindElementByXPath(string.Format(XpathEndingWithExpression, Value));
+        return searchContext.FindElement(By.XPath(string.Format(XpathEndingWithExpression, Value)));
     }
 
-    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(WindowsDriver searchContext)
     {
-        return searchContext.FindElementsByXPath(string.Format(XpathEndingWithExpression, Value));
+        return searchContext.FindElements(By.XPath(string.Format(XpathEndingWithExpression, Value)));
     }
 
-    public override AppiumWebElement FindElement(WindowsElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByXPath(string.Format(XpathEndingWithExpression, Value));
+        return element.FindElement(By.XPath(string.Format(XpathEndingWithExpression, Value)));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByXPath(string.Format(XpathEndingWithExpression, Value));
+        return element.FindElements(By.XPath(string.Format(XpathEndingWithExpression, Value)));
     }
 
     public override string ToString()

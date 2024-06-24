@@ -19,6 +19,7 @@ using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.Locators;
 using Bellatrix.Desktop.Services;
 using Bellatrix.Desktop.Untils;
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.Controls.Core;
@@ -27,14 +28,14 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
     where TComponent : Component
 {
     private readonly FindStrategy _by;
-    private readonly WindowsElement _parenTComponent;
+    private readonly AppiumElement _parenTComponent;
     private readonly List<TComponent> _foundElements;
     private readonly bool _shouldCacheFoundElements;
     private List<TComponent> _cachedElements;
 
     public ComponentsList(
         FindStrategy by,
-        WindowsElement parenTComponent,
+        AppiumElement parenTComponent,
         bool shouldCacheFoundElements)
     : this(by, parenTComponent)
     {
@@ -43,27 +44,27 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 
     public ComponentsList(
         FindStrategy by,
-        WindowsElement parenTComponent)
+        AppiumElement parenTComponent)
     {
         _by = by;
         _parenTComponent = parenTComponent;
         _foundElements = new List<TComponent>();
-        WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+        WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver>();
     }
 
     public ComponentsList()
     {
         _foundElements = new List<TComponent>();
-        WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+        WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver>();
     }
 
     public ComponentsList(IEnumerable<TComponent> nativeElementList)
     {
         _foundElements = new List<TComponent>(nativeElementList);
-        WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+        WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver>();
     }
 
-    public WindowsDriver<WindowsElement> WrappedDriver { get; }
+    public WindowsDriver WrappedDriver { get; }
 
     public TComponent this[int i] => GetAndWaitWebDriverElements().ElementAt(i);
 
@@ -130,7 +131,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
                 foreach (var nativeElement in _by?.FindAllElements(_parenTComponent))
                 {
                     var element =
-                           elementRepository.CreateComponentThatIsFound<TComponent>(_by, (WindowsElement)nativeElement);
+                           elementRepository.CreateComponentThatIsFound<TComponent>(_by, nativeElement);
                     yield return element;
                 }
             }

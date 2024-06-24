@@ -26,11 +26,11 @@ public abstract class FindStrategy
 
     public string Value { get; }
 
-    public abstract WindowsElement FindElement(WindowsDriver<WindowsElement> driver);
+    public abstract AppiumElement FindElement(WindowsDriver driver);
 
-    public abstract IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> driver);
+    public abstract IEnumerable<AppiumElement> FindAllElements(WindowsDriver driver);
 
-    public abstract AppiumWebElement FindElement(WindowsElement element);
+    public abstract AppiumElement FindElement(AppiumElement element);
 
-    public abstract IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element);
+    public abstract IEnumerable<AppiumElement> FindAllElements(AppiumElement element);
 }

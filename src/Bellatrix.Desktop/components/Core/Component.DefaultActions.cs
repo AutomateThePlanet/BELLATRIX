@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 using Bellatrix.Layout;
+using OpenQA.Selenium.Interactions;
 
 namespace Bellatrix.Desktop;
 
@@ -40,12 +41,19 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
     {
         hovering?.Invoke(this, new ComponentActionEventArgs(this));
 
-        WrappedDriver.ExecuteScript("windows: hover", new Dictionary<string, object>
+        if (ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
         {
-            { "startElementId", WrappedElement.Id },
-            { "endElementId", WrappedElement.Id },
-            { "durationMs", 0 }
-        });
+            new Actions(WrappedDriver).MoveToElement(WrappedElement).Perform();
+        }
+        else
+        {
+            WrappedDriver.ExecuteScript("windows: hover", new Dictionary<string, object>
+            {
+                { "startElementId", WrappedElement.Id },
+                { "endElementId", WrappedElement.Id },
+                { "durationMs", 0 }
+            });
+        }
 
         hovered?.Invoke(this, new ComponentActionEventArgs(this));
     }

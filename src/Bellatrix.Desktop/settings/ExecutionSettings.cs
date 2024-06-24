@@ -24,5 +24,8 @@ public class ExecutionSettings
     public bool ShouldStartLocalService { get; set; } = true;
     public string Url { get; set; }
     public List<Dictionary<string, object>> Arguments { get; set; }
+
     public bool IsCloudRun { get; set; }
+
+    public bool ExperimentalDesktopDriver { get; set; } = false;
 }

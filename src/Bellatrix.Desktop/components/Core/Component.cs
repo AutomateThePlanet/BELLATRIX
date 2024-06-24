@@ -26,7 +26,9 @@ using Bellatrix.Desktop.Services;
 using Bellatrix.Desktop.Untils;
 using Bellatrix.Plugins.Screenshots;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop;
@@ -36,12 +38,12 @@ public partial class Component
 {
     private readonly ComponentWaitService _elementWait;
     private readonly List<WaitStrategy> _untils;
-    private WindowsElement _wrappedElement;
+    private AppiumElement _wrappedElement;
 
     public Component()
     {
         _elementWait = new ComponentWaitService();
-        WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+        WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver>();
         _untils = new List<WaitStrategy>();
     }
 
@@ -53,9 +55,9 @@ public partial class Component
     public static event EventHandler<ComponentActionEventArgs> CreatedComponents;
     public static event EventHandler<NativeElementActionEventArgs> ReturningWrappedElement;
 
-    public WindowsDriver<WindowsElement> WrappedDriver { get; }
+    public WindowsDriver WrappedDriver { get; }
 
-    public WindowsElement WrappedElement
+    public AppiumElement WrappedElement
     {
         get
         {
@@ -66,9 +68,9 @@ public partial class Component
         internal set => _wrappedElement = value;
     }
 
-    public WindowsElement ParentWrappedElement { get; set; }
+    public AppiumElement ParentWrappedElement { get; set; }
 
-    public WindowsElement FoundWrappedElement { get; set; }
+    public AppiumElement FoundWrappedElement { get; set; }
 
     public int ElementIndex { get; set; }
 
@@ -179,11 +181,17 @@ public partial class Component
 
     public virtual void ScrollToVisible()
     {
+        if (ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
+        {
+            WrappedDriver.ExecuteScript("windows: scrollToVisible", WrappedElement);
+            return;
+        }
+
         ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs(this));
 
-        var touchActions = new RemoteTouchScreen(WrappedDriver);
+        var touchActions = new Actions(WrappedDriver);
         System.Threading.Thread.Sleep(2000);
-        touchActions.Scroll(WrappedElement.Coordinates, 0, 0);
+        touchActions.ScrollToElement(WrappedElement);
         this.ToBeVisible().ToExists().WaitToBe();
         ScrolledToVisible?.Invoke(this, new ComponentActionEventArgs(this));
     }
@@ -212,7 +220,7 @@ public partial class Component
         return sb.ToString();
     }
 
-    protected WindowsElement GetAndWaitWebDriverElement()
+    protected AppiumElement GetAndWaitWebDriverElement()
     {
         if (_wrappedElement == null)
         {
@@ -230,7 +238,7 @@ public partial class Component
                         _elementWait.Wait(this, until);
                     }
 
-                    if (until.GetType().Equals(typeof(WaitNotExistStrategy)))
+                    if (until is WaitNotExistStrategy)
                     {
                         return _wrappedElement;
                     }
@@ -249,9 +257,9 @@ public partial class Component
         return _wrappedElement;
     }
 
-    private WindowsElement GetWebDriverElement()
+    private AppiumElement GetWebDriverElement()
     {
-        WindowsElement result = _wrappedElement;
+        var result = _wrappedElement;
         if (FoundWrappedElement != null)
         {
             result = FoundWrappedElement;

@@ -1,7 +1,7 @@
 ﻿////using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bellatrix;
-using Bellatrix.Desktop;
 using NUnit.Framework;
+
+namespace Bellatrix.Desktop.Tests;
 
 [SetUpFixture]
 public class TestsInitialize
@@ -9,7 +9,7 @@ public class TestsInitialize
     [OneTimeSetUp]
     public void AssemblyInitialize()
     {
-        App.StartWinAppDriver();
+        App.StartAppiumServer();
     }
 
     [OneTimeTearDown]
@@ -17,7 +17,7 @@ public class TestsInitialize
     {
         var app = ServicesCollection.Current.Resolve<App>();
         app?.Dispose();
-        App.StopWinAppDriver();
+        App.StartAppiumServer();
     }
 }
 

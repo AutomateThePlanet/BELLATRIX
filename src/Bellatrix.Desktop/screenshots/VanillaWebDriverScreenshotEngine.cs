@@ -29,7 +29,7 @@ public sealed class VanillaWebDriverScreenshotEngine : IScreenshotEngine
 
     public string TakeScreenshotVanillaWebDriver(ServicesCollection serviceContainer)
     {
-        var driver = serviceContainer.Resolve<WindowsDriver<WindowsElement>>();
+        var driver = serviceContainer.Resolve<WindowsDriver>();
         Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
         return screenshot.AsBase64EncodedString;
     }

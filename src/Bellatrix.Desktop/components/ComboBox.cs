@@ -13,8 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Diagnostics;
+using System.Linq;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
+using Bellatrix.Desktop.Services;
+using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Desktop;
 
@@ -34,16 +37,51 @@ public class ComboBox : Component, IComponentDisabled, IComponentInnerText
     {
         Selecting?.Invoke(this, new ComponentActionEventArgs(this, value));
 
-        if (WrappedElement.Text != value)
+        if (ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
         {
-            WrappedElement.SendKeys(value);
+            var itemToSelect = this.CreateAllByTag<ListItem>("ListItem")
+                .FirstOrDefault(x => x.CreateByTag<Label>("Text").InnerText == value);
+
+            WrappedDriver.ExecuteScript("windows: select", itemToSelect);
+        }
+        else
+        {
+            if (WrappedElement.Text != value)
+            {
+                WrappedElement.SendKeys(value);
+            }
         }
 
         Selected?.Invoke(this, new ComponentActionEventArgs(this, value));
     }
 
+    public virtual ListItem SelectedItem
+    {
+        get
+        {
+            if (!ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
+            {
+                throw new InvalidOperationException("This option is supported only with ExperimentalDesktopDriver enabled");
+            }
+
+            return new ComponentsRepository().CreateComponentThatIsFound<ListItem>(null,
+                (AppiumElement)WrappedDriver.ExecuteScript("windows: selectedItem", WrappedElement));
+        }
+    }
+
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public virtual string InnerText => GetInnerText();
+    public virtual string InnerText
+    {
+        get
+        {
+            if (ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
+            {
+                return SelectedItem.CreateByTag<Label>("Text").InnerText;
+            }  
+
+            return GetInnerText();
+        }
+    }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsDisabled => GetIsDisabled();

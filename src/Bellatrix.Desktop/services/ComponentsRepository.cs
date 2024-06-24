@@ -16,13 +16,14 @@ using System.Diagnostics;
 using System.Reflection;
 using Bellatrix.Desktop.Locators;
 using Bellatrix.Desktop.PageObjects;
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.Services;
 
 public class ComponentsRepository
 {
-    public dynamic CreateComponentWithParent(FindStrategy by, WindowsElement parentElement, Type newElementType)
+    public dynamic CreateComponentWithParent(FindStrategy by, AppiumElement parentElement, Type newElementType)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
@@ -35,7 +36,7 @@ public class ComponentsRepository
         return element;
     }
 
-    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, WindowsElement parentElement, WindowsElement foundElement, int elementsIndex)
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, AppiumElement parentElement, AppiumElement foundElement, int elementsIndex)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
@@ -52,7 +53,7 @@ public class ComponentsRepository
         return element;
     }
 
-    public dynamic CreateComponentThatIsFound(FindStrategy by, WindowsElement webElement, Type newElementType)
+    public dynamic CreateComponentThatIsFound(FindStrategy by, AppiumElement webElement, Type newElementType)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
@@ -66,7 +67,7 @@ public class ComponentsRepository
         return element;
     }
 
-    public TComponentType CreateComponentThatIsFound<TComponentType>(FindStrategy by, WindowsElement webElement)
+    public TComponentType CreateComponentThatIsFound<TComponentType>(FindStrategy by, AppiumElement webElement)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);

@@ -24,24 +24,24 @@ public class FindAccessibilityIdStrategy : FindStrategy
     {
     }
 
-    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    public override AppiumElement FindElement(WindowsDriver searchContext)
     {
-        return searchContext.FindElementByAccessibilityId(Value);
+        return searchContext.FindElement(MobileBy.AccessibilityId(Value));
     }
 
-    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(WindowsDriver searchContext)
     {
-        return searchContext.FindElementsByAccessibilityId(Value);
+        return searchContext.FindElements(MobileBy.AccessibilityId(Value));
     }
 
-    public override AppiumWebElement FindElement(WindowsElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByAccessibilityId(Value);
+        return element.FindElement(MobileBy.AccessibilityId(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByAccessibilityId(Value);
+        return element.FindElements(MobileBy.AccessibilityId(Value));
     }
 
     public override string ToString()

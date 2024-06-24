@@ -24,24 +24,24 @@ public class FindNameStrategy : FindStrategy
     {
     }
 
-    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    public override AppiumElement FindElement(WindowsDriver searchContext)
     {
-        return searchContext.FindElementByName(Value);
+        return searchContext.FindElement(MobileBy.Name(Value));
     }
 
-    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(WindowsDriver searchContext)
     {
-        return searchContext.FindElementsByName(Value);
+        return searchContext.FindElements(MobileBy.Name(Value));
     }
 
-    public override AppiumWebElement FindElement(WindowsElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementByName(Value);
+        return element.FindElement(MobileBy.Name(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsByName(Value);
+        return element.FindElements(MobileBy.Name(Value));
     }
 
     public override string ToString()

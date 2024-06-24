@@ -11,7 +11,8 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using OpenQA.Selenium.Appium.Windows;
+
+using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Desktop.Contracts;
 
@@ -21,5 +22,5 @@ public interface IComponent
 
     string PageName { get; }
 
-    WindowsElement WrappedElement { get; }
+    AppiumElement WrappedElement { get; }
 }

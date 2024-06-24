@@ -31,7 +31,7 @@ public class WaitToBeClickable : WaitStrategy
         WaitUntil(d => ElementIsClickable(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
     }
 
-    private bool ElementIsClickable<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
+    private bool ElementIsClickable<TBy>(WindowsDriver searchContext, TBy by)
         where TBy : Locators.FindStrategy
     {
         var element = by.FindElement(searchContext);

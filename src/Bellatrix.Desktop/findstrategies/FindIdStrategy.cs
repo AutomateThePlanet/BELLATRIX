@@ -12,6 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
@@ -24,24 +25,24 @@ public class FindIdStrategy : FindStrategy
     {
     }
 
-    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    public override AppiumElement FindElement(WindowsDriver searchContext)
     {
-        return searchContext.FindElementById(Value);
+        return searchContext.FindElement(By.Id(Value));
     }
 
-    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(WindowsDriver searchContext)
     {
-        return searchContext.FindElementsById(Value);
+        return searchContext.FindElements(By.Id(Value));
     }
 
-    public override AppiumWebElement FindElement(WindowsElement element)
+    public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElementById(Value);
+        return element.FindElement(By.Id(Value));
     }
 
-    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElementsById(Value);
+        return element.FindElements(By.Id(Value));
     }
 
     public override string ToString()

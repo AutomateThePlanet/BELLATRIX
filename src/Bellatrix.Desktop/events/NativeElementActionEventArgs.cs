@@ -11,13 +11,15 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.Events;
 
 public class NativeElementActionEventArgs
 {
-    public NativeElementActionEventArgs(WindowsElement element) => Element = element;
+    public NativeElementActionEventArgs(AppiumElement element) => Element = element;
 
-    public WindowsElement Element { get; }
+    public AppiumElement Element { get; }
 }

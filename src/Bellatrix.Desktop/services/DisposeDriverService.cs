@@ -17,24 +17,24 @@ namespace Bellatrix.Desktop.Services;
 
 public static class DisposeDriverService
 {
-    public static void Dispose(WindowsDriver<WindowsElement> driver, ServicesCollection childContainer)
+    public static void Dispose(WindowsDriver driver, ServicesCollection childContainer)
     {
         driver?.Quit();
         driver?.Dispose();
-        childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+        childContainer.UnregisterSingleInstance<WindowsDriver>();
     }
 
     public static void Dispose(ServicesCollection childContainer)
     {
         try
         {
-            if (childContainer.IsRegistered<WindowsDriver<WindowsElement>>())
+            if (childContainer.IsRegistered<WindowsDriver>())
             {
-                var webDriver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
+                var webDriver = childContainer.Resolve<WindowsDriver>();
                 webDriver?.Quit();
                 webDriver?.Dispose();
-                childContainer.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
-                ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+                childContainer.UnregisterSingleInstance<WindowsDriver>();
+                ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver>();
             }
         }
         catch (System.Exception ex)
@@ -49,10 +49,10 @@ public static class DisposeDriverService
         {
             try
             {
-                var driver = childContainer.Resolve<WindowsDriver<WindowsElement>>();
+                var driver = childContainer.Resolve<WindowsDriver>();
                 driver?.Quit();
                 driver?.Dispose();
-                childContainer?.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+                childContainer?.UnregisterSingleInstance<WindowsDriver>();
             }
             catch (System.Exception ex)
             {
@@ -60,6 +60,6 @@ public static class DisposeDriverService
             }
         }
 
-        ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver<WindowsElement>>();
+        ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver>();
     }
 }
