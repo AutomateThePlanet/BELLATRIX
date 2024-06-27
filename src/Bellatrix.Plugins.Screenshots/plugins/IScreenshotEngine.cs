@@ -11,7 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System.Drawing;
 
 namespace Bellatrix.Plugins.Screenshots.Contracts;
 
