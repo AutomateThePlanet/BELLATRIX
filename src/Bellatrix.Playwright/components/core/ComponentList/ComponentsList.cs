@@ -24,12 +24,12 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
     private readonly List<TComponent> _components;
 
     public ComponentsList(FindStrategy by, Component parenTComponent) 
-        : this((ServicesCollection.Current.Resolve<ComponentRepository>().CreateComponentListWithParent<TComponent>(by, parenTComponent)))
+        : this((ComponentRepository.CreateComponentListWithParent<TComponent>(by, parenTComponent)))
     {
     }
 
     public ComponentsList(FindStrategy by)
-        : this((ServicesCollection.Current.Resolve<ComponentRepository>().CreateComponentList<TComponent>(by)))
+        : this((ComponentRepository.CreateComponentList<TComponent>(by)))
     {
     }
 
@@ -66,7 +66,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public int Count() => _components.Count;
+    public int Count => _components.Count;
 
     public void ForEach(Action<TComponent> action)
     {

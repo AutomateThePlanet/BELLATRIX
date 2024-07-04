@@ -1,4 +1,19 @@
-﻿using Bellatrix.Web.Contracts;
+﻿// <copyright file="ShadowRoot.cs" company="Automate The Planet Ltd.">
+// Copyright 2024 Automate The Planet Ltd.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+// <author>Miriam Kyoseva</author>
+// <site>https://bellatrix.solutions/</site>
+
+using Bellatrix.Web.Components.ShadowDom;
+using Bellatrix.Web.Contracts;
 using OpenQA.Selenium;
 using System.Collections.ObjectModel;
 
@@ -11,7 +26,7 @@ public class ShadowRoot : Component, IComponentInnerHtml
         set => base.WrappedElement = value;
     }
 
-    public string InnerHtml => JavaScriptService.Execute("return arguments[0].shadowRoot.innerHTML", WrappedElement);
+    public string InnerHtml => ShadowDomService.GetShadowHtml(this);
 
     private class ShadowSearchContext : WebElement
     {

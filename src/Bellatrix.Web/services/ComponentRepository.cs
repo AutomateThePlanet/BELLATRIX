@@ -45,8 +45,9 @@ public class ComponentRepository
 
         dynamic element = Activator.CreateInstance(newElementType);
 
-        DetermineFindStrategy(element, parenTComponent, by);
-
+        element.By = by;
+        element.ParentComponent = parenTComponent;
+        element.ParentWrappedElement = parenTComponent.WrappedElement;
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
         element.ShouldCacheElement = shouldCacheElement;
@@ -82,8 +83,9 @@ public class ComponentRepository
 
         var element = Activator.CreateInstance<TComponentType>();
 
-        DetermineFindStrategy(element, parenTComponent, by);
-
+        element.By = by;
+        element.ParentComponent = parenTComponent;
+        element.ParentWrappedElement = parenTComponent.WrappedElement;
         element.WrappedElement = foundElement;
         element.ElementIndex = elementsIndex;
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
@@ -91,55 +93,6 @@ public class ComponentRepository
         element.ShouldCacheElement = shouldCacheElement;
 
         return element;
-    }
-
-    private static void DetermineFindStrategy(Component component, Component parenTComponent, FindStrategy by)
-    {
-        if (parenTComponent is Components.ShadowRoot && by.Convert().Mechanism.ToLower().Equals("xpath"))
-        {
-            var absoluteCss = HtmlService.FindCssLocator(((Components.ShadowRoot)parenTComponent).InnerHtml, by.Value);
-
-            component.By = new FindShadowXpathStrategy(by.Value, absoluteCss);
-            component.ParentComponent = parenTComponent;
-            component.ParentWrappedElement = parenTComponent.WrappedElement;
-        }
-        else if (GetAncestor(parenTComponent) is Components.ShadowRoot ancestor && by.Convert().Mechanism.ToLower().Equals("xpath"))
-        {
-            var absoluteCss = HtmlService.FindRelativeCssLocator(HtmlService.FindNodeByCss(ancestor.InnerHtml, parenTComponent.By.Value), by.Value);
-
-            component.By = new FindShadowXpathStrategy(by.Value, absoluteCss);
-            component.ParentComponent = ancestor;
-            component.ParentWrappedElement = ancestor.WrappedElement;
-        } 
-        else if (GetAncestor(parenTComponent) is Components.ShadowRoot && by is FindShadowXpathStrategy)
-        {
-            component.By = by;
-            component.ParentComponent = parenTComponent;
-            component.ParentWrappedElement = GetAncestor(parenTComponent).WrappedElement;
-        }
-        else
-        {
-            component.By = by;
-            component.ParentComponent = parenTComponent;
-            component.ParentWrappedElement = parenTComponent.WrappedElement;
-        }
-    }
-
-    private static Component GetAncestor(Component parenTComponent)
-    {
-        var ancestor = parenTComponent.ParentComponent;
-
-        while (ancestor != null)
-        {
-            if (ancestor is Components.ShadowRoot)
-            {
-                return ancestor;
-            }
-
-            ancestor = ancestor.ParentComponent;
-        }
-
-        return ancestor;
     }
 
     public dynamic CreateComponentThatIsFound(FindStrategy by, IWebElement webElement, Type newElementType, bool shouldCacheElement)

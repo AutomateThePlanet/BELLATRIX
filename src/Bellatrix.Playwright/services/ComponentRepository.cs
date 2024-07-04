@@ -14,6 +14,7 @@
 
 using Bellatrix.Core.Utilities;
 using Bellatrix.Playwright.Components;
+using Bellatrix.Playwright.Components.ShadowDom;
 using Bellatrix.Playwright.Locators;
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.SyncPlaywright.Element;
@@ -21,44 +22,42 @@ using System.Diagnostics;
 using System.Reflection;
 
 namespace Bellatrix.Playwright.Services;
-public class ComponentRepository
+public static class ComponentRepository
 {
-    private WrappedBrowser WrappedBrowser => ServicesCollection.Current.Resolve<WrappedBrowser>();
+    private static WrappedBrowser WrappedBrowser => ServicesCollection.Current.Resolve<WrappedBrowser>();
 
-    public dynamic CreateComponentWithParent(FindStrategy by, Component parenTComponent, Type newElementType)
+    public static dynamic CreateComponentWithParent(FindStrategy by, Component parenTComponent, Type newElementType)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         dynamic element = Activator.CreateInstance(newElementType);
 
-        ResolveFindStrategy(element, by, parenTComponent);
-
+        element.By = by;
+        element.ParentComponent = parenTComponent;
         ResolveRelativeWebElement(element);
-
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
         element.PageName = pageName ?? string.Empty;
 
         return element;
     }
 
-    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parenTComponent)
+    public static TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parenTComponent)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
         var element = Activator.CreateInstance<TComponentType>();
 
-        ResolveFindStrategy(element, by, parenTComponent);
-
+        element.By = by;
+        element.ParentComponent = parenTComponent;
         ResolveRelativeWebElement(element);
-
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({element.By})" : elementName;
         element.PageName = pageName ?? string.Empty;
 
         return element;
     }
 
-    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parenTComponent, WebElement element)
+    public static TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parenTComponent, WebElement element)
     where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
@@ -73,44 +72,21 @@ public class ComponentRepository
         return component;
     }
 
-    public ComponentsList<TComponentType> CreateComponentListWithParent<TComponentType>(FindStrategy by, Component parenTComponent)
+    public static ComponentsList<TComponentType> CreateComponentListWithParent<TComponentType>(FindStrategy by, Component parenTComponent)
         where TComponentType : Component
     {
         var list = new List<TComponentType>();
 
-        if (parenTComponent is ShadowRoot && by is FindXpathStrategy)
+        var webElements = by.Resolve(parenTComponent.WrappedElement).All();
+        foreach (var element in webElements)
         {
-            var cssLocators = HtmlService.FindCssLocators(((ShadowRoot)parenTComponent).InnerHtml, by.Value);
-
-            foreach (var locator in cssLocators)
-            {
-                list.Add(CreateComponentWithParent<TComponentType>(new FindShadowXpathStrategy(by.Value, locator), parenTComponent));
-            }
-        }
-        else if (GetAncestor(parenTComponent) is ShadowRoot && by is FindXpathStrategy)
-        {
-            var ancestor = GetAncestor(parenTComponent);
-
-            var cssLocators = HtmlService.FindRelativeCssLocators(HtmlService.FindNodeByCss(((ShadowRoot)ancestor).InnerHtml, parenTComponent.By.Value), by.Value);
-
-            foreach (var locator in cssLocators)
-            {
-                list.Add(CreateComponentWithParent<TComponentType>(new FindShadowXpathStrategy(by.Value, locator), ancestor));
-            }
-        }
-        else
-        {
-            var webElements = by.Resolve(parenTComponent.WrappedElement).All();
-            foreach (var element in webElements)
-            {
-                list.Add(CreateComponentWithParent<TComponentType>(by, parenTComponent, element));
-            }
+            list.Add(CreateComponentWithParent<TComponentType>(by, parenTComponent, element));
         }
 
         return new ComponentsList<TComponentType>(list);
     }
 
-    public ComponentsList<TComponentType> CreateComponentList<TComponentType>(FindStrategy by)
+    public static ComponentsList<TComponentType> CreateComponentList<TComponentType>(FindStrategy by)
         where TComponentType : Component
     {
         var list = new List<TComponentType>();
@@ -123,7 +99,7 @@ public class ComponentRepository
         return new ComponentsList<TComponentType>(list);
     }
 
-    public dynamic CreateComponentWithParent(FindStrategy by, WebElement parentElement, Type newElementType)
+    public static dynamic CreateComponentWithParent(FindStrategy by, WebElement parentElement, Type newElementType)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
@@ -138,7 +114,7 @@ public class ComponentRepository
         return element;
     }
 
-    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, WebElement parentElement)
+    public static TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, WebElement parentElement)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
@@ -154,7 +130,7 @@ public class ComponentRepository
         return element;
     }
 
-    public TComponentType CreateComponent<TComponentType>(FindStrategy by)
+    public static TComponentType CreateComponent<TComponentType>(FindStrategy by)
         where TComponentType : Component
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
@@ -170,14 +146,14 @@ public class ComponentRepository
         return element;
     }
 
-    private void DetermineComponentAttributes(out string elementName, out string pageName)
+    private static void DetermineComponentAttributes(out string elementName, out string pageName)
     {
         elementName = string.Empty;
         pageName = string.Empty;
         try
         {
             var callStackTrace = new StackTrace();
-            var currentAssembly = GetType().Assembly;
+            var currentAssembly = typeof(ComponentRepository).Assembly;
 
             foreach (var frame in callStackTrace.GetFrames())
             {
@@ -202,7 +178,7 @@ public class ComponentRepository
         }
     }
 
-    private void ResolveRelativeWebElement(Component component, WebElement parentElement)
+    private static void ResolveRelativeWebElement(Component component, WebElement parentElement)
     {
         if (component is Frame)
         {
@@ -214,7 +190,7 @@ public class ComponentRepository
         }
     }
 
-    private void ResolveWebElement(Component component)
+    private static void ResolveWebElement(Component component)
     {
         if (component is Frame)
         {
@@ -226,7 +202,7 @@ public class ComponentRepository
         }
     }
 
-    private void ResolveRelativeWebElement(Component component)
+    private static void ResolveRelativeWebElement(Component component)
     {
         if (component is Frame)
         {
@@ -236,46 +212,5 @@ public class ComponentRepository
         {
             component.WrappedElement = component.By.Resolve(component.ParentComponent.WrappedElement);
         }
-    }
-
-    private void ResolveFindStrategy(Component component, FindStrategy by, Component parenTComponent)
-    {
-        if (parenTComponent is ShadowRoot && by is FindXpathStrategy)
-        {
-            var cssLocator = HtmlService.FindCssLocator(((ShadowRoot)parenTComponent).InnerHtml, by.Value);
-
-            component.By = new FindShadowXpathStrategy(by.Value, cssLocator);
-            component.ParentComponent = parenTComponent;
-        }
-        else if (GetAncestor(parenTComponent) is ShadowRoot && by is FindXpathStrategy)
-        {
-            var ancestor = GetAncestor(parenTComponent);
-
-            var cssLocator = HtmlService.FindRelativeCssLocator(HtmlService.FindNodeByCss(((ShadowRoot)ancestor).InnerHtml, parenTComponent.By.Value), by.Value);
-
-            component.By = new FindShadowXpathStrategy(by.Value, cssLocator);
-            component.ParentComponent = ancestor;
-        }
-        else
-        {
-            component.By = by;
-            component.ParentComponent = parenTComponent;
-        }
-    }
-
-    private Component GetAncestor(Component parentComponent)
-    {
-        var component = parentComponent;
-
-        while (component != null)
-        {
-            if (component.GetType() == typeof(ShadowRoot))
-            {
-                return component;
-            }
-            component = component.ParentComponent;
-        }
-
-        return component;
     }
 }

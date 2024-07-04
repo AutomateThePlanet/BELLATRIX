@@ -18,19 +18,15 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using Azure.AI.FormRecognizer.Models;
 using Bellatrix.CognitiveServices;
 using Bellatrix.CognitiveServices.services;
-using Bellatrix.Core.Utilities;
 using Bellatrix.Plugins.Screenshots;
-using Bellatrix.Web.Components;
+using Bellatrix.Web.Components.ShadowDom;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
 using Bellatrix.Web.Untils;
 using Bellatrix.Web.Waits;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Web;
 
@@ -147,12 +143,27 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
-        var elementRepository = new ComponentRepository();
-        var element = elementRepository.CreateComponentWithParent(by, this, newElementType, ShouldCacheElement);
+        dynamic component;
+
+        if (InShadowContext)
+        {
+            if (GetType() == typeof(Components.ShadowRoot))
+            {
+                component = ShadowDomService.CreateFromShadowRoot(this as Components.ShadowRoot, by, newElementType);
+            }
+            else
+            {
+                component = ShadowDomService.CreateInShadowContext(this, by, newElementType);
+            }
+        }
+        else
+        {
+            component = new ComponentRepository().CreateComponentWithParent(by, this, newElementType, false);
+        }
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
-        return element;
+        return component;
     }
 
     public TComponent Create<TComponent, TBy>(TBy by, bool shouldCacheElement = false)
@@ -161,12 +172,27 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
-        var elementRepository = new ComponentRepository();
-        var element = elementRepository.CreateComponentWithParent<TComponent>(by, this, null, 0, shouldCacheElement);
+        TComponent component;
+
+        if (InShadowContext)
+        {
+            if (GetType() == typeof(Components.ShadowRoot))
+            {
+                component = ShadowDomService.CreateFromShadowRoot<TComponent, TBy>(this as Components.ShadowRoot, by);
+            }
+            else
+            {
+                component = ShadowDomService.CreateInShadowContext<TComponent, TBy>(this, by);
+            }
+        }
+        else
+        {
+            component = new ComponentRepository().CreateComponentWithParent<TComponent>(by, this, null, 0, shouldCacheElement);
+        }
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
-        return element;
+        return component;
     }
 
     public ComponentsList<TComponent> CreateAll<TComponent, TBy>(TBy by)
@@ -179,24 +205,15 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
 
         ComponentsList<TComponent> elementsCollection;
 
-        if (this is Components.ShadowRoot && by.Convert().Mechanism.ToLower().Equals("xpath"))
+        if (InShadowContext)
         {
-            elementsCollection = new ComponentsList<TComponent>(shouldCacheFoundElements: true);
-
-            var cssLocators = HtmlService.FindCssLocators(((Components.ShadowRoot)this).InnerHtml, by.Value);
-            foreach (var locator in cssLocators)
+            if (GetType() == typeof(Components.ShadowRoot))
             {
-                elementsCollection.Add(elementRepository.CreateComponentWithParent<TComponent>(new FindShadowXpathStrategy(by.Value, locator), this, null, 0, true));
+                elementsCollection = ShadowDomService.CreateAllFromShadowRoot<TComponent, TBy>(this as Components.ShadowRoot, by, false);
             }
-        } 
-        else if (GetAncestor() is Components.ShadowRoot && by.Convert().Mechanism.ToLower().Equals("xpath"))
-        {
-            elementsCollection = new ComponentsList<TComponent>(shouldCacheFoundElements: true);
-
-            var cssLocators = HtmlService.FindRelativeCssLocators(HtmlService.FindNodeByCss(((Components.ShadowRoot)this).InnerHtml, GetAncestor().By.Value), by.Value);
-            foreach (var locator in cssLocators)
+            else
             {
-                elementsCollection.Add(elementRepository.CreateComponentWithParent<TComponent>(new FindShadowXpathStrategy(by.Value, locator), this, null, 0, true));
+                elementsCollection = ShadowDomService.CreateAllInShadowContext<TComponent, TBy>(this, by, false);
             }
         }
         else
@@ -209,21 +226,24 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         return elementsCollection;
     }
 
-    private Component GetAncestor()
+    private bool InShadowContext
     {
-        var ancestor = this.ParentComponent;
-
-        while (ancestor != null)
+        get
         {
-            if (ancestor is Components.ShadowRoot)
+            var component = this;
+
+            while (component != null)
             {
-                return ancestor;
+                if (component.GetType() == typeof(Components.ShadowRoot))
+                {
+                    return true;
+                }
+
+                component = component.ParentComponent;
             }
 
-            ancestor = ancestor.ParentComponent;
+            return false;
         }
-
-        return ancestor;
     }
 
     public void WaitToBe() => GetAndWaitWebDriverElement(true);
