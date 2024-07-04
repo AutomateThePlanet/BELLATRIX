@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class DateControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().DatePage;
 
     public override void TestInit()
     {

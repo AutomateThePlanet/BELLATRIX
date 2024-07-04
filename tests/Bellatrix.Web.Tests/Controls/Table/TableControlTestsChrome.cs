@@ -26,7 +26,7 @@ namespace Bellatrix.Web.Tests.Controls;
 public class TableControlTestsChrome : MSTest.WebTest
 {
     public override void TestInit()
-        => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TableLocalPage);
+        => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TablePage);
 
     [TestMethod]
     [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]

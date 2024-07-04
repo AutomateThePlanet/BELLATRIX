@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class DateTimeLocalControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalPage;
 
     public override void TestInit()
     {
