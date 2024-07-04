@@ -51,22 +51,26 @@ public class GridCell : Component, IComponentInnerText, IComponentInnerHtml
 
     public override TComponent As<TComponent>()
     {
-        CellControlComponentType = typeof(TComponent);
-        if (CellControlBy == null)
+        if (CellControlComponentType != null && CellControlComponentType == typeof(TComponent))
         {
+            return (TComponent)As();
+        }
+        else
+        {
+            CellControlComponentType = typeof(TComponent);
+
             object instance = Activator.CreateInstance(CellControlComponentType);
             var byProperty = CellControlComponentType.GetProperty("By");
             byProperty?.SetValue(instance, By, null);
+
+            var parentComponent = CellControlComponentType.GetProperty("ParentComponent");
+            parentComponent?.SetValue(instance, ParentComponent, null);
 
             var wrappedElementProperty = CellControlComponentType.GetProperty("WrappedElement");
 
             wrappedElementProperty?.SetValue(instance, WrappedElement, null);
 
             return instance as TComponent;
-        }
-        else
-        {
-            return Create(CellControlBy, typeof(TComponent));
         }
     }
 
@@ -83,6 +87,9 @@ public class GridCell : Component, IComponentInnerText, IComponentInnerHtml
             var byProperty = CellControlComponentType.GetProperty("By");
             byProperty?.SetValue(instance, By, null);
 
+            var parentComponent = CellControlComponentType.GetProperty("ParentComponent");
+            parentComponent?.SetValue(instance, ParentComponent, null);
+
             var wrappedElementProperty = CellControlComponentType.GetProperty("WrappedElement");
 
             wrappedElementProperty?.SetValue(instance, WrappedElement, null);
@@ -91,7 +98,7 @@ public class GridCell : Component, IComponentInnerText, IComponentInnerHtml
         }
         else
         {
-            return Create(CellControlBy, CellControlComponentType);
+            return this.Create(CellControlBy, CellControlComponentType);
         }
     }
 }

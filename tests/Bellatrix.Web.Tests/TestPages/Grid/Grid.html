@@ -66,6 +66,14 @@
         </div>
     </div>
     <script>
+        const inputs = document.querySelectorAll('input');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', function (event) {
+                input.setAttribute('value', event.target.value);
+            });
+        });
+
         function deleteRow(e) {
             debugger;
             e.parentNode.parentNode.remove();
