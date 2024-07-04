@@ -69,41 +69,82 @@ public static class WrappedWebDriverCreateService
                 break;
             case ExecutionType.Grid:
             case ExecutionType.SauceLabs:
-                var gridUrl = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url;
-                if (gridUrl == null || !Uri.IsWellFormedUriString(gridUrl.ToString(), UriKind.Absolute))
                 {
-                    throw new ArgumentException("To execute your tests in WebDriver Grid mode you need to set the gridUri in the browserSettings file.");
+                    var gridUrl = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url;
+                    if (gridUrl == null || !Uri.IsWellFormedUriString(gridUrl.ToString(), UriKind.Absolute))
+                    {
+                        throw new ArgumentException("To execute your tests in WebDriver Grid mode you need to set the gridUri in the browserSettings file.");
+                    }
+
+                    DebuggerPort = GetFreeTcpPort();
+
+                    if (executionConfiguration.IsLighthouseEnabled && (executionConfiguration.BrowserType.Equals(BrowserType.Chrome) || executionConfiguration.BrowserType.Equals(BrowserType.ChromeHeadless)))
+                    {
+                        executionConfiguration.DriverOptions.AddArgument("--remote-debugging-address=0.0.0.0");
+                        executionConfiguration.DriverOptions.AddArgument($"--remote-debugging-port={DebuggerPort}");
+                    }
+
+                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                    var options = executionConfiguration.DriverOptions;
+                    if (!executionConfiguration.BrowserType.Equals(BrowserType.Safari) && !executionConfiguration.BrowserType.Equals(BrowserType.Firefox))
+                    {
+                        options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
+                    }
+                    options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+                    options.SetLoggingPreference("performance", LogLevel.All);
+                    options.AddUserProfilePreference("disable-popup-blocking", "true");
+                    options.AddUserProfilePreference("safebrowsing.enabled", "true");
+                    options.AddArguments("--disable-dev-shm-usage");
+
+                    wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), options.ToCapabilities(), TimeSpan.FromSeconds(180));
+
+                    IAllowsFileDetection allowsDetection = wrappedWebDriver as IAllowsFileDetection;
+                    if (allowsDetection != null)
+                    {
+                        allowsDetection.FileDetector = new LocalFileDetector();
+                    }
+
+                    break;
                 }
-
-                DebuggerPort = GetFreeTcpPort();
-
-                if (executionConfiguration.IsLighthouseEnabled && (executionConfiguration.BrowserType.Equals(BrowserType.Chrome) || executionConfiguration.BrowserType.Equals(BrowserType.ChromeHeadless)))
+            case ExecutionType.Healenium:
                 {
-                    executionConfiguration.DriverOptions.AddArgument("--remote-debugging-address=0.0.0.0");
-                    executionConfiguration.DriverOptions.AddArgument($"--remote-debugging-port={DebuggerPort}");
+                    var gridUrl = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url;
+                    if (gridUrl == null || !Uri.IsWellFormedUriString(gridUrl.ToString(), UriKind.Absolute))
+                    {
+                        throw new ArgumentException("To execute your tests in WebDriver Grid mode you need to set the gridUri in the browserSettings file.");
+                    }
+
+                    DebuggerPort = GetFreeTcpPort();
+
+                    if (executionConfiguration.IsLighthouseEnabled && (executionConfiguration.BrowserType.Equals(BrowserType.Chrome) || executionConfiguration.BrowserType.Equals(BrowserType.ChromeHeadless)))
+                    {
+                        executionConfiguration.DriverOptions.AddArgument("--remote-debugging-address=0.0.0.0");
+                        executionConfiguration.DriverOptions.AddArgument($"--remote-debugging-port={DebuggerPort}");
+                    }
+
+                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                    var options = executionConfiguration.DriverOptions;
+                    if (!executionConfiguration.BrowserType.Equals(BrowserType.Safari) && !executionConfiguration.BrowserType.Equals(BrowserType.Firefox))
+                    {
+                        options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
+                    }
+                    options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+                    options.SetLoggingPreference("performance", LogLevel.All);
+                    options.AddUserProfilePreference("disable-popup-blocking", "true");
+                    options.AddUserProfilePreference("safebrowsing.enabled", "true");
+                    options.AddArguments("--disable-dev-shm-usage");
+                    options.AddArguments("--no-sandbox");
+
+                    wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), options.ToCapabilities(), TimeSpan.FromSeconds(180));
+
+                    IAllowsFileDetection allowsDetection = wrappedWebDriver as IAllowsFileDetection;
+                    if (allowsDetection != null)
+                    {
+                        allowsDetection.FileDetector = new LocalFileDetector();
+                    }
+
+                    break;
                 }
-
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                var options = executionConfiguration.DriverOptions;
-                if (!executionConfiguration.BrowserType.Equals(BrowserType.Safari) && !executionConfiguration.BrowserType.Equals(BrowserType.Firefox))
-                {
-                    options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
-                }
-                options.SetLoggingPreference(LogType.Browser, LogLevel.All);
-                options.SetLoggingPreference("performance", LogLevel.All);
-                options.AddUserProfilePreference("disable-popup-blocking", "true");
-                options.AddUserProfilePreference("safebrowsing.enabled", "true");
-                options.AddArguments("--disable-dev-shm-usage");
-
-                wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), options.ToCapabilities(), TimeSpan.FromSeconds(180));
-
-                IAllowsFileDetection allowsDetection = wrappedWebDriver as IAllowsFileDetection;
-                if (allowsDetection != null)
-                {
-                    allowsDetection.FileDetector = new LocalFileDetector();
-                }
-
-                break;
         }
 
         var gridPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.PageLoadTimeout;

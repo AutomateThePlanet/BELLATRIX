@@ -22,4 +22,5 @@ public enum ExecutionType
     CrossBrowserTesting,
     LambdaTest,
     Selenoid,
+    Healenium,
 }
