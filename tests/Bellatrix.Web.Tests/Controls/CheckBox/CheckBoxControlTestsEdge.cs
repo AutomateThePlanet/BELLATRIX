@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("Edge Browser")]
 public class CheckBoxControlTestsEdge : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxPage);
 
     [TestMethod]
     [TestCategory(Categories.CI)]

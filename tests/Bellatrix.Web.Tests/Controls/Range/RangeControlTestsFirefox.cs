@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Range Control")]
 public class RangeControlTestsFirefox : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RangePage);
 
     [TestMethod]
     [TestCategory(Categories.Firefox), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]

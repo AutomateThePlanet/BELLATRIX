@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ControlEvents")]
 public class TimeControlEventsTests : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TimeLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TimePage);
 
     [TestMethod]
     [TestCategory(Categories.CI)]

@@ -20,8 +20,8 @@ namespace Bellatrix.Playwright;
 
 public class RadioButton : Component, IComponentDisabled, IComponentValue, IComponentChecked
 {
-    public static event EventHandler<ComponentActionEventArgs> Checking;
-    public static event EventHandler<ComponentActionEventArgs> Checked;
+    public static event EventHandler<ComponentActionEventArgs> Clicking;
+    public static event EventHandler<ComponentActionEventArgs> Clicked;
     public static event EventHandler<ComponentActionEventArgs> Hovering;
     public static event EventHandler<ComponentActionEventArgs> Hovered;
 
@@ -47,6 +47,6 @@ public class RadioButton : Component, IComponentDisabled, IComponentValue, IComp
     /// <param name="options"></param>
     public virtual void Click(LocatorCheckOptions options = default)
     {
-        DefaultCheck(Checking, Checked, options);
+        DefaultCheck(Clicking, Clicked, options);
     }
 }

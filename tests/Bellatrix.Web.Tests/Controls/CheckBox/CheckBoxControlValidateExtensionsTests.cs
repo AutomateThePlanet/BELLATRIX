@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class CheckBoxControlValidateExtensionsTests : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().CheckBoxPage);
 
     [TestMethod]
     [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]

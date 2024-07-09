@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("Edge Browser")]
 public class ProgressControlTestsEdge : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ProgressLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ProgressPage);
 
     [TestMethod]
     [TestCategory(Categories.CI)]

@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Span Control")]
 public class SpanControlTestsSafari : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanPage);
 
     [TestMethod]
     [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]

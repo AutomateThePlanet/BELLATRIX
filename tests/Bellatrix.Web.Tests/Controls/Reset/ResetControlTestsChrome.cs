@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Reset Control")]
 public class ResetControlTestsChrome : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ResetPage);
 
     [TestMethod]
     [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]

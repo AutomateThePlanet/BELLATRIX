@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Anchor Control")]
 public class AnchorControlTestsSafari : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorPage);
 
     [TestMethod]
     [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]

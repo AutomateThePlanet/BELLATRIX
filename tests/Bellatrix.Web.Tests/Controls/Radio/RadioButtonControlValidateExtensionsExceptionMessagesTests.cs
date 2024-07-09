@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class RadioButtonControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().RadioPage;
 
     public override void TestInit()
     {

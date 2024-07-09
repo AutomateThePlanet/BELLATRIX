@@ -2,5 +2,5 @@
 
 public partial class GridTestPage : WebPage
 {
-    public override string Url => ConfigurationService.GetSection<TestPagesSettings>().GridLocalPage;
+    public override string Url => ConfigurationService.GetSection<TestPagesSettings>().GridPage;
 }

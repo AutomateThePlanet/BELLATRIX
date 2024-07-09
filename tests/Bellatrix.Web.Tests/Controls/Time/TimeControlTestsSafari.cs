@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Time Control")]
 public class TimeControlTestsSafari : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TimeLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().TimePage);
 
     [TestMethod]
     [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]

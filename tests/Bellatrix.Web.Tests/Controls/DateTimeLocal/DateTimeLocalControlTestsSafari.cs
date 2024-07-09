@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("DateTimeLocal Control")]
 public class DateTimeLocalControlTestsSafari : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalPage);
 
     [TestMethod]
     [Ignore, TestCategory(Categories.Safari), TestCategory(Categories.OSX)]

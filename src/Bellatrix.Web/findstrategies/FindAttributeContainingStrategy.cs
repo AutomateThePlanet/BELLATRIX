@@ -1,4 +1,4 @@
-﻿// <copyright file="ByAttributeContaining.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="FindAttributeContainingStrategy.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,26 +11,22 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using OpenQA.Selenium;
 
 namespace Bellatrix.Web;
 
-public class FindAttributeContainingStrategy : FindStrategy
+public class FindAttributeContainingStrategy : FindXpathStrategy
 {
     private readonly string _attributeName;
+    private readonly string _value;
     public FindAttributeContainingStrategy(string attributeName, string value)
-        : base(value)
+        : base($"[{attributeName}*='{value}']")
     {
         _attributeName = attributeName;
-    }
-
-    public override By Convert()
-    {
-        return By.CssSelector($"[{_attributeName}*='{Value}']");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"{_attributeName} = {Value}";
+        return $"{_attributeName} = {_value}";
     }
 }

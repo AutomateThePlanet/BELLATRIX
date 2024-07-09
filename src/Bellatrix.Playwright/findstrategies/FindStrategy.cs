@@ -13,7 +13,6 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Playwright.Services.Browser;
-using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 

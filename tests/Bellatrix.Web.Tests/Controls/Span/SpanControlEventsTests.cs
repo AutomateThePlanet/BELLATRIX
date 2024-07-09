@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ControlEvents")]
 public class SpanControlEventsTests : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SpanPage);
 
     [TestMethod]
     [TestCategory(Categories.CI)]

@@ -27,6 +27,8 @@ using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.CognitiveServices.services;
 using Bellatrix.CognitiveServices;
 using Bellatrix.Playwright.SyncPlaywright.Element;
+using Bellatrix.Playwright.Components;
+using Bellatrix.Playwright.Components.ShadowDom;
 
 
 namespace Bellatrix.Playwright;
@@ -83,6 +85,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         set => _wrappedElement = value;
     }
 
+    public Component ParentComponent { get; set; }
+
     protected readonly JavaScriptService JavaScriptService;
     protected readonly BrowserService BrowserService;
     protected readonly ComponentCreateService ComponentCreateService;
@@ -129,8 +133,24 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
-        var elementRepository = new ComponentRepository();
-        var element = elementRepository.CreateComponentWithParent(by, this, newElementType);
+        dynamic element;
+
+        if (InShadowContext)
+        {
+            if (this is ShadowRoot)
+            {
+                element = ShadowDomService.CreateFromShadowRoot(this as ShadowRoot, by, newElementType);
+            }
+            else
+            {
+                element = ShadowDomService.CreateInShadowContext(this, by, newElementType);
+            }
+        }
+        else
+        {
+            element = ComponentRepository.CreateComponentWithParent(by, this, newElementType);
+        }
+
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
@@ -143,12 +163,26 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
-        var elementRepository = new ComponentRepository();
-        var element = elementRepository.CreateComponentWithParent<TComponent>(by, this);
+        TComponent component;
+
+        if (InShadowContext)
+        {
+            if (this is ShadowRoot)
+            {
+                component = ShadowDomService.CreateFromShadowRoot<TComponent, TBy>(this as ShadowRoot, by, shouldCacheElement);
+            }
+            else
+            {
+                component = ShadowDomService.CreateInShadowContext<TComponent, TBy>(this, by, shouldCacheElement);
+            }
+        } else
+        {
+            component = ComponentRepository.CreateComponentWithParent<TComponent>(by, this);
+        }
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
-        return element;
+        return component;
     }
 
     public ComponentsList<TComponent> CreateAll<TComponent, TBy>(TBy by)
@@ -157,11 +191,43 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         CreatingComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
-        var elementsCollection = new ComponentsList<TComponent>(by, WrappedElement);
+        var elementsCollection = new ComponentsList<TComponent>(by, this);
+
+        if (InShadowContext)
+        {
+            if (this is ShadowRoot)
+            {
+                elementsCollection = ShadowDomService.CreateAllFromShadowRoot<TComponent, TBy>(this as ShadowRoot, by, false);
+            }
+            else
+            {
+                elementsCollection = ShadowDomService.CreateAllInShadowContext<TComponent, TBy>(this, by, false);
+            }
+        }
 
         CreatedComponents?.Invoke(this, new ComponentActionEventArgs(this));
 
         return elementsCollection;
+    }
+
+    private bool InShadowContext
+    {
+        get
+        {
+            var component = this;
+
+            while (component != null)
+            {
+                if (component is ShadowRoot)
+                {
+                    return true;
+                }
+
+                component = component.ParentComponent;
+            }
+
+            return false;
+        }
     }
 
     /// <summary>
@@ -304,6 +370,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
 
         return component;
     }
+
+    public ShadowRoot ShadowRoot => this.As<ShadowRoot>();
 
     private void ScrollToMakeElementVisible()
     {

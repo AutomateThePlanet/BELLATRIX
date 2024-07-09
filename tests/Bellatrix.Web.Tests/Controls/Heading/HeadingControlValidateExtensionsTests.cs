@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class HeadingControlValidateExtensionsTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().HeadingLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().HeadingPage;
 
     public override void TestInit()
     {

@@ -15,7 +15,7 @@ public class GridControlTestsChrome : MSTest.WebTest
 
     public override void TestInit()
     {
-        App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().GridLocalPage);
+        App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().GridPage);
         _testGrid = new ComponentCreateService().CreateById<Grid>("sampleGrid")
             .SetColumn("Order", typeof(TextField), Find.By.Tag("input"))
             .SetColumn("Firstname")

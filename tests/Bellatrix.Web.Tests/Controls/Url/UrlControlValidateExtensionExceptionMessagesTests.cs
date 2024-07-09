@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Url Control")]
 public class UrlControlValidateExtensionExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().UrlLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().UrlPage;
 
     public override void TestInit()
     {

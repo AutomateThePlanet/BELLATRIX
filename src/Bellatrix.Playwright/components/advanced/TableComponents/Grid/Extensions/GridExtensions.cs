@@ -12,6 +12,8 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using System.Reflection;
+
 namespace Bellatrix.Playwright;
 
 public static class GridExtensions
@@ -75,5 +77,20 @@ public static class GridExtensions
         table.ControlColumnDataCollection.Add(new ControlColumnData(headerName, controlInnerLocator, elementType));
 
         return table;
+    }
+
+    public static Grid SetModelColumns<TGridModel>(this Grid grid)
+      where TGridModel : class
+    {
+        grid.ControlColumnDataCollection = new List<IHeaderInfo>();
+        foreach (PropertyInfo property in typeof(TGridModel).GetProperties())
+        {
+            var headerNameAttribute = (HeaderNameAttribute)property.GetCustomAttributes(typeof(HeaderNameAttribute), false).FirstOrDefault();
+            var headerName = headerNameAttribute != null ? headerNameAttribute.Name : property.Name;
+
+            grid.ControlColumnDataCollection.Add(new ControlColumnData(headerName));
+        }
+
+        return grid;
     }
 }

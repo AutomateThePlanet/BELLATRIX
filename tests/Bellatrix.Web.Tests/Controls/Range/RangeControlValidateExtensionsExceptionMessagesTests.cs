@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class RangeControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().RangeLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().RangePage;
 
     public override void TestInit()
     {

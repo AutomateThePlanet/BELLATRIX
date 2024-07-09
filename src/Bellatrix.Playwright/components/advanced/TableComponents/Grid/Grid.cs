@@ -384,19 +384,18 @@ public class Grid : Component
             var controlData = GetControlDataByProperty(propertyInfo);
             if (controlData != null && controlData.ComponentType != null && controlData.ComponentType.IsSubclassOf(typeof(Component)))
             {
-                var repo = new ComponentRepository();
                 var xpath = $".{cells[(int)headerPosition].GetXPath()}";
                 var tableCell = this.CreateByXpath<TableCell>(xpath);
                 dynamic elementValue;
                 if (controlData.By == null)
                 {
                     controlData.By = new FindXpathStrategy(xpath);
-                    elementValue = CastCell(repo, controlData, tableCell);
+                    elementValue = CastCell(controlData, tableCell);
                     controlData.By = null;
                 }
                 else
                 {
-                    elementValue = CastCell(repo, controlData, tableCell);
+                    elementValue = CastCell(controlData, tableCell);
                 }
 
                 var elementType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
@@ -470,9 +469,9 @@ public class Grid : Component
         return headerInfo as ControlColumnData;
     }
 
-    private dynamic CastCell(ComponentRepository repo, ControlColumnData controlData, TableCell tableCell)
+    private dynamic CastCell(ControlColumnData controlData, TableCell tableCell)
     {
-        var element = repo.CreateComponentWithParent(controlData.By, tableCell, controlData.ComponentType);
+        var element = tableCell.Create(controlData.By, controlData.ComponentType);
 
         // Resolve the appropriate Readonly Control Data Handler
         dynamic controlDataHandler = ControlDataHandlerResolver.ResolveReadonlyDataHandler(element.GetType());
@@ -514,7 +513,17 @@ public class Grid : Component
                             segs.unshift(elm.localName.toLowerCase() + '[' + i + ']');
                         };
                     };
-                    return segs.length ? '/' + segs.join('/') : null;
+                    if (segs.length) {
+                        var xpath = segs.join('/');
+                        if (xpath.startsWith('///')) {
+                            xpath = xpath.substring(1);
+                        }
+
+                        return xpath;
+                    }
+                    else {
+                        return null;
+                    }
                 };
                 return createXPathFromElement(arguments[0])";
 

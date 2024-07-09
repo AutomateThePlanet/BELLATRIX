@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Select Control")]
 public class SelectControlTestsEdge : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().SelectPage);
 
     [TestMethod]
     [TestCategory(Categories.CI)]
