@@ -69,6 +69,7 @@ public partial class Component
 
     internal string GetInnerText()
     {
+        var element = this;
         return WrappedElement.Text.Trim().Replace("\r\n", string.Empty);
     }
 

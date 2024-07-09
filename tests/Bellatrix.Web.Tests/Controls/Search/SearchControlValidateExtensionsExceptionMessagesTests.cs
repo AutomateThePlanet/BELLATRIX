@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class SearchControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().SearchLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().SearchPage;
 
     public override void TestInit()
     {

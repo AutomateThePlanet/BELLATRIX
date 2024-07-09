@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Anchor Control")]
 public class AnchorControlTestsFirefoxHeadless : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorPage);
 
     [TestMethod]
     [TestCategory(Categories.FirefoxHeadless), TestCategory(Categories.Windows)]

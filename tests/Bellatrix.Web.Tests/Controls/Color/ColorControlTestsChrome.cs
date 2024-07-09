@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 public class ColorControlTestsChrome : MSTest.WebTest
 {
     public override void TestsArrange() => base.TestsArrange();
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ColorLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ColorPage);
 
     [TestMethod]
     [TestCategory(Categories.Chrome), TestCategory(Categories.Windows)]

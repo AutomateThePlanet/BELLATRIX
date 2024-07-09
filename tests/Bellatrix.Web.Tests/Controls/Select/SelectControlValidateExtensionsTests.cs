@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class SelectControlValidateExtensionsTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().SelectLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().SelectPage;
 
     public override void TestInit()
     {

@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls.Element;
 [AllureFeature("ValidateExtensions")]
 public class ElementControlValidateExtensionsTests : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().ElementPage);
 
     [TestMethod]
     [TestCategory(Categories.CI)]

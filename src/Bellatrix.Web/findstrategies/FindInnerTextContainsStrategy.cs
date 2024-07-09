@@ -1,4 +1,4 @@
-﻿// <copyright file="ByInnerTextContains.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="FindInnerTextContainsStrategy.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,22 +11,21 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+
 namespace Bellatrix.Web;
 
-public class FindInnerTextContainsStrategy : FindStrategy
+public class FindInnerTextContainsStrategy : FindXpathStrategy
 {
-    public FindInnerTextContainsStrategy(string value)
-        : base(value)
-    {
-    }
+    private readonly string _value;
 
-    public override OpenQA.Selenium.By Convert()
+    public FindInnerTextContainsStrategy(string value)
+        : base($"//*[contains(text(), '{value}')]")
     {
-        return OpenQA.Selenium.By.XPath($"//*[contains(text(), '{Value}')]");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"InnerText containing {Value}";
+        return $"InnerText containing {_value}";
     }
 }

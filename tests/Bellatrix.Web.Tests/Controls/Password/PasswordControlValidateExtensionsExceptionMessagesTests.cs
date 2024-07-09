@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class PasswordControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().PasswordLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().PasswordPage;
 
     public override void TestInit()
     {

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Url HTML Control Demo</title>
+    <link rel="stylesheet" type="text/css" href="search.css">
+</head>
+<body>
+    <label for="mySearch">Placeholders</label>
+    <input id="mySearch" name="mySearch" type="search" placeholder="your search term goes here" class="myTestClass">
+
+    <br>
+    <br>
+    <label for="mySearch1">Physical input element size</label>
+    <input id="mySearch1" name="mySearch" type="search" size="30">
+
+    <br>
+    <br>
+    <label for="mySearch2">Element value length</label>
+    <input id="mySearch2" name="mySearch" type="search" size="30" minlength="10" maxlength="80">
+
+    <br>
+    <br>
+    <label for="mySearch3">Providing default options</label>
+    <input id="mySearch3" name="mySearch" type="search" value="search for stars">
+
+    <br>
+    <br>
+    <label for="mySearch4">Autocomplete= ON</label>
+    <input id="mySearch4" name="mySearch" type="search" autocomplete="on">
+
+    <br>
+    <br>
+    <label for="mySearch5">Autocomplete= OFF</label>
+    <input id="mySearch5" name="mySearch" type="search" autocomplete="off">
+
+    <br>
+    <br>
+    <label for="mySearch6">Readonly Set</label>
+    <input id="mySearch6" name="mySearch" type="search" readonly>
+
+    <br>
+    <br>
+    <label for="mySearch7">Required Set</label>
+    <input id="mySearch7" name="mySearch" type="search" required>
+
+    <br>
+    <br>
+    <label for="mySearch8">Test Hover</label>
+    <input id="mySearch8" name="mySearch" type="search" onmouseover="this.style.color='red';">
+
+    <br>
+    <br>
+    <label for="mySearch9">Test Focus</label>
+    <input id="mySearch9" name="mySearch" type="search" onfocus="this.style.color='blue';">
+
+    <div id="mySearch10Wrapper">
+        <br>
+        <br>
+        <label for="mySearch10">Test Disabled</label>
+        <input id="mySearch10" name="mySearch" type="search" disabled>
+    </div>
+
+    <script type="text/javascript" src="search.js"></script>
+</body>
+</html>

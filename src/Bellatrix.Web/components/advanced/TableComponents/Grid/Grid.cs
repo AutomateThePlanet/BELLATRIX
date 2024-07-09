@@ -507,7 +507,7 @@ public class Grid : Component
 
     private dynamic CastCell(ComponentRepository repo, ControlColumnData controlData, TableCell tableCell)
     {
-        var element = repo.CreateComponentWithParent(controlData.By, tableCell.WrappedElement, controlData.ComponentType, false);
+        var element = tableCell.Create(controlData.By, controlData.ComponentType);
 
         // Resolve the appropriate Readonly Control Data Handler
         dynamic controlDataHandler = ControlDataHandlerResolver.ResolveReadonlyDataHandler(element.GetType());
@@ -549,6 +549,17 @@ public class Grid : Component
                             segs.unshift(elm.localName.toLowerCase() + '[' + i + ']');
                         };
                     };
+                    if (segs.length) {
+                        var xpath = segs.join('/');
+                        if (xpath.startsWith('///')) {
+                            xpath = xpath.substring(1);
+                        }
+
+                        return xpath;
+                    }
+                    else {
+                        return null;
+                    }
                     return segs.length ? '/' + segs.join('/') : null;
                 };
                 return createXPathFromElement(arguments[0])";
