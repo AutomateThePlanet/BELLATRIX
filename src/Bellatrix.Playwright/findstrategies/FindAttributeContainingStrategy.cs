@@ -12,29 +12,24 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.Locators;
+
 namespace Bellatrix.Playwright;
 
-public class FindAttributeContainingStrategy : FindStrategy
+public class FindAttributeContainingStrategy : FindCssStrategy
 {
     private readonly string _attributeName;
+    private readonly string _value;
+
     public FindAttributeContainingStrategy(string attributeName, string value)
-        : base(value)
+        : base($"[{attributeName}*='{value}']")
     {
         _attributeName = attributeName;
-    }
-
-    public override WebElement Resolve(BrowserPage searchContext)
-    {
-        return searchContext.Locate($"[{_attributeName}*='{Value}']");
-    }
-
-    public override WebElement Resolve(WebElement searchContext)
-    {
-        return searchContext.Locate($"[{_attributeName}*='{Value}']");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"{_attributeName} = {Value}";
+        return $"{_attributeName} = {_value}";
     }
 }

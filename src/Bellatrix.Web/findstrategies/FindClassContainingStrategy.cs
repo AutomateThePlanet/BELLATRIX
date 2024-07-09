@@ -1,4 +1,4 @@
-﻿// <copyright file="ByClassContaining.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="FindClassContainingStrategy.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,24 +11,21 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using OpenQA.Selenium;
 
 namespace Bellatrix.Web;
 
-public class FindClassContainingStrategy : FindStrategy
+public class FindClassContainingStrategy : FindCssStrategy
 {
-    public FindClassContainingStrategy(string value)
-        : base(value)
-    {
-    }
+    private readonly string _value;
 
-    public override By Convert()
+    public FindClassContainingStrategy(string value)
+        : base($"[class*='{value}']")
     {
-        return By.CssSelector($"[class*='{Value}']");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"Class containing {Value}";
+        return $"Class containing {_value}";
     }
 }

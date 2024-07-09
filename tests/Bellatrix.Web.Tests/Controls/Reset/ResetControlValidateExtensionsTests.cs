@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class ResetControlValidateExtensionsTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().ResetLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().ResetPage;
 
     public override void TestInit()
     {

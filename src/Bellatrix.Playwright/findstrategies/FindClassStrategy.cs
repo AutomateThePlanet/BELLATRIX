@@ -12,29 +12,23 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Playwright.Locators;
 using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright;
 
-public class FindClassStrategy : FindStrategy
+public class FindClassStrategy : FindCssStrategy
 {
+    private string _value;
+
     public FindClassStrategy(string value)
-        : base(value)
+        : base($"[class='{value}']")
     {
-    }
-
-    public override WebElement Resolve(BrowserPage searchContext)
-    {
-        return searchContext.Locate($"[class='{Value}']");
-    }
-
-    public override WebElement Resolve(WebElement searchContext)
-    {
-        return searchContext.Locate($"[class='{Value}']");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"Class = {Value}";
+        return $"Class = {_value}";
     }
 }

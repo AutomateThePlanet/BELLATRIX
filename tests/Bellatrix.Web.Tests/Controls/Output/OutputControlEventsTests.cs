@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ControlEvents")]
 public class OutputControlEventsTests : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OutputLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().OutputPage);
 
     [TestMethod]
     [TestCategory(Categories.CI)]

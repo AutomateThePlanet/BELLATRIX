@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Anchor Control")]
 public class AnchorControlTestsFirefox : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().AnchorPage);
 
     [TestMethod]
     [AllureSeverity(SeverityLevel.critical)]

@@ -19,17 +19,19 @@ namespace Bellatrix.Playwright;
 public class FindXpathStrategy : FindStrategy
 {
     public FindXpathStrategy(string value)
-        : base(value.StartsWith("./") ? value.Substring(1) : value)
+        : base(value)
     {
     }
 
     public override WebElement Resolve(WebElement searchContext)
     {
+        if (!Value.StartsWith("xpath=")) return searchContext.Locate($"xpath={Value}");
         return searchContext.Locate($"{Value}");
     }
 
     public override WebElement Resolve(BrowserPage searchContext)
     {
+        if (!Value.StartsWith("xpath=")) return searchContext.Locate($"xpath={Value}");
         return searchContext.Locate($"{Value}");
     }
 

@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Date Control")]
 public class DateControlValidationTests : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DatePage);
 
     [TestMethod]
     [TestCategory(Categories.Edge), TestCategory(Categories.Windows)]

@@ -22,7 +22,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ControlEvents")]
 public class RadioButtonControlEventsTests : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().RadioPage);
 
     [TestMethod]
     [TestCategory(Categories.CI)]

@@ -19,8 +19,8 @@ public class RadioButtonEventHandlers : ComponentEventHandlers
     public override void SubscribeToAll()
     {
         base.SubscribeToAll();
-        RadioButton.Checking += ClickingEventHandler;
-        RadioButton.Checked += ClickedEventHandler;
+        RadioButton.Clicking += ClickingEventHandler;
+        RadioButton.Clicked += ClickedEventHandler;
         RadioButton.Hovering += HoveringEventHandler;
         RadioButton.Hovered += HoveredEventHandler;
     }
@@ -28,8 +28,8 @@ public class RadioButtonEventHandlers : ComponentEventHandlers
     public override void UnsubscribeToAll()
     {
         base.UnsubscribeToAll();
-        RadioButton.Checking -= ClickingEventHandler;
-        RadioButton.Checked -= ClickedEventHandler;
+        RadioButton.Clicking -= ClickingEventHandler;
+        RadioButton.Clicked -= ClickedEventHandler;
         RadioButton.Hovering -= HoveringEventHandler;
         RadioButton.Hovered -= HoveredEventHandler;
     }
