@@ -10,12 +10,9 @@
     <PackageReference Include="VisualRegressionTracker" Version="4.8.0" />
   </ItemGroup>
 
-<<<<<<< Updated upstream
-=======
   <ItemGroup>
     <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
     <ProjectReference Include="..\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
   </ItemGroup>
 
->>>>>>> Stashed changes
 </Project>
