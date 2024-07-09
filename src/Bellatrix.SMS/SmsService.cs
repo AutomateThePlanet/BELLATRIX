@@ -10,7 +10,7 @@ public class SmsService
     static SmsService()
     {
         settings = ConfigurationService.GetSection<TwilioSettings>();
-        TwilioClient.Init(settings.Username, settings.AuthToken, settings.AccountSID);
+        TwilioClient.Init(settings.AccountSID, settings.AuthToken);
     }
 
     public static SmsListener ListenForSms(string fromNumber)
