@@ -1,4 +1,4 @@
-﻿// <copyright file="IScreenshotEngine.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="VisualRegressionTrackerSettings.cs" company="Automate The Planet Ltd.">
 // Copyright 2024 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -9,12 +9,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 // </copyright>
-// <author>Anton Angelov</author>
+// <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-namespace Bellatrix.Plugins.Screenshots.Contracts;
+namespace Bellatrix.VRT;
 
-public interface IScreenshotEngine
+public class VisualRegressionTrackerSettings
 {
-    string TakeScreenshot(ServicesCollection serviceContainer);
+    public string? ApiUrl { get; set; }
+    public string? ApiKey { get; set; }
+    public string? Project {  get; set; }
+    public string? Branch { get; set; }
+    public bool EnableSoftAssert { get; set; } = false;
+    public string? CiBuildId { get; set; }
 }
