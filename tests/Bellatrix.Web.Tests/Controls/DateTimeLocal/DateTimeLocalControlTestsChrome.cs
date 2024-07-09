@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("DateTimeLocal Control")]
 public class DateDateTimeLocalLocalControlTestsChrome : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalLocalPage);
+    public override void TestInit() => App.Navigation.NavigateToLocalPage(ConfigurationService.GetSection<TestPagesSettings>().DateTimeLocalPage);
 
     [TestMethod]
     [TestCategory(Categories.Chrome), TestCategory(Categories.Windows), TestCategory(Categories.OSX)]

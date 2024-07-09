@@ -72,8 +72,8 @@ public class GridRow : Component, IComponentInnerHtml
         var rowCells = _parentGrid.TableService.GetRowCells(Index);
         for (int rowCellsIndex = 0; rowCellsIndex < rowCells.Count; rowCellsIndex++)
         {
-            var rowCellXPath = rowCells[rowCellsIndex].GetXPath();
-            var cell = ComponentCreateService.CreateByXpath<GridCell>(rowCellXPath);
+            var cell = this.CreateByXpath<GridCell>("./td");
+            cell.ParentComponent = this;
             _parentGrid.SetCellMetaData(cell, Index, rowCellsIndex);
             listOfCells.Add(cell);
         }
@@ -89,15 +89,13 @@ public class GridRow : Component, IComponentInnerHtml
         for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
         {
             var cell = cells[columnIndex];
-            TComponent element = new TComponent();
             if (cell.CellControlComponentType == null)
             {
                 listOfElements.Add(cell.As<TComponent>());
             }
             else
             {
-                var repo = new ComponentRepository();
-                element = repo.CreateComponentWithParent(cell.CellControlBy, cell.WrappedElement, typeof(TComponent), false);
+                TComponent element = cell.Create(cell.CellControlBy, typeof(TComponent));
                 listOfElements.Add(element);
             }
         }

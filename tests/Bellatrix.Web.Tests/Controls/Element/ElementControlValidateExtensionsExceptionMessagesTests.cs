@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls.Element;
 [AllureFeature("ValidateExtensions")]
 public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().ElementLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().ElementPage;
 
     public override void TestInit()
     {

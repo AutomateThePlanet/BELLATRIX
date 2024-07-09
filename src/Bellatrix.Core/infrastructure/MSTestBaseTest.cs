@@ -30,6 +30,7 @@ public class MSTestBaseTest
     private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
     private static ThreadLocal<Exception> _thrownException;
     private PluginProvider _currentTestExecutionProvider;
+    private static ThreadLocal<DateTime> _startTime = new ThreadLocal<DateTime>();
 
     public MSTestBaseTest()
     {
@@ -84,6 +85,7 @@ public class MSTestBaseTest
             _currentTestExecutionProvider.PreTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
             TestInit();
             _currentTestExecutionProvider.PostTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
+            _startTime.Value = DateTime.Now;
         }
         catch (Exception ex)
         {
@@ -107,9 +109,11 @@ public class MSTestBaseTest
 
         try
         {
-            _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
+            TimeSpan duration = DateTime.Now - _startTime.Value;
+
+            _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, duration.TotalMilliseconds, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
             TestCleanup();
-            _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
+            _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, duration.TotalMilliseconds, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
         }
         catch (Exception ex)
         {

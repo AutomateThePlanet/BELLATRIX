@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class ImageControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().ImageLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().ImagePage;
 
     public override void TestInit()
     {

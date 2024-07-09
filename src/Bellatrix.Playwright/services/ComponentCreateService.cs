@@ -19,7 +19,7 @@ public class ComponentCreateService
         where TBy : FindStrategy
         where TComponent : Component
     {
-        return ServicesCollection.Current.Resolve<ComponentRepository>().CreateComponent<TComponent>(by);
+        return ComponentRepository.CreateComponent<TComponent>(by);
     }
 
     public ComponentsList<TComponent> CreateAll<TComponent, TBy>(TBy by)

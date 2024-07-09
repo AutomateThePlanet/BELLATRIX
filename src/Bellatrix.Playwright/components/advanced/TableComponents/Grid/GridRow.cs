@@ -15,6 +15,7 @@
 using System.Diagnostics;
 using System.Linq.Expressions;
 using Bellatrix.Assertions;
+using Bellatrix.Core.Utilities;
 using Bellatrix.Playwright.Contracts;
 using Bellatrix.Playwright.Events;
 using Bellatrix.Playwright.Services;
@@ -70,7 +71,10 @@ public class GridRow : Component, IComponentInnerHtml
         for (int rowCellsIndex = 0; rowCellsIndex < rowCells.Count; rowCellsIndex++)
         {
             var rowCellXPath = rowCells[rowCellsIndex].GetXPath();
-            var cell = ComponentCreateService.CreateByXpath<GridCell>(rowCellXPath);
+            var rowXPath = this.By.Value;
+            if (rowXPath.StartsWith(".")) rowXPath = rowXPath.Substring(1);
+            if (rowCellXPath.StartsWith(rowXPath)) rowCellXPath = rowCellXPath.Substring(rowXPath.Length);
+            var cell = this.CreateByXpath<GridCell>(rowCellXPath);
             _parentGrid.SetCellMetaData(cell, Index, rowCellsIndex);
             listOfCells.Add(cell);
         }
@@ -86,15 +90,13 @@ public class GridRow : Component, IComponentInnerHtml
         for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
         {
             var cell = cells[columnIndex];
-            TComponent element = new TComponent();
             if (cell.CellControlComponentType == null)
             {
                 listOfElements.Add(cell.As<TComponent>());
             }
             else
             {
-                var repo = new ComponentRepository();
-                element = repo.CreateComponentWithParent(cell.CellControlBy, cell, typeof(TComponent));
+                var element = cell.Create(cell.CellControlBy, typeof(TComponent));
                 listOfElements.Add(element);
             }
         }

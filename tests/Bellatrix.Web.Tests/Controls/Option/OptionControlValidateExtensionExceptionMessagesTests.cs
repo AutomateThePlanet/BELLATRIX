@@ -20,7 +20,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureSuite("Option Control")]
 public class OptionControlValidateExtensionExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().OptionLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().OptionPage;
 
     public override void TestInit()
     {

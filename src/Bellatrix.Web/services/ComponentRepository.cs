@@ -14,12 +14,17 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using Bellatrix.Core.Utilities;
 using OpenQA.Selenium;
 
 namespace Bellatrix.Web;
 
 public class ComponentRepository
 {
+    /// <summary>
+    /// OBSOLETE. <br></br>
+    /// The whole component should be passed as argument, instead of only the wrapped element. Components contain useful information.
+    /// </summary>    
     public dynamic CreateComponentWithParent(FindStrategy by, IWebElement parenTComponent, Type newElementType, bool shouldCacheElement)
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
@@ -34,6 +39,26 @@ public class ComponentRepository
         return element;
     }
 
+    public dynamic CreateComponentWithParent(FindStrategy by, Component parenTComponent, Type newElementType, bool shouldCacheElement)
+    {
+        DetermineComponentAttributes(out var elementName, out var pageName);
+
+        dynamic element = Activator.CreateInstance(newElementType);
+
+        element.By = by;
+        element.ParentComponent = parenTComponent;
+        element.ParentWrappedElement = parenTComponent.WrappedElement;
+        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        element.PageName = pageName ?? string.Empty;
+        element.ShouldCacheElement = shouldCacheElement;
+
+        return element;
+    }
+
+    /// <summary>
+    /// OBSOLETE. <br></br>
+    /// The whole component should be passed as argument, instead of only the wrapped element. Components contain useful information.
+    /// </summary>
     public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, IWebElement parenTComponent, IWebElement foundElement, int elementsIndex, bool shouldCacheElement)
         where TComponentType : Component
     {
@@ -42,6 +67,25 @@ public class ComponentRepository
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
         element.ParentWrappedElement = parenTComponent;
+        element.WrappedElement = foundElement;
+        element.ElementIndex = elementsIndex;
+        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        element.PageName = pageName ?? string.Empty;
+        element.ShouldCacheElement = shouldCacheElement;
+
+        return element;
+    }
+
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parenTComponent, IWebElement foundElement, int elementsIndex, bool shouldCacheElement)
+    where TComponentType : Component
+    {
+        DetermineComponentAttributes(out var elementName, out var pageName);
+
+        var element = Activator.CreateInstance<TComponentType>();
+
+        element.By = by;
+        element.ParentComponent = parenTComponent;
+        element.ParentWrappedElement = parenTComponent.WrappedElement;
         element.WrappedElement = foundElement;
         element.ElementIndex = elementsIndex;
         element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;

@@ -21,7 +21,7 @@ namespace Bellatrix.Web.Tests.Controls;
 [AllureFeature("ValidateExtensions")]
 public class TextAreaControlValidateExtensionsExceptionMessagesTests : MSTest.WebTest
 {
-    private string _url = ConfigurationService.GetSection<TestPagesSettings>().TextAreaLocalPage;
+    private string _url = ConfigurationService.GetSection<TestPagesSettings>().TextAreaPage;
 
     public override void TestInit()
     {

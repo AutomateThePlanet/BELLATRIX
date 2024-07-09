@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
   <ItemGroup>
@@ -51,6 +51,12 @@
     </None>
     <None Update="TestPages\Grid\Grid.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\ShadowDOM\shadowdom.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\ShadowDOM\shadowdom.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestPages\Table\table.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

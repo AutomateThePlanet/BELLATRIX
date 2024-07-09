@@ -29,14 +29,14 @@ public static class ElementCreateExtensions
         where TComponent : Component => element.Create<TComponent, ByNgSelectedOption>(new ByNgSelectedOption(selectedOption));
 
     public static ComponentsList<TComponent> CreateAllByNgBinding<TComponent>(this Component element, string binding)
-        where TComponent : Component => new ComponentsList<TComponent>(new ByNgBinding(binding), element.WrappedElement);
+        where TComponent : Component => new ComponentsList<TComponent>(new ByNgBinding(binding), element);
 
     public static ComponentsList<TComponent> CreateAllByNgModel<TComponent>(this Component element, string model)
-        where TComponent : Component => new ComponentsList<TComponent>(new ByNgModel(model), element.WrappedElement);
+        where TComponent : Component => new ComponentsList<TComponent>(new ByNgModel(model), element);
 
     public static ComponentsList<TComponent> CreateAllByNgRepeater<TComponent>(this Component element, string repeater)
-        where TComponent : Component => new ComponentsList<TComponent>(new ByNgRepeater(repeater), element.WrappedElement);
+        where TComponent : Component => new ComponentsList<TComponent>(new ByNgRepeater(repeater), element);
 
     public static ComponentsList<TComponent> CreateAllByNgSelectedOption<TComponent>(this Component element, string selectedOption)
-        where TComponent : Component => new ComponentsList<TComponent>(new ByNgSelectedOption(selectedOption), element.WrappedElement);
+        where TComponent : Component => new ComponentsList<TComponent>(new ByNgSelectedOption(selectedOption), element);
 }
