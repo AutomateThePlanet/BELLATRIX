@@ -91,6 +91,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bellatrix.Playwright.GettingStarted", "templates\Bellatrix.Playwright.GettingStarted\Bellatrix.Playwright.GettingStarted.csproj", "{EACDDFC5-A313-4981-9FFB-F41639713BB1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bellatrix.VisualRegressionTracker", "src\Bellatrix.VisualRegressionTracker\Bellatrix.VisualRegressionTracker.csproj", "{D4FFE66D-72FB-4B39-AB87-DF7DEB8CB093}"
+	ProjectSection(ProjectDependencies) = postProject
+		{41D201A3-7C12-42F7-9208-BF2A8224DE3C} = {41D201A3-7C12-42F7-9208-BF2A8224DE3C}
+		{FB3976A8-B006-4458-9309-74C1DC0527CF} = {FB3976A8-B006-4458-9309-74C1DC0527CF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
