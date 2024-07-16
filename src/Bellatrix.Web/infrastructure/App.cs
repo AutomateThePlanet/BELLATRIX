@@ -38,6 +38,7 @@ public class App : IDisposable
     public App()
     {
         _apiClientService = GetNewApiClientService();
+        AddShutdownHook();
     }
 
     public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
@@ -215,5 +216,16 @@ public class App : IDisposable
         }
 
         return fullClassName;
+    }
+
+    private void AddShutdownHook()
+    {
+        var container = ServicesCollection.Current;
+        var driver = container.Resolve<IWebDriver>();
+        AppDomain.CurrentDomain.ProcessExit += new EventHandler((sender, eventArgs) =>
+        {
+            DisposeDriverService.Dispose(driver, container);
+            this.Dispose();
+        });
     }
 }
