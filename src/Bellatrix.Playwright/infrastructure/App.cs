@@ -36,6 +36,7 @@ public class App : IDisposable
     public App()
     {
         _apiClientService = GetNewApiClientService();
+        AddShutdownHook();
     }
 
     public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
