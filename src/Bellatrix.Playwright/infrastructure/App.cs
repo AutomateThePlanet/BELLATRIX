@@ -23,6 +23,7 @@ using Bellatrix.Playwright.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Playwright.Controls.EventHandlers;
 using Bellatrix.Playwright.Proxy;
 using Bellatrix.Playwright.Services;
+using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 
@@ -35,6 +36,7 @@ public class App : IDisposable
     public App()
     {
         _apiClientService = GetNewApiClientService();
+        AddShutdownHook();
     }
 
     public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
@@ -158,5 +160,16 @@ public class App : IDisposable
         TPage page = ServicesCollection.Current.Resolve<TPage>();
         page.Open();
         return page;
+    }
+
+    private void AddShutdownHook()
+    {
+        var container = ServicesCollection.Current;
+        var driver = container.Resolve<WrappedBrowser>();
+        AppDomain.CurrentDomain.ProcessExit += new EventHandler((sender, eventArgs) =>
+        {
+            DisposeBrowserService.Dispose(driver, container);
+            this.Dispose();
+        });
     }
 }
