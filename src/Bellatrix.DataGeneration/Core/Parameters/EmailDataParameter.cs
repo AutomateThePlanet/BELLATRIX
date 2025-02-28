@@ -1,0 +1,23 @@
+﻿using Bellatrix.DataGeneration.Core.Parameters;
+using Bellatrix.DataGeneration.TestValueProviders;
+
+namespace Bellatrix.DataGeneration
+{
+    public class EmailDataParameter : DataParameter<EmailDataProviderStrategy>
+    {
+        public EmailDataParameter(
+            bool isManualMode = false,
+            bool? includeBoundaryValues = null,
+            bool? allowValidEquivalenceClasses = null,
+            bool? allowInvalidEquivalenceClasses = null,
+            params Tuple<string, TestValueCategory>[] customValues)
+            : base(new EmailDataProviderStrategy(), 
+                  isManualMode, 
+                  includeBoundaryValues, 
+                  allowValidEquivalenceClasses, 
+                  allowInvalidEquivalenceClasses,
+                  customValues)
+        {
+        }
+    }
+}
