@@ -10,10 +10,6 @@
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="35.6.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
   </ItemGroup>
 </Project>
