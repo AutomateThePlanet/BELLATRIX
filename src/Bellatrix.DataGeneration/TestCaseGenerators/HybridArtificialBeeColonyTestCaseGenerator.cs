@@ -1,11 +1,13 @@
-﻿using Bellatrix.DataGeneration;
-using Bellatrix.DataGeneration.Contracts;
-using Bellatrix.DataGeneration.TestCaseGenerators;
-using Bellatrix.DataGeneration.Models;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Bellatrix.DataGeneration.Contracts;
+using Bellatrix.DataGeneration.Models;
+using Bellatrix.DataGeneration.TestCaseGenerators;
 using Bellatrix.DataGeneration.Parameters;
 
-// 🐝 Hybrid Artificial Bee Colony (ABC) Test Case Generator
+namespace Bellatrix.DataGeneration;
+
 public class HybridArtificialBeeColonyTestCaseGenerator
 {
     private readonly HybridArtificialBeeColonyConfig _config;
@@ -18,9 +20,9 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         _testCaseEvaluator = new TestCaseEvaluator(config.AllowMultipleInvalidInputs);
     }
 
-    public List<TestCase> RunABCAlgorithm(List<IInputParameter> parameters)
+    public HashSet<TestCase> RunABCAlgorithm(List<IInputParameter> parameters)
     {
-        List<TestCase> currentPopulation = GenerateInitialPopulation(parameters);
+        HashSet<TestCase> currentPopulation = GenerateInitialPopulation(parameters);
         int populationSize = currentPopulation.Count;
 
         for (int currentGeneration = 0; currentGeneration < _config.TotalPopulationGenerations; currentGeneration++)
@@ -28,18 +30,49 @@ public class HybridArtificialBeeColonyTestCaseGenerator
             var evaluatedPopulation = _testCaseEvaluator.EvaluatePopulationToList(currentPopulation);
             int eliteCount = CalculateElitePopulationSize(populationSize);
 
-            List<TestCase> newGenerationPopulation = SelectElitePopulation(evaluatedPopulation, eliteCount);
+            HashSet<TestCase> newGenerationPopulation = SelectElitePopulation(evaluatedPopulation, eliteCount);
+            newGenerationPopulation = MaintainDiversePopulationOnlookerSelection(newGenerationPopulation, evaluatedPopulation, eliteCount);
+
             MutatePopulation(newGenerationPopulation, evaluatedPopulation, parameters, currentGeneration);
+            PerformScoutPhaseIfNeeded(parameters, currentPopulation, newGenerationPopulation, currentGeneration);
 
             currentPopulation = newGenerationPopulation;
         }
 
-        return currentPopulation;
+        return LimitFinalPopulationBasedOnSelectionRatio(currentPopulation);
     }
 
-    private List<TestCase> GenerateInitialPopulation(List<IInputParameter> parameters)
+    private HashSet<TestCase> MaintainDiversePopulationOnlookerSelection(HashSet<TestCase> currentPopulation, List<Tuple<TestCase, double>> evaluatedPopulation, int eliteCount)
     {
-        return ImprovedPairwiseTestCaseGenerator.GenerateTestCases(parameters);
+        if (_config.DisableOnlookerSelection)
+        {
+            return currentPopulation;
+        }
+
+        double totalScore = Math.Max(1, evaluatedPopulation.Sum(tc => tc.Item2));
+        HashSet<TestCase> uniquePopulation = new HashSet<TestCase>(currentPopulation);
+
+        var probabilitySelection = evaluatedPopulation
+            .Select(tc => new { TestCase = tc.Item1, NormalizedScore = tc.Item2 / totalScore })
+            .OrderByDescending(tc => tc.NormalizedScore * _random.NextDouble())
+            .Take(Math.Max(1, (int)(_config.TotalPopulationGenerations * 0.05)))
+            .Select(tc => tc.TestCase)
+            .ToList();
+
+        foreach (var testCase in probabilitySelection)
+        {
+            if (uniquePopulation.Count < _config.PopulationSize)
+            {
+                uniquePopulation.Add(testCase);
+            }
+        }
+
+        return uniquePopulation;
+    }
+
+    private HashSet<TestCase> GenerateInitialPopulation(List<IInputParameter> parameters)
+    {
+        return ImprovedPairwiseTestCaseGenerator.GenerateTestCases(parameters).ToHashSet();
     }
 
     private int CalculateElitePopulationSize(int populationSize)
@@ -47,12 +80,17 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         return Math.Max(1, (int)(populationSize * _config.EliteSelectionRatio));
     }
 
-    private List<TestCase> SelectElitePopulation(List<Tuple<TestCase, double>> evaluatedPopulation, int eliteCount)
+    private HashSet<TestCase> SelectElitePopulation(List<Tuple<TestCase, double>> evaluatedPopulation, int eliteCount)
     {
-        return evaluatedPopulation.Take(eliteCount).Select(tc => tc.Item1).ToList();
+        return evaluatedPopulation
+            .OrderByDescending(tc => tc.Item2)
+            .Take(eliteCount)
+            .Select(tc => tc.Item1)
+            .ToHashSet();
     }
 
-    private void MutatePopulation(List<TestCase> population, List<Tuple<TestCase, double>> evaluatedPopulation, List<IInputParameter> parameters, int iteration)
+    // 🔹 Step 5: Apply Mutations to Non-Elite Population
+    private void MutatePopulation(HashSet<TestCase> population, List<Tuple<TestCase, double>> evaluatedPopulation, List<IInputParameter> parameters, int iteration)
     {
         for (int i = CalculateElitePopulationSize(population.Count); i < evaluatedPopulation.Count; i++)
         {
@@ -63,30 +101,57 @@ public class HybridArtificialBeeColonyTestCaseGenerator
 
     private TestCase ApplyMutation(TestCase originalTestCase, List<IInputParameter> parameters, int iteration)
     {
-        if (_random.NextDouble() >= _config.MutationRate) return originalTestCase;
-        return MutateUsingSimulatedAnnealing(originalTestCase, parameters, iteration);
+        if (_random.NextDouble() >= _config.MutationRate)
+        {
+            return originalTestCase;
+        }
+
+        TestCase mutatedTestCase = MutateUsingSimulatedAnnealing(originalTestCase, parameters, iteration);
+        return mutatedTestCase;
     }
 
+    // 🔹 Mutation Strategy: Simulated Annealing-Based Mutation
     private TestCase MutateUsingSimulatedAnnealing(TestCase testCase, List<IInputParameter> parameters, int iteration)
     {
-        TestCase mutatedTestCase = new TestCase { Values = testCase.Values.ToList() };
-        int index = _random.Next(mutatedTestCase.Values.Count);
+        int index = _random.Next(testCase.Values.Count);
         var availableValues = parameters[index].TestValues.ToList();
 
         if (availableValues.Count > 1)
         {
-            double temperature = _config.InitialTemperature * Math.Exp(-_config.CoolingRate * iteration);
-            TestValue newValue = availableValues[_random.Next(availableValues.Count)];
-
-            double currentScore = _testCaseEvaluator.Evaluate(testCase);
-            mutatedTestCase.Values[index] = newValue;
-            double newScore = _testCaseEvaluator.Evaluate(mutatedTestCase);
-
-            if (newScore > currentScore || _random.NextDouble() < Math.Exp((newScore - currentScore) / temperature))
-            {
-                return mutatedTestCase;
-            }
+            testCase.Values[index] = availableValues[_random.Next(availableValues.Count)];
         }
+
         return testCase;
     }
+
+    private void PerformScoutPhaseIfNeeded(List<IInputParameter> parameters, HashSet<TestCase> population, HashSet<TestCase> newPopulation, int iteration)
+    {
+        if (_config.DisableScoutPhase || iteration <= _config.TotalPopulationGenerations * _config.StagnationThresholdPercentage)
+        {
+            return;
+        }
+
+        var poorPerformingTestCases = population
+            .Select(tc => Tuple.Create(tc, _testCaseEvaluator.Evaluate(tc)))
+            .OrderBy(x => x.Item2)
+            .Take((int)(_config.PopulationSize * 0.3))
+            .ToList();
+
+        foreach (var testCase in poorPerformingTestCases)
+        {
+            TestCase mutatedTestCase = ApplyMutation(testCase.Item1, parameters, iteration);
+            newPopulation.Add(mutatedTestCase);
+        }
+    }
+
+    private HashSet<TestCase> LimitFinalPopulationBasedOnSelectionRatio(HashSet<TestCase> population)
+    {
+        int finalSize = Math.Max(1, (int)(population.Count * _config.FinalPopulationSelectionRatio));
+
+        return population
+            .OrderByDescending(tc => _testCaseEvaluator.Evaluate(tc)) // Ensure best test cases are kept
+            .Take(finalSize)
+            .ToHashSet();
+    }
+
 }

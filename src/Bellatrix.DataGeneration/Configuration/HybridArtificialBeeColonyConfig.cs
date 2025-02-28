@@ -12,7 +12,7 @@ public class HybridArtificialBeeColonyConfig
     public double CoolingRate { get; set; } = 0.01;
     public double OnlookerSelectionRatio { get; set; } = 0.05;
     public double ScoutSelectionRatio { get; set; } = 0.3;
-    public bool DisableOnlookerSelection { get; set; } = false;
+    public bool DisableOnlookerSelection { get; set; } = true;
     public bool DisableScoutPhase { get; set; } = false;
     public double StagnationThresholdPercentage { get; set; } = 0.75;
     public bool AllowMultipleInvalidInputs { get; set; } = false;

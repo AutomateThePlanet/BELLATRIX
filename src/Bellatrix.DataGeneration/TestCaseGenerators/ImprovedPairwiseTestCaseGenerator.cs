@@ -9,13 +9,13 @@ namespace Bellatrix.DataGeneration.TestCaseGenerators
 {
     public static class ImprovedPairwiseTestCaseGenerator
     {
-        private static List<TestCase> cachedTestCases = new List<TestCase>();
+        private static HashSet<TestCase> cachedTestCases = new HashSet<TestCase>();
 
         public static List<TestCase> GenerateTestCases(List<IInputParameter> parameters)
         {
             if (cachedTestCases.Any())
             {
-                return cachedTestCases;
+                return cachedTestCases.ToList();
             }
 
             if (parameters == null || parameters.Count < 2)
@@ -27,18 +27,19 @@ namespace Bellatrix.DataGeneration.TestCaseGenerators
                 .Select(p => p.TestValues.ToList())
                 .ToList();
 
-            return GeneratePairwiseCombinations(parameterValues);
+            var testCases = GeneratePairwiseCombinations(parameterValues);
+
+            cachedTestCases = new HashSet<TestCase>(testCases); // Enforce uniqueness
+            return cachedTestCases.ToList();
         }
 
         private static List<TestCase> GeneratePairwiseCombinations(List<List<TestValue>> parameterValues)
         {
             int numParameters = parameterValues.Count;
-            List<TestCase> testCases = new List<TestCase>();
+            HashSet<TestCase> uniqueTestCases = new HashSet<TestCase>();
 
-            // Track uncovered pairs
             Dictionary<(int, int), HashSet<(TestValue, TestValue)>> uncoveredPairs = new();
 
-            // Initialize uncovered pairs for every pair of parameters
             for (int i = 0; i < numParameters; i++)
             {
                 for (int j = i + 1; j < numParameters; j++)
@@ -54,43 +55,33 @@ namespace Bellatrix.DataGeneration.TestCaseGenerators
                 }
             }
 
-            // Generate test cases deterministically
             while (uncoveredPairs.Values.Any(set => set.Count > 0))
             {
                 TestCase newTestCase = new TestCase();
-                HashSet<(int, int, TestValue, TestValue)> coveredPairs = new();
-
-                // Greedily select values ensuring new pairs are covered
                 for (int i = 0; i < numParameters; i++)
                 {
                     if (i == 0)
                     {
-                        newTestCase.Values.Add(parameterValues[i][testCases.Count % parameterValues[i].Count]);
+                        newTestCase.Values.Add(parameterValues[i][uniqueTestCases.Count % parameterValues[i].Count]);
                     }
                     else
                     {
-                        // Select value that maximizes new pair coverage
                         newTestCase.Values.Add(SelectBestValue(i, parameterValues, uncoveredPairs, newTestCase));
                     }
                 }
 
-                testCases.Add(newTestCase);
+                uniqueTestCases.Add(newTestCase);
 
-                // Remove covered pairs from uncoveredPairs
                 for (int i = 0; i < numParameters; i++)
                 {
                     for (int j = i + 1; j < numParameters; j++)
                     {
-                        if (uncoveredPairs[(i, j)].Contains((newTestCase.Values[i], newTestCase.Values[j])))
-                        {
-                            uncoveredPairs[(i, j)].Remove((newTestCase.Values[i], newTestCase.Values[j]));
-                        }
+                        uncoveredPairs[(i, j)].Remove((newTestCase.Values[i], newTestCase.Values[j]));
                     }
                 }
             }
 
-            cachedTestCases = testCases;
-            return testCases;
+            return uniqueTestCases.ToList();
         }
 
         private static TestValue SelectBestValue(int paramIndex, List<List<TestValue>> parameterValues,
@@ -103,7 +94,6 @@ namespace Bellatrix.DataGeneration.TestCaseGenerators
             foreach (var candidate in candidates)
             {
                 int pairsCovered = 0;
-
                 for (int j = 0; j < paramIndex; j++)
                 {
                     if (uncoveredPairs.ContainsKey((j, paramIndex)) &&

@@ -37,14 +37,14 @@ public class TestCaseEvaluator
         return score;
     }
 
-    public List<Tuple<TestCase, double>> EvaluatePopulationToList(List<TestCase> population)
+    public List<Tuple<TestCase, double>> EvaluatePopulationToList(HashSet<TestCase> population)
     {
         return population.Select(tc => Tuple.Create(tc, Evaluate(tc)))
                          .OrderByDescending(x => x.Item2)
                          .ToList();
     }
 
-    public Dictionary<TestCase, double> EvaluatePopulationToDictionary(List<TestCase> population)
+    public Dictionary<TestCase, double> EvaluatePopulationToDictionary(HashSet<TestCase> population)
     {
         return population.ToDictionary(tc => tc, tc => Evaluate(tc)); ;
     }
