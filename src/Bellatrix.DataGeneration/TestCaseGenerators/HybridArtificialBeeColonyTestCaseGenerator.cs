@@ -72,7 +72,7 @@ public class HybridArtificialBeeColonyTestCaseGenerator
 
     private HashSet<TestCase> GenerateInitialPopulation(List<IInputParameter> parameters)
     {
-        return ImprovedPairwiseTestCaseGenerator.GenerateTestCases(parameters).ToHashSet();
+        return PairwiseTestCaseGenerator.GenerateTestCases(parameters).ToHashSet();
     }
 
     private int CalculateElitePopulationSize(int populationSize)
@@ -99,20 +99,13 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         }
     }
 
-    private TestCase ApplyMutation(TestCase originalTestCase, List<IInputParameter> parameters, int iteration)
+    private TestCase ApplyMutation(TestCase testCase, List<IInputParameter> parameters, int iteration)
     {
         if (_random.NextDouble() >= _config.MutationRate)
         {
-            return originalTestCase;
+            return testCase;
         }
 
-        TestCase mutatedTestCase = MutateUsingSimulatedAnnealing(originalTestCase, parameters, iteration);
-        return mutatedTestCase;
-    }
-
-    // 🔹 Mutation Strategy: Simulated Annealing-Based Mutation
-    private TestCase MutateUsingSimulatedAnnealing(TestCase testCase, List<IInputParameter> parameters, int iteration)
-    {
         int index = _random.Next(testCase.Values.Count);
         var availableValues = parameters[index].TestValues.ToList();
 

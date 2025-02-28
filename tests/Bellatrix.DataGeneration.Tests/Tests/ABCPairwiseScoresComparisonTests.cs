@@ -107,72 +107,72 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                     DisableScoutPhase = true
                 },
 
-                //// 🔹 Higher mutation rate: Ensures wider test coverage
-                //new HybridArtificialBeeColonyConfig
-                //{
-                //    FinalPopulationSelectionRatio = 0.6,
-                //    EliteSelectionRatio = 0.6,
-                //    TotalPopulationGenerations = 100,
-                //    MutationRate = 0.3,
-                //    AllowMultipleInvalidInputs = false,
-                //    DisableOnlookerSelection = true,
-                //    DisableScoutPhase = true
-                //},
+                // 🔹 Higher mutation rate: Ensures wider test coverage
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.6,
+                    EliteSelectionRatio = 0.6,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.3,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = true
+                },
 
-                ////// 🔹 Balanced exploitation & diversity: Great for complex test scenarios
-                //new HybridArtificialBeeColonyConfig
-                //{
-                //    FinalPopulationSelectionRatio = 0.5,
-                //    EliteSelectionRatio = 0.6,
-                //    TotalPopulationGenerations = 100,
-                //    MutationRate = 0.4,
-                //    AllowMultipleInvalidInputs = false,
-                //    DisableOnlookerSelection = true,
-                //    DisableScoutPhase = true
-                //},
+                //// 🔹 Balanced exploitation & diversity: Great for complex test scenarios
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.5,
+                    EliteSelectionRatio = 0.6,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.4,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = true
+                },
 
-                //// 🔹 More diverse test cases: Prevents overfitting to high-scoring cases
-                //new HybridArtificialBeeColonyConfig
-                //{
-                //    FinalPopulationSelectionRatio = 0.4,
-                //    EliteSelectionRatio = 0.6,
-                //    TotalPopulationGenerations = 100,
-                //    MutationRate = 0.4,
-                //    AllowMultipleInvalidInputs = false,
-                //    DisableOnlookerSelection = true,
-                //    DisableScoutPhase = true
-                //},
+                // 🔹 More diverse test cases: Prevents overfitting to high-scoring cases
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.4,
+                    EliteSelectionRatio = 0.6,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.4,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = true
+                },
 
-                //// 🔹 Balanced mutation & selection: Useful when both exploration and exploitation are needed
-                //new HybridArtificialBeeColonyConfig
-                //{
-                //    FinalPopulationSelectionRatio = 0.5,
-                //    EliteSelectionRatio = 0.5,
-                //    TotalPopulationGenerations = 100,
-                //    MutationRate = 0.4,
-                //    AllowMultipleInvalidInputs = false,
-                //    DisableOnlookerSelection = true,
-                //    DisableScoutPhase = true
-                //},
+                // 🔹 Balanced mutation & selection: Useful when both exploration and exploitation are needed
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.5,
+                    EliteSelectionRatio = 0.5,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.4,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = true
+                },
 
-                //// 🔹 Maximum exploration: Ensures high diversity, best for finding edge cases
-                //new HybridArtificialBeeColonyConfig
-                //{
-                //    FinalPopulationSelectionRatio = 0.4,
-                //    EliteSelectionRatio = 0.5,
-                //    TotalPopulationGenerations = 100,
-                //    MutationRate = 0.4,
-                //    AllowMultipleInvalidInputs = false,
-                //    DisableOnlookerSelection = true,
-                //    DisableScoutPhase = true
-                //}
+                // 🔹 Maximum exploration: Ensures high diversity, best for finding edge cases
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.4,
+                    EliteSelectionRatio = 0.5,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.4,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = true
+                }
             };
         }
 
         // 🔹 Precompute pairwise scores for baseline comparison
         private void PrecomputePairwiseScores()
         {
-            var pairwiseTestCases = ImprovedPairwiseTestCaseGenerator.GenerateTestCases(_parameters);
+            var pairwiseTestCases = PairwiseTestCaseGenerator.GenerateTestCases(_parameters);
             var testCaseEvaluator = new TestCaseEvaluator();
             _sortedPairwiseScores = testCaseEvaluator.EvaluatePopulationToList(pairwiseTestCases.ToHashSet());
         }

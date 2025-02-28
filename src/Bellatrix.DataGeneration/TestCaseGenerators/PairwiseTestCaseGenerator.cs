@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Bellatrix.DataGeneration.Contracts;
+﻿using Bellatrix.DataGeneration.Contracts;
 using Bellatrix.DataGeneration.Models;
 using Bellatrix.DataGeneration.Parameters;
 
 namespace Bellatrix.DataGeneration.TestCaseGenerators
 {
-    public static class ImprovedPairwiseTestCaseGenerator
+    public static class PairwiseTestCaseGenerator
     {
-        private static HashSet<TestCase> cachedTestCases = new HashSet<TestCase>();
-
-        public static List<TestCase> GenerateTestCases(List<IInputParameter> parameters)
+        public static HashSet<TestCase> GenerateTestCases(List<IInputParameter> parameters)
         {
-            if (cachedTestCases.Any())
-            {
-                return cachedTestCases.ToList();
-            }
-
             if (parameters == null || parameters.Count < 2)
             {
                 throw new ArgumentException("Pairwise testing requires at least two parameters.");
@@ -29,8 +19,8 @@ namespace Bellatrix.DataGeneration.TestCaseGenerators
 
             var testCases = GeneratePairwiseCombinations(parameterValues);
 
-            cachedTestCases = new HashSet<TestCase>(testCases); // Enforce uniqueness
-            return cachedTestCases.ToList();
+            var uniqueTestCases = new HashSet<TestCase>(testCases); // Enforce uniqueness
+            return uniqueTestCases;
         }
 
         private static List<TestCase> GeneratePairwiseCombinations(List<List<TestValue>> parameterValues)
