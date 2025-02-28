@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.6.2" />
+    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.8.0" />
+    
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.8.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.8.2" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="Unity" Version="5.11.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Bellatrix.Core\Bellatrix.Core.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Layout\Bellatrix.Layout.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.Web\Bellatrix.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="allureConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="msedgedriver.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="StyleCopeRules.ruleset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="testFrameworkSettings.$(Configuration).json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="testpage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

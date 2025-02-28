@@ -122,27 +122,27 @@ public class MSTestBaseTest
         }
     }
 
-    [ClassCleanup]
-    public void CoreClassCleanup()
-    {
-        var testClassType = GetCurrentExecutionTestClassType();
+    //[ClassCleanup]
+    //public static void CoreClassCleanup()
+    //{
+    //    var testClassType = GetCurrentExecutionTestClassType();
 
-        _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-        _currentTestExecutionProvider = new PluginProvider();
-        InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+    //    _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+    //    _currentTestExecutionProvider = new PluginProvider();
+    //    InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
-        try
-        {
-            _currentTestExecutionProvider.PreClassCleanup(testClassType);
-            TestsCleanup();
-            _currentTestExecutionProvider.PostClassCleanup(testClassType);
-        }
-        catch (Exception ex)
-        {
-            _currentTestExecutionProvider.TestsCleanupFailed(ex);
-            throw;
-        }
-    }
+    //    try
+    //    {
+    //        _currentTestExecutionProvider.PreClassCleanup(testClassType);
+    //        TestsCleanup();
+    //        _currentTestExecutionProvider.PostClassCleanup(testClassType);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        _currentTestExecutionProvider.TestsCleanupFailed(ex);
+    //        throw;
+    //    }
+    //}
 
     // ReSharper disable once MemberCanBeProtected.Global
     public virtual void Initialize()

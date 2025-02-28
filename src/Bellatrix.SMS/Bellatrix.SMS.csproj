@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Twilio" Version="7.1.0" />
+    <PackageReference Include="Twilio" Version="7.8.5" />
   </ItemGroup>
 
   <ItemGroup>

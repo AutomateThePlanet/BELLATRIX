@@ -11,21 +11,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="1.2.0-beta.423" />
-    <PackageReference Include="AngleSharp.XPath" Version="2.0.4" />
-    <PackageReference Include="CsvHelper" Version="31.0.0" />
+    <PackageReference Include="AngleSharp" Version="1.2.0" />
+    <PackageReference Include="AngleSharp.XPath" Version="2.0.5" />
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
     <PackageReference Include="CsvHelper.Excel.Core" Version="27.2.1" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.58" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.1" />
-    <PackageReference Include="MSTest" Version="3.2.2" />
-    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.74" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.2" />
+    <PackageReference Include="MSTest" Version="3.8.2" />
+    <PackageReference Include="System.Management" Version="9.0.2" />
     <PackageReference Include="Unity" Version="5.11.10" />
     <!--<PackageReference Include="MSTest.TestFramework" Version="2.2.10" />-->
-    <PackageReference Include="NUnit" Version="4.0.1" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.23.0" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
   </ItemGroup>
 

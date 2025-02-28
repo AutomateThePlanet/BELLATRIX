@@ -3,13 +3,13 @@
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
   <ItemGroup>
-    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.6.1" />
+    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.8.0" />
     
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.2.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.2.2" />
-    <PackageReference Include="NUnit" Version="4.0.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.8.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.8.2" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
