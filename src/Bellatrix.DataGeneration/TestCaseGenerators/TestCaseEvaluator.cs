@@ -1,7 +1,7 @@
-﻿using Bellatrix.DataGeneration.Core.Contracts;
-using Bellatrix.DataGeneration.Core.Parameters;
+﻿using Bellatrix.DataGeneration.Contracts;
+using Bellatrix.DataGeneration.Parameters;
 
-namespace Bellatrix.DataGeneration.Core.Generators;
+namespace Bellatrix.DataGeneration.TestCaseGenerators;
 
 public class TestCaseEvaluator
 {

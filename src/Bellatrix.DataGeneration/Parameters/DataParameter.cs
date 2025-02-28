@@ -1,6 +1,6 @@
-﻿using Bellatrix.DataGeneration.Core.Contracts;
+﻿using Bellatrix.DataGeneration.Contracts;
 
-namespace Bellatrix.DataGeneration.Core.Parameters
+namespace Bellatrix.DataGeneration.Parameters
 {
     public class DataParameter<TDataStrategy> : IInputParameter
         where TDataStrategy : class, IDataProviderStrategy

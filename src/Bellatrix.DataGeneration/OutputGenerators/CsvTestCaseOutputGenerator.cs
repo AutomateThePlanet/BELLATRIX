@@ -1,4 +1,4 @@
-﻿using Bellatrix.DataGeneration.Generators;
+﻿using Bellatrix.DataGeneration.OutputGenerators;
 
 public class CsvTestCaseOutputGenerator : ITestCaseOutputGenerator
 {

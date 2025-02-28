@@ -1,4 +1,4 @@
-﻿namespace Bellatrix.DataGeneration.Core.Parameters;
+﻿namespace Bellatrix.DataGeneration.Parameters;
 // Represents a single test value with a category (Boundary, Normal, Invalid)
 public class TestValue
 {

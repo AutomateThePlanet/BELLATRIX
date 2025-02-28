@@ -1,6 +1,6 @@
-﻿using Bellatrix.DataGeneration.Core.Contracts;
+﻿using Bellatrix.DataGeneration.Contracts;
 
-namespace Bellatrix.DataGeneration.Core.Generators
+namespace Bellatrix.DataGeneration.TestCaseGenerators
 {
     public static class ImprovedPairwiseTestCaseGenerator
     {

@@ -1,4 +1,4 @@
-﻿namespace Bellatrix.DataGeneration.Core.Utilities;
+﻿namespace Bellatrix.DataGeneration.Utilities;
 public class TestCaseComparer : IEqualityComparer<string[]>
 {
     public bool Equals(string[] x, string[] y)

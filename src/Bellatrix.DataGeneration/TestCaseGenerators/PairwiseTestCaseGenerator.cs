@@ -1,4 +1,4 @@
-﻿using Bellatrix.DataGeneration.Core.Contracts;
+﻿using Bellatrix.DataGeneration.Contracts;
 
 public static class PairwiseTestCaseGenerator
 {

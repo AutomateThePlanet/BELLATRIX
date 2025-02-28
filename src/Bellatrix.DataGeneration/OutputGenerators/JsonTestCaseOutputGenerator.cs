@@ -1,4 +1,4 @@
-﻿using Bellatrix.DataGeneration.Generators;
+﻿using Bellatrix.DataGeneration.OutputGenerators;
 using System.Text.Json;
 
 public class JsonTestCaseOutputGenerator : ITestCaseOutputGenerator

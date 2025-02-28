@@ -1,20 +1,20 @@
-﻿using Bellatrix.DataGeneration.Core.Parameters;
+﻿using Bellatrix.DataGeneration.Core.Contracts;
 using Bellatrix.DataGeneration.TestValueProviders;
 
-namespace Bellatrix.DataGeneration
+namespace Bellatrix.DataGeneration.Parameters
 {
-    public class PhoneDataParameter : DataParameter<PhoneDataProviderStrategy>
+    public class TextDataParameter : DataParameter<TextDataProviderStrategy>
     {
-        public PhoneDataParameter(
+        public TextDataParameter(
             bool isManualMode = false,
             bool? includeBoundaryValues = null,
             bool? allowValidEquivalenceClasses = null,
             bool? allowInvalidEquivalenceClasses = null,
             params Tuple<string, TestValueCategory>[] customValues)
-            : base(new PhoneDataProviderStrategy(), 
-                  isManualMode, 
-                  includeBoundaryValues, 
-                  allowValidEquivalenceClasses, 
+            : base(new TextDataProviderStrategy(),
+                  isManualMode,
+                  includeBoundaryValues,
+                  allowValidEquivalenceClasses,
                   allowInvalidEquivalenceClasses,
                   customValues)
         {

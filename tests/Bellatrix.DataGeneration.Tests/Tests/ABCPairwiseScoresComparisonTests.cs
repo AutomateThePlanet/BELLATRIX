@@ -6,7 +6,7 @@ using System.Diagnostics;
 using Bellatrix.Web.Tests.MetaheuristicVersion2.Core;
 using Bellatrix.Web.Tests.MetaheuristicVersion2.TestValueProviders;
 using Bellatrix.Web;
-using Bellatrix.DataGeneration.Core.Parameters;
+using Bellatrix.DataGeneration.Parameters;
 
 namespace Bellatrix.DataGeneration.Tests.Tests
 {

@@ -1,4 +1,4 @@
-﻿using Bellatrix.DataGeneration.Core.Parameters;
+﻿using Bellatrix.DataGeneration.Parameters;
 using Bellatrix.Web.Tests.MetaheuristicVersion2.Core;
 using NUnit.Framework;
 using System;

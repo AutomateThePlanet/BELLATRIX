@@ -1,6 +1,7 @@
-﻿using Bellatrix.DataGeneration.Core.Contracts;
-using Bellatrix.DataGeneration.Core.Generators;
-using Bellatrix.DataGeneration.Generators;
+﻿using Bellatrix.DataGeneration.Contracts;
+using Bellatrix.DataGeneration.OutputGenerators;
+using Bellatrix.DataGeneration.TestCaseGenerators;
+
 
 // 🐝 Hybrid Artificial Bee Colony (ABC) Test Case Generator
 // This algorithm generates optimized test cases using an evolutionary approach
