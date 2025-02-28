@@ -16,6 +16,8 @@ public class HybridArtificialBeeColonyTestCaseGenerator
     private readonly bool _disableOnlookerSelection;
     private readonly bool _disableScoutPhase;
     private readonly double _stagnationThresholdPercentage;
+    private readonly double _coolingRate;
+    private readonly double _initialTemperature;
     private readonly ITestCaseOutputGenerator _outputGenerator;
     private readonly TestCaseEvaluator _testCaseEvaluator;
     private readonly Random _random = new Random(42);
@@ -28,6 +30,8 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         double selectionRatio = 0.5,
         bool allowMultipleInvalidInputs = false,
         double eliteSelectionRatio = 0.5,
+        double initialTemperature = 1,
+        double coolingRate = 0.01,
         bool disableOnlookerSelection = false,
         bool disableScoutPhase = false,
         double stagnationThresholdPercentage = 0.75,
@@ -38,6 +42,8 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         _mutationRate = mutationRate;
         _selectionRatio = selectionRatio;
         _eliteSelectionRatio = eliteSelectionRatio;
+        _coolingRate = coolingRate;
+        _initialTemperature = initialTemperature;
         _disableOnlookerSelection = disableOnlookerSelection;
         _disableScoutPhase = disableScoutPhase;
         _stagnationThresholdPercentage = stagnationThresholdPercentage;
@@ -156,15 +162,40 @@ public class HybridArtificialBeeColonyTestCaseGenerator
     // 🔹 Mutation Strategy: Simulated Annealing-Based Mutation
     private string[] MutateUsingSimulatedAnnealing(string[] testCase, List<IInputParameter> parameters, int iteration)
     {
-        int index = _random.Next(testCase.Length);
+        string[] mutatedTestCase = (string[])testCase.Clone(); // Avoid modifying the original test case
+
+        int index = _random.Next(mutatedTestCase.Length);
         var availableValues = parameters[index].TestValues.Select(tv => tv.Value).ToList();
 
         if (availableValues.Count > 1)
         {
-            testCase[index] = availableValues[_random.Next(availableValues.Count)];
+            // Compute Temperature (Cooling Schedule)
+            double initialTemperature = _initialTemperature;
+            double coolingRate = _coolingRate; // Adjust as needed
+            double temperature = initialTemperature * Math.Exp(-coolingRate * iteration);
+
+            // Compute the probability of accepting a new value
+            string currentValue = mutatedTestCase[index];
+            string newValue = availableValues[_random.Next(availableValues.Count)];
+
+            double currentScore = _testCaseEvaluator.Evaluate(testCase, parameters);
+            mutatedTestCase[index] = newValue;
+            double newScore = _testCaseEvaluator.Evaluate(mutatedTestCase, parameters);
+
+            double deltaEnergy = newScore - currentScore; // Difference in fitness
+
+            // Simulated Annealing Acceptance Criterion
+            if (deltaEnergy > 0 || _random.NextDouble() < Math.Exp(deltaEnergy / temperature))
+            {
+                return mutatedTestCase; // Accept mutation
+            }
+            else
+            {
+                return testCase; // Reject mutation
+            }
         }
 
-        return testCase;
+        return testCase; // If no alternative values exist, return original
     }
 
     // 🔹 Step 6: Introduce new test cases if the population stagnates

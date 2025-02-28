@@ -1,4 +1,4 @@
-﻿using Bellatrix.DataGeneration.Core.Parameters;
+﻿using Bellatrix.DataGeneration.Parameters;
 
 namespace Bellatrix.DataGeneration.TestValueProviders
 {

@@ -1,5 +1,4 @@
-﻿using Bellatrix.DataGeneration.Core.Contracts;
-using Bellatrix.DataGeneration.TestValueProviders;
+﻿using Bellatrix.DataGeneration.TestValueProviders;
 
 namespace Bellatrix.DataGeneration.Parameters
 {
