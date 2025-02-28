@@ -1,14 +1,15 @@
-﻿using Bellatrix.DataGeneration.OutputGenerators;
+﻿using Bellatrix.DataGeneration.Models;
+using Bellatrix.DataGeneration.OutputGenerators;
 
-public class CsvTestCaseOutputGenerator : ITestCaseOutputGenerator
+public class CsvTestCaseOutputGenerator : TestCaseOutputGenerator
 {
-    public void GenerateOutput(string methodName, List<string[]> testCases)
+    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategoty testCaseCategoty = TestCaseCategoty.All)
     {
         Console.WriteLine($"\n🔹 **Generated CSV Output ({methodName}):**\n");
 
-        foreach (var testCase in testCases)
+        foreach (var testCase in FilterTestCasesByCategory(testCases, testCaseCategoty))
         {
-            Console.WriteLine(string.Join(",", testCase.Select(value => $"\"{value}\"")));
+            Console.WriteLine(string.Join(",", testCase.Values.Select(value => $"\"{value}\"")));
         }
     }
 }

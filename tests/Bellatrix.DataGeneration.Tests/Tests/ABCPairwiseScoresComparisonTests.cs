@@ -7,6 +7,7 @@ using Bellatrix.DataGeneration.Parameters;
 using Bellatrix.DataGeneration.Contracts;
 using Bellatrix.DataGeneration.TestCaseGenerators;
 using Bellatrix.DataGeneration.Models;
+using Bellatrix.DataGeneration.OutputGenerators;
 
 namespace Bellatrix.DataGeneration.Tests.Tests
 {
@@ -18,7 +19,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
         private List<HybridArtificialBeeColonyConfig> _parameterSets;
         private Dictionary<HybridArtificialBeeColonyConfig, List<double>> _abcScores = new();
         private Dictionary<HybridArtificialBeeColonyConfig, List<double>> _pairwiseScores = new();
-        private List<Tuple<TestCase, double>> _sortedPairwiseScores = new();
+        private HashSet<TestCase> _sortedPairwiseScores = new();
 
         [SetUp]
         public void SetUp()
@@ -83,15 +84,35 @@ namespace Bellatrix.DataGeneration.Tests.Tests
         {
             _parameterSets = new List<HybridArtificialBeeColonyConfig>
             {
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.5,
+                    EliteSelectionRatio = 0.5,
+                    TotalPopulationGenerations = 50,
+                    MutationRate = 0.4,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = false,
+                    DisableScoutPhase = false
+                },
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.55,  // Slightly higher to retain more cases
+                    EliteSelectionRatio = 0.45,  // Slightly lower to allow more diversity
+                    TotalPopulationGenerations = 50,
+                    MutationRate = 0.35,  // Fine-tuned mutation rate
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = false,
+                    DisableScoutPhase = false
+                },
                 // 🔹 Best general configuration: Balanced selection & mutation
                 new HybridArtificialBeeColonyConfig
                 {
-                    FinalPopulationSelectionRatio = 0.6,
+                    FinalPopulationSelectionRatio = 0.5,
                     EliteSelectionRatio = 0.5,
-                    TotalPopulationGenerations = 100,
-                    MutationRate = 0.2,
+                    TotalPopulationGenerations = 50,
+                    MutationRate = 0.4,
                     AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
+                    DisableOnlookerSelection = false,
                     DisableScoutPhase = false
                 },
 
@@ -99,24 +120,24 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 new HybridArtificialBeeColonyConfig
                 {
                     FinalPopulationSelectionRatio = 0.5,
-                    EliteSelectionRatio = 0.4,
-                    TotalPopulationGenerations = 100,
-                    MutationRate = 0.3,
+                    EliteSelectionRatio = 0.7,
+                    TotalPopulationGenerations = 60,
+                    MutationRate = 0.5,
                     AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
-                    DisableScoutPhase = true
+                    DisableOnlookerSelection = false,
+                    DisableScoutPhase = false
                 },
 
                 // 🔹 Higher mutation rate: Ensures wider test coverage
                 new HybridArtificialBeeColonyConfig
                 {
-                    FinalPopulationSelectionRatio = 0.6,
+                    FinalPopulationSelectionRatio = 0.5,
                     EliteSelectionRatio = 0.6,
-                    TotalPopulationGenerations = 100,
-                    MutationRate = 0.3,
+                    TotalPopulationGenerations = 70,
+                    MutationRate = 0.6,
                     AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
-                    DisableScoutPhase = true
+                    DisableOnlookerSelection = false,
+                    DisableScoutPhase = false
                 },
 
                 //// 🔹 Balanced exploitation & diversity: Great for complex test scenarios
@@ -125,10 +146,10 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                     FinalPopulationSelectionRatio = 0.5,
                     EliteSelectionRatio = 0.6,
                     TotalPopulationGenerations = 100,
-                    MutationRate = 0.4,
+                    MutationRate = 0.7,
                     AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
-                    DisableScoutPhase = true
+                    DisableOnlookerSelection = false,
+                    DisableScoutPhase = false
                 },
 
                 // 🔹 More diverse test cases: Prevents overfitting to high-scoring cases
@@ -137,10 +158,10 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                     FinalPopulationSelectionRatio = 0.4,
                     EliteSelectionRatio = 0.6,
                     TotalPopulationGenerations = 100,
-                    MutationRate = 0.4,
+                    MutationRate = 0.8,
                     AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
-                    DisableScoutPhase = true
+                    DisableOnlookerSelection = false,
+                    DisableScoutPhase = false
                 },
 
                 // 🔹 Balanced mutation & selection: Useful when both exploration and exploitation are needed
@@ -151,8 +172,8 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                     TotalPopulationGenerations = 100,
                     MutationRate = 0.4,
                     AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
-                    DisableScoutPhase = true
+                    DisableOnlookerSelection = false,
+                    DisableScoutPhase = false
                 },
 
                 // 🔹 Maximum exploration: Ensures high diversity, best for finding edge cases
@@ -163,8 +184,8 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                     TotalPopulationGenerations = 100,
                     MutationRate = 0.4,
                     AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
-                    DisableScoutPhase = true
+                    DisableOnlookerSelection = false,
+                    DisableScoutPhase = false
                 }
             };
         }
@@ -172,9 +193,12 @@ namespace Bellatrix.DataGeneration.Tests.Tests
         // 🔹 Precompute pairwise scores for baseline comparison
         private void PrecomputePairwiseScores()
         {
-            var pairwiseTestCases = ImprovedPairwiseTestCaseGenerator.GenerateTestCases(_parameters);
+            var pairwiseTestCases = PairwiseTestCaseGenerator.GenerateTestCases(_parameters);
             var testCaseEvaluator = new TestCaseEvaluator();
-            _sortedPairwiseScores = testCaseEvaluator.EvaluatePopulationToList(pairwiseTestCases.ToHashSet());
+            testCaseEvaluator.EvaluatePopulation(pairwiseTestCases);
+
+            // ✅ Ensure correct sorting before storing in `_sortedPairwiseScores`
+            _sortedPairwiseScores = new HashSet<TestCase>(pairwiseTestCases.OrderByDescending(tc => tc.Score));
         }
 
         // 🔹 Run benchmarking for a given ABC parameter set
@@ -199,12 +223,14 @@ namespace Bellatrix.DataGeneration.Tests.Tests
             var abcGenerator = new HybridArtificialBeeColonyTestCaseGenerator(config);
 
             var abcTestCases = abcGenerator.RunABCAlgorithm(_parameters);
+
+            //abcGenerator.GenerateTestCases("ValidationParams", _parameters, TestCaseCategoty.Valid);
             var testCaseEvaluator = new TestCaseEvaluator();
             var abcScores = testCaseEvaluator.EvaluatePopulationToDictionary(abcTestCases);
             double abcTotalScore = abcScores.Values.Sum();
 
             var topCount = (int)(_sortedPairwiseScores.Count * config.FinalPopulationSelectionRatio);
-            var pairwiseTotalScore = _sortedPairwiseScores.Take(topCount).Sum(p => p.Item2);
+            var pairwiseTotalScore = _sortedPairwiseScores.Take(topCount).Sum(p => p.Score);
             _pairwiseScores[config].Add(pairwiseTotalScore);
 
             return abcTotalScore;

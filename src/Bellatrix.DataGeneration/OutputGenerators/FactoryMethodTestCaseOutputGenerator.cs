@@ -1,6 +1,7 @@
-﻿using Bellatrix.DataGeneration.OutputGenerators;
+﻿using Bellatrix.DataGeneration.Models;
+using Bellatrix.DataGeneration.OutputGenerators;
 
-public class FactoryMethodTestCaseOutputGenerator : ITestCaseOutputGenerator
+public class FactoryMethodTestCaseOutputGenerator : TestCaseOutputGenerator
 {
     private readonly string _modelName;
     private readonly string _methodName;
@@ -11,7 +12,7 @@ public class FactoryMethodTestCaseOutputGenerator : ITestCaseOutputGenerator
         _methodName = methodName;
     }
 
-    public void GenerateOutput(string methodName, List<string[]> testCases)
+    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategoty testCaseCategoty = TestCaseCategoty.All)
     {
         Console.WriteLine($"\n🔹 **Generated Factory Method Output for {_modelName}:**\n");
         Console.WriteLine($"public static IEnumerable<{_modelName}> {_methodName}()");
@@ -19,17 +20,17 @@ public class FactoryMethodTestCaseOutputGenerator : ITestCaseOutputGenerator
         Console.WriteLine("    return new List<CheckoutFormModel>");
         Console.WriteLine("    {");
 
-        foreach (var testCase in testCases)
+        foreach (var testCase in FilterTestCasesByCategory(testCases, testCaseCategoty))
         {
             Console.WriteLine("        new CheckoutFormModel");
             Console.WriteLine("        {");
-            Console.WriteLine($"            FirstName = \"{testCase[0]}\",");
-            Console.WriteLine($"            LastName = \"{testCase[1]}\",");
-            Console.WriteLine($"            ZipCode = \"{testCase[2]}\",");
-            Console.WriteLine($"            Phone = \"{testCase[3]}\",");
-            Console.WriteLine($"            Email = \"{testCase[4]}\",");
-            Console.WriteLine($"            Company = \"{testCase[5]}\",");
-            Console.WriteLine($"            Address = \"{testCase[6]}\"");
+            Console.WriteLine($"            FirstName = \"{testCase.Values[0]}\",");
+            Console.WriteLine($"            LastName = \"{testCase.Values[1]}\",");
+            Console.WriteLine($"            ZipCode = \"{testCase.Values[2]}\",");
+            Console.WriteLine($"            Phone = \"{testCase.Values[3]}\",");
+            Console.WriteLine($"            Email = \"{testCase.Values[4]}\",");
+            Console.WriteLine($"            Company = \"{testCase.Values[5]}\",");
+            Console.WriteLine($"            Address = \"{testCase.Values[6]}\"");
             Console.WriteLine("        },");
         }
 

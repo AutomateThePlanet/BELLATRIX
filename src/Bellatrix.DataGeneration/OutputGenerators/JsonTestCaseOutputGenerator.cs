@@ -1,11 +1,12 @@
-﻿using Bellatrix.DataGeneration.OutputGenerators;
+﻿using Bellatrix.DataGeneration.Models;
+using Bellatrix.DataGeneration.OutputGenerators;
 using System.Text.Json;
 
-public class JsonTestCaseOutputGenerator : ITestCaseOutputGenerator
+public class JsonTestCaseOutputGenerator : TestCaseOutputGenerator
 {
-    public void GenerateOutput(string methodName, List<string[]> testCases)
+    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategoty testCaseCategoty = TestCaseCategoty.All)
     {
-        var jsonOutput = JsonSerializer.Serialize(testCases, new JsonSerializerOptions { WriteIndented = true });
+        var jsonOutput = JsonSerializer.Serialize(FilterTestCasesByCategory(testCases, testCaseCategoty), new JsonSerializerOptions { WriteIndented = true });
         Console.WriteLine($"\n🔹 **Generated JSON Output ({methodName}):**\n");
         Console.WriteLine(jsonOutput);
     }

@@ -18,7 +18,7 @@ public class TestCaseEvaluator
     {
         foreach (var testCase in population)
         {
-            Evaluate(testCase);
+            testCase.Score = Evaluate(testCase);
         }
     }
 
@@ -44,13 +44,6 @@ public class TestCaseEvaluator
         }
 
         return score;
-    }
-
-    public List<Tuple<TestCase, double>> EvaluatePopulationToList(HashSet<TestCase> population)
-    {
-        return population.Select(tc => Tuple.Create(tc, Evaluate(tc)))
-                         .OrderByDescending(x => x.Item2)
-                         .ToList();
     }
 
     public Dictionary<TestCase, double> EvaluatePopulationToDictionary(HashSet<TestCase> population)
