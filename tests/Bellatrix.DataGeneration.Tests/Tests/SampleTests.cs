@@ -6,6 +6,7 @@ using Bellatrix.DataGeneration.Parameters;
 using Bellatrix.DataGeneration.Contracts;
 using Bellatrix.DataGeneration.OutputGenerators;
 using System;
+using System.Diagnostics;
 
 namespace Bellatrix.DataGeneration.Tests.Tests;
 
@@ -48,10 +49,10 @@ public class SampleTests
     }
 
     // ✅ Test method using ABC-driven test cases
-    [Test, ABCTestCaseSource(nameof(ABCGeneratedTestParameters), TestCaseCategory.All)]
+    [Test, ABCTestCaseSource(nameof(ABCGeneratedTestParameters), TestCaseCategory.Valid)]
     public void TestABCGeneration(string textValue, string email, string phone, string anotherText)
     {
-        Console.WriteLine($"Running test with: {textValue}, {email}, {phone}, {anotherText}");
+        Debug.WriteLine($"Running test with: {textValue}, {email}, {phone}, {anotherText}");
 
         Assert.That(textValue, Is.Not.Null);
         Assert.That(email, Is.Not.Null);

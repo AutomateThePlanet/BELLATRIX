@@ -17,11 +17,42 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
 {
     private readonly string _sourceMethodName;
     private readonly TestCaseCategory _category;
+    private readonly HybridArtificialBeeColonyConfig _abcConfig;
 
-    public ABCTestCaseSourceAttribute(string sourceMethodName, TestCaseCategory category)
+    //public ABCTestCaseSourceAttribute(string sourceMethodName, TestCaseCategory category)
+    //    : this(sourceMethodName, category, new HybridArtificialBeeColonyConfig())
+    //{
+    //}
+
+    public ABCTestCaseSourceAttribute(
+        string sourceMethodName,
+        TestCaseCategory category,
+        int totalPopulationGenerations = 20,
+        double mutationRate = 0.3,
+        double finalPopulationSelectionRatio = 0.5,
+        double eliteSelectionRatio = 0.5,
+        double onlookerSelectionRatio = 0.1,
+        double scoutSelectionRatio = 0.3,
+        bool disableOnlookerSelection = true,
+        bool disableScoutPhase = false,
+        double stagnationThresholdPercentage = 0.75,
+        bool allowMultipleInvalidInputs = false)
     {
         _sourceMethodName = sourceMethodName;
         _category = category;
+        _abcConfig = new HybridArtificialBeeColonyConfig
+        {
+            TotalPopulationGenerations = totalPopulationGenerations,
+            MutationRate = mutationRate,
+            FinalPopulationSelectionRatio = finalPopulationSelectionRatio,
+            EliteSelectionRatio = eliteSelectionRatio,
+            OnlookerSelectionRatio = onlookerSelectionRatio,
+            ScoutSelectionRatio = scoutSelectionRatio,
+            DisableOnlookerSelection = disableOnlookerSelection,
+            DisableScoutPhase = disableScoutPhase,
+            StagnationThresholdPercentage = stagnationThresholdPercentage,
+            AllowMultipleInvalidInputs = allowMultipleInvalidInputs
+        };
     }
 
     public IEnumerable<TestMethod> BuildFrom(IMethodInfo method, Test suite)
@@ -33,32 +64,21 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
             throw new InvalidOperationException($"No static method named '{_sourceMethodName}' found in test class.");
         }
 
-        // ✅ Get test parameters from the test class
+        // Get test parameters from the test class
         var parameters = sourceMethod.Invoke(null, null) as List<IInputParameter>;
         if (parameters == null)
         {
             throw new InvalidOperationException("The method did not return a valid List<IInputParameter>.");
         }
 
-        // ✅ Initialize ABC Generator inside the attribute
-        var abcConfig = new HybridArtificialBeeColonyConfig
-        {
-            FinalPopulationSelectionRatio = 0.5,
-            EliteSelectionRatio = 0.5,
-            TotalPopulationGenerations = 50,
-            MutationRate = 0.4,
-            AllowMultipleInvalidInputs = false,
-            DisableOnlookerSelection = false,
-            DisableScoutPhase = false
-        };
-
-        var abcGenerator = new HybridArtificialBeeColonyTestCaseGenerator(abcConfig);
+        // Initialize ABC Generator with overridden config
+        var abcGenerator = new HybridArtificialBeeColonyTestCaseGenerator(_abcConfig);
         var testCases = abcGenerator.RunABCAlgorithm(parameters);
 
-        // ✅ Filter test cases based on TestCaseCategory
+        // Filter test cases based on TestCaseCategory
         IEnumerable<TestCase> filteredCases = FilterTestCasesByCategory(testCases, _category);
 
-        // ✅ Create NUnit test cases dynamically
+        // Create NUnit test cases dynamically
         foreach (var testCase in filteredCases)
         {
             var parameters1 = new TestCaseParameters(testCase.Values.Select(v => (object)v.Value).ToArray());
@@ -68,7 +88,6 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
                 suite,
                 parameters1);
         }
-
     }
 
     private IEnumerable<TestCase> FilterTestCasesByCategory(IEnumerable<TestCase> testCases, TestCaseCategory category)

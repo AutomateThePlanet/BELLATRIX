@@ -79,24 +79,24 @@ public class HybridArtificialBeeColonyTestCaseGenerator
 
         // Select test cases with weighted probability
         var probabilitySelection = evaluatedPopulation
-            .OrderByDescending(tc => tc.Score / totalScore + _random.NextDouble() * 0.1) // Adds slight randomness for diversity
-            .Take(Math.Max(1, (int)(_config.PopulationSize * 0.1))) // Adjusted selection size
+            .OrderByDescending(tc => tc.Score / totalScore + _random.NextDouble() * _config.OnlookerSelectionRatio) // Adds slight randomness for diversity
+            .Take(Math.Max(1, (int)(_config.FinalPopulationSelectionRatio * _config.OnlookerSelectionRatio))) // Adjusted selection size
             .ToList();
 
         foreach (var testCase in probabilitySelection)
         {
-            if (uniquePopulation.Count < _config.PopulationSize)
+            if (uniquePopulation.Count < _config.FinalPopulationSelectionRatio)
             {
                 uniquePopulation.Add(testCase);
             }
         }
 
         // If population is still below expected size, add more from evaluated cases
-        if (uniquePopulation.Count < _config.PopulationSize)
+        if (uniquePopulation.Count < _config.FinalPopulationSelectionRatio)
         {
             foreach (var testCase in evaluatedPopulation)
             {
-                if (uniquePopulation.Count >= _config.PopulationSize)
+                if (uniquePopulation.Count >= _config.FinalPopulationSelectionRatio)
                 {
                     break;
                 }
@@ -183,7 +183,7 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         var poorPerformingTestCases = population
             .Select(tc => Tuple.Create(tc, _testCaseEvaluator.Evaluate(tc)))
             .OrderBy(x => x.Item2)
-            .Take((int)(_config.PopulationSize * 0.3))
+            .Take((int)(_config.FinalPopulationSelectionRatio * _config.ScoutSelectionRatio))
             .ToList();
 
         foreach (var testCase in poorPerformingTestCases)
