@@ -172,7 +172,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
         // 🔹 Precompute pairwise scores for baseline comparison
         private void PrecomputePairwiseScores()
         {
-            var pairwiseTestCases = PairwiseTestCaseGenerator.GenerateTestCases(_parameters);
+            var pairwiseTestCases = ImprovedPairwiseTestCaseGenerator.GenerateTestCases(_parameters);
             var testCaseEvaluator = new TestCaseEvaluator();
             _sortedPairwiseScores = testCaseEvaluator.EvaluatePopulationToList(pairwiseTestCases.ToHashSet());
         }

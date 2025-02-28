@@ -33,7 +33,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 new MockInputParameter("Param3", "X", "Y")
             };
 
-            var testCases = PairwiseTestCaseGenerator.GenerateTestCases(parameters);
+            var testCases = ImprovedPairwiseTestCaseGenerator.GenerateTestCases(parameters);
 
             Assert.That(testCases, Is.Not.Null);
             Assert.That(testCases.Count, Is.GreaterThan(0), "Test cases should be generated.");
@@ -83,7 +83,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 new MockInputParameter("Param3", "X", "Y")
             };
 
-            var testCases = PairwiseTestCaseGenerator.GenerateTestCases(parameters);
+            var testCases = ImprovedPairwiseTestCaseGenerator.GenerateTestCases(parameters);
             Assert.That(testCases.Count, Is.LessThan(12), "Pairwise should generate fewer test cases than full cartesian.");
         }
 
@@ -95,14 +95,14 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 new MockInputParameter("Param1", "A", "B", "C")
             };
 
-            var ex = Assert.Throws<ArgumentException>(() => PairwiseTestCaseGenerator.GenerateTestCases(parameters));
+            var ex = Assert.Throws<ArgumentException>(() => ImprovedPairwiseTestCaseGenerator.GenerateTestCases(parameters));
             Assert.That(ex.Message, Is.EqualTo("Pairwise testing requires at least two parameters."));
         }
 
         [Test]
         public void HandlesEmptyParameterList()
         {
-            var ex = Assert.Throws<ArgumentException>(() => PairwiseTestCaseGenerator.GenerateTestCases(new List<IInputParameter>()));
+            var ex = Assert.Throws<ArgumentException>(() => ImprovedPairwiseTestCaseGenerator.GenerateTestCases(new List<IInputParameter>()));
             Assert.That(ex.Message, Is.EqualTo("Pairwise testing requires at least two parameters."));
         }
 
@@ -116,7 +116,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 new MockInputParameter("Param3", "X", "Y")
             };
 
-            var testCases = PairwiseTestCaseGenerator.GenerateTestCases(parameters);
+            var testCases = ImprovedPairwiseTestCaseGenerator.GenerateTestCases(parameters);
             var uniqueTestCases = new HashSet<string>(testCases.Select(tc => string.Join(",", tc.Values.Select(v => v.Value))));
 
             Assert.That(uniqueTestCases.Count, Is.EqualTo(testCases.Count), "No duplicate test cases should be generated.");

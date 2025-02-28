@@ -13,6 +13,15 @@ public class TestCaseEvaluator
         _allowMultipleInvalidInputs = allowMultipleInvalidInputs;
     }
 
+    // 🔹 Evaluates a population of test cases and assigns scores
+    public void EvaluatePopulation(HashSet<TestCase> population)
+    {
+        foreach (var testCase in population)
+        {
+            Evaluate(testCase);
+        }
+    }
+
     public double Evaluate(TestCase testCase)
     {
         double score = 0;

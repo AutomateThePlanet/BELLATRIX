@@ -3,7 +3,7 @@ namespace Bellatrix.DataGeneration.Models;
 public class TestCase
 {
     public List<TestValue> Values { get; set; } = new List<TestValue>();
-
+    public double Score { get; set; }
     public override int GetHashCode()
     {
         unchecked

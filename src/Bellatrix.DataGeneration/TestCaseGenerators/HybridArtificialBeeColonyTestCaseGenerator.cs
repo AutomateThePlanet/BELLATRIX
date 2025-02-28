@@ -72,7 +72,7 @@ public class HybridArtificialBeeColonyTestCaseGenerator
 
     private HashSet<TestCase> GenerateInitialPopulation(List<IInputParameter> parameters)
     {
-        return PairwiseTestCaseGenerator.GenerateTestCases(parameters).ToHashSet();
+        return ImprovedPairwiseTestCaseGenerator.GenerateTestCases(parameters).ToHashSet();
     }
 
     private int CalculateElitePopulationSize(int populationSize)
