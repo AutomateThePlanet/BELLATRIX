@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using System.Diagnostics;
-using Bellatrix.Web.Tests.MetaheuristicVersion2.Core;
-using Bellatrix.Web.Tests.MetaheuristicVersion2.TestValueProviders;
-using Bellatrix.Web;
 using Bellatrix.DataGeneration.Parameters;
+using Bellatrix.DataGeneration.Contracts;
+using Bellatrix.DataGeneration.TestCaseGenerators;
 
 namespace Bellatrix.DataGeneration.Tests.Tests
 {
@@ -15,15 +14,14 @@ namespace Bellatrix.DataGeneration.Tests.Tests
     {
         private const int Iterations = 10;
         private List<IInputParameter> _parameters;
-        private List<ABCParameterSet> _parameterSets;
-        private Dictionary<ABCParameterSet, List<double>> _abcScores = new();
-        private Dictionary<ABCParameterSet, List<double>> _pairwiseScores = new();
+        private List<HybridArtificialBeeColonyConfig> _parameterSets;
+        private Dictionary<HybridArtificialBeeColonyConfig, List<double>> _abcScores = new();
+        private Dictionary<HybridArtificialBeeColonyConfig, List<double>> _pairwiseScores = new();
         private List<KeyValuePair<string[], double>> _sortedPairwiseScores = new();
 
         [SetUp]
         public void SetUp()
         {
-            RegisterTestValueProviders();
             InitializeParameters();
             InitializeParameterSets();
             PrecomputePairwiseScores();
@@ -44,20 +42,12 @@ namespace Bellatrix.DataGeneration.Tests.Tests
             PrintBestPairwisePerformance();
         }
 
-        // 🔹 Register test value providers for different input types
-        private void RegisterTestValueProviders()
-        {
-            ServicesCollection.Current.RegisterType<IComponentTestValuesProviderStrategy<Email>, EmailTestValueProviderStrategy>();
-            ServicesCollection.Current.RegisterType<IComponentTestValuesProviderStrategy<Phone>, PhoneTestValueProviderStrategy>();
-            ServicesCollection.Current.RegisterType<IComponentTestValuesProviderStrategy<TextField>, TextFieldTestValueProviderStrategy>();
-        }
-
         // 🔹 Initialize input parameters for testing different fields
         private void InitializeParameters()
         {
             _parameters = new List<IInputParameter>
             {
-                new ComponentInputParameter<TextField>(isManualMode: true, customValues: new[]
+                new TextDataParameter(isManualMode: true, customValues: new[]
                 {
                     Tuple.Create("Normal1", TestValueCategory.Valid),
                     Tuple.Create("BoundaryMin-1", TestValueCategory.BoundaryInvalid),
@@ -66,7 +56,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                     Tuple.Create("BoundaryMax+1", TestValueCategory.BoundaryInvalid),
                     Tuple.Create("Invalid1", TestValueCategory.Invalid)
                 }),
-                new ComponentInputParameter<Email>(isManualMode: true, customValues: new[]
+                new EmailDataParameter(isManualMode: true, customValues: new[]
                 {
                     Tuple.Create("test@mail.comMIN-1", TestValueCategory.BoundaryInvalid),
                     Tuple.Create("test@mail.comMIN", TestValueCategory.BoundaryValid),
@@ -75,12 +65,12 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                     Tuple.Create("test@mail.com", TestValueCategory.Valid),
                     Tuple.Create("invalid@mail", TestValueCategory.Invalid)
                 }),
-                new ComponentInputParameter<Phone>(isManualMode: true, customValues: new[]
+                new PhoneDataParameter(isManualMode: true, customValues: new[]
                 {
                     Tuple.Create("+359888888888", TestValueCategory.Valid),
                     Tuple.Create("000000", TestValueCategory.Invalid)
                 }),
-                new ComponentInputParameter<TextField>(isManualMode: true, customValues: new[]
+                new TextDataParameter(isManualMode: true, customValues: new[]
                 {
                     Tuple.Create("NormalX", TestValueCategory.Valid)
                 }),
@@ -90,56 +80,91 @@ namespace Bellatrix.DataGeneration.Tests.Tests
         // 🔹 Define different ABC parameter sets for benchmarking
         public void InitializeParameterSets()
         {
-            _parameterSets = new List<ABCParameterSet>()
+            _parameterSets = new List<HybridArtificialBeeColonyConfig>
             {
                 // 🔹 Best general configuration: Balanced selection & mutation
-                new ABCParameterSet(
-                    selectionRatio: 0.6,         // Selects 60% of test cases for the next generation
-                    eliteSelectionRatio: 0.5,    // Keeps 50% of the best test cases unchanged
-                    maxIterations: 70,           // Runs for 70 generations
-                    mutationRate: 0.2),          // Introduces minimal mutation (only 20% chance)
-                
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.6,
+                    EliteSelectionRatio = 0.5,
+                    TotalPopulationGenerations = 70,
+                    MutationRate = 0.2,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = false
+                },
+
                 // 🔹 Stronger selection & refinement: Ideal when test cases must be stable
-                new ABCParameterSet(
-                    selectionRatio: 0.6,
-                    eliteSelectionRatio: 0.6,    // Retains more top test cases (60%)
-                    maxIterations: 100,         // More iterations (100) for fine-tuning
-                    mutationRate: 0.3),         // Moderate mutation for controlled variation
-                
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.6,
+                    EliteSelectionRatio = 0.6,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.3,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = false
+                },
+
                 // 🔹 Higher mutation rate: Ensures wider test coverage
-                new ABCParameterSet(
-                    selectionRatio: 0.6,
-                    eliteSelectionRatio: 0.6,
-                    maxIterations: 100,
-                    mutationRate: 0.4),         // Higher mutation (40%) for increased diversity
-                
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.6,
+                    EliteSelectionRatio = 0.6,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.4,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = false
+                },
+
                 // 🔹 Balanced exploitation & diversity: Great for complex test scenarios
-                new ABCParameterSet(
-                    selectionRatio: 0.5,
-                    eliteSelectionRatio: 0.6,
-                    maxIterations: 100,
-                    mutationRate: 0.4),         
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.5,
+                    EliteSelectionRatio = 0.6,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.4,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = false
+                },
 
                 // 🔹 More diverse test cases: Prevents overfitting to high-scoring cases
-                new ABCParameterSet(
-                    selectionRatio: 0.4,
-                    eliteSelectionRatio: 0.6,
-                    maxIterations: 100,
-                    mutationRate: 0.4),         
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.4,
+                    EliteSelectionRatio = 0.6,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.4,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = false
+                },
 
                 // 🔹 Balanced mutation & selection: Useful when both exploration and exploitation are needed
-                new ABCParameterSet(
-                    selectionRatio: 0.5,
-                    eliteSelectionRatio: 0.5,
-                    maxIterations: 100,
-                    mutationRate: 0.4),         
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.5,
+                    EliteSelectionRatio = 0.5,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.4,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = false
+                },
 
                 // 🔹 Maximum exploration: Ensures high diversity, best for finding edge cases
-                new ABCParameterSet(
-                    selectionRatio: 0.4,
-                    eliteSelectionRatio: 0.5,
-                    maxIterations: 100,
-                    mutationRate: 0.4),
+                new HybridArtificialBeeColonyConfig
+                {
+                    FinalPopulationSelectionRatio = 0.4,
+                    EliteSelectionRatio = 0.5,
+                    TotalPopulationGenerations = 100,
+                    MutationRate = 0.4,
+                    AllowMultipleInvalidInputs = false,
+                    DisableOnlookerSelection = true,
+                    DisableScoutPhase = false
+                }
             };
         }
 
@@ -157,7 +182,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
         }
 
         // 🔹 Run benchmarking for a given ABC parameter set
-        private void RunBenchmarkForParameterSet(ABCParameterSet paramSet)
+        private void RunBenchmarkForParameterSet(HybridArtificialBeeColonyConfig paramSet)
         {
             Console.WriteLine($"\n========== Testing ABC with Parameters: {paramSet} ==========");
             _abcScores[paramSet] = new List<double>();
@@ -173,31 +198,24 @@ namespace Bellatrix.DataGeneration.Tests.Tests
         }
 
         // 🔹 Run a single iteration of ABC optimization
-        private double RunSingleIteration(ABCParameterSet paramSet)
+        private double RunSingleIteration(HybridArtificialBeeColonyConfig config)
         {
-            var abcGenerator = new HybridArtificialBeeColonyTestCaseGenerator(
-                selectionRatio: paramSet.SelectionRatio,
-                eliteSelectionRatio: paramSet.EliteSelectionRatio,
-                maxIterations: paramSet.MaxIterations,
-                mutationRate: paramSet.MutationRate,
-                allowMultipleInvalidInputs: false,
-                disableOnlookerSelection: true,
-                disableScoutPhase: false);
+            var abcGenerator = new HybridArtificialBeeColonyTestCaseGenerator(config);
 
             var abcTestCases = abcGenerator.RunABCAlgorithm(_parameters);
             var testCaseEvaluator = new TestCaseEvaluator();
             var abcScores = testCaseEvaluator.EvaluatePopulationToDictionary(abcTestCases, _parameters);
             double abcTotalScore = abcScores.Values.Sum();
 
-            var topCount = (int)(_sortedPairwiseScores.Count * paramSet.SelectionRatio);
+            var topCount = (int)(_sortedPairwiseScores.Count * config.FinalPopulationSelectionRatio);
             var pairwiseTotalScore = _sortedPairwiseScores.Take(topCount).Sum(p => p.Value);
-            _pairwiseScores[paramSet].Add(pairwiseTotalScore);
+            _pairwiseScores[config].Add(pairwiseTotalScore);
 
             return abcTotalScore;
         }
 
         // 🔹 Print results for each ABC parameter set
-        private void PrintResultsForParameterSet(ABCParameterSet paramSet)
+        private void PrintResultsForParameterSet(HybridArtificialBeeColonyConfig paramSet)
         {
             var avgAbcScore = _abcScores[paramSet].Average();
             var avgPairwiseScore = _pairwiseScores[paramSet].Average();
@@ -214,9 +232,9 @@ namespace Bellatrix.DataGeneration.Tests.Tests
         {
             var bestABC = _abcScores.OrderByDescending(p => p.Value.Average()).First();
             Console.WriteLine("\n========== Best ABC Parameters ==========");
-            Console.WriteLine($"Selection Ratio: {bestABC.Key.SelectionRatio}");
+            Console.WriteLine($"Final Population Ratio: {bestABC.Key.FinalPopulationSelectionRatio}");
             Console.WriteLine($"Elite Selection Ratio: {bestABC.Key.EliteSelectionRatio}");
-            Console.WriteLine($"Max Iterations: {bestABC.Key.MaxIterations}");
+            Console.WriteLine($"Total Generations: {bestABC.Key.TotalPopulationGenerations}");
             Console.WriteLine($"Mutation Rate: {bestABC.Key.MutationRate}");
             Console.WriteLine($"Achieved Avg Score: {bestABC.Value.Average()}");
         }

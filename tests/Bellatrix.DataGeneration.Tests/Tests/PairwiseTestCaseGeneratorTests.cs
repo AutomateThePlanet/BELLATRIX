@@ -1,5 +1,6 @@
-﻿using Bellatrix.DataGeneration.Parameters;
-using Bellatrix.Web.Tests.MetaheuristicVersion2.Core;
+﻿using Bellatrix.DataGeneration.Contracts;
+using Bellatrix.DataGeneration.Parameters;
+using Bellatrix.DataGeneration.TestCaseGenerators;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
