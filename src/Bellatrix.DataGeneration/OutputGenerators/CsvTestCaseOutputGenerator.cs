@@ -3,7 +3,7 @@ using Bellatrix.DataGeneration.OutputGenerators;
 
 public class CsvTestCaseOutputGenerator : TestCaseOutputGenerator
 {
-    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategoty testCaseCategoty = TestCaseCategoty.All)
+    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategoty = TestCaseCategory.All)
     {
         Console.WriteLine($"\n🔹 **Generated CSV Output ({methodName}):**\n");
 

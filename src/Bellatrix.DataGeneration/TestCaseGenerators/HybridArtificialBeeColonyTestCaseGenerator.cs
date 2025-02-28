@@ -24,7 +24,7 @@ public class HybridArtificialBeeColonyTestCaseGenerator
     }
 
     // 🔹 Public API: Generates and outputs optimized test cases
-    public void GenerateTestCases(string methodName, List<IInputParameter> parameters, TestCaseCategoty testCaseCategoty = TestCaseCategoty.All)
+    public void GenerateTestCases(string methodName, List<IInputParameter> parameters, TestCaseCategory testCaseCategoty = TestCaseCategory.All)
     {
         var testCases = RunABCAlgorithm(parameters);
         _config.OutputGenerator.GenerateOutput(methodName, testCases, testCaseCategoty);

@@ -1,5 +1,5 @@
 ﻿namespace Bellatrix.DataGeneration.OutputGenerators;
-public enum TestCaseCategoty
+public enum TestCaseCategory
 {
     All,
     Valid,

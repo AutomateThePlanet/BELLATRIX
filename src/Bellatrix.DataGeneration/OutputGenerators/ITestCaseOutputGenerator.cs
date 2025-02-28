@@ -3,5 +3,5 @@
 namespace Bellatrix.DataGeneration.OutputGenerators;
 public interface ITestCaseOutputGenerator
 {
-    void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategoty testCaseCategoty = TestCaseCategoty.All);
+    void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategoty = TestCaseCategory.All);
 }

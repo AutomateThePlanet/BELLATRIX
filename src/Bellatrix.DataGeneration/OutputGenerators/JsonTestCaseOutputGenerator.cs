@@ -4,7 +4,7 @@ using System.Text.Json;
 
 public class JsonTestCaseOutputGenerator : TestCaseOutputGenerator
 {
-    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategoty testCaseCategoty = TestCaseCategoty.All)
+    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategoty = TestCaseCategory.All)
     {
         var jsonOutput = JsonSerializer.Serialize(FilterTestCasesByCategory(testCases, testCaseCategoty), new JsonSerializerOptions { WriteIndented = true });
         Console.WriteLine($"\n🔹 **Generated JSON Output ({methodName}):**\n");

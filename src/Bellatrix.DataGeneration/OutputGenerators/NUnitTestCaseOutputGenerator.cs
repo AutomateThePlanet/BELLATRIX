@@ -3,7 +3,7 @@ using Bellatrix.DataGeneration.OutputGenerators;
 
 public class NUnitTestCaseOutputGenerator : TestCaseOutputGenerator
 {
-    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategoty testCaseCategoty = TestCaseCategoty.All)
+    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategoty = TestCaseCategory.All)
     {
         Console.WriteLine("\n🔹 **Generated NUnit TestCaseSource Method:**\n");
         Console.WriteLine($"public static IEnumerable<object[]> {methodName}()");

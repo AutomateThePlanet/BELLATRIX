@@ -12,7 +12,7 @@ public class FactoryMethodTestCaseOutputGenerator : TestCaseOutputGenerator
         _methodName = methodName;
     }
 
-    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategoty testCaseCategoty = TestCaseCategoty.All)
+    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategoty = TestCaseCategory.All)
     {
         Console.WriteLine($"\n🔹 **Generated Factory Method Output for {_modelName}:**\n");
         Console.WriteLine($"public static IEnumerable<{_modelName}> {_methodName}()");
