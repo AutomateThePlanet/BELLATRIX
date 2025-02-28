@@ -7,9 +7,13 @@ namespace Bellatrix.DataGeneration.TestValueProviders
     public abstract class DataProviderStrategy : IDataProviderStrategy
     {
         protected readonly TestValueGenerationSettings Config;
+        protected readonly int? MaxBoundary;
+        protected readonly int? MinBoundary;
 
-        protected DataProviderStrategy()
+        protected DataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
         {
+            MinBoundary = minBoundary;
+            MaxBoundary = maxBoundary;
             Config = ConfigurationService.GetSection<TestValueGenerationSettings>();
         }
 
@@ -55,8 +59,20 @@ namespace Bellatrix.DataGeneration.TestValueProviders
             return testValues;
         }
 
+        protected virtual void AddBoundaryValues(List<TestValue> testValues)
+        {
+            if (MinBoundary != null && MaxBoundary != null)
+            {
+                testValues.Add(new TestValue(GenerateValue((int)(MinBoundary - 1)), TestValueCategory.BoundaryInvalid));
+                testValues.Add(new TestValue(GenerateValue((int)MinBoundary), TestValueCategory.BoundaryValid));
+                testValues.Add(new TestValue(GenerateValue((int)MaxBoundary), TestValueCategory.BoundaryValid));
+                testValues.Add(new TestValue(GenerateValue((int)MaxBoundary + 1), TestValueCategory.BoundaryInvalid));
+            }
+        }
+
         // Template Method Design Pattern
-        protected abstract void AddBoundaryValues(List<TestValue> testValues);
+        protected abstract string GenerateValue(int length);
+
         protected abstract string GetInputTypeName();
     }
 }

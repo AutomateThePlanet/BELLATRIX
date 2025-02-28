@@ -97,8 +97,8 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 // 🔹 Stronger selection & refinement: Ideal when test cases must be stable
                 new HybridArtificialBeeColonyConfig
                 {
-                    FinalPopulationSelectionRatio = 0.6,
-                    EliteSelectionRatio = 0.6,
+                    FinalPopulationSelectionRatio = 0.5,
+                    EliteSelectionRatio = 0.4,
                     TotalPopulationGenerations = 100,
                     MutationRate = 0.3,
                     AllowMultipleInvalidInputs = false,
@@ -118,53 +118,53 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                     DisableScoutPhase = false
                 },
 
-                // 🔹 Balanced exploitation & diversity: Great for complex test scenarios
-                new HybridArtificialBeeColonyConfig
-                {
-                    FinalPopulationSelectionRatio = 0.5,
-                    EliteSelectionRatio = 0.6,
-                    TotalPopulationGenerations = 100,
-                    MutationRate = 0.4,
-                    AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
-                    DisableScoutPhase = false
-                },
+                //// 🔹 Balanced exploitation & diversity: Great for complex test scenarios
+                //new HybridArtificialBeeColonyConfig
+                //{
+                //    FinalPopulationSelectionRatio = 0.5,
+                //    EliteSelectionRatio = 0.6,
+                //    TotalPopulationGenerations = 100,
+                //    MutationRate = 0.4,
+                //    AllowMultipleInvalidInputs = false,
+                //    DisableOnlookerSelection = true,
+                //    DisableScoutPhase = false
+                //},
 
-                // 🔹 More diverse test cases: Prevents overfitting to high-scoring cases
-                new HybridArtificialBeeColonyConfig
-                {
-                    FinalPopulationSelectionRatio = 0.4,
-                    EliteSelectionRatio = 0.6,
-                    TotalPopulationGenerations = 100,
-                    MutationRate = 0.4,
-                    AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
-                    DisableScoutPhase = false
-                },
+                //// 🔹 More diverse test cases: Prevents overfitting to high-scoring cases
+                //new HybridArtificialBeeColonyConfig
+                //{
+                //    FinalPopulationSelectionRatio = 0.4,
+                //    EliteSelectionRatio = 0.6,
+                //    TotalPopulationGenerations = 100,
+                //    MutationRate = 0.4,
+                //    AllowMultipleInvalidInputs = false,
+                //    DisableOnlookerSelection = true,
+                //    DisableScoutPhase = false
+                //},
 
-                // 🔹 Balanced mutation & selection: Useful when both exploration and exploitation are needed
-                new HybridArtificialBeeColonyConfig
-                {
-                    FinalPopulationSelectionRatio = 0.5,
-                    EliteSelectionRatio = 0.5,
-                    TotalPopulationGenerations = 100,
-                    MutationRate = 0.4,
-                    AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
-                    DisableScoutPhase = false
-                },
+                //// 🔹 Balanced mutation & selection: Useful when both exploration and exploitation are needed
+                //new HybridArtificialBeeColonyConfig
+                //{
+                //    FinalPopulationSelectionRatio = 0.5,
+                //    EliteSelectionRatio = 0.5,
+                //    TotalPopulationGenerations = 100,
+                //    MutationRate = 0.4,
+                //    AllowMultipleInvalidInputs = false,
+                //    DisableOnlookerSelection = true,
+                //    DisableScoutPhase = false
+                //},
 
-                // 🔹 Maximum exploration: Ensures high diversity, best for finding edge cases
-                new HybridArtificialBeeColonyConfig
-                {
-                    FinalPopulationSelectionRatio = 0.4,
-                    EliteSelectionRatio = 0.5,
-                    TotalPopulationGenerations = 100,
-                    MutationRate = 0.4,
-                    AllowMultipleInvalidInputs = false,
-                    DisableOnlookerSelection = true,
-                    DisableScoutPhase = false
-                }
+                //// 🔹 Maximum exploration: Ensures high diversity, best for finding edge cases
+                //new HybridArtificialBeeColonyConfig
+                //{
+                //    FinalPopulationSelectionRatio = 0.4,
+                //    EliteSelectionRatio = 0.5,
+                //    TotalPopulationGenerations = 100,
+                //    MutationRate = 0.4,
+                //    AllowMultipleInvalidInputs = false,
+                //    DisableOnlookerSelection = true,
+                //    DisableScoutPhase = false
+                //}
             };
         }
 
