@@ -17,7 +17,7 @@ namespace Bellatrix.DataGeneration.TestValueProviders
             Config = ConfigurationService.GetSection<TestValueGenerationSettings>();
         }
 
-        public virtual List<TestValue> GenerateTestValues(bool? includeBoundaryValues = null, bool? allowValidEquivalenceClasses = null, bool? allowInvalidEquivalenceClasses = null, params Tuple<string, TestValueCategory>[] customValues)
+        public virtual List<TestValue> GenerateTestValues(bool? includeBoundaryValues = null, bool? allowValidEquivalenceClasses = null, bool? allowInvalidEquivalenceClasses = null, params TestValue[] customValues)
         {
             var testValues = new List<TestValue>();
 
@@ -53,7 +53,7 @@ namespace Bellatrix.DataGeneration.TestValueProviders
             // **Custom Values**
             foreach (var customValue in customValues)
             {
-                testValues.Add(new TestValue(customValue.Item1, customValue.Item2));
+                testValues.Add(new TestValue(customValue.Value, customValue.Category));
             }
 
             return testValues;

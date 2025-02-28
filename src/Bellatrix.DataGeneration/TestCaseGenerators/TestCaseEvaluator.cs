@@ -1,5 +1,6 @@
 ﻿using Bellatrix.DataGeneration.Contracts;
 using Bellatrix.DataGeneration.Parameters;
+using Bellatrix.DataGeneration.Models;
 
 namespace Bellatrix.DataGeneration.TestCaseGenerators;
 
@@ -12,44 +13,39 @@ public class TestCaseEvaluator
         _allowMultipleInvalidInputs = allowMultipleInvalidInputs;
     }
 
-    public double Evaluate(string[] testCase, List<IInputParameter> parameters)
+    public double Evaluate(TestCase testCase)
     {
         double score = 0;
-        var invalidCount = testCase.Count(value =>
-            parameters.Any(p => p.TestValues.Any(tv => tv.Value == value && tv.Category == TestValueCategory.Invalid)));
+        var invalidCount = testCase.Values.Count(value => value.Category == TestValueCategory.Invalid || value.Category == TestValueCategory.BoundaryInvalid);
 
         if (!_allowMultipleInvalidInputs && invalidCount > 1)
         {
             return -100;
         }
 
-        foreach (var value in testCase)
+        foreach (var value in testCase.Values)
         {
-            var matchedValue = parameters.SelectMany(p => p.TestValues).FirstOrDefault(tv => tv.Value == value);
-            if (matchedValue != null)
+            switch (value.Category)
             {
-                switch (matchedValue.Category)
-                {
-                    case TestValueCategory.BoundaryValid: score += 4; break;
-                    case TestValueCategory.Valid: score += 2; break;
-                    case TestValueCategory.BoundaryInvalid: score += -1; break;
-                    case TestValueCategory.Invalid: score += -2; break;
-                }
+                case TestValueCategory.BoundaryValid: score += 4; break;
+                case TestValueCategory.Valid: score += 2; break;
+                case TestValueCategory.BoundaryInvalid: score += -1; break;
+                case TestValueCategory.Invalid: score += -2; break;
             }
         }
 
         return score;
     }
 
-    public List<Tuple<string[], double>> EvaluatePopulationToList(List<string[]> population, List<IInputParameter> parameters)
+    public List<Tuple<TestCase, double>> EvaluatePopulationToList(List<TestCase> population)
     {
-        return population.Select(tc => Tuple.Create(tc, Evaluate(tc, parameters)))
+        return population.Select(tc => Tuple.Create(tc, Evaluate(tc)))
                          .OrderByDescending(x => x.Item2)
                          .ToList();
     }
 
-    public Dictionary<string[], double> EvaluatePopulationToDictionary(List<string[]> population, List<IInputParameter> parameters)
+    public Dictionary<TestCase, double> EvaluatePopulationToDictionary(List<TestCase> population)
     {
-        return population.ToDictionary(tc => tc, tc => Evaluate(tc, parameters)); ;
+        return population.ToDictionary(tc => tc, tc => Evaluate(tc)); ;
     }
 }

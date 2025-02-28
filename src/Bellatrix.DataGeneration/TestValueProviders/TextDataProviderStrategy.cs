@@ -2,7 +2,7 @@
 {
     public class TextDataProviderStrategy : DataProviderStrategy
     {
-        public TextDataProviderStrategy(int minBoundary, int maxBoundary) 
+        public TextDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null) 
             : base(minBoundary, maxBoundary)
         {
         }

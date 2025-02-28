@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Bellatrix.DataGeneration.Parameters;
 using Bellatrix.DataGeneration.Contracts;
 using Bellatrix.DataGeneration.TestCaseGenerators;
+using Bellatrix.DataGeneration.Models;
 
 namespace Bellatrix.DataGeneration.Tests.Tests
 {
@@ -17,7 +18,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
         private List<HybridArtificialBeeColonyConfig> _parameterSets;
         private Dictionary<HybridArtificialBeeColonyConfig, List<double>> _abcScores = new();
         private Dictionary<HybridArtificialBeeColonyConfig, List<double>> _pairwiseScores = new();
-        private List<KeyValuePair<string[], double>> _sortedPairwiseScores = new();
+        private List<Tuple<TestCase, double>> _sortedPairwiseScores = new();
 
         [SetUp]
         public void SetUp()
@@ -49,30 +50,30 @@ namespace Bellatrix.DataGeneration.Tests.Tests
             {
                 new TextDataParameter(isManualMode: true, customValues: new[]
                 {
-                    Tuple.Create("Normal1", TestValueCategory.Valid),
-                    Tuple.Create("BoundaryMin-1", TestValueCategory.BoundaryInvalid),
-                    Tuple.Create("BoundaryMin", TestValueCategory.BoundaryValid),
-                    Tuple.Create("BoundaryMax", TestValueCategory.BoundaryValid),
-                    Tuple.Create("BoundaryMax+1", TestValueCategory.BoundaryInvalid),
-                    Tuple.Create("Invalid1", TestValueCategory.Invalid)
+                    new TestValue("Normal1", TestValueCategory.Valid),
+                    new TestValue("BoundaryMin-1", TestValueCategory.BoundaryInvalid),
+                    new TestValue("BoundaryMin", TestValueCategory.BoundaryValid),
+                    new TestValue("BoundaryMax", TestValueCategory.BoundaryValid),
+                    new TestValue("BoundaryMax+1", TestValueCategory.BoundaryInvalid),
+                    new TestValue("Invalid1", TestValueCategory.Invalid)
                 }),
                 new EmailDataParameter(isManualMode: true, customValues: new[]
                 {
-                    Tuple.Create("test@mail.comMIN-1", TestValueCategory.BoundaryInvalid),
-                    Tuple.Create("test@mail.comMIN", TestValueCategory.BoundaryValid),
-                    Tuple.Create("test@mail.comMAX", TestValueCategory.BoundaryValid),
-                    Tuple.Create("test@mail.comMAX+1", TestValueCategory.BoundaryInvalid),
-                    Tuple.Create("test@mail.com", TestValueCategory.Valid),
-                    Tuple.Create("invalid@mail", TestValueCategory.Invalid)
+                    new TestValue("test@mail.comMIN-1", TestValueCategory.BoundaryInvalid),
+                    new TestValue("test@mail.comMIN", TestValueCategory.BoundaryValid),
+                    new TestValue("test@mail.comMAX", TestValueCategory.BoundaryValid),
+                    new TestValue("test@mail.comMAX+1", TestValueCategory.BoundaryInvalid),
+                    new TestValue("test@mail.com", TestValueCategory.Valid),
+                    new TestValue("invalid@mail", TestValueCategory.Invalid)
                 }),
                 new PhoneDataParameter(isManualMode: true, customValues: new[]
                 {
-                    Tuple.Create("+359888888888", TestValueCategory.Valid),
-                    Tuple.Create("000000", TestValueCategory.Invalid)
+                    new TestValue("+359888888888", TestValueCategory.Valid),
+                    new TestValue("000000", TestValueCategory.Invalid)
                 }),
                 new TextDataParameter(isManualMode: true, customValues: new[]
                 {
-                    Tuple.Create("NormalX", TestValueCategory.Valid)
+                    new TestValue("NormalX", TestValueCategory.Valid)
                 }),
             };
         }
@@ -87,7 +88,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 {
                     FinalPopulationSelectionRatio = 0.6,
                     EliteSelectionRatio = 0.5,
-                    TotalPopulationGenerations = 70,
+                    TotalPopulationGenerations = 30,
                     MutationRate = 0.2,
                     AllowMultipleInvalidInputs = false,
                     DisableOnlookerSelection = true,
@@ -99,7 +100,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 {
                     FinalPopulationSelectionRatio = 0.5,
                     EliteSelectionRatio = 0.4,
-                    TotalPopulationGenerations = 100,
+                    TotalPopulationGenerations = 30,
                     MutationRate = 0.3,
                     AllowMultipleInvalidInputs = false,
                     DisableOnlookerSelection = true,
@@ -111,7 +112,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 {
                     FinalPopulationSelectionRatio = 0.6,
                     EliteSelectionRatio = 0.6,
-                    TotalPopulationGenerations = 100,
+                    TotalPopulationGenerations = 30,
                     MutationRate = 0.4,
                     AllowMultipleInvalidInputs = false,
                     DisableOnlookerSelection = true,
@@ -173,12 +174,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
         {
             var pairwiseTestCases = ImprovedPairwiseTestCaseGenerator.GenerateTestCases(_parameters);
             var testCaseEvaluator = new TestCaseEvaluator();
-            var pairwiseScores = testCaseEvaluator.EvaluatePopulationToDictionary(pairwiseTestCases, _parameters);
-
-            _sortedPairwiseScores = pairwiseScores
-                .OrderByDescending(x => x.Value)
-                .ThenBy(x => string.Join(",", x.Key))
-                .ToList();
+            _sortedPairwiseScores = testCaseEvaluator.EvaluatePopulationToList(pairwiseTestCases);
         }
 
         // 🔹 Run benchmarking for a given ABC parameter set
@@ -204,11 +200,11 @@ namespace Bellatrix.DataGeneration.Tests.Tests
 
             var abcTestCases = abcGenerator.RunABCAlgorithm(_parameters);
             var testCaseEvaluator = new TestCaseEvaluator();
-            var abcScores = testCaseEvaluator.EvaluatePopulationToDictionary(abcTestCases, _parameters);
+            var abcScores = testCaseEvaluator.EvaluatePopulationToDictionary(abcTestCases);
             double abcTotalScore = abcScores.Values.Sum();
 
             var topCount = (int)(_sortedPairwiseScores.Count * config.FinalPopulationSelectionRatio);
-            var pairwiseTotalScore = _sortedPairwiseScores.Take(topCount).Sum(p => p.Value);
+            var pairwiseTotalScore = _sortedPairwiseScores.Take(topCount).Sum(p => p.Item2);
             _pairwiseScores[config].Add(pairwiseTotalScore);
 
             return abcTotalScore;
@@ -225,6 +221,11 @@ namespace Bellatrix.DataGeneration.Tests.Tests
             Console.WriteLine($"✅ ABC Avg Score: {avgAbcScore}");
             Console.WriteLine($"✅ Pairwise Avg Score: {avgPairwiseScore}");
             Console.WriteLine($"📈 Improvement Over Pairwise: {percentageImprovement:F2}%");
+
+            Debug.WriteLine($"\n========== Summary for Parameters: {paramSet} ==========");
+            Debug.WriteLine($"✅ ABC Avg Score: {avgAbcScore}");
+            Debug.WriteLine($"✅ Pairwise Avg Score: {avgPairwiseScore}");
+            Debug.WriteLine($"📈 Improvement Over Pairwise: {percentageImprovement:F2}%");
         }
 
         // 🔹 Print the best ABC parameters
@@ -237,6 +238,13 @@ namespace Bellatrix.DataGeneration.Tests.Tests
             Console.WriteLine($"Total Generations: {bestABC.Key.TotalPopulationGenerations}");
             Console.WriteLine($"Mutation Rate: {bestABC.Key.MutationRate}");
             Console.WriteLine($"Achieved Avg Score: {bestABC.Value.Average()}");
+
+            Debug.WriteLine("\n========== Best ABC Parameters ==========");
+            Debug.WriteLine($"Final Population Ratio: {bestABC.Key.FinalPopulationSelectionRatio}");
+            Debug.WriteLine($"Elite Selection Ratio: {bestABC.Key.EliteSelectionRatio}");
+            Debug.WriteLine($"Total Generations: {bestABC.Key.TotalPopulationGenerations}");
+            Debug.WriteLine($"Mutation Rate: {bestABC.Key.MutationRate}");
+            Debug.WriteLine($"Achieved Avg Score: {bestABC.Value.Average()}");
         }
 
         // 🔹 Print the best pairwise score
@@ -245,6 +253,9 @@ namespace Bellatrix.DataGeneration.Tests.Tests
             var bestPairwise = _pairwiseScores.OrderByDescending(p => p.Value.Average()).First();
             Console.WriteLine("\n========== Best Pairwise Performance ==========");
             Console.WriteLine($"Achieved Avg Score: {bestPairwise.Value.Average()} with ABC parameters: {bestPairwise.Key}");
+
+            Debug.WriteLine("\n========== Best Pairwise Performance ==========");
+            Debug.WriteLine($"Achieved Avg Score: {bestPairwise.Value.Average()} with ABC parameters: {bestPairwise.Key}");
         }
     }
 }

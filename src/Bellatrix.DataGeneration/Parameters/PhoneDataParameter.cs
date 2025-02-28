@@ -9,7 +9,7 @@ namespace Bellatrix.DataGeneration.Parameters
             bool? includeBoundaryValues = null,
             bool? allowValidEquivalenceClasses = null,
             bool? allowInvalidEquivalenceClasses = null,
-            params Tuple<string, TestValueCategory>[] customValues)
+            params TestValue[] customValues)
             : base(new PhoneDataProviderStrategy(),
                   isManualMode,
                   includeBoundaryValues,
