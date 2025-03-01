@@ -209,18 +209,18 @@
   },
   "testValueGenerationSettings": {
     "includeBoundaryValues": true,
-    "allowValidEquivalenceClasses": false,
-    "allowInvalidEquivalenceClasses": false,
-    "inputTypeConfigurations": {
+    "allowValidEquivalenceClasses": true,
+    "allowInvalidEquivalenceClasses": true,
+    "inputTypeSettings": {
       "Email": {
         "ValidEquivalenceClasses": [ "user@example.com", "contact@domain.net" ],
         "InvalidEquivalenceClasses": [
           "invalid-email",
           "plainaddress",
-          "@missingusername.com",
-          "missingdomain@",
-          "user@.com",
-          "user@domain..com"
+          //"@missingusername.com",
+          //"missingdomain@",
+          //"user@.com",
+          //"user@domain..com"
         ]
       },
       "Phone": {
@@ -229,19 +229,19 @@
           "12345",
           "0000000000",
           "abcdefg",
-          "+123",
-          "+359 888",
-          "+359888BADNUM",
-          "(123) 456-7890-ext"
+          //"+123",
+          //"+359 888",
+          //"+359888BADNUM",
+          //"(123) 456-7890-ext"
         ]
       },
       "Text": {
         "ValidEquivalenceClasses": [ "Hello World", "Sample Input" ],
         "InvalidEquivalenceClasses": [
-          "",
-          " ",
-          "\n",
-          "\t",
+          //"",
+          //" ",
+          //"\n",
+          //"\t",
           "!@#$%^&*()",
           "超长文本超长文本超长文本",
           "<script>alert('XSS')</script>",

@@ -15,17 +15,12 @@ public class TestValue
     public override bool Equals(object obj)
     {
         if (obj is not TestValue other) return false;
-        return Value == other.Value && Category == other.Category;
+        return Value.Equals(other.Value);
     }
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            int hash = 17;
-            hash = hash * 31 + Value.GetHashCode();
-            hash = hash * 31 + Category.GetHashCode();
-            return hash;
-        }
+        int hash = Value?.GetHashCode() ?? 17;
+        return hash;
     }
 }

@@ -5,30 +5,46 @@ using Bellatrix.DataGeneration.Parameters;
 
 namespace Bellatrix.DataGeneration.Models
 {
-    public class TestCase
+    public class TestCase : ICloneable
     {
         public List<TestValue> Values { get; set; } = new List<TestValue>();
         public double Score { get; set; }
 
+        public object Clone()
+        {
+            return new TestCase
+            {
+                Values = Values.Select(v => new TestValue(v.Value, v.Category)).ToList(),
+                Score = Score
+            };
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is not TestCase other) return false;
-
-            // Ensure order consistency when comparing
             return Values.SequenceEqual(other.Values);
         }
 
+        // 🔹 Add a Clone method to create a deep copy of TestCase
+        //public TestCase Clone()
+        //{
+        //    return new TestCase
+        //    {
+        //        Values = Values.Select(v => new TestValue(v.Value, v.Category)).ToList(),
+        //        Score = Score
+        //    };
+        //}
+
+
         public override int GetHashCode()
         {
-            unchecked
+            int hash = 17;
+            int index = 1;
+            foreach (var value in Values) // Ensure order consistency
             {
-                int hash = 17;
-                foreach (var value in Values) // No need for OrderBy() unless order varies
-                {
-                    hash = hash * 31 + value.GetHashCode();
-                }
-                return hash;
+                hash = hash * index++ + (value.Value?.GetHashCode() ?? 0); // Use value string hash
             }
+            return hash;
         }
     }
 }

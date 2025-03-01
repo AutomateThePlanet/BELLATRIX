@@ -7,6 +7,7 @@ using Bellatrix.DataGeneration.TestCaseGenerators;
 using Bellatrix.DataGeneration.Parameters;
 using Bellatrix.DataGeneration.OutputGenerators;
 using AngleSharp.Common;
+using System.Diagnostics;
 
 namespace Bellatrix.DataGeneration;
 
@@ -54,10 +55,10 @@ public class HybridArtificialBeeColonyTestCaseGenerator
             nonElitePopulation = MaintainDiversePopulationOnlookerSelection(nonElitePopulation, evaluatedPopulation, _elitCount);
 
             // ✅ Mutate only the non-elite population
-            MutatePopulation(nonElitePopulation, parameters, currentGeneration);
+            MutatePopulation(evaluatedPopulation, nonElitePopulation, parameters, currentGeneration);
 
             // ✅ Merge elite and non-elite populations to keep full size
-            evaluatedPopulation = new HashSet<TestCase>(elitePopulation.Concat(nonElitePopulation));
+            //evaluatedPopulation = new HashSet<TestCase>(elitePopulation.Concat(nonElitePopulation));
 
             // ✅ Perform scout phase if needed
             PerformScoutPhaseIfNeeded(parameters, evaluatedPopulation, nonElitePopulation, currentGeneration);
@@ -127,27 +128,28 @@ public class HybridArtificialBeeColonyTestCaseGenerator
     }
 
     // 🔹 Step 5: Apply Mutations to Non-Elite Population
-    private void MutatePopulation(HashSet<TestCase> evaluatedPopulation, List<IInputParameter> parameters, int iteration)
+    private void MutatePopulation(HashSet<TestCase> evaluatedPopulation, HashSet<TestCase> nonElitPopulation, List<IInputParameter> parameters, int iteration)
     {
         HashSet<TestCase> mutatedCases = new HashSet<TestCase>();
 
-        for (int i = 0; i < evaluatedPopulation.Count; i++)
+        for (int i = 0; i < nonElitPopulation.Count; i++)
         {
-            TestCase originalTestCase = evaluatedPopulation.GetItemByIndex(i);
+            TestCase originalTestCase = nonElitPopulation.GetItemByIndex(i);
             TestCase mutatedTestCase = ApplyMutation(originalTestCase, parameters, iteration);
-
             // Ensure the mutated test case is unique before adding it
-            if (!mutatedTestCase.Equals(originalTestCase) && !evaluatedPopulation.Contains(mutatedTestCase))
+            int originalCount = evaluatedPopulation.Count;
+            double originalScore = _testCaseEvaluator.Evaluate(originalTestCase);
+            double mutatedScore = _testCaseEvaluator.Evaluate(mutatedTestCase);
+            if (!mutatedTestCase.Equals(originalTestCase) 
+                && !evaluatedPopulation.Contains(mutatedTestCase)
+                && mutatedScore > originalScore)
             {
-                mutatedCases.Add(mutatedTestCase);
-            }
-        }
+                evaluatedPopulation.RemoveWhere(tc => tc.Equals(originalTestCase));
+                evaluatedPopulation.Add(mutatedTestCase);
 
-        // Remove old non-elite test cases and add new mutated cases
-        foreach (var testCase in mutatedCases)
-        {
-            evaluatedPopulation.RemoveWhere(tc => tc.Equals(testCase));
-            evaluatedPopulation.Add(testCase);
+                Debug.WriteLine($"mutatedTestCase:Values: {string.Join(",", mutatedTestCase.Values.Select(v => v.Value))}    {mutatedTestCase.GetHashCode()}");
+                Debug.WriteLine($"originalTestCas:Values: {string.Join(",", originalTestCase.Values.Select(v => v.Value))}    {originalTestCase.GetHashCode()}");
+            }
         }
     }
 

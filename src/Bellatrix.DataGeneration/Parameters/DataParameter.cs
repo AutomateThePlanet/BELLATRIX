@@ -17,8 +17,8 @@ namespace Bellatrix.DataGeneration.Parameters
 
             TestValues = DataProviderStrategy.GenerateTestValues(
                 includeBoundaryValues: isManualMode ? false : includeBoundaryValues, // Disable boundary calculations in manual mode
-                allowValidEquivalenceClasses,
-                allowInvalidEquivalenceClasses,
+                allowValidEquivalenceClasses: isManualMode ? false : allowValidEquivalenceClasses,
+                allowInvalidEquivalenceClasses: isManualMode ? false : allowInvalidEquivalenceClasses,
                 customValues);
         }
 

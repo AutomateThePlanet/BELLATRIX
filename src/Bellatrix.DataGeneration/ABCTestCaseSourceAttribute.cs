@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
@@ -18,11 +19,6 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
     private readonly string _sourceMethodName;
     private readonly TestCaseCategory _category;
     private readonly HybridArtificialBeeColonyConfig _abcConfig;
-
-    //public ABCTestCaseSourceAttribute(string sourceMethodName, TestCaseCategory category)
-    //    : this(sourceMethodName, category, new HybridArtificialBeeColonyConfig())
-    //{
-    //}
 
     public ABCTestCaseSourceAttribute(
         string sourceMethodName,
@@ -71,9 +67,18 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
             throw new InvalidOperationException("The method did not return a valid List<IInputParameter>.");
         }
 
+        // Start measuring time
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
         // Initialize ABC Generator with overridden config
         var abcGenerator = new HybridArtificialBeeColonyTestCaseGenerator(_abcConfig);
         var testCases = abcGenerator.RunABCAlgorithm(parameters);
+
+        // Stop measuring time
+        stopwatch.Stop();
+
+        // Debug output for generation time
+        Console.WriteLine($"Test case generation completed in {stopwatch.ElapsedMilliseconds} ms.");
 
         // Filter test cases based on TestCaseCategory
         IEnumerable<TestCase> filteredCases = FilterTestCasesByCategory(testCases, _category);
