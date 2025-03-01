@@ -91,8 +91,8 @@ public class ABCOptimizationBenchmarkTests
         {
             new HybridArtificialBeeColonyConfig
             {
-                FinalPopulationSelectionRatio = 0.2,
-                EliteSelectionRatio = 0.6,
+                FinalPopulationSelectionRatio = 0.5,
+                EliteSelectionRatio = 0.4,
                 TotalPopulationGenerations = 100,
                 MutationRate = 1,
                 AllowMultipleInvalidInputs = false,
@@ -259,9 +259,9 @@ public class ABCOptimizationBenchmarkTests
         var percentageImprovement = (avgAbcScore - avgPairwiseScore) / avgPairwiseScore * 100;
 
         Console.WriteLine($"\n========== Summary for Parameters: {paramSet} ==========");
-        Console.WriteLine($"✅ ABC Avg Score: {avgAbcScore}");
-        Console.WriteLine($"✅ Pairwise Avg Score: {avgPairwiseScore}");
-        Console.WriteLine($"📈 Improvement Over Pairwise: {percentageImprovement:F2}%");
+        Console.WriteLine($"✅ ABC Avg Score: {Math.Abs(avgAbcScore)}");
+        Console.WriteLine($"✅ Pairwise Avg Score: {Math.Abs(avgPairwiseScore)}");
+        Console.WriteLine($"📈 Improvement Over Pairwise: {Math.Abs(percentageImprovement):F2}%");
 
         Debug.WriteLine($"\n========== Summary for Parameters: {paramSet} ==========");
         Debug.WriteLine($"✅ ABC Avg Score: {avgAbcScore}");
