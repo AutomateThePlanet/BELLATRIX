@@ -12,7 +12,7 @@ using Bellatrix.DataGeneration.OutputGenerators;
 namespace Bellatrix.DataGeneration.Tests.Tests;
 
 [TestFixture]
-public class ABCOptimizationBenchmarkTests
+public class ABCValidPairwiseScoresComparisonTests
 {
     private const int Iterations = 10;
     private List<IInputParameter> _parameters;
@@ -50,32 +50,28 @@ public class ABCOptimizationBenchmarkTests
 
         _parameters = new List<IInputParameter>
         {
-            // new TextDataParameter(minBoundary: 6, maxBoundary: 12),
-            //new EmailDataParameter(minBoundary: 5, maxBoundary: 10),
-            //new PhoneDataParameter(minBoundary: 6, maxBoundary: 8),
-            //new TextDataParameter(minBoundary: 4, maxBoundary: 10),
             new TextDataParameter(isManualMode: true, customValues: new[]
             {
                 new TestValue("Normal1", TestValueCategory.Valid),
-                new TestValue("BoundaryMin-1", TestValueCategory.BoundaryInvalid),
+                new TestValue("BoundaryMin-1", TestValueCategory.Valid),
                 new TestValue("BoundaryMin", TestValueCategory.BoundaryValid),
                 new TestValue("BoundaryMax", TestValueCategory.BoundaryValid),
-                new TestValue("BoundaryMax+1", TestValueCategory.BoundaryInvalid),
-                new TestValue("Invalid1", TestValueCategory.Invalid)
+                new TestValue("BoundaryMax+1", TestValueCategory.Valid),
+                new TestValue("Invalid1", TestValueCategory.Valid)
             }),
             new EmailDataParameter(isManualMode: true, customValues: new[]
             {
-                new TestValue("test@mail.comMIN-1", TestValueCategory.BoundaryInvalid),
+                new TestValue("test@mail.comMIN-1", TestValueCategory.Valid),
                 new TestValue("test@mail.comMIN", TestValueCategory.BoundaryValid),
                 new TestValue("test@mail.comMAX", TestValueCategory.BoundaryValid),
-                new TestValue("test@mail.comMAX+1", TestValueCategory.BoundaryInvalid),
+                new TestValue("test@mail.comMAX+1", TestValueCategory.Valid),
                 new TestValue("test@mail.com", TestValueCategory.Valid),
-                new TestValue("invalid@mail", TestValueCategory.Invalid)
+                new TestValue("invalid@mail", TestValueCategory.Valid)
             }),
             new PhoneDataParameter(isManualMode: true, customValues: new[]
             {
                 new TestValue("+359888888888", TestValueCategory.Valid),
-                new TestValue("000000", TestValueCategory.Invalid)
+                new TestValue("000000", TestValueCategory.Valid)
             }),
             new TextDataParameter(isManualMode: true, customValues: new[]
             {
@@ -91,10 +87,10 @@ public class ABCOptimizationBenchmarkTests
         {
             new HybridArtificialBeeColonyConfig
             {
-                FinalPopulationSelectionRatio = 0.6,
+                FinalPopulationSelectionRatio = 0.5,
                 EliteSelectionRatio = 0.4,
                 TotalPopulationGenerations = 100,
-                MutationRate = 1,
+                MutationRate = 0.5,
                 AllowMultipleInvalidInputs = false,
                 DisableOnlookerSelection = false,
                 DisableScoutPhase = false
