@@ -87,10 +87,10 @@ public class ABCValidPairwiseScoresComparisonTests
         {
             new HybridArtificialBeeColonyConfig
             {
-                FinalPopulationSelectionRatio = 0.5,
-                EliteSelectionRatio = 0.4,
+                FinalPopulationSelectionRatio = 0.6,
+                EliteSelectionRatio = 0.6,
                 TotalPopulationGenerations = 100,
-                MutationRate = 0.5,
+                MutationRate = 1,
                 AllowMultipleInvalidInputs = false,
                 DisableOnlookerSelection = false,
                 DisableScoutPhase = false

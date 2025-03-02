@@ -89,7 +89,7 @@ namespace Bellatrix.DataGeneration.TestCaseGenerators
 
             if (!_allowMultipleInvalidInputs && invalidCount > 1)
             {
-                return -20; // Penalty for multiple invalid inputs
+                return -50; // Penalty for multiple invalid inputs
             }
 
             for (int i = 0; i < testCase.Values.Count; i++)
@@ -98,7 +98,7 @@ namespace Bellatrix.DataGeneration.TestCaseGenerators
 
                 switch (value.Category)
                 {
-                    case TestValueCategory.BoundaryValid: score += 4; break;
+                    case TestValueCategory.BoundaryValid: score += 20; break;
                     case TestValueCategory.Valid: score += 2; break;
                     case TestValueCategory.BoundaryInvalid: score += -1; break;
                     case TestValueCategory.Invalid: score += -2; break;
@@ -125,7 +125,7 @@ namespace Bellatrix.DataGeneration.TestCaseGenerators
 
                 if (_globalSeenValuesPerParameter[i].Add(value.Value))
                 {
-                    score += 5; // One-time bonus per parameter
+                    score += 25; // One-time bonus per parameter
                 }
             }
 
@@ -133,7 +133,7 @@ namespace Bellatrix.DataGeneration.TestCaseGenerators
             if (firstTimeValueCount > 0)
             {
                 double multiplier = 1 + (firstTimeValueCount * 0.25); // Scale reward based on how many new values
-                score += 5 * multiplier;
+                score += 25 * multiplier;
             }
 
             return score;
