@@ -68,15 +68,15 @@ public class HybridArtificialBeeColonyTestCaseGenerator
     }
 
 
-    private HashSet<TestCase> MaintainDiversePopulationOnlookerSelection(HashSet<TestCase> currentPopulation, HashSet<TestCase> evaluatedPopulation, int eliteCount)
+    private HashSet<TestCase> MaintainDiversePopulationOnlookerSelection(HashSet<TestCase> nonElitPopulation, HashSet<TestCase> evaluatedPopulation, int eliteCount)
     {
         if (_config.DisableOnlookerSelection)
         {
-            return currentPopulation;
+            return nonElitPopulation;
         }
 
         double totalScore = Math.Max(1, evaluatedPopulation.Sum(tc => tc.Score));
-        HashSet<TestCase> uniquePopulation = new HashSet<TestCase>(currentPopulation);
+        HashSet<TestCase> uniquePopulation = new HashSet<TestCase>(nonElitPopulation);
 
         // Select test cases with weighted probability
         var probabilitySelection = evaluatedPopulation
@@ -138,8 +138,8 @@ public class HybridArtificialBeeColonyTestCaseGenerator
             TestCase mutatedTestCase = ApplyMutation(originalTestCase, parameters, iteration);
             // Ensure the mutated test case is unique before adding it
             int originalCount = evaluatedPopulation.Count;
-            double originalScore = _testCaseEvaluator.Evaluate(originalTestCase);
-            double mutatedScore = _testCaseEvaluator.Evaluate(mutatedTestCase);
+            double originalScore = _testCaseEvaluator.Evaluate(originalTestCase, evaluatedPopulation);
+            double mutatedScore = _testCaseEvaluator.Evaluate(mutatedTestCase, evaluatedPopulation);
             if (!mutatedTestCase.Equals(originalTestCase) 
                 && !evaluatedPopulation.Contains(mutatedTestCase)
                 && mutatedScore > originalScore)
@@ -175,15 +175,15 @@ public class HybridArtificialBeeColonyTestCaseGenerator
     }
 
 
-    private void PerformScoutPhaseIfNeeded(List<IInputParameter> parameters, HashSet<TestCase> population, HashSet<TestCase> newPopulation, int iteration)
+    private void PerformScoutPhaseIfNeeded(List<IInputParameter> parameters, HashSet<TestCase> evaluatedPopulation, HashSet<TestCase> nonElitPopulation, int iteration)
     {
         if (_config.DisableScoutPhase || iteration <= _config.TotalPopulationGenerations * _config.StagnationThresholdPercentage)
         {
             return;
         }
 
-        var poorPerformingTestCases = population
-            .Select(tc => Tuple.Create(tc, _testCaseEvaluator.Evaluate(tc)))
+        var poorPerformingTestCases = evaluatedPopulation
+            .Select(tc => Tuple.Create(tc, _testCaseEvaluator.Evaluate(tc, evaluatedPopulation)))
             .OrderBy(x => x.Item2)
             .Take((int)(_config.FinalPopulationSelectionRatio * _config.ScoutSelectionRatio))
             .ToList();
@@ -191,18 +191,30 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         foreach (var testCase in poorPerformingTestCases)
         {
             TestCase mutatedTestCase = ApplyMutation(testCase.Item1, parameters, iteration);
-            newPopulation.Add(mutatedTestCase);
+            nonElitPopulation.Add(mutatedTestCase);
         }
     }
 
-    private HashSet<TestCase> LimitFinalPopulationBasedOnSelectionRatio(HashSet<TestCase> population)
+    private HashSet<TestCase> LimitFinalPopulationBasedOnSelectionRatio(HashSet<TestCase> finalPopulation)
     {
-        int finalSize = Math.Max(1, (int)(population.Count * _config.FinalPopulationSelectionRatio));
+        int finalSize = Math.Max(1, (int)(finalPopulation.Count * _config.FinalPopulationSelectionRatio));
 
-        return population
-            .OrderByDescending(tc => _testCaseEvaluator.Evaluate(tc)) // Ensure best test cases are kept
-            .Take(finalSize)
-            .ToHashSet();
+        var sortedPopulation = finalPopulation
+            .OrderByDescending(tc => _testCaseEvaluator.Evaluate(tc, finalPopulation));
+        var limitedFinalPopulation = sortedPopulation.Take(finalSize);
+
+        var result = limitedFinalPopulation.ToHashSet();
+        // 🔹 Debugging: Print all finally selected test cases with values and scores
+        Debug.WriteLine("============= FINAL SELECTED TEST CASES =============");
+        foreach (var testCase in result)
+        {
+            double score = _testCaseEvaluator.Evaluate(testCase, finalPopulation);
+            string values = string.Join(", ", testCase.Values.Select(v => v.Value));
+            Debug.WriteLine($"Test Case: [{values}] | Score: {score}");
+        }
+        Debug.WriteLine("=====================================================");
+
+        return result;
     }
 
 }

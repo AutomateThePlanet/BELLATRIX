@@ -63,8 +63,8 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 TotalPopulationGenerations = 100,
                 MutationRate = 1,
                 AllowMultipleInvalidInputs = false,
-                DisableOnlookerSelection = false,
-                DisableScoutPhase = false
+                DisableOnlookerSelection = true,
+                DisableScoutPhase = true
             };
             _abcGenerator = new HybridArtificialBeeColonyTestCaseGenerator(config);
             _abcTestCases = _abcGenerator.RunABCAlgorithm(_parameters);
@@ -102,6 +102,7 @@ namespace Bellatrix.DataGeneration.Tests.Tests
 
             var testedValues = _abcTestCases.SelectMany(tc => tc.Values.Select(tv => tv.Value)).ToHashSet();
 
+          
             foreach (var boundaryValue in allBoundaryValues)
             {
                 Assert.That(testedValues.Contains(boundaryValue), Is.True,

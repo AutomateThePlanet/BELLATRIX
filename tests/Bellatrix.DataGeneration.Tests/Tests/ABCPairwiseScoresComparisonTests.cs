@@ -92,7 +92,7 @@ public class ABCOptimizationBenchmarkTests
             new HybridArtificialBeeColonyConfig
             {
                 FinalPopulationSelectionRatio = 0.6,
-                EliteSelectionRatio = 0.4,
+                EliteSelectionRatio = 0.5,
                 TotalPopulationGenerations = 100,
                 MutationRate = 1,
                 AllowMultipleInvalidInputs = false,
