@@ -96,6 +96,7 @@ public class ABCValidPairwiseScoresComparisonTests
                 OnlookerSelectionRatio = 0.5,
                 EnableScoutPhase = true,
                 ScoutSelectionRatio = 0.5,
+                CoolingRate = 0.85,
                 EnforceMutationUniqueness = false
             },
             //new HybridArtificialBeeColonyConfig

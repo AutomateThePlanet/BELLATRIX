@@ -95,11 +95,12 @@ public class ABCOptimizationBenchmarkTests
                 EliteSelectionRatio = 0.6,
                 TotalPopulationGenerations = 100,
                 MutationRate = 0.5,
-                AllowMultipleInvalidInputs = false,
+                AllowMultipleInvalidInputs = true,
                 EnableOnlookerSelection = true,
                 OnlookerSelectionRatio = 0.5,
                 EnableScoutPhase = true,
                 ScoutSelectionRatio = 0.5,
+                CoolingRate = 0.85,
                 EnforceMutationUniqueness = false
             },
             //new HybridArtificialBeeColonyConfig

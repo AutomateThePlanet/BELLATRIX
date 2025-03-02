@@ -13,6 +13,7 @@ public class HybridArtificialBeeColonyConfig
     public bool EnableScoutPhase { get; set; } = false;
     public bool EnforceMutationUniqueness { get; set; } = true;
     public double StagnationThresholdPercentage { get; set; } = 0.75;
+    public double CoolingRate { get; set; } = 0.95;
     public bool AllowMultipleInvalidInputs { get; set; } = false;
     public ITestCaseOutputGenerator OutputGenerator { get; set; } = new NUnitTestCaseOutputGenerator();
 

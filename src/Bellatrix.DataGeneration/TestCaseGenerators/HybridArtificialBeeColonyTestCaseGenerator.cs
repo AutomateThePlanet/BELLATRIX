@@ -128,39 +128,42 @@ public class HybridArtificialBeeColonyTestCaseGenerator
     }
 
     // 🔹 Step 5: Apply Mutations to Non-Elite Population
-    private void MutatePopulation(HashSet<TestCase> evaluatedPopulation, HashSet<TestCase> nonElitPopulation, List<IInputParameter> parameters, int iteration)
+    private void MutatePopulation(HashSet<TestCase> evaluatedPopulation, HashSet<TestCase> nonElitePopulation, List<IInputParameter> parameters, int iteration)
     {
         HashSet<TestCase> mutatedCases = new HashSet<TestCase>();
 
-        for (int i = 0; i < nonElitPopulation.Count; i++)
-        {
-            TestCase originalTestCase = nonElitPopulation.GetItemByIndex(i);
-            TestCase mutatedTestCase = ApplyMutation(originalTestCase, parameters, iteration);
-            // Ensure the mutated test case is unique before adding it
-            int originalCount = evaluatedPopulation.Count;
+        double temperature = Math.Max(0.1, Math.Pow(_config.CoolingRate, iteration));
 
-            if (_config.EnforceMutationUniqueness)
+        foreach (var originalTestCase in nonElitePopulation)
+        {
+            TestCase mutatedTestCase = ApplyMutation(originalTestCase, parameters, iteration);
+
+            if (!mutatedTestCase.Equals(originalTestCase) && !evaluatedPopulation.Contains(mutatedTestCase))
             {
                 double originalScore = _testCaseEvaluator.Evaluate(originalTestCase, evaluatedPopulation);
                 double mutatedScore = _testCaseEvaluator.Evaluate(mutatedTestCase, evaluatedPopulation);
 
-                if (!mutatedTestCase.Equals(originalTestCase)
-                    && !evaluatedPopulation.Contains(mutatedTestCase)
-                    && mutatedScore > originalScore)
-                {
-                    evaluatedPopulation.RemoveWhere(tc => tc.Equals(originalTestCase));
-                    evaluatedPopulation.Add(mutatedTestCase);
-                }
-            }
-            else
-            {
-                if (!mutatedTestCase.Equals(originalTestCase) && !evaluatedPopulation.Contains(mutatedTestCase))
-                {
-                    evaluatedPopulation.RemoveWhere(tc => tc.Equals(originalTestCase));
-                    evaluatedPopulation.Add(mutatedTestCase);
-                }
-            }
+                bool acceptMutation = false;
 
+                if (_config.EnforceMutationUniqueness)
+                {
+                    // 🔹 Enforce strict uniqueness: Only accept if the mutation is strictly better
+                    acceptMutation = mutatedScore > originalScore;
+                }
+                else
+                {
+                    // 🔹 Simulated Annealing: Accept better OR sometimes worse mutations
+                    double acceptanceProbability = Math.Exp((mutatedScore - originalScore) / temperature);
+                    acceptMutation = mutatedScore > originalScore || _random.NextDouble() < acceptanceProbability;
+                }
+
+
+                if (acceptMutation)
+                {
+                    evaluatedPopulation.RemoveWhere(tc => tc.Equals(originalTestCase));
+                    evaluatedPopulation.Add(mutatedTestCase);
+                }
+            }
         }
     }
 
@@ -174,6 +177,7 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         // Create a deep copy of the test case before mutating
         TestCase mutatedTestCase = new TestCase { Values = originalTestCase.Values.Select(v => new TestValue(v.Value, v.Category)).ToList() };
 
+        // Select a mutation index and change the value
         int index = _random.Next(mutatedTestCase.Values.Count);
         var availableValues = parameters[index].TestValues.ToList();
 
@@ -184,6 +188,7 @@ public class HybridArtificialBeeColonyTestCaseGenerator
 
         return mutatedTestCase;
     }
+
 
 
     private void PerformScoutPhaseIfNeeded(List<IInputParameter> parameters, HashSet<TestCase> evaluatedPopulation, HashSet<TestCase> nonElitPopulation, int iteration)
