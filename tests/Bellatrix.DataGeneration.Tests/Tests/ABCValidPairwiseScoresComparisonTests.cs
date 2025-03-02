@@ -90,10 +90,13 @@ public class ABCValidPairwiseScoresComparisonTests
                 FinalPopulationSelectionRatio = 0.6,
                 EliteSelectionRatio = 0.6,
                 TotalPopulationGenerations = 100,
-                MutationRate = 1,
+                MutationRate = 0.5,
                 AllowMultipleInvalidInputs = false,
-                DisableOnlookerSelection = false,
-                DisableScoutPhase = false
+                EnableOnlookerSelection = true,
+                OnlookerSelectionRatio = 0.5,
+                EnableScoutPhase = true,
+                ScoutSelectionRatio = 0.5,
+                EnforceMutationUniqueness = false
             },
             //new HybridArtificialBeeColonyConfig
             //{

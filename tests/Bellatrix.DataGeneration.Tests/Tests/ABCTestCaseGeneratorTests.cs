@@ -63,8 +63,8 @@ namespace Bellatrix.DataGeneration.Tests.Tests
                 TotalPopulationGenerations = 100,
                 MutationRate = 1,
                 AllowMultipleInvalidInputs = false,
-                DisableOnlookerSelection = true,
-                DisableScoutPhase = true
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true
             };
             _abcGenerator = new HybridArtificialBeeColonyTestCaseGenerator(config);
             _abcTestCases = _abcGenerator.RunABCAlgorithm(_parameters);

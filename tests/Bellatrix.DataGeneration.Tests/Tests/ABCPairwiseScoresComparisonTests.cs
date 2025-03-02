@@ -93,11 +93,14 @@ public class ABCOptimizationBenchmarkTests
             {
                 FinalPopulationSelectionRatio = 0.6,
                 EliteSelectionRatio = 0.6,
-                TotalPopulationGenerations = 50,
-                MutationRate = 1,
+                TotalPopulationGenerations = 100,
+                MutationRate = 0.5,
                 AllowMultipleInvalidInputs = false,
-                DisableOnlookerSelection = false,
-                DisableScoutPhase = false
+                EnableOnlookerSelection = true,
+                OnlookerSelectionRatio = 0.5,
+                EnableScoutPhase = true,
+                ScoutSelectionRatio = 0.5,
+                EnforceMutationUniqueness = false
             },
             //new HybridArtificialBeeColonyConfig
             //{
@@ -105,9 +108,9 @@ public class ABCOptimizationBenchmarkTests
             //    EliteSelectionRatio = 0.5,
             //    TotalPopulationGenerations = 50,
             //    MutationRate = 0.45, // Slightly higher mutation rate to check for improvements
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
+            //    AllowMultipleInvalidInputs = true,
+            //    EnableOnlookerSelection = true,
+            //    EnableScoutPhase = true
             //},
             //new HybridArtificialBeeColonyConfig
             //{
@@ -115,9 +118,9 @@ public class ABCOptimizationBenchmarkTests
             //    EliteSelectionRatio = 0.45,  // Slightly lower to allow more diversity
             //    TotalPopulationGenerations = 50,
             //    MutationRate = 0.35,  // Fine-tuned mutation rate
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
+            //    AllowMultipleInvalidInputs = true,
+            //    EnableOnlookerSelection = true,
+            //    EnableScoutPhase = true
             //},
             //// 🔹 Best general configuration: Balanced selection & mutation
             //new HybridArtificialBeeColonyConfig
@@ -127,8 +130,8 @@ public class ABCOptimizationBenchmarkTests
             //    TotalPopulationGenerations = 50,
             //    MutationRate = 0.4,
             //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
+            //    EnableOnlookerSelection = true,
+            //    EnableScoutPhase = true
             //},
 
             //// 🔹 Stronger selection & refinement: Ideal when test cases must be stable
@@ -139,8 +142,8 @@ public class ABCOptimizationBenchmarkTests
             //    TotalPopulationGenerations = 60,
             //    MutationRate = 0.5,
             //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
+            //    EnableOnlookerSelection = true,
+            //    EnableScoutPhase = true
             //},
 
             //// 🔹 Higher mutation rate: Ensures wider test coverage
@@ -151,8 +154,8 @@ public class ABCOptimizationBenchmarkTests
             //    TotalPopulationGenerations = 70,
             //    MutationRate = 0.6,
             //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
+            //    EnableOnlookerSelection = true,
+            //    EnableScoutPhase = true
             //},
 
             ////// 🔹 Balanced exploitation & diversity: Great for complex test scenarios
@@ -163,8 +166,8 @@ public class ABCOptimizationBenchmarkTests
             //    TotalPopulationGenerations = 100,
             //    MutationRate = 0.7,
             //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
+            //    EnableOnlookerSelection = false,
+            //    EnableScoutPhase = false
             //},
 
             //// 🔹 More diverse test cases: Prevents overfitting to high-scoring cases
@@ -175,8 +178,8 @@ public class ABCOptimizationBenchmarkTests
             //    TotalPopulationGenerations = 100,
             //    MutationRate = 0.8,
             //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
+            //    EnableOnlookerSelection = false,
+            //    EnableScoutPhase = false
             //},
 
             //// 🔹 Balanced mutation & selection: Useful when both exploration and exploitation are needed
@@ -187,8 +190,8 @@ public class ABCOptimizationBenchmarkTests
             //    TotalPopulationGenerations = 100,
             //    MutationRate = 0.4,
             //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
+            //    EnableOnlookerSelection = false,
+            //    EnableScoutPhase = false
             //},
 
             //// 🔹 Maximum exploration: Ensures high diversity, best for finding edge cases
@@ -199,8 +202,8 @@ public class ABCOptimizationBenchmarkTests
             //    TotalPopulationGenerations = 100,
             //    MutationRate = 0.4,
             //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
+            //    EnableOnlookerSelection = false,
+            //    EnableScoutPhase = false
             //}
         };
     }

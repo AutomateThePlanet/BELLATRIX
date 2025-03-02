@@ -29,8 +29,9 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
         double eliteSelectionRatio = 0.5,
         double onlookerSelectionRatio = 0.1,
         double scoutSelectionRatio = 0.3,
-        bool disableOnlookerSelection = true,
-        bool disableScoutPhase = false,
+        bool enableOnlookerSelection = true,
+        bool enableScoutPhase = true,
+        bool enforceMutationUniqueness = true,
         double stagnationThresholdPercentage = 0.75,
         bool allowMultipleInvalidInputs = false)
     {
@@ -44,8 +45,9 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
             EliteSelectionRatio = eliteSelectionRatio,
             OnlookerSelectionRatio = onlookerSelectionRatio,
             ScoutSelectionRatio = scoutSelectionRatio,
-            DisableOnlookerSelection = disableOnlookerSelection,
-            DisableScoutPhase = disableScoutPhase,
+            EnableOnlookerSelection = enableOnlookerSelection,
+            EnableScoutPhase = enableScoutPhase,
+            EnforceMutationUniqueness = enforceMutationUniqueness,
             StagnationThresholdPercentage = stagnationThresholdPercentage,
             AllowMultipleInvalidInputs = allowMultipleInvalidInputs
         };

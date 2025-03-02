@@ -70,7 +70,7 @@ public class HybridArtificialBeeColonyTestCaseGenerator
 
     private HashSet<TestCase> MaintainDiversePopulationOnlookerSelection(HashSet<TestCase> nonElitPopulation, HashSet<TestCase> evaluatedPopulation, int eliteCount)
     {
-        if (_config.DisableOnlookerSelection)
+        if (!_config.EnableOnlookerSelection)
         {
             return nonElitPopulation;
         }
@@ -138,18 +138,29 @@ public class HybridArtificialBeeColonyTestCaseGenerator
             TestCase mutatedTestCase = ApplyMutation(originalTestCase, parameters, iteration);
             // Ensure the mutated test case is unique before adding it
             int originalCount = evaluatedPopulation.Count;
-            double originalScore = _testCaseEvaluator.Evaluate(originalTestCase, evaluatedPopulation);
-            double mutatedScore = _testCaseEvaluator.Evaluate(mutatedTestCase, evaluatedPopulation);
-            if (!mutatedTestCase.Equals(originalTestCase) 
-                && !evaluatedPopulation.Contains(mutatedTestCase)
-                && mutatedScore > originalScore)
-            {
-                evaluatedPopulation.RemoveWhere(tc => tc.Equals(originalTestCase));
-                evaluatedPopulation.Add(mutatedTestCase);
 
-                Debug.WriteLine($"mutatedTestCase:Values: {string.Join(",", mutatedTestCase.Values.Select(v => v.Value))}    {mutatedTestCase.GetHashCode()}");
-                Debug.WriteLine($"originalTestCas:Values: {string.Join(",", originalTestCase.Values.Select(v => v.Value))}    {originalTestCase.GetHashCode()}");
+            if (_config.EnforceMutationUniqueness)
+            {
+                double originalScore = _testCaseEvaluator.Evaluate(originalTestCase, evaluatedPopulation);
+                double mutatedScore = _testCaseEvaluator.Evaluate(mutatedTestCase, evaluatedPopulation);
+
+                if (!mutatedTestCase.Equals(originalTestCase)
+                    && !evaluatedPopulation.Contains(mutatedTestCase)
+                    && mutatedScore > originalScore)
+                {
+                    evaluatedPopulation.RemoveWhere(tc => tc.Equals(originalTestCase));
+                    evaluatedPopulation.Add(mutatedTestCase);
+                }
             }
+            else
+            {
+                if (!mutatedTestCase.Equals(originalTestCase) && !evaluatedPopulation.Contains(mutatedTestCase))
+                {
+                    evaluatedPopulation.RemoveWhere(tc => tc.Equals(originalTestCase));
+                    evaluatedPopulation.Add(mutatedTestCase);
+                }
+            }
+
         }
     }
 
@@ -177,7 +188,7 @@ public class HybridArtificialBeeColonyTestCaseGenerator
 
     private void PerformScoutPhaseIfNeeded(List<IInputParameter> parameters, HashSet<TestCase> evaluatedPopulation, HashSet<TestCase> nonElitPopulation, int iteration)
     {
-        if (_config.DisableScoutPhase || iteration <= _config.TotalPopulationGenerations * _config.StagnationThresholdPercentage)
+        if (!_config.EnableScoutPhase || iteration <= _config.TotalPopulationGenerations * _config.StagnationThresholdPercentage)
         {
             return;
         }
