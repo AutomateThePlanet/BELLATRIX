@@ -23,16 +23,17 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
     public ABCTestCaseSourceAttribute(
         string sourceMethodName,
         TestCaseCategory category,
-        int totalPopulationGenerations = 20,
-        double mutationRate = 0.3,
-        double finalPopulationSelectionRatio = 0.5,
-        double eliteSelectionRatio = 0.5,
-        double onlookerSelectionRatio = 0.1,
-        double scoutSelectionRatio = 0.3,
+        int totalPopulationGenerations = 100,
+        double mutationRate = 0.5,
+        double finalPopulationSelectionRatio = 0.6,
+        double eliteSelectionRatio = 0.6,
+        double onlookerSelectionRatio = 0.5,
+        double scoutSelectionRatio = 0.5,
         bool enableOnlookerSelection = true,
         bool enableScoutPhase = true,
-        bool enforceMutationUniqueness = true,
+        bool enforceMutationUniqueness = false,
         double stagnationThresholdPercentage = 0.75,
+        double coolingRate = 85,
         bool allowMultipleInvalidInputs = false)
     {
         _sourceMethodName = sourceMethodName;
@@ -49,6 +50,7 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
             EnableScoutPhase = enableScoutPhase,
             EnforceMutationUniqueness = enforceMutationUniqueness,
             StagnationThresholdPercentage = stagnationThresholdPercentage,
+            CoolingRate = coolingRate,
             AllowMultipleInvalidInputs = allowMultipleInvalidInputs
         };
     }

@@ -95,7 +95,7 @@ public class ABCOptimizationBenchmarkTests
                 EliteSelectionRatio = 0.6,
                 TotalPopulationGenerations = 100,
                 MutationRate = 0.5,
-                AllowMultipleInvalidInputs = true,
+                AllowMultipleInvalidInputs = false,
                 EnableOnlookerSelection = true,
                 OnlookerSelectionRatio = 0.5,
                 EnableScoutPhase = true,
