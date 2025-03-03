@@ -57,9 +57,6 @@ public class HybridArtificialBeeColonyTestCaseGenerator
             // ✅ Mutate only the non-elite population
             MutatePopulation(evaluatedPopulation, nonElitePopulation, parameters, currentGeneration);
 
-            // ✅ Merge elite and non-elite populations to keep full size
-            //evaluatedPopulation = new HashSet<TestCase>(elitePopulation.Concat(nonElitePopulation));
-
             // ✅ Perform scout phase if needed
             PerformScoutPhaseIfNeeded(parameters, evaluatedPopulation, nonElitePopulation, currentGeneration);
         }
@@ -67,51 +64,57 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         return LimitFinalPopulationBasedOnSelectionRatio(evaluatedPopulation);
     }
 
-
-    private HashSet<TestCase> MaintainDiversePopulationOnlookerSelection(HashSet<TestCase> nonElitPopulation, HashSet<TestCase> evaluatedPopulation, int eliteCount)
+    private HashSet<TestCase> MaintainDiversePopulationOnlookerSelection(
+        HashSet<TestCase> nonElitePopulation,
+        HashSet<TestCase> evaluatedPopulation,
+        int eliteCount)
     {
+        // If onlooker selection is disabled, return the non-elite population as is
         if (!_config.EnableOnlookerSelection)
         {
-            return nonElitPopulation;
+            return nonElitePopulation;
         }
 
+        // Ensure the total score is at least 1 to avoid division errors
         double totalScore = Math.Max(1, evaluatedPopulation.Sum(tc => tc.Score));
-        HashSet<TestCase> uniquePopulation = new HashSet<TestCase>(nonElitPopulation);
 
-        // Select test cases with weighted probability
-        var probabilitySelection = evaluatedPopulation
-            .OrderByDescending(tc => tc.Score / totalScore + _random.NextDouble() * _config.OnlookerSelectionRatio) // Adds slight randomness for diversity
-            .Take(Math.Max(1, (int)(_config.FinalPopulationSelectionRatio * _config.OnlookerSelectionRatio))) // Adjusted selection size
+        // Initialize the new population with non-elite test cases
+        HashSet<TestCase> selectedPopulation = new HashSet<TestCase>(nonElitePopulation);
+
+        // 🔹 Step 1: Select test cases probabilistically, favoring higher scores
+        var probabilisticSelection = evaluatedPopulation
+            .OrderByDescending(tc =>
+                (tc.Score / totalScore) + (_random.NextDouble() * _config.OnlookerSelectionRatio)) // Adds randomness for diversity
+            .Take(Math.Max(1, (int)(_config.FinalPopulationSelectionRatio * _config.OnlookerSelectionRatio))) // Ensures at least one selection
             .ToList();
 
-        foreach (var testCase in probabilitySelection)
+        // 🔹 Step 2: Add selected test cases to the new population, maintaining diversity
+        foreach (var testCase in probabilisticSelection)
         {
-            if (uniquePopulation.Count < _config.FinalPopulationSelectionRatio)
+            if (selectedPopulation.Count < _config.FinalPopulationSelectionRatio)
             {
-                uniquePopulation.Add(testCase);
+                selectedPopulation.Add(testCase);
             }
         }
 
-        // If population is still below expected size, add more from evaluated cases
-        if (uniquePopulation.Count < _config.FinalPopulationSelectionRatio)
+        // 🔹 Step 3: If the population is still too small, add more test cases from the evaluated set
+        foreach (var testCase in evaluatedPopulation)
         {
-            foreach (var testCase in evaluatedPopulation)
+            if (selectedPopulation.Count >= _config.FinalPopulationSelectionRatio)
             {
-                if (uniquePopulation.Count >= _config.FinalPopulationSelectionRatio)
-                {
-                    break;
-                }
-                uniquePopulation.Add(testCase);
+                break;
             }
+            selectedPopulation.Add(testCase);
         }
 
-        return uniquePopulation;
+        return selectedPopulation;
     }
+
 
 
     private HashSet<TestCase> GenerateInitialPopulation(List<IInputParameter> parameters)
     {
-        return PairwiseTestCaseGenerator.GenerateTestCases(parameters).ToHashSet();
+        return PairwiseTestCaseGenerator.GenerateTestCases(parameters);
     }
 
     private int CalculateElitePopulationSize()
@@ -199,14 +202,13 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         }
 
         var poorPerformingTestCases = evaluatedPopulation
-            .Select(tc => Tuple.Create(tc, _testCaseEvaluator.Evaluate(tc, evaluatedPopulation)))
-            .OrderBy(x => x.Item2)
+            .OrderBy(x => x.Score)
             .Take((int)(_config.FinalPopulationSelectionRatio * _config.ScoutSelectionRatio))
             .ToList();
 
         foreach (var testCase in poorPerformingTestCases)
         {
-            TestCase mutatedTestCase = ApplyMutation(testCase.Item1, parameters, iteration);
+            TestCase mutatedTestCase = ApplyMutation(testCase, parameters, iteration);
             nonElitPopulation.Add(mutatedTestCase);
         }
     }
