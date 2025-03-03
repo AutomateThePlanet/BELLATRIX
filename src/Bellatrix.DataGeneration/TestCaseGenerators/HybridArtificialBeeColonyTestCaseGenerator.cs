@@ -110,8 +110,6 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         return selectedPopulation;
     }
 
-
-
     private HashSet<TestCase> GenerateInitialPopulation(List<IInputParameter> parameters)
     {
         return PairwiseTestCaseGenerator.GenerateTestCases(parameters);
@@ -191,8 +189,6 @@ public class HybridArtificialBeeColonyTestCaseGenerator
 
         return mutatedTestCase;
     }
-
-
 
     private void PerformScoutPhaseIfNeeded(List<IInputParameter> parameters, HashSet<TestCase> evaluatedPopulation, HashSet<TestCase> nonElitPopulation, int iteration)
     {
