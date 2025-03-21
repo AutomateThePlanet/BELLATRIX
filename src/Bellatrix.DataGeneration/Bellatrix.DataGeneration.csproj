@@ -10,6 +10,10 @@
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
   <ItemGroup>
+    <PackageReference Include="TextCopy" Version="6.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
   </ItemGroup>
 </Project>

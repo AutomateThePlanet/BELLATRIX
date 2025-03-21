@@ -1,5 +1,10 @@
 ﻿using Bellatrix.DataGeneration.Models;
 using Bellatrix.DataGeneration.OutputGenerators;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using TextCopy;
 
 public class FactoryMethodTestCaseOutputGenerator : TestCaseOutputGenerator
 {
@@ -12,32 +17,43 @@ public class FactoryMethodTestCaseOutputGenerator : TestCaseOutputGenerator
         _methodName = methodName;
     }
 
-    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategoty = TestCaseCategory.All)
+    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategory = TestCaseCategory.All)
     {
-        Console.WriteLine($"\n🔹 **Generated Factory Method Output for {_modelName}:**\n");
-        Console.WriteLine($"public static IEnumerable<{_modelName}> {_methodName}()");
-        Console.WriteLine("{");
-        Console.WriteLine("    return new List<CheckoutFormModel>");
-        Console.WriteLine("    {");
+        var sb = new StringBuilder();
 
-        foreach (var testCase in FilterTestCasesByCategory(testCases, testCaseCategoty))
+        sb.AppendLine($"\n🔹 **Generated Factory Method Output for {_modelName}:**\n");
+        sb.AppendLine($"public static IEnumerable<{_modelName}> {_methodName}()");
+        sb.AppendLine("{");
+        sb.AppendLine($"    return new List<{_modelName}>");
+        sb.AppendLine("    {");
+
+        foreach (var testCase in FilterTestCasesByCategory(testCases, testCaseCategory))
         {
-            Console.WriteLine("        new CheckoutFormModel");
-            Console.WriteLine("        {");
-            Console.WriteLine($"            FirstName = \"{testCase.Values[0]}\",");
-            Console.WriteLine($"            LastName = \"{testCase.Values[1]}\",");
-            Console.WriteLine($"            ZipCode = \"{testCase.Values[2]}\",");
-            Console.WriteLine($"            Phone = \"{testCase.Values[3]}\",");
-            Console.WriteLine($"            Email = \"{testCase.Values[4]}\",");
-            Console.WriteLine($"            Company = \"{testCase.Values[5]}\",");
-            Console.WriteLine($"            Address = \"{testCase.Values[6]}\"");
-            Console.WriteLine("        },");
+            sb.AppendLine($"        new {_modelName}");
+            sb.AppendLine("        {");
+            sb.AppendLine($"            FirstName = \"{testCase.Values[0]}\",");
+            sb.AppendLine($"            LastName = \"{testCase.Values[1]}\",");
+            sb.AppendLine($"            ZipCode = \"{testCase.Values[2]}\",");
+            sb.AppendLine($"            Phone = \"{testCase.Values[3]}\",");
+            sb.AppendLine($"            Email = \"{testCase.Values[4]}\",");
+            sb.AppendLine($"            Company = \"{testCase.Values[5]}\",");
+            sb.AppendLine($"            Address = \"{testCase.Values[6]}\"");
+            sb.AppendLine("        },");
         }
 
-        Console.WriteLine("    };");
-        Console.WriteLine("}");
+        sb.AppendLine("    };");
+        sb.AppendLine("}");
+
+        var output = sb.ToString();
+
+        Console.WriteLine(output);
+        Debug.WriteLine(output);
+
+        ClipboardService.SetText(output);
+        Console.WriteLine("✅ Factory method output copied to clipboard.");
     }
 }
+
 
 // Example generated output:
 //public static IEnumerable<CheckoutFormModel> CreateTestCases()
