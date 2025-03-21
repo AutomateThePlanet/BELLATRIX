@@ -1,17 +1,16 @@
-﻿namespace Bellatrix.DataGeneration.TestValueProviders
+﻿namespace Bellatrix.DataGeneration.TestValueProviders;
+
+public class TextDataProviderStrategy : DataProviderStrategy
 {
-    public class TextDataProviderStrategy : DataProviderStrategy
+    public TextDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null) 
+        : base(minBoundary, maxBoundary)
     {
-        public TextDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null) 
-            : base(minBoundary, maxBoundary)
-        {
-        }
+    }
 
-        protected override string GetInputTypeName() => "Text";
+    protected override string GetInputTypeName() => "Text";
 
-        protected override string GenerateValue(int length)
-        {
-            return new string('A', Math.Max(1, length));
-        }
+    protected override string GenerateValue(int length)
+    {
+        return new string('A', Math.Max(1, length));
     }
 }

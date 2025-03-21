@@ -36,4 +36,21 @@ public class HybridArtificialBeeColonyConfig
             return hash;
         }
     }
+
+    public override string ToString()
+    {
+        return $"HybridArtificialBeeColonyConfig: " +
+               $"TotalPopulationGenerations={TotalPopulationGenerations}, " +
+               $"MutationRate={MutationRate}, " +
+               $"FinalPopulationSelectionRatio={FinalPopulationSelectionRatio}, " +
+               $"EliteSelectionRatio={EliteSelectionRatio}, " +
+               $"OnlookerSelectionRatio={OnlookerSelectionRatio}, " +
+               $"ScoutSelectionRatio={ScoutSelectionRatio}, " +
+               $"EnableOnlookerSelection={EnableOnlookerSelection}, " +
+               $"EnableScoutPhase={EnableScoutPhase}, " +
+               $"EnforceMutationUniqueness={EnforceMutationUniqueness}, " +
+               $"StagnationThresholdPercentage={StagnationThresholdPercentage}, " +
+               $"CoolingRate={CoolingRate}, " +
+               $"AllowMultipleInvalidInputs={AllowMultipleInvalidInputs}, ";
+    }
 }

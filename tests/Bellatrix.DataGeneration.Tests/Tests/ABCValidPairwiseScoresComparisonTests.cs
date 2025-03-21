@@ -92,116 +92,130 @@ public class ABCValidPairwiseScoresComparisonTests
                 TotalPopulationGenerations = 100,
                 MutationRate = 0.5,
                 AllowMultipleInvalidInputs = false,
-                EnableOnlookerSelection = true,
                 OnlookerSelectionRatio = 0.5,
-                EnableScoutPhase = true,
                 ScoutSelectionRatio = 0.5,
                 CoolingRate = 0.85,
-                EnforceMutationUniqueness = false
+                EnforceMutationUniqueness = false,
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true,
             },
-            //new HybridArtificialBeeColonyConfig
-            //{
-            //    FinalPopulationSelectionRatio = 0.5,
-            //    EliteSelectionRatio = 0.5,
-            //    TotalPopulationGenerations = 50,
-            //    MutationRate = 0.45, // Slightly higher mutation rate to check for improvements
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
-            //},
-            //new HybridArtificialBeeColonyConfig
-            //{
-            //    FinalPopulationSelectionRatio = 0.55,  // Slightly higher to retain more cases
-            //    EliteSelectionRatio = 0.45,  // Slightly lower to allow more diversity
-            //    TotalPopulationGenerations = 50,
-            //    MutationRate = 0.35,  // Fine-tuned mutation rate
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
-            //},
-            //// 🔹 Best general configuration: Balanced selection & mutation
-            //new HybridArtificialBeeColonyConfig
-            //{
-            //    FinalPopulationSelectionRatio = 0.5,
-            //    EliteSelectionRatio = 0.5,
-            //    TotalPopulationGenerations = 50,
-            //    MutationRate = 0.4,
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
-            //},
+            new HybridArtificialBeeColonyConfig
+            {
+                FinalPopulationSelectionRatio = 0.6,
+                EliteSelectionRatio = 0.6,
+                TotalPopulationGenerations = 100,
+                MutationRate = 0.5,
+                AllowMultipleInvalidInputs = false,
+                OnlookerSelectionRatio = 0.5,
+                ScoutSelectionRatio = 0.5,
+                CoolingRate = 0.85,
+                EnforceMutationUniqueness = false,
+                EnableOnlookerSelection = false,
+                EnableScoutPhase = false,
+            },
+            new HybridArtificialBeeColonyConfig
+            {
+                FinalPopulationSelectionRatio = 0.5,
+                EliteSelectionRatio = 0.5,
+                TotalPopulationGenerations = 50,
+                MutationRate = 0.45, // Slightly higher mutation rate to check for improvements
+                AllowMultipleInvalidInputs = false,
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true,
+            },
+            new HybridArtificialBeeColonyConfig
+            {
+                FinalPopulationSelectionRatio = 0.55,  // Slightly higher to retain more cases
+                EliteSelectionRatio = 0.45,  // Slightly lower to allow more diversity
+                TotalPopulationGenerations = 50,
+                MutationRate = 0.35,  // Fine-tuned mutation rate
+                AllowMultipleInvalidInputs = false,
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true,
+            },
+            // 🔹 Best general configuration: Balanced selection & mutation
+            new HybridArtificialBeeColonyConfig
+            {
+                FinalPopulationSelectionRatio = 0.5,
+                EliteSelectionRatio = 0.5,
+                TotalPopulationGenerations = 50,
+                MutationRate = 0.4,
+                AllowMultipleInvalidInputs = false,
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true
+            },
 
-            //// 🔹 Stronger selection & refinement: Ideal when test cases must be stable
-            //new HybridArtificialBeeColonyConfig
-            //{
-            //    FinalPopulationSelectionRatio = 0.5,
-            //    EliteSelectionRatio = 0.7,
-            //    TotalPopulationGenerations = 60,
-            //    MutationRate = 0.5,
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
-            //},
+            // 🔹 Stronger selection & refinement: Ideal when test cases must be stable
+            new HybridArtificialBeeColonyConfig
+            {
+                FinalPopulationSelectionRatio = 0.5,
+                EliteSelectionRatio = 0.7,
+                TotalPopulationGenerations = 60,
+                MutationRate = 0.5,
+                AllowMultipleInvalidInputs = false,
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true
+            },
 
-            //// 🔹 Higher mutation rate: Ensures wider test coverage
-            //new HybridArtificialBeeColonyConfig
-            //{
-            //    FinalPopulationSelectionRatio = 0.5,
-            //    EliteSelectionRatio = 0.6,
-            //    TotalPopulationGenerations = 70,
-            //    MutationRate = 0.6,
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
-            //},
+            // 🔹 Higher mutation rate: Ensures wider test coverage
+            new HybridArtificialBeeColonyConfig
+            {
+                FinalPopulationSelectionRatio = 0.5,
+                EliteSelectionRatio = 0.6,
+                TotalPopulationGenerations = 70,
+                MutationRate = 0.6,
+                AllowMultipleInvalidInputs = false,
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true
+            },
 
-            ////// 🔹 Balanced exploitation & diversity: Great for complex test scenarios
-            //new HybridArtificialBeeColonyConfig
-            //{
-            //    FinalPopulationSelectionRatio = 0.5,
-            //    EliteSelectionRatio = 0.6,
-            //    TotalPopulationGenerations = 100,
-            //    MutationRate = 0.7,
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
-            //},
+            //// 🔹 Balanced exploitation & diversity: Great for complex test scenarios
+            new HybridArtificialBeeColonyConfig
+            {
+                FinalPopulationSelectionRatio = 0.5,
+                EliteSelectionRatio = 0.6,
+                TotalPopulationGenerations = 100,
+                MutationRate = 0.7,
+                AllowMultipleInvalidInputs = false,
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true
+            },
 
-            //// 🔹 More diverse test cases: Prevents overfitting to high-scoring cases
-            //new HybridArtificialBeeColonyConfig
-            //{
-            //    FinalPopulationSelectionRatio = 0.4,
-            //    EliteSelectionRatio = 0.6,
-            //    TotalPopulationGenerations = 100,
-            //    MutationRate = 0.8,
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
-            //},
+            // 🔹 More diverse test cases: Prevents overfitting to high-scoring cases
+            new HybridArtificialBeeColonyConfig
+            {
+                FinalPopulationSelectionRatio = 0.4,
+                EliteSelectionRatio = 0.6,
+                TotalPopulationGenerations = 100,
+                MutationRate = 0.8,
+                AllowMultipleInvalidInputs = false,
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true
+            },
 
-            //// 🔹 Balanced mutation & selection: Useful when both exploration and exploitation are needed
-            //new HybridArtificialBeeColonyConfig
-            //{
-            //    FinalPopulationSelectionRatio = 0.5,
-            //    EliteSelectionRatio = 0.5,
-            //    TotalPopulationGenerations = 100,
-            //    MutationRate = 0.4,
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
-            //},
+            // 🔹 Balanced mutation & selection: Useful when both exploration and exploitation are needed
+            new HybridArtificialBeeColonyConfig
+            {
+                FinalPopulationSelectionRatio = 0.5,
+                EliteSelectionRatio = 0.5,
+                TotalPopulationGenerations = 100,
+                MutationRate = 0.4,
+                AllowMultipleInvalidInputs = false,
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true
+            },
 
-            //// 🔹 Maximum exploration: Ensures high diversity, best for finding edge cases
-            //new HybridArtificialBeeColonyConfig
-            //{
-            //    FinalPopulationSelectionRatio = 0.4,
-            //    EliteSelectionRatio = 0.5,
-            //    TotalPopulationGenerations = 100,
-            //    MutationRate = 0.4,
-            //    AllowMultipleInvalidInputs = false,
-            //    DisableOnlookerSelection = false,
-            //    DisableScoutPhase = false
-            //}
+            // 🔹 Maximum exploration: Ensures high diversity, best for finding edge cases
+            new HybridArtificialBeeColonyConfig
+            {
+                FinalPopulationSelectionRatio = 0.4,
+                EliteSelectionRatio = 0.5,
+                TotalPopulationGenerations = 100,
+                MutationRate = 0.4,
+                AllowMultipleInvalidInputs = false,
+                EnableOnlookerSelection = true,
+                EnableScoutPhase = true
+            }
         };
     }
 

@@ -209,8 +209,8 @@
   },
   "testValueGenerationSettings": {
     "includeBoundaryValues": true,
-    "allowValidEquivalenceClasses": true,
-    "allowInvalidEquivalenceClasses": true,
+    "allowValidEquivalenceClasses": false,
+    "allowInvalidEquivalenceClasses": false,
     "inputTypeSettings": {
       "Email": {
         "ValidEquivalenceClasses": [ "user@example.com", "contact@domain.net" ],
