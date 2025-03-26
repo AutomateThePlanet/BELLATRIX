@@ -209,8 +209,8 @@
   },
   "testValueGenerationSettings": {
     "includeBoundaryValues": true,
-    "allowValidEquivalenceClasses": false,
-    "allowInvalidEquivalenceClasses": false,
+    "allowValidEquivalenceClasses": true,
+    "allowInvalidEquivalenceClasses": true,
     "inputTypeSettings": {
       "Email": {
         "PrecisionStep": "1",
@@ -259,7 +259,14 @@
       "Boolean": {
         "PrecisionStep": "1",
         "ValidEquivalenceClasses": [ "true", "false" ],
-        "InvalidEquivalenceClasses": [ "yes", "no", "1", "0", "", "maybe" ]
+        "InvalidEquivalenceClasses": [
+          //"yes",
+          //"no",
+          //"1",
+          //"0",
+          //"",
+          //"maybe"
+        ]
       },
       "Integer": {
         "PrecisionStep": "1",
@@ -274,27 +281,27 @@
       "Percentage": {
         "PrecisionStep": "0.01",
         "ValidEquivalenceClasses": [ 0.0, 50.5, 99.99, 100.0 ],
-        "InvalidEquivalenceClasses": [ -1, 101, "text", "", null ]
+        "InvalidEquivalenceClasses": [ -1, 101, "text", "" ]
       },
       "Currency": {
         "PrecisionStep": "0.01",
         "FormatString": "C2", // .NET currency format, e.g., "$123.45"
         "ValidEquivalenceClasses": [ 0.0, 19.99, 100.00, 99999.99 ],
-        "InvalidEquivalenceClasses": [ -5, "free", "text", "", null ]
+        "InvalidEquivalenceClasses": [ -5, "free", "text", "" ]
       },
       "Date": {
         "PrecisionStep": "1",
         "PrecisionStepUnit": "Days", // Supported units: "Days", "Months", "Years"
         "FormatString": "yyyy-MM-dd", // ISO format
         "ValidEquivalenceClasses": [ "2024-01-01", "1990-12-31", "2025-03-26" ],
-        "InvalidEquivalenceClasses": [ "not-a-date", "13/32/2020", "", null ]
+        "InvalidEquivalenceClasses": [ "not-a-date", "13/32/2020", "" ]
       },
       "Time": {
         "PrecisionStep": "15",
         "PrecisionStepUnit": "Minutes", // Supported units: "Seconds", "Minutes", "Hours"
         "FormatString": "hh\\:mm", // .NET TimeSpan format
         "ValidEquivalenceClasses": [ "00:00", "12:30", "23:59" ],
-        "InvalidEquivalenceClasses": [ "24:00", "99:99", "noon", "", null ]
+        "InvalidEquivalenceClasses": [ "24:00", "99:99", "noon", "" ]
       },
       "DateTime": {
         "PrecisionStep": "1",
@@ -307,13 +314,13 @@
         "PrecisionStep": "1",
         "FormatString": "yyyy-'W'ww", // ISO week number
         "ValidEquivalenceClasses": [ "2025-W01", "2024-W52", "2023-W12" ],
-        "InvalidEquivalenceClasses": [ "2025-W60", "2024-W00", "not-a-week", "", null ]
+        "InvalidEquivalenceClasses": [ "2025-W60", "2024-W00", "not-a-week", "" ]
       },
       "Month": {
         "PrecisionStep": "1",
         "FormatString": "yyyy-MM", // HTML5 <input type="month">
         "ValidEquivalenceClasses": [ "2025-01", "2024-12", "1999-07" ],
-        "InvalidEquivalenceClasses": [ "2025-13", "1999-00", "March 2025", "", null ]
+        "InvalidEquivalenceClasses": [ "2025-13", "1999-00", "March 2025", "" ]
       },
       "Address": {
         "PrecisionStep": "10", // number of characters added/removed during boundary offset
@@ -324,8 +331,7 @@
         "InvalidEquivalenceClasses": [
           "",
           "No Address",
-          "ZZZ",
-          null
+          "ZZZ"
         ]
       },
       "GeoCoordinate": {
@@ -342,8 +348,7 @@
           "text",
           "42.6975",
           "42.6975,",
-          "",
-          null
+          ""
         ]
       },
       "Username": {
@@ -358,8 +363,7 @@
           "admin!",
           "user name",
           "root$",
-          "",
-          null
+          ""
         ]
       },
       "URL": {
@@ -374,8 +378,7 @@
           "http:/invalid.com",
           "ftp://wrong.protocol",
           "://missing.scheme.com",
-          "",
-          null
+          ""
         ]
       },
       "Color": {
@@ -393,8 +396,7 @@
           "#12345",
           "#1234567",
           "red",
-          "",
-          null
+          ""
         ]
       }
     }

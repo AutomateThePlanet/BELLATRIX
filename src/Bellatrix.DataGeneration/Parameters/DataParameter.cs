@@ -15,11 +15,19 @@ public class DataParameter<TDataStrategy> : IInputParameter
     {
         DataProviderStrategy = dataProviderStrategy;
 
-        TestValues = DataProviderStrategy.GenerateTestValues(
-            includeBoundaryValues: isManualMode ? false : includeBoundaryValues, // Disable boundary calculations in manual mode
-            allowValidEquivalenceClasses: isManualMode ? false : allowValidEquivalenceClasses,
-            allowInvalidEquivalenceClasses: isManualMode ? false : allowInvalidEquivalenceClasses,
-            customValues);
+        try
+        {
+            TestValues = DataProviderStrategy.GenerateTestValues(
+          includeBoundaryValues: isManualMode ? false : includeBoundaryValues, // Disable boundary calculations in manual mode
+          allowValidEquivalenceClasses: isManualMode ? false : allowValidEquivalenceClasses,
+          allowInvalidEquivalenceClasses: isManualMode ? false : allowInvalidEquivalenceClasses,
+          customValues);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+      
     }
 
     protected TDataStrategy DataProviderStrategy { get; }

@@ -8,13 +8,12 @@ public class BooleanDataParameter : DataParameter<BooleanDataProviderStrategy>
         bool isManualMode = false,
         int? minBoundary = null,
         int? maxBoundary = null,
-        bool? includeBoundaryValues = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
         params TestValue[] customValues)
-        : base(new BooleanDataProviderStrategy(minBoundary, maxBoundary),
+        : base(new BooleanDataProviderStrategy(),
               isManualMode,
-              includeBoundaryValues,
+              false,
               allowValidEquivalenceClasses,
               allowInvalidEquivalenceClasses,
               customValues)

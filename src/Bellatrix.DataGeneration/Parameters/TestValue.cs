@@ -16,7 +16,16 @@ public class TestValue
 
     public override bool Equals(object obj)
     {
-        if (obj is not TestValue other) return false;
+        if (obj is not TestValue other)
+        {
+            return false;
+        }
+
+        if (Value is null || other.Value is null)
+        {
+            return false;
+        }
+
         return Value.Equals(other.Value);
     }
 
