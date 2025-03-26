@@ -270,6 +270,11 @@
         "PrecisionStep": "0.01",
         "ValidEquivalenceClasses": [ 10.5, -100.75, 0.00, 9999.99 ],
         "InvalidEquivalenceClasses": [ "NaN", "infinity", "text", "", null ]
+      },
+      "Percentage": {
+        "PrecisionStep": "0.01",
+        "ValidEquivalenceClasses": [ 0.0, 50.5, 99.99, 100.0 ],
+        "InvalidEquivalenceClasses": [ -1, 101, "text", "", null ]
       }
     }
   }
