@@ -176,7 +176,7 @@ public class HybridArtificialBeeColonyTestCaseGenerator
         }
 
         // Create a deep copy of the test case before mutating
-        TestCase mutatedTestCase = new TestCase { Values = originalTestCase.Values.Select(v => new TestValue(v.Value, v.Category)).ToList() };
+        TestCase mutatedTestCase = new TestCase { Values = originalTestCase.Values.Select(v => new TestValue(v.Value, v.ExpectedType, v.Category)).ToList() };
 
         // Select a mutation index and change the value
         int index = _random.Next(mutatedTestCase.Values.Count);

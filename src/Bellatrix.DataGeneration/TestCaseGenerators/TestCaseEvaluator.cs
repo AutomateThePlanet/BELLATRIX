@@ -6,7 +6,7 @@ namespace Bellatrix.DataGeneration.TestCaseGenerators;
 public class TestCaseEvaluator
 {
     private readonly bool _allowMultipleInvalidInputs;
-    private readonly Dictionary<int, HashSet<string>> _globalSeenValuesPerParameter = new(); // Tracks first-time values per parameter
+    private readonly Dictionary<int, HashSet<object>> _globalSeenValuesPerParameter = new(); // Tracks first-time values per parameter
 
     public TestCaseEvaluator(bool allowMultipleInvalidInputs = false)
     {
@@ -27,7 +27,7 @@ public class TestCaseEvaluator
     {
         double score = 0;
         int firstTimeValueCount = 0; // Track new values in this test case
-        Dictionary<int, HashSet<string>> alreadyCoveredValues = GetCoveredValuesPerParameter(evaluatedTestCases);
+        Dictionary<int, HashSet<object>> alreadyCoveredValues = GetCoveredValuesPerParameter(evaluatedTestCases);
 
         var invalidCount = testCase.Values.Count(value =>
             value.Category == TestValueCategory.Invalid ||
@@ -54,7 +54,7 @@ public class TestCaseEvaluator
             // 🔹 Ensure global tracking per parameter is initialized
             if (!_globalSeenValuesPerParameter.ContainsKey(i))
             {
-                _globalSeenValuesPerParameter[i] = new HashSet<string>();
+                _globalSeenValuesPerParameter[i] = new HashSet<object>();
             }
 
             // 🔹 If this value has never been seen globally, apply a one-time bonus
@@ -81,9 +81,9 @@ public class TestCaseEvaluator
         return score;
     }
 
-    private Dictionary<int, HashSet<string>> GetCoveredValuesPerParameter(HashSet<TestCase> evaluatedPopulation)
+    private Dictionary<int, HashSet<object>> GetCoveredValuesPerParameter(HashSet<TestCase> evaluatedPopulation)
     {
-        var coveredValues = new Dictionary<int, HashSet<string>>();
+        var coveredValues = new Dictionary<int, HashSet<object>>();
 
         foreach (var testCase in evaluatedPopulation)
         {
@@ -91,7 +91,7 @@ public class TestCaseEvaluator
             {
                 if (!coveredValues.ContainsKey(i))
                 {
-                    coveredValues[i] = new HashSet<string>();
+                    coveredValues[i] = new HashSet<object>();
                 }
                 coveredValues[i].Add(testCase.Values[i].Value);
             }

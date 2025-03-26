@@ -3,13 +3,15 @@
 // Represents a single test value with a category (Boundary, Normal, Invalid)
 public class TestValue
 {
-    public TestValue(string value, TestValueCategory category)
+    public TestValue(object value, Type expectedType, TestValueCategory category)
     {
-        Value = value ?? throw new ArgumentNullException(nameof(value));
+        Value = value;
+        ExpectedType = expectedType;
         Category = category;
     }
 
-    public string Value { get; }
+    public object Value { get; }
+    public Type ExpectedType { get; }
     public TestValueCategory Category { get; }
 
     public override bool Equals(object obj)

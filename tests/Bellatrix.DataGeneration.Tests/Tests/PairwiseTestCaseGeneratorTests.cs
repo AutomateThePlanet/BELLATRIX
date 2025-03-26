@@ -19,7 +19,7 @@ public class PairwiseTestCaseGeneratorTests
         public MockInputParameter(string name, params string[] values)
         {
             Name = name;
-            TestValues = values.Select(v => new TestValue(v, TestValueCategory.Valid)).ToList();
+            TestValues = values.Select(v => new TestValue(v, typeof(string), TestValueCategory.Valid)).ToList();
         }
     }
 
@@ -38,7 +38,7 @@ public class PairwiseTestCaseGeneratorTests
         Assert.That(testCases, Is.Not.Null);
         Assert.That(testCases.Count, Is.GreaterThan(0), "Test cases should be generated.");
 
-        var allPairs = new HashSet<(string, string)>();
+        var allPairs = new HashSet<(object, object)>();
 
         foreach (var testCase in testCases)
         {
@@ -52,7 +52,7 @@ public class PairwiseTestCaseGeneratorTests
             }
         }
 
-        var expectedPairs = new HashSet<(string, string)>();
+        var expectedPairs = new HashSet<(object, object)>();
         for (int i = 0; i < parameters.Count; i++)
         {
             for (int j = i + 1; j < parameters.Count; j++)

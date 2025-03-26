@@ -4,15 +4,26 @@ namespace Bellatrix.DataGeneration.TestValueProviders;
 
 public class EmailDataProviderStrategy : DataProviderStrategy
 {
-    public EmailDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null) 
+    public EmailDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
         : base(minBoundary, maxBoundary)
     {
     }
 
     protected override string GetInputTypeName() => "Email";
 
-    protected override string GenerateValue(int length)
+    protected override Type GetExpectedType() => typeof(string);
+
+    protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
-        return length < 6 ? "x@x.x" : new string('a', length - 6) + "@mail.com";
+        var email = GenerateEmailWithLength(boundaryInput);
+        return new TestValue(email, typeof(string), category);
+    }
+
+    private string GenerateEmailWithLength(int totalLength)
+    {
+        const string domain = "@mail.com";
+        int localPartLength = Math.Max(totalLength - domain.Length, 1);
+        string localPart = new string('a', localPartLength);
+        return localPart + domain;
     }
 }

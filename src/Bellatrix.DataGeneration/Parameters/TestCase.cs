@@ -14,7 +14,7 @@ public class TestCase : ICloneable
     {
         return new TestCase
         {
-            Values = Values.Select(v => new TestValue(v.Value, v.Category)).ToList(),
+            Values = Values.Select(v => new TestValue(v.Value, v.ExpectedType, v.Category)).ToList(),
             Score = Score
         };
     }
