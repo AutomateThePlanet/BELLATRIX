@@ -373,9 +373,23 @@
           "",
           null
         ]
+      },
+      "URL": {
+        "PrecisionStep": "5",
+        "ValidEquivalenceClasses": [
+          "https://www.google.com",
+          "http://example.org",
+          "https://sub.domain.co.uk"
+        ],
+        "InvalidEquivalenceClasses": [
+          "www.google.com",
+          "http:/invalid.com",
+          "ftp://wrong.protocol",
+          "://missing.scheme.com",
+          "",
+          null
+        ]
       }
-
-
     }
   }
 }
