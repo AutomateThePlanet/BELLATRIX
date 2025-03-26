@@ -16,7 +16,8 @@ public class DateTimeDataProviderStrategy : BoundaryCapableDataProviderStrategy<
 
     protected override TestValue CreateBoundaryTestValue(DateTime boundaryInput, TestValueCategory category)
     {
-        return new TestValue(boundaryInput, typeof(DateTime), category);
+        string formatted = boundaryInput.ToString(FormatString ?? "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
+        return new TestValue(formatted, typeof(string), category);
     }
 
     protected override DateTime OffsetValue(DateTime value, BoundaryOffsetDirection direction)

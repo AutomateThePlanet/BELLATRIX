@@ -16,8 +16,9 @@ public class WeekDataProviderStrategy : BoundaryCapableDataProviderStrategy<Date
 
     protected override TestValue CreateBoundaryTestValue(DateTime boundaryInput, TestValueCategory category)
     {
-        var isoWeek = ISOWeek.ToString(boundaryInput);
-        return new TestValue(isoWeek, typeof(string), category);
+        string formatted = FormatString ?? "yyyy-'W'ww";
+        string weekFormatted = boundaryInput.ToString(formatted, CultureInfo.InvariantCulture);
+        return new TestValue(weekFormatted, typeof(string), category);
     }
 
     protected override DateTime OffsetValue(DateTime value, BoundaryOffsetDirection direction)
@@ -28,15 +29,5 @@ public class WeekDataProviderStrategy : BoundaryCapableDataProviderStrategy<Date
         return direction == BoundaryOffsetDirection.Before
             ? value.AddDays(-7 * offset)
             : value.AddDays(7 * offset);
-    }
-
-    private static class ISOWeek
-    {
-        public static string ToString(DateTime date)
-        {
-            var calendar = CultureInfo.InvariantCulture.Calendar;
-            int week = calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
-            return $"{date.Year}-W{week:D2}";
-        }
     }
 }

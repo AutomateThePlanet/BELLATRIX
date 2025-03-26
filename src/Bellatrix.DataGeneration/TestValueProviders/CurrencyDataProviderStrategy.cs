@@ -17,7 +17,8 @@ public class CurrencyDataProviderStrategy : BoundaryCapableDataProviderStrategy<
     protected override TestValue CreateBoundaryTestValue(decimal boundaryInput, TestValueCategory category)
     {
         // Format can be adjusted if needed to return as "$123.45" or "123.45 EUR"
-        return new TestValue(boundaryInput, typeof(decimal), category);
+        string formatted = boundaryInput.ToString(FormatString ?? "F2", CultureInfo.InvariantCulture);
+        return new TestValue(formatted, typeof(decimal), category);
     }
 
     protected override decimal OffsetValue(decimal value, BoundaryOffsetDirection direction)

@@ -16,8 +16,8 @@ public class MonthDataProviderStrategy : BoundaryCapableDataProviderStrategy<Dat
 
     protected override TestValue CreateBoundaryTestValue(DateTime boundaryInput, TestValueCategory category)
     {
-        var monthString = boundaryInput.ToString("yyyy-MM", CultureInfo.InvariantCulture);
-        return new TestValue(monthString, typeof(string), category);
+        string formatted = boundaryInput.ToString(FormatString ?? "yyyy-MM", CultureInfo.InvariantCulture);
+        return new TestValue(formatted, typeof(string), category);
     }
 
     protected override DateTime OffsetValue(DateTime value, BoundaryOffsetDirection direction)

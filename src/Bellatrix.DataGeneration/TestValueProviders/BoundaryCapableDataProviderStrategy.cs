@@ -11,6 +11,7 @@ public abstract class BoundaryCapableDataProviderStrategy<T> : EquivalenceOnlyDa
     protected readonly T? MaxBoundary;
     protected readonly string PrecisionStep;
     protected readonly string PrecisionStepUnit;
+    protected readonly string FormatString;
 
     protected BoundaryCapableDataProviderStrategy(
         T? minBoundary = null,
@@ -26,6 +27,7 @@ public abstract class BoundaryCapableDataProviderStrategy<T> : EquivalenceOnlyDa
         var settings = config.InputTypeSettings[GetInputTypeName()];
         PrecisionStep = settings.PrecisionStep;
         PrecisionStepUnit = settings.PrecisionStepUnit;
+        FormatString = settings.FormatString;
     }
 
     public override List<TestValue> GenerateTestValues(

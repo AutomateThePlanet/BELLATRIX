@@ -278,34 +278,40 @@
       },
       "Currency": {
         "PrecisionStep": "0.01",
+        "FormatString": "C2", // .NET currency format, e.g., "$123.45"
         "ValidEquivalenceClasses": [ 0.0, 19.99, 100.00, 99999.99 ],
         "InvalidEquivalenceClasses": [ -5, "free", "text", "", null ]
       },
       "Date": {
         "PrecisionStep": "1",
         "PrecisionStepUnit": "Days", // Supported units: "Days", "Months", "Years"
+        "FormatString": "yyyy-MM-dd", // ISO format
         "ValidEquivalenceClasses": [ "2024-01-01", "1990-12-31", "2025-03-26" ],
         "InvalidEquivalenceClasses": [ "not-a-date", "13/32/2020", "", null ]
       },
       "Time": {
         "PrecisionStep": "15",
         "PrecisionStepUnit": "Minutes", // Supported units: "Seconds", "Minutes", "Hours"
+        "FormatString": "hh\\:mm", // .NET TimeSpan format
         "ValidEquivalenceClasses": [ "00:00", "12:30", "23:59" ],
         "InvalidEquivalenceClasses": [ "24:00", "99:99", "noon", "", null ]
       },
       "DateTime": {
         "PrecisionStep": "1",
         "PrecisionStepUnit": "Minutes", // Supported units: "Seconds", "Minutes", "Hours", "Days", "Milliseconds"
+        "FormatString": "yyyy-MM-ddTHH:mm:ss", // ISO 8601
         "ValidEquivalenceClasses": [ "2024-10-01T10:30:00", "1999-12-31T23:59:59", "2025-03-26T00:00:00" ],
         "InvalidEquivalenceClasses": [ "tomorrow", "32/01/2022 25:00", "not-a-datetime", "", null ]
       },
       "Week": {
         "PrecisionStep": "1",
+        "FormatString": "yyyy-'W'ww", // ISO week number
         "ValidEquivalenceClasses": [ "2025-W01", "2024-W52", "2023-W12" ],
         "InvalidEquivalenceClasses": [ "2025-W60", "2024-W00", "not-a-week", "", null ]
       },
       "Month": {
         "PrecisionStep": "1",
+        "FormatString": "yyyy-MM", // HTML5 <input type="month">
         "ValidEquivalenceClasses": [ "2025-01", "2024-12", "1999-07" ],
         "InvalidEquivalenceClasses": [ "2025-13", "1999-00", "March 2025", "", null ]
       },
@@ -324,6 +330,7 @@
       },
       "GeoCoordinate": {
         "PrecisionStep": "0.01",
+        "FormatString": "F6", // Decimal with 6 digits after the dot
         "ValidEquivalenceClasses": [
           "42.6975,23.3242",
           "48.8566,2.3522",

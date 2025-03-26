@@ -16,10 +16,10 @@ public class GeoCoordinateDataProviderStrategy : BoundaryCapableDataProviderStra
 
     protected override TestValue CreateBoundaryTestValue(double boundaryInput, TestValueCategory category)
     {
-        // Generate lat=boundaryInput, lon=boundaryInput/2 for symmetry
-        // We'll treat it as a single string in the format "lat,lon" (e.g., "42.6975,23.3242")
-        string coord = $"{boundaryInput.ToString("F6", CultureInfo.InvariantCulture)}," +
-                       $"{(boundaryInput / 2).ToString("F6", CultureInfo.InvariantCulture)}";
+        string lat = boundaryInput.ToString(FormatString ?? "F6", CultureInfo.InvariantCulture);
+        string lon = (boundaryInput / 2).ToString(FormatString ?? "F6", CultureInfo.InvariantCulture);
+
+        string coord = $"{lat},{lon}";
         return new TestValue(coord, typeof(string), category);
     }
 
