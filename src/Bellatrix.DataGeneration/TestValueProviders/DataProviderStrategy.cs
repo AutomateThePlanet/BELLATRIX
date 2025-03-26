@@ -5,18 +5,31 @@ using Bellatrix.DataGeneration.Parameters;
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
 public abstract class DataProviderStrategy<T> : IDataProviderStrategy
-       where T : struct, IComparable<T>
+        where T : struct, IComparable<T>
 {
     protected readonly TestValueGenerationSettings Config;
     protected readonly T? MaxBoundary;
     protected readonly T? MinBoundary;
     protected readonly string PrecisionStep;
     protected readonly string PrecisionStepUnit;
+    protected readonly bool SupportsBoundaryGeneration;
 
-    protected DataProviderStrategy(T? minBoundary = null, T? maxBoundary = null)
+    private readonly List<object> _customValidEquivalenceClasses;
+    private readonly List<object> _customInvalidEquivalenceClasses;
+
+    protected DataProviderStrategy(
+        T? minBoundary = null,
+        T? maxBoundary = null,
+        bool supportsBoundaryGeneration = true,
+        List<object> customValidEquivalenceClasses = null,
+        List<object> customInvalidEquivalenceClasses = null)
     {
         MinBoundary = minBoundary;
         MaxBoundary = maxBoundary;
+        SupportsBoundaryGeneration = supportsBoundaryGeneration;
+        _customValidEquivalenceClasses = customValidEquivalenceClasses;
+        _customInvalidEquivalenceClasses = customInvalidEquivalenceClasses;
+
         Config = ConfigurationService.GetSection<TestValueGenerationSettings>();
         PrecisionStep = Config.InputTypeSettings[GetInputTypeName()].PrecisionStep;
         PrecisionStepUnit = Config.InputTypeSettings[GetInputTypeName()].PrecisionStepUnit;
@@ -33,11 +46,17 @@ public abstract class DataProviderStrategy<T> : IDataProviderStrategy
         var allowValidEquiv = allowValidEquivalenceClasses ?? Config.AllowValidEquivalenceClasses;
         var allowInvalidEquiv = allowInvalidEquivalenceClasses ?? Config.AllowInvalidEquivalenceClasses;
 
-        if (includeBoundary) AddBoundaryValues(testValues);
+        if (SupportsBoundaryGeneration && includeBoundary)
+        {
+            AddBoundaryValues(testValues);
+        }
 
         if (allowValidEquiv)
         {
-            foreach (var value in Config.InputTypeSettings[GetInputTypeName()].ValidEquivalenceClasses)
+            var source = _customValidEquivalenceClasses == null ?
+                         Config.InputTypeSettings[GetInputTypeName()].ValidEquivalenceClasses.Select(x => (object)x) : _customValidEquivalenceClasses;
+
+            foreach (var value in source)
             {
                 testValues.Add(new TestValue(value, GetExpectedType(), TestValueCategory.Valid));
             }
@@ -45,7 +64,10 @@ public abstract class DataProviderStrategy<T> : IDataProviderStrategy
 
         if (allowInvalidEquiv)
         {
-            foreach (var value in Config.InputTypeSettings[GetInputTypeName()].InvalidEquivalenceClasses)
+            var source = _customInvalidEquivalenceClasses == null ?
+                      Config.InputTypeSettings[GetInputTypeName()].InvalidEquivalenceClasses.Select(x => (object)x) : _customInvalidEquivalenceClasses;
+
+            foreach (var value in source)
             {
                 testValues.Add(new TestValue(value, GetExpectedType(), TestValueCategory.Invalid));
             }

@@ -4,8 +4,15 @@ namespace Bellatrix.DataGeneration.TestValueProviders;
 
 public class SingleSelectDataProviderStrategy : DataProviderStrategy<int>
 {
-    public SingleSelectDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
-        : base(minBoundary, maxBoundary)
+    public SingleSelectDataProviderStrategy(
+           List<object> validOptions,
+           List<object> invalidOptions)
+           : base(
+               minBoundary: null,
+               maxBoundary: null,
+               supportsBoundaryGeneration: false,
+               customValidEquivalenceClasses: validOptions,
+               customInvalidEquivalenceClasses: invalidOptions)
     {
     }
 

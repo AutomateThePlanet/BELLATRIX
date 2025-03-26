@@ -4,8 +4,15 @@ namespace Bellatrix.DataGeneration.TestValueProviders;
 
 public class MultiSelectDataProviderStrategy : DataProviderStrategy<int>
 {
-    public MultiSelectDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
-        : base(minBoundary, maxBoundary)
+    public MultiSelectDataProviderStrategy(
+             List<object> validOptions,
+             List<object> invalidOptions)
+             : base(
+                 minBoundary: null,
+                 maxBoundary: null,
+                 supportsBoundaryGeneration: false,
+                 customValidEquivalenceClasses: validOptions,
+                 customInvalidEquivalenceClasses: invalidOptions)
     {
     }
 
@@ -20,10 +27,7 @@ public class MultiSelectDataProviderStrategy : DataProviderStrategy<int>
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)
     {
-        bool parsed = int.TryParse(PrecisionStep, out int step);
-        int offset = parsed ? step : 1;
-
-        return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
+        return 0; // No-op: not applicable
     }
 
     protected override void AddBoundaryValues(List<TestValue> testValues)
