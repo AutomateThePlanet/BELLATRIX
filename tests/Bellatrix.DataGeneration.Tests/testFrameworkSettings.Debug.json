@@ -317,8 +317,12 @@
         "PrecisionStepUnit": "Minutes", // Supported units: "Seconds", "Minutes", "Hours", "Days", "Milliseconds"
         "ValidEquivalenceClasses": [ "2024-10-01T10:30:00", "1999-12-31T23:59:59", "2025-03-26T00:00:00" ],
         "InvalidEquivalenceClasses": [ "tomorrow", "32/01/2022 25:00", "not-a-datetime", "", null ]
+      },
+      "Week": {
+        "PrecisionStep": "1",
+        "ValidEquivalenceClasses": [ "2025-W01", "2024-W52", "2023-W12" ],
+        "InvalidEquivalenceClasses": [ "2025-W60", "2024-W00", "not-a-week", "", null ]
       }
-
     }
   }
 }
