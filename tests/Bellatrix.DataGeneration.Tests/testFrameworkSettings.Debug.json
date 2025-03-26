@@ -285,6 +285,20 @@
         "PrecisionStep": "1",
         "ValidEquivalenceClasses": [ "Option1", "Option2", "Option3" ],
         "InvalidEquivalenceClasses": [ "OptionX", "None", "", null ]
+      },
+      "MultiSelect": {
+        "PrecisionStep": "1",
+        "ValidEquivalenceClasses": [
+          [ "Option1", "Option2" ],
+          [ "Option3" ],
+          [ "Option1", "Option4", "Option5" ]
+        ],
+        "InvalidEquivalenceClasses": [
+          [ "None" ],
+          [],
+          [ "OptionX", "OptionY" ],
+          [ "" ]
+        ]
       }
     }
   }
