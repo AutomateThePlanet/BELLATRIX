@@ -275,6 +275,16 @@
         "PrecisionStep": "0.01",
         "ValidEquivalenceClasses": [ 0.0, 50.5, 99.99, 100.0 ],
         "InvalidEquivalenceClasses": [ -1, 101, "text", "", null ]
+      },
+      "Currency": {
+        "PrecisionStep": "0.01",
+        "ValidEquivalenceClasses": [ 0.0, 19.99, 100.00, 99999.99 ],
+        "InvalidEquivalenceClasses": [ -5, "free", "text", "", null ]
+      },
+      "SingleSelect": {
+        "PrecisionStep": "1",
+        "ValidEquivalenceClasses": [ "Option1", "Option2", "Option3" ],
+        "InvalidEquivalenceClasses": [ "OptionX", "None", "", null ]
       }
     }
   }
