@@ -2,7 +2,7 @@
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
-public class AddressDataProviderStrategy : DataProviderStrategy<int>
+public class AddressDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 {
     public AddressDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
         : base(minBoundary, maxBoundary)

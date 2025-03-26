@@ -2,7 +2,7 @@
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
-public class PasswordDataProviderStrategy : DataProviderStrategy<int>
+public class PasswordDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 {
     public PasswordDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
         : base(minBoundary, maxBoundary)

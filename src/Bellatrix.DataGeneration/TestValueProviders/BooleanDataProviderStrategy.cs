@@ -2,7 +2,7 @@
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
-public class BooleanDataProviderStrategy : DataProviderStrategy<int>
+public class BooleanDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 {
     public BooleanDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
         : base(minBoundary, maxBoundary)

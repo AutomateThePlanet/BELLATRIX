@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
-public class GeoCoordinateDataProviderStrategy : DataProviderStrategy<double>
+public class GeoCoordinateDataProviderStrategy : BoundaryCapableDataProviderStrategy<double>
 {
     public GeoCoordinateDataProviderStrategy(double? minBoundary = null, double? maxBoundary = null)
         : base(minBoundary, maxBoundary)

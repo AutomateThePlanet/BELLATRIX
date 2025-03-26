@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
-public class TimeDataProviderStrategy : DataProviderStrategy<TimeSpan>
+public class TimeDataProviderStrategy : BoundaryCapableDataProviderStrategy<TimeSpan>
 {
     public TimeDataProviderStrategy(TimeSpan? minBoundary = null, TimeSpan? maxBoundary = null)
         : base(minBoundary, maxBoundary)

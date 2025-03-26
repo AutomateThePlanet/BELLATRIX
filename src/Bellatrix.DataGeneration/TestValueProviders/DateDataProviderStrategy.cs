@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
-public class DateDataProviderStrategy : DataProviderStrategy<DateTime>
+public class DateDataProviderStrategy : BoundaryCapableDataProviderStrategy<DateTime>
 {
     public DateDataProviderStrategy(DateTime? minBoundary = null, DateTime? maxBoundary = null)
         : base(minBoundary, maxBoundary)

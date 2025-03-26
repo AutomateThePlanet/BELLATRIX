@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
-public class CurrencyDataProviderStrategy : DataProviderStrategy<decimal>
+public class CurrencyDataProviderStrategy : BoundaryCapableDataProviderStrategy<decimal>
 {
     public CurrencyDataProviderStrategy(decimal? minBoundary = null, decimal? maxBoundary = null)
         : base(minBoundary, maxBoundary)
