@@ -247,6 +247,10 @@
           "<script>alert('XSS')</script>",
           "' OR 1=1 --"
         ]
+      },
+      "Password": {
+        "ValidEquivalenceClasses": [ "StrongP@ssw0rd1", "Another1#Valid" ],
+        "InvalidEquivalenceClasses": [ "12345", "password", "abc", " " ]
       }
     }
   }
