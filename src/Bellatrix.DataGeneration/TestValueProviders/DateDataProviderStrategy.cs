@@ -21,7 +21,14 @@ public class DateDataProviderStrategy : DataProviderStrategy<DateTime>
 
     protected override DateTime OffsetValue(DateTime value, BoundaryOffsetDirection direction)
     {
-        int daysOffset = int.TryParse(PrecisionStep, out int step) ? step : 1;
-        return direction == BoundaryOffsetDirection.Before ? value.AddDays(-daysOffset) : value.AddDays(daysOffset);
+        bool parsed = int.TryParse(PrecisionStep, out int step);
+        if (!parsed) step = 1;
+
+        return PrecisionStepUnit switch
+        {
+            "Years" => direction == BoundaryOffsetDirection.Before ? value.AddYears(-step) : value.AddYears(step),
+            "Months" => direction == BoundaryOffsetDirection.Before ? value.AddMonths(-step) : value.AddMonths(step),
+            _ => direction == BoundaryOffsetDirection.Before ? value.AddDays(-step) : value.AddDays(step)
+        };
     }
 }

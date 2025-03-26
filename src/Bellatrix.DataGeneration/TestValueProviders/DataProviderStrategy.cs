@@ -11,6 +11,7 @@ public abstract class DataProviderStrategy<T> : IDataProviderStrategy
     protected readonly T? MaxBoundary;
     protected readonly T? MinBoundary;
     protected readonly string PrecisionStep;
+    protected readonly string PrecisionStepUnit;
 
     protected DataProviderStrategy(T? minBoundary = null, T? maxBoundary = null)
     {
@@ -18,6 +19,7 @@ public abstract class DataProviderStrategy<T> : IDataProviderStrategy
         MaxBoundary = maxBoundary;
         Config = ConfigurationService.GetSection<TestValueGenerationSettings>();
         PrecisionStep = Config.InputTypeSettings[GetInputTypeName()].PrecisionStep;
+        PrecisionStepUnit = Config.InputTypeSettings[GetInputTypeName()].PrecisionStepUnit;
     }
 
     public virtual List<TestValue> GenerateTestValues(
