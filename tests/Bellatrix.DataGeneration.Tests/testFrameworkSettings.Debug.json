@@ -327,7 +327,21 @@
         "PrecisionStep": "1",
         "ValidEquivalenceClasses": [ "2025-01", "2024-12", "1999-07" ],
         "InvalidEquivalenceClasses": [ "2025-13", "1999-00", "March 2025", "", null ]
+      },
+      "Address": {
+        "PrecisionStep": "10", // number of characters added/removed during boundary offset
+        "ValidEquivalenceClasses": [
+          "123 Main St, Springfield, IL 62704",
+          "456 Elm St, Apt 5B, New York, NY 10001"
+        ],
+        "InvalidEquivalenceClasses": [
+          "",
+          "No Address",
+          "ZZZ",
+          null
+        ]
       }
+
 
     }
   }
