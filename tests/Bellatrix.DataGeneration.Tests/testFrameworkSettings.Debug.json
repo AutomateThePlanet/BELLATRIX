@@ -299,6 +299,11 @@
           [ "OptionX", "OptionY" ],
           [ "" ]
         ]
+      },
+      "Date": {
+        "PrecisionStep": "1",
+        "ValidEquivalenceClasses": [ "2024-01-01", "1990-12-31", "2025-03-26" ],
+        "InvalidEquivalenceClasses": [ "not-a-date", "13/32/2020", "", null ]
       }
     }
   }
