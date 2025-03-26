@@ -322,7 +322,13 @@
         "PrecisionStep": "1",
         "ValidEquivalenceClasses": [ "2025-W01", "2024-W52", "2023-W12" ],
         "InvalidEquivalenceClasses": [ "2025-W60", "2024-W00", "not-a-week", "", null ]
+      },
+      "Month": {
+        "PrecisionStep": "1",
+        "ValidEquivalenceClasses": [ "2025-01", "2024-12", "1999-07" ],
+        "InvalidEquivalenceClasses": [ "2025-13", "1999-00", "March 2025", "", null ]
       }
+
     }
   }
 }
