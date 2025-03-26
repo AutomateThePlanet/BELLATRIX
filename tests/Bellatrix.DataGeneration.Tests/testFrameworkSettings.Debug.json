@@ -281,25 +281,6 @@
         "ValidEquivalenceClasses": [ 0.0, 19.99, 100.00, 99999.99 ],
         "InvalidEquivalenceClasses": [ -5, "free", "text", "", null ]
       },
-      "SingleSelect": {
-        "PrecisionStep": "1",
-        "ValidEquivalenceClasses": [ "Option1", "Option2", "Option3" ],
-        "InvalidEquivalenceClasses": [ "OptionX", "None", "", null ]
-      },
-      "MultiSelect": {
-        "PrecisionStep": "1",
-        "ValidEquivalenceClasses": [
-          [ "Option1", "Option2" ],
-          [ "Option3" ],
-          [ "Option1", "Option4", "Option5" ]
-        ],
-        "InvalidEquivalenceClasses": [
-          [ "None" ],
-          [],
-          [ "OptionX", "OptionY" ],
-          [ "" ]
-        ]
-      },
       "Date": {
         "PrecisionStep": "1",
         "PrecisionStepUnit": "Days", // Supported units: "Days", "Months", "Years"
@@ -391,7 +372,6 @@
         ]
       },
       "Color": {
-        "PrecisionStep": "1",
         "ValidEquivalenceClasses": [
           "#FF0000",
           "#00FF00",
