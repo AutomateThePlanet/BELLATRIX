@@ -357,6 +357,22 @@
           "",
           null
         ]
+      },
+      "Username": {
+        "PrecisionStep": "1",
+        "ValidEquivalenceClasses": [
+          "john_doe",
+          "user123",
+          "qa_tester",
+          "dev_user1"
+        ],
+        "InvalidEquivalenceClasses": [
+          "admin!",
+          "user name",
+          "root$",
+          "",
+          null
+        ]
       }
 
 
