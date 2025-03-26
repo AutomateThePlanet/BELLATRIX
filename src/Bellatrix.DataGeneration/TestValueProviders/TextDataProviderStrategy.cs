@@ -2,7 +2,7 @@
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
-public class TextDataProviderStrategy : DataProviderStrategy
+public class TextDataProviderStrategy : DataProviderStrategy<int>
 {
     public TextDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
         : base(minBoundary, maxBoundary)
@@ -15,12 +15,20 @@ public class TextDataProviderStrategy : DataProviderStrategy
 
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
-        var text = GenerateText(boundaryInput);
+        string text = GenerateText(boundaryInput);
         return new TestValue(text, typeof(string), category);
     }
 
     private string GenerateText(int length)
     {
         return new string('A', Math.Max(1, length));
+    }
+
+    protected override int OffsetValue(int value, BoundaryOffsetDirection direction)
+    {
+        bool parsedSuccessfully = int.TryParse(PrecisionStep, out int step);
+        int offset = parsedSuccessfully ? step : 1;
+
+        return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }
 }

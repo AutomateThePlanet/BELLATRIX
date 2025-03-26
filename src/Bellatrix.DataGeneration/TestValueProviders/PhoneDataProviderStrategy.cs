@@ -2,7 +2,7 @@
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
-public class PhoneDataProviderStrategy : DataProviderStrategy
+public class PhoneDataProviderStrategy : DataProviderStrategy<int>
 {
     public PhoneDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
         : base(minBoundary, maxBoundary)
@@ -15,7 +15,7 @@ public class PhoneDataProviderStrategy : DataProviderStrategy
 
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
-        var phone = GeneratePhoneNumber(boundaryInput);
+        string phone = GeneratePhoneNumber(boundaryInput);
         return new TestValue(phone, typeof(string), category);
     }
 
@@ -25,5 +25,13 @@ public class PhoneDataProviderStrategy : DataProviderStrategy
         int localNumberLength = Math.Max(totalLength - countryCode.Length, 1);
         string localNumber = new string('9', localNumberLength);
         return countryCode + localNumber;
+    }
+
+    protected override int OffsetValue(int value, BoundaryOffsetDirection direction)
+    {
+        bool parsedSuccessfully = int.TryParse(PrecisionStep, out int step);
+        int offset = parsedSuccessfully ? step : 1;
+
+        return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }
 }

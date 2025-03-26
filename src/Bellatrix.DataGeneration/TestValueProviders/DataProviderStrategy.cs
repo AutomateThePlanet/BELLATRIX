@@ -4,17 +4,20 @@ using Bellatrix.DataGeneration.Parameters;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
-public abstract class DataProviderStrategy : IDataProviderStrategy
+public abstract class DataProviderStrategy<T> : IDataProviderStrategy
+       where T : struct, IComparable<T>
 {
     protected readonly TestValueGenerationSettings Config;
-    protected readonly int? MaxBoundary;
-    protected readonly int? MinBoundary;
+    protected readonly T? MaxBoundary;
+    protected readonly T? MinBoundary;
+    protected readonly string PrecisionStep;
 
-    protected DataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
+    protected DataProviderStrategy(T? minBoundary = null, T? maxBoundary = null)
     {
         MinBoundary = minBoundary;
         MaxBoundary = maxBoundary;
         Config = ConfigurationService.GetSection<TestValueGenerationSettings>();
+        PrecisionStep = Config.InputTypeSettings[GetInputTypeName()].PrecisionStep;
     }
 
     public virtual List<TestValue> GenerateTestValues(
@@ -33,13 +36,17 @@ public abstract class DataProviderStrategy : IDataProviderStrategy
         if (allowValidEquiv)
         {
             foreach (var value in Config.InputTypeSettings[GetInputTypeName()].ValidEquivalenceClasses)
+            {
                 testValues.Add(new TestValue(value, GetExpectedType(), TestValueCategory.Valid));
+            }
         }
 
         if (allowInvalidEquiv)
         {
             foreach (var value in Config.InputTypeSettings[GetInputTypeName()].InvalidEquivalenceClasses)
+            {
                 testValues.Add(new TestValue(value, GetExpectedType(), TestValueCategory.Invalid));
+            }
         }
 
         foreach (var customValue in customValues)
@@ -54,15 +61,15 @@ public abstract class DataProviderStrategy : IDataProviderStrategy
     {
         if (MinBoundary != null && MaxBoundary != null)
         {
-            testValues.Add(CreateBoundaryTestValue(MinBoundary.Value - 1, TestValueCategory.BoundaryInvalid));
+            testValues.Add(CreateBoundaryTestValue(OffsetValue(MinBoundary.Value, BoundaryOffsetDirection.Before), TestValueCategory.BoundaryInvalid));
             testValues.Add(CreateBoundaryTestValue(MinBoundary.Value, TestValueCategory.BoundaryValid));
             testValues.Add(CreateBoundaryTestValue(MaxBoundary.Value, TestValueCategory.BoundaryValid));
-            testValues.Add(CreateBoundaryTestValue(MaxBoundary.Value + 1, TestValueCategory.BoundaryInvalid));
+            testValues.Add(CreateBoundaryTestValue(OffsetValue(MaxBoundary.Value, BoundaryOffsetDirection.After), TestValueCategory.BoundaryInvalid));
         }
     }
 
-    protected abstract TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category);
+    protected abstract T OffsetValue(T value, BoundaryOffsetDirection direction);
+    protected abstract TestValue CreateBoundaryTestValue(T boundaryInput, TestValueCategory category);
     protected abstract Type GetExpectedType();
     protected abstract string GetInputTypeName();
 }
-

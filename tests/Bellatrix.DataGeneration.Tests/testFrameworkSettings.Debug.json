@@ -213,6 +213,7 @@
     "allowInvalidEquivalenceClasses": false,
     "inputTypeSettings": {
       "Email": {
+        "PrecisionStep": "1",
         "ValidEquivalenceClasses": [ "user@example.com", "contact@domain.net" ],
         "InvalidEquivalenceClasses": [
           "invalid-email",
@@ -224,6 +225,7 @@
         ]
       },
       "Phone": {
+        "PrecisionStep": "1",
         "ValidEquivalenceClasses": [ "+11234567890", "+442071838750" ],
         "InvalidEquivalenceClasses": [
           "12345",
@@ -236,6 +238,7 @@
         ]
       },
       "Text": {
+        "PrecisionStep": "1",
         "ValidEquivalenceClasses": [ "Hello World", "Sample Input" ],
         "InvalidEquivalenceClasses": [
           "",
@@ -249,12 +252,24 @@
         ]
       },
       "Password": {
+        "PrecisionStep": "1",
         "ValidEquivalenceClasses": [ "StrongP@ssw0rd1", "Another1#Valid" ],
         "InvalidEquivalenceClasses": [ "12345", "password", "abc", " " ]
       },
       "Boolean": {
+        "PrecisionStep": "1",
         "ValidEquivalenceClasses": [ "true", "false" ],
         "InvalidEquivalenceClasses": [ "yes", "no", "1", "0", "", "maybe" ]
+      },
+      "Integer": {
+        "PrecisionStep": "1",
+        "ValidEquivalenceClasses": [ 0, 42, -100, 100000 ],
+        "InvalidEquivalenceClasses": [ "abc", "", "999999999999999999999", "-999999999999999999999" ]
+      },
+      "Decimal": {
+        "PrecisionStep": "0.01",
+        "ValidEquivalenceClasses": [ 10.5, -100.75, 0.00, 9999.99 ],
+        "InvalidEquivalenceClasses": [ "NaN", "infinity", "text", "", null ]
       }
     }
   }
