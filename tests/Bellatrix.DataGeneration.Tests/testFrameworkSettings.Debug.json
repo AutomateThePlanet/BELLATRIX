@@ -340,6 +340,23 @@
           "ZZZ",
           null
         ]
+      },
+      "GeoCoordinate": {
+        "PrecisionStep": "0.01",
+        "ValidEquivalenceClasses": [
+          "42.6975,23.3242",
+          "48.8566,2.3522",
+          "-33.8688,151.2093"
+        ],
+        "InvalidEquivalenceClasses": [
+          "NaN,NaN",
+          "999,999",
+          "text",
+          "42.6975",
+          "42.6975,",
+          "",
+          null
+        ]
       }
 
 
