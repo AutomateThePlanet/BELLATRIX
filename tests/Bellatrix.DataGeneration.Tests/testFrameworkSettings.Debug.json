@@ -251,6 +251,10 @@
       "Password": {
         "ValidEquivalenceClasses": [ "StrongP@ssw0rd1", "Another1#Valid" ],
         "InvalidEquivalenceClasses": [ "12345", "password", "abc", " " ]
+      },
+      "Boolean": {
+        "ValidEquivalenceClasses": [ "true", "false" ],
+        "InvalidEquivalenceClasses": [ "yes", "no", "1", "0", "", "maybe" ]
       }
     }
   }
