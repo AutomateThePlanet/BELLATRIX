@@ -16,7 +16,7 @@ public class PhoneDataProviderStrategy : BoundaryCapableDataProviderStrategy<int
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
         string phone = GeneratePhoneNumber(boundaryInput);
-        return new TestValue(phone, typeof(string), category);
+        return new TestValue(phone, category);
     }
 
     private string GeneratePhoneNumber(int totalLength)

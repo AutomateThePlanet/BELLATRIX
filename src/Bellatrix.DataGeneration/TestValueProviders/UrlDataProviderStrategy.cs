@@ -23,7 +23,7 @@ public class UrlDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
         string domain = new string('a', coreLength);
         string url = prefix + domain + suffix;
 
-        return new TestValue(url, typeof(string), category);
+        return new TestValue(url, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)

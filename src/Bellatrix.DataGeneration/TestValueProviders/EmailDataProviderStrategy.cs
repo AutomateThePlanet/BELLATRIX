@@ -16,7 +16,7 @@ public class EmailDataProviderStrategy : BoundaryCapableDataProviderStrategy<int
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
         var email = GenerateEmailWithLength(boundaryInput);
-        return new TestValue(email, typeof(string), category);
+        return new TestValue(email, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)

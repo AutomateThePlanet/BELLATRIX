@@ -7,7 +7,7 @@ public class DataParameter<TDataStrategy> : IInputParameter
 {
     public DataParameter(
         TDataStrategy dataProviderStrategy = null,
-        bool isManualMode = false,
+        bool preciseMode = false,
         bool? includeBoundaryValues = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
@@ -15,19 +15,11 @@ public class DataParameter<TDataStrategy> : IInputParameter
     {
         DataProviderStrategy = dataProviderStrategy;
 
-        try
-        {
-            TestValues = DataProviderStrategy.GenerateTestValues(
-          includeBoundaryValues: isManualMode ? false : includeBoundaryValues, // Disable boundary calculations in manual mode
-          allowValidEquivalenceClasses: isManualMode ? false : allowValidEquivalenceClasses,
-          allowInvalidEquivalenceClasses: isManualMode ? false : allowInvalidEquivalenceClasses,
-          customValues);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-        }
-      
+        TestValues = DataProviderStrategy.GenerateTestValues(
+         includeBoundaryValues: preciseMode ? false : includeBoundaryValues, // Disable boundary calculations in manual mode
+         allowValidEquivalenceClasses: preciseMode ? false : allowValidEquivalenceClasses,
+         allowInvalidEquivalenceClasses: preciseMode ? false : allowInvalidEquivalenceClasses,
+         customValues);
     }
 
     protected TDataStrategy DataProviderStrategy { get; }

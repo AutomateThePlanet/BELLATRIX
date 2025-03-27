@@ -1,8 +1,9 @@
 ﻿using Bellatrix.DataGeneration.Models;
-using Bellatrix.DataGeneration.OutputGenerators;
 using System.Diagnostics;
 using System.Text;
 using TextCopy;
+
+namespace Bellatrix.DataGeneration.OutputGenerators;
 
 public class NUnitTestCaseOutputGenerator : TestCaseOutputGenerator
 {
@@ -13,13 +14,19 @@ public class NUnitTestCaseOutputGenerator : TestCaseOutputGenerator
         sb.AppendLine("\n🔹 **Generated NUnit TestCaseSource Method:**\n");
         sb.AppendLine($"public static IEnumerable<object[]> {methodName}()");
         sb.AppendLine("{");
-        sb.AppendLine("    return new List<object[]>");
+        sb.AppendLine("    return new List<object[]");
         sb.AppendLine("    {");
 
         foreach (var testCase in FilterTestCasesByCategory(testCases, testCaseCategory))
         {
-            string formattedTestCase = string.Join("\", \"", testCase.Values.Select(x => x.Value));
-            sb.AppendLine($"        new object[] {{ \"{formattedTestCase}\" }},");
+            var values = testCase.Values.Select(x => $"\"{x.Value}\"").ToList();
+            var message = testCase.Values.FirstOrDefault(v => !string.IsNullOrEmpty(v.ExpectedInvalidMessage))?.ExpectedInvalidMessage;
+            if (!string.IsNullOrEmpty(message))
+            {
+                values.Add($"\"{message}\"");
+            }
+
+            sb.AppendLine($"        new object[] {{ {string.Join(", ", values)} }},");
         }
 
         sb.AppendLine("    };");
@@ -30,7 +37,7 @@ public class NUnitTestCaseOutputGenerator : TestCaseOutputGenerator
         Console.WriteLine(output);
         Debug.WriteLine(output);
 
-        ClipboardService.SetText("output");
+        ClipboardService.SetText(output);
         Console.WriteLine("✅ Method copied to clipboard.");
     }
 }

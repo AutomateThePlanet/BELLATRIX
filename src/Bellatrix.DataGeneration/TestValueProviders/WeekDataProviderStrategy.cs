@@ -18,7 +18,7 @@ public class WeekDataProviderStrategy : BoundaryCapableDataProviderStrategy<Date
     {
         string formatted = FormatString ?? "yyyy-'W'ww";
         string weekFormatted = boundaryInput.ToString(formatted, CultureInfo.InvariantCulture);
-        return new TestValue(weekFormatted, typeof(string), category);
+        return new TestValue(weekFormatted, category);
     }
 
     protected override DateTime OffsetValue(DateTime value, BoundaryOffsetDirection direction)

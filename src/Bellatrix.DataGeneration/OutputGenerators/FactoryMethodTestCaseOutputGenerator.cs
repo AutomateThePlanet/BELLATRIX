@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using TextCopy;
 
+namespace Bellatrix.DataGeneration.OutputGenerators;
+
 public class FactoryMethodTestCaseOutputGenerator : TestCaseOutputGenerator
 {
     private readonly string _modelName;
@@ -31,13 +33,20 @@ public class FactoryMethodTestCaseOutputGenerator : TestCaseOutputGenerator
         {
             sb.AppendLine($"        new {_modelName}");
             sb.AppendLine("        {");
-            sb.AppendLine($"            FirstName = \"{testCase.Values[0]}\",");
-            sb.AppendLine($"            LastName = \"{testCase.Values[1]}\",");
-            sb.AppendLine($"            ZipCode = \"{testCase.Values[2]}\",");
-            sb.AppendLine($"            Phone = \"{testCase.Values[3]}\",");
-            sb.AppendLine($"            Email = \"{testCase.Values[4]}\",");
-            sb.AppendLine($"            Company = \"{testCase.Values[5]}\",");
-            sb.AppendLine($"            Address = \"{testCase.Values[6]}\"");
+            sb.AppendLine($"            FirstName = \"{testCase.Values[0].Value}\",");
+            sb.AppendLine($"            LastName = \"{testCase.Values[1].Value}\",");
+            sb.AppendLine($"            ZipCode = \"{testCase.Values[2].Value}\",");
+            sb.AppendLine($"            Phone = \"{testCase.Values[3].Value}\",");
+            sb.AppendLine($"            Email = \"{testCase.Values[4].Value}\",");
+            sb.AppendLine($"            Company = \"{testCase.Values[5].Value}\",");
+            sb.AppendLine($"            Address = \"{testCase.Values[6].Value}\"");
+
+            var message = testCase.Values.FirstOrDefault(v => !string.IsNullOrEmpty(v.ExpectedInvalidMessage))?.ExpectedInvalidMessage;
+            if (!string.IsNullOrEmpty(message))
+            {
+                sb.AppendLine($"            ,ExpectedInvalidMessage = \"{message}\"");
+            }
+
             sb.AppendLine("        },");
         }
 

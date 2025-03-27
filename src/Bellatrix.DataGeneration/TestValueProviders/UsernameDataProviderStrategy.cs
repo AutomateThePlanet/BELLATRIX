@@ -18,12 +18,12 @@ public class UsernameDataProviderStrategy : BoundaryCapableDataProviderStrategy<
         // Simple alphanumeric username: "user123"
         if (boundaryInput < 4)
         {
-            return new TestValue("usr", typeof(string), category);
+            return new TestValue("usr", category);
         }
 
         string baseName = "user_";
         string suffix = new string('a', boundaryInput - baseName.Length);
-        return new TestValue(baseName + suffix, typeof(string), category);
+        return new TestValue(baseName + suffix, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)

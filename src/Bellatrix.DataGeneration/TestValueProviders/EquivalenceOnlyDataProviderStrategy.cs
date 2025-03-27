@@ -22,7 +22,7 @@ public abstract class EquivalenceOnlyDataProviderStrategy : IDataProviderStrateg
         bool? includeBoundaryValues = null, // Ignored
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
-        params TestValue[] customValues)
+        params TestValue[] preciseTestValues)
     {
         var testValues = new List<TestValue>();
         var allowValidEquiv = allowValidEquivalenceClasses ?? Config.AllowValidEquivalenceClasses;
@@ -35,7 +35,7 @@ public abstract class EquivalenceOnlyDataProviderStrategy : IDataProviderStrateg
 
             foreach (var value in source)
             {
-                testValues.Add(new TestValue(value, GetExpectedType(), TestValueCategory.Valid));
+                testValues.Add(new TestValue(value, TestValueCategory.Valid));
             }
         }
 
@@ -46,13 +46,13 @@ public abstract class EquivalenceOnlyDataProviderStrategy : IDataProviderStrateg
 
             foreach (var value in source)
             {
-                testValues.Add(new TestValue(value, GetExpectedType(), TestValueCategory.Invalid));
+                testValues.Add(new TestValue(value, TestValueCategory.Invalid));
             }
         }
 
-        foreach (var customValue in customValues)
+        foreach (var customValue in preciseTestValues)
         {
-            testValues.Add(new TestValue(customValue.Value, customValue.ExpectedType, customValue.Category));
+            testValues.Add(new TestValue(customValue.Value, customValue.Category, customValue.ExpectedInvalidMessage));
         }
 
         return testValues;

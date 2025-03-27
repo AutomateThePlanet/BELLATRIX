@@ -16,7 +16,7 @@ public class PasswordDataProviderStrategy : BoundaryCapableDataProviderStrategy<
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
         string password = GenerateStrongPassword(boundaryInput);
-        return new TestValue(password, typeof(string), category);
+        return new TestValue(password, category);
     }
 
     private string GenerateStrongPassword(int length)

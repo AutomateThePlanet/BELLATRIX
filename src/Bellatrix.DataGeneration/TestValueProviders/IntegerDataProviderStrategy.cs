@@ -15,7 +15,7 @@ public class IntegerDataProviderStrategy : BoundaryCapableDataProviderStrategy<i
 
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
-        return new TestValue(boundaryInput, typeof(int), category);
+        return new TestValue(boundaryInput, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)

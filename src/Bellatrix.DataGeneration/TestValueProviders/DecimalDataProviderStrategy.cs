@@ -16,7 +16,7 @@ public class DecimalDataProviderStrategy : BoundaryCapableDataProviderStrategy<d
 
     protected override TestValue CreateBoundaryTestValue(decimal boundaryInput, TestValueCategory category)
     {
-        return new TestValue(boundaryInput, typeof(decimal), category);
+        return new TestValue(boundaryInput, category);
     }
 
     protected override decimal OffsetValue(decimal value, BoundaryOffsetDirection direction)

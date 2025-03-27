@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using TextCopy;
 
+namespace Bellatrix.DataGeneration.OutputGenerators;
+
 public class CsvTestCaseOutputGenerator : TestCaseOutputGenerator
 {
     public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategory = TestCaseCategory.All)
@@ -15,7 +17,14 @@ public class CsvTestCaseOutputGenerator : TestCaseOutputGenerator
 
         foreach (var testCase in FilterTestCasesByCategory(testCases, testCaseCategory))
         {
-            string csvLine = string.Join(",", testCase.Values.Select(value => $"\"{value}\""));
+            var csvValues = testCase.Values.Select(v => $"\"{v.Value}\"").ToList();
+            var message = testCase.Values.FirstOrDefault(v => !string.IsNullOrEmpty(v.ExpectedInvalidMessage))?.ExpectedInvalidMessage;
+            if (!string.IsNullOrEmpty(message))
+            {
+                csvValues.Add($"\"{message}\"");
+            }
+
+            string csvLine = string.Join(",", csvValues);
             sb.AppendLine(csvLine);
         }
 

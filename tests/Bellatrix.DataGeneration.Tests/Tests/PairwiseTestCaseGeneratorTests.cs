@@ -19,7 +19,7 @@ public class PairwiseTestCaseGeneratorTests
         public MockInputParameter(string name, params string[] values)
         {
             Name = name;
-            TestValues = values.Select(v => new TestValue(v, typeof(string), TestValueCategory.Valid)).ToList();
+            TestValues = values.Select(v => new TestValue(v, TestValueCategory.Valid)).ToList();
         }
     }
 

@@ -17,7 +17,7 @@ public class TimeDataProviderStrategy : BoundaryCapableDataProviderStrategy<Time
     protected override TestValue CreateBoundaryTestValue(TimeSpan boundaryInput, TestValueCategory category)
     {
         string formatted = boundaryInput.ToString(FormatString ?? @"hh\:mm", CultureInfo.InvariantCulture);
-        return new TestValue(formatted, typeof(string), category);
+        return new TestValue(formatted, category);
     }
 
     protected override TimeSpan OffsetValue(TimeSpan value, BoundaryOffsetDirection direction)

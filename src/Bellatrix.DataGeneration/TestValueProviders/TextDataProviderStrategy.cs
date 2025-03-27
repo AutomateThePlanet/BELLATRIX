@@ -16,7 +16,7 @@ public class TextDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
         string text = GenerateText(boundaryInput);
-        return new TestValue(text, typeof(string), category);
+        return new TestValue(text, category);
     }
 
     private string GenerateText(int length)

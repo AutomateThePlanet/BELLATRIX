@@ -18,11 +18,11 @@ public class AddressDataProviderStrategy : BoundaryCapableDataProviderStrategy<i
         var baseAddress = "123 Main St, Springfield, ZZ 12345";
         if (boundaryInput <= baseAddress.Length)
         {
-            return new TestValue(baseAddress.Substring(0, boundaryInput), typeof(string), category);
+            return new TestValue(baseAddress.Substring(0, boundaryInput), category);
         }
 
         string extended = baseAddress + " " + new string('A', boundaryInput - baseAddress.Length);
-        return new TestValue(extended, typeof(string), category);
+        return new TestValue(extended, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)

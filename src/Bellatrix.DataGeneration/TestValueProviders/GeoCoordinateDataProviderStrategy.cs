@@ -20,7 +20,7 @@ public class GeoCoordinateDataProviderStrategy : BoundaryCapableDataProviderStra
         string lon = (boundaryInput / 2).ToString(FormatString ?? "F6", CultureInfo.InvariantCulture);
 
         string coord = $"{lat},{lon}";
-        return new TestValue(coord, typeof(string), category);
+        return new TestValue(coord, category);
     }
 
     protected override double OffsetValue(double value, BoundaryOffsetDirection direction)

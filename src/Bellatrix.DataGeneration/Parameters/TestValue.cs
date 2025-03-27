@@ -3,15 +3,20 @@
 // Represents a single test value with a category (Boundary, Normal, Invalid)
 public class TestValue
 {
-    public TestValue(object value, Type expectedType, TestValueCategory category)
+    public TestValue(object value, TestValueCategory category)
     {
         Value = value;
-        ExpectedType = expectedType;
         Category = category;
     }
 
+    public TestValue(object value, TestValueCategory category, string expectedInvalidMessage)
+        : this(value, category)
+    {
+        ExpectedInvalidMessage = expectedInvalidMessage;
+    }
+
     public object Value { get; }
-    public Type ExpectedType { get; }
+    public string ExpectedInvalidMessage { get; }
     public TestValueCategory Category { get; }
 
     public override bool Equals(object obj)
