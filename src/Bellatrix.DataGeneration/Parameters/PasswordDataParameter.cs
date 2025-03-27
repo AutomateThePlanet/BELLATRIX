@@ -5,19 +5,19 @@ namespace Bellatrix.DataGeneration.Parameters;
 public class PasswordDataParameter : DataParameter<PasswordDataProviderStrategy>
 {
     public PasswordDataParameter(
-        bool isManualMode = false,
+        bool preciseMode = false,
         int? minBoundary = null,
         int? maxBoundary = null,
         bool? includeBoundaryValues = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
-        params TestValue[] customValues)
+        params TestValue[] preciseTestValues)
         : base(new PasswordDataProviderStrategy(minBoundary, maxBoundary),
-              isManualMode,
+              preciseMode,
               includeBoundaryValues,
               allowValidEquivalenceClasses,
               allowInvalidEquivalenceClasses,
-              customValues)
+              preciseTestValues)
     {
     }
 }

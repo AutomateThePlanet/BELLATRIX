@@ -5,19 +5,19 @@ namespace Bellatrix.DataGeneration.Parameters;
 public class CurrencyDataParameter : DataParameter<CurrencyDataProviderStrategy>
 {
     public CurrencyDataParameter(
-        bool isManualMode = false,
+        bool preciseMode = false,
         decimal? minBoundary = null,
         decimal? maxBoundary = null,
         bool? includeBoundaryValues = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
-        params TestValue[] customValues)
+        params TestValue[] preciseTestValues)
         : base(new CurrencyDataProviderStrategy(minBoundary, maxBoundary),
-              isManualMode,
+              preciseMode,
               includeBoundaryValues,
               allowValidEquivalenceClasses,
               allowInvalidEquivalenceClasses,
-              customValues)
+              preciseTestValues)
     {
     }
 }

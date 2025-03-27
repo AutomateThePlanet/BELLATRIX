@@ -5,19 +5,19 @@ namespace Bellatrix.DataGeneration.Parameters;
 public class TimeDataParameter : DataParameter<TimeDataProviderStrategy>
 {
     public TimeDataParameter(
-        bool isManualMode = false,
+        bool preciseMode = false,
         TimeSpan? minBoundary = null,
         TimeSpan? maxBoundary = null,
         bool? includeBoundaryValues = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
-        params TestValue[] customValues)
+        params TestValue[] preciseTestValues)
         : base(new TimeDataProviderStrategy(minBoundary, maxBoundary),
-              isManualMode,
+              preciseMode,
               includeBoundaryValues,
               allowValidEquivalenceClasses,
               allowInvalidEquivalenceClasses,
-              customValues)
+              preciseTestValues)
     {
     }
 }

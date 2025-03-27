@@ -5,18 +5,18 @@ namespace Bellatrix.DataGeneration.Parameters;
 public class BooleanDataParameter : DataParameter<BooleanDataProviderStrategy>
 {
     public BooleanDataParameter(
-        bool isManualMode = false,
+        bool preciseMode = false,
         int? minBoundary = null,
         int? maxBoundary = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
-        params TestValue[] customValues)
+        params TestValue[] preciseTestValues)
         : base(new BooleanDataProviderStrategy(),
-              isManualMode,
+              preciseMode,
               false,
               allowValidEquivalenceClasses,
               allowInvalidEquivalenceClasses,
-              customValues)
+              preciseTestValues)
     {
     }
 }

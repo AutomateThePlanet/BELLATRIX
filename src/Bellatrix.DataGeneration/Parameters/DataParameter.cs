@@ -11,7 +11,7 @@ public class DataParameter<TDataStrategy> : IInputParameter
         bool? includeBoundaryValues = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
-        params TestValue[] customValues)
+        params TestValue[] preciseTestValues)
     {
         DataProviderStrategy = dataProviderStrategy;
 
@@ -19,7 +19,7 @@ public class DataParameter<TDataStrategy> : IInputParameter
          includeBoundaryValues: preciseMode ? false : includeBoundaryValues, // Disable boundary calculations in manual mode
          allowValidEquivalenceClasses: preciseMode ? false : allowValidEquivalenceClasses,
          allowInvalidEquivalenceClasses: preciseMode ? false : allowInvalidEquivalenceClasses,
-         customValues);
+         preciseTestValues);
     }
 
     protected TDataStrategy DataProviderStrategy { get; }

@@ -16,17 +16,17 @@ public class MultiSelectDataParameter : DataParameter<MultiSelectDataProviderStr
     public MultiSelectDataParameter(
         List<object> validOptions,
         List<object> invalidOptions,
-        bool isManualMode = false,
+        bool preciseMode = false,
         bool? includeBoundaryValues = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
-        params TestValue[] customValues)
+        params TestValue[] preciseTestValues)
         : base(new MultiSelectDataProviderStrategy(validOptions, invalidOptions),
-              isManualMode,
+              preciseMode,
               includeBoundaryValues,
               allowValidEquivalenceClasses,
               allowInvalidEquivalenceClasses,
-              customValues)
+              preciseTestValues)
     {
     }
 }

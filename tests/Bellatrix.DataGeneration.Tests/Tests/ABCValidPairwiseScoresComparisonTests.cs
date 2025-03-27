@@ -50,7 +50,7 @@ public class ABCValidPairwiseScoresComparisonTests
 
         _parameters = new List<IInputParameter>
         {
-            new TextDataParameter(isManualMode: true, customValues: new[]
+            new TextDataParameter(preciseMode: true, preciseTestValues: new[]
             {
                 new TestValue("Normal1", TestValueCategory.Valid),
                 new TestValue("BoundaryMin-1", TestValueCategory.Valid),
@@ -59,7 +59,7 @@ public class ABCValidPairwiseScoresComparisonTests
                 new TestValue("BoundaryMax+1", TestValueCategory.Valid),
                 new TestValue("Invalid1", TestValueCategory.Valid)
             }),
-            new EmailDataParameter(isManualMode: true, customValues: new[]
+            new EmailDataParameter(preciseMode: true, preciseTestValues: new[]
             {
                 new TestValue("test@mail.comMIN-1", TestValueCategory.Valid),
                 new TestValue("test@mail.comMIN", TestValueCategory.BoundaryValid),
@@ -68,12 +68,12 @@ public class ABCValidPairwiseScoresComparisonTests
                 new TestValue("test@mail.com", TestValueCategory.Valid),
                 new TestValue("invalid@mail", TestValueCategory.Valid)
             }),
-            new PhoneDataParameter(isManualMode: true, customValues: new[]
+            new PhoneDataParameter(preciseMode: true, preciseTestValues: new[]
             {
                 new TestValue("+359888888888", TestValueCategory.Valid),
                 new TestValue("000000", TestValueCategory.Valid)
             }),
-            new TextDataParameter(isManualMode: true, customValues: new[]
+            new TextDataParameter(preciseMode: true, preciseTestValues: new[]
             {
                 new TestValue("NormalX", TestValueCategory.Valid)
             }),

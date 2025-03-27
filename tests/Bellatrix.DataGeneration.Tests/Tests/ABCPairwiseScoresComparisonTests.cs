@@ -54,7 +54,7 @@ public class ABCOptimizationBenchmarkTests
             //new EmailDataParameter(minBoundary: 5, maxBoundary: 10),
             //new PhoneDataParameter(minBoundary: 6, maxBoundary: 8),
             //new TextDataParameter(minBoundary: 4, maxBoundary: 10),
-            new TextDataParameter(isManualMode: true, customValues: new[]
+            new TextDataParameter(preciseMode: true, preciseTestValues: new[]
             {
                 new TestValue("Normal1", TestValueCategory.Valid),
                 new TestValue("BoundaryMin-1", TestValueCategory.BoundaryInvalid),
@@ -63,7 +63,7 @@ public class ABCOptimizationBenchmarkTests
                 new TestValue("BoundaryMax+1", TestValueCategory.BoundaryInvalid),
                 new TestValue("Invalid1", TestValueCategory.Invalid)
             }),
-            new EmailDataParameter(isManualMode: true, customValues: new[]
+            new EmailDataParameter(preciseMode: true, preciseTestValues: new[]
             {
                 new TestValue("test@mail.comMIN-1", TestValueCategory.BoundaryInvalid),
                 new TestValue("test@mail.comMIN", TestValueCategory.BoundaryValid),
@@ -72,12 +72,12 @@ public class ABCOptimizationBenchmarkTests
                 new TestValue("test@mail.com", TestValueCategory.Valid),
                 new TestValue("invalid@mail", TestValueCategory.Invalid)
             }),
-            new PhoneDataParameter(isManualMode: true, customValues: new[]
+            new PhoneDataParameter(preciseMode: true, preciseTestValues: new[]
             {
                 new TestValue("+359888888888", TestValueCategory.Valid),
                 new TestValue("000000", TestValueCategory.Invalid)
             }),
-            new TextDataParameter(isManualMode: true, customValues: new[]
+            new TextDataParameter(preciseMode: true, preciseTestValues: new[]
             {
                 new TestValue("NormalX", TestValueCategory.Valid)
             }),

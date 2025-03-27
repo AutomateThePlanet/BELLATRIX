@@ -34,13 +34,13 @@ public abstract class BoundaryCapableDataProviderStrategy<T> : EquivalenceOnlyDa
         bool? includeBoundaryValues = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
-        params TestValue[] customValues)
+        params TestValue[] preciseTestValues)
     {
         var testValues = base.GenerateTestValues(
             includeBoundaryValues: false, // Let us handle boundary addition here
             allowValidEquivalenceClasses,
             allowInvalidEquivalenceClasses,
-            customValues);
+            preciseTestValues);
 
         if ((includeBoundaryValues ?? true) && MinBoundary != null && MaxBoundary != null)
         {

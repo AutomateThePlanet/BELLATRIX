@@ -7,16 +7,16 @@ public class ColorDataParameter : DataParameter<ColorDataProviderStrategy>
     public ColorDataParameter(
          List<object> validOptions = null,
         List<object> invalidOptions = null,
-        bool isManualMode = false,
+        bool preciseMode = false,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
-        params TestValue[] customValues)
+        params TestValue[] preciseTestValues)
         : base(new ColorDataProviderStrategy(),
-              isManualMode,
+              preciseMode,
               false,
               allowValidEquivalenceClasses,
               allowInvalidEquivalenceClasses,
-              customValues)
+              preciseTestValues)
     {
     }
 }

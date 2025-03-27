@@ -5,19 +5,19 @@ namespace Bellatrix.DataGeneration.Parameters;
 public class PhoneDataParameter : DataParameter<PhoneDataProviderStrategy>
 {
     public PhoneDataParameter(
-        bool isManualMode = false,
+        bool preciseMode = false,
         int? minBoundary = null,
         int? maxBoundary = null,
         bool? includeBoundaryValues = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
-        params TestValue[] customValues)
+        params TestValue[] preciseTestValues)
         : base(new PhoneDataProviderStrategy(minBoundary, maxBoundary),
-              isManualMode,
+              preciseMode,
               includeBoundaryValues,
               allowValidEquivalenceClasses,
               allowInvalidEquivalenceClasses,
-              customValues)
+              preciseTestValues)
     {
     }
 }
