@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Bellatrix.DataGeneration.Contracts;
-using Bellatrix.DataGeneration.Models;
+﻿using Bellatrix.DataGeneration.Contracts;
 using Bellatrix.DataGeneration.TestCaseGenerators;
-using Bellatrix.DataGeneration.Parameters;
 using Bellatrix.DataGeneration.OutputGenerators;
 using AngleSharp.Common;
 using System.Diagnostics;

@@ -1,7 +1,4 @@
 ﻿using Bellatrix.DataGeneration.TestValueProviders;
-using Bellatrix.DataGeneration.Parameters;
-using Bellatrix.DataGeneration;
-using NUnit.Framework;
 using System.Linq;
 using System;
 

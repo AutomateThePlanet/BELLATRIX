@@ -1,5 +1,4 @@
-﻿using Bellatrix.DataGeneration.Parameters;
-using RestSharp;
+﻿using RestSharp;
 using System.Collections.Generic;
 using Bellatrix.DataGeneration.Contracts;
 using Bellatrix.DataGeneration.OutputGenerators;
@@ -10,23 +9,30 @@ namespace Bellatrix.DataGeneration.Tests.Tests.RealWorld;
 [TestFixture]
 public class CountriesGraphQLTests
 {
-    public static List<IInputParameter> ABCGeneratedTestParameters()
-    {
-        return new List<IInputParameter>
-        {
-            new SingleSelectDataParameter(
-                validOptions: new List<object> { "US", "BG", "FR" },
-                invalidOptions: new List<object> { "XX", "U1", "" }),
-
-            new SingleSelectDataParameter(
-                validOptions: new List<object> { "en", "fr", "de" },
-                invalidOptions: new List<object> { "zz", "123" }),
-
-            new SingleSelectDataParameter(
-                validOptions: new List<object> { "EU", "AF", "AS" },
-                invalidOptions: new List<object> { "999", "X", "" })
-        };
-    }
+    public static List<IInputParameter> ABCGeneratedTestParameters() =>
+    TestInputComposer
+        .Start()
+        .AddSingleSelect(s => s
+            .Valid("US")
+            .Valid("BG")
+            .Valid("FR")
+            .Invalid("XX").WithoutMessage()
+            .Invalid("U1").WithoutMessage()
+            .Invalid("").WithoutMessage())
+        .AddSingleSelect(s => s
+            .Valid("en")
+            .Valid("fr")
+            .Valid("de")
+            .Invalid("zz").WithoutMessage()
+            .Invalid("123").WithoutMessage())
+        .AddSingleSelect(s => s
+            .Valid("EU")
+            .Valid("AF")
+            .Valid("AS")
+            .Invalid("999").WithoutMessage()
+            .Invalid("X").WithoutMessage()
+            .Invalid("").WithoutMessage())
+        .Build();
 
     [Test]
     [ABCTestCaseSource(nameof(ABCGeneratedTestParameters), TestCaseCategory.Validation)]

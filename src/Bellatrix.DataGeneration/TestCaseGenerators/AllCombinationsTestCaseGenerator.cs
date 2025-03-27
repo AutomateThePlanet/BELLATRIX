@@ -1,7 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using Bellatrix.DataGeneration.Contracts;
-using Bellatrix.DataGeneration.Models;
-using Bellatrix.DataGeneration.Parameters;
 
 namespace Bellatrix.DataGeneration.TestCaseGenerators;
 

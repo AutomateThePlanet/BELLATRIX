@@ -1,6 +1,4 @@
-﻿using Bellatrix.DataGeneration;
-using Bellatrix.DataGeneration.Parameters;
-using NUnit.Framework;
+﻿using Bellatrix.DataGeneration.Parameters;
 using RestSharp;
 using System.Collections.Generic;
 using Bellatrix.DataGeneration.Contracts;

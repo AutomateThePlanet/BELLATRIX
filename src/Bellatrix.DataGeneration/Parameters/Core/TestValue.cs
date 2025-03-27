@@ -1,4 +1,4 @@
-﻿namespace Bellatrix.DataGeneration.Parameters;
+﻿namespace Bellatrix.DataGeneration;
 
 // Represents a single test value with a category (Boundary, Normal, Invalid)
 public class TestValue
@@ -36,7 +36,7 @@ public class TestValue
 
     public override int GetHashCode()
     {
-        int hash = Value?.GetHashCode() ?? 17;
+        var hash = Value?.GetHashCode() ?? 17;
         return hash;
     }
 }

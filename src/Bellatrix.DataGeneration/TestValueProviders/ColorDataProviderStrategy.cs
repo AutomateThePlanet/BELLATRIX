@@ -1,6 +1,4 @@
-﻿using Bellatrix.DataGeneration.Parameters;
-
-namespace Bellatrix.DataGeneration.TestValueProviders;
+﻿namespace Bellatrix.DataGeneration.TestValueProviders;
 
 public class ColorDataProviderStrategy : EquivalenceOnlyDataProviderStrategy
 {

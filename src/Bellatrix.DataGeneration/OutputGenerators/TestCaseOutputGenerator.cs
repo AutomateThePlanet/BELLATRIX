@@ -1,7 +1,4 @@
-﻿using Bellatrix.DataGeneration.Models;
-using Bellatrix.DataGeneration.Parameters;
-
-namespace Bellatrix.DataGeneration.OutputGenerators;
+﻿namespace Bellatrix.DataGeneration.OutputGenerators;
 
 public abstract class TestCaseOutputGenerator : ITestCaseOutputGenerator
 {

@@ -1,4 +1,4 @@
-﻿namespace Bellatrix.DataGeneration.Parameters;
+﻿namespace Bellatrix.DataGeneration;
 public enum TestValueCategory
 {
     BoundaryValid,

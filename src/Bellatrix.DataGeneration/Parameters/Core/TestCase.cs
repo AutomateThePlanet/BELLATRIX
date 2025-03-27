@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Bellatrix.DataGeneration.Parameters;
-
-namespace Bellatrix.DataGeneration.Models;
+﻿namespace Bellatrix.DataGeneration;
 
 public class TestCase : ICloneable
 {
@@ -28,8 +23,8 @@ public class TestCase : ICloneable
 
     public override int GetHashCode()
     {
-        int hash = 17;
-        int index = 1;
+        var hash = 17;
+        var index = 1;
         foreach (var value in Values) // Ensure order consistency
         {
             hash = hash * index++ + (value.Value?.GetHashCode() ?? 0); // Use value string hash

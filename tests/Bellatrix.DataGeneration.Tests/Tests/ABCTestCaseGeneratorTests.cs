@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 using Bellatrix.DataGeneration.Parameters;
 using Bellatrix.DataGeneration.Contracts;
 using Bellatrix.DataGeneration.TestCaseGenerators;
-using Bellatrix.DataGeneration.Models;
-using Bellatrix.DataGeneration.OutputGenerators;
 
 namespace Bellatrix.DataGeneration.Tests.Tests;
 

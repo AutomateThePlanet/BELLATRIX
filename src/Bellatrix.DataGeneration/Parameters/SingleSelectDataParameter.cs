@@ -14,14 +14,12 @@ namespace Bellatrix.DataGeneration.Parameters;
 public class SingleSelectDataParameter : DataParameter<SingleSelectDataProviderStrategy>
 {
     public SingleSelectDataParameter(
-        List<object> validOptions,
-        List<object> invalidOptions,
         bool preciseMode = false,
         bool? includeBoundaryValues = null,
         bool? allowValidEquivalenceClasses = null,
         bool? allowInvalidEquivalenceClasses = null,
         params TestValue[] preciseTestValues)
-        : base(new SingleSelectDataProviderStrategy(validOptions, invalidOptions),
+        : base(new SingleSelectDataProviderStrategy(),
               preciseMode,
               includeBoundaryValues,
               allowValidEquivalenceClasses,

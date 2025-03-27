@@ -1,6 +1,4 @@
 ﻿using Bellatrix.DataGeneration.Configuration;
-using Bellatrix.DataGeneration.Contracts;
-using Bellatrix.DataGeneration.Parameters;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
@@ -18,7 +16,6 @@ public abstract class BoundaryCapableDataProviderStrategy<T> : EquivalenceOnlyDa
         T? maxBoundary = null,
         List<object> customValidEquivalenceClasses = null,
         List<object> customInvalidEquivalenceClasses = null)
-        : base(customValidEquivalenceClasses, customInvalidEquivalenceClasses)
     {
         MinBoundary = minBoundary;
         MaxBoundary = maxBoundary;

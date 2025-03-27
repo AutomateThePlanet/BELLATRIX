@@ -1,20 +1,13 @@
 ﻿using Bellatrix.DataGeneration.Configuration;
 using Bellatrix.DataGeneration.Contracts;
-using Bellatrix.DataGeneration.Parameters;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 public abstract class EquivalenceOnlyDataProviderStrategy : IDataProviderStrategy
 {
     protected readonly TestValueGenerationSettings Config;
-    private readonly List<object> _customValidEquivalenceClasses;
-    private readonly List<object> _customInvalidEquivalenceClasses;
 
-    protected EquivalenceOnlyDataProviderStrategy(
-        List<object> customValidEquivalenceClasses = null,
-        List<object> customInvalidEquivalenceClasses = null)
+    protected EquivalenceOnlyDataProviderStrategy()
     {
-        _customValidEquivalenceClasses = customValidEquivalenceClasses;
-        _customInvalidEquivalenceClasses = customInvalidEquivalenceClasses;
         Config = ConfigurationService.GetSection<TestValueGenerationSettings>();
     }
 
@@ -30,8 +23,7 @@ public abstract class EquivalenceOnlyDataProviderStrategy : IDataProviderStrateg
 
         if (allowValidEquiv)
         {
-            var source = _customValidEquivalenceClasses == null ?
-                         Config.InputTypeSettings[GetInputTypeName()].ValidEquivalenceClasses.Select(x => (object)x) : _customValidEquivalenceClasses;
+            var source = Config.InputTypeSettings[GetInputTypeName()].ValidEquivalenceClasses.Select(x => (object)x);
 
             foreach (var value in source)
             {
@@ -41,8 +33,7 @@ public abstract class EquivalenceOnlyDataProviderStrategy : IDataProviderStrateg
 
         if (allowInvalidEquiv)
         {
-            var source = _customInvalidEquivalenceClasses == null ?
-                      Config.InputTypeSettings[GetInputTypeName()].InvalidEquivalenceClasses.Select(x => (object)x) : _customInvalidEquivalenceClasses;
+            var source = Config.InputTypeSettings[GetInputTypeName()].InvalidEquivalenceClasses.Select(x => (object)x);
 
             foreach (var value in source)
             {
