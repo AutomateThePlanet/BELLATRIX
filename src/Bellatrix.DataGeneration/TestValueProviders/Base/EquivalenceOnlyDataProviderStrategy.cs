@@ -1,7 +1,7 @@
 ﻿using Bellatrix.DataGeneration.Configuration;
 using Bellatrix.DataGeneration.Contracts;
 
-namespace Bellatrix.DataGeneration.TestValueProviders;
+namespace Bellatrix.DataGeneration.TestValueProviders.Base;
 public abstract class EquivalenceOnlyDataProviderStrategy : IDataProviderStrategy
 {
     protected readonly TestValueGenerationSettings Config;

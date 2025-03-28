@@ -1,4 +1,6 @@
-﻿namespace Bellatrix.DataGeneration.TestValueProviders;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
+
+namespace Bellatrix.DataGeneration.TestValueProviders;
 
 public class UrlDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 {
@@ -13,21 +15,18 @@ public class UrlDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
-        // Generate "https://www.a...a.com" of appropriate length
-        const string prefix = "https://www.";
-        const string suffix = ".com";
-        int coreLength = Math.Max(1, boundaryInput - prefix.Length - suffix.Length);
+        var baseUrl = Faker.Internet.Url(); // e.g., "https://example.com"
+        var finalUrl = baseUrl
+            .EnsureMaxLength(boundaryInput)
+            .EnsureMinLength(boundaryInput, paddingChar: 'x'); // add trailing chars to hit boundary
 
-        string domain = new string('a', coreLength);
-        string url = prefix + domain + suffix;
-
-        return new TestValue(url, category);
+        return new TestValue(finalUrl, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)
     {
-        bool parsed = int.TryParse(PrecisionStep, out int step);
-        int offset = parsed ? step : 1;
+        var parsed = int.TryParse(PrecisionStep, out var step);
+        var offset = parsed ? step : 1;
 
         return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }

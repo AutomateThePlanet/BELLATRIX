@@ -1,7 +1,7 @@
-﻿using System.Globalization;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
+using System.Globalization;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
-
 public class GeoCoordinateDataProviderStrategy : BoundaryCapableDataProviderStrategy<double>
 {
     public GeoCoordinateDataProviderStrategy(double? minBoundary = null, double? maxBoundary = null)
@@ -15,17 +15,17 @@ public class GeoCoordinateDataProviderStrategy : BoundaryCapableDataProviderStra
 
     protected override TestValue CreateBoundaryTestValue(double boundaryInput, TestValueCategory category)
     {
-        string lat = boundaryInput.ToString(FormatString ?? "F6", CultureInfo.InvariantCulture);
-        string lon = (boundaryInput / 2).ToString(FormatString ?? "F6", CultureInfo.InvariantCulture);
+        var lat = boundaryInput.ToString(FormatString ?? "F6", CultureInfo.InvariantCulture);
+        var lon = (boundaryInput / 2).ToString(FormatString ?? "F6", CultureInfo.InvariantCulture);
 
-        string coord = $"{lat},{lon}";
+        var coord = $"{lat},{lon}";
         return new TestValue(coord, category);
     }
 
     protected override double OffsetValue(double value, BoundaryOffsetDirection direction)
     {
-        bool parsed = double.TryParse(PrecisionStep, NumberStyles.Float, CultureInfo.InvariantCulture, out double step);
-        double offset = parsed ? step : 0.01;
+        var parsed = double.TryParse(PrecisionStep, NumberStyles.Float, CultureInfo.InvariantCulture, out var step);
+        var offset = parsed ? step : 0.01;
 
         return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }

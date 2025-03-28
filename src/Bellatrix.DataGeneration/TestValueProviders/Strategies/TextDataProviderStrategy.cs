@@ -1,5 +1,6 @@
-﻿namespace Bellatrix.DataGeneration.TestValueProviders;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
 
+namespace Bellatrix.DataGeneration.TestValueProviders;
 public class TextDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 {
     public TextDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
@@ -13,19 +14,18 @@ public class TextDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
-        string text = GenerateText(boundaryInput);
-        return new TestValue(text, category);
-    }
+        var rawText = Faker.Lorem.Sentence(); // e.g., "Lorem ipsum dolor sit amet."
+        var finalText = rawText
+            .EnsureMaxLength(boundaryInput)
+            .EnsureMinLength(boundaryInput, paddingChar: 'A'); // preserves textual feel
 
-    private string GenerateText(int length)
-    {
-        return new string('A', Math.Max(1, length));
+        return new TestValue(finalText, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)
     {
-        bool parsedSuccessfully = int.TryParse(PrecisionStep, out int step);
-        int offset = parsedSuccessfully ? step : 1;
+        var parsedSuccessfully = int.TryParse(PrecisionStep, out var step);
+        var offset = parsedSuccessfully ? step : 1;
 
         return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }

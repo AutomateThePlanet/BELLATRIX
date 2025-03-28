@@ -208,6 +208,8 @@
     "connectionString": "yourKey"
   },
   "testValueGenerationSettings": {
+    "seed": 12345, // used for random data generation
+    "locale": "en", // open TestValueGenerationSettings.cs to see all supported localizations like "en", "fr", "de", "bg", "pl"
     "includeBoundaryValues": true,
     "allowValidEquivalenceClasses": true,
     "allowInvalidEquivalenceClasses": true,
@@ -323,7 +325,7 @@
         "InvalidEquivalenceClasses": [ "2025-13", "1999-00", "March 2025", "" ]
       },
       "Address": {
-        "PrecisionStep": "10", // number of characters added/removed during boundary offset
+        "PrecisionStep": "1", // number of characters added/removed during boundary offset
         "ValidEquivalenceClasses": [
           "123 Main St, Springfield, IL 62704",
           "456 Elm St, Apt 5B, New York, NY 10001"

@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
+using System.Globalization;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
@@ -15,16 +16,16 @@ public class TimeDataProviderStrategy : BoundaryCapableDataProviderStrategy<Time
 
     protected override TestValue CreateBoundaryTestValue(TimeSpan boundaryInput, TestValueCategory category)
     {
-        string formatted = boundaryInput.ToString(FormatString ?? @"hh\:mm", CultureInfo.InvariantCulture);
+        var formatted = boundaryInput.ToString(FormatString ?? @"hh\:mm", CultureInfo.InvariantCulture);
         return new TestValue(formatted, category);
     }
 
     protected override TimeSpan OffsetValue(TimeSpan value, BoundaryOffsetDirection direction)
     {
-        bool parsed = double.TryParse(PrecisionStep, NumberStyles.Float, CultureInfo.InvariantCulture, out double step);
+        var parsed = double.TryParse(PrecisionStep, NumberStyles.Float, CultureInfo.InvariantCulture, out var step);
         if (!parsed) step = 1;
 
-        TimeSpan offset = PrecisionStepUnit switch
+        var offset = PrecisionStepUnit switch
         {
             "Seconds" => TimeSpan.FromSeconds(step),
             "Minutes" => TimeSpan.FromMinutes(step),

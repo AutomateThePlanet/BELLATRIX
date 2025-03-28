@@ -1,4 +1,6 @@
-﻿namespace Bellatrix.DataGeneration.TestValueProviders;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
+
+namespace Bellatrix.DataGeneration.TestValueProviders;
 
 public class UsernameDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 {
@@ -13,21 +15,18 @@ public class UsernameDataProviderStrategy : BoundaryCapableDataProviderStrategy<
 
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
-        // Simple alphanumeric username: "user123"
-        if (boundaryInput < 4)
-        {
-            return new TestValue("usr", category);
-        }
+        var rawUsername = Faker.Internet.UserName(); // e.g., "anton.angelov42"
+        var finalUsername = rawUsername
+            .EnsureMaxLength(boundaryInput)
+            .EnsureMinLength(boundaryInput, paddingChar: 'x');
 
-        string baseName = "user_";
-        string suffix = new string('a', boundaryInput - baseName.Length);
-        return new TestValue(baseName + suffix, category);
+        return new TestValue(finalUsername, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)
     {
-        bool parsed = int.TryParse(PrecisionStep, out int step);
-        int offset = parsed ? step : 1;
+        var parsed = int.TryParse(PrecisionStep, out var step);
+        var offset = parsed ? step : 1;
 
         return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }

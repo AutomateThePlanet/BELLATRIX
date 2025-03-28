@@ -1,4 +1,6 @@
-﻿namespace Bellatrix.DataGeneration.TestValueProviders;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
+
+namespace Bellatrix.DataGeneration.TestValueProviders;
 
 public class IntegerDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 {
@@ -18,8 +20,8 @@ public class IntegerDataProviderStrategy : BoundaryCapableDataProviderStrategy<i
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)
     {
-        bool parsedSuccessfully = int.TryParse(PrecisionStep, out int step);
-        int offset = parsedSuccessfully ? step : 1;
+        var parsedSuccessfully = int.TryParse(PrecisionStep, out var step);
+        var offset = parsedSuccessfully ? step : 1;
 
         return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }

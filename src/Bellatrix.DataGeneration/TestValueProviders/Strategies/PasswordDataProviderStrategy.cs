@@ -1,5 +1,6 @@
-﻿namespace Bellatrix.DataGeneration.TestValueProviders;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
 
+namespace Bellatrix.DataGeneration.TestValueProviders;
 public class PasswordDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 {
     public PasswordDataProviderStrategy(int? minBoundary = null, int? maxBoundary = null)
@@ -13,25 +14,19 @@ public class PasswordDataProviderStrategy : BoundaryCapableDataProviderStrategy<
 
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
-        string password = GenerateStrongPassword(boundaryInput);
-        return new TestValue(password, category);
-    }
+        // Use Faker to generate a reasonably strong password
+        var basePassword = Faker.Internet.Password();
+        var finalPassword = basePassword
+            .EnsureMaxLength(boundaryInput)
+            .EnsureMinLength(boundaryInput, paddingChar: 'x');
 
-    private string GenerateStrongPassword(int length)
-    {
-        const string basePart = "Aa1@";
-        if (length <= basePart.Length)
-        {
-            return basePart.Substring(0, Math.Max(1, length));
-        }
-
-        return basePart + new string('x', length - basePart.Length);
+        return new TestValue(finalPassword, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)
     {
-        bool parsedSuccessfully = int.TryParse(PrecisionStep, out int step);
-        int offset = parsedSuccessfully ? step : 1;
+        var parsedSuccessfully = int.TryParse(PrecisionStep, out var step);
+        var offset = parsedSuccessfully ? step : 1;
 
         return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }

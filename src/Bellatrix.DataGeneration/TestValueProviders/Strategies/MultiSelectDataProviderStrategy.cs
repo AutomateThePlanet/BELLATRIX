@@ -1,5 +1,6 @@
-﻿namespace Bellatrix.DataGeneration.TestValueProviders;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
 
+namespace Bellatrix.DataGeneration.TestValueProviders;
 public class MultiSelectDataProviderStrategy : EquivalenceOnlyDataProviderStrategy
 {
     protected override string GetInputTypeName() => "MultiSelect";

@@ -1,4 +1,7 @@
-﻿namespace Bellatrix.DataGeneration.TestValueProviders;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
+using Bellatrix.DataGeneration.Utilities;
+
+namespace Bellatrix.DataGeneration.TestValueProviders;
 
 public class AddressDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 {
@@ -13,21 +16,17 @@ public class AddressDataProviderStrategy : BoundaryCapableDataProviderStrategy<i
 
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
-        var baseAddress = "123 Main St, Springfield, ZZ 12345";
-        if (boundaryInput <= baseAddress.Length)
-        {
-            return new TestValue(baseAddress.Substring(0, boundaryInput), category);
-        }
+        string generated = Faker.Address.FullAddress()
+            .EnsureMaxLength(boundaryInput)
+            .EnsureMinLength(boundaryInput);
 
-        string extended = baseAddress + " " + new string('A', boundaryInput - baseAddress.Length);
-        return new TestValue(extended, category);
+        return new TestValue(generated, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)
     {
         bool parsed = int.TryParse(PrecisionStep, out int step);
         int offset = parsed ? step : 1;
-
         return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }
 }

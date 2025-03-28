@@ -10,6 +10,7 @@
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.6.2" />
     <PackageReference Include="TextCopy" Version="6.2.1" />
   </ItemGroup>
 

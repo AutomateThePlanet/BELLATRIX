@@ -1,4 +1,6 @@
-﻿namespace Bellatrix.DataGeneration.TestValueProviders;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
+
+namespace Bellatrix.DataGeneration.TestValueProviders;
 
 public class PhoneDataProviderStrategy : BoundaryCapableDataProviderStrategy<int>
 {
@@ -13,22 +15,19 @@ public class PhoneDataProviderStrategy : BoundaryCapableDataProviderStrategy<int
 
     protected override TestValue CreateBoundaryTestValue(int boundaryInput, TestValueCategory category)
     {
-        string phone = GeneratePhoneNumber(boundaryInput);
-        return new TestValue(phone, category);
-    }
+        // Start with a realistic phone number
+        var rawPhone = Faker.Phone.PhoneNumber(); // e.g., "+1 (555) 123-4567"
+        var finalPhone = rawPhone
+            .EnsureMaxLength(boundaryInput)
+            .EnsureMinLength(boundaryInput, paddingChar: '9'); // padding with digits to keep numeric feel
 
-    private string GeneratePhoneNumber(int totalLength)
-    {
-        const string countryCode = "+359";
-        int localNumberLength = Math.Max(totalLength - countryCode.Length, 1);
-        string localNumber = new string('9', localNumberLength);
-        return countryCode + localNumber;
+        return new TestValue(finalPhone, category);
     }
 
     protected override int OffsetValue(int value, BoundaryOffsetDirection direction)
     {
-        bool parsedSuccessfully = int.TryParse(PrecisionStep, out int step);
-        int offset = parsedSuccessfully ? step : 1;
+        var parsedSuccessfully = int.TryParse(PrecisionStep, out var step);
+        var offset = parsedSuccessfully ? step : 1;
 
         return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }

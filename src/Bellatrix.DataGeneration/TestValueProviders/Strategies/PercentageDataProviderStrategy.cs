@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
+using System.Globalization;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
@@ -20,8 +21,8 @@ public class PercentageDataProviderStrategy : BoundaryCapableDataProviderStrateg
 
     protected override decimal OffsetValue(decimal value, BoundaryOffsetDirection direction)
     {
-        bool parsed = decimal.TryParse(PrecisionStep, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal step);
-        decimal offset = parsed ? step : 0.01m;
+        var parsed = decimal.TryParse(PrecisionStep, NumberStyles.Float, CultureInfo.InvariantCulture, out var step);
+        var offset = parsed ? step : 0.01m;
 
         return direction == BoundaryOffsetDirection.Before ? value - offset : value + offset;
     }

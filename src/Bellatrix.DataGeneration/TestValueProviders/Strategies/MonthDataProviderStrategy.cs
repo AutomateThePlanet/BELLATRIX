@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
+using System.Globalization;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
@@ -15,14 +16,14 @@ public class MonthDataProviderStrategy : BoundaryCapableDataProviderStrategy<Dat
 
     protected override TestValue CreateBoundaryTestValue(DateTime boundaryInput, TestValueCategory category)
     {
-        string formatted = boundaryInput.ToString(FormatString ?? "yyyy-MM", CultureInfo.InvariantCulture);
+        var formatted = boundaryInput.ToString(FormatString ?? "yyyy-MM", CultureInfo.InvariantCulture);
         return new TestValue(formatted, category);
     }
 
     protected override DateTime OffsetValue(DateTime value, BoundaryOffsetDirection direction)
     {
-        bool parsed = int.TryParse(PrecisionStep, out int months);
-        int offset = parsed ? months : 1;
+        var parsed = int.TryParse(PrecisionStep, out var months);
+        var offset = parsed ? months : 1;
 
         return direction == BoundaryOffsetDirection.Before
             ? value.AddMonths(-offset)

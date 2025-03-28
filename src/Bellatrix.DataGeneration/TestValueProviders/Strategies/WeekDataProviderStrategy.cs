@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Bellatrix.DataGeneration.TestValueProviders.Base;
+using System.Globalization;
 
 namespace Bellatrix.DataGeneration.TestValueProviders;
 
@@ -15,15 +16,15 @@ public class WeekDataProviderStrategy : BoundaryCapableDataProviderStrategy<Date
 
     protected override TestValue CreateBoundaryTestValue(DateTime boundaryInput, TestValueCategory category)
     {
-        string formatted = FormatString ?? "yyyy-'W'ww";
-        string weekFormatted = boundaryInput.ToString(formatted, CultureInfo.InvariantCulture);
+        var formatted = FormatString ?? "yyyy-'W'ww";
+        var weekFormatted = boundaryInput.ToString(formatted, CultureInfo.InvariantCulture);
         return new TestValue(weekFormatted, category);
     }
 
     protected override DateTime OffsetValue(DateTime value, BoundaryOffsetDirection direction)
     {
-        bool parsed = int.TryParse(PrecisionStep, out int weeks);
-        int offset = parsed ? weeks : 1;
+        var parsed = int.TryParse(PrecisionStep, out var weeks);
+        var offset = parsed ? weeks : 1;
 
         return direction == BoundaryOffsetDirection.Before
             ? value.AddDays(-7 * offset)

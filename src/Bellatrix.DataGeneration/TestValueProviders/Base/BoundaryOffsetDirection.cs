@@ -1,4 +1,4 @@
-﻿namespace Bellatrix.DataGeneration.TestValueProviders;
+﻿namespace Bellatrix.DataGeneration.TestValueProviders.Base;
 public enum BoundaryOffsetDirection
 {
     Before,  // Generates value below min or max (invalid)

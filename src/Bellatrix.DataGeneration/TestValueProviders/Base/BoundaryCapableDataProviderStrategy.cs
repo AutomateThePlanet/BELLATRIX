@@ -1,10 +1,13 @@
 ﻿using Bellatrix.DataGeneration.Configuration;
+using Bellatrix.DataGeneration.Utilities;
+using Bogus;
 
-namespace Bellatrix.DataGeneration.TestValueProviders;
+namespace Bellatrix.DataGeneration.TestValueProviders.Base;
 
 public abstract class BoundaryCapableDataProviderStrategy<T> : EquivalenceOnlyDataProviderStrategy
         where T : struct, IComparable<T>
 {
+    protected readonly Faker Faker;
     protected readonly T? MinBoundary;
     protected readonly T? MaxBoundary;
     protected readonly string PrecisionStep;
@@ -17,6 +20,7 @@ public abstract class BoundaryCapableDataProviderStrategy<T> : EquivalenceOnlyDa
         List<object> customValidEquivalenceClasses = null,
         List<object> customInvalidEquivalenceClasses = null)
     {
+        Faker = FakerFactory.GetFaker();
         MinBoundary = minBoundary;
         MaxBoundary = maxBoundary;
 
