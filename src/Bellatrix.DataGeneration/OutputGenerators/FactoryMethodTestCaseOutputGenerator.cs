@@ -15,7 +15,7 @@ public class FactoryMethodTestCaseOutputGenerator : TestCaseOutputGenerator
         _methodName = methodName;
     }
 
-    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategory = TestCaseCategory.All)
+    public override void GenerateOutput(string methodName, IEnumerable<TestCase> testCases, TestCaseCategory testCaseCategory = TestCaseCategory.All)
     {
         var sb = new StringBuilder();
 

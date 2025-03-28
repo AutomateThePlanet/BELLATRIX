@@ -6,7 +6,7 @@ namespace Bellatrix.DataGeneration.OutputGenerators;
 
 public class CsvTestCaseOutputGenerator : TestCaseOutputGenerator
 {
-    public override void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategory = TestCaseCategory.All)
+    public override void GenerateOutput(string methodName, IEnumerable<TestCase> testCases, TestCaseCategory testCaseCategory = TestCaseCategory.All)
     {
         var sb = new StringBuilder();
 

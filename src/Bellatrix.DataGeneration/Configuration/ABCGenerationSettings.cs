@@ -1,7 +1,7 @@
 ﻿using Bellatrix.DataGeneration.OutputGenerators;
 
 namespace Bellatrix.DataGeneration;
-public class HybridArtificialBeeColonyConfig
+public class ABCGenerationSettings
 {
     public int TotalPopulationGenerations { get; set; } = 20;
     public double MutationRate { get; set; } = 0.3;
@@ -15,7 +15,7 @@ public class HybridArtificialBeeColonyConfig
     public double StagnationThresholdPercentage { get; set; } = 0.75;
     public double CoolingRate { get; set; } = 0.95;
     public bool AllowMultipleInvalidInputs { get; set; } = false;
-    public ITestCaseOutputGenerator OutputGenerator { get; set; } = new NUnitTestCaseOutputGenerator();
+    public ITestCaseOutputGenerator OutputGenerator { get; set; } = new NUnitTestCaseSourceOutputGenerator();
 
     public override int GetHashCode()
     {

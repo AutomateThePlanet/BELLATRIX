@@ -53,7 +53,7 @@ public class ABCTestCaseGeneratorTests
             new TestValue("NormalX", TestValueCategory.Valid)
         }),
     };
-        var config = new HybridArtificialBeeColonyConfig
+        var config = new ABCGenerationSettings
         {
             FinalPopulationSelectionRatio = 0.5,
             EliteSelectionRatio = 0.4,

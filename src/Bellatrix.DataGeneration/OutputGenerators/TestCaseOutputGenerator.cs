@@ -2,9 +2,9 @@
 
 public abstract class TestCaseOutputGenerator : ITestCaseOutputGenerator
 {
-    public abstract void GenerateOutput(string methodName, HashSet<TestCase> testCases, TestCaseCategory testCaseCategoty = TestCaseCategory.All);
+    public abstract void GenerateOutput(string methodName, IEnumerable<TestCase> testCases, TestCaseCategory testCaseCategoty = TestCaseCategory.All);
 
-    protected HashSet<TestCase> FilterTestCasesByCategory(HashSet<TestCase> testCases, TestCaseCategory testCaseCategoty)
+    protected IEnumerable<TestCase> FilterTestCasesByCategory(IEnumerable<TestCase> testCases, TestCaseCategory testCaseCategoty)
     {
         return testCaseCategoty switch
         {

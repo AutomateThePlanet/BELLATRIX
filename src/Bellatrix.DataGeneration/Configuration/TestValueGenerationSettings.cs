@@ -1,6 +1,7 @@
 ﻿namespace Bellatrix.DataGeneration.Configuration;
 public class TestValueGenerationSettings
 {
+    public ABCGenerationSettings ABCGenerationConfig { get; set; }
     /// <summary>
     /// Supported locale codes for Bogus:
     /// 

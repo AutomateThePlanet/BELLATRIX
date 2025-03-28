@@ -8,22 +8,23 @@ namespace Bellatrix.DataGeneration;
 
 public class HybridArtificialBeeColonyTestCaseGenerator
 {
-    private readonly HybridArtificialBeeColonyConfig _config;
+    private readonly ABCGenerationSettings _config;
     private readonly TestCaseEvaluator _testCaseEvaluator;
     private readonly Random _random = new Random(42);
     private int _initialPopulationSize;
     private int _elitCount;
-    public HybridArtificialBeeColonyTestCaseGenerator(HybridArtificialBeeColonyConfig config)
+    public HybridArtificialBeeColonyTestCaseGenerator(ABCGenerationSettings config)
     {
         _config = config;
         _testCaseEvaluator = new TestCaseEvaluator(config.AllowMultipleInvalidInputs);
     }
 
     // 🔹 Public API: Generates and outputs optimized test cases
-    public void GenerateTestCases(string methodName, List<IInputParameter> parameters, TestCaseCategory testCaseCategoty = TestCaseCategory.All)
+    public HashSet<TestCase> GenerateTestCases(string methodName, List<IInputParameter> parameters, TestCaseCategory testCaseCategoty = TestCaseCategory.All)
     {
         var testCases = RunABCAlgorithm(parameters);
         _config.OutputGenerator.GenerateOutput(methodName, testCases, testCaseCategoty);
+        return testCases;
     }
 
     // 🔹 Public API: Returns the optimized test cases

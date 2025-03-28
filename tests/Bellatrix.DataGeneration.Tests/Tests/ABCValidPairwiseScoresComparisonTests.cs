@@ -13,9 +13,9 @@ public class ABCValidPairwiseScoresComparisonTests
 {
     private const int Iterations = 10;
     private List<IInputParameter> _parameters;
-    private List<HybridArtificialBeeColonyConfig> _parameterSets;
-    private Dictionary<HybridArtificialBeeColonyConfig, List<double>> _abcScores = new();
-    private Dictionary<HybridArtificialBeeColonyConfig, List<double>> _pairwiseScores = new();
+    private List<ABCGenerationSettings> _parameterSets;
+    private Dictionary<ABCGenerationSettings, List<double>> _abcScores = new();
+    private Dictionary<ABCGenerationSettings, List<double>> _pairwiseScores = new();
     private HashSet<TestCase> _sortedPairwiseScores = new();
 
     [SetUp]
@@ -80,9 +80,9 @@ public class ABCValidPairwiseScoresComparisonTests
     // 🔹 Define different ABC parameter sets for benchmarking
     public void InitializeParameterSets()
     {
-        _parameterSets = new List<HybridArtificialBeeColonyConfig>
+        _parameterSets = new List<ABCGenerationSettings>
         {
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.6,
                 EliteSelectionRatio = 0.6,
@@ -96,7 +96,7 @@ public class ABCValidPairwiseScoresComparisonTests
                 EnableOnlookerSelection = true,
                 EnableScoutPhase = true,
             },
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.6,
                 EliteSelectionRatio = 0.6,
@@ -110,7 +110,7 @@ public class ABCValidPairwiseScoresComparisonTests
                 EnableOnlookerSelection = false,
                 EnableScoutPhase = false,
             },
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.5,
                 EliteSelectionRatio = 0.5,
@@ -120,7 +120,7 @@ public class ABCValidPairwiseScoresComparisonTests
                 EnableOnlookerSelection = true,
                 EnableScoutPhase = true,
             },
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.55,  // Slightly higher to retain more cases
                 EliteSelectionRatio = 0.45,  // Slightly lower to allow more diversity
@@ -131,7 +131,7 @@ public class ABCValidPairwiseScoresComparisonTests
                 EnableScoutPhase = true,
             },
             // 🔹 Best general configuration: Balanced selection & mutation
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.5,
                 EliteSelectionRatio = 0.5,
@@ -143,7 +143,7 @@ public class ABCValidPairwiseScoresComparisonTests
             },
 
             // 🔹 Stronger selection & refinement: Ideal when test cases must be stable
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.5,
                 EliteSelectionRatio = 0.7,
@@ -155,7 +155,7 @@ public class ABCValidPairwiseScoresComparisonTests
             },
 
             // 🔹 Higher mutation rate: Ensures wider test coverage
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.5,
                 EliteSelectionRatio = 0.6,
@@ -167,7 +167,7 @@ public class ABCValidPairwiseScoresComparisonTests
             },
 
             //// 🔹 Balanced exploitation & diversity: Great for complex test scenarios
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.5,
                 EliteSelectionRatio = 0.6,
@@ -179,7 +179,7 @@ public class ABCValidPairwiseScoresComparisonTests
             },
 
             // 🔹 More diverse test cases: Prevents overfitting to high-scoring cases
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.4,
                 EliteSelectionRatio = 0.6,
@@ -191,7 +191,7 @@ public class ABCValidPairwiseScoresComparisonTests
             },
 
             // 🔹 Balanced mutation & selection: Useful when both exploration and exploitation are needed
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.5,
                 EliteSelectionRatio = 0.5,
@@ -203,7 +203,7 @@ public class ABCValidPairwiseScoresComparisonTests
             },
 
             // 🔹 Maximum exploration: Ensures high diversity, best for finding edge cases
-            new HybridArtificialBeeColonyConfig
+            new ABCGenerationSettings
             {
                 FinalPopulationSelectionRatio = 0.4,
                 EliteSelectionRatio = 0.5,
@@ -228,7 +228,7 @@ public class ABCValidPairwiseScoresComparisonTests
     }
 
     // 🔹 Run benchmarking for a given ABC parameter set
-    private void RunBenchmarkForParameterSet(HybridArtificialBeeColonyConfig paramSet)
+    private void RunBenchmarkForParameterSet(ABCGenerationSettings paramSet)
     {
         Console.WriteLine($"\n========== Testing ABC with Parameters: {paramSet} ==========");
         _abcScores[paramSet] = new List<double>();
@@ -244,7 +244,7 @@ public class ABCValidPairwiseScoresComparisonTests
     }
 
     // 🔹 Run a single iteration of ABC optimization
-    private double RunSingleIteration(HybridArtificialBeeColonyConfig config)
+    private double RunSingleIteration(ABCGenerationSettings config)
     {
         var abcGenerator = new HybridArtificialBeeColonyTestCaseGenerator(config);
 
@@ -263,7 +263,7 @@ public class ABCValidPairwiseScoresComparisonTests
     }
 
     // 🔹 Print results for each ABC parameter set
-    private void PrintResultsForParameterSet(HybridArtificialBeeColonyConfig paramSet)
+    private void PrintResultsForParameterSet(ABCGenerationSettings paramSet)
     {
         var avgAbcScore = _abcScores[paramSet].Average();
         var avgPairwiseScore = _pairwiseScores[paramSet].Average();

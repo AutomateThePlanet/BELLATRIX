@@ -7,10 +7,10 @@ using System;
 namespace Bellatrix.DataGeneration.Tests.Tests.RealWorld;
 
 [TestFixture]
-public class CountriesGraphQLTests
+public class ExploratoryModeCountriesGraphQLTests
 {
     public static List<IInputParameter> ABCGeneratedTestParameters() =>
-    TestInputComposer
+    TestInputBuilder
         .Start()
         .AddSingleSelect(s => s
             .Valid("US")

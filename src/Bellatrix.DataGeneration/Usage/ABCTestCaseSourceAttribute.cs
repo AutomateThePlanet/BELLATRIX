@@ -12,7 +12,7 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
 {
     private readonly string _sourceMethodName;
     private readonly TestCaseCategory _category;
-    private readonly HybridArtificialBeeColonyConfig _abcConfig;
+    private readonly ABCGenerationSettings _abcConfig;
 
     public ABCTestCaseSourceAttribute(
         string sourceMethodName,
@@ -32,7 +32,7 @@ public class ABCTestCaseSourceAttribute : Attribute, ITestBuilder
     {
         _sourceMethodName = sourceMethodName;
         _category = category;
-        _abcConfig = new HybridArtificialBeeColonyConfig
+        _abcConfig = new ABCGenerationSettings
         {
             TotalPopulationGenerations = totalPopulationGenerations,
             MutationRate = mutationRate,

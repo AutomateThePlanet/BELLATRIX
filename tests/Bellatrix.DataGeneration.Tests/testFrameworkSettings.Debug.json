@@ -213,6 +213,20 @@
     "includeBoundaryValues": true,
     "allowValidEquivalenceClasses": true,
     "allowInvalidEquivalenceClasses": true,
+    "abcGenerationSettings": {
+      "totalPopulationGenerations": 20,
+      "mutationRate": 0.3,
+      "finalPopulationSelectionRatio": 0.5,
+      "eliteSelectionRatio": 0.5,
+      "onlookerSelectionRatio": 0.1,
+      "scoutSelectionRatio": 0.3,
+      "enableOnlookerSelection": true,
+      "enableScoutPhase": false,
+      "enforceMutationUniqueness": true,
+      "stagnationThresholdPercentage": 0.75,
+      "coolingRate": 0.95,
+      "allowMultipleInvalidInputs": false
+    },
     "inputTypeSettings": {
       "Email": {
         "PrecisionStep": "1",
