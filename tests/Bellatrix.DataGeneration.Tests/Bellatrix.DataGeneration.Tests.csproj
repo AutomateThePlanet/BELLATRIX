@@ -16,7 +16,7 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="testFrameworkSettings.$(Configuration).json">
+    <None Update="testimizeSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

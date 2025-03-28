@@ -30,10 +30,7 @@ public sealed class Settings
         string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
     var filesInExecutionDir = Directory.GetFiles(assemblyFolder);
-        var settingsFile =
-#pragma warning disable CA1310 // Specify StringComparison for correctness
-                filesInExecutionDir.FirstOrDefault(x => x.Contains("testimizeGenSettings") && x.EndsWith(".json"));
-#pragma warning restore CA1310 // Specify StringComparison for correctness
+        var settingsFile = filesInExecutionDir.FirstOrDefault(x => x.Equals("testimizeSettings.json"));
         if (settingsFile != null)
         {
             builder.AddJsonFile(settingsFile, optional: true, reloadOnChange: true);
