@@ -1,7 +1,6 @@
 ﻿using Bellatrix.DataGeneration.Contracts;
 using Bellatrix.DataGeneration.TestCaseGenerators;
 using Bellatrix.DataGeneration.OutputGenerators;
-using AngleSharp.Common;
 using System.Diagnostics;
 
 namespace Bellatrix.DataGeneration;

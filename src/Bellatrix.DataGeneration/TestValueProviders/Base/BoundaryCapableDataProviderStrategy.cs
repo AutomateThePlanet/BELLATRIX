@@ -24,7 +24,7 @@ public abstract class BoundaryCapableDataProviderStrategy<T> : EquivalenceOnlyDa
         MinBoundary = minBoundary;
         MaxBoundary = maxBoundary;
 
-        var config = ConfigurationService.GetSection<TestValueGenerationSettings>();
+        var config = Settings.GetSection<TestValueGenerationSettings>();
         var settings = config.InputTypeSettings[GetInputTypeName()];
         PrecisionStep = settings.PrecisionStep;
         PrecisionStepUnit = settings.PrecisionStepUnit;

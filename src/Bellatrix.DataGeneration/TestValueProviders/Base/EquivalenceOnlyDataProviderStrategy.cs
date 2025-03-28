@@ -8,7 +8,7 @@ public abstract class EquivalenceOnlyDataProviderStrategy : IDataProviderStrateg
 
     protected EquivalenceOnlyDataProviderStrategy()
     {
-        Config = ConfigurationService.GetSection<TestValueGenerationSettings>();
+        Config = Settings.GetSection<TestValueGenerationSettings>();
     }
 
     public virtual List<TestValue> GenerateTestValues(
