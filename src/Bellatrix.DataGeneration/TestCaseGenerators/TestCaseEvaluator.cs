@@ -32,7 +32,7 @@ public class TestCaseEvaluator
 
         if (!_allowMultipleInvalidInputs && invalidCount > 1)
         {
-            return -50; // Penalty for multiple invalid inputs
+            return -50 * invalidCount; // Penalty for multiple invalid inputs
         }
 
         for (int i = 0; i < testCase.Values.Count; i++)

@@ -30,7 +30,7 @@ public sealed class Settings
         string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
     var filesInExecutionDir = Directory.GetFiles(assemblyFolder);
-        var settingsFile = filesInExecutionDir.FirstOrDefault(x => x.Equals("testimizeSettings.json"));
+        var settingsFile = filesInExecutionDir.FirstOrDefault(x => x.Contains("testimizeSettings.json"));
         if (settingsFile != null)
         {
             builder.AddJsonFile(settingsFile, optional: true, reloadOnChange: true);

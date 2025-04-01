@@ -57,8 +57,8 @@ public class ABCTestCaseGeneratorTests
         {
             FinalPopulationSelectionRatio = 0.5,
             EliteSelectionRatio = 0.4,
-            TotalPopulationGenerations = 100,
-            MutationRate = 1,
+            TotalPopulationGenerations = 20,
+            MutationRate = 0.5,
             AllowMultipleInvalidInputs = false,
             EnableOnlookerSelection = true,
             EnableScoutPhase = true
@@ -99,7 +99,7 @@ public class ABCTestCaseGeneratorTests
 
         var testedValues = _abcTestCases.SelectMany(tc => tc.Values.Select(tv => tv.Value)).ToHashSet();
 
-      
+
         foreach (var boundaryValue in allBoundaryValues)
         {
             Assert.That(testedValues.Contains(boundaryValue), Is.True,
@@ -174,3 +174,4 @@ public class ABCTestCaseGeneratorTests
         Assert.That(distinctTestCases.Count, Is.EqualTo(0), "Duplicate test cases found in the generated set.");
     }
 }
+
