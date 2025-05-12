@@ -4,11 +4,13 @@ using Microsoft.SemanticKernel;
 using System;
 
 namespace Bellatrix.Web.llm;
-public static class LLMAssert
+public static class AiAssert
 {
-    public static void AssertByPrompt(this Assert assert, string assertInstruction)
+    public static void AssertByPrompt(string assertInstruction)
     {
         var browser = ServicesCollection.Current.Resolve<BrowserService>();
+        browser.WaitForAjax();
+        browser.WaitUntilReady();
         var summaryJson = browser.GetPageSummaryJson();
 
         var result = SemanticKernelService.Kernel.InvokeAsync("Assertions", "EvaluateAssertion", new()
@@ -23,7 +25,7 @@ public static class LLMAssert
         result = SemanticKernelService.Kernel.InvokePromptAsync(fullPrompt).Result;
         var verdict = result.GetValue<string>()?.Trim();
 
-        if (string.IsNullOrWhiteSpace(verdict) || !verdict.StartsWith("PASS", StringComparison.OrdinalIgnoreCase))
+        if (string.IsNullOrWhiteSpace(verdict) || !verdict.Contains("PASS", StringComparison.OrdinalIgnoreCase))
         {
             throw new Exception("AI Assertion Failed: " + verdict);
         }

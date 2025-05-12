@@ -18,7 +18,7 @@ using System.Text;
 
 namespace Bellatrix.Assertions;
 
-public sealed class Assert
+public class Assert
 {
     private static readonly IAssert _assert;
 

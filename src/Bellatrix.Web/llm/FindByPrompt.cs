@@ -16,33 +16,37 @@ namespace Bellatrix.Web.llm;
 /// </summary>
 public class FindByPrompt : FindStrategy
 {
-    public FindByPrompt(string value)
-        : base(value) { }
+    public FindByPrompt(string value) : base(value) { }
 
     public override By Convert()
     {
         var driver = ServicesCollection.Current.Resolve<IWebDriver>();
 
-        // Try resolving locator via vector memory RAG using summarized PageObjects
-        var ragLocator = TryResolveFromPageObjectMemory(Value);
+        var ragLocator = TryResolveFromPageObjectMemory(driver, Value);
         if (ragLocator != null)
         {
-            return ragLocator;
+            if (IsElementPresent(driver, ragLocator))
+            {
+                return ragLocator;
+            }
+
+            Logger.LogInformation($"⚠️ RAG-located element not present. Falling back to prompt-based resolution.");
         }
 
-        // Fallback: infer XPath from live page via prompt + HTML summary
         return ResolveViaPromptFallback(driver, Value);
     }
 
-    private By TryResolveFromPageObjectMemory(string instruction)
+    private By TryResolveFromPageObjectMemory(IWebDriver driver, string instruction)
     {
+        var enrichedPrompt = $"{instruction} (Current URL: {driver.Url})";
+
         var match = SemanticKernelService.Memory
-            .SearchAsync(instruction, index: "PageObjects", limit: 1)
+            .SearchAsync(enrichedPrompt, index: "PageObjects", limit: 1)
             .Result.Results.FirstOrDefault();
 
         if (match == null) return null;
 
-        var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? "";
+        var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? string.Empty;
 
         var mappedPrompt = SemanticKernelService.Kernel
             .InvokeAsync("Mapper", "MatchPromptToKnownLocator", new()
@@ -64,13 +68,13 @@ public class FindByPrompt : FindStrategy
 
         if (SemanticKernelService.LocatorCache.TryGetValue(cacheKey, out var cachedSelector))
         {
-            if (IsElementPresent(driver, cachedSelector))
+            if (IsElementPresent(driver, By.XPath(cachedSelector)))
             {
                 Logger.LogInformation($"✅ Using cached selector for: {instruction}");
                 return By.XPath(cachedSelector);
             }
 
-            Logger.LogInformation($"⚠️ Cached selector failed, will re-query AI: {cachedSelector}");
+            Logger.LogInformation($"⚠️ Cached selector failed. Re-querying AI: {cachedSelector}");
             SemanticKernelService.LocatorCache.TryRemove(cacheKey, out _);
         }
 
@@ -94,7 +98,7 @@ public class FindByPrompt : FindStrategy
             if (string.IsNullOrWhiteSpace(rawSelector))
                 continue;
 
-            if (IsElementPresent(driver, rawSelector))
+            if (IsElementPresent(driver, By.XPath(rawSelector)))
             {
                 SemanticKernelService.LocatorCache[cacheKey] = rawSelector;
                 Logger.LogInformation($"🧠 Caching selector for '{instruction}' on '{url}': {rawSelector}");
@@ -111,12 +115,23 @@ public class FindByPrompt : FindStrategy
 
     private static By ParsePromptLocatorToBy(string promptResult)
     {
-        var parts = Regex.Match(promptResult, "(xpath|id|name|tag|cssSelector|class|linktext|partiallinktext)=(.+)", RegexOptions.IgnoreCase);
+        var parts = Regex.Match(promptResult, "(xpath|id|name|tag|cssSelector|class|linktext|partiallinktext|attribute)=(.+)", RegexOptions.IgnoreCase);
         if (!parts.Success)
             return null;
 
         var type = parts.Groups[1].Value.Trim().ToLower();
         var locator = parts.Groups[2].Value.Trim();
+
+        if (type == "attribute")
+        {
+            var attrParts = Regex.Match(locator, @"^(.+?)=(.+)$");
+            if (!attrParts.Success)
+                throw new ArgumentException($"Invalid attribute locator format: {locator}");
+
+            var attrName = attrParts.Groups[1].Value.Trim();
+            var attrValue = attrParts.Groups[2].Value.Trim();
+            return By.XPath($"//*[@{attrName}='{attrValue}']");
+        }
 
         return type switch
         {
@@ -132,11 +147,11 @@ public class FindByPrompt : FindStrategy
         };
     }
 
-    private static bool IsElementPresent(IWebDriver driver, string xpath)
+    private static bool IsElementPresent(IWebDriver driver, By by)
     {
         try
         {
-            return driver.FindElements(By.XPath(xpath)).Any();
+            return driver.FindElements(by).Any();
         }
         catch
         {
@@ -146,3 +161,4 @@ public class FindByPrompt : FindStrategy
 
     public override string ToString() => $"Prompt = {Value}";
 }
+

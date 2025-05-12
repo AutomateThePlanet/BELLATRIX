@@ -87,8 +87,8 @@ public static class PageObjectsIndexer
     /// </summary>
     private static string ResolvePagesFolderPath(string folderName)
     {
-        return Path.Combine(
-            Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\")),
-            folderName);
+        string projectRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+        return Path.Combine(projectRoot, folderName);
     }
+
 }

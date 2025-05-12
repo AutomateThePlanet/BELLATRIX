@@ -33,7 +33,7 @@
     },
     "executionSettings": {
       "executionType": "regular",
-      "defaultBrowser": "edge",
+      "defaultBrowser": "chrome",
       "defaultLifeCycle": "restart every time",
       "resolution": "",
       "browserVersion": "",
@@ -206,26 +206,24 @@
   "blobStorageSettings": {
     "connectionString": "yourKey"
   },
-  {
-    "LargeLanguageModelsSettings": {
-      "ModelSettings": [
-        {
-          "Endpoint": "env_AZURE_OPENAI_ENDPOINT",
-          "Key": "env_AZURE_OPENAI_KEY",
-          "Deployment": "gpt-4o"
-        },
-        {
-          "ServiceId": "openai-embed",
-          "Endpoint": "env_AZURE_OPENAI_EMBEDDINGS_ENDPOINT",
-          "Key": "env_AZURE_OPENAI_EMBEDDINGS_KEY",
-          "EmbeddingDeployment": "text-embedding-ada-002"
-        }
-      ],
-      "QdrantMemoryDbEndpoint": "http://localhost:6333",
-      "ShouldIndexPageObjects": true,
-      "PageObjectFilesPath": "Pages",
-      "MemoryIndex": "PageObjects",
-      "ResetIndexEverytime": true
-    }
+  "largeLanguageModelsSettings": {
+    "modelSettings": [
+      {
+        "endpoint": "env_AZURE_OPENAI_ENDPOINT",
+        "key": "env_AZURE_OPENAI_KEY",
+        "deployment": "gpt-4o"
+      },
+      {
+        "serviceId": "openai-embed",
+        "endpoint": "env_AZURE_OPENAI_EMBEDDINGS_ENDPOINT",
+        "key": "env_AZURE_OPENAI_EMBEDDINGS_KEY",
+        "embeddingDeployment": "text-embedding-ada-002"
+      }
+    ],
+    "qdrantMemoryDbEndpoint": "http://localhost:6333",
+    "shouldIndexPageObjects": false,
+    "pageObjectFilesPath": "40. Prompts Support\\Pages",
+    "memoryIndex": "PageObjects",
+    "resetIndexEverytime": false
   }
 }

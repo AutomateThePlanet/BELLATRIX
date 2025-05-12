@@ -154,7 +154,7 @@ public static class WrappedWebDriverCreateService
 
         if (executionConfiguration.BrowserType != BrowserType.Edge)
         {
-            FixDriverCommandExecutionDelay(wrappedWebDriver);
+            //FixDriverCommandExecutionDelay(wrappedWebDriver);
 
             ////DriverCommandExecutionService commandExecutionService = new DriverCommandExecutionService((RemoteWebDriver)wrappedWebDriver);
             ////commandExecutionService.InitializeSendCommand((RemoteWebDriver)wrappedWebDriver);
@@ -165,50 +165,50 @@ public static class WrappedWebDriverCreateService
         return wrappedWebDriver;
     }
 
-    private static void FixDriverCommandExecutionDelay(IWebDriver driver)
-    {
-        try
-        {
-            PropertyInfo commandExecutorProperty = GetPropertyWithThrowOnError(typeof(WebDriver), "CommandExecutor", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetProperty);
-            ICommandExecutor commandExecutor = (ICommandExecutor)commandExecutorProperty.GetValue(driver);
+    //private static void FixDriverCommandExecutionDelay(IWebDriver driver)
+    //{
+    //    try
+    //    {
+    //        PropertyInfo commandExecutorProperty = GetPropertyWithThrowOnError(typeof(WebDriver), "CommandExecutor", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetProperty);
+    //        ICommandExecutor commandExecutor = (ICommandExecutor)commandExecutorProperty.GetValue(driver);
 
-            FieldInfo GetRemoteServerUriField(ICommandExecutor executor)
-            {
-                return executor.GetType().GetField("remoteServerUri", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.SetField);
-            }
+    //        FieldInfo GetRemoteServerUriField(ICommandExecutor executor)
+    //        {
+    //            return executor.GetType().GetField("remoteServerUri", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.SetField);
+    //        }
 
-            FieldInfo remoteServerUriField = GetRemoteServerUriField(commandExecutor);
+    //        FieldInfo remoteServerUriField = GetRemoteServerUriField(commandExecutor);
 
-            if (remoteServerUriField == null)
-            {
-                FieldInfo internalExecutorField = commandExecutor.GetType().GetField("internalExecutor", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField);
-                commandExecutor = (ICommandExecutor)internalExecutorField.GetValue(commandExecutor);
+    //        if (remoteServerUriField == null)
+    //        {
+    //            FieldInfo internalExecutorField = commandExecutor.GetType().GetField("internalExecutor", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField);
+    //            commandExecutor = (ICommandExecutor)internalExecutorField.GetValue(commandExecutor);
 
-                ServicesCollection.Current.RegisterInstance(commandExecutor);
+    //            ServicesCollection.Current.RegisterInstance(commandExecutor);
 
-                remoteServerUriField = GetRemoteServerUriField(commandExecutor);
-            }
+    //            remoteServerUriField = GetRemoteServerUriField(commandExecutor);
+    //        }
 
-            if (remoteServerUriField != null)
-            {
-                string remoteServerUri = remoteServerUriField.GetValue(commandExecutor).ToString();
+    //        if (remoteServerUriField != null)
+    //        {
+    //            string remoteServerUri = remoteServerUriField.GetValue(commandExecutor).ToString();
 
-                string localhostUriPrefix = "http://localhost";
+    //            string localhostUriPrefix = "http://localhost";
 
-                if (remoteServerUri.StartsWith(localhostUriPrefix, StringComparison.Ordinal))
-                {
-                    remoteServerUri = remoteServerUri.Replace(localhostUriPrefix, "http://127.0.0.1");
+    //            if (remoteServerUri.StartsWith(localhostUriPrefix, StringComparison.Ordinal))
+    //            {
+    //                remoteServerUri = remoteServerUri.Replace(localhostUriPrefix, "http://127.0.0.1");
 
-                    remoteServerUriField.SetValue(commandExecutor, new Uri(remoteServerUri));
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            // Failed to apply fix of command execution delay.
-            e.PrintStackTrace();
-        }
-    }
+    //                remoteServerUriField.SetValue(commandExecutor, new Uri(remoteServerUri));
+    //            }
+    //        }
+    //    }
+    //    catch (Exception e)
+    //    {
+    //        // Failed to apply fix of command execution delay.
+    //        e.PrintStackTrace();
+    //    }
+    //}
 
     internal static PropertyInfo GetPropertyWithThrowOnError(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default)
     {
