@@ -1,19 +1,19 @@
 ﻿using Bellatrix.Assertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools;
-using OpenQA.Selenium.DevTools.V121.Console;
-using OpenQA.Selenium.DevTools.V121.DOMSnapshot;
-using OpenQA.Selenium.DevTools.V121.Emulation;
-using OpenQA.Selenium.DevTools.V121.Network;
-using OpenQA.Selenium.DevTools.V121.Performance;
-using OpenQA.Selenium.DevTools.V121.Security;
+using OpenQA.Selenium.DevTools.V136.Console;
+using OpenQA.Selenium.DevTools.V136.DOMSnapshot;
+using OpenQA.Selenium.DevTools.V136.Emulation;
+using OpenQA.Selenium.DevTools.V136.Network;
+using OpenQA.Selenium.DevTools.V136.Performance;
+using OpenQA.Selenium.DevTools.V136.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V121.DevToolsSessionDomains;
-using EnableCommandSettings = OpenQA.Selenium.DevTools.V121.Network.EnableCommandSettings;
-using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V121.Network.SetUserAgentOverrideCommandSettings;
+using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V136.DevToolsSessionDomains;
+using EnableCommandSettings = OpenQA.Selenium.DevTools.V136.Network.EnableCommandSettings;
+using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V136.Network.SetUserAgentOverrideCommandSettings;
 
 namespace Bellatrix.Web;
 

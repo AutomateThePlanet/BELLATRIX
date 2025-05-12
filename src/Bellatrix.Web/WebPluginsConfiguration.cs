@@ -235,17 +235,24 @@ public static class WebPluginsConfiguration
             throw new ArgumentException("Could not load LargeLanguageModelsSettings section from testFrameworkSettings.json");
         }
 
-        var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
-
-        SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorSkill(), "Locator");
-        SemanticKernelService.Kernel.ImportPluginFromObject(new AssertionSkill(), "Assertions");
-        SemanticKernelService.Kernel.ImportPluginFromObject(new PageObjectSummarizerSkill(), "PageSummarizer");
-        SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorMapperSkill(), "Mapper");
-
-        // index all page objects:
-        if (settings.ShouldIndexPageObjects)
+        try
         {
-            PageObjectsIndexer.IndexAllPageObjects(settings.PageObjectFilesPath, settings.MemoryIndex, settings.ResetIndexEverytime);
+            var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
+
+            SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorSkill(), "Locator");
+            SemanticKernelService.Kernel.ImportPluginFromObject(new AssertionSkill(), "Assertions");
+            SemanticKernelService.Kernel.ImportPluginFromObject(new PageObjectSummarizerSkill(), "PageSummarizer");
+            SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorMapperSkill(), "Mapper");
+
+            // index all page objects:
+            if (settings.ShouldIndexPageObjects)
+            {
+                PageObjectsIndexer.IndexAllPageObjects(settings.PageObjectFilesPath, settings.MemoryIndex, settings.ResetIndexEverytime);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex.ToString());
         }
     }
 }

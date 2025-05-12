@@ -33,7 +33,7 @@
     },
     "executionSettings": {
       "executionType": "regular",
-      "defaultBrowser": "chrome",
+      "defaultBrowser": "edge",
       "defaultLifeCycle": "restart every time",
       "resolution": "",
       "browserVersion": "",

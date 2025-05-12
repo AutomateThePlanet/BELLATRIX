@@ -3,6 +3,7 @@
 	<ItemGroup>
 	  <PackageReference Include="Azure.AI.FormRecognizer" Version="4.1.0" />
 	  <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="7.0.1" />
+	  <PackageReference Include="NUnit" Version="4.3.2" />
 	</ItemGroup>  
 	<ItemGroup>
 	  <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />

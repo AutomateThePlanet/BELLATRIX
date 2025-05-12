@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Bellatrix.ImageRecognition.SikuliX" Version="1.1.3" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
     <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.6.1" />
 
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />

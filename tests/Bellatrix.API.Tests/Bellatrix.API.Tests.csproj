@@ -12,7 +12,7 @@
     <PackageReference Include="NJsonSchema" Version="11.0.0" />
     <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
     <PackageReference Include="Unity" Version="5.11.10" />
-    <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="RestSharp" Version="112.1.1-alpha.0.4" />
     <PackageReference Include="AutoFixture" Version="4.18.1" />
   </ItemGroup>
 

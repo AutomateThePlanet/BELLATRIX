@@ -3,11 +3,10 @@
 namespace Bellatrix.Web.GettingStarted.LLM;
 
 [TestFixture]
-[Browser(BrowserType.Chrome, Lifecycle.RestartEveryTime)]
 public class PageObjectsTests : NUnit.WebTest
 {
     [Test]
-    public void PurchaseRocketWithPageObjects()
+    public void PurchaseRocketWithPageObjects_LLM()
     {
         var homePage = App.GoTo<HomePage>();
         homePage.FilterProducts(ProductFilter.Popularity);
