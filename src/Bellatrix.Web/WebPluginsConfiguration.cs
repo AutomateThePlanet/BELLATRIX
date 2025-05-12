@@ -16,12 +16,16 @@ using System.Collections.Generic;
 using Bellatrix.GoogleLighthouse.MSTest;
 using Bellatrix.GoogleLighthouse.NUnit;
 using Bellatrix.Layout;
+using Bellatrix.LLM;
+using Bellatrix.LLM.settings;
 using Bellatrix.Plugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.EventHandlers.DynamicTestCases;
 using Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+using Bellatrix.Web.LLM.Plugins;
 using Bellatrix.Web.Plugins.Browser;
+using Microsoft.SemanticKernel;
 
 namespace Bellatrix.Web;
 
@@ -221,6 +225,27 @@ public static class WebPluginsConfiguration
         {
             var highlightComponentEventHandler = new HighlightComponentEventHandlers();
             highlightComponentEventHandler.SubscribeToAll();
+        }
+    }
+
+    public static void ConfigureLLM()
+    {
+        if (ConfigurationService.GetSection<LargeLanguageModelsSettings>() == null)
+        {
+            throw new ArgumentException("Could not load LargeLanguageModelsSettings section from testFrameworkSettings.json");
+        }
+
+        var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
+
+        SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorSkill(), "Locator");
+        SemanticKernelService.Kernel.ImportPluginFromObject(new AssertionSkill(), "Assertions");
+        SemanticKernelService.Kernel.ImportPluginFromObject(new PageObjectSummarizerSkill(), "PageSummarizer");
+        SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorMapperSkill(), "Mapper");
+
+        // index all page objects:
+        if (settings.ShouldIndexPageObjects)
+        {
+            PageObjectsIndexer.IndexAllPageObjects(settings.PageObjectFilesPath, settings.MemoryIndex, settings.ResetIndexEverytime);
         }
     }
 }

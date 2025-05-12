@@ -167,7 +167,7 @@ namespace Bellatrix.Web.Assertions
 
         private static string ExtractMeasureUnit(string stringCssValue)
         {
-            return stringCssValue.Substring(stringCssValue.IndexOf(stringCssValue.FirstOrDefault(x => Char.IsLetter(x))));
+            return stringCssValue.Substring(stringCssValue.IndexOf(stringCssValue.FirstOrDefault(x => char.IsLetter(x))));
         }
 
         private static double ExtractDoubleValue(string stringCssValue)

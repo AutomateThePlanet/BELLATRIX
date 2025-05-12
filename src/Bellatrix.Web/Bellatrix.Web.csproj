@@ -13,7 +13,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.58" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="Selenium.WebDriver" Version="4.17.0" />
 		<PackageReference Include="System.Composition" Version="8.0.0" />
@@ -26,6 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Bellatrix.LLM\Bellatrix.LLM.csproj" />
 		<ProjectReference Include="..\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
 		<ProjectReference Include="..\Bellatrix.Api\Bellatrix.API.csproj" />
 		<ProjectReference Include="..\Bellatrix.AWS\Bellatrix.AWS.csproj" />

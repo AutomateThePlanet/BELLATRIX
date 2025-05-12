@@ -53,6 +53,7 @@ public abstract class WebTest : NUnitBaseTest
                 WebPluginsConfiguration.AddHighlightComponents();
                 WebPluginsConfiguration.AddNUnitGoogleLighthouse();
                 WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
+                WebPluginsConfiguration.ConfigureLLM();
 
                 APIPluginsConfiguration.AddAssertExtensionsBddLogging();
                 APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();

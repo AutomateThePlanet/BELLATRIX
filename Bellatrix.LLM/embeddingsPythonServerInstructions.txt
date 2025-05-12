@@ -1,0 +1,36 @@
+install https://qdrant.tech/
+install https://ollama.com/download
+pip install einops
+pip install sentence-transformers flask
+python embedding_server.py
+
+check local models - curl http://localhost:11434/v1/models
+
+In WebTests we need to call -> WebPluginsConfiguration.ConfigureLLM();
+
+Configuration needed:
+
+{
+  "LargeLanguageModelsSettings": {
+    "ModelSettings": [
+      {
+        "ServiceId": "openai-gen",
+        "Endpoint": "env_AZURE_OPENAI_ENDPOINT",
+        "Key": "env_AZURE_OPENAI_KEY",
+        "Deployment": "gpt-4",
+        "ModelId": "gpt-4"
+      },
+      {
+        "ServiceId": "openai-embed",
+        "Endpoint": "env_AZURE_OPENAI_EMBEDDINGS_ENDPOINT",
+        "Key": "env_AZURE_OPENAI_EMBEDDINGS_KEY",
+        "EmbeddingDeployment": "text-embedding-ada-002"
+      }
+    ],
+    "QdrantMemoryDbEndpoint": "http://localhost:6333",
+    "ShouldIndexPageObjects": true,
+    "PageObjectFilesPath": "Pages",
+    "MemoryIndex": "PageObjects",
+    "ResetIndexEverytime": true
+  }
+}

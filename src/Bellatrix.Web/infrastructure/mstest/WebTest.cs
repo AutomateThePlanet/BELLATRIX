@@ -57,6 +57,7 @@ public abstract class WebTest : MSTestBaseTest
                 WebPluginsConfiguration.AddHighlightComponents();
                 WebPluginsConfiguration.AddMSTestGoogleLighthouse();
                 WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
+                WebPluginsConfiguration.ConfigureLLM();
 
                 APIPluginsConfiguration.AddAssertExtensionsBddLogging();
                 APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
