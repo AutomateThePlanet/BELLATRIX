@@ -22,8 +22,15 @@ public class DevToolsService : WebService, IDisposable
     public DevToolsService(IWebDriver wrappedDriver)
         : base(wrappedDriver)
     {
-        DevToolsSession = ((IDevTools)wrappedDriver).GetDevToolsSession();
-        DevToolsSessionDomains = DevToolsSession.GetVersionSpecificDomains<DevToolsSessionDomains>();
+        try
+        {
+            DevToolsSession = ((IDevTools)wrappedDriver)?.GetDevToolsSession();
+            DevToolsSessionDomains = DevToolsSession?.GetVersionSpecificDomains<DevToolsSessionDomains>();
+        }
+        catch (ObjectDisposedException)
+        {
+            // Handle disposed driver
+        }
     }
 
     public DevToolsSessionDomains DevToolsSessionDomains { get; set; }

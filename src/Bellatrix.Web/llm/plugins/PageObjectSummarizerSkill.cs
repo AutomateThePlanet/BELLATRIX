@@ -8,7 +8,7 @@ public class PageObjectSummarizerSkill
     [KernelFunction]
     public string SummarizePageObjectCode(string code)
     {
-        return """
+        return $"""
 You are analyzing a BELLATRIX PageObject class written in C#. 
 BELLATRIX separates PageObjects into `Map`, `Actions`, and `Assertions` files using partial classes, but sometimes they are combined into a single file.
 

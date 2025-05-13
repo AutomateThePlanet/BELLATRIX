@@ -10,8 +10,7 @@ public static class BrowserServiceExtensions
         const rect = el.getBoundingClientRect();
         return style.display !== 'none' &&
                style.visibility !== 'hidden' &&
-               rect.width > 0 && rect.height > 0 &&
-               ['input', 'button', 'a', 'label', 'textarea', 'select', 'div'].includes(el.tagName.toLowerCase());
+               rect.width > 0 && rect.height > 0;
     }).map(el => {
         const tag = el.tagName.toLowerCase();
         const type = el.getAttribute('type');

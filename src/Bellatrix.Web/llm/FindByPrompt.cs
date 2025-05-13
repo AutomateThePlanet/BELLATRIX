@@ -38,6 +38,7 @@ public class FindByPrompt : FindStrategy
 
     private By TryResolveFromPageObjectMemory(IWebDriver driver, string instruction)
     {
+        // TODO: extend w. PageSummary?
         var enrichedPrompt = $"{instruction} (Current URL: {driver.Url})";
 
         var match = SemanticKernelService.Memory

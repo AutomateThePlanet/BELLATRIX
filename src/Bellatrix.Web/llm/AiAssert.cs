@@ -27,7 +27,7 @@ public static class AiAssert
 
         if (string.IsNullOrWhiteSpace(verdict) || !verdict.Contains("PASS", StringComparison.OrdinalIgnoreCase))
         {
-            throw new Exception("AI Assertion Failed: " + verdict);
+            Assert.Fail($"AI Assert failed: {assertInstruction} - {verdict}");
         }
 
         Console.WriteLine("✅ AI Assert passed: " + assertInstruction);
