@@ -1,4 +1,4 @@
-﻿using Bellatrix.Web.llm;
+﻿using Bellatrix.Web.LLM;
 using Bellatrix.Web.NUnit;
 using NUnit.Framework;
 using System;
@@ -68,5 +68,7 @@ public class AutoHealingTests : WebTest
         var localCheckoutPage = App.Create<LocalCheckoutPage>();
         localCheckoutPage.FillBillingInfo(info);
         localCheckoutPage.SubmitOrder();
+
+        Assert.Fail("Something wrong happened.");
     }
 }

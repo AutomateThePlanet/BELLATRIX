@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -54,14 +54,12 @@
                             <div class="col-md-5">
                                 <label for="country" class="form-label">Country</label>
                                 <select class="form-select" id="country" required>
-                                    <option value="">Choose...</option>
                                     <option>United States</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label for="state" class="form-label">State</label>
                                 <select class="form-select" id="state" required>
-                                    <option value="">Choose...</option>
                                     <option>California</option>
                                 </select>
                             </div>
@@ -128,9 +126,9 @@
 
     <!-- 💥 Simulated JS error on blur -->
     <script>
-        document.querySelector("#card-number").addEventListener("blur", function () {
-            throw new Error("Simulated JS validation error on blur.");
-        });
+  document.querySelector("#card-number").addEventListener("blur", function () {
+      throw new Error("Simulated JS validation error on blur.");
+  });
     </script>
 </body>
 </html>

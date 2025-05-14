@@ -6,7 +6,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 
-namespace Bellatrix.Web.llm;
+namespace Bellatrix.Web.LLM.services;
 public static class LocatorCacheService
 {
     private static readonly ConcurrentDictionary<string, string> _cache = new();

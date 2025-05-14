@@ -6,8 +6,10 @@ using System.Threading;
 using System;
 using Bellatrix.LLM;
 using System.Linq;
+using Bellatrix.Web.LLM.Extensions;
+using Bellatrix.Web.LLM.services;
 
-namespace Bellatrix.Web.llm;
+namespace Bellatrix.Web.LLM;
 
 /// <summary>
 /// A BELLATRIX FindStrategy that uses Semantic Kernel to locate elements by natural language prompts.

@@ -12,6 +12,8 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
+using Bellatrix.Core.logging;
+using Bellatrix.Web.LLM.plugins;
 using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.NUnit;
@@ -37,6 +39,7 @@ public abstract class WebTest : NUnitBaseTest
                 DynamicTestCasesPlugin.Add();
                 AllurePlugin.Add();
                 BugReportingPlugin.Add();
+             
 
                 WebPluginsConfiguration.AddBrowserLifecycle();
                 WebPluginsConfiguration.AddLogExecutionLifecycle();
@@ -70,6 +73,9 @@ public abstract class WebTest : NUnitBaseTest
                 {
                     WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
                 }
+
+                SmartFailureAnalysisPlugin.Add();
+                LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;
             }

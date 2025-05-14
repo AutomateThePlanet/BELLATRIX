@@ -1,4 +1,4 @@
-﻿namespace Bellatrix.Web.llm;
+﻿namespace Bellatrix.Web.LLM.Extensions;
 public static class BrowserServiceExtensions
 {
     public static string GetPageSummaryJson(this BrowserService browser)

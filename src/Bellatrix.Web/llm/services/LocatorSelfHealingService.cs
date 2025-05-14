@@ -8,7 +8,7 @@ using OpenQA.Selenium;
 using System;
 using System.Linq;
 
-namespace Bellatrix.Web.llm;
+namespace Bellatrix.Web.LLM.services;
 public static class LocatorSelfHealingService
 {
     private static readonly LocatorCacheDbContext _db;

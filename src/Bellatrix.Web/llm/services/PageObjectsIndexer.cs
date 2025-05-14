@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace Bellatrix.Web;
+namespace Bellatrix.Web.LLM.services;
 
 public static class PageObjectsIndexer
 {
@@ -26,7 +26,7 @@ public static class PageObjectsIndexer
         }
 
         // Resolve path to the Pages folder
-        string folderPath = ResolvePagesFolderPath(folderName);
+        var folderPath = ResolvePagesFolderPath(folderName);
         Logger.LogInformation($"📁 Scanning folder: {folderPath}");
 
         // Group all .cs files by logical PageObject class name (e.g., CartPage)
@@ -87,7 +87,7 @@ public static class PageObjectsIndexer
     /// </summary>
     private static string ResolvePagesFolderPath(string folderName)
     {
-        string projectRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+        var projectRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
         return Path.Combine(projectRoot, folderName);
     }
 

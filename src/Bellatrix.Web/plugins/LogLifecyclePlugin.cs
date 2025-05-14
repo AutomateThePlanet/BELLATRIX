@@ -20,6 +20,7 @@ public class LogLifecyclePlugin : Plugin
 {
     protected override void PreTestInit(object sender, PluginEventArgs e)
     {
+        Logger.CurrentTestFullName.Value = e.TestFullName;
         Logger.LogInformation($"Start Test {e.TestClassType.Name}.{e.TestMethodMemberInfo.Name}");
     }
 }

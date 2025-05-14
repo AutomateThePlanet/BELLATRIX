@@ -44,5 +44,6 @@ Configuration needed:
     "resetIndexEverytime": false,
     "locatorRetryAttempts": 3,
     "enableSelfHealing": true,
+    "enableSmartFailureAnalysis": true,
   }
 }

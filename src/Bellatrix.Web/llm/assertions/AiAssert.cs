@@ -1,9 +1,10 @@
 ﻿using Bellatrix.Assertions;
 using Bellatrix.LLM;
+using Bellatrix.Web.LLM.Extensions;
 using Microsoft.SemanticKernel;
 using System;
 
-namespace Bellatrix.Web.llm;
+namespace Bellatrix.Web.LLM.assertions;
 public static class AiAssert
 {
     public static void AssertByPrompt(string assertInstruction)

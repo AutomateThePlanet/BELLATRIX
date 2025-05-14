@@ -7,6 +7,7 @@ public class LocatorCacheDbContext : DbContext
 {
     public DbSet<LocatorCacheEntry> LocatorCache { get; set; }
     public DbSet<SelfHealingLocatorEntry> SelfHealingLocators { get; set; }
+    public DbSet<SmartTestExecutionEntry> SmartTestExecutions { get; set; }
 
     private readonly string _connectionString;
 
@@ -44,5 +45,13 @@ public class LocatorCacheDbContext : DbContext
         modelBuilder.Entity<SelfHealingLocatorEntry>()
             .HasIndex(e => new { e.Project, e.AppLocation, e.ValidLocator })
             .IsUnique();
+
+
+        modelBuilder.Entity<SmartTestExecutionEntry>()
+            .Property(e => e.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<SmartTestExecutionEntry>()
+            .HasIndex(e => e.TestFullName);
     }
 }

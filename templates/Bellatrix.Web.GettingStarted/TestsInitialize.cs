@@ -1,5 +1,5 @@
-﻿global using static Bellatrix.Web.llm.AiAssert;
-global using static Bellatrix.Web.llm.AiValidator;
+﻿global using static Bellatrix.Web.LLM.assertions.AiAssert;
+global using static Bellatrix.Web.LLM.assertions.AiValidator;
 using Bellatrix;
 using Bellatrix.Web;
 using NUnit.Framework;

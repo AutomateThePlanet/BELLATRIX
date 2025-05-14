@@ -3,8 +3,9 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using System;
 using Microsoft.SemanticKernel;
+using Bellatrix.Web.LLM.Extensions;
 
-namespace Bellatrix.Web.llm;
+namespace Bellatrix.Web.LLM.assertions;
 public static class AiValidator
 {
     public static void ValidateByPrompt(string assertInstruction, int? timeout = null, int? sleepInterval = null)
@@ -12,13 +13,13 @@ public static class AiValidator
         var browser = ServicesCollection.Current.Resolve<BrowserService>();
         var driver = browser.WrappedDriver;
 
-        int effectiveTimeout = timeout ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ValidationsTimeout;
-        int effectiveSleep = sleepInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval;
+        var effectiveTimeout = timeout ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ValidationsTimeout;
+        var effectiveSleep = sleepInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval;
 
         var wait = new WebDriverWait(new SystemClock(), driver, TimeSpan.FromSeconds(effectiveTimeout), TimeSpan.FromSeconds(effectiveSleep));
         wait.IgnoreExceptionTypes(typeof(Exception));
 
-        string verdict = string.Empty;
+        var verdict = string.Empty;
         bool AssertionPassed(IWebDriver _)
         {
             try

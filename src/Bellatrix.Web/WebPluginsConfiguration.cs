@@ -23,6 +23,8 @@ using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.EventHandlers.DynamicTestCases;
 using Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+using Bellatrix.Web.LLM.plugins;
+using Bellatrix.Web.LLM.services;
 using Bellatrix.Web.LLM.Plugins;
 using Bellatrix.Web.Plugins.Browser;
 using Microsoft.SemanticKernel;
@@ -243,6 +245,7 @@ public static class WebPluginsConfiguration
             SemanticKernelService.Kernel.ImportPluginFromObject(new AssertionSkill(), "Assertions");
             SemanticKernelService.Kernel.ImportPluginFromObject(new PageObjectSummarizerSkill(), "PageSummarizer");
             SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorMapperSkill(), "Mapper");
+            SemanticKernelService.Kernel.ImportPluginFromObject(new FailureAnalyzerSkill(), "FailureAnalyzer");
 
             // index all page objects:
             if (settings.ShouldIndexPageObjects)

@@ -9,9 +9,11 @@ using OpenQA.Selenium.DevTools.V136.Performance;
 using OpenQA.Selenium.DevTools.V136.Security;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V136.DevToolsSessionDomains;
+using PageDomain = OpenQA.Selenium.DevTools.V136.Page;
 using EnableCommandSettings = OpenQA.Selenium.DevTools.V136.Network.EnableCommandSettings;
 using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V136.Network.SetUserAgentOverrideCommandSettings;
 
@@ -269,6 +271,32 @@ public class DevToolsService : WebService, IDisposable
         var metricsResponse = await DevToolsSession.SendCommand<GetMetricsCommandSettings, GetMetricsCommandResponse>(new GetMetricsCommandSettings());
         return metricsResponse.Metrics;
     }
+
+public async Task<string> CaptureFullPageScreenshotBase64Async()
+{
+    try
+    {
+        if (DevToolsSessionDomains?.Page == null)
+        {
+            DevToolsSessionDomains = DevToolsSession.GetVersionSpecificDomains<DevToolsSessionDomains>();
+            await DevToolsSessionDomains.Page.Enable(new PageDomain.EnableCommandSettings());
+        }
+
+        var response = await DevToolsSessionDomains.Page.CaptureScreenshot(new PageDomain.CaptureScreenshotCommandSettings
+        {
+            CaptureBeyondViewport = true,
+            FromSurface = true
+        });
+
+        return response.Data;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"❌ CDP screenshot capture failed: {ex.Message}");
+        return null;
+    }
+}
+
 
     public void Dispose()
     {

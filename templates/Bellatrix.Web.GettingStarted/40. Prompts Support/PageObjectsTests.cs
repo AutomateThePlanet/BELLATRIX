@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Bellatrix.Web.LLM.Extensions;
+using NUnit.Framework;
 using BA = Bellatrix.Assertions;
 namespace Bellatrix.Web.GettingStarted.LLM;
 

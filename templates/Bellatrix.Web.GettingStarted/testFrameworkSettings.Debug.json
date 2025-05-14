@@ -13,6 +13,7 @@
     "shouldCaptureHttpTraffic": "false",
     "pathToSslCertificate": "path",
     "shouldCheckForJavaScriptErrors": "false",
+    "fullPageScreenshotsEnabled": "true",
     "timeoutSettings": {
       "elementWaitTimeout": "5",
       "pageLoadTimeout": "5",
@@ -206,6 +207,15 @@
   "blobStorageSettings": {
     "connectionString": "yourKey"
   },
+  "loggingSettings": {
+    "isEnabled": true,
+    "isConsoleLoggingEnabled": true,
+    "isDebugLoggingEnabled": true,
+    "isFileLoggingEnabled": false,
+    "isReportPortalLoggingEnabled": false,
+    "shouldMaskSensitiveInfo": true,
+    "outputTemplate": "{Message:lj}{NewLine}{Exception}"
+  },
   "largeLanguageModelsSettings": {
     "modelSettings": [
       {
@@ -228,6 +238,7 @@
     "memoryIndex": "PageObjects",
     "resetIndexEverytime": false,
     "locatorRetryAttempts": 3,
-    "enableSelfHealing": true
+    "enableSelfHealing": true,
+    "enableSmartFailureAnalysis": true
   }
 }
