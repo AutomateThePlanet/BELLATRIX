@@ -364,6 +364,11 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             EnsureState(Wait.To.Exists());
         }
 
+        var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
+        var nativeElementFinderService = ParentWrappedElement == null
+            ? new NativeElementFinderService(WrappedDriver)
+            : new NativeElementFinderService(ParentWrappedElement);
+
         try
         {
             foreach (var until in _untils)
@@ -371,17 +376,24 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
                 if (until != null)
                 {
                     _elementWaiter.Wait(this, until);
-                }
 
-                if (until != null && until.GetType() == typeof(WaitNotToExistStrategy))
-                {
-                    return _wrappedElement;
+                    if (until.GetType() == typeof(WaitNotToExistStrategy))
+                    {
+                        return _wrappedElement;
+                    }
                 }
             }
 
-            _wrappedElement = GetWebDriverElement(shouldCacheElement);
+            _wrappedElement = nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
+
+            if (settings.EnableSelfHealing)
+            {
+                var summary = BrowserService.GetPageSummaryJson();
+                LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), summary, WrappedDriver.Url);
+            }
 
             ScrollToMakeElementVisible();
+
             if (ConfigurationService.GetSection<WebSettings>().ShouldWaitUntilReadyOnElementFound)
             {
                 BrowserService.WaitUntilReady();
@@ -393,13 +405,35 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             }
 
             _untils.Clear();
+            return _wrappedElement;
         }
-        catch (WebDriverTimeoutException)
+        catch (Exception ex)
         {
-            throw new TimeoutException($"\n\nThe element: \n Name: '{ComponentName}', \n Locator: '{LocatorType.Name} = {LocatorValue}', \n Type: '{ComponentType.Name}' \nWas not found on the page or didn't fulfill the specified conditions.\n\n");
-        }
+            if (!settings.EnableSelfHealing)
+            {
+                throw new TimeoutException($"\n\nThe element: \n Name: '{ComponentName}', \n Locator: '{LocatorType.Name} = {LocatorValue}', \n Type: '{ComponentType.Name}' \nWas not found or failed condition.\n\n", ex);
+            }
 
-        return _wrappedElement;
+            Console.WriteLine($"⚠️ Element not found with locator: {By}. Attempting self-heal...");
+
+            var currentSummary = BrowserService.GetPageSummaryJson();
+            var healedStrategy = LocatorSelfHealingService.TryHeal(By.ToString(), currentSummary, WrappedDriver.Url);
+            if (healedStrategy != null)
+            {
+                try
+                {
+                    var healedElement = nativeElementFinderService.FindAll(healedStrategy).ElementAt(ElementIndex);
+                    Console.WriteLine("🧠 Using AI-suggested fallback locator. Original not updated.");
+                    return healedElement;
+                }
+                catch
+                {
+                    throw new NotFoundException($"❌ Healing attempt failed: {By.Value}", ex);
+                }
+            }
+
+            throw new NotFoundException($"❌ Original and healed locators failed: {By.Value}", ex);
+        }
     }
 
     private void ScrollToMakeElementVisible()
@@ -408,57 +442,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         if (WrappedWebDriverCreateService.BrowserConfiguration.ShouldAutomaticallyScrollToVisible)
         {
             ScrollToVisible(false);
-        }
-    }
-
-    private IWebElement GetWebDriverElement(bool shouldCacheElement = false)
-    {
-        if (_wrappedElement != null && shouldCacheElement)
-        {
-            return _wrappedElement;
-        }
-
-        var nativeElementFinderService = ParentWrappedElement == null
-            ? new NativeElementFinderService(WrappedDriver)
-            : new NativeElementFinderService(ParentWrappedElement);
-
-        var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
-
-        try
-        {
-            var element = nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
-
-            // Save original working locator only if self-healing is enabled
-            if (settings.EnableSelfHealing)
-            {
-                var browser = ServicesCollection.Current.Resolve<BrowserService>();
-                var viewSummary = browser.GetPageSummaryJson();
-
-                LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), viewSummary, WrappedDriver.Url);
-            }
-
-            return element;
-        }
-        catch (Exception ex)
-        {
-            if (!settings.EnableSelfHealing)
-            {
-                throw;
-            }
-
-            Console.WriteLine($"⚠️ Element not found with locator: {By}. Attempting self-heal...");
-
-            var currentSummary = BrowserService.GetPageSummaryJson();
-            var healedXpathFindStrategy = LocatorSelfHealingService.TryHeal(By.ToString(), currentSummary, WrappedDriver.Url);
-            if (healedXpathFindStrategy != null)
-            {
-                var healedElement = nativeElementFinderService.FindAll(healedXpathFindStrategy).ElementAt(ElementIndex);
-
-                Console.WriteLine("🧠 Using AI-suggested fallback locator. Original not updated.");
-                return healedElement;
-            }
-
-            throw new NotFoundException($"❌ Original and healed locators failed: {By.Value}", ex);
         }
     }
 }
