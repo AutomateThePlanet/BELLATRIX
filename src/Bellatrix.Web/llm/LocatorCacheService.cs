@@ -26,7 +26,7 @@ public static class LocatorCacheService
 
         foreach (var entry in entries)
         {
-            _cache.TryAdd($"{entry.Url}|{entry.Instruction}", entry.XPath);
+            _cache.TryAdd($"{entry.AppLocation}|{entry.Instruction}", entry.XPath);
         }
     }
 
@@ -42,7 +42,7 @@ public static class LocatorCacheService
         _cache.TryRemove(key, out _);
 
         var dbEntry = _db.LocatorCache.FirstOrDefault(x =>
-            x.Project == _project && x.Url == _driver.Url && x.Instruction == instruction);
+            x.Project == _project && x.AppLocation == _driver.Url && x.Instruction == instruction);
 
         if (dbEntry != null)
         {
@@ -57,7 +57,7 @@ public static class LocatorCacheService
         _cache[key] = xpath;
 
         var existing = _db.LocatorCache.FirstOrDefault(x =>
-            x.Project == _project && x.Url == _driver.Url && x.Instruction == instruction);
+            x.Project == _project && x.AppLocation == _driver.Url && x.Instruction == instruction);
 
         if (existing != null)
         {
@@ -71,7 +71,7 @@ public static class LocatorCacheService
             var entry = new LocatorCacheEntry
             {
                 Project = _project,
-                Url = _driver.Url,
+                AppLocation = _driver.Url,
                 Instruction = instruction,
                 XPath = xpath
             };
@@ -81,5 +81,8 @@ public static class LocatorCacheService
 
         _db.SaveChanges();
     }
-
+    public static void Dispose()
+    {
+        _db?.Dispose();
+    }
 }

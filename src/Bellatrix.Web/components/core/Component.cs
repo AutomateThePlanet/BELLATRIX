@@ -20,10 +20,12 @@ using System.Linq;
 using System.Text;
 using Bellatrix.CognitiveServices;
 using Bellatrix.CognitiveServices.services;
+using Bellatrix.LLM.settings;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Web.Components.ShadowDom;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
+using Bellatrix.Web.llm;
 using Bellatrix.Web.Untils;
 using Bellatrix.Web.Waits;
 using OpenQA.Selenium;
@@ -416,18 +418,47 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             return _wrappedElement;
         }
 
-        if (ParentWrappedElement == null && _wrappedElement == null)
-        {
-            var nativeElementFinderService = new NativeElementFinderService(WrappedDriver);
-            return nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
-        }
+        var nativeElementFinderService = ParentWrappedElement == null
+            ? new NativeElementFinderService(WrappedDriver)
+            : new NativeElementFinderService(ParentWrappedElement);
 
-        if (ParentWrappedElement != null)
-        {
-            var nativeElementFinderService = new NativeElementFinderService(ParentWrappedElement);
-            return nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
-        }
+        var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
 
-        return _wrappedElement;
+        try
+        {
+            var element = nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
+
+            // Save original working locator only if self-healing is enabled
+            if (settings.EnableSelfHealing)
+            {
+                var browser = ServicesCollection.Current.Resolve<BrowserService>();
+                var viewSummary = browser.GetPageSummaryJson();
+
+                LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), viewSummary, WrappedDriver.Url);
+            }
+
+            return element;
+        }
+        catch (Exception ex)
+        {
+            if (!settings.EnableSelfHealing)
+            {
+                throw;
+            }
+
+            Console.WriteLine($"⚠️ Element not found with locator: {By}. Attempting self-heal...");
+
+            var currentSummary = BrowserService.GetPageSummaryJson();
+            var healedXpathFindStrategy = LocatorSelfHealingService.TryHeal(By.ToString(), currentSummary, WrappedDriver.Url);
+            if (healedXpathFindStrategy != null)
+            {
+                var healedElement = nativeElementFinderService.FindAll(healedXpathFindStrategy).ElementAt(ElementIndex);
+
+                Console.WriteLine("🧠 Using AI-suggested fallback locator. Original not updated.");
+                return healedElement;
+            }
+
+            throw new NotFoundException($"❌ Original and healed locators failed: {By.Value}", ex);
+        }
     }
 }

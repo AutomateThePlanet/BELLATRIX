@@ -1,10 +1,12 @@
-﻿using Bellatrix.LLM.Cache;
+﻿using Bellatrix.LLM.cache;
+using Bellatrix.LLM.Cache;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bellatrix.LLM.Cache;
 public class LocatorCacheDbContext : DbContext
 {
     public DbSet<LocatorCacheEntry> LocatorCache { get; set; }
+    public DbSet<SelfHealingLocatorEntry> SelfHealingLocators { get; set; }
 
     private readonly string _connectionString;
 
@@ -30,8 +32,17 @@ public class LocatorCacheDbContext : DbContext
         modelBuilder.Entity<LocatorCacheEntry>()
             .Property(e => e.Id)
             .ValueGeneratedOnAdd();
+
         modelBuilder.Entity<LocatorCacheEntry>()
             .HasIndex(e => new { e.Project, e.Instruction })
+            .IsUnique();
+
+        modelBuilder.Entity<SelfHealingLocatorEntry>()
+            .Property(e => e.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<SelfHealingLocatorEntry>()
+            .HasIndex(e => new { e.Project, e.AppLocation, e.ValidLocator })
             .IsUnique();
     }
 }

@@ -227,6 +227,7 @@
     "pageObjectFilesPath": "40. Prompts Support\\Pages",
     "memoryIndex": "PageObjects",
     "resetIndexEverytime": false,
-    "locatorRetryAttempts": 3
+    "locatorRetryAttempts": 3,
+    "enableSelfHealing": true
   }
 }

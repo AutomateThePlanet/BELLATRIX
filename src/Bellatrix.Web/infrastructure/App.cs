@@ -26,6 +26,7 @@ using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
+using Bellatrix.Web.llm;
 using Bellatrix.Web.Proxy;
 using Bellatrix.Web.Services;
 using OpenQA.Selenium;
@@ -178,6 +179,8 @@ public class App : IDisposable
     {
         DevTools?.Dispose();
         Proxy?.Dispose();
+        LocatorSelfHealingService.Dispose();
+        LocatorCacheService.Dispose();
         DisposeDriverService.DisposeAll();
         DisposeDriverService.Dispose();
         GC.SuppressFinalize(this);

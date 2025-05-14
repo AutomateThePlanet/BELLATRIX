@@ -71,4 +71,56 @@ Do not include:
 Return ONLY a single line of clean, valid XPath with quoted values.
 """;
     }
+
+    [KernelFunction]
+    public string HealBrokenLocator(string failedLocator, string oldViewummary, string newViewSummary)
+    {
+        return $"""
+You are an AI assistant helping with UI test automation.
+
+The original locator no longer works:
+❌ Failed Locator: {failedLocator}
+
+Your goal is to suggest a valid, simple, and reliable **XPath** locator that finds the **same element** described by the failed locator, using the structural differences between the old and new view summaries.
+
+--- 
+
+🔹 **Previously Working View Summary:**
+{oldViewummary}
+
+🔹 **New View Summary After Failure:**
+{newViewSummary}
+
+--- 
+
+**Guidelines for Generating XPath:**
+
+✅ Always:
+- Use lowercase tag names
+- Prefer short, robust expressions like:
+  - `@id`, `@name`, `@placeholder`, `@aria-label`, `@type`
+- Use `contains(...)` or `normalize-space(...)` for partial matches
+- Wrap attribute values in **single quotes**: `@name='value'`
+
+🚫 Avoid:
+- XPath axes like `following::`, `ancestor::`, etc. unless required
+- `concat()`, `translate()`, or very deep/nested XPaths
+
+--- 
+
+**Output Format:**
+Return ONLY a single, valid XPath selector.
+
+Examples:
+- //input[@name='email']
+- //button[contains(@class,'submit') and normalize-space()='Send']
+
+❌ Do not include:
+- Explanations
+- Multiple selectors
+- Markdown or formatting
+
+Return ONLY the clean XPath selector.
+""";
+    }
 }

@@ -12,6 +12,12 @@ In WebTests we need to call -> WebPluginsConfiguration.ConfigureLLM();
 
 docker-compose -f docker-compose.local_cache_postgres.yml up -d
 
+docker-compose -f docker-compose.local_cache_postgres.yml down -v
+docker-compose -f docker-compose.local_cache_postgres.yml up -d
+
+dotnet ef migrations add AddSelfHealingTable
+dotnet ef database update
+
 Configuration needed:
 
 {
@@ -36,6 +42,7 @@ Configuration needed:
     "pageObjectFilesPath": "40. Prompts Support\\Pages",
     "memoryIndex": "PageObjects",
     "resetIndexEverytime": false,
-    "locatorRetryAttempts": 3
+    "locatorRetryAttempts": 3,
+    "enableSelfHealing": true,
   }
 }
