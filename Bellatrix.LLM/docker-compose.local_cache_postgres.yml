@@ -1,0 +1,16 @@
+services:
+  postgres-locator:
+    image: postgres:15
+    container_name: locator-cache-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: LocatorCacheDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: devpassword
+    ports:
+      - "5433:5432"  # Use a different host port
+    volumes:
+      - locator_pgdata:/var/lib/postgresql/data
+
+volumes:
+  locator_pgdata:

@@ -22,33 +22,75 @@ public class FindByPrompt : FindStrategy
     {
         var driver = ServicesCollection.Current.Resolve<IWebDriver>();
 
+        // Step 1: Try to match from RAG memory
         var ragLocator = TryResolveFromPageObjectMemory(driver, Value);
-        if (ragLocator != null)
+        if (ragLocator != null && IsElementPresent(driver, ragLocator))
         {
-            if (IsElementPresent(driver, ragLocator))
-            {
-                return ragLocator;
-            }
-
-            Logger.LogInformation($"⚠️ RAG-located element not present. Falling back to prompt-based resolution.");
+            return ragLocator;
         }
+
+        // Step 2: Try local persistent cache
+        Logger.LogInformation($"⚠️ RAG-located element not present. Trying cached selectors...");
+        var cached = LocatorCacheService.TryGetCached(Value);
+        if (cached != null && IsElementPresent(driver, cached))
+        {
+            Logger.LogInformation($"✅ Using cached selector.");
+            return cached;
+        }
+
+        // Step 3: Fall back to AI + prompt regeneration
+        Logger.LogInformation($"⚠️ Cached selector failed or not found. Re-querying AI...");
+        LocatorCacheService.Remove(Value);
 
         return ResolveViaPromptFallback(driver, Value);
     }
 
+    private By ResolveViaPromptFallback(IWebDriver driver, string instruction, int maxAttempts = 3)
+    {
+        var browser = ServicesCollection.Current.Resolve<BrowserService>();
+        var summaryJson = browser.GetPageSummaryJson();
+        var failedSelectors = new List<string>();
+
+        for (var attempt = 1; attempt <= maxAttempts; attempt++)
+        {
+            var prompt = SemanticKernelService.Kernel?.InvokeAsync("Locator", "BuildLocatorPrompt", new()
+            {
+                ["htmlSummary"] = summaryJson,
+                ["instruction"] = instruction,
+                ["failedSelectors"] = failedSelectors
+            }).Result.GetValue<string>();
+
+            var result = SemanticKernelService.Kernel?.InvokePromptAsync(prompt).Result;
+            var rawSelector = result?.GetValue<string>()?.Trim();
+
+            if (string.IsNullOrWhiteSpace(rawSelector))
+                continue;
+
+            var by = By.XPath(rawSelector);
+            if (IsElementPresent(driver, by))
+            {
+                LocatorCacheService.Update(instruction, rawSelector);
+                Logger.LogInformation($"🧠 Caching new selector for '{instruction}': {rawSelector}");
+                return by;
+            }
+
+            failedSelectors.Add(rawSelector);
+            Logger.LogInformation($"[Attempt {attempt}] Selector failed: {rawSelector}");
+            Thread.Sleep(300);
+        }
+
+        throw new NotFoundException($"❌ No element found for instruction: {instruction}");
+    }
+
     private By TryResolveFromPageObjectMemory(IWebDriver driver, string instruction)
     {
-        // TODO: extend w. PageSummary?
-        var enrichedPrompt = $"{instruction} (Current URL: {driver.Url})";
-
         var match = SemanticKernelService.Memory
-            .SearchAsync(enrichedPrompt, index: "PageObjects", limit: 1)
+            .SearchAsync(instruction, index: "PageObjects", limit: 1)
             .Result.Results.FirstOrDefault();
 
         if (match == null) return null;
 
         var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? string.Empty;
-
         var mappedPrompt = SemanticKernelService.Kernel
             .InvokeAsync("Mapper", "MatchPromptToKnownLocator", new()
             {
@@ -62,77 +104,13 @@ public class FindByPrompt : FindStrategy
         return ParsePromptLocatorToBy(locatorResult);
     }
 
-    private By ResolveViaPromptFallback(IWebDriver driver, string instruction, int maxAttempts = 3)
-    {
-        var url = driver.Url;
-        var cacheKey = instruction;
-
-        if (SemanticKernelService.LocatorCache.TryGetValue(cacheKey, out var cachedSelector))
-        {
-            if (IsElementPresent(driver, By.XPath(cachedSelector)))
-            {
-                Logger.LogInformation($"✅ Using cached selector for: {instruction}");
-                return By.XPath(cachedSelector);
-            }
-
-            Logger.LogInformation($"⚠️ Cached selector failed. Re-querying AI: {cachedSelector}");
-            SemanticKernelService.LocatorCache.TryRemove(cacheKey, out _);
-        }
-
-        var browser = ServicesCollection.Current.Resolve<BrowserService>();
-        var summaryJson = browser.GetPageSummaryJson();
-        var failedSelectors = new List<string>();
-
-        for (var attempt = 1; attempt <= maxAttempts; attempt++)
-        {
-            var promptBuild = SemanticKernelService.Kernel?.InvokeAsync("Locator", "BuildLocatorPrompt", new()
-            {
-                ["htmlSummary"] = summaryJson,
-                ["instruction"] = instruction,
-                ["failedSelectors"] = failedSelectors
-            }).Result;
-
-            var fullPrompt = promptBuild?.GetValue<string>();
-            var promptResult = SemanticKernelService.Kernel?.InvokePromptAsync(fullPrompt).Result;
-            var rawSelector = promptResult?.GetValue<string>()?.Trim();
-
-            if (string.IsNullOrWhiteSpace(rawSelector))
-                continue;
-
-            if (IsElementPresent(driver, By.XPath(rawSelector)))
-            {
-                SemanticKernelService.LocatorCache[cacheKey] = rawSelector;
-                Logger.LogInformation($"🧠 Caching selector for '{instruction}' on '{url}': {rawSelector}");
-                return By.XPath(rawSelector);
-            }
-
-            failedSelectors.Add(rawSelector);
-            Logger.LogInformation($"[Attempt {attempt}] Selector failed: {rawSelector}");
-            Thread.Sleep(300);
-        }
-
-        throw new NotFoundException($"❌ No element found via prompt: \"{instruction}\" after {maxAttempts} attempts.");
-    }
-
     private static By ParsePromptLocatorToBy(string promptResult)
     {
         var parts = Regex.Match(promptResult, "(xpath|id|name|tag|cssSelector|class|linktext|partiallinktext|attribute)=(.+)", RegexOptions.IgnoreCase);
-        if (!parts.Success)
-            return null;
+        if (!parts.Success) return null;
 
         var type = parts.Groups[1].Value.Trim().ToLower();
         var locator = parts.Groups[2].Value.Trim();
-
-        if (type == "attribute")
-        {
-            var attrParts = Regex.Match(locator, @"^(.+?)=(.+)$");
-            if (!attrParts.Success)
-                throw new ArgumentException($"Invalid attribute locator format: {locator}");
-
-            var attrName = attrParts.Groups[1].Value.Trim();
-            var attrValue = attrParts.Groups[2].Value.Trim();
-            return By.XPath($"//*[@{attrName}='{attrValue}']");
-        }
 
         return type switch
         {
@@ -144,22 +122,16 @@ public class FindByPrompt : FindStrategy
             "linktext" => By.LinkText(locator),
             "partiallinktext" => By.PartialLinkText(locator),
             "xpath" => By.XPath(locator),
+            "attribute" => By.XPath($"//*[@{locator}]"),
             _ => throw new ArgumentException($"Unsupported selector type: {type}")
         };
     }
 
     private static bool IsElementPresent(IWebDriver driver, By by)
     {
-        try
-        {
-            return driver.FindElements(by).Any();
-        }
-        catch
-        {
-            return false;
-        }
+        try { return driver.FindElements(by).Any(); }
+        catch { return false; }
     }
 
     public override string ToString() => $"Prompt = {Value}";
 }
-

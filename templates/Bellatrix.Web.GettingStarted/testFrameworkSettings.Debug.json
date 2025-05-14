@@ -221,9 +221,12 @@
       }
     ],
     "qdrantMemoryDbEndpoint": "http://localhost:6333",
+    "localCacheConnectionString": "env_LocalCacheConnectionString",
+    "localCacheProjectName": "web_getting_started",
     "shouldIndexPageObjects": false,
     "pageObjectFilesPath": "40. Prompts Support\\Pages",
     "memoryIndex": "PageObjects",
-    "resetIndexEverytime": false
+    "resetIndexEverytime": false,
+    "locatorRetryAttempts": 3
   }
 }

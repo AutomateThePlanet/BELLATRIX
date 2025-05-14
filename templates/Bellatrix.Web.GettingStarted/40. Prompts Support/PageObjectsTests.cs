@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using BA = Bellatrix.Assertions;
-using static Bellatrix.Web.llm.AiAssert;
 namespace Bellatrix.Web.GettingStarted.LLM;
 
 [TestFixture]
@@ -18,8 +17,9 @@ public class PageObjectsTests : NUnit.WebTest
         //ViewCartButton.ValidateIsVisible();
         var product = App.Components.CreateByPrompt<Anchor>("find Add to cart anchor under 'Falcon 9' item");
         product.Click();
-
-        AssertByPrompt("validate that view cart button is visible");
+        
+        //AssertByPrompt("validate that view cart button is visible");
+        ValidateByPrompt("validate that view cart button is visible");
 
         var product2 = App.Components.CreateByPrompt<Anchor>("find Add to cart anchor under 'Saturn V' item");
         product2.Click();
@@ -33,7 +33,8 @@ public class PageObjectsTests : NUnit.WebTest
         product2Quantity.SetNumber(2);
         cartPage.UpdateCart.Click();
 
-        AssertByPrompt("validate that the total is 294.67€ euro and the vat is 9.67€ euro and -5.00€ coupon applied, subtotal is 290.00€");
+        //AssertByPrompt("validate that the total is 294.67€ euro and the vat is 9.67€ euro and -5.00€ coupon applied, subtotal is 290.00€");
+        ValidateByPrompt("validate that the total is 294.67€ euro and the vat is 9.67€ euro and -5.00€ coupon applied, subtotal is 290.00€");
 
 
         var deleteLink = App.Components.CreateByPrompt<Anchor>("find 'Saturn V' remove anchor");
@@ -65,8 +66,9 @@ public class PageObjectsTests : NUnit.WebTest
         var checkPaymentsRadioButton = App.Components.CreateByPrompt<RadioButton>("find Check payments radio button under Your Order info");
         checkPaymentsRadioButton.Click();
 
-        AssertByPrompt("validate that the total is 54 euro and the vat is 9 euro and -5 coupon applied and exactly 1 item added");
-        AssertByPrompt("validate no additional items added");
-        // checkoutPage.CheckPaymentsRadioButton.Click();
+        //AssertByPrompt("validate that the total is 54 euro and the vat is 9 euro and -5 coupon applied and exactly 1 item added");
+        //AssertByPrompt("validate no additional items added");
+        ValidateByPrompt("validate that the total is 54 euro and the vat is 9 euro and -5 coupon applied and exactly 1 item added");
+        ValidateByPrompt("validate no additional items added");
     }
 }
