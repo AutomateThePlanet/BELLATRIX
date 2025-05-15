@@ -7,9 +7,9 @@
 	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
 	<ItemGroup>
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Microsoft.Playwright" Version="1.40.0" />
-    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.40.0" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.52.0" />
+    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.52.0" />
 	<PackageReference Include="MSTest" Version="3.2.2" />
   </ItemGroup>
 

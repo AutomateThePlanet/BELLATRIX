@@ -6,10 +6,10 @@
 
   <ItemGroup>
 
-    <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.15" />
+    <PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
 
     <PackageReference Include="NUnit" Version="4.3.2" />
-    <PackageReference Include="Polly" Version="8.3.0" />
+    <PackageReference Include="Polly" Version="8.5.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.5" />

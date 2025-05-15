@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.ApplicationInsights" Version="2.22.0" />
+	  <PackageReference Include="Microsoft.ApplicationInsights" Version="2.23.0" />
 	</ItemGroup>  
 	<ItemGroup>
 	  <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
 	</ItemGroup>  
 	<ItemGroup>
-    <PackageReference Include="mailslurp" Version="15.17.40" />
+    <PackageReference Include="mailslurp" Version="15.19.22" />
     <PackageReference Include="RestSharp" Version="112.1.1-alpha.0.4" />
 	  <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
 	    <PrivateAssets>all</PrivateAssets>

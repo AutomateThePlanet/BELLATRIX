@@ -6,7 +6,7 @@
     <RootNamespace>Bellatrix.API.GettingStarted</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.6.1" />
+    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.8.0" />
     <PackageReference Include="Bellatrix.API.DemoApps" Version="1.4.1" />
 
     <PackageReference Include="AutoFixture" Version="4.18.1" />
