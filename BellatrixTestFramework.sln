@@ -16,6 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{49ABB9
 		LICENSE = LICENSE
 		shared\LICENSE.txt = shared\LICENSE.txt
 		shared\SharedAssemblyInfo.targets = shared\SharedAssemblyInfo.targets
+		README_Research_Foundation_Notice.md = README_Research_Foundation_Notice.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frameworktests", "frameworktests", "{A48D5A62-96E5-4D44-818C-18748101CCC5}"

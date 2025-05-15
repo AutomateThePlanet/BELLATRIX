@@ -18,10 +18,5 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="NUnit" Version="4.3.2" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="failureAnalysis\" />
-    <Folder Include="plugins\" />
-  </ItemGroup>
 
 </Project>

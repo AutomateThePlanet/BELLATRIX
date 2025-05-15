@@ -1,5 +1,5 @@
-﻿// <copyright file="Element.cs" company="Automate The Planet Ltd.">
-// Copyright 2024 Automate The Planet Ltd.
+﻿// <copyright file="Component.cs" company="Automate The Planet Ltd.">
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,6 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+// <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
+// The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
+// Please cite or credit appropriately if reusing in academic or commercial work.</note>
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
