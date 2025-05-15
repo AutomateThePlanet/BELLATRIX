@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MSTest" Version="3.2.2" />
+      <PackageReference Include="MSTest" Version="3.8.3" />
       <PackageReference Include="NUnit" Version="4.3.2" />
       <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
         <PrivateAssets>all</PrivateAssets>

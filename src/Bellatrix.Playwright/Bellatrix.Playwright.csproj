@@ -10,7 +10,7 @@
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.52.0" />
     <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.52.0" />
-	<PackageReference Include="MSTest" Version="3.2.2" />
+	<PackageReference Include="MSTest" Version="3.8.3" />
   </ItemGroup>
 
   <ItemGroup>
