@@ -62,18 +62,13 @@ public static class SmartFailureAnalyzer
             .OrderByDescending(x => x.ExecutionTime)
             .FirstOrDefault();
 
-        if (lastPass == null)
-        {
-            return "⚠️ No previous successful run available for comparison.";
-        }
-
         var arguments = new KernelArguments
         {
             ["testName"] = testName,
             ["failingLog"] = currentLog,
-            ["passedLog"] = lastPass.BddLog,
+            ["passedLog"] = lastPass?.BddLog ?? "no previous runs - log not available",
             ["failingSummary"] = currentSummary,
-            ["passedSummary"] = lastPass.PageSummaryJson,
+            ["passedSummary"] = lastPass?.PageSummaryJson ?? "no previous runs - page summary not available",
             ["exceptionDetails"] = exceptionDetails,
             ["screenshotHint"] = "See attached screenshot of the failed test."
         };
