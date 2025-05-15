@@ -27,6 +27,7 @@ public class AppService<TDriver, TComponent> : MobileService<TDriver, TComponent
     }
 
     public string Context { get => WrappedAppiumDriver.Context; set => WrappedAppiumDriver.Context = value; }
+    public string PageSource => WrappedAppiumDriver.PageSource;
 
     public void BackgroundApp(int seconds) => WrappedAppiumDriver.BackgroundApp(TimeSpan.FromSeconds(seconds));
 

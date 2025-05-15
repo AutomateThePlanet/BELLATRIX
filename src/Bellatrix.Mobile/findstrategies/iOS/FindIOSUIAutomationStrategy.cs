@@ -25,22 +25,22 @@ public class FindIOSUIAutomationStrategy : FindStrategy<IOSDriver, AppiumElement
 
     public override AppiumElement FindElement(IOSDriver searchContext)
     {
-        return searchContext.FindElement(MobileBy.IosUIAutomation(Value));
+        return searchContext.FindElement(MobileBy.IosNSPredicate(Value));
     }
 
     public override IEnumerable<AppiumElement> FindAllElements(IOSDriver searchContext)
     {
-        return searchContext.FindElements(MobileBy.IosUIAutomation(Value));
+        return searchContext.FindElements(MobileBy.IosNSPredicate(Value));
     }
 
     public override AppiumElement FindElement(AppiumElement element)
     {
-        return element.FindElement(MobileBy.IosUIAutomation(Value));
+        return element.FindElement(MobileBy.IosNSPredicate(Value));
     }
 
     public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
     {
-        return element.FindElements(MobileBy.IosUIAutomation(Value));
+        return element.FindElements(MobileBy.IosNSPredicate(Value));
     }
 
     public override string ToString()
