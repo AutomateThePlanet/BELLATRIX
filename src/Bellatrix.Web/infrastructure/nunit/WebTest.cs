@@ -11,9 +11,8 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
 using Bellatrix.Core.logging;
-using Bellatrix.Web.LLM.plugins;
+using Bellatrix.LLM.Plugins;
 using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.NUnit;

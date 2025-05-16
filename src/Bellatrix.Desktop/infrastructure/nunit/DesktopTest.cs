@@ -12,6 +12,9 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Core.logging;
+using Bellatrix.LLM.Plugins;
+
 namespace Bellatrix.Desktop.NUnit;
 
 public abstract class DesktopTest : NUnitBaseTest
@@ -46,7 +49,10 @@ public abstract class DesktopTest : NUnitBaseTest
                 DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
                 DesktopPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
                 DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
+                DesktopPluginsConfiguration.ConfigureLLM();
 
+                SmartFailureAnalysisPlugin.Add();
+                LoggerFlushPlugin.Add();
                 _arePluginsAlreadyInitialized = true;
             }
         }

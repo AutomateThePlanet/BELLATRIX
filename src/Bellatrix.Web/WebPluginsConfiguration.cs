@@ -17,7 +17,9 @@ using Bellatrix.GoogleLighthouse.MSTest;
 using Bellatrix.GoogleLighthouse.NUnit;
 using Bellatrix.Layout;
 using Bellatrix.LLM;
+using Bellatrix.LLM.Plugins;
 using Bellatrix.LLM.Settings;
+using Bellatrix.LLM.Skills;
 using Bellatrix.Plugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
@@ -239,11 +241,11 @@ public static class WebPluginsConfiguration
         {
             var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
 
-            SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorSkill(), "Locator");
-            SemanticKernelService.Kernel.ImportPluginFromObject(new AssertionSkill(), "Assertions");
-            SemanticKernelService.Kernel.ImportPluginFromObject(new PageObjectSummarizerSkill(), "PageSummarizer");
-            SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorMapperSkill(), "Mapper");
-            SemanticKernelService.Kernel.ImportPluginFromObject(new FailureAnalyzerSkill(), "FailureAnalyzer");
+            SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorSkill(), nameof(LocatorSkill));
+            SemanticKernelService.Kernel.ImportPluginFromObject(new AssertionSkill(), nameof(AssertionSkill));
+            SemanticKernelService.Kernel.ImportPluginFromObject(new PageObjectSummarizerSkill(), nameof(PageObjectSummarizerSkill));
+            SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorMapperSkill(), nameof(LocatorMapperSkill));
+            SemanticKernelService.Kernel.ImportPluginFromObject(new FailureAnalyzerSkill(), nameof(FailureAnalyzerSkill));
 
             // index all page objects:
             if (settings.ShouldIndexPageObjects)

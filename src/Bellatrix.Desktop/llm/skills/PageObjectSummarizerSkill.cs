@@ -16,7 +16,7 @@
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 using Microsoft.SemanticKernel;
 
-namespace Bellatrix.Web.LLM.Plugins;
+namespace Bellatrix.Web.LLM.Skills;
 
 public class PageObjectSummarizerSkill
 {
@@ -24,53 +24,36 @@ public class PageObjectSummarizerSkill
     public string SummarizePageObjectCode(string code)
     {
         return $"""
-You are analyzing a BELLATRIX PageObject class written in C#. 
-BELLATRIX separates PageObjects into `Map`, `Actions`, and `Assertions` files using partial classes, but sometimes they are combined into a single file.
+You are analyzing a BELLATRIX Desktop PageObject class written in C#. 
+The class may be split into partial classes (e.g., Map, Actions, Assertions), but your focus is to extract the **Map** definitions.
 
 Your goal is to extract:
-
-1. The public override string Url if it exists.
-2. All public UI element definitions from the Map part of the class using App.Components.CreateBy... or CreateAllBy... methods.
+1. All public UI element definitions from the Map class using `App.Components.CreateBy...` or `CreateAllBy...`.
 
 Return a summary in the following format:
 
-PAGE_URL=https://some-url-if-present
-
-locator_name | human description | locator strategy=locator value
+locator_name | human description | xpath=XPath expression
 
 ---
 
-✅ Rules for extracting:
+✅ XPath Strategy Mapping Rules:
 
-- If the class contains a line like: public override string Url => "https://..."; extract and return that as PAGE_URL=...
-- If no Url is defined, omit the PAGE_URL line.
-- locator_name is the property name (e.g., BillingFirstName)
-- human description is a readable lowercase explanation (e.g., "billing first name field")
-- locator strategy must be one of: id=..., class=..., css=..., name=..., xpath=..., or attribute=...=...
+| Method                           | XPath Format Example                                              |
+|----------------------------------|-------------------------------------------------------------------|
+| CreateByAutomationId("value")    | xpath=//*[@AutomationId='value']                                  |
+| CreateByName("value")            | xpath=//*[@Name='value']                                          |
+| CreateByClassName("value")       | xpath=//*[@ClassName='value']                                     |
+| CreateByXPath("value")           | xpath=value                                                       |
+| FindIdEndingWithStrategy("val")  | xpath=//*[ends-with(@id, 'value')]                                |
+| Others                           | xpath=//tag[@attribute='value']                                   |
 
----
-
-🔹 Special Handling for BELLATRIX Extended Strategies:
-
-- FindAttributeContainingStrategy → xpath=//*[@ATTRIBUTE*='VALUE']
-- FindClassContainingStrategy → xpath=//*[contains(@class, 'VALUE')]
-- FindIdContainingStrategy → xpath=//*[contains(@id, 'VALUE')]
-- FindIdEndingWithStrategy → xpath=//*[substring(@id, string-length(@id) - string-length('VALUE') + 1) = 'VALUE']
-- FindInnerTextContainsStrategy → xpath=//*[contains(normalize-space(text()), 'VALUE')]
-- FindLinkTextContainsStrategy → xpath=//a[contains(normalize-space(text()), 'VALUE')]
-- FindNameEndingWithStrategy → xpath=//*[substring(@name, string-length(@name) - string-length('VALUE') + 1) = 'VALUE']
-- FindValueContainingStrategy → xpath=//*[contains(@value, 'VALUE')]
-
-Replace ATTRIBUTE and VALUE with the actual values found in the code.
+📝 Replace `value` with the actual value passed to the method.
 
 ---
 
-📝 Examples:
-PAGE_URL=https://demos.bellatrix.solutions/cart/
-BillingFirstName | billing first name field | id=billing_first_name
-ViewCartButton | view cart button | class=added_to_cart wc-forward
-AddToCartFalcon9 | add to cart falcon 9 | attribute=data-product_id=28
-TotalSpan | total price span | xpath=//*[@class='order-total']//span
+📌 Summary Format Example:
+Transfer | transfer button | xpath=//*[@Name='E Button']
+UserName | user name text field | xpath=//*[@AutomationId='textBox']
 
 ---
 
@@ -79,7 +62,7 @@ Here is the PageObject code to analyze:
 {code}
 ---
 
-Return ONLY the summary table. No explanation. No formatting. No code block.
+Return ONLY the summary table. No explanations. No markdown. No formatting. No code block.
 """;
     }
 }

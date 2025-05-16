@@ -16,7 +16,7 @@
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 using Microsoft.SemanticKernel;
 
-namespace Bellatrix.Web.LLM.Plugins;
+namespace Bellatrix.LLM.Skills;
 
 public class FailureAnalyzerSkill
 {
@@ -73,10 +73,10 @@ Avoid vague suggestions. Reference concrete changes to the page object, environm
 ✅ Previously Passed Log:
 {passedLog}
 
-📄 DOM Snapshot (Old - Passed):
+📄 App Snapshot (Old - Passed):
 {passedSummary}
 
-📄 DOM Snapshot (New - Failed):
+📄 App Snapshot (New - Failed):
 {failingSummary}
 
 ❌ Exception Stack Trace:

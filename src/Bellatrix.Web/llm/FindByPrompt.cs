@@ -22,6 +22,7 @@ using System.Threading;
 using System;
 using Bellatrix.LLM;
 using System.Linq;
+using Bellatrix.Web.LLM.Plugins;
 
 namespace Bellatrix.Web.LLM;
 
@@ -82,13 +83,14 @@ public class FindByPrompt : FindStrategy
     /// <exception cref="NotFoundException">Thrown if no element can be found after all attempts.</exception>
     private By ResolveViaPromptFallback(IWebDriver driver, string instruction, int maxAttempts = 3)
     {
-        var browser = ServicesCollection.Current.Resolve<BrowserService>();
-        var summaryJson = browser.GetPageSummaryJson();
+        var viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
+        var summaryJson = viewSnapshotProvider.GetCurrentViewSnapshot();
         var failedSelectors = new List<string>();
 
         for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
-            var prompt = SemanticKernelService.Kernel?.InvokeAsync("Locator", "BuildLocatorPrompt", new()
+            var prompt = SemanticKernelService.Kernel?.InvokeAsync(nameof(LocatorSkill), nameof(LocatorSkill.BuildLocatorPrompt), 
+            new()
             {
                 ["htmlSummary"] = summaryJson,
                 ["instruction"] = instruction,
@@ -157,25 +159,15 @@ public class FindByPrompt : FindStrategy
     /// <exception cref="ArgumentException">Thrown if the selector type is unsupported.</exception>
     private static By ParsePromptLocatorToBy(string promptResult)
     {
-        var parts = Regex.Match(promptResult, "(xpath|id|name|tag|cssSelector|class|linktext|partiallinktext|attribute)=(.+)", RegexOptions.IgnoreCase);
-        if (!parts.Success) return null;
-
-        var type = parts.Groups[1].Value.Trim().ToLower();
-        var locator = parts.Groups[2].Value.Trim();
-
-        return type switch
+        var parts = Regex.Match(promptResult, @"^\s*xpath\s*=\s*(//.+)$", RegexOptions.IgnoreCase);
+        if (!parts.Success)
         {
-            "id" => By.Id(locator),
-            "name" => By.Name(locator),
-            "class" or "classname" => By.ClassName(locator),
-            "tag" or "tagname" => By.TagName(locator),
-            "css" or "cssselector" => By.CssSelector(locator),
-            "linktext" => By.LinkText(locator),
-            "partiallinktext" => By.PartialLinkText(locator),
-            "xpath" => By.XPath(locator),
-            "attribute" => By.XPath($"//*[@{locator}]"),
-            _ => throw new ArgumentException($"Unsupported selector type: {type}")
-        };
+            throw new ArgumentException($"❌ Invalid format. Expected: xpath=//... but received '{promptResult}'");
+        }
+
+        var xpath = parts.Groups[1].Value.Trim();
+
+        return By.XPath(xpath);
     }
 
     /// <summary>

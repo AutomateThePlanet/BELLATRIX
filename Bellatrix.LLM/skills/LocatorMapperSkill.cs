@@ -1,4 +1,4 @@
-﻿// <copyright file="LargeLanguageModelsSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="LocatorMapperSkill.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,22 +14,32 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
-using SemanticKernelWebDriverPoC;
+using Microsoft.SemanticKernel;
 
-namespace Bellatrix.LLM.Settings;
-public class LargeLanguageModelsSettings
+namespace Bellatrix.LLM.Plugins;
+public class LocatorMapperSkill
 {
-    public List<ModelSettings> ModelSettings { get; set; }
-    public bool EnableSelfHealing { get; set; } = false;
-    public bool EnableSmartFailureAnalysis { get; set; } = false;
-    public string LocalCacheConnectionString { get; set; }   // Postgres connection string
-    public string LocalCacheProjectName { get; set; }
-    public string QdrantMemoryDbEndpoint { get; set; } = "http://localhost:6333";
-    public bool ShouldIndexPageObjects { get; set; }
-    public string PageObjectFilesPath { get; set; }
-    public string MemoryIndex { get; set; }
-    public bool ResetIndexEverytime { get; set; }
-    public int LocatorRetryAttempts { get; set; }
-    public int ValidationsTimeout { get; set; } = 5;
-    public int SleepInterval { get; set; } = 1;
+    [KernelFunction]
+    public string MatchPromptToKnownLocator(string pageSummary, string instruction)
+    {
+        return $"""
+You are an AI assistant that maps user instructions to known UI locators.
+
+User wants to: {instruction}
+
+From the list of known locators below, pick the one that best matches and return its exact locator in the format:
+locator_strategy=locator_value
+
+Known Locators:
+{pageSummary}
+
+Examples:
+For login button → return xpath=//button[@id='login']
+For search input → return id=input-search
+
+Return ONLY one valid locator in that format. If no match is found, return Unknown.
+""";
+    }
+
+
 }

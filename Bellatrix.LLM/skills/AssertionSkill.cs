@@ -1,4 +1,4 @@
-﻿// <copyright file="LocatorMapperSkill.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="AssertionSkill.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -16,30 +16,36 @@
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 using Microsoft.SemanticKernel;
 
-namespace Bellatrix.Web.LLM.Plugins;
-public class LocatorMapperSkill
+namespace Bellatrix.LLM.Skills;
+public class AssertionSkill
 {
     [KernelFunction]
-    public string MatchPromptToKnownLocator(string pageSummary, string instruction)
+    public string EvaluateAssertion(string viewSnapshot, string assertInstruction)
     {
         return $"""
-You are an AI assistant that maps user instructions to known UI locators.
+You are an expert test automation assistant.
 
-User wants to: {instruction}
+Your task is to verify whether the user's **assertion** is satisfied, based on the structured JSON snapshot of the current web/app page's visible and interactive elements.
 
-From the list of known locators below, pick the one that best matches and return its exact locator in the format:
-locator_strategy=locator_value
+---
 
-Known Locators:
-{pageSummary}
+🔹 **User Assertion Instruction:**
+{assertInstruction}
 
-Examples:
-For login button → return xpath=//button[@id='login']
-For search input → return id=input-search
+🔹 **Page/View Snapshot:**
+{viewSnapshot}
 
-Return ONLY one valid locator in that format. If no match is found, return Unknown.
+---
+
+✅ If the condition is met, respond with:  
+**PASS**
+
+❌ If the condition is NOT met, respond with:  
+**FAIL: [explanation]**
+
+---
+
+Only return **PASS** or **FAIL: explanation**.
 """;
     }
-
-
 }

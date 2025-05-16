@@ -1,4 +1,4 @@
-﻿// <copyright file="LargeLanguageModelsSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ComponentPromptCreateExtensions.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,22 +14,20 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
-using SemanticKernelWebDriverPoC;
 
-namespace Bellatrix.LLM.Settings;
-public class LargeLanguageModelsSettings
+using Bellatrix.Mobile.Controls.Android;
+using Bellatrix.Mobile.Controls.Core;
+using Bellatrix.Mobile.Core;
+using Bellatrix.Mobile.LLM.Android;
+using OpenQA.Selenium.Appium.Android;
+
+namespace Bellatrix.Mobile.Android;
+
+public static class ComponentPromptCreateExtensions
 {
-    public List<ModelSettings> ModelSettings { get; set; }
-    public bool EnableSelfHealing { get; set; } = false;
-    public bool EnableSmartFailureAnalysis { get; set; } = false;
-    public string LocalCacheConnectionString { get; set; }   // Postgres connection string
-    public string LocalCacheProjectName { get; set; }
-    public string QdrantMemoryDbEndpoint { get; set; } = "http://localhost:6333";
-    public bool ShouldIndexPageObjects { get; set; }
-    public string PageObjectFilesPath { get; set; }
-    public string MemoryIndex { get; set; }
-    public bool ResetIndexEverytime { get; set; }
-    public int LocatorRetryAttempts { get; set; }
-    public int ValidationsTimeout { get; set; } = 5;
-    public int SleepInterval { get; set; } = 1;
+    public static TComponent CreateByPrompt<TComponent>(this AndroidComponent element, string instruction)
+        where TComponent : AndroidComponent => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction));
+
+    public static ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement> CreateAllByPrompt<TComponent>(this Component<AndroidDriver, AppiumElement> element, string instruction)
+        where TComponent : Component<AndroidDriver, AppiumElement> => new ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement>(new FindByPrompt(instruction), element.WrappedElement);
 }

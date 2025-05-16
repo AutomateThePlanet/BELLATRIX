@@ -17,6 +17,7 @@
 using Bellatrix.KeyVault;
 using Bellatrix.LLM.Cache;
 using Bellatrix.LLM.Settings;
+using Bellatrix.LLM.Skills;
 using Microsoft.SemanticKernel;
 
 namespace Bellatrix.LLM;
@@ -95,7 +96,7 @@ public static class SmartFailureAnalyzer
         }
 
         var prompt = SemanticKernelService.Kernel
-            .InvokeAsync("FailureAnalyzer", "GenerateFailureDiagnosis", arguments).Result;
+            .InvokeAsync(nameof(FailureAnalyzerSkill), "GenerateFailureDiagnosis", arguments).Result;
 
         var suggestion = SemanticKernelService.Kernel.InvokePromptAsync(prompt.GetValue<string>()).Result.GetValue<string>()?.Trim();
 

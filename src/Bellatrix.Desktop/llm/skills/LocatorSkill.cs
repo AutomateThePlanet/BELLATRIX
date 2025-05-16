@@ -18,22 +18,24 @@ using Microsoft.SemanticKernel;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bellatrix.Web.LLM.Plugins;
+namespace Bellatrix.Desktop.LLM.Plugins;
+
 public class LocatorSkill
 {
     [KernelFunction]
-    public string BuildLocatorPrompt(string htmlSummary, string instruction, List<string> failedSelectors)
+    public string BuildLocatorPrompt(string viewSummaryJson, string instruction, List<string> failedSelectors)
     {
         var failedInfo = failedSelectors.Any()
             ? string.Join("\n", failedSelectors.Select(x => $"- {x}"))
             : "(none)";
 
         return $"""
-You are an AI assistant helping with UI test automation.
+You are an AI assistant helping with Desktop UI test automation using WinAppDriver.
 
-Your task is to generate a valid, simple, and reliable **XPath selector** for locating a specific UI element, based on:
+Your task is to generate a valid, simple, and reliable **XPath selector** for locating a specific UI element,
+based on:
 - A user instruction
-- A structured summary of all visible interactive elements
+- A structured summary of visible elements from the current view (WinAppDriver XML parsed as JSON)
 - A list of previously failed selectors
 
 ---
@@ -44,99 +46,98 @@ Your task is to generate a valid, simple, and reliable **XPath selector** for lo
 🔹 **Previously Tried and Failed Selectors:**  
 {failedInfo}
 
-🔹 **Visible Interactive Elements on the Page:**  
-{htmlSummary}
+🔹 **Visible Interactive Elements (JSON):**  
+{viewSummaryJson}
 
 ---
 
-**Guidelines for Generating XPath:**
+**WinAppDriver XPath Guidelines (strict compatibility):**
 
-✅ Always:
-- Use **lowercase tag names**
-- Prefer direct, short expressions using:
-  - `@id`, `@name`, `@placeholder`, `@aria-label`, `@type`
-- Use `contains(...)` and `normalize-space(...)` for partial or trimmed text matches
-- Wrap all attribute values in **single quotes**: `@name='value'`
-- Prefer `contains(@class,'xyz')` for class attributes
+✅ Use XPath expressions with **direct attribute matches only**:
+- `@AutomationId`
+- `@Name`
+- `@ClassName`
+- `@ControlType`
+- `@HelpText`
+- `@Value.Value` (optional, if available)
 
-🚫 Avoid:
-- Omitting quotes around attribute values (`@name=value` → ❌ invalid)
-- Using XPath axes like `following::`, `ancestor::`, `preceding-sibling::` unless necessary
-- Using `concat()` or `translate()` (these often produce broken XPath)
-- Overly deep or complex paths that are fragile to layout changes
-- Using `label` unless explicitly listed in the visible elements
+✅ Examples of valid XPath:
+- `//Edit[@Name='Username']`
+- `//Button[@AutomationId='SubmitBtn']`
+- `//Text[@HelpText='Tooltip message']`
 
-If multiple correct selectors are possible, choose the **simplest, most direct, and reliable one**.
+✅ Format rules:
+- Use lowercase tag names (e.g., `edit`, `button`, `text`)
+- Attribute values must be wrapped in single quotes: `@Name='Login'`
+- Return the shortest valid XPath with a single attribute condition
+
+🚫 Do NOT use:
+- `contains(...)`
+- `normalize-space(...)`
+- `substring(...)`
+- XPath axes like `ancestor::`, `following::`, `preceding-sibling::`
+- Position-based XPath (e.g., `(//Edit)[2]`)
+- Multiple conditions (e.g., `[@Name='X' and @AutomationId='Y']`)
 
 ---
 
 **Return Format:**
-Only return a single, valid XPath string.
-
-Examples:
-- //input[@placeholder='Search']
-- //button[contains(@class,'add-to-cart') and normalize-space()='Add to cart']
+Only return a single valid XPath string like:
+- //Edit[@Name='Username']
+- //Button[@AutomationId='LoginBtn']
+- //Pane[@ClassName='MainPanel']
 
 Do not include:
 - Explanations
+- Multiple lines
 - Comments
-- Code blocks
 - Markdown formatting
-- Multiple selectors
 
-Return ONLY a single line of clean, valid XPath with quoted values.
+Only return the XPath string.
 """;
     }
 
     [KernelFunction]
-    public string HealBrokenLocator(string failedLocator, string oldViewummary, string newViewSummary)
+    public string HealBrokenLocator(string failedLocator, string oldSnapshot, string newSnapshot)
     {
         return $"""
-You are an AI assistant helping with UI test automation.
+You are an AI assistant helping to fix broken Desktop UI locators for WinAppDriver.
 
-The original locator no longer works:
-❌ Failed Locator: {failedLocator}
+The original XPath locator is broken:
+❌ Failed XPath: {failedLocator}
 
-Your goal is to suggest a valid, simple, and reliable **XPath** locator that finds the **same element** described by the failed locator, using the structural differences between the old and new view summaries.
+Your goal is to generate a **new valid XPath** that locates the same UI element,
+using:
+- A previously working view summary (JSON)
+- A new snapshot after the failure
 
---- 
+---
 
-🔹 **Previously Working View Summary:**
-{oldViewummary}
+🔹 **Old View Summary:**
+{oldSnapshot}
 
-🔹 **New View Summary After Failure:**
-{newViewSummary}
+🔹 **New View Summary:**
+{newSnapshot}
 
---- 
+---
 
-**Guidelines for Generating XPath:**
+✅ XPath must match one of the following formats:
+- //Edit[@Name='Username']
+- //Button[@AutomationId='Submit']
+- //Text[@HelpText='Tooltip']
 
-✅ Always:
-- Use lowercase tag names
-- Prefer short, robust expressions like:
-  - `@id`, `@name`, `@placeholder`, `@aria-label`, `@type`
-- Use `contains(...)` or `normalize-space(...)` for partial matches
-- Wrap attribute values in **single quotes**: `@name='value'`
+🚫 Do NOT use:
+- contains()
+- normalize-space()
+- substring()
+- any complex or relative XPath
 
-🚫 Avoid:
-- XPath axes like `following::`, `ancestor::`, etc. unless required
-- `concat()`, `translate()`, or very deep/nested XPaths
+---
 
---- 
+**Return Format:**
+Return only a single valid XPath expression, as a one-line string.
 
-**Output Format:**
-Return ONLY a single, valid XPath selector.
-
-Examples:
-- //input[@name='email']
-- //button[contains(@class,'submit') and normalize-space()='Send']
-
-❌ Do not include:
-- Explanations
-- Multiple selectors
-- Markdown or formatting
-
-Return ONLY the clean XPath selector.
+Return NOTHING else.
 """;
     }
 }

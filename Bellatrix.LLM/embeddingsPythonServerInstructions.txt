@@ -43,6 +43,8 @@ Configuration needed:
     "memoryIndex": "PageObjects",
     "resetIndexEverytime": false,
     "locatorRetryAttempts": 3,
+    "validationsTimeout": 5,
+    "sleepInterval": 1,
     "enableSelfHealing": true,
     "enableSmartFailureAnalysis": true,
   }

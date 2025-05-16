@@ -1,4 +1,4 @@
-﻿// <copyright file="AssertionSkill.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ComponentPromptRepositoryExtensions.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,38 +14,16 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
-using Microsoft.SemanticKernel;
 
-namespace Bellatrix.Web.LLM.Plugins;
-public class AssertionSkill
+using Bellatrix.Mobile.Controls.Core;
+
+namespace Bellatrix.Mobile.LLM.Extensions.Android;
+
+public static class ComponentPromptRepositoryExtensions
 {
-    [KernelFunction]
-    public string EvaluateAssertion(string htmlSummary, string assertInstruction)
-    {
-        return $"""
-You are an expert test automation assistant.
+    public static TComponent CreateByPrompt<TComponent>(this ComponentCreateService repository, string instruction)
+        where TComponent : Component => repository.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction));
 
-Your task is to verify whether the user's **assertion** is satisfied, based on the structured JSON summary of the current web page's visible and interactive elements.
-
----
-
-🔹 **User Assertion Instruction:**
-{assertInstruction}
-
-🔹 **Page Summary:**
-{htmlSummary}
-
----
-
-✅ If the condition is met, respond with:  
-**PASS**
-
-❌ If the condition is NOT met, respond with:  
-**FAIL: [explanation]**
-
----
-
-Only return **PASS** or **FAIL: explanation**.
-""";
-    }
+    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this ComponentCreateService repository, string instruction, bool shouldCacheFoundElements = false)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction), null, shouldCacheFoundElements);
 }

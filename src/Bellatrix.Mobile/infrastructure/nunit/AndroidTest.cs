@@ -12,6 +12,8 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Core.logging;
+using Bellatrix.LLM.Plugins;
 using Bellatrix.Mobile.Android;
 
 namespace Bellatrix.Mobile.NUnit;
@@ -48,6 +50,10 @@ public abstract class AndroidTest : NUnitBaseTest
                 AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 AndroidPluginsConfiguration.AddLifecycle();
                 AndroidPluginsConfiguration.AddLogExecutionLifecycle();
+
+                AndroidPluginsConfiguration.ConfigureLLM();
+                SmartFailureAnalysisPlugin.Add();
+                LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;
             }

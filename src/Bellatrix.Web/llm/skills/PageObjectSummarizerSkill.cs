@@ -24,53 +24,47 @@ public class PageObjectSummarizerSkill
     public string SummarizePageObjectCode(string code)
     {
         return $"""
-You are analyzing a BELLATRIX PageObject class written in C#. 
-BELLATRIX separates PageObjects into `Map`, `Actions`, and `Assertions` files using partial classes, but sometimes they are combined into a single file.
+You are analyzing a BELLATRIX Web PageObject class written in C#. 
+PageObjects may be split into partial classes (Map, Actions, Assertions), but your task is to extract the **Map**.
 
-Your goal is to extract:
+Your job is to extract:
+1. The page URL if present (e.g., public override string Url => "https://...";)
+2. All public UI element definitions declared using App.Components.CreateBy... or CreateAllBy... calls
 
-1. The public override string Url if it exists.
-2. All public UI element definitions from the Map part of the class using App.Components.CreateBy... or CreateAllBy... methods.
-
-Return a summary in the following format:
+Return the summary in this format:
 
 PAGE_URL=https://some-url-if-present
 
-locator_name | human description | locator strategy=locator value
+locator_name | human description | xpath=XPath expression
 
 ---
 
-✅ Rules for extracting:
+✅ Mapping Rules (strict XPath mode):
 
-- If the class contains a line like: public override string Url => "https://..."; extract and return that as PAGE_URL=...
-- If no Url is defined, omit the PAGE_URL line.
-- locator_name is the property name (e.g., BillingFirstName)
-- human description is a readable lowercase explanation (e.g., "billing first name field")
-- locator strategy must be one of: id=..., class=..., css=..., name=..., xpath=..., or attribute=...=...
+- CreateById("value") → xpath=//*[@id='value']
+- CreateByName("value") → xpath=//*[@name='value']
+- CreateByClass("value") → xpath=//*[@class='value']
+- CreateByXPath("value") → xpath=value (use as-is)
+- CreateByCss("value") → xpath=//tag[contains(@class,'value')] — only if value maps to class
+- CreateByAttribute("attr", "val") → xpath=//*[@attr='val']
+- FindClassContainingStrategy("val") → xpath=//*[contains(@class,'val')]
+- FindIdContainingStrategy("val") → xpath=//*[contains(@id,'val')]
+- FindLinkTextContainsStrategy("val") → xpath=//a[contains(normalize-space(text()),'val')]
+- FindInnerTextContainsStrategy("val") → xpath=//*[contains(normalize-space(text()),'val')]
 
----
+⚠ Only return `xpath=...`. Do not use `id=`, `name=`, `css=`, `attribute=`, etc.
 
-🔹 Special Handling for BELLATRIX Extended Strategies:
-
-- FindAttributeContainingStrategy → xpath=//*[@ATTRIBUTE*='VALUE']
-- FindClassContainingStrategy → xpath=//*[contains(@class, 'VALUE')]
-- FindIdContainingStrategy → xpath=//*[contains(@id, 'VALUE')]
-- FindIdEndingWithStrategy → xpath=//*[substring(@id, string-length(@id) - string-length('VALUE') + 1) = 'VALUE']
-- FindInnerTextContainsStrategy → xpath=//*[contains(normalize-space(text()), 'VALUE')]
-- FindLinkTextContainsStrategy → xpath=//a[contains(normalize-space(text()), 'VALUE')]
-- FindNameEndingWithStrategy → xpath=//*[substring(@name, string-length(@name) - string-length('VALUE') + 1) = 'VALUE']
-- FindValueContainingStrategy → xpath=//*[contains(@value, 'VALUE')]
-
-Replace ATTRIBUTE and VALUE with the actual values found in the code.
+📝 locator_name = property name  
+📝 human description = lowercased explanation (e.g., "checkout button")
 
 ---
 
-📝 Examples:
+📌 Examples:
+
 PAGE_URL=https://demos.bellatrix.solutions/cart/
-BillingFirstName | billing first name field | id=billing_first_name
-ViewCartButton | view cart button | class=added_to_cart wc-forward
-AddToCartFalcon9 | add to cart falcon 9 | attribute=data-product_id=28
-TotalSpan | total price span | xpath=//*[@class='order-total']//span
+CheckoutButton | checkout button | xpath=//*[@id='checkout']
+CartTotal | cart total span | xpath=//*[@class='order-total']//span
+ViewCartLink | view cart link | xpath=//a[contains(normalize-space(text()),'View Cart')]
 
 ---
 
@@ -79,7 +73,7 @@ Here is the PageObject code to analyze:
 {code}
 ---
 
-Return ONLY the summary table. No explanation. No formatting. No code block.
+Return ONLY the summary table. No explanations. No formatting. No code blocks.
 """;
     }
 }

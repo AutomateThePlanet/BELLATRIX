@@ -1,6 +1,7 @@
-﻿using Bellatrix.Web.LLM.Extensions;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using BA = Bellatrix.Assertions;
+using static Bellatrix.AiValidator;
+using static Bellatrix.AiAssert;
 namespace Bellatrix.Web.GettingStarted.LLM;
 
 [TestFixture]

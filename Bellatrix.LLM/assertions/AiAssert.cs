@@ -16,22 +16,20 @@
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 using Bellatrix.Assertions;
 using Bellatrix.LLM;
+using Bellatrix.LLM.Skills;
 using Microsoft.SemanticKernel;
-using System;
 
-namespace Bellatrix.Web.LLM.assertions;
+namespace Bellatrix;
 public static class AiAssert
 {
     public static void AssertByPrompt(string assertInstruction)
     {
-        var browser = ServicesCollection.Current.Resolve<BrowserService>();
-        browser.WaitForAjax();
-        browser.WaitUntilReady();
-        var summaryJson = browser.GetPageSummaryJson();
+        var snapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
+        var appSnapshot = snapshotProvider.GetCurrentViewSnapshot();
 
-        var result = SemanticKernelService.Kernel.InvokeAsync("Assertions", "EvaluateAssertion", new()
+        var result = SemanticKernelService.Kernel.InvokeAsync(nameof(AssertionSkill), nameof(AssertionSkill.EvaluateAssertion), new()
         {
-            ["htmlSummary"] = summaryJson,
+            ["htmlSummary"] = appSnapshot,
             ["assertInstruction"] = assertInstruction
         }).Result;
 

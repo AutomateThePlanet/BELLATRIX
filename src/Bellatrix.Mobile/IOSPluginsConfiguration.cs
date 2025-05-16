@@ -14,6 +14,10 @@
 using System;
 using System.Collections.Generic;
 using Bellatrix.Layout;
+using Bellatrix.LLM.Plugins;
+using Bellatrix.LLM.Settings;
+using Bellatrix.LLM.Skills;
+using Bellatrix.LLM;
 using Bellatrix.Mobile.BddLogging.IOS;
 using Bellatrix.Mobile.BugReporting.IOS;
 using Bellatrix.Mobile.DynamicTestCases.IOS;
@@ -23,6 +27,8 @@ using Bellatrix.Mobile.Screenshots;
 using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Contracts;
+using Bellatrix.Mobile.LLM.Skills.iOS;
+using Microsoft.SemanticKernel;
 
 namespace Bellatrix.Mobile.IOS;
 
@@ -143,5 +149,34 @@ public static class IOSPluginsConfiguration
     public static void AddLogExecutionLifecycle()
     {
         ServicesCollection.Current.RegisterType<Plugin, LogWorkflowPlugin>(Guid.NewGuid().ToString());
+    }
+
+    public static void ConfigureLLM()
+    {
+        if (ConfigurationService.GetSection<LargeLanguageModelsSettings>() == null)
+        {
+            throw new ArgumentException("Could not load LargeLanguageModelsSettings section from testFrameworkSettings.json");
+        }
+
+        try
+        {
+            var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
+
+            SemanticKernelService.Kernel.ImportPluginFromObject(new IOSLocatorSkill(), nameof(IOSLocatorSkill));
+            SemanticKernelService.Kernel.ImportPluginFromObject(new AssertionSkill(), nameof(AssertionSkill));
+            SemanticKernelService.Kernel.ImportPluginFromObject(new IOSPageObjectSummarizerSkill(), nameof(IOSPageObjectSummarizerSkill));
+            SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorMapperSkill(), nameof(LocatorMapperSkill));
+            SemanticKernelService.Kernel.ImportPluginFromObject(new FailureAnalyzerSkill(), nameof(FailureAnalyzerSkill));
+
+            // index all page objects:
+            if (settings.ShouldIndexPageObjects)
+            {
+                PageObjectsIndexer.IndexAllPageObjects(settings.PageObjectFilesPath, settings.MemoryIndex, settings.ResetIndexEverytime);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex.ToString());
+        }
     }
 }

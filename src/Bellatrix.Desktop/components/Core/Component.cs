@@ -24,6 +24,8 @@ using Bellatrix.Desktop.Events;
 using Bellatrix.Desktop.Locators;
 using Bellatrix.Desktop.Services;
 using Bellatrix.Desktop.Untils;
+using Bellatrix.LLM.Settings;
+using Bellatrix.LLM;
 using Bellatrix.Plugins.Screenshots;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
@@ -37,11 +39,15 @@ public partial class Component
     private readonly ComponentWaitService _elementWait;
     private readonly List<WaitStrategy> _untils;
     private WindowsElement _wrappedElement;
+    private IViewSnapshotProvider _viewSnapshotProvider;
+    private LargeLanguageModelsSettings _llmSettings;
 
     public Component()
     {
         _elementWait = new ComponentWaitService();
         WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+        _viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
+        _llmSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
         _untils = new List<WaitStrategy>();
     }
 
@@ -228,50 +234,69 @@ public partial class Component
                     if (until != null)
                     {
                         _elementWait.Wait(this, until);
-                    }
-
-                    if (until.GetType().Equals(typeof(WaitNotExistStrategy)))
-                    {
-                        return _wrappedElement;
+                        if (until.GetType() == typeof(WaitNotExistStrategy))
+                        {
+                            return _wrappedElement;
+                        }
                     }
                 }
 
                 _wrappedElement = GetWebDriverElement();
+
+                // ✅ Save if healing is enabled
+                if (_llmSettings.EnableSelfHealing)
+                {
+                    var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
+                    LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
+                }
+
+                _untils.Clear();
+                return _wrappedElement;
             }
-            catch (WebDriverTimeoutException ex)
+            catch (Exception ex)
             {
-                throw new TimeoutException($"The element with Name = {ComponentName} Locator {By.Value} was not found on the page or didn't fulfill the specified conditions.", ex);
+                if (!_llmSettings.EnableSelfHealing)
+                {
+                    throw new TimeoutException($"❌ Element not found: {By?.Value}", ex);
+                }
+
+                Logger.LogWarning($"⚠️ Element not found with locator: {By}. Trying AI-based healing...");
+
+                var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
+                var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
+
+                if (!string.IsNullOrEmpty(healedXpath))
+                {
+                    try
+                    {
+                        return new FindXPathStrategy(healedXpath).FindElement(WrappedDriver);
+                    }
+                    catch
+                    {
+                        throw new NotFoundException($"❌ Healing attempt failed for locator: {By}", ex);
+                    }
+                }
+
+                throw new NotFoundException($"❌ Healing failed: {By}", ex);
             }
         }
 
         _untils.Clear();
-
         return _wrappedElement;
     }
 
     private WindowsElement GetWebDriverElement()
     {
-        WindowsElement result = _wrappedElement;
         if (FoundWrappedElement != null)
         {
-            result = FoundWrappedElement;
-        }
-
-        if (_wrappedElement != null)
-        {
-            result = _wrappedElement;
-        }
-
-        if (ParentWrappedElement == null && _wrappedElement == null)
-        {
-            result = By.FindElement(WrappedDriver);
+            return FoundWrappedElement;
         }
 
         if (ParentWrappedElement != null)
         {
-            result = By.FindElement(ParentWrappedElement);
+            return By.FindElement(ParentWrappedElement);
         }
 
-        return result;
+        return By.FindElement(WrappedDriver);
     }
 }

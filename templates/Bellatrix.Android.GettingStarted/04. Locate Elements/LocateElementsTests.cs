@@ -25,7 +25,7 @@ public class LocateElementsTests : NUnit.AndroidTest
 
         button.ValidateIsVisible();
 
-        var summary = App.AppService.GetPageSummaryJson();
+        var summary = App.AppService.GetCurrentViewSnapshot();
 
         // 2. Because of the proxy element mechanism (we have a separate type of element instead of single WebDriver IWebElement interface or Appium AppiumElement) we have several benefits.
         // Each control (element type- ComboBox, TextField and so on) contains only the actions you can do with it, and the methods are named properly.

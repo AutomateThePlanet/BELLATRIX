@@ -1,4 +1,4 @@
-﻿// <copyright file="LargeLanguageModelsSettings.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="MobileElementSummary.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,22 +14,14 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
-using SemanticKernelWebDriverPoC;
+namespace Bellatrix.Mobile.llm;
 
-namespace Bellatrix.LLM.Settings;
-public class LargeLanguageModelsSettings
+public class MobileElementSummary
 {
-    public List<ModelSettings> ModelSettings { get; set; }
-    public bool EnableSelfHealing { get; set; } = false;
-    public bool EnableSmartFailureAnalysis { get; set; } = false;
-    public string LocalCacheConnectionString { get; set; }   // Postgres connection string
-    public string LocalCacheProjectName { get; set; }
-    public string QdrantMemoryDbEndpoint { get; set; } = "http://localhost:6333";
-    public bool ShouldIndexPageObjects { get; set; }
-    public string PageObjectFilesPath { get; set; }
-    public string MemoryIndex { get; set; }
-    public bool ResetIndexEverytime { get; set; }
-    public int LocatorRetryAttempts { get; set; }
-    public int ValidationsTimeout { get; set; } = 5;
-    public int SleepInterval { get; set; } = 1;
+    public string Tag { get; set; }
+    public string Id { get; set; } // resource-id (Android) or name (iOS)
+    public string Text { get; set; }
+    public string Class { get; set; }
+    public string ContentDesc { get; set; } // Android: content-desc, iOS: label
+    public string Type { get; set; } // iOS only
 }

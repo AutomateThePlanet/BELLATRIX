@@ -19,22 +19,19 @@ using Bellatrix.Plugins.Screenshots.Contracts;
 using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Plugins.Screenshots;
-using System;
-using System.Threading;
-using Bellatrix.LLM;
 
-namespace Bellatrix.Web.LLM.plugins;
+namespace Bellatrix.LLM.Plugins;
 public class SmartFailureAnalysisPlugin : Plugin, IScreenshotPlugin
 {
     private readonly IScreenshotOutputProvider _screenshotOutputProvider;
-    private readonly BrowserService _browserService;
+    private readonly IViewSnapshotProvider _viewSnapshotProvider;
     private static ThreadLocal<string> _screenshotPath = new ThreadLocal<string>();
 
 
     public SmartFailureAnalysisPlugin()
     {
         _screenshotOutputProvider = ServicesCollection.Current.Resolve<IScreenshotOutputProvider>();
-        _browserService = ServicesCollection.Current.Resolve<BrowserService>();
+        _viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
     }
 
     public static void Add()
@@ -66,8 +63,8 @@ public class SmartFailureAnalysisPlugin : Plugin, IScreenshotPlugin
         if (e.TestOutcome == TestOutcome.Passed)
         {
             var log = Logger.GetLogs();
-            var summary = _browserService.GetPageSummaryJson();
-            SmartFailureAnalyzer.SaveTestPass(e.TestFullName, log, summary);
+            var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
+            SmartFailureAnalyzer.SaveTestPass(e.TestFullName, log, snapshot);
         }
         else
         {
@@ -81,14 +78,14 @@ public class SmartFailureAnalysisPlugin : Plugin, IScreenshotPlugin
         try
         {
             var log = Logger.GetLogs(); // flushless BDD log
-            var pageSummary = _browserService.GetPageSummaryJson(); // live page state
+            var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot(); // live page state
 
             diagnosis = SmartFailureAnalyzer.Diagnose(
                 e.TestFullName,
                 e.Exception?.ToString() ?? "No exception captured.",
                 log,
-                pageSummary,
-                _screenshotPath.Value);
+                snapshot,
+                _screenshotPath.Value ?? string.Empty);
 
           
         }

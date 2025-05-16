@@ -1,4 +1,4 @@
-﻿// <copyright file="MobileElementSummary.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ComponentPromptRepositoryExtensions.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,14 +14,19 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
-namespace Bellatrix.Mobile;
 
-public class MobileElementSummary
+using Bellatrix.Mobile.Controls.Core;
+using Bellatrix.Mobile.Core;
+using Bellatrix.Mobile.LLM.Android;
+using OpenQA.Selenium.Appium.Android;
+
+namespace Bellatrix.Mobile.Android;
+
+public static class ComponentPromptRepositoryExtensions
 {
-    public string Tag { get; set; }
-    public string Id { get; set; } // resource-id (Android) or name (iOS)
-    public string Text { get; set; }
-    public string Class { get; set; }
-    public string ContentDesc { get; set; } // Android: content-desc, iOS: label
-    public string Type { get; set; } // iOS only
+    public static TComponent CreateByPrompt<TComponent>(this ComponentCreateService repo, string instruction)
+    where TComponent : Component<AndroidDriver, AppiumElement> => repo.Create<TComponent, FindByPrompt, AndroidDriver, AppiumElement>(new FindByPrompt(instruction));
+    public static ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement> CreateAllById<TComponent>(this ComponentCreateService repo, string instruction)
+        where TComponent : Component<AndroidDriver, AppiumElement> => new ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement>(new FindByPrompt(instruction), null);
+
 }

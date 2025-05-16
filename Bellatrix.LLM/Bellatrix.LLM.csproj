@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\src\Bellatrix.Core\Bellatrix.Core.csproj" />
     <ProjectReference Include="..\src\Bellatrix.KeyVault\Bellatrix.KeyVault.csproj" />
+    <ProjectReference Include="..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
   </ItemGroup>
 
   <ItemGroup>

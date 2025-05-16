@@ -9,6 +9,7 @@ using Bellatrix.Desktop.Locators;
 using Bellatrix.Desktop.Services;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using Bellatrix.Desktop.LLM.Plugins;
 
 namespace Bellatrix.Desktop.LLM;
 
@@ -93,15 +94,16 @@ public class FindByPrompt : FindStrategy
 
     private string ResolveViaPromptFallback(string location, int maxAttempts = 3)
     {
-        var app = ServicesCollection.Current.Resolve<AppService>();
-        var summaryJson = app.GetPageSummaryJson();
+        var viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
+        var summaryJson = viewSnapshotProvider.GetCurrentViewSnapshot();
         var failedSelectors = new List<string>();
 
         for (int attempt = 1; attempt <= maxAttempts; attempt++)
         {
-            var prompt = SemanticKernelService.Kernel?.InvokeAsync("Locator", "BuildLocatorPrompt", new()
+            var prompt = SemanticKernelService.Kernel?.InvokeAsync(nameof(LocatorSkill), nameof(LocatorSkill.BuildLocatorPrompt), 
+            new()
             {
-                ["htmlSummary"] = summaryJson,
+                ["viewSummaryJson"] = summaryJson,
                 ["instruction"] = Value,
                 ["failedSelectors"] = failedSelectors
             }).Result.GetValue<string>();

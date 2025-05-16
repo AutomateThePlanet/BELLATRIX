@@ -44,7 +44,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     private readonly ComponentWaitService _elementWaiter;
     private readonly List<WaitStrategy> _untils;
     private IWebElement _wrappedElement;
-
+    private IViewSnapshotProvider _viewSnapshotProvider;
+    private LargeLanguageModelsSettings _llmSettings;
     public string TagName => WrappedElement.TagName;
 
     public Component()
@@ -55,6 +56,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         JavaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
         BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
         ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        _viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
+        _llmSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
     }
 
     // ReSharper disable All
@@ -367,7 +370,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             EnsureState(Wait.To.Exists());
         }
 
-        var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
         var nativeElementFinderService = ParentWrappedElement == null
             ? new NativeElementFinderService(WrappedDriver)
             : new NativeElementFinderService(ParentWrappedElement);
@@ -389,9 +391,9 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
 
             _wrappedElement = nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
 
-            if (settings.EnableSelfHealing)
+            if (_llmSettings.EnableSelfHealing)
             {
-                var summary = BrowserService.GetPageSummaryJson();
+                var summary = _viewSnapshotProvider.GetCurrentViewSnapshot();
                 LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), summary, WrappedDriver.Url);
             }
 
@@ -412,21 +414,21 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         }
         catch (Exception ex)
         {
-            if (!settings.EnableSelfHealing)
+            if (!_llmSettings.EnableSelfHealing)
             {
                 throw new TimeoutException($"\n\nThe element: \n Name: '{ComponentName}', \n Locator: '{LocatorType.Name} = {LocatorValue}', \n Type: '{ComponentType.Name}' \nWas not found or failed condition.\n\n", ex);
             }
 
-            Console.WriteLine($"⚠️ Element not found with locator: {By}. Attempting self-heal...");
+            Logger.LogWarning($"⚠️ Element not found with locator: {By}. Attempting self-heal...");
 
-            var currentSummary = BrowserService.GetPageSummaryJson();
+            var currentSummary = _viewSnapshotProvider.GetCurrentViewSnapshot();
             var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), currentSummary, WrappedDriver.Url);
-            if (healedXpath != null)
+            if (!string.IsNullOrEmpty(healedXpath))
             {
                 try
                 {
                     var healedElement = nativeElementFinderService.FindAll(new FindXpathStrategy(healedXpath)).ElementAt(ElementIndex);
-                    Console.WriteLine("🧠 Using AI-suggested fallback locator. Original not updated.");
+                    Logger.LogInformation("🧠 Using AI-suggested fallback locator. Original not updated.");
                     return healedElement;
                 }
                 catch

@@ -58,6 +58,7 @@ Your task is to generate a valid, simple, and reliable **XPath selector** for lo
 - Use `contains(...)` and `normalize-space(...)` for partial or trimmed text matches
 - Wrap all attribute values in **single quotes**: `@name='value'`
 - Prefer `contains(@class,'xyz')` for class attributes
+- If isInShadowRoot is true, still consider it as part of the visible DOM.
 
 🚫 Avoid:
 - Omitting quotes around attribute values (`@name=value` → ❌ invalid)
@@ -65,6 +66,7 @@ Your task is to generate a valid, simple, and reliable **XPath selector** for lo
 - Using `concat()` or `translate()` (these often produce broken XPath)
 - Overly deep or complex paths that are fragile to layout changes
 - Using `label` unless explicitly listed in the visible elements
+- Ignoring elements just because they're inside a shadow root.
 
 If multiple correct selectors are possible, choose the **simplest, most direct, and reliable one**.
 

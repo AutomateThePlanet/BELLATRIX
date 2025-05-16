@@ -58,7 +58,7 @@ public static class PageObjectsIndexer
             try
             {
                 // Step 1: Generate SK prompt
-                var summaryPrompt = kernel.InvokeAsync("PageSummarizer", "SummarizePageObjectCode", new()
+                var summaryPrompt = kernel.InvokeAsync("PageObjectSummarizerSkill", "SummarizePageObjectCode", new()
                 {
                     ["code"] = combinedCode
                 }).Result.GetValue<string>();
