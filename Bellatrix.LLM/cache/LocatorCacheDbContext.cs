@@ -15,7 +15,6 @@
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 
-using Bellatrix.LLM.cache;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bellatrix.LLM.Cache;

@@ -15,7 +15,7 @@
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 using Bellatrix.KeyVault;
-using Bellatrix.LLM.settings;
+using Bellatrix.LLM.Settings;
 using Microsoft.KernelMemory;
 using Microsoft.SemanticKernel;
 using System.Collections.Concurrent;

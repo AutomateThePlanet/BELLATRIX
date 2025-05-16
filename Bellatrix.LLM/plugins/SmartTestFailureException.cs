@@ -1,4 +1,4 @@
-﻿// <copyright file="ComponentPromptCreateExtensions.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="SmartTestFailureException.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,17 +14,26 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
-
-using Bellatrix.Web.LLM;
-
-namespace Bellatrix.Web;
-
-public static class ComponentPromptCreateExtensions
+namespace Bellatrix.LLM.Plugins;
+public class SmartTestFailureException : Exception
 {
-    // TODO: Should create similar summary HTML info based on element inner HTML, right now we will search in full HTML, adding this for usability purposes.
-    public static TComponent CreateByPrompt<TComponent>(this Component element, string instruction, bool shouldCacheElement = false)
-        where TComponent : Component => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction), shouldCacheElement);
+    public SmartTestFailureException(string aiSummary, string fullAnalysis, Exception originalException)
+        : base(Format(aiSummary, fullAnalysis, originalException))
+    {
+    }
 
-    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this Component component, string instruction, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction), null, shouldCacheFoundElements);
+    private static string Format(string summary, string details, Exception ex)
+    {
+        return $"""
+🧠 AI-Driven Root Cause Summary:
+{summary}
+
+🧩 Extended Analysis:
+{details}
+
+❌ Original Exception:
+{ex?.Message}
+{ex?.StackTrace}
+""";
+    }
 }

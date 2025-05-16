@@ -1,4 +1,4 @@
-﻿// <copyright file="ComponentPromptCreateExtensions.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="LocatorMapperSkill.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,17 +14,32 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
+using Microsoft.SemanticKernel;
 
-using Bellatrix.Web.LLM;
-
-namespace Bellatrix.Web;
-
-public static class ComponentPromptCreateExtensions
+namespace Bellatrix.Web.LLM.Plugins;
+public class LocatorMapperSkill
 {
-    // TODO: Should create similar summary HTML info based on element inner HTML, right now we will search in full HTML, adding this for usability purposes.
-    public static TComponent CreateByPrompt<TComponent>(this Component element, string instruction, bool shouldCacheElement = false)
-        where TComponent : Component => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction), shouldCacheElement);
+    [KernelFunction]
+    public string MatchPromptToKnownLocator(string pageSummary, string instruction)
+    {
+        return $"""
+You are an AI assistant that maps user instructions to known UI locators.
 
-    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this Component component, string instruction, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction), null, shouldCacheFoundElements);
+User wants to: {instruction}
+
+From the list of known locators below, pick the one that best matches and return its exact locator in the format:
+locator_strategy=locator_value
+
+Known Locators:
+{pageSummary}
+
+Examples:
+For login button → return xpath=//button[@id='login']
+For search input → return id=input-search
+
+Return ONLY one valid locator in that format. If no match is found, return Unknown.
+""";
+    }
+
+
 }

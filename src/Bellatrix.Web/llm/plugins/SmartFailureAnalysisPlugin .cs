@@ -17,12 +17,11 @@
 
 using Bellatrix.Plugins.Screenshots.Contracts;
 using Bellatrix.Plugins;
-using Bellatrix.Web.LLM.services;
-using Bellatrix.Web.LLM.Extensions;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Plugins.Screenshots;
 using System;
 using System.Threading;
+using Bellatrix.LLM;
 
 namespace Bellatrix.Web.LLM.plugins;
 public class SmartFailureAnalysisPlugin : Plugin, IScreenshotPlugin

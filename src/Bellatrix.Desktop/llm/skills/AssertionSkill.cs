@@ -1,4 +1,4 @@
-﻿// <copyright file="SmartTestFailureException.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="AssertionSkill.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -14,28 +14,38 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
-using System;
+using Microsoft.SemanticKernel;
 
 namespace Bellatrix.Web.LLM.Plugins;
-public class SmartTestFailureException : Exception
+public class AssertionSkill
 {
-    public SmartTestFailureException(string aiSummary, string fullAnalysis, Exception originalException)
-        : base(Format(aiSummary, fullAnalysis, originalException))
-    {
-    }
-
-    private static string Format(string summary, string details, Exception ex)
+    [KernelFunction]
+    public string EvaluateAssertion(string htmlSummary, string assertInstruction)
     {
         return $"""
-🧠 AI-Driven Root Cause Summary:
-{summary}
+You are an expert test automation assistant.
 
-🧩 Extended Analysis:
-{details}
+Your task is to verify whether the user's **assertion** is satisfied, based on the structured JSON summary of the current web page's visible and interactive elements.
 
-❌ Original Exception:
-{ex?.Message}
-{ex?.StackTrace}
+---
+
+🔹 **User Assertion Instruction:**
+{assertInstruction}
+
+🔹 **Page Summary:**
+{htmlSummary}
+
+---
+
+✅ If the condition is met, respond with:  
+**PASS**
+
+❌ If the condition is NOT met, respond with:  
+**FAIL: [explanation]**
+
+---
+
+Only return **PASS** or **FAIL: explanation**.
 """;
     }
 }

@@ -14,13 +14,9 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
-using Bellatrix.LLM;
 using Microsoft.SemanticKernel;
-using System;
-using System.IO;
-using System.Linq;
 
-namespace Bellatrix.Web.LLM.services;
+namespace Bellatrix.LLM;
 
 public static class PageObjectsIndexer
 {

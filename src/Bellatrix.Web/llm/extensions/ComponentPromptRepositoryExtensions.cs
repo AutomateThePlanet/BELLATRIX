@@ -15,7 +15,9 @@
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 
-namespace Bellatrix.Web.LLM.Extensions;
+using Bellatrix.Web.LLM;
+
+namespace Bellatrix.Web;
 
 public static class ComponentPromptRepositoryExtensions
 {

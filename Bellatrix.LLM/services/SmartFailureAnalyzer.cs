@@ -15,17 +15,15 @@
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 using Bellatrix.KeyVault;
-using Bellatrix.LLM;
-using Bellatrix.LLM.cache;
 using Bellatrix.LLM.Cache;
-using Bellatrix.LLM.settings;
+using Bellatrix.LLM.Settings;
 using Microsoft.SemanticKernel;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
-namespace Bellatrix.Web.LLM.services;
+namespace Bellatrix.LLM;
+/// <summary>
+/// Provides smart analysis and diagnosis of test failures using historical test execution data and LLM-powered reasoning.
+/// Responsible for saving successful test executions, diagnosing failures by comparing with previous passes, and extracting summaries from AI-generated reports.
+/// </summary>
 public static class SmartFailureAnalyzer
 {
     private static readonly LocatorCacheDbContext _db;
@@ -39,6 +37,12 @@ public static class SmartFailureAnalyzer
         _project = settings.LocalCacheProjectName;
     }
 
+    /// <summary>
+    /// Saves a successful test execution to the local cache database, after filtering the log.
+    /// </summary>
+    /// <param name="testName">The full name of the test.</param>
+    /// <param name="fullLog">The complete log output from the test run.</param>
+    /// <param name="summaryJson">A JSON summary of the page state or test context.</param>
     public static void SaveTestPass(string testName, string fullLog, string summaryJson)
     {
         var cleaned = FilterLog(fullLog);
@@ -55,6 +59,16 @@ public static class SmartFailureAnalyzer
         _db.SaveChanges();
     }
 
+    /// <summary>
+    /// Diagnoses a test failure by comparing the current failing log and summary with the most recent passing execution.
+    /// Uses an LLM to generate a diagnosis and recommended actions.
+    /// </summary>
+    /// <param name="testName">The full name of the test.</param>
+    /// <param name="exceptionDetails">Details of the exception thrown during the test failure.</param>
+    /// <param name="currentLog">The log output from the failing test run.</param>
+    /// <param name="currentSummary">A summary of the current page or test state.</param>
+    /// <param name="screenshotFilePath">Optional file path to a screenshot of the failure.</param>
+    /// <returns>A string containing the AI-generated diagnosis and recommendations.</returns>
     public static string Diagnose(string testName, string exceptionDetails, string currentLog, string currentSummary, string screenshotFilePath)
     {
         var lastPass = _db.SmartTestExecutions
@@ -88,6 +102,14 @@ public static class SmartFailureAnalyzer
         return suggestion;
     }
 
+    /// <summary>
+    /// Extracts a summary and the main body from an AI-generated report.
+    /// The summary is everything up to the "Recommended Actions" section; the body is the rest.
+    /// </summary>
+    /// <param name="fullText">The full AI-generated report text.</param>
+    /// <returns>
+    /// A tuple where the first item is the summary (string), and the second item is the body (string).
+    /// </returns>
     public static (string Summary, string Body) ExtractSummaryAndBody(string fullText)
     {
         if (string.IsNullOrWhiteSpace(fullText))
@@ -125,7 +147,11 @@ public static class SmartFailureAnalyzer
         );
     }
 
-
+    /// <summary>
+    /// Filters out lines from the test log that start with specific emoji markers (warnings, AI, pass/fail indicators).
+    /// </summary>
+    /// <param name="fullLog">The complete log output from the test run.</param>
+    /// <returns>The filtered log as a string, with unwanted lines removed.</returns>
     public static string FilterLog(string fullLog) =>
         string.Join(Environment.NewLine, fullLog
             .Split(Environment.NewLine)

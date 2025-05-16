@@ -15,20 +15,24 @@
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 using Bellatrix.KeyVault;
-using Bellatrix.LLM;
-using Bellatrix.LLM.cache;
 using Bellatrix.LLM.Cache;
-using Bellatrix.LLM.settings;
+using Bellatrix.LLM.Settings;
 using Microsoft.SemanticKernel;
-using OpenQA.Selenium;
-using System;
-using System.Linq;
 
-namespace Bellatrix.Web.LLM.services;
+namespace Bellatrix.LLM;
+/// <summary>
+/// Provides self-healing capabilities for UI locators by leveraging AI and a local cache of previously validated locators.
+/// This service enables autonomous test agents to recover from locator failures by suggesting new working locators
+/// based on historical data and semantic analysis of UI changes.
+/// </summary>
 public static class LocatorSelfHealingService
 {
     private static readonly LocatorCacheDbContext _db;
     private static readonly string _project;
+
+    /// <summary>
+    /// Static constructor initializes the local cache database context and project name from configuration and secrets.
+    /// </summary>
     static LocatorSelfHealingService()
     {
         var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
@@ -37,7 +41,20 @@ public static class LocatorSelfHealingService
         _project = settings.LocalCacheProjectName;
     }
 
-    public static FindXpathStrategy TryHeal(string failingLocator, string newestVersionViewSummary, string appLocation = "")
+    /// <summary>
+    /// Attempts to heal a failing locator by leveraging AI and previously cached locator data.
+    /// The method queries the local cache for a known valid locator matching the failing one and, if found,
+    /// uses Semantic Kernel to generate a suggestion for a new working locator based on the differences between
+    /// the old and new view summaries. The returned string is an XPath expression representing the healed locator,
+    /// or null if no suggestion could be generated.
+    /// </summary>
+    /// <param name="failingLocator">The locator that is currently failing.</param>
+    /// <param name="newestVersionViewSummary">The latest view summary of the application.</param>
+    /// <param name="appLocation">Optional application location context.</param>
+    /// <returns>
+    /// The suggested healed XPath locator as a string, or null if healing is not possible.
+    /// </returns>
+    public static string TryHeal(string failingLocator, string newestVersionViewSummary, string appLocation = "")
     {
         var known = _db.SelfHealingLocators.FirstOrDefault(x =>
             x.Project == _project && x.AppLocation == appLocation &&
@@ -58,18 +75,26 @@ public static class LocatorSelfHealingService
 
         var suggestion = SemanticKernelService.Kernel.InvokePromptAsync(prompt).Result.GetValue<string>()?.Trim();
 
-        Console.WriteLine("🧠 AI Healing Suggestion:");
-        Console.WriteLine($"❌ Failed: {failingLocator}");
-        Console.WriteLine($"✅ Suggest: {suggestion}");
+        Logger.LogWarning("🧠 AI Healing Suggestion:");
+        Logger.LogError($"❌ Failed: {failingLocator}");
+        Logger.LogWarning($"✅ Suggest: {suggestion}");
 
         if (!string.IsNullOrWhiteSpace(suggestion))
         {
-            return new FindXpathStrategy(suggestion);
+            return suggestion;
         }
 
         return null;
     }
 
+    /// <summary>
+    /// Saves or updates a working locator and its associated view summary in the local cache.
+    /// If the locator already exists for the given project and application location, its data is updated;
+    /// otherwise, a new entry is created.
+    /// </summary>
+    /// <param name="locator">The working locator to save.</param>
+    /// <param name="viewSummary">The view summary associated with the locator.</param>
+    /// <param name="appLocation">Optional application location context.</param>
     public static void SaveWorkingLocator(string locator, string viewSummary, string appLocation = "")
     {
         var currentSummary = viewSummary;
@@ -100,6 +125,10 @@ public static class LocatorSelfHealingService
         _db.SaveChanges();
     }
 
+    /// <summary>
+    /// Removes all self-healing locator entries for the current project from the local cache.
+    /// This is useful for cleanup or resetting the cache for a specific project.
+    /// </summary>
     public static void ClearProjectEntries()
     {
         var entriesToDelete = _db.SelfHealingLocators
@@ -110,14 +139,17 @@ public static class LocatorSelfHealingService
         {
             _db.SelfHealingLocators.RemoveRange(entriesToDelete);
             _db.SaveChanges();
-            Console.WriteLine($"🗑️ Deleted {entriesToDelete.Count} self-healing locator entries for project: {_project}");
+            Logger.LogInformation($"🗑️ Deleted {entriesToDelete.Count} self-healing locator entries for project: {_project}");
         }
         else
         {
-            Console.WriteLine($"ℹ️ No entries found for project: {_project}");
+            Logger.LogInformation($"ℹ️ No entries found for project: {_project}");
         }
     }
 
+    /// <summary>
+    /// Disposes the local cache database context and releases any associated resources.
+    /// </summary>
     public static void Dispose()
     {
         _db?.Dispose();

@@ -22,20 +22,28 @@ using System.Threading;
 using System;
 using Bellatrix.LLM;
 using System.Linq;
-using Bellatrix.Web.LLM.Extensions;
-using Bellatrix.Web.LLM.services;
 
 namespace Bellatrix.Web.LLM;
 
 /// <summary>
 /// A BELLATRIX FindStrategy that uses Semantic Kernel to locate elements by natural language prompts.
-/// Primary resolution attempts to match known PageObject locators via RAG.
+/// Primary resolution attempts to match known PageObject locators via Retrieval-Augmented Generation (RAG).
 /// Fallback resolution builds fresh XPath from current DOM snapshot via prompt.
 /// </summary>
 public class FindByPrompt : FindStrategy
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FindByPrompt"/> class with the specified prompt value.
+    /// </summary>
+    /// <param name="value">The natural language prompt used to locate the element.</param>
     public FindByPrompt(string value) : base(value) { }
 
+    /// <summary>
+    /// Converts the natural language prompt to a Selenium <see cref="By"/> locator.
+    /// Tries to resolve using RAG memory, then cache, and finally falls back to AI prompt regeneration.
+    /// </summary>
+    /// <returns>A <see cref="By"/> locator for the element matching the prompt.</returns>
+    /// <exception cref="NotFoundException">Thrown if no element can be found for the prompt.</exception>
     public override By Convert()
     {
         var driver = ServicesCollection.Current.Resolve<IWebDriver>();
@@ -49,20 +57,29 @@ public class FindByPrompt : FindStrategy
 
         // Step 2: Try local persistent cache
         Logger.LogInformation($"⚠️ RAG-located element not present. Trying cached selectors...");
-        var cached = LocatorCacheService.TryGetCached(Value);
-        if (cached != null && IsElementPresent(driver, cached))
+        var cached = LocatorCacheService.TryGetCached(driver.Url, Value);
+        if (!string.IsNullOrEmpty(cached) && IsElementPresent(driver, By.XPath(cached)))
         {
             Logger.LogInformation($"✅ Using cached selector.");
-            return cached;
+            return By.XPath(cached);
         }
 
         // Step 3: Fall back to AI + prompt regeneration
         Logger.LogInformation($"⚠️ Cached selector failed or not found. Re-querying AI...");
-        LocatorCacheService.Remove(Value);
+        LocatorCacheService.Remove(driver.Url, Value);
 
         return ResolveViaPromptFallback(driver, Value);
     }
 
+    /// <summary>
+    /// Attempts to resolve a locator by generating a prompt to the AI, retrying up to <paramref name="maxAttempts"/> times.
+    /// Caches successful selectors for future use.
+    /// </summary>
+    /// <param name="driver">The Selenium WebDriver instance.</param>
+    /// <param name="instruction">The natural language instruction for the element.</param>
+    /// <param name="maxAttempts">Maximum number of attempts to generate a working selector.</param>
+    /// <returns>A <see cref="By"/> locator if found; otherwise, throws <see cref="NotFoundException"/>.</returns>
+    /// <exception cref="NotFoundException">Thrown if no element can be found after all attempts.</exception>
     private By ResolveViaPromptFallback(IWebDriver driver, string instruction, int maxAttempts = 3)
     {
         var browser = ServicesCollection.Current.Resolve<BrowserService>();
@@ -87,7 +104,7 @@ public class FindByPrompt : FindStrategy
             var by = By.XPath(rawSelector);
             if (IsElementPresent(driver, by))
             {
-                LocatorCacheService.Update(instruction, rawSelector);
+                LocatorCacheService.Update(driver.Url, instruction, rawSelector);
                 Logger.LogInformation($"🧠 Caching new selector for '{instruction}': {rawSelector}");
                 return by;
             }
@@ -100,6 +117,14 @@ public class FindByPrompt : FindStrategy
         throw new NotFoundException($"❌ No element found for instruction: {instruction}");
     }
 
+    /// <summary>
+    /// Attempts to resolve a locator from the PageObject memory using Retrieval-Augmented Generation (RAG).
+    /// </summary>
+    /// <param name="driver">The Selenium WebDriver instance.</param>
+    /// <param name="instruction">The natural language instruction for the element.</param>
+    /// <returns>
+    /// A <see cref="By"/> locator if a match is found in memory; otherwise, <c>null</c>.
+    /// </returns>
     private By TryResolveFromPageObjectMemory(IWebDriver driver, string instruction)
     {
         var match = SemanticKernelService.Memory
@@ -122,6 +147,14 @@ public class FindByPrompt : FindStrategy
         return ParsePromptLocatorToBy(locatorResult);
     }
 
+    /// <summary>
+    /// Parses a prompt result string into a Selenium <see cref="By"/> locator.
+    /// </summary>
+    /// <param name="promptResult">The prompt result string, e.g., "xpath=//div[@id='main']".</param>
+    /// <returns>
+    /// A <see cref="By"/> locator if parsing is successful; otherwise, <c>null</c>.
+    /// </returns>
+    /// <exception cref="ArgumentException">Thrown if the selector type is unsupported.</exception>
     private static By ParsePromptLocatorToBy(string promptResult)
     {
         var parts = Regex.Match(promptResult, "(xpath|id|name|tag|cssSelector|class|linktext|partiallinktext|attribute)=(.+)", RegexOptions.IgnoreCase);
@@ -145,11 +178,21 @@ public class FindByPrompt : FindStrategy
         };
     }
 
+    /// <summary>
+    /// Checks if any elements are present for the given <see cref="By"/> locator.
+    /// </summary>
+    /// <param name="driver">The Selenium WebDriver instance.</param>
+    /// <param name="by">The locator to check.</param>
+    /// <returns><c>true</c> if at least one element is found; otherwise, <c>false</c>.</returns>
     private static bool IsElementPresent(IWebDriver driver, By by)
     {
         try { return driver.FindElements(by).Any(); }
         catch { return false; }
     }
 
+    /// <summary>
+    /// Returns a string representation of the FindByPrompt strategy.
+    /// </summary>
+    /// <returns>A string describing the prompt value.</returns>
     public override string ToString() => $"Prompt = {Value}";
 }

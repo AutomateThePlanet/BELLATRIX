@@ -1,4 +1,4 @@
-﻿// <copyright file="ComponentPromptCreateExtensions.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ComponentPromptRepositoryExtensions.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -15,16 +15,15 @@
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 
-using Bellatrix.Web.LLM;
+using Bellatrix.Desktop.Controls.Core;
 
-namespace Bellatrix.Web;
+namespace Bellatrix.Desktop.LLM.Extensions;
 
-public static class ComponentPromptCreateExtensions
+public static class ComponentPromptRepositoryExtensions
 {
-    // TODO: Should create similar summary HTML info based on element inner HTML, right now we will search in full HTML, adding this for usability purposes.
-    public static TComponent CreateByPrompt<TComponent>(this Component element, string instruction, bool shouldCacheElement = false)
-        where TComponent : Component => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction), shouldCacheElement);
+    public static TComponent CreateByPrompt<TComponent>(this ComponentCreateService repository, string instruction)
+        where TComponent : Component => repository.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction));
 
-    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this Component component, string instruction, bool shouldCacheFoundElements = false)
+    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this ComponentCreateService repository, string instruction, bool shouldCacheFoundElements = false)
         where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction), null, shouldCacheFoundElements);
 }

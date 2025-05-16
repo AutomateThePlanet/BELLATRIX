@@ -23,13 +23,12 @@ using System.Linq;
 using System.Text;
 using Bellatrix.CognitiveServices;
 using Bellatrix.CognitiveServices.services;
-using Bellatrix.LLM.settings;
+using Bellatrix.LLM;
+using Bellatrix.LLM.Settings;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Web.Components.ShadowDom;
 using Bellatrix.Web.Contracts;
 using Bellatrix.Web.Events;
-using Bellatrix.Web.LLM.Extensions;
-using Bellatrix.Web.LLM.services;
 using Bellatrix.Web.Untils;
 using Bellatrix.Web.Waits;
 using OpenQA.Selenium;
@@ -421,12 +420,12 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             Console.WriteLine($"⚠️ Element not found with locator: {By}. Attempting self-heal...");
 
             var currentSummary = BrowserService.GetPageSummaryJson();
-            var healedStrategy = LocatorSelfHealingService.TryHeal(By.ToString(), currentSummary, WrappedDriver.Url);
-            if (healedStrategy != null)
+            var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), currentSummary, WrappedDriver.Url);
+            if (healedXpath != null)
             {
                 try
                 {
-                    var healedElement = nativeElementFinderService.FindAll(healedStrategy).ElementAt(ElementIndex);
+                    var healedElement = nativeElementFinderService.FindAll(new FindXpathStrategy(healedXpath)).ElementAt(ElementIndex);
                     Console.WriteLine("🧠 Using AI-suggested fallback locator. Original not updated.");
                     return healedElement;
                 }

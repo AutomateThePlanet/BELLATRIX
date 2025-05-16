@@ -19,17 +19,21 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using System;
 using Microsoft.SemanticKernel;
+using Bellatrix.Desktop.LLM.Extensions;
+using Bellatrix.Desktop.Services;
+using Bellatrix.Desktop.Exceptions;
 
-namespace Bellatrix.Web.LLM.assertions;
+namespace Bellatrix.Desktop.LLM.assertions;
 public static class AiValidator
 {
     public static void ValidateByPrompt(string assertInstruction, int? timeout = null, int? sleepInterval = null)
     {
-        var browser = ServicesCollection.Current.Resolve<BrowserService>();
-        var driver = browser.WrappedDriver;
+        var app = ServicesCollection.Current.Resolve<AppService>();
 
-        var effectiveTimeout = timeout ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.ValidationsTimeout;
-        var effectiveSleep = sleepInterval ?? ConfigurationService.GetSection<WebSettings>().TimeoutSettings.SleepInterval;
+        var driver = app.WrappedDriver;
+
+        var effectiveTimeout = timeout ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ValidationsTimeout;
+        var effectiveSleep = sleepInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.SleepInterval;
 
         var wait = new WebDriverWait(new SystemClock(), driver, TimeSpan.FromSeconds(effectiveTimeout), TimeSpan.FromSeconds(effectiveSleep));
         wait.IgnoreExceptionTypes(typeof(Exception));
@@ -39,9 +43,7 @@ public static class AiValidator
         {
             try
             {
-                browser.WaitForAjax();
-                browser.WaitUntilReady();
-                var summaryJson = browser.GetPageSummaryJson();
+                var summaryJson = app.GetPageSummaryJson();
 
                 var result = SemanticKernelService.Kernel.InvokeAsync("Assertions", "EvaluateAssertion", new()
                 {
@@ -68,9 +70,7 @@ public static class AiValidator
         }
         catch (WebDriverTimeoutException)
         {
-            throw new ComponentPropertyValidateException(
-                $"❌ AI validation failed: {assertInstruction} within timeout ({effectiveTimeout}s).\n - {verdict}",
-                driver.Url);
+            throw new ComponentPropertyValidateException($"❌ AI validation failed: {assertInstruction} within timeout ({effectiveTimeout}s).\n - {verdict}");
         }
     }
 }

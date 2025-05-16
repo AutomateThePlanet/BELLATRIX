@@ -14,7 +14,7 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
-namespace Bellatrix.Web.LLM.Extensions;
+namespace Bellatrix.Web;
 public static class BrowserServiceExtensions
 {
     public static string GetPageSummaryJson(this BrowserService browser)

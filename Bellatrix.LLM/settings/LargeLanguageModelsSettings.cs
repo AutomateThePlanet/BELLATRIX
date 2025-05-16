@@ -16,7 +16,7 @@
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 using SemanticKernelWebDriverPoC;
 
-namespace Bellatrix.LLM.settings;
+namespace Bellatrix.LLM.Settings;
 public class LargeLanguageModelsSettings
 {
     public List<ModelSettings> ModelSettings { get; set; }
