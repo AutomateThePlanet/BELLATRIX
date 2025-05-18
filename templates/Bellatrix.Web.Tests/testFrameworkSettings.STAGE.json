@@ -207,6 +207,15 @@
   "blobStorageSettings": {
     "connectionString": "yourKey"
   },
+  "loggingSettings": {
+    "isEnabled": true,
+    "isConsoleLoggingEnabled": true,
+    "isDebugLoggingEnabled": true,
+    "isFileLoggingEnabled": false,
+    "isReportPortalLoggingEnabled": false,
+    "shouldMaskSensitiveInfo": true,
+    "outputTemplate": "{Message:lj}{NewLine}{Exception}"
+  },
   "largeLanguageModelsSettings": {
     "modelSettings": [
       {

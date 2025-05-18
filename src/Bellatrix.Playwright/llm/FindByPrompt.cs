@@ -19,6 +19,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Bellatrix.LLM;
 using Bellatrix.Playwright.Locators;
+using Bellatrix.LLM.Plugins;
+using Bellatrix.Playwright.LLM.Plugins;
 
 namespace Bellatrix.Playwright.LLM;
 
@@ -53,13 +55,13 @@ public class FindByPrompt : FindStrategy
         {
             var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? "";
             var mappedPrompt = SemanticKernelService.Kernel
-                .InvokeAsync("Mapper", "MatchPromptToKnownLocator", new()
+                .InvokeAsync(nameof(LocatorMapperSkill), nameof(LocatorMapperSkill.MatchPromptToKnownLocator), new()
                 {
                     ["pageSummary"] = pageSummary,
                     ["instruction"] = Value
                 }).Result.GetValue<string>();
 
-            var locator = ExtractStrategy(mappedPrompt);
+            var locator = new FindXpathStrategy(mappedPrompt);
             if (locator != null)
             {
                 return locator;
@@ -86,7 +88,8 @@ public class FindByPrompt : FindStrategy
         for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
             var prompt = SemanticKernelService.Kernel
-                .InvokeAsync("LocatorSkill", "BuildLocatorPrompt", new()
+                .InvokeAsync(nameof(LocatorSkill), nameof(LocatorSkill.BuildLocatorPrompt),
+                new()
                 {
                     ["htmlSummary"] = summaryJson,
                     ["instruction"] = Value,
@@ -99,7 +102,7 @@ public class FindByPrompt : FindStrategy
 
             if (!string.IsNullOrWhiteSpace(raw))
             {
-                var locator = ExtractStrategy(raw);
+                var locator = new FindXpathStrategy(raw);
                 if (locator != null)
                 {
                     LocatorCacheService.Update(location, Value, locator.Value);
@@ -113,25 +116,6 @@ public class FindByPrompt : FindStrategy
         }
 
         throw new ArgumentException($"❌ No valid locator found for: {Value}");
-    }
-
-    private FindStrategy ExtractStrategy(string promptResult)
-    {
-        var match = Regex.Match(promptResult, @"^\s*(css|xpath)=([\s\S]+)", RegexOptions.IgnoreCase);
-        if (!match.Success)
-        {
-            return null;
-        }
-
-        var type = match.Groups[1].Value.Trim().ToLowerInvariant();
-        var locator = match.Groups[2].Value.Trim();
-
-        return type switch
-        {
-            "css" => new FindCssStrategy(locator),
-            "xpath" => new FindXpathStrategy(locator),
-            _ => null
-        };
     }
 
     public override string ToString() => $"Prompt = {Value}";

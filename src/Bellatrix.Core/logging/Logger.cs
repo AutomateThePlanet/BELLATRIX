@@ -25,19 +25,10 @@ namespace Bellatrix;
 
 public static class Logger
 {
-    // ThreadLocal to ensure each test has its own log buffer
-    private static readonly ThreadLocal<Dictionary<string, List<string>>> s_logBuffer = new ThreadLocal<Dictionary<string, List<string>>>(() => new Dictionary<string, List<string>>());
-
-    // ThreadLocal to ensure each thread has its own logger configuration
-    private static readonly ThreadLocal<ILogger> s_logger = new ThreadLocal<ILogger>(InitializeLogger);
-
-    public static ThreadLocal<string> CurrentTestFullName { get; set; } = new ThreadLocal<string>();
-
-    static Logger()
-    {
-        s_logBuffer = new ThreadLocal<Dictionary<string, List<string>>>(() => new Dictionary<string, List<string>>());
-        s_logger = new ThreadLocal<ILogger>(InitializeLogger);
-    }
+    private static readonly ThreadLocal<Dictionary<string, List<string>>> s_logBuffer = new(() => new Dictionary<string, List<string>>());
+    private static readonly ThreadLocal<ILogger> s_logger = new(InitializeLogger);
+    public static ThreadLocal<string> CurrentTestFullName { get; set; } = new();
+    private static readonly object _flushLock = new();
 
     private static ILogger InitializeLogger()
     {
@@ -70,9 +61,14 @@ public static class Logger
         return loggerConfiguration.CreateLogger();
     }
 
-    // Method to accumulate logs in the buffer per test/thread
-    private static void AccumulateLog(string logLevel, string message)
+    private static void AccumulateLog(string level, string message)
     {
+        if (string.IsNullOrWhiteSpace(CurrentTestFullName.Value))
+        {
+            s_logger.Value.Information(message);
+            return;
+        }
+
         if (s_logBuffer.Value == null)
         {
             s_logBuffer.Value = new Dictionary<string, List<string>>();
@@ -85,7 +81,6 @@ public static class Logger
 
         s_logBuffer.Value[CurrentTestFullName.Value].Add(message);
     }
-
 
     public static void LogInformation(string message, params object[] args)
     {
@@ -102,34 +97,31 @@ public static class Logger
         AccumulateLog("WARNING", string.Format(message, args));
     }
 
-    // Lock object to ensure thread-safe execution of FlushLogs
-    private static readonly object _flushLock = new object();
-
     public static string GetLogs()
     {
-        if (s_logBuffer.Value.ContainsKey(CurrentTestFullName.Value))
+        if (string.IsNullOrWhiteSpace(CurrentTestFullName.Value))
         {
-            return string.Join(Environment.NewLine, s_logBuffer.Value[CurrentTestFullName.Value]);
+            return "⚠️ No current test context set.";
         }
 
-        return "⚠️ No log entries captured for this test.";
+        return s_logBuffer.Value.ContainsKey(CurrentTestFullName.Value)
+            ? string.Join(Environment.NewLine, s_logBuffer.Value[CurrentTestFullName.Value])
+            : "⚠️ No log entries captured for this test.";
     }
 
-    // Method to print the accumulated logs at the end of the test
     public static void FlushLogs()
     {
-        lock (_flushLock) // Ensure that only one thread can execute FlushLogs at a time
+        if (string.IsNullOrWhiteSpace(CurrentTestFullName.Value)) return;
+
+        lock (_flushLock)
         {
-            // Check if there's anything to flush for the current test
             if (s_logBuffer.Value.ContainsKey(CurrentTestFullName.Value))
             {
-                // Flush the logs to the configured sinks
                 foreach (var log in s_logBuffer.Value[CurrentTestFullName.Value])
                 {
-                    s_logger.Value.Information(log); // This could be switched to appropriate log levels
+                    s_logger.Value.Information(log);
                 }
 
-                // Clear the log buffer after flushing
                 s_logBuffer.Value[CurrentTestFullName.Value].Clear();
             }
         }

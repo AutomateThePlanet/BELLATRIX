@@ -1,0 +1,134 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Checkout example · Broken v2</title>
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="form-validation.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container">
+        <main>
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+                <h2>Checkout form (Broken Version)</h2>
+                <p class="lead">This version contains realistic UI bugs for failure testing.</p>
+            </div>
+
+            <div class="row g-5">
+                <div class="col-md-5 col-lg-4 order-md-last">
+                    <!-- Cart skipped for brevity -->
+                </div>
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3">Billing address</h4>
+                    <form class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="firstName" class="form-label">First name</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label">Last name</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="username" class="form-label">Username</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text">@</span>
+                                    <input type="text" class="form-control" id="username" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email">
+                            </div>
+                            <div class="col-12">
+                                <label for="address1" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address1" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="address2" class="form-label">Address 2</label>
+                                <input type="text" class="form-control" id="address2">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="country" class="form-label">Country</label>
+                                <select class="form-select" id="country" required>
+                                    <option>United States</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="state" class="form-label">State</label>
+                                <select class="form-select" id="state" required>
+                                    <option>California</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="zip" class="form-label">Zip</label>
+                                <input type="text" class="form-control" id="zip" required>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="same-address">
+                            <label class="form-check-label" for="same-address">Shipping same as billing</label>
+                        </div>
+
+                        <hr class="my-4">
+                        <h4 class="mb-3">Payment</h4>
+                        <div class="my-3">
+                            <div class="form-check">
+                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+                                <label class="form-check-label" for="credit">Credit card</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+                                <label class="form-check-label" for="debit">Debit card</label>
+                            </div>
+                        </div>
+
+                        <div class="row gy-3">
+                            <div class="col-md-6">
+                                <label for="card-name" class="form-label">Name on card</label>
+                                <input type="text" class="form-control" id="card-name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="card-number" class="form-label">Card number</label>
+                                <input type="text" class="form-control" id="card-number" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="card-expiration" class="form-label">Expiration</label>
+                                <input type="text" class="form-control" id="card-expiration" required>
+                            </div>
+                            <div class="col-md-3">
+                                <!-- 🚫 CVV label intentionally removed to simulate accessibility bug -->
+                                <input type="text" class="form-control" id="card-cvv" required placeholder="CVV">
+                            </div>
+                        </div>
+
+                        <!-- ❌ Simulated error message -->
+                        <div class="alert alert-danger mt-3" role="alert">
+                            Your card could not be processed. Please contact your bank.
+                        </div>
+
+                        <hr class="my-4">
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">Checkout</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="form-validation.js"></script>
+
+    <!-- 💥 Simulated JS error on blur -->
+    <script>
+  document.querySelector("#card-number").addEventListener("blur", function () {
+      throw new Error("Simulated JS validation error on blur.");
+  });
+    </script>
+</body>
+</html>
