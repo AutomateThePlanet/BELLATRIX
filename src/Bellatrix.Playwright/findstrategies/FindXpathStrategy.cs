@@ -11,9 +11,6 @@
 // </copyright>
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
-
-using Bellatrix.Playwright.SyncPlaywright;
-
 namespace Bellatrix.Playwright;
 
 public class FindXpathStrategy : FindStrategy

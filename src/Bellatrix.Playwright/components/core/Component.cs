@@ -29,6 +29,8 @@ using Bellatrix.CognitiveServices;
 using Bellatrix.Playwright.SyncPlaywright.Element;
 using Bellatrix.Playwright.Components;
 using Bellatrix.Playwright.Components.ShadowDom;
+using Bellatrix.LLM;
+using Bellatrix.LLM.Settings;
 
 
 namespace Bellatrix.Playwright;
@@ -36,6 +38,9 @@ namespace Bellatrix.Playwright;
 [DebuggerDisplay("BELLATRIX Component")]
 public partial class Component : IComponentVisible, IComponentCssClass, IComponent, IWebLayoutComponent
 {
+    private readonly IViewSnapshotProvider _viewSnapshotProvider;
+    private readonly LargeLanguageModelsSettings _llmSettings;
+
     // ReSharper disable All
 #pragma warning disable 67
     public static event EventHandler<ComponentActionEventArgs> ScrollingToVisible;
@@ -69,6 +74,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         JavaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
         BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
         ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        _viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
+        _llmSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
     }
 
     public WrappedBrowser WrappedBrowser { get; }
@@ -78,11 +85,65 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     {
         get
         {
+            if (_wrappedElement == null)
+            {
+                _wrappedElement = ResolveWithHealing();
+                foreach (var until in _untils)
+                {
+                    until.WaitUntil(_wrappedElement);
+                }
+                _untils.Clear();
+            }
+
             ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs(_wrappedElement));
-            WaitToBe();
             return _wrappedElement;
         }
         set => _wrappedElement = value;
+    }
+
+    public void EnsureState(WaitStrategy until)
+    {
+        _untils.Add(until);
+    }
+
+    private WebElement ResolveWithHealing()
+    {
+        try
+        {
+            var element = By.Resolve(WrappedBrowser.CurrentPage);
+
+            if (_llmSettings.EnableSelfHealing)
+            {
+                var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
+                LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedBrowser.CurrentPage.Url);
+            }
+
+            return element;
+        }
+        catch (Exception ex)
+        {
+            if (!_llmSettings.EnableSelfHealing)
+            {
+                throw new TimeoutException($"Element not found: {By?.Value}", ex);
+            }
+
+            var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
+            var healedLocator = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, WrappedBrowser.CurrentPage.Url);
+
+            if (!string.IsNullOrWhiteSpace(healedLocator))
+            {
+                try
+                {
+                    return new FindXpathStrategy(healedLocator).Resolve(WrappedBrowser.CurrentPage);
+                }
+                catch
+                {
+                    throw new InvalidOperationException($"Healing attempt failed: {By.Value}", ex);
+                }
+            }
+
+            throw new InvalidOperationException($"Original and healed locators failed: {By.Value}", ex);
+        }
     }
 
     public Component ParentComponent { get; set; }
@@ -335,11 +396,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     public void Hide()
     {
         SetAttribute("style", "display:none");
-    }
-
-    public void EnsureState(WaitStrategy until)
-    {
-        _untils.Add(until);
     }
 
     public override string ToString()

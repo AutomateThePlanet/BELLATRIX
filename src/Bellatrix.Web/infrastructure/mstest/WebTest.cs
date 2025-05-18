@@ -13,6 +13,8 @@
 // <site>https://bellatrix.solutions/</site>
 
 using System;
+using Bellatrix.Core.logging;
+using Bellatrix.LLM.Plugins;
 using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.MSTest;
@@ -74,6 +76,9 @@ public abstract class WebTest : MSTestBaseTest
                 {
                     WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
                 }
+
+                SmartFailureAnalysisPlugin.Add();
+                LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;
             }

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Bellatrix.LLM\Bellatrix.LLM.csproj" />
     <ProjectReference Include="..\Bellatrix.Api\Bellatrix.API.csproj" />
     <ProjectReference Include="..\Bellatrix.AWS\Bellatrix.AWS.csproj" />
     <ProjectReference Include="..\Bellatrix.CognitiveServices\Bellatrix.CognitiveServices.csproj" />

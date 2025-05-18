@@ -12,6 +12,8 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Core.logging;
+using Bellatrix.LLM.Plugins;
 using Bellatrix.Playwright.Screenshots;
 using Bellatrix.Playwright.Settings;
 
@@ -73,6 +75,10 @@ public abstract class WebTest : MSTestBaseTest
                 {
                     WebScreenshotPluginConfiguration.UseVisiblePageScreenshotsOnFail();
                 }
+
+                WebPluginsConfiguration.ConfigureLLM();
+                SmartFailureAnalysisPlugin.Add();
+                LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;
             }
