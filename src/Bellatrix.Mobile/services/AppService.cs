@@ -15,9 +15,9 @@ using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Bellatrix.LLM;
+using Bellatrix.Mobile.LLM;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
-using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.Services;
 

@@ -16,14 +16,18 @@
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 
 using Bellatrix.Mobile.Controls.Core;
+using Bellatrix.Mobile.Core;
+using Bellatrix.Mobile.LLM.IOS;
+using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.LLM.Extensions.Android;
+namespace Bellatrix.Mobile.llm.ios.extensions;
 
 public static class ComponentPromptCreateExtensions
 {
-    public static TComponent CreateByIdEndingWith<TComponent>(this Component element, string instruction)
-        where TComponent : Component => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction));
+    public static TComponent CreateByPrompt<TComponent>(this Component<IOSDriver, AppiumElement> element, string instruction)
+    where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction));
 
-    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this Component component, string instruction, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent, FindByPrompt, IOSDriver, AppiumElement> CreateAllByPrompt<TComponent>(this Component<IOSDriver, AppiumElement> element, string instruction)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindByPrompt, IOSDriver, AppiumElement>(new FindByPrompt(instruction), element.WrappedElement);
+
 }
