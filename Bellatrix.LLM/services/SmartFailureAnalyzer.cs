@@ -96,7 +96,7 @@ public static class SmartFailureAnalyzer
         }
 
         var prompt = SemanticKernelService.Kernel
-            .InvokeAsync(nameof(FailureAnalyzerSkill), "GenerateFailureDiagnosis", arguments).Result;
+            .InvokeAsync(nameof(FailureAnalyzerSkill), nameof(FailureAnalyzerSkill.GenerateFailureDiagnosis), arguments).Result;
 
         var suggestion = SemanticKernelService.Kernel.InvokePromptAsync(prompt.GetValue<string>()).Result.GetValue<string>()?.Trim();
 

@@ -14,15 +14,16 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
+using Bellatrix.LLM;
+using Bellatrix.LLM.Plugins;
+using Bellatrix.Web.LLM.Plugins;
 using Microsoft.SemanticKernel;
 using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System;
-using Bellatrix.LLM;
-using System.Linq;
-using Bellatrix.Web.LLM.Plugins;
 
 namespace Bellatrix.Web.LLM;
 
@@ -137,7 +138,8 @@ public class FindByPrompt : FindStrategy
 
         var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? string.Empty;
         var mappedPrompt = SemanticKernelService.Kernel
-            .InvokeAsync("Mapper", "MatchPromptToKnownLocator", new()
+            .InvokeAsync(nameof(LocatorMapperSkill), nameof(LocatorMapperSkill.MatchPromptToKnownLocator),
+            new()
             {
                 ["pageSummary"] = pageSummary,
                 ["instruction"] = instruction

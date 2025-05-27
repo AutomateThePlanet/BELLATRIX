@@ -43,7 +43,7 @@ public static class AiValidator
 
                         var result = SemanticKernelService.Kernel.InvokeAsync(nameof(AssertionSkill), nameof(AssertionSkill.EvaluateAssertion), new()
                         {
-                            ["htmlSummary"] = appSnapshot,
+                            ["viewSnapshot"] = appSnapshot,
                             ["assertInstruction"] = assertInstruction
                         }).Result;
 

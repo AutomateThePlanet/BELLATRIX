@@ -11,14 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
 using Bellatrix.Assertions;
 using Bellatrix.AWS;
 using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
+using Bellatrix.LLM;
 using Bellatrix.Mobile.Configuration;
 using Bellatrix.Mobile.PageObjects;
 using Bellatrix.Mobile.Services;
@@ -26,6 +23,10 @@ using Bellatrix.Plugins;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Service;
 using OpenQA.Selenium.Appium.Service.Options;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Bellatrix.Mobile;
 

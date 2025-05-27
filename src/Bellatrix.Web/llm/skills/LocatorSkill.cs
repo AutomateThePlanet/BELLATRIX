@@ -91,7 +91,7 @@ Return ONLY a single line of clean, valid XPath with quoted values.
     }
 
     [KernelFunction]
-    public string HealBrokenLocator(string failedLocator, string oldViewummary, string newViewSummary)
+    public string HealBrokenLocator(string failedLocator, string oldSnapshot, string newSnapshot)
     {
         return $"""
 You are an AI assistant helping with UI test automation.
@@ -104,10 +104,10 @@ Your goal is to suggest a valid, simple, and reliable **XPath** locator that fin
 --- 
 
 🔹 **Previously Working View Summary:**
-{oldViewummary}
+{oldSnapshot}
 
 🔹 **New View Summary After Failure:**
-{newViewSummary}
+{newSnapshot}
 
 --- 
 

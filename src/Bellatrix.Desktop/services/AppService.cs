@@ -25,7 +25,6 @@ public class AppService : DesktopService, IViewSnapshotProvider
     public AppService(WindowsDriver<WindowsElement> wrappedDriver)
         : base(wrappedDriver)
     {
-        ServicesCollection.Current.RegisterInstance<IViewSnapshotProvider>(this);
     }
 
     public string Title => WrappedDriver.Title;

@@ -11,12 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using Bellatrix;
 using Bellatrix.Assertions;
 using Bellatrix.AWS;
@@ -26,8 +20,15 @@ using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.PageObjects;
 using Bellatrix.Desktop.Services;
 using Bellatrix.DynamicTestCases;
+using Bellatrix.LLM;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace Bellatrix.Desktop;
 
@@ -40,6 +41,7 @@ public class App : IDisposable
     public App()
     {
         _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
+        ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(AppService);
     }
 
     public AppService AppService => ServicesCollection.Current.Resolve<AppService>();

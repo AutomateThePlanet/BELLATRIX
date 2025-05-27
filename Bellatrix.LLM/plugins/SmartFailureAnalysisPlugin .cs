@@ -31,7 +31,7 @@ public class SmartFailureAnalysisPlugin : Plugin, IScreenshotPlugin
     public SmartFailureAnalysisPlugin()
     {
         _screenshotOutputProvider = ServicesCollection.Current.Resolve<IScreenshotOutputProvider>();
-        _viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
+        _viewSnapshotProvider = ServicesCollection.Main.Resolve<IViewSnapshotProvider>();
     }
 
     public static void Add()

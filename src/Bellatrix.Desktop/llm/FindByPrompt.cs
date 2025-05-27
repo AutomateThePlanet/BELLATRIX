@@ -1,15 +1,16 @@
-﻿using Microsoft.SemanticKernel;
+﻿using Bellatrix.Desktop.LLM.Plugins;
+using Bellatrix.Desktop.Locators;
+using Bellatrix.Desktop.Services;
+using Bellatrix.LLM;
+using Bellatrix.LLM.Plugins;
+using Microsoft.SemanticKernel;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System;
-using Bellatrix.LLM;
-using Bellatrix.Desktop.Locators;
-using Bellatrix.Desktop.Services;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
-using Bellatrix.Desktop.LLM.Plugins;
 
 namespace Bellatrix.Desktop.LLM;
 
@@ -65,7 +66,7 @@ public class FindByPrompt : FindStrategy
         {
             var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? "";
             var mappedPrompt = SemanticKernelService.Kernel
-                .InvokeAsync("Mapper", "MatchPromptToKnownLocator", new()
+                .InvokeAsync(nameof(LocatorMapperSkill), nameof(LocatorMapperSkill.MatchPromptToKnownLocator), new()
                 {
                     ["pageSummary"] = pageSummary,
                     ["instruction"] = Value

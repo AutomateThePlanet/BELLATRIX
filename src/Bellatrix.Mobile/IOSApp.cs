@@ -11,18 +11,23 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
-
+using Bellatrix.LLM;
 using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Services;
 using Bellatrix.Mobile.Services.IOS;
 using OpenQA.Selenium.Appium.iOS;
+using System;
 
 namespace Bellatrix.Mobile;
 
 public class IOSApp : App<IOSDriver, AppiumElement>
 {
+    public IOSApp()
+    {
+        ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(AppService);
+    }
+
     public IOSAppService AppService => ServicesCollection.Current.Resolve<IOSAppService>();
 
     [Obsolete("DeviceService is deprecated use Device property instead.")]

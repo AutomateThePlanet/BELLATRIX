@@ -28,18 +28,16 @@ You are an AI assistant that maps user instructions to known UI locators.
 User wants to: {instruction}
 
 From the list of known locators below, pick the one that best matches and return its exact locator in the format:
-locator_strategy=locator_value
+xpath=...
 
 Known Locators:
 {pageSummary}
 
 Examples:
 For login button → return xpath=//button[@id='login']
-For search input → return id=input-search
+For search input → return xpath=//input[@id='input-search']
 
-Return ONLY one valid locator in that format. If no match is found, return Unknown.
+Return ONLY one valid XPath locator in that format. If no match is found, return Unknown.
 """;
     }
-
-
 }

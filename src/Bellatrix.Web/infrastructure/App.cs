@@ -39,6 +39,7 @@ public class App : IDisposable
     public App()
     {
         _apiClientService = GetNewApiClientService();
+        ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(Browser);
     }
 
     public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();

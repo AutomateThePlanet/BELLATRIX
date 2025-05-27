@@ -113,7 +113,7 @@ public class FindByPrompt : FindStrategy<IOSDriver, AppiumElement>
             var prompt = SemanticKernelService.Kernel?.InvokeAsync(nameof(IOSLocatorSkill), nameof(IOSLocatorSkill.BuildLocatorPrompt),
             new()
             {
-                ["htmlSummary"] = summaryJson,
+                ["viewSummaryJson"] = summaryJson,
                 ["instruction"] = Value,
                 ["failedSelectors"] = failedSelectors
             }).Result.GetValue<string>();

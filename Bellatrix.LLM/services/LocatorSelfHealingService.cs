@@ -69,8 +69,8 @@ public static class LocatorSelfHealingService
         var prompt = SemanticKernelService.Kernel.InvokeAsync("LocatorSkill", "HealBrokenLocator", new()
         {
             ["failedLocator"] = failingLocator,
-            ["oldViewummary"] = known.ViewSummary,
-            ["newViewSummary"] = newestVersionViewSummary
+            ["oldSnapshot"] = known.ViewSummary,
+            ["newSnapshot"] = newestVersionViewSummary
         }).Result.GetValue<string>();
 
         var suggestion = SemanticKernelService.Kernel.InvokePromptAsync(prompt).Result.GetValue<string>()?.Trim();

@@ -27,8 +27,7 @@ public class AppService<TDriver, TComponent> : MobileService<TDriver, TComponent
 {
     public AppService(TDriver wrappedDriver)
         : base(wrappedDriver)
-    {
-        ServicesCollection.Current.RegisterInstance<IViewSnapshotProvider>(this);
+    {        
     }
 
     public string Context { get => WrappedAppiumDriver.Context; set => WrappedAppiumDriver.Context = value; }

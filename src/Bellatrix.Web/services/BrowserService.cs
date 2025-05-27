@@ -33,7 +33,6 @@ public class BrowserService : WebService, IViewSnapshotProvider
     public BrowserService(IWebDriver wrappedDriver)
         : base(wrappedDriver)
     {
-        ServicesCollection.Current.RegisterInstance<IViewSnapshotProvider>(this);
     }
 
     public string HtmlSource => WrappedDriver.PageSource;

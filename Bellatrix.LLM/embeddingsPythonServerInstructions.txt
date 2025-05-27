@@ -10,6 +10,14 @@ In WebTests we need to call -> WebPluginsConfiguration.ConfigureLLM();
 
 - Execute this for local cache and postgres:
 
+
+// run both
+docker compose -f docker-compose.local_cache_postgres.yml up -d
+
+// run to start Qdrant in docker
+docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
+
+// run to start postgres in docker
 docker-compose -f docker-compose.local_cache_postgres.yml up -d
 
 docker-compose -f docker-compose.local_cache_postgres.yml down -v
