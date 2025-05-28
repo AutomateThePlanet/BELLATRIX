@@ -170,6 +170,7 @@ public class FindByPrompt : FindStrategy<AndroidDriver, AppiumElement>
 
             var result = SemanticKernelService.Kernel.InvokePromptAsync(prompt).Result;
             var rawSelector = result?.GetValue<string>()?.Trim();
+            rawSelector = ParsePromptLocatorToUIAutomator(rawSelector);
 
             if (string.IsNullOrWhiteSpace(rawSelector))
                 continue;

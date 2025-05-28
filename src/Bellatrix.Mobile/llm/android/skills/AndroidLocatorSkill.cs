@@ -30,9 +30,9 @@ public class AndroidLocatorSkill
             : "(none)";
 
         return $"""
-You are an AI assistant helping with Android mobile UI test automation using Appium.
+You are an AI assistant for Android UI test automation using Appium.
 
-Your task is to generate a valid, reliable **Android UIAutomator locator** that will scroll to and find the element based on:
+Your task is to generate a **valid UiAutomator selector string** for locating an Android element based on:
 - A user instruction
 - A structured snapshot of visible elements (JSON)
 - A list of previously failed selectors
@@ -50,30 +50,36 @@ Your task is to generate a valid, reliable **Android UIAutomator locator** that 
 
 ---
 
-✅ Return a **UiSelector** expression inside **UiScrollable** to scroll to the element:
-- textContains("...")
-- descriptionContains("...")
-- className("...")
-- resourceIdMatches(".*value.*")
+**UiAutomator Selector Rules (Strict):**
 
-✅ Format Examples:
-- uiautomator=new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().textContains("Login"))
-- uiautomator=new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().descriptionContains("Settings"))
-- uiautomator=new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().resourceIdMatches(".*submit.*"))
-- uiautomator=new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().className("android.widget.Button"))
+✅ Return only one of the following as a single line:
+- new UiSelector().text("Login")
+- new UiSelector().textContains("Settings")
+- new UiSelector().description("Save")
+- new UiSelector().descriptionContains("Edit")
+- new UiSelector().resourceId("com.example:id/button")
+- new UiSelector().className("android.widget.CheckBox")
+- new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("Submit"))
+
+✅ If scrolling is needed, use:
+- new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("..."))
 
 🚫 Do NOT use:
+- Any `uiautomator=` prefix
+- Any `=` between selectors
 - XPath locators
-- Multiple expressions or fallback options
-- Explanations or comments
+- Explanations, comments, markdown, or code blocks
+- Multiple selectors, only a single valid one
 
 ---
 
-**Return Format:**
-Only return a single line like:
-uiautomator=new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().textContains("Login"))
+**Return Format:**  
+Return ONLY the UiAutomator selector string as a single line.  
+For example:
+- new UiSelector().text("Login")
+- new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().className("android.widget.CheckBox"))
 
-Do not include anything else.
+Return nothing else.
 """;
     }
 
@@ -81,12 +87,14 @@ Do not include anything else.
     public string HealBrokenLocator(string failedLocator, string oldSnapshot, string newSnapshot)
     {
         return $"""
-You are an AI assistant helping to fix broken Android locators for Appium tests.
+You are an AI assistant for fixing broken Android UI locators for Appium.
 
-The original locator failed:
+The original UiAutomator locator failed:
 ❌ Failed: {failedLocator}
 
-Your job is to return a **new valid uiautomator locator** using the updated view snapshot.
+Your task is to generate a **new valid UiAutomator selector string** based on:
+- A previously working view summary (JSON)
+- A new view snapshot after the failure
 
 ---
 
@@ -98,17 +106,24 @@ Your job is to return a **new valid uiautomator locator** using the updated view
 
 ---
 
-✅ Guidelines:
-- Use UiScrollable + UiSelector syntax
-- Prefer textContains, descriptionContains, resourceIdMatches
-- One clean line, no explanations
+**Guidelines:**
+
+✅ Use ONLY UiSelector or UiScrollable + UiSelector, e.g.:
+- new UiSelector().text("Login")
+- new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().descriptionContains("Settings"))
+
+🚫 Do NOT use:
+- Any `uiautomator=` prefix
+- XPath selectors
+- Comments, explanations, markdown, or code blocks
 
 ---
 
-**Output Format Example:**
-uiautomator=new UiScrollable(new UiSelector()).scrollIntoView(new UiSelector().textContains("Login"))
-
-Return ONLY a single locator line.
+**Output Format:**  
+Return ONLY the new UiAutomator selector as a single line, nothing else.
+For example:
+- new UiSelector().text("Submit")
+- new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().textContains("Continue"))
 """;
     }
 }
