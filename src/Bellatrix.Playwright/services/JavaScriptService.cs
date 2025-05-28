@@ -51,7 +51,7 @@ public class JavaScriptService : WebService
         }
         catch (Exception ex)
         {
-            Debug.WriteLine(ex);
+            Logger.LogError(ex.ToString());
             return default;
         }
     }

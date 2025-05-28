@@ -25,9 +25,9 @@ namespace Bellatrix.Mobile.Android;
 
 public static class ComponentPromptCreateExtensions
 {
-    public static TComponent CreateByPrompt<TComponent>(this AndroidComponent element, string instruction)
-        where TComponent : AndroidComponent => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction));
+    public static TComponent CreateByPrompt<TComponent>(this AndroidComponent element, string instruction, bool tryResolveFromPages = true)
+        where TComponent : AndroidComponent => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction, tryResolveFromPages));
 
-    public static ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement> CreateAllByPrompt<TComponent>(this Component<AndroidDriver, AppiumElement> element, string instruction)
-        where TComponent : Component<AndroidDriver, AppiumElement> => new ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement>(new FindByPrompt(instruction), element.WrappedElement);
+    public static ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement> CreateAllByPrompt<TComponent>(this Component<AndroidDriver, AppiumElement> element, string instruction, bool tryResolveFromPages = true)
+        where TComponent : Component<AndroidDriver, AppiumElement> => new ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement>(new FindByPrompt(instruction, tryResolveFromPages), element.WrappedElement);
 }

@@ -22,10 +22,10 @@ namespace Bellatrix.Playwright;
 
 public static class ComponentPromptRepositoryExtensions
 {
-    public static TComponent CreateByPrompt<TComponent>(this ComponentCreateService repository, string instruction)
-    where TComponent : Component => repository.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction));
+    public static TComponent CreateByPrompt<TComponent>(this ComponentCreateService repository, string instruction, bool tryResolveFromPages = true)
+    where TComponent : Component => repository.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction, tryResolveFromPages));
 
-    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this ComponentCreateService repository, string instruction)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction));
+    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this ComponentCreateService repository, string instruction, bool tryResolveFromPages = true)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction, tryResolveFromPages));
 
 }

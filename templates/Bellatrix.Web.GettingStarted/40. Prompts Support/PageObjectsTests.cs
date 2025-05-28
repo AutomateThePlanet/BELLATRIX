@@ -2,6 +2,7 @@
 using BA = Bellatrix.Assertions;
 using static Bellatrix.AiValidator;
 using static Bellatrix.AiAssert;
+using Bellatrix.LLM;
 namespace Bellatrix.Web.GettingStarted.LLM;
 
 [TestFixture]
@@ -10,6 +11,7 @@ public class PageObjectsTests : NUnit.WebTest
     [Test]
     public void PurchaseRocketWithPageObjects_LLM()
     {
+        LocatorCacheService.RemoveAllLocators(); // Clear the cache to ensure fresh locator prompts
         var homePage = App.GoTo<HomePage>();
         homePage.FilterProducts(ProductFilter.Popularity);
         //homePage.AddProductById(28);
@@ -31,7 +33,8 @@ public class PageObjectsTests : NUnit.WebTest
         var cartPage = App.Create<CartPage>();
         cartPage.ApplyCoupon("happybirthday");
 
-        var product2Quantity = App.Components.CreateByPrompt<Number>("find 'Saturn V' quantity number input");
+        
+        var product2Quantity = App.Components.CreateByPrompt<Number>("find 'Saturn V' quantity number input", false);
         product2Quantity.SetNumber(2);
         cartPage.UpdateCart.Click();
 

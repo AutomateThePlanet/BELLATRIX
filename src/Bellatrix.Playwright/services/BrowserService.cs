@@ -12,16 +12,17 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.LLM;
 using Bellatrix.Playwright.Enums;
 using Bellatrix.Playwright.Services.Browser;
-using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.Playwright.Settings;
+using Bellatrix.Playwright.Settings.Extensions;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Bellatrix.Playwright.Services;
-public class BrowserService : WebService
+public class BrowserService : WebService, IViewSnapshotProvider
 {
     public BrowserService(WrappedBrowser wrappedBrowser)
     : base(wrappedBrowser)
@@ -325,6 +326,7 @@ public class BrowserService : WebService
     public string GetCurrentViewSnapshot()
     {
         var script = @"
+(() => {
     return JSON.stringify((function deepScan(root) {
         const result = [];
         const stack = [{ node: root, depth: 0 }];
@@ -374,8 +376,10 @@ public class BrowserService : WebService
 
         return result;
     })(document.body));
-    ";
-        return InvokeScript(script);
+})()
+";
+        var javaScriptService = new JavaScriptService(WrappedBrowser);
+        return javaScriptService.Execute<string>(script);
     }
 
     private string InvokeScript(string scriptToInvoke)

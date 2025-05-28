@@ -23,15 +23,18 @@ public class PageObjectsTests : NUnit.WebTest
         //AssertByPrompt("validate that view cart button is visible");
         ValidateByPrompt("validate that view cart button is visible");
 
-        var product2 = App.Components.CreateByPrompt<Anchor>("find Add to cart anchor under 'Saturn V' item");
+        var product2 = App.Components.CreateByPrompt<Anchor>("find Add to cart anchor under 'Saturn V' item", false);
         product2.Click();
 
-        homePage.ViewCartButton.Click();
+
+        var viewCart2 = App.Components.CreateByPrompt<Anchor>("find view cart button under 'Saturn V' item", false);
+        viewCart2.Click();
+        // homePage.ViewCartButton.Click();
 
         var cartPage = App.Create<CartPage>();
         cartPage.ApplyCoupon("happybirthday");
 
-        var product2Quantity = App.Components.CreateByPrompt<Number>("find 'Saturn V' quantity number input");
+        var product2Quantity = App.Components.CreateByPrompt<Number>("find 'Saturn V' quantity number input", false);
         product2Quantity.SetNumber(2);
         cartPage.UpdateCart.Click();
 

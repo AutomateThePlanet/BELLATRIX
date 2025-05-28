@@ -20,7 +20,7 @@ using Bellatrix.Mobile.Core;
 using Bellatrix.Mobile.LLM.IOS;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.llm.ios.extensions;
+namespace Bellatrix.Mobile.IOS;
 
 public static class ComponentPromptRepositoryExtensions
 {

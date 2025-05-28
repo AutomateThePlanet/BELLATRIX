@@ -19,6 +19,7 @@ using Bellatrix.Assertions;
 using Bellatrix.AWS;
 using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
+using Bellatrix.LLM;
 using Bellatrix.Playwright.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Playwright.Controls.EventHandlers;
 using Bellatrix.Playwright.Proxy;
@@ -35,6 +36,7 @@ public class App : IDisposable
     public App()
     {
         _apiClientService = GetNewApiClientService();
+        ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(Browser);
     }
 
     public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();

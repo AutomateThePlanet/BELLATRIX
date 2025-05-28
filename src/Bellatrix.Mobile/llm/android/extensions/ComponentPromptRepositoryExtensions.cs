@@ -24,9 +24,9 @@ namespace Bellatrix.Mobile.Android;
 
 public static class ComponentPromptRepositoryExtensions
 {
-    public static TComponent CreateByPrompt<TComponent>(this ComponentCreateService repo, string instruction)
-    where TComponent : Component<AndroidDriver, AppiumElement> => repo.Create<TComponent, FindByPrompt, AndroidDriver, AppiumElement>(new FindByPrompt(instruction));
-    public static ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement> CreateAllByPrompt<TComponent>(this ComponentCreateService repo, string instruction)
-        where TComponent : Component<AndroidDriver, AppiumElement> => new ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement>(new FindByPrompt(instruction), null);
+    public static TComponent CreateByPrompt<TComponent>(this ComponentCreateService repo, string instruction, bool tryResolveFromPages = true)
+    where TComponent : Component<AndroidDriver, AppiumElement> => repo.Create<TComponent, FindByPrompt, AndroidDriver, AppiumElement>(new FindByPrompt(instruction, tryResolveFromPages));
+    public static ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement> CreateAllByPrompt<TComponent>(this ComponentCreateService repo, string instruction, bool tryResolveFromPages = true)
+        where TComponent : Component<AndroidDriver, AppiumElement> => new ComponentsList<TComponent, FindByPrompt, AndroidDriver, AppiumElement>(new FindByPrompt(instruction, tryResolveFromPages), null);
 
 }

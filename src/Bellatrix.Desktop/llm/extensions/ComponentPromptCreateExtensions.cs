@@ -21,9 +21,9 @@ namespace Bellatrix.Desktop.LLM.Extensions;
 
 public static class ComponentPromptCreateExtensions
 {
-    public static TComponent CreateByIdEndingWith<TComponent>(this Component element, string instruction)
-        where TComponent : Component => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction));
+    public static TComponent CreateByIdEndingWith<TComponent>(this Component element, string instruction, bool tryResolveFromPages = true)
+        where TComponent : Component => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction, tryResolveFromPages));
 
-    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this Component component, string instruction, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this Component component, string instruction, bool tryResolveFromPages = true, bool shouldCacheFoundElements = false)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction, tryResolveFromPages), null, shouldCacheFoundElements);
 }

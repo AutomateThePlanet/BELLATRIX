@@ -20,14 +20,14 @@ using Bellatrix.Mobile.Core;
 using Bellatrix.Mobile.LLM.IOS;
 using OpenQA.Selenium.Appium.iOS;
 
-namespace Bellatrix.Mobile.llm.ios.extensions;
+namespace Bellatrix.Mobile.IOS;
 
 public static class ComponentPromptCreateExtensions
 {
-    public static TComponent CreateByPrompt<TComponent>(this Component<IOSDriver, AppiumElement> element, string instruction)
-    where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction));
+    public static TComponent CreateByPrompt<TComponent>(this Component<IOSDriver, AppiumElement> element, string instruction, bool tryResolveFromPages = true)
+    where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction, tryResolveFromPages));
 
-    public static ComponentsList<TComponent, FindByPrompt, IOSDriver, AppiumElement> CreateAllByPrompt<TComponent>(this Component<IOSDriver, AppiumElement> element, string instruction)
-        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindByPrompt, IOSDriver, AppiumElement>(new FindByPrompt(instruction), element.WrappedElement);
+    public static ComponentsList<TComponent, FindByPrompt, IOSDriver, AppiumElement> CreateAllByPrompt<TComponent>(this Component<IOSDriver, AppiumElement> element, string instruction, bool tryResolveFromPages = true)
+        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindByPrompt, IOSDriver, AppiumElement>(new FindByPrompt(instruction, tryResolveFromPages), element.WrappedElement);
 
 }

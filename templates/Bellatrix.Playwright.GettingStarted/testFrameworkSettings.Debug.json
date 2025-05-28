@@ -245,7 +245,7 @@
     "memoryIndex": "PageObjects",
     "resetIndexEverytime": false,
     "locatorRetryAttempts": 3,
-    "validationsTimeout": 5,
+    "validationsTimeout": 15,
     "sleepInterval": 1,
     "enableSelfHealing": true,
     "enableSmartFailureAnalysis": true

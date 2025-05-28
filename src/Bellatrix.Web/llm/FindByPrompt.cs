@@ -34,11 +34,15 @@ namespace Bellatrix.Web.LLM;
 /// </summary>
 public class FindByPrompt : FindStrategy
 {
+    private bool _tryResolveFromPages = true;
     /// <summary>
     /// Initializes a new instance of the <see cref="FindByPrompt"/> class with the specified prompt value.
     /// </summary>
     /// <param name="value">The natural language prompt used to locate the element.</param>
-    public FindByPrompt(string value) : base(value) { }
+    public FindByPrompt(string value, bool tryResolveFromPages = true) : base(value) 
+    {
+        _tryResolveFromPages = tryResolveFromPages;
+    }
 
     /// <summary>
     /// Converts the natural language prompt to a Selenium <see cref="By"/> locator.
@@ -50,11 +54,15 @@ public class FindByPrompt : FindStrategy
     {
         var driver = ServicesCollection.Current.Resolve<IWebDriver>();
 
-        // Step 1: Try to match from RAG memory
-        var ragLocator = TryResolveFromPageObjectMemory(driver, Value);
-        if (ragLocator != null && IsElementPresent(driver, ragLocator))
+        if (_tryResolveFromPages)
         {
-            return ragLocator;
+            // Step 1: Try to match from RAG memory
+            var ragLocator = TryResolveFromPageObjectMemory(driver, Value);
+            if (ragLocator != null && IsElementPresent(driver, ragLocator))
+            {
+                Logger.LogInformation($"✅ Using RAG-located element '{ragLocator}' For '${Value}'");
+                return ragLocator;
+            }
         }
 
         // Step 2: Try local persistent cache
@@ -161,6 +169,11 @@ public class FindByPrompt : FindStrategy
     /// <exception cref="ArgumentException">Thrown if the selector type is unsupported.</exception>
     private static By ParsePromptLocatorToBy(string promptResult)
     {
+        if (promptResult == "Unknown")
+        {
+            return null;
+        }
+
         var parts = Regex.Match(promptResult, @"^\s*xpath\s*=\s*(//.+)$", RegexOptions.IgnoreCase);
         if (!parts.Success)
         {

@@ -14,19 +14,29 @@
 // <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
-using Microsoft.SemanticKernel;
-using System.Text.RegularExpressions;
-using System.Threading;
 using Bellatrix.LLM;
-using Bellatrix.Playwright.Locators;
 using Bellatrix.LLM.Plugins;
 using Bellatrix.Playwright.LLM.Plugins;
+using Bellatrix.Playwright.Locators;
+using Microsoft.Identity.Client;
+using Microsoft.SemanticKernel;
+using Pipelines.Sockets.Unofficial.Arenas;
+using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Bellatrix.Playwright.LLM;
 
 public class FindByPrompt : FindStrategy
 {
-    public FindByPrompt(string value) : base(value) { }
+    private bool _tryResolveFromPages = true;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FindByPrompt"/> class with the specified prompt value.
+    /// </summary>
+    /// <param name="value">The natural language prompt used to locate the element.</param>
+    public FindByPrompt(string value, bool tryResolveFromPages = true) : base(value)
+    {
+        _tryResolveFromPages = tryResolveFromPages;
+    }
 
     public override WebElement Resolve(BrowserPage searchContext)
     {
@@ -46,25 +56,31 @@ public class FindByPrompt : FindStrategy
 
     private FindStrategy TryResolveLocator(string location, IViewSnapshotProvider snapshotProvider)
     {
-        // Try from memory
-        var match = SemanticKernelService.Memory
+        if (_tryResolveFromPages)
+        {
+            // Try from memory
+            var match = SemanticKernelService.Memory
             .SearchAsync(Value, index: "PageObjects", limit: 1)
             .Result.Results.FirstOrDefault();
 
-        if (match != null)
-        {
-            var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? "";
-            var mappedPrompt = SemanticKernelService.Kernel
-                .InvokeAsync(nameof(LocatorMapperSkill), nameof(LocatorMapperSkill.MatchPromptToKnownLocator), new()
-                {
-                    ["pageSummary"] = pageSummary,
-                    ["instruction"] = Value
-                }).Result.GetValue<string>();
-
-            var locator = new FindXpathStrategy(mappedPrompt);
-            if (locator != null)
+            if (match != null)
             {
-                return locator;
+                var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? "";
+                var mappedPrompt = SemanticKernelService.Kernel
+                    .InvokeAsync(nameof(LocatorMapperSkill), nameof(LocatorMapperSkill.MatchPromptToKnownLocator), new()
+                    {
+                        ["pageSummary"] = pageSummary,
+                        ["instruction"] = Value
+                    }).Result.GetValue<string>();
+
+                var result = SemanticKernelService.Kernel.InvokePromptAsync(mappedPrompt).Result;
+                var rawLocator = result?.GetValue<string>()?.Trim();
+                var ragLocator = new FindXpathStrategy(rawLocator);
+                if (ragLocator != null)
+                {
+                    Logger.LogInformation($"✅ Using RAG-located element '{ragLocator}' For '${Value}'");
+                    return ragLocator;
+                }
             }
         }
 
@@ -96,8 +112,7 @@ public class FindByPrompt : FindStrategy
                     ["failedSelectors"] = failedSelectors
                 }).Result.GetValue<string>();
 
-            var result = SemanticKernelService.Kernel
-                .InvokePromptAsync(prompt).Result;
+            var result = SemanticKernelService.Kernel.InvokePromptAsync(prompt).Result;
             var raw = result?.GetValue<string>()?.Trim();
 
             if (!string.IsNullOrWhiteSpace(raw))

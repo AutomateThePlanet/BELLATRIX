@@ -22,9 +22,9 @@ namespace Bellatrix.Web;
 public static class ComponentPromptCreateExtensions
 {
     // TODO: Should create similar summary HTML info based on element inner HTML, right now we will search in full HTML, adding this for usability purposes.
-    public static TComponent CreateByPrompt<TComponent>(this Component element, string instruction, bool shouldCacheElement = false)
-        where TComponent : Component => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction), shouldCacheElement);
+    public static TComponent CreateByPrompt<TComponent>(this Component element, string instruction, bool tryResolveFromPages = true, bool shouldCacheElement = false)
+        where TComponent : Component => element.Create<TComponent, FindByPrompt>(new FindByPrompt(instruction, tryResolveFromPages), shouldCacheElement);
 
-    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this Component component, string instruction, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction), null, shouldCacheFoundElements);
+    public static ComponentsList<TComponent> CreateAllByPrompt<TComponent>(this Component component, string instruction, bool tryResolveFromPages = true, bool shouldCacheFoundElements = false)
+        where TComponent : Component => new ComponentsList<TComponent>(new FindByPrompt(instruction, tryResolveFromPages), null, shouldCacheFoundElements);
 }
