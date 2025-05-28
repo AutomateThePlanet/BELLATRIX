@@ -118,9 +118,6 @@ public static class LocatorCacheService
         _db.SaveChanges();
     }
 
-    /// <summary>
-    /// Disposes the database context when no longer needed.
-    /// </summary>
     public static void Dispose()
     {
         _db?.Dispose();
