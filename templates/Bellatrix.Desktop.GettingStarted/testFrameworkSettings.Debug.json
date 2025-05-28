@@ -23,7 +23,7 @@
       "shouldStartLocalService": "false",
       "resolution": "",
       "defaultAppPath": "AssemblyFolder\\Demos\\Wpf\\WPFSampleApp.exe",
-      "url": "http://127.0.0.1:4723",
+      "url": "http://127.0.0.1:4720",
       "arguments": [
         {
           //"name": "{runName}",
@@ -132,7 +132,7 @@
     "memoryIndex": "PageObjects",
     "resetIndexEverytime": false,
     "locatorRetryAttempts": 3,
-    "validationsTimeout": 5,
+    "validationsTimeout": 15,
     "sleepInterval": 1,
     "enableSelfHealing": true,
     "enableSmartFailureAnalysis": true

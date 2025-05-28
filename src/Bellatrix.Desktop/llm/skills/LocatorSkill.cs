@@ -51,51 +51,43 @@ based on:
 
 ---
 
-**WinAppDriver XPath Guidelines (strict compatibility):**
+**STRICT WinAppDriver XPath Rules:**
 
-✅ Use XPath expressions with **direct attribute matches only**:
-- `@AutomationId`
-- `@Name`
-- `@ClassName`
-- `@ControlType`
-- `@HelpText`
-- `@Value.Value` (optional, if available)
-
-✅ Examples of valid XPath:
+✅ Use only **PascalCase** element tags (e.g., `ComboBox`, `Edit`, `Button`, `Text`, `Pane`, etc.)  
+✅ Use only **PascalCase** attribute names (`AutomationId`, `Name`, `ClassName`, `ControlType`, `HelpText`, `Value.Value`).
+✅ Use only direct, case-sensitive attribute matches (no contains, no normalize-space, etc).
+✅ Example valid XPath:
+- `//ComboBox[@AutomationId='select']`
 - `//Edit[@Name='Username']`
 - `//Button[@AutomationId='SubmitBtn']`
 - `//Text[@HelpText='Tooltip message']`
 
-✅ Format rules:
-- Use lowercase tag names (e.g., `edit`, `button`, `text`)
-- Attribute values must be wrapped in single quotes: `@Name='Login'`
-- Return the shortest valid XPath with a single attribute condition
+🚫 NEVER use:
+- Lowercase tag or attribute names (e.g., `//combobox[@automationid='select']` is INVALID)
+- Any case conversion or function (translate, lower-case, upper-case, etc)
+- contains(), normalize-space(), substring(), axes, positions, or multiple conditions.
 
-🚫 Do NOT use:
-- `contains(...)`
-- `normalize-space(...)`
-- `substring(...)`
-- XPath axes like `ancestor::`, `following::`, `preceding-sibling::`
-- Position-based XPath (e.g., `(//Edit)[2]`)
-- Multiple conditions (e.g., `[@Name='X' and @AutomationId='Y']`)
+**You MUST match tag and attribute names in PascalCase exactly as in the WinAppDriver XML.**
 
 ---
 
 **Return Format:**
-Only return a single valid XPath string like:
+Return only a single valid, case-sensitive XPath string using PascalCase for both tag and attribute, e.g.:
+- //ComboBox[@AutomationId='select']
 - //Edit[@Name='Username']
-- //Button[@AutomationId='LoginBtn']
-- //Pane[@ClassName='MainPanel']
 
-Do not include:
+🚫 Do NOT include:
 - Explanations
 - Multiple lines
 - Comments
 - Markdown formatting
+- Code blocks (no triple backticks or ``` around the XPath)
+- Extra whitespace or newlines before or after the XPath
 
-Only return the XPath string.
+✅ Return ONLY the XPath string as a single line, nothing else.
 """;
     }
+
 
     [KernelFunction]
     public string HealBrokenLocator(string failedLocator, string oldSnapshot, string newSnapshot)
@@ -121,23 +113,42 @@ using:
 
 ---
 
-✅ XPath must match one of the following formats:
-- //Edit[@Name='Username']
-- //Button[@AutomationId='Submit']
-- //Text[@HelpText='Tooltip']
+**STRICT WinAppDriver XPath Rules:**
 
-🚫 Do NOT use:
-- contains()
-- normalize-space()
-- substring()
-- any complex or relative XPath
+✅ Use only **PascalCase** element tags (e.g., `ComboBox`, `Edit`, `Button`, `Text`, `Pane`, etc.)
+✅ Use only **PascalCase** attribute names (`AutomationId`, `Name`, `ClassName`, `ControlType`, `HelpText`, `Value.Value`)
+✅ Use only direct, case-sensitive attribute matches—NO functions, partial, or case-insensitive matching
+
+✅ Example valid XPath:
+- //ComboBox[@AutomationId='select']
+- //Edit[@Name='Username']
+- //Button[@AutomationId='SubmitBtn']
+- //Text[@HelpText='Tooltip message']
+
+🚫 NEVER use:
+- Lowercase tag or attribute names (e.g., `//combobox[@automationid='select']` is INVALID)
+- Any case conversion or function (`translate`, `lower-case`, `upper-case`)
+- contains(), normalize-space(), substring(), axes, positions, or multiple conditions
+
+**You MUST match tag and attribute names in PascalCase exactly as in the WinAppDriver XML.**
 
 ---
 
 **Return Format:**
-Return only a single valid XPath expression, as a one-line string.
+Only return a single valid, case-sensitive XPath string using PascalCase for both tag and attribute, e.g.:
+- //ComboBox[@AutomationId='select']
+- //Edit[@Name='Username']
 
-Return NOTHING else.
+🚫 Do NOT include:
+- Explanations
+- Multiple lines
+- Comments
+- Markdown formatting
+- Code blocks (no triple backticks or ``` around the XPath)
+- Extra whitespace or newlines before or after the XPath
+
+✅ Return ONLY the XPath string as a single line, nothing else.
 """;
     }
+
 }

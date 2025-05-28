@@ -171,7 +171,7 @@ public class FindByPrompt : FindStrategy
             var prompt = SemanticKernelService.Kernel?.InvokeAsync(nameof(LocatorSkill), nameof(LocatorSkill.BuildLocatorPrompt),
                 new()
                 {
-                    ["htmlSummary"] = summaryJson,
+                    ["viewSummaryJson"] = summaryJson,
                     ["instruction"] = Value,
                     ["failedSelectors"] = failedSelectors
                 }).Result.GetValue<string>();

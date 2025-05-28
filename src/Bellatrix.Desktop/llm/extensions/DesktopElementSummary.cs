@@ -25,5 +25,20 @@ public class DesktopElementSummary
     public string ControlType { get; set; }
     public string Value { get; set; }
     public string HelpText { get; set; }
-    public bool Enabled { get; set; }
+    public bool? IsSelected { get; set; }
+    public string ToggleState { get; set; }
+    public string ExpandCollapseState { get; set; }
+    public string Selection { get; set; }
+    public bool? IsEnabled { get; set; }
+    public bool? IsOffscreen { get; set; }
+    public bool? IsPassword { get; set; }
+    public bool? IsAvailable { get; set; }
+    public bool? HasKeyboardFocus { get; set; }
+    public bool? IsKeyboardFocusable { get; set; }
+    public string Orientation { get; set; }
+    public string Minimum { get; set; }
+    public string Maximum { get; set; }
+    public string LargeChange { get; set; }
+    public string SmallChange { get; set; }
+    // Add more as needed from the XML source
 }

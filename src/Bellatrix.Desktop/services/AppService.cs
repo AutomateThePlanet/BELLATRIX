@@ -56,19 +56,43 @@ public class AppService : DesktopService, IViewSnapshotProvider
         }
 
         List<DesktopElementSummary> elements = nodes
-            .Select(node => new DesktopElementSummary
-            {
-                Tag = node.Name,
-                AutomationId = node.GetAttributeValue("AutomationId", null),
-                Name = node.GetAttributeValue("Name", null),
-                ClassName = node.GetAttributeValue("ClassName", null),
-                ControlType = node.GetAttributeValue("ControlType", null),
-                Value = node.GetAttributeValue("Value.Value", null),
-                HelpText = node.GetAttributeValue("HelpText", null)
-            })
-            .Where(x => !string.IsNullOrWhiteSpace(x.Name) || !string.IsNullOrWhiteSpace(x.AutomationId))
-            .ToList();
+      .Select(node => new DesktopElementSummary
+      {
+          Tag = node.Name,
+          AutomationId = node.GetAttributeValue("AutomationId", null),
+          Name = node.GetAttributeValue("Name", null),
+          ClassName = node.GetAttributeValue("ClassName", null),
+          ControlType = node.GetAttributeValue("ControlType", null),
+          Value = node.GetAttributeValue("Value.Value", null) ?? node.GetAttributeValue("Value", null),
+          HelpText = node.GetAttributeValue("HelpText", null),
+          IsSelected = ParseNullableBool(node.GetAttributeValue("IsSelected", null)),
+          ToggleState = node.GetAttributeValue("ToggleState", null),
+          ExpandCollapseState = node.GetAttributeValue("ExpandCollapseState", null),
+          Selection = node.GetAttributeValue("Selection", null),
+          IsEnabled = ParseNullableBool(node.GetAttributeValue("IsEnabled", null)),
+          IsOffscreen = ParseNullableBool(node.GetAttributeValue("IsOffscreen", null)),
+          IsPassword = ParseNullableBool(node.GetAttributeValue("IsPassword", null)),
+          IsAvailable = ParseNullableBool(node.GetAttributeValue("IsAvailable", null)),
+          HasKeyboardFocus = ParseNullableBool(node.GetAttributeValue("HasKeyboardFocus", null)),
+          IsKeyboardFocusable = ParseNullableBool(node.GetAttributeValue("IsKeyboardFocusable", null)),
+          Orientation = node.GetAttributeValue("Orientation", null),
+          Minimum = node.GetAttributeValue("Minimum", null),
+          Maximum = node.GetAttributeValue("Maximum", null),
+          LargeChange = node.GetAttributeValue("LargeChange", null),
+          SmallChange = node.GetAttributeValue("SmallChange", null)
+      })
+      .Where(x => !string.IsNullOrWhiteSpace(x.Name) || !string.IsNullOrWhiteSpace(x.AutomationId))
+      .ToList();
 
         return JsonConvert.SerializeObject(elements, Formatting.None);
+    }
+
+    private static bool? ParseNullableBool(string value)
+    {
+        if (value == null)
+            return null;
+        if (bool.TryParse(value, out var result))
+            return result;
+        return null;
     }
 }

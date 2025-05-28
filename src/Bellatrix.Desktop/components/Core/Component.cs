@@ -247,7 +247,7 @@ public partial class Component
                 if (_llmSettings.EnableSelfHealing)
                 {
                     var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
-                    LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
+                    LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedDriver.Title);
                 }
 
                 _untils.Clear();
@@ -263,7 +263,7 @@ public partial class Component
                 Logger.LogWarning($"⚠️ Element not found with locator: {By}. Trying AI-based healing...");
 
                 var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
-                var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
+                var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, WrappedDriver.Title);
 
                 if (!string.IsNullOrEmpty(healedXpath))
                 {
