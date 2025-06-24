@@ -24,4 +24,4 @@ jobs:
       - name: Build
         run: dotnet build --configuration Debug --no-restore
       - name: Test
-        run: dotnet test --no-build --no-restore --verbosity normal --filter FullyQualifiedName=Bellatrix.API.Tests.ApiClientServiceNotAsyncRequestTests.ContentPopulated_When_GetAlbums
+        run: dotnet test --no-build --no-restore --verbosity normal --filter Category=CI
