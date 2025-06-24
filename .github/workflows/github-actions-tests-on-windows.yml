@@ -22,6 +22,6 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet build --configuration Debug --no-restore
+        run: dotnet build --configuration Debug --no-restore --no-parallel
       - name: Test
         run: dotnet test --no-build --no-restore --verbosity normal --filter Category=CI
