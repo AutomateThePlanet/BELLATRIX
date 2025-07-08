@@ -80,6 +80,11 @@ public static class ProcessCleanupService
         {
             try
             {
+                if (!OperatingSystem.IsWindows())
+                {
+                    continue;
+                }
+
                 var children = process.GetChildProcesses();
                 foreach (var child in children)
                 {
