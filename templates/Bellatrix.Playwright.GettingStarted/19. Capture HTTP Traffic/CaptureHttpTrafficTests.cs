@@ -52,6 +52,7 @@ public class CaptureHttpTrafficTests : NUnit.WebTest
         App.Proxy.AssertNoLargeImagesRequested();
 
         // Check if some specific request is made.
+        App.Browser.WaitForAjax();
         App.Proxy.AssertRequestMade("https://demos.bellatrix.solutions/wp-content/uploads/2018/04/cropped-bellatrix-logo.png");
     }
 

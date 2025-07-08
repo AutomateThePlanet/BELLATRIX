@@ -39,7 +39,7 @@ public class Anchor : Component, IComponentHref, IComponentInnerText, IComponent
     }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public virtual string Href => HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("href")));
+    public virtual string Href => new Uri(new Uri(WrappedBrowser.CurrentPage.Url), HttpUtility.HtmlDecode(HttpUtility.UrlDecode(GetAttribute("href")))).AbsoluteUri;
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual string InnerText => GetInnerText();

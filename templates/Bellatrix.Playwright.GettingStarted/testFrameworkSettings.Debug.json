@@ -10,7 +10,7 @@
     "waitUntilReadyOnElementFound": "false",
     "waitForAngular": "false",
     "shouldHighlightElements": "true",
-    "shouldCaptureHttpTraffic": "false",
+    "shouldCaptureHttpTraffic": "true",
     "pathToSslCertificate": "path",
     "shouldCheckForJavaScriptErrors": "false",
     "timeoutSettings": {
@@ -227,7 +227,7 @@
     "modelSettings": [
       {
         "endpoint": "env_AZURE_OPENAI_ENDPOINT",
-        "key": "env_AZURE_OPENAI_KEY",
+        "key": "env_AZURE_OPENAI_API_KEY",
         "deployment": "gpt-4o"
       },
       {

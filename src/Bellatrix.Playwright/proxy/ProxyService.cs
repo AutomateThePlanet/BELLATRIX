@@ -51,7 +51,7 @@ public class ProxyService : WebService
     {
         if (IsEnabled)
         {
-            Console.WriteLine($"Start proxy on port {Port}"); 
+            Console.WriteLine($"Start proxy on port {Port}");
             Console.WriteLine($"PROXY STARTED");
             OnRequestCaptureTraffic();
             OnResponseCaptureTraffic();
@@ -191,7 +191,7 @@ public class ProxyService : WebService
     {
         if (!IsEnabled)
         {
-            throw new ArgumentException("ProxyService is not enabled. To use open testFramework.json and set isEnabled = true of webProxySettings");
+            throw new ArgumentException("ProxyService is not enabled. To use open testFrameworkSettings json and set ShouldCaptureHttpTraffic = true of webSettings");
         }
     }
 

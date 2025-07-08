@@ -25,7 +25,7 @@ public static class SecretsResolver
     {
         if (getConfigValue().StartsWith("env_"))
         {
-            string environmentalVariable = Environment.GetEnvironmentVariable(getConfigValue().Replace("env_", string.Empty), EnvironmentVariableTarget.Machine);
+            string environmentalVariable = Environment.GetEnvironmentVariable(getConfigValue().Replace("env_", string.Empty));
             return environmentalVariable;
         }
         else if (getConfigValue().StartsWith("vault_"))
