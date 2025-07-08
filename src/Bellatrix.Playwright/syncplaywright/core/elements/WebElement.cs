@@ -38,7 +38,19 @@ public class WebElement
         WrappedLocator = element.WrappedLocator;
     }
 
-    public ILocator WrappedLocator { get; set; }
+    private ILocator _wrappedLocator;
+
+    public ILocator WrappedLocator
+    {
+        get
+        {
+            return _wrappedLocator.First;
+        }
+        set
+        {
+            _wrappedLocator = value;
+        }
+    }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual WebElement First => new WebElement(Page, WrappedLocator.First);
