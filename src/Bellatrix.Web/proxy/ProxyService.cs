@@ -74,7 +74,7 @@ public class ProxyService : IDisposable
         {
             Port = GetFreeTcpPort();
             var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, Port);
-            Console.WriteLine($"Start proxy on port {Port}"); 
+            Console.WriteLine($"Start proxy on port {Port}");
             ProxyServer.AddEndPoint(explicitEndPoint);
             ProxyServer.Start();
             Console.WriteLine($"PROXY STARTED");
@@ -225,7 +225,7 @@ public class ProxyService : IDisposable
     {
         if (!IsEnabled)
         {
-            throw new ArgumentException("ProxyService is not enabled. To use open testFramework.json and set isEnabled = true of webProxySettings");
+            throw new ArgumentException("ProxyService is not enabled. To use open testFrameworkSettings json and set ShouldCaptureHttpTraffic = true of webSettings");
         }
     }
 
