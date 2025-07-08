@@ -10,7 +10,7 @@
     "waitUntilReadyOnElementFound": "false",
     "waitForAngular": "false",
     "shouldHighlightElements": "true",
-    "shouldCaptureHttpTraffic": "false",
+    "shouldCaptureHttpTraffic": "true",
     "pathToSslCertificate": "path",
     "shouldCheckForJavaScriptErrors": "false",
     "fullPageScreenshotsEnabled": "true",
