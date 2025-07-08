@@ -14,7 +14,7 @@
 
 namespace Bellatrix.Web;
 
-public class FindAttributeContainingStrategy : FindXpathStrategy
+public class FindAttributeContainingStrategy : FindCssStrategy
 {
     private readonly string _attributeName;
     private readonly string _value;
