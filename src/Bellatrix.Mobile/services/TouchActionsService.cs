@@ -66,10 +66,10 @@ public class TouchActionsService<TDriver, TDriverElement> : MobileService<TDrive
         var sequence = new SI.ActionSequence(touchAction, 0);
         sequence.AddAction(touchAction.CreatePointerMove(SI.CoordinateOrigin.Viewport, element.Location.X, element.Location.Y, TimeSpan.Zero));
         sequence.AddAction(touchAction.CreatePointerDown(PointerButton.TouchContact));
-        //if (waitTimeSeconds > 0)
-        //{
-        //    sequence.AddAction(new SI.PauseAction(touchAction, TimeSpan.FromSeconds(waitTimeSeconds)));
-        //}
+        if (waitTimeSeconds > 0)
+        {
+            sequence.AddAction(touchAction.CreatePause(TimeSpan.FromSeconds(waitTimeSeconds)));
+        }
         sequence.AddAction(touchAction.CreatePointerUp(PointerButton.TouchContact));
         _actionSequences.Add(sequence);
         return this;
@@ -81,10 +81,10 @@ public class TouchActionsService<TDriver, TDriverElement> : MobileService<TDrive
         var sequence = new SI.ActionSequence(touchAction, 0);
         sequence.AddAction(touchAction.CreatePointerMove(SI.CoordinateOrigin.Viewport, x, y, TimeSpan.Zero));
         sequence.AddAction(touchAction.CreatePointerDown(PointerButton.TouchContact));
-        //if (waitTimeSeconds > 0)
-        //{
-        //    sequence.AddAction(new PauseAction(touchAction, TimeSpan.FromSeconds(waitTimeSeconds)));
-        //}
+        if (waitTimeSeconds > 0)
+        {
+            sequence.AddAction(touchAction.CreatePause(TimeSpan.FromSeconds(waitTimeSeconds)));
+        }
         sequence.AddAction(touchAction.CreatePointerUp(PointerButton.TouchContact));
         _actionSequences.Add(sequence);
         return this;
@@ -97,7 +97,7 @@ public class TouchActionsService<TDriver, TDriverElement> : MobileService<TDrive
         var sequence = new SI.ActionSequence(touchAction, 0);
         sequence.AddAction(touchAction.CreatePointerMove(SI.CoordinateOrigin.Viewport, element.Location.X, element.Location.Y, TimeSpan.Zero));
         sequence.AddAction(touchAction.CreatePointerDown(PointerButton.TouchContact));
-        //sequence.AddAction(new PauseAction(touchAction, TimeSpan.FromSeconds(waitTimeSeconds)));
+        sequence.AddAction(touchAction.CreatePause(TimeSpan.FromSeconds(waitTimeSeconds)));
         sequence.AddAction(touchAction.CreatePointerUp(PointerButton.TouchContact));
         _actionSequences.Add(sequence);
         return this;
@@ -109,20 +109,20 @@ public class TouchActionsService<TDriver, TDriverElement> : MobileService<TDrive
         var sequence = new SI.ActionSequence(touchAction, 0);
         sequence.AddAction(touchAction.CreatePointerMove(SI.CoordinateOrigin.Viewport, x, y, TimeSpan.Zero));
         sequence.AddAction(touchAction.CreatePointerDown(PointerButton.TouchContact));
-        //sequence.AddAction(new PauseAction(touchAction, TimeSpan.FromSeconds(waitTimeSeconds)));
+        sequence.AddAction(touchAction.CreatePause(TimeSpan.FromSeconds(waitTimeSeconds)));
         sequence.AddAction(touchAction.CreatePointerUp(PointerButton.TouchContact));
         _actionSequences.Add(sequence);
         return this;
     }
 
-    //public TouchActionsService<TDriver, TDriverElement> Wait(long waitTimeMilliseconds)
-    //{
-    //    var touchAction = new PointerInputDevice(SI.PointerKind.Touch);
-    //    var sequence = new SI.ActionSequence(touchAction, 0);
-    //    sequence.AddAction(new PauseAction(touchAction, TimeSpan.FromMilliseconds(waitTimeMilliseconds)));
-    //    _actionSequences.Add(sequence);
-    //    return this;
-    //}
+    public TouchActionsService<TDriver, TDriverElement> Wait(long waitTimeMilliseconds)
+    {
+        var touchAction = new PointerInputDevice(SI.PointerKind.Touch);
+        var sequence = new SI.ActionSequence(touchAction, 0);
+        sequence.AddAction(touchAction.CreatePause(TimeSpan.FromMilliseconds(waitTimeMilliseconds)));
+        _actionSequences.Add(sequence);
+        return this;
+    }
 
     public TouchActionsService<TDriver, TDriverElement> MoveTo<TComponent>(TComponent element)
         where TComponent : Component<TDriver, TDriverElement>
