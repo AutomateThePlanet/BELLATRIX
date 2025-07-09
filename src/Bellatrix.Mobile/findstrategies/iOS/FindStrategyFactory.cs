@@ -29,7 +29,5 @@ public class FindStrategyFactory
 
     public FindXPathStrategy XPath(string name) => new FindXPathStrategy(name);
 
-    public FindIOSUIAutomationStrategy IOSUIAutomation(string name) => new FindIOSUIAutomationStrategy(name);
-
     public FindValueContainingStrategy ValueContaining(string name) => new FindValueContainingStrategy(name);
 }

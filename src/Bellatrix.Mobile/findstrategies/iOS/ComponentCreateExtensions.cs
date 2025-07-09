@@ -35,9 +35,6 @@ public static class ComponentCreateExtensions
     public static TComponent CreateByClass<TComponent>(this Component<IOSDriver, AppiumElement> element, string elementClass)
         where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindClassNameStrategy>(new FindClassNameStrategy(elementClass));
 
-    public static TComponent CreateByIOSUIAutomation<TComponent>(this Component<IOSDriver, AppiumElement> element, string automationId)
-        where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindIOSUIAutomationStrategy>(new FindIOSUIAutomationStrategy(automationId));
-
     public static TComponent CreateByXPath<TComponent>(this Component<IOSDriver, AppiumElement> element, string xpath)
         where TComponent : Component<IOSDriver, AppiumElement> => element.Create<TComponent, FindXPathStrategy>(new FindXPathStrategy(xpath));
 
@@ -58,9 +55,6 @@ public static class ComponentCreateExtensions
 
     public static ComponentsList<TComponent, FindClassNameStrategy, IOSDriver, AppiumElement> CreateAllByClass<TComponent>(this Component<IOSDriver, AppiumElement> element, string elementClass)
         where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindClassNameStrategy, IOSDriver, AppiumElement>(new FindClassNameStrategy(elementClass), element.WrappedElement);
-
-    public static ComponentsList<TComponent, FindIOSUIAutomationStrategy, IOSDriver, AppiumElement> CreateAllByIOSUIAutomation<TComponent>(this Component<IOSDriver, AppiumElement> element, string automationId)
-        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindIOSUIAutomationStrategy, IOSDriver, AppiumElement>(new FindIOSUIAutomationStrategy(automationId), element.WrappedElement);
 
     public static ComponentsList<TComponent, FindXPathStrategy, IOSDriver, AppiumElement> CreateAllByXPath<TComponent>(this Component<IOSDriver, AppiumElement> element, string xpath)
         where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindXPathStrategy, IOSDriver, AppiumElement>(new FindXPathStrategy(xpath), element.WrappedElement);
