@@ -10,26 +10,27 @@
     "waitUntilReadyOnElementFound": "false",
     "waitForAngular": "false",
     "shouldHighlightElements": "true",
-    "shouldCaptureHttpTraffic": "false",
+    "shouldCaptureHttpTraffic": "true",
     "pathToSslCertificate": "path",
     "shouldCheckForJavaScriptErrors": "false",
+    "fullPageScreenshotsEnabled": "true",
     "timeoutSettings": {
-      "elementWaitTimeout": "30",
-      "pageLoadTimeout": "30",
+      "elementWaitTimeout": "5",
+      "pageLoadTimeout": "5",
       "scriptTimeout": "1",
-      "waitForAjaxTimeout": "30",
+      "waitForAjaxTimeout": "5",
       "sleepInterval": "1",
-      "waitUntilReadyTimeout": "30",
-      "waitForJavaScriptAnimationsTimeout": "30",
-      "waitForAngularTimeout": "30",
-      "waitForPartialUrl": "30",
-      "validationsTimeout": "30",
-      "elementToBeVisibleTimeout": "30",
-      "elementToExistTimeout": "30",
-      "elementToNotExistTimeout": "30",
-      "elementToBeClickableTimeout": "30",
-      "elementNotToBeVisibleTimeout": "30",
-      "elementToHaveContentTimeout": "15"
+      "waitUntilReadyTimeout": "5",
+      "waitForJavaScriptAnimationsTimeout": "5",
+      "waitForAngularTimeout": "5",
+      "waitForPartialUrl": "5",
+      "validationsTimeout": "5",
+      "elementToBeVisibleTimeout": "5",
+      "elementToExistTimeout": "5",
+      "elementToNotExistTimeout": "5",
+      "elementToBeClickableTimeout": "5",
+      "elementNotToBeVisibleTimeout": "5",
+      "elementToHaveContentTimeout": "5"
     },
     "executionSettings": {
       "executionType": "regular",
@@ -205,5 +206,41 @@
   },
   "blobStorageSettings": {
     "connectionString": "yourKey"
+  },
+  "loggingSettings": {
+    "isEnabled": true,
+    "isConsoleLoggingEnabled": true,
+    "isDebugLoggingEnabled": true,
+    "isFileLoggingEnabled": false,
+    "isReportPortalLoggingEnabled": false,
+    "shouldMaskSensitiveInfo": true,
+    "outputTemplate": "{Message:lj}{NewLine}{Exception}"
+  },
+  "largeLanguageModelsSettings": {
+    "modelSettings": [
+      {
+        "endpoint": "env_AZURE_OPENAI_ENDPOINT",
+        "key": "env_AZURE_OPENAI_KEY",
+        "deployment": "gpt-4o"
+      },
+      {
+        "serviceId": "openai-embed",
+        "endpoint": "env_AZURE_OPENAI_EMBEDDINGS_ENDPOINT",
+        "key": "env_AZURE_OPENAI_EMBEDDINGS_KEY",
+        "embeddingDeployment": "text-embedding-ada-002"
+      }
+    ],
+    "qdrantMemoryDbEndpoint": "http://localhost:6333",
+    "localCacheConnectionString": "env_LocalCacheConnectionString",
+    "localCacheProjectName": "web_getting_started",
+    "shouldIndexPageObjects": false,
+    "pageObjectFilesPath": "40. Prompts Support\\Pages",
+    "memoryIndex": "PageObjects",
+    "resetIndexEverytime": false,
+    "locatorRetryAttempts": 5,
+    "validationsTimeout": 15,
+    "sleepInterval": 1,
+    "enableSelfHealing": true,
+    "enableSmartFailureAnalysis": true
   }
 }

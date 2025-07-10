@@ -1,5 +1,5 @@
 ﻿// <copyright file="IOSTest.cs" company="Automate The Planet Ltd.">
-// Copyright 2024 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,6 +12,8 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
+using Bellatrix.Core.logging;
+using Bellatrix.LLM.Plugins;
 using Bellatrix.Mobile.IOS;
 
 namespace Bellatrix.Mobile.MSTest;
@@ -48,6 +50,10 @@ public abstract class IOSTest : MSTestBaseTest
                 IOSPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 IOSPluginsConfiguration.AddLifecycle();
                 IOSPluginsConfiguration.AddLogExecutionLifecycle();
+
+                IOSPluginsConfiguration.ConfigureLLM();
+                SmartFailureAnalysisPlugin.Add();
+                LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;
             }

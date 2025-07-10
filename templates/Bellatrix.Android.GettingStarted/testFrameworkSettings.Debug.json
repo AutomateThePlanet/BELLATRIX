@@ -26,8 +26,8 @@
           "platformName": "Android",
           "deviceOrientation": "portrait",
           "browserName": "",
-          "platformVersion": "14",
-          "deviceName": "android34",
+          "platformVersion": "13",
+          "deviceName": "pixel5-test-device-13-3",
           "app": "AssemblyFolder\\Demos\\ApiDemos.apk",
           "appWaitActivity": "*",
           "appPackage": "com.example.android.apis",
@@ -93,5 +93,41 @@
   "appInsightsSettings": {
     "instrumentationKey": "yourKey",
     "isEnabled": "false"
+  },
+  "loggingSettings": {
+    "isEnabled": true,
+    "isConsoleLoggingEnabled": true,
+    "isDebugLoggingEnabled": true,
+    "isFileLoggingEnabled": false,
+    "isReportPortalLoggingEnabled": false,
+    "shouldMaskSensitiveInfo": true,
+    "outputTemplate": "{Message:lj}{NewLine}{Exception}"
+  },
+  "largeLanguageModelsSettings": {
+    "modelSettings": [
+      {
+        "endpoint": "env_AZURE_OPENAI_ENDPOINT",
+        "key": "env_AZURE_OPENAI_KEY",
+        "deployment": "gpt-4o"
+      },
+      {
+        "serviceId": "openai-embed",
+        "endpoint": "env_AZURE_OPENAI_EMBEDDINGS_ENDPOINT",
+        "key": "env_AZURE_OPENAI_EMBEDDINGS_KEY",
+        "embeddingDeployment": "text-embedding-ada-002"
+      }
+    ],
+    "qdrantMemoryDbEndpoint": "http://localhost:6333",
+    "localCacheConnectionString": "env_LocalCacheConnectionString",
+    "localCacheProjectName": "android_getting_started",
+    "shouldIndexPageObjects": true,
+    "pageObjectFilesPath": "32. Prompts Support\\Pages",
+    "memoryIndex": "PageObjects",
+    "resetIndexEverytime": false,
+    "locatorRetryAttempts": 3,
+    "validationsTimeout": 15,
+    "sleepInterval": 1,
+    "enableSelfHealing": true,
+    "enableSmartFailureAnalysis": true
   }
 }

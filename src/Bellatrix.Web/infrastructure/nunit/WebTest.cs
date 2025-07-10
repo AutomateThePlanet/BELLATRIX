@@ -1,5 +1,5 @@
 ﻿// <copyright file="WebTest.cs" company="Automate The Planet Ltd.">
-// Copyright 2024 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,7 +11,8 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
+using Bellatrix.Core.logging;
+using Bellatrix.LLM.Plugins;
 using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.NUnit;
@@ -37,6 +38,7 @@ public abstract class WebTest : NUnitBaseTest
                 DynamicTestCasesPlugin.Add();
                 AllurePlugin.Add();
                 BugReportingPlugin.Add();
+             
 
                 WebPluginsConfiguration.AddBrowserLifecycle();
                 WebPluginsConfiguration.AddLogExecutionLifecycle();
@@ -53,6 +55,7 @@ public abstract class WebTest : NUnitBaseTest
                 WebPluginsConfiguration.AddHighlightComponents();
                 WebPluginsConfiguration.AddNUnitGoogleLighthouse();
                 WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
+                WebPluginsConfiguration.ConfigureLLM();
 
                 APIPluginsConfiguration.AddAssertExtensionsBddLogging();
                 APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
@@ -69,6 +72,9 @@ public abstract class WebTest : NUnitBaseTest
                 {
                     WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
                 }
+
+                SmartFailureAnalysisPlugin.Add();
+                LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;
             }

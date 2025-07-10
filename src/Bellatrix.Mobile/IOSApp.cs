@@ -1,5 +1,5 @@
 ﻿// <copyright file="IOSApp.cs" company="Automate The Planet Ltd.">
-// Copyright 2024 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,18 +11,23 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
-
+using Bellatrix.LLM;
 using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Services;
 using Bellatrix.Mobile.Services.IOS;
 using OpenQA.Selenium.Appium.iOS;
+using System;
 
 namespace Bellatrix.Mobile;
 
 public class IOSApp : App<IOSDriver, AppiumElement>
 {
+    public IOSApp()
+    {
+        ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(AppService);
+    }
+
     public IOSAppService AppService => ServicesCollection.Current.Resolve<IOSAppService>();
 
     [Obsolete("DeviceService is deprecated use Device property instead.")]

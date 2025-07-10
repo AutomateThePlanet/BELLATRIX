@@ -1,5 +1,5 @@
 ﻿// <copyright file="ProcessCleanupService.cs" company="Automate The Planet Ltd.">
-// Copyright 2024 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -80,6 +80,11 @@ public static class ProcessCleanupService
         {
             try
             {
+                if (!OperatingSystem.IsWindows())
+                {
+                    continue;
+                }
+
                 var children = process.GetChildProcesses();
                 foreach (var child in children)
                 {

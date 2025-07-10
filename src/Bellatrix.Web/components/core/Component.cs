@@ -1,5 +1,5 @@
-﻿// <copyright file="Element.cs" company="Automate The Planet Ltd.">
-// Copyright 2024 Automate The Planet Ltd.
+﻿// <copyright file="Component.cs" company="Automate The Planet Ltd.">
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,6 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+// <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
+// The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
+// Please cite or credit appropriately if reusing in academic or commercial work.</note>
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,6 +23,8 @@ using System.Linq;
 using System.Text;
 using Bellatrix.CognitiveServices;
 using Bellatrix.CognitiveServices.services;
+using Bellatrix.LLM;
+using Bellatrix.LLM.Settings;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Web.Components.ShadowDom;
 using Bellatrix.Web.Contracts;
@@ -39,7 +44,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     private readonly ComponentWaitService _elementWaiter;
     private readonly List<WaitStrategy> _untils;
     private IWebElement _wrappedElement;
-
+    private IViewSnapshotProvider _viewSnapshotProvider;
+    private LargeLanguageModelsSettings _llmSettings;
     public string TagName => WrappedElement.TagName;
 
     public Component()
@@ -50,6 +56,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         JavaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
         BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
         ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
+        _viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
+        _llmSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
     }
 
     // ReSharper disable All
@@ -362,6 +370,10 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             EnsureState(Wait.To.Exists());
         }
 
+        var nativeElementFinderService = ParentWrappedElement == null
+            ? new NativeElementFinderService(WrappedDriver)
+            : new NativeElementFinderService(ParentWrappedElement);
+
         try
         {
             foreach (var until in _untils)
@@ -369,17 +381,24 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
                 if (until != null)
                 {
                     _elementWaiter.Wait(this, until);
-                }
 
-                if (until != null && until.GetType() == typeof(WaitNotToExistStrategy))
-                {
-                    return _wrappedElement;
+                    if (until.GetType() == typeof(WaitNotToExistStrategy))
+                    {
+                        return _wrappedElement;
+                    }
                 }
             }
 
-            _wrappedElement = GetWebDriverElement(shouldCacheElement);
+            _wrappedElement = nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
+
+            if (_llmSettings.EnableSelfHealing)
+            {
+                var summary = _viewSnapshotProvider.GetCurrentViewSnapshot();
+                LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), summary, WrappedDriver.Url);
+            }
 
             ScrollToMakeElementVisible();
+
             if (ConfigurationService.GetSection<WebSettings>().ShouldWaitUntilReadyOnElementFound)
             {
                 BrowserService.WaitUntilReady();
@@ -391,13 +410,35 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             }
 
             _untils.Clear();
+            return _wrappedElement;
         }
-        catch (WebDriverTimeoutException)
+        catch (Exception ex)
         {
-            throw new TimeoutException($"\n\nThe element: \n Name: '{ComponentName}', \n Locator: '{LocatorType.Name} = {LocatorValue}', \n Type: '{ComponentType.Name}' \nWas not found on the page or didn't fulfill the specified conditions.\n\n");
-        }
+            if (!_llmSettings.EnableSelfHealing)
+            {
+                throw new TimeoutException($"\n\nThe element: \n Name: '{ComponentName}', \n Locator: '{LocatorType.Name} = {LocatorValue}', \n Type: '{ComponentType.Name}' \nWas not found or failed condition.\n\n", ex);
+            }
 
-        return _wrappedElement;
+            Logger.LogWarning($"⚠️ Element not found with locator: {By}. Attempting self-heal...");
+
+            var currentSummary = _viewSnapshotProvider.GetCurrentViewSnapshot();
+            var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), currentSummary, WrappedDriver.Url);
+            if (!string.IsNullOrEmpty(healedXpath))
+            {
+                try
+                {
+                    var healedElement = nativeElementFinderService.FindAll(new FindXpathStrategy(healedXpath)).ElementAt(ElementIndex);
+                    Logger.LogInformation("🧠 Using AI-suggested fallback locator. Original not updated.");
+                    return healedElement;
+                }
+                catch
+                {
+                    throw new NotFoundException($"❌ Healing attempt failed: {By.Value}", ex);
+                }
+            }
+
+            throw new NotFoundException($"❌ Original and healed locators failed: {By.Value}", ex);
+        }
     }
 
     private void ScrollToMakeElementVisible()
@@ -407,27 +448,5 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         {
             ScrollToVisible(false);
         }
-    }
-
-    private IWebElement GetWebDriverElement(bool shouldCacheElement = false)
-    {
-        if (_wrappedElement != null && shouldCacheElement)
-        {
-            return _wrappedElement;
-        }
-
-        if (ParentWrappedElement == null && _wrappedElement == null)
-        {
-            var nativeElementFinderService = new NativeElementFinderService(WrappedDriver);
-            return nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
-        }
-
-        if (ParentWrappedElement != null)
-        {
-            var nativeElementFinderService = new NativeElementFinderService(ParentWrappedElement);
-            return nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
-        }
-
-        return _wrappedElement;
     }
 }

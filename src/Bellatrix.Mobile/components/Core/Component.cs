@@ -1,5 +1,5 @@
 ﻿// <copyright file="Component.cs" company="Automate The Planet Ltd.">
-// Copyright 2024 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,15 +19,21 @@ using System.IO;
 using System.Text;
 using Bellatrix.CognitiveServices;
 using Bellatrix.CognitiveServices.services;
+using Bellatrix.LLM.Settings;
+using Bellatrix.LLM;
 using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Controls.Core;
 using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.Locators;
+using Bellatrix.Mobile.Locators.Android;
+using Bellatrix.Mobile.Locators.IOS;
 using Bellatrix.Mobile.Services;
 using Bellatrix.Mobile.Untils;
 using Bellatrix.Plugins.Screenshots;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Android;
+using OpenQA.Selenium.Appium.iOS;
 
 namespace Bellatrix.Mobile.Core;
 
@@ -241,26 +247,70 @@ public partial class Component<TDriver, TDriverElement> : IComponent<TDriverElem
                     if (until != null)
                     {
                         _elementWait.Wait(this, until);
-                    }
-
-                    if (until.GetType().Equals(typeof(WaitNotExistStrategy<TDriver, TDriverElement>)))
-                    {
-                        return _wrappedElement;
+                        if (until.GetType().Equals(typeof(WaitNotExistStrategy<TDriver, TDriverElement>)))
+                        {
+                            return _wrappedElement;
+                        }
                     }
                 }
 
-                _wrappedElement = GetWebDriverElement(shouldRefresh);
+                _wrappedElement = GetWebDriverElement();
+
+                var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
+                if (settings.EnableSelfHealing)
+                {
+                    var snapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
+                    var snapshot = snapshotProvider.GetCurrentViewSnapshot();
+                    LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, GetLocationKey());
+                }
+
+                _untils.Clear();
+                return _wrappedElement;
             }
-            catch (WebDriverTimeoutException ex)
+            catch (Exception ex)
             {
-                throw new TimeoutException($"The element with Name = {ComponentName} Locator {By.Value} was not found on the page or didn't fulfill the specified conditions.", ex);
+                var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
+                if (!settings.EnableSelfHealing)
+                {
+                    throw new TimeoutException($"❌ Element not found: {By?.Value}", ex);
+                }
+
+                Logger.LogWarning($"⚠️ Element not found with locator: {By}. Trying AI-based healing...");
+
+                var snapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
+                var snapshot = snapshotProvider.GetCurrentViewSnapshot();
+                var healedLocator = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, GetLocationKey());
+
+                if (!string.IsNullOrWhiteSpace(healedLocator))
+                {
+                    try
+                    {
+                        // Determine strategy based on locator format
+                        if (healedLocator.StartsWith("uiautomator=", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var expression = healedLocator.Substring("uiautomator=".Length).Trim();
+                            return new FindAndroidUIAutomatorStrategy(expression).FindElement(WrappedDriver as AndroidDriver) as TDriverElement;
+                        }
+                        else if (healedLocator.StartsWith("nspredicate=", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var expression = healedLocator.Substring("nspredicate=".Length).Trim();
+                            return new FindIOSNsPredicateStrategy(expression).FindElement(WrappedDriver as IOSDriver) as TDriverElement;
+                        }
+                    }
+                    catch
+                    {
+                        throw new NotFoundException($"❌ Healing attempt failed for locator: {By}", ex);
+                    }
+                }
+
+                throw new NotFoundException($"❌ Healing failed: {By}", ex);
             }
         }
 
         _untils.Clear();
-
         return _wrappedElement;
     }
+
 
     private TDriverElement GetWebDriverElement(bool shouldRefresh = false)
     {
@@ -286,4 +336,12 @@ public partial class Component<TDriver, TDriverElement> : IComponent<TDriverElem
 
         return _wrappedElement;
     }
+
+    private string GetLocationKey()
+    {
+        // Optional: override if app uses titles, screens, or activity
+        // For iOS: use current screen title; for Android: use current activity
+        return typeof(TDriver).Name; // fallback to driver type, or use injected service
+    }
+
 }

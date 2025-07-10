@@ -1,0 +1,59 @@
+install https://qdrant.tech/
+install https://ollama.com/download
+pip install einops
+pip install sentence-transformers flask
+python embedding_server.py
+
+check local models - curl http://localhost:11434/v1/models
+
+In WebTests we need to call -> WebPluginsConfiguration.ConfigureLLM();
+
+- Execute this for local cache and postgres:
+
+
+// run both
+docker compose -f docker-compose.local_cache_postgres.yml up -d
+
+// run to start Qdrant in docker
+docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
+
+// run to start postgres in docker
+docker-compose -f docker-compose.local_cache_postgres.yml up -d
+
+docker-compose -f docker-compose.local_cache_postgres.yml down -v
+docker-compose -f docker-compose.local_cache_postgres.yml up -d
+
+dotnet ef migrations add AddSelfHealingTable
+dotnet ef database update
+
+Configuration needed:
+
+{
+  "largeLanguageModelsSettings": {
+    "modelSettings": [
+      {
+        "endpoint": "env_AZURE_OPENAI_ENDPOINT",
+        "key": "env_AZURE_OPENAI_KEY",
+        "deployment": "gpt-4o"
+      },
+      {
+        "serviceId": "openai-embed",
+        "endpoint": "env_AZURE_OPENAI_EMBEDDINGS_ENDPOINT",
+        "key": "env_AZURE_OPENAI_EMBEDDINGS_KEY",
+        "embeddingDeployment": "text-embedding-ada-002"
+      }
+    ],
+    "qdrantMemoryDbEndpoint": "http://localhost:6333",
+    "localCacheConnectionString": "env_LocalCacheConnectionString",
+    "localCacheProjectName": "web_getting_started",
+    "shouldIndexPageObjects": false,
+    "pageObjectFilesPath": "40. Prompts Support\\Pages",
+    "memoryIndex": "PageObjects",
+    "resetIndexEverytime": false,
+    "locatorRetryAttempts": 3,
+    "validationsTimeout": 5,
+    "sleepInterval": 1,
+    "enableSelfHealing": true,
+    "enableSmartFailureAnalysis": true,
+  }
+}

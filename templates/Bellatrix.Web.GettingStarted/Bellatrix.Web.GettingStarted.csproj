@@ -1,19 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 
-  <PropertyGroup>
-	<GenerateProgramFile>false</GenerateProgramFile>
-  </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="NUnit" Version="4.0.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Unity" Version="5.11.10" />
-    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.6.1" />
+    <PackageReference Include="ReportPortal.VSTest.TestLogger" Version="3.8.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +41,42 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="testPage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\assets\brand\bootstrap-logo-white.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\assets\brand\bootstrap-logo.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\assets\dist\css\bootstrap.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\assets\dist\css\bootstrap.min.css.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\assets\dist\css\bootstrap.rtl.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\assets\dist\css\bootstrap.rtl.min.css.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\assets\dist\js\bootstrap.bundle.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\assets\dist\js\bootstrap.bundle.min.js.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\form-validation.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\form-validation.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestPages\Checkout\index.new.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestPages\Grid\Grid.html">

@@ -1,5 +1,5 @@
 ﻿// <copyright file="ComponentRepositoryExtensions.cs" company="Automate The Planet Ltd.">
-// Copyright 2024 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -29,9 +29,6 @@ public static class ComponentRepositoryExtensions
     public static TComponent CreateByClass<TComponent>(this ComponentCreateService repo, string elementClass)
         where TComponent : Component<IOSDriver, AppiumElement> => repo.Create<TComponent, FindClassNameStrategy, IOSDriver, AppiumElement>(new FindClassNameStrategy(elementClass));
 
-    public static TComponent CreateByIOSUIAutomation<TComponent>(this ComponentCreateService repo, string automationId)
-        where TComponent : Component<IOSDriver, AppiumElement> => repo.Create<TComponent, FindIOSUIAutomationStrategy, IOSDriver, AppiumElement>(new FindIOSUIAutomationStrategy(automationId));
-
     public static TComponent CreateByIOSNsPredicate<TComponent>(this ComponentCreateService repo, string predicate)
         where TComponent : Component<IOSDriver, AppiumElement> => repo.Create<TComponent, FindIOSNsPredicateStrategy, IOSDriver, AppiumElement>(new FindIOSNsPredicateStrategy(predicate));
 
@@ -55,9 +52,6 @@ where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TCo
 
     public static ComponentsList<TComponent, FindClassNameStrategy, IOSDriver, AppiumElement> CreateAllByClass<TComponent>(this ComponentCreateService repo, string elementClass)
         where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindClassNameStrategy, IOSDriver, AppiumElement>(new FindClassNameStrategy(elementClass), null);
-
-    public static ComponentsList<TComponent, FindIOSUIAutomationStrategy, IOSDriver, AppiumElement> CreateAllByIOSUIAutomation<TComponent>(this ComponentCreateService repo, string automationId)
-        where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindIOSUIAutomationStrategy, IOSDriver, AppiumElement>(new FindIOSUIAutomationStrategy(automationId), null);
 
     public static ComponentsList<TComponent, FindIOSNsPredicateStrategy, IOSDriver, AppiumElement> CreateAllByIOSNsPredicate<TComponent>(this ComponentCreateService repo, string predicate)
         where TComponent : Component<IOSDriver, AppiumElement> => new ComponentsList<TComponent, FindIOSNsPredicateStrategy, IOSDriver, AppiumElement>(new FindIOSNsPredicateStrategy(predicate), null);

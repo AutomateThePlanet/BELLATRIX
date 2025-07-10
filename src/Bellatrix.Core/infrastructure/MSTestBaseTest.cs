@@ -1,5 +1,5 @@
 ﻿// <copyright file="MSTestBaseTest.cs" company="Automate The Planet Ltd.">
-// Copyright 2024 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -122,27 +122,27 @@ public class MSTestBaseTest
         }
     }
 
-    [ClassCleanup]
-    public void CoreClassCleanup()
-    {
-        var testClassType = GetCurrentExecutionTestClassType();
+    //[ClassCleanup]
+    //public void CoreClassCleanup()
+    //{
+    //    var testClassType = GetCurrentExecutionTestClassType();
 
-        _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-        _currentTestExecutionProvider = new PluginProvider();
-        InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+    //    _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+    //    _currentTestExecutionProvider = new PluginProvider();
+    //    InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
-        try
-        {
-            _currentTestExecutionProvider.PreClassCleanup(testClassType);
-            TestsCleanup();
-            _currentTestExecutionProvider.PostClassCleanup(testClassType);
-        }
-        catch (Exception ex)
-        {
-            _currentTestExecutionProvider.TestsCleanupFailed(ex);
-            throw;
-        }
-    }
+    //    try
+    //    {
+    //        _currentTestExecutionProvider.PreClassCleanup(testClassType);
+    //        TestsCleanup();
+    //        _currentTestExecutionProvider.PostClassCleanup(testClassType);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        _currentTestExecutionProvider.TestsCleanupFailed(ex);
+    //        throw;
+    //    }
+    //}
 
     // ReSharper disable once MemberCanBeProtected.Global
     public virtual void Initialize()

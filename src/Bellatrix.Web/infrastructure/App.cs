@@ -1,5 +1,5 @@
 ﻿// <copyright file="App.cs" company="Automate The Planet Ltd.">
-// Copyright 2024 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,6 +21,7 @@ using Bellatrix.Assertions;
 using Bellatrix.AWS;
 using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
+using Bellatrix.LLM;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
@@ -38,6 +39,7 @@ public class App : IDisposable
     public App()
     {
         _apiClientService = GetNewApiClientService();
+        ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(Browser);
     }
 
     public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
@@ -177,6 +179,8 @@ public class App : IDisposable
     {
         DevTools?.Dispose();
         Proxy?.Dispose();
+        LocatorSelfHealingService.Dispose();
+        LocatorCacheService.Dispose();
         DisposeDriverService.DisposeAll();
         DisposeDriverService.Dispose();
         GC.SuppressFinalize(this);

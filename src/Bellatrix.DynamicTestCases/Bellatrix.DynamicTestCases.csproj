@@ -6,9 +6,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.170.0" />
-    <PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="16.170.0" />
+    <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="19.225.1" />
+    <PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient" Version="19.225.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
     <Reference Include="QTestSDK">
       <HintPath>QTestSDK.dll</HintPath>
     </Reference>

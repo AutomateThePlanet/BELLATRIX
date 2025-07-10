@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Bellatrix.Core\Bellatrix.Core.csproj" />
+    <ProjectReference Include="..\src\Bellatrix.KeyVault\Bellatrix.KeyVault.csproj" />
+    <ProjectReference Include="..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.50.0" />
+    <PackageReference Include="Microsoft.KernelMemory" Version="0.98.250508.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
+  </ItemGroup>
+
+</Project>

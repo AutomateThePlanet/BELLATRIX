@@ -10,7 +10,7 @@
     "waitUntilReadyOnElementFound": "false",
     "waitForAngular": "false",
     "shouldHighlightElements": "true",
-    "shouldCaptureHttpTraffic": "false",
+    "shouldCaptureHttpTraffic": "true",
     "pathToSslCertificate": "path",
     "shouldCheckForJavaScriptErrors": "false",
     "timeoutSettings": {
@@ -34,7 +34,7 @@
     },
     "playwrightSettings": {
       "contextOptions": {
-        "ignoreHTTPSErrors": "true",
+        "ignoreHTTPSErrors": "true"
         // in case you want to add other context options, refer to the available settings in Playwright.BrowserNewContextOptions
         // in case you don't want to add any options, just remove "contextOptions" or the settings inside
       }
@@ -213,5 +213,41 @@
   },
   "blobStorageSettings": {
     "connectionString": "yourKey"
+  },
+  "loggingSettings": {
+    "isEnabled": true,
+    "isConsoleLoggingEnabled": true,
+    "isDebugLoggingEnabled": true,
+    "isFileLoggingEnabled": false,
+    "isReportPortalLoggingEnabled": false,
+    "shouldMaskSensitiveInfo": true,
+    "outputTemplate": "{Message:lj}{NewLine}{Exception}"
+  },
+  "largeLanguageModelsSettings": {
+    "modelSettings": [
+      {
+        "endpoint": "env_AZURE_OPENAI_ENDPOINT",
+        "key": "env_AZURE_OPENAI_API_KEY",
+        "deployment": "gpt-4o"
+      },
+      {
+        "serviceId": "openai-embed",
+        "endpoint": "env_AZURE_OPENAI_EMBEDDINGS_ENDPOINT",
+        "key": "env_AZURE_OPENAI_EMBEDDINGS_KEY",
+        "embeddingDeployment": "text-embedding-ada-002"
+      }
+    ],
+    "qdrantMemoryDbEndpoint": "http://localhost:6333",
+    "localCacheConnectionString": "env_LocalCacheConnectionString",
+    "localCacheProjectName": "playwright_getting_started",
+    "shouldIndexPageObjects": false,
+    "pageObjectFilesPath": "40. Prompts Support\\Pages",
+    "memoryIndex": "PageObjects",
+    "resetIndexEverytime": false,
+    "locatorRetryAttempts": 3,
+    "validationsTimeout": 15,
+    "sleepInterval": 1,
+    "enableSelfHealing": true,
+    "enableSmartFailureAnalysis": true
   }
 }

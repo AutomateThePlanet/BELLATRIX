@@ -1,19 +1,37 @@
-﻿using Bellatrix.Assertions;
+﻿// <copyright file="DevToolsService.cs" company="Automate The Planet Ltd.">
+// Copyright 2025 Automate The Planet Ltd.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+// <author>Anton Angelov</author>
+// <site>https://bellatrix.solutions/</site>
+// <note>This file is part of an academic research project exploring autonomous test agents using LLMs and Semantic Kernel.
+// The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
+// Please cite or credit appropriately if reusing in academic or commercial work.</note>
+using Bellatrix.Assertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools;
-using OpenQA.Selenium.DevTools.V121.Console;
-using OpenQA.Selenium.DevTools.V121.DOMSnapshot;
-using OpenQA.Selenium.DevTools.V121.Emulation;
-using OpenQA.Selenium.DevTools.V121.Network;
-using OpenQA.Selenium.DevTools.V121.Performance;
-using OpenQA.Selenium.DevTools.V121.Security;
+using OpenQA.Selenium.DevTools.V136.Console;
+using OpenQA.Selenium.DevTools.V136.DOMSnapshot;
+using OpenQA.Selenium.DevTools.V136.Emulation;
+using OpenQA.Selenium.DevTools.V136.Network;
+using OpenQA.Selenium.DevTools.V136.Performance;
+using OpenQA.Selenium.DevTools.V136.Security;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V121.DevToolsSessionDomains;
-using EnableCommandSettings = OpenQA.Selenium.DevTools.V121.Network.EnableCommandSettings;
-using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V121.Network.SetUserAgentOverrideCommandSettings;
+using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V136.DevToolsSessionDomains;
+using PageDomain = OpenQA.Selenium.DevTools.V136.Page;
+using EnableCommandSettings = OpenQA.Selenium.DevTools.V136.Network.EnableCommandSettings;
+using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V136.Network.SetUserAgentOverrideCommandSettings;
 
 namespace Bellatrix.Web;
 
@@ -22,8 +40,15 @@ public class DevToolsService : WebService, IDisposable
     public DevToolsService(IWebDriver wrappedDriver)
         : base(wrappedDriver)
     {
-        DevToolsSession = ((IDevTools)wrappedDriver).GetDevToolsSession();
-        DevToolsSessionDomains = DevToolsSession.GetVersionSpecificDomains<DevToolsSessionDomains>();
+        try
+        {
+            DevToolsSession = ((IDevTools)wrappedDriver)?.GetDevToolsSession();
+            DevToolsSessionDomains = DevToolsSession?.GetVersionSpecificDomains<DevToolsSessionDomains>();
+        }
+        catch (WebDriverException)
+        {
+            // Handle disposed driver
+        }
     }
 
     public DevToolsSessionDomains DevToolsSessionDomains { get; set; }
@@ -262,6 +287,32 @@ public class DevToolsService : WebService, IDisposable
         var metricsResponse = await DevToolsSession.SendCommand<GetMetricsCommandSettings, GetMetricsCommandResponse>(new GetMetricsCommandSettings());
         return metricsResponse.Metrics;
     }
+
+public async Task<string> CaptureFullPageScreenshotBase64Async()
+{
+    try
+    {
+        if (DevToolsSessionDomains?.Page == null)
+        {
+            DevToolsSessionDomains = DevToolsSession.GetVersionSpecificDomains<DevToolsSessionDomains>();
+            await DevToolsSessionDomains.Page.Enable(new PageDomain.EnableCommandSettings());
+        }
+
+        var response = await DevToolsSessionDomains.Page.CaptureScreenshot(new PageDomain.CaptureScreenshotCommandSettings
+        {
+            CaptureBeyondViewport = true,
+            FromSurface = true
+        });
+
+        return response.Data;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"❌ CDP screenshot capture failed: {ex.Message}");
+        return null;
+    }
+}
+
 
     public void Dispose()
     {
