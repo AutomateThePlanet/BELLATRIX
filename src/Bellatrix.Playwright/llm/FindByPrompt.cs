@@ -113,20 +113,25 @@ public class FindByPrompt : FindStrategy
                 }).Result.GetValue<string>();
 
             var result = SemanticKernelService.Kernel.InvokePromptAsync(prompt).Result;
-            var raw = result?.GetValue<string>()?.Trim();
+            var rawSelector = result?.GetValue<string>()?.Trim();
 
-            if (!string.IsNullOrWhiteSpace(raw))
+            if (!string.IsNullOrWhiteSpace(rawSelector))
             {
-                var locator = new FindXpathStrategy(raw);
-                if (locator != null)
+                var strategy = new FindXpathStrategy(rawSelector);
+                try
                 {
-                    LocatorCacheService.Update(location, Value, locator.Value);
-                    return locator;
+                    _ = strategy.Resolve(WrappedBrowser.CurrentPage).WrappedLocator.First.IsVisibleAsync().Result;
+                    LocatorCacheService.Update(location, Value, strategy.Value);
+                    return strategy;
                 }
-
-                failedSelectors.Add(raw);
+                catch (PlaywrightException)
+                {
+                    // continue
+                }
             }
 
+            failedSelectors.Add(rawSelector);
+            Logger.LogInformation($"[Attempt {attempt}] Selector failed: {rawSelector}");
             Thread.Sleep(300);
         }
 
