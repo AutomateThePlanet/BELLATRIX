@@ -28,7 +28,7 @@ namespace Bellatrix.Playwright.LLM;
 
 public class FindByPrompt : FindStrategy
 {
-    private bool _tryResolveFromPages = true;
+    private readonly bool _tryResolveFromPages;
     /// <summary>
     /// Initializes a new instance of the <see cref="FindByPrompt"/> class with the specified prompt value.
     /// </summary>
@@ -58,42 +58,87 @@ public class FindByPrompt : FindStrategy
     {
         if (_tryResolveFromPages)
         {
-            // Try from memory
-            var match = SemanticKernelService.Memory
-            .SearchAsync(Value, index: "PageObjects", limit: 1)
-            .Result.Results.FirstOrDefault();
-
-            if (match != null)
+            var ragLocator = TryResolveFromPageObjectMemory(Value);
+            if (ragLocator != null)
             {
-                var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? "";
-                var mappedPrompt = SemanticKernelService.Kernel
-                    .InvokeAsync(nameof(LocatorMapperSkill), nameof(LocatorMapperSkill.MatchPromptToKnownLocator), new()
-                    {
-                        ["pageSummary"] = pageSummary,
-                        ["instruction"] = Value
-                    }).Result.GetValue<string>();
-
-                var result = SemanticKernelService.Kernel.InvokePromptAsync(mappedPrompt).Result;
-                var rawLocator = result?.GetValue<string>()?.Trim();
-                var ragLocator = new FindXpathStrategy(rawLocator);
-                if (ragLocator != null)
+                try
                 {
+                    ragLocator.Resolve(WrappedBrowser.CurrentPage).IsVisible();
                     Logger.LogInformation($"✅ Using RAG-located element '{ragLocator}' For '${Value}'");
                     return ragLocator;
+                }
+                catch
+                {
+                    // continue
                 }
             }
         }
 
-        // Try cache
-        var cached = LocatorCacheService.TryGetCached(location, Value);
+        // Step 2: Try local persistent cache
+        Logger.LogInformation("⚠️ RAG-located element not present. Trying cached selectors...");
+        var cached = LocatorCacheService.TryGetCached(WrappedBrowser.CurrentPage.Url, Value);
         if (!string.IsNullOrEmpty(cached))
         {
-            return new FindXpathStrategy(cached);
+            try
+            {
+                var strategy = new FindXpathStrategy(cached);
+                strategy.Resolve(WrappedBrowser.CurrentPage).IsVisible();
+
+                Logger.LogInformation("✅ Using cached selector.");
+                return strategy;
+            }
+            catch
+            {
+                // continue
+            }
         }
 
-        // Remove broken and fall back
-        LocatorCacheService.Remove(location, Value);
+        // Step 3: Fall back to AI + prompt regeneration
+        Logger.LogInformation("⚠️ Cached selector failed or not found. Re-querying AI...");
+        LocatorCacheService.Remove(WrappedBrowser.CurrentPage.Url, Value);
+
         return ResolveViaPromptFallback(location, snapshotProvider);
+    }
+
+    private static FindXpathStrategy TryResolveFromPageObjectMemory(string instruction)
+    {
+        var match = SemanticKernelService.Memory
+            .SearchAsync(instruction, index: "PageObjects", limit: 1)
+            .Result.Results.FirstOrDefault();
+
+        if (match == null) return null;
+
+        var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? string.Empty;
+        var mappedPrompt = SemanticKernelService.Kernel
+            .InvokeAsync(nameof(LocatorMapperSkill), nameof(LocatorMapperSkill.MatchPromptToKnownLocator),
+                new()
+                {
+                    ["pageSummary"] = pageSummary,
+                    ["instruction"] = instruction
+                }).Result.GetValue<string>();
+
+        var locatorResult = SemanticKernelService.Kernel
+            .InvokePromptAsync(mappedPrompt).Result.GetValue<string>();
+
+        return ParsePromptLocatorToStrategy(locatorResult);
+    }
+
+    private static FindXpathStrategy ParsePromptLocatorToStrategy(string promptResult)
+    {
+        if (promptResult == "Unknown")
+        {
+            return null;
+        }
+
+        var parts = Regex.Match(promptResult, @"^\s*xpath\s*=\s*(//.+)$", RegexOptions.IgnoreCase);
+        if (!parts.Success)
+        {
+            throw new ArgumentException($"❌ Invalid format. Expected: xpath=//... but received '{promptResult}'");
+        }
+
+        var xpath = parts.Groups[1].Value.Trim();
+
+        return new FindXpathStrategy(xpath);
     }
 
     private FindStrategy ResolveViaPromptFallback(string location, IViewSnapshotProvider snapshotProvider, int maxAttempts = 3)
@@ -120,11 +165,11 @@ public class FindByPrompt : FindStrategy
                 var strategy = new FindXpathStrategy(rawSelector);
                 try
                 {
-                    _ = strategy.Resolve(WrappedBrowser.CurrentPage).WrappedLocator.First.IsVisibleAsync().Result;
+                    _ = strategy.Resolve(WrappedBrowser.CurrentPage).IsVisible();
                     LocatorCacheService.Update(location, Value, strategy.Value);
                     return strategy;
                 }
-                catch (PlaywrightException)
+                catch
                 {
                     // continue
                 }
