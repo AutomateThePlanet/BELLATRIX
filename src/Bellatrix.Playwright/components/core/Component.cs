@@ -321,7 +321,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         {
             try
             {
-                return WrappedElement.ElementHandle(new LocatorElementHandleOptions { Timeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.InMilliseconds().ElementToExistTimeout }) != null;
+                return WrappedElement.IsPresent;
             }
             catch
             {
