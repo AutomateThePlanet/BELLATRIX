@@ -51,6 +51,7 @@ public class RadioButton : Component, IComponentDisabled, IComponentValue, IComp
         tempOptions.Timeout = 1;
 
         Clicking?.Invoke(this, new ComponentActionEventArgs(this));
+        this.ValidateIsPresent();
 
         try
         {

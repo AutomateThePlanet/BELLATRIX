@@ -39,6 +39,7 @@ public class CheckBox : Component, IComponentDisabled, IComponentChecked, ICompo
         tempOptions.Timeout = 1;
 
         Checking?.Invoke(this, new ComponentActionEventArgs(this));
+        this.ValidateIsPresent();
 
         try
         {
@@ -72,6 +73,7 @@ public class CheckBox : Component, IComponentDisabled, IComponentChecked, ICompo
         tempOptions.Timeout = 1;
 
         Unchecking?.Invoke(this, new ComponentActionEventArgs(this));
+        this.ValidateIsPresent();
 
         try
         {
