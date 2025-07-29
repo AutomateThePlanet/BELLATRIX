@@ -127,11 +127,11 @@ public class FindByPrompt : FindStrategy
 
     private FindStrategy ResolveViaPromptFallback(string location, IViewSnapshotProvider snapshotProvider, int maxAttempts = 3)
     {
-        var summaryJson = snapshotProvider.GetCurrentViewSnapshot();
         var failedSelectors = new List<string>();
 
         for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
+            var summaryJson = snapshotProvider.GetCurrentViewSnapshot();
             var prompt = SemanticKernelService.Kernel
                 .InvokeAsync(nameof(LocatorSkill), nameof(LocatorSkill.BuildLocatorPrompt),
                 new()

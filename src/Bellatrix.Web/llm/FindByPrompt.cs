@@ -39,7 +39,7 @@ public class FindByPrompt : FindStrategy
     /// Initializes a new instance of the <see cref="FindByPrompt"/> class with the specified prompt value.
     /// </summary>
     /// <param name="value">The natural language prompt used to locate the element.</param>
-    public FindByPrompt(string value, bool tryResolveFromPages = true) : base(value) 
+    public FindByPrompt(string value, bool tryResolveFromPages = true) : base(value)
     {
         _tryResolveFromPages = tryResolveFromPages;
     }
@@ -93,12 +93,12 @@ public class FindByPrompt : FindStrategy
     private By ResolveViaPromptFallback(IWebDriver driver, string instruction, int maxAttempts = 3)
     {
         var viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
-        var summaryJson = viewSnapshotProvider.GetCurrentViewSnapshot();
         var failedSelectors = new List<string>();
 
         for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
-            var prompt = SemanticKernelService.Kernel?.InvokeAsync(nameof(LocatorSkill), nameof(LocatorSkill.BuildLocatorPrompt), 
+            var summaryJson = viewSnapshotProvider.GetCurrentViewSnapshot();
+            var prompt = SemanticKernelService.Kernel?.InvokeAsync(nameof(LocatorSkill), nameof(LocatorSkill.BuildLocatorPrompt),
             new()
             {
                 ["htmlSummary"] = summaryJson,
