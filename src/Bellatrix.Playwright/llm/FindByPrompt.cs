@@ -59,38 +59,22 @@ public class FindByPrompt : FindStrategy
         if (_tryResolveFromPages)
         {
             var ragLocator = TryResolveFromPageObjectMemory(Value);
-            if (ragLocator != null)
+            if (ragLocator != null && ragLocator.Resolve(WrappedBrowser.CurrentPage).All().Any())
             {
-                try
-                {
-                    ragLocator.Resolve(WrappedBrowser.CurrentPage).IsVisible();
-                    Logger.LogInformation($"✅ Using RAG-located element '{ragLocator}' For '${Value}'");
-                    return ragLocator;
-                }
-                catch
-                {
-                    // continue
-                }
+                Logger.LogInformation($"✅ Using RAG-located element '{ragLocator}' For '${Value}'");
+                return ragLocator;
             }
         }
 
         // Step 2: Try local persistent cache
         Logger.LogInformation("⚠️ RAG-located element not present. Trying cached selectors...");
         var cached = LocatorCacheService.TryGetCached(WrappedBrowser.CurrentPage.Url, Value);
-        if (!string.IsNullOrEmpty(cached))
-        {
-            try
-            {
-                var strategy = new FindXpathStrategy(cached);
-                strategy.Resolve(WrappedBrowser.CurrentPage).IsVisible();
 
-                Logger.LogInformation("✅ Using cached selector.");
-                return strategy;
-            }
-            catch
-            {
-                // continue
-            }
+        var strategy = new FindXpathStrategy(cached);
+        if (!string.IsNullOrEmpty(cached) && strategy.Resolve(WrappedBrowser.CurrentPage).All().Any())
+        {
+            Logger.LogInformation("✅ Using cached selector.");
+            return strategy;
         }
 
         // Step 3: Fall back to AI + prompt regeneration
@@ -160,19 +144,11 @@ public class FindByPrompt : FindStrategy
             var result = SemanticKernelService.Kernel.InvokePromptAsync(prompt).Result;
             var rawSelector = result?.GetValue<string>()?.Trim();
 
-            if (!string.IsNullOrWhiteSpace(rawSelector))
+            var strategy = new FindXpathStrategy(rawSelector);
+            if (!string.IsNullOrWhiteSpace(rawSelector) && strategy.Resolve(WrappedBrowser.CurrentPage).All().Any())
             {
-                var strategy = new FindXpathStrategy(rawSelector);
-                try
-                {
-                    _ = strategy.Resolve(WrappedBrowser.CurrentPage).IsVisible();
-                    LocatorCacheService.Update(location, Value, strategy.Value);
-                    return strategy;
-                }
-                catch
-                {
-                    // continue
-                }
+                LocatorCacheService.Update(location, Value, strategy.Value);
+                return strategy;
             }
 
             failedSelectors.Add(rawSelector);
