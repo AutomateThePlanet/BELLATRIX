@@ -15,22 +15,22 @@
     "shouldCheckForJavaScriptErrors": "false",
     "fullPageScreenshotsEnabled": "true",
     "timeoutSettings": {
-      "elementWaitTimeout": "5",
-      "pageLoadTimeout": "5",
-      "scriptTimeout": "1",
-      "waitForAjaxTimeout": "5",
+      "elementWaitTimeout": "10",
+      "pageLoadTimeout": "10",
+      "scriptTimeout": "5",
+      "waitForAjaxTimeout": "10",
       "sleepInterval": "1",
-      "waitUntilReadyTimeout": "5",
-      "waitForJavaScriptAnimationsTimeout": "5",
-      "waitForAngularTimeout": "5",
-      "waitForPartialUrl": "5",
-      "validationsTimeout": "5",
-      "elementToBeVisibleTimeout": "5",
-      "elementToExistTimeout": "5",
-      "elementToNotExistTimeout": "5",
-      "elementToBeClickableTimeout": "5",
-      "elementNotToBeVisibleTimeout": "5",
-      "elementToHaveContentTimeout": "5"
+      "waitUntilReadyTimeout": "10",
+      "waitForJavaScriptAnimationsTimeout": "10",
+      "waitForAngularTimeout": "10",
+      "waitForPartialUrl": "10",
+      "validationsTimeout": "10",
+      "elementToBeVisibleTimeout": "10",
+      "elementToExistTimeout": "10",
+      "elementToNotExistTimeout": "10",
+      "elementToBeClickableTimeout": "10",
+      "elementNotToBeVisibleTimeout": "10",
+      "elementToHaveContentTimeout": "10"
     },
     "executionSettings": {
       "executionType": "regular",
@@ -220,7 +220,7 @@
     "modelSettings": [
       {
         "endpoint": "env_AZURE_OPENAI_ENDPOINT",
-        "key": "env_AZURE_OPENAI_KEY",
+        "key": "env_AZURE_OPENAI_API_KEY",
         "deployment": "gpt-4o"
       },
       {
@@ -231,7 +231,7 @@
       }
     ],
     "qdrantMemoryDbEndpoint": "http://localhost:6333",
-    "localCacheConnectionString": "env_LocalCacheConnectionString",
+    "localCacheConnectionString": "Host=localhost;Port=5433;Database=LocatorCacheDb;Username=postgres;Password=devpassword",
     "localCacheProjectName": "web_getting_started",
     "shouldIndexPageObjects": false,
     "pageObjectFilesPath": "40. Prompts Support\\Pages",

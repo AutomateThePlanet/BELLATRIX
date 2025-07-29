@@ -17,10 +17,7 @@
 using Bellatrix.LLM;
 using Bellatrix.LLM.Plugins;
 using Bellatrix.Playwright.LLM.Plugins;
-using Bellatrix.Playwright.Locators;
-using Microsoft.Identity.Client;
 using Microsoft.SemanticKernel;
-using Pipelines.Sockets.Unofficial.Arenas;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -59,7 +56,7 @@ public class FindByPrompt : FindStrategy
         if (_tryResolveFromPages)
         {
             var ragLocator = TryResolveFromPageObjectMemory(Value);
-            if (ragLocator != null && ragLocator.Resolve(WrappedBrowser.CurrentPage).All().Any())
+            if (ragLocator != null && ragLocator.Resolve(WrappedBrowser.CurrentPage).IsPresent)
             {
                 Logger.LogInformation($"✅ Using RAG-located element '{ragLocator}' For '${Value}'");
                 return ragLocator;
@@ -71,7 +68,7 @@ public class FindByPrompt : FindStrategy
         var cached = LocatorCacheService.TryGetCached(WrappedBrowser.CurrentPage.Url, Value);
 
         var strategy = new FindXpathStrategy(cached);
-        if (!string.IsNullOrEmpty(cached) && strategy.Resolve(WrappedBrowser.CurrentPage).All().Any())
+        if (!string.IsNullOrEmpty(cached) && strategy.Resolve(WrappedBrowser.CurrentPage).IsPresent)
         {
             Logger.LogInformation("✅ Using cached selector.");
             return strategy;
@@ -145,7 +142,7 @@ public class FindByPrompt : FindStrategy
             var rawSelector = result?.GetValue<string>()?.Trim();
 
             var strategy = new FindXpathStrategy(rawSelector);
-            if (!string.IsNullOrWhiteSpace(rawSelector) && strategy.Resolve(WrappedBrowser.CurrentPage).All().Any())
+            if (!string.IsNullOrWhiteSpace(rawSelector) && strategy.Resolve(WrappedBrowser.CurrentPage).IsPresent)
             {
                 LocatorCacheService.Update(location, Value, strategy.Value);
                 return strategy;

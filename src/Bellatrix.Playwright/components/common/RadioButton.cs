@@ -47,6 +47,27 @@ public class RadioButton : Component, IComponentDisabled, IComponentValue, IComp
     /// <param name="options"></param>
     public virtual void Click(LocatorCheckOptions options = default)
     {
-        DefaultCheck(Clicking, Clicked, options);
+        var tempOptions = options ?? new LocatorCheckOptions();
+        tempOptions.Timeout = 1;
+
+        Clicking?.Invoke(this, new ComponentActionEventArgs(this));
+
+        try
+        {
+            DefaultCheck(null, null, tempOptions);
+        }
+        catch
+        {
+            // Fallback to JsClick, radio button may be custom element with hidden input
+            var clickOptions = new LocatorClickOptions
+            {
+                Force = true,
+                Timeout = options?.Timeout,
+            };
+
+            DefaultClick(null, null, clickOptions);
+        }
+
+        Clicked?.Invoke(this, new ComponentActionEventArgs(this));
     }
 }

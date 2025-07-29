@@ -50,7 +50,7 @@ public partial class Component
             if (options.Force != null && (bool)options.Force) PerformJsClick();
             else WrappedElement.Click(options);
         }
-        
+
         else WrappedElement.Click();
 
         clicked?.Invoke(this, new ComponentActionEventArgs(this));
@@ -72,7 +72,6 @@ public partial class Component
         unchecking?.Invoke(this, new ComponentActionEventArgs(this));
 
         WrappedElement.Uncheck(options);
-
 
         @unchecked?.Invoke(this, new ComponentActionEventArgs(this));
     }

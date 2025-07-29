@@ -35,7 +35,31 @@ public class CheckBox : Component, IComponentDisabled, IComponentChecked, ICompo
     /// <param name="options"></param>
     public virtual void Check(LocatorCheckOptions options = default)
     {
-        DefaultCheck(Checking, Checked, options);
+        var tempOptions = options ?? new LocatorCheckOptions();
+        tempOptions.Timeout = 1;
+
+        Checking?.Invoke(this, new ComponentActionEventArgs(this));
+
+        try
+        {
+            DefaultCheck(null, null, tempOptions);
+        }
+        catch
+        {
+            // Fallback to JsClick, checkbox may be custom element with hidden input
+
+            if (!IsChecked)
+            {
+                var clickOptions = new LocatorClickOptions
+                {
+                    Force = true,
+                    Timeout = options?.Timeout,
+                };
+                DefaultClick(null, null, clickOptions);
+            }
+        }
+
+        Checked?.Invoke(this, new ComponentActionEventArgs(this));
     }
 
     /// <summary>
@@ -44,7 +68,32 @@ public class CheckBox : Component, IComponentDisabled, IComponentChecked, ICompo
     /// <param name="options"></param>
     public virtual void Uncheck(LocatorUncheckOptions options = default)
     {
-        DefaultUncheck(Unchecking, Unchecked, options);
+        var tempOptions = options ?? new LocatorUncheckOptions();
+        tempOptions.Timeout = 1;
+
+        Unchecking?.Invoke(this, new ComponentActionEventArgs(this));
+
+        try
+        {
+            DefaultUncheck(null, null, tempOptions);
+        }
+        catch
+        {
+            // Fallback to JsClick, checkbox may be custom element with hidden input
+
+            if (IsChecked)
+            {
+                var clickOptions = new LocatorClickOptions
+                {
+                    Force = true,
+                    Timeout = options?.Timeout,
+                };
+                DefaultClick(null, null, clickOptions);
+            }
+
+        }
+
+        Unchecked?.Invoke(this, new ComponentActionEventArgs(this));
     }
 
     public virtual void Hover()
