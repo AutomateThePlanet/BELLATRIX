@@ -60,6 +60,21 @@ public class WebElement
 
     public BrowserPage Page { get; internal init; }
 
+    public bool IsPresent
+    {
+        get
+        {
+            try
+            {
+                return All().Any();
+            }
+            catch
+            {
+                return false;
+            }
+        }
+    }
+
     public IReadOnlyList<WebElement> All()
     {
         IReadOnlyCollection<ILocator> nativeLocators;

@@ -163,11 +163,11 @@ public class FindByPrompt : FindStrategy
     private string ResolveViaPromptFallback(string location, WindowsDriver<WindowsElement> driver, int maxAttempts = 3)
     {
         var viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
-        var summaryJson = viewSnapshotProvider.GetCurrentViewSnapshot();
         var failedSelectors = new List<string>();
 
         for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
+            var summaryJson = viewSnapshotProvider.GetCurrentViewSnapshot();
             var prompt = SemanticKernelService.Kernel?.InvokeAsync(nameof(LocatorSkill), nameof(LocatorSkill.BuildLocatorPrompt),
                 new()
                 {

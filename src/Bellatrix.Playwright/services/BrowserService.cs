@@ -138,7 +138,7 @@ public class BrowserService : WebService, IViewSnapshotProvider
                 maxSeconds,
                 sleepTimeMilliseconds: 100);
     }
-    
+
     // Faster than sending js and checking for a X state.
     public void WaitForLoadState(LoadState state = LoadState.Load)
     {
@@ -326,57 +326,55 @@ public class BrowserService : WebService, IViewSnapshotProvider
     public string GetCurrentViewSnapshot()
     {
         var script = @"
-(() => {
-    return JSON.stringify((function deepScan(root) {
-        const result = [];
-        const stack = [{ node: root, depth: 0 }];
+JSON.stringify((function deepScan(root) {
+    const result = [];
+    const stack = [{ node: root, depth: 0 }];
 
-        while (stack.length) {
-            const { node, depth } = stack.pop();
-            if (!(node instanceof Element)) continue;
+    while (stack.length) {
+        const { node, depth } = stack.pop();
+        if (!(node instanceof Element)) continue;
 
-            const style = window.getComputedStyle(node);
-            const rect = node.getBoundingClientRect();
+        const style = window.getComputedStyle(node);
+        const rect = node.getBoundingClientRect();
 
-            if (style.display !== 'none' &&
-                style.visibility !== 'hidden' &&
-                rect.width > 0 &&
-                rect.height > 0) {
-                result.push({
-                    tag: node.tagName.toLowerCase(),
-                    id: node.id,
-                    class: node.className.trim(),
-                    text: node.innerText.trim(),
-                    type: node.getAttribute('type'),
-                    name: node.getAttribute('name'),
-                    placeholder: node.getAttribute('placeholder'),
-                    ariaLabel: node.getAttribute('aria-label'),
-                    role: node.getAttribute('role'),
-                    href: node.getAttribute('href'),
-                    for: node.getAttribute('for'),
-                    value: node.getAttribute('value'),
-                    disabled: node.disabled,
-                    checked: node.type === 'checkbox' ? node.checked : undefined,
-                    selected: node.selected,
-                    shadowDepth: depth,
-                    isInShadowRoot: depth > 0
-                });
-            }
-
-            for (const child of node.children) {
-                stack.push({ node: child, depth });
-            }
-
-            if (node.shadowRoot) {
-                for (const shadowChild of node.shadowRoot.children) {
-                    stack.push({ node: shadowChild, depth: depth + 1 });
-                }
-            }
+        if (style.display !== 'none' &&
+            style.visibility !== 'hidden' &&
+            rect.width > 0 &&
+            rect.height > 0) {
+            result.push({
+                tag: node.tagName.toLowerCase(),
+                id: node.id,
+                class: node.className.trim(),
+                text: node.innerText.trim(),
+                type: node.getAttribute('type'),
+                name: node.getAttribute('name'),
+                placeholder: node.getAttribute('placeholder'),
+                ariaLabel: node.getAttribute('aria-label'),
+                role: node.getAttribute('role'),
+                href: node.getAttribute('href'),
+                for: node.getAttribute('for'),
+                value: node.getAttribute('value'),
+                disabled: node.disabled,
+                checked: node.type === 'checkbox' ? node.checked : undefined,
+                selected: node.selected,
+                shadowDepth: depth,
+                isInShadowRoot: depth > 0
+            });
         }
 
-        return result;
-    })(document.body));
-})()
+        for (const child of node.children) {
+            stack.push({ node: child, depth });
+        }
+
+        if (node.shadowRoot) {
+            for (const shadowChild of node.shadowRoot.children) {
+                stack.push({ node: shadowChild, depth: depth + 1 });
+            }
+        }
+    }
+
+    return result;
+})(document.body));
 ";
         var javaScriptService = new JavaScriptService(WrappedBrowser);
         return javaScriptService.Execute<string>(script);

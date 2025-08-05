@@ -17,10 +17,7 @@
 using Bellatrix.LLM;
 using Bellatrix.LLM.Plugins;
 using Bellatrix.Playwright.LLM.Plugins;
-using Bellatrix.Playwright.Locators;
-using Microsoft.Identity.Client;
 using Microsoft.SemanticKernel;
-using Pipelines.Sockets.Unofficial.Arenas;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -28,7 +25,7 @@ namespace Bellatrix.Playwright.LLM;
 
 public class FindByPrompt : FindStrategy
 {
-    private bool _tryResolveFromPages = true;
+    private readonly bool _tryResolveFromPages;
     /// <summary>
     /// Initializes a new instance of the <see cref="FindByPrompt"/> class with the specified prompt value.
     /// </summary>
@@ -58,51 +55,80 @@ public class FindByPrompt : FindStrategy
     {
         if (_tryResolveFromPages)
         {
-            // Try from memory
-            var match = SemanticKernelService.Memory
-            .SearchAsync(Value, index: "PageObjects", limit: 1)
-            .Result.Results.FirstOrDefault();
-
-            if (match != null)
+            var ragLocator = TryResolveFromPageObjectMemory(Value);
+            if (ragLocator != null && ragLocator.Resolve(WrappedBrowser.CurrentPage).IsPresent)
             {
-                var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? "";
-                var mappedPrompt = SemanticKernelService.Kernel
-                    .InvokeAsync(nameof(LocatorMapperSkill), nameof(LocatorMapperSkill.MatchPromptToKnownLocator), new()
-                    {
-                        ["pageSummary"] = pageSummary,
-                        ["instruction"] = Value
-                    }).Result.GetValue<string>();
-
-                var result = SemanticKernelService.Kernel.InvokePromptAsync(mappedPrompt).Result;
-                var rawLocator = result?.GetValue<string>()?.Trim();
-                var ragLocator = new FindXpathStrategy(rawLocator);
-                if (ragLocator != null)
-                {
-                    Logger.LogInformation($"✅ Using RAG-located element '{ragLocator}' For '${Value}'");
-                    return ragLocator;
-                }
+                Logger.LogInformation($"✅ Using RAG-located element '{ragLocator}' For '${Value}'");
+                return ragLocator;
             }
         }
 
-        // Try cache
-        var cached = LocatorCacheService.TryGetCached(location, Value);
-        if (!string.IsNullOrEmpty(cached))
+        // Step 2: Try local persistent cache
+        Logger.LogInformation("⚠️ RAG-located element not present. Trying cached selectors...");
+        var cached = LocatorCacheService.TryGetCached(WrappedBrowser.CurrentPage.Url, Value);
+
+        var strategy = new FindXpathStrategy(cached);
+        if (!string.IsNullOrEmpty(cached) && strategy.Resolve(WrappedBrowser.CurrentPage).IsPresent)
         {
-            return new FindXpathStrategy(cached);
+            Logger.LogInformation("✅ Using cached selector.");
+            return strategy;
         }
 
-        // Remove broken and fall back
-        LocatorCacheService.Remove(location, Value);
+        // Step 3: Fall back to AI + prompt regeneration
+        Logger.LogInformation("⚠️ Cached selector failed or not found. Re-querying AI...");
+        LocatorCacheService.Remove(WrappedBrowser.CurrentPage.Url, Value);
+
         return ResolveViaPromptFallback(location, snapshotProvider);
+    }
+
+    private static FindXpathStrategy TryResolveFromPageObjectMemory(string instruction)
+    {
+        var match = SemanticKernelService.Memory
+            .SearchAsync(instruction, index: "PageObjects", limit: 1)
+            .Result.Results.FirstOrDefault();
+
+        if (match == null) return null;
+
+        var pageSummary = match.Partitions.FirstOrDefault()?.Text ?? string.Empty;
+        var mappedPrompt = SemanticKernelService.Kernel
+            .InvokeAsync(nameof(LocatorMapperSkill), nameof(LocatorMapperSkill.MatchPromptToKnownLocator),
+                new()
+                {
+                    ["pageSummary"] = pageSummary,
+                    ["instruction"] = instruction
+                }).Result.GetValue<string>();
+
+        var locatorResult = SemanticKernelService.Kernel
+            .InvokePromptAsync(mappedPrompt).Result.GetValue<string>();
+
+        return ParsePromptLocatorToStrategy(locatorResult);
+    }
+
+    private static FindXpathStrategy ParsePromptLocatorToStrategy(string promptResult)
+    {
+        if (promptResult == "Unknown")
+        {
+            return null;
+        }
+
+        var parts = Regex.Match(promptResult, @"^\s*xpath\s*=\s*(//.+)$", RegexOptions.IgnoreCase);
+        if (!parts.Success)
+        {
+            throw new ArgumentException($"❌ Invalid format. Expected: xpath=//... but received '{promptResult}'");
+        }
+
+        var xpath = parts.Groups[1].Value.Trim();
+
+        return new FindXpathStrategy(xpath);
     }
 
     private FindStrategy ResolveViaPromptFallback(string location, IViewSnapshotProvider snapshotProvider, int maxAttempts = 3)
     {
-        var summaryJson = snapshotProvider.GetCurrentViewSnapshot();
         var failedSelectors = new List<string>();
 
         for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
+            var summaryJson = snapshotProvider.GetCurrentViewSnapshot();
             var prompt = SemanticKernelService.Kernel
                 .InvokeAsync(nameof(LocatorSkill), nameof(LocatorSkill.BuildLocatorPrompt),
                 new()
@@ -113,20 +139,17 @@ public class FindByPrompt : FindStrategy
                 }).Result.GetValue<string>();
 
             var result = SemanticKernelService.Kernel.InvokePromptAsync(prompt).Result;
-            var raw = result?.GetValue<string>()?.Trim();
+            var rawSelector = result?.GetValue<string>()?.Trim();
 
-            if (!string.IsNullOrWhiteSpace(raw))
+            var strategy = new FindXpathStrategy(rawSelector);
+            if (!string.IsNullOrWhiteSpace(rawSelector) && strategy.Resolve(WrappedBrowser.CurrentPage).IsPresent)
             {
-                var locator = new FindXpathStrategy(raw);
-                if (locator != null)
-                {
-                    LocatorCacheService.Update(location, Value, locator.Value);
-                    return locator;
-                }
-
-                failedSelectors.Add(raw);
+                LocatorCacheService.Update(location, Value, strategy.Value);
+                return strategy;
             }
 
+            failedSelectors.Add(rawSelector);
+            Logger.LogInformation($"[Attempt {attempt}] Selector failed: {rawSelector}");
             Thread.Sleep(300);
         }
 

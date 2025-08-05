@@ -19,7 +19,7 @@ public class PageObjectsTests : NUnit.WebTest
         //ViewCartButton.ValidateIsVisible();
         var product = App.Components.CreateByPrompt<Anchor>("find Add to cart anchor under 'Falcon 9' item");
         product.Click();
-        
+
         //AssertByPrompt("validate that view cart button is visible");
         ValidateByPrompt("validate that view cart button is visible");
 
@@ -42,7 +42,7 @@ public class PageObjectsTests : NUnit.WebTest
         ValidateByPrompt("validate that the total is 294.67€ euro and the vat is 9.67€ euro and -5.00€ coupon applied, subtotal is 290.00€");
 
 
-        var deleteLink = App.Components.CreateByPrompt<Anchor>("find 'Saturn V' remove anchor");
+        var deleteLink = App.Components.CreateByPrompt<Anchor>("find remove anchor in the 'Saturn V' row");
         deleteLink.Click();
 
         var checkoutLink = App.Components.CreateByPrompt<Anchor>("find the checkout link in the main navigation");

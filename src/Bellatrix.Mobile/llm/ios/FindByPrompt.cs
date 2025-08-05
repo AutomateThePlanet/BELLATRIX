@@ -159,11 +159,11 @@ public class FindByPrompt : FindStrategy<IOSDriver, AppiumElement>
     private string ResolveViaPromptFallback(string location, object context, int maxAttempts = 3)
     {
         var snapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
-        var summaryJson = snapshotProvider.GetCurrentViewSnapshot();
         var failedSelectors = new List<string>();
 
         for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
+            var summaryJson = snapshotProvider.GetCurrentViewSnapshot();
             var prompt = SemanticKernelService.Kernel?.InvokeAsync(nameof(IOSLocatorSkill), nameof(IOSLocatorSkill.BuildLocatorPrompt),
                 new()
                 {
