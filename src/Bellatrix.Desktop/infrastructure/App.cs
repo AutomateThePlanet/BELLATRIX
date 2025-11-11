@@ -38,7 +38,7 @@ public class App : IDisposable
 {
     // TODO: Change to be ThreadLocal.
     private static bool _shouldStartLocalService;
-    private static Process _winAppDriverProcess;
+    // private static Process _appiumProcess;
 
     public App()
     {

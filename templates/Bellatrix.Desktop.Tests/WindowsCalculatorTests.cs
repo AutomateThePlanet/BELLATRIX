@@ -20,7 +20,7 @@ public class WindowsCalculatorTests : NUnit.DesktopTest
         App.Components.CreateByName<Button>("Equals").Click();
 
         var calculatorResult = GetCalculatorResultText();
-        Assert.AreEqual("12", calculatorResult);
+        Assert.That(calculatorResult, Is.EqualTo("12"));
     }
 
     ////[TestMethod]
@@ -34,7 +34,7 @@ public class WindowsCalculatorTests : NUnit.DesktopTest
         App.Components.CreateByAccessibilityId<Button>("num1Button").Click();
         App.Components.CreateByAccessibilityId<Button>("equalButton").Click();
 
-        Assert.AreEqual("8", GetCalculatorResultText());
+        Assert.That(GetCalculatorResultText(), Is.EqualTo("8"));
     }
 
     ////[TestMethod]
@@ -46,7 +46,7 @@ public class WindowsCalculatorTests : NUnit.DesktopTest
         App.Components.CreateByXPath<Button>("//Button[@Name='Nine']").Click();
         App.Components.CreateByXPath<Button>("//Button[@Name='Equals']").Click();
 
-        Assert.AreEqual("81", GetCalculatorResultText());
+        Assert.That(GetCalculatorResultText(), Is.EqualTo("81"));
     }
 
     ////[TestMethod]
@@ -58,7 +58,7 @@ public class WindowsCalculatorTests : NUnit.DesktopTest
         App.Components.CreateByXPath<Button>("//Button[@AutomationId='num1Button']").Click();
         App.Components.CreateByXPath<Button>("//Button[@AutomationId='equalButton']").Click();
 
-        Assert.AreEqual("8", GetCalculatorResultText());
+        Assert.That(GetCalculatorResultText(), Is.EqualTo("8"));
     }
 
     private string GetCalculatorResultText()
