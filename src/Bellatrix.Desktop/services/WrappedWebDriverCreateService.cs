@@ -46,10 +46,7 @@ public class WrappedWebDriverCreateService
             { "ms:experimental-webdriver", true }
         };
 
-        appiumOptions.Add("automationName",
-            ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver
-                ? "UIAutomation"
-                : "Windows");
+        appiumOptions.Add("automationName", "NovaWindows");
 
         if (appConfiguration.AppPath == "Root")
         {
@@ -96,7 +93,7 @@ public class WrappedWebDriverCreateService
                 { "endElementId", closeButton.Id },
                 { "durationMs", 0 }
             });
-            
+
             wrappedWebDriver.SwitchTo().Window(wrappedWebDriver.CurrentWindowHandle);
         }
         catch (Exception e)

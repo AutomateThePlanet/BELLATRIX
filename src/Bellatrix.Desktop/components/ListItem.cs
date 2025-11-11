@@ -32,31 +32,16 @@ public class ListItem : Component
 
     public virtual void Select()
     {
-        if (!ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
-        {
-            throw new InvalidOperationException("This option is supported only with ExperimentalDesktopDriver enabled");
-        }
-
         WrappedDriver.ExecuteScript("windows: select", WrappedElement);
     }
-    
+
     public virtual void AddToSelection()
     {
-        if (!ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
-        {
-            throw new InvalidOperationException("This option is supported only with ExperimentalDesktopDriver enabled");
-        }
-
         WrappedDriver.ExecuteScript("windows: addToSelection", WrappedElement);
     }
-    
+
     public virtual void RemoveFromSelection()
     {
-        if (!ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
-        {
-            throw new InvalidOperationException("This option is supported only with ExperimentalDesktopDriver enabled");
-        }
-
         WrappedDriver.ExecuteScript("windows: removeFromSelection", WrappedElement);
     }
 }

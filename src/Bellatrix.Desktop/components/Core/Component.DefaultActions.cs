@@ -41,11 +41,7 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
     {
         hovering?.Invoke(this, new ComponentActionEventArgs(this));
 
-        if (ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
-        {
-            new Actions(WrappedDriver).MoveToElement(WrappedElement).Perform();
-        }
-        else
+        try
         {
             WrappedDriver.ExecuteScript("windows: hover", new Dictionary<string, object>
             {
@@ -53,6 +49,10 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
                 { "endElementId", WrappedElement.Id },
                 { "durationMs", 0 }
             });
+        }
+        catch
+        {
+            new Actions(WrappedDriver).MoveToElement(WrappedElement).Perform();
         }
 
         hovered?.Invoke(this, new ComponentActionEventArgs(this));

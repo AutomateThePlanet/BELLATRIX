@@ -187,18 +187,15 @@ public partial class Component
 
     public virtual void ScrollToVisible()
     {
-        if (ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
+        ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs(this));
+        try
         {
             WrappedDriver.ExecuteScript("windows: scrollToVisible", WrappedElement);
-            return;
         }
-
-        ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs(this));
-
-        var touchActions = new Actions(WrappedDriver);
-        System.Threading.Thread.Sleep(2000);
-        touchActions.ScrollToElement(WrappedElement);
-        this.ToBeVisible().ToExists().WaitToBe();
+        catch
+        {
+            // ignore
+        }
         ScrolledToVisible?.Invoke(this, new ComponentActionEventArgs(this));
     }
 

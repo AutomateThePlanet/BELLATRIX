@@ -67,18 +67,6 @@ public class App : IDisposable
 
         var uri = new Uri(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url);
 
-        // Anton(06.09.2018): maybe we can kill WinAppDriver every time
-        if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver") || ProcessProvider.IsPortBusy(uri.Port))
-        {
-            return;
-        }
-
-        var winAppDriverPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Windows Application Driver");
-        if (!Directory.Exists(winAppDriverPath))
-        {
-            throw new ArgumentException("Windows Application Driver is not installed on the machine. To use BELLATRIX Desktop libraries you need to install it first. You can download it from here: https://github.com/Microsoft/WinAppDriver/releases");
-        }
-
         var appiumPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "npm");
         if (!Directory.Exists(appiumPath))
         {
@@ -86,10 +74,80 @@ public class App : IDisposable
         }
 
         var appiumPs1Path = Path.Combine(appiumPath, "appium.ps1");
+
+        // Minimum Appium Version Check
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" -v",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+            }
+        };
+
+        process.Start();
+        var output = process.StandardOutput.ReadToEnd().Trim();
+        process.WaitForExit();
+
+        if (Version.TryParse(output, out var version) && version < new Version(3, 1, 0))
+        {
+            throw new ArgumentException("Appium version 3.1.0 or higher is required. Please update Appium by running: npm install -g appium@latest");
+        }
+
+        const string latestVersion = "1.2.0-preview.1";
+
+        process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = "-NoProfile -ExecutionPolicy RemoteSigned -Command \"appium driver list --installed --json\"",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+            }
+        };
+
+        process.Start();
+        output = process.StandardOutput.ReadToEnd();
+        process.WaitForExit();
+
+        var json = System.Text.Json.JsonDocument.Parse(output);
+        // TODO: remove latestVersion when Appium 3 version is officially out
+        if (!json.RootElement.TryGetProperty("novawindows", out var driver))
+        {
+            Console.WriteLine("NovaWindows driver not found. Installing...");
+            Process.Start(
+                "powershell.exe",
+                $"-NoProfile -ExecutionPolicy RemoteSigned -Command \"appium driver install --source=npm appium-novawindows-driver@{latestVersion}\""
+            )?.WaitForExit();
+        }
+        else
+        {
+            var installedVersion = driver.GetProperty("version").GetString() ?? "";
+            if (installedVersion != latestVersion)
+            {
+                Console.WriteLine($"Updating NovaWindows driver to {latestVersion}...");
+                Process.Start(
+                    "powershell.exe",
+                    "-NoProfile -ExecutionPolicy RemoteSigned -Command \"appium driver update novawindows\""
+                )?.WaitForExit();
+            }
+            else
+            {
+                Console.WriteLine("NovaWindows driver is up to date.");
+            }
+        }
+
         _appiumServerProcess = ProcessProvider.StartProcess(
             "powershell.exe",
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-            $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" -a {uri.Host} -p {uri.Port} --allow-insecure=power_shell",
+            $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" -a {uri.Host} -p {uri.Port} --allow-insecure=novawindows:power_shell",
             true);
 
         ProcessProvider.WaitPortToGetBusy(uri.Port);

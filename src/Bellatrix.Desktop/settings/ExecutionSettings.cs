@@ -26,6 +26,4 @@ public class ExecutionSettings
     public List<Dictionary<string, object>> Arguments { get; set; }
 
     public bool IsCloudRun { get; set; }
-
-    public bool ExperimentalDesktopDriver { get; set; } = false;
 }

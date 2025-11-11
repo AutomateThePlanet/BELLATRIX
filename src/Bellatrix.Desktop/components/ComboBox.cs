@@ -37,14 +37,14 @@ public class ComboBox : Component, IComponentDisabled, IComponentInnerText
     {
         Selecting?.Invoke(this, new ComponentActionEventArgs(this, value));
 
-        if (ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
+        try
         {
             var itemToSelect = this.CreateAllByTag<ListItem>("ListItem")
                 .FirstOrDefault(x => x.CreateByTag<Label>("Text").InnerText == value);
 
             WrappedDriver.ExecuteScript("windows: select", itemToSelect);
         }
-        else
+        catch
         {
             if (WrappedElement.Text != value)
             {
@@ -59,11 +59,6 @@ public class ComboBox : Component, IComponentDisabled, IComponentInnerText
     {
         get
         {
-            if (!ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
-            {
-                throw new InvalidOperationException("This option is supported only with ExperimentalDesktopDriver enabled");
-            }
-
             return new ComponentsRepository().CreateComponentThatIsFound<ListItem>(null,
                 (AppiumElement)WrappedDriver.ExecuteScript("windows: selectedItem", WrappedElement));
         }
@@ -74,12 +69,14 @@ public class ComboBox : Component, IComponentDisabled, IComponentInnerText
     {
         get
         {
-            if (ConfigurationService.GetSection<ExecutionSettings>().ExperimentalDesktopDriver)
+            try
             {
                 return SelectedItem.CreateByTag<Label>("Text").InnerText;
-            }  
-
-            return GetInnerText();
+            }
+            catch
+            {
+                return GetInnerText();
+            }
         }
     }
 
