@@ -170,14 +170,14 @@ public class App : IDisposable
         where TComponentsEventHandler : ComponentEventHandlers
     {
         var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
-        elementEventHandler.SubscribeToAll();
+        elementEventHandler?.SubscribeToAll();
     }
 
     public void RemoveElementEventHandler<TComponentsEventHandler>()
         where TComponentsEventHandler : ComponentEventHandlers
     {
         var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
-        elementEventHandler.UnsubscribeToAll();
+        elementEventHandler?.UnsubscribeToAll();
     }
 
     public void AddPlugin<TExecutionExtension>()
