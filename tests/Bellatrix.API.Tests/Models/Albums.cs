@@ -1,5 +1,5 @@
 ﻿// <copyright file="Albums.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,7 +17,6 @@ using Newtonsoft.Json;
 
 namespace MediaStore.Demo.API.Models;
 
-#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 public class Albums : IEquatable<Albums>
 {
     public Albums() => Tracks = new HashSet<Tracks>();
@@ -34,8 +33,9 @@ public class Albums : IEquatable<Albums>
     [JsonProperty(Required = Required.AllowNull)]
     public ICollection<Tracks> Tracks { get; set; }
 
-    public bool Equals(Albums other) => AlbumId.Equals(other.AlbumId);
+    public bool Equals(Albums other) => AlbumId.Equals(other?.AlbumId);
 
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public override bool Equals(object obj) => Equals(obj as Albums);
-}
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+}

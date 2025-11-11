@@ -1,0 +1,4 @@
+﻿1. Open the tests that you made in the page objects section
+2. Turn on the HTTP capturing
+3. Add proxy service assertions
+4. Redirect some of the requests made

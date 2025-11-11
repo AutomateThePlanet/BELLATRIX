@@ -12,7 +12,7 @@ public class ExtendExistingCommonServicesTests : NUnit.WebTest
     public void PurchaseRocket()
     {
         // 2. Use newly added navigation though JavaScript which is not part of the original implementation of the common service.
-        App.Navigation.NavigateViaJavaScript("http://demos.bellatrix.solutions/");
+        App.Navigation.NavigateViaJavaScript("https://demos.bellatrix.solutions/");
 
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
         Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");

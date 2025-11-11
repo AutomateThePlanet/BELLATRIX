@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  bellatrixllm-cache:
+    image: postgres:15
+    container_name: bellatrixllm-cache
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: LocatorCacheDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: devpassword
+    ports:
+      - "5433:5432"
+    volumes:
+      - bellatrixllm_pgdata:/var/lib/postgresql/data
+
+  bellatrixllm-vectorstore:
+    image: qdrant/qdrant
+    container_name: bellatrixllm-vectorstore
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - bellatrixllm_qdrantdata:/qdrant/storage
+
+volumes:
+  bellatrixllm_pgdata:
+  bellatrixllm_qdrantdata:

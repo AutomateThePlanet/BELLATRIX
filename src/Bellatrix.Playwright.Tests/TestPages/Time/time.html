@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Url HTML Control Demo</title>
+    <link rel="stylesheet" type="text/css" href="time.css">
+</head>
+<body>
+    <label for="myTime">Default</label>
+    <input id="myTime" name="myTime" type="time" class="myTestClass">
+
+    <br>
+    <br>
+    <label for="myTime1">Test Max Min Step</label>
+    <input id="myTime1" name="myTime1" type="time" step="10" min="00:01" max="11:11">
+
+    <br>
+    <br>
+    <label for="myTime2">Default Value</label>
+    <input id="myTime2" name="myTime2" type="time" step="10" min="00:01" max="11:11" value="12:11">
+
+    <br>
+    <br>
+    <label for="myTime3">Autocomplete= ON</label>
+    <input id="myTime3" name="myTime3" type="time" step="10" min="00:01" max="11:11" autocomplete="on">
+
+    <br>
+    <br>
+    <label for="myTime4">Autocomplete= OFF</label>
+    <input id="myTime4" name="myTime4" type="time" step="10" min="00:01" max="11:11" autocomplete="off">
+
+    <br>
+    <br>
+    <label for="myTime5">Readonly Set</label>
+    <input id="myTime5" name="myTime5" type="time" step="10" min="00:01" max="11:11" readonly>
+
+    <br>
+    <br>
+    <label for="myTime6">Required Set</label>
+    <input id="myTime6" name="myTime6" type="time" step="10" min="00:01" max="11:11" required>
+
+    <br>
+    <br>
+    <label for="myTime7">Test Hover</label>
+    <input id="myTime7" name="myTime7" type="time" step="10" min="00:01" max="11:11" onmouseover="this.style.color='red';">
+
+    <br>
+    <br>
+    <label for="myTime8">Test Focus</label>
+    <input id="myTime8" name="myTime8" type="time" step="10" min="00:01" max="11:11" onfocus="this.style.color='blue';">
+
+    <br>
+    <br>
+    <label for="myTime9">Disabled Set</label>
+    <input id="myTime9" name="myTime9" type="time" step="10" min="00:01" max="11:11" disabled>
+
+    <script type="text/javascript" src="time.js"></script>
+</body>
+</html>

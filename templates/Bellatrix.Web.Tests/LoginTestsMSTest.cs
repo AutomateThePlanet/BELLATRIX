@@ -7,7 +7,7 @@ namespace Bellatrix.Web.Tests;
 ////[Browser(BrowserType.Chrome, Lifecycle.ReuseIfStarted)]
 public class LoginTestsMSTest : MSTest.WebTest
 {
-    public override void TestInit() => App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
+    public override void TestInit() => App.Navigation.Navigate("https://demos.bellatrix.solutions/my-account/");
 
     [TestMethod]
     public void SuccessfullyLoginToMyAccount()
@@ -21,7 +21,7 @@ public class LoginTestsMSTest : MSTest.WebTest
         loginButton.Click();
 
         Div myAccountContentDiv = App.Components.CreateByClass<Div>("woocommerce-MyAccount-content");
-        myAccountContentDiv.ValidateInnerTextContains("Hello info1");
+        myAccountContentDiv.ValidateInnerTextContains("Hello Berlin Spaceflowers");
 
         Anchor logoutLink = App.Components.CreateByInnerTextContaining<Anchor>("Log out");
 
@@ -41,7 +41,7 @@ public class LoginTestsMSTest : MSTest.WebTest
         loginButton.Click();
 
         Div myAccountContentDiv = App.Components.CreateByClass<Div>("woocommerce-MyAccount-content");
-        myAccountContentDiv.ValidateInnerTextContains("Hello info1");
+        myAccountContentDiv.ValidateInnerTextContains("Hello Berlin Spaceflowers");
 
         Anchor logoutLink = App.Components.CreateByInnerTextContaining<Anchor>("Log out");
 

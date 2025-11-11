@@ -18,13 +18,14 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 //
 // There you can set the grid URL and credentials.
 [IOSSauceLabs("sauce-storage:TestApp.app.zip",
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
 public class SauceLabsTests : NUnit.IOSTest
 {
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Ignore("API example purposes only. No need to run.")]
     public void ButtonClicked_When_CallClickMethod()
     {
@@ -35,8 +36,9 @@ public class SauceLabsTests : NUnit.IOSTest
 
     // 2. As mentioned if you use the SauceLabs attribute on method level it overrides the class settings.
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [IOSSauceLabs("sauce-storage:TestApp.app.zip",
+        Constants.AppleCalendarBundleId,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.ReuseIfStarted)]

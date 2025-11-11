@@ -9,7 +9,7 @@ public class LoggingTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void AddCustomMessagesToLog()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");
         Anchor protonMReadMoreButton = App.Components.CreateByInnerTextContaining<Anchor>("Read more");

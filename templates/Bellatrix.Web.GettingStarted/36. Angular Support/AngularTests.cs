@@ -35,7 +35,7 @@ public class AngularTests : NUnit.WebTest
         // Find element(s) by Angular ng-repeat.
         var labels = App.Components.CreateAllByNgRepeater<Label>("todo in todoList.todos");
 
-        Assert.AreEqual("build an AngularJS app", labels[1].InnerText.Trim());
+        Assert.That("build an AngularJS app".Equals(labels[1].InnerText.Trim()));
     }
 
     [Test]
@@ -45,6 +45,6 @@ public class AngularTests : NUnit.WebTest
         var button = App.Components.CreateByXpath<Button>("//a[@routerlink='/guide/getting-started']");
         button.Click();
 
-        Assert.AreEqual("https://material.angular.io/", App.Browser.Url.ToString());
+        Assert.That("https://material.angular.io/".Equals(App.Browser.Url.ToString()));
     }
 }

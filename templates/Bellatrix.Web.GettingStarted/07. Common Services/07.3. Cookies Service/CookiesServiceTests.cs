@@ -12,7 +12,7 @@ public class CookiesServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void GetAllCookies()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         App.Cookies.AddCookie("woocommerce_items_in_cart1", "3");
         App.Cookies.AddCookie("woocommerce_items_in_cart2", "3");
@@ -21,28 +21,28 @@ public class CookiesServiceTests : NUnit.WebTest
         // 2. Get all cookies.
         var cookies = App.Cookies.GetAllCookies();
 
-        Assert.IsTrue(cookies.Count > 0);
+        Assert.That(cookies.Count > 0);
     }
 
     [Test]
     [Category(Categories.CI)]
     public void GetSpecificCookie()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         App.Cookies.AddCookie("woocommerce_items_in_cart", "3");
 
         // 3. Get a specific cookie by name.
         var itemsInCartCookie = App.Cookies.GetCookie("woocommerce_items_in_cart");
 
-        Assert.AreEqual("3", itemsInCartCookie);
+        Assert.That("3".Equals(itemsInCartCookie));
     }
 
     [Test]
     [Category(Categories.CI)]
     public void DeleteAllCookies()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         var protonRocketAddToCartBtn = App.Components.CreateAllByInnerTextContaining<Anchor>("Add to cart").First();
         protonRocketAddToCartBtn.Click();
@@ -55,7 +55,7 @@ public class CookiesServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void DeleteSpecificCookie()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         var protonRocketAddToCartBtn = App.Components.CreateAllByInnerTextContaining<Anchor>("Add to cart").First();
         protonRocketAddToCartBtn.Click();
@@ -68,7 +68,7 @@ public class CookiesServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void AddNewCookie()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/welcome/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/welcome/");
 
         // 6. Add a new cookie.
         App.Cookies.AddCookie("woocommerce_items_in_cart", "3");

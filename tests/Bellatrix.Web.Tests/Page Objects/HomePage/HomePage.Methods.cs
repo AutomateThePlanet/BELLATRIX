@@ -2,7 +2,7 @@
 
 public partial class HomePage : WebPage
 {
-    public override string Url => "http://demos.bellatrix.solutions/";
+    public override string Url => "https://demos.bellatrix.solutions/";
 
     public void FilterProducts(ProductFilter productFilter)
     {

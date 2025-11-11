@@ -33,7 +33,7 @@ public class AppServiceTests : NUnit.AndroidTest
         App.AppService.RemoveApp("com.example.android.apis");
 
         // Checks whether the app with the specified app package is installed.
-        Assert.IsFalse(App.AppService.IsAppInstalled("com.example.android.apis"));
+        Assert.That(!App.AppService.IsAppInstalled("com.example.android.apis"));
 
         string appPath = Path.Combine(ProcessProvider.GetExecutingAssemblyFolder(), "Demos\\ApiDemos.apk");
 

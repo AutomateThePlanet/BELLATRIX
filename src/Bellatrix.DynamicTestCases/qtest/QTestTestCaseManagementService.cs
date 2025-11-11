@@ -1,5 +1,5 @@
 ﻿// <copyright file="QTestTestCaseManagementService.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -48,7 +48,7 @@ public class QTestTestCaseManagementService : ITestCaseManagementService
         }
     }
 
-    public DTC.TestCase InitTestCase(TestCasesContext testCasesContext)
+    public DTC.TestCase UpdateTestCaseStepAndCreateANewTestCase(TestCasesContext testCasesContext)
     {
         QT.ServiceResponse<QT.TestCase> result = default;
         QT.TestCase qTestCreatedTestCase = new QT.TestCase();

@@ -1,6 +1,7 @@
-﻿using Bellatrix;
-using Bellatrix.Desktop;
-using NUnit.Framework;
+﻿global using Assert = Bellatrix.Assertions.Assert;
+global using Bellatrix;
+global using Bellatrix.Desktop;
+global using NUnit.Framework;
 
 [SetUpFixture]
 public class TestsInitialize

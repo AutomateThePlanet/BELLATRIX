@@ -13,10 +13,10 @@ public class CustomWebDriverCapabilitiesTests : NUnit.AndroidTest
     public override void TestsArrange()
     {
         // 2. Add custom Appium options.
-        App.AddAdditionalCapability("locale", "fr_CA");
-        App.AddAdditionalCapability("language", "fr");
-        App.AddAdditionalCapability("autoWebview", "true");
-        App.AddAdditionalCapability("noReset", "false");
+        App.AddAdditionalAppiumOption("locale", "fr_CA");
+        App.AddAdditionalAppiumOption("language", "fr");
+        App.AddAdditionalAppiumOption("autoWebview", "true");
+        App.AddAdditionalAppiumOption("noReset", "false");
     }
 
     [Test]

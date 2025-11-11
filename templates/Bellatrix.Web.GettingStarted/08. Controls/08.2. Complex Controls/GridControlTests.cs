@@ -82,7 +82,7 @@ public class GridControlTests : NUnit.WebTest
 
         // Get all cells that satisfy a condition using a function
         List<TableCell> matchingCells = TestGrid.GetCells<TableCell>(cell => cell.InnerText.StartsWith('J')).ToList();
-        Assert.AreEqual(2, matchingCells.Count());
+        Assert.AreEqual(2, matchingCells.Count);
 
         // Get cell with multiple-row headers
         TestGrid.GetCell("Email Business", 0).ValidateInnerTextIs("jdoe@corp.com");
@@ -142,7 +142,7 @@ public class GridControlTests : NUnit.WebTest
 
         // You can get a specific row by its index through the GetRow method.
         var secondRow = TestGrid.GetRow(1);
-        Assert.AreEqual(1, secondRow.GetCells<TableCell>(cell => cell.InnerText == "Mary").Count());
+        Assert.AreEqual(1, secondRow.GetCells<TableCell>(cell => cell.InnerText == "Mary").Count);
 
         // You can get all rows matching a given condition through the GetRows method.
         var firstRow = TestGrid.GetRow(0);
@@ -179,7 +179,7 @@ public class GridControlTests : NUnit.WebTest
 
         // You can get the cells matching a condition. Also, they will be returned as elements of a type of your choice.
         List<TableCell> textFields = firstRow.GetCells<TableCell>(cell => cell.InnerText.StartsWith("John") || cell.InnerText.StartsWith("john"));
-        Assert.AreEqual(2, textFields.Count());
+        Assert.AreEqual(2, textFields.Count);
 
         // You can get the first cell matching a condition through the GetFirstOrDefaultCell method.
         var firstInputCell = firstRow.GetFirstOrDefaultCell<TextField>(cell => cell.TagName == "input");

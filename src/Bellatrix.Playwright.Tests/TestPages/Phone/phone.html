@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Url HTML Control Demo</title>
+    <link rel="stylesheet" type="text/css" href="phone.css">
+</head>
+<body>
+    <label for="myPhone">Placeholders</label>
+    <input id="myPhone" name="myPhone" type="tel" placeholder="123-4567-8901" class="myTestClass">
+
+    <br>
+    <br>
+    <label for="myPhone1">Physical input element size</label>
+    <input id="myPhone1" name="myPhone" type="tel" size="30">
+
+    <br>
+    <br>
+    <label for="myPhone2">Element value length</label>
+    <input id="myPhone2" name="myPhone" type="tel" size="30" minlength="10" maxlength="80">
+
+    <br>
+    <br>
+    <label for="myPhone3">Providing default options</label>
+    <input id="myPhone3" name="myPhone" type="tel" value="123-4567-8901">
+
+    <br>
+    <br>
+    <label for="myPhone4">Autocomplete= ON</label>
+    <input id="myPhone4" name="myPhone" type="tel" value="00359866547465" autocomplete="on">
+
+    <br>
+    <br>
+    <label for="myPhone5">Autocomplete= OFF</label>
+    <input id="myPhone5" name="myPhone" type="tel" value="00359866547465" autocomplete="off">
+
+    <br>
+    <br>
+    <label for="myPhone6">Readonly Set</label>
+    <input id="myPhone6" name="myPhone" type="tel" value="00359866547465" readonly>
+
+    <br>
+    <br>
+    <label for="myPhone7">Required Set</label>
+    <input id="myPhone7" name="myPhone" type="tel" value="00359866547465" required>
+
+    <br>
+    <br>
+    <label for="myPhone8">Test Hover</label>
+    <input id="myPhone8" name="myPhone" type="tel" value="00359866547465" onmouseover="this.style.color='red';">
+
+    <br>
+    <br>
+    <label for="myPhone9">Test Focus</label>
+    <input id="myPhone9" name="myPhone" type="tel" value="00359866547465" onfocus="this.style.color='blue';">
+
+    <div id="myPhone10Wrapper">
+        <br>
+        <br>
+        <label for="myPhone10">Test Disabled</label>
+        <input id="myPhone10" name="myPhone" type="tel" value="00359866547465" disabled>
+    </div>
+
+    <br>
+    <br>
+    <label for="myPhone11">Test Hidden</label>
+    <input id="myPhone11" name="myPhone" type="tel" value="00359866547465" hidden>
+
+    <script type="text/javascript" src="phone.js"></script>
+</body>
+</html>

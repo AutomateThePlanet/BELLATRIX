@@ -1,8 +1,10 @@
-﻿using Bellatrix;
-using Bellatrix.Mobile;
-using Bellatrix.Mobile.Android;
+﻿global using Assert = Bellatrix.Assertions.Assert;
+global using Bellatrix;
+global using Bellatrix.Mobile;
+global using Bellatrix.Mobile.Android;
+global using NUnit.Framework;
 ////using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
+
 
 [SetUpFixture]
 public class TestsInitialize

@@ -1,0 +1,2 @@
+﻿1. Extend the example and create event handlers for the ValidateInnerTextIs method
+2. Call in the event handler the DebugLogger

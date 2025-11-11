@@ -1,5 +1,5 @@
 ﻿// <copyright file="GridRow.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -72,8 +72,8 @@ public class GridRow : Component, IComponentInnerHtml
         var rowCells = _parentGrid.TableService.GetRowCells(Index);
         for (int rowCellsIndex = 0; rowCellsIndex < rowCells.Count; rowCellsIndex++)
         {
-            var rowCellXPath = rowCells[rowCellsIndex].GetXPath();
-            var cell = ComponentCreateService.CreateByXpath<GridCell>(rowCellXPath);
+            var cell = this.CreateByXpath<GridCell>("./td");
+            cell.ParentComponent = this;
             _parentGrid.SetCellMetaData(cell, Index, rowCellsIndex);
             listOfCells.Add(cell);
         }
@@ -89,15 +89,13 @@ public class GridRow : Component, IComponentInnerHtml
         for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
         {
             var cell = cells[columnIndex];
-            TComponent element = new TComponent();
             if (cell.CellControlComponentType == null)
             {
                 listOfElements.Add(cell.As<TComponent>());
             }
             else
             {
-                var repo = new ComponentRepository();
-                element = repo.CreateComponentWithParent(cell.CellControlBy, cell.WrappedElement, typeof(TComponent), false);
+                TComponent element = cell.Create(cell.CellControlBy, typeof(TComponent));
                 listOfElements.Add(element);
             }
         }
@@ -117,18 +115,31 @@ public class GridRow : Component, IComponentInnerHtml
         return GetCells(selector).FirstOrDefault();
     }
 
-    public T GetItem<T>()
+    public T GetItem<T>(params string[] propertiesToSkip)
         where T : new()
     {
-        return _parentGrid.CastRow<T>(Index);
+        return _parentGrid.CastRow<T>(Index, propertiesToSkip);
     }
 
     public void AssertRow<T>(T expectedItem, params string[] propertiesNotToCompare)
         where T : new()
     {
-        var actualItem = GetItem<T>();
+        var actualItem = GetItem<T>(propertiesNotToCompare);
 
         EntitiesAsserter.AreEqual(expectedItem, actualItem, propertiesNotToCompare);
+    }
+
+    public void AssertRow<T>(T expectedItem)
+        where T : new()
+    {
+        var propsNotToCompare = expectedItem
+                .GetType()
+                .GetProperties()
+                .Where(p => p.GetValue(expectedItem) == null)
+                .Select(n => _parentGrid.HeaderNamesService.GetHeaderNameByProperty(n))
+                .ToArray();
+
+        AssertRow(expectedItem, propsNotToCompare);
     }
 
     internal void DefaultClick<TComponent>(

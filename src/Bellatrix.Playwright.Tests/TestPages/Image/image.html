@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Week HTML Control Demo</title>
+    <link rel="stylesheet" type="text/css" href="image.css">
+</head>
+<body>
+    <label for="myImage">Alternative Text</label>
+    <img id="myImage" src="https://bellatrix.solutions/assets/uploads/2017/09/logo.png" alt="MDN">
+
+    <br>
+    <br>
+    <label for="myImage1">SrcSet List</label>
+    <img id="myImage1" src="https://bellatrix.solutions/assets/uploads/2017/09/logo.png" alt="MDN" srcset="mdn-logo-HD.png 2x">
+
+    <br>
+    <br>
+    <label for="myImage2">Sizes List</label>
+    <img id="myImage2" src="clock-demo-thumb-200.png" alt="Clock" srcset="clock-demo-thumb-200.png 200w,clock-demo-thumb-400.png 400w" sizes="(min-width: 600px) 200px, 50vw">
+
+    <br>
+    <br>
+    <label for="myImage3">Width Height LongDesc</label>
+    <img id="myImage3" src="https://bellatrix.solutions/assets/uploads/2017/09/logo.png" alt="MDN" longdesc="Bellatrix is so cool like a rocket." height="20" width="200">
+
+    <br>
+    <br>
+    <label for="myImage4">Hover</label>
+    <img id="myImage4" src="https://bellatrix.solutions/assets/uploads/2017/09/logo.png" onmouseover="this.className= 'hovered';">
+    <script type="text/javascript" src="image.js"></script>
+</body>
+</html>

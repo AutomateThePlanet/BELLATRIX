@@ -41,7 +41,7 @@
       "url": "http://127.0.0.1:4444/wd/hub",
       "arguments": [
         {
-         
+
         }
       ]
       // sample selenoid args or you can set here custom default browser options for non-grid execution
@@ -137,8 +137,8 @@
     ]
   },
   "urlSettings": {
-    "shopUrl": "http://demos.bellatrix.solutions/cart/",
-    "accountUrl": "http://demos.bellatrix.solutions/account/"
+    "shopUrl": "https://demos.bellatrix.solutions/cart/",
+    "accountUrl": "https://demos.bellatrix.solutions/account/"
   },
   "videoRecordingSettings": {
     "isEnabled": "false",
@@ -206,5 +206,41 @@
   },
   "blobStorageSettings": {
     "connectionString": "yourKey"
+  },
+  "loggingSettings": {
+    "isEnabled": true,
+    "isConsoleLoggingEnabled": true,
+    "isDebugLoggingEnabled": true,
+    "isFileLoggingEnabled": false,
+    "isReportPortalLoggingEnabled": false,
+    "shouldMaskSensitiveInfo": true,
+    "outputTemplate": "{Message:lj}{NewLine}{Exception}"
+  },
+  "largeLanguageModelsSettings": {
+    "modelSettings": [
+      {
+        "endpoint": "env_AZURE_OPENAI_ENDPOINT",
+        "key": "env_AZURE_OPENAI_KEY",
+        "deployment": "gpt-4o"
+      },
+      {
+        "serviceId": "openai-embed",
+        "endpoint": "env_AZURE_OPENAI_EMBEDDINGS_ENDPOINT",
+        "key": "env_AZURE_OPENAI_EMBEDDINGS_KEY",
+        "embeddingDeployment": "text-embedding-ada-002"
+      }
+    ],
+    "qdrantMemoryDbEndpoint": "http://localhost:6333",
+    "localCacheConnectionString": "env_LocalCacheConnectionString",
+    "localCacheProjectName": "web_tests",
+    "shouldIndexPageObjects": false,
+    "pageObjectFilesPath": "Pages",
+    "memoryIndex": "PageObjects",
+    "resetIndexEverytime": false,
+    "locatorRetryAttempts": 3,
+    "validationsTimeout": 5,
+    "sleepInterval": 1,
+    "enableSelfHealing": true,
+    "enableSmartFailureAnalysis": true
   }
 }

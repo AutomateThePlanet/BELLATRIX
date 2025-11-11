@@ -109,3 +109,4 @@ csharp_space_around_binary_operators = before_and_after
 
 # CA1416: Validate platform compatibility
 dotnet_diagnostic.CA1416.severity = none
+csharp_style_prefer_top_level_statements = true:silent

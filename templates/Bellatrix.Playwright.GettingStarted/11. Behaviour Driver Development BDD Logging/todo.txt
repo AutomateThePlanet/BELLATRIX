@@ -1,0 +1,5 @@
+﻿1. Execute some of your already written tests
+2. Open the test's output and check the BDD log
+3. Open the tests' DLLs folder and locate the log.txt file
+4. Locate the testFrameworkSettings file and change some of the logs settings
+5. Change the outputTemplate following the official documentation and rerun your tests

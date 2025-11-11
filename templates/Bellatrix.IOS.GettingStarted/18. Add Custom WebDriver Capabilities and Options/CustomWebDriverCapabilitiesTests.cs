@@ -4,6 +4,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
@@ -17,13 +18,13 @@ public class CustomWebDriverCapabilitiesTests : NUnit.IOSTest
     public override void TestsArrange()
     {
         // 2. Add custom iOS Appium options.
-        App.AddAdditionalCapability("autoAcceptAlerts", "true");
-        App.AddAdditionalCapability("showIOSLog", "true");
-        App.AddAdditionalCapability("remoteDebugProxy", "12000");
+        App.AddAdditionalAppiumOption("autoAcceptAlerts", "true");
+        App.AddAdditionalAppiumOption("showIOSLog", "true");
+        App.AddAdditionalAppiumOption("remoteDebugProxy", "12000");
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Ignore("API example purposes only. No need to run.")]
     public void ButtonClicked_When_CallClickMethod()
     {

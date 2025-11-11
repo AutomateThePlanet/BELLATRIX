@@ -13,11 +13,13 @@
 // <site>https://bellatrix.solutions/</site>
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Utilities;
 using Bellatrix.Web;
+using Microsoft.TeamFoundation.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.GoogleLighthouse.MSTest;
@@ -25,34 +27,57 @@ namespace Bellatrix.GoogleLighthouse.MSTest;
 public class MSTestLighthouseReportsWorkflowPlugin : Plugin
 {
     private static readonly object _lockObject = new object();
-    public static TestContext TestContext { get; set; }
+    ////public static TestContext TestContext { get; set; }
 
     protected override void PostTestCleanup(object sender, PluginEventArgs e)
     {
-        var settings = ConfigurationService.GetSection<LighthouseSettings>();
-        if (settings.IsEnabled && WrappedWebDriverCreateService.BrowserConfiguration.ExecutionType == Web.Enums.ExecutionType.Regular)
+        // As lighthouse analysis run is possible only if there is LighthouseAnalysisRunAttribute,
+        // The only condition that needs to be met is if there is such attribute.
+        if (HasLighthouseAttribute(e) && WrappedWebDriverCreateService.BrowserConfiguration.ExecutionType == Web.Enums.ExecutionType.Regular)
         {
             lock (_lockObject)
             {
+                var context = ServicesCollection.Current.Resolve<TestContext>();
                 var driverExecutablePath = new DirectoryInfo(ExecutionDirectoryResolver.GetDriverExecutablePath());
                 var file = driverExecutablePath.GetFiles("*.report.json", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                 if (file != null && file.Exists)
                 {
-                    TestContext?.AddResultFile(file.FullName);
+                    context?.AddResultFile(file.FullName);
                 }
 
                 file = driverExecutablePath.GetFiles("*.report.html", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                 if (file != null && file.Exists)
                 {
-                    TestContext?.AddResultFile(file.FullName);
+                    context?.AddResultFile(file.FullName);
                 }
 
                 file = driverExecutablePath.GetFiles("*.report.csv", SearchOption.AllDirectories).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                 if (file != null && file.Exists)
                 {
-                    TestContext?.AddResultFile(file.FullName);
+                    context?.AddResultFile(file.FullName);
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Checks if the test is a lighthouse analysis or not.
+    /// </summary>
+    private bool HasLighthouseAttribute(PluginEventArgs e)
+    {
+        // Does it have any attribute of type BrowserAttribute?
+        bool testHasAnyAttribute = !e.TestMethodMemberInfo.GetCustomAttributes().Where(x => x is BrowserAttribute).IsNullOrEmpty();
+
+
+        if (testHasAnyAttribute)
+        {
+            // Checks if this attribute is for lighthouse analysis
+            return e.TestMethodMemberInfo.GetCustomAttribute<LighthouseAnalysisRunAttribute>() != null;
+        }
+        else
+        {
+            // Otherwise, checks if the class has this attribute
+            return e.TestClassType.GetCustomAttribute<LighthouseAnalysisRunAttribute>() != null;
         }
     }
 }

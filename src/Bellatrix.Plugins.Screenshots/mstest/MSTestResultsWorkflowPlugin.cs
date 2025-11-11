@@ -21,7 +21,6 @@ namespace Bellatrix.Results.MSTest;
 public class MSTestResultsWorkflowPlugin : Plugin, IScreenshotPlugin
 {
     private static readonly object _lockObject = new object();
-    public static TestContext TestContext { get; set; }
 
     public void SubscribeScreenshotPlugin(IScreenshotPluginProvider provider)
     {
@@ -39,7 +38,8 @@ public class MSTestResultsWorkflowPlugin : Plugin, IScreenshotPlugin
         {
             if (!string.IsNullOrEmpty(args.ScreenshotPath))
             {
-                TestContext?.AddResultFile(args.ScreenshotPath);
+                var context = ServicesCollection.Current.Resolve<TestContext>();
+                context?.AddResultFile(args.ScreenshotPath);
             }
         }
     }

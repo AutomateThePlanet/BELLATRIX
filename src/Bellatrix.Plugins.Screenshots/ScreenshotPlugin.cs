@@ -1,5 +1,5 @@
 ﻿// <copyright file="ScreenshotWorkflowPlugin.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -47,12 +47,7 @@ public class ScreenshotPlugin : Plugin
         {
             if (_isEnabled && e.TestOutcome != TestOutcome.Passed)
             {
-                var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
-                var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestName);
-                string image = _screenshotEngine.TakeScreenshot(e.Container);
-                string imagePath = Path.Combine(screenshotSaveDir, screenshotFileName);
-                File.WriteAllBytes(imagePath, Convert.FromBase64String(image));
-                _screenshotPluginProvider.ScreenshotGenerated(e, imagePath);
+                TakeScreenshotAndSaveAsFile(e);
             }
         }
         catch (Exception ex)
@@ -63,6 +58,23 @@ public class ScreenshotPlugin : Plugin
         }
 
         base.PreTestCleanup(sender, e);
+    }
+
+    protected override void TestCleanupFailed(object sender, PluginEventArgs e)
+    {
+        TakeScreenshotAndSaveAsFile(e);
+
+        base.TestCleanupFailed(sender, e);
+    }
+
+    private void TakeScreenshotAndSaveAsFile(PluginEventArgs e)
+    {
+        var screenshotSaveDir = _screenshotOutputProvider.GetOutputFolder();
+        var screenshotFileName = _screenshotOutputProvider.GetUniqueFileName(e.TestName);
+        string image = _screenshotEngine.TakeScreenshot(e.Container);
+        string imagePath = Path.Combine(screenshotSaveDir, screenshotFileName);
+        File.WriteAllBytes(imagePath, Convert.FromBase64String(image));
+        _screenshotPluginProvider.ScreenshotGenerated(e, imagePath);
     }
 
     private void InitializeScreenshotProviderObservers()

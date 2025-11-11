@@ -19,8 +19,6 @@ namespace Bellatrix.Results.MSTest;
 
 public class MSTestResultsWorkflowPlugin : Plugin, IVideoPlugin
 {
-    public static TestContext TestContext { get; set; }
-
     public void SubscribeVideoPlugin(IVideoPluginProvider provider)
     {
         provider.VideoGeneratedEvent += VideoGenerated;
@@ -37,7 +35,8 @@ public class MSTestResultsWorkflowPlugin : Plugin, IVideoPlugin
         {
             try
             {
-                TestContext?.AddResultFile(args.VideoPath);
+                var context = ServicesCollection.Current.Resolve<TestContext>();
+                context?.AddResultFile(args.VideoPath);
             }
             catch
             {

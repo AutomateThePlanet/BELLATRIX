@@ -14,7 +14,7 @@ public class InteractionsServiceTests : NUnit.WebTest
     [Ignore("Currently not working in the latest version of WebDriver")]
     public void DragAndDrop()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Anchor protonRocketAnchor = App.Components.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
         Anchor protonMAnchor = App.Components.CreateByAttributesContaining<Anchor>("href", "/proton-m/");
@@ -29,7 +29,7 @@ public class InteractionsServiceTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void KeyUp()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Anchor protonRocketAnchor = App.Components.CreateByAttributesContaining<Anchor>("href", "/proton-rocket/");
         Anchor protonMAnchor = App.Components.CreateByAttributesContaining<Anchor>("href", "/proton-m/");

@@ -1,5 +1,5 @@
 ﻿// <copyright file="MSTestBaseTest.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -25,13 +25,12 @@ namespace Bellatrix;
 [TestClass]
 public class MSTestBaseTest
 {
-#pragma warning disable SA1401 // Fields should be private
-    public ServicesCollection Container;
-#pragma warning restore SA1401 // Fields should be private
+    private ServicesCollection _container;
     private static readonly List<string> TypeForAlreadyExecutedClassInits = new List<string>();
     private static readonly ThreadLocal<bool> _isConfigurationExecuted = new ThreadLocal<bool>(() => { return false; });
     private static ThreadLocal<Exception> _thrownException;
     private PluginProvider _currentTestExecutionProvider;
+    private static ThreadLocal<DateTime> _startTime = new ThreadLocal<DateTime>();
 
     public MSTestBaseTest()
     {
@@ -68,11 +67,12 @@ public class MSTestBaseTest
     [TestInitialize]
     public void CoreTestInit()
     {
+        ServicesCollection.Current.RegisterInstance(TestContext);
         var testMethodMemberInfo = GetCurrentExecutionMethodInfo();
         var testClassType = GetCurrentExecutionTestClassType();
         ExecuteActArrangePhases();
 
-        Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+        _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
         _currentTestExecutionProvider = new PluginProvider();
         InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
@@ -85,6 +85,7 @@ public class MSTestBaseTest
             _currentTestExecutionProvider.PreTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
             TestInit();
             _currentTestExecutionProvider.PostTestInit(TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions);
+            _startTime.Value = DateTime.Now;
         }
         catch (Exception ex)
         {
@@ -102,15 +103,17 @@ public class MSTestBaseTest
         var authors = GetAllAuthors(testMethodMemberInfo);
         var descriptions = GetAllDescriptions(testMethodMemberInfo);
 
-        Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+        _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
         _currentTestExecutionProvider = new PluginProvider();
         InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
         try
         {
-            _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
+            TimeSpan duration = DateTime.Now - _startTime.Value;
+
+            _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, duration.TotalMilliseconds, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
             TestCleanup();
-            _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
+            _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.CurrentTestOutcome, duration.TotalMilliseconds, TestContext.TestName, testMethodMemberInfo, testClassType, new List<object>(), categories, authors, descriptions, _thrownException?.Value?.Message, _thrownException?.Value?.StackTrace, _thrownException?.Value);
         }
         catch (Exception ex)
         {
@@ -119,27 +122,27 @@ public class MSTestBaseTest
         }
     }
 
-    [ClassCleanup]
-    public void CoreClassCleanup()
-    {
-        var testClassType = GetCurrentExecutionTestClassType();
+    //[ClassCleanup]
+    //public void CoreClassCleanup()
+    //{
+    //    var testClassType = GetCurrentExecutionTestClassType();
 
-        Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
-        _currentTestExecutionProvider = new PluginProvider();
-        InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
+    //    _container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+    //    _currentTestExecutionProvider = new PluginProvider();
+    //    InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
 
-        try
-        {
-            _currentTestExecutionProvider.PreClassCleanup(testClassType);
-            TestsCleanup();
-            _currentTestExecutionProvider.PostClassCleanup(testClassType);
-        }
-        catch (Exception ex)
-        {
-            _currentTestExecutionProvider.TestsCleanupFailed(ex);
-            throw;
-        }
-    }
+    //    try
+    //    {
+    //        _currentTestExecutionProvider.PreClassCleanup(testClassType);
+    //        TestsCleanup();
+    //        _currentTestExecutionProvider.PostClassCleanup(testClassType);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        _currentTestExecutionProvider.TestsCleanupFailed(ex);
+    //        throw;
+    //    }
+    //}
 
     // ReSharper disable once MemberCanBeProtected.Global
     public virtual void Initialize()
@@ -231,8 +234,8 @@ public class MSTestBaseTest
             var testClassType = GetCurrentExecutionTestClassType();
             if (!TypeForAlreadyExecutedClassInits.Contains(TestContext.FullyQualifiedTestClassName))
             {
-                Container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
-                Container.RegisterInstance(Container);
+                _container = ServicesCollection.Current.CreateChildServicesCollection(testClassType.FullName);
+                _container.RegisterInstance(_container);
                 _currentTestExecutionProvider = new PluginProvider();
                 InitializeTestExecutionBehaviorObservers(_currentTestExecutionProvider);
                 TypeForAlreadyExecutedClassInits.Add(TestContext.FullyQualifiedTestClassName);

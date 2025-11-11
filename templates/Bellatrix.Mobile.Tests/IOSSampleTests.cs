@@ -8,6 +8,7 @@ namespace Bellatrix.Mobile.Tests;
 ////[TestClass]
 [TestFixture]
 [IOS("pathToApk",
+    "id",
     "7.1",
     "yourTestDeviceName",
     Lifecycle.ReuseIfStarted)]
@@ -17,7 +18,7 @@ public class IOSSampleTests : NUnit.IOSTest
     [Test]
     public void CorrectTextDisplayed_When_ClickSubscribeButton()
     {
-        var button = App.Components.CreateById<Button>("button");
+        var button = App.Components.CreateById<IOS.Button>("button");
 
         button.Click();
     }

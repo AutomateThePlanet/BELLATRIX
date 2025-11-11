@@ -5,9 +5,9 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
 
 [TestFixture]
 [Android(Constants.AndroidNativeAppPath,
+    Constants.AndroidNativeAppId,
     Constants.AndroidDefaultAndroidVersion,
     Constants.AndroidDefaultDeviceName,
-    Constants.AndroidNativeAppAppExamplePackage,
     ".ApiDemos",
     Lifecycle.RestartEveryTime)]
 public class TouchActionsServiceTests : NUnit.AndroidTest
@@ -67,7 +67,7 @@ public class TouchActionsServiceTests : NUnit.AndroidTest
 
         elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
-        Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
+        Assert.That(!elements[7].Location.Y.Equals(elements[1].Location.Y));
     }
 
     [Test]
@@ -85,7 +85,7 @@ public class TouchActionsServiceTests : NUnit.AndroidTest
 
         elements = App.Components.CreateAllByClass<TextField>("android.widget.TextView");
 
-        Assert.AreNotEqual(elements[7].Location.Y, elements[1].Location.Y);
+        Assert.That(!elements[7].Location.Y.Equals(elements[1].Location.Y));
     }
 
     [Test]
@@ -106,6 +106,6 @@ public class TouchActionsServiceTests : NUnit.AndroidTest
         App.TouchActions.Press(elements[1], 1500).Release();
         App.TouchActions.Perform();
 
-        Assert.AreNotEqual(originalActivity, App.AppService.CurrentActivity);
+        Assert.That(originalActivity.Equals(App.AppService.CurrentActivity));
     }
 }

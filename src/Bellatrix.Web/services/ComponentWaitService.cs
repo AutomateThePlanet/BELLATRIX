@@ -1,5 +1,5 @@
 ﻿// <copyright file="ComponentWaitService.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -33,9 +33,7 @@ public class ComponentWaitService
             }
             else
             {
-                var elementRepository = new ComponentRepository();
-                Component parenTComponent = elementRepository.CreateComponentThatIsFound<Component>(element.By, element.ParentWrappedElement, true);
-                WaitInternal(element.By, until, parenTComponent);
+                WaitInternal(element.By, until, element.ParentComponent);
             }
         }
         catch (Exception ex)

@@ -1,5 +1,5 @@
 ﻿// <copyright file="App.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,6 +21,7 @@ using Bellatrix.Assertions;
 using Bellatrix.AWS;
 using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
+using Bellatrix.LLM;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
@@ -38,6 +39,7 @@ public class App : IDisposable
     public App()
     {
         _apiClientService = GetNewApiClientService();
+        ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(Browser);
     }
 
     public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
@@ -50,12 +52,11 @@ public class App : IDisposable
     public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
     public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
     public LighthouseService Lighthouse => ServicesCollection.Current.Resolve<LighthouseService>();
+    public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
+    public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
     public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
     public ProxyService Proxy => ServicesCollection.Current.Resolve<ProxyService>();
 
-    public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
-
-    public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
     public AWSServicesFactory AWS => ServicesCollection.Current.Resolve<AWSServicesFactory>();
 
     public ApiClientService ApiClient
@@ -80,18 +81,18 @@ public class App : IDisposable
             if (string.IsNullOrEmpty(url))
             {
                 var apiSettingsConfig = ConfigurationService.GetSection<ApiSettings>();
-
-                client.WrappedClient.BaseUrl = new Uri(apiSettingsConfig.BaseUrl);
+                client = new ApiClientService(apiSettingsConfig.BaseUrl);
+                ////client.WrappedClient.BaseUrl = new Uri(apiSettingsConfig.BaseUrl);
             }
             else
             {
-                client.WrappedClient.BaseUrl = new Uri(url);
+                client = new ApiClientService(url);
             }
 
-            if (sharedCookies)
-            {
-                client.WrappedClient.CookieContainer = new System.Net.CookieContainer();
-            }
+            //if (sharedCookies)
+            //{
+            //    client.WrappedClient.CookieContainer = new System.Net.CookieContainer();
+            //}
 
             client.PauseBetweenFailures = TimeSpanConverter.Convert(pauseBetweenFailures, timeUnit);
             client.MaxRetryAttempts = maxRetryAttempts;
@@ -158,6 +159,15 @@ public class App : IDisposable
         ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
     }
 
+    public void AddPlugin<TExecutionExtension>(bool isEnabled)
+        where TExecutionExtension : Plugin
+    {
+        if (isEnabled)
+        {
+            ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
+        }
+    }
+
     public void Initialize()
     {
         var proxyService = new ProxyService();
@@ -169,6 +179,8 @@ public class App : IDisposable
     {
         DevTools?.Dispose();
         Proxy?.Dispose();
+        LocatorSelfHealingService.Dispose();
+        LocatorCacheService.Dispose();
         DisposeDriverService.DisposeAll();
         DisposeDriverService.Dispose();
         GC.SuppressFinalize(this);

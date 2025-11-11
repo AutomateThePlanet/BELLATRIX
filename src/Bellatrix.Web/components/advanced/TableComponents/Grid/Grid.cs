@@ -1,5 +1,5 @@
 ﻿// <copyright file="Grid.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,18 +15,11 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Net;
 using System.Reflection;
 using System.Web;
 using Bellatrix.Assertions;
-using Bellatrix.Infrastructure;
-using Bellatrix.Infrastructure.SystemFacades;
-using Bellatrix.Utilities;
-using Bellatrix.Web;
-using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.Advanced.Grid;
 using HtmlAgilityPack;
 
@@ -292,7 +285,7 @@ public class Grid : Component
         return coll.IndexOf(columnName);
     }
 
-    public IList<GridCell> GetColumn(int column)
+    public virtual IList<GridCell> GetColumn(int column)
     {
         var list = new List<GridCell>();
 
@@ -304,7 +297,7 @@ public class Grid : Component
         return list;
     }
 
-    public IList<GridCell> GetColumn(string header, int? order = null)
+    public virtual IList<GridCell> GetColumn(string header, int? order = null)
     {
         int? position = HeaderNamesService.GetHeaderPosition(header, ControlColumnDataCollection.AsEnumerable<IHeaderInfo>().ToList(), order);
         if (position == null)
@@ -315,7 +308,7 @@ public class Grid : Component
         return GetColumn((int)position);
     }
 
-    public void AssertTable<TRowObject>(List<TRowObject> expectedEntities, params string[] propertiesNotToCompare)
+    public virtual void AssertTable<TRowObject>(List<TRowObject> expectedEntities, params string[] propertiesNotToCompare)
         where TRowObject : new()
     {
         ScrollToVisible();
@@ -325,6 +318,28 @@ public class Grid : Component
         {
             var entity = CastRow<TRowObject>(i, propertiesNotToCompare);
             EntitiesAsserter.AreEqual(expectedEntities[i], entity, propertiesNotToCompare);
+        }
+    }
+
+    public virtual void AssertTable<TRowObject>(List<TRowObject> expectedEntities)
+        where TRowObject : new()
+    {
+        ScrollToVisible();
+        Assert.AreEqual(expectedEntities.Count, RowsCount, $"Expected rows count {expectedEntities.Count} but rows was {RowsCount}");
+
+        for (int i = 0; i < RowsCount; i++)
+        {
+            var propsNotToCompare = expectedEntities[i]
+                .GetType()
+                .GetProperties()
+                .Where(p => p.GetValue(expectedEntities[i]) == null)
+                .Select(n => HeaderNamesService.GetHeaderNameByProperty(n))
+                .ToArray();
+
+            var entity = typeof(TRowObject) != typeof(object)
+                ? CastRow<TRowObject>(i, propsNotToCompare)
+                : GetType().GetMethod(nameof(CastRow))!.MakeGenericMethod(expectedEntities[i].GetType()).Invoke(this, new object[] { i, propsNotToCompare });
+            EntitiesAsserter.AreEqual(expectedEntities[i], entity, propsNotToCompare);
         }
     }
 
@@ -364,6 +379,11 @@ public class Grid : Component
         where TRowObject : new()
     {
         var cells = TableService.GetRowCells(rowIndex);
+
+        if (ControlColumnDataCollection == null)
+        {
+            throw new InvalidOperationException("The grid does not have a column model set!");
+        }
 
         if (cells.Count != ControlColumnDataCollection.Count)
         {
@@ -408,10 +428,10 @@ public class Grid : Component
                     elementValue = CastCell(repo, controlData, tableCell);
                 }
 
-                var elementType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
-                var newValue = elementValue == null ? default : Convert.ChangeType(elementValue, elementType);
+                var propertyType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+                var newValue = elementValue == null ? default : Convert.ChangeType(elementValue, propertyType);
 
-                elementValue = Convert.ChangeType(newValue, propertyInfo.PropertyType);
+                elementValue = newValue == null ? default : Convert.ChangeType(newValue, Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType);
                 propertyInfo.SetValue(dto, elementValue);
             }
             else
@@ -441,6 +461,12 @@ public class Grid : Component
     {
         cell.Row = row;
         cell.Column = column;
+
+        if (ControlColumnDataCollection == null || ControlColumnDataCollection.Count == 0)
+        {
+            throw new InvalidOperationException("The grid does not have a column model set!");
+        }
+
         var headerName = ControlColumnDataCollection[column].HeaderName;
         var controlData = ControlColumnDataCollection.GetControlColumnDataByHeaderName(headerName);
         cell.CellControlBy = controlData.By;
@@ -481,7 +507,7 @@ public class Grid : Component
 
     private dynamic CastCell(ComponentRepository repo, ControlColumnData controlData, TableCell tableCell)
     {
-        var element = repo.CreateComponentWithParent(controlData.By, tableCell.WrappedElement, controlData.ComponentType, false);
+        var element = tableCell.Create(controlData.By, controlData.ComponentType);
 
         // Resolve the appropriate Readonly Control Data Handler
         dynamic controlDataHandler = ControlDataHandlerResolver.ResolveReadonlyDataHandler(element.GetType());
@@ -523,6 +549,17 @@ public class Grid : Component
                             segs.unshift(elm.localName.toLowerCase() + '[' + i + ']');
                         };
                     };
+                    if (segs.length) {
+                        var xpath = segs.join('/');
+                        if (xpath.startsWith('///')) {
+                            xpath = xpath.substring(1);
+                        }
+
+                        return xpath;
+                    }
+                    else {
+                        return null;
+                    }
                     return segs.length ? '/' + segs.join('/') : null;
                 };
                 return createXPathFromElement(arguments[0])";

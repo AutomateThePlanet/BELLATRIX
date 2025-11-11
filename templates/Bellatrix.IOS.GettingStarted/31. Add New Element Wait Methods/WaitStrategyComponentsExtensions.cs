@@ -10,7 +10,7 @@ public static class WaitStrategyComponentsExtensions
     public static TComponentType ToHaveSpecificContent<TComponentType>(this TComponentType element, string content, int? timeoutInterval = null, int? sleepInterval = null)
      where TComponentType : IOSComponent
     {
-        var until = new WaitHaveSpecificContentStrategy<IOSDriver<IOSElement>, IOSElement>(content, timeoutInterval, sleepInterval);
+        var until = new WaitHaveSpecificContentStrategy<IOSDriver, AppiumElement>(content, timeoutInterval, sleepInterval);
         element.EnsureState(until);
         return element;
     }

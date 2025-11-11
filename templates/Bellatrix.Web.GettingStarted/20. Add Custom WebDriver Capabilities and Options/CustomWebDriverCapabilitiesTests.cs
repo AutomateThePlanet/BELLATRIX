@@ -45,7 +45,7 @@ public class CustomWebDriverCapabilitiesTests : NUnit.WebTest
     [Ignore("no need to run")]
     public void PromotionsPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
 
@@ -56,7 +56,7 @@ public class CustomWebDriverCapabilitiesTests : NUnit.WebTest
     [Ignore("no need to run")]
     public void BlogPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
 

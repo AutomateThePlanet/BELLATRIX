@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Url HTML Control Demo</title>
+    <link rel="stylesheet" type="text/css" href="email.css">
+</head>
+<body>
+    <label for="myEmail">Placeholders</label>
+    <input id="myEmail" name="myEmail" type="email" placeholder="your email term goes here" class="myTestClass">
+
+    <br>
+    <br>
+    <label for="myEmail1">Physical input element size</label>
+    <input id="myEmail1" name="myEmail" type="email" size="30">
+
+    <br>
+    <br>
+    <label for="myEmail2">Element value length</label>
+    <input id="myEmail2" name="myEmail" type="email" size="30" minlength="10" maxlength="80">
+
+    <br>
+    <br>
+    <label for="myEmail3">Providing default options</label>
+    <input id="myEmail3" name="myEmail" type="email" value="aangelov@bellatrix.solutions">
+
+    <br>
+    <br>
+    <label for="myEmail4">Autocomplete= ON</label>
+    <input id="myEmail4" name="myEmail" type="email" autocomplete="on">
+
+    <br>
+    <br>
+    <label for="myEmail5">Autocomplete= OFF</label>
+    <input id="myEmail5" name="myEmail" type="email" autocomplete="off">
+
+    <br>
+    <br>
+    <label for="myEmail6">Readonly Set</label>
+    <input id="myEmail6" name="myEmail" type="email" readonly>
+
+    <br>
+    <br>
+    <label for="myEmail7">Required Set</label>
+    <input id="myEmail7" name="myEmail" type="email" required>
+
+    <br>
+    <br>
+    <label for="myEmail8">Test Hover</label>
+    <input id="myEmail8" name="myEmail" type="email" onmouseover="this.style.color='red';">
+
+    <br>
+    <br>
+    <label for="myEmail9">Test Focus</label>
+    <input id="myEmail9" name="myEmail" type="email" onfocus="this.style.color='blue';">
+
+    <div id="myEmail10Wrapper">
+        <br>
+        <br>
+        <label for="myEmail10">Test Disabled</label>
+        <input id="myEmail10" name="myEmail" type="email" disabled>
+    </div>
+
+    <script type="text/javascript" src="email.js"></script>
+</body>
+</html>

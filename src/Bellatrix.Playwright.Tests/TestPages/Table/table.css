@@ -1,0 +1,23 @@
+span {
+    padding-right: 20px;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+}
+
+.tablesorter-headerAsc span {
+    background-image: url('img/down-arrow.png');
+}
+
+.tablesorter-headerDesc span {
+    background-image: url('img/up-arrow.png');
+}
+
+th span {
+    font-family: "Helvetica, Arial, sans-serif";
+    font-size: 14px;
+}
+
+td {
+    font-family: "Helvetica, Arial, sans-serif";
+    font-size: 14px;
+}

@@ -1,0 +1,2 @@
+﻿1. Add the attribute to some of your tests
+2. Make some of them fail and check the generated screenshots. (You can use the Assert.Fail(); method)

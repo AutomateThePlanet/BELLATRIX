@@ -10,8 +10,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted;
 // 1. Imagine that you want to wait for an element to have a specific content.
 // First, create a new class and inherit the BaseUntil class.
 public class WaitToHaveSpecificContentStrategy<TDriver, TDriverElement> : WaitStrategy<TDriver, TDriverElement>
-    where TDriver : AppiumDriver<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TDriverElement : AppiumElement
 {
     private readonly string _elementContent;
 

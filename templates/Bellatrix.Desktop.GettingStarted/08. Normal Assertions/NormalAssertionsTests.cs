@@ -1,5 +1,4 @@
 ﻿using Bellatrix.Desktop.NUnit;
-using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted;
 

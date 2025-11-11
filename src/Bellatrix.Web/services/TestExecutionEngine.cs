@@ -1,5 +1,5 @@
 ﻿// <copyright file="TestExecutionEngine.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -22,6 +22,7 @@ public class TestExecutionEngine
 {
     public void StartBrowser(BrowserConfiguration browserConfiguration, ServicesCollection childContainer)
     {
+        var currentContainer = ServicesCollection.Current;
         try
         {
             var wrappedWebDriver = WrappedWebDriverCreateService.Create(browserConfiguration);
@@ -32,6 +33,13 @@ public class TestExecutionEngine
             childContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(wrappedWebDriver));
             childContainer.RegisterNull<int?>();
             childContainer.RegisterNull<IWebElement>();
+
+            currentContainer.RegisterInstance<IWebDriver>(wrappedWebDriver);
+            currentContainer.RegisterInstance(((WebDriver)wrappedWebDriver).SessionId.ToString(), "SessionId");
+            currentContainer.RegisterInstance(ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url, "GridUri");
+            currentContainer.RegisterInstance<IWebDriverElementFinderService>(new NativeElementFinderService(wrappedWebDriver));
+            currentContainer.RegisterNull<int?>();
+            currentContainer.RegisterNull<IWebElement>();
             IsBrowserStartedCorrectly = true;
         }
         catch (Exception ex)

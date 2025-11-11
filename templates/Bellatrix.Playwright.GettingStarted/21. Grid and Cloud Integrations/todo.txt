@@ -1,0 +1,4 @@
+﻿1. Open the tests that you made in the page objects section
+2. Create a free registration in some of the public clouds
+3. Replace the Browser attribute of your existing tests with the cloud's one
+4. Execute your tests in the cloud

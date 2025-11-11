@@ -1,5 +1,5 @@
 ﻿// <copyright file="WrappedWebDriverCreateService.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -69,35 +69,82 @@ public static class WrappedWebDriverCreateService
                 break;
             case ExecutionType.Grid:
             case ExecutionType.SauceLabs:
-                var gridUrl = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url;
-                if (gridUrl == null || !Uri.IsWellFormedUriString(gridUrl.ToString(), UriKind.Absolute))
                 {
-                    throw new ArgumentException("To execute your tests in WebDriver Grid mode you need to set the gridUri in the browserSettings file.");
+                    var gridUrl = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url;
+                    if (gridUrl == null || !Uri.IsWellFormedUriString(gridUrl.ToString(), UriKind.Absolute))
+                    {
+                        throw new ArgumentException("To execute your tests in WebDriver Grid mode you need to set the gridUri in the browserSettings file.");
+                    }
+
+                    DebuggerPort = GetFreeTcpPort();
+
+                    if (executionConfiguration.IsLighthouseEnabled && (executionConfiguration.BrowserType.Equals(BrowserType.Chrome) || executionConfiguration.BrowserType.Equals(BrowserType.ChromeHeadless)))
+                    {
+                        executionConfiguration.DriverOptions.AddArgument("--remote-debugging-address=0.0.0.0");
+                        executionConfiguration.DriverOptions.AddArgument($"--remote-debugging-port={DebuggerPort}");
+                    }
+
+                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                    var options = executionConfiguration.DriverOptions;
+                    if (!executionConfiguration.BrowserType.Equals(BrowserType.Safari) && !executionConfiguration.BrowserType.Equals(BrowserType.Firefox))
+                    {
+                        options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
+                    }
+                    options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+                    options.SetLoggingPreference("performance", LogLevel.All);
+                    options.AddUserProfilePreference("disable-popup-blocking", "true");
+                    options.AddUserProfilePreference("safebrowsing.enabled", "true");
+                    options.AddArguments("--disable-dev-shm-usage");
+
+                    wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), options.ToCapabilities(), TimeSpan.FromSeconds(180));
+
+                    IAllowsFileDetection allowsDetection = wrappedWebDriver as IAllowsFileDetection;
+                    if (allowsDetection != null)
+                    {
+                        allowsDetection.FileDetector = new LocalFileDetector();
+                    }
+
+                    break;
                 }
-
-                DebuggerPort = GetFreeTcpPort();
-
-                if (executionConfiguration.IsLighthouseEnabled && (executionConfiguration.BrowserType.Equals(BrowserType.Chrome) || executionConfiguration.BrowserType.Equals(BrowserType.ChromeHeadless)))
+            case ExecutionType.Healenium:
                 {
-                    executionConfiguration.DriverOptions.AddArgument("--remote-debugging-address=0.0.0.0");
-                    executionConfiguration.DriverOptions.AddArgument($"--remote-debugging-port={DebuggerPort}");
-                }
+                    var gridUrl = ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Url;
+                    if (gridUrl == null || !Uri.IsWellFormedUriString(gridUrl.ToString(), UriKind.Absolute))
+                    {
+                        throw new ArgumentException("To execute your tests in WebDriver Grid mode you need to set the gridUri in the browserSettings file.");
+                    }
 
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                var options = executionConfiguration.DriverOptions;
-                if (!executionConfiguration.BrowserType.Equals(BrowserType.Safari) && !executionConfiguration.BrowserType.Equals(BrowserType.Firefox))
-                {
-                    options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
-                }
-                wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), options.ToCapabilities(), TimeSpan.FromSeconds(180));
+                    DebuggerPort = GetFreeTcpPort();
 
-                IAllowsFileDetection allowsDetection = wrappedWebDriver as IAllowsFileDetection;
-                if (allowsDetection != null)
-                {
-                    allowsDetection.FileDetector = new LocalFileDetector();
-                }
+                    if (executionConfiguration.IsLighthouseEnabled && (executionConfiguration.BrowserType.Equals(BrowserType.Chrome) || executionConfiguration.BrowserType.Equals(BrowserType.ChromeHeadless)))
+                    {
+                        executionConfiguration.DriverOptions.AddArgument("--remote-debugging-address=0.0.0.0");
+                        executionConfiguration.DriverOptions.AddArgument($"--remote-debugging-port={DebuggerPort}");
+                    }
 
-                break;
+                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                    var options = executionConfiguration.DriverOptions;
+                    if (!executionConfiguration.BrowserType.Equals(BrowserType.Safari) && !executionConfiguration.BrowserType.Equals(BrowserType.Firefox))
+                    {
+                        options.AddLocalStatePreference("browser", new { enabled_labs_experiments = GetExperimentalOptions() });
+                    }
+                    options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+                    options.SetLoggingPreference("performance", LogLevel.All);
+                    options.AddUserProfilePreference("disable-popup-blocking", "true");
+                    options.AddUserProfilePreference("safebrowsing.enabled", "true");
+                    options.AddArguments("--disable-dev-shm-usage");
+                    options.AddArguments("--no-sandbox");
+
+                    wrappedWebDriver = new RemoteWebDriver(new Uri(gridUrl), options.ToCapabilities(), TimeSpan.FromSeconds(180));
+
+                    IAllowsFileDetection allowsDetection = wrappedWebDriver as IAllowsFileDetection;
+                    if (allowsDetection != null)
+                    {
+                        allowsDetection.FileDetector = new LocalFileDetector();
+                    }
+
+                    break;
+                }
         }
 
         var gridPageLoadTimeout = ConfigurationService.GetSection<WebSettings>().TimeoutSettings.PageLoadTimeout;
@@ -107,7 +154,7 @@ public static class WrappedWebDriverCreateService
 
         if (executionConfiguration.BrowserType != BrowserType.Edge)
         {
-            FixDriverCommandExecutionDelay(wrappedWebDriver);
+            //FixDriverCommandExecutionDelay(wrappedWebDriver);
 
             ////DriverCommandExecutionService commandExecutionService = new DriverCommandExecutionService((RemoteWebDriver)wrappedWebDriver);
             ////commandExecutionService.InitializeSendCommand((RemoteWebDriver)wrappedWebDriver);
@@ -118,50 +165,50 @@ public static class WrappedWebDriverCreateService
         return wrappedWebDriver;
     }
 
-    private static void FixDriverCommandExecutionDelay(IWebDriver driver)
-    {
-        try
-        {
-            PropertyInfo commandExecutorProperty = GetPropertyWithThrowOnError(typeof(WebDriver), "CommandExecutor", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetProperty);
-            ICommandExecutor commandExecutor = (ICommandExecutor)commandExecutorProperty.GetValue(driver);
+    //private static void FixDriverCommandExecutionDelay(IWebDriver driver)
+    //{
+    //    try
+    //    {
+    //        PropertyInfo commandExecutorProperty = GetPropertyWithThrowOnError(typeof(WebDriver), "CommandExecutor", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetProperty);
+    //        ICommandExecutor commandExecutor = (ICommandExecutor)commandExecutorProperty.GetValue(driver);
 
-            FieldInfo GetRemoteServerUriField(ICommandExecutor executor)
-            {
-                return executor.GetType().GetField("remoteServerUri", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.SetField);
-            }
+    //        FieldInfo GetRemoteServerUriField(ICommandExecutor executor)
+    //        {
+    //            return executor.GetType().GetField("remoteServerUri", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.SetField);
+    //        }
 
-            FieldInfo remoteServerUriField = GetRemoteServerUriField(commandExecutor);
+    //        FieldInfo remoteServerUriField = GetRemoteServerUriField(commandExecutor);
 
-            if (remoteServerUriField == null)
-            {
-                FieldInfo internalExecutorField = commandExecutor.GetType().GetField("internalExecutor", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField);
-                commandExecutor = (ICommandExecutor)internalExecutorField.GetValue(commandExecutor);
+    //        if (remoteServerUriField == null)
+    //        {
+    //            FieldInfo internalExecutorField = commandExecutor.GetType().GetField("internalExecutor", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField);
+    //            commandExecutor = (ICommandExecutor)internalExecutorField.GetValue(commandExecutor);
 
-                ServicesCollection.Current.RegisterInstance(commandExecutor);
+    //            ServicesCollection.Current.RegisterInstance(commandExecutor);
 
-                remoteServerUriField = GetRemoteServerUriField(commandExecutor);
-            }
+    //            remoteServerUriField = GetRemoteServerUriField(commandExecutor);
+    //        }
 
-            if (remoteServerUriField != null)
-            {
-                string remoteServerUri = remoteServerUriField.GetValue(commandExecutor).ToString();
+    //        if (remoteServerUriField != null)
+    //        {
+    //            string remoteServerUri = remoteServerUriField.GetValue(commandExecutor).ToString();
 
-                string localhostUriPrefix = "http://localhost";
+    //            string localhostUriPrefix = "http://localhost";
 
-                if (remoteServerUri.StartsWith(localhostUriPrefix, StringComparison.Ordinal))
-                {
-                    remoteServerUri = remoteServerUri.Replace(localhostUriPrefix, "http://127.0.0.1");
+    //            if (remoteServerUri.StartsWith(localhostUriPrefix, StringComparison.Ordinal))
+    //            {
+    //                remoteServerUri = remoteServerUri.Replace(localhostUriPrefix, "http://127.0.0.1");
 
-                    remoteServerUriField.SetValue(commandExecutor, new Uri(remoteServerUri));
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            // Failed to apply fix of command execution delay.
-            e.PrintStackTrace();
-        }
-    }
+    //                remoteServerUriField.SetValue(commandExecutor, new Uri(remoteServerUri));
+    //            }
+    //        }
+    //    }
+    //    catch (Exception e)
+    //    {
+    //        // Failed to apply fix of command execution delay.
+    //        e.PrintStackTrace();
+    //    }
+    //}
 
     internal static PropertyInfo GetPropertyWithThrowOnError(Type type, string name, BindingFlags bindingFlags = BindingFlags.Default)
     {
@@ -190,6 +237,8 @@ public static class WrappedWebDriverCreateService
                 chromeDriverService.EnableVerboseLogging = false;
                 var chromeOptions = executionConfiguration.DriverOptions;
                 chromeOptions.AddArguments("--log-level=3");
+                chromeOptions.AddUserProfilePreference("disable-popup-blocking", "true");
+                chromeOptions.AddUserProfilePreference("safebrowsing.enabled", "true");
                 Port = GetFreeTcpPort();
                 chromeDriverService.Port = Port;
                 DebuggerPort = GetFreeTcpPort();
@@ -231,7 +280,7 @@ public static class WrappedWebDriverCreateService
                 chromeOptions.SetLoggingPreference("performance", LogLevel.All);
 
                 wrappedWebDriver = new ChromeDriver(chromeDriverService, chromeOptions);
-                //wrappedWebDriver.Manage().Window.Position = new System.Drawing.Point(2000, 1); // To 2nd monitor. 
+                //wrappedWebDriver.Manage().Window.Position = new System.Drawing.Point(2000, 1); // To 2nd monitor.
                 wrappedWebDriver.Manage().Window.Maximize();
                 break;
             case BrowserType.ChromeHeadless:
@@ -241,9 +290,8 @@ public static class WrappedWebDriverCreateService
                 Port = GetFreeTcpPort();
                 chromeHeadlessDriverService.Port = Port;
                 var chromeHeadlessOptions = executionConfiguration.DriverOptions;
-                chromeHeadlessOptions.AddArguments("--headless");
+                chromeHeadlessOptions.AddArguments("--headless=new");
                 chromeHeadlessOptions.AddArguments("--log-level=3");
-
                 chromeHeadlessOptions.AddArguments("--test-type");
                 chromeHeadlessOptions.AddArguments("--disable-infobars");
                 chromeHeadlessOptions.AddArguments("--allow-no-sandbox-job");
@@ -354,7 +402,7 @@ public static class WrappedWebDriverCreateService
             case BrowserType.FirefoxHeadless:
                 new DriverManager().SetUpDriver(new FirefoxConfig());
                 var firefoxHeadlessOptions = executionConfiguration.DriverOptions;
-                firefoxHeadlessOptions.AddArguments("--headless");
+                firefoxHeadlessOptions.AddArguments("--headless=new");
                 firefoxHeadlessOptions.AddAdditionalOption("acceptInsecureCerts", true);
                 if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                 {
@@ -435,7 +483,7 @@ public static class WrappedWebDriverCreateService
             case BrowserType.EdgeHeadless:
                 ////new DriverManager().SetUpDriver(new EdgeConfig());
                 var edgeHeadlessOptions = executionConfiguration.DriverOptions;
-                edgeHeadlessOptions.AddArguments("--headless");
+                edgeHeadlessOptions.AddArguments("--headless=new");
                 edgeHeadlessOptions.AddArguments("--log-level=3");
 
                 edgeHeadlessOptions.AddArguments("--test-type");
@@ -495,7 +543,7 @@ public static class WrappedWebDriverCreateService
                 ieOptions.EnsureCleanSession = true;
                 ieOptions.PageLoadStrategy = PageLoadStrategy.Eager;
                 ieOptions.ForceShellWindowsApi = true;
-                ieOptions.AddAdditionalCapability("disable-popup-blocking", true);
+                ieOptions.AddAdditionalOption("disable-popup-blocking", true);
 
                 if (executionConfiguration.ShouldCaptureHttpTraffic && _proxyService.IsEnabled)
                 {
@@ -553,7 +601,6 @@ public static class WrappedWebDriverCreateService
         return port;
     }
 
-    // TODO  Dushka (01.10.2021) Read all experimental options from config file
     private static string[] GetExperimentalOptions()
     {
         var downloadDirectory = Path.Combine("home", Environment.UserName, "Downloads");

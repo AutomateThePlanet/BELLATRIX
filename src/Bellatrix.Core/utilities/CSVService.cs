@@ -1,4 +1,6 @@
-﻿using Bellatrix.Assertions;
+﻿using System;
+using System.Collections;
+using Bellatrix.Assertions;
 using CsvHelper;
 using System.Collections.Generic;
 using System.Globalization;
@@ -6,16 +8,20 @@ using System.IO;
 using System.Linq;
 
 namespace Bellatrix.Utilities;
-public static class CSVService
+
+public static class CsvService
 {
     public static void ValidateData<TEntity>(string localFile, List<TEntity> expectedEntities)
+        where TEntity : class, new()
     {
-        var actualEntities = ReadAllLines<TEntity>(localFile);
-        Assert.AreEqual(expectedEntities.Count, expectedEntities.Count);
-        int i = 0;
-        foreach (var actualEntity in actualEntities)
+        var actualEntities = typeof(TEntity) != typeof(object)
+            ? ReadAllLines<TEntity>(localFile)
+            : ReadAllLines(expectedEntities.First().GetType(), localFile);
+
+        Assert.AreEqual(expectedEntities.Count, actualEntities.Count);
+        for (int i = 0; i < expectedEntities.Count; i++)
         {
-            Assert.AreEqual(expectedEntities[i++], actualEntity);
+            EntitiesAsserter.AreEqual(expectedEntities[i], actualEntities![i]);
         }
     }
 
@@ -25,5 +31,14 @@ public static class CSVService
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         var records = csv.GetRecords<TEntity>();
         return records.ToList();
+    }
+
+    private static IList ReadAllLines(Type entityType, string filePath)
+    {
+        const string methodName = nameof(ReadAllLines);
+        var method = typeof(CsvService).GetMethod(methodName);
+        var genericMethod = method!.MakeGenericMethod(entityType);
+
+        return (IList)genericMethod.Invoke(null, new object[] { filePath });
     }
 }

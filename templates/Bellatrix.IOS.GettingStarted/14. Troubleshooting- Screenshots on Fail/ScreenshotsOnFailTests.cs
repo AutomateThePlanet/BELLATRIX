@@ -12,13 +12,14 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 // In the extensibility chapters read more about how you can create different screenshots engine or change the saving strategy.
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
 public class ScreenshotsOnFailTests : NUnit.IOSTest
 {
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ButtonClicked_When_CallClickMethod()
     {

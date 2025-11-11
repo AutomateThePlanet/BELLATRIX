@@ -31,7 +31,7 @@ public class ValidateAssertions : NUnit.AndroidTest
         // 2. Here we assert that the checkbox is checked.
         // On fail the following message is displayed: "Message: Assert.IsTrue failed."
         // Cannot learn much about what happened.
-        ////Assert.IsTrue(checkBox.IsChecked);
+        ////Assert.That(checkBox.IsChecked);
         //
         // Now if we use the ValidateIsChecked method and the assertion does not succeed the following error message is displayed:
         // "The control should be checked but was NOT."
@@ -49,25 +49,25 @@ public class ValidateAssertions : NUnit.AndroidTest
 
         // 4. See if the element is present or not using the IsPresent property.
         label.ValidateIsVisible();
-        ////Assert.IsTrue(label.IsPresent);
+        ////Assert.That(label.IsPresent);
 
         var radioButton = App.Components.CreateByIdContaining<RadioButton>("radio2");
 
         radioButton.Click();
 
         // 5. Assert that the radio button is clicked.
-        ////Assert.IsTrue(radioButton.IsChecked);
+        ////Assert.That(radioButton.IsChecked);
         //
         // By default, all Validate methods have 5 seconds timeout. However, you can specify a custom timeout and sleep interval (period for checking again)
         radioButton.ValidateIsChecked(timeout: 30, sleepInterval: 2);
-        ////Assert.IsTrue(radioButton.IsChecked);
+        ////Assert.That(radioButton.IsChecked);
 
         // 6. BELLATRIX provides you with a full BDD logging support for Validate assertions and gives you a way to hook your logic in multiple places.
 
         // 7. You can execute multiple Validate assertions failing only once viewing all results.
         Bellatrix.Assertions.Assert.Multiple(
            () => label.ValidateIsVisible(),
-           () => Assert.IsTrue(label.IsPresent),
+           () => Assert.That(label.IsPresent),
            () => comboBox.ValidateTextIs("Jupiter"));
     }
 }

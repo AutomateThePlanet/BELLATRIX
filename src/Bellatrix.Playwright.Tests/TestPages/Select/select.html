@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Week HTML Control Demo</title>
+    <link rel="stylesheet" type="text/css" href="select.css">
+</head>
+<body>
+    <br>
+    <br>
+    <label for="mySelect">Providing default options</label>
+    <select name="select" id="mySelect">
+        <option value="bella" selected>Bellatrix</option>
+        <option value="bella1">Is</option>
+        <option value="bella2">Awesome</option>
+    </select>
+
+    <br>
+    <br>
+    <label for="mySelect1">Test Hover</label>
+    <select name="select" id="mySelect1" onmouseover="this.style.color='red';">
+        <option value="bella">Bellatrix</option>
+        <option value="bella1" selected>Is</option>
+        <option value="bella2">Awesome</option>
+    </select>
+
+    <br>
+    <br>
+    <label for="mySelect2">Test Focus</label>
+    <select name="select" id="mySelect2" onfocus="this.style.color='blue';">
+        <option value="bella">Bellatrix</option>
+        <option value="bella1">Is</option>
+        <option value="bella2" selected>Awesome</option>
+    </select>
+
+    <br>
+    <br>
+    <label for="mySelect3">Test IsDisabled</label>
+    <select name="select" id="mySelect3" disabled>
+        <option value="bella">Bellatrix</option>
+        <option value="bella1">Is</option>
+        <option value="bella2" selected>Awesome</option>
+    </select>
+
+    <br>
+    <br>
+    <label for="mySelect4">Test Required</label>
+    <select name="select" id="mySelect4" required>
+        <option value="bella">Bellatrix</option>
+        <option value="bella1" disabled>Is</option>
+        <option value="bella2" selected>Awesome</option>
+    </select>
+
+    <script type="text/javascript" src="select.js"></script>
+</body>
+</html>

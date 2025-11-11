@@ -1,5 +1,5 @@
-﻿// <copyright file="ByValueContaining.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+﻿// <copyright file="FindValueContainingStrategy.cs" company="Automate The Planet Ltd.">
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,20 +15,18 @@ using OpenQA.Selenium;
 
 namespace Bellatrix.Web;
 
-public class FindValueContainingStrategy : FindStrategy
+public class FindValueContainingStrategy : FindCssStrategy
 {
-    public FindValueContainingStrategy(string value)
-        : base(value)
-    {
-    }
+    private readonly string _value;
 
-    public override By Convert()
+    public FindValueContainingStrategy(string value)
+        : base($"[value*='{value}']")
     {
-        return By.CssSelector($"[value*='{Value}']");
+        _value = value;
     }
 
     public override string ToString()
     {
-        return $"Value containing {Value}";
+        return $"Value containing {_value}";
     }
 }

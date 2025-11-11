@@ -1,5 +1,5 @@
 ﻿// <copyright file="EntitiesAsserter.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Royalty-free End-user License Agreement, Version 1.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://bellatrix.solutions/licensing-royalty-free/
@@ -48,6 +48,16 @@ public static class EntitiesAsserter
                     else if (currentExpectedProperty?.GetValue(expectedObject, null) == string.Empty)
                     {
                         Assert.IsTrue(string.IsNullOrEmpty((string)currentRealProperty.GetValue(realObject, null)), exceptionMessage);
+                    }
+                    else if (currentRealProperty.PropertyType == typeof(double) ||
+                        currentRealProperty.PropertyType == typeof(double?) ||
+                        currentRealProperty.PropertyType == typeof(float) ||
+                        currentRealProperty.PropertyType == typeof(float?))
+                    {
+                        Assert.AreEqual((currentExpectedProperty?.GetValue(expectedObject, null) as double?).Value,
+                             (currentRealProperty.GetValue(realObject, null) as double?).Value,
+                             0.0001,
+                             exceptionMessage);
                     }
                     else
                     {

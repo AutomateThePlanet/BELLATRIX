@@ -47,6 +47,7 @@ public class ExceptionAnalyser : IExceptionAnalyser
                 {
                     string url = browserService.Url.ToString();
                     browserService.PrintConsoleOutput();
+
                     throw new AnalyzedTestException(exceptionHandler.DetailedIssueExplanation, url, ex);
                 }
                 else

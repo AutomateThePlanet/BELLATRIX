@@ -1,0 +1,8 @@
+﻿1. Open the already created empty project
+2. Click on the project and click edit
+3. Check the item group with package references and check what packages are installed
+4. Check what else we have included in the MSBuild file
+5. Open the .editorconfig file and see what rules are turned on/off
+6. Open StyleCopeRules.ruleset file in XML editor, navigate to <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers"> section. 
+Check which rules are turned-off. You can find the complete list of rules here- https://github.com/DotNetAnalyzers/StyleCopAnalyzers/tree/master/documentation
+7. Open settings files and read what have included there

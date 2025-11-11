@@ -18,7 +18,7 @@ public class MeasureTestExecutionTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void PromotionsPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
 

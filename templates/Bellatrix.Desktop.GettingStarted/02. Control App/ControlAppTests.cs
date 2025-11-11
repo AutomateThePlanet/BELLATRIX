@@ -35,6 +35,8 @@ public class ControlAppTests : DesktopTest
         // Use the element creation service to create an instance of the button. There are much more details about this process in the next sections.
         var button = App.Components.CreateByName<Button>("E Button");
 
+        var summary = App.AppService.GetCurrentViewSnapshot();
+
         button.Hover();
 
         var label = App.Components.CreateByAutomationId<Label>("ResultLabelId");

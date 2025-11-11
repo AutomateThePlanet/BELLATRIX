@@ -6,6 +6,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
@@ -13,7 +14,7 @@ public class AppServiceTests : NUnit.IOSTest
 {
     // 1. BELLATRIX gives you an interface to most common operations for controlling the iOS app through the AppService class.
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void TestBackgroundApp()
     {
@@ -22,7 +23,7 @@ public class AppServiceTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void TestResetApp()
     {
@@ -31,16 +32,16 @@ public class AppServiceTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void InstallAppInstalledTrue_When_AppIsInstalled()
     {
         // Checks whether the app with the specified bundleId is installed.
-        Assert.IsTrue(App.AppService.IsAppInstalled("com.apple.mobilecal"));
+        Assert.That(App.AppService.IsAppInstalled("com.apple.mobilecal"));
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Ignore("API example purposes only. No need to run.")]
     public void InstallAppInstalledFalse_When_AppIsUninstalled()
     {
@@ -52,7 +53,7 @@ public class AppServiceTests : NUnit.IOSTest
         // Uninstalls the app with the specified bundleId. You can get your app's bundleId from XCode.
         App.AppService.RemoveApp("com.apple.mobilecal");
 
-        Assert.IsFalse(App.AppService.IsAppInstalled("com.apple.mobilecal"));
+        Assert.That(App.AppService.IsAppInstalled("com.apple.mobilecal"));
 
         App.AppService.InstallApp(appPath);
     }

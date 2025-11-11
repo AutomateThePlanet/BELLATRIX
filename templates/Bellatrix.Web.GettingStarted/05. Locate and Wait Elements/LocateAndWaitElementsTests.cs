@@ -10,7 +10,7 @@ public class LocateAndWaiTComponentsTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void BlogPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 1. Sometimes you need to perform an action against an element only when a specific condition is true.
         // As mentioned in previous part of the guide, BELLATRIX by default always waits for elements to exist.

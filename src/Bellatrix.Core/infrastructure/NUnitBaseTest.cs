@@ -1,5 +1,5 @@
 ﻿// <copyright file="NUnitBaseTest.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -22,6 +22,7 @@ using Bellatrix.Plugins;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
+using static NUnit.Framework.TestContext;
 
 namespace Bellatrix;
 
@@ -162,7 +163,7 @@ public class NUnitBaseTest
         
         try
         {
-            _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
+            _currentTestExecutionProvider.PreTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, GetDurationOfTest(), TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
         }
         catch (Exception preTestCleanupException)
         {
@@ -176,12 +177,11 @@ public class NUnitBaseTest
         catch (Exception ex)
         {
             cleanupExceptions.Add(ex);
-            _currentTestExecutionProvider.TestCleanupFailed(ex, TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions);
         }
 
         try
         {
-            _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, TestContext.Test.FullName, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
+            _currentTestExecutionProvider.PostTestCleanup((TestOutcome)TestContext.Result.Outcome.Status, GetDurationOfTest(), TestContext.Test.FullName, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions, TestContext.Result.Message, TestContext.Result.StackTrace, _thrownException?.Value);
         }
         catch (Exception postCleanupException)
         {
@@ -190,6 +190,7 @@ public class NUnitBaseTest
 
         if (cleanupExceptions.Any())
         {
+            _currentTestExecutionProvider.TestCleanupFailed(cleanupExceptions.Last(), TestContext.Test.Name, testMethodMemberInfo, testClassType, TestContext.CurrentContext.Test.Arguments.ToList(), categories, authors, descriptions);
             throw new AggregateException("Test Cleanup failed with one or more errors:", cleanupExceptions);
         }
     }
@@ -305,5 +306,19 @@ public class NUnitBaseTest
         var testClassType = GetType().Assembly.GetType(TestContext.CurrentContext.Test.ClassName);
 
         return testClassType;
+    }
+
+    private double GetDurationOfTest()
+    {
+        var fieldInfo = typeof(ResultAdapter).GetField("_result", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (fieldInfo != null)
+        {
+            return ((TestResult)fieldInfo.GetValue(TestContext.Result)).Duration * 1000;
+        }
+        else
+        {
+            // TODO: LOG FAILURE TO RETRIEVE
+            return 0;
+        }
     }
 }

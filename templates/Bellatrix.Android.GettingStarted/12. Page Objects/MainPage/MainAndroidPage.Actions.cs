@@ -30,5 +30,5 @@ public partial class MainAndroidPage : AndroidPage
     }
 
     protected override string ActivityName => ".view.Controls1";
-    protected override string PackageName => Constants.AndroidNativeAppAppExamplePackage;
+    protected override string PackageName => Constants.AndroidNativeAppId;
 }

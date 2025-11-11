@@ -1,0 +1,4 @@
+﻿1. Open the tests that you made in the page objects section
+2. Create a child class for the Button ComponentCreateService.
+3. Add a new property for checking if an element is disabled with JavaScript.
+4. Execute the test with the new method.

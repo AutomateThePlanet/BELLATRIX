@@ -1,5 +1,5 @@
 ﻿// <copyright file="DownloadFileAssert.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -58,6 +58,15 @@ public static class DownloadFileAssert
             DownloadedFileFullPath = string.Empty;
         }
     }
+    public static FileInfo GetLastDownloadedFile(string fileExtention, int timeoutInSeconds = 30)
+    {
+        var directory = new DirectoryInfo(DownloadFileAssert.GetSystemDownloadsPath());
+        var actualFile = directory.GetFiles().Where(x => x.Extension == fileExtention).OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+        DownloadedFileFullPath = Path.Combine(GetSystemDownloadsPath(), actualFile.Name);
+        Wait.Until(() => File.Exists(DownloadedFileFullPath), timeoutInSeconds: timeoutInSeconds, "The downloaded file took too long to be downloaded or wasn't downloaded at all.");
+
+        return new FileInfo(DownloadedFileFullPath);
+    }
 
     public static void Dispose()
     {
@@ -91,7 +100,7 @@ public static class DownloadFileAssert
         }
     }
 
-    private static string GetSystemDownloadsPath()
+    public static string GetSystemDownloadsPath()
     {
         string path;
 

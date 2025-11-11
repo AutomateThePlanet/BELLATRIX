@@ -1,5 +1,6 @@
 ﻿using Bellatrix.Mobile.Controls.Core;
 using Bellatrix.Mobile.Core;
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.Android.GettingStarted.ExtensionMethodsLocators;
@@ -9,8 +10,8 @@ namespace Bellatrix.Mobile.Android.GettingStarted.ExtensionMethodsLocators;
 public static class ElementRepositoryExtensions
 {
     public static TComponent CreateByIdStartingWith<TComponent>(this ComponentCreateService repo, string id)
-        where TComponent : Component<AndroidDriver<AndroidElement>, AndroidElement> => repo.Create<TComponent, FindIdStartingWithStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindIdStartingWithStrategy(id));
+        where TComponent : Component<AndroidDriver, AppiumElement> => repo.Create<TComponent, FindIdStartingWithStrategy, AndroidDriver, AppiumElement>(new FindIdStartingWithStrategy(id));
 
-    public static ComponentsList<TComponent, FindIdStartingWithStrategy, AndroidDriver<AndroidElement>, AndroidElement> CreateAllByIdStartingWith<TComponent>(this ComponentCreateService repo, string id)
-        where TComponent : Component<AndroidDriver<AndroidElement>, AndroidElement> => new ComponentsList<TComponent, FindIdStartingWithStrategy, AndroidDriver<AndroidElement>, AndroidElement>(new FindIdStartingWithStrategy(id), null);
+    public static ComponentsList<TComponent, FindIdStartingWithStrategy, AndroidDriver, AppiumElement> CreateAllByIdStartingWith<TComponent>(this ComponentCreateService repo, string id)
+        where TComponent : Component<AndroidDriver, AppiumElement> => new ComponentsList<TComponent, FindIdStartingWithStrategy, AndroidDriver, AppiumElement>(new FindIdStartingWithStrategy(id), null);
 }

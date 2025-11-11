@@ -1,5 +1,5 @@
 ﻿// <copyright file="PluginEventArgs.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -49,6 +49,34 @@ public class PluginEventArgs : EventArgs
         Descriptions = descriptions;
     }
 
+    public PluginEventArgs(TestOutcome testOutcome,
+        double duration,
+        string testName,
+        MemberInfo testMethodMemberInfo,
+        Type testClassType,
+        List<object> arguments,
+        string consoleOutputMessage,
+        string consoleOutputStackTrace,
+        Exception exception,
+        List<string> categories,
+        List<string> authors,
+        List<string> descriptions)
+        : this(testOutcome,
+            duration,
+            testClassType,
+            arguments,
+            consoleOutputMessage,
+            consoleOutputStackTrace)
+    {
+        TestMethodMemberInfo = testMethodMemberInfo;
+        TestName = testName;
+        TestFullName = $"{TestClassName}.{TestName}";
+        Exception = exception;
+        Categories = categories;
+        Authors = authors;
+        Descriptions = descriptions;
+    }
+
     public PluginEventArgs(
         TestOutcome testOutcome,
         Type testClassType,
@@ -57,6 +85,24 @@ public class PluginEventArgs : EventArgs
         string consoleOutputStackTrace = null)
     {
         TestOutcome = testOutcome;
+        TestClassType = testClassType;
+        Arguments = arguments;
+        TestClassName = testClassType.FullName;
+        ConsoleOutputMessage = consoleOutputMessage;
+        ConsoleOutputStackTrace = consoleOutputStackTrace;
+        Container = ServicesCollection.Current.FindCollection(testClassType.FullName);
+    }
+
+    public PluginEventArgs(
+        TestOutcome testOutcome,
+        double duration,
+        Type testClassType,
+        List<object> arguments,
+        string consoleOutputMessage = null,
+        string consoleOutputStackTrace = null)
+    {
+        TestOutcome = testOutcome;
+        Duration = duration;
         TestClassType = testClassType;
         Arguments = arguments;
         TestClassName = testClassType.FullName;
@@ -75,6 +121,8 @@ public class PluginEventArgs : EventArgs
     public List<object> Arguments { get; }
 
     public TestOutcome TestOutcome { get; }
+    
+    public double Duration { get; }
 
     public string TestName { get; }
 

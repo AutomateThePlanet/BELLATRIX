@@ -1,5 +1,5 @@
-﻿// <copyright file="ByCss.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+﻿// <copyright file="FindCssStrategy.cs" company="Automate The Planet Ltd.">
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,7 +11,9 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Web.Locators;
+using OpenQA.Selenium;
+
+namespace Bellatrix.Web;
 
 public class FindCssStrategy : FindStrategy
 {
@@ -20,9 +22,9 @@ public class FindCssStrategy : FindStrategy
     {
     }
 
-    public override OpenQA.Selenium.By Convert()
+    public override By Convert()
     {
-        return OpenQA.Selenium.By.CssSelector(Value);
+        return By.CssSelector(Value);
     }
 
     public override string ToString()

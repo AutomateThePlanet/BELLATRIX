@@ -3,7 +3,7 @@
 public partial class HomePage : WebPage
 {
     // 1. Here the page does not have any assertions so we made it from type NavigatablePage meaning you can use the method Open to open the bellow Url.
-    public override string Url => "http://demos.bellatrix.solutions/";
+    public override string Url => "https://demos.bellatrix.solutions/";
 
     // 2. Filter by using the special enum containing all filter options.
     public void FilterProducts(ProductFilter productFilter)

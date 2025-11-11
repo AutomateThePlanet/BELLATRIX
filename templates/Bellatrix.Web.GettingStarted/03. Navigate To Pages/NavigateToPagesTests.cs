@@ -14,17 +14,17 @@ public class NavigateToPagesTests : NUnit.WebTest
     //
     // 1. If you reuse your browser and want to navigate once to a specific page. You can use the TestsAct method.
     // It executes once for all tests in the class.
-    public override void TestsAct() => App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+    public override void TestsAct() => App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
     // 2. If you need each test to navigate each time to the same page, you can use the TestInit method.
-    public override void TestInit() => App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+    public override void TestInit() => App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
     [Test]
     [Category(Categories.CI)]
     public void PromotionsPageOpened_When_PromotionsButtonClicked()
     {
         // 3. You can always navigate in each separate tests, but if all of them go to the same page, you can use the above techniques for code reuse.
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // Use the element creation service to create an instance of the anchor. There are much more details about this process in the next sections.
         var promotionsLink = App.Components.CreateByLinkText<Anchor>("Promotions");
@@ -41,7 +41,7 @@ public class NavigateToPagesTests : NUnit.WebTest
     [Category(Categories.CI)]
     public void BlogPageOpened_When_PromotionsButtonClicked()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         var blogLink = App.Components.CreateByLinkText<Anchor>("Blog");
 
@@ -70,6 +70,6 @@ public class NavigateToPagesTests : NUnit.WebTest
         // To be able, you need to create a simple C# class holding the URL names as public string properties. Similar to UrlSettings class.
         string cartUrl = UrlDeterminer.GetUrl<UrlSettings>(u => u.ShopUrl);
 
-        App.Assert.AreEqual("http://demos.bellatrix.solutions/cart/", cartUrl);
+        App.Assert.AreEqual("https://demos.bellatrix.solutions/cart/", cartUrl);
     }
 }

@@ -9,7 +9,7 @@ public class ExecuteSameTestDifferentBrowsersTests : NUnit.WebTest
 {
     public override void TestInit()
     {
-        App.Navigation.Navigate("http://demos.bellatrix.solutions/my-account/");
+        App.Navigation.Navigate("https://demos.bellatrix.solutions/my-account/");
     }
 
     // The browser versioning will work only if you execute the tests with Selenium grid - locally or in the cloud.

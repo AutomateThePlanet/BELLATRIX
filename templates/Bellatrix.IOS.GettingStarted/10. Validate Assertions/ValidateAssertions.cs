@@ -4,13 +4,14 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 
 [TestFixture]
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.RestartEveryTime)]
 public class ValidateAssertions : NUnit.IOSTest
 {
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void CommonAssertionsIOSControls()
     {
@@ -51,8 +52,9 @@ public class ValidateAssertions : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
-    [IOS(Constants.AppleCalendarBundleId,
+    [CancelAfter(180000)]
+    [IOS(Constants.IOSNativeAppPath,
+      Constants.AppleCalendarBundleId,
       Constants.IOSDefaultVersion,
       Constants.IOSDefaultDeviceName,
       Lifecycle.RestartEveryTime)]
@@ -77,12 +79,13 @@ public class ValidateAssertions : NUnit.IOSTest
 
         checkBox.Uncheck();
 
-        Assert.IsFalse(checkBox.IsChecked);
+        Assert.That(!checkBox.IsChecked);
     }
 
     [Test]
-    [Timeout(180000)]
-    [IOS(Constants.AppleCalendarBundleId,
+    [CancelAfter(180000)]
+    [IOS(Constants.IOSNativeAppPath,
+        Constants.AppleCalendarBundleId,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartEveryTime)]

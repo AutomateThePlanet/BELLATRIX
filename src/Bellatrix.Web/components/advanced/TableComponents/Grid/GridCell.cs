@@ -1,5 +1,5 @@
 ﻿// <copyright file="GridCell.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -53,28 +53,31 @@ public class GridCell : Component, IComponentInnerText, IComponentInnerHtml
     public TComponent As<TComponent>()
         where TComponent : Component, new()
     {
-        CellControlComponentType = typeof(TComponent);
-        if (CellControlBy == null)
+        if (CellControlComponentType != null && CellControlComponentType == typeof(TComponent))
         {
+            return (TComponent)As();
+        }
+        else
+        {
+            CellControlComponentType = typeof(TComponent);
+
             object instance = Activator.CreateInstance(CellControlComponentType);
             var byProperty = CellControlComponentType.GetProperty("By");
             byProperty?.SetValue(instance, By, null);
 
             var wrappedElementProperty = CellControlComponentType.GetProperty("WrappedElement");
+            var parentComponent = CellControlComponentType.GetProperty("ParentComponent");
             var wrappedElementParent = CellControlComponentType.GetProperty("ParentWrappedElement");
             var wrappedElementIndex = CellControlComponentType.GetProperty("ElementIndex");
 
             wrappedElementProperty?.SetValue(instance, WrappedElement, null);
             wrappedElementParent?.SetValue(instance, ParentWrappedElement, null);
+            parentComponent?.SetValue(instance, ParentComponent, null);
             wrappedElementIndex?.SetValue(instance, ElementIndex, null);
 
             var isRefreshableElementProperty = CellControlComponentType.GetProperty("ShouldCacheElement");
             isRefreshableElementProperty?.SetValue(instance, true, null);
             return instance as TComponent;
-        }
-        else
-        {
-            return Create(CellControlBy, typeof(TComponent));
         }
     }
 
@@ -92,11 +95,13 @@ public class GridCell : Component, IComponentInnerText, IComponentInnerHtml
             byProperty?.SetValue(instance, By, null);
 
             var wrappedElementProperty = CellControlComponentType.GetProperty("WrappedElement");
+            var parentComponent = CellControlComponentType.GetProperty("ParentComponent");
             var wrappedElementParent = CellControlComponentType.GetProperty("ParentWrappedElement");
             var wrappedElementIndex = CellControlComponentType.GetProperty("ElementIndex");
 
             wrappedElementProperty?.SetValue(instance, WrappedElement, null);
             wrappedElementParent?.SetValue(instance, ParentWrappedElement, null);
+            parentComponent?.SetValue(instance, ParentComponent, null);
             wrappedElementIndex?.SetValue(instance, ElementIndex, null);
 
             var isRefreshableElementProperty = CellControlComponentType.GetProperty("ShouldCacheElement");
@@ -106,7 +111,7 @@ public class GridCell : Component, IComponentInnerText, IComponentInnerHtml
         }
         else
         {
-            return Create(CellControlBy, CellControlComponentType);
+            return this.Create(CellControlBy, CellControlComponentType);
         }
     }
 

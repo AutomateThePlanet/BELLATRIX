@@ -12,7 +12,7 @@ public partial class CartPage : WebPage
     private const string CouponSuccessfullyAdded = @"Coupon code applied successfully.";
 
     // 2. Overriding the Url property that comes from the base page object you can later you the Open method to go to the page.
-    public override string Url => "http://demos.bellatrix.solutions/cart/";
+    public override string Url => "https://demos.bellatrix.solutions/cart/";
 
     // 3. These elements are always used together when coupon is applied. There are many test cases where you need to apply different coupons and so on.
     // This way you reuse the code instead of copy-paste it. If there is a change in the way how the coupon is applied, change the workflow only here.

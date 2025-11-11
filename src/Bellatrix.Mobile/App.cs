@@ -1,5 +1,5 @@
 ﻿// <copyright file="App.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,14 +11,11 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
 using Bellatrix.Assertions;
 using Bellatrix.AWS;
 using Bellatrix.CognitiveServices;
 using Bellatrix.DynamicTestCases;
+using Bellatrix.LLM;
 using Bellatrix.Mobile.Configuration;
 using Bellatrix.Mobile.PageObjects;
 using Bellatrix.Mobile.Services;
@@ -26,12 +23,16 @@ using Bellatrix.Plugins;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Service;
 using OpenQA.Selenium.Appium.Service.Options;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Bellatrix.Mobile;
 
 public abstract class App<TDriver, TDriverElement> : IDisposable
-    where TDriver : AppiumDriver<TDriverElement>
-    where TDriverElement : AppiumWebElement
+    where TDriver : AppiumDriver
+    where TDriverElement : AppiumElement
 {
     private static bool _shouldStartAppiumLocalService;
 
@@ -67,7 +68,7 @@ public abstract class App<TDriver, TDriverElement> : IDisposable
         }
     }
 
-    public void AddAdditionalCapability(string name, object value)
+    public void AddAdditionalAppiumOption(string name, object value)
     {
         string fullClassName = DetermineTestClassFullNameAttributes();
         var dictionary = ServicesCollection.Current.Resolve<Dictionary<string, object>>($"caps-{fullClassName}") ?? new Dictionary<string, object>();

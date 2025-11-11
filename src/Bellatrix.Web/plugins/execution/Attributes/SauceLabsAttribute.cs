@@ -1,5 +1,5 @@
 ﻿// <copyright file="SauceLabsAttribute.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -204,11 +204,11 @@ public class SauceLabsAttribute : BrowserAttribute, IDriverOptionsAttribute
             case BrowserType.FirefoxHeadless:
             case BrowserType.InternetExplorer:
             case BrowserType.Opera:
-                driverOptions.AddAdditionalCapability("sauce:options", sauceOptions, true);
+                driverOptions.AddAdditionalOption("sauce:options", sauceOptions);
                 break;
 
             default:
-                driverOptions.AddAdditionalCapability("sauce:options", sauceOptions);
+                driverOptions.AddAdditionalOption("sauce:options", sauceOptions);
                 break;
         }
 

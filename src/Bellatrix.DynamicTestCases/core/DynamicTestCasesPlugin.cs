@@ -1,5 +1,5 @@
 ﻿// <copyright file="DynamicTestCasesPlugin.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,10 +12,6 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using Bellatrix.DynamicTestCases.AzureDevOps;
 using Bellatrix.DynamicTestCases.Contracts;
@@ -72,7 +68,7 @@ public class DynamicTestCasesPlugin : Plugin
             // Update the test case only upon test pass. In case of failure, only the basic test case - name, description, etc will remain - without the test steps
             if (e.TestOutcome == TestOutcome.Passed && _dynamicTestCasesService?.Context != null)
             {
-                _dynamicTestCasesService.Context.Value.TestCase = _testCaseManagementService.InitTestCase(_dynamicTestCasesService.Context.Value);
+                _dynamicTestCasesService.Context.Value.TestCase = _testCaseManagementService.UpdateTestCaseStepAndCreateANewTestCase(_dynamicTestCasesService.Context.Value);
             }
         }
         catch (Exception ex)

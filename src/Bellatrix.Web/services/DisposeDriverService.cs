@@ -1,5 +1,5 @@
 ﻿// <copyright file="DisposeDriverService.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -29,11 +29,14 @@ public static class DisposeDriverService
             driver?.Close();
             driver?.Quit();
             driver?.Dispose();
-            ServicesCollection.Current?.UnregisterSingleInstance<IWebDriver>();
         }
         catch (Exception ex)
         {
             DebugInformation.PrintStackTrace(ex);
+        }
+        finally
+        {
+            ServicesCollection.Current?.UnregisterSingleInstance<IWebDriver>();
         }
 
         ProcessCleanupService.KillPreviousDriversAndBrowsersOsAgnostic(TestRunStartTime);
@@ -46,11 +49,14 @@ public static class DisposeDriverService
             webDriver?.Close();
             webDriver?.Quit();
             webDriver?.Dispose();
-            container?.UnregisterSingleInstance<IWebDriver>();
         }
         catch (Exception ex)
         {
             DebugInformation.PrintStackTrace(ex);
+        }
+        finally 
+        { 
+            container?.UnregisterSingleInstance<IWebDriver>(); 
         }
 
         ProcessCleanupService.KillPreviousDriversAndBrowsersOsAgnostic(TestRunStartTime);
@@ -66,11 +72,14 @@ public static class DisposeDriverService
                 driver?.Close();
                 driver?.Quit();
                 driver?.Dispose();
-                childContainer?.UnregisterSingleInstance<IWebDriver>();
             }
             catch (Exception ex)
             {
                 DebugInformation.PrintStackTrace(ex);
+            }
+            finally
+            {
+                childContainer?.UnregisterSingleInstance<IWebDriver>();
             }
         }
     }

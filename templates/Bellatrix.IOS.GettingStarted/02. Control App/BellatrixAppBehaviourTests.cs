@@ -22,6 +22,7 @@ namespace Bellatrix.Mobile.IOS.GettingStarted;
 // If you don't use the attribute, the default information from the configuration will be used placed under the executionSettings section.
 // Also, you can add additional driver arguments under the arguments section array in the configuration file.
 [IOS(Constants.IOSNativeAppPath,
+    Constants.AppleCalendarBundleId,
     Constants.IOSDefaultVersion,
     Constants.IOSDefaultDeviceName,
     Lifecycle.ReuseIfStarted)]
@@ -32,7 +33,7 @@ public class BellatrixAppLifecycleTests : NUnit.IOSTest
 {
     // 2.3. All NUnit tests should be marked with the TestMethod attribute.
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
     public void ButtonClicked_When_CallClickMethod()
     {
@@ -44,12 +45,13 @@ public class BellatrixAppLifecycleTests : NUnit.IOSTest
     }
 
     [Test]
-    [Timeout(180000)]
+    [CancelAfter(180000)]
     [Category(Categories.CI)]
 
     // 2.4. As mentioned above you can override the app lifecycle for a particular test. The global lifecycle for all tests in the class is to reuse an instance of the app.
     // Only for this particular test, BELLATRIX opens the app and restarts it only on fail.
     [IOS(Constants.IOSNativeAppPath,
+        Constants.AppleCalendarBundleId,
         Constants.IOSDefaultVersion,
         Constants.IOSDefaultDeviceName,
         Lifecycle.RestartOnFail)]
@@ -57,6 +59,6 @@ public class BellatrixAppLifecycleTests : NUnit.IOSTest
     {
         var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
-        Assert.IsTrue(button.IsPresent);
+        Assert.That(button.IsPresent);
     }
 }
