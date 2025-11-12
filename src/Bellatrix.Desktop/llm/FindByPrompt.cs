@@ -39,6 +39,8 @@ public class FindByPrompt : FindStrategy
 {
     private bool _tryResolveFromPages = true;
 
+    private WindowsDriver WrappedDriver => ServicesCollection.Current.Resolve<WindowsDriver>();
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FindByPrompt"/> class with the specified prompt value.
     /// </summary>
@@ -50,43 +52,23 @@ public class FindByPrompt : FindStrategy
     }
 
     /// <summary>
-    /// Locates a single AppiumElement using the resolved XPath.
-    /// </summary>
-    public override AppiumElement FindElement(WindowsDriver driver)
-    {
-        var location = driver.CurrentWindowHandle;
-        var xpath = ResolveLocator(location, driver);
-        return driver.FindElement(By.XPath(xpath));
-    }
-
-    /// <summary>
-    /// Locates all matching AppiumElements using the resolved XPath.
-    /// </summary>
-    public override IEnumerable<AppiumElement> FindAllElements(WindowsDriver driver)
-    {
-        var location = driver.CurrentWindowHandle;
-        var xpath = ResolveLocator(location, driver);
-        return driver.FindElements(By.XPath(xpath));
-    }
-
-    /// <summary>
     /// Locates a single AppiumElement in the context of a parent element using the resolved XPath.
     /// </summary>
-    public override AppiumElement FindElement(AppiumElement element)
+    public override AppiumElement FindElement(ISearchContext searchContext)
     {
-        var location = element.WrappedDriver.CurrentWindowHandle;
-        var xpath = ResolveLocator(location, element.WrappedDriver as WindowsDriver);
-        return element.FindElement(By.XPath(xpath));
+        var location = WrappedDriver.CurrentWindowHandle;
+        var xpath = ResolveLocator(location, WrappedDriver as WindowsDriver);
+        return searchContext.FindElement(By.XPath(xpath)) as AppiumElement;
     }
 
     /// <summary>
     /// Locates all matching AppiumElements in the context of a parent element using the resolved XPath.
     /// </summary>
-    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
+    public override IEnumerable<AppiumElement> FindAllElements(ISearchContext searchContext)
     {
-        var location = element.WrappedDriver.CurrentWindowHandle;
-        var xpath = ResolveLocator(location, element.WrappedDriver as WindowsDriver);
-        return element.FindElements(By.XPath(xpath));
+        var location = WrappedDriver.CurrentWindowHandle;
+        var xpath = ResolveLocator(location, WrappedDriver as WindowsDriver);
+        return searchContext.FindElements(By.XPath(xpath)).Select(el => el as AppiumElement);
     }
 
     /// <summary>
