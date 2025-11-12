@@ -1,5 +1,5 @@
 ﻿// <copyright file="Button.cs" company="Automate The Planet Ltd.">
-// Copyright 2022 Automate The Planet Ltd.
+// Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
 // You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,10 +12,10 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.Events;
-using Bellatrix.Desktop.Services;
-using OpenQA.Selenium.Appium.Windows;
+using Bellatrix.Desktop.Locators;
+using Bellatrix.Utilities;
+using OpenQA.Selenium;
 
 namespace Bellatrix.Desktop;
 
@@ -48,7 +48,6 @@ public class Window : Component
                 return null;
             }
 
-
             return _windowHandle;
         }
     }
@@ -57,38 +56,54 @@ public class Window : Component
     {
         Attaching?.Invoke(this, new ComponentActionEventArgs(this));
 
-        this.ToExists().WaitToBe();
-
-        var currentAppConfiguration =
-            ServicesCollection.Current.Resolve<AppInitializationInfo>("_currentAppConfiguration");
-        currentAppConfiguration.WindowHandle = WindowHandle;
-        var driver = WrappedWebDriverCreateService.Create(currentAppConfiguration, ServicesCollection.Current);
-
-        WrappedDriver.Quit();
-        ServicesCollection.Current.UnregisterSingleInstance<WindowsDriver>();
-        ServicesCollection.Current.RegisterInstance(driver);
-
-        Attached?.Invoke(this, new ComponentActionEventArgs(this));
-    }
-
-    public virtual void Detach()
-    {
-        Attaching?.Invoke(this, new ComponentActionEventArgs(this));
-
-        var currentAppConfiguration = ServicesCollection.Current.Resolve<AppInitializationInfo>("_currentAppConfiguration");
-
-        if (currentAppConfiguration.WindowHandle != WindowHandle)
+        if (By is FindNameStrategy byName)
         {
-            throw new InvalidOperationException($"This window ({WindowHandle}) is not currently attached. Currently attached window: {currentAppConfiguration.WindowHandle}");
+            try
+            {
+                Wait.Until(() =>
+                {
+                    try
+                    {
+                        WrappedDriver.SwitchTo().Window(byName.Value);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }, 90);
+            }
+            catch (TimeoutException)
+            {
+                throw new NoSuchWindowException($"No window was found with name '{byName.Value}'");
+            }
+        }
+        else
+        {
+            WrappedDriver.SwitchTo().Window(WindowHandle);
         }
 
-        currentAppConfiguration.WindowHandle = null;
-        var driver = WrappedWebDriverCreateService.Create(currentAppConfiguration, ServicesCollection.Current);
-
-        WrappedDriver.Quit();
-        ServicesCollection.Current.UnregisterSingleInstance<WindowsDriver>();
-        ServicesCollection.Current.RegisterInstance(driver);
-
         Attached?.Invoke(this, new ComponentActionEventArgs(this));
     }
+
+    // public virtual void Detach()
+    // {
+    //     Attaching?.Invoke(this, new ComponentActionEventArgs(this));
+    //
+    //     var currentAppConfiguration = ServicesCollection.Current.Resolve<AppInitializationInfo>("_currentAppConfiguration");
+    //
+    //     if (currentAppConfiguration.WindowHandle != WindowHandle)
+    //     {
+    //         throw new InvalidOperationException($"This window ({WindowHandle}) is not currently attached. Currently attached window: {currentAppConfiguration.WindowHandle}");
+    //     }
+    //
+    //     currentAppConfiguration.WindowHandle = null;
+    //     var driver = WrappedWebDriverCreateService.Create(currentAppConfiguration, ServicesCollection.Current);
+    //
+    //     WrappedDriver.Quit();
+    //     ServicesCollection.Current.UnregisterSingleInstance<WindowsDriver>();
+    //     ServicesCollection.Current.RegisterInstance(driver);
+    //
+    //     Attached?.Invoke(this, new ComponentActionEventArgs(this));
+    // }
 }

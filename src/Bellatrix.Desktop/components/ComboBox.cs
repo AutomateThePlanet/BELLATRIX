@@ -59,8 +59,25 @@ public class ComboBox : Component, IComponentDisabled, IComponentInnerText
     {
         get
         {
-            return new ComponentsRepository().CreateComponentThatIsFound<ListItem>(null,
-                (AppiumElement)WrappedDriver.ExecuteScript("windows: selectedItem", WrappedElement));
+            var retryCount = 3;
+
+            while (retryCount-- > 0)
+            {
+                try
+                {
+                    WrappedDriver.ExecuteScript("windows: expand", WrappedElement);
+                    var result =  new ComponentsRepository().CreateComponentThatIsFound<ListItem>(null,
+                        (AppiumElement)WrappedDriver.ExecuteScript("windows: selectedItem", WrappedElement));
+                    WrappedDriver.ExecuteScript("windows: collapse", WrappedElement);
+                    return result;
+                }
+                catch
+                {
+                    // ignore
+                }
+            }
+
+            return null;
         }
     }
 
@@ -71,7 +88,7 @@ public class ComboBox : Component, IComponentDisabled, IComponentInnerText
         {
             try
             {
-                return SelectedItem.CreateByTag<Label>("Text").InnerText;
+                return SelectedItem?.CreateByTag<Label>("Text").InnerText ?? string.Empty;
             }
             catch
             {

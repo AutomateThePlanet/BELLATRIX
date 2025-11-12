@@ -1,4 +1,4 @@
-﻿// <copyright file="Find.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ListBoxEventHandlers.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -11,11 +11,23 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-namespace Bellatrix.Desktop;
+using Bellatrix.Desktop.Events;
 
-public sealed class Find
+namespace Bellatrix.Desktop.EventHandlers;
+
+public class ListItemEventHandlers : ComponentEventHandlers
 {
-    static Find() => By = new FindStrategyFactory();
+    public override void SubscribeToAll()
+    {
+        base.SubscribeToAll();
+        ListItem.Hovering += HoveringEventHandler;
+        ListItem.Hovered += HoveredEventHandler;
+    }
 
-    public static FindStrategyFactory By { get; }
+    public override void UnsubscribeToAll()
+    {
+        base.UnsubscribeToAll();
+        ListItem.Hovering -= HoveringEventHandler;
+        ListItem.Hovered -= HoveredEventHandler;
+    }
 }

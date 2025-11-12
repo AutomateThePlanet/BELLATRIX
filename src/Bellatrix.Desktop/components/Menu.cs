@@ -31,4 +31,14 @@ public class Menu : Component
     {
         this.CreateAllByClass<Button>("MenuItem").First(x => x.GetAttribute("Name") == option).Click();
     }
+
+    public void SelectFirstOption()
+    {
+        this.CreateAllByClass<Button>("MenuItem").First().Click();
+    }
+
+    public void SelectLastOption()
+    {
+        this.CreateAllByClass<Button>("MenuItem").Last().Click();
+    }
 }

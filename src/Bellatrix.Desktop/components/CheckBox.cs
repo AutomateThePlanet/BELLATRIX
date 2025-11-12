@@ -31,7 +31,16 @@ public class CheckBox : Component, IComponentDisabled, IComponentChecked
     {
         if (isChecked && !WrappedElement.Selected || !isChecked && WrappedElement.Selected)
         {
-            Click(Checking, Checked);
+            Checking?.Invoke(this, new ComponentActionEventArgs(this));
+            try
+            {
+                WrappedDriver.ExecuteScript("windows: toggle", WrappedElement);
+            }
+            catch
+            {
+                Click(null, null);
+            }
+            Checked?.Invoke(this, new ComponentActionEventArgs(this));
         }
     }
 
@@ -39,7 +48,16 @@ public class CheckBox : Component, IComponentDisabled, IComponentChecked
     {
         if (WrappedElement.Selected)
         {
-            Click(Unchecking, Unchecked);
+            Unchecking?.Invoke(this, new ComponentActionEventArgs(this));
+            try
+            {
+                WrappedDriver.ExecuteScript("windows: toggle", WrappedElement);
+            }
+            catch
+            {
+                Click(null, null);
+            }
+            Unchecked?.Invoke(this, new ComponentActionEventArgs(this));
         }
     }
 

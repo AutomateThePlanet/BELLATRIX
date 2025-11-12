@@ -12,8 +12,9 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
+using System.Linq;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.Locators;
 
@@ -24,24 +25,14 @@ public class FindAutomationIdStrategy : FindStrategy
     {
     }
 
-    public override AppiumElement FindElement(WindowsDriver searchContext)
+    public override AppiumElement FindElement(ISearchContext searchContext)
     {
-        return searchContext.FindElement(MobileBy.AccessibilityId(Value));
+        return searchContext.FindElement(MobileBy.AccessibilityId(Value)) as AppiumElement;
     }
 
-    public override IEnumerable<AppiumElement> FindAllElements(WindowsDriver searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(ISearchContext searchContext)
     {
-        return searchContext.FindElements(MobileBy.AccessibilityId(Value));
-    }
-
-    public override AppiumElement FindElement(AppiumElement element)
-    {
-        return element.FindElement(MobileBy.AccessibilityId(Value));
-    }
-
-    public override IEnumerable<AppiumElement> FindAllElements(AppiumElement element)
-    {
-        return element.FindElements(MobileBy.AccessibilityId(Value));
+        return searchContext.FindElements(MobileBy.AccessibilityId(Value)).Select(el => el as AppiumElement);
     }
 
     public override string ToString()
