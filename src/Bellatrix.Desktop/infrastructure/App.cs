@@ -98,7 +98,7 @@ public class App : IDisposable
             throw new ArgumentException("Appium version 3.1.0 or higher is required. Please update Appium by running: npm install -g appium@latest");
         }
 
-        const string latestVersion = "1.2.0-preview.1";
+        const string latestVersion = "1.2.0-preview.2";
 
         process = new Process
         {
