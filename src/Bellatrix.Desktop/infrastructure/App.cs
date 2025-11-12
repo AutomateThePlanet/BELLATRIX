@@ -105,7 +105,7 @@ public class App : IDisposable
             StartInfo = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
-                Arguments = "-NoProfile -ExecutionPolicy RemoteSigned -Command \"appium driver list --installed --json\"",
+                Arguments = $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" driver list --installed --json",
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
@@ -124,7 +124,7 @@ public class App : IDisposable
             Console.WriteLine("NovaWindows driver not found. Installing...");
             Process.Start(
                 "powershell.exe",
-                $"-NoProfile -ExecutionPolicy RemoteSigned -Command \"appium driver install --source=npm appium-novawindows-driver@{latestVersion}\""
+                $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" driver install --source=npm appium-novawindows-driver@{latestVersion}"
             )?.WaitForExit();
         }
         else
@@ -135,7 +135,7 @@ public class App : IDisposable
                 Console.WriteLine($"Updating NovaWindows driver to {latestVersion}...");
                 Process.Start(
                     "powershell.exe",
-                    "-NoProfile -ExecutionPolicy RemoteSigned -Command \"appium driver update novawindows\""
+                    $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" driver update novawindows"
                 )?.WaitForExit();
             }
             else

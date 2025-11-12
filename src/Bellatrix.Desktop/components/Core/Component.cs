@@ -67,8 +67,8 @@ public partial class Component
     {
         get
         {
-            ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs(GetAndWaitWebDriverElement()));
-            var element = GetWebDriverElement();
+            var element = GetAndWaitWebDriverElement();
+            ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs(element));
             return element;
         }
         internal set => _wrappedElement = value;
@@ -253,7 +253,7 @@ public partial class Component
                 if (_llmSettings.EnableSelfHealing)
                 {
                     var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
-                    LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedDriver.Title);
+                    LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
                 }
 
                 _untils.Clear();
@@ -269,7 +269,7 @@ public partial class Component
                 Logger.LogWarning($"⚠️ Element not found with locator: {By}. Trying AI-based healing...");
 
                 var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
-                var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, WrappedDriver.Title);
+                var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
 
                 if (!string.IsNullOrEmpty(healedXpath))
                 {
