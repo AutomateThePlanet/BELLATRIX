@@ -11,7 +11,6 @@
         <PackageReference Include="NUnit" Version="4.3.2" />
 		<PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
 	</ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Bellatrix.LLM\Bellatrix.LLM.csproj" />
     <ProjectReference Include="..\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />

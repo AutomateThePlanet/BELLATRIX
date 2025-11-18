@@ -250,7 +250,7 @@ public partial class Component
                 _wrappedElement = GetWebDriverElement();
 
                 // ✅ Save if healing is enabled
-                if (_llmSettings.EnableSelfHealing)
+                if (_llmSettings != null && _llmSettings.EnableSelfHealing)
                 {
                     var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
                     LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
@@ -261,7 +261,7 @@ public partial class Component
             }
             catch (Exception ex)
             {
-                if (!_llmSettings.EnableSelfHealing)
+                if (_llmSettings == null || !_llmSettings.EnableSelfHealing)
                 {
                     throw new TimeoutException($"❌ Element not found: {By?.Value}", ex);
                 }

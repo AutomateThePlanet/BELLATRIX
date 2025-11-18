@@ -34,7 +34,8 @@ public class SmartFailureAnalysisPlugin : Plugin, IScreenshotPlugin
     {
         _screenshotOutputProvider = ServicesCollection.Current.Resolve<IScreenshotOutputProvider>();
         _viewSnapshotProvider = ServicesCollection.Main.Resolve<IViewSnapshotProvider>();
-        _isEnabled = ConfigurationService.GetSection<LargeLanguageModelsSettings>().EnableSmartFailureAnalysis;
+        var largeLanguageModelsSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
+        _isEnabled = largeLanguageModelsSettings?.EnableSmartFailureAnalysis ?? false;
     }
 
     public static void Add()

@@ -237,7 +237,7 @@ public static class WebPluginsConfiguration
     {
         if (ConfigurationService.GetSection<LargeLanguageModelsSettings>() == null)
         {
-            throw new ArgumentException("Could not load LargeLanguageModelsSettings section from testFrameworkSettings.json");
+            return;
         }
 
         try

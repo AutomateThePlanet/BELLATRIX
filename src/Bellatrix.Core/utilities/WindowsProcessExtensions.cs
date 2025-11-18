@@ -32,7 +32,7 @@ public static class WindowsProcessExtensions
 
         return children;
     }
-
+ 
     public static Process GetParentProcess(this Process process)
     {
         int parentPid = 0;
