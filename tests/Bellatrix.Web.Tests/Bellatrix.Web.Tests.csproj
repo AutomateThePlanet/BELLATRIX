@@ -19,7 +19,7 @@
     <PackageReference Include="MSTest.TestFramework" Version="3.8.3" />
     <PackageReference Include="System.Security.Permissions" Version="9.0.5" />
     <PackageReference Include="Unity" Version="5.11.10" />
-    <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="136.0.3240.50" />
+    <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="141.0.3537.71" />
   </ItemGroup>
 
   <ItemGroup>
