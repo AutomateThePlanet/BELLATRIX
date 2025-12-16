@@ -1,4 +1,4 @@
-﻿// <copyright file="RadioGroupControlTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="RadioGroupControlTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 public class RadioGroupControlTests : MSTest.IOSTest
 {
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void Return1RadioButtons_When_CallGetAllMethod()
     {
         var radioGroup = App.Components.CreateByIOSNsPredicate<RadioGroup>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");
@@ -36,7 +36,7 @@ public class RadioGroupControlTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ClickFirstRadioButton_When_CallClickByIndex()
     {
         var radioGroup = App.Components.CreateByIOSNsPredicate<RadioGroup>("type == \"XCUIElementTypeApplication\" AND name == \"TestApp\"");

@@ -1,4 +1,4 @@
-﻿// <copyright file="CheckBoxControlTestsUniversal.cs" company="Automate The Planet Ltd.">
+// <copyright file="CheckBoxControlTestsUniversal.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ public class CheckBoxControlTestsUniversal : MSTest.DesktopTest
     {
         var checkBox = App.Components.CreateByAutomationId<CheckBox>("checkedCheckBox");
 
-        Assert.AreEqual(false, checkBox.IsDisabled);
+        Assert.IsFalse(checkBox.IsDisabled);
     }
 
     [TestMethod]
@@ -85,6 +85,6 @@ public class CheckBoxControlTestsUniversal : MSTest.DesktopTest
     {
         var checkBox = App.Components.CreateByAutomationId<CheckBox>("disabledCheckBox");
 
-        Assert.AreEqual(true, checkBox.IsDisabled);
+        Assert.IsTrue(checkBox.IsDisabled);
     }
 }

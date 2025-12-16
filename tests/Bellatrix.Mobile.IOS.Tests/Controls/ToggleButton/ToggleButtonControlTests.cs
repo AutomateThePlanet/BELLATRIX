@@ -1,4 +1,4 @@
-﻿// <copyright file="ToggleButtonControlTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ToggleButtonControlTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ public class ToggleButtonControlTests : MSTest.IOSTest
     [TestMethod]
     [TestCategory(Categories.CI)]
     [TestCategory(Categories.KnownIssue)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void IsOnTrue_When_ToggleButtonTurnedOffAndTurnOn()
     {
         var addButton = App.Components.CreateById<Button>("Add");
@@ -45,7 +45,7 @@ public class ToggleButtonControlTests : MSTest.IOSTest
     [TestMethod]
     [TestCategory(Categories.CI)]
     [TestCategory(Categories.KnownIssue)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void IsOnFalse_When_ToggleButtonTurnedOnAndTurnOff()
     {
         var addButton = App.Components.CreateById<Button>("Add");
@@ -62,7 +62,7 @@ public class ToggleButtonControlTests : MSTest.IOSTest
     [TestMethod]
     [TestCategory(Categories.CI)]
     [TestCategory(Categories.KnownIssue)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void IsDisabledReturnsFalse_When_ToggleButtonIsNotDisabled()
     {
         var addButton = App.Components.CreateById<Button>("Add");
@@ -70,6 +70,6 @@ public class ToggleButtonControlTests : MSTest.IOSTest
 
         var toggleButton = App.Components.CreateByIOSNsPredicate<ToggleButton>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
-        Assert.AreEqual(false, toggleButton.IsDisabled);
+        Assert.IsFalse(toggleButton.IsDisabled);
     }
 }

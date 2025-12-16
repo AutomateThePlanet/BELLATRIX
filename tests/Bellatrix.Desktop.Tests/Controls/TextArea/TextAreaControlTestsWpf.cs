@@ -1,4 +1,4 @@
-﻿// <copyright file="TextAreaControlTestsWpf.cs" company="Automate The Planet Ltd.">
+// <copyright file="TextAreaControlTestsWpf.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public class TextAreaControlTestsWpf : MSTest.DesktopTest
     {
         var textArea = App.Components.CreateByAutomationId<TextArea>("textArea");
 
-        Assert.AreEqual(false, textArea.IsDisabled);
+        Assert.IsFalse(textArea.IsDisabled);
     }
 
     [TestMethod]
@@ -73,6 +73,6 @@ public class TextAreaControlTestsWpf : MSTest.DesktopTest
     {
         var textArea = App.Components.CreateByAutomationId<TextArea>("disabledTextArea");
 
-        Assert.AreEqual(true, textArea.IsDisabled);
+        Assert.IsTrue(textArea.IsDisabled);
     }
 }

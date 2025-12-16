@@ -30,7 +30,7 @@ public class RadioButtonControlTestsChrome : MSTest.WebTest
 
         radioElement.Click();
 
-        Assert.AreEqual(true, radioElement.IsChecked);
+        Assert.IsTrue(radioElement.IsChecked);
     }
 
     [TestMethod]

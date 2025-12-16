@@ -1,3 +1,6 @@
+using NUnit.Framework;
+using NUnitAssert = NUnit.Framework.Assert;
+
 namespace Bellatrix.Playwright.GettingStarted;
 
 public class Tests
@@ -10,6 +13,6 @@ public class Tests
     [Test]
     public void Test1()
     {
-        Assert.Pass();
+        NUnitAssert.Pass();
     }
 }

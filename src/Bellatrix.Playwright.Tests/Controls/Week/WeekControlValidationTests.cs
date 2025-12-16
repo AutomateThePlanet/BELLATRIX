@@ -30,7 +30,7 @@ public class WeekControlValidationTests : MSTest.WebTest
     {
         var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(0, 7));
+        Assert.Throws<ArgumentException>(() => weekElement.SetWeek(0, 7));
     }
 
     [TestMethod]
@@ -40,7 +40,7 @@ public class WeekControlValidationTests : MSTest.WebTest
     {
         var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(-1, 7));
+        Assert.Throws<ArgumentException>(() => weekElement.SetWeek(-1, 7));
     }
 
     [TestMethod]
@@ -50,7 +50,7 @@ public class WeekControlValidationTests : MSTest.WebTest
     {
         var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, -1));
+        Assert.Throws<ArgumentException>(() => weekElement.SetWeek(2017, -1));
     }
 
     [TestMethod]
@@ -60,7 +60,7 @@ public class WeekControlValidationTests : MSTest.WebTest
     {
         var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, 0));
+        Assert.Throws<ArgumentException>(() => weekElement.SetWeek(2017, 0));
     }
 
     [TestMethod]
@@ -70,6 +70,6 @@ public class WeekControlValidationTests : MSTest.WebTest
     {
         var weekElement = App.Components.CreateById<Week>("myWeek");
 
-        Assert.ThrowsException<ArgumentException>(() => weekElement.SetWeek(2017, 53));
+        Assert.Throws<ArgumentException>(() => weekElement.SetWeek(2017, 53));
     }
 }

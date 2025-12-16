@@ -1,4 +1,4 @@
-﻿// <copyright file="ComponentCreateServiceCreateAllElementTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ComponentCreateServiceCreateAllElementTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ public class ComponentCreateServiceCreateAllElementTests : MSTest.IOSTest
 {
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ElementFound_When_CreateAllById_And_ElementIsOnScreen()
     {
         var textFields = App.Components.CreateAllById<TextField>("IntegerA");
@@ -37,7 +37,7 @@ public class ComponentCreateServiceCreateAllElementTests : MSTest.IOSTest
 
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ElementFound_When_CreateAllByClass()
     {
         var textFields = App.Components.CreateAllByClass<CheckBox>("XCUIElementTypeTextField");
@@ -47,7 +47,7 @@ public class ComponentCreateServiceCreateAllElementTests : MSTest.IOSTest
 
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ElementFound_When_CreateAllByvalueContaining_And_ElementIsOnScreen()
     {
         var labels = App.Components.CreateAllByValueContaining<Label>("SumLabel");
@@ -57,7 +57,7 @@ public class ComponentCreateServiceCreateAllElementTests : MSTest.IOSTest
 
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ElementFound_When_CreateAllByIOSNsPredicate_And_ElementIsOnScreen()
     {
         var buttons = App.Components.CreateAllByIOSNsPredicate<Button>("type == \"XCUIElementTypeButton\" AND name == \"ComputeSumButton\"");
@@ -67,7 +67,7 @@ public class ComponentCreateServiceCreateAllElementTests : MSTest.IOSTest
 
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ElementFound_When_CreateAllByXPath_And_ElementIsOnScreen()
     {
         var buttons = App.Components.CreateAllByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");

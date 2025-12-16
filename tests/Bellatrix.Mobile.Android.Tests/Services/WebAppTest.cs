@@ -1,4 +1,4 @@
-﻿// <copyright file="WebAppTest.cs" company="Automate The Planet Ltd.">
+// <copyright file="WebAppTest.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -31,6 +31,6 @@ public class WebAppTests : MSTest.AndroidTest
     public void HtmlSourceContainsShop_When_OpenWebPageWithChrome()
     {
         App.Web.NavigationService.Navigate("https://demos.bellatrix.solutions/");
-        Assert.IsTrue(App.Web.BrowserService.HtmlSource.Contains("Shop"));
+        Assert.Contains("Shop", App.Web.BrowserService.HtmlSource);
     }
 }

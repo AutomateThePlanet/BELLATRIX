@@ -7,8 +7,8 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.1" />
-        <PackageReference Include="MSTest" Version="3.8.3" />
-        <PackageReference Include="NUnit" Version="4.3.2" />
+        <PackageReference Include="MSTest" Version="4.0.2" />
+        <PackageReference Include="NUnit" Version="4.4.0" />
 		<!--<PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />-->
 	</ItemGroup>
   <ItemGroup>

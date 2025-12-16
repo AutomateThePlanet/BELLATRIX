@@ -1,4 +1,4 @@
-﻿// <copyright file="ElementControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ElementControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control should be visible but was NOT. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -59,7 +59,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control should be NOT visible but was NOT. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -78,7 +78,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's CSS class should be 'myTestClass2' but was 'myTestClass1'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -95,7 +95,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's CSS class should be null but was 'myTestClass'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -112,7 +112,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's title should be 'bellatrix.solutions1' but was 'bellatrix.solutions'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -129,7 +129,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's title shouldn't be null but was. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -146,7 +146,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's title should be null but was 'bellatrix.solutions'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -163,7 +163,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's tabindex should be '2' but was '1'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -180,7 +180,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's style should be null but was 'color: green;'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -197,7 +197,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's dir should be 'rtl1' but was 'rtl'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -214,7 +214,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's dir should be null but was 'rtl'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -231,7 +231,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's lang should be 'bg' but was 'en'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -248,7 +248,7 @@ public class ElementControlValidateExtensionsExceptionMessagesTests : MSTest.Web
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's lang should be null but was 'en'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

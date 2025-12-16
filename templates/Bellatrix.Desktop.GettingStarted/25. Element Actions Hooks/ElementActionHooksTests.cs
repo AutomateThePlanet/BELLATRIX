@@ -1,4 +1,4 @@
-﻿using Bellatrix.Desktop.NUnit;
+using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted;
@@ -39,7 +39,7 @@ public class ElementActionHooksTests : DesktopTest
     {
         var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
-        Assert.AreEqual(false, calendar.IsDisabled);
+        Assert.IsFalse(calendar.IsDisabled);
 
         var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 

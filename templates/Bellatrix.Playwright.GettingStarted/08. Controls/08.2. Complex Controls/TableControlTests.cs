@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Bellatrix.Playwright.Assertions;
 using Bellatrix.Playwright.Enums;

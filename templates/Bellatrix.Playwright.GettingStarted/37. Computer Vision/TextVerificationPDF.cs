@@ -1,5 +1,7 @@
 ﻿namespace Bellatrix.Playwright.GettingStarted;
 
+using Ignore = Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
+
 [TestFixture]
 public class TextVerificationPDF : NUnit.WebTest
 {

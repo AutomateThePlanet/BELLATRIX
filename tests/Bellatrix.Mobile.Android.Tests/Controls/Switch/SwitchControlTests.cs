@@ -1,4 +1,4 @@
-﻿// <copyright file="SwitchControlTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="SwitchControlTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -76,6 +76,6 @@ public class SwitchControlTests : MSTest.AndroidTest
     {
         var switchControl = App.Components.CreateByXPath<Switch>("//*[@class='android.widget.Switch'][4]");
 
-        Assert.AreEqual(false, switchControl.IsDisabled);
+        Assert.IsFalse(switchControl.IsDisabled);
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="ExpanderControlTestsWpf.cs" company="Automate The Planet Ltd.">
+// <copyright file="ExpanderControlTestsWpf.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ public class ExpanderControlTestsWpf : MSTest.DesktopTest
     {
         var expander = App.Components.CreateByAutomationId<Expander>("HeaderSite");
 
-        Assert.AreEqual(false, expander.IsDisabled);
+        Assert.IsFalse(expander.IsDisabled);
     }
 
     [TestMethod]
@@ -66,6 +66,6 @@ public class ExpanderControlTestsWpf : MSTest.DesktopTest
     {
         var expander = App.Components.CreateAll<Expander, FindAutomationIdStrategy>(Find.By.AutomationId("HeaderSite")).Last();
 
-        Assert.AreEqual(true, expander.IsDisabled);
+        Assert.IsTrue(expander.IsDisabled);
     }
 }

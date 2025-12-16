@@ -1,4 +1,4 @@
-﻿// <copyright file="TextFieldControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="TextFieldControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 public class TextFieldControlValidateExtensionsTests : MSTest.IOSTest
 {
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ValidateTextIs_DoesNotThrowException_When_TextIsSet()
     {
@@ -38,7 +38,7 @@ public class TextFieldControlValidateExtensionsTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ValidateTextIsNotSet_DoesNotThrowException_When_TextFieldIsNotSet()
     {
@@ -55,6 +55,6 @@ public class TextFieldControlValidateExtensionsTests : MSTest.IOSTest
     {
         var textField = App.Components.CreateById<TextField>("IntegerA");
 
-        Assert.AreEqual(false, textField.IsDisabled);
+        Assert.IsFalse(textField.IsDisabled);
     }
 }

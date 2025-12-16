@@ -1,4 +1,4 @@
-﻿// <copyright file="CheckboxControlTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="CheckboxControlTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 public class CheckboxControlTests : MSTest.IOSTest
 {
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void IsCheckedTrue_When_CheckBoxUncheckedAndCheckIt()
     {
         var addButton = App.Components.CreateById<Button>("Add");
@@ -39,7 +39,7 @@ public class CheckboxControlTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void IsCheckedFalse_When_CheckBoxCheckedAndUncheckIt()
     {
         var addButton = App.Components.CreateById<Button>("Add");
@@ -54,7 +54,7 @@ public class CheckboxControlTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void IsDisabledReturnsFalse_When_CheckBoxIsNotDisabled()
     {
         var addButton = App.Components.CreateById<Button>("Add");
@@ -62,6 +62,6 @@ public class CheckboxControlTests : MSTest.IOSTest
 
         var checkBox = App.Components.CreateByIOSNsPredicate<CheckBox>("type == \"XCUIElementTypeSwitch\" AND name == \"All-day\"");
 
-        Assert.AreEqual(false, checkBox.IsDisabled);
+        Assert.IsFalse(checkBox.IsDisabled);
     }
 }

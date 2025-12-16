@@ -1,4 +1,4 @@
-﻿// <copyright file="EmailControlTestsEdge.cs" company="Automate The Planet Ltd.">
+// <copyright file="EmailControlTestsEdge.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ public class EmailControlTestsEdge : MSTest.WebTest
     {
         var emailElement = App.Components.CreateById<Email>("myEmail");
 
-        Assert.AreEqual(false, emailElement.IsAutoComplete);
+        Assert.IsFalse(emailElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -62,7 +62,7 @@ public class EmailControlTestsEdge : MSTest.WebTest
     {
         var emailElement = App.Components.CreateById<Email>("myEmail5");
 
-        Assert.AreEqual(false, emailElement.IsAutoComplete);
+        Assert.IsFalse(emailElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -72,7 +72,7 @@ public class EmailControlTestsEdge : MSTest.WebTest
     {
         var emailElement = App.Components.CreateById<Email>("myEmail4");
 
-        Assert.AreEqual(true, emailElement.IsAutoComplete);
+        Assert.IsTrue(emailElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -82,7 +82,7 @@ public class EmailControlTestsEdge : MSTest.WebTest
     {
         var emailElement = App.Components.CreateById<Email>("myEmail4");
 
-        Assert.AreEqual(false, emailElement.IsReadonly);
+        Assert.IsFalse(emailElement.IsReadonly);
     }
 
     [TestMethod]
@@ -92,7 +92,7 @@ public class EmailControlTestsEdge : MSTest.WebTest
     {
         var emailElement = App.Components.CreateById<Email>("myEmail6");
 
-        Assert.AreEqual(true, emailElement.IsReadonly);
+        Assert.IsTrue(emailElement.IsReadonly);
     }
 
     [TestMethod]
@@ -165,7 +165,7 @@ public class EmailControlTestsEdge : MSTest.WebTest
     {
         var emailElement = App.Components.CreateById<Email>("myEmail4");
 
-        Assert.AreEqual(false, emailElement.IsRequired);
+        Assert.IsFalse(emailElement.IsRequired);
     }
 
     [TestMethod]
@@ -175,7 +175,7 @@ public class EmailControlTestsEdge : MSTest.WebTest
     {
         var emailElement = App.Components.CreateById<Email>("myEmail7");
 
-        Assert.AreEqual(true, emailElement.IsRequired);
+        Assert.IsTrue(emailElement.IsRequired);
     }
 
     [TestMethod]

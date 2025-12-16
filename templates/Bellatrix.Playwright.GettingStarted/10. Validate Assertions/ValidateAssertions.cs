@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Bellatrix;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Bellatrix.Playwright.GettingStarted;
 
@@ -70,6 +73,6 @@ public class ValidateAssertions : NUnit.WebTest
             () => totalSpan.ValidateInnerTextIs("120.00€", timeout: 30, sleepInterval: 2),
             () => updateCart.ValidateIsDisabled(),
             () => messageAlert.ValidateIsNotVisible(),
-            () => Assert.That("120.00€".Equals(totalSpan.InnerText)));
+            () => Assert.IsTrue("120.00€".Equals(totalSpan.InnerText)));
     }
 }

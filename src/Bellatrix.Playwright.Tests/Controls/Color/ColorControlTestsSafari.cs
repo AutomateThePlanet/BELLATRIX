@@ -1,4 +1,4 @@
-﻿// <copyright file="ColorControlTestsSafari.cs" company="Automate The Planet Ltd.">
+// <copyright file="ColorControlTestsSafari.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ public class ColorControlTestsSafari : MSTest.WebTest
     {
         var colorElement = App.Components.CreateById<Color>("myColor4");
 
-        Assert.AreEqual(false, colorElement.IsRequired);
+        Assert.IsFalse(colorElement.IsRequired);
     }
 
     [TestMethod]

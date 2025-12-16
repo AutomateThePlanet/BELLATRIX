@@ -150,7 +150,7 @@ public class BDDLoggingTests : APITest
 
         var response = _apiClientService.Get<List<Albums>>(request);
 
-        Assert.AreEqual(347, response.Data.Count);
+        Assert.HasCount(347, response.Data);
     }
 
     [TestMethod]

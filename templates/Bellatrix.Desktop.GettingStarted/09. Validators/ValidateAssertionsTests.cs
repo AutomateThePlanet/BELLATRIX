@@ -1,4 +1,4 @@
-﻿using Bellatrix.Desktop.NUnit;
+using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted;
@@ -23,7 +23,7 @@ public class ValidateAssertionsTests : DesktopTest
         // meaningful exception message is displayed:
         // "The control should be disabled but it was NOT."
         calendar.ValidateIsNotDisabled();
-        ////Assert.AreEqual(false, calendar.IsDisabled);
+        ////Assert.IsFalse(calendar.IsDisabled);
 
         var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 

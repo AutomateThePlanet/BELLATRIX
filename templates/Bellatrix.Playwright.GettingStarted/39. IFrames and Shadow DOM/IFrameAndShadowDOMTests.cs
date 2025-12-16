@@ -2,6 +2,7 @@
 using Bellatrix.Playwright.Enums;
 using Microsoft.Playwright;
 using NUnit.Framework.Internal;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Bellatrix.Playwright.GettingStarted;
 
@@ -34,7 +35,7 @@ public class IFrameAndShadowDOMTests : NUnit.WebTest
         var iframeAsNormalComponent = parentIFrame.CreateByXpath<Div>("//iframe[@src='https://www.w3schools.com']");
         var iframeAsFrame = iframeAsNormalComponent.As<Frame>();
 
-        Assert.That(iframeAsFrame.CreateByXpath<Div>("//div[@id='subtopnav']//a[@title='HTML Tutorial']").InnerText.Equals("HTML"));
+        Assert.IsTrue(iframeAsFrame.CreateByXpath<Div>("//div[@id='subtopnav']//a[@title='HTML Tutorial']").InnerText.Equals("HTML"));
     }
 
     [Test]
@@ -80,7 +81,7 @@ public class IFrameAndShadowDOMTests : NUnit.WebTest
         // CSS locator: div:nth-child(1)/slot
         var slot = parentInShadow.CreateByXpath<Div>("//slot");
 
-        Assert.That(slot.GetAttribute("name").Equals("title"));
+        Assert.IsTrue(slot.GetAttribute("name").Equals("title"));
 
         // More complex xpath will also work the same way.
         // Of course, the test here doesn't make much sense, but it is a showcase of

@@ -1,4 +1,4 @@
-﻿// <copyright file="CalendarControlTestsUniversal.cs" company="Automate The Planet Ltd.">
+// <copyright file="CalendarControlTestsUniversal.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -41,6 +41,6 @@ public class CalendarControlTestsUniversal : MSTest.DesktopTest
     {
         var button = App.Components.CreateByAutomationId<Calendar>("calendar");
 
-        Assert.AreEqual(false, button.IsDisabled);
+        Assert.IsFalse(button.IsDisabled);
     }
 }

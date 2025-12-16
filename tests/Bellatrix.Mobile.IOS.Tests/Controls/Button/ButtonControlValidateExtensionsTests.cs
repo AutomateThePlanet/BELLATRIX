@@ -1,4 +1,4 @@
-﻿// <copyright file="ButtonControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ButtonControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ public class ButtonControlValidateExtensionsTests : MSTest.IOSTest
 {
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ValidateTextIs_DoesNotThrowException_When_ButtonTextIsAsExpected()
     {
         var button = App.Components.CreateByName<Button>("ComputeSumButton");
@@ -37,7 +37,7 @@ public class ButtonControlValidateExtensionsTests : MSTest.IOSTest
 
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ValidateIsNotDisabled_DoesNotThrowException_When_ButtonIsNotDisabled()
     {
         var button = App.Components.CreateByName<Button>("ComputeSumButton");

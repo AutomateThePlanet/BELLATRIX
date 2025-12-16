@@ -1,4 +1,4 @@
-﻿// <copyright file="ComboBoxControlTestsWinForms.cs" company="Automate The Planet Ltd.">
+// <copyright file="ComboBoxControlTestsWinForms.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ public class ComboBoxControlTestsWinForms : MSTest.DesktopTest
     {
         var comboBox = App.Components.CreateByAutomationId<ComboBox>("comboBox");
 
-        Assert.AreEqual(false, comboBox.IsDisabled);
+        Assert.IsFalse(comboBox.IsDisabled);
     }
 
     [TestMethod]
@@ -63,6 +63,6 @@ public class ComboBoxControlTestsWinForms : MSTest.DesktopTest
     {
         var comboBox = App.Components.CreateByAutomationId<ComboBox>("disabledComboBox");
 
-        Assert.AreEqual(true, comboBox.IsDisabled);
+        Assert.IsTrue(comboBox.IsDisabled);
     }
 }

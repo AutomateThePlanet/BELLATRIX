@@ -1,4 +1,4 @@
-﻿// <copyright file="ButtonControlTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ButtonControlTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ public class ButtonControlTests : MSTest.IOSTest
 {
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ZeroReturnForButtonText_When_CallClickMethod()
     {
         var button = App.Components.CreateByName<Button>("ComputeSumButton");
@@ -40,7 +40,7 @@ public class ButtonControlTests : MSTest.IOSTest
 
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ReturnsComputeSum_When_GetText()
     {
         var button = App.Components.CreateByName<Button>("ComputeSumButton");
@@ -54,6 +54,6 @@ public class ButtonControlTests : MSTest.IOSTest
     {
         var button = App.Components.CreateByName<Button>("ComputeSumButton");
 
-        Assert.AreEqual(false, button.IsDisabled);
+        Assert.IsFalse(button.IsDisabled);
     }
 }

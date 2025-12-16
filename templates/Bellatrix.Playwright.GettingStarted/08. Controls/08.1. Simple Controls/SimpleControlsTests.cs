@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Bellatrix.Playwright.GettingStarted;
 
@@ -129,7 +131,7 @@ public class SimpleControlsTests : NUnit.WebTest
         TextField billingAddress1 = App.Components.CreateById<TextField>("billing_address_1");
 
         // 19. Through the Placeholder, you can get the default text of the control.
-        Assert.That("House number and street name".Equals(billingAddress1.Placeholder));
+        Assert.IsTrue("House number and street name".Equals(billingAddress1.Placeholder));
         billingAddress1.SetText("bul. Yerusalim 5");
 
         TextField billingAddress2 = App.Components.CreateById<TextField>("billing_address_2");
@@ -207,6 +209,6 @@ public class SimpleControlsTests : NUnit.WebTest
     // Time- GetTime, SetTime, Hover, Focus, IsDisabled, Value, IsAutoComplete, IsReadonly, Max, Min, Step
     // Url- GetUrl, SetUrl, Hover, Focus, IsDisabled, Value, IsAutoComplete, IsReadonly, IsRequired, Placeholder, MaxLenght, MinLenght, Size
     // Week- GetWeek, SetWeek, Hover, Focus, IsDisabled, Value, IsAutoComplete, IsReadonly, Max, Min, Step
-    // Table- GetCell, GetColumn, GetHeaderNames, MapTableToObjectList
+    // Table- GetCell, GetColumn, GetHeaderNames, MapTable to ObjectList
     // Cell- Focus, Hover, Row, Column, InnerHtml, InnerText
 }

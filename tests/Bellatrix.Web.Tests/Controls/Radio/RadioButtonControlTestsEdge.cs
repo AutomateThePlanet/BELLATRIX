@@ -1,4 +1,4 @@
-﻿// <copyright file="RadioButtonControlTestsEdge.cs" company="Automate The Planet Ltd.">
+// <copyright file="RadioButtonControlTestsEdge.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ public class RadioButtonControlTestsEdge : MSTest.WebTest
 
         radioElement.Click();
 
-        Assert.AreEqual(true, radioElement.IsChecked);
+        Assert.IsTrue(radioElement.IsChecked);
     }
 
     [TestMethod]

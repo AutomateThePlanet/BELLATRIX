@@ -1,4 +1,4 @@
-﻿// <copyright file="ColorControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ColorControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ public class ColorControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's color should be '#f00031' but was '#f00030'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -61,7 +61,7 @@ public class ColorControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control autocomplete should be OFF but was not. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -78,7 +78,7 @@ public class ColorControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control autocomplete should be ON but was not. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -95,7 +95,7 @@ public class ColorControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control should be NOT required but was NOT. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -112,7 +112,7 @@ public class ColorControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control should be required but was NOT. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -129,7 +129,7 @@ public class ColorControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's list should be null but was 'tickmarks'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -146,7 +146,7 @@ public class ColorControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's list should be 'tickmarks' but was ''. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

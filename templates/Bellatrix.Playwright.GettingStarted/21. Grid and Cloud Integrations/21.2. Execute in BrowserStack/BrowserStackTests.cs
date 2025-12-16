@@ -1,6 +1,7 @@
 ﻿using Bellatrix.Playwright.Enums;
 using Bellatrix.Playwright.Settings;
 using NUnit.Framework;
+using Ignore = Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
 
 namespace Bellatrix.Playwright.GettingStarted;
 

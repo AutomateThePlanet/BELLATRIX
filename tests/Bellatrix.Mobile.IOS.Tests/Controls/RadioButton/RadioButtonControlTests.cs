@@ -1,4 +1,4 @@
-﻿// <copyright file="RadioButtonControlTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="RadioButtonControlTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 public class RadioButtonControlTests : MSTest.IOSTest
 {
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     [TestCategory(Categories.KnownIssue)]
     public void ButtonClicked_When_ClickMethodCalled()
@@ -43,7 +43,7 @@ public class RadioButtonControlTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     [TestCategory(Categories.KnownIssue)]
     public void IsDisabledReturnsFalse_When_RadioButtonIsNotDisabled()

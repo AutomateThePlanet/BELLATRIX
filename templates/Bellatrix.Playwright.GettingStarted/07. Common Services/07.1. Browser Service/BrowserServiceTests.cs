@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using Bellatrix.Playwright.MSTest;
 using NUnit.Framework;
+using Ignore = Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Bellatrix.Playwright.GettingStarted;
 
@@ -45,7 +47,7 @@ public class BrowserServiceTests : NUnit.WebTest
         App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         // 7. Get the current tab Title.
-        Assert.That("Bellatrix Demos – Bellatrix is a cross-platform, easily customizable and extendable .NET test automation framework that increases tests’ reliability.".Equals(App.Browser.Title));
+        Assert.IsTrue("Bellatrix Demos – Bellatrix is a cross-platform, easily customizable and extendable .NET test automation framework that increases tests' reliability.".Equals(App.Browser.Title));
     }
 
     [Test]

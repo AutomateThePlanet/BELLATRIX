@@ -1,4 +1,4 @@
-﻿// <copyright file="AnchorControlTestsSafari.cs" company="Automate The Planet Ltd.">
+// <copyright file="AnchorControlTestsSafari.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ public class AnchorControlTestsSafari : MSTest.WebTest
 
         App.Navigation.WaitForPartialUrl("automatetheplanet");
 
-        Assert.IsTrue(App.Browser.Url.ToString().Contains("automatetheplanet.com"));
+        StringAssert.Contains(App.Browser.Url.ToString(), "automatetheplanet.com");
     }
 
     [TestMethod]
@@ -70,7 +70,7 @@ public class AnchorControlTestsSafari : MSTest.WebTest
     {
         var anchorElement = App.Components.CreateById<Anchor>("myAnchor4");
 
-        Assert.IsTrue(anchorElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
+        Assert.Contains("<button name=\"button\">Click me</button>", anchorElement.InnerHtml);
     }
 
     [TestMethod]
