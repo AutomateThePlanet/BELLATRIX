@@ -46,16 +46,65 @@ public class AndroidDeviceService : DeviceService<AndroidDriver, AppiumElement>
 
     public ConnectionType ConnectionType
     {
-        get => WrappedAppiumDriver.ConnectionType;
+        get
+        {
+            // airplane_mode_on: "1" = ON, "0" = OFF
+            var airplane = ShellGet("settings", "get global airplane_mode_on").Trim();
+            if (airplane == "1") return ConnectionType.AirplaneMode;
+
+            // These return "enabled"/"disabled" on most devices
+            var wifi = ShellGet("svc", "wifi").Trim().ToLowerInvariant();
+            var data = ShellGet("svc", "data").Trim().ToLowerInvariant();
+
+            bool wifiOn = wifi.Contains("enabled");
+            bool dataOn = data.Contains("enabled");
+
+            if (wifiOn && dataOn) return ConnectionType.AllNetworkOn;
+            if (wifiOn) return ConnectionType.WifiOnly;
+            if (dataOn) return ConnectionType.DataOnly;
+
+            return ConnectionType.None;
+        }
         set
         {
-            try
+            try { WrappedAppiumDriver.HideKeyboard(); } catch { /* ignore */ }
+
+            switch (value)
             {
-                WrappedAppiumDriver.ConnectionType = value;
-            }
-            catch (WebDriverException ex) when (ex.Message.Contains("An unknown server-side error occurred while processing the command"))
-            {
-                throw new AppiumEngineException(ex);
+                case ConnectionType.AirplaneMode:
+                    // Turn airplane mode on; (broadcast helps some OEMs apply it)
+                    Shell("settings", "put global airplane_mode_on 1");
+                    Shell("am", "broadcast -a android.intent.action.AIRPLANE_MODE --ez state true");
+                    // Typically disables radios, but OEMs vary
+                    break;
+
+                case ConnectionType.None:
+                    Shell("settings", "put global airplane_mode_on 0");
+                    Shell("am", "broadcast -a android.intent.action.AIRPLANE_MODE --ez state false");
+                    Shell("svc", "wifi disable");
+                    Shell("svc", "data disable");
+                    break;
+
+                case ConnectionType.WifiOnly:
+                    Shell("settings", "put global airplane_mode_on 0");
+                    Shell("am", "broadcast -a android.intent.action.AIRPLANE_MODE --ez state false");
+                    Shell("svc", "wifi enable");
+                    Shell("svc", "data disable");
+                    break;
+
+                case ConnectionType.DataOnly:
+                    Shell("settings", "put global airplane_mode_on 0");
+                    Shell("am", "broadcast -a android.intent.action.AIRPLANE_MODE --ez state false");
+                    Shell("svc", "wifi disable");
+                    Shell("svc", "data enable");
+                    break;
+
+                case ConnectionType.AllNetworkOn:
+                    Shell("settings", "put global airplane_mode_on 0");
+                    Shell("am", "broadcast -a android.intent.action.AIRPLANE_MODE --ez state false");
+                    Shell("svc", "wifi enable");
+                    Shell("svc", "data enable");
+                    break;
             }
         }
     }
@@ -66,4 +115,36 @@ public class AndroidDeviceService : DeviceService<AndroidDriver, AppiumElement>
     public void TurnOnLocationService() => WrappedAppiumDriver.ToggleLocationServices();
     public void OpenNotifications() => WrappedAppiumDriver.OpenNotifications();
     public void SetSetting(string setting, object value) => WrappedAppiumDriver.SetSetting(setting, value);
+
+    private void Shell(string command, string args)
+    {
+        var p = new Dictionary<string, object>
+        {
+            ["command"] = command,
+            ["args"] = args.Split(' ', StringSplitOptions.RemoveEmptyEntries),
+            ["includeStderr"] = true,
+            ["timeout"] = 20000
+        };
+
+        ((IJavaScriptExecutor)WrappedAppiumDriver).ExecuteScript("mobile: shell", p);
+    }
+
+    private string ShellGet(string command, string args)
+    {
+        var p = new Dictionary<string, object>
+        {
+            ["command"] = command,
+            ["args"] = args.Split(' ', StringSplitOptions.RemoveEmptyEntries),
+            ["includeStderr"] = true,
+            ["timeout"] = 20000
+        };
+
+        var result = ((IJavaScriptExecutor)WrappedAppiumDriver).ExecuteScript("mobile: shell", p);
+
+        // Appium returns a dictionary with "stdout"/"stderr" on many setups
+        if (result is IDictionary<string, object> dict && dict.TryGetValue("stdout", out var stdout))
+            return stdout?.ToString() ?? string.Empty;
+
+        return result?.ToString() ?? string.Empty;
+    }
 }
