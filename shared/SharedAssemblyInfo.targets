@@ -1,34 +1,24 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <LangVersion>11.0</LangVersion>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>14.0</LangVersion>
     <Configurations>DEBUG;STAGE;QA;LOCAL</Configurations>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>3.9.0.0</Version>
+    <Version>3.9.5.0</Version>
     <Authors>Automate The Planet Ltd.</Authors>
     <Company>Automate The Planet Ltd.</Company>
     <Product>Bellatrix Test Framework</Product>
-    <AssemblyVersion>3.9.0.0</AssemblyVersion>
-    <FileVersion>3.9.0.0</FileVersion>
+    <AssemblyVersion>3.9.5.0</AssemblyVersion>
+    <FileVersion>3.9.5.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <Copyright>Automate The Planet Ltd. 2024</Copyright>
     <PackageReleaseNotes>
-      - Added DevExtreme Components v1.2.0
-      - Fixed parallel execution
-      - Added Excel Service
-      - Fixed formatting
-      - Added qTestId plugin
-      - Added Advanced CkEditor component
-      - Added DevExtreme Components v.1.0
-      - .NET 8 Support
-      - Selenium Manager Support
-      - Upgrade All NuGet Packages
-      - Chrome Headless uses the new headless mode now
-      - Fixed grid execution driver additional options to Selenium 4
-      - Added SetModelColumns method to grid extensions
-      - Upgraded Azure KeyVault Identity
-      - Upgraded WebDriver Manager Version
+      - added many new improvements to desktop module
+      - added support for .NET 10
+      - added support to Appium 3.x
+      - improved test execution performance
+      - fix some LLM related issues
       - upgrade all 3rd-party NuGet packages
       - fix all known bugs
     </PackageReleaseNotes>
