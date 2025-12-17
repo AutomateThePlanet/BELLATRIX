@@ -292,7 +292,7 @@ public class AppWorkflowPlugin : Plugin
         return (TEnum)Enum.Parse(typeof(TEnum), value.Replace(" ", string.Empty), true);
     }
 
-    private void InitializeCustomCodeOptions(dynamic options, Type testClassType)
+    private void InitializeCustomCodeOptions(AppiumOptions options, Type testClassType)
     {
         var customCodeOptions = ServicesCollection.Current.Resolve<Dictionary<string, string>>($"caps-{testClassType.FullName}");
         if (customCodeOptions != null && customCodeOptions.Count > 0)
@@ -301,13 +301,29 @@ public class AppWorkflowPlugin : Plugin
             {
                 if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
                 {
-                    options.AddAdditionalAppiumOption(item.Key, FormatGridOptions(item.Value, testClassType));
+                    switch (item.Key) {
+                        case "app":
+                            options.App = (string)FormatGridOptions(item.Value, testClassType);
+                            break;
+                        case "deviceName":
+                            options.DeviceName = (string)FormatGridOptions(item.Value, testClassType);
+                            break;
+                        case "automationName":
+                            options.AutomationName = (string)FormatGridOptions(item.Value, testClassType);
+                            break;
+                        case "platformVersion":
+                            options.PlatformVersion = (string)FormatGridOptions(item.Value, testClassType);
+                            break;
+                        default:
+                            options.AddAdditionalAppiumOption(item.Key, FormatGridOptions(item.Value, testClassType));
+                            break;
+                    }
                 }
             }
         }
     }
 
-    private void InitializeGridOptionsFromConfiguration(dynamic options, Type testClassType)
+    private void InitializeGridOptionsFromConfiguration(AppiumOptions options, Type testClassType)
     {
         if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.Arguments == null)
         {
@@ -320,13 +336,29 @@ public class AppWorkflowPlugin : Plugin
             {
                 if (!string.IsNullOrEmpty(item.Key) && !string.IsNullOrEmpty(item.Value))
                 {
-                    options.AddAdditionalAppiumOption(item.Key, FormatGridOptions(item.Value, testClassType));
+                    switch (item.Key) {
+                        case "app":
+                            options.App = (string)FormatGridOptions(item.Value, testClassType);
+                            break;
+                        case "deviceName":
+                            options.DeviceName = (string)FormatGridOptions(item.Value, testClassType);
+                            break;
+                        case "automationName":
+                            options.AutomationName = (string)FormatGridOptions(item.Value, testClassType);
+                            break;
+                        case "platformVersion":
+                            options.PlatformVersion = (string)FormatGridOptions(item.Value, testClassType);
+                            break;
+                        default:
+                            options.AddAdditionalAppiumOption(item.Key, FormatGridOptions(item.Value, testClassType));
+                            break;
+                    }
                 }
             }
         }
     }
 
-    private dynamic FormatGridOptions(string option, Type testClassType)
+    private object FormatGridOptions(string option, Type testClassType)
     {
         if (bool.TryParse(option, out bool result))
         {
