@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.IOS.GettingStarted;
 
@@ -30,7 +30,7 @@ public class ValidateAssertions : NUnit.IOSTest
         // meaningful exception message is displayed:
         // "The control should be disabled but it was NOT."
         button.ValidateIsNotDisabled();
-        ////Assert.AreEqual(false, button.IsDisabled);
+        ////Assert.IsFalse(button.IsDisabled);
 
         var answerLabel = App.Components.CreateByName<Label>("Answer");
 

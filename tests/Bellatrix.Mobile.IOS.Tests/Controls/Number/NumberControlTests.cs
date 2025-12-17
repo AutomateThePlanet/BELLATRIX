@@ -1,4 +1,4 @@
-﻿// <copyright file="NumberControlTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="NumberControlTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 public class NumberControlTests : MSTest.IOSTest
 {
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void NineSet_When_CallSetTextMethod()
     {
@@ -37,12 +37,12 @@ public class NumberControlTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void IsDisabledReturnsFalse_When_NumberIsNotDisabled()
     {
         var number = App.Components.CreateById<Number>("IntegerA");
 
-        Assert.AreEqual(false, number.IsDisabled);
+        Assert.IsFalse(number.IsDisabled);
     }
 }

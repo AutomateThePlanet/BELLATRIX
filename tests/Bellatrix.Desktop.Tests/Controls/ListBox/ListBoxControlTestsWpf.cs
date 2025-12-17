@@ -1,4 +1,4 @@
-﻿// <copyright file="ListBoxControlTestsWpf.cs" company="Automate The Planet Ltd.">
+// <copyright file="ListBoxControlTestsWpf.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class ListBoxControlTestsWpf : MSTest.DesktopTest
     {
         var listBox = App.Components.CreateByAutomationId<ListBox>("listBoxEnabled");
 
-        Assert.AreEqual(false, listBox.IsDisabled);
+        Assert.IsFalse(listBox.IsDisabled);
     }
 
     [TestMethod]
@@ -51,6 +51,6 @@ public class ListBoxControlTestsWpf : MSTest.DesktopTest
     {
         var listBox = App.Components.CreateByAutomationId<ListBox>("ListBoxDisabled");
 
-        Assert.AreEqual(true, listBox.IsDisabled);
+        Assert.IsTrue(listBox.IsDisabled);
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="ElementCreateAllElementTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ElementCreateAllElementTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class ElementCreateAllElementTests : MSTest.IOSTest
 
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ElementFound_When_CreateAllById_And_ElementIsOnScreen()
     {
         var textFields = _mainElement.CreateAllById<TextField>("IntegerA");
@@ -45,7 +45,7 @@ public class ElementCreateAllElementTests : MSTest.IOSTest
 
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ElementFound_When_CreateAllByClass()
     {
         var textFields = _mainElement.CreateAllByClass<TextField>("XCUIElementTypeTextField");
@@ -55,7 +55,7 @@ public class ElementCreateAllElementTests : MSTest.IOSTest
 
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ElementFound_When_CreateAllByValueContaining_And_ElementIsOnScreen()
     {
         var labels = _mainElement.CreateAllByValueContaining<Label>("SumLabel");
@@ -65,7 +65,7 @@ public class ElementCreateAllElementTests : MSTest.IOSTest
 
     [TestMethod]
     [TestCategory(Categories.CI)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ElementFound_When_CreateAllByXPath_And_ElementIsOnScreen()
     {
         var buttons = _mainElement.CreateAllByXPath<Button>("//XCUIElementTypeButton[@name=\"ComputeSumButton\"]");

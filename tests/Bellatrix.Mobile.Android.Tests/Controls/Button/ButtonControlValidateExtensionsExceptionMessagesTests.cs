@@ -1,4 +1,4 @@
-﻿// <copyright file="ButtonControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ButtonControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.Andr
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = "The control's text should be 'GoTo'";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -57,7 +57,7 @@ public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.Andr
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = "The control's text should be null but was 'Save'";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -74,7 +74,7 @@ public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.Andr
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = "The control should be disabled but it was NOT.";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -91,7 +91,7 @@ public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.Andr
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = "The control should NOT be disabled but it was.";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="ElementControlTestsChrome.cs" company="Automate The Planet Ltd.">
+// <copyright file="ElementControlTestsChrome.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -182,7 +182,7 @@ public class ElementControlTestsChrome : MSTest.WebTest
 
         string style = element.GetStyle();
 
-        Assert.AreEqual(null, style);
+        Assert.IsNull(style);
     }
 
     [TestMethod]

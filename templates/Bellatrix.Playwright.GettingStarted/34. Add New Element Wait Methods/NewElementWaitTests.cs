@@ -2,6 +2,7 @@
 using Bellatrix.Playwright.GettingStarted.ExtensionMethodsWaits;
 
 using NUnit.Framework;
+using Ignore = Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
 
 namespace Bellatrix.Playwright.GettingStarted;
 

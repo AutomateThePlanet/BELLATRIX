@@ -1,4 +1,4 @@
-ï»¿// <copyright file="CommonControlsTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="CommonControlsTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -110,8 +110,8 @@ public class CommonControlsTests : MSTest.WebTest
         Span totalSpan = App.Components.CreateByXpath<Span>("//*[@class='order-total']//span");
 
         // 15. The same as the case with the DIV here we wait/assert for the total price SPAN to get updated.
-        ////Assert.AreEqual("114.00â‚¬", totalSpan.InnerText);
-        totalSpan.ValidateInnerTextIs("114.00â‚¬", 15000);
+        ////Assert.AreEqual("114.00€", totalSpan.InnerText);
+        totalSpan.ValidateInnerTextIs("114.00€", 15000);
 
         Anchor proceedToCheckout =
             App.Components.CreateByClassContaining<Anchor>("checkout-button button alt wc-forward");
@@ -240,7 +240,7 @@ public class CommonControlsTests : MSTest.WebTest
         // 26. You can get a particular cell as BELLATRIX element mentioning the row and column number.
         var tableCell = table.GetCell(3, 1);
 
-        Assert.IsTrue(headerNames.Contains("Due"));
+        Assert.Contains("Due", headerNames);
         Assert.AreEqual("$51.00", tableCell.InnerText);
     }
 

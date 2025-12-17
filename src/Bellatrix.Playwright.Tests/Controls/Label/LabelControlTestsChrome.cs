@@ -1,4 +1,4 @@
-﻿// <copyright file="LabelControlTestsChrome.cs" company="Automate The Planet Ltd.">
+// <copyright file="LabelControlTestsChrome.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ public class LabelControlTestsChrome : MSTest.WebTest
     {
         var labelElement = App.Components.CreateById<Label>("myLabel1");
 
-        Assert.IsTrue(labelElement.InnerHtml.Contains("<button name=\"button\">Click me</button>"));
+        Assert.Contains("<button name=\"button\">Click me</button>", labelElement.InnerHtml);
     }
 
     [TestMethod]

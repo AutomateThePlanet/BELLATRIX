@@ -1,4 +1,4 @@
-﻿// <copyright file="ButtonControlTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ButtonControlTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ public class ButtonControlTests : MSTest.AndroidTest
     {
         var button = App.Components.CreateByIdContaining<Button>("button");
 
-        Assert.AreEqual(false, button.IsDisabled);
+        Assert.IsFalse(button.IsDisabled);
     }
 
     [TestMethod]
@@ -58,6 +58,6 @@ public class ButtonControlTests : MSTest.AndroidTest
     {
         var button = App.Components.CreateByIdContaining<Button>("button_disabled");
 
-        Assert.AreEqual(true, button.IsDisabled);
+        Assert.IsTrue(button.IsDisabled);
     }
 }

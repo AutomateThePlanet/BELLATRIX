@@ -1,4 +1,4 @@
-﻿// <copyright file="PasswordControlTestsWpf.cs" company="Automate The Planet Ltd.">
+// <copyright file="PasswordControlTestsWpf.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class PasswordControlTestsWpf : MSTest.DesktopTest
 
         textField.SetPassword("topsecret");
 
-        Assert.AreEqual("●●●●●●●●●", textField.GetPassword());
+        Assert.AreEqual("?????????", textField.GetPassword());
     }
 
     [TestMethod]
@@ -53,7 +53,7 @@ public class PasswordControlTestsWpf : MSTest.DesktopTest
     {
         var textField = App.Components.CreateByAutomationId<Password>("passwordBox");
 
-        Assert.AreEqual(false, textField.IsDisabled);
+        Assert.IsFalse(textField.IsDisabled);
     }
 
     [TestMethod]
@@ -63,6 +63,6 @@ public class PasswordControlTestsWpf : MSTest.DesktopTest
     {
         var textField = App.Components.CreateByAutomationId<Password>("disabledPasswordBox");
 
-        Assert.AreEqual(true, textField.IsDisabled);
+        Assert.IsTrue(textField.IsDisabled);
     }
 }

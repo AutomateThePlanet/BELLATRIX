@@ -1,4 +1,4 @@
-﻿using Bellatrix.Desktop.NUnit;
+using Bellatrix.Desktop.NUnit;
 
 namespace Bellatrix.Desktop.GettingStarted;
 
@@ -20,7 +20,7 @@ public class NormalAssertionsTests : DesktopTest
         // the problems with the introduction of Validate methods.
         // If the bellow assertion fails the following message is displayed: "Message: Assert.AreEqual failed. Expected:<false>. Actual:<true>. "
         // You can guess what happened, but you do not have information which element failed and on which page.
-        Assert.AreEqual(false, calendar.IsDisabled);
+        Assert.IsFalse(calendar.IsDisabled);
 
         var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 

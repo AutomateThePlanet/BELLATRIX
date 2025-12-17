@@ -60,7 +60,7 @@ public class ApiClientServiceAsyncRequestTests : MSTest.APITest
 
         var response = await _apiClientService.GetAsync<List<Albums>>(request).ConfigureAwait(false);
 
-        Assert.AreEqual(347, response.Data.Count);
+        Assert.HasCount(347, response.Data);
     }
 
     [TestMethod]

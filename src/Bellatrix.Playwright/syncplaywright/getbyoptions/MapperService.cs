@@ -48,7 +48,7 @@ internal static class MapperService
             cfg.CreateMap<GetByTitleOptions, LocatorGetByTitleOptions>();
             cfg.CreateMap<GetByTitleOptions, FrameLocatorGetByTitleOptions>();
             cfg.CreateMap<GetByTitleOptions, PageGetByTitleOptions>();
-        });
+        }, null);
 
         Mapper = Config.CreateMapper();
     }

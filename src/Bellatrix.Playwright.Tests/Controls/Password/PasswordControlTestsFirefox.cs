@@ -1,4 +1,4 @@
-﻿// <copyright file="PasswordControlTestsFirefox.cs" company="Automate The Planet Ltd.">
+// <copyright file="PasswordControlTestsFirefox.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ public class PasswordControlTestsFirefox : MSTest.WebTest
     {
         var passwordElement = App.Components.CreateById<Password>("myPassword");
 
-        Assert.AreEqual(false, passwordElement.IsAutoComplete);
+        Assert.IsFalse(passwordElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -57,7 +57,7 @@ public class PasswordControlTestsFirefox : MSTest.WebTest
     {
         var passwordElement = App.Components.CreateById<Password>("myPassword5");
 
-        Assert.AreEqual(false, passwordElement.IsAutoComplete);
+        Assert.IsFalse(passwordElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -66,7 +66,7 @@ public class PasswordControlTestsFirefox : MSTest.WebTest
     {
         var passwordElement = App.Components.CreateById<Password>("myPassword4");
 
-        Assert.AreEqual(true, passwordElement.IsAutoComplete);
+        Assert.IsTrue(passwordElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -75,7 +75,7 @@ public class PasswordControlTestsFirefox : MSTest.WebTest
     {
         var passwordElement = App.Components.CreateById<Password>("myPassword4");
 
-        Assert.AreEqual(false, passwordElement.IsReadonly);
+        Assert.IsFalse(passwordElement.IsReadonly);
     }
 
     [TestMethod]
@@ -84,7 +84,7 @@ public class PasswordControlTestsFirefox : MSTest.WebTest
     {
         var passwordElement = App.Components.CreateById<Password>("myPassword6");
 
-        Assert.AreEqual(true, passwordElement.IsReadonly);
+        Assert.IsTrue(passwordElement.IsReadonly);
     }
 
     [TestMethod]
@@ -150,7 +150,7 @@ public class PasswordControlTestsFirefox : MSTest.WebTest
     {
         var passwordElement = App.Components.CreateById<Password>("myPassword4");
 
-        Assert.AreEqual(false, passwordElement.IsRequired);
+        Assert.IsFalse(passwordElement.IsRequired);
     }
 
     [TestMethod]
@@ -159,7 +159,7 @@ public class PasswordControlTestsFirefox : MSTest.WebTest
     {
         var passwordElement = App.Components.CreateById<Password>("myPassword7");
 
-        Assert.AreEqual(true, passwordElement.IsRequired);
+        Assert.IsTrue(passwordElement.IsRequired);
     }
 
     [TestMethod]

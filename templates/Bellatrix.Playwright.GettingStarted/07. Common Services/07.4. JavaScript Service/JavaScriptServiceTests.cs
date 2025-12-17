@@ -1,5 +1,7 @@
 ﻿using Bellatrix.Playwright.MSTest;
 using NUnit.Framework;
+using Ignore = Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Bellatrix.Playwright.GettingStarted;
 
@@ -35,6 +37,6 @@ public class JavaScriptServiceTests : NUnit.WebTest
         // 4. Get the results from a script. After that, get the value for a specific style and assert it.
         string fontSize = App.JavaScript.Execute("el => el.style.font-size", resultsCount.WrappedElement).ToString();
 
-        Assert.That("14px".Equals(fontSize));
+        Assert.IsTrue("14px".Equals(fontSize));
     }
 }

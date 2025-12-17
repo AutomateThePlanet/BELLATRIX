@@ -1,4 +1,4 @@
-﻿// <copyright file="RadioControlTestsWinForms.cs" company="Automate The Planet Ltd.">
+// <copyright file="RadioControlTestsWinForms.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public class RadioControlTestsWinForms : MSTest.DesktopTest
     {
         var button = App.Components.CreateByAutomationId<RadioButton>("enabledRadioButton");
 
-        Assert.AreEqual(false, button.IsDisabled);
+        Assert.IsFalse(button.IsDisabled);
     }
 
     [TestMethod]
@@ -73,6 +73,6 @@ public class RadioControlTestsWinForms : MSTest.DesktopTest
     {
         var button = App.Components.CreateByAutomationId<RadioButton>("radioButton2");
 
-        Assert.AreEqual(true, button.IsDisabled);
+        Assert.IsTrue(button.IsDisabled);
     }
 }

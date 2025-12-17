@@ -1,4 +1,4 @@
-﻿// <copyright file="DateControlTestsChrome.cs" company="Automate The Planet Ltd.">
+// <copyright file="DateControlTestsChrome.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -108,7 +108,7 @@ public class DateControlTestsChrome : MSTest.WebTest
     {
         var dateElement = App.Components.CreateById<Date>("myDate4");
 
-        Assert.AreEqual(false, dateElement.IsReadonly);
+        Assert.IsFalse(dateElement.IsReadonly);
     }
 
     [TestMethod]
@@ -117,7 +117,7 @@ public class DateControlTestsChrome : MSTest.WebTest
     {
         var dateElement = App.Components.CreateById<Date>("myDate5");
 
-        Assert.AreEqual(true, dateElement.IsReadonly);
+        Assert.IsTrue(dateElement.IsReadonly);
     }
 
     [TestMethod]
@@ -182,7 +182,7 @@ public class DateControlTestsChrome : MSTest.WebTest
     {
         var dateElement = App.Components.CreateById<Date>("myDate4");
 
-        Assert.AreEqual(false, dateElement.IsRequired);
+        Assert.IsFalse(dateElement.IsRequired);
     }
 
     [TestMethod]

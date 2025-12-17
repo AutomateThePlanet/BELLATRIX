@@ -7,8 +7,8 @@
 	  <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
 	</ItemGroup>  
 	<ItemGroup>
-    <PackageReference Include="mailslurp" Version="15.19.22" />
-    <PackageReference Include="RestSharp" Version="112.1.1-alpha.0.4" />
+    <PackageReference Include="mailslurp" Version="17.0.0" />
+    <PackageReference Include="RestSharp" Version="113.0.0" />
 	  <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -1,4 +1,4 @@
-﻿// <copyright file="ToggleButtonControlTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ToggleButtonControlTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -76,6 +76,6 @@ public class ToggleButtonControlTests : MSTest.AndroidTest
     {
         var toggleButton = App.Components.CreateByIdContaining<ToggleButton>("toggle2");
 
-        Assert.AreEqual(false, toggleButton.IsDisabled);
+        Assert.IsFalse(toggleButton.IsDisabled);
     }
 }

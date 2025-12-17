@@ -47,7 +47,7 @@ public class AllRequestTypesTests : APITest
         var response = _apiClientService.Get<List<Albums>>(request);
 
         // 2.1. You can access the response's list through Data property.
-        Assert.AreEqual(347, response.Data.Count);
+        Assert.HasCount(347, response.Data);
     }
 
     [TestMethod]

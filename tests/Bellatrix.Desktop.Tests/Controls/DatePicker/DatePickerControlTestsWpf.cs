@@ -1,4 +1,4 @@
-﻿// <copyright file="DatePickerControlTestsWpf.cs" company="Automate The Planet Ltd.">
+// <copyright file="DatePickerControlTestsWpf.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class DatePickerControlTestsWpf : MSTest.DesktopTest
     {
         var datePicker = App.Components.CreateByAutomationId<Date>("DatePicker");
 
-        Assert.AreEqual(false, datePicker.IsDisabled);
+        Assert.IsFalse(datePicker.IsDisabled);
     }
 
     [TestMethod]
@@ -51,6 +51,6 @@ public class DatePickerControlTestsWpf : MSTest.DesktopTest
     {
         var datePicker = App.Components.CreateByAutomationId<Date>("DatePickerDisabled");
 
-        Assert.AreEqual(true, datePicker.IsDisabled);
+        Assert.IsTrue(datePicker.IsDisabled);
     }
 }

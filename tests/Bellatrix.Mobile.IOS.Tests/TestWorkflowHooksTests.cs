@@ -1,4 +1,4 @@
-﻿// <copyright file="TestWorkflowHooksTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="TestWorkflowHooksTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -89,7 +89,7 @@ public class TestWorkflowHooksTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ButtonIsAboveOfCheckBox()
     {
@@ -97,7 +97,7 @@ public class TestWorkflowHooksTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ButtonIsAboveOfCheckBox_GreaterThan20px()
     {
@@ -105,7 +105,7 @@ public class TestWorkflowHooksTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ButtonIsAboveOfCheckBox_GreaterThanOrEqual20px()
     {
@@ -113,7 +113,7 @@ public class TestWorkflowHooksTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ButtonIsNearTopOfCheckBox_GreaterThan20px()
     {

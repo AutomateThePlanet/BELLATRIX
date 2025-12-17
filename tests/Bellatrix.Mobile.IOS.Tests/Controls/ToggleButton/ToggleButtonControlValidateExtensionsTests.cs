@@ -1,4 +1,4 @@
-﻿// <copyright file="ToggleButtonControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ToggleButtonControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public class ToggleButtonControlValidateExtensionsTests : MSTest.IOSTest
     [TestMethod]
     [TestCategory(Categories.CI)]
     [TestCategory(Categories.KnownIssue)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ValidateIsOn_DoesNotThrowException_When_ToggleButtonIsTurnedOn()
     {
         var addButton = App.Components.CreateById<Button>("Add");
@@ -43,7 +43,7 @@ public class ToggleButtonControlValidateExtensionsTests : MSTest.IOSTest
     [TestMethod]
     [TestCategory(Categories.CI)]
     [TestCategory(Categories.KnownIssue)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ValidateIsOff_DoesNotThrowException_When_ToggleButtonIsTurnedOff()
     {
         var addButton = App.Components.CreateById<Button>("Add");
@@ -57,7 +57,7 @@ public class ToggleButtonControlValidateExtensionsTests : MSTest.IOSTest
     [TestMethod]
     [TestCategory(Categories.CI)]
     [TestCategory(Categories.KnownIssue)]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ValidateIsDisabled_DoesNotThrowException_When_ToggleButtonIsNotDisabled()
     {
         var addButton = App.Components.CreateById<Button>("Add");

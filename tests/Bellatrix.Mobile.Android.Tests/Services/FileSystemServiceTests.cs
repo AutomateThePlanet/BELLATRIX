@@ -95,6 +95,6 @@ public class FileSystemServiceTests : MSTest.AndroidTest
 
         byte[] returnDataBytes = App.Files.PullFolder("\\data\\local\\tmp\\");
 
-        Assert.IsTrue(returnDataBytes.Length > 0);
+        Assert.IsNotEmpty(returnDataBytes);
     }
 }

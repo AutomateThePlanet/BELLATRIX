@@ -1,4 +1,4 @@
-﻿// <copyright file="ComboBoxControlTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ComboBoxControlTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -42,6 +42,6 @@ public class ComboBoxControlTests : MSTest.AndroidTest
     {
         var comboBox = App.Components.CreateByIdContaining<ComboBox>("spinner1");
 
-        Assert.AreEqual(false, comboBox.IsDisabled);
+        Assert.IsFalse(comboBox.IsDisabled);
     }
 }

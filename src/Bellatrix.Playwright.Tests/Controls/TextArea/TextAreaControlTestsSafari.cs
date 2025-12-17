@@ -1,4 +1,4 @@
-﻿// <copyright file="TextAreaControlTestsSafari.cs" company="Automate The Planet Ltd.">
+// <copyright file="TextAreaControlTestsSafari.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ public class TextAreaControlTestsSafari : MSTest.WebTest
     {
         var textAreaElement = App.Components.CreateById<TextArea>("myTextArea");
 
-        Assert.AreEqual(false, textAreaElement.IsAutoComplete);
+        Assert.IsFalse(textAreaElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -46,7 +46,7 @@ public class TextAreaControlTestsSafari : MSTest.WebTest
     {
         var textAreaElement = App.Components.CreateById<TextArea>("myTextArea5");
 
-        Assert.AreEqual(false, textAreaElement.IsAutoComplete);
+        Assert.IsFalse(textAreaElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -55,7 +55,7 @@ public class TextAreaControlTestsSafari : MSTest.WebTest
     {
         var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
 
-        Assert.AreEqual(true, textAreaElement.IsAutoComplete);
+        Assert.IsTrue(textAreaElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -64,7 +64,7 @@ public class TextAreaControlTestsSafari : MSTest.WebTest
     {
         var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
 
-        Assert.AreEqual(false, textAreaElement.IsReadonly);
+        Assert.IsFalse(textAreaElement.IsReadonly);
     }
 
     [TestMethod]
@@ -73,7 +73,7 @@ public class TextAreaControlTestsSafari : MSTest.WebTest
     {
         var textAreaElement = App.Components.CreateById<TextArea>("myTextArea6");
 
-        Assert.AreEqual(true, textAreaElement.IsReadonly);
+        Assert.IsTrue(textAreaElement.IsReadonly);
     }
 
     [TestMethod]
@@ -158,7 +158,7 @@ public class TextAreaControlTestsSafari : MSTest.WebTest
     {
         var textAreaElement = App.Components.CreateById<TextArea>("myTextArea4");
 
-        Assert.AreEqual(false, textAreaElement.IsRequired);
+        Assert.IsFalse(textAreaElement.IsRequired);
     }
 
     [TestMethod]
@@ -167,7 +167,7 @@ public class TextAreaControlTestsSafari : MSTest.WebTest
     {
         var textAreaElement = App.Components.CreateById<TextArea>("myTextArea7");
 
-        Assert.AreEqual(true, textAreaElement.IsRequired);
+        Assert.IsTrue(textAreaElement.IsRequired);
     }
 
     [TestMethod]

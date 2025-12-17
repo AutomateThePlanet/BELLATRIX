@@ -1,4 +1,4 @@
-﻿// <copyright file="NumberControlValidateExtensionExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="NumberControlValidateExtensionExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class NumberControlValidateExtensionExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's number should be '12.2' but was '12.1'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -60,7 +60,7 @@ public class NumberControlValidateExtensionExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's max should be null but was '20'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -77,7 +77,7 @@ public class NumberControlValidateExtensionExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's min should be null but was '10'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -94,7 +94,7 @@ public class NumberControlValidateExtensionExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's step should be null but was '2'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -111,7 +111,7 @@ public class NumberControlValidateExtensionExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's max should be '19' but was '20'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -128,7 +128,7 @@ public class NumberControlValidateExtensionExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's min should be '9' but was '10'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

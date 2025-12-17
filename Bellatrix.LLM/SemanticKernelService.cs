@@ -54,7 +54,9 @@ public class SemanticKernelService
             return;
 
         var llmSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
-
+        if (llmSettings == null)
+            return;
+        
         var genSettings = llmSettings.ModelSettings[0];
         var embedSettings = llmSettings.ModelSettings[1];
 

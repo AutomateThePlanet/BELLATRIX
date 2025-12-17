@@ -1,4 +1,4 @@
-﻿// <copyright file="NumberControlTestsFirefox.cs" company="Automate The Planet Ltd.">
+// <copyright file="NumberControlTestsFirefox.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -86,7 +86,7 @@ public class NumberControlTestsFirefox : MSTest.WebTest
     {
         var numberElement = App.Components.CreateById<Number>("myNumber4");
 
-        Assert.AreEqual(false, numberElement.IsReadonly);
+        Assert.IsFalse(numberElement.IsReadonly);
     }
 
     [TestMethod]
@@ -95,7 +95,7 @@ public class NumberControlTestsFirefox : MSTest.WebTest
     {
         var numberElement = App.Components.CreateById<Number>("myNumber5");
 
-        Assert.AreEqual(true, numberElement.IsReadonly);
+        Assert.IsTrue(numberElement.IsReadonly);
     }
 
     [TestMethod]
@@ -160,7 +160,7 @@ public class NumberControlTestsFirefox : MSTest.WebTest
     {
         var numberElement = App.Components.CreateById<Number>("myNumber4");
 
-        Assert.AreEqual(false, numberElement.IsRequired);
+        Assert.IsFalse(numberElement.IsRequired);
     }
 
     [TestMethod]

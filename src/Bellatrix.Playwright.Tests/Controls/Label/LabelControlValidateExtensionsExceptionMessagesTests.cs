@@ -1,4 +1,4 @@
-﻿// <copyright file="LabelControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="LabelControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class LabelControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's for should be null but was 'myLabel'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -59,7 +59,7 @@ public class LabelControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's for should be 'myLabel1' but was 'myLabel'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

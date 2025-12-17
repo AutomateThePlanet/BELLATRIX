@@ -1,4 +1,4 @@
-﻿// <copyright file="TextFieldControlTestsChrome.cs" company="Automate The Planet Ltd.">
+// <copyright file="TextFieldControlTestsChrome.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class TextFieldControlTestsChrome : MSTest.WebTest
     {
         var textFieldElement = App.Components.CreateById<TextField>("myText");
 
-        Assert.AreEqual(false, textFieldElement.IsAutoComplete);
+        Assert.IsFalse(textFieldElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -48,7 +48,7 @@ public class TextFieldControlTestsChrome : MSTest.WebTest
     {
         var textFieldElement = App.Components.CreateById<TextField>("myText5");
 
-        Assert.AreEqual(false, textFieldElement.IsAutoComplete);
+        Assert.IsFalse(textFieldElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -57,7 +57,7 @@ public class TextFieldControlTestsChrome : MSTest.WebTest
     {
         var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        Assert.AreEqual(true, textFieldElement.IsAutoComplete);
+        Assert.IsTrue(textFieldElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -66,7 +66,7 @@ public class TextFieldControlTestsChrome : MSTest.WebTest
     {
         var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        Assert.AreEqual(false, textFieldElement.IsReadonly);
+        Assert.IsFalse(textFieldElement.IsReadonly);
     }
 
     [TestMethod]
@@ -75,7 +75,7 @@ public class TextFieldControlTestsChrome : MSTest.WebTest
     {
         var textFieldElement = App.Components.CreateById<TextField>("myText6");
 
-        Assert.AreEqual(true, textFieldElement.IsReadonly);
+        Assert.IsTrue(textFieldElement.IsReadonly);
     }
 
     [TestMethod]
@@ -141,7 +141,7 @@ public class TextFieldControlTestsChrome : MSTest.WebTest
     {
         var textFieldElement = App.Components.CreateById<TextField>("myText4");
 
-        Assert.AreEqual(false, textFieldElement.IsRequired);
+        Assert.IsFalse(textFieldElement.IsRequired);
     }
 
     [TestMethod]
@@ -150,7 +150,7 @@ public class TextFieldControlTestsChrome : MSTest.WebTest
     {
         var textFieldElement = App.Components.CreateById<TextField>("myText7");
 
-        Assert.AreEqual(true, textFieldElement.IsRequired);
+        Assert.IsTrue(textFieldElement.IsRequired);
     }
 
     [TestMethod]

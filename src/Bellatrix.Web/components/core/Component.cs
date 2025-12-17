@@ -391,7 +391,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
 
             _wrappedElement = nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
 
-            if (_llmSettings.EnableSelfHealing)
+            if (_llmSettings != null && _llmSettings.EnableSelfHealing)
             {
                 var summary = _viewSnapshotProvider.GetCurrentViewSnapshot();
                 LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), summary, WrappedDriver.Url);
@@ -414,7 +414,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         }
         catch (Exception ex)
         {
-            if (!_llmSettings.EnableSelfHealing)
+            if (_llmSettings == null || !_llmSettings.EnableSelfHealing)
             {
                 throw new TimeoutException($"\n\nThe element: \n Name: '{ComponentName}', \n Locator: '{LocatorType.Name} = {LocatorValue}', \n Type: '{ComponentType.Name}' \nWas not found or failed condition.\n\n", ex);
             }

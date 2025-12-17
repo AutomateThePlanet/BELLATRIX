@@ -1,4 +1,4 @@
-﻿// <copyright file="TableControlTestsChrome.cs" company="Automate The Planet Ltd.">
+// <copyright file="TableControlTestsChrome.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ public class TableControlTestsChrome : MSTest.WebTest
         var table = App.Components.CreateById<Playwright.Table>("table1");
         var headerNames = table.GetHeaderNames();
         var tableCell = table.GetCell(3, 1);
-        Assert.IsTrue(headerNames.Contains("Due"));
+        Assert.Contains("Due", headerNames);
         Assert.AreEqual("$51.00", tableCell.InnerText);
     }
 

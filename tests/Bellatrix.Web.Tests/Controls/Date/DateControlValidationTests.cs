@@ -30,7 +30,7 @@ public class DateControlValidationTests : MSTest.WebTest
     {
         var dateElement = App.Components.CreateById<Date>("myDate");
 
-        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, 0, 1));
+        Assert.Throws<ArgumentException>(() => dateElement.SetDate(2017, 0, 1));
     }
 
     [TestMethod]
@@ -40,7 +40,7 @@ public class DateControlValidationTests : MSTest.WebTest
     {
         var dateElement = App.Components.CreateById<Date>("myDate");
 
-        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, -1, 1));
+        Assert.Throws<ArgumentException>(() => dateElement.SetDate(2017, -1, 1));
     }
 
     [TestMethod]
@@ -50,7 +50,7 @@ public class DateControlValidationTests : MSTest.WebTest
     {
         var dateElement = App.Components.CreateById<Date>("myDate");
 
-        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(-1, 2, 1));
+        Assert.Throws<ArgumentException>(() => dateElement.SetDate(-1, 2, 1));
     }
 
     [TestMethod]
@@ -60,7 +60,7 @@ public class DateControlValidationTests : MSTest.WebTest
     {
         var dateElement = App.Components.CreateById<Date>("myDate");
 
-        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(0, 1, 1));
+        Assert.Throws<ArgumentException>(() => dateElement.SetDate(0, 1, 1));
     }
 
     [TestMethod]
@@ -70,7 +70,7 @@ public class DateControlValidationTests : MSTest.WebTest
     {
         var dateElement = App.Components.CreateById<Date>("myDate");
 
-        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2017, 1, -1));
+        Assert.Throws<ArgumentException>(() => dateElement.SetDate(2017, 1, -1));
     }
 
     [TestMethod]
@@ -80,7 +80,7 @@ public class DateControlValidationTests : MSTest.WebTest
     {
         var dateElement = App.Components.CreateById<Date>("myDate");
 
-        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2007, 2, 0));
+        Assert.Throws<ArgumentException>(() => dateElement.SetDate(2007, 2, 0));
     }
 
     [TestMethod]
@@ -90,6 +90,6 @@ public class DateControlValidationTests : MSTest.WebTest
     {
         var dateElement = App.Components.CreateById<Date>("myDate");
 
-        Assert.ThrowsException<ArgumentException>(() => dateElement.SetDate(2007, 1, 32));
+        Assert.Throws<ArgumentException>(() => dateElement.SetDate(2007, 1, 32));
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="RangeControlTestsEdge.cs" company="Automate The Planet Ltd.">
+// <copyright file="RangeControlTestsEdge.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -145,7 +145,7 @@ public class RangeControlTestsEdge : MSTest.WebTest
     {
         var rangeElement = App.Components.CreateById<Range>("myRange4");
 
-        Assert.AreEqual(false, rangeElement.IsRequired);
+        Assert.IsFalse(rangeElement.IsRequired);
     }
 
     [TestMethod]

@@ -1,7 +1,7 @@
-﻿// 1. You need to add a using statement to the namespace where the extension methods for new locator are situated.
-using Bellatrix.Playwright.GettingStarted.ExtensionMethodsLocators;
+﻿using Bellatrix.Playwright.GettingStarted.ExtensionMethodsLocators;
 
 using NUnit.Framework;
+using Ignore = Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
 
 namespace Bellatrix.Playwright.GettingStarted;
 

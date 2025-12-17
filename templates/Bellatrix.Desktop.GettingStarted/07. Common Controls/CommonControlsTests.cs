@@ -1,4 +1,4 @@
-﻿using Bellatrix.Desktop.NUnit;
+using Bellatrix.Desktop.NUnit;
 using NUnit.Framework;
 
 namespace Bellatrix.Desktop.GettingStarted;
@@ -24,7 +24,7 @@ public class CommonControlsTests : DesktopTest
         var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
         // 5. Most desktop controls have properties such as checking whether the calendar is enabled or not.
-        Assert.AreEqual(false, calendar.IsDisabled);
+        Assert.IsFalse(calendar.IsDisabled);
 
         var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 

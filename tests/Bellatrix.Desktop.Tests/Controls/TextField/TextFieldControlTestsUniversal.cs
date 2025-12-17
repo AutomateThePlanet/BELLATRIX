@@ -1,4 +1,4 @@
-﻿// <copyright file="TextFieldControlTestsUniversal.cs" company="Automate The Planet Ltd.">
+// <copyright file="TextFieldControlTestsUniversal.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public class TextFieldControlTestsUniversal : MSTest.DesktopTest
     {
         var textField = App.Components.CreateByAutomationId<TextField>("textBox");
 
-        Assert.AreEqual(false, textField.IsDisabled);
+        Assert.IsFalse(textField.IsDisabled);
     }
 
     [TestMethod]
@@ -73,6 +73,6 @@ public class TextFieldControlTestsUniversal : MSTest.DesktopTest
     {
         var textField = App.Components.CreateByAutomationId<TextField>("disabledTextBox");
 
-        Assert.AreEqual(true, textField.IsDisabled);
+        Assert.IsTrue(textField.IsDisabled);
     }
 }
