@@ -36,13 +36,8 @@ namespace Bellatrix.Desktop;
 
 public class App : IDisposable
 {
-    // TODO: Change to be ThreadLocal.
-    private static bool _shouldStartLocalService;
-    // private static Process _appiumProcess;
-
     public App()
     {
-        _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
         ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(AppService);
     }
     private static readonly bool ShouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;

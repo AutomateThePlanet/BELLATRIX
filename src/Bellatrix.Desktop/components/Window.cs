@@ -85,25 +85,4 @@ public class Window : Component
 
         Attached?.Invoke(this, new ComponentActionEventArgs(this));
     }
-
-    // public virtual void Detach()
-    // {
-    //     Attaching?.Invoke(this, new ComponentActionEventArgs(this));
-    //
-    //     var currentAppConfiguration = ServicesCollection.Current.Resolve<AppInitializationInfo>("_currentAppConfiguration");
-    //
-    //     if (currentAppConfiguration.WindowHandle != WindowHandle)
-    //     {
-    //         throw new InvalidOperationException($"This window ({WindowHandle}) is not currently attached. Currently attached window: {currentAppConfiguration.WindowHandle}");
-    //     }
-    //
-    //     currentAppConfiguration.WindowHandle = null;
-    //     var driver = WrappedWebDriverCreateService.Create(currentAppConfiguration, ServicesCollection.Current);
-    //
-    //     WrappedDriver.Quit();
-    //     ServicesCollection.Current.UnregisterSingleInstance<WindowsDriver>();
-    //     ServicesCollection.Current.RegisterInstance(driver);
-    //
-    //     Attached?.Invoke(this, new ComponentActionEventArgs(this));
-    // }
 }

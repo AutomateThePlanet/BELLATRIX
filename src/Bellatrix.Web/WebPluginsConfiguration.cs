@@ -234,6 +234,7 @@ public static class WebPluginsConfiguration
     {
         if (ConfigurationService.GetSection<LargeLanguageModelsSettings>() == null)
         {
+            Logger.LogError("Could not load LargeLanguageModelsSettings section from testFrameworkSettings.json");
             return;
         }
 
