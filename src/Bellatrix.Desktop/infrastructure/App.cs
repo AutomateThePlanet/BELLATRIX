@@ -88,12 +88,10 @@ public class App : IDisposable
         var output = process.StandardOutput.ReadToEnd().Trim();
         process.WaitForExit();
 
-        if (Version.TryParse(output, out var version) && version < new Version(3, 1, 0))
+        if (Version.TryParse(output, out var version) && version < new Version(3, 0, 0))
         {
-            throw new ArgumentException("Appium version 3.1.0 or higher is required. Please update Appium by running: npm install -g appium@latest");
+            throw new ArgumentException("Appium version 3.0.0 or higher is required. Please update Appium by running: npm install -g appium@latest");
         }
-
-        const string latestVersion = "1.2.0-preview.2";
 
         process = new Process
         {
@@ -119,24 +117,17 @@ public class App : IDisposable
             Console.WriteLine("NovaWindows driver not found. Installing...");
             Process.Start(
                 "powershell.exe",
-                $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" driver install --source=npm appium-novawindows-driver@{latestVersion}"
+                $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" driver install --source=npm appium-novawindows-driver"
             )?.WaitForExit();
         }
         else
         {
-            var installedVersion = driver.GetProperty("version").GetString() ?? "";
-            if (installedVersion != latestVersion)
-            {
-                Console.WriteLine($"Updating NovaWindows driver to {latestVersion}...");
-                Process.Start(
-                    "powershell.exe",
-                    $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" driver update novawindows"
-                )?.WaitForExit();
-            }
-            else
-            {
-                Console.WriteLine("NovaWindows driver is up to date.");
-            }
+            // TODO: Cache latest version in a temporary file, check the latest version of the npm package
+            Console.WriteLine("Updating NovaWindows driver to latest version...");
+            Process.Start(
+                "powershell.exe",
+                $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" driver update novawindows"
+            )?.WaitForExit();
         }
 
         _appiumServerProcess = ProcessProvider.StartProcess(
