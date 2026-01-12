@@ -1,4 +1,4 @@
-﻿// <copyright file="TimePickerControlTestsUniversal.cs" company="Automate The Planet Ltd.">
+// <copyright file="TimePickerControlTestsUniversal.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("TimePicker Control")]
 [AllureTag("Universal")]
+[TestCategory(Categories.Universal)]
 public class TimePickerControlTestsUniversal : MSTest.DesktopTest
 {
     [TestMethod]
@@ -40,7 +41,7 @@ public class TimePickerControlTestsUniversal : MSTest.DesktopTest
     {
         var timePicker = App.Components.CreateByAutomationId<Time>("enabledTime");
 
-        Assert.AreEqual(false, timePicker.IsDisabled);
+        Assert.IsFalse(timePicker.IsDisabled);
     }
 
     [TestMethod]
@@ -50,6 +51,6 @@ public class TimePickerControlTestsUniversal : MSTest.DesktopTest
     {
         var timePicker = App.Components.CreateByAutomationId<Time>("disabledTime");
 
-        Assert.AreEqual(true, timePicker.IsDisabled);
+        Assert.IsTrue(timePicker.IsDisabled);
     }
 }

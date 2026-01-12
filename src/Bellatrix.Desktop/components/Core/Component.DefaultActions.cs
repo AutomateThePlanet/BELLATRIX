@@ -11,12 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+
 using System;
+using System.Collections.Generic;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 using Bellatrix.Layout;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Interactions;
 
 namespace Bellatrix.Desktop;
 
@@ -25,8 +26,39 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
     internal virtual void Click(EventHandler<ComponentActionEventArgs> clicking, EventHandler<ComponentActionEventArgs> clicked)
     {
         clicking?.Invoke(this, new ComponentActionEventArgs(this));
+        var clickSuccess = false;
 
-        WrappedElement.Click();
+        try
+        {
+            WrappedDriver.ExecuteScript("windows: invoke", WrappedElement);
+            clickSuccess = true;
+        }
+        catch
+        {
+            // ignore
+        }
+
+        if (!clickSuccess)
+        {
+            try
+            {
+                this.ToBeVisible().WrappedElement.Click();
+                clickSuccess = true;
+            }
+            catch
+            {
+                Logger.LogWarning($"Could not click component {ComponentName}." +
+                                  $"Component location: X={Location.X}, Y={Location.Y}" +
+                                  $"Component size: Width={Size.Width}, Height={Size.Height}");
+            }
+        }
+
+        if (!clickSuccess)
+        {
+            new Actions(WrappedDriver, TimeSpan.Zero)
+                .MoveToElement(WrappedElement)
+                .Click().Perform();
+        }
 
         clicked?.Invoke(this, new ComponentActionEventArgs(this));
     }
@@ -35,7 +67,19 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
     {
         hovering?.Invoke(this, new ComponentActionEventArgs(this));
 
-        WrappedDriver.Mouse.MouseMove(WrappedElement.Coordinates);
+        try
+        {
+            WrappedDriver.ExecuteScript("windows: hover", new Dictionary<string, object>
+            {
+                { "startElementId", WrappedElement.Id },
+                { "endElementId", WrappedElement.Id },
+                { "durationMs", 0 }
+            });
+        }
+        catch
+        {
+            new Actions(WrappedDriver).MoveToElement(WrappedElement).Perform();
+        }
 
         hovered?.Invoke(this, new ComponentActionEventArgs(this));
     }
@@ -53,8 +97,19 @@ public partial class Component : IComponentVisible, IComponent, ILayoutComponent
     internal virtual void SetText(EventHandler<ComponentActionEventArgs> settingValue, EventHandler<ComponentActionEventArgs> valueSet, string value)
     {
         settingValue?.Invoke(this, new ComponentActionEventArgs(this, value));
-        WrappedElement.Clear();
-        WrappedElement.SendKeys(value);
+        var element = WrappedElement;
+
+        try
+        {
+            WrappedDriver.ExecuteScript("windows: setValue", element, value);
+            valueSet?.Invoke(this, new ComponentActionEventArgs(this, value));
+        }
+        catch
+        {
+            WrappedElement.Clear();
+            WrappedElement.SendKeys(value);
+        }
+
         valueSet?.Invoke(this, new ComponentActionEventArgs(this, value));
     }
 }

@@ -1,0 +1,88 @@
+﻿// <copyright file="Button.cs" company="Automate The Planet Ltd.">
+// Copyright 2025 Automate The Planet Ltd.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// </copyright>
+// <author>Anton Angelov</author>
+// <site>https://bellatrix.solutions/</site>
+using System;
+using Bellatrix.Desktop.Events;
+using Bellatrix.Desktop.Locators;
+using Bellatrix.Utilities;
+using OpenQA.Selenium;
+
+namespace Bellatrix.Desktop;
+
+public class Window : Component
+{
+    public static event EventHandler<ComponentActionEventArgs> Attaching;
+    public static event EventHandler<ComponentActionEventArgs> Attached;
+
+    protected string _windowHandle;
+
+    public virtual string WindowHandle
+    {
+        get
+        {
+            if (_windowHandle != null)
+            {
+                return _windowHandle;
+            }
+
+            try
+            {
+                var windowHandleStr = WrappedElement.GetAttribute("NativeWindowHandle");
+                var windowHandleInt = int.Parse(windowHandleStr);
+                var windowHandleHex = "0x" + windowHandleInt.ToString("X6");
+
+                _windowHandle = windowHandleHex;
+            }
+            catch
+            {
+                return null;
+            }
+
+            return _windowHandle;
+        }
+    }
+
+    public virtual void Attach()
+    {
+        Attaching?.Invoke(this, new ComponentActionEventArgs(this));
+
+        if (By is FindNameStrategy byName)
+        {
+            try
+            {
+                Wait.Until(() =>
+                {
+                    try
+                    {
+                        WrappedDriver.SwitchTo().Window(byName.Value);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }, 90);
+            }
+            catch (TimeoutException)
+            {
+                throw new NoSuchWindowException($"No window was found with name '{byName.Value}'");
+            }
+        }
+        else
+        {
+            WrappedDriver.SwitchTo().Window(WindowHandle);
+        }
+
+        Attached?.Invoke(this, new ComponentActionEventArgs(this));
+    }
+}

@@ -71,7 +71,7 @@ public class MsTestAssert : IAssert
 
     public void Fail(string message) => MU.Assert.Fail(message);
 
-    public void Fail(string message, params object[] parameters) => MU.Assert.Fail(message, parameters);
+    public void Fail(string message, params object[] parameters) => MU.Assert.Fail(string.Format(message, parameters));
 
     public void IsFalse(bool condition) => MU.Assert.IsFalse(condition);
 
@@ -93,7 +93,7 @@ public class MsTestAssert : IAssert
 
     public void IsTrue(bool condition, string message) => MU.Assert.IsTrue(condition, message);
 
-    public void IsTrue(bool condition, string message, params object[] parameters) => MU.Assert.IsTrue(condition, message, parameters);
+    public void IsTrue(bool condition, string message, params object[] parameters) => MU.Assert.IsTrue(condition, string.Format(message, parameters));
 
     public void Multiple(params Action[] assertions) => Assert.Multiple(assertions);
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="RadioControlTestsWpf.cs" company="Automate The Planet Ltd.">
+// <copyright file="RadioControlTestsWpf.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("Radio Control")]
 [AllureTag("WPF")]
+[TestCategory(Categories.WPF)]
 public class RadioControlTestsWpf : MSTest.DesktopTest
 {
     [TestMethod]
@@ -62,7 +63,7 @@ public class RadioControlTestsWpf : MSTest.DesktopTest
     {
         var button = App.Components.CreateByName<RadioButton>("RadioButton");
 
-        Assert.AreEqual(false, button.IsDisabled);
+        Assert.IsFalse(button.IsDisabled);
     }
 
     [TestMethod]
@@ -72,6 +73,6 @@ public class RadioControlTestsWpf : MSTest.DesktopTest
     {
         var button = App.Components.CreateByName<RadioButton>("SelectedRadioButton");
 
-        Assert.AreEqual(true, button.IsDisabled);
+        Assert.IsTrue(button.IsDisabled);
     }
 }

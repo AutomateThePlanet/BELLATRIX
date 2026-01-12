@@ -45,8 +45,15 @@ public class Screen : IScreen
         similarity = InitializeSimilarity(similarity);
         IImage image = ImageFactory.FromFile(imagePath, similarity);
         timeoutInSeconds = InitializeTimeout(timeoutInSeconds);
-        _runtime.Run(image.ToSikuliScript("exists", timeoutInSeconds), timeoutInSeconds);
-        return true;
+        try
+        {
+            _runtime.Run(image.ToSikuliScript("exists", timeoutInSeconds), timeoutInSeconds);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public void Click(string imagePath, double? similarity = null, double? timeoutInSeconds = null)

@@ -1,4 +1,4 @@
-﻿// <copyright file="TextAreaControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="TextAreaControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class TextAreaControlValidateExtensionsExceptionMessagesTests : MSTest.We
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's rows should be '3' but was '2'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -59,7 +59,7 @@ public class TextAreaControlValidateExtensionsExceptionMessagesTests : MSTest.We
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's cols should be '19' but was '20'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -76,7 +76,7 @@ public class TextAreaControlValidateExtensionsExceptionMessagesTests : MSTest.We
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's wrap should be 'hard1' but was 'hard'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -93,7 +93,7 @@ public class TextAreaControlValidateExtensionsExceptionMessagesTests : MSTest.We
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's wrap should be null but was 'hard'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -110,7 +110,7 @@ public class TextAreaControlValidateExtensionsExceptionMessagesTests : MSTest.We
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's spellcheck should be 'true1' but was 'true'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -127,7 +127,7 @@ public class TextAreaControlValidateExtensionsExceptionMessagesTests : MSTest.We
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's spellcheck should be null but was 'true'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

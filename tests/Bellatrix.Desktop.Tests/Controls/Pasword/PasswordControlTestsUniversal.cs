@@ -1,4 +1,4 @@
-﻿// <copyright file="PasswordControlTestsUniversal.cs" company="Automate The Planet Ltd.">
+// <copyright file="PasswordControlTestsUniversal.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("Password Control")]
 [AllureTag("Universal")]
+[TestCategory(Categories.Universal)]
 public class PasswordControlTestsUniversal : MSTest.DesktopTest
 {
     [TestMethod]
@@ -42,7 +43,7 @@ public class PasswordControlTestsUniversal : MSTest.DesktopTest
 
         password.SetPassword("topsecret");
 
-        Assert.AreEqual("●●●●●●●●●", password.GetPassword());
+        Assert.AreEqual("?????????", password.GetPassword());
     }
 
     [TestMethod]
@@ -52,7 +53,7 @@ public class PasswordControlTestsUniversal : MSTest.DesktopTest
     {
         var password = App.Components.CreateByAutomationId<Password>("passwordBox");
 
-        Assert.AreEqual(false, password.IsDisabled);
+        Assert.IsFalse(password.IsDisabled);
     }
 
     [TestMethod]
@@ -62,6 +63,6 @@ public class PasswordControlTestsUniversal : MSTest.DesktopTest
     {
         var password = App.Components.CreateByAutomationId<Password>("disabledPassword");
 
-        Assert.AreEqual(true, password.IsDisabled);
+        Assert.IsTrue(password.IsDisabled);
     }
 }

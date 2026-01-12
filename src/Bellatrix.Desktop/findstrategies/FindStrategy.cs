@@ -12,8 +12,8 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.Locators;
 
@@ -26,11 +26,7 @@ public abstract class FindStrategy
 
     public string Value { get; }
 
-    public abstract WindowsElement FindElement(WindowsDriver<WindowsElement> driver);
+    public abstract AppiumElement FindElement(ISearchContext driver);
 
-    public abstract IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> driver);
-
-    public abstract AppiumWebElement FindElement(WindowsElement element);
-
-    public abstract IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element);
+    public abstract IEnumerable<AppiumElement> FindAllElements(ISearchContext driver);
 }

@@ -1,5 +1,6 @@
 ﻿// 1. To use the additional method you created, add a using statement to the extension methods' namespace.
 using Bellatrix.Playwright.GettingStarted.Advanced.Elements.Extension.Methods;
+using Ignore = Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
 
 namespace Bellatrix.Playwright.GettingStarted;
 

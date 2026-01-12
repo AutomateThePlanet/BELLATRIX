@@ -1,4 +1,4 @@
-﻿// <copyright file="DateControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="DateControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ public class DateControlValidateExtensionsExceptionMessagesTests : MSTest.WebTes
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's date should be '2017-07-05' but was '2017-07-06'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -61,7 +61,7 @@ public class DateControlValidateExtensionsExceptionMessagesTests : MSTest.WebTes
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control should be NOT readonly but was NOT. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -78,7 +78,7 @@ public class DateControlValidateExtensionsExceptionMessagesTests : MSTest.WebTes
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control should be readonly but was NOT. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -95,7 +95,7 @@ public class DateControlValidateExtensionsExceptionMessagesTests : MSTest.WebTes
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's max should be null but was '2032-12-01'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -112,7 +112,7 @@ public class DateControlValidateExtensionsExceptionMessagesTests : MSTest.WebTes
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's min should be null but was '1900-01-01'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -129,7 +129,7 @@ public class DateControlValidateExtensionsExceptionMessagesTests : MSTest.WebTes
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's step should be null but was '2'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -146,7 +146,7 @@ public class DateControlValidateExtensionsExceptionMessagesTests : MSTest.WebTes
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's max should be '2032-12-02' but was '2032-12-01'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -163,7 +163,7 @@ public class DateControlValidateExtensionsExceptionMessagesTests : MSTest.WebTes
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's min should be '1900-01-02' but was '1900-01-01'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -180,7 +180,7 @@ public class DateControlValidateExtensionsExceptionMessagesTests : MSTest.WebTes
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's step should be '3' but was '2'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

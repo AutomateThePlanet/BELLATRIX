@@ -1,4 +1,4 @@
-﻿// <copyright file="CheckBoxControlTestsWpf.cs" company="Automate The Planet Ltd.">
+// <copyright file="CheckBoxControlTestsWpf.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WpfAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("CheckBox Control")]
 [AllureTag("WPF")]
+[TestCategory(Categories.WPF)]
 public class CheckBoxControlTestsWpf : MSTest.DesktopTest
 {
     [TestMethod]
@@ -86,7 +87,7 @@ public class CheckBoxControlTestsWpf : MSTest.DesktopTest
     {
         var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 
-        Assert.AreEqual(false, checkBox.IsDisabled);
+        Assert.IsFalse(checkBox.IsDisabled);
     }
 
     [TestMethod]
@@ -96,6 +97,6 @@ public class CheckBoxControlTestsWpf : MSTest.DesktopTest
     {
         var checkBox = App.Components.CreateByName<CheckBox>("CheckBox");
 
-        Assert.AreEqual(true, checkBox.IsDisabled);
+        Assert.IsTrue(checkBox.IsDisabled);
     }
 }

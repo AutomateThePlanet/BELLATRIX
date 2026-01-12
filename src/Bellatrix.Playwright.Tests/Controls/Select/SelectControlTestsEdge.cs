@@ -1,4 +1,4 @@
-﻿// <copyright file="SelectControlTestsEdge.cs" company="Automate The Planet Ltd.">
+// <copyright file="SelectControlTestsEdge.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -138,6 +138,6 @@ public class SelectControlTestsEdge : MSTest.WebTest
 
         var allOptions = selectComponent.GetAllOptions();
 
-        Assert.AreEqual(3, allOptions.Count);
+        Assert.HasCount(3, allOptions);
     }
 }

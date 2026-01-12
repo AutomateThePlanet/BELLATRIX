@@ -28,7 +28,9 @@ using Bellatrix.LLM.Settings;
 using Bellatrix.LLM;
 using Bellatrix.Plugins.Screenshots;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop;
@@ -38,14 +40,14 @@ public partial class Component
 {
     private readonly ComponentWaitService _elementWait;
     private readonly List<WaitStrategy> _untils;
-    private WindowsElement _wrappedElement;
+    private AppiumElement _wrappedElement;
     private IViewSnapshotProvider _viewSnapshotProvider;
     private LargeLanguageModelsSettings _llmSettings;
 
     public Component()
     {
         _elementWait = new ComponentWaitService();
-        WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+        WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver>();
         _viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
         _llmSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
         _untils = new List<WaitStrategy>();
@@ -59,22 +61,22 @@ public partial class Component
     public static event EventHandler<ComponentActionEventArgs> CreatedComponents;
     public static event EventHandler<NativeElementActionEventArgs> ReturningWrappedElement;
 
-    public WindowsDriver<WindowsElement> WrappedDriver { get; }
+    public WindowsDriver WrappedDriver { get; }
 
-    public WindowsElement WrappedElement
+    public AppiumElement WrappedElement
     {
         get
         {
-            ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs(GetAndWaitWebDriverElement()));
-            var element = GetWebDriverElement();
+            var element = GetAndWaitWebDriverElement();
+            ReturningWrappedElement?.Invoke(this, new NativeElementActionEventArgs(element));
             return element;
         }
         internal set => _wrappedElement = value;
     }
 
-    public WindowsElement ParentWrappedElement { get; set; }
+    public AppiumElement ParentWrappedElement { get; set; }
 
-    public WindowsElement FoundWrappedElement { get; set; }
+    public AppiumElement FoundWrappedElement { get; set; }
 
     public int ElementIndex { get; set; }
 
@@ -186,11 +188,14 @@ public partial class Component
     public virtual void ScrollToVisible()
     {
         ScrollingToVisible?.Invoke(this, new ComponentActionEventArgs(this));
-
-        var touchActions = new RemoteTouchScreen(WrappedDriver);
-        System.Threading.Thread.Sleep(2000);
-        touchActions.Scroll(WrappedElement.Coordinates, 0, 0);
-        this.ToBeVisible().ToExists().WaitToBe();
+        try
+        {
+            WrappedDriver.ExecuteScript("windows: scrollToVisible", WrappedElement);
+        }
+        catch
+        {
+            // ignore
+        }
         ScrolledToVisible?.Invoke(this, new ComponentActionEventArgs(this));
     }
 
@@ -218,7 +223,7 @@ public partial class Component
         return sb.ToString();
     }
 
-    protected WindowsElement GetAndWaitWebDriverElement()
+    protected AppiumElement GetAndWaitWebDriverElement()
     {
         if (_wrappedElement == null)
         {
@@ -234,20 +239,21 @@ public partial class Component
                     if (until != null)
                     {
                         _elementWait.Wait(this, until);
-                        if (until.GetType() == typeof(WaitNotExistStrategy))
-                        {
-                            return _wrappedElement;
-                        }
+                    }
+
+                    if (until is WaitNotExistStrategy)
+                    {
+                        return _wrappedElement;
                     }
                 }
 
                 _wrappedElement = GetWebDriverElement();
 
                 // ✅ Save if healing is enabled
-                if (_llmSettings.EnableSelfHealing)
+                if (_llmSettings != null && _llmSettings.EnableSelfHealing)
                 {
                     var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
-                    LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedDriver.Title);
+                    LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
                 }
 
                 _untils.Clear();
@@ -255,7 +261,7 @@ public partial class Component
             }
             catch (Exception ex)
             {
-                if (!_llmSettings.EnableSelfHealing)
+                if (_llmSettings == null || !_llmSettings.EnableSelfHealing)
                 {
                     throw new TimeoutException($"❌ Element not found: {By?.Value}", ex);
                 }
@@ -263,7 +269,7 @@ public partial class Component
                 Logger.LogWarning($"⚠️ Element not found with locator: {By}. Trying AI-based healing...");
 
                 var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
-                var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, WrappedDriver.Title);
+                var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
 
                 if (!string.IsNullOrEmpty(healedXpath))
                 {
@@ -285,8 +291,9 @@ public partial class Component
         return _wrappedElement;
     }
 
-    private WindowsElement GetWebDriverElement()
+    private AppiumElement GetWebDriverElement()
     {
+        var result = _wrappedElement;
         if (FoundWrappedElement != null)
         {
             return FoundWrappedElement;

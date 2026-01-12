@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("Tabs Control")]
 [AllureTag("WinForms")]
+[TestCategory(Categories.WinForms)]
 public class TabsControlTestsWinForms : MSTest.DesktopTest
 {
     [TestMethod]

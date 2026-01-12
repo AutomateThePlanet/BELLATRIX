@@ -1,4 +1,4 @@
-﻿// <copyright file="DateTimeLocalControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="DateTimeLocalControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ public class DateTimeLocalControlValidateExtensionsExceptionMessagesTests : MSTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's time should be '1989-10-28T23:22' but was '1989-10-28T23:23'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

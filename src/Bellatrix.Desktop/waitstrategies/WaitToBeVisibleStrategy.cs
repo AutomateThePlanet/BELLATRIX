@@ -31,7 +31,7 @@ public class WaitToBeVisibleStrategy : WaitStrategy
         WaitUntil(d => ElementIsVisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
     }
 
-    private bool ElementIsVisible<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
+    private bool ElementIsVisible<TBy>(WindowsDriver searchContext, TBy by)
         where TBy : Locators.FindStrategy
     {
         try

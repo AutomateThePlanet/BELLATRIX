@@ -26,7 +26,7 @@ public static partial class ValidateControlExtensions
     {
         var localTimeout = timeoutInSeconds ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ValidationsTimeout;
         var localSleepInterval = sleepIntervalInSeconds ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.SleepInterval;
-        var wrappedWebDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+        var wrappedWebDriver = ServicesCollection.Current.Resolve<WindowsDriver>();
         var webDriverWait = new WebDriverWait(new SystemClock(), wrappedWebDriver, TimeSpan.FromSeconds(localTimeout), TimeSpan.FromSeconds(localSleepInterval));
         webDriverWait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException));
         bool LocalCondition(IWebDriver s)

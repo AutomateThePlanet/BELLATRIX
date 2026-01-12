@@ -1,4 +1,4 @@
-﻿// <copyright file="EmailControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="EmailControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ public class EmailControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's email should be 'aangelov@bellatrix.solutions1' but was 'aangelov@bellatrix.solutions'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -61,7 +61,7 @@ public class EmailControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's maxlength should be null but was '80'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -78,7 +78,7 @@ public class EmailControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's minlength should be null but was '10'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -95,7 +95,7 @@ public class EmailControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's size should be '19' but was '20'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -112,7 +112,7 @@ public class EmailControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's maxlength should be '79' but was '80'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -129,7 +129,7 @@ public class EmailControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's minlength should be '9' but was '10'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -146,7 +146,7 @@ public class EmailControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's placeholder should be 'your email term goes here1' but was 'your email term goes here'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -163,7 +163,7 @@ public class EmailControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's placeholder should be null but was 'your email term goes here'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

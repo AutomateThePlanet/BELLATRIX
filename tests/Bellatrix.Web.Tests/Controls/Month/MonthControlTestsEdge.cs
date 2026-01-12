@@ -1,4 +1,4 @@
-﻿// <copyright file="MonthControlTestsEdge.cs" company="Automate The Planet Ltd.">
+// <copyright file="MonthControlTestsEdge.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -94,7 +94,7 @@ public class MonthControlTestsEdge : MSTest.WebTest
     {
         var monthElement = App.Components.CreateById<Month>("myMonth4");
 
-        Assert.AreEqual(false, monthElement.IsReadonly);
+        Assert.IsFalse(monthElement.IsReadonly);
     }
 
     [TestMethod]
@@ -104,7 +104,7 @@ public class MonthControlTestsEdge : MSTest.WebTest
     {
         var monthElement = App.Components.CreateById<Month>("myMonth5");
 
-        Assert.AreEqual(true, monthElement.IsReadonly);
+        Assert.IsTrue(monthElement.IsReadonly);
     }
 
     [TestMethod]
@@ -176,7 +176,7 @@ public class MonthControlTestsEdge : MSTest.WebTest
     {
         var monthElement = App.Components.CreateById<Month>("myMonth4");
 
-        Assert.AreEqual(false, monthElement.IsRequired);
+        Assert.IsFalse(monthElement.IsRequired);
     }
 
     [TestMethod]

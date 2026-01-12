@@ -23,12 +23,12 @@ public abstract class WaitStrategy
 {
     protected WaitStrategy(int? timeoutInterval = null, int? sleepInterval = null)
     {
-        WrappedWebDriver = ServicesCollection.Current.Resolve<WindowsDriver<WindowsElement>>();
+        WrappedWebDriver = ServicesCollection.Current.Resolve<WindowsDriver>();
         TimeoutInterval = timeoutInterval;
         SleepInterval = sleepInterval ?? ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.SleepInterval;
     }
 
-    protected WindowsDriver<WindowsElement> WrappedWebDriver { get; }
+    protected WindowsDriver WrappedWebDriver { get; }
 
     protected int? TimeoutInterval { get; set; }
 
@@ -61,7 +61,7 @@ public abstract class WaitStrategy
         }
     }
 
-    protected IWebElement FindElement<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
+    protected IWebElement FindElement<TBy>(WindowsDriver searchContext, TBy by)
         where TBy : Locators.FindStrategy
     {
         var element = by.FindElement(searchContext);

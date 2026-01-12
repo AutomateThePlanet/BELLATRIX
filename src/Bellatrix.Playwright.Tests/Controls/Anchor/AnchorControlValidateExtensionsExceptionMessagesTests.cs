@@ -1,4 +1,4 @@
-﻿// <copyright file="AnchorControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="AnchorControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's style should be 'color: blue;' but was 'color: red;'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -63,7 +63,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's style should contains 'color: blue;' but it is 'color: red;'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -82,7 +82,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's style should not contains 'color: red;' but it was 'color: red;'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -99,7 +99,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's inner text should be 'Bellatrix' but was 'Automate The Planet'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -116,7 +116,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's inner HTML should be '<button' but was 'Automate The Planet'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -133,7 +133,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's rel should be 'canonical1' but was ''. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -150,7 +150,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's rel should be null but was 'canonical'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -167,7 +167,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's target should be '_self1' but was '_self'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -184,7 +184,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's target should be null but was '_self'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -201,7 +201,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's href should be 'http://bellatrix.solutionns' but was 'https://automatetheplanet.com/'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -218,7 +218,7 @@ public class AnchorControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's href shouldn't be empty but was. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

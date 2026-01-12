@@ -1,4 +1,4 @@
-﻿// <copyright file="PhoneControlTestsEdge.cs" company="Automate The Planet Ltd.">
+// <copyright file="PhoneControlTestsEdge.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ public class PhoneControlTestsEdge : MSTest.WebTest
     {
         var phoneElement = App.Components.CreateById<Phone>("myPhone");
 
-        Assert.AreEqual(false, phoneElement.IsAutoComplete);
+        Assert.IsFalse(phoneElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -62,7 +62,7 @@ public class PhoneControlTestsEdge : MSTest.WebTest
     {
         var phoneElement = App.Components.CreateById<Phone>("myPhone5");
 
-        Assert.AreEqual(false, phoneElement.IsAutoComplete);
+        Assert.IsFalse(phoneElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -72,7 +72,7 @@ public class PhoneControlTestsEdge : MSTest.WebTest
     {
         var phoneElement = App.Components.CreateById<Phone>("myPhone4");
 
-        Assert.AreEqual(true, phoneElement.IsAutoComplete);
+        Assert.IsTrue(phoneElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -82,7 +82,7 @@ public class PhoneControlTestsEdge : MSTest.WebTest
     {
         var phoneElement = App.Components.CreateById<Phone>("myPhone4");
 
-        Assert.AreEqual(false, phoneElement.IsReadonly);
+        Assert.IsFalse(phoneElement.IsReadonly);
     }
 
     [TestMethod]
@@ -92,7 +92,7 @@ public class PhoneControlTestsEdge : MSTest.WebTest
     {
         var phoneElement = App.Components.CreateById<Phone>("myPhone6");
 
-        Assert.AreEqual(true, phoneElement.IsReadonly);
+        Assert.IsTrue(phoneElement.IsReadonly);
     }
 
     [TestMethod]
@@ -165,7 +165,7 @@ public class PhoneControlTestsEdge : MSTest.WebTest
     {
         var phoneElement = App.Components.CreateById<Phone>("myPhone4");
 
-        Assert.AreEqual(false, phoneElement.IsRequired);
+        Assert.IsFalse(phoneElement.IsRequired);
     }
 
     [TestMethod]
@@ -175,7 +175,7 @@ public class PhoneControlTestsEdge : MSTest.WebTest
     {
         var phoneElement = App.Components.CreateById<Phone>("myPhone7");
 
-        Assert.AreEqual(true, phoneElement.IsRequired);
+        Assert.IsTrue(phoneElement.IsRequired);
     }
 
     [TestMethod]

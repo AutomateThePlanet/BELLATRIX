@@ -15,6 +15,7 @@
 // The architecture and agent logic are original contributions by Anton Angelov, forming the foundation for a PhD dissertation.
 // Please cite or credit appropriately if reusing in academic or commercial work.</note>
 
+using Bellatrix.LLM.Settings;
 using Bellatrix.Plugins.Screenshots.Contracts;
 using Bellatrix.Plugins;
 using Bellatrix.Plugins.Screenshots.Plugins;
@@ -26,12 +27,15 @@ public class SmartFailureAnalysisPlugin : Plugin, IScreenshotPlugin
     private readonly IScreenshotOutputProvider _screenshotOutputProvider;
     private readonly IViewSnapshotProvider _viewSnapshotProvider;
     private static ThreadLocal<string> _screenshotPath = new ThreadLocal<string>();
+    private readonly bool _isEnabled;
 
 
     public SmartFailureAnalysisPlugin()
     {
         _screenshotOutputProvider = ServicesCollection.Current.Resolve<IScreenshotOutputProvider>();
         _viewSnapshotProvider = ServicesCollection.Main.Resolve<IViewSnapshotProvider>();
+        var largeLanguageModelsSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
+        _isEnabled = largeLanguageModelsSettings?.EnableSmartFailureAnalysis ?? false;
     }
 
     public static void Add()
@@ -60,6 +64,7 @@ public class SmartFailureAnalysisPlugin : Plugin, IScreenshotPlugin
 
     protected override void PreTestCleanup(object sender, PluginEventArgs e)
     {
+        if (!_isEnabled) return;
         if (e.TestOutcome == TestOutcome.Passed)
         {
             var log = Logger.GetLogs();
@@ -87,7 +92,7 @@ public class SmartFailureAnalysisPlugin : Plugin, IScreenshotPlugin
                 snapshot,
                 _screenshotPath.Value ?? string.Empty);
 
-          
+
         }
         catch (Exception ex)
         {

@@ -1,4 +1,4 @@
-﻿// <copyright file="SearchControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="SearchControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ public class SearchControlValidateExtensionsExceptionMessagesTests : MSTest.WebT
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's search should be 'bellatrix test framework1' but was 'bellatrix test framework'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

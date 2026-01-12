@@ -1,4 +1,4 @@
-﻿// <copyright file="CheckBoxControlTestsChrome.cs" company="Automate The Planet Ltd.">
+// <copyright file="CheckBoxControlTestsChrome.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ public class CheckBoxControlTestsChrome : MSTest.WebTest
 
         checkBoxElement.Check(false);
 
-        Assert.AreEqual(false, checkBoxElement.IsChecked);
+        Assert.IsFalse(checkBoxElement.IsChecked);
     }
 
     [TestMethod]
@@ -41,7 +41,7 @@ public class CheckBoxControlTestsChrome : MSTest.WebTest
 
         checkBoxElement.Uncheck();
 
-        Assert.AreEqual(false, checkBoxElement.IsChecked);
+        Assert.IsFalse(checkBoxElement.IsChecked);
     }
 
     [TestMethod]

@@ -1,4 +1,4 @@
-﻿// <copyright file="ButtonControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ButtonControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ namespace Bellatrix.Desktop.Tests;
 [AllureSuite("Button Control")]
 [AllureFeature("ValidateExtensionsExceptionMessages")]
 [AllureTag("WPF")]
+[TestCategory(Categories.WPF)]
 public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.DesktopTest
 {
     [TestMethod]
@@ -36,7 +37,7 @@ public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.Desk
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = "The control's inner text should be 'ebuttonHovered'";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -54,7 +55,7 @@ public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.Desk
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = "The control should be disabled but it was NOT.";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -72,7 +73,7 @@ public class ButtonControlValidateExtensionsExceptionMessagesTests : MSTest.Desk
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = "The control should NOT be disabled but it was.";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

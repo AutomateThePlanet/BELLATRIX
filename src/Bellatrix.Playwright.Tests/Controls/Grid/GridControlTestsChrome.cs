@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Bellatrix.Playwright.Assertions;
 using Bellatrix.Playwright.Services;
@@ -201,7 +201,7 @@ public class GridControlTestsChrome : MSTest.WebTest
     {
         var rows = _testGrid.GetRows().ToList();
 
-        Assert.AreEqual(3, rows.Count);
+        Assert.HasCount(3, rows);
     }
 
     [TestMethod]
@@ -269,7 +269,7 @@ public class GridControlTestsChrome : MSTest.WebTest
     {
         var column = _testGrid.GetColumn(0);
 
-        Assert.AreEqual(3, column.Count);
+        Assert.HasCount(3, column);
         Assert.IsTrue(column.Select(c => c.Column).All(v => v == 0));
     }
 

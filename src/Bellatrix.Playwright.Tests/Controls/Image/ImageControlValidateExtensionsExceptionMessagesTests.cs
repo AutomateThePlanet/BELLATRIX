@@ -1,4 +1,4 @@
-﻿// <copyright file="ImageControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ImageControlValidateExtensionsExceptionMessagesTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class ImageControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's src should be 'https://bellatrix.solutions/assets/uploads/2017/09/logo.png1' but was 'https://bellatrix.solutions/assets/uploads/2017/09/logo.png'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -59,7 +59,7 @@ public class ImageControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's src shouldn't be null but was. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -76,7 +76,7 @@ public class ImageControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's src should be null but was 'https://bellatrix.solutions/assets/uploads/2017/09/logo.png'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -93,7 +93,7 @@ public class ImageControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's alt should be 'MDN1' but was 'MDN'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -110,7 +110,7 @@ public class ImageControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's alt should be null but was 'MDN'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -127,7 +127,7 @@ public class ImageControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's srcset should be 'mdn-logo-HD.png 2' but was 'mdn-logo-HD.png 2x'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -144,7 +144,7 @@ public class ImageControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's srcset should be null but was 'clock-demo-thumb-200.png 200w,clock-demo-thumb-400.png 400w'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -161,7 +161,7 @@ public class ImageControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's sizes should be 'min' but was '(min-width: 600px) 200px, 50vw'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 
@@ -178,7 +178,7 @@ public class ImageControlValidateExtensionsExceptionMessagesTests : MSTest.WebTe
         catch (ComponentPropertyValidateException e)
         {
             string expectedExceptionMessage = $"The control's sizes should be null but was '(min-width: 600px) 200px, 50vw'. The test failed on URL:";
-            Assert.AreEqual(true, e.Message.Contains(expectedExceptionMessage), $"Should be {expectedExceptionMessage} but was {e.Message}");
+            Assert.Contains(expectedExceptionMessage, e.Message, $"Should be {expectedExceptionMessage} but was {e.Message}");
         }
     }
 }

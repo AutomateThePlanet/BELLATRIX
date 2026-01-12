@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using OpenQA.Selenium;
 
 namespace Bellatrix.Desktop.LLM;
 
@@ -38,6 +39,8 @@ public class FindByPrompt : FindStrategy
 {
     private bool _tryResolveFromPages = true;
 
+    private WindowsDriver WrappedDriver => ServicesCollection.Current.Resolve<WindowsDriver>();
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FindByPrompt"/> class with the specified prompt value.
     /// </summary>
@@ -49,43 +52,23 @@ public class FindByPrompt : FindStrategy
     }
 
     /// <summary>
-    /// Locates a single WindowsElement using the resolved XPath.
+    /// Locates a single AppiumElement in the context of a parent element using the resolved XPath.
     /// </summary>
-    public override WindowsElement FindElement(WindowsDriver<WindowsElement> driver)
+    public override AppiumElement FindElement(ISearchContext searchContext)
     {
-        var location = driver.CurrentWindowHandle;
-        var xpath = ResolveLocator(location, driver);
-        return driver.FindElementByXPath(xpath);
+        var location = WrappedDriver.CurrentWindowHandle;
+        var xpath = ResolveLocator(location, WrappedDriver as WindowsDriver);
+        return searchContext.FindElement(By.XPath(xpath)) as AppiumElement;
     }
 
     /// <summary>
-    /// Locates all matching WindowsElements using the resolved XPath.
+    /// Locates all matching AppiumElements in the context of a parent element using the resolved XPath.
     /// </summary>
-    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> driver)
+    public override IEnumerable<AppiumElement> FindAllElements(ISearchContext searchContext)
     {
-        var location = driver.CurrentWindowHandle;
-        var xpath = ResolveLocator(location, driver);
-        return driver.FindElementsByXPath(xpath);
-    }
-
-    /// <summary>
-    /// Locates a single AppiumWebElement in the context of a parent element using the resolved XPath.
-    /// </summary>
-    public override AppiumWebElement FindElement(WindowsElement element)
-    {
-        var location = element.WrappedDriver.CurrentWindowHandle;
-        var xpath = ResolveLocator(location, element.WrappedDriver as WindowsDriver<WindowsElement>);
-        return element.FindElementByXPath(xpath);
-    }
-
-    /// <summary>
-    /// Locates all matching AppiumWebElements in the context of a parent element using the resolved XPath.
-    /// </summary>
-    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
-    {
-        var location = element.WrappedDriver.CurrentWindowHandle;
-        var xpath = ResolveLocator(location, element.WrappedDriver as WindowsDriver<WindowsElement>);
-        return element.FindElementsByXPath(xpath);
+        var location = WrappedDriver.CurrentWindowHandle;
+        var xpath = ResolveLocator(location, WrappedDriver as WindowsDriver);
+        return searchContext.FindElements(By.XPath(xpath)).Select(el => el as AppiumElement);
     }
 
     /// <summary>
@@ -94,7 +77,7 @@ public class FindByPrompt : FindStrategy
     /// <param name="location">Desktop app window handle or location identifier.</param>
     /// <param name="driver">WindowsDriver for presence checking.</param>
     /// <returns>A valid XPath string.</returns>
-    private string ResolveLocator(string location, WindowsDriver<WindowsElement> driver)
+    private string ResolveLocator(string location, WindowsDriver driver)
     {
         // Step 1: Try RAG memory (PageObjects index)
         if (_tryResolveFromPages)
@@ -129,7 +112,7 @@ public class FindByPrompt : FindStrategy
     /// <param name="instruction">The natural language instruction for the element.</param>
     /// <param name="driver">WindowsDriver for presence checking.</param>
     /// <returns>XPath string if found; otherwise null.</returns>
-    private string TryResolveFromPageObjectMemory(string instruction, WindowsDriver<WindowsElement> driver)
+    private string TryResolveFromPageObjectMemory(string instruction, WindowsDriver driver)
     {
         var match = SemanticKernelService.Memory
             .SearchAsync(instruction, index: "PageObjects", limit: 1)
@@ -160,7 +143,7 @@ public class FindByPrompt : FindStrategy
     /// <param name="driver">WindowsDriver for presence checking.</param>
     /// <param name="maxAttempts">Maximum number of attempts to generate a working selector.</param>
     /// <returns>XPath string if found; otherwise throws InvalidOperationException.</returns>
-    private string ResolveViaPromptFallback(string location, WindowsDriver<WindowsElement> driver, int maxAttempts = 3)
+    private string ResolveViaPromptFallback(string location, WindowsDriver driver, int maxAttempts = 3)
     {
         var viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
         var failedSelectors = new List<string>();
@@ -222,9 +205,9 @@ public class FindByPrompt : FindStrategy
     /// <param name="driver">The WindowsDriver instance.</param>
     /// <param name="xpath">The XPath locator to check.</param>
     /// <returns>true if at least one element is found; otherwise false.</returns>
-    private static bool IsElementPresent(WindowsDriver<WindowsElement> driver, string xpath)
+    private static bool IsElementPresent(WindowsDriver driver, string xpath)
     {
-        try { return driver.FindElementsByXPath(xpath).Any(); }
+        try { return driver.FindElements(By.XPath(xpath)).Any(); }
         catch { return false; }
     }
 

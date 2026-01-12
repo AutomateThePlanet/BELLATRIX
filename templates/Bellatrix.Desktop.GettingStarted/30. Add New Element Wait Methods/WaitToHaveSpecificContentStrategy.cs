@@ -19,7 +19,7 @@ public class WaitToHaveSpecificContentStrategy : WaitStrategy
 
     // 2. We find the element and check the current value in the Text attribute.
     // The internal WaitUntil will wait until the value changes in the specified time.
-    private Func<IWebDriver, bool> ElementHasSpecificContent<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
+    private Func<IWebDriver, bool> ElementHasSpecificContent<TBy>(WindowsDriver searchContext, TBy by)
         where TBy : Locators.FindStrategy => driver =>
     {
         try

@@ -12,8 +12,9 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
+using System.Linq;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.Locators;
 
@@ -24,24 +25,14 @@ public class FindClassNameStrategy : FindStrategy
     {
     }
 
-    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    public override AppiumElement FindElement(ISearchContext searchContext)
     {
-        return searchContext.FindElementByClassName(Value);
+        return searchContext.FindElement(MobileBy.ClassName(Value)) as AppiumElement;
     }
 
-    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(ISearchContext searchContext)
     {
-        return searchContext.FindElementsByClassName(Value);
-    }
-
-    public override AppiumWebElement FindElement(WindowsElement element)
-    {
-        return element.FindElementByClassName(Value);
-    }
-
-    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
-    {
-        return element.FindElementsByClassName(Value);
+        return searchContext.FindElements(MobileBy.ClassName(Value)).Select(el => el as AppiumElement);
     }
 
     public override string ToString()

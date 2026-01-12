@@ -29,20 +29,19 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using OpenQA.Selenium.Appium.Service;
+using OpenQA.Selenium.Appium.Service.Options;
 
 namespace Bellatrix.Desktop;
 
 public class App : IDisposable
 {
-    // TODO: Change to be ThreadLocal.
-    private static bool _shouldStartLocalService;
-    private static Process _winAppDriverProcess;
-
     public App()
     {
-        _shouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
         ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(AppService);
     }
+    private static readonly bool ShouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
+    private static Process _appiumServerProcess;
 
     public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
     public ComponentWaitService Wait => ServicesCollection.Current.Resolve<ComponentWaitService>();
@@ -54,39 +53,95 @@ public class App : IDisposable
     public AWSServicesFactory AWS => ServicesCollection.Current.Resolve<AWSServicesFactory>();
     public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
-    public static void StartWinAppDriver()
+    public static void StartAppiumServer()
     {
-        if (_shouldStartLocalService)
+        if (!ShouldStartLocalService)
         {
-            int port = int.Parse(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url.Split(':').Last());
-
-            // Anton(06.09.2018): maybe we can kill WinAppDriver every time
-            if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver") || ProcessProvider.IsPortBusy(port))
-            {
-                return;
-            }
-
-            string winAppDriverPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Windows Application Driver");
-            if (!Directory.Exists(winAppDriverPath))
-            {
-                throw new ArgumentException("Windows Application Driver is not installed on the machine. To use BELLATRIX Desktop libraries you need to install it first. You can download it from here: https://github.com/Microsoft/WinAppDriver/releases");
-            }
-
-            string winAppDriverExePath = Path.Combine(winAppDriverPath, "WinAppDriver.exe");
-            _winAppDriverProcess = ProcessProvider.StartProcess(winAppDriverExePath, winAppDriverPath, $"{ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url}", true);
-            ProcessProvider.WaitPortToGetBusy(port);
+            return;
         }
+
+        var uri = new Uri(ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.Url);
+
+        var appiumPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "npm");
+        if (!Directory.Exists(appiumPath))
+        {
+            throw new ArgumentException("Node.js is not installed on the machine. To use BELLATRIX Desktop libraries you need to install it first. You can download it from here: https://nodejs.org/en/download");
+        }
+
+        var appiumPs1Path = Path.Combine(appiumPath, "appium.ps1");
+
+        // Minimum Appium Version Check
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" -v",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+            }
+        };
+
+        process.Start();
+        var output = process.StandardOutput.ReadToEnd().Trim();
+        process.WaitForExit();
+
+        if (Version.TryParse(output, out var version) && version < new Version(3, 0, 0))
+        {
+            throw new ArgumentException("Appium version 3.0.0 or higher is required. Please update Appium by running: npm install -g appium@latest");
+        }
+
+        process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" driver list --installed --json",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+            }
+        };
+
+        process.Start();
+        output = process.StandardOutput.ReadToEnd();
+        process.WaitForExit();
+
+        var json = System.Text.Json.JsonDocument.Parse(output);
+        // TODO: remove latestVersion when Appium 3 version is officially out
+        if (!json.RootElement.TryGetProperty("novawindows", out var driver))
+        {
+            Console.WriteLine("NovaWindows driver not found. Installing...");
+            Process.Start(
+                "powershell.exe",
+                $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" driver install --source=npm appium-novawindows-driver"
+            )?.WaitForExit();
+        }
+        else
+        {
+            // TODO: Cache latest version in a temporary file, check the latest version of the npm package
+            Console.WriteLine("Updating NovaWindows driver to latest version...");
+            Process.Start(
+                "powershell.exe",
+                $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" driver update novawindows"
+            )?.WaitForExit();
+        }
+
+        _appiumServerProcess = ProcessProvider.StartProcess(
+            "powershell.exe",
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+            $"-NoProfile -ExecutionPolicy RemoteSigned -File \"{appiumPs1Path}\" -a {uri.Host} -p {uri.Port} --allow-insecure=novawindows:power_shell",
+            true);
+
+        ProcessProvider.WaitPortToGetBusy(uri.Port);
     }
 
-    public static void StopWinAppDriver()
+    public static void StopAppiumServer()
     {
-        if (_shouldStartLocalService)
-        {
-            if (ProcessProvider.IsProcessWithNameRunning("WinAppDriver"))
-            {
-                ProcessProvider.CloseProcess(_winAppDriverProcess);
-            }
-        }
+        ProcessProvider.CloseProcess(_appiumServerProcess);
     }
 
     public void AddAdditionalCapability(string name, object value)
@@ -101,14 +156,14 @@ public class App : IDisposable
         where TComponentsEventHandler : ComponentEventHandlers
     {
         var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
-        elementEventHandler.SubscribeToAll();
+        elementEventHandler?.SubscribeToAll();
     }
 
     public void RemoveElementEventHandler<TComponentsEventHandler>()
         where TComponentsEventHandler : ComponentEventHandlers
     {
         var elementEventHandler = (TComponentsEventHandler)Activator.CreateInstance(typeof(TComponentsEventHandler));
-        elementEventHandler.UnsubscribeToAll();
+        elementEventHandler?.UnsubscribeToAll();
     }
 
     public void AddPlugin<TExecutionExtension>()

@@ -12,8 +12,9 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
+using System.Linq;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.Locators;
 
@@ -24,24 +25,14 @@ public class FindXPathStrategy : FindStrategy
     {
     }
 
-    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    public override AppiumElement FindElement(ISearchContext searchContext)
     {
-        return searchContext.FindElementByXPath(Value);
+        return searchContext.FindElement(By.XPath(Value)) as AppiumElement;
     }
 
-    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(ISearchContext searchContext)
     {
-        return searchContext.FindElementsByXPath(Value);
-    }
-
-    public override AppiumWebElement FindElement(WindowsElement element)
-    {
-        return element.FindElementByXPath(Value);
-    }
-
-    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
-    {
-        return element.FindElementsByXPath(Value);
+        return searchContext.FindElements(By.XPath(Value)).Select(el => el as AppiumElement);
     }
 
     public override string ToString()

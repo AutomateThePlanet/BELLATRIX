@@ -30,7 +30,7 @@ public class MonthControlValidationTests : MSTest.WebTest
     {
         var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        Assert.ThrowsException<ArgumentException>(() => monthElement.SetMonth(2017, 0));
+        Assert.Throws<ArgumentException>(() => monthElement.SetMonth(2017, 0));
     }
 
     [TestMethod]
@@ -40,7 +40,7 @@ public class MonthControlValidationTests : MSTest.WebTest
     {
         var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        Assert.ThrowsException<ArgumentException>(() => monthElement.SetMonth(2017, -1));
+        Assert.Throws<ArgumentException>(() => monthElement.SetMonth(2017, -1));
     }
 
     [TestMethod]
@@ -50,7 +50,7 @@ public class MonthControlValidationTests : MSTest.WebTest
     {
         var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        Assert.ThrowsException<ArgumentException>(() => monthElement.SetMonth(-1, 2));
+        Assert.Throws<ArgumentException>(() => monthElement.SetMonth(-1, 2));
     }
 
     [TestMethod]
@@ -60,6 +60,6 @@ public class MonthControlValidationTests : MSTest.WebTest
     {
         var monthElement = App.Components.CreateById<Month>("myMonth");
 
-        Assert.ThrowsException<ArgumentException>(() => monthElement.SetMonth(0, 1));
+        Assert.Throws<ArgumentException>(() => monthElement.SetMonth(0, 1));
     }
 }

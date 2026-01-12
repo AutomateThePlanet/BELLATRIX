@@ -1,4 +1,4 @@
-﻿// <copyright file="TextAreaControlTestsWinForms.cs" company="Automate The Planet Ltd.">
+// <copyright file="TextAreaControlTestsWinForms.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.WinFormsAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("TextArea Control")]
 [AllureTag("WinForms")]
+[TestCategory(Categories.WinForms)]
 public class TextAreaControlTestsWinForms : MSTest.DesktopTest
 {
     [TestMethod]
@@ -42,7 +43,7 @@ public class TextAreaControlTestsWinForms : MSTest.DesktopTest
 
         textArea.SetText("Meissa Is Beautiful!");
 
-        Assert.IsTrue(textArea.InnerText.Contains("Meissa Is Beautiful!"));
+        Assert.Contains("Meissa Is Beautiful!", textArea.InnerText);
     }
 
     [TestMethod]
@@ -52,7 +53,7 @@ public class TextAreaControlTestsWinForms : MSTest.DesktopTest
     {
         var textArea = App.Components.CreateByAutomationId<TextArea>("disabledTextArea");
 
-        Assert.IsTrue(textArea.InnerText.Contains("Bellatrix Is Awesome!"));
+        Assert.Contains("Bellatrix Is Awesome!", textArea.InnerText);
     }
 
     [TestMethod]
@@ -62,7 +63,7 @@ public class TextAreaControlTestsWinForms : MSTest.DesktopTest
     {
         var textArea = App.Components.CreateByAutomationId<TextArea>("textArea");
 
-        Assert.AreEqual(false, textArea.IsDisabled);
+        Assert.IsFalse(textArea.IsDisabled);
     }
 
     [TestMethod]
@@ -72,6 +73,6 @@ public class TextAreaControlTestsWinForms : MSTest.DesktopTest
     {
         var textArea = App.Components.CreateByAutomationId<TextArea>("disabledTextArea");
 
-        Assert.AreEqual(true, textArea.IsDisabled);
+        Assert.IsTrue(textArea.IsDisabled);
     }
 }

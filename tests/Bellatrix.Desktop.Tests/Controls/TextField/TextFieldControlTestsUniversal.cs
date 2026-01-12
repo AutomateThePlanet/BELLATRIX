@@ -1,4 +1,4 @@
-﻿// <copyright file="TextFieldControlTestsUniversal.cs" company="Automate The Planet Ltd.">
+// <copyright file="TextFieldControlTestsUniversal.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("TextField Control")]
 [AllureTag("Universal")]
+[TestCategory(Categories.Universal)]
 public class TextFieldControlTestsUniversal : MSTest.DesktopTest
 {
     [TestMethod]
@@ -62,7 +63,7 @@ public class TextFieldControlTestsUniversal : MSTest.DesktopTest
     {
         var textField = App.Components.CreateByAutomationId<TextField>("textBox");
 
-        Assert.AreEqual(false, textField.IsDisabled);
+        Assert.IsFalse(textField.IsDisabled);
     }
 
     [TestMethod]
@@ -72,6 +73,6 @@ public class TextFieldControlTestsUniversal : MSTest.DesktopTest
     {
         var textField = App.Components.CreateByAutomationId<TextField>("disabledTextBox");
 
-        Assert.AreEqual(true, textField.IsDisabled);
+        Assert.IsTrue(textField.IsDisabled);
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="Checkbox.cs" company="Automate The Planet Ltd.">
+﻿// <copyright file="ListBox.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -13,35 +13,16 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Diagnostics;
-using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
 
 namespace Bellatrix.Desktop;
 
-public class CheckBox : Component, IComponentDisabled, IComponentChecked
+public class ListItem : Component
 {
     public static event EventHandler<ComponentActionEventArgs> Hovering;
     public static event EventHandler<ComponentActionEventArgs> Hovered;
-    public static event EventHandler<ComponentActionEventArgs> Checking;
-    public static event EventHandler<ComponentActionEventArgs> Checked;
-    public static event EventHandler<ComponentActionEventArgs> Unchecking;
-    public static event EventHandler<ComponentActionEventArgs> Unchecked;
 
-    public virtual void Check(bool isChecked = true)
-    {
-        if (isChecked && !WrappedElement.Selected || !isChecked && WrappedElement.Selected)
-        {
-            Click(Checking, Checked);
-        }
-    }
-
-    public virtual void Uncheck()
-    {
-        if (WrappedElement.Selected)
-        {
-            Click(Unchecking, Unchecked);
-        }
-    }
+    public virtual string InnerText => this.CreateByTag<Label>("Text").InnerText;
 
     public virtual void Hover()
     {
@@ -51,6 +32,18 @@ public class CheckBox : Component, IComponentDisabled, IComponentChecked
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsDisabled => GetIsDisabled();
 
-    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public virtual bool IsChecked => WrappedElement.Selected;
+    public virtual void Select()
+    {
+        WrappedDriver.ExecuteScript("windows: select", WrappedElement);
+    }
+
+    public virtual void AddToSelection()
+    {
+        WrappedDriver.ExecuteScript("windows: addToSelection", WrappedElement);
+    }
+
+    public virtual void RemoveFromSelection()
+    {
+        WrappedDriver.ExecuteScript("windows: removeFromSelection", WrappedElement);
+    }
 }

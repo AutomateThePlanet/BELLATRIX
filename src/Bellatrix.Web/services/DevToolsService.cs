@@ -17,21 +17,21 @@
 using Bellatrix.Assertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools;
-using OpenQA.Selenium.DevTools.V136.Console;
-using OpenQA.Selenium.DevTools.V136.DOMSnapshot;
-using OpenQA.Selenium.DevTools.V136.Emulation;
-using OpenQA.Selenium.DevTools.V136.Network;
-using OpenQA.Selenium.DevTools.V136.Performance;
-using OpenQA.Selenium.DevTools.V136.Security;
+using OpenQA.Selenium.DevTools.V143.Console;
+using OpenQA.Selenium.DevTools.V143.DOMSnapshot;
+using OpenQA.Selenium.DevTools.V143.Emulation;
+using OpenQA.Selenium.DevTools.V143.Network;
+using OpenQA.Selenium.DevTools.V143.Performance;
+using OpenQA.Selenium.DevTools.V143.Security;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V136.DevToolsSessionDomains;
-using PageDomain = OpenQA.Selenium.DevTools.V136.Page;
-using EnableCommandSettings = OpenQA.Selenium.DevTools.V136.Network.EnableCommandSettings;
-using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V136.Network.SetUserAgentOverrideCommandSettings;
+using DevToolsSessionDomains = OpenQA.Selenium.DevTools.V143.DevToolsSessionDomains;
+using PageDomain = OpenQA.Selenium.DevTools.V143.Page;
+using EnableCommandSettings = OpenQA.Selenium.DevTools.V143.Network.EnableCommandSettings;
+using SetUserAgentOverrideCommandSettings = OpenQA.Selenium.DevTools.V143.Network.SetUserAgentOverrideCommandSettings;
 
 namespace Bellatrix.Web;
 
@@ -288,30 +288,30 @@ public class DevToolsService : WebService, IDisposable
         return metricsResponse.Metrics;
     }
 
-public async Task<string> CaptureFullPageScreenshotBase64Async()
-{
-    try
+    public async Task<string> CaptureFullPageScreenshotBase64Async()
     {
-        if (DevToolsSessionDomains?.Page == null)
+        try
         {
-            DevToolsSessionDomains = DevToolsSession.GetVersionSpecificDomains<DevToolsSessionDomains>();
-            await DevToolsSessionDomains.Page.Enable(new PageDomain.EnableCommandSettings());
+            if (DevToolsSessionDomains?.Page == null)
+            {
+                DevToolsSessionDomains = DevToolsSession.GetVersionSpecificDomains<DevToolsSessionDomains>();
+                await DevToolsSessionDomains.Page.Enable(new PageDomain.EnableCommandSettings());
+            }
+
+            var response = await DevToolsSessionDomains.Page.CaptureScreenshot(new PageDomain.CaptureScreenshotCommandSettings
+            {
+                CaptureBeyondViewport = true,
+                FromSurface = true
+            });
+
+            return response.Data;
         }
-
-        var response = await DevToolsSessionDomains.Page.CaptureScreenshot(new PageDomain.CaptureScreenshotCommandSettings
+        catch (Exception ex)
         {
-            CaptureBeyondViewport = true,
-            FromSurface = true
-        });
-
-        return response.Data;
+            Console.WriteLine($"❌ CDP screenshot capture failed: {ex.Message}");
+            return null;
+        }
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"❌ CDP screenshot capture failed: {ex.Message}");
-        return null;
-    }
-}
 
 
     public void Dispose()

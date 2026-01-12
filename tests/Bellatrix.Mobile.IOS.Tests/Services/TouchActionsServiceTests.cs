@@ -1,4 +1,4 @@
-﻿// <copyright file="TouchActionsServiceTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="TouchActionsServiceTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 public class TouchActionsServiceTests : MSTest.IOSTest
 {
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ElementSwiped_When_CallSwipeByCoordinatesMethod()
     {
@@ -52,7 +52,7 @@ public class TouchActionsServiceTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ElementTaped_When_CallTap()
     {
@@ -62,7 +62,7 @@ public class TouchActionsServiceTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinates()
     {
@@ -75,7 +75,7 @@ public class TouchActionsServiceTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ElementSwiped_When_CallPressWaitMoveToAndReleaseByCoordinatesMultiAction()
     {
@@ -89,7 +89,7 @@ public class TouchActionsServiceTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void TwoTouchActionExecutedInOneMultiAction_When_CallPerformAllActions()
     {

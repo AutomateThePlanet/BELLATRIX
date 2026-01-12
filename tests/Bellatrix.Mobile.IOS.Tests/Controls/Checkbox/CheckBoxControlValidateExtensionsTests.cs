@@ -1,4 +1,4 @@
-﻿// <copyright file="CheckBoxControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="CheckBoxControlValidateExtensionsTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ namespace Bellatrix.Mobile.IOS.Tests;
 public class CheckBoxControlValidateExtensionsTests : MSTest.IOSTest
 {
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ValidateIsChecked_DoesNotThrowException_When_CheckBoxIsChecked()
     {
         var addButton = App.Components.CreateById<Button>("Add");
@@ -39,7 +39,7 @@ public class CheckBoxControlValidateExtensionsTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ValidateIsNotChecked_DoesNotThrowException_When_CheckBoxIsNotChecked()
     {
         var addButton = App.Components.CreateById<Button>("Add");
@@ -54,7 +54,7 @@ public class CheckBoxControlValidateExtensionsTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     public void ValidateIsDisabled_DoesNotThrowException_When_CheckBoxIsNotDisabled()
     {
         var addButton = App.Components.CreateById<Button>("Add");

@@ -112,7 +112,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         {
             var element = By.Resolve(WrappedBrowser.CurrentPage);
 
-            if (_llmSettings.EnableSelfHealing)
+            if (_llmSettings != null && _llmSettings.EnableSelfHealing)
             {
                 var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
                 LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedBrowser.CurrentPage.Url);
@@ -122,7 +122,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         }
         catch (Exception ex)
         {
-            if (!_llmSettings.EnableSelfHealing)
+            if (_llmSettings == null || !_llmSettings.EnableSelfHealing)
             {
                 throw new TimeoutException($"Element not found: {By?.Value}", ex);
             }

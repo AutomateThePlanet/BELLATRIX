@@ -1,4 +1,4 @@
-﻿using AutoFixture;
+using AutoFixture;
 using Bellatrix.Api;
 using Bellatrix.API.MSTest.Tests.Models;
 using Bellatrix.Assertions;

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using NUnit.Framework;
 
 namespace Bellatrix.Playwright.GettingStarted;
@@ -21,7 +22,7 @@ public class CookiesServiceTests : NUnit.WebTest
         // 2. Get all cookies.
         var cookies = App.Cookies.GetAllCookies();
 
-        Assert.That(cookies.Count > 0);
+        Assert.IsTrue(cookies.Count > 0);
     }
 
     [Test]
@@ -35,7 +36,7 @@ public class CookiesServiceTests : NUnit.WebTest
         // 3. Get a specific cookie by name.
         var itemsInCartCookie = App.Cookies.GetCookie("woocommerce_items_in_cart");
 
-        Assert.That("3".Equals(itemsInCartCookie));
+        Assert.IsTrue("3".Equals(itemsInCartCookie));
     }
 
     [Test]

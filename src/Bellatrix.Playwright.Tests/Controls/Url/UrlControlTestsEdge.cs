@@ -1,4 +1,4 @@
-﻿// <copyright file="UrlControlTestsEdge.cs" company="Automate The Planet Ltd.">
+// <copyright file="UrlControlTestsEdge.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ public class UrlControlTestsEdge : MSTest.WebTest
     {
         var urlElement = App.Components.CreateById<Url>("myURL");
 
-        Assert.AreEqual(false, urlElement.IsAutoComplete);
+        Assert.IsFalse(urlElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -62,7 +62,7 @@ public class UrlControlTestsEdge : MSTest.WebTest
     {
         var urlElement = App.Components.CreateById<Url>("myURL5");
 
-        Assert.AreEqual(false, urlElement.IsAutoComplete);
+        Assert.IsFalse(urlElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -72,7 +72,7 @@ public class UrlControlTestsEdge : MSTest.WebTest
     {
         var urlElement = App.Components.CreateById<Url>("myURL4");
 
-        Assert.AreEqual(true, urlElement.IsAutoComplete);
+        Assert.IsTrue(urlElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -82,7 +82,7 @@ public class UrlControlTestsEdge : MSTest.WebTest
     {
         var urlElement = App.Components.CreateById<Url>("myURL4");
 
-        Assert.AreEqual(false, urlElement.IsReadonly);
+        Assert.IsFalse(urlElement.IsReadonly);
     }
 
     [TestMethod]
@@ -92,7 +92,7 @@ public class UrlControlTestsEdge : MSTest.WebTest
     {
         var urlElement = App.Components.CreateById<Url>("myURL6");
 
-        Assert.AreEqual(true, urlElement.IsReadonly);
+        Assert.IsTrue(urlElement.IsReadonly);
     }
 
     [TestMethod]
@@ -165,7 +165,7 @@ public class UrlControlTestsEdge : MSTest.WebTest
     {
         var urlElement = App.Components.CreateById<Url>("myURL4");
 
-        Assert.AreEqual(false, urlElement.IsRequired);
+        Assert.IsFalse(urlElement.IsRequired);
     }
 
     [TestMethod]
@@ -175,7 +175,7 @@ public class UrlControlTestsEdge : MSTest.WebTest
     {
         var urlElement = App.Components.CreateById<Url>("myURL7");
 
-        Assert.AreEqual(true, urlElement.IsRequired);
+        Assert.IsTrue(urlElement.IsRequired);
     }
 
     [TestMethod]

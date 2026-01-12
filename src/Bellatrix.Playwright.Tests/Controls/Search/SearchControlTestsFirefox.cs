@@ -1,4 +1,4 @@
-﻿// <copyright file="SearchControlTestsFirefox.cs" company="Automate The Planet Ltd.">
+// <copyright file="SearchControlTestsFirefox.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ public class SearchControlTestsFirefox : MSTest.WebTest
     {
         var searchElement = App.Components.CreateById<Search>("mySearch");
 
-        Assert.AreEqual(false, searchElement.IsAutoComplete);
+        Assert.IsFalse(searchElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -57,7 +57,7 @@ public class SearchControlTestsFirefox : MSTest.WebTest
     {
         var searchElement = App.Components.CreateById<Search>("mySearch5");
 
-        Assert.AreEqual(false, searchElement.IsAutoComplete);
+        Assert.IsFalse(searchElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -66,7 +66,7 @@ public class SearchControlTestsFirefox : MSTest.WebTest
     {
         var searchElement = App.Components.CreateById<Search>("mySearch4");
 
-        Assert.AreEqual(true, searchElement.IsAutoComplete);
+        Assert.IsTrue(searchElement.IsAutoComplete);
     }
 
     [TestMethod]
@@ -75,7 +75,7 @@ public class SearchControlTestsFirefox : MSTest.WebTest
     {
         var searchElement = App.Components.CreateById<Search>("mySearch4");
 
-        Assert.AreEqual(false, searchElement.IsReadonly);
+        Assert.IsFalse(searchElement.IsReadonly);
     }
 
     [TestMethod]
@@ -84,7 +84,7 @@ public class SearchControlTestsFirefox : MSTest.WebTest
     {
         var searchElement = App.Components.CreateById<Search>("mySearch6");
 
-        Assert.AreEqual(true, searchElement.IsReadonly);
+        Assert.IsTrue(searchElement.IsReadonly);
     }
 
     [TestMethod]
@@ -150,7 +150,7 @@ public class SearchControlTestsFirefox : MSTest.WebTest
     {
         var searchElement = App.Components.CreateById<Search>("mySearch4");
 
-        Assert.AreEqual(false, searchElement.IsRequired);
+        Assert.IsFalse(searchElement.IsRequired);
     }
 
     [TestMethod]
@@ -159,7 +159,7 @@ public class SearchControlTestsFirefox : MSTest.WebTest
     {
         var searchElement = App.Components.CreateById<Search>("mySearch7");
 
-        Assert.AreEqual(true, searchElement.IsRequired);
+        Assert.IsTrue(searchElement.IsRequired);
     }
 
     [TestMethod]

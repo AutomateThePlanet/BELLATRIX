@@ -1,4 +1,4 @@
-﻿// <copyright file="ElementCreateSingleElementTests.cs" company="Automate The Planet Ltd.">
+// <copyright file="ElementCreateSingleElementTests.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class ElementCreateSingleElementTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ElementFound_When_CreateById_And_ElementIsOnScreen()
     {
@@ -45,7 +45,7 @@ public class ElementCreateSingleElementTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ElementFound_When_CreateByClass()
     {
@@ -55,7 +55,7 @@ public class ElementCreateSingleElementTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ElementFound_When_CreateByValueContaining_And_ElementIsOnScreen()
     {
@@ -65,7 +65,7 @@ public class ElementCreateSingleElementTests : MSTest.IOSTest
     }
 
     [TestMethod]
-    [Timeout(180000)]
+    [Timeout(180000, CooperativeCancellation = true)]
     [TestCategory(Categories.CI)]
     public void ElementFound_When_CreateByXPath_And_ElementIsOnScreen()
     {

@@ -13,8 +13,11 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Diagnostics;
+using System.Linq;
 using Bellatrix.Desktop.Contracts;
 using Bellatrix.Desktop.Events;
+using Bellatrix.Desktop.Services;
+using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Desktop;
 
@@ -34,16 +37,65 @@ public class ComboBox : Component, IComponentDisabled, IComponentInnerText
     {
         Selecting?.Invoke(this, new ComponentActionEventArgs(this, value));
 
-        if (WrappedElement.Text != value)
+        try
         {
-            WrappedElement.SendKeys(value);
+            var itemToSelect = this.CreateAllByTag<ListItem>("ListItem")
+                .FirstOrDefault(x => x.CreateByTag<Label>("Text").InnerText == value);
+
+            WrappedDriver.ExecuteScript("windows: select", itemToSelect);
+        }
+        catch
+        {
+            if (WrappedElement.Text != value)
+            {
+                WrappedElement.SendKeys(value);
+            }
         }
 
         Selected?.Invoke(this, new ComponentActionEventArgs(this, value));
     }
 
+    public virtual ListItem SelectedItem
+    {
+        get
+        {
+            var retryCount = 3;
+
+            while (retryCount-- > 0)
+            {
+                try
+                {
+                    WrappedDriver.ExecuteScript("windows: expand", WrappedElement);
+                    var result =  new ComponentsRepository().CreateComponentThatIsFound<ListItem>(null,
+                        (AppiumElement)WrappedDriver.ExecuteScript("windows: selectedItem", WrappedElement));
+                    WrappedDriver.ExecuteScript("windows: collapse", WrappedElement);
+                    return result;
+                }
+                catch
+                {
+                    // ignore
+                }
+            }
+
+            return null;
+        }
+    }
+
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    public virtual string InnerText => GetInnerText();
+    public virtual string InnerText
+    {
+        get
+        {
+            try
+            {
+                return SelectedItem?.CreateByTag<Label>("Text").InnerText ?? string.Empty;
+            }
+            catch
+            {
+                return GetInnerText();
+            }
+        }
+    }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     public virtual bool IsDisabled => GetIsDisabled();

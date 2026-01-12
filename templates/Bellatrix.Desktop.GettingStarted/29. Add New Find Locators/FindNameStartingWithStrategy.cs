@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Bellatrix.Desktop.Locators;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.GettingStarted;
 
@@ -17,24 +18,14 @@ public class FindNameStartingWithStrategy : FindStrategy
     }
 
     // 2. We override all available methods and use XPath expression for finding an element with Name starting with.
-    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    public override AppiumElement FindElement(ISearchContext searchContext)
     {
-        return searchContext.FindElementByXPath(string.Format(XpathStartingWithExpression, Value));
+        return searchContext.FindElement(By.XPath(string.Format(XpathStartingWithExpression, Value))) as AppiumElement;
     }
 
-    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(ISearchContext searchContext)
     {
-        return searchContext.FindElementsByXPath(string.Format(XpathStartingWithExpression, Value));
-    }
-
-    public override AppiumWebElement FindElement(WindowsElement element)
-    {
-        return element.FindElementByXPath(string.Format(XpathStartingWithExpression, Value));
-    }
-
-    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
-    {
-        return element.FindElementsByXPath(string.Format(XpathStartingWithExpression, Value));
+        return searchContext.FindElements(By.XPath(string.Format(XpathStartingWithExpression, Value))).Select(el => el as AppiumElement);
     }
 
     public override string ToString()

@@ -31,7 +31,7 @@ public class WaitToHaveContentStrategy : WaitStrategy
         WaitUntil(d => ElementHasContent(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
     }
 
-    private bool ElementHasContent<TBy>(WindowsDriver<WindowsElement> searchContext, TBy by)
+    private bool ElementHasContent<TBy>(WindowsDriver searchContext, TBy by)
         where TBy : Locators.FindStrategy
     {
         try

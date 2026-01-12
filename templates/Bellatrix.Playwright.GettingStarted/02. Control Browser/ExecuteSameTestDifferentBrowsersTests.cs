@@ -1,5 +1,6 @@
 ﻿using System;
 using Bellatrix.Playwright.Enums;
+using Ignore = Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute;
 
 ////using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
@@ -31,7 +32,7 @@ public class ExecuteSameTestDifferentBrowsersTests : NUnit.WebTest
         passwordField.SetPassword("@purISQzt%%DYBnLCIhaoG6$");
         loginButton.Click();
 
-        Assert.Fail("Check Video");
+        Bellatrix.Assertions.Assert.Fail("Check Video");
         Div myAccountContentDiv = App.Components.CreateByClass<Div>("woocommerce-MyAccount-content");
         myAccountContentDiv.ValidateInnerTextContains("Hello info1");
 

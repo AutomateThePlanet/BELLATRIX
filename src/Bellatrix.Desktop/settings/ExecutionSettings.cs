@@ -23,6 +23,7 @@ public class ExecutionSettings
     public string Resolution { get; set; }
     public bool ShouldStartLocalService { get; set; } = true;
     public string Url { get; set; }
-    public List<Dictionary<string, string>> Arguments { get; set; }
+    public List<Dictionary<string, object>> Arguments { get; set; }
+
     public bool IsCloudRun { get; set; }
 }

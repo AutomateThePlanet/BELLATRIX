@@ -1,4 +1,4 @@
-﻿// <copyright file="WeekControlTestsSafari.cs" company="Automate The Planet Ltd.">
+// <copyright file="WeekControlTestsSafari.cs" company="Automate The Planet Ltd.">
 // Copyright 2025 Automate The Planet Ltd.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // You may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ public class WeekControlTestsSafari : MSTest.WebTest
     {
         var weekElement = App.Components.CreateById<Week>("myWeek4");
 
-        Assert.AreEqual(false, weekElement.IsReadonly);
+        Assert.IsFalse(weekElement.IsReadonly);
     }
 
     [TestMethod]
@@ -84,7 +84,7 @@ public class WeekControlTestsSafari : MSTest.WebTest
     {
         var weekElement = App.Components.CreateById<Week>("myWeek5");
 
-        Assert.AreEqual(true, weekElement.IsReadonly);
+        Assert.IsTrue(weekElement.IsReadonly);
     }
 
     [TestMethod]
@@ -149,7 +149,7 @@ public class WeekControlTestsSafari : MSTest.WebTest
     {
         var weekElement = App.Components.CreateById<Week>("myWeek4");
 
-        Assert.AreEqual(false, weekElement.IsRequired);
+        Assert.IsFalse(weekElement.IsRequired);
     }
 
     [TestMethod]

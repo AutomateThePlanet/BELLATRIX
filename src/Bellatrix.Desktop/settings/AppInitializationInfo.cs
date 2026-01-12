@@ -29,7 +29,7 @@ public class AppInitializationInfo : IEquatable<AppInitializationInfo>
     {
     }
 
-    public AppInitializationInfo(string appPath, Lifecycle lifecycle, Size size, string classFullName, DesiredCapabilities appiumOptions = null)
+    public AppInitializationInfo(string appPath, Lifecycle lifecycle, Size size, string classFullName, AppiumOptions appiumOptions = null)
     {
         AppPath = appPath;
         Lifecycle = lifecycle;
@@ -45,8 +45,10 @@ public class AppInitializationInfo : IEquatable<AppInitializationInfo>
     public string ClassFullName { get; set; }
 
     public string AppPath { get => NormalizeAppPath(); set => _appPath = value; }
+    
+    public string WindowHandle { get; set; }
 
-    public DesiredCapabilities AppiumOptions { get; set; }
+    public AppiumOptions AppiumOptions { get; set; }
 
     public bool Equals(AppInitializationInfo other)
     {
@@ -64,10 +66,17 @@ public class AppInitializationInfo : IEquatable<AppInitializationInfo>
         {
             return _appPath;
         }
-        else if (_appPath.StartsWith("AssemblyFolder", StringComparison.Ordinal))
+        
+        if (_appPath.StartsWith("AssemblyFolder", StringComparison.Ordinal))
         {
             var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
             _appPath = _appPath.Replace("AssemblyFolder", executionFolder);
+        }
+        
+        if (_appPath.StartsWith("UserFolder", StringComparison.Ordinal))
+        {
+            var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
+            _appPath = _appPath.Replace("UserFolder", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
         }
 
         return _appPath;

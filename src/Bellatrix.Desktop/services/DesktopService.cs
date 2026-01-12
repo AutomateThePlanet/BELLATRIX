@@ -17,10 +17,10 @@ namespace Bellatrix.Desktop.Services;
 
 public abstract class DesktopService
 {
-    protected DesktopService(WindowsDriver<WindowsElement> wrappedDriver)
+    protected DesktopService(WindowsDriver wrappedDriver)
     {
         WrappedDriver = wrappedDriver;
     }
 
-    public WindowsDriver<WindowsElement> WrappedDriver { get; set; }
+    public WindowsDriver WrappedDriver { get; set; }
 }

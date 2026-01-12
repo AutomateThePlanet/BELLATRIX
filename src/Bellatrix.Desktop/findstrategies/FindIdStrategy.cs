@@ -12,8 +12,9 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System.Collections.Generic;
+using System.Linq;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
 
 namespace Bellatrix.Desktop.Locators;
 
@@ -24,24 +25,14 @@ public class FindIdStrategy : FindStrategy
     {
     }
 
-    public override WindowsElement FindElement(WindowsDriver<WindowsElement> searchContext)
+    public override AppiumElement FindElement(ISearchContext searchContext)
     {
-        return searchContext.FindElementById(Value);
+        return searchContext.FindElement(By.Id(Value)) as AppiumElement;
     }
 
-    public override IEnumerable<WindowsElement> FindAllElements(WindowsDriver<WindowsElement> searchContext)
+    public override IEnumerable<AppiumElement> FindAllElements(ISearchContext searchContext)
     {
-        return searchContext.FindElementsById(Value);
-    }
-
-    public override AppiumWebElement FindElement(WindowsElement element)
-    {
-        return element.FindElementById(Value);
-    }
-
-    public override IEnumerable<AppiumWebElement> FindAllElements(WindowsElement element)
-    {
-        return element.FindElementsById(Value);
+        return searchContext.FindElements(By.Id(Value)).Select(el => el as AppiumElement);
     }
 
     public override string ToString()

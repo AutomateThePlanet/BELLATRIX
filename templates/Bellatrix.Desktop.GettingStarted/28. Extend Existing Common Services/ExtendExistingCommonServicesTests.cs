@@ -1,4 +1,4 @@
-﻿// 1. To use the additional method you created, add a using statement to the extension methods' namespace.
+// 1. To use the additional method you created, add a using statement to the extension methods' namespace.
 using Bellatrix.Desktop.GettingStarted.AppService.Extensions;
 using Bellatrix.Desktop.NUnit;
 
@@ -16,7 +16,7 @@ public class ExtendExistingCommonServicesTests : DesktopTest
 
         var calendar = App.Components.CreateByAutomationId<Calendar>("calendar");
 
-        Assert.AreEqual(false, calendar.IsDisabled);
+        Assert.IsFalse(calendar.IsDisabled);
 
         var checkBox = App.Components.CreateByName<CheckBox>("BellaCheckBox");
 

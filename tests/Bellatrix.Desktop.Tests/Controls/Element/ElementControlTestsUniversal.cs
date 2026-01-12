@@ -20,6 +20,7 @@ namespace Bellatrix.Desktop.Tests;
 [App(Constants.UniversalAppPath, Lifecycle.RestartEveryTime)]
 [AllureSuite("Element Control")]
 [AllureTag("Universal")]
+[TestCategory(Categories.Universal)]
 public class ElementControlTestsUniversal : MSTest.DesktopTest
 {
     [TestMethod]
@@ -93,7 +94,7 @@ public class ElementControlTestsUniversal : MSTest.DesktopTest
         var comboBox = App.Components.CreateByClass<Button>("CalendarView");
         var comboBoxItems = comboBox.CreateAllByName<Button>("2");
 
-        Assert.AreEqual(2, comboBoxItems.ToList().Count);
+        Assert.HasCount(2, comboBoxItems.ToList());
     }
 
     [TestMethod]

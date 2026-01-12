@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 
 namespace Bellatrix.Mobile.Android.GettingStarted;
 
@@ -22,7 +22,7 @@ public class ValidateAssertions : NUnit.AndroidTest
         // meaningful exception message is displayed:
         // "The control should be disabled but it was NOT."
         button.ValidateIsNotDisabled();
-        ////Assert.AreEqual(false, button.IsDisabled);
+        ////Assert.IsFalse(button.IsDisabled);
 
         var checkBox = App.Components.CreateByIdContaining<CheckBox>("check1");
 
