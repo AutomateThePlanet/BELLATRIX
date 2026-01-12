@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\shared\SharedAssemblyInfo.targets" />
 	<ItemGroup>
-	  <PackageReference Include="AWSSDK.Core" Version="4.0.0.3" />
-	  <PackageReference Include="AWSSDK.Rekognition" Version="4.0.0.2" />
-	  <PackageReference Include="AWSSDK.S3" Version="4.0.0.3" />
-	  <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.0.2" />
+	  <PackageReference Include="AWSSDK.Core" Version="4.0.3.8" />
+	  <PackageReference Include="AWSSDK.Rekognition" Version="4.0.3.10" />
+	  <PackageReference Include="AWSSDK.S3" Version="4.0.17" />
+	  <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.4.3" />
 	  <PackageReference Include="Microsoft.ApplicationInsights" Version="2.23.0" />
 	  <PackageReference Include="NUnit" Version="4.3.2" />
 	</ItemGroup>  
