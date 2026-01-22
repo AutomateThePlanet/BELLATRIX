@@ -226,7 +226,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         }
         else
         {
-            elementsCollection = new ComponentsList<TComponent>(by, WrappedElement, ShouldCacheElement);
+            elementsCollection = new ComponentsList<TComponent>(by, this, ShouldCacheElement);
         }
 
         CreatedComponents?.Invoke(this, new ComponentActionEventArgs(this));

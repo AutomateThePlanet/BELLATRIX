@@ -7,5 +7,5 @@ public static class ElementCreateExtensions
     // public static TComponent CreateByIdStartingWith<TComponent>(this Element element, string idPrefix)
     // where TComponent : Element => ComponentCreateService.Create<TComponent, FindIdStartingWithStrategy>(new FindIdStartingWithStrategy(idPrefix));
     public static ComponentsList<TComponent> CreateAllByIdStartingWith<TComponent>(this Component element, string idEnding)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindIdStartingWithStrategy(idEnding), element.WrappedElement);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindIdStartingWithStrategy(idEnding), element);
 }
