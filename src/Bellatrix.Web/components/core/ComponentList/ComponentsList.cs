@@ -12,13 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Bellatrix.Utilities;
 using Bellatrix.Web.Waits;
-using OpenQA.Selenium;
 
 namespace Bellatrix.Web;
 
@@ -33,7 +27,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 
     public ComponentsList(
         FindStrategy by,
-        IWebElement parenTComponent,
+        Component parenTComponent,
         bool shouldCacheFoundElements)
     : this(by, parenTComponent)
     {
@@ -42,7 +36,7 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 
     public ComponentsList(
         FindStrategy by,
-        IWebElement parenTComponent)
+        Component parenTComponent)
     {
         _by = by;
         _parentElement = parenTComponent;
