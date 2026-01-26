@@ -60,44 +60,44 @@ public static class ComponentCreateExtensions
         where TComponent : Component => element.Create<TComponent, FindAttributeContainingStrategy>(Find.By.AttributeContaining(attributeName, value), shouldCacheElement);
 
     public static ComponentsList<TComponent> CreateAllByIdEndingWith<TComponent>(this Component element, string idEnding, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindIdEndingWithStrategy(idEnding), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindIdEndingWithStrategy(idEnding), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByTag<TComponent>(this Component element, string tag, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindTagStrategy(tag), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindTagStrategy(tag), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllById<TComponent>(this Component element, string id, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindIdStrategy(id), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindIdStrategy(id), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByIdContaining<TComponent>(this Component element, string idContaining, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindIdContainingStrategy(idContaining), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindIdContainingStrategy(idContaining), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByValueContaining<TComponent>(this Component element, string valueEnding, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindValueContainingStrategy(valueEnding), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindValueContainingStrategy(valueEnding), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByXpath<TComponent>(this Component element, string xpath, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindXpathStrategy(xpath), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindXpathStrategy(xpath), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByLinkText<TComponent>(this Component element, string linkText, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindLinkTextStrategy(linkText), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindLinkTextStrategy(linkText), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByLinkTextContaining<TComponent>(this Component element, string linkTextContaining, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindLinkTextContainsStrategy(linkTextContaining), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindLinkTextContainsStrategy(linkTextContaining), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByClass<TComponent>(this Component element, string cssClass, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindClassStrategy(cssClass), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindClassStrategy(cssClass), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByCss<TComponent>(this Component element, string cssClass, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindCssStrategy(cssClass), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindCssStrategy(cssClass), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByClassContaining<TComponent>(this Component element, string cssClassContaining, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindClassContainingStrategy(cssClassContaining), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindClassContainingStrategy(cssClassContaining), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByInnerTextContaining<TComponent>(this Component element, string innerText, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindInnerTextContainsStrategy(innerText), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindInnerTextContainsStrategy(innerText), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByNameEndingWith<TComponent>(this Component element, string name, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindNameEndingWithStrategy(name), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindNameEndingWithStrategy(name), element, shouldCacheFoundElements);
 
     public static ComponentsList<TComponent> CreateAllByAttributesContaining<TComponent>(this Component element, string attributeName, string value, bool shouldCacheFoundElements = false)
-        where TComponent : Component => new ComponentsList<TComponent>(new FindAttributeContainingStrategy(attributeName, value), element.WrappedElement, shouldCacheFoundElements);
+        where TComponent : Component => new ComponentsList<TComponent>(new FindAttributeContainingStrategy(attributeName, value), element, shouldCacheFoundElements);
 }

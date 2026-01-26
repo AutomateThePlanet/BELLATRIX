@@ -26,14 +26,14 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
     where TComponent : Component
 {
     private readonly FindStrategy _by;
-    private readonly IWebElement _parentElement;
+    private readonly Component _parentComponent;
     private readonly List<TComponent> _foundElements;
     private readonly bool _shouldCacheFoundElements;
     private List<TComponent> _cachedElements;
 
     public ComponentsList(
         FindStrategy by,
-        IWebElement parenTComponent,
+        Component parenTComponent,
         bool shouldCacheFoundElements)
     : this(by, parenTComponent)
     {
@@ -42,10 +42,10 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 
     public ComponentsList(
         FindStrategy by,
-        IWebElement parenTComponent)
+        Component parenTComponent)
     {
         _by = by;
-        _parentElement = parenTComponent;
+        _parentComponent = parenTComponent;
         _foundElements = new List<TComponent>();
         WrappedDriver = ServicesCollection.Current.Resolve<IWebDriver>();
     }
@@ -149,10 +149,10 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
                 foreach (var nativeElement in nativeElements)
                 {
                     var elementRepository = new ComponentRepository();
-                    if (_parentElement != null)
+                    if (_parentComponent != null)
                     {
                         var element =
-                            elementRepository.CreateComponentWithParent<TComponent>(_by, _parentElement, nativeElement, index++, _shouldCacheFoundElements);
+                            elementRepository.CreateComponentWithParent<TComponent>(_by, _parentComponent, nativeElement, index++, _shouldCacheFoundElements);
                         yield return element;
                     }
                     else
@@ -168,11 +168,11 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
 
     private IEnumerable<IWebElement> WaitWebDriverElements()
     {
-        var elementFinder = _parentElement == null
+        var elementFinder = _parentComponent == null
             ? new NativeElementFinderService(WrappedDriver)
-            : new NativeElementFinderService(_parentElement);
+            : new NativeElementFinderService(_parentComponent.WrappedElement);
         var elementWaiter = new ComponentWaitService();
-        if (_parentElement == null)
+        if (_parentComponent == null)
         {
             return ConditionalWait(elementFinder);
         }
