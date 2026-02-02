@@ -11,10 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
+
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
+using Bellatrix.Web.Extensions;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+namespace Bellatrix.DynamicTestCases.core.componentHandlers;
 
 public class DynamicTestCasesCheckboxEventHandlers : CheckboxEventHandlers
 {

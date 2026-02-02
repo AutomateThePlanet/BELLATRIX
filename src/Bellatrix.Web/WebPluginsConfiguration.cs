@@ -13,6 +13,8 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Collections.Generic;
+using Bellatrix.DynamicTestCases.core;
+using Bellatrix.DynamicTestCases.core.componentHandlers;
 using Bellatrix.GoogleLighthouse.MSTest;
 using Bellatrix.GoogleLighthouse.NUnit;
 using Bellatrix.Layout;
