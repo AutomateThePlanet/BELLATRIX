@@ -54,7 +54,7 @@ public class SemanticKernelService
             return;
 
         var llmSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
-        if (llmSettings == null)
+        if (llmSettings is null or { EnableSelfHealing: false, EnableSmartFailureAnalysis: false })
             return;
         
         var genSettings = llmSettings.ModelSettings[0];
