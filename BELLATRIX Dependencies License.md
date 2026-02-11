@@ -1,0 +1,72 @@
+Reference                                               | Version               | License Type        | License                                                                                        
+--------------------------------------------------------|-----------------------|---------------------|----------------------------------------------------------------------------------------------- 
+Allure.Commons                                          | 3.5.0.73              |                     | https://www.nuget.org/packages/Allure.Net.Commons/2.14.1/License                               
+AngleSharp                                              | 1.4.0                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+AngleSharp.XPath                                        | 2.0.5                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Appium.WebDriver                                        | 8.0.1                 | LICENSE.txt         | https://www.nuget.org/packages/Appium.WebDriver/8.0.1/License                                  
+AutoFixture                                             | 4.18.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+AutoMapper                                              | 16.0.0                | LICENSE.md          | https://www.nuget.org/packages/AutoMapper/16.0.0/License                                       
+AWSSDK.Core                                             | 4.0.3.8               | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+AWSSDK.Rekognition                                      | 4.0.3.10              | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+AWSSDK.S3                                               | 4.0.17                | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+AWSSDK.SecretsManager                                   | 4.0.4.3               | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+Azure.AI.FormRecognizer                                 | 4.1.0                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Azure.Identity                                          | 1.17.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Azure.Security.KeyVault.Secrets                         | 4.8.0                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Azure.Storage.Blobs                                     | 12.26.0               | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Bellatrix.API.DemoApps                                  | 1.4.1                 |                     | https://bellatrix.solutions/standard-end-user-license-agreement/                               
+Bellatrix.Desktop.DemoApps                              | 1.3.1                 |                     | https://bellatrix.solutions/standard-end-user-license-agreement/                               
+Bellatrix.ImageRecognition.SikuliX                      | 1.1.3                 |                     | https://bellatrix.solutions/standard-end-user-license-agreement/                               
+Bellatrix.Mobile.DemoApps                               | 1.3.0                 |                     | https://bellatrix.solutions/standard-end-user-license-agreement/                               
+coverlet.collector                                      | 6.0.4                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+CsvHelper                                               | 33.1.0                | MS-PL OR Apache-2.0 | https://licenses.nuget.org/MS-PL%20OR%20Apache-2.0                                             
+CsvHelper.Excel.Core                                    | 27.2.1                |                     | https://github.com/youngcm2/CsvHelper.Excel/blob/master/LICENSE                                
+HtmlAgilityPack                                         | 1.12.4                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+mailslurp                                               | 17.0.0                |                     | https://github.com/mailslurp/mailslurp-client/blob/master/LICENSE                              
+Microsoft.ApplicationInsights                           | 2.23.0                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.Azure.CognitiveServices.Vision.ComputerVision | 7.0.1                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.EntityFrameworkCore                           | 10.0.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.Extensions.Configuration                      | 10.0.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.Extensions.Configuration.Binder               | 10.0.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.Extensions.Configuration.EnvironmentVariables | 10.0.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.Extensions.Configuration.Json                 | 10.0.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.KernelMemory                                  | 0.98.250508.3+bd8d34e | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.NET.Test.Sdk                                  | 18.0.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.Playwright                                    | 1.57.0                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.Playwright.NUnit                              | 1.57.0                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.SemanticKernel                                | 1.68.0                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Microsoft.TeamFoundationServer.Client                   | 19.225.1              | license.txt         | https://www.nuget.org/packages/Microsoft.TeamFoundationServer.Client/19.225.1/License          
+Microsoft.TeamFoundationServer.ExtendedClient           | 19.225.1              | license.txt         | https://www.nuget.org/packages/Microsoft.TeamFoundationServer.ExtendedClient/19.225.1/License  
+Moq                                                     | 4.20.72               | BSD-3-Clause        | https://licenses.nuget.org/BSD-3-Clause                                                        
+MSTest                                                  | 4.0.2                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+MSTest.TestAdapter                                      | 4.0.2                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+MSTest.TestFramework                                    | 4.0.2                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Newtonsoft.Json                                         | 13.0.4                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Newtonsoft.Json.Schema                                  | 4.0.1                 | LICENSE.md          | https://www.nuget.org/packages/Newtonsoft.Json.Schema/4.0.1/License                            
+NJsonSchema                                             | 11.5.2                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Npgsql.EntityFrameworkCore.PostgreSQL                   | 10.0.0                | PostgreSQL          | https://licenses.nuget.org/PostgreSQL                                                          
+NUnit                                                   | 4.4.0                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+NUnit3TestAdapter                                       | 6.0.0                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Polly                                                   | 8.6.5                 | BSD-3-Clause        | https://licenses.nuget.org/BSD-3-Clause                                                        
+ReportPortal.Serilog                                    | 2.0.0                 |                     | https://raw.githubusercontent.com/reportportal/logger-net-serilog/master/LICENSE               
+ReportPortal.VSTest.TestLogger                          | 3.8.0                 | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+RestSharp                                               | 113.0.0               | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+RestSharp.Serializers.NewtonsoftJson                    | 113.0.0               | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+Selenium.WebDriver                                      | 4.39.0                | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+Selenium.WebDriver.MSEdgeDriver                         | 141.0.3537.71         | LICENSE.txt         | https://www.nuget.org/packages/Selenium.WebDriver.MSEdgeDriver/141.0.3537.71/License           
+Serilog.Extensions.Logging.File                         | 3.0.1-dev-00077       | LICENSE             | https://www.nuget.org/packages/Serilog.Extensions.Logging.File/3.0.1-dev-00077/License         
+Serilog.Settings.Configuration                          | 10.0.0                | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+Serilog.Sinks.Console                                   | 6.1.1                 | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+Serilog.Sinks.Debug                                     | 3.0.0                 | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+Serilog.Sinks.File                                      | 7.0.0                 | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+System.Composition                                      | 10.0.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+System.Drawing.Common                                   | 10.0.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+System.Management                                       | 10.0.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+System.Security.Permissions                             | 10.0.1                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+TextCopy                                                | 6.2.1                 | MIT                 | https://licenses.nuget.org/MIT                                                                 
+Titanium.Web.Proxy                                      | 3.2.0                 |                     | https://github.com/justcoding121/titanium-web-proxy/blob/develop/LICENSE                       
+Twilio                                                  | 7.13.8                |                     | https://github.com/twilio/twilio-csharp/blob/HEAD/LICENSE                                      
+Unity                                                   | 5.11.10               |                     | https://github.com/unitycontainer/unity/blob/v5.x/LICENSE                                      
+VisualRegressionTracker                                 | 4.9.0                 | Apache-2.0          | https://licenses.nuget.org/Apache-2.0                                                          
+WebDriverManager                                        | 2.17.6                | MIT                 | https://licenses.nuget.org/MIT                                                                 
+WindowsAzure.Storage                                    | 9.3.3                 |                     | https://github.com/Azure/azure-storage-net/blob/master/LICENSE.txt                            
