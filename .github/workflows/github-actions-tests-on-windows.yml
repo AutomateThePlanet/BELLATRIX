@@ -26,9 +26,6 @@ jobs:
       - name: Setup Chrome
         if: github.event_name == 'pull_request'
         uses: browser-actions/setup-chrome@latest
-      - name: Setup Edge
-        if: github.event_name == 'pull_request'
-        uses: browser-actions/setup-edge@latest
       - name: Build
         run: dotnet build --configuration Debug --no-restore
       - name: Test
