@@ -1,6 +1,12 @@
 name: Tests on Windows
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -18,24 +24,27 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
       - name: Setup Chrome
+        if: github.event_name == 'pull_request'
         uses: browser-actions/setup-chrome@latest
       - name: Setup Edge
+        if: github.event_name == 'pull_request'
         uses: browser-actions/setup-edge@latest
       - name: Build
         run: dotnet build --configuration Debug --no-restore
       - name: Test
+        if: github.event_name == 'pull_request'
         id: test
         continue-on-error: true
         run: |
           dotnet test --no-build --no-restore --verbosity normal --filter "Category=CI&FullyQualifiedName!~Mobile&FullyQualifiedName!~Desktop" --logger "trx;LogFileName=test-results.trx"
       - name: Publish Test Results
+        if: github.event_name == 'pull_request' && always()
         uses: EnricoMi/publish-unit-test-result-action/windows@v2
-        if: always()
         with:
           files: '**/test-results.trx'
           check_name: 'Test Results'
       - name: Check Test Results
-        if: steps.test.outcome == 'failure'
+        if: github.event_name == 'pull_request' && steps.test.outcome == 'failure'
         run: |
           echo "::warning::Tests failed"
           exit 1
