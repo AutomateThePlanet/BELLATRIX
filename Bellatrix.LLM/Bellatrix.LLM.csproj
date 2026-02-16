@@ -14,7 +14,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
-        <PackageReference Include="Microsoft.SemanticKernel" Version="1.68.0" />
+        <PackageReference Include="Microsoft.SemanticKernel" Version="1.70.0" />
         <!-- DO NOT update Microsoft.KernelMemory unless we move to .NET 9 -->
         <PackageReference Include="Microsoft.KernelMemory" Version="0.98.250508.3" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
