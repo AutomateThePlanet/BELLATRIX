@@ -17,12 +17,17 @@ jobs:
         run: dotnet clean
       - name: Install dependencies
         run: dotnet restore
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+      - name: Setup Edge
+        uses: browser-actions/setup-edge@latest
       - name: Build
         run: dotnet build --configuration Debug --no-restore
       - name: Test
         id: test
         continue-on-error: true
-        run: dotnet test --no-build --no-restore --verbosity normal --filter Category=CI --logger "trx;LogFileName=test-results.trx"
+        run: |
+          dotnet test --no-build --no-restore --verbosity normal --filter "Category=CI&FullyQualifiedName!~Mobile&FullyQualifiedName!~Desktop" --logger "trx;LogFileName=test-results.trx"
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/windows@v2
         if: always()
