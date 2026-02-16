@@ -20,4 +20,17 @@ jobs:
       - name: Build
         run: dotnet build --configuration Debug --no-restore
       - name: Test
-        run: dotnet test --no-build --no-restore --verbosity normal --filter Category=CI
+        id: test
+        continue-on-error: true
+        run: dotnet test --no-build --no-restore --verbosity normal --filter Category=CI --logger "trx;LogFileName=test-results.trx"
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/windows@v2
+        if: always()
+        with:
+          files: '**/test-results.trx'
+          check_name: 'Test Results'
+      - name: Check Test Results
+        if: steps.test.outcome == 'failure'
+        run: |
+          echo "::warning::Tests failed"
+          exit 1
