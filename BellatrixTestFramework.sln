@@ -99,7 +99,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bellatrix.Plugins.Jira.Zeph
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bellatrix.Playwright.Tests", "src\Bellatrix.Playwright.Tests\Bellatrix.Playwright.Tests.csproj", "{FC40FB5D-EABC-4A20-9695-3D52C0093FBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bellatrix.LLM", "Bellatrix.LLM\Bellatrix.LLM.csproj", "{4DF5D558-548D-450E-B5CE-53D2E4FC8281}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bellatrix.LLM", "src\Bellatrix.LLM\Bellatrix.LLM.csproj", "{4DF5D558-548D-450E-B5CE-53D2E4FC8281}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

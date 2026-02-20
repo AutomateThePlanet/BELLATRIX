@@ -19,7 +19,7 @@ using Bellatrix.Plugins;
 using Bellatrix.Playwright.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Playwright.Controls.EventHandlers;
 using Bellatrix.Playwright.EventHandlers.DynamicTestCases;
-using Bellatrix.Playwright.Extensions.Controls.Controls.EventHandlers;
+using Bellatrix.Playwright.Extensions.Controls.EventHandlers;
 using Bellatrix.Playwright.Plugins.Browser;
 using Bellatrix.Playwright.Settings;
 using Bellatrix.LLM.Plugins;

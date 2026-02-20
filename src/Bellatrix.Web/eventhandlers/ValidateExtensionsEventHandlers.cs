@@ -13,7 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+namespace Bellatrix.Web.Extensions.Controls.EventHandlers;
 
 public abstract class ValidateExtensionsEventHandlers
 {

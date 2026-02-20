@@ -44,18 +44,18 @@ public class GoogleLighthouseAnalysisTests : NUnit.WebTest
         // In the testFrameworkSettings.json file, there is a section called lighthouseSettings.
         // There, you can enable/disable the integration + you can set default CLI arguments.
         // In the PerformLighthouseAnalysis method, you can add additional arguments merged with the default ones or override them completely.
-        App.Lighthouse().PerformLighthouseAnalysis();
+        App.Lighthouse.PerformLighthouseAnalysis();
 
         // BELLATRIX exposes a few assertion methods for most essential metrics.
-        App.Lighthouse().AssertFirstMeaningfulPaintScoreMoreThan(0.5);
+        App.Lighthouse.AssertFirstMeaningfulPaintScoreMoreThan(0.5);
 
         // Since there are thousands of possible values that you might be interested in validating, we give you the AssertMetric method.
         // Through it, you can use lambda syntax to pick the value that you want to assert. Through Fluent Builder API afterward you need to pick
         // what type of assertion you want to perform - equal, greaterThan, lessThan, and so on + the expected value.
         // Of course, don't forget to call the Perform method, which will do the actual assertion. The API works pretty much the same as Selenium Actions.
-        App.Lighthouse().AssertMetric(r => r.Categories.Pwa.Score).LessThan(2.3).Perform();
-        App.Lighthouse().AssertMetric(r => r.Categories.Performance.Score).GreaterThan(0.5).Perform();
-        App.Lighthouse().AssertMetric(r => r.Categories.Performance.Score).GreaterThanOrEqual(0.5).Perform();
+        App.Lighthouse.AssertMetric(r => r.Categories.Pwa.Score).LessThan(2.3).Perform();
+        App.Lighthouse.AssertMetric(r => r.Categories.Performance.Score).GreaterThan(0.5).Perform();
+        App.Lighthouse.AssertMetric(r => r.Categories.Performance.Score).GreaterThanOrEqual(0.5).Perform();
 
         Anchor logoutLink = App.Components.CreateByInnerTextContaining<Anchor>("Log out");
 

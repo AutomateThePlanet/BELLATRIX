@@ -6,14 +6,18 @@ public static partial class AppExtensions
 {
     extension(App _)
     {
-        public static FormRecognizer FormRecognizer()
+        public static FormRecognizer FormRecognizer
         {
-            return ServicesCollection.Current.Resolve<FormRecognizer>();
+            get {
+                return ServicesCollection.Current.Resolve<FormRecognizer>();
+            }
         }
 
-        public static ComputerVision ComputerVision()
+        public static ComputerVision ComputerVision
         {
-            return ServicesCollection.Current.Resolve<ComputerVision>();
+            get {
+                return ServicesCollection.Current.Resolve<ComputerVision>();
+            }
         }
     }
 }

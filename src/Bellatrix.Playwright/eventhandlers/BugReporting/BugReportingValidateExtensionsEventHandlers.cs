@@ -14,7 +14,7 @@
 
 using Bellatrix.BugReporting;
 using Bellatrix.Playwright.Events;
-using Bellatrix.Playwright.Extensions.Controls.Controls.EventHandlers;
+using Bellatrix.Playwright.Extensions.Controls.EventHandlers;
 
 namespace Bellatrix.Playwright.EventHandlers.DynamicTestCases;
 

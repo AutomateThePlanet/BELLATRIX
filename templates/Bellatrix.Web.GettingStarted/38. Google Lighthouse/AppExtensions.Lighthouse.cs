@@ -4,8 +4,13 @@ namespace Bellatrix.Web.GettingStarted;
 
 public static partial class AppExtensions
 {
-    public static LighthouseService Lighthouse(this App app)
+    extension(App _)
     {
-        return ServicesCollection.Current.Resolve<LighthouseService>();
+        public static LighthouseService Lighthouse
+        {
+            get {
+                return ServicesCollection.Current.Resolve<LighthouseService>();
+            }
+        }
     }
 }

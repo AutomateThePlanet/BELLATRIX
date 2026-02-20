@@ -13,8 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using System.Collections.Generic;
-using Bellatrix.DynamicTestCases.core;
-using Bellatrix.DynamicTestCases.core.componentHandlers;
+using Bellatrix.DynamicTestCases;
 using Bellatrix.GoogleLighthouse.MSTest;
 using Bellatrix.GoogleLighthouse.NUnit;
 using Bellatrix.Layout;
@@ -26,7 +25,7 @@ using Bellatrix.Plugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.EventHandlers.DynamicTestCases;
-using Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+using Bellatrix.Web.Extensions.Controls.EventHandlers;
 using Bellatrix.Web.LLM.Plugins;
 using Bellatrix.Web.Plugins.Browser;
 using Microsoft.SemanticKernel;

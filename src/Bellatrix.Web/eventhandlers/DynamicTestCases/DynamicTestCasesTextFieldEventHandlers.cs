@@ -16,7 +16,7 @@ using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 using Bellatrix.Web.Extensions;
 
-namespace Bellatrix.DynamicTestCases.core;
+namespace Bellatrix.Web.Extensions.Controls.EventHandlers;
 
 public class DynamicTestCasesTextFieldEventHandlers : TextFieldEventHandlers
 {

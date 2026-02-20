@@ -7,9 +7,12 @@ public static partial class AppExtensions
 {
     extension(App app)
     {
-        public DynamicTestCasesService TestCases()
+        public DynamicTestCasesService TestCases
         {
-            return new DynamicTestCasesService();
+            get 
+            {
+                return new DynamicTestCasesService();
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Text;
 using Bellatrix.BugReporting;
 using Bellatrix.Web.Events;
-using Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+using Bellatrix.Web.Extensions.Controls.EventHandlers;
 
 namespace Bellatrix.Web.EventHandlers.DynamicTestCases;
 
