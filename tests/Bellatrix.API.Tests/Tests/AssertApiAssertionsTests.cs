@@ -24,7 +24,7 @@ namespace Bellatrix.API.Tests;
 [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
 [AllureFeature("API Assertions")]
 [AllureSuite("API Assertions")]
-public class AssertApiAssertionsTests : MSTest.APITest
+public class AssertApiAssertionsTests : BaseTest
 {
     private ApiClientService _apiClientService;
 

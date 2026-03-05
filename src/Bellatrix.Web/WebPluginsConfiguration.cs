@@ -116,18 +116,6 @@ public static class WebPluginsConfiguration
         bddLoggingLayoutAssertionsExtensions.SubscribeToAll();
     }
 
-    public static void AddLayoutAssertionExtensionsDynamicTestCases()
-    {
-        var dynamicTestCasesLayoutAssertionsExtensions = new DynamicTestCasesAssertionExtensions();
-        dynamicTestCasesLayoutAssertionsExtensions.SubscribeToAll();
-    }
-
-    public static void AddLayoutAssertionExtensionsBugReporting()
-    {
-        var bugReportingLayoutAssertionsExtensions = new BugReportingAssertionExtensions();
-        bugReportingLayoutAssertionsExtensions.SubscribeToAll();
-    }
-
     public static void AddElementsBddLogging()
     {
         var elementEventHandlers = new List<ComponentEventHandlers>()

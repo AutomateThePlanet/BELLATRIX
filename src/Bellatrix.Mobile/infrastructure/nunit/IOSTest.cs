@@ -34,21 +34,13 @@ public abstract class IOSTest : NUnitBaseTest
             {
                 NUnitPluginConfiguration.Add();
                 ExecutionTimePlugin.Add();
-                DynamicTestCasesPlugin.Add();
                 AllurePlugin.Add();
-                BugReportingPlugin.Add();
                 VideoRecorderPluginConfiguration.AddNUnit();
                 ScreenshotsPluginConfiguration.AddNUnit();
                 IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
                 IOSPluginsConfiguration.AddElementsBddLogging();
-                IOSPluginsConfiguration.AddDynamicTestCases();
-                IOSPluginsConfiguration.AddBugReporting();
                 IOSPluginsConfiguration.AddValidateExtensionsBddLogging();
-                IOSPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                IOSPluginsConfiguration.AddValidateExtensionsBugReporting();
                 IOSPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                IOSPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                IOSPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 IOSPluginsConfiguration.AddLifecycle();
                 IOSPluginsConfiguration.AddLogExecutionLifecycle();
 

@@ -19,8 +19,6 @@ using Bellatrix.LLM.Settings;
 using Bellatrix.LLM.Skills;
 using Bellatrix.LLM;
 using Bellatrix.Mobile.BddLogging.IOS;
-using Bellatrix.Mobile.BugReporting.IOS;
-using Bellatrix.Mobile.DynamicTestCases.IOS;
 using Bellatrix.Mobile.EventHandlers.IOS;
 using Bellatrix.Mobile.Plugins;
 using Bellatrix.Mobile.Screenshots;
@@ -63,82 +61,16 @@ public static class IOSPluginsConfiguration
         }
     }
 
-    public static void AddDynamicTestCases()
-    {
-        var elementEventHandlers = new List<ComponentEventHandlers>
-                                   {
-                                       new DynamicTestCasesButtonEventHandlers(),
-                                       new DynamicTestCasesRadioButtonEventHandlers(),
-                                       new DynamicTestCasesCheckboxEventHandlers(),
-                                       new DynamicTestCasesToggleButtonEventHandlers(),
-                                       new DynamicTestCasesTextFieldEventHandlers(),
-                                       new DynamicTestCasesComboBoxEventHandlers(),
-                                       new DynamicTestCasesPasswordEventHandlers(),
-                                       new DynamicTestCasesImageButtonEventHandlers(),
-                                       new DynamicTestCasesNumberEventHandlers(),
-                                       new DynamicTestCasesSeekBarEventHandlers(),
-                                   };
-        foreach (var elementEventHandler in elementEventHandlers)
-        {
-            elementEventHandler.SubscribeToAll();
-        }
-    }
-
-    public static void AddBugReporting()
-    {
-        var elementEventHandlers = new List<ComponentEventHandlers>
-                                   {
-                                       new BugReportingButtonEventHandlers(),
-                                       new BugReportingRadioButtonEventHandlers(),
-                                       new BugReportingCheckboxEventHandlers(),
-                                       new BugReportingToggleButtonEventHandlers(),
-                                       new BugReportingTextFieldEventHandlers(),
-                                       new BugReportingComboBoxEventHandlers(),
-                                       new BugReportingPasswordEventHandlers(),
-                                       new BugReportingImageButtonEventHandlers(),
-                                       new BugReportingNumberEventHandlers(),
-                                       new BugReportingSeekBarEventHandlers(),
-                                   };
-        foreach (var elementEventHandler in elementEventHandlers)
-        {
-            elementEventHandler.SubscribeToAll();
-        }
-    }
-
     public static void AddValidateExtensionsBddLogging()
     {
         var bddLoggingValidateExtensions = new BDDLoggingValidateExtensionsService();
         bddLoggingValidateExtensions.SubscribeToAll();
     }
 
-    public static void AddValidateExtensionsDynamicTestCases()
-    {
-        var dynamicTestCasesValidateExtensions = new DynamicTestCasesValidateExtensions();
-        dynamicTestCasesValidateExtensions.SubscribeToAll();
-    }
-
-    public static void AddValidateExtensionsBugReporting()
-    {
-        var bugReprtingValidateExtensions = new BugReportingValidateExtensions();
-        bugReprtingValidateExtensions.SubscribeToAll();
-    }
-
     public static void AddLayoutAssertionExtensionsBddLogging()
     {
         var bddLoggingLayoutAssertionsExtensions = new BDDLoggingAssertionExtensionsService();
         bddLoggingLayoutAssertionsExtensions.SubscribeToAll();
-    }
-
-    public static void AddLayoutAssertionExtensionsDynamicTestCases()
-    {
-        var dynamicTestCasesLayoutAssertionsExtensions = new DynamicTestCasesAssertionExtensions();
-        dynamicTestCasesLayoutAssertionsExtensions.SubscribeToAll();
-    }
-
-    public static void AddLayoutAssertionExtensionsBugReporting()
-    {
-        var bugReportingLayoutAssertionsExtensions = new BugReportingAssertionExtensions();
-        bugReportingLayoutAssertionsExtensions.SubscribeToAll();
     }
 
     public static void AddLifecycle()

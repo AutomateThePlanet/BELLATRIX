@@ -51,8 +51,6 @@ public abstract class WebTest : MSTestBaseTest
                 WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
                 WebPluginsConfiguration.AddValidateExtensionsBugReporting();
                 WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 WebPluginsConfiguration.AddElementsBddLogging();
                 WebPluginsConfiguration.AddDynamicTestCases();
                 WebPluginsConfiguration.AddBugReporting();
@@ -62,8 +60,6 @@ public abstract class WebTest : MSTestBaseTest
                 WebPluginsConfiguration.ConfigureLLM();
 
                 APIPluginsConfiguration.AddAssertExtensionsBddLogging();
-                APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
-                APIPluginsConfiguration.AddAssertExtensionsBugReporting();
                 APIPluginsConfiguration.AddApiAuthenticationStrategies();
                 APIPluginsConfiguration.AddRetryFailedRequests();
                 APIPluginsConfiguration.AddLogExecution();

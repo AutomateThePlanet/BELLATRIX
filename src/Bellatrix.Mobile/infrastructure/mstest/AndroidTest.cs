@@ -36,19 +36,11 @@ public abstract class AndroidTest : MSTestBaseTest
                 ExecutionTimePlugin.Add();
                 VideoRecorderPluginConfiguration.AddMSTest();
                 ScreenshotsPluginConfiguration.AddMSTest();
-                DynamicTestCasesPlugin.Add();
                 AllurePlugin.Add();
-                BugReportingPlugin.Add();
                 AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();
                 AndroidPluginsConfiguration.AddElementsBddLogging();
-                AndroidPluginsConfiguration.AddDynamicTestCases();
-                AndroidPluginsConfiguration.AddBugReporting();
                 AndroidPluginsConfiguration.AddValidateExtensionsBddLogging();
-                AndroidPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                AndroidPluginsConfiguration.AddValidateExtensionsBugReporting();
                 AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                AndroidPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 AndroidPluginsConfiguration.AddLifecycle();
                 AndroidPluginsConfiguration.AddLogExecutionLifecycle();
 

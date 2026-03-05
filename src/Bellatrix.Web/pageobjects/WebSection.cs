@@ -11,14 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
-using System.Web;
-using Bellatrix.Assertions;
-using Bellatrix.CognitiveServices;
-using Bellatrix.DynamicTestCases;
-using Bellatrix.Web.Proxy;
-using OpenQA.Selenium.Support.UI;
-
 namespace Bellatrix.Web;
 
 public abstract class WebSection

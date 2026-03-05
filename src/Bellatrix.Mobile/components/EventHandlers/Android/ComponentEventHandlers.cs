@@ -11,20 +11,13 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.BugReporting;
-using Bellatrix.DynamicTestCases;
 using Bellatrix.Mobile.Controls.Android;
 using Bellatrix.Mobile.Events;
-using OpenQA.Selenium.Appium.Android;
 
 namespace Bellatrix.Mobile.EventHandlers.Android;
 
 public class ComponentEventHandlers : IControlEventHandlers
 {
-    // These three properties were added to reduce code duplication in child classes and improve readability. However, we realize that the SOLID principles are not followed thoroughly.
-    protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
-    protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-
     public virtual void SubscribeToAll()
     {
         AndroidComponent.ScrollingToVisible += ScrollingToVisibleEventHandler;

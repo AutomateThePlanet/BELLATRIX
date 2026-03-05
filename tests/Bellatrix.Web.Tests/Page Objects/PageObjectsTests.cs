@@ -17,7 +17,7 @@ public class PageObjectsTests : MSTest.WebTest
     [AzureDevOpsDynamicTestCaseAttribute]
     public void PurchaseRocketWithoutPageObjects20()
     {
-        App.TestCases().AddPrecondition($"Navigate to https://demos.bellatrix.solutions/");
+        App.TestCases.AddPrecondition($"Navigate to https://demos.bellatrix.solutions/");
         App.Navigation.Navigate("https://demos.bellatrix.solutions/");
 
         Select sortDropDown = App.Components.CreateByNameEndingWith<Select>("orderby");

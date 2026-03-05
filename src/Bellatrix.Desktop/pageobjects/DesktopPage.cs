@@ -11,8 +11,6 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.DynamicTestCases;
-
 namespace Bellatrix.Desktop.PageObjects;
 
 public abstract class DesktopPage

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>Belatrix.BugReporting.Api</AssemblyName>
+        <RootNamespace>Belatrix.BugReporting.Api</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Bellatrix.Api\Bellatrix.API.csproj" />
+      <ProjectReference Include="..\..\..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
+    </ItemGroup>
+
+</Project>

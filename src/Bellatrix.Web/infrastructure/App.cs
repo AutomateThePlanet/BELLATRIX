@@ -48,7 +48,6 @@ public class App : IDisposable
     public InteractionsService Interactions => ServicesCollection.Current.Resolve<InteractionsService>();
     public CookiesService Cookies => ServicesCollection.Current.Resolve<CookiesService>();
     public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
-    public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
     public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
     public ProxyService Proxy => ServicesCollection.Current.Resolve<ProxyService>();
 

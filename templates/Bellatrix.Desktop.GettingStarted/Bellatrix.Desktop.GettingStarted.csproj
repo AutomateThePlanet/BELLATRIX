@@ -34,5 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Bellatrix.Desktop\Bellatrix.Desktop.csproj" />
+    <ProjectReference Include="..\..\src\integrations\CognitiveServices\Bellatrix.CognitiveServices.Desktop\Bellatrix.CognitiveServices.Desktop.csproj" />
+    <ProjectReference Include="..\..\src\integrations\LLM\Bellatrix.LLM.Desktop\Bellatrix.LLM.Desktop.csproj" />
   </ItemGroup>
 </Project>

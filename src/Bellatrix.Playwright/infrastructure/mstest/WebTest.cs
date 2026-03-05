@@ -41,9 +41,6 @@ public abstract class WebTest : MSTestBaseTest
                 ExecutionTimePlugin.Add();
                 VideoRecorderPluginConfiguration.AddMSTest();
                 ScreenshotsPluginConfiguration.AddMSTest();
-                DynamicTestCasesPlugin.Add();
-                AllurePlugin.Add();
-                BugReportingPlugin.Add();
                 WebPluginsConfiguration.AddBrowserLifecycle();
                 WebPluginsConfiguration.AddLogExecutionLifecycle();
                 WebPluginsConfiguration.AddControlDataHandlers();
@@ -51,8 +48,6 @@ public abstract class WebTest : MSTestBaseTest
                 WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
                 WebPluginsConfiguration.AddValidateExtensionsBugReporting();
                 WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 WebPluginsConfiguration.AddElementsBddLogging();
                 WebPluginsConfiguration.AddDynamicTestCases();
                 WebPluginsConfiguration.AddBugReporting();
@@ -61,8 +56,6 @@ public abstract class WebTest : MSTestBaseTest
                 WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
 
                 APIPluginsConfiguration.AddAssertExtensionsBddLogging();
-                APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
-                APIPluginsConfiguration.AddAssertExtensionsBugReporting();
                 APIPluginsConfiguration.AddApiAuthenticationStrategies();
                 APIPluginsConfiguration.AddRetryFailedRequests();
                 APIPluginsConfiguration.AddLogExecution();

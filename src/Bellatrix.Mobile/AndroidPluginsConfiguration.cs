@@ -19,8 +19,6 @@ using Bellatrix.LLM.Settings;
 using Bellatrix.LLM.Skills;
 using Bellatrix.LLM;
 using Bellatrix.Mobile.BddLogging.Android;
-using Bellatrix.Mobile.BugReporting.Android;
-using Bellatrix.Mobile.DynamicTestCases.Android;
 using Bellatrix.Mobile.EventHandlers.Android;
 using Bellatrix.Mobile.Plugins;
 using Bellatrix.Mobile.Screenshots;
@@ -57,50 +55,6 @@ public static class AndroidPluginsConfiguration
         }
     }
 
-    public static void AddDynamicTestCases()
-    {
-        var elementEventHandlers = new List<ComponentEventHandlers>
-                                   {
-                                       new DynamicTestCasesButtonEventHandlers(),
-                                       new DynamicTestCasesRadioButtonEventHandlers(),
-                                       new DynamicTestCasesCheckboxEventHandlers(),
-                                       new DynamicTestCasesToggleButtonEventHandlers(),
-                                       new DynamicTestCasesTextFieldEventHandlers(),
-                                       new DynamicTestCasesComboBoxEventHandlers(),
-                                       new DynamicTestCasesPasswordEventHandlers(),
-                                       new DynamicTestCasesImageButtonEventHandlers(),
-                                       new DynamicTestCasesSwitchEventHandlers(),
-                                       new DynamicTestCasesNumberEventHandlers(),
-                                       new DynamicTestCasesSeekBarEventHandlers(),
-                                   };
-        foreach (var elementEventHandler in elementEventHandlers)
-        {
-            elementEventHandler.SubscribeToAll();
-        }
-    }
-
-    public static void AddBugReporting()
-    {
-        var elementEventHandlers = new List<ComponentEventHandlers>
-                                   {
-                                       new BugReportingButtonEventHandlers(),
-                                       new BugReportingRadioButtonEventHandlers(),
-                                       new BugReportingCheckboxEventHandlers(),
-                                       new BugReportingToggleButtonEventHandlers(),
-                                       new BugReportingTextFieldEventHandlers(),
-                                       new BugReportingComboBoxEventHandlers(),
-                                       new BugReportingPasswordEventHandlers(),
-                                       new BugReportingImageButtonEventHandlers(),
-                                       new BugReportingSwitchEventHandlers(),
-                                       new BugReportingNumberEventHandlers(),
-                                       new BugReportingSeekBarEventHandlers(),
-                                   };
-        foreach (var elementEventHandler in elementEventHandlers)
-        {
-            elementEventHandler.SubscribeToAll();
-        }
-    }
-
     public static void AddAndroidDriverScreenshotsOnFail()
     {
         ServicesCollection.Current.RegisterType<IScreenshotEngine, AndroidDriverScreenshotEngine>();
@@ -115,34 +69,10 @@ public static class AndroidPluginsConfiguration
         bddLoggingValidateExtensions.SubscribeToAll();
     }
 
-    public static void AddValidateExtensionsDynamicTestCases()
-    {
-        var bddLoggingValidateExtensions = new DynamicTestCasesValidateExtensions();
-        bddLoggingValidateExtensions.SubscribeToAll();
-    }
-
-    public static void AddValidateExtensionsBugReporting()
-    {
-        var bddLoggingValidateExtensions = new BugReportingValidateExtensions();
-        bddLoggingValidateExtensions.SubscribeToAll();
-    }
-
     public static void AddLayoutAssertionExtensionsBddLogging()
     {
         var bddLoggingLayoutAssertionsExtensions = new BDDLoggingAssertionExtensionsService();
         bddLoggingLayoutAssertionsExtensions.SubscribeToAll();
-    }
-
-    public static void AddLayoutAssertionExtensionsDynamicTestCases()
-    {
-        var dynamicTestCasesLayoutAssertionsExtensions = new DynamicTestCasesAssertionExtensions();
-        dynamicTestCasesLayoutAssertionsExtensions.SubscribeToAll();
-    }
-
-    public static void AddLayoutAssertionExtensionsBugReporting()
-    {
-        var bugReportingLayoutAssertionsExtensions = new BugReportingAssertionExtensions();
-        bugReportingLayoutAssertionsExtensions.SubscribeToAll();
     }
 
     public static void AddLifecycle()

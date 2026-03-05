@@ -38,7 +38,6 @@ public abstract class WebTest : NUnitBaseTest
                 VideoRecorderPluginConfiguration.AddNUnit();
                 ScreenshotsPluginConfiguration.AddNUnit();
                 DynamicTestCasesPlugin.Add();
-                AllurePlugin.Add();
                 BugReportingPlugin.Add();
 
                 WebPluginsConfiguration.AddBrowserLifecycle();
@@ -48,8 +47,6 @@ public abstract class WebTest : NUnitBaseTest
                 WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
                 WebPluginsConfiguration.AddValidateExtensionsBugReporting();
                 WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 WebPluginsConfiguration.AddElementsBddLogging();
                 WebPluginsConfiguration.AddDynamicTestCases();
                 WebPluginsConfiguration.AddBugReporting();
@@ -58,8 +55,6 @@ public abstract class WebTest : NUnitBaseTest
                 WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
 
                 APIPluginsConfiguration.AddAssertExtensionsBddLogging();
-                APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
-                APIPluginsConfiguration.AddAssertExtensionsBugReporting();
                 APIPluginsConfiguration.AddApiAuthenticationStrategies();
                 APIPluginsConfiguration.AddRetryFailedRequests();
                 APIPluginsConfiguration.AddLogExecution();
