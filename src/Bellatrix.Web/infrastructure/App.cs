@@ -18,8 +18,6 @@ using System.Reflection;
 using Bellatrix.Api;
 using Bellatrix.Api.Configuration;
 using Bellatrix.Assertions;
-using Bellatrix.DynamicTestCases;
-using Bellatrix.LLM;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
@@ -37,7 +35,6 @@ public class App : IDisposable
     public App()
     {
         _apiClientService = GetNewApiClientService();
-        ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(Browser);
     }
 
     public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
@@ -171,8 +168,6 @@ public class App : IDisposable
     {
         DevTools?.Dispose();
         Proxy?.Dispose();
-        LocatorSelfHealingService.Dispose();
-        LocatorCacheService.Dispose();
         DisposeDriverService.DisposeAll();
         DisposeDriverService.Dispose();
         GC.SuppressFinalize(this);

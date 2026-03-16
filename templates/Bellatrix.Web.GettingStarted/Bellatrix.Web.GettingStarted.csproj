@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Web\Bellatrix.Web.csproj" />
+    <ProjectReference Include="..\..\src\integrations\LLM\Bellatrix.LLM.Web\Bellatrix.LLM.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -21,11 +21,7 @@ using Bellatrix.LLM.Plugins;
 using Microsoft.SemanticKernel;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
 using OpenQA.Selenium;
 
 namespace Bellatrix.Desktop.LLM;

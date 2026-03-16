@@ -254,7 +254,7 @@ public class AppLifecyclePlugin : Plugin
             return option;
         }
         
-        var resolvingArgs = new CapabilityValueResolvingEventArgs((string)option, testClassType);
+        var resolvingArgs = new CapabilityValueResolvingEventArgs((string)option);
         CapabilityValueResolving?.Invoke(this, resolvingArgs);
         if (resolvingArgs.Handled)
         {

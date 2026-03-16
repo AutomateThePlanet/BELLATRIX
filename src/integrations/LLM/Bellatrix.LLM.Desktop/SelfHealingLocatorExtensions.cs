@@ -45,7 +45,7 @@ public static class SelfHealingLocatorExtensions
     {
         var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
 
-        if (settings == null || !settings.EnableSelfHealing)
+        if (settings is not { EnableSelfHealing: true })
         {
             return;
         }

@@ -21,15 +21,4 @@ public static partial class AppExtensions
             }
         }
     }
-
-    extension(Component component)
-    {
-        public AssertedFormPage AIAnalyze()
-        {
-            string currentComponentScreenshot = component.TakeScreenshot();
-            var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
-            var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
-            return analyzedComponent;
-        }
-    }
 }

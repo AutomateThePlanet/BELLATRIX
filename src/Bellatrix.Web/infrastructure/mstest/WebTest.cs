@@ -12,9 +12,7 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 
-using System;
 using Bellatrix.Core.logging;
-using Bellatrix.LLM.Plugins;
 using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.MSTest;
@@ -41,23 +39,15 @@ public abstract class WebTest : MSTestBaseTest
                 ExecutionTimePlugin.Add();
                 VideoRecorderPluginConfiguration.AddMSTest();
                 ScreenshotsPluginConfiguration.AddMSTest();
-                DynamicTestCasesPlugin.Add();
-                AllurePlugin.Add();
-                BugReportingPlugin.Add();
                 WebPluginsConfiguration.AddBrowserLifecycle();
                 WebPluginsConfiguration.AddLogExecutionLifecycle();
                 WebPluginsConfiguration.AddControlDataHandlers();
                 WebPluginsConfiguration.AddValidateExtensionsBddLogging();
-                WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                WebPluginsConfiguration.AddValidateExtensionsBugReporting();
                 WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
                 WebPluginsConfiguration.AddElementsBddLogging();
-                WebPluginsConfiguration.AddDynamicTestCases();
-                WebPluginsConfiguration.AddBugReporting();
                 WebPluginsConfiguration.AddHighlightComponents();
                 WebPluginsConfiguration.AddMSTestGoogleLighthouse();
                 WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
-                WebPluginsConfiguration.ConfigureLLM();
 
                 APIPluginsConfiguration.AddAssertExtensionsBddLogging();
                 APIPluginsConfiguration.AddApiAuthenticationStrategies();
@@ -73,7 +63,6 @@ public abstract class WebTest : MSTestBaseTest
                     WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
                 }
 
-                SmartFailureAnalysisPlugin.Add();
                 LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;

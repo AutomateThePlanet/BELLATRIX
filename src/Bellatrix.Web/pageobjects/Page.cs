@@ -12,7 +12,6 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using Bellatrix.DynamicTestCases;
 
 namespace Bellatrix.Web;
 
@@ -27,5 +26,4 @@ public abstract class Page
 
     protected ComponentCreateService Element { get; }
     protected BrowserService Browser { get; }
-    protected DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 }

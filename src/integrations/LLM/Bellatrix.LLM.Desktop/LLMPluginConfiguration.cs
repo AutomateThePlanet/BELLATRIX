@@ -22,7 +22,11 @@ public static class LLMPluginConfiguration
         try
         {
             var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
-
+            if (!settings.EnableSelfHealing && !settings.EnableSmartFailureAnalysis)
+            {
+                Logger.LogError("LLM Features are disabled.");
+                return;
+            }
             SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorSkill(), nameof(LocatorSkill));
             SemanticKernelService.Kernel.ImportPluginFromObject(new AssertionSkill(), nameof(AssertionSkill));
             SemanticKernelService.Kernel.ImportPluginFromObject(new PageObjectSummarizerSkill(), nameof(PageObjectSummarizerSkill));

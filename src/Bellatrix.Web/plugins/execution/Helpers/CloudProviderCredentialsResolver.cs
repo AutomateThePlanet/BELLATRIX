@@ -12,19 +12,29 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using Bellatrix.KeyVault;
+using Bellatrix.Web.Events;
 
 namespace Bellatrix.Web.Plugins.Browser;
 
 public static class CloudProviderCredentialsResolver
 {
+    public static event EventHandler<CapabilityValueResolvingEventArgs> CapabilityValueResolving;
+
     private const string USER_ENVIRONMENTAL_VARIABLE = "cloud.grid.user";
     private const string ACCESS_KEY_ENVIRONMENTAL_VARIABLE = "cloud.grid.key";
 
     public static Tuple<string, string> GetCredentials()
     {
-        var user = SecretsResolver.GetSecret(USER_ENVIRONMENTAL_VARIABLE);
-        var accessKey = SecretsResolver.GetSecret(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
+        var user = Environment.GetEnvironmentVariable(USER_ENVIRONMENTAL_VARIABLE);
+        var accessKey = Environment.GetEnvironmentVariable(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
+        
+        var resolvingUserArgs = new CapabilityValueResolvingEventArgs((string)USER_ENVIRONMENTAL_VARIABLE);
+        CapabilityValueResolving?.Invoke(null, resolvingUserArgs);
+        if (resolvingUserArgs.Handled) user = (string)resolvingUserArgs.ResolvedValue;
+        
+        var resolvingAccessKeyArgs = new CapabilityValueResolvingEventArgs((string)USER_ENVIRONMENTAL_VARIABLE);
+        CapabilityValueResolving?.Invoke(null, resolvingAccessKeyArgs);
+        if (resolvingAccessKeyArgs.Handled) accessKey = (string)resolvingAccessKeyArgs.ResolvedValue;
 
         if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(accessKey))
         {
