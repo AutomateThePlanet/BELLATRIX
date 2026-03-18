@@ -30,7 +30,7 @@ public class ShadowDomTests : MSTest.WebTest
     }
 
     [TestMethod]
-    public void CreeatingShadowRootComponent()
+    public void CreatingShadowRootComponent()
     {
         var shadowRoot = App.Components.CreateById<ShadowRoot>("basicShadowHost");
 
