@@ -11,9 +11,7 @@
 // </copyright>
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
-
 using Bellatrix.Core.logging;
-using Bellatrix.LLM.Plugins;
 using Bellatrix.Playwright.Screenshots;
 using Bellatrix.Playwright.Settings;
 
@@ -35,21 +33,14 @@ public abstract class WebTest : NUnitBaseTest
             {
                 NUnitPluginConfiguration.Add();
                 ExecutionTimePlugin.Add();
-                VideoRecorderPluginConfiguration.AddNUnit();
                 ScreenshotsPluginConfiguration.AddNUnit();
-                DynamicTestCasesPlugin.Add();
-                BugReportingPlugin.Add();
 
                 WebPluginsConfiguration.AddBrowserLifecycle();
                 WebPluginsConfiguration.AddLogExecutionLifecycle();
                 WebPluginsConfiguration.AddControlDataHandlers();
                 WebPluginsConfiguration.AddValidateExtensionsBddLogging();
-                WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                WebPluginsConfiguration.AddValidateExtensionsBugReporting();
                 WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
                 WebPluginsConfiguration.AddElementsBddLogging();
-                WebPluginsConfiguration.AddDynamicTestCases();
-                WebPluginsConfiguration.AddBugReporting();
                 WebPluginsConfiguration.AddHighlightComponents();
                 WebPluginsConfiguration.AddNUnitGoogleLighthouse();
                 WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
@@ -68,8 +59,6 @@ public abstract class WebTest : NUnitBaseTest
                     WebScreenshotPluginConfiguration.UseVisiblePageScreenshotsOnFail();
                 }
 
-                WebPluginsConfiguration.ConfigureLLM();
-                SmartFailureAnalysisPlugin.Add();
                 LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;

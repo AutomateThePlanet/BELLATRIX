@@ -13,7 +13,6 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Core.logging;
-using Bellatrix.LLM.Plugins;
 using Bellatrix.Mobile.IOS;
 
 namespace Bellatrix.Mobile.MSTest;
@@ -35,7 +34,6 @@ public abstract class IOSTest : MSTestBaseTest
                 ExecutionTimePlugin.Add();
                 VideoRecorderPluginConfiguration.AddMSTest();
                 ScreenshotsPluginConfiguration.AddMSTest();
-                AllurePlugin.Add();
                 IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
                 IOSPluginsConfiguration.AddElementsBddLogging();
                 IOSPluginsConfiguration.AddValidateExtensionsBddLogging();
@@ -43,8 +41,6 @@ public abstract class IOSTest : MSTestBaseTest
                 IOSPluginsConfiguration.AddLifecycle();
                 IOSPluginsConfiguration.AddLogExecutionLifecycle();
 
-                IOSPluginsConfiguration.ConfigureLLM();
-                SmartFailureAnalysisPlugin.Add();
                 LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;

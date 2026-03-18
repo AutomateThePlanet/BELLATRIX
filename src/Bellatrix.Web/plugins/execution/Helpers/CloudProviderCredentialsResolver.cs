@@ -28,11 +28,11 @@ public static class CloudProviderCredentialsResolver
         var user = Environment.GetEnvironmentVariable(USER_ENVIRONMENTAL_VARIABLE);
         var accessKey = Environment.GetEnvironmentVariable(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
         
-        var resolvingUserArgs = new CapabilityValueResolvingEventArgs((string)USER_ENVIRONMENTAL_VARIABLE);
+        var resolvingUserArgs = new CapabilityValueResolvingEventArgs(USER_ENVIRONMENTAL_VARIABLE);
         CapabilityValueResolving?.Invoke(null, resolvingUserArgs);
         if (resolvingUserArgs.Handled) user = (string)resolvingUserArgs.ResolvedValue;
         
-        var resolvingAccessKeyArgs = new CapabilityValueResolvingEventArgs((string)USER_ENVIRONMENTAL_VARIABLE);
+        var resolvingAccessKeyArgs = new CapabilityValueResolvingEventArgs(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
         CapabilityValueResolving?.Invoke(null, resolvingAccessKeyArgs);
         if (resolvingAccessKeyArgs.Handled) accessKey = (string)resolvingAccessKeyArgs.ResolvedValue;
 

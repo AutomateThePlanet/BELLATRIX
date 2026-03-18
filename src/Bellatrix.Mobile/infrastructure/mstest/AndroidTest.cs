@@ -13,9 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Core.logging;
-using Bellatrix.LLM.Plugins;
 using Bellatrix.Mobile.Android;
-using Bellatrix.Mobile.IOS;
 
 namespace Bellatrix.Mobile.MSTest;
 
@@ -36,7 +34,6 @@ public abstract class AndroidTest : MSTestBaseTest
                 ExecutionTimePlugin.Add();
                 VideoRecorderPluginConfiguration.AddMSTest();
                 ScreenshotsPluginConfiguration.AddMSTest();
-                AllurePlugin.Add();
                 AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();
                 AndroidPluginsConfiguration.AddElementsBddLogging();
                 AndroidPluginsConfiguration.AddValidateExtensionsBddLogging();
@@ -44,8 +41,6 @@ public abstract class AndroidTest : MSTestBaseTest
                 AndroidPluginsConfiguration.AddLifecycle();
                 AndroidPluginsConfiguration.AddLogExecutionLifecycle();
 
-                AndroidPluginsConfiguration.ConfigureLLM();
-                SmartFailureAnalysisPlugin.Add();
                 LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;

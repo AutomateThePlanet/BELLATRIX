@@ -11,13 +11,11 @@
 // </copyright>
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
-
-using Bellatrix.DynamicTestCases;
 using Bellatrix.Playwright.Services;
 
 namespace Bellatrix.Playwright;
 
-[Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
+[Obsolete("Please refactor your pages to use the new WebPage base class which combines the old 4 base classes.")]
 public abstract class Page
 {
     protected Page()
@@ -28,5 +26,4 @@ public abstract class Page
 
     protected ComponentCreateService Element { get; }
     protected BrowserService Browser { get; }
-    protected DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 }

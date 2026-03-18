@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\src\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
+    <ProjectReference Include="..\..\src\integrations\LLM\Bellatrix.LLM.Mobile\Bellatrix.LLM.Mobile.csproj" />
   </ItemGroup>
 
   <ItemGroup>

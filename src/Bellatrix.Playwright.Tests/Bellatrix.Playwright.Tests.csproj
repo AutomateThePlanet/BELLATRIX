@@ -39,6 +39,7 @@
     <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
     <ProjectReference Include="..\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
     <ProjectReference Include="..\Bellatrix.Playwright\Bellatrix.Playwright.csproj" />
+    <ProjectReference Include="..\integrations\DynamicTestCases\Bellatrix.DynamicTestCases.Playwright\Bellatrix.DynamicTestCases.Playwright.csproj" />
   </ItemGroup>
 
   <ItemGroup>

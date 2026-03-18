@@ -13,7 +13,6 @@
 // <site>https://bellatrix.solutions/</site>
 
 using System.Diagnostics;
-using System.Drawing;
 using System.Text;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Playwright.Contracts;
@@ -24,13 +23,9 @@ using Bellatrix.Playwright.WaitStrategies;
 using Bellatrix.Playwright.Waits;
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Settings.Extensions;
-using Bellatrix.CognitiveServices.services;
-using Bellatrix.CognitiveServices;
 using Bellatrix.Playwright.SyncPlaywright.Element;
 using Bellatrix.Playwright.Components;
 using Bellatrix.Playwright.Components.ShadowDom;
-using Bellatrix.LLM;
-using Bellatrix.LLM.Settings;
 
 
 namespace Bellatrix.Playwright;
@@ -38,9 +33,6 @@ namespace Bellatrix.Playwright;
 [DebuggerDisplay("BELLATRIX Component")]
 public partial class Component : IComponentVisible, IComponentCssClass, IComponent, IWebLayoutComponent
 {
-    private readonly IViewSnapshotProvider _viewSnapshotProvider;
-    private readonly LargeLanguageModelsSettings _llmSettings;
-
     // ReSharper disable All
 #pragma warning disable 67
     public static event EventHandler<ComponentActionEventArgs> ScrollingToVisible;
@@ -58,6 +50,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
 
     public static event EventHandler<ComponentActionEventArgs> Focusing;
     public static event EventHandler<ComponentActionEventArgs> Focused;
+    public static event EventHandler<ElementResolveFailedEventArgs> ElementResolveFailed;
+    public static event EventHandler<ElementResolvedEventArgs> ElementResolved;
 
     protected WebElement _wrappedElement;
     private readonly ComponentWaitService _elementWaiter;
@@ -74,8 +68,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         JavaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
         BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
         ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
-        _viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
-        _llmSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
     }
 
     public WrappedBrowser WrappedBrowser { get; }
@@ -112,37 +104,27 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         {
             var element = By.Resolve(WrappedBrowser.CurrentPage);
 
-            if (_llmSettings != null && _llmSettings.EnableSelfHealing)
-            {
-                var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
-                LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedBrowser.CurrentPage.Url);
-            }
+            ElementResolved?.Invoke(this, new ElementResolvedEventArgs(this, _wrappedElement));
 
             return element;
         }
         catch (Exception ex)
         {
-            if (_llmSettings == null || !_llmSettings.EnableSelfHealing)
+            var args = new ElementResolveFailedEventArgs(this, ex);
+
+            ElementResolveFailed?.Invoke(this, args);
+
+            if (args.ResolvedElement != null)
             {
-                throw new TimeoutException($"Element not found: {By?.Value}", ex);
+                _wrappedElement = args.ResolvedElement;
+
+                ElementResolved?.Invoke(this, new ElementResolvedEventArgs(this, _wrappedElement));
+
+                _untils.Clear();
+                return _wrappedElement;
             }
 
-            var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
-            var healedLocator = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, WrappedBrowser.CurrentPage.Url);
-
-            if (!string.IsNullOrWhiteSpace(healedLocator))
-            {
-                try
-                {
-                    return new FindXpathStrategy(healedLocator).Resolve(WrappedBrowser.CurrentPage);
-                }
-                catch
-                {
-                    throw new InvalidOperationException($"Healing attempt failed: {By.Value}", ex);
-                }
-            }
-
-            throw new InvalidOperationException($"Original and healed locators failed: {By.Value}", ex);
+            throw new TimeoutException($"Element not found: {By?.Value}", ex);
         }
     }
 
@@ -165,14 +147,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     public string GetDir() => string.IsNullOrEmpty(GetAttribute("dir")) ? null : GetAttribute("dir");
 
     public string GetLang() => string.IsNullOrEmpty(GetAttribute("lang")) ? null : GetAttribute("lang");
-
-    public AssertedFormPage AIAnalyze()
-    {
-        string currentComponentScreenshot = TakeScreenshot();
-        var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
-        var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
-        return analyzedComponent;
-    }
 
     public string TakeScreenshot(string filePath = null)
     {

@@ -12,8 +12,6 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Assertions;
-using Bellatrix.AWS;
-using Bellatrix.CognitiveServices;
 using Bellatrix.Mobile.Services;
 using Bellatrix.Plugins;
 using OpenQA.Selenium.Appium.Service;
@@ -39,9 +37,6 @@ public abstract class App<TDriver, TDriverElement> : IDisposable
     public ComponentWaitService<TDriver, TDriverElement> Wait => ServicesCollection.Current.Resolve<ComponentWaitService<TDriver, TDriverElement>>();
     public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
     public WebServicesFacade Web => ServicesCollection.Current.Resolve<WebServicesFacade>();
-    public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
-    public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
-    public AWSServicesFactory AWS => ServicesCollection.Current.Resolve<AWSServicesFactory>();
     public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
     public static void StartAppiumLocalService()

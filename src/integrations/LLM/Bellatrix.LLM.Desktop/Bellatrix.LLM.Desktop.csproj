@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Bellatrix.CognitiveServices\Bellatrix.CognitiveServices.csproj" />
       <ProjectReference Include="..\..\..\Bellatrix.Desktop\Bellatrix.Desktop.csproj" />
       <ProjectReference Include="..\..\..\Bellatrix.LLM\Bellatrix.LLM.csproj" />
     </ItemGroup>

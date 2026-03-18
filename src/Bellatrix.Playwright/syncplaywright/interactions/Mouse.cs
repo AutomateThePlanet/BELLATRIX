@@ -12,8 +12,6 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using Microsoft.VisualStudio.Services.WebApi;
-
 namespace Bellatrix.Playwright.SyncPlaywright;
 
 public class Mouse
@@ -27,31 +25,31 @@ public class Mouse
 
     public void Click(float x, float y, MouseClickOptions options = null)
     {
-        WrappedMouse.ClickAsync(x, y, options).SyncResult();
+        WrappedMouse.ClickAsync(x, y, options).GetAwaiter().GetResult();
     }
 
     public void DblClick(float x, float y, MouseDblClickOptions options = null)
     {
-        WrappedMouse.DblClickAsync(x, y, options).SyncResult();
+        WrappedMouse.DblClickAsync(x, y, options).GetAwaiter().GetResult();
     }
 
     public void Down(MouseDownOptions options = null)
     {
-        WrappedMouse.DownAsync(options).SyncResult();
+        WrappedMouse.DownAsync(options).GetAwaiter().GetResult();
     }
 
     public void Move(float x, float y, MouseMoveOptions options = null)
     {
-        WrappedMouse.MoveAsync(x, y, options).SyncResult();
+        WrappedMouse.MoveAsync(x, y, options).GetAwaiter().GetResult();
     }
 
     public void Up(MouseUpOptions options = null)
     {
-        WrappedMouse.UpAsync(options).SyncResult();
+        WrappedMouse.UpAsync(options).GetAwaiter().GetResult();
     }
 
     public void Wheel(float deltaX, float deltaY)
     {
-        WrappedMouse.WheelAsync(deltaX, deltaY).SyncResult();
+        WrappedMouse.WheelAsync(deltaX, deltaY).GetAwaiter().GetResult();
     }
 }
