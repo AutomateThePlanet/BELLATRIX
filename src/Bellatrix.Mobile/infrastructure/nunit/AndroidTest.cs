@@ -11,9 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-
 using Bellatrix.Core.logging;
-using Bellatrix.LLM.Plugins;
 using Bellatrix.Mobile.Android;
 
 namespace Bellatrix.Mobile.NUnit;
@@ -33,26 +31,15 @@ public abstract class AndroidTest : NUnitBaseTest
             {
                 NUnitPluginConfiguration.Add();
                 ExecutionTimePlugin.Add();
-                DynamicTestCasesPlugin.Add();
-                AllurePlugin.Add();
-                BugReportingPlugin.Add();
                 VideoRecorderPluginConfiguration.AddNUnit();
                 ScreenshotsPluginConfiguration.AddNUnit();
                 AndroidPluginsConfiguration.AddAndroidDriverScreenshotsOnFail();
                 AndroidPluginsConfiguration.AddElementsBddLogging();
-                AndroidPluginsConfiguration.AddDynamicTestCases();
-                AndroidPluginsConfiguration.AddBugReporting();
                 AndroidPluginsConfiguration.AddValidateExtensionsBddLogging();
-                AndroidPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                AndroidPluginsConfiguration.AddValidateExtensionsBugReporting();
                 AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                AndroidPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                AndroidPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 AndroidPluginsConfiguration.AddLifecycle();
                 AndroidPluginsConfiguration.AddLogExecutionLifecycle();
 
-                AndroidPluginsConfiguration.ConfigureLLM();
-                SmartFailureAnalysisPlugin.Add();
                 LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;

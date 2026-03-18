@@ -19,7 +19,6 @@ using Bellatrix.Playwright.Services;
 using Bellatrix.Playwright.Enums;
 using Bellatrix.Playwright;
 using System.Reflection;
-using Microsoft.TeamFoundation.Common;
 
 namespace Bellatrix.GoogleLighthouse.MSTest;
 
@@ -67,7 +66,7 @@ public class MSTestLighthouseReportsWorkflowPlugin : Plugin
     private bool HasLighthouseAttribute(PluginEventArgs e)
     {
         // Does it have any attribute of type BrowserAttribute?
-        bool testHasAnyAttribute = !e.TestMethodMemberInfo.GetCustomAttributes().Where(x => x is BrowserAttribute).IsNullOrEmpty();
+        bool testHasAnyAttribute = e.TestMethodMemberInfo.GetCustomAttributes().Any(x => x is BrowserAttribute);
 
 
         if (testHasAnyAttribute)

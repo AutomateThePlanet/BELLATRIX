@@ -16,18 +16,11 @@ using System.Collections.Generic;
 using Bellatrix.GoogleLighthouse.MSTest;
 using Bellatrix.GoogleLighthouse.NUnit;
 using Bellatrix.Layout;
-using Bellatrix.LLM;
-using Bellatrix.LLM.Plugins;
-using Bellatrix.LLM.Settings;
-using Bellatrix.LLM.Skills;
 using Bellatrix.Plugins;
 using Bellatrix.Web.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Web.Controls.EventHandlers;
-using Bellatrix.Web.EventHandlers.DynamicTestCases;
-using Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
-using Bellatrix.Web.LLM.Plugins;
+using Bellatrix.Web.Extensions.Controls.EventHandlers;
 using Bellatrix.Web.Plugins.Browser;
-using Microsoft.SemanticKernel;
 
 namespace Bellatrix.Web;
 
@@ -97,34 +90,10 @@ public static class WebPluginsConfiguration
         bddLoggingValidateExtensions.SubscribeToAll();
     }
 
-    public static void AddValidateExtensionsDynamicTestCases()
-    {
-        var dynamicTestCasesValidateExtensions = new DynamicTestCasesValidateExtensionsEventHandlers();
-        dynamicTestCasesValidateExtensions.SubscribeToAll();
-    }
-
-    public static void AddValidateExtensionsBugReporting()
-    {
-        var bugReportingValidateExtensions = new BugReportingValidateExtensionsEventHandlers();
-        bugReportingValidateExtensions.SubscribeToAll();
-    }
-
     public static void AddLayoutAssertionExtensionsBddLogging()
     {
         var bddLoggingLayoutAssertionsExtensions = new BDDLoggingAssertionExtensionsService();
         bddLoggingLayoutAssertionsExtensions.SubscribeToAll();
-    }
-
-    public static void AddLayoutAssertionExtensionsDynamicTestCases()
-    {
-        var dynamicTestCasesLayoutAssertionsExtensions = new DynamicTestCasesAssertionExtensions();
-        dynamicTestCasesLayoutAssertionsExtensions.SubscribeToAll();
-    }
-
-    public static void AddLayoutAssertionExtensionsBugReporting()
-    {
-        var bugReportingLayoutAssertionsExtensions = new BugReportingAssertionExtensions();
-        bugReportingLayoutAssertionsExtensions.SubscribeToAll();
     }
 
     public static void AddElementsBddLogging()
@@ -157,65 +126,6 @@ public static class WebPluginsConfiguration
         }
     }
 
-    public static void AddDynamicTestCases()
-    {
-        var elementEventHandlers = new List<ComponentEventHandlers>()
-                                   {
-                                       new DynamicTestCasesTextFieldEventHandlers(),
-                                       new DynamicTestCasesDateEventHandlers(),
-                                       new DynamicTestCasesColorEventHandlers(),
-                                       new DynamicTestCasesCheckboxEventHandlers(),
-                                       new DynamicTestCasesDateTimeLocalEventHandlers(),
-                                       new DynamicTestCasesElementEventHandlers(),
-                                       new DynamicTestCasesEmailEventHandlers(),
-                                       new DynamicTestCasesInputFileEventHandlers(),
-                                       new DynamicTestCasesMonthEventHandlers(),
-                                       new DynamicTestCasesNumberEventHandlers(),
-                                       new DynamicTestCasesPasswordEventHandlers(),
-                                       new DynamicTestCasesPhoneEventHandlers(),
-                                       new DynamicTestCasesRangeEventHandlers(),
-                                       new DynamicTestCasesSearchEventHandlers(),
-                                       new DynamicTestCasesSelectEventHandlers(),
-                                       new DynamicTestCasesTextAreaEventHandlers(),
-                                       new DynamicTestCasesTimeEventHandlers(),
-                                       new DynamicTestCasesUrlEventHandlers(),
-                                       new DynamicTestCasesWeekEventHandlers(),
-                                   };
-        foreach (var elementEventHandler in elementEventHandlers)
-        {
-            elementEventHandler.SubscribeToAll();
-        }
-    }
-
-    public static void AddBugReporting()
-    {
-        var elementEventHandlers = new List<ComponentEventHandlers>()
-                                   {
-                                       new BugReportingTextFieldEventHandlers(),
-                                       new BugReportingDateEventHandlers(),
-                                       new BugReportingColorEventHandlers(),
-                                       new BugReportingCheckboxEventHandlers(),
-                                       new BugReportingDateTimeLocalEventHandlers(),
-                                       new BugReportingElementEventHandlers(),
-                                       new BugReportingEmailEventHandlers(),
-                                       new BugReportingInputFileEventHandlers(),
-                                       new BugReportingNumberEventHandlers(),
-                                       new BugReportingPasswordEventHandlers(),
-                                       new BugReportingPhoneEventHandlers(),
-                                       new BugReportingRangeEventHandlers(),
-                                       new BugReportingSearchEventHandlers(),
-                                       new BugReportingSelectEventHandlers(),
-                                       new BugReportingTextAreaEventHandlers(),
-                                       new BugReportingTimeEventHandlers(),
-                                       new BugReportingUrlEventHandlers(),
-                                       new BugReportingWeekEventHandlers(),
-                                   };
-        foreach (var elementEventHandler in elementEventHandlers)
-        {
-            elementEventHandler.SubscribeToAll();
-        }
-    }
-
     public static void AddHighlightComponents()
     {
         if (ConfigurationService.GetSection<WebSettings>() == null)
@@ -227,36 +137,6 @@ public static class WebPluginsConfiguration
         {
             var highlightComponentEventHandler = new HighlightComponentEventHandlers();
             highlightComponentEventHandler.SubscribeToAll();
-        }
-    }
-
-    public static void ConfigureLLM()
-    {
-        if (ConfigurationService.GetSection<LargeLanguageModelsSettings>() == null)
-        {
-            Logger.LogError("Could not load LargeLanguageModelsSettings section from testFrameworkSettings.json");
-            return;
-        }
-
-        try
-        {
-            var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
-
-            SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorSkill(), nameof(LocatorSkill));
-            SemanticKernelService.Kernel.ImportPluginFromObject(new AssertionSkill(), nameof(AssertionSkill));
-            SemanticKernelService.Kernel.ImportPluginFromObject(new PageObjectSummarizerSkill(), nameof(PageObjectSummarizerSkill));
-            SemanticKernelService.Kernel.ImportPluginFromObject(new LocatorMapperSkill(), nameof(LocatorMapperSkill));
-            SemanticKernelService.Kernel.ImportPluginFromObject(new FailureAnalyzerSkill(), nameof(FailureAnalyzerSkill));
-
-            // index all page objects:
-            if (settings.ShouldIndexPageObjects)
-            {
-                PageObjectsIndexer.IndexAllPageObjects(settings.PageObjectFilesPath, settings.MemoryIndex, settings.ResetIndexEverytime);
-            }
-        }
-        catch (Exception ex)
-        {
-            Logger.LogError(ex.ToString());
         }
     }
 }

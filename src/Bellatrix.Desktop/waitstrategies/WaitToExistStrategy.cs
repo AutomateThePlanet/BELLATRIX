@@ -31,8 +31,13 @@ public class WaitToExistStrategy : WaitStrategy
     {
         WaitUntil(d => ElementExists(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
     }
+    
+    public override void WaitUntil<TBy>(TBy by, Component parent)
+    {
+        WaitUntil(d => ElementExists(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
+    }
 
-    private bool ElementExists<TBy>(WindowsDriver searchContext, TBy by)
+    private bool ElementExists<TBy>(ISearchContext searchContext, TBy by)
         where TBy : FindStrategy
     {
         try

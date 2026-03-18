@@ -17,7 +17,7 @@ using Bellatrix.Assertions;
 
 namespace Bellatrix.Playwright;
 
-[Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
+[Obsolete("Please refactor your pages to use the new WebPage base class which combines the old 4 base classes.")]
 public abstract class AssertedNavigatablePage : NavigatablePage
 {
     protected AssertedNavigatablePage() => Assert = ServicesCollection.Current.Resolve<IAssert>();

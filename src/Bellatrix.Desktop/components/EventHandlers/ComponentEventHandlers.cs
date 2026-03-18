@@ -11,18 +11,12 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix.BugReporting;
 using Bellatrix.Desktop.Events;
-using Bellatrix.DynamicTestCases;
 
 namespace Bellatrix.Desktop.EventHandlers;
 
 public class ComponentEventHandlers : IControlEventHandlers
 {
-    // These three properties were added to reduce code duplication in child classes and improve readability. However, we realize that the SOLID principles are not followed thoroughly.
-    protected BugReportingContextService BugReportingContextService => ServicesCollection.Current.Resolve<BugReportingContextService>();
-    protected DynamicTestCasesService DynamicTestCasesService => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-
     public virtual void SubscribeToAll()
     {
         Component.ScrollingToVisible += ScrollingToVisibleEventHandler;

@@ -16,10 +16,13 @@ public class WaitToHaveSpecificContentStrategy : WaitStrategy
 
     public override void WaitUntil<TBy>(TBy by)
         => WaitUntil(ElementHasSpecificContent(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
+    
+    public override void WaitUntil<TBy>(TBy by, Component parent)
+        => WaitUntil(ElementHasSpecificContent(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
 
     // 2. We find the element and check the current value in the Text attribute.
     // The internal WaitUntil will wait until the value changes in the specified time.
-    private Func<IWebDriver, bool> ElementHasSpecificContent<TBy>(WindowsDriver searchContext, TBy by)
+    private Func<IWebDriver, bool> ElementHasSpecificContent<TBy>(ISearchContext searchContext, TBy by)
         where TBy : Locators.FindStrategy => driver =>
     {
         try

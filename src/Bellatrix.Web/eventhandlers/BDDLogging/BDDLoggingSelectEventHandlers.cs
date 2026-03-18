@@ -14,7 +14,7 @@
 using Bellatrix.Web.Controls.EventHandlers;
 using Bellatrix.Web.Events;
 
-namespace Bellatrix.Web.Extensions.Controls.Controls.EventHandlers;
+namespace Bellatrix.Web.Extensions.Controls.EventHandlers;
 
 public class BDDLoggingSelectEventHandlers : SelectEventHandlers
 {

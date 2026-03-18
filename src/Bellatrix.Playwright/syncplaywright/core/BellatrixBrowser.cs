@@ -12,7 +12,6 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using Microsoft.VisualStudio.Services.WebApi;
 using System.Diagnostics;
 
 namespace Bellatrix.Playwright.SyncPlaywright;
@@ -61,7 +60,7 @@ public class BellatrixBrowser
 
     public void Close(BrowserCloseOptions options = null)
     {
-        WrappedBrowser.CloseAsync(options).SyncResult();
+        WrappedBrowser.CloseAsync(options).GetAwaiter().GetResult();
     }
 
     public void Dispose()
@@ -71,7 +70,7 @@ public class BellatrixBrowser
 
     public ICDPSession NewBrowserCDPSession()
     {
-        return WrappedBrowser.NewBrowserCDPSessionAsync().SyncResult();
+        return WrappedBrowser.NewBrowserCDPSessionAsync().GetAwaiter().GetResult();
     }
 
     public BrowserContext NewContext(BrowserNewContextOptions options = null)

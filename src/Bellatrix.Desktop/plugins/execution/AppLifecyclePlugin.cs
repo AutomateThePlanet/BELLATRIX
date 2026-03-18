@@ -17,8 +17,8 @@ using System.Drawing;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Bellatrix.Desktop.Configuration;
+using Bellatrix.Desktop.Events;
 using Bellatrix.Desktop.Services;
-using Bellatrix.KeyVault;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 using OpenQA.Selenium.Appium;
@@ -27,6 +27,8 @@ namespace Bellatrix.Desktop.Plugins;
 
 public class AppLifecyclePlugin : Plugin
 {
+    public static event EventHandler<CapabilityValueResolvingEventArgs> CapabilityValueResolving;
+
     protected override void PostTestsArrange(object sender, PluginEventArgs e)
     {
         var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
@@ -251,6 +253,13 @@ public class AppLifecyclePlugin : Plugin
         {
             return option;
         }
+        
+        var resolvingArgs = new CapabilityValueResolvingEventArgs((string)option);
+        CapabilityValueResolving?.Invoke(this, resolvingArgs);
+        if (resolvingArgs.Handled)
+        {
+            return resolvingArgs.ResolvedValue;
+        }
 
         if (bool.TryParse((string)option, out bool result))
         {
@@ -260,11 +269,6 @@ public class AppLifecyclePlugin : Plugin
         if (int.TryParse((string)option, out int resultNumber))
         {
             return resultNumber;
-        }
-        
-        if (((string)option).StartsWith("env_") || ((string)option).StartsWith("vault_"))
-        {
-            return SecretsResolver.GetSecret(() => (string)option);
         }
         
         if (double.TryParse((string)option, out double resultRealNumber))

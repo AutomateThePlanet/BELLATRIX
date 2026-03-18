@@ -27,9 +27,23 @@ public class ComponentsRepository
     {
         DetermineComponentAttributes(out var elementName, out var pageName);
 
-        dynamic element = Activator.CreateInstance(newElementType);
+        var element = Activator.CreateInstance(newElementType) as Component;
         element.By = by;
         element.ParentWrappedElement = parentElement;
+        ////element.ElementName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName; // temporary, revert
+        element.PageName = pageName ?? string.Empty;
+
+        return element;
+    }
+    
+    public dynamic CreateComponentWithParent(FindStrategy by, Component parentComponent, Type newElementType)
+    {
+        DetermineComponentAttributes(out var elementName, out var pageName);
+
+        var element = Activator.CreateInstance(newElementType) as Component;
+        element.By = by;
+        element.ParentComponent = parentComponent;
+        element.ParentWrappedElement = parentComponent.WrappedElement;
         ////element.ElementName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName; // temporary, revert
         element.PageName = pageName ?? string.Empty;
 
@@ -44,6 +58,24 @@ public class ComponentsRepository
         var element = Activator.CreateInstance<TComponentType>();
         element.By = by;
         element.ParentWrappedElement = parentElement;
+        element.WrappedElement = foundElement;
+        element.FoundWrappedElement = foundElement;
+        element.ElementIndex = elementsIndex;
+        element.ComponentName = string.IsNullOrEmpty(elementName) ? $"control ({by})" : elementName;
+        element.PageName = pageName ?? string.Empty;
+
+        return element;
+    }
+    
+    public TComponentType CreateComponentWithParent<TComponentType>(FindStrategy by, Component parentComponent, AppiumElement foundElement, int elementsIndex)
+        where TComponentType : Component
+    {
+        DetermineComponentAttributes(out var elementName, out var pageName);
+
+        var element = Activator.CreateInstance<TComponentType>();
+        element.By = by;
+        element.ParentComponent = parentComponent;
+        element.ParentWrappedElement = parentComponent.WrappedElement;
         element.WrappedElement = foundElement;
         element.FoundWrappedElement = foundElement;
         element.ElementIndex = elementsIndex;
@@ -98,7 +130,7 @@ public class ComponentsRepository
                     !frameMethodInfo.IsStatic &&
                     frameMethodInfo.ReturnType.IsSubclassOf(typeof(Component)))
                 {
-                    elementName = frame.GetMethod().Name.Replace("get_", string.Empty);
+                    elementName = frame.GetMethod()?.Name.Replace("get_", string.Empty) ?? string.Empty;
                     if (frameMethodInfo.ReflectedType.IsSubclassOf(typeof(DesktopPage)))
                     {
                         pageName = frameMethodInfo.ReflectedType.Name;

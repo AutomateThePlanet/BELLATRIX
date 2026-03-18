@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Bellatrix.Layout;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Web.Tests;
@@ -9,6 +9,17 @@ public class LoginTestsMSTest : MSTest.WebTest
 {
     public override void TestInit() => App.Navigation.Navigate("https://demos.bellatrix.solutions/my-account/");
 
+    public override void Configure()
+    {
+        base.Configure();
+        
+        BugReportingPlugin.Add();
+        DynamicTestCasesPlugin.Add();
+        
+        DynamicTestCasesAssertionExtensions.Add();
+        BugReportingAssertionExtensions.Add();
+    }
+    
     [TestMethod]
     public void SuccessfullyLoginToMyAccount()
     {

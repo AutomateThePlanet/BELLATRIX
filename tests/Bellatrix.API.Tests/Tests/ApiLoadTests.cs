@@ -21,7 +21,7 @@ namespace Bellatrix.API.Tests;
 [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
 [AllureFeature("Load Testing")]
 [AllureSuite("Load Testing")]
-public class ApiLoadTests : MSTest.APITest
+public class ApiLoadTests : BaseTest
 {
     private ApiClientService _apiClientService;
 

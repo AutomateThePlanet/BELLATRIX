@@ -16,7 +16,6 @@ using Bellatrix.Assertions;
 using Bellatrix.Playwright.Enums;
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Services;
-using Microsoft.VisualStudio.Services.Common;
 using System.Text.RegularExpressions;
 
 namespace Bellatrix.Playwright;
@@ -151,9 +150,9 @@ public class DevToolsService : WebService
 
     public void AddExtraHttpHeader(string header, string value)
     {
-        var headers = new KeyValuePair<string, string>[1];
-        headers.Add(header, value);
-        CurrentContext.SetExtraHTTPHeaders(headers);
+        var headers = new KeyValuePair<string, string>[1].ToList();
+        headers.Add(new KeyValuePair<string, string>(header, value));
+        CurrentContext.SetExtraHTTPHeaders(headers.ToArray());
     }
 
     //public void OverrideUserAgent(string userAgent)

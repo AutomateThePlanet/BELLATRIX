@@ -1,5 +1,5 @@
 ﻿using Bellatrix.DynamicTestCases.AzureDevOps;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Bellatrix.DynamicTestCases.Playwright;
 
 namespace Bellatrix.Playwright.Tests;
 

@@ -12,7 +12,6 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using Bellatrix.Core.logging;
-using Bellatrix.LLM.Plugins;
 using Bellatrix.Web.Screenshots;
 
 namespace Bellatrix.Web.NUnit;
@@ -35,31 +34,19 @@ public abstract class WebTest : NUnitBaseTest
                 ExecutionTimePlugin.Add();
                 VideoRecorderPluginConfiguration.AddNUnit();
                 ScreenshotsPluginConfiguration.AddNUnit();
-                DynamicTestCasesPlugin.Add();
-                AllurePlugin.Add();
-                BugReportingPlugin.Add();
              
 
                 WebPluginsConfiguration.AddBrowserLifecycle();
                 WebPluginsConfiguration.AddLogExecutionLifecycle();
                 WebPluginsConfiguration.AddControlDataHandlers();
                 WebPluginsConfiguration.AddValidateExtensionsBddLogging();
-                WebPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                WebPluginsConfiguration.AddValidateExtensionsBugReporting();
                 WebPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                WebPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                WebPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 WebPluginsConfiguration.AddElementsBddLogging();
-                WebPluginsConfiguration.AddDynamicTestCases();
-                WebPluginsConfiguration.AddBugReporting();
                 WebPluginsConfiguration.AddHighlightComponents();
                 WebPluginsConfiguration.AddNUnitGoogleLighthouse();
                 WebPluginsConfiguration.AddJavaScriptErrorsPlugin();
-                WebPluginsConfiguration.ConfigureLLM();
 
                 APIPluginsConfiguration.AddAssertExtensionsBddLogging();
-                APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
-                APIPluginsConfiguration.AddAssertExtensionsBugReporting();
                 APIPluginsConfiguration.AddApiAuthenticationStrategies();
                 APIPluginsConfiguration.AddRetryFailedRequests();
                 APIPluginsConfiguration.AddLogExecution();
@@ -73,7 +60,6 @@ public abstract class WebTest : NUnitBaseTest
                     WebScreenshotPluginConfiguration.UseVanillaWebDriverScreenshotsOnFail();
                 }
 
-                SmartFailureAnalysisPlugin.Add();
                 LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;

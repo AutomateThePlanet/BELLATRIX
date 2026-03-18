@@ -13,7 +13,6 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Core.logging;
-using Bellatrix.LLM.Plugins;
 
 namespace Bellatrix.Desktop.MSTest;
 
@@ -34,24 +33,13 @@ public abstract class DesktopTest : MSTestBaseTest
                 ExecutionTimePlugin.Add();
                 VideoRecorderPluginConfiguration.AddMSTest();
                 ScreenshotsPluginConfiguration.AddMSTest();
-                DynamicTestCasesPlugin.Add();
-                AllurePlugin.Add();
-                BugReportingPlugin.Add();
                 DesktopPluginsConfiguration.AddLifecycle();
                 DesktopPluginsConfiguration.AddLogExecutionLifecycle();
                 DesktopPluginsConfiguration.AddVanillaWebDriverScreenshotsOnFail();
                 DesktopPluginsConfiguration.AddElementsBddLogging();
-                DesktopPluginsConfiguration.AddDynamicTestCases();
-                DesktopPluginsConfiguration.AddBugReporting();
                 DesktopPluginsConfiguration.AddValidateExtensionsBddLogging();
-                DesktopPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                DesktopPluginsConfiguration.AddValidateExtensionsBugReporting();
                 DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                DesktopPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                DesktopPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
-                DesktopPluginsConfiguration.ConfigureLLM();
 
-                SmartFailureAnalysisPlugin.Add();
                 LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;

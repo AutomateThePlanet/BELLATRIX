@@ -14,7 +14,6 @@
 using System;
 using Bellatrix.Api.Configuration;
 using Bellatrix.Api.Extensions;
-using Bellatrix.DynamicTestCases;
 using Bellatrix.Plugins;
 using Bellatrix.Settings;
 using Bellatrix.Utilities;
@@ -42,8 +41,6 @@ public class App
     public bool ShouldReuseRestClient { get; set; } = true;
 
     public LoadTestService LoadTestService => new LoadTestService();
-
-    public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
 
     public void AddApiClientExecutionPlugin<TExecutionExtension>()
         where TExecutionExtension : ApiClientExecutionPlugin

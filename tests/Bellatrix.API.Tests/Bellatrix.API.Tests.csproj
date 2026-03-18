@@ -19,6 +19,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Api\Bellatrix.API.csproj" />
+    <ProjectReference Include="..\..\src\integrations\BugReporting\Belatrix.BugReporting.Api\Belatrix.BugReporting.Api.csproj" />
+    <ProjectReference Include="..\..\src\integrations\DynamicTestCases\Bellatrix.DynamicTestCases.Api\Bellatrix.DynamicTestCases.Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>

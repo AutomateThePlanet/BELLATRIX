@@ -28,26 +28,26 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
     where TComponent : Component
 {
     private readonly FindStrategy _by;
-    private readonly AppiumElement _parenTComponent;
+    private readonly AppiumElement _parentElement;
     private readonly List<TComponent> _foundElements;
     private readonly bool _shouldCacheFoundElements;
     private List<TComponent> _cachedElements;
 
     public ComponentsList(
         FindStrategy by,
-        AppiumElement parenTComponent,
+        AppiumElement parentElement,
         bool shouldCacheFoundElements)
-    : this(by, parenTComponent)
+    : this(by, parentElement)
     {
         _shouldCacheFoundElements = shouldCacheFoundElements;
     }
 
     public ComponentsList(
         FindStrategy by,
-        AppiumElement parenTComponent)
+        AppiumElement parentElement)
     {
         _by = by;
-        _parenTComponent = parenTComponent;
+        _parentElement = parentElement;
         _foundElements = new List<TComponent>();
         WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver>();
     }
@@ -125,10 +125,10 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
                 yield return foundElement;
             }
 
-            if (_parenTComponent != null)
+            if (_parentElement != null)
             {
                 var elementRepository = new ComponentsRepository();
-                foreach (var nativeElement in _by?.FindAllElements(_parenTComponent))
+                foreach (var nativeElement in _by?.FindAllElements(_parentElement))
                 {
                     var element =
                            elementRepository.CreateComponentThatIsFound<TComponent>(_by, nativeElement);
@@ -154,12 +154,12 @@ public class ComponentsList<TComponent> : IEnumerable<TComponent>
         Utilities.Wait.ForConditionUntilTimeout(
                () =>
                {
-                   var elements = _parenTComponent == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parenTComponent);
+                   var elements = _parentElement == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parentElement);
                    return elements.Any();
                },
                totalRunTimeoutMilliseconds: ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.ElementToExistTimeout,
                sleepTimeMilliseconds: ConfigurationService.GetSection<DesktopSettings>().TimeoutSettings.SleepInterval);
-        var elements = _parenTComponent == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parenTComponent);
+        var elements = _parentElement == null ? _by.FindAllElements(WrappedDriver) : _by.FindAllElements(_parentElement);
 
         return elements;
     }

@@ -1,4 +1,5 @@
 ﻿using Bellatrix.DynamicTestCases.AzureDevOps;
+using Bellatrix.DynamicTestCases.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Web.Tests;
@@ -13,7 +14,7 @@ public class PageObjectsTests : MSTest.WebTest
     ////[DynamicTestCase(
     ////    TestCaseId = "4d001440-bf6c-4a8b-b3e6-796cbad361e1",
     ////    Description = "Create a purchase of a rocket through the online rocket shop https://demos.bellatrix.solutions/")]
-    [AzureDevOpsDynamicTestCaseAttribute]
+    [AzureDevOpsDynamicTestCase]
     public void PurchaseRocketWithoutPageObjects20()
     {
         App.TestCases.AddPrecondition($"Navigate to https://demos.bellatrix.solutions/");

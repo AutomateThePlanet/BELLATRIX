@@ -28,7 +28,7 @@ namespace Bellatrix.API.Tests;
 [JwtAuthenticationStrategy(GlobalConstants.JwtToken)]
 [AllureFeature("Async Requests")]
 [AllureSuite("Async Requests")]
-public class ApiClientServiceAsyncRequestTests : MSTest.APITest
+public class ApiClientServiceAsyncRequestTests : BaseTest
 {
     private ApiClientService _apiClientService;
     private Fixture _fixture;

@@ -6,7 +6,7 @@
 
   <ItemGroup>
 
-    <PackageReference Include="Newtonsoft.Json.Schema" Version="4.0.1" />
+    <PackageReference Include="JsonSchema.Net" Version="9.1.0" />
 
     <PackageReference Include="NUnit" Version="4.4.0" />
     <PackageReference Include="Polly" Version="8.6.5" />
@@ -15,13 +15,11 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.1" />
     <PackageReference Include="RestSharp" Version="113.0.0" />
     <PackageReference Include="MSTest" Version="4.0.2" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="113.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
-    <ProjectReference Include="..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
     <ProjectReference Include="..\Bellatrix.Core\Bellatrix.Core.csproj" />
-    <ProjectReference Include="..\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
   </ItemGroup>
 
   <ItemGroup>

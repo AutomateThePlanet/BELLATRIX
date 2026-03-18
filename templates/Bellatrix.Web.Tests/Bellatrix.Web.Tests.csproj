@@ -23,6 +23,8 @@
     <ProjectReference Include="..\..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Web\Bellatrix.Web.csproj" />
+    <ProjectReference Include="..\..\src\integrations\BugReporting\Bellatrix.BugReporting.Layout\Bellatrix.BugReporting.Layout.csproj" />
+    <ProjectReference Include="..\..\src\integrations\DynamicTestCases\Bellatrix.DynamicTestCases.Layout\Bellatrix.DynamicTestCases.Layout.csproj" />
   </ItemGroup>
 
   <ItemGroup>
