@@ -13,6 +13,7 @@
 // <site>https://bellatrix.solutions/</site>
 using System;
 using Bellatrix.Desktop.Configuration;
+using Bellatrix.Desktop.Locators;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Support.UI;
@@ -35,7 +36,10 @@ public abstract class WaitStrategy
     protected int? SleepInterval { get; }
 
     public abstract void WaitUntil<TBy>(TBy by)
-        where TBy : Locators.FindStrategy;
+        where TBy : FindStrategy;
+
+    public abstract void WaitUntil<TBy>(TBy by, Component parent)
+        where TBy : FindStrategy;
 
     protected void WaitUntil(Func<IWebDriver, bool> waitCondition, int? timeout, int? sleepInterval)
     {

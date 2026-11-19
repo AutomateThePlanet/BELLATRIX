@@ -13,12 +13,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Bellatrix.CognitiveServices\Bellatrix.CognitiveServices.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Core\Bellatrix.Core.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Layout\Bellatrix.Layout.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Web\Bellatrix.Web.csproj" />
+    <ProjectReference Include="..\..\src\integrations\CognitiveServices\Bellatrix.CognitiveServices.Web\Bellatrix.CognitiveServices.Web.csproj" />
+    <ProjectReference Include="..\..\src\integrations\LLM\Bellatrix.LLM.Web\Bellatrix.LLM.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

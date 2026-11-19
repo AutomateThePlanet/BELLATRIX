@@ -13,7 +13,6 @@
 // <site>https://bellatrix.solutions/</site>
 
 using Bellatrix.Core.logging;
-using Bellatrix.LLM.Plugins;
 using Bellatrix.Mobile.IOS;
 
 namespace Bellatrix.Mobile.MSTest;
@@ -35,24 +34,13 @@ public abstract class IOSTest : MSTestBaseTest
                 ExecutionTimePlugin.Add();
                 VideoRecorderPluginConfiguration.AddMSTest();
                 ScreenshotsPluginConfiguration.AddMSTest();
-                DynamicTestCasesPlugin.Add();
-                AllurePlugin.Add();
-                BugReportingPlugin.Add();
                 IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
                 IOSPluginsConfiguration.AddElementsBddLogging();
-                IOSPluginsConfiguration.AddDynamicTestCases();
-                IOSPluginsConfiguration.AddBugReporting();
                 IOSPluginsConfiguration.AddValidateExtensionsBddLogging();
-                IOSPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                IOSPluginsConfiguration.AddValidateExtensionsBugReporting();
                 IOSPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                IOSPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                IOSPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 IOSPluginsConfiguration.AddLifecycle();
                 IOSPluginsConfiguration.AddLogExecutionLifecycle();
 
-                IOSPluginsConfiguration.ConfigureLLM();
-                SmartFailureAnalysisPlugin.Add();
                 LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;

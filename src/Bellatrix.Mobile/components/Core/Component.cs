@@ -17,10 +17,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
-using Bellatrix.CognitiveServices;
-using Bellatrix.CognitiveServices.services;
-using Bellatrix.LLM.Settings;
-using Bellatrix.LLM;
 using Bellatrix.Mobile.Contracts;
 using Bellatrix.Mobile.Controls.Core;
 using Bellatrix.Mobile.Events;
@@ -60,6 +56,8 @@ public partial class Component<TDriver, TDriverElement> : IComponent<TDriverElem
     public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatingComponents;
     public static event EventHandler<ComponentActionEventArgs<TDriverElement>> CreatedComponents;
     public static event EventHandler<NativeElementActionEventArgs<TDriverElement>> ReturningWrappedElement;
+    public static event EventHandler<ElementResolveFailedEventArgs<TDriver, TDriverElement>> ElementResolveFailed;
+    public static event EventHandler<ElementResolvedEventArgs<TDriver, TDriverElement>> ElementResolved;
 
     public TDriver WrappedDriver { get; }
 
@@ -83,14 +81,6 @@ public partial class Component<TDriver, TDriverElement> : IComponent<TDriverElem
     public virtual string GetAttribute(string name)
     {
         return WrappedElement.GetAttribute(name);
-    }
-
-    public AssertedFormPage AIAnalyze()
-    {
-        string currentComponentScreenshot = TakeScreenshot();
-        var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
-        var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
-        return analyzedComponent;
     }
 
     public string TakeScreenshot(string filePath = null)
@@ -256,54 +246,28 @@ public partial class Component<TDriver, TDriverElement> : IComponent<TDriverElem
 
                 _wrappedElement = GetWebDriverElement();
 
-                var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
-                if (settings.EnableSelfHealing)
-                {
-                    var snapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
-                    var snapshot = snapshotProvider.GetCurrentViewSnapshot();
-                    LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, GetLocationKey());
-                }
+                ElementResolved?.Invoke(this, new ElementResolvedEventArgs<TDriver, TDriverElement>(this, _wrappedElement));
 
                 _untils.Clear();
                 return _wrappedElement;
             }
             catch (Exception ex)
             {
-                var settings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
-                if (!settings.EnableSelfHealing)
+                var args = new ElementResolveFailedEventArgs<TDriver, TDriverElement>(this, ex);
+
+                ElementResolveFailed?.Invoke(this, args);
+
+                if (args.ResolvedElement != null)
                 {
-                    throw new TimeoutException($"❌ Element not found: {By?.Value}", ex);
+                    _wrappedElement = args.ResolvedElement;
+
+                    ElementResolved?.Invoke(this, new ElementResolvedEventArgs<TDriver, TDriverElement>(this, _wrappedElement));
+
+                    _untils.Clear();
+                    return _wrappedElement;
                 }
-
-                Logger.LogWarning($"⚠️ Element not found with locator: {By}. Trying AI-based healing...");
-
-                var snapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
-                var snapshot = snapshotProvider.GetCurrentViewSnapshot();
-                var healedLocator = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, GetLocationKey());
-
-                if (!string.IsNullOrWhiteSpace(healedLocator))
-                {
-                    try
-                    {
-                        // Determine strategy based on locator format
-                        if (healedLocator.StartsWith("uiautomator=", StringComparison.OrdinalIgnoreCase))
-                        {
-                            var expression = healedLocator.Substring("uiautomator=".Length).Trim();
-                            return new FindAndroidUIAutomatorStrategy(expression).FindElement(WrappedDriver as AndroidDriver) as TDriverElement;
-                        }
-                        else if (healedLocator.StartsWith("nspredicate=", StringComparison.OrdinalIgnoreCase))
-                        {
-                            var expression = healedLocator.Substring("nspredicate=".Length).Trim();
-                            return new FindIOSNsPredicateStrategy(expression).FindElement(WrappedDriver as IOSDriver) as TDriverElement;
-                        }
-                    }
-                    catch
-                    {
-                        throw new NotFoundException($"❌ Healing attempt failed for locator: {By}", ex);
-                    }
-                }
-
-                throw new NotFoundException($"❌ Healing failed: {By}", ex);
+                
+                throw new TimeoutException($"❌ Element not found: {By?.Value}", ex);
             }
         }
 

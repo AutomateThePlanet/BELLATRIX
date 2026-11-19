@@ -21,10 +21,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Bellatrix.CognitiveServices;
-using Bellatrix.CognitiveServices.services;
-using Bellatrix.LLM;
-using Bellatrix.LLM.Settings;
 using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Web.Components.ShadowDom;
 using Bellatrix.Web.Contracts;
@@ -44,8 +40,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     private readonly ComponentWaitService _elementWaiter;
     private readonly List<WaitStrategy> _untils;
     private IWebElement _wrappedElement;
-    private IViewSnapshotProvider _viewSnapshotProvider;
-    private LargeLanguageModelsSettings _llmSettings;
     public string TagName => WrappedElement.TagName;
 
     public Component()
@@ -56,8 +50,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         JavaScriptService = ServicesCollection.Current.Resolve<JavaScriptService>();
         BrowserService = ServicesCollection.Current.Resolve<BrowserService>();
         ComponentCreateService = ServicesCollection.Current.Resolve<ComponentCreateService>();
-        _viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
-        _llmSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
     }
 
     // ReSharper disable All
@@ -74,6 +66,8 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     public static event EventHandler<ComponentActionEventArgs> CreatingComponents;
     public static event EventHandler<ComponentActionEventArgs> CreatedComponents;
     public static event EventHandler<NativeElementActionEventArgs> ReturningWrappedElement;
+    public static event EventHandler<ElementResolveFailedEventArgs> ElementResolveFailed;
+    public static event EventHandler<ElementResolvedEventArgs> ElementResolved;
 
     public IWebDriver WrappedDriver { get; }
 
@@ -117,14 +111,6 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
     public string GetDir() => string.IsNullOrEmpty(GetAttribute("dir")) ? null : GetAttribute("dir");
 
     public string GetLang() => string.IsNullOrEmpty(GetAttribute("lang")) ? null : GetAttribute("lang");
-
-    public AssertedFormPage AIAnalyze()
-    {
-        string currentComponentScreenshot = TakeScreenshot();
-        var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
-        var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
-        return analyzedComponent;
-    }
 
     public string TakeScreenshot(string filePath = null)
     {
@@ -390,12 +376,7 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
             }
 
             _wrappedElement = nativeElementFinderService.FindAll(By).ElementAt(ElementIndex);
-
-            if (_llmSettings != null && _llmSettings.EnableSelfHealing)
-            {
-                var summary = _viewSnapshotProvider.GetCurrentViewSnapshot();
-                LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), summary, WrappedDriver.Url);
-            }
+            ElementResolved?.Invoke(this, new ElementResolvedEventArgs(this, _wrappedElement));
 
             ScrollToMakeElementVisible();
 
@@ -414,30 +395,21 @@ public partial class Component : IComponentVisible, IComponentCssClass, ICompone
         }
         catch (Exception ex)
         {
-            if (_llmSettings == null || !_llmSettings.EnableSelfHealing)
+            var args = new ElementResolveFailedEventArgs(this, ex);
+
+            ElementResolveFailed?.Invoke(this, args);
+
+            if (args.ResolvedElement != null)
             {
-                throw new TimeoutException($"\n\nThe element: \n Name: '{ComponentName}', \n Locator: '{LocatorType.Name} = {LocatorValue}', \n Type: '{ComponentType.Name}' \nWas not found or failed condition.\n\n", ex);
+                _wrappedElement = args.ResolvedElement;
+
+                ElementResolved?.Invoke(this, new ElementResolvedEventArgs(this, _wrappedElement));
+
+                _untils.Clear();
+                return _wrappedElement;
             }
 
-            Logger.LogWarning($"⚠️ Element not found with locator: {By}. Attempting self-heal...");
-
-            var currentSummary = _viewSnapshotProvider.GetCurrentViewSnapshot();
-            var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), currentSummary, WrappedDriver.Url);
-            if (!string.IsNullOrEmpty(healedXpath))
-            {
-                try
-                {
-                    var healedElement = nativeElementFinderService.FindAll(new FindXpathStrategy(healedXpath)).ElementAt(ElementIndex);
-                    Logger.LogInformation("🧠 Using AI-suggested fallback locator. Original not updated.");
-                    return healedElement;
-                }
-                catch
-                {
-                    throw new NotFoundException($"❌ Healing attempt failed: {By.Value}", ex);
-                }
-            }
-
-            throw new NotFoundException($"❌ Original and healed locators failed: {By.Value}", ex);
+            throw new TimeoutException($"❌ Element not found: {By?.Value}", ex);
         }
     }
 

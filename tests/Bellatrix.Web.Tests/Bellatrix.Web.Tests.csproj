@@ -24,8 +24,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Bellatrix.Allure\Bellatrix.Results.Allure.csproj" />
+    <ProjectReference Include="..\..\src\Bellatrix.DynamicTestCases\Bellatrix.DynamicTestCases.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.ImageRecognition\Bellatrix.ImageRecognition.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Web\Bellatrix.Web.csproj" />
+    <ProjectReference Include="..\..\src\integrations\DynamicTestCases\Bellatrix.DynamicTestCases.Web\Bellatrix.DynamicTestCases.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

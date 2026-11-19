@@ -19,7 +19,6 @@ using Bellatrix.Plugins.Screenshots;
 using Bellatrix.Plugins.Screenshots.Plugins;
 using Bellatrix.Utilities;
 using Bellatrix.Web;
-using Microsoft.TeamFoundation.Common;
 using NUnit.Framework;
 
 namespace Bellatrix.GoogleLighthouse.NUnit;
@@ -70,7 +69,7 @@ public class NUnitLighthouseReportsWorkflowPlugin : Plugin
     private bool HasLighthouseAttribute(PluginEventArgs e)
     {
         // Does it have any attribute of type BrowserAttribute?
-        bool testHasAnyAttribute = !e.TestMethodMemberInfo.GetCustomAttributes().Where(x => x is BrowserAttribute).IsNullOrEmpty();
+        bool testHasAnyAttribute = !e.TestMethodMemberInfo.GetCustomAttributes().Any(x => x is BrowserAttribute);
 
 
         if (testHasAnyAttribute)

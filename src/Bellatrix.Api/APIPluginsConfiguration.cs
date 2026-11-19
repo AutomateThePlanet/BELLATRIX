@@ -33,18 +33,6 @@ public static class APIPluginsConfiguration
         bddLoggingAssertExtensions.SubscribeToAll();
     }
 
-    public static void AddApiAssertExtensionsDynamicTestCases()
-    {
-        var dynamicTestCasesAssertExtensions = new DynamicTestCasesAssertExtensions();
-        dynamicTestCasesAssertExtensions.SubscribeToAll();
-    }
-
-    public static void AddAssertExtensionsBugReporting()
-    {
-        var dynamicTestCasesAssertExtensions = new BugReportingAssertExtensions();
-        dynamicTestCasesAssertExtensions.SubscribeToAll();
-    }
-
     public static void AddApiAuthenticationStrategies()
     {
         ServicesCollection.Current.RegisterType<Plugin, ApiAuthenticationWorkflowPlugin>(Guid.NewGuid().ToString());

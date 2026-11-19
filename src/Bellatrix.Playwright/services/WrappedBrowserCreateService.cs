@@ -18,7 +18,6 @@ using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Settings.Extensions;
 using Bellatrix.Playwright.Settings;
 using Bellatrix.Settings;
-using Microsoft.VisualStudio.Services.WebApi;
 using Newtonsoft.Json;
 using System.Drawing;
 using System.Net;
@@ -26,21 +25,22 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Web;
-using Bellatrix.KeyVault;
 using Microsoft.Extensions.Configuration;
 using System.Collections;
 using Bellatrix.Api;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 using System.Threading;
+using Bellatrix.Playwright.Events;
 using Bellatrix.Playwright.SyncPlaywright;
 
 namespace Bellatrix.Playwright.Services;
 
 public static class WrappedBrowserCreateService
 {
+    public static event EventHandler<CapabilityValueResolvingEventArgs> CapabilityValueResolving;
+    
     private const string USER_ENVIRONMENTAL_VARIABLE = "cloud.grid.user";
-
     private const string ACCESS_KEY_ENVIRONMENTAL_VARIABLE = "cloud.grid.key";
 
     private static ProxyService _proxyService;
@@ -420,12 +420,30 @@ public static class WrappedBrowserCreateService
     {
         if (capabilities.Contains(USER_ENVIRONMENTAL_VARIABLE))
         {
-            capabilities = capabilities.Replace(USER_ENVIRONMENTAL_VARIABLE, SecretsResolver.GetSecret(USER_ENVIRONMENTAL_VARIABLE));
+            var resolvingUserArgs = new CapabilityValueResolvingEventArgs(USER_ENVIRONMENTAL_VARIABLE);
+            CapabilityValueResolving?.Invoke(null, resolvingUserArgs);
+            if (resolvingUserArgs.Handled)
+            {
+                capabilities = capabilities.Replace(USER_ENVIRONMENTAL_VARIABLE, (string)resolvingUserArgs.ResolvedValue);
+            }
+            else
+            {
+                capabilities = capabilities.Replace(USER_ENVIRONMENTAL_VARIABLE, Environment.GetEnvironmentVariable(USER_ENVIRONMENTAL_VARIABLE));
+            }
         }
 
         if (capabilities.Contains(ACCESS_KEY_ENVIRONMENTAL_VARIABLE))
         {
-            capabilities = capabilities.Replace(ACCESS_KEY_ENVIRONMENTAL_VARIABLE, SecretsResolver.GetSecret(ACCESS_KEY_ENVIRONMENTAL_VARIABLE));
+            var resolvingUserArgs = new CapabilityValueResolvingEventArgs(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
+            CapabilityValueResolving?.Invoke(null, resolvingUserArgs);
+            if (resolvingUserArgs.Handled)
+            {
+                capabilities = capabilities.Replace(ACCESS_KEY_ENVIRONMENTAL_VARIABLE, (string)resolvingUserArgs.ResolvedValue);
+            }
+            else
+            {
+                capabilities = capabilities.Replace(ACCESS_KEY_ENVIRONMENTAL_VARIABLE, Environment.GetEnvironmentVariable(ACCESS_KEY_ENVIRONMENTAL_VARIABLE));
+            }
         }
 
         return capabilities;

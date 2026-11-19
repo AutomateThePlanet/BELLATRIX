@@ -12,7 +12,7 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using AutoMapper;
+using Mapster;
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.Services;
 
@@ -34,9 +34,7 @@ public class CookiesService : WebService
 
     public void AddCookie(System.Net.Cookie cookieToAdd)
     {
-        var config = ServicesCollection.Current.Resolve<MapperConfiguration>();
-        var mapper = config.CreateMapper();
-        Cookie cookie = mapper.Map<Cookie>(cookieToAdd);
+        Cookie cookie = cookieToAdd.Adapt<Cookie>();
 
         AddCookie(cookie);
     }
@@ -58,14 +56,10 @@ public class CookiesService : WebService
 
         Cookie[] updatedCookies = new Cookie[cookies.Count];
 
-        var config = ServicesCollection.Current.Resolve<MapperConfiguration>();
-        var mapper = config.CreateMapper();
-
         for (int i = 0; i < updatedCookies.Length; i++)
         {
-            updatedCookies[i] = mapper.Map<Cookie>(cookies.ElementAt(i));
+            updatedCookies[i] = cookies.ElementAt(i).Adapt<Cookie>();
         }
-
 
         CurrentContext.AddCookies(updatedCookies);
     }

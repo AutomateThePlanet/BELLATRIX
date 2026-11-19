@@ -12,14 +12,9 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using Azure.AI.FormRecognizer;
 using Bellatrix.Api;
 using Bellatrix.Api.Configuration;
 using Bellatrix.Assertions;
-using Bellatrix.AWS;
-using Bellatrix.CognitiveServices;
-using Bellatrix.DynamicTestCases;
-using Bellatrix.LLM;
 using Bellatrix.Playwright.Controls.Advanced.ControlDataHandlers;
 using Bellatrix.Playwright.Controls.EventHandlers;
 using Bellatrix.Playwright.Proxy;
@@ -36,7 +31,6 @@ public class App : IDisposable
     public App()
     {
         _apiClientService = GetNewApiClientService();
-        ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(Browser);
     }
 
     public BrowserService Browser => ServicesCollection.Current.Resolve<BrowserService>();
@@ -47,15 +41,9 @@ public class App : IDisposable
     public InteractionsService Interactions => ServicesCollection.Current.Resolve<InteractionsService>();
     public CookiesService Cookies => ServicesCollection.Current.Resolve<CookiesService>();
     public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
-    public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
     public LighthouseService Lighthouse => ServicesCollection.Current.Resolve<LighthouseService>();
     public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
     public ProxyService Proxy => ServicesCollection.Current.Resolve<ProxyService>();
-
-    public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
-
-    public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
-    public AWSServicesFactory AWS => ServicesCollection.Current.Resolve<AWSServicesFactory>();
 
     public ApiClientService ApiClient
     {

@@ -12,7 +12,6 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using Microsoft.VisualStudio.Services.WebApi;
 using System.Text.RegularExpressions;
 
 namespace Bellatrix.Playwright.SyncPlaywright;
@@ -39,172 +38,172 @@ public class WebElementAssertions
 
     public void ToBeAttached(LocatorAssertionsToBeAttachedOptions options = null)
     {
-        NativeAssertions.ToBeAttachedAsync(options).SyncResult();
+        NativeAssertions.ToBeAttachedAsync(options).GetAwaiter().GetResult();
     }
 
     public void ToBeChecked(LocatorAssertionsToBeCheckedOptions options = null)
     {
-        NativeAssertions.ToBeCheckedAsync(options).SyncResult();
+        NativeAssertions.ToBeCheckedAsync(options).GetAwaiter().GetResult();
     }
 
     public void ToBeDisabled(LocatorAssertionsToBeDisabledOptions options = null)
     {
-        NativeAssertions.ToBeDisabledAsync(options).SyncResult();
+        NativeAssertions.ToBeDisabledAsync(options).GetAwaiter().GetResult();
     }
 
     public void ToBeEditable(LocatorAssertionsToBeEditableOptions options = null)
     {
-        NativeAssertions.ToBeEditableAsync(options).SyncResult();
+        NativeAssertions.ToBeEditableAsync(options).GetAwaiter().GetResult();
     }
 
     public void ToBeEmpty(LocatorAssertionsToBeEmptyOptions options = null)
     {
-        NativeAssertions.ToBeEmptyAsync(options).SyncResult();
+        NativeAssertions.ToBeEmptyAsync(options).GetAwaiter().GetResult();
     }
 
     public void ToBeEnabled(LocatorAssertionsToBeEnabledOptions options = null)
     {
-        NativeAssertions.ToBeEnabledAsync(options).SyncResult();
+        NativeAssertions.ToBeEnabledAsync(options).GetAwaiter().GetResult();
     }
 
     public void ToBeFocused(LocatorAssertionsToBeFocusedOptions options = null)
     {
-        NativeAssertions.ToBeFocusedAsync(options).SyncResult();
+        NativeAssertions.ToBeFocusedAsync(options).GetAwaiter().GetResult();
     }
 
     public void ToBeHidden(LocatorAssertionsToBeHiddenOptions options = null)
     {
-        NativeAssertions.ToBeHiddenAsync(options).SyncResult();
+        NativeAssertions.ToBeHiddenAsync(options).GetAwaiter().GetResult();
     }
 
     public void ToBeInViewport(LocatorAssertionsToBeInViewportOptions options = null)
     {
-        NativeAssertions.ToBeInViewportAsync(options).SyncResult();
+        NativeAssertions.ToBeInViewportAsync(options).GetAwaiter().GetResult();
     }
 
     public void ToBeVisible(LocatorAssertionsToBeVisibleOptions options = null)
     {
-        NativeAssertions.ToBeVisibleAsync(options).SyncResult();
+        NativeAssertions.ToBeVisibleAsync(options).GetAwaiter().GetResult();
     }
 
     public void ToContainText(string expected, LocatorAssertionsToContainTextOptions options = null)
     {
-        NativeAssertions.ToContainTextAsync(expected, options).SyncResult();
+        NativeAssertions.ToContainTextAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToContainText(Regex expected, LocatorAssertionsToContainTextOptions options = null)
     {
-        NativeAssertions.ToContainTextAsync(expected, options).SyncResult();
+        NativeAssertions.ToContainTextAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToContainText(IEnumerable<string> expected, LocatorAssertionsToContainTextOptions options = null)
     {
-        NativeAssertions.ToContainTextAsync(expected, options).SyncResult();
+        NativeAssertions.ToContainTextAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToContainText(IEnumerable<Regex> expected, LocatorAssertionsToContainTextOptions options = null)
     {
-        NativeAssertions.ToContainTextAsync(expected, options).SyncResult();
+        NativeAssertions.ToContainTextAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveAttribute(string name, string value, LocatorAssertionsToHaveAttributeOptions options = null)
     {
-        NativeAssertions.ToHaveAttributeAsync(name, value, options).SyncResult();
+        NativeAssertions.ToHaveAttributeAsync(name, value, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveAttribute(string name, Regex value, LocatorAssertionsToHaveAttributeOptions options = null)
     {
-        NativeAssertions.ToHaveAttributeAsync(name, value, options).SyncResult();
+        NativeAssertions.ToHaveAttributeAsync(name, value, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveClass(string expected, LocatorAssertionsToHaveClassOptions options = null)
     {
-        NativeAssertions.ToHaveClassAsync(expected, options).SyncResult();
+        NativeAssertions.ToHaveClassAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveClass(Regex expected, LocatorAssertionsToHaveClassOptions options = null)
     {
-        NativeAssertions.ToHaveClassAsync(expected, options).SyncResult();
+        NativeAssertions.ToHaveClassAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveClass(IEnumerable<string> expected, LocatorAssertionsToHaveClassOptions options = null)
     {
-        NativeAssertions.ToHaveClassAsync(expected, options).SyncResult();
+        NativeAssertions.ToHaveClassAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveClass(IEnumerable<Regex> expected, LocatorAssertionsToHaveClassOptions options = null)
     {
-        NativeAssertions.ToHaveClassAsync(expected, options).SyncResult();
+        NativeAssertions.ToHaveClassAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveCount(int count, LocatorAssertionsToHaveCountOptions options = null)
     {
-        NativeAssertions.ToHaveCountAsync(count, options).SyncResult();
+        NativeAssertions.ToHaveCountAsync(count, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveCSS(string name, string value, LocatorAssertionsToHaveCSSOptions options = null)
     {
-        NativeAssertions.ToHaveCSSAsync(name, value, options).SyncResult();
+        NativeAssertions.ToHaveCSSAsync(name, value, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveCSS(string name, Regex value, LocatorAssertionsToHaveCSSOptions options = null)
     {
-        NativeAssertions.ToHaveCSSAsync(name, value, options).SyncResult();
+        NativeAssertions.ToHaveCSSAsync(name, value, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveId(string id, LocatorAssertionsToHaveIdOptions options = null)
     {
-        NativeAssertions.ToHaveIdAsync(id, options).SyncResult();
+        NativeAssertions.ToHaveIdAsync(id, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveId(Regex id, LocatorAssertionsToHaveIdOptions options = null)
     {
-        NativeAssertions.ToHaveIdAsync(id, options).SyncResult();
+        NativeAssertions.ToHaveIdAsync(id, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveJSProperty(string name, object value, LocatorAssertionsToHaveJSPropertyOptions options = null)
     {
-        NativeAssertions.ToHaveJSPropertyAsync(name, value, options).SyncResult();
+        NativeAssertions.ToHaveJSPropertyAsync(name, value, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveText(string expected, LocatorAssertionsToHaveTextOptions options = null)
     {
-        NativeAssertions.ToHaveTextAsync(expected, options).SyncResult();
+        NativeAssertions.ToHaveTextAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveText(Regex expected, LocatorAssertionsToHaveTextOptions options = null)
     {
-        NativeAssertions.ToHaveTextAsync(expected, options).SyncResult();
+        NativeAssertions.ToHaveTextAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveText(IEnumerable<string> expected, LocatorAssertionsToHaveTextOptions options = null)
     {
-        NativeAssertions.ToHaveTextAsync(expected, options).SyncResult();
+        NativeAssertions.ToHaveTextAsync(expected, options).GetAwaiter().GetResult();
 
     }
 
     public void ToHaveText(IEnumerable<Regex> expected, LocatorAssertionsToHaveTextOptions options = null)
     {
-        NativeAssertions.ToHaveTextAsync(expected, options).SyncResult();
+        NativeAssertions.ToHaveTextAsync(expected, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveValue(string value, LocatorAssertionsToHaveValueOptions options = null)
     {
-        NativeAssertions.ToHaveValueAsync(value, options).SyncResult();
+        NativeAssertions.ToHaveValueAsync(value, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveValue(Regex value, LocatorAssertionsToHaveValueOptions options = null)
     {
-        NativeAssertions.ToHaveValueAsync(value, options).SyncResult();
+        NativeAssertions.ToHaveValueAsync(value, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveValues(IEnumerable<string> values, LocatorAssertionsToHaveValuesOptions options = null)
     {
-        NativeAssertions.ToHaveValuesAsync(values, options).SyncResult();
+        NativeAssertions.ToHaveValuesAsync(values, options).GetAwaiter().GetResult();
     }
 
     public void ToHaveValues(IEnumerable<Regex> values, LocatorAssertionsToHaveValuesOptions options = null)
     {
-        NativeAssertions.ToHaveValuesAsync(values, options).SyncResult();
+        NativeAssertions.ToHaveValuesAsync(values, options).GetAwaiter().GetResult();
     }
 }

@@ -17,21 +17,15 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
-using Bellatrix.CognitiveServices;
-using Bellatrix.CognitiveServices.services;
 using Bellatrix.Desktop.Controls.Core;
 using Bellatrix.Desktop.Events;
 using Bellatrix.Desktop.Locators;
 using Bellatrix.Desktop.Services;
 using Bellatrix.Desktop.Untils;
-using Bellatrix.LLM.Settings;
-using Bellatrix.LLM;
 using Bellatrix.Plugins.Screenshots;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Remote;
 
 namespace Bellatrix.Desktop;
 
@@ -41,15 +35,11 @@ public partial class Component
     private readonly ComponentWaitService _elementWait;
     private readonly List<WaitStrategy> _untils;
     private AppiumElement _wrappedElement;
-    private IViewSnapshotProvider _viewSnapshotProvider;
-    private LargeLanguageModelsSettings _llmSettings;
 
     public Component()
     {
         _elementWait = new ComponentWaitService();
         WrappedDriver = ServicesCollection.Current.Resolve<WindowsDriver>();
-        _viewSnapshotProvider = ServicesCollection.Current.Resolve<IViewSnapshotProvider>();
-        _llmSettings = ConfigurationService.GetSection<LargeLanguageModelsSettings>();
         _untils = new List<WaitStrategy>();
     }
 
@@ -60,6 +50,8 @@ public partial class Component
     public static event EventHandler<ComponentActionEventArgs> CreatingComponents;
     public static event EventHandler<ComponentActionEventArgs> CreatedComponents;
     public static event EventHandler<NativeElementActionEventArgs> ReturningWrappedElement;
+    public static event EventHandler<ElementResolveFailedEventArgs> ElementResolveFailed;
+    public static event EventHandler<ElementResolvedEventArgs> ElementResolved;
 
     public WindowsDriver WrappedDriver { get; }
 
@@ -75,6 +67,9 @@ public partial class Component
     }
 
     public AppiumElement ParentWrappedElement { get; set; }
+    
+    public Component ParentComponent { get; set; }
+    
 
     public AppiumElement FoundWrappedElement { get; set; }
 
@@ -86,14 +81,6 @@ public partial class Component
     public virtual string GetAttribute(string name)
     {
         return WrappedElement.GetAttribute(name);
-    }
-
-    public AssertedFormPage AIAnalyze()
-    {
-        string currentComponentScreenshot = TakeScreenshot();
-        var formRecognizer = ServicesCollection.Current.Resolve<FormRecognizer>();
-        var analyzedComponent = formRecognizer.Analyze(currentComponentScreenshot);
-        return analyzedComponent;
     }
 
     public string TakeScreenshot(string filePath = null)
@@ -123,7 +110,7 @@ public partial class Component
         CreatingComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
         var elementRepository = new ComponentsRepository();
-        var element = elementRepository.CreateComponentWithParent<TComponent>(by, WrappedElement, null, 0);
+        var element = elementRepository.CreateComponentWithParent<TComponent>(by, this, null, 0);
 
         CreatedComponent?.Invoke(this, new ComponentActionEventArgs(this));
 
@@ -249,41 +236,28 @@ public partial class Component
 
                 _wrappedElement = GetWebDriverElement();
 
-                // ✅ Save if healing is enabled
-                if (_llmSettings != null && _llmSettings.EnableSelfHealing)
-                {
-                    var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
-                    LocatorSelfHealingService.SaveWorkingLocator(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
-                }
+                ElementResolved?.Invoke(this, new ElementResolvedEventArgs(this, _wrappedElement));
 
                 _untils.Clear();
                 return _wrappedElement;
             }
             catch (Exception ex)
             {
-                if (_llmSettings == null || !_llmSettings.EnableSelfHealing)
+                var args = new ElementResolveFailedEventArgs(this, ex);
+
+                ElementResolveFailed?.Invoke(this, args);
+
+                if (args.ResolvedElement != null)
                 {
-                    throw new TimeoutException($"❌ Element not found: {By?.Value}", ex);
+                    _wrappedElement = args.ResolvedElement;
+
+                    ElementResolved?.Invoke(this, new ElementResolvedEventArgs(this, _wrappedElement));
+
+                    _untils.Clear();
+                    return _wrappedElement;
                 }
 
-                Logger.LogWarning($"⚠️ Element not found with locator: {By}. Trying AI-based healing...");
-
-                var snapshot = _viewSnapshotProvider.GetCurrentViewSnapshot();
-                var healedXpath = LocatorSelfHealingService.TryHeal(By.ToString(), snapshot, WrappedDriver.CurrentWindowHandle);
-
-                if (!string.IsNullOrEmpty(healedXpath))
-                {
-                    try
-                    {
-                        return new FindXPathStrategy(healedXpath).FindElement(WrappedDriver);
-                    }
-                    catch
-                    {
-                        throw new NotFoundException($"❌ Healing attempt failed for locator: {By}", ex);
-                    }
-                }
-
-                throw new NotFoundException($"❌ Healing failed: {By}", ex);
+                throw new TimeoutException($"❌ Element not found: {By?.Value}", ex);
             }
         }
 

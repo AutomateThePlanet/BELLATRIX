@@ -26,9 +26,14 @@ public static class DisposeDriverService
         try
         {
             var driver = ServicesCollection.Current.Resolve<IWebDriver>();
-            driver?.Close();
-            driver?.Quit();
-            driver?.Dispose();
+            try
+            {
+                driver?.Quit();
+            }
+            catch (ObjectDisposedException)
+            {
+                // Driver is already disposed, no action needed
+            }
         }
         catch (Exception ex)
         {
@@ -46,9 +51,14 @@ public static class DisposeDriverService
     {
         try
         {
-            webDriver?.Close();
-            webDriver?.Quit();
-            webDriver?.Dispose();
+            try
+            {
+                webDriver?.Quit();
+            }
+            catch (ObjectDisposedException)
+            {
+                // Driver is already disposed, no action needed
+            }
         }
         catch (Exception ex)
         {
@@ -69,9 +79,13 @@ public static class DisposeDriverService
             try
             {
                 var driver = childContainer.Resolve<IWebDriver>();
-                driver?.Close();
-                driver?.Quit();
-                driver?.Dispose();
+                try
+                {
+                    driver?.Quit();
+                }
+                catch (ObjectDisposedException)
+                {
+                }
             }
             catch (Exception ex)
             {

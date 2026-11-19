@@ -30,12 +30,7 @@ public abstract class APITest : NUnitBaseTest
             {
                 NUnitPluginConfiguration.Add();
                 ExecutionTimePlugin.Add();
-                DynamicTestCasesPlugin.Add();
-                AllurePlugin.Add();
-                BugReportingPlugin.Add();
                 APIPluginsConfiguration.AddAssertExtensionsBddLogging();
-                APIPluginsConfiguration.AddApiAssertExtensionsDynamicTestCases();
-                APIPluginsConfiguration.AddAssertExtensionsBugReporting();
                 APIPluginsConfiguration.AddApiAuthenticationStrategies();
                 APIPluginsConfiguration.AddRetryFailedRequests();
                 APIPluginsConfiguration.AddLogExecution();

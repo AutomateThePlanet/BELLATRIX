@@ -14,8 +14,6 @@
 
 using Bellatrix.Playwright.Contracts;
 using Bellatrix.Playwright.Events;
-using Bellatrix.Playwright.Settings;
-using Microsoft.TeamFoundation.Common;
 using System.Diagnostics;
 
 namespace Bellatrix.Playwright.Components.Common;
@@ -43,9 +41,9 @@ public class MultipleSelect : Component, IComponentDisabled, IComponentRequired,
                     "if (el.options[i].selected) selectedOptions.push(el.options[i].value);" +
                 "}" +
                 "return selectedOptions;" +
-            "}");
+            "}") ?? [];
 
-        if (optionValues.IsNullOrEmpty())
+        if (optionValues.Length == 0)
         {
             SelectedNotFound?.Invoke(this, new ComponentActionEventArgs(this));
         }
@@ -152,7 +150,7 @@ public class MultipleSelect : Component, IComponentDisabled, IComponentRequired,
 
         var optionsToDeselect = this.CreateAllByXpath<Option>($"//option[normalize-space()='{text}']");
 
-        if (optionsToDeselect.IsNullOrEmpty()) throw new ArgumentException($"Couldn't find options with text {text}.");
+        if (!optionsToDeselect.Any()) throw new ArgumentException($"Couldn't find options with text {text}.");
 
         foreach (var option in optionsToDeselect)
         {
@@ -169,7 +167,7 @@ public class MultipleSelect : Component, IComponentDisabled, IComponentRequired,
 
         var optionsToDeselect = this.CreateAllByXpath<Option>($"//option[@value='{value}']");
 
-        if (optionsToDeselect.IsNullOrEmpty()) throw new ArgumentException($"Couldn't find options with value {value}.");
+        if (!optionsToDeselect.Any()) throw new ArgumentException($"Couldn't find options with value {value}.");
 
         foreach (var option in optionsToDeselect)
         {

@@ -15,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using Amazon.Runtime.Internal.Transform;
 using Bellatrix.Desktop.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;

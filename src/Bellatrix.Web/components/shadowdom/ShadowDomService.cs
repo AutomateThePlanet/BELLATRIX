@@ -15,7 +15,6 @@
 using AngleSharp.Dom;
 using AngleSharp.XPath;
 using Bellatrix.Core.Utilities;
-using Microsoft.TeamFoundation.Common;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -166,7 +165,7 @@ internal static class ShadowDomService
         if (TryFindNestedShadowRoots(element, out var nestedShadowRootStack))
         {
             string[] previousCss = null;
-            while (!nestedShadowRootStack.IsNullOrEmpty())
+            while (nestedShadowRootStack is not null && nestedShadowRootStack.Count != 0)
             {
                 var parent = nestedShadowRootStack.Pop();
                 var css = SplitByChildOperator(HtmlService.ConvertAbsoluteXpathToCss(HtmlService.GetAbsoluteXpath(parent)));
@@ -208,7 +207,7 @@ internal static class ShadowDomService
         if (TryFindNestedShadowRoots(element, out var nestedShadowRootStack))
         {
             string[] previousCss = null;
-            while (!nestedShadowRootStack.IsNullOrEmpty())
+            while (nestedShadowRootStack is not null && nestedShadowRootStack.Count != 0)
             {
                 var parent = nestedShadowRootStack.Pop();
                 var css = SplitByChildOperator(HtmlService.ConvertAbsoluteXpathToCss(HtmlService.GetAbsoluteXpath(parent)));
@@ -275,7 +274,7 @@ internal static class ShadowDomService
             parent = parent.Parent;
         }
 
-        return !parentShadowRootStack.IsNullOrEmpty();
+        return parentShadowRootStack is not null && parentShadowRootStack.Count != 0;
     }
 
     private static IElement GetElement(ShadowRoot component, FindStrategy findStrategy)

@@ -11,22 +11,30 @@
 // </copyright>
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
-using System;
-using Bellatrix.KeyVault;
+using Bellatrix.Playwright.Events;
 using Bellatrix.Playwright.Settings;
-using Microsoft.TeamFoundation.Common;
 
 namespace Bellatrix.Playwright.Plugins.Browser;
 
 public static class CloudProviderCredentialsResolver
 {
+    public static event EventHandler<CapabilityValueResolvingEventArgs> CapabilityValueResolving;
+
     private const string USER_ENVIRONMENTAL_VARIABLE = "cloud.grid.user";
     private const string ACCESS_KEY_ENVIRONMENTAL_VARIABLE = "cloud.grid.key";
 
     public static Tuple<string, string> GetCredentials()
     {
-        var user = SecretsResolver.GetSecret(USER_ENVIRONMENTAL_VARIABLE);
-        var accessKey = SecretsResolver.GetSecret(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
+        var user = Environment.GetEnvironmentVariable(USER_ENVIRONMENTAL_VARIABLE);
+        var accessKey = Environment.GetEnvironmentVariable(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
+        
+        var resolvingUserArgs = new CapabilityValueResolvingEventArgs(USER_ENVIRONMENTAL_VARIABLE);
+        CapabilityValueResolving?.Invoke(null, resolvingUserArgs);
+        if (resolvingUserArgs.Handled) user = (string)resolvingUserArgs.ResolvedValue;
+        
+        var resolvingAccessKeyArgs = new CapabilityValueResolvingEventArgs(ACCESS_KEY_ENVIRONMENTAL_VARIABLE);
+        CapabilityValueResolving?.Invoke(null, resolvingAccessKeyArgs);
+        if (resolvingAccessKeyArgs.Handled) accessKey = (string)resolvingAccessKeyArgs.ResolvedValue;
 
         if (!string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(accessKey))
         {
@@ -38,8 +46,8 @@ public static class CloudProviderCredentialsResolver
 
     private static Tuple<string, string> GetCredentialsFromConfig()
     {
-        if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0].CloudGridUser.IsNullOrEmpty() ||
-            ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0].CloudGridKey.IsNullOrEmpty())
+        if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0].CloudGridUser is null or "" ||
+            ConfigurationService.GetSection<WebSettings>().ExecutionSettings.Arguments[0].CloudGridKey is null or "")
         {
             throw new ArgumentException($"To use grid execution you need to set environment variables called ({USER_ENVIRONMENTAL_VARIABLE} and {ACCESS_KEY_ENVIRONMENTAL_VARIABLE}) or set them in browser settings file.");
         }

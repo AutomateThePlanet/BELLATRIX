@@ -14,7 +14,6 @@
 
 using Bellatrix.Web.Components;
 using Bellatrix.Web.Tests.Controls.Table;
-using Microsoft.TeamFoundation.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bellatrix.Web.Tests.Controls.ShadowDom;
@@ -36,7 +35,7 @@ public class ShadowDomTests : MSTest.WebTest
     {
         var shadowRoot = App.Components.CreateById<ShadowRoot>("basicShadowHost");
 
-        Assert.IsFalse(shadowRoot.InnerHtml.IsNullOrEmpty());
+        Assert.IsFalse(shadowRoot.InnerHtml is null or "");
     }
 
     [TestMethod]

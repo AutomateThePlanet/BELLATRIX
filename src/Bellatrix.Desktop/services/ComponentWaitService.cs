@@ -29,7 +29,14 @@ public class ComponentWaitService : IComponentWaitService
     {
         try
         {
-            WaitInternal(element.By, until);
+            if (element.ParentWrappedElement == null)
+            {
+                WaitInternal(element.By, until);
+            }
+            else
+            {
+                WaitInternal(element.By, until, element.ParentComponent);
+            }
         }
         catch (Exception ex)
         {
@@ -41,4 +48,9 @@ public class ComponentWaitService : IComponentWaitService
     public void WaitInternal<TUntil, TBy>(TBy by, TUntil until)
         where TUntil : WaitStrategy
         where TBy : FindStrategy => until?.WaitUntil(@by);
+    
+    
+    internal void WaitInternal<TUntil, TBy>(TBy by, TUntil until, Component parent)
+        where TUntil : WaitStrategy
+        where TBy : FindStrategy => until?.WaitUntil(@by, parent);
 }

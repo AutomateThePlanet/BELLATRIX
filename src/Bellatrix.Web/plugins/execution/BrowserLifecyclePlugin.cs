@@ -17,13 +17,12 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Bellatrix.KeyVault;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 using Bellatrix.Web.Enums;
+using Bellatrix.Web.Events;
 using Bellatrix.Web.Proxy;
 using Bellatrix.Web.Services;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
@@ -34,6 +33,8 @@ namespace Bellatrix.Web.Plugins.Browser;
 
 public class BrowserLifecyclePlugin : Plugin
 {
+    public static event EventHandler<CapabilityValueResolvingEventArgs> CapabilityValueResolving;
+
     protected override void PreTestsArrange(object sender, Bellatrix.Plugins.PluginEventArgs e)
     {
         if (ConfigurationService.GetSection<WebSettings>().ExecutionSettings.IsCloudRun)
@@ -323,29 +324,37 @@ public class BrowserLifecyclePlugin : Plugin
         }
     }
 
-    private dynamic FormatGridOptions(string option, Type testClassType)
+    private dynamic FormatGridOptions(object option, Type testClassType)
     {
-        if (bool.TryParse(option, out bool result))
+        if (option is not string)
+        {
+            return option;
+        }
+        
+        var resolvingArgs = new CapabilityValueResolvingEventArgs((string)option);
+        CapabilityValueResolving?.Invoke(this, resolvingArgs);
+        if (resolvingArgs.Handled)
+        {
+            return resolvingArgs.ResolvedValue;
+        }
+
+        if (bool.TryParse((string)option, out bool result))
         {
             return result;
         }
-        else if (int.TryParse(option, out int resultNumber))
+        else if (int.TryParse((string)option, out int resultNumber))
         {
             return resultNumber;
         }
-        else if (double.TryParse(option, out double resultRealNumber))
+        else if (double.TryParse((string)option, out double resultRealNumber))
         {
             return resultRealNumber;
-        }
-        else if (option.StartsWith("env_") || option.StartsWith("vault_"))
-        {
-            return SecretsResolver.GetSecret(() => option);
         }
         else
         {
             var runName = testClassType.Assembly.GetName().Name;
             var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
-            return option.Replace("{runName}", timestamp).Replace("{runName}", runName);
+            return ((string)option).Replace("{runName}", timestamp).Replace("{runName}", runName);
         }
     }
 

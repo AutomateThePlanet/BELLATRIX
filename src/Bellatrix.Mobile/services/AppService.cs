@@ -12,16 +12,11 @@
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
 using System;
-using System.Linq;
 using System.Runtime.InteropServices;
-using Bellatrix.LLM;
-using Bellatrix.Mobile.LLM;
-using HtmlAgilityPack;
-using Newtonsoft.Json;
 
 namespace Bellatrix.Mobile.Services;
 
-public class AppService<TDriver, TComponent> : MobileService<TDriver, TComponent>, IViewSnapshotProvider
+public class AppService<TDriver, TComponent> : MobileService<TDriver, TComponent>
     where TDriver : AppiumDriver
     where TComponent : AppiumElement
 {
@@ -65,40 +60,5 @@ public class AppService<TDriver, TComponent> : MobileService<TDriver, TComponent
         {
             return false;
         }
-    }
-
-    /// <summary>
-    /// Returns a structured JSON summary of the current view hierarchy.
-    /// This method parses the full UI tree as provided by the Appium driver, not just elements currently visible on the screen.
-    /// It includes all elements present in the page source, regardless of their visibility or interactability.
-    /// For each element, it extracts key attributes such as tag, resource-id, name, text, class, content-desc, label, and type.
-    /// The result is a JSON array of summarized element objects, filtered to include only those with at least one of: Id, Text, or ContentDesc.
-    /// </summary>
-    /// <returns>JSON string summarizing the current UI hierarchy.</returns>
-    public string GetCurrentViewSnapshot()
-    {
-        var xml = PageSource;
-        var doc = new HtmlDocument();
-        doc.LoadHtml(xml);
-
-        var nodes = doc.DocumentNode.SelectNodes("//*");
-        if (nodes == null || nodes.Count == 0)
-        {
-            return "[]";
-        }
-
-        var summary = nodes.Select(node => new MobileElementSummary
-        {
-            Tag = node.Name,
-            Id = node.GetAttributeValue("resource-id", node.GetAttributeValue("name", null)),
-            Text = node.GetAttributeValue("text", null),
-            Class = node.GetAttributeValue("class", null),
-            ContentDesc = node.GetAttributeValue("content-desc", node.GetAttributeValue("label", null)),
-            Type = node.GetAttributeValue("type", null)
-        })
-        .Where(e => !string.IsNullOrEmpty(e.Id) || !string.IsNullOrEmpty(e.Text) || !string.IsNullOrEmpty(e.ContentDesc))
-        .ToList();
-
-        return JsonConvert.SerializeObject(summary, Formatting.None);
     }
 }

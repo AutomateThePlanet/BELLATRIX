@@ -14,7 +14,7 @@
 
 using Bellatrix.Playwright.Events;
 
-namespace Bellatrix.Playwright.Extensions.Controls.Controls.EventHandlers;
+namespace Bellatrix.Playwright.Extensions.Controls.EventHandlers;
 
 public class BDDLoggingValidateExtensionsService : ValidateExtensionsEventHandlers
 {

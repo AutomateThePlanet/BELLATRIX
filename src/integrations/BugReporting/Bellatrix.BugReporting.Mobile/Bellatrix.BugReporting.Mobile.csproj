@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Bellatrix.BugReporting\Bellatrix.BugReporting.csproj" />
+      <ProjectReference Include="..\..\..\Bellatrix.Mobile\Bellatrix.Mobile.csproj" />
+    </ItemGroup>
+
+</Project>

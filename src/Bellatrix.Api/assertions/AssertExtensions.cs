@@ -17,10 +17,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.Xml;
 using System.Xml.Schema;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
+using Json.Schema;
 using RestSharp;
 
 namespace Bellatrix.Api;
@@ -212,20 +212,17 @@ public static class AssertExtensions
             AssertXmlSchema(response, schemaUri);
         }
     }
-
     private static void AssertJsonSchema(MeasuredResponse response, string schemaContent)
     {
-        JSchema jsonSchema;
-
+        JsonSchema jsonSchema;
         try
         {
-            jsonSchema = JSchema.Parse(schemaContent);
+            jsonSchema = JsonSchema.FromText(schemaContent);
         }
         catch (Exception ex)
         {
             throw new ArgumentException("Schema is not valid schema", ex);
         }
-
         AssertJsonSchema(response, jsonSchema);
     }
 
@@ -237,26 +234,24 @@ public static class AssertExtensions
         AssertJsonSchema(response, schemaResponse.Content);
     }
 
-    private static void AssertJsonSchema(MeasuredResponse response, JSchema jsonSchema)
+    private static void AssertJsonSchema(MeasuredResponse response, JsonSchema jsonSchema)
     {
-        IList<string> messages;
-
-        var trimmedContent = response.Content.TrimStart();
-
-        bool isSchemaValid =
-            trimmedContent.StartsWith("{", StringComparison.Ordinal)
-                ? JObject.Parse(response.Content).IsValid(jsonSchema, out messages)
-                : JArray.Parse(response.Content).IsValid(jsonSchema, out messages);
-
-        if (!isSchemaValid)
+        var jsonDocument = JsonDocument.Parse(response.Content);
+        var result = jsonSchema.Evaluate(jsonDocument.RootElement);
+        if (!result.IsValid)
         {
             var sb = new StringBuilder();
             sb.AppendLine("JSON Schema is not valid. Error Messages:");
-            foreach (var errorMessage in messages)
+            foreach (var detail in result.Details)
             {
-                sb.AppendLine(errorMessage);
+                if (detail.Errors != null)
+                {
+                    foreach (var error in detail.Errors)
+                    {
+                        sb.AppendLine($"{detail.InstanceLocation}: {error.Value}");
+                    }
+                }
             }
-
             throw new ApiAssertException(sb.ToString());
         }
     }

@@ -16,7 +16,7 @@ using Bellatrix.Assertions;
 
 namespace Bellatrix.Web;
 
-[Obsolete("Please refactor your pages to use the new WebPage base class which combies the old 4 base classes.")]
+[Obsolete("Please refactor your pages to use the new WebPage base class which combines the old 4 base classes.")]
 public abstract class AssertedPage : Page
 {
     protected AssertedPage() => Assert = ServicesCollection.Current.Resolve<IAssert>();

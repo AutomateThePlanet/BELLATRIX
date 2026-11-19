@@ -27,6 +27,8 @@
     <ProjectReference Include="..\..\src\Bellatrix.Playwright\Bellatrix.Playwright.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Plugins.Screenshots\Bellatrix.Plugins.Screenshots.csproj" />
     <ProjectReference Include="..\..\src\Bellatrix.Plugins.Video\Bellatrix.Plugins.Video.csproj" />
+    <ProjectReference Include="..\..\src\integrations\CognitiveServices\Bellatrix.CognitiveServices.Playwright\Bellatrix.CognitiveServices.Playwright.csproj" />
+    <ProjectReference Include="..\..\src\integrations\LLM\Bellatrix.LLM.Playwright\Bellatrix.LLM.Playwright.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,49 +12,45 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using AutoMapper;
+using Mapster;
 
 namespace Bellatrix.Playwright.SyncPlaywright;
 
 internal static class MapperService
 {
-    private static MapperConfiguration Config;
-    private static IMapper Mapper;
+    private static readonly TypeAdapterConfig Config;
 
     static MapperService()
     {
-        Config = new MapperConfiguration(cfg =>
-        {
-            cfg.CreateMap<GetByAltTextOptions, LocatorGetByAltTextOptions>();
-            cfg.CreateMap<GetByAltTextOptions, FrameLocatorGetByAltTextOptions>();
-            cfg.CreateMap<GetByAltTextOptions, PageGetByAltTextOptions>();
+        Config = new TypeAdapterConfig();
 
-            cfg.CreateMap<GetByLabelOptions, LocatorGetByLabelOptions>();
-            cfg.CreateMap<GetByLabelOptions, FrameLocatorGetByLabelOptions>();
-            cfg.CreateMap<GetByLabelOptions, PageGetByLabelOptions>();
+        Config.NewConfig<GetByAltTextOptions, LocatorGetByAltTextOptions>();
+        Config.NewConfig<GetByAltTextOptions, FrameLocatorGetByAltTextOptions>();
+        Config.NewConfig<GetByAltTextOptions, PageGetByAltTextOptions>();
 
-            cfg.CreateMap<GetByPlaceholderOptions, LocatorGetByPlaceholderOptions>();
-            cfg.CreateMap<GetByPlaceholderOptions, FrameLocatorGetByPlaceholderOptions>();
-            cfg.CreateMap<GetByPlaceholderOptions, PageGetByPlaceholderOptions>();
+        Config.NewConfig<GetByLabelOptions, LocatorGetByLabelOptions>();
+        Config.NewConfig<GetByLabelOptions, FrameLocatorGetByLabelOptions>();
+        Config.NewConfig<GetByLabelOptions, PageGetByLabelOptions>();
 
-            cfg.CreateMap<GetByRoleOptions, LocatorGetByRoleOptions>();
-            cfg.CreateMap<GetByRoleOptions, FrameLocatorGetByRoleOptions>();
-            cfg.CreateMap<GetByRoleOptions, PageGetByRoleOptions>();
+        Config.NewConfig<GetByPlaceholderOptions, LocatorGetByPlaceholderOptions>();
+        Config.NewConfig<GetByPlaceholderOptions, FrameLocatorGetByPlaceholderOptions>();
+        Config.NewConfig<GetByPlaceholderOptions, PageGetByPlaceholderOptions>();
 
-            cfg.CreateMap<GetByTextOptions, LocatorGetByTextOptions>();
-            cfg.CreateMap<GetByTextOptions, FrameLocatorGetByTextOptions>();
-            cfg.CreateMap<GetByTextOptions, PageGetByTextOptions>();
+        Config.NewConfig<GetByRoleOptions, LocatorGetByRoleOptions>();
+        Config.NewConfig<GetByRoleOptions, FrameLocatorGetByRoleOptions>();
+        Config.NewConfig<GetByRoleOptions, PageGetByRoleOptions>();
 
-            cfg.CreateMap<GetByTitleOptions, LocatorGetByTitleOptions>();
-            cfg.CreateMap<GetByTitleOptions, FrameLocatorGetByTitleOptions>();
-            cfg.CreateMap<GetByTitleOptions, PageGetByTitleOptions>();
-        }, null);
+        Config.NewConfig<GetByTextOptions, LocatorGetByTextOptions>();
+        Config.NewConfig<GetByTextOptions, FrameLocatorGetByTextOptions>();
+        Config.NewConfig<GetByTextOptions, PageGetByTextOptions>();
 
-        Mapper = Config.CreateMapper();
+        Config.NewConfig<GetByTitleOptions, LocatorGetByTitleOptions>();
+        Config.NewConfig<GetByTitleOptions, FrameLocatorGetByTitleOptions>();
+        Config.NewConfig<GetByTitleOptions, PageGetByTitleOptions>();
     }
 
     public static T ConvertTo<T>(this IOptions options)
     {
-        return Mapper.Map<T>(options);
+        return options.Adapt<T>(Config);
     }
 }

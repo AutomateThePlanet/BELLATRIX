@@ -11,46 +11,28 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-using Bellatrix;
 using Bellatrix.Assertions;
-using Bellatrix.AWS;
-using Bellatrix.CognitiveServices;
-using Bellatrix.Desktop.Configuration;
 using Bellatrix.Desktop.EventHandlers;
 using Bellatrix.Desktop.PageObjects;
 using Bellatrix.Desktop.Services;
-using Bellatrix.DynamicTestCases;
-using Bellatrix.LLM;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using OpenQA.Selenium.Appium.Service;
-using OpenQA.Selenium.Appium.Service.Options;
 
 namespace Bellatrix.Desktop;
 
 public class App : IDisposable
 {
-    public App()
-    {
-        ServicesCollection.Main.RegisterInstance<IViewSnapshotProvider>(AppService);
-    }
     private static readonly bool ShouldStartLocalService = ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.ShouldStartLocalService;
     private static Process _appiumServerProcess;
 
     public AppService AppService => ServicesCollection.Current.Resolve<AppService>();
     public ComponentWaitService Wait => ServicesCollection.Current.Resolve<ComponentWaitService>();
     public ComponentCreateService Components => ServicesCollection.Current.Resolve<ComponentCreateService>();
-
-    public DynamicTestCasesService TestCases => ServicesCollection.Current.Resolve<DynamicTestCasesService>();
-    public ComputerVision ComputerVision => ServicesCollection.Current.Resolve<ComputerVision>();
-    public FormRecognizer FormRecognizer => ServicesCollection.Current.Resolve<FormRecognizer>();
-    public AWSServicesFactory AWS => ServicesCollection.Current.Resolve<AWSServicesFactory>();
     public IAssert Assert => ServicesCollection.Current.Resolve<IAssert>();
 
     public static void StartAppiumServer()

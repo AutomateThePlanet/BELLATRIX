@@ -11,8 +11,6 @@
 // </copyright>
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
-
-using Microsoft.VisualStudio.Services.WebApi;
 using System.Diagnostics;
 
 namespace Bellatrix.Playwright.SyncPlaywright;
@@ -42,11 +40,11 @@ public class Dialog
 
     public void Accept(string promptText = null)
     {
-        WrappedDialog.AcceptAsync(promptText).SyncResult();
+        WrappedDialog.AcceptAsync(promptText).GetAwaiter().GetResult();
     }
 
     public void Dismiss()
     {
-        WrappedDialog.DismissAsync().SyncResult();
+        WrappedDialog.DismissAsync().GetAwaiter().GetResult();
     }
 }

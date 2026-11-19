@@ -11,10 +11,7 @@
 // </copyright>
 // <author>Anton Angelov</author>
 // <site>https://bellatrix.solutions/</site>
-
 using Bellatrix.Core.logging;
-using Bellatrix.LLM.Plugins;
-using Bellatrix.Mobile.Android;
 using Bellatrix.Mobile.IOS;
 
 namespace Bellatrix.Mobile.NUnit;
@@ -34,26 +31,15 @@ public abstract class IOSTest : NUnitBaseTest
             {
                 NUnitPluginConfiguration.Add();
                 ExecutionTimePlugin.Add();
-                DynamicTestCasesPlugin.Add();
-                AllurePlugin.Add();
-                BugReportingPlugin.Add();
                 VideoRecorderPluginConfiguration.AddNUnit();
                 ScreenshotsPluginConfiguration.AddNUnit();
                 IOSPluginsConfiguration.AddIOSDriverScreenshotsOnFail();
                 IOSPluginsConfiguration.AddElementsBddLogging();
-                IOSPluginsConfiguration.AddDynamicTestCases();
-                IOSPluginsConfiguration.AddBugReporting();
                 IOSPluginsConfiguration.AddValidateExtensionsBddLogging();
-                IOSPluginsConfiguration.AddValidateExtensionsDynamicTestCases();
-                IOSPluginsConfiguration.AddValidateExtensionsBugReporting();
                 IOSPluginsConfiguration.AddLayoutAssertionExtensionsBddLogging();
-                IOSPluginsConfiguration.AddLayoutAssertionExtensionsDynamicTestCases();
-                IOSPluginsConfiguration.AddLayoutAssertionExtensionsBugReporting();
                 IOSPluginsConfiguration.AddLifecycle();
                 IOSPluginsConfiguration.AddLogExecutionLifecycle();
 
-                IOSPluginsConfiguration.ConfigureLLM();
-                SmartFailureAnalysisPlugin.Add();
                 LoggerFlushPlugin.Add();
 
                 _arePluginsAlreadyInitialized = true;

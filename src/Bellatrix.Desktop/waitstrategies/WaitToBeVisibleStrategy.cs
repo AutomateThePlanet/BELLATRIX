@@ -30,8 +30,13 @@ public class WaitToBeVisibleStrategy : WaitStrategy
     {
         WaitUntil(d => ElementIsVisible(WrappedWebDriver, by), TimeoutInterval, SleepInterval);
     }
+    
+    public override void WaitUntil<TBy>(TBy by, Component parent)
+    {
+        WaitUntil(d => ElementIsVisible(parent.WrappedElement, by), TimeoutInterval, SleepInterval);
+    }
 
-    private bool ElementIsVisible<TBy>(WindowsDriver searchContext, TBy by)
+    private bool ElementIsVisible<TBy>(ISearchContext searchContext, TBy by)
         where TBy : Locators.FindStrategy
     {
         try

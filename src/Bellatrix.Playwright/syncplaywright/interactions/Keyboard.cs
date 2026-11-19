@@ -12,8 +12,6 @@
 // <author>Miriam Kyoseva</author>
 // <site>https://bellatrix.solutions/</site>
 
-using Microsoft.VisualStudio.Services.WebApi;
-
 namespace Bellatrix.Playwright.SyncPlaywright;
 
 public class Keyboard
@@ -27,26 +25,26 @@ public class Keyboard
 
     public void Down(string key)
     {
-        WrappedKeyboard.DownAsync(key).SyncResult();
+        WrappedKeyboard.DownAsync(key).GetAwaiter().GetResult();
     }
 
     public void InsertText(string text)
     {
-        WrappedKeyboard.InsertTextAsync(text).SyncResult();
+        WrappedKeyboard.InsertTextAsync(text).GetAwaiter().GetResult();
     }
 
     public void Press(string key, KeyboardPressOptions options = null)
     {
-        WrappedKeyboard.PressAsync(key, options).SyncResult();
+        WrappedKeyboard.PressAsync(key, options).GetAwaiter().GetResult();
     }
 
     public void Type(string text, KeyboardTypeOptions options = null)
     {
-        WrappedKeyboard.TypeAsync(text, options).SyncResult();
+        WrappedKeyboard.TypeAsync(text, options).GetAwaiter().GetResult();
     }
 
     public void Up(string key)
     {
-        WrappedKeyboard.UpAsync(key).SyncResult();
+        WrappedKeyboard.UpAsync(key).GetAwaiter().GetResult();
     }
 }

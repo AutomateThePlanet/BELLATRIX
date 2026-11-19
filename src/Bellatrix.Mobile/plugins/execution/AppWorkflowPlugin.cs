@@ -16,17 +16,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Bellatrix.KeyVault;
 using Bellatrix.Mobile.Configuration;
+using Bellatrix.Mobile.Events;
 using Bellatrix.Mobile.Services;
 using Bellatrix.Plugins;
 using Bellatrix.Utilities;
-using OpenQA.Selenium.Appium;
 
 namespace Bellatrix.Mobile.Plugins;
 
 public class AppWorkflowPlugin : Plugin
 {
+    public static event EventHandler<CapabilityValueResolvingEventArgs> CapabilityValueResolving;
+
     protected override void PreTestsArrange(object sender, PluginEventArgs e)
     {
         if (ConfigurationService.GetSection<MobileSettings>().ExecutionSettings.IsCloudRun)
@@ -360,31 +361,48 @@ public class AppWorkflowPlugin : Plugin
 
     private object FormatGridOptions(string option, Type testClassType)
     {
-        if (bool.TryParse(option, out bool result))
+        if (option is not string)
+        {
+            return option;
+        }
+        
+        var resolvingArgs = new CapabilityValueResolvingEventArgs((string)option);
+        CapabilityValueResolving?.Invoke(this, resolvingArgs);
+        if (resolvingArgs.Handled)
+        {
+            return resolvingArgs.ResolvedValue;
+        }
+
+        if (bool.TryParse((string)option, out bool result))
         {
             return result;
         }
-        else if (option.StartsWith("env_") || option.StartsWith("vault_"))
+        
+        if (int.TryParse((string)option, out int resultNumber))
         {
-            return SecretsResolver.GetSecret(() => option);
+            return resultNumber;
         }
-        else if (option.StartsWith("AssemblyFolder", StringComparison.Ordinal))
+        
+        if (double.TryParse((string)option, out double resultRealNumber))
+        {
+            return resultRealNumber;
+        }
+        
+        if (((string)option).StartsWith("AssemblyFolder", StringComparison.Ordinal))
         {
             var executionFolder = ExecutionDirectoryResolver.GetDriverExecutablePath();
-            option = option.Replace("AssemblyFolder", executionFolder);
+            option = ((string)option).Replace("AssemblyFolder", executionFolder);
 
-            if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                option = option.Replace('\\', '/');
+                option = ((string)option).Replace('\\', '/');
             }
 
             return option;
         }
-        else
-        {
-            var runName = testClassType.Assembly.GetName().Name;
-            var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
-            return option.Replace("{runName}", timestamp).Replace("{runName}", runName);
-        }
+        
+        var runName = testClassType.Assembly.GetName().Name;
+        var timestamp = $"{DateTime.Now:yyyyMMdd.HHmm}";
+        return ((string)option).Replace("{runName}", timestamp).Replace("{runName}", runName);
     }
 }

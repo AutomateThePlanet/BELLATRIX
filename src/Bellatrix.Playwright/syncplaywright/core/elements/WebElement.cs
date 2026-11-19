@@ -14,7 +14,6 @@
 
 using Bellatrix.Playwright.Services.Browser;
 using Bellatrix.Playwright.SyncPlaywright.Element;
-using Microsoft.VisualStudio.Services.WebApi;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -120,7 +119,7 @@ public class WebElement
 
     public void Blur(LocatorBlurOptions options = null)
     {
-        WrappedLocator.BlurAsync(options).SyncResult();
+        WrappedLocator.BlurAsync(options).GetAwaiter().GetResult();
     }
 
     public LocatorBoundingBoxResult BoundingBox(LocatorBoundingBoxOptions options = null)
@@ -130,17 +129,17 @@ public class WebElement
 
     public void Check(LocatorCheckOptions options = null)
     {
-        WrappedLocator.CheckAsync(options).SyncResult();
+        WrappedLocator.CheckAsync(options).GetAwaiter().GetResult();
     }
 
     public void Clear(LocatorClearOptions options = null)
     {
-        WrappedLocator.ClearAsync(options).SyncResult();
+        WrappedLocator.ClearAsync(options).GetAwaiter().GetResult();
     }
 
     public void Click(LocatorClickOptions options = null)
     {
-        WrappedLocator.ClickAsync(options).SyncResult();
+        WrappedLocator.ClickAsync(options).GetAwaiter().GetResult();
     }
 
     public int Count()
@@ -150,17 +149,17 @@ public class WebElement
 
     public void DblClick(LocatorDblClickOptions options = null)
     {
-        WrappedLocator.DblClickAsync(options).SyncResult();
+        WrappedLocator.DblClickAsync(options).GetAwaiter().GetResult();
     }
 
     public void DispatchEvent(string type, object eventInit = null, LocatorDispatchEventOptions options = null)
     {
-        WrappedLocator.DispatchEventAsync(type, eventInit, options).SyncResult();
+        WrappedLocator.DispatchEventAsync(type, eventInit, options).GetAwaiter().GetResult();
     }
 
     public void DragTo(WebElement target, LocatorDragToOptions options = null)
     {
-        WrappedLocator.DragToAsync(target.WrappedLocator, options).SyncResult();
+        WrappedLocator.DragToAsync(target.WrappedLocator, options).GetAwaiter().GetResult();
     }
 
     public IElementHandle ElementHandle(LocatorElementHandleOptions options = null)
@@ -190,7 +189,7 @@ public class WebElement
 
     public void Fill(string value, LocatorFillOptions options = null)
     {
-        WrappedLocator.FillAsync(value, options).SyncResult();
+        WrappedLocator.FillAsync(value, options).GetAwaiter().GetResult();
     }
 
     public virtual WebElement Filter(LocatorFilterOptions options = null)
@@ -200,17 +199,17 @@ public class WebElement
 
     public void Focus(LocatorFocusOptions options = null)
     {
-        WrappedLocator.FocusAsync(options).SyncResult();
+        WrappedLocator.FocusAsync(options).GetAwaiter().GetResult();
     }
 
     public void Highlight()
     {
-        WrappedLocator.HighlightAsync().SyncResult();
+        WrappedLocator.HighlightAsync().GetAwaiter().GetResult();
     }
 
     public void Hover(LocatorHoverOptions options = null)
     {
-        WrappedLocator.HoverAsync(options).SyncResult();
+        WrappedLocator.HoverAsync(options).GetAwaiter().GetResult();
     }
 
     public string InnerHTML(LocatorInnerHTMLOptions options = null)
@@ -270,12 +269,12 @@ public class WebElement
 
     public void Press(string key, LocatorPressOptions options = null)
     {
-        WrappedLocator.PressAsync(key, options).SyncResult();
+        WrappedLocator.PressAsync(key, options).GetAwaiter().GetResult();
     }
 
     public void PressSequentially(string text, LocatorPressSequentiallyOptions options = null)
     {
-        WrappedLocator.PressSequentiallyAsync(text, options).SyncResult();
+        WrappedLocator.PressSequentiallyAsync(text, options).GetAwaiter().GetResult();
     }
 
     public byte[] Screenshot(LocatorScreenshotOptions options = null)
@@ -285,7 +284,7 @@ public class WebElement
 
     public void ScrollIntoViewIfNeeded(LocatorScrollIntoViewIfNeededOptions options = null)
     {
-        WrappedLocator.ScrollIntoViewIfNeededAsync(options).SyncResult();
+        WrappedLocator.ScrollIntoViewIfNeededAsync(options).GetAwaiter().GetResult();
     }
 
     public IReadOnlyList<string> SelectOption(string values, LocatorSelectOptionOptions options = null)
@@ -320,37 +319,37 @@ public class WebElement
 
     public void SelectText(LocatorSelectTextOptions options = null)
     {
-        WrappedLocator.SelectTextAsync(options).SyncResult();
+        WrappedLocator.SelectTextAsync(options).GetAwaiter().GetResult();
     }
 
     public void SetChecked(bool checkedState, LocatorSetCheckedOptions options = null)
     {
-        WrappedLocator.SetCheckedAsync(checkedState, options).SyncResult();
+        WrappedLocator.SetCheckedAsync(checkedState, options).GetAwaiter().GetResult();
     }
 
     public void SetInputFiles(string files, LocatorSetInputFilesOptions options = null)
     {
-        WrappedLocator.SetInputFilesAsync(files, options).SyncResult();
+        WrappedLocator.SetInputFilesAsync(files, options).GetAwaiter().GetResult();
     }
 
     public void SetInputFiles(IEnumerable<string> files, LocatorSetInputFilesOptions options = null)
     {
-        WrappedLocator.SetInputFilesAsync(files, options).SyncResult();
+        WrappedLocator.SetInputFilesAsync(files, options).GetAwaiter().GetResult();
     }
 
     public void SetInputFiles(FilePayload files, LocatorSetInputFilesOptions options = null)
     {
-        WrappedLocator.SetInputFilesAsync(files, options).SyncResult();
+        WrappedLocator.SetInputFilesAsync(files, options).GetAwaiter().GetResult();
     }
 
     public void SetInputFiles(IEnumerable<FilePayload> files, LocatorSetInputFilesOptions options = null)
     {
-        WrappedLocator.SetInputFilesAsync(files, options).SyncResult();
+        WrappedLocator.SetInputFilesAsync(files, options).GetAwaiter().GetResult();
     }
 
     public void Tap(LocatorTapOptions options = null)
     {
-        WrappedLocator.TapAsync(options).SyncResult();
+        WrappedLocator.TapAsync(options).GetAwaiter().GetResult();
     }
 
     public string TextContent(LocatorTextContentOptions options = null)
@@ -361,17 +360,17 @@ public class WebElement
     [Obsolete]
     public void Type(string text, LocatorTypeOptions options = null)
     {
-        WrappedLocator.TypeAsync(text, options).SyncResult();
+        WrappedLocator.TypeAsync(text, options).GetAwaiter().GetResult();
     }
 
     public void Uncheck(LocatorUncheckOptions options = null)
     {
-        WrappedLocator.UncheckAsync(options).SyncResult();
+        WrappedLocator.UncheckAsync(options).GetAwaiter().GetResult();
     }
 
     public void WaitFor(LocatorWaitForOptions options = null)
     {
-        WrappedLocator.WaitForAsync(options).SyncResult();
+        WrappedLocator.WaitForAsync(options).GetAwaiter().GetResult();
     }
 
     public JsonElement? Evaluate(string expression, object arg = null, LocatorEvaluateOptions options = null)
