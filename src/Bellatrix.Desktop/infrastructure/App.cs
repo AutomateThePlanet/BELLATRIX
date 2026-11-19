@@ -172,6 +172,65 @@ public class App : IDisposable
         ServicesCollection.Current.RegisterType<Plugin, TExecutionExtension>(Guid.NewGuid().ToString());
     }
 
+    public static readonly TimeSpan AppExitTimeout = TimeSpan.FromSeconds(15);
+
+    // Makes appName the active app of the current test class. Starts it (RestartEveryTime) if it is not open yet.
+    // appName is a key from desktopSettings.applicationsSettings or an app path. The app is closed after the test.
+    public void SwitchApp(string appName)
+    {
+        var container = ServicesCollection.Current;
+        if (!container.IsRegistered<AppSessionService>())
+        {
+            container.RegisterInstance(new AppSessionService());
+        }
+
+        var appSessionService = container.Resolve<AppSessionService>();
+        if (!appSessionService.Contains(appName))
+        {
+            var primaryAppConfiguration = container.IsRegistered<AppInitializationInfo>() ? container.Resolve<AppInitializationInfo>() : null;
+            var appConfiguration = new AppInitializationInfo
+            {
+                AppPath = appName,
+                Lifecycle = Lifecycle.RestartEveryTime,
+                AppiumOptions = new OpenQA.Selenium.Appium.AppiumOptions(),
+                ClassFullName = primaryAppConfiguration?.ClassFullName,
+            };
+            ApplicationSettings.ResolveAppName(appConfiguration, appName);
+            var driver = WrappedWebDriverCreateService.Create(appConfiguration, container);
+            appSessionService.Register(appName, driver, appConfiguration, isPrimary: false);
+        }
+
+        appSessionService.Activate(appName, container);
+        Logger.LogInformation("Switched to app '{0}'", appName);
+    }
+
+    // Closes appName through the UI, then waits up to AppExitTimeout for its process to exit and kills it if needed.
+    // Never throws. Killing needs the Appium power_shell insecure feature.
+    public void CloseOrKill(string appName, Action closeThroughUi)
+    {
+        try
+        {
+            closeThroughUi?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogWarning("Couldn't close {0} through the UI: {1}", appName, ex.Message);
+        }
+
+        try
+        {
+            var container = ServicesCollection.Current;
+            if (container.IsRegistered<AppSessionService>())
+            {
+                container.Resolve<AppSessionService>().EnsureExited(appName, AppExitTimeout);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError("Couldn't verify that {0} exited (is power_shell allowed on the Appium server?): {1}", appName, ex.Message);
+        }
+    }
+
     public void Dispose()
     {
         DisposeDriverService.DisposeAll();

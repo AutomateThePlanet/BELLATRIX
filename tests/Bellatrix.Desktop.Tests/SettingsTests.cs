@@ -33,4 +33,26 @@ public class SettingsTests
     {
         Assert.AreEqual("NovaWindows", ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.AutomationName);
     }
+
+    [TestMethod]
+    public void AppName_ResolvesToConfiguredAppPath_IgnoringCase()
+    {
+        var appConfiguration = new Configuration.AppInitializationInfo { AppPath = "wpfsample" };
+
+        ApplicationSettings.ResolveAppName(appConfiguration, appConfiguration.AppPath);
+
+        Assert.AreEqual("WpfSample", appConfiguration.AppName);
+        Assert.EndsWith(@"Demos\Wpf\WPFSampleApp.exe", appConfiguration.AppPath);
+    }
+
+    [TestMethod]
+    public void AppPath_IsKept_When_NotAConfiguredAppName()
+    {
+        var appConfiguration = new Configuration.AppInitializationInfo { AppPath = Constants.WinFormsAppPath };
+
+        ApplicationSettings.ResolveAppName(appConfiguration, appConfiguration.AppPath);
+
+        Assert.IsNull(appConfiguration.AppName);
+        Assert.EndsWith(@"Demos\WinForms\WindowsFormsSampleApp.exe", appConfiguration.AppPath);
+    }
 }

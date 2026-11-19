@@ -45,6 +45,9 @@ public class AppInitializationInfo : IEquatable<AppInitializationInfo>
     public string ClassFullName { get; set; }
 
     public string AppPath { get => NormalizeAppPath(); set => _appPath = value; }
+
+    // Key from desktopSettings.applicationsSettings; null when the app was configured by path.
+    public string AppName { get; set; }
     
     public string WindowHandle { get; set; }
 

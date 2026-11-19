@@ -28,6 +28,14 @@ public class TestExecutionEngine
         {
             var wrappedWebDriver = WrappedWebDriverCreateService.Create(appConfiguration, childContainer);
             childContainer.RegisterInstance(wrappedWebDriver);
+            if (!childContainer.IsRegistered<AppSessionService>())
+            {
+                childContainer.RegisterInstance(new AppSessionService());
+            }
+
+            var appSessionService = childContainer.Resolve<AppSessionService>();
+            var appName = appConfiguration.AppName ?? appConfiguration.AppPath;
+            appSessionService.Register(appName, wrappedWebDriver, appConfiguration, isPrimary: true);
             ////childContainer.RegisterInstance(new AppService(wrappedWebDriver));
             ////childContainer.RegisterInstance(new ComponentCreateService());
             childContainer.RegisterNull<int?>();
