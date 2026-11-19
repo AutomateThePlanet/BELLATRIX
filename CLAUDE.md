@@ -1,0 +1,2 @@
+MINIMAL DIFF: only change what the current task strictly requires. No refactoring, renames, reformatting, new projects, new helpers or unrelated fixes. Prefer editing existing files over adding new ones. Max ~2 tests per fix unless asked. If something else looks broken, list it in the report, do not fix it.
+Preserve each file's existing line endings (this repo uses LF); never convert line endings.
