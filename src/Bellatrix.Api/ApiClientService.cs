@@ -361,6 +361,12 @@ public class ApiClientService
             options.CookieContainer = cookieContainer;
         }
 
+        // Opt-in: accept any server certificate (e.g. self-signed dev certificates).
+        if (_apiSettings.IgnoreCertificateErrors)
+        {
+            options.RemoteCertificateValidationCallback = (sender, certificate, chain, errors) => true;
+        }
+
         _executionProvider.OnClientInitialized(WrappedClient);
         var authenticator = ServicesCollection.Current.Resolve<IAuthenticator>();
         if (authenticator != null)

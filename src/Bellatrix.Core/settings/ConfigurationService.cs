@@ -39,6 +39,12 @@ public sealed class ConfigurationService
         return _root.GetSection(sectionName).Get<TSection>();
     }
 
+    public static TSection GetSection<TSection>(string sectionName)
+      where TSection : class, new()
+    {
+        return _root.GetSection(sectionName).Get<TSection>();
+    }
+
     private static string MakeFirstLetterToLower(string text)
     {
         return char.ToLower(text[0]) + text.Substring(1);

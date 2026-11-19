@@ -1,0 +1,2 @@
+<!-- Stops MSBuild from importing a parent repo's Directory.Build.props when BELLATRIX is a submodule. -->
+<Project />

@@ -22,6 +22,8 @@ public class ExecutionSettings
     public string DefaultLifeCycle { get; set; }
     public string Resolution { get; set; }
     public bool ShouldStartLocalService { get; set; } = true;
+    public string AutomationName { get; set; } = "WinAppDriver";
+    public bool MaximizeOnStart { get; set; }
     public string Url { get; set; }
     public List<Dictionary<string, object>> Arguments { get; set; }
 

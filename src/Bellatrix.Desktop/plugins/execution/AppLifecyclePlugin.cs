@@ -74,6 +74,19 @@ public class AppLifecyclePlugin : Plugin
 
     protected override void PostTestCleanup(object sender, PluginEventArgs e)
     {
+        // Multi-app: switch back to the primary app and close the apps opened with App.SwitchApp.
+        var appSessionService = e.Container.IsRegistered<AppSessionService>() ? e.Container.Resolve<AppSessionService>() : null;
+        if (appSessionService?.PrimaryAppName != null)
+        {
+            if (appSessionService.Contains(appSessionService.PrimaryAppName)
+                && !string.Equals(appSessionService.ActiveAppName, appSessionService.PrimaryAppName, StringComparison.OrdinalIgnoreCase))
+            {
+                appSessionService.Activate(appSessionService.PrimaryAppName, e.Container);
+            }
+
+            appSessionService.DisposeSecondary();
+        }
+
         var appConfiguration = GetCurrentAppConfiguration(e.TestMethodMemberInfo, e.TestClassType, e.Container);
 
         if (appConfiguration?.Lifecycle == Lifecycle.RestartEveryTime || (appConfiguration?.Lifecycle == Lifecycle.RestartOnFail && !e.TestOutcome.Equals(TestOutcome.Passed)))
@@ -150,6 +163,7 @@ public class AppLifecyclePlugin : Plugin
         var appAttribute = GetAppAttribute(memberInfo, testClassType);
         if (appAttribute != null)
         {
+            ApplicationSettings.ResolveAppName(appAttribute.AppConfiguration, appAttribute.AppConfiguration.AppPath);
             container.RegisterInstance(appAttribute.AppConfiguration, "_currentAppConfiguration");
             appAttribute.AppConfiguration.ClassFullName = testClassType.FullName;
             return appAttribute.AppConfiguration;

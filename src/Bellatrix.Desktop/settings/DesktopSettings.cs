@@ -17,4 +17,5 @@ public class DesktopSettings
 {
     public TimeoutSettings TimeoutSettings { get; set; }
     public ExecutionSettings ExecutionSettings { get; set; }
+    public System.Collections.Generic.Dictionary<string, ApplicationSettings> ApplicationsSettings { get; set; } = new();
 }

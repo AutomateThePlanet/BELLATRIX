@@ -26,15 +26,42 @@ public static class DisposeDriverService
 
     public static void Dispose(ServicesCollection childContainer)
     {
+        WindowsDriver webDriver = null;
         try
         {
             if (childContainer.IsRegistered<WindowsDriver>())
             {
-                var webDriver = childContainer.Resolve<WindowsDriver>();
-                webDriver?.Quit();
-                webDriver?.Dispose();
+                webDriver = childContainer.Resolve<WindowsDriver>();
+                try
+                {
+                    webDriver?.Quit();
+                    webDriver?.Dispose();
+                }
+                catch (System.Exception ex)
+                {
+                    // The driver may already be quit by App.CloseOrKill or AppSessionService.
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+
                 childContainer.UnregisterSingleInstance<WindowsDriver>();
                 ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver>();
+            }
+        }
+        catch (System.Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(ex);
+        }
+
+        DisposeAppSessions(childContainer, webDriver);
+    }
+
+    private static void DisposeAppSessions(ServicesCollection childContainer, WindowsDriver alreadyQuitDriver)
+    {
+        try
+        {
+            if (childContainer != null && childContainer.IsRegistered<AppSessionService>())
+            {
+                childContainer.Resolve<AppSessionService>()?.DisposeAll(alreadyQuitDriver);
             }
         }
         catch (System.Exception ex)
@@ -47,9 +74,10 @@ public static class DisposeDriverService
     {
         foreach (var childContainer in ServicesCollection.Main.GetChildServicesCollections())
         {
+            WindowsDriver driver = null;
             try
             {
-                var driver = childContainer.Resolve<WindowsDriver>();
+                driver = childContainer.Resolve<WindowsDriver>();
                 driver?.Quit();
                 driver?.Dispose();
                 childContainer?.UnregisterSingleInstance<WindowsDriver>();
@@ -58,6 +86,8 @@ public static class DisposeDriverService
             {
                 System.Diagnostics.Debug.WriteLine(ex);
             }
+
+            DisposeAppSessions(childContainer, driver);
         }
 
         ServicesCollection.Main.UnregisterSingleInstance<WindowsDriver>();
