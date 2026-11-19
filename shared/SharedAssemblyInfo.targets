@@ -5,22 +5,31 @@
     <Configurations>DEBUG;STAGE;QA;LOCAL</Configurations>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>3.9.5.0</Version>
+    <Version>3.9.6.0</Version>
     <Authors>Automate The Planet Ltd.</Authors>
     <Company>Automate The Planet Ltd.</Company>
     <Product>Bellatrix Test Framework</Product>
-    <AssemblyVersion>3.9.5.0</AssemblyVersion>
-    <FileVersion>3.9.5.0</FileVersion>
+    <AssemblyVersion>3.9.6.0</AssemblyVersion>
+    <FileVersion>3.9.6.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
-    <Copyright>Automate The Planet Ltd. 2024</Copyright>
+    <Copyright>Automate The Planet Ltd. 2026</Copyright>
     <PackageReleaseNotes>
-      - added many new improvements to desktop module
-      - added support for .NET 10
-      - added support to Appium 3.x
-      - improved test execution performance
-      - fix some LLM related issues
-      - upgrade all 3rd-party NuGet packages
-      - fix all known bugs
+      Desktop
+      - Multiple applications in one test: [App("name")] now resolves the app from the new desktopSettings.applicationsSettings section. Existing [App(appPath)] usage works as before.
+      - App.SwitchApp(name) starts another application, or switches to it if already open, and can switch back. Applications opened this way are closed after each test.
+      - App.CloseOrKill(name, closeThroughUi) closes an application through its UI and kills the process if it does not exit. Requires Appium started with --allow-insecure &lt;driver&gt;:power_shell.
+      - Choose the Appium Windows driver in config: executionSettings.automationName ("NovaWindows" by default, or "Windows").
+      - Optional executionSettings.maximizeOnStart maximizes the application window after start (off by default).
+      API
+      - Optional apiSettings.ignoreCertificateErrors to accept self-signed certificates, e.g. in local environments (off by default).
+      Core
+      - ConfigurationService.GetSection&lt;T&gt;(sectionName) reads a configuration section by name.
+      - BELLATRIX can be used as a git submodule: its own Directory.Build.props/.targets and Directory.Packages.props stop the parent repository's build settings from applying.
+      Packages
+      - Appium.WebDriver 8.1.0, Microsoft.Extensions.Configuration 10.0.3, RestSharp 113.1.0, System.Drawing.Common 10.0.3.
+      Templates
+      - New settings added to the getting-started and test templates, plus a new "33. Multiple Apps" sample.
+      No breaking changes: existing configurations keep their current behavior.
     </PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://bellatrix.solutions</PackageProjectUrl>
