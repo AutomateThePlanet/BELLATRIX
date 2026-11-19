@@ -20,4 +20,5 @@ public class ApiSettings
     public int MaxRetryAttempts { get; set; }
     public int PauseBetweenFailures { get; set; }
     public TimeUnit TimeUnit { get; set; }
+    public bool IgnoreCertificateErrors { get; set; }
 }

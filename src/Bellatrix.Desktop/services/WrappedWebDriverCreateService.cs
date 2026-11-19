@@ -46,7 +46,7 @@ public class WrappedWebDriverCreateService
             { "ms:experimental-webdriver", true }
         };
 
-        appiumOptions.Add("automationName", "NovaWindows");
+        appiumOptions.Add("automationName", ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.AutomationName);
 
         if (appConfiguration.AppPath == "Root")
         {
@@ -95,6 +95,12 @@ public class WrappedWebDriverCreateService
             });
 
             wrappedWebDriver.SwitchTo().Window(wrappedWebDriver.CurrentWindowHandle);
+
+            // Opt-in: maximize after start, as BiFrost did for every app.
+            if (ConfigurationService.GetSection<DesktopSettings>().ExecutionSettings.MaximizeOnStart)
+            {
+                wrappedWebDriver.Manage().Window.Maximize();
+            }
         }
         catch (Exception e)
         {

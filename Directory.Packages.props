@@ -1,0 +1,6 @@
+<!-- Stops a parent repo's central package management from applying when BELLATRIX is a submodule. -->
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+</Project>
