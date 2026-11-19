@@ -5,7 +5,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-    <PackageReference Include="Appium.WebDriver" Version="8.0.1" />
+    <PackageReference Include="Appium.WebDriver" Version="8.1.0" />
     <!--<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />-->
     <PackageReference Include="MSTest" Version="4.0.2" />
     <PackageReference Include="NUnit" Version="4.4.0" />

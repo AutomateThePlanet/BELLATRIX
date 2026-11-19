@@ -14,7 +14,7 @@
     <PackageReference Include="MSTest.TestFramework" Version="4.0.2" />
     <PackageReference Include="System.Security.Permissions" Version="10.0.1" />
     <PackageReference Include="Unity" Version="5.11.10" />
-    <PackageReference Include="Appium.WebDriver" Version="8.0.1" />
+    <PackageReference Include="Appium.WebDriver" Version="8.1.0" />
   </ItemGroup>
 
   <ItemGroup>
